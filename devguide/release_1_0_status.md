@@ -189,8 +189,37 @@ head `8ab2f5474`. Fourteen fast gates pass. See the
 [delivery receipt](../devtools/data/runtime_provider_delivery_627_629_20261106.json).
 Accepted progress remains 40%; #524 is still partial.
 
-Four human autosummary edits remain outside the commits. Candidate selection
-and the publication pause remain unchanged; exact-platform, installed Viewer,
+The next optional-provider checkpoint is locally advancing: Biopython minimum
+1.80 and newer 1.86 each pass 385 selected cases, zero omissions, using public
+alignment-row access instead of a private method. OpenFF's existing declared
+minima are retained after both actual profiles pass 86. PyTraj's supported
+AmberTools acquisition, native engine paths, diagnostics and strengthened route
+audit pass 146; disabled pip routes and bundle identity remain distinct from
+version floors. These counts overlap with other selections.
+
+New #630/#631 NGLView defects are admitted under the same correctness block.
+Source `e5d1dd0f8` locally fixes #630's internal-keyword leak; its public minimum
+receiving passes 95. #631's synthetic two-widget reproduction proves that an
+independent widget's initial PDB is included in HTML; its explicit state-closure
+correction is being qualified. No unrelated trajectory-buffer inclusion is
+claimed. Both source delivery and actual board closure remain due; 17 issues
+are already closed and accepted progress stays 40%. The remaining OpenFF route
+metadata review, exact host and clean installed closure remain explicit exits.
+
+Four human autosummary edits remain outside the commits. The final optional-provider block
+is source-qualified in `d850f6cc1`/`5cd744ebf`, with #630 `e5d1dd0f8` and #631
+`fae9ab557`: Biopython pairs 385 each, OpenFF pairs 199 each, NGLView pairs 104
+each, all without omissions. Joint receiving passes 798, scientific execution
+97/64 nodes and fast gates 14/14; scopes overlap. HTML compilation passes with
+four retained existing title-underline warnings and protected human edits
+unchanged. The
+[remaining-provider receipt](../devtools/data/remaining_optional_runtime_receiving_524_20261106.json)
+and [NGLView receipt](../devtools/data/nglview_runtime_receiving_524_630_631_20261106.json)
+retain attempts and limits. Public delivery and #630/#631 closeout follow.
+The compatible public Viewer floor and clean installed closure keep #524
+partial and accepted progress at 40%; this source block selects no release.
+
+Candidate selection and the publication pause remain unchanged; exact-platform, installed Viewer,
 graphical and release gates are still due. The earlier fifteen-issue campaign
 retains its original completed evidence below.
 

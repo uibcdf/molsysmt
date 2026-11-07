@@ -1,0 +1,2490 @@
+{
+  "schema_version": "molsysmt.nglview_runtime_receiving@1",
+  "date": "2026-11-06",
+  "owner_issue": "uibcdf/molsysmt#524",
+  "related_issues": [
+    "uibcdf/molsysmt#630",
+    "uibcdf/molsysmt#631"
+  ],
+  "source_commits": {
+    "constructor_boundary": "e5d1dd0f853cdd69da1908bdd4b60b972441bf4b",
+    "scoped_html_export": "fae9ab5575383018a19ca8fac484f7ea3300da9d"
+  },
+  "source_files_sha256": {
+    "molsysmt/form/molsysmt_MolSys/to_nglview_NGLWidget.py": "e628875df28fe0e5ba63c8a982eb112fd1ba2252ad9863c64da98e054a547a04",
+    "molsysmt/third_party/nglview/write_html.py": "8ca37ac4620750c52a9c2ce09588f4364d2a69b3eb3df52b2907a115fe6fd533",
+    "tests/form/nglview_NGLWidget/test_conversion_boundary.py": "6279d134e8415424030301edcaa08c399bf5d62e6e0ced52196bdc21b760cbb4",
+    "tests/third_party/nglview/test_write_html.py": "41c5c58618bacd2e8d106628b32238ea5fea084e42650fbbd876792bd8a2f338"
+  },
+  "optional_minimum": "nglview>=3.0.4",
+  "provider_study_before_root_receiving": {
+    "scope": "#524 bounded read-only NGLView/PyTraj study; cache writes and plain probes only",
+    "pytest_executed_by_reviewer": false,
+    "repository_changes_by_this_study": false,
+    "nglview": {
+      "candidate_floor": "3.0.4",
+      "ground": "3.0.3 fails actual consumed write_html/widget API with ipywidgets8; 3.0.4 succeeds on Python3.12 and3.14; current4.0.1 succeeds",
+      "qualification_limits": "No browser/frontend visual qualification; min public sdist extracted, not installed build"
+    },
+    "pytraj": {
+      "pip_floor": null,
+      "disposition": "Remove stale standalone pip acquisition; retain optional import pytraj via conda-forge AmberTools; preserve ABI guard",
+      "positive_tuples": [
+        "Python3.11.10/NumPy1.26.4/AmberTools23.6 build cuda_None_nompi_py311h4a53416_105/PyTraj2.0.6/CPPTRAJ V6.18.1",
+        "Python3.14.7/NumPy2.4.6/AmberTools26.0 build cuda_None_nompi_py314h2f9d5e2_100/PyTraj3.0.0.dev0/CPPTRAJ V7.6.2"
+      ],
+      "qualification_limits": "No universal AmberTools minimum, no PyTraj numeric floor qualifying build ABI; no native3.13 import; actual missing-bond scientific engine unexecuted"
+    },
+    "runner": {
+      "path": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/run_nglview_receiving.py",
+      "sha256": "5e73a7c1e253b9464f807bd4c8e543f8febbcadd505ba8efe74062fb3232b031",
+      "syntax_ast_parsed": true,
+      "executed": false,
+      "profiles": [
+        "floor312",
+        "current314"
+      ],
+      "workers": 12,
+      "receptor": "llm"
+    },
+    "handoff": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/handoff.md"
+  },
+  "public_minimum_artifacts": [
+    {
+      "version": "3.0.3",
+      "url": "https://files.pythonhosted.org/packages/27/b4/1c9b8ef28f0eae953a7e36415c6fef7197658f54d95c6ab14459bee6afb8/nglview-3.0.3.tar.gz",
+      "sha256_expected": "3253c44bd071e4701c288de44997471608487d5191ab3d3b7736c8651335c1af",
+      "sha256_observed": "3253c44bd071e4701c288de44997471608487d5191ab3d3b7736c8651335c1af",
+      "size": 5725245,
+      "archive": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/nglview-3.0.3.tar.gz",
+      "python_prefix": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.3/nglview-3.0.3"
+    },
+    {
+      "version": "3.0.4",
+      "url": "https://files.pythonhosted.org/packages/16/71/7651b6e1ab40b0b2491486444951ce723281d707fe3098e5e0aad89d6468/nglview-3.0.4.tar.gz",
+      "sha256_expected": "e7ea100e77bfbf52bc89aaac5692da4358c86be4de103c78c34c76076f4bc9a8",
+      "sha256_observed": "e7ea100e77bfbf52bc89aaac5692da4358c86be4de103c78c34c76076f4bc9a8",
+      "size": 7132932,
+      "archive": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/nglview-3.0.4.tar.gz",
+      "python_prefix": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4"
+    }
+  ],
+  "plain_probe_results": [
+    {
+      "result": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/nglview-probe-3.0.3-py314.json",
+      "sha256": "ce593fca05867aa9a967e546c87861cea19d60fbb84c9afa0dbc7fb2215180da",
+      "native_exit_code_observed": 1,
+      "status": "failed",
+      "scope": "actual negative HTML export boundary",
+      "native_exit_provenance": "observed execution tool return; not inferred from pytest or from status alone"
+    },
+    {
+      "result": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/nglview-probe-3.0.4-py312.json",
+      "sha256": "c589308e8212ccfaed7ebee04718e11e57e14c5da5f019fc34fe9ed35afc576e",
+      "native_exit_code_observed": 0,
+      "status": "passed",
+      "scope": "public minimum Python API/HTML/display probe",
+      "native_exit_provenance": "observed execution tool return; not inferred from pytest or from status alone"
+    },
+    {
+      "result": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/nglview-probe-3.0.4-py314.json",
+      "sha256": "eb44b079dbbc892491b8806a20c8057abcf3ae8e739b3a64ffafce16ed665212",
+      "native_exit_code_observed": 0,
+      "status": "passed",
+      "scope": "public minimum Python API/HTML/display probe",
+      "native_exit_provenance": "observed execution tool return; not inferred from pytest or from status alone"
+    },
+    {
+      "result": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/nglview-probe-4.0.1-py314.json",
+      "sha256": "9437459ad4d4d17acdec24267757ec0b170206ef3d10064e434e1804e9827498",
+      "native_exit_code_observed": 0,
+      "status": "passed",
+      "scope": "installed public current Python API/HTML/display probe",
+      "native_exit_provenance": "observed execution tool return; not inferred from pytest or from status alone"
+    },
+    {
+      "result": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/pytraj-probe-py311-ambertools23.6.json",
+      "sha256": "6c32b1d13faedda06088501a635232b6fdba1e8a3b798cddc31a113a4ea840e9",
+      "native_exit_code_observed": 0,
+      "status": "passed",
+      "scope": "real CPPTRAJ engine; no MolSysMT full bridge",
+      "native_exit_provenance": "observed execution tool return; not inferred from pytest or from status alone"
+    },
+    {
+      "result": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/pytraj-probe-py314-ambertools26.0.json",
+      "sha256": "e57d8bc738ec7180d0744ff66271434aa9b31cba5afbdb7ca4b7f76a9f48c8ea",
+      "native_exit_code_observed": 0,
+      "status": "passed",
+      "scope": "real CPPTRAJ engine plus actual MolSysMT native bridge",
+      "native_exit_provenance": "observed execution tool return; not inferred from pytest or from status alone"
+    },
+    {
+      "result": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/pytraj-probe-py313-excluded-before-native-import.json",
+      "sha256": "6475590cf2b1e54e8b7f3a3c676e21050cf8c6862d680670a25b3baf6e33fc94",
+      "native_exit_code_observed": 1,
+      "status": "not_executed_unverified_or_unsafe_native_build",
+      "scope": "metadata exclusion before native import; no runtime qualification",
+      "native_exit_provenance": "observed execution tool return; not inferred from pytest or from status alone"
+    }
+  ],
+  "scope_reproduction": {
+    "invocations.json": [
+      {
+        "profile": "ngl304",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+          "-B",
+          ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/probe_export_scope.py",
+          "ngl304"
+        ],
+        "environment": {
+          "PYTHONPATH": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4:existing sibling checkout: molsysmt:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "OPENMM_CPU_THREADS": "1",
+          "XDG_CACHE_HOME": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/runtime-cache"
+        },
+        "native_exit": 0,
+        "stdout": "{\n  \"profile\": \"ngl304\",\n  \"native_exit\": 0,\n  \"nglview\": {\n    \"version\": \"3.0.4\",\n    \"origin\": \".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/__init__.py\"\n  },\n  \"ipywidgets\": {\n    \"version\": \"8.1.9\",\n    \"origin\": \"existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/ipywidgets/__init__.py\"\n  },\n  \"exports\": [\n    {\n      \"route\": \"nglview.write_html(a),before_any_b_export\",\n      \"manager_model_count\": 40,\n      \"unrelated_b_model_present\": true,\n      \"b_has_view_spec\": false,\n      \"b_marker_in_html\": true,\n      \"b_serialization_flag\": false,\n      \"b_coordinate_resource_keys\": [],\n      \"b_decoded_coordinate_resource\": []\n    },\n    {\n      \"route\": \"molsysmt.third_party.nglview.write_html(a)\",\n      \"manager_model_count\": 40,\n      \"unrelated_b_model_present\": true,\n      \"b_has_view_spec\": false,\n      \"b_marker_in_html\": true,\n      \"b_serialization_flag\": false,\n      \"b_coordinate_resource_keys\": [],\n      \"b_decoded_coordinate_resource\": []\n    },\n    {\n      \"route\": \"nglview.write_html(a),after_previous_b_export\",\n      \"manager_model_count\": 40,\n      \"unrelated_b_model_present\": true,\n      \"b_has_view_spec\": false,\n      \"b_marker_in_html\": true,\n      \"b_serialization_flag\": false,\n      \"b_coordinate_resource_keys\": [],\n      \"b_decoded_coordinate_resource\": []\n    },\n    {\n      \"route\": \"ipywidgets explicit dependency_state control\",\n      \"manager_model_count\": 19,\n      \"unrelated_b_model_present\": false,\n      \"b_has_view_spec\": false,\n      \"b_marker_in_html\": false,\n      \"b_serialization_flag\": false,\n      \"b_coordinate_resource_keys\": [],\n      \"b_decoded_coordinate_resource\": []\n    }\n  ]\n}\n",
+        "stderr": ""
+      },
+      {
+        "profile": "ngl401",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+          "-B",
+          ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/probe_export_scope.py",
+          "ngl401"
+        ],
+        "environment": {
+          "PYTHONPATH": "existing sibling checkout: molsysmt:.pytest_cache/pr543-viewer-4223-20261105:.pytest_cache/stabilization-551/tooling/published",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "OMP_NUM_THREADS": "1",
+          "OPENBLAS_NUM_THREADS": "1",
+          "OPENMM_CPU_THREADS": "1",
+          "XDG_CACHE_HOME": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/runtime-cache"
+        },
+        "native_exit": 0,
+        "stdout": "{\n  \"profile\": \"ngl401\",\n  \"native_exit\": 0,\n  \"nglview\": {\n    \"version\": \"4.0.1\",\n    \"origin\": \"existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/__init__.py\"\n  },\n  \"ipywidgets\": {\n    \"version\": \"8.1.9\",\n    \"origin\": \"existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/ipywidgets/__init__.py\"\n  },\n  \"exports\": [\n    {\n      \"route\": \"nglview.write_html(a),before_any_b_export\",\n      \"manager_model_count\": 40,\n      \"unrelated_b_model_present\": true,\n      \"b_has_view_spec\": false,\n      \"b_marker_in_html\": true,\n      \"b_serialization_flag\": false,\n      \"b_coordinate_resource_keys\": [],\n      \"b_decoded_coordinate_resource\": []\n    },\n    {\n      \"route\": \"molsysmt.third_party.nglview.write_html(a)\",\n      \"manager_model_count\": 40,\n      \"unrelated_b_model_present\": true,\n      \"b_has_view_spec\": false,\n      \"b_marker_in_html\": true,\n      \"b_serialization_flag\": false,\n      \"b_coordinate_resource_keys\": [],\n      \"b_decoded_coordinate_resource\": []\n    },\n    {\n      \"route\": \"nglview.write_html(a),after_previous_b_export\",\n      \"manager_model_count\": 40,\n      \"unrelated_b_model_present\": true,\n      \"b_has_view_spec\": false,\n      \"b_marker_in_html\": true,\n      \"b_serialization_flag\": false,\n      \"b_coordinate_resource_keys\": [],\n      \"b_decoded_coordinate_resource\": []\n    },\n    {\n      \"route\": \"ipywidgets explicit dependency_state control\",\n      \"manager_model_count\": 19,\n      \"unrelated_b_model_present\": false,\n      \"b_has_view_spec\": false,\n      \"b_marker_in_html\": false,\n      \"b_serialization_flag\": false,\n      \"b_coordinate_resource_keys\": [],\n      \"b_decoded_coordinate_resource\": []\n    }\n  ]\n}\n",
+        "stderr": ""
+      }
+    ],
+    "ngl304-receipt.json": {
+      "profile": "ngl304",
+      "recorded_at_utc": "2026-11-07T05:00:11.726663+00:00",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "nglview": {
+        "version": "3.0.4",
+        "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/__init__.py"
+      },
+      "ipywidgets": {
+        "version": "8.1.9",
+        "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/ipywidgets/__init__.py"
+      },
+      "numpy": {
+        "version": "2.4.6",
+        "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/numpy/__init__.py"
+      },
+      "synthetic_only": true,
+      "exports": [
+        {
+          "path": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/ngl304-raw-a-only.html",
+          "sha256": "a10aef3166047338a19373f8ae6a7275f0a85d85c7e7e72730aa449b9f8f88df",
+          "bytes": 15440,
+          "manager_model_count": 40,
+          "ngl_model_ids": [
+            "3eb750d2eb16445e833762c17d136230",
+            "a7293e8c485b4229b16cbb3abe21d00e"
+          ],
+          "requested_a_model_present": true,
+          "unrelated_b_model_present": true,
+          "view_spec_model_ids": [
+            "5c96e1e8568642ac81774c20a991f507",
+            "3eb750d2eb16445e833762c17d136230"
+          ],
+          "b_has_view_spec": false,
+          "a_marker_in_html": true,
+          "b_marker_in_html": true,
+          "b_loadfile_payloads": [
+            "REMARK SYNTHETIC_UNRELATED_B_63D9\nATOM      1  C   LIG B   1      82.375  83.375  84.375  1.00  0.00           C\nEND\n"
+          ],
+          "b_serialization_flag": false,
+          "b_coordinate_resource_keys": [],
+          "b_decoded_coordinate_resource": [],
+          "unrelated_b_in_requested_dependency_closure": false,
+          "outside_requested_dependency_ids": [
+            "0904d9d323ef4403a76b5aa3e162e31e",
+            "0dfd5aa6c76241de9bdd5b44ffb00102",
+            "2475e129ee6641d19090fd1d23973f4a",
+            "29c242363d414bdb99bd9a2c89a240ea",
+            "37cca05d4035488c84fc67b11410bae0",
+            "38cf236109dd461abe28986114ecb13d",
+            "3a4f9a763c14485fa3773ce287ee840d",
+            "3f1f25ea32db4065ad9d6420093697d3",
+            "401b117ada244405bdb6463c36bfe92b",
+            "4aaf430725ce4db1887bbfbeb4c4142d",
+            "4c245d37b1b54da6a9107ecbbc2b9947",
+            "63d46fe6d02a48d0b1a9c2490ef564e7",
+            "67cee3f5136e4e58b7d026fe7f87c627",
+            "6d9f46e3888843b0baf47e7d501cf734",
+            "76867250d1d247b8962af8f95baf0f56",
+            "7fad0ba734bc4c22b4db867ff62772b4",
+            "8244f0dd6d96418b80b44bf7b93e418a",
+            "a7293e8c485b4229b16cbb3abe21d00e",
+            "a96f35d80cc040e48fdf86f4a5b0f5ad",
+            "e464191382e94e79a2241e0869e3d400",
+            "f6e37309a7ac4fa9929c6009741222cd"
+          ],
+          "route": "nglview.write_html(a),before_any_b_export"
+        },
+        {
+          "path": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/ngl304-molsysmt-a-only.html",
+          "sha256": "a10aef3166047338a19373f8ae6a7275f0a85d85c7e7e72730aa449b9f8f88df",
+          "bytes": 15440,
+          "manager_model_count": 40,
+          "ngl_model_ids": [
+            "3eb750d2eb16445e833762c17d136230",
+            "a7293e8c485b4229b16cbb3abe21d00e"
+          ],
+          "requested_a_model_present": true,
+          "unrelated_b_model_present": true,
+          "view_spec_model_ids": [
+            "5c96e1e8568642ac81774c20a991f507",
+            "3eb750d2eb16445e833762c17d136230"
+          ],
+          "b_has_view_spec": false,
+          "a_marker_in_html": true,
+          "b_marker_in_html": true,
+          "b_loadfile_payloads": [
+            "REMARK SYNTHETIC_UNRELATED_B_63D9\nATOM      1  C   LIG B   1      82.375  83.375  84.375  1.00  0.00           C\nEND\n"
+          ],
+          "b_serialization_flag": false,
+          "b_coordinate_resource_keys": [],
+          "b_decoded_coordinate_resource": [],
+          "unrelated_b_in_requested_dependency_closure": false,
+          "outside_requested_dependency_ids": [
+            "0904d9d323ef4403a76b5aa3e162e31e",
+            "0dfd5aa6c76241de9bdd5b44ffb00102",
+            "2475e129ee6641d19090fd1d23973f4a",
+            "29c242363d414bdb99bd9a2c89a240ea",
+            "37cca05d4035488c84fc67b11410bae0",
+            "38cf236109dd461abe28986114ecb13d",
+            "3a4f9a763c14485fa3773ce287ee840d",
+            "3f1f25ea32db4065ad9d6420093697d3",
+            "401b117ada244405bdb6463c36bfe92b",
+            "4aaf430725ce4db1887bbfbeb4c4142d",
+            "4c245d37b1b54da6a9107ecbbc2b9947",
+            "63d46fe6d02a48d0b1a9c2490ef564e7",
+            "67cee3f5136e4e58b7d026fe7f87c627",
+            "6d9f46e3888843b0baf47e7d501cf734",
+            "76867250d1d247b8962af8f95baf0f56",
+            "7fad0ba734bc4c22b4db867ff62772b4",
+            "8244f0dd6d96418b80b44bf7b93e418a",
+            "a7293e8c485b4229b16cbb3abe21d00e",
+            "a96f35d80cc040e48fdf86f4a5b0f5ad",
+            "e464191382e94e79a2241e0869e3d400",
+            "f6e37309a7ac4fa9929c6009741222cd"
+          ],
+          "route": "molsysmt.third_party.nglview.write_html(a)"
+        },
+        {
+          "path": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/ngl304-a-after-b-export.html",
+          "sha256": "a10aef3166047338a19373f8ae6a7275f0a85d85c7e7e72730aa449b9f8f88df",
+          "bytes": 15440,
+          "manager_model_count": 40,
+          "ngl_model_ids": [
+            "3eb750d2eb16445e833762c17d136230",
+            "a7293e8c485b4229b16cbb3abe21d00e"
+          ],
+          "requested_a_model_present": true,
+          "unrelated_b_model_present": true,
+          "view_spec_model_ids": [
+            "5c96e1e8568642ac81774c20a991f507",
+            "3eb750d2eb16445e833762c17d136230"
+          ],
+          "b_has_view_spec": false,
+          "a_marker_in_html": true,
+          "b_marker_in_html": true,
+          "b_loadfile_payloads": [
+            "REMARK SYNTHETIC_UNRELATED_B_63D9\nATOM      1  C   LIG B   1      82.375  83.375  84.375  1.00  0.00           C\nEND\n"
+          ],
+          "b_serialization_flag": false,
+          "b_coordinate_resource_keys": [],
+          "b_decoded_coordinate_resource": [],
+          "unrelated_b_in_requested_dependency_closure": false,
+          "outside_requested_dependency_ids": [
+            "0904d9d323ef4403a76b5aa3e162e31e",
+            "0dfd5aa6c76241de9bdd5b44ffb00102",
+            "2475e129ee6641d19090fd1d23973f4a",
+            "29c242363d414bdb99bd9a2c89a240ea",
+            "37cca05d4035488c84fc67b11410bae0",
+            "38cf236109dd461abe28986114ecb13d",
+            "3a4f9a763c14485fa3773ce287ee840d",
+            "3f1f25ea32db4065ad9d6420093697d3",
+            "401b117ada244405bdb6463c36bfe92b",
+            "4aaf430725ce4db1887bbfbeb4c4142d",
+            "4c245d37b1b54da6a9107ecbbc2b9947",
+            "63d46fe6d02a48d0b1a9c2490ef564e7",
+            "67cee3f5136e4e58b7d026fe7f87c627",
+            "6d9f46e3888843b0baf47e7d501cf734",
+            "76867250d1d247b8962af8f95baf0f56",
+            "7fad0ba734bc4c22b4db867ff62772b4",
+            "8244f0dd6d96418b80b44bf7b93e418a",
+            "a7293e8c485b4229b16cbb3abe21d00e",
+            "a96f35d80cc040e48fdf86f4a5b0f5ad",
+            "e464191382e94e79a2241e0869e3d400",
+            "f6e37309a7ac4fa9929c6009741222cd"
+          ],
+          "route": "nglview.write_html(a),after_previous_b_export"
+        },
+        {
+          "path": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/ngl304-dependency-filtered-control.html",
+          "sha256": "a9914e0c4e6fae9d74444de0c0c6155380c9889e7e08a8e6ee127a7da5d1c9ac",
+          "bytes": 7998,
+          "manager_model_count": 19,
+          "ngl_model_ids": [
+            "3eb750d2eb16445e833762c17d136230"
+          ],
+          "requested_a_model_present": true,
+          "unrelated_b_model_present": false,
+          "view_spec_model_ids": [
+            "5c96e1e8568642ac81774c20a991f507",
+            "3eb750d2eb16445e833762c17d136230"
+          ],
+          "b_has_view_spec": false,
+          "a_marker_in_html": true,
+          "b_marker_in_html": false,
+          "b_loadfile_payloads": [],
+          "b_serialization_flag": false,
+          "b_coordinate_resource_keys": [],
+          "b_decoded_coordinate_resource": [],
+          "unrelated_b_in_requested_dependency_closure": false,
+          "outside_requested_dependency_ids": [],
+          "route": "ipywidgets explicit dependency_state control"
+        }
+      ],
+      "widgets": {
+        "a_model_id": "3eb750d2eb16445e833762c17d136230",
+        "b_model_id": "a7293e8c485b4229b16cbb3abe21d00e",
+        "a_marker": "SYNTHETIC_EXPORTED_A_5FA1",
+        "b_marker": "SYNTHETIC_UNRELATED_B_63D9",
+        "a_structure": "REMARK SYNTHETIC_EXPORTED_A_5FA1\nATOM      1  C   LIG A   1       1.125   2.125   3.125  1.00  0.00           C\nEND\n",
+        "b_structure": "REMARK SYNTHETIC_UNRELATED_B_63D9\nATOM      1  C   LIG B   1      82.375  83.375  84.375  1.00  0.00           C\nEND\n"
+      },
+      "native_exit": 0
+    },
+    "ngl401-receipt.json": {
+      "profile": "ngl401",
+      "recorded_at_utc": "2026-11-07T05:00:19.739176+00:00",
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "nglview": {
+        "version": "4.0.1",
+        "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/__init__.py"
+      },
+      "ipywidgets": {
+        "version": "8.1.9",
+        "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/ipywidgets/__init__.py"
+      },
+      "numpy": {
+        "version": "2.4.6",
+        "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/numpy/__init__.py"
+      },
+      "synthetic_only": true,
+      "exports": [
+        {
+          "path": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/ngl401-raw-a-only.html",
+          "sha256": "d28293894fea7e72e606a2a171adacee72fc56ac37313fd2693327fb5c44a2aa",
+          "bytes": 15523,
+          "manager_model_count": 40,
+          "ngl_model_ids": [
+            "7d48cfa34f1d427f8ccce4ee40fb1f7e",
+            "708420c88a904e0f941e4b74cba4bd49"
+          ],
+          "requested_a_model_present": true,
+          "unrelated_b_model_present": true,
+          "view_spec_model_ids": [
+            "618a70976b5f43069b04421a9e94b5a7",
+            "7d48cfa34f1d427f8ccce4ee40fb1f7e"
+          ],
+          "b_has_view_spec": false,
+          "a_marker_in_html": true,
+          "b_marker_in_html": true,
+          "b_loadfile_payloads": [
+            "REMARK SYNTHETIC_UNRELATED_B_63D9\nATOM      1  C   LIG B   1      82.375  83.375  84.375  1.00  0.00           C\nEND\n"
+          ],
+          "b_serialization_flag": false,
+          "b_coordinate_resource_keys": [],
+          "b_decoded_coordinate_resource": [],
+          "unrelated_b_in_requested_dependency_closure": false,
+          "outside_requested_dependency_ids": [
+            "0968b28c71c14b6284b460ed06bcc343",
+            "11df4d46d4e548c2bd51d2b2d37a1eff",
+            "1e799f1dfccf4f1fb4e9ab28f1937040",
+            "1ee6a3069a3f4cf88a4b73515f989cc1",
+            "2860cec05f6b4eaca7b5a06c0774c15a",
+            "3c782d30524546b6b1b543fe0d3f6c20",
+            "46887126af3c40e9a29c3463c3a3b7e0",
+            "46e420aa91fc4625be519aea5e22ec51",
+            "532a8996c37c46e49b96150d56e96cb4",
+            "6533bb7d02ae4474b1d071de132d17a8",
+            "65f6362a593145dfb505cda9b8da1b9d",
+            "68e69bb9dcf746d1b7aba2a5ec4fa811",
+            "708420c88a904e0f941e4b74cba4bd49",
+            "730f368246ca417b95b9dfaa8901b4a1",
+            "83128e15fa124675909c21c4a6ae9785",
+            "9c9f10508cd44dd38d106c1eb43f350f",
+            "a0d378391cfe4354a2772f215e9bedb1",
+            "be939963e95f4541bfad29ddb19832f5",
+            "c259c0ac68884b8eae7b29ee45ac67fd",
+            "d81b069e677f4e23b8e4537eac528b25",
+            "f6eecf0347c446678e8a2872ea0382e2"
+          ],
+          "route": "nglview.write_html(a),before_any_b_export"
+        },
+        {
+          "path": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/ngl401-molsysmt-a-only.html",
+          "sha256": "d28293894fea7e72e606a2a171adacee72fc56ac37313fd2693327fb5c44a2aa",
+          "bytes": 15523,
+          "manager_model_count": 40,
+          "ngl_model_ids": [
+            "7d48cfa34f1d427f8ccce4ee40fb1f7e",
+            "708420c88a904e0f941e4b74cba4bd49"
+          ],
+          "requested_a_model_present": true,
+          "unrelated_b_model_present": true,
+          "view_spec_model_ids": [
+            "618a70976b5f43069b04421a9e94b5a7",
+            "7d48cfa34f1d427f8ccce4ee40fb1f7e"
+          ],
+          "b_has_view_spec": false,
+          "a_marker_in_html": true,
+          "b_marker_in_html": true,
+          "b_loadfile_payloads": [
+            "REMARK SYNTHETIC_UNRELATED_B_63D9\nATOM      1  C   LIG B   1      82.375  83.375  84.375  1.00  0.00           C\nEND\n"
+          ],
+          "b_serialization_flag": false,
+          "b_coordinate_resource_keys": [],
+          "b_decoded_coordinate_resource": [],
+          "unrelated_b_in_requested_dependency_closure": false,
+          "outside_requested_dependency_ids": [
+            "0968b28c71c14b6284b460ed06bcc343",
+            "11df4d46d4e548c2bd51d2b2d37a1eff",
+            "1e799f1dfccf4f1fb4e9ab28f1937040",
+            "1ee6a3069a3f4cf88a4b73515f989cc1",
+            "2860cec05f6b4eaca7b5a06c0774c15a",
+            "3c782d30524546b6b1b543fe0d3f6c20",
+            "46887126af3c40e9a29c3463c3a3b7e0",
+            "46e420aa91fc4625be519aea5e22ec51",
+            "532a8996c37c46e49b96150d56e96cb4",
+            "6533bb7d02ae4474b1d071de132d17a8",
+            "65f6362a593145dfb505cda9b8da1b9d",
+            "68e69bb9dcf746d1b7aba2a5ec4fa811",
+            "708420c88a904e0f941e4b74cba4bd49",
+            "730f368246ca417b95b9dfaa8901b4a1",
+            "83128e15fa124675909c21c4a6ae9785",
+            "9c9f10508cd44dd38d106c1eb43f350f",
+            "a0d378391cfe4354a2772f215e9bedb1",
+            "be939963e95f4541bfad29ddb19832f5",
+            "c259c0ac68884b8eae7b29ee45ac67fd",
+            "d81b069e677f4e23b8e4537eac528b25",
+            "f6eecf0347c446678e8a2872ea0382e2"
+          ],
+          "route": "molsysmt.third_party.nglview.write_html(a)"
+        },
+        {
+          "path": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/ngl401-a-after-b-export.html",
+          "sha256": "d28293894fea7e72e606a2a171adacee72fc56ac37313fd2693327fb5c44a2aa",
+          "bytes": 15523,
+          "manager_model_count": 40,
+          "ngl_model_ids": [
+            "7d48cfa34f1d427f8ccce4ee40fb1f7e",
+            "708420c88a904e0f941e4b74cba4bd49"
+          ],
+          "requested_a_model_present": true,
+          "unrelated_b_model_present": true,
+          "view_spec_model_ids": [
+            "618a70976b5f43069b04421a9e94b5a7",
+            "7d48cfa34f1d427f8ccce4ee40fb1f7e"
+          ],
+          "b_has_view_spec": false,
+          "a_marker_in_html": true,
+          "b_marker_in_html": true,
+          "b_loadfile_payloads": [
+            "REMARK SYNTHETIC_UNRELATED_B_63D9\nATOM      1  C   LIG B   1      82.375  83.375  84.375  1.00  0.00           C\nEND\n"
+          ],
+          "b_serialization_flag": false,
+          "b_coordinate_resource_keys": [],
+          "b_decoded_coordinate_resource": [],
+          "unrelated_b_in_requested_dependency_closure": false,
+          "outside_requested_dependency_ids": [
+            "0968b28c71c14b6284b460ed06bcc343",
+            "11df4d46d4e548c2bd51d2b2d37a1eff",
+            "1e799f1dfccf4f1fb4e9ab28f1937040",
+            "1ee6a3069a3f4cf88a4b73515f989cc1",
+            "2860cec05f6b4eaca7b5a06c0774c15a",
+            "3c782d30524546b6b1b543fe0d3f6c20",
+            "46887126af3c40e9a29c3463c3a3b7e0",
+            "46e420aa91fc4625be519aea5e22ec51",
+            "532a8996c37c46e49b96150d56e96cb4",
+            "6533bb7d02ae4474b1d071de132d17a8",
+            "65f6362a593145dfb505cda9b8da1b9d",
+            "68e69bb9dcf746d1b7aba2a5ec4fa811",
+            "708420c88a904e0f941e4b74cba4bd49",
+            "730f368246ca417b95b9dfaa8901b4a1",
+            "83128e15fa124675909c21c4a6ae9785",
+            "9c9f10508cd44dd38d106c1eb43f350f",
+            "a0d378391cfe4354a2772f215e9bedb1",
+            "be939963e95f4541bfad29ddb19832f5",
+            "c259c0ac68884b8eae7b29ee45ac67fd",
+            "d81b069e677f4e23b8e4537eac528b25",
+            "f6eecf0347c446678e8a2872ea0382e2"
+          ],
+          "route": "nglview.write_html(a),after_previous_b_export"
+        },
+        {
+          "path": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/ngl401-dependency-filtered-control.html",
+          "sha256": "c1ff299909ee7225a5fc45059e20c4fc96b3a6e68066e72224d4a2dcf2400bb8",
+          "bytes": 7994,
+          "manager_model_count": 19,
+          "ngl_model_ids": [
+            "7d48cfa34f1d427f8ccce4ee40fb1f7e"
+          ],
+          "requested_a_model_present": true,
+          "unrelated_b_model_present": false,
+          "view_spec_model_ids": [
+            "618a70976b5f43069b04421a9e94b5a7",
+            "7d48cfa34f1d427f8ccce4ee40fb1f7e"
+          ],
+          "b_has_view_spec": false,
+          "a_marker_in_html": true,
+          "b_marker_in_html": false,
+          "b_loadfile_payloads": [],
+          "b_serialization_flag": false,
+          "b_coordinate_resource_keys": [],
+          "b_decoded_coordinate_resource": [],
+          "unrelated_b_in_requested_dependency_closure": false,
+          "outside_requested_dependency_ids": [],
+          "route": "ipywidgets explicit dependency_state control"
+        }
+      ],
+      "widgets": {
+        "a_model_id": "7d48cfa34f1d427f8ccce4ee40fb1f7e",
+        "b_model_id": "708420c88a904e0f941e4b74cba4bd49",
+        "a_marker": "SYNTHETIC_EXPORTED_A_5FA1",
+        "b_marker": "SYNTHETIC_UNRELATED_B_63D9",
+        "a_structure": "REMARK SYNTHETIC_EXPORTED_A_5FA1\nATOM      1  C   LIG A   1       1.125   2.125   3.125  1.00  0.00           C\nEND\n",
+        "b_structure": "REMARK SYNTHETIC_UNRELATED_B_63D9\nATOM      1  C   LIG B   1      82.375  83.375  84.375  1.00  0.00           C\nEND\n"
+      },
+      "native_exit": 0
+    },
+    "631-owner-receipt-before-theme.json": {
+      "issue": "uibcdf/molsysmt#631",
+      "recorded_at_utc": "2026-11-07T05:12:51.510103+00:00",
+      "source_tests_report_frozen": true,
+      "owned_sha256": {
+        "molsysmt/third_party/nglview/write_html.py": "27679b761a5160f1c007f398391f83147778a6c02af3c09ed66913e7df08e521",
+        "tests/third_party/nglview/test_write_html.py": "43192f0433857822b82af983dce5adc1eb6e174a9e06e93c00a4e2eb072bfb0d",
+        "devguide/pending_bugs/standalone_nglview_html_export_includes_unrequested_molecular_widget_state.md": "44ba4bdce386491f914b901798ca242f7f4d037faab5ddeab59c8b8555fa3711"
+      },
+      "existing_coordinate_unit_test_ast_unchanged": true,
+      "pytest_and_doctest_executed_by_implementer": false,
+      "root_qualification_pending": true,
+      "ruff_check_native_exit": 0,
+      "ruff_format_native_exit": 0,
+      "diff_check_native_exit": 0,
+      "regression_cases": 8,
+      "ipywidgets_api_floor_receipt": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/ipywidgets7-api-artifact.json",
+      "ipywidgets7_evidence": "Official7.0.0 wheel hash-verified and source inspected; no7.x runtime execution or install. All required public embedding APIs already exist.",
+      "reproduction_native_exits": {
+        "nglview3.0.4": 0,
+        "nglview4.0.1": 0
+      },
+      "limits": [
+        "Browser rendering and offline frontend assets were not qualified.",
+        "Required global color-style registry is retained; only independent molecular widgets are excluded.",
+        "Private NGL serialization hooks are inspected in3.0.4 and4.0.1 because public write_html has no state/kwargs parameter."
+      ],
+      "authorized_scope": "Only the three owned production/test/report paths; root owns web/course documentation and receiving."
+    },
+    "631-owner-receipt.json": {
+      "issue": "uibcdf/molsysmt#631",
+      "recorded_at_utc": "2026-11-07T05:21:26.423178+00:00",
+      "source_tests_report_frozen": true,
+      "owned_sha256": {
+        "molsysmt/third_party/nglview/write_html.py": "8ca37ac4620750c52a9c2ce09588f4364d2a69b3eb3df52b2907a115fe6fd533",
+        "tests/third_party/nglview/test_write_html.py": "41c5c58618bacd2e8d106628b32238ea5fea084e42650fbbd876792bd8a2f338",
+        "devguide/pending_bugs/standalone_nglview_html_export_includes_unrequested_molecular_widget_state.md": "6676a2fc4af4bf5908d546c1407bd9c386882629cd8fa9937ec784d886ef545e"
+      },
+      "existing_coordinate_unit_test_ast_unchanged": true,
+      "pytest_and_doctest_executed_by_implementer": false,
+      "root_qualification_pending": true,
+      "ruff_check_native_exit": 0,
+      "ruff_format_native_exit": 0,
+      "diff_check_native_exit": 0,
+      "regression_cases": 9,
+      "ipywidgets_api_floor_receipt": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/ipywidgets7-api-artifact.json",
+      "ipywidgets7_evidence": "Official7.0.0 wheel hash-verified and source inspected; no7.x runtime execution or install. All required public embedding APIs already exist.",
+      "reproduction_native_exits": {
+        "nglview3.0.4": 0,
+        "nglview4.0.1": 0
+      },
+      "limits": [
+        "Browser rendering and offline frontend assets were not qualified.",
+        "Required global color-style registry is retained; only independent molecular widgets are excluded.",
+        "Private NGL serialization hooks are inspected in3.0.4 and4.0.1 because public write_html has no state/kwargs parameter."
+      ],
+      "authorized_scope": "Only the three owned production/test/report paths; root owns web/course documentation and receiving.",
+      "prior_eight_case_module_bytes_preserved_before_append": true,
+      "theme_amendment": {
+        "historical_receipt": "631-owner-receipt-before-theme.json",
+        "prior_root_qualification_reported": "103/103 per provider profile; doctest native exit0. That report applies to the prior source hashes.",
+        "theme_resource": "Requested view._widget_theme only; no global _INIT_VIEWS lookup.",
+        "source_inspected_versions": [
+          "3.0.4",
+          "4.0.1"
+        ],
+        "dependency_state_omits_theme": true,
+        "theme_is_unsynchronized_attribute": true,
+        "theme_manager_singleton": "Observed same singleton for both GUI views in both providers; guard does not invent separate per-view themes.",
+        "new_guard": "tests/third_party/nglview/test_write_html.py::test_write_html_includes_only_the_requested_viewer_gui_theme",
+        "guard_phases": [
+          "B GUI only while A has no theme:exclude theme from A export.",
+          "A GUI enabled:include A referenced theme,CSS and view spec,exclude B molecular widget/data."
+        ],
+        "plain_probe_native_exits": {
+          "ngl304-before-theme": 0,
+          "ngl401-before-theme": 0,
+          "ngl304-fixed-theme": 0,
+          "ngl401-fixed-theme": 0
+        },
+        "pytest_executed": false
+      }
+    }
+  },
+  "documentation_preservation": {
+    "docs/content/user/tools/third_party/nglview/write_html.ipynb": {
+      "after_sha256": "ce66ceeff3bdaa51a312f4e2a3f0a0a12d220e6a9a5bf8e06b1ac61b51e504bd",
+      "code_outputs_ids_metadata_unchanged": true,
+      "only_markdown_changed": true
+    },
+    "docs/content/user/tools/form/class/viewers/nglview_NGLWidget.ipynb": {
+      "after_sha256": "166fbd7ea8f323201a1a766a52b651123a11bd605d14690d85bec56642954e86",
+      "code_outputs_ids_metadata_unchanged": true,
+      "only_markdown_changed": true
+    },
+    "docs/content/course/Common_Core/06_Visualizing_Anything.ipynb": {
+      "after_sha256": "3cacf70da96b0992a0365e51ea2d98a0b6299ee2a51165c69a9199421b0a8c70",
+      "code_outputs_ids_metadata_unchanged": true,
+      "only_markdown_changed": true
+    }
+  },
+  "runs": [
+    {
+      "junit": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-floor312-received.xml",
+      "junit_sha256": "8d41fdeefc9a8f14312b167188f13dfb16eddb8444019b2906afdde9d722d3c5",
+      "counts": {
+        "tests": 93,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "invocation": {
+        "profile": "floor312",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-p",
+          "no:smonitor",
+          "-n",
+          "12",
+          "tests/form/nglview_NGLWidget",
+          "tests/basic/get/test_get_nglview_NGLWidget.py",
+          "tests/basic/view/test_view_molsysmt_MolSys_with_NGLView.py",
+          "tests/basic/view/test_empty_view_contract.py",
+          "tests/third_party/nglview",
+          "--junitxml=.pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-floor312-received.xml"
+        ],
+        "pythonpath": [
+          ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4",
+          "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages",
+          "existing Conda cache: py-mmcif-1.1.1-py_0/site-packages",
+          "existing Conda cache: argdigest-0.14.0-py_0/site-packages",
+          "existing Conda cache: depdigest-0.15.1-py_0/site-packages",
+          "existing Conda cache: smonitor-0.16.0-py_1/site-packages",
+          ".pytest_cache/pre1-review-20261106/providers/public-support/ackredit-0.9.0-py_0/site-packages",
+          "existing sibling checkout: molsysmt",
+          ".pytest_cache/pr543-viewer-4223-20261105",
+          ".pytest_cache/stabilization-551/tooling/published"
+        ],
+        "inherited_pytest_addopts": null,
+        "origins": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-floor312-received-origins.json",
+        "artifact": {
+          "version": "3.0.4",
+          "url": "https://files.pythonhosted.org/packages/16/71/7651b6e1ab40b0b2491486444951ce723281d707fe3098e5e0aad89d6468/nglview-3.0.4.tar.gz",
+          "sha256_expected": "e7ea100e77bfbf52bc89aaac5692da4358c86be4de103c78c34c76076f4bc9a8",
+          "sha256_observed": "e7ea100e77bfbf52bc89aaac5692da4358c86be4de103c78c34c76076f4bc9a8",
+          "size": 7132932,
+          "archive": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/nglview-3.0.4.tar.gz",
+          "python_prefix": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4"
+        },
+        "scope": "Source receiving with reused public-support/dependency closure; headless Python/widget/HTML only. No install, no frontend visual qualification.",
+        "git_head": "0215adf01a4f03cb17fb229b0565229c02f34b13",
+        "source_hashes": {
+          "molsysmt/basic/viewer/nglview.py": "1cd565e3a0c504ec7716a9f604bdd970bb8891d9214353c4a8e0fab787b08ea5",
+          "molsysmt/form/molsysmt_MolSys/to_nglview_NGLWidget.py": "87152ea5f385586a3afcad7fd2a3402277df9f6eb6d7ee645de79d6f35578d75",
+          "molsysmt/form/nglview_NGLWidget/__init__.py": "a701b86f8a8814034fa19e18335341346cfd7b99d6dbc1e24568c7161f6a2284",
+          "molsysmt/form/nglview_NGLWidget/_read_native.py": "3ecf26cd9b8a6206cb59464cf473d55dc5d534e308a2e76412f62e563646e7dc",
+          "molsysmt/form/nglview_NGLWidget/_topology_sidecar.py": "f0cd2daf0ceb58e3269fa1eb7b2f10cf7b38c72e25818320738d1e7238130187",
+          "molsysmt/form/nglview_NGLWidget/add.py": "e8652d7384e35b0ba91423fb1d435d60c8dd42a05cb83f311881df21f1226a54",
+          "molsysmt/form/nglview_NGLWidget/append_structures.py": "4ad35a2efbcda40a2b9ab08af23b728369958e6009b21a9251ae31f6215f02fe",
+          "molsysmt/form/nglview_NGLWidget/attributes.py": "056cb4ad2544957eab604df5debc29bc844fe7531adc53f78d1dd4f403a58852",
+          "molsysmt/form/nglview_NGLWidget/copy.py": "409b83a983e1428fad4881cf9a9197a2b2cfc319be3e74d9445d66ea071c9a65",
+          "molsysmt/form/nglview_NGLWidget/extract.py": "6e36191e02cc0407f775bcd56c9c2abc2e985fc908f83020068ce6c7c34896dc",
+          "molsysmt/form/nglview_NGLWidget/get_structural_attributes.py": "31889aa6aa0574eacec26261462dedadfddacbaed89b2d9c9a8d75b05c5b5102",
+          "molsysmt/form/nglview_NGLWidget/get_topological_attributes.py": "30d373a1e999a3b3ae76f2009a8b0a9104821ef624a8bff7f7b1c314098c6aca",
+          "molsysmt/form/nglview_NGLWidget/has_attribute.py": "d5b22dd7ad4e891bdae153bf18cb764cbdb5fe4c25230fce93279ca6a22df0d1",
+          "molsysmt/form/nglview_NGLWidget/is_form.py": "3d545a9afb77fccf2e47153853c8f9113c82fa244bed4f076e319e6222b7decb",
+          "molsysmt/form/nglview_NGLWidget/iterators.py": "cf1328b9c8b92a61ecdbe41b01d39c1f130f02d70c5548e6344faf0850c8439e",
+          "molsysmt/form/nglview_NGLWidget/merge.py": "c390a1a650f18cb288f5b2a995ceb0982d6b6a6a67c1938e3a60916ce9b9b54f",
+          "molsysmt/form/nglview_NGLWidget/set.py": "1f16a7f4d4b3a672e8a5ca9d7ffb9a0dfebb472c3ea8375e55bd45c639b7fb83",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_MolSys.py": "9282df89ad3af7710ff99294e277a0a4ab344e2b23bc952ebf9d4b68f756fefe",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_Structures.py": "962308a242e823ef276bc5da6a8921b4de137a1dfdea9ba1188c37a1bffb82f3",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_Topology.py": "bb5285ab1c1510e518163d081c57f3c6a97a105991a242a759da94a2613e38c4",
+          "molsysmt/form/nglview_NGLWidget/to_nglview_NGLWidget.py": "6c3852b343aed6bdeb9051ed9c01d47f63c288ac26ace5f708e1d5f7b5b8a175",
+          "molsysmt/form/nglview_NGLWidget/to_openmm_Topology.py": "255504d005d73fdfd1dc54a97db1b086cc191a3a80b6648967d1669ac3a3cc7c",
+          "molsysmt/form/nglview_NGLWidget/to_string_amino_acids_1.py": "949e27f360e75d680f54c71f920913fb53a8825252a0cfb816101c05694f1110",
+          "molsysmt/form/nglview_NGLWidget/to_string_amino_acids_3.py": "91003d73e9fde0bbfcac4b36f930c1f5c49a44d34c209746425dd7f8f65afa99",
+          "molsysmt/form/nglview_NGLWidget/to_string_pdb_text.py": "8601bff07901d4da8f70d169f52fbc1a07fd5d6eba4f810479396303e8386cac",
+          "molsysmt/third_party/nglview/__init__.py": "c1ea09201358dd2a97ffc017e432fcde0dd68a55120fce32d37357d7dc40efc1",
+          "molsysmt/third_party/nglview/add_arrows.py": "5a318adba8e1b4def46bc48deddd7dbc7b6bcafd91f3401850a88452400a0685",
+          "molsysmt/third_party/nglview/add_contacts.py": "100f7c1f7c339944f6fcc6d843239a35838e6922ab87f2d59917f800eb4a043d",
+          "molsysmt/third_party/nglview/add_cylinders.py": "c33295f46cec104a76437d5c0da18e2e9a28fc70f34664fbea64a8da8b3f538e",
+          "molsysmt/third_party/nglview/add_hbonds.py": "e23a57cd1cde25e40a4ca32ce2f80fca058e4a171842dcb9d1f45bdfa1a6ea6d",
+          "molsysmt/third_party/nglview/clear.py": "9155641e103ade394d8ec7dd14563283a0ab18b310844ad200bb21a843d2a85a",
+          "molsysmt/third_party/nglview/load_html_in_jupyter_notebook.py": "a85fb69a6f4630381ac1b4dd97b57ae9c3bcf909f48c92829e42519d6b101e3d",
+          "molsysmt/third_party/nglview/molsysmt_trajectory.py": "a98b1d13a58414ae75e5e0fd10105821e927919f87c38400a3b11fabd7c49b10",
+          "molsysmt/third_party/nglview/patching_nglview.py": "7c62c786b5b856024436b8199b71147936ba57ee23704432464b8b1688cb7835",
+          "molsysmt/third_party/nglview/set_color.py": "9d196c82bbc48ac00c5c5d2a687544b0c99b635664b33a80c4b0a16e1faa2595",
+          "molsysmt/third_party/nglview/set_color_by_value.py": "15fb7a409a69b349a47e49d1a71d78063cc645c039f55d08bcba222622137f14",
+          "molsysmt/third_party/nglview/show_as_balls_and_sticks.py": "92414ce60411ce2ea54a857f55ff4e9afe1c332ffebb1c47e8f609aeb9aec524",
+          "molsysmt/third_party/nglview/show_as_cartoon.py": "e254f12d3cc0572e8a45d5fca87c3049096bd7bc6b5f582e833369c67a1a30e3",
+          "molsysmt/third_party/nglview/show_as_licorice.py": "a1f286bbb3bf77ca02318bdff14c62d779dc83addf13c9aa654a3239f23a8ea0",
+          "molsysmt/third_party/nglview/show_as_surface.py": "b9d47db50f1066dd00162e5e74e66dabe5bf5e0c3fc53217f55845974c407a24",
+          "molsysmt/third_party/nglview/show_gui.py": "fd0e3cd575eb973efd3fae33d738bcb7fb101cd4e91ba882a2f7e56d03aa3052",
+          "molsysmt/third_party/nglview/standardize_view.py": "83584565d70090170a8b917073ede8deead910372b44a66cf317d561d064a0c3",
+          "molsysmt/third_party/nglview/write_html.py": "4983a24fe4afce9f9f228a3f96378a63aebf18cdbdd64f66cb9ea0940e617e4e"
+        },
+        "runner_sha256": "5e73a7c1e253b9464f807bd4c8e543f8febbcadd505ba8efe74062fb3232b031",
+        "preflight_native_exit_code": 0,
+        "pytest_native_exit_code": 1
+      },
+      "origins": {
+        "python": "3.12.12 | packaged by conda-forge | (main, Jan 26 2026, 23:51:32) [GCC 14.3.0]",
+        "executable": "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+        "providers": {
+          "molsysmt": {
+            "distribution_version": "0.23.0+393.ge1facf624.dirty",
+            "module_version": "0.23.0+393.ge1facf624.dirty",
+            "origin": "molsysmt/__init__.py",
+            "sha256": "97b7698e7027c768ce8700ec991e2f02c5a97d7caf233707c05e2886fe2f7280"
+          },
+          "nglview": {
+            "distribution_version": "3.0.4",
+            "module_version": "3.0.4",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/__init__.py",
+            "sha256": "e782f2aaaa818db97ae275e42a25226acd864c9e7ab18e2920f2473944a24782"
+          },
+          "nglview.widget": {
+            "distribution_version": "3.0.4",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/widget.py",
+            "sha256": "5d3182b6c4182f697ce967611393c306d151ddae470b6dbb857dbf3fae65c166"
+          },
+          "nglview.color": {
+            "distribution_version": "3.0.4",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/color.py",
+            "sha256": "8ed5990ca5c1470ae3b422535e517c650a801aaf3e17db827351eae43f406178"
+          },
+          "ipywidgets": {
+            "distribution_version": "8.1.8",
+            "module_version": "8.1.8",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/ipywidgets/__init__.py",
+            "sha256": "3ae03596f80c8fe0eaf2ee0f698a88db89a98af23a9c804f4127d00abbfb15e3"
+          },
+          "traitlets": {
+            "distribution_version": "5.14.3",
+            "module_version": "5.14.3",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/traitlets/__init__.py",
+            "sha256": "a2040be9b1c774396085125f9d8035fc453394d9790368d1d8d543c2bf505e7e"
+          },
+          "numpy": {
+            "distribution_version": "2.3.5",
+            "module_version": "2.3.5",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/numpy/__init__.py",
+            "sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "distribution_version": "2.3.3",
+            "module_version": "2.3.3",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/pandas/__init__.py",
+            "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyunitwizard": {
+            "distribution_version": "0.28.1",
+            "module_version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "distribution_version": "0.14.0",
+            "module_version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "distribution_version": "0.15.1",
+            "module_version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "distribution_version": "0.16.0",
+            "module_version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest": {
+            "distribution_version": "9.0.2",
+            "module_version": "9.0.2",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/pytest/__init__.py",
+            "sha256": "7be7a1e2218dc59a19d1ad131e4abe21172a295087efc72898938248782e8766"
+          },
+          "pytest_receptor": {
+            "distribution_version": "1.2.1",
+            "module_version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        },
+        "scope": "Headless Python API/source consumer receiving; no frontend visual qualification."
+      },
+      "unsuccessful_nodes": [
+        {
+          "node": "tests.third_party.nglview.test_write_html::test_write_html_preserves_each_structure_and_length_units",
+          "message": "AssertionError: assert 3 == 1\n +  where 3 = len([{'_camera_orientation': [], '_dom_classes': [], '_ibtn_fullscreen': 'IPY_MODEL_18cdeb277e0a47e48da8b94550c51502', '_i...tation': [], '_dom_classes': [], '_ibtn_fullscreen': 'IPY_MODEL_010768ae81314104b90a85fe31dd4b20', '_igui': None, ...}])"
+        }
+      ]
+    },
+    {
+      "junit": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-floor312-received_widget_identity.xml",
+      "junit_sha256": "63770cad48ce2ba3ae92b98a026647b7247ca8f7f03d781d35162653939d82a4",
+      "counts": {
+        "tests": 93,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "invocation": {
+        "profile": "floor312",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-p",
+          "no:smonitor",
+          "-n",
+          "12",
+          "tests/form/nglview_NGLWidget",
+          "tests/basic/get/test_get_nglview_NGLWidget.py",
+          "tests/basic/view/test_view_molsysmt_MolSys_with_NGLView.py",
+          "tests/basic/view/test_empty_view_contract.py",
+          "tests/third_party/nglview",
+          "--junitxml=.pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-floor312-received_widget_identity.xml"
+        ],
+        "pythonpath": [
+          ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4",
+          "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages",
+          "existing Conda cache: py-mmcif-1.1.1-py_0/site-packages",
+          "existing Conda cache: argdigest-0.14.0-py_0/site-packages",
+          "existing Conda cache: depdigest-0.15.1-py_0/site-packages",
+          "existing Conda cache: smonitor-0.16.0-py_1/site-packages",
+          ".pytest_cache/pre1-review-20261106/providers/public-support/ackredit-0.9.0-py_0/site-packages",
+          "existing sibling checkout: molsysmt",
+          ".pytest_cache/pr543-viewer-4223-20261105",
+          ".pytest_cache/stabilization-551/tooling/published"
+        ],
+        "inherited_pytest_addopts": null,
+        "origins": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-floor312-received_widget_identity-origins.json",
+        "artifact": {
+          "version": "3.0.4",
+          "url": "https://files.pythonhosted.org/packages/16/71/7651b6e1ab40b0b2491486444951ce723281d707fe3098e5e0aad89d6468/nglview-3.0.4.tar.gz",
+          "sha256_expected": "e7ea100e77bfbf52bc89aaac5692da4358c86be4de103c78c34c76076f4bc9a8",
+          "sha256_observed": "e7ea100e77bfbf52bc89aaac5692da4358c86be4de103c78c34c76076f4bc9a8",
+          "size": 7132932,
+          "archive": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/nglview-3.0.4.tar.gz",
+          "python_prefix": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4"
+        },
+        "scope": "Source receiving with reused public-support/dependency closure; headless Python/widget/HTML only. No install, no frontend visual qualification.",
+        "git_head": "0215adf01a4f03cb17fb229b0565229c02f34b13",
+        "source_hashes": {
+          "molsysmt/basic/viewer/nglview.py": "1cd565e3a0c504ec7716a9f604bdd970bb8891d9214353c4a8e0fab787b08ea5",
+          "molsysmt/form/molsysmt_MolSys/to_nglview_NGLWidget.py": "87152ea5f385586a3afcad7fd2a3402277df9f6eb6d7ee645de79d6f35578d75",
+          "molsysmt/form/nglview_NGLWidget/__init__.py": "a701b86f8a8814034fa19e18335341346cfd7b99d6dbc1e24568c7161f6a2284",
+          "molsysmt/form/nglview_NGLWidget/_read_native.py": "3ecf26cd9b8a6206cb59464cf473d55dc5d534e308a2e76412f62e563646e7dc",
+          "molsysmt/form/nglview_NGLWidget/_topology_sidecar.py": "f0cd2daf0ceb58e3269fa1eb7b2f10cf7b38c72e25818320738d1e7238130187",
+          "molsysmt/form/nglview_NGLWidget/add.py": "e8652d7384e35b0ba91423fb1d435d60c8dd42a05cb83f311881df21f1226a54",
+          "molsysmt/form/nglview_NGLWidget/append_structures.py": "4ad35a2efbcda40a2b9ab08af23b728369958e6009b21a9251ae31f6215f02fe",
+          "molsysmt/form/nglview_NGLWidget/attributes.py": "056cb4ad2544957eab604df5debc29bc844fe7531adc53f78d1dd4f403a58852",
+          "molsysmt/form/nglview_NGLWidget/copy.py": "409b83a983e1428fad4881cf9a9197a2b2cfc319be3e74d9445d66ea071c9a65",
+          "molsysmt/form/nglview_NGLWidget/extract.py": "6e36191e02cc0407f775bcd56c9c2abc2e985fc908f83020068ce6c7c34896dc",
+          "molsysmt/form/nglview_NGLWidget/get_structural_attributes.py": "31889aa6aa0574eacec26261462dedadfddacbaed89b2d9c9a8d75b05c5b5102",
+          "molsysmt/form/nglview_NGLWidget/get_topological_attributes.py": "30d373a1e999a3b3ae76f2009a8b0a9104821ef624a8bff7f7b1c314098c6aca",
+          "molsysmt/form/nglview_NGLWidget/has_attribute.py": "d5b22dd7ad4e891bdae153bf18cb764cbdb5fe4c25230fce93279ca6a22df0d1",
+          "molsysmt/form/nglview_NGLWidget/is_form.py": "3d545a9afb77fccf2e47153853c8f9113c82fa244bed4f076e319e6222b7decb",
+          "molsysmt/form/nglview_NGLWidget/iterators.py": "cf1328b9c8b92a61ecdbe41b01d39c1f130f02d70c5548e6344faf0850c8439e",
+          "molsysmt/form/nglview_NGLWidget/merge.py": "c390a1a650f18cb288f5b2a995ceb0982d6b6a6a67c1938e3a60916ce9b9b54f",
+          "molsysmt/form/nglview_NGLWidget/set.py": "1f16a7f4d4b3a672e8a5ca9d7ffb9a0dfebb472c3ea8375e55bd45c639b7fb83",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_MolSys.py": "9282df89ad3af7710ff99294e277a0a4ab344e2b23bc952ebf9d4b68f756fefe",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_Structures.py": "962308a242e823ef276bc5da6a8921b4de137a1dfdea9ba1188c37a1bffb82f3",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_Topology.py": "bb5285ab1c1510e518163d081c57f3c6a97a105991a242a759da94a2613e38c4",
+          "molsysmt/form/nglview_NGLWidget/to_nglview_NGLWidget.py": "6c3852b343aed6bdeb9051ed9c01d47f63c288ac26ace5f708e1d5f7b5b8a175",
+          "molsysmt/form/nglview_NGLWidget/to_openmm_Topology.py": "255504d005d73fdfd1dc54a97db1b086cc191a3a80b6648967d1669ac3a3cc7c",
+          "molsysmt/form/nglview_NGLWidget/to_string_amino_acids_1.py": "949e27f360e75d680f54c71f920913fb53a8825252a0cfb816101c05694f1110",
+          "molsysmt/form/nglview_NGLWidget/to_string_amino_acids_3.py": "91003d73e9fde0bbfcac4b36f930c1f5c49a44d34c209746425dd7f8f65afa99",
+          "molsysmt/form/nglview_NGLWidget/to_string_pdb_text.py": "8601bff07901d4da8f70d169f52fbc1a07fd5d6eba4f810479396303e8386cac",
+          "molsysmt/third_party/nglview/__init__.py": "c1ea09201358dd2a97ffc017e432fcde0dd68a55120fce32d37357d7dc40efc1",
+          "molsysmt/third_party/nglview/add_arrows.py": "5a318adba8e1b4def46bc48deddd7dbc7b6bcafd91f3401850a88452400a0685",
+          "molsysmt/third_party/nglview/add_contacts.py": "100f7c1f7c339944f6fcc6d843239a35838e6922ab87f2d59917f800eb4a043d",
+          "molsysmt/third_party/nglview/add_cylinders.py": "c33295f46cec104a76437d5c0da18e2e9a28fc70f34664fbea64a8da8b3f538e",
+          "molsysmt/third_party/nglview/add_hbonds.py": "e23a57cd1cde25e40a4ca32ce2f80fca058e4a171842dcb9d1f45bdfa1a6ea6d",
+          "molsysmt/third_party/nglview/clear.py": "9155641e103ade394d8ec7dd14563283a0ab18b310844ad200bb21a843d2a85a",
+          "molsysmt/third_party/nglview/load_html_in_jupyter_notebook.py": "a85fb69a6f4630381ac1b4dd97b57ae9c3bcf909f48c92829e42519d6b101e3d",
+          "molsysmt/third_party/nglview/molsysmt_trajectory.py": "a98b1d13a58414ae75e5e0fd10105821e927919f87c38400a3b11fabd7c49b10",
+          "molsysmt/third_party/nglview/patching_nglview.py": "7c62c786b5b856024436b8199b71147936ba57ee23704432464b8b1688cb7835",
+          "molsysmt/third_party/nglview/set_color.py": "9d196c82bbc48ac00c5c5d2a687544b0c99b635664b33a80c4b0a16e1faa2595",
+          "molsysmt/third_party/nglview/set_color_by_value.py": "15fb7a409a69b349a47e49d1a71d78063cc645c039f55d08bcba222622137f14",
+          "molsysmt/third_party/nglview/show_as_balls_and_sticks.py": "92414ce60411ce2ea54a857f55ff4e9afe1c332ffebb1c47e8f609aeb9aec524",
+          "molsysmt/third_party/nglview/show_as_cartoon.py": "e254f12d3cc0572e8a45d5fca87c3049096bd7bc6b5f582e833369c67a1a30e3",
+          "molsysmt/third_party/nglview/show_as_licorice.py": "a1f286bbb3bf77ca02318bdff14c62d779dc83addf13c9aa654a3239f23a8ea0",
+          "molsysmt/third_party/nglview/show_as_surface.py": "b9d47db50f1066dd00162e5e74e66dabe5bf5e0c3fc53217f55845974c407a24",
+          "molsysmt/third_party/nglview/show_gui.py": "fd0e3cd575eb973efd3fae33d738bcb7fb101cd4e91ba882a2f7e56d03aa3052",
+          "molsysmt/third_party/nglview/standardize_view.py": "83584565d70090170a8b917073ede8deead910372b44a66cf317d561d064a0c3",
+          "molsysmt/third_party/nglview/write_html.py": "4983a24fe4afce9f9f228a3f96378a63aebf18cdbdd64f66cb9ea0940e617e4e"
+        },
+        "runner_sha256": "5e73a7c1e253b9464f807bd4c8e543f8febbcadd505ba8efe74062fb3232b031",
+        "preflight_native_exit_code": 0,
+        "pytest_native_exit_code": 0
+      },
+      "origins": {
+        "python": "3.12.12 | packaged by conda-forge | (main, Jan 26 2026, 23:51:32) [GCC 14.3.0]",
+        "executable": "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+        "providers": {
+          "molsysmt": {
+            "distribution_version": "0.23.0+393.ge1facf624.dirty",
+            "module_version": "0.23.0+393.ge1facf624.dirty",
+            "origin": "molsysmt/__init__.py",
+            "sha256": "97b7698e7027c768ce8700ec991e2f02c5a97d7caf233707c05e2886fe2f7280"
+          },
+          "nglview": {
+            "distribution_version": "3.0.4",
+            "module_version": "3.0.4",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/__init__.py",
+            "sha256": "e782f2aaaa818db97ae275e42a25226acd864c9e7ab18e2920f2473944a24782"
+          },
+          "nglview.widget": {
+            "distribution_version": "3.0.4",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/widget.py",
+            "sha256": "5d3182b6c4182f697ce967611393c306d151ddae470b6dbb857dbf3fae65c166"
+          },
+          "nglview.color": {
+            "distribution_version": "3.0.4",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/color.py",
+            "sha256": "8ed5990ca5c1470ae3b422535e517c650a801aaf3e17db827351eae43f406178"
+          },
+          "ipywidgets": {
+            "distribution_version": "8.1.8",
+            "module_version": "8.1.8",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/ipywidgets/__init__.py",
+            "sha256": "3ae03596f80c8fe0eaf2ee0f698a88db89a98af23a9c804f4127d00abbfb15e3"
+          },
+          "traitlets": {
+            "distribution_version": "5.14.3",
+            "module_version": "5.14.3",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/traitlets/__init__.py",
+            "sha256": "a2040be9b1c774396085125f9d8035fc453394d9790368d1d8d543c2bf505e7e"
+          },
+          "numpy": {
+            "distribution_version": "2.3.5",
+            "module_version": "2.3.5",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/numpy/__init__.py",
+            "sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "distribution_version": "2.3.3",
+            "module_version": "2.3.3",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/pandas/__init__.py",
+            "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyunitwizard": {
+            "distribution_version": "0.28.1",
+            "module_version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "distribution_version": "0.14.0",
+            "module_version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "distribution_version": "0.15.1",
+            "module_version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "distribution_version": "0.16.0",
+            "module_version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest": {
+            "distribution_version": "9.0.2",
+            "module_version": "9.0.2",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/pytest/__init__.py",
+            "sha256": "7be7a1e2218dc59a19d1ad131e4abe21172a295087efc72898938248782e8766"
+          },
+          "pytest_receptor": {
+            "distribution_version": "1.2.1",
+            "module_version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        },
+        "scope": "Headless Python API/source consumer receiving; no frontend visual qualification."
+      },
+      "unsuccessful_nodes": []
+    },
+    {
+      "junit": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-current314-received_widget_identity.xml",
+      "junit_sha256": "b487a70592a4a138b075f0699c48a9fa587bfa66775d056c1c4ce966b6f7f371",
+      "counts": {
+        "tests": 93,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "invocation": {
+        "profile": "current314",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "tests/form/nglview_NGLWidget",
+          "tests/basic/get/test_get_nglview_NGLWidget.py",
+          "tests/basic/view/test_view_molsysmt_MolSys_with_NGLView.py",
+          "tests/basic/view/test_empty_view_contract.py",
+          "tests/third_party/nglview",
+          "--junitxml=.pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-current314-received_widget_identity.xml"
+        ],
+        "pythonpath": [
+          "existing sibling checkout: molsysmt",
+          ".pytest_cache/pr543-viewer-4223-20261105",
+          ".pytest_cache/stabilization-551/tooling/published"
+        ],
+        "inherited_pytest_addopts": null,
+        "origins": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-current314-received_widget_identity-origins.json",
+        "artifact": {
+          "url": "https://conda.anaconda.org/conda-forge/noarch/nglview-4.0.1-pyh460f6b1_0.conda",
+          "sha256": "af9161e2667741b13477110111cc280689e7ad53a58e0b8cea7c33d91efaef0e",
+          "metadata": "existing interpreter molsyssuite@uibcdf_3.14 prefix/conda-meta/nglview-4.0.1-pyh460f6b1_0.json",
+          "selected_installed_files": [
+            {
+              "path": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/__init__.py",
+              "sha256": "1f45be88feb8acb87c8745655d89fab0d123145d0be6e04f4eaccd3302a98e64",
+              "link_receipt_sha256": "1f45be88feb8acb87c8745655d89fab0d123145d0be6e04f4eaccd3302a98e64"
+            },
+            {
+              "path": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/widget.py",
+              "sha256": "18092e6a032539780a4d819294a2cf8fc5590a98d57555d47d55221adaf0d899",
+              "link_receipt_sha256": "18092e6a032539780a4d819294a2cf8fc5590a98d57555d47d55221adaf0d899"
+            },
+            {
+              "path": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/color.py",
+              "sha256": "6639cf5865421ab042fd5d790001851031fa04f6d5edebc8183c66ab44eb73b1",
+              "link_receipt_sha256": "6639cf5865421ab042fd5d790001851031fa04f6d5edebc8183c66ab44eb73b1"
+            }
+          ],
+          "archive_rehashed": false
+        },
+        "scope": "Source receiving with reused public-support/dependency closure; headless Python/widget/HTML only. No install, no frontend visual qualification.",
+        "git_head": "0215adf01a4f03cb17fb229b0565229c02f34b13",
+        "source_hashes": {
+          "molsysmt/basic/viewer/nglview.py": "1cd565e3a0c504ec7716a9f604bdd970bb8891d9214353c4a8e0fab787b08ea5",
+          "molsysmt/form/molsysmt_MolSys/to_nglview_NGLWidget.py": "87152ea5f385586a3afcad7fd2a3402277df9f6eb6d7ee645de79d6f35578d75",
+          "molsysmt/form/nglview_NGLWidget/__init__.py": "a701b86f8a8814034fa19e18335341346cfd7b99d6dbc1e24568c7161f6a2284",
+          "molsysmt/form/nglview_NGLWidget/_read_native.py": "3ecf26cd9b8a6206cb59464cf473d55dc5d534e308a2e76412f62e563646e7dc",
+          "molsysmt/form/nglview_NGLWidget/_topology_sidecar.py": "f0cd2daf0ceb58e3269fa1eb7b2f10cf7b38c72e25818320738d1e7238130187",
+          "molsysmt/form/nglview_NGLWidget/add.py": "e8652d7384e35b0ba91423fb1d435d60c8dd42a05cb83f311881df21f1226a54",
+          "molsysmt/form/nglview_NGLWidget/append_structures.py": "4ad35a2efbcda40a2b9ab08af23b728369958e6009b21a9251ae31f6215f02fe",
+          "molsysmt/form/nglview_NGLWidget/attributes.py": "056cb4ad2544957eab604df5debc29bc844fe7531adc53f78d1dd4f403a58852",
+          "molsysmt/form/nglview_NGLWidget/copy.py": "409b83a983e1428fad4881cf9a9197a2b2cfc319be3e74d9445d66ea071c9a65",
+          "molsysmt/form/nglview_NGLWidget/extract.py": "6e36191e02cc0407f775bcd56c9c2abc2e985fc908f83020068ce6c7c34896dc",
+          "molsysmt/form/nglview_NGLWidget/get_structural_attributes.py": "31889aa6aa0574eacec26261462dedadfddacbaed89b2d9c9a8d75b05c5b5102",
+          "molsysmt/form/nglview_NGLWidget/get_topological_attributes.py": "30d373a1e999a3b3ae76f2009a8b0a9104821ef624a8bff7f7b1c314098c6aca",
+          "molsysmt/form/nglview_NGLWidget/has_attribute.py": "d5b22dd7ad4e891bdae153bf18cb764cbdb5fe4c25230fce93279ca6a22df0d1",
+          "molsysmt/form/nglview_NGLWidget/is_form.py": "3d545a9afb77fccf2e47153853c8f9113c82fa244bed4f076e319e6222b7decb",
+          "molsysmt/form/nglview_NGLWidget/iterators.py": "cf1328b9c8b92a61ecdbe41b01d39c1f130f02d70c5548e6344faf0850c8439e",
+          "molsysmt/form/nglview_NGLWidget/merge.py": "c390a1a650f18cb288f5b2a995ceb0982d6b6a6a67c1938e3a60916ce9b9b54f",
+          "molsysmt/form/nglview_NGLWidget/set.py": "1f16a7f4d4b3a672e8a5ca9d7ffb9a0dfebb472c3ea8375e55bd45c639b7fb83",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_MolSys.py": "9282df89ad3af7710ff99294e277a0a4ab344e2b23bc952ebf9d4b68f756fefe",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_Structures.py": "962308a242e823ef276bc5da6a8921b4de137a1dfdea9ba1188c37a1bffb82f3",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_Topology.py": "bb5285ab1c1510e518163d081c57f3c6a97a105991a242a759da94a2613e38c4",
+          "molsysmt/form/nglview_NGLWidget/to_nglview_NGLWidget.py": "6c3852b343aed6bdeb9051ed9c01d47f63c288ac26ace5f708e1d5f7b5b8a175",
+          "molsysmt/form/nglview_NGLWidget/to_openmm_Topology.py": "255504d005d73fdfd1dc54a97db1b086cc191a3a80b6648967d1669ac3a3cc7c",
+          "molsysmt/form/nglview_NGLWidget/to_string_amino_acids_1.py": "949e27f360e75d680f54c71f920913fb53a8825252a0cfb816101c05694f1110",
+          "molsysmt/form/nglview_NGLWidget/to_string_amino_acids_3.py": "91003d73e9fde0bbfcac4b36f930c1f5c49a44d34c209746425dd7f8f65afa99",
+          "molsysmt/form/nglview_NGLWidget/to_string_pdb_text.py": "8601bff07901d4da8f70d169f52fbc1a07fd5d6eba4f810479396303e8386cac",
+          "molsysmt/third_party/nglview/__init__.py": "c1ea09201358dd2a97ffc017e432fcde0dd68a55120fce32d37357d7dc40efc1",
+          "molsysmt/third_party/nglview/add_arrows.py": "5a318adba8e1b4def46bc48deddd7dbc7b6bcafd91f3401850a88452400a0685",
+          "molsysmt/third_party/nglview/add_contacts.py": "100f7c1f7c339944f6fcc6d843239a35838e6922ab87f2d59917f800eb4a043d",
+          "molsysmt/third_party/nglview/add_cylinders.py": "c33295f46cec104a76437d5c0da18e2e9a28fc70f34664fbea64a8da8b3f538e",
+          "molsysmt/third_party/nglview/add_hbonds.py": "e23a57cd1cde25e40a4ca32ce2f80fca058e4a171842dcb9d1f45bdfa1a6ea6d",
+          "molsysmt/third_party/nglview/clear.py": "9155641e103ade394d8ec7dd14563283a0ab18b310844ad200bb21a843d2a85a",
+          "molsysmt/third_party/nglview/load_html_in_jupyter_notebook.py": "a85fb69a6f4630381ac1b4dd97b57ae9c3bcf909f48c92829e42519d6b101e3d",
+          "molsysmt/third_party/nglview/molsysmt_trajectory.py": "a98b1d13a58414ae75e5e0fd10105821e927919f87c38400a3b11fabd7c49b10",
+          "molsysmt/third_party/nglview/patching_nglview.py": "7c62c786b5b856024436b8199b71147936ba57ee23704432464b8b1688cb7835",
+          "molsysmt/third_party/nglview/set_color.py": "9d196c82bbc48ac00c5c5d2a687544b0c99b635664b33a80c4b0a16e1faa2595",
+          "molsysmt/third_party/nglview/set_color_by_value.py": "15fb7a409a69b349a47e49d1a71d78063cc645c039f55d08bcba222622137f14",
+          "molsysmt/third_party/nglview/show_as_balls_and_sticks.py": "92414ce60411ce2ea54a857f55ff4e9afe1c332ffebb1c47e8f609aeb9aec524",
+          "molsysmt/third_party/nglview/show_as_cartoon.py": "e254f12d3cc0572e8a45d5fca87c3049096bd7bc6b5f582e833369c67a1a30e3",
+          "molsysmt/third_party/nglview/show_as_licorice.py": "a1f286bbb3bf77ca02318bdff14c62d779dc83addf13c9aa654a3239f23a8ea0",
+          "molsysmt/third_party/nglview/show_as_surface.py": "b9d47db50f1066dd00162e5e74e66dabe5bf5e0c3fc53217f55845974c407a24",
+          "molsysmt/third_party/nglview/show_gui.py": "fd0e3cd575eb973efd3fae33d738bcb7fb101cd4e91ba882a2f7e56d03aa3052",
+          "molsysmt/third_party/nglview/standardize_view.py": "83584565d70090170a8b917073ede8deead910372b44a66cf317d561d064a0c3",
+          "molsysmt/third_party/nglview/write_html.py": "4983a24fe4afce9f9f228a3f96378a63aebf18cdbdd64f66cb9ea0940e617e4e"
+        },
+        "runner_sha256": "5e73a7c1e253b9464f807bd4c8e543f8febbcadd505ba8efe74062fb3232b031",
+        "preflight_native_exit_code": 0,
+        "pytest_native_exit_code": 0
+      },
+      "origins": {
+        "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+        "executable": "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+        "providers": {
+          "molsysmt": {
+            "distribution_version": "0.23.0+393.ge1facf624.dirty",
+            "module_version": "0.23.0+393.ge1facf624.dirty",
+            "origin": "molsysmt/__init__.py",
+            "sha256": "97b7698e7027c768ce8700ec991e2f02c5a97d7caf233707c05e2886fe2f7280"
+          },
+          "nglview": {
+            "distribution_version": "4.0.1",
+            "module_version": "4.0.1",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/__init__.py",
+            "sha256": "1f45be88feb8acb87c8745655d89fab0d123145d0be6e04f4eaccd3302a98e64"
+          },
+          "nglview.widget": {
+            "distribution_version": "4.0.1",
+            "module_version": null,
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/widget.py",
+            "sha256": "18092e6a032539780a4d819294a2cf8fc5590a98d57555d47d55221adaf0d899"
+          },
+          "nglview.color": {
+            "distribution_version": "4.0.1",
+            "module_version": null,
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/color.py",
+            "sha256": "6639cf5865421ab042fd5d790001851031fa04f6d5edebc8183c66ab44eb73b1"
+          },
+          "ipywidgets": {
+            "distribution_version": "8.1.9",
+            "module_version": "8.1.9",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/ipywidgets/__init__.py",
+            "sha256": "3ae03596f80c8fe0eaf2ee0f698a88db89a98af23a9c804f4127d00abbfb15e3"
+          },
+          "traitlets": {
+            "distribution_version": "5.16.1",
+            "module_version": "5.16.1",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/traitlets/__init__.py",
+            "sha256": "1fa4d4fb3906b3f4e4efcf6c201490482b85cde918d89d19c1133c4fe5eaf7e2"
+          },
+          "numpy": {
+            "distribution_version": "2.4.6",
+            "module_version": "2.4.6",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/numpy/__init__.py",
+            "sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+          },
+          "pandas": {
+            "distribution_version": "2.3.3",
+            "module_version": "2.3.3",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/pandas/__init__.py",
+            "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyunitwizard": {
+            "distribution_version": "0.29.1+6.gf82b618",
+            "module_version": "0.29.1+6.gf82b618",
+            "origin": "existing sibling checkout: pyunitwizard/pyunitwizard/__init__.py",
+            "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "distribution_version": "0.16.0+1.g6dabaf7",
+            "module_version": "0.16.0+1.g6dabaf7",
+            "origin": "existing sibling checkout: argdigest/argdigest/__init__.py",
+            "sha256": "07518ec0f8d53c99d67f40aa76dc1a9f021ab659fc97ee4eb24a2e325e4feaee"
+          },
+          "depdigest": {
+            "distribution_version": "0.15.1+3.ga27172b",
+            "module_version": "0.15.1+3.ga27172b",
+            "origin": "existing sibling checkout: depdigest/depdigest/__init__.py",
+            "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "distribution_version": "0.21.0+1.gd6b2394",
+            "module_version": "0.22.0+15.g5ee88c1",
+            "origin": "existing sibling checkout: smonitor/smonitor/__init__.py",
+            "sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+          },
+          "pytest": {
+            "distribution_version": "9.1.1",
+            "module_version": "9.1.1",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/pytest/__init__.py",
+            "sha256": "ee37885c9583f843390684dfb496907f87a0905128e7a3cf4ad227f49ff34c2d"
+          },
+          "pytest_receptor": {
+            "distribution_version": "1.2.1",
+            "module_version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        },
+        "scope": "Headless Python API/source consumer receiving; no frontend visual qualification."
+      },
+      "unsuccessful_nodes": []
+    },
+    {
+      "junit": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-floor312-validation_keyword_baseline.xml",
+      "junit_sha256": "38d39c83f9b5afec0d86b08c4559064fc941c14dc2f0f2b8e515e644225fafb3",
+      "counts": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "invocation": {
+        "profile": "floor312",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-p",
+          "no:smonitor",
+          "-n",
+          "12",
+          "tests/form/nglview_NGLWidget/test_conversion_boundary.py",
+          "--junitxml=.pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-floor312-validation_keyword_baseline.xml"
+        ],
+        "pythonpath": [
+          ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4",
+          "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages",
+          "existing Conda cache: py-mmcif-1.1.1-py_0/site-packages",
+          "existing Conda cache: argdigest-0.14.0-py_0/site-packages",
+          "existing Conda cache: depdigest-0.15.1-py_0/site-packages",
+          "existing Conda cache: smonitor-0.16.0-py_1/site-packages",
+          ".pytest_cache/pre1-review-20261106/providers/public-support/ackredit-0.9.0-py_0/site-packages",
+          "existing sibling checkout: molsysmt",
+          ".pytest_cache/pr543-viewer-4223-20261105",
+          ".pytest_cache/stabilization-551/tooling/published"
+        ],
+        "inherited_pytest_addopts": null,
+        "origins": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-floor312-validation_keyword_baseline-origins.json",
+        "artifact": {
+          "version": "3.0.4",
+          "url": "https://files.pythonhosted.org/packages/16/71/7651b6e1ab40b0b2491486444951ce723281d707fe3098e5e0aad89d6468/nglview-3.0.4.tar.gz",
+          "sha256_expected": "e7ea100e77bfbf52bc89aaac5692da4358c86be4de103c78c34c76076f4bc9a8",
+          "sha256_observed": "e7ea100e77bfbf52bc89aaac5692da4358c86be4de103c78c34c76076f4bc9a8",
+          "size": 7132932,
+          "archive": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/nglview-3.0.4.tar.gz",
+          "python_prefix": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4"
+        },
+        "scope": "Source receiving with reused public-support/dependency closure; headless Python/widget/HTML only. No install, no frontend visual qualification.",
+        "git_head": "0215adf01a4f03cb17fb229b0565229c02f34b13",
+        "source_hashes": {
+          "molsysmt/basic/viewer/nglview.py": "1cd565e3a0c504ec7716a9f604bdd970bb8891d9214353c4a8e0fab787b08ea5",
+          "molsysmt/form/molsysmt_MolSys/to_nglview_NGLWidget.py": "87152ea5f385586a3afcad7fd2a3402277df9f6eb6d7ee645de79d6f35578d75",
+          "molsysmt/form/nglview_NGLWidget/__init__.py": "a701b86f8a8814034fa19e18335341346cfd7b99d6dbc1e24568c7161f6a2284",
+          "molsysmt/form/nglview_NGLWidget/_read_native.py": "3ecf26cd9b8a6206cb59464cf473d55dc5d534e308a2e76412f62e563646e7dc",
+          "molsysmt/form/nglview_NGLWidget/_topology_sidecar.py": "f0cd2daf0ceb58e3269fa1eb7b2f10cf7b38c72e25818320738d1e7238130187",
+          "molsysmt/form/nglview_NGLWidget/add.py": "e8652d7384e35b0ba91423fb1d435d60c8dd42a05cb83f311881df21f1226a54",
+          "molsysmt/form/nglview_NGLWidget/append_structures.py": "4ad35a2efbcda40a2b9ab08af23b728369958e6009b21a9251ae31f6215f02fe",
+          "molsysmt/form/nglview_NGLWidget/attributes.py": "056cb4ad2544957eab604df5debc29bc844fe7531adc53f78d1dd4f403a58852",
+          "molsysmt/form/nglview_NGLWidget/copy.py": "409b83a983e1428fad4881cf9a9197a2b2cfc319be3e74d9445d66ea071c9a65",
+          "molsysmt/form/nglview_NGLWidget/extract.py": "6e36191e02cc0407f775bcd56c9c2abc2e985fc908f83020068ce6c7c34896dc",
+          "molsysmt/form/nglview_NGLWidget/get_structural_attributes.py": "31889aa6aa0574eacec26261462dedadfddacbaed89b2d9c9a8d75b05c5b5102",
+          "molsysmt/form/nglview_NGLWidget/get_topological_attributes.py": "30d373a1e999a3b3ae76f2009a8b0a9104821ef624a8bff7f7b1c314098c6aca",
+          "molsysmt/form/nglview_NGLWidget/has_attribute.py": "d5b22dd7ad4e891bdae153bf18cb764cbdb5fe4c25230fce93279ca6a22df0d1",
+          "molsysmt/form/nglview_NGLWidget/is_form.py": "3d545a9afb77fccf2e47153853c8f9113c82fa244bed4f076e319e6222b7decb",
+          "molsysmt/form/nglview_NGLWidget/iterators.py": "cf1328b9c8b92a61ecdbe41b01d39c1f130f02d70c5548e6344faf0850c8439e",
+          "molsysmt/form/nglview_NGLWidget/merge.py": "c390a1a650f18cb288f5b2a995ceb0982d6b6a6a67c1938e3a60916ce9b9b54f",
+          "molsysmt/form/nglview_NGLWidget/set.py": "1f16a7f4d4b3a672e8a5ca9d7ffb9a0dfebb472c3ea8375e55bd45c639b7fb83",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_MolSys.py": "9282df89ad3af7710ff99294e277a0a4ab344e2b23bc952ebf9d4b68f756fefe",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_Structures.py": "962308a242e823ef276bc5da6a8921b4de137a1dfdea9ba1188c37a1bffb82f3",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_Topology.py": "bb5285ab1c1510e518163d081c57f3c6a97a105991a242a759da94a2613e38c4",
+          "molsysmt/form/nglview_NGLWidget/to_nglview_NGLWidget.py": "6c3852b343aed6bdeb9051ed9c01d47f63c288ac26ace5f708e1d5f7b5b8a175",
+          "molsysmt/form/nglview_NGLWidget/to_openmm_Topology.py": "255504d005d73fdfd1dc54a97db1b086cc191a3a80b6648967d1669ac3a3cc7c",
+          "molsysmt/form/nglview_NGLWidget/to_string_amino_acids_1.py": "949e27f360e75d680f54c71f920913fb53a8825252a0cfb816101c05694f1110",
+          "molsysmt/form/nglview_NGLWidget/to_string_amino_acids_3.py": "91003d73e9fde0bbfcac4b36f930c1f5c49a44d34c209746425dd7f8f65afa99",
+          "molsysmt/form/nglview_NGLWidget/to_string_pdb_text.py": "8601bff07901d4da8f70d169f52fbc1a07fd5d6eba4f810479396303e8386cac",
+          "molsysmt/third_party/nglview/__init__.py": "c1ea09201358dd2a97ffc017e432fcde0dd68a55120fce32d37357d7dc40efc1",
+          "molsysmt/third_party/nglview/add_arrows.py": "5a318adba8e1b4def46bc48deddd7dbc7b6bcafd91f3401850a88452400a0685",
+          "molsysmt/third_party/nglview/add_contacts.py": "100f7c1f7c339944f6fcc6d843239a35838e6922ab87f2d59917f800eb4a043d",
+          "molsysmt/third_party/nglview/add_cylinders.py": "c33295f46cec104a76437d5c0da18e2e9a28fc70f34664fbea64a8da8b3f538e",
+          "molsysmt/third_party/nglview/add_hbonds.py": "e23a57cd1cde25e40a4ca32ce2f80fca058e4a171842dcb9d1f45bdfa1a6ea6d",
+          "molsysmt/third_party/nglview/clear.py": "9155641e103ade394d8ec7dd14563283a0ab18b310844ad200bb21a843d2a85a",
+          "molsysmt/third_party/nglview/load_html_in_jupyter_notebook.py": "a85fb69a6f4630381ac1b4dd97b57ae9c3bcf909f48c92829e42519d6b101e3d",
+          "molsysmt/third_party/nglview/molsysmt_trajectory.py": "a98b1d13a58414ae75e5e0fd10105821e927919f87c38400a3b11fabd7c49b10",
+          "molsysmt/third_party/nglview/patching_nglview.py": "7c62c786b5b856024436b8199b71147936ba57ee23704432464b8b1688cb7835",
+          "molsysmt/third_party/nglview/set_color.py": "9d196c82bbc48ac00c5c5d2a687544b0c99b635664b33a80c4b0a16e1faa2595",
+          "molsysmt/third_party/nglview/set_color_by_value.py": "15fb7a409a69b349a47e49d1a71d78063cc645c039f55d08bcba222622137f14",
+          "molsysmt/third_party/nglview/show_as_balls_and_sticks.py": "92414ce60411ce2ea54a857f55ff4e9afe1c332ffebb1c47e8f609aeb9aec524",
+          "molsysmt/third_party/nglview/show_as_cartoon.py": "e254f12d3cc0572e8a45d5fca87c3049096bd7bc6b5f582e833369c67a1a30e3",
+          "molsysmt/third_party/nglview/show_as_licorice.py": "a1f286bbb3bf77ca02318bdff14c62d779dc83addf13c9aa654a3239f23a8ea0",
+          "molsysmt/third_party/nglview/show_as_surface.py": "b9d47db50f1066dd00162e5e74e66dabe5bf5e0c3fc53217f55845974c407a24",
+          "molsysmt/third_party/nglview/show_gui.py": "fd0e3cd575eb973efd3fae33d738bcb7fb101cd4e91ba882a2f7e56d03aa3052",
+          "molsysmt/third_party/nglview/standardize_view.py": "83584565d70090170a8b917073ede8deead910372b44a66cf317d561d064a0c3",
+          "molsysmt/third_party/nglview/write_html.py": "4983a24fe4afce9f9f228a3f96378a63aebf18cdbdd64f66cb9ea0940e617e4e"
+        },
+        "runner_sha256": "5e73a7c1e253b9464f807bd4c8e543f8febbcadd505ba8efe74062fb3232b031",
+        "preflight_native_exit_code": 0,
+        "pytest_native_exit_code": 1
+      },
+      "origins": {
+        "python": "3.12.12 | packaged by conda-forge | (main, Jan 26 2026, 23:51:32) [GCC 14.3.0]",
+        "executable": "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+        "providers": {
+          "molsysmt": {
+            "distribution_version": "0.23.0+393.ge1facf624.dirty",
+            "module_version": "0.23.0+393.ge1facf624.dirty",
+            "origin": "molsysmt/__init__.py",
+            "sha256": "97b7698e7027c768ce8700ec991e2f02c5a97d7caf233707c05e2886fe2f7280"
+          },
+          "nglview": {
+            "distribution_version": "3.0.4",
+            "module_version": "3.0.4",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/__init__.py",
+            "sha256": "e782f2aaaa818db97ae275e42a25226acd864c9e7ab18e2920f2473944a24782"
+          },
+          "nglview.widget": {
+            "distribution_version": "3.0.4",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/widget.py",
+            "sha256": "5d3182b6c4182f697ce967611393c306d151ddae470b6dbb857dbf3fae65c166"
+          },
+          "nglview.color": {
+            "distribution_version": "3.0.4",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/color.py",
+            "sha256": "8ed5990ca5c1470ae3b422535e517c650a801aaf3e17db827351eae43f406178"
+          },
+          "ipywidgets": {
+            "distribution_version": "8.1.8",
+            "module_version": "8.1.8",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/ipywidgets/__init__.py",
+            "sha256": "3ae03596f80c8fe0eaf2ee0f698a88db89a98af23a9c804f4127d00abbfb15e3"
+          },
+          "traitlets": {
+            "distribution_version": "5.14.3",
+            "module_version": "5.14.3",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/traitlets/__init__.py",
+            "sha256": "a2040be9b1c774396085125f9d8035fc453394d9790368d1d8d543c2bf505e7e"
+          },
+          "numpy": {
+            "distribution_version": "2.3.5",
+            "module_version": "2.3.5",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/numpy/__init__.py",
+            "sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "distribution_version": "2.3.3",
+            "module_version": "2.3.3",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/pandas/__init__.py",
+            "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyunitwizard": {
+            "distribution_version": "0.28.1",
+            "module_version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "distribution_version": "0.14.0",
+            "module_version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "distribution_version": "0.15.1",
+            "module_version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "distribution_version": "0.16.0",
+            "module_version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest": {
+            "distribution_version": "9.0.2",
+            "module_version": "9.0.2",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/pytest/__init__.py",
+            "sha256": "7be7a1e2218dc59a19d1ad131e4abe21172a295087efc72898938248782e8766"
+          },
+          "pytest_receptor": {
+            "distribution_version": "1.2.1",
+            "module_version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        },
+        "scope": "Headless Python API/source consumer receiving; no frontend visual qualification."
+      },
+      "unsuccessful_nodes": [
+        {
+          "node": "tests.form.nglview_NGLWidget.test_conversion_boundary::test_native_conversion_does_not_send_validation_keywords_to_widget",
+          "message": "DeprecationWarning: Passing unrecognized arguments to super(NGLWidget).__init__(skip_digestion=True).\nobject.__init__() takes exactly one argument (the instance to initialize)\nThis is deprecated in traitlets 4.2.This error will be raised in a future release of traitlets."
+        }
+      ]
+    },
+    {
+      "junit": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-floor312-validation_boundary_fixed.xml",
+      "junit_sha256": "50390f5449dcf407f00d1205aa7d7fd9f8e96fa04dd7498e9d1a12768ed96368",
+      "counts": {
+        "tests": 95,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "invocation": {
+        "profile": "floor312",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-p",
+          "no:smonitor",
+          "-n",
+          "12",
+          "tests/form/nglview_NGLWidget",
+          "tests/basic/get/test_get_nglview_NGLWidget.py",
+          "tests/basic/view/test_view_molsysmt_MolSys_with_NGLView.py",
+          "tests/basic/view/test_empty_view_contract.py",
+          "tests/third_party/nglview",
+          "--junitxml=.pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-floor312-validation_boundary_fixed.xml"
+        ],
+        "pythonpath": [
+          ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4",
+          "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages",
+          "existing Conda cache: py-mmcif-1.1.1-py_0/site-packages",
+          "existing Conda cache: argdigest-0.14.0-py_0/site-packages",
+          "existing Conda cache: depdigest-0.15.1-py_0/site-packages",
+          "existing Conda cache: smonitor-0.16.0-py_1/site-packages",
+          ".pytest_cache/pre1-review-20261106/providers/public-support/ackredit-0.9.0-py_0/site-packages",
+          "existing sibling checkout: molsysmt",
+          ".pytest_cache/pr543-viewer-4223-20261105",
+          ".pytest_cache/stabilization-551/tooling/published"
+        ],
+        "inherited_pytest_addopts": null,
+        "origins": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-floor312-validation_boundary_fixed-origins.json",
+        "artifact": {
+          "version": "3.0.4",
+          "url": "https://files.pythonhosted.org/packages/16/71/7651b6e1ab40b0b2491486444951ce723281d707fe3098e5e0aad89d6468/nglview-3.0.4.tar.gz",
+          "sha256_expected": "e7ea100e77bfbf52bc89aaac5692da4358c86be4de103c78c34c76076f4bc9a8",
+          "sha256_observed": "e7ea100e77bfbf52bc89aaac5692da4358c86be4de103c78c34c76076f4bc9a8",
+          "size": 7132932,
+          "archive": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/nglview-3.0.4.tar.gz",
+          "python_prefix": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4"
+        },
+        "scope": "Source receiving with reused public-support/dependency closure; headless Python/widget/HTML only. No install, no frontend visual qualification.",
+        "git_head": "0215adf01a4f03cb17fb229b0565229c02f34b13",
+        "source_hashes": {
+          "molsysmt/basic/viewer/nglview.py": "1cd565e3a0c504ec7716a9f604bdd970bb8891d9214353c4a8e0fab787b08ea5",
+          "molsysmt/form/molsysmt_MolSys/to_nglview_NGLWidget.py": "14f6137d5a81398f79bce1934a29a614e88b2b51ce347dc5fea8173495cfa5cf",
+          "molsysmt/form/nglview_NGLWidget/__init__.py": "a701b86f8a8814034fa19e18335341346cfd7b99d6dbc1e24568c7161f6a2284",
+          "molsysmt/form/nglview_NGLWidget/_read_native.py": "3ecf26cd9b8a6206cb59464cf473d55dc5d534e308a2e76412f62e563646e7dc",
+          "molsysmt/form/nglview_NGLWidget/_topology_sidecar.py": "f0cd2daf0ceb58e3269fa1eb7b2f10cf7b38c72e25818320738d1e7238130187",
+          "molsysmt/form/nglview_NGLWidget/add.py": "e8652d7384e35b0ba91423fb1d435d60c8dd42a05cb83f311881df21f1226a54",
+          "molsysmt/form/nglview_NGLWidget/append_structures.py": "4ad35a2efbcda40a2b9ab08af23b728369958e6009b21a9251ae31f6215f02fe",
+          "molsysmt/form/nglview_NGLWidget/attributes.py": "056cb4ad2544957eab604df5debc29bc844fe7531adc53f78d1dd4f403a58852",
+          "molsysmt/form/nglview_NGLWidget/copy.py": "409b83a983e1428fad4881cf9a9197a2b2cfc319be3e74d9445d66ea071c9a65",
+          "molsysmt/form/nglview_NGLWidget/extract.py": "6e36191e02cc0407f775bcd56c9c2abc2e985fc908f83020068ce6c7c34896dc",
+          "molsysmt/form/nglview_NGLWidget/get_structural_attributes.py": "31889aa6aa0574eacec26261462dedadfddacbaed89b2d9c9a8d75b05c5b5102",
+          "molsysmt/form/nglview_NGLWidget/get_topological_attributes.py": "30d373a1e999a3b3ae76f2009a8b0a9104821ef624a8bff7f7b1c314098c6aca",
+          "molsysmt/form/nglview_NGLWidget/has_attribute.py": "d5b22dd7ad4e891bdae153bf18cb764cbdb5fe4c25230fce93279ca6a22df0d1",
+          "molsysmt/form/nglview_NGLWidget/is_form.py": "3d545a9afb77fccf2e47153853c8f9113c82fa244bed4f076e319e6222b7decb",
+          "molsysmt/form/nglview_NGLWidget/iterators.py": "cf1328b9c8b92a61ecdbe41b01d39c1f130f02d70c5548e6344faf0850c8439e",
+          "molsysmt/form/nglview_NGLWidget/merge.py": "c390a1a650f18cb288f5b2a995ceb0982d6b6a6a67c1938e3a60916ce9b9b54f",
+          "molsysmt/form/nglview_NGLWidget/set.py": "1f16a7f4d4b3a672e8a5ca9d7ffb9a0dfebb472c3ea8375e55bd45c639b7fb83",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_MolSys.py": "9282df89ad3af7710ff99294e277a0a4ab344e2b23bc952ebf9d4b68f756fefe",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_Structures.py": "962308a242e823ef276bc5da6a8921b4de137a1dfdea9ba1188c37a1bffb82f3",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_Topology.py": "bb5285ab1c1510e518163d081c57f3c6a97a105991a242a759da94a2613e38c4",
+          "molsysmt/form/nglview_NGLWidget/to_nglview_NGLWidget.py": "6c3852b343aed6bdeb9051ed9c01d47f63c288ac26ace5f708e1d5f7b5b8a175",
+          "molsysmt/form/nglview_NGLWidget/to_openmm_Topology.py": "255504d005d73fdfd1dc54a97db1b086cc191a3a80b6648967d1669ac3a3cc7c",
+          "molsysmt/form/nglview_NGLWidget/to_string_amino_acids_1.py": "949e27f360e75d680f54c71f920913fb53a8825252a0cfb816101c05694f1110",
+          "molsysmt/form/nglview_NGLWidget/to_string_amino_acids_3.py": "91003d73e9fde0bbfcac4b36f930c1f5c49a44d34c209746425dd7f8f65afa99",
+          "molsysmt/form/nglview_NGLWidget/to_string_pdb_text.py": "8601bff07901d4da8f70d169f52fbc1a07fd5d6eba4f810479396303e8386cac",
+          "molsysmt/third_party/nglview/__init__.py": "c1ea09201358dd2a97ffc017e432fcde0dd68a55120fce32d37357d7dc40efc1",
+          "molsysmt/third_party/nglview/add_arrows.py": "5a318adba8e1b4def46bc48deddd7dbc7b6bcafd91f3401850a88452400a0685",
+          "molsysmt/third_party/nglview/add_contacts.py": "100f7c1f7c339944f6fcc6d843239a35838e6922ab87f2d59917f800eb4a043d",
+          "molsysmt/third_party/nglview/add_cylinders.py": "c33295f46cec104a76437d5c0da18e2e9a28fc70f34664fbea64a8da8b3f538e",
+          "molsysmt/third_party/nglview/add_hbonds.py": "e23a57cd1cde25e40a4ca32ce2f80fca058e4a171842dcb9d1f45bdfa1a6ea6d",
+          "molsysmt/third_party/nglview/clear.py": "9155641e103ade394d8ec7dd14563283a0ab18b310844ad200bb21a843d2a85a",
+          "molsysmt/third_party/nglview/load_html_in_jupyter_notebook.py": "a85fb69a6f4630381ac1b4dd97b57ae9c3bcf909f48c92829e42519d6b101e3d",
+          "molsysmt/third_party/nglview/molsysmt_trajectory.py": "a98b1d13a58414ae75e5e0fd10105821e927919f87c38400a3b11fabd7c49b10",
+          "molsysmt/third_party/nglview/patching_nglview.py": "7c62c786b5b856024436b8199b71147936ba57ee23704432464b8b1688cb7835",
+          "molsysmt/third_party/nglview/set_color.py": "9d196c82bbc48ac00c5c5d2a687544b0c99b635664b33a80c4b0a16e1faa2595",
+          "molsysmt/third_party/nglview/set_color_by_value.py": "15fb7a409a69b349a47e49d1a71d78063cc645c039f55d08bcba222622137f14",
+          "molsysmt/third_party/nglview/show_as_balls_and_sticks.py": "92414ce60411ce2ea54a857f55ff4e9afe1c332ffebb1c47e8f609aeb9aec524",
+          "molsysmt/third_party/nglview/show_as_cartoon.py": "e254f12d3cc0572e8a45d5fca87c3049096bd7bc6b5f582e833369c67a1a30e3",
+          "molsysmt/third_party/nglview/show_as_licorice.py": "a1f286bbb3bf77ca02318bdff14c62d779dc83addf13c9aa654a3239f23a8ea0",
+          "molsysmt/third_party/nglview/show_as_surface.py": "b9d47db50f1066dd00162e5e74e66dabe5bf5e0c3fc53217f55845974c407a24",
+          "molsysmt/third_party/nglview/show_gui.py": "fd0e3cd575eb973efd3fae33d738bcb7fb101cd4e91ba882a2f7e56d03aa3052",
+          "molsysmt/third_party/nglview/standardize_view.py": "83584565d70090170a8b917073ede8deead910372b44a66cf317d561d064a0c3",
+          "molsysmt/third_party/nglview/write_html.py": "4983a24fe4afce9f9f228a3f96378a63aebf18cdbdd64f66cb9ea0940e617e4e"
+        },
+        "runner_sha256": "5e73a7c1e253b9464f807bd4c8e543f8febbcadd505ba8efe74062fb3232b031",
+        "preflight_native_exit_code": 0,
+        "pytest_native_exit_code": 0
+      },
+      "origins": {
+        "python": "3.12.12 | packaged by conda-forge | (main, Jan 26 2026, 23:51:32) [GCC 14.3.0]",
+        "executable": "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+        "providers": {
+          "molsysmt": {
+            "distribution_version": "0.23.0+393.ge1facf624.dirty",
+            "module_version": "0.23.0+393.ge1facf624.dirty",
+            "origin": "molsysmt/__init__.py",
+            "sha256": "97b7698e7027c768ce8700ec991e2f02c5a97d7caf233707c05e2886fe2f7280"
+          },
+          "nglview": {
+            "distribution_version": "3.0.4",
+            "module_version": "3.0.4",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/__init__.py",
+            "sha256": "e782f2aaaa818db97ae275e42a25226acd864c9e7ab18e2920f2473944a24782"
+          },
+          "nglview.widget": {
+            "distribution_version": "3.0.4",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/widget.py",
+            "sha256": "5d3182b6c4182f697ce967611393c306d151ddae470b6dbb857dbf3fae65c166"
+          },
+          "nglview.color": {
+            "distribution_version": "3.0.4",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/color.py",
+            "sha256": "8ed5990ca5c1470ae3b422535e517c650a801aaf3e17db827351eae43f406178"
+          },
+          "ipywidgets": {
+            "distribution_version": "8.1.8",
+            "module_version": "8.1.8",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/ipywidgets/__init__.py",
+            "sha256": "3ae03596f80c8fe0eaf2ee0f698a88db89a98af23a9c804f4127d00abbfb15e3"
+          },
+          "traitlets": {
+            "distribution_version": "5.14.3",
+            "module_version": "5.14.3",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/traitlets/__init__.py",
+            "sha256": "a2040be9b1c774396085125f9d8035fc453394d9790368d1d8d543c2bf505e7e"
+          },
+          "numpy": {
+            "distribution_version": "2.3.5",
+            "module_version": "2.3.5",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/numpy/__init__.py",
+            "sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "distribution_version": "2.3.3",
+            "module_version": "2.3.3",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/pandas/__init__.py",
+            "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyunitwizard": {
+            "distribution_version": "0.28.1",
+            "module_version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "distribution_version": "0.14.0",
+            "module_version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "distribution_version": "0.15.1",
+            "module_version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "distribution_version": "0.16.0",
+            "module_version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest": {
+            "distribution_version": "9.0.2",
+            "module_version": "9.0.2",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/pytest/__init__.py",
+            "sha256": "7be7a1e2218dc59a19d1ad131e4abe21172a295087efc72898938248782e8766"
+          },
+          "pytest_receptor": {
+            "distribution_version": "1.2.1",
+            "module_version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        },
+        "scope": "Headless Python API/source consumer receiving; no frontend visual qualification."
+      },
+      "unsuccessful_nodes": []
+    },
+    {
+      "junit": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-floor312-isolated_export_received.xml",
+      "junit_sha256": "b73677fe31a9b7788ca36fb1d091fc6c6615ee44860535e038b27ccf81dd8cb3",
+      "counts": {
+        "tests": 103,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "invocation": {
+        "profile": "floor312",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-p",
+          "no:smonitor",
+          "-n",
+          "12",
+          "tests/form/nglview_NGLWidget",
+          "tests/basic/get/test_get_nglview_NGLWidget.py",
+          "tests/basic/view/test_view_molsysmt_MolSys_with_NGLView.py",
+          "tests/basic/view/test_empty_view_contract.py",
+          "tests/third_party/nglview",
+          "--doctest-modules",
+          "molsysmt/third_party/nglview/write_html.py",
+          "--junitxml=.pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-floor312-isolated_export_received.xml"
+        ],
+        "pythonpath": [
+          ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4",
+          "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages",
+          "existing Conda cache: py-mmcif-1.1.1-py_0/site-packages",
+          "existing Conda cache: argdigest-0.14.0-py_0/site-packages",
+          "existing Conda cache: depdigest-0.15.1-py_0/site-packages",
+          "existing Conda cache: smonitor-0.16.0-py_1/site-packages",
+          ".pytest_cache/pre1-review-20261106/providers/public-support/ackredit-0.9.0-py_0/site-packages",
+          "existing sibling checkout: molsysmt",
+          ".pytest_cache/pr543-viewer-4223-20261105",
+          ".pytest_cache/stabilization-551/tooling/published"
+        ],
+        "inherited_pytest_addopts": null,
+        "origins": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-floor312-isolated_export_received-origins.json",
+        "artifact": {
+          "version": "3.0.4",
+          "url": "https://files.pythonhosted.org/packages/16/71/7651b6e1ab40b0b2491486444951ce723281d707fe3098e5e0aad89d6468/nglview-3.0.4.tar.gz",
+          "sha256_expected": "e7ea100e77bfbf52bc89aaac5692da4358c86be4de103c78c34c76076f4bc9a8",
+          "sha256_observed": "e7ea100e77bfbf52bc89aaac5692da4358c86be4de103c78c34c76076f4bc9a8",
+          "size": 7132932,
+          "archive": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/nglview-3.0.4.tar.gz",
+          "python_prefix": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4"
+        },
+        "scope": "Source receiving with reused public-support/dependency closure; headless Python/widget/HTML only. No install, no frontend visual qualification.",
+        "git_head": "e5d1dd0f853cdd69da1908bdd4b60b972441bf4b",
+        "source_hashes": {
+          "molsysmt/basic/viewer/nglview.py": "1cd565e3a0c504ec7716a9f604bdd970bb8891d9214353c4a8e0fab787b08ea5",
+          "molsysmt/form/molsysmt_MolSys/to_nglview_NGLWidget.py": "e628875df28fe0e5ba63c8a982eb112fd1ba2252ad9863c64da98e054a547a04",
+          "molsysmt/form/nglview_NGLWidget/__init__.py": "a701b86f8a8814034fa19e18335341346cfd7b99d6dbc1e24568c7161f6a2284",
+          "molsysmt/form/nglview_NGLWidget/_read_native.py": "3ecf26cd9b8a6206cb59464cf473d55dc5d534e308a2e76412f62e563646e7dc",
+          "molsysmt/form/nglview_NGLWidget/_topology_sidecar.py": "f0cd2daf0ceb58e3269fa1eb7b2f10cf7b38c72e25818320738d1e7238130187",
+          "molsysmt/form/nglview_NGLWidget/add.py": "e8652d7384e35b0ba91423fb1d435d60c8dd42a05cb83f311881df21f1226a54",
+          "molsysmt/form/nglview_NGLWidget/append_structures.py": "4ad35a2efbcda40a2b9ab08af23b728369958e6009b21a9251ae31f6215f02fe",
+          "molsysmt/form/nglview_NGLWidget/attributes.py": "056cb4ad2544957eab604df5debc29bc844fe7531adc53f78d1dd4f403a58852",
+          "molsysmt/form/nglview_NGLWidget/copy.py": "409b83a983e1428fad4881cf9a9197a2b2cfc319be3e74d9445d66ea071c9a65",
+          "molsysmt/form/nglview_NGLWidget/extract.py": "6e36191e02cc0407f775bcd56c9c2abc2e985fc908f83020068ce6c7c34896dc",
+          "molsysmt/form/nglview_NGLWidget/get_structural_attributes.py": "31889aa6aa0574eacec26261462dedadfddacbaed89b2d9c9a8d75b05c5b5102",
+          "molsysmt/form/nglview_NGLWidget/get_topological_attributes.py": "30d373a1e999a3b3ae76f2009a8b0a9104821ef624a8bff7f7b1c314098c6aca",
+          "molsysmt/form/nglview_NGLWidget/has_attribute.py": "d5b22dd7ad4e891bdae153bf18cb764cbdb5fe4c25230fce93279ca6a22df0d1",
+          "molsysmt/form/nglview_NGLWidget/is_form.py": "3d545a9afb77fccf2e47153853c8f9113c82fa244bed4f076e319e6222b7decb",
+          "molsysmt/form/nglview_NGLWidget/iterators.py": "cf1328b9c8b92a61ecdbe41b01d39c1f130f02d70c5548e6344faf0850c8439e",
+          "molsysmt/form/nglview_NGLWidget/merge.py": "c390a1a650f18cb288f5b2a995ceb0982d6b6a6a67c1938e3a60916ce9b9b54f",
+          "molsysmt/form/nglview_NGLWidget/set.py": "1f16a7f4d4b3a672e8a5ca9d7ffb9a0dfebb472c3ea8375e55bd45c639b7fb83",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_MolSys.py": "9282df89ad3af7710ff99294e277a0a4ab344e2b23bc952ebf9d4b68f756fefe",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_Structures.py": "962308a242e823ef276bc5da6a8921b4de137a1dfdea9ba1188c37a1bffb82f3",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_Topology.py": "bb5285ab1c1510e518163d081c57f3c6a97a105991a242a759da94a2613e38c4",
+          "molsysmt/form/nglview_NGLWidget/to_nglview_NGLWidget.py": "6c3852b343aed6bdeb9051ed9c01d47f63c288ac26ace5f708e1d5f7b5b8a175",
+          "molsysmt/form/nglview_NGLWidget/to_openmm_Topology.py": "255504d005d73fdfd1dc54a97db1b086cc191a3a80b6648967d1669ac3a3cc7c",
+          "molsysmt/form/nglview_NGLWidget/to_string_amino_acids_1.py": "949e27f360e75d680f54c71f920913fb53a8825252a0cfb816101c05694f1110",
+          "molsysmt/form/nglview_NGLWidget/to_string_amino_acids_3.py": "91003d73e9fde0bbfcac4b36f930c1f5c49a44d34c209746425dd7f8f65afa99",
+          "molsysmt/form/nglview_NGLWidget/to_string_pdb_text.py": "8601bff07901d4da8f70d169f52fbc1a07fd5d6eba4f810479396303e8386cac",
+          "molsysmt/third_party/nglview/__init__.py": "c1ea09201358dd2a97ffc017e432fcde0dd68a55120fce32d37357d7dc40efc1",
+          "molsysmt/third_party/nglview/add_arrows.py": "5a318adba8e1b4def46bc48deddd7dbc7b6bcafd91f3401850a88452400a0685",
+          "molsysmt/third_party/nglview/add_contacts.py": "100f7c1f7c339944f6fcc6d843239a35838e6922ab87f2d59917f800eb4a043d",
+          "molsysmt/third_party/nglview/add_cylinders.py": "c33295f46cec104a76437d5c0da18e2e9a28fc70f34664fbea64a8da8b3f538e",
+          "molsysmt/third_party/nglview/add_hbonds.py": "e23a57cd1cde25e40a4ca32ce2f80fca058e4a171842dcb9d1f45bdfa1a6ea6d",
+          "molsysmt/third_party/nglview/clear.py": "9155641e103ade394d8ec7dd14563283a0ab18b310844ad200bb21a843d2a85a",
+          "molsysmt/third_party/nglview/load_html_in_jupyter_notebook.py": "a85fb69a6f4630381ac1b4dd97b57ae9c3bcf909f48c92829e42519d6b101e3d",
+          "molsysmt/third_party/nglview/molsysmt_trajectory.py": "a98b1d13a58414ae75e5e0fd10105821e927919f87c38400a3b11fabd7c49b10",
+          "molsysmt/third_party/nglview/patching_nglview.py": "7c62c786b5b856024436b8199b71147936ba57ee23704432464b8b1688cb7835",
+          "molsysmt/third_party/nglview/set_color.py": "9d196c82bbc48ac00c5c5d2a687544b0c99b635664b33a80c4b0a16e1faa2595",
+          "molsysmt/third_party/nglview/set_color_by_value.py": "15fb7a409a69b349a47e49d1a71d78063cc645c039f55d08bcba222622137f14",
+          "molsysmt/third_party/nglview/show_as_balls_and_sticks.py": "92414ce60411ce2ea54a857f55ff4e9afe1c332ffebb1c47e8f609aeb9aec524",
+          "molsysmt/third_party/nglview/show_as_cartoon.py": "e254f12d3cc0572e8a45d5fca87c3049096bd7bc6b5f582e833369c67a1a30e3",
+          "molsysmt/third_party/nglview/show_as_licorice.py": "a1f286bbb3bf77ca02318bdff14c62d779dc83addf13c9aa654a3239f23a8ea0",
+          "molsysmt/third_party/nglview/show_as_surface.py": "b9d47db50f1066dd00162e5e74e66dabe5bf5e0c3fc53217f55845974c407a24",
+          "molsysmt/third_party/nglview/show_gui.py": "fd0e3cd575eb973efd3fae33d738bcb7fb101cd4e91ba882a2f7e56d03aa3052",
+          "molsysmt/third_party/nglview/standardize_view.py": "83584565d70090170a8b917073ede8deead910372b44a66cf317d561d064a0c3",
+          "molsysmt/third_party/nglview/write_html.py": "27679b761a5160f1c007f398391f83147778a6c02af3c09ed66913e7df08e521"
+        },
+        "runner_sha256": "5e73a7c1e253b9464f807bd4c8e543f8febbcadd505ba8efe74062fb3232b031",
+        "preflight_native_exit_code": 0,
+        "pytest_native_exit_code": 0
+      },
+      "origins": {
+        "python": "3.12.12 | packaged by conda-forge | (main, Jan 26 2026, 23:51:32) [GCC 14.3.0]",
+        "executable": "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+        "providers": {
+          "molsysmt": {
+            "distribution_version": "0.23.0+393.ge1facf624.dirty",
+            "module_version": "0.23.0+393.ge1facf624.dirty",
+            "origin": "molsysmt/__init__.py",
+            "sha256": "97b7698e7027c768ce8700ec991e2f02c5a97d7caf233707c05e2886fe2f7280"
+          },
+          "nglview": {
+            "distribution_version": "3.0.4",
+            "module_version": "3.0.4",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/__init__.py",
+            "sha256": "e782f2aaaa818db97ae275e42a25226acd864c9e7ab18e2920f2473944a24782"
+          },
+          "nglview.widget": {
+            "distribution_version": "3.0.4",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/widget.py",
+            "sha256": "5d3182b6c4182f697ce967611393c306d151ddae470b6dbb857dbf3fae65c166"
+          },
+          "nglview.color": {
+            "distribution_version": "3.0.4",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/color.py",
+            "sha256": "8ed5990ca5c1470ae3b422535e517c650a801aaf3e17db827351eae43f406178"
+          },
+          "ipywidgets": {
+            "distribution_version": "8.1.8",
+            "module_version": "8.1.8",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/ipywidgets/__init__.py",
+            "sha256": "3ae03596f80c8fe0eaf2ee0f698a88db89a98af23a9c804f4127d00abbfb15e3"
+          },
+          "traitlets": {
+            "distribution_version": "5.14.3",
+            "module_version": "5.14.3",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/traitlets/__init__.py",
+            "sha256": "a2040be9b1c774396085125f9d8035fc453394d9790368d1d8d543c2bf505e7e"
+          },
+          "numpy": {
+            "distribution_version": "2.3.5",
+            "module_version": "2.3.5",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/numpy/__init__.py",
+            "sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "distribution_version": "2.3.3",
+            "module_version": "2.3.3",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/pandas/__init__.py",
+            "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyunitwizard": {
+            "distribution_version": "0.28.1",
+            "module_version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "distribution_version": "0.14.0",
+            "module_version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "distribution_version": "0.15.1",
+            "module_version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "distribution_version": "0.16.0",
+            "module_version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest": {
+            "distribution_version": "9.0.2",
+            "module_version": "9.0.2",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/pytest/__init__.py",
+            "sha256": "7be7a1e2218dc59a19d1ad131e4abe21172a295087efc72898938248782e8766"
+          },
+          "pytest_receptor": {
+            "distribution_version": "1.2.1",
+            "module_version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        },
+        "scope": "Headless Python API/source consumer receiving; no frontend visual qualification."
+      },
+      "unsuccessful_nodes": []
+    },
+    {
+      "junit": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-current314-isolated_export_received.xml",
+      "junit_sha256": "4adba285baa53dee059e235ec9401cf9f552c77e5f47542797433c51d9929654",
+      "counts": {
+        "tests": 103,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "invocation": {
+        "profile": "current314",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "tests/form/nglview_NGLWidget",
+          "tests/basic/get/test_get_nglview_NGLWidget.py",
+          "tests/basic/view/test_view_molsysmt_MolSys_with_NGLView.py",
+          "tests/basic/view/test_empty_view_contract.py",
+          "tests/third_party/nglview",
+          "--doctest-modules",
+          "molsysmt/third_party/nglview/write_html.py",
+          "--junitxml=.pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-current314-isolated_export_received.xml"
+        ],
+        "pythonpath": [
+          "existing sibling checkout: molsysmt",
+          ".pytest_cache/pr543-viewer-4223-20261105",
+          ".pytest_cache/stabilization-551/tooling/published"
+        ],
+        "inherited_pytest_addopts": null,
+        "origins": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-current314-isolated_export_received-origins.json",
+        "artifact": {
+          "url": "https://conda.anaconda.org/conda-forge/noarch/nglview-4.0.1-pyh460f6b1_0.conda",
+          "sha256": "af9161e2667741b13477110111cc280689e7ad53a58e0b8cea7c33d91efaef0e",
+          "metadata": "existing interpreter molsyssuite@uibcdf_3.14 prefix/conda-meta/nglview-4.0.1-pyh460f6b1_0.json",
+          "selected_installed_files": [
+            {
+              "path": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/__init__.py",
+              "sha256": "1f45be88feb8acb87c8745655d89fab0d123145d0be6e04f4eaccd3302a98e64",
+              "link_receipt_sha256": "1f45be88feb8acb87c8745655d89fab0d123145d0be6e04f4eaccd3302a98e64"
+            },
+            {
+              "path": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/widget.py",
+              "sha256": "18092e6a032539780a4d819294a2cf8fc5590a98d57555d47d55221adaf0d899",
+              "link_receipt_sha256": "18092e6a032539780a4d819294a2cf8fc5590a98d57555d47d55221adaf0d899"
+            },
+            {
+              "path": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/color.py",
+              "sha256": "6639cf5865421ab042fd5d790001851031fa04f6d5edebc8183c66ab44eb73b1",
+              "link_receipt_sha256": "6639cf5865421ab042fd5d790001851031fa04f6d5edebc8183c66ab44eb73b1"
+            }
+          ],
+          "archive_rehashed": false
+        },
+        "scope": "Source receiving with reused public-support/dependency closure; headless Python/widget/HTML only. No install, no frontend visual qualification.",
+        "git_head": "e5d1dd0f853cdd69da1908bdd4b60b972441bf4b",
+        "source_hashes": {
+          "molsysmt/basic/viewer/nglview.py": "1cd565e3a0c504ec7716a9f604bdd970bb8891d9214353c4a8e0fab787b08ea5",
+          "molsysmt/form/molsysmt_MolSys/to_nglview_NGLWidget.py": "e628875df28fe0e5ba63c8a982eb112fd1ba2252ad9863c64da98e054a547a04",
+          "molsysmt/form/nglview_NGLWidget/__init__.py": "a701b86f8a8814034fa19e18335341346cfd7b99d6dbc1e24568c7161f6a2284",
+          "molsysmt/form/nglview_NGLWidget/_read_native.py": "3ecf26cd9b8a6206cb59464cf473d55dc5d534e308a2e76412f62e563646e7dc",
+          "molsysmt/form/nglview_NGLWidget/_topology_sidecar.py": "f0cd2daf0ceb58e3269fa1eb7b2f10cf7b38c72e25818320738d1e7238130187",
+          "molsysmt/form/nglview_NGLWidget/add.py": "e8652d7384e35b0ba91423fb1d435d60c8dd42a05cb83f311881df21f1226a54",
+          "molsysmt/form/nglview_NGLWidget/append_structures.py": "4ad35a2efbcda40a2b9ab08af23b728369958e6009b21a9251ae31f6215f02fe",
+          "molsysmt/form/nglview_NGLWidget/attributes.py": "056cb4ad2544957eab604df5debc29bc844fe7531adc53f78d1dd4f403a58852",
+          "molsysmt/form/nglview_NGLWidget/copy.py": "409b83a983e1428fad4881cf9a9197a2b2cfc319be3e74d9445d66ea071c9a65",
+          "molsysmt/form/nglview_NGLWidget/extract.py": "6e36191e02cc0407f775bcd56c9c2abc2e985fc908f83020068ce6c7c34896dc",
+          "molsysmt/form/nglview_NGLWidget/get_structural_attributes.py": "31889aa6aa0574eacec26261462dedadfddacbaed89b2d9c9a8d75b05c5b5102",
+          "molsysmt/form/nglview_NGLWidget/get_topological_attributes.py": "30d373a1e999a3b3ae76f2009a8b0a9104821ef624a8bff7f7b1c314098c6aca",
+          "molsysmt/form/nglview_NGLWidget/has_attribute.py": "d5b22dd7ad4e891bdae153bf18cb764cbdb5fe4c25230fce93279ca6a22df0d1",
+          "molsysmt/form/nglview_NGLWidget/is_form.py": "3d545a9afb77fccf2e47153853c8f9113c82fa244bed4f076e319e6222b7decb",
+          "molsysmt/form/nglview_NGLWidget/iterators.py": "cf1328b9c8b92a61ecdbe41b01d39c1f130f02d70c5548e6344faf0850c8439e",
+          "molsysmt/form/nglview_NGLWidget/merge.py": "c390a1a650f18cb288f5b2a995ceb0982d6b6a6a67c1938e3a60916ce9b9b54f",
+          "molsysmt/form/nglview_NGLWidget/set.py": "1f16a7f4d4b3a672e8a5ca9d7ffb9a0dfebb472c3ea8375e55bd45c639b7fb83",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_MolSys.py": "9282df89ad3af7710ff99294e277a0a4ab344e2b23bc952ebf9d4b68f756fefe",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_Structures.py": "962308a242e823ef276bc5da6a8921b4de137a1dfdea9ba1188c37a1bffb82f3",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_Topology.py": "bb5285ab1c1510e518163d081c57f3c6a97a105991a242a759da94a2613e38c4",
+          "molsysmt/form/nglview_NGLWidget/to_nglview_NGLWidget.py": "6c3852b343aed6bdeb9051ed9c01d47f63c288ac26ace5f708e1d5f7b5b8a175",
+          "molsysmt/form/nglview_NGLWidget/to_openmm_Topology.py": "255504d005d73fdfd1dc54a97db1b086cc191a3a80b6648967d1669ac3a3cc7c",
+          "molsysmt/form/nglview_NGLWidget/to_string_amino_acids_1.py": "949e27f360e75d680f54c71f920913fb53a8825252a0cfb816101c05694f1110",
+          "molsysmt/form/nglview_NGLWidget/to_string_amino_acids_3.py": "91003d73e9fde0bbfcac4b36f930c1f5c49a44d34c209746425dd7f8f65afa99",
+          "molsysmt/form/nglview_NGLWidget/to_string_pdb_text.py": "8601bff07901d4da8f70d169f52fbc1a07fd5d6eba4f810479396303e8386cac",
+          "molsysmt/third_party/nglview/__init__.py": "c1ea09201358dd2a97ffc017e432fcde0dd68a55120fce32d37357d7dc40efc1",
+          "molsysmt/third_party/nglview/add_arrows.py": "5a318adba8e1b4def46bc48deddd7dbc7b6bcafd91f3401850a88452400a0685",
+          "molsysmt/third_party/nglview/add_contacts.py": "100f7c1f7c339944f6fcc6d843239a35838e6922ab87f2d59917f800eb4a043d",
+          "molsysmt/third_party/nglview/add_cylinders.py": "c33295f46cec104a76437d5c0da18e2e9a28fc70f34664fbea64a8da8b3f538e",
+          "molsysmt/third_party/nglview/add_hbonds.py": "e23a57cd1cde25e40a4ca32ce2f80fca058e4a171842dcb9d1f45bdfa1a6ea6d",
+          "molsysmt/third_party/nglview/clear.py": "9155641e103ade394d8ec7dd14563283a0ab18b310844ad200bb21a843d2a85a",
+          "molsysmt/third_party/nglview/load_html_in_jupyter_notebook.py": "a85fb69a6f4630381ac1b4dd97b57ae9c3bcf909f48c92829e42519d6b101e3d",
+          "molsysmt/third_party/nglview/molsysmt_trajectory.py": "a98b1d13a58414ae75e5e0fd10105821e927919f87c38400a3b11fabd7c49b10",
+          "molsysmt/third_party/nglview/patching_nglview.py": "7c62c786b5b856024436b8199b71147936ba57ee23704432464b8b1688cb7835",
+          "molsysmt/third_party/nglview/set_color.py": "9d196c82bbc48ac00c5c5d2a687544b0c99b635664b33a80c4b0a16e1faa2595",
+          "molsysmt/third_party/nglview/set_color_by_value.py": "15fb7a409a69b349a47e49d1a71d78063cc645c039f55d08bcba222622137f14",
+          "molsysmt/third_party/nglview/show_as_balls_and_sticks.py": "92414ce60411ce2ea54a857f55ff4e9afe1c332ffebb1c47e8f609aeb9aec524",
+          "molsysmt/third_party/nglview/show_as_cartoon.py": "e254f12d3cc0572e8a45d5fca87c3049096bd7bc6b5f582e833369c67a1a30e3",
+          "molsysmt/third_party/nglview/show_as_licorice.py": "a1f286bbb3bf77ca02318bdff14c62d779dc83addf13c9aa654a3239f23a8ea0",
+          "molsysmt/third_party/nglview/show_as_surface.py": "b9d47db50f1066dd00162e5e74e66dabe5bf5e0c3fc53217f55845974c407a24",
+          "molsysmt/third_party/nglview/show_gui.py": "fd0e3cd575eb973efd3fae33d738bcb7fb101cd4e91ba882a2f7e56d03aa3052",
+          "molsysmt/third_party/nglview/standardize_view.py": "83584565d70090170a8b917073ede8deead910372b44a66cf317d561d064a0c3",
+          "molsysmt/third_party/nglview/write_html.py": "27679b761a5160f1c007f398391f83147778a6c02af3c09ed66913e7df08e521"
+        },
+        "runner_sha256": "5e73a7c1e253b9464f807bd4c8e543f8febbcadd505ba8efe74062fb3232b031",
+        "preflight_native_exit_code": 0,
+        "pytest_native_exit_code": 0
+      },
+      "origins": {
+        "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+        "executable": "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+        "providers": {
+          "molsysmt": {
+            "distribution_version": "0.23.0+393.ge1facf624.dirty",
+            "module_version": "0.23.0+393.ge1facf624.dirty",
+            "origin": "molsysmt/__init__.py",
+            "sha256": "97b7698e7027c768ce8700ec991e2f02c5a97d7caf233707c05e2886fe2f7280"
+          },
+          "nglview": {
+            "distribution_version": "4.0.1",
+            "module_version": "4.0.1",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/__init__.py",
+            "sha256": "1f45be88feb8acb87c8745655d89fab0d123145d0be6e04f4eaccd3302a98e64"
+          },
+          "nglview.widget": {
+            "distribution_version": "4.0.1",
+            "module_version": null,
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/widget.py",
+            "sha256": "18092e6a032539780a4d819294a2cf8fc5590a98d57555d47d55221adaf0d899"
+          },
+          "nglview.color": {
+            "distribution_version": "4.0.1",
+            "module_version": null,
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/color.py",
+            "sha256": "6639cf5865421ab042fd5d790001851031fa04f6d5edebc8183c66ab44eb73b1"
+          },
+          "ipywidgets": {
+            "distribution_version": "8.1.9",
+            "module_version": "8.1.9",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/ipywidgets/__init__.py",
+            "sha256": "3ae03596f80c8fe0eaf2ee0f698a88db89a98af23a9c804f4127d00abbfb15e3"
+          },
+          "traitlets": {
+            "distribution_version": "5.16.1",
+            "module_version": "5.16.1",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/traitlets/__init__.py",
+            "sha256": "1fa4d4fb3906b3f4e4efcf6c201490482b85cde918d89d19c1133c4fe5eaf7e2"
+          },
+          "numpy": {
+            "distribution_version": "2.4.6",
+            "module_version": "2.4.6",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/numpy/__init__.py",
+            "sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+          },
+          "pandas": {
+            "distribution_version": "2.3.3",
+            "module_version": "2.3.3",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/pandas/__init__.py",
+            "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyunitwizard": {
+            "distribution_version": "0.29.1+6.gf82b618",
+            "module_version": "0.29.1+6.gf82b618",
+            "origin": "existing sibling checkout: pyunitwizard/pyunitwizard/__init__.py",
+            "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "distribution_version": "0.16.0+1.g6dabaf7",
+            "module_version": "0.16.0+1.g6dabaf7",
+            "origin": "existing sibling checkout: argdigest/argdigest/__init__.py",
+            "sha256": "07518ec0f8d53c99d67f40aa76dc1a9f021ab659fc97ee4eb24a2e325e4feaee"
+          },
+          "depdigest": {
+            "distribution_version": "0.15.1+3.ga27172b",
+            "module_version": "0.15.1+3.ga27172b",
+            "origin": "existing sibling checkout: depdigest/depdigest/__init__.py",
+            "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "distribution_version": "0.21.0+1.gd6b2394",
+            "module_version": "0.22.0+15.g5ee88c1",
+            "origin": "existing sibling checkout: smonitor/smonitor/__init__.py",
+            "sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+          },
+          "pytest": {
+            "distribution_version": "9.1.1",
+            "module_version": "9.1.1",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/pytest/__init__.py",
+            "sha256": "ee37885c9583f843390684dfb496907f87a0905128e7a3cf4ad227f49ff34c2d"
+          },
+          "pytest_receptor": {
+            "distribution_version": "1.2.1",
+            "module_version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        },
+        "scope": "Headless Python API/source consumer receiving; no frontend visual qualification."
+      },
+      "unsuccessful_nodes": []
+    },
+    {
+      "junit": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-floor312-isolated_export_theme_received.xml",
+      "junit_sha256": "ba0aa9c78edccce6463227d70ce6a567222374afae83705bd22c279bb815be6d",
+      "counts": {
+        "tests": 104,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "invocation": {
+        "profile": "floor312",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-p",
+          "no:smonitor",
+          "-n",
+          "12",
+          "tests/form/nglview_NGLWidget",
+          "tests/basic/get/test_get_nglview_NGLWidget.py",
+          "tests/basic/view/test_view_molsysmt_MolSys_with_NGLView.py",
+          "tests/basic/view/test_empty_view_contract.py",
+          "tests/third_party/nglview",
+          "--doctest-modules",
+          "molsysmt/third_party/nglview/write_html.py",
+          "--junitxml=.pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-floor312-isolated_export_theme_received.xml"
+        ],
+        "pythonpath": [
+          ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4",
+          "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages",
+          "existing Conda cache: py-mmcif-1.1.1-py_0/site-packages",
+          "existing Conda cache: argdigest-0.14.0-py_0/site-packages",
+          "existing Conda cache: depdigest-0.15.1-py_0/site-packages",
+          "existing Conda cache: smonitor-0.16.0-py_1/site-packages",
+          ".pytest_cache/pre1-review-20261106/providers/public-support/ackredit-0.9.0-py_0/site-packages",
+          "existing sibling checkout: molsysmt",
+          ".pytest_cache/pr543-viewer-4223-20261105",
+          ".pytest_cache/stabilization-551/tooling/published"
+        ],
+        "inherited_pytest_addopts": null,
+        "origins": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-floor312-isolated_export_theme_received-origins.json",
+        "artifact": {
+          "version": "3.0.4",
+          "url": "https://files.pythonhosted.org/packages/16/71/7651b6e1ab40b0b2491486444951ce723281d707fe3098e5e0aad89d6468/nglview-3.0.4.tar.gz",
+          "sha256_expected": "e7ea100e77bfbf52bc89aaac5692da4358c86be4de103c78c34c76076f4bc9a8",
+          "sha256_observed": "e7ea100e77bfbf52bc89aaac5692da4358c86be4de103c78c34c76076f4bc9a8",
+          "size": 7132932,
+          "archive": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/nglview-3.0.4.tar.gz",
+          "python_prefix": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4"
+        },
+        "scope": "Source receiving with reused public-support/dependency closure; headless Python/widget/HTML only. No install, no frontend visual qualification.",
+        "git_head": "e5d1dd0f853cdd69da1908bdd4b60b972441bf4b",
+        "source_hashes": {
+          "molsysmt/basic/viewer/nglview.py": "1cd565e3a0c504ec7716a9f604bdd970bb8891d9214353c4a8e0fab787b08ea5",
+          "molsysmt/form/molsysmt_MolSys/to_nglview_NGLWidget.py": "e628875df28fe0e5ba63c8a982eb112fd1ba2252ad9863c64da98e054a547a04",
+          "molsysmt/form/nglview_NGLWidget/__init__.py": "a701b86f8a8814034fa19e18335341346cfd7b99d6dbc1e24568c7161f6a2284",
+          "molsysmt/form/nglview_NGLWidget/_read_native.py": "3ecf26cd9b8a6206cb59464cf473d55dc5d534e308a2e76412f62e563646e7dc",
+          "molsysmt/form/nglview_NGLWidget/_topology_sidecar.py": "f0cd2daf0ceb58e3269fa1eb7b2f10cf7b38c72e25818320738d1e7238130187",
+          "molsysmt/form/nglview_NGLWidget/add.py": "e8652d7384e35b0ba91423fb1d435d60c8dd42a05cb83f311881df21f1226a54",
+          "molsysmt/form/nglview_NGLWidget/append_structures.py": "4ad35a2efbcda40a2b9ab08af23b728369958e6009b21a9251ae31f6215f02fe",
+          "molsysmt/form/nglview_NGLWidget/attributes.py": "056cb4ad2544957eab604df5debc29bc844fe7531adc53f78d1dd4f403a58852",
+          "molsysmt/form/nglview_NGLWidget/copy.py": "409b83a983e1428fad4881cf9a9197a2b2cfc319be3e74d9445d66ea071c9a65",
+          "molsysmt/form/nglview_NGLWidget/extract.py": "6e36191e02cc0407f775bcd56c9c2abc2e985fc908f83020068ce6c7c34896dc",
+          "molsysmt/form/nglview_NGLWidget/get_structural_attributes.py": "31889aa6aa0574eacec26261462dedadfddacbaed89b2d9c9a8d75b05c5b5102",
+          "molsysmt/form/nglview_NGLWidget/get_topological_attributes.py": "30d373a1e999a3b3ae76f2009a8b0a9104821ef624a8bff7f7b1c314098c6aca",
+          "molsysmt/form/nglview_NGLWidget/has_attribute.py": "d5b22dd7ad4e891bdae153bf18cb764cbdb5fe4c25230fce93279ca6a22df0d1",
+          "molsysmt/form/nglview_NGLWidget/is_form.py": "3d545a9afb77fccf2e47153853c8f9113c82fa244bed4f076e319e6222b7decb",
+          "molsysmt/form/nglview_NGLWidget/iterators.py": "cf1328b9c8b92a61ecdbe41b01d39c1f130f02d70c5548e6344faf0850c8439e",
+          "molsysmt/form/nglview_NGLWidget/merge.py": "c390a1a650f18cb288f5b2a995ceb0982d6b6a6a67c1938e3a60916ce9b9b54f",
+          "molsysmt/form/nglview_NGLWidget/set.py": "1f16a7f4d4b3a672e8a5ca9d7ffb9a0dfebb472c3ea8375e55bd45c639b7fb83",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_MolSys.py": "9282df89ad3af7710ff99294e277a0a4ab344e2b23bc952ebf9d4b68f756fefe",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_Structures.py": "962308a242e823ef276bc5da6a8921b4de137a1dfdea9ba1188c37a1bffb82f3",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_Topology.py": "bb5285ab1c1510e518163d081c57f3c6a97a105991a242a759da94a2613e38c4",
+          "molsysmt/form/nglview_NGLWidget/to_nglview_NGLWidget.py": "6c3852b343aed6bdeb9051ed9c01d47f63c288ac26ace5f708e1d5f7b5b8a175",
+          "molsysmt/form/nglview_NGLWidget/to_openmm_Topology.py": "255504d005d73fdfd1dc54a97db1b086cc191a3a80b6648967d1669ac3a3cc7c",
+          "molsysmt/form/nglview_NGLWidget/to_string_amino_acids_1.py": "949e27f360e75d680f54c71f920913fb53a8825252a0cfb816101c05694f1110",
+          "molsysmt/form/nglview_NGLWidget/to_string_amino_acids_3.py": "91003d73e9fde0bbfcac4b36f930c1f5c49a44d34c209746425dd7f8f65afa99",
+          "molsysmt/form/nglview_NGLWidget/to_string_pdb_text.py": "8601bff07901d4da8f70d169f52fbc1a07fd5d6eba4f810479396303e8386cac",
+          "molsysmt/third_party/nglview/__init__.py": "c1ea09201358dd2a97ffc017e432fcde0dd68a55120fce32d37357d7dc40efc1",
+          "molsysmt/third_party/nglview/add_arrows.py": "5a318adba8e1b4def46bc48deddd7dbc7b6bcafd91f3401850a88452400a0685",
+          "molsysmt/third_party/nglview/add_contacts.py": "100f7c1f7c339944f6fcc6d843239a35838e6922ab87f2d59917f800eb4a043d",
+          "molsysmt/third_party/nglview/add_cylinders.py": "c33295f46cec104a76437d5c0da18e2e9a28fc70f34664fbea64a8da8b3f538e",
+          "molsysmt/third_party/nglview/add_hbonds.py": "e23a57cd1cde25e40a4ca32ce2f80fca058e4a171842dcb9d1f45bdfa1a6ea6d",
+          "molsysmt/third_party/nglview/clear.py": "9155641e103ade394d8ec7dd14563283a0ab18b310844ad200bb21a843d2a85a",
+          "molsysmt/third_party/nglview/load_html_in_jupyter_notebook.py": "a85fb69a6f4630381ac1b4dd97b57ae9c3bcf909f48c92829e42519d6b101e3d",
+          "molsysmt/third_party/nglview/molsysmt_trajectory.py": "a98b1d13a58414ae75e5e0fd10105821e927919f87c38400a3b11fabd7c49b10",
+          "molsysmt/third_party/nglview/patching_nglview.py": "7c62c786b5b856024436b8199b71147936ba57ee23704432464b8b1688cb7835",
+          "molsysmt/third_party/nglview/set_color.py": "9d196c82bbc48ac00c5c5d2a687544b0c99b635664b33a80c4b0a16e1faa2595",
+          "molsysmt/third_party/nglview/set_color_by_value.py": "15fb7a409a69b349a47e49d1a71d78063cc645c039f55d08bcba222622137f14",
+          "molsysmt/third_party/nglview/show_as_balls_and_sticks.py": "92414ce60411ce2ea54a857f55ff4e9afe1c332ffebb1c47e8f609aeb9aec524",
+          "molsysmt/third_party/nglview/show_as_cartoon.py": "e254f12d3cc0572e8a45d5fca87c3049096bd7bc6b5f582e833369c67a1a30e3",
+          "molsysmt/third_party/nglview/show_as_licorice.py": "a1f286bbb3bf77ca02318bdff14c62d779dc83addf13c9aa654a3239f23a8ea0",
+          "molsysmt/third_party/nglview/show_as_surface.py": "b9d47db50f1066dd00162e5e74e66dabe5bf5e0c3fc53217f55845974c407a24",
+          "molsysmt/third_party/nglview/show_gui.py": "fd0e3cd575eb973efd3fae33d738bcb7fb101cd4e91ba882a2f7e56d03aa3052",
+          "molsysmt/third_party/nglview/standardize_view.py": "83584565d70090170a8b917073ede8deead910372b44a66cf317d561d064a0c3",
+          "molsysmt/third_party/nglview/write_html.py": "8ca37ac4620750c52a9c2ce09588f4364d2a69b3eb3df52b2907a115fe6fd533"
+        },
+        "runner_sha256": "5e73a7c1e253b9464f807bd4c8e543f8febbcadd505ba8efe74062fb3232b031",
+        "preflight_native_exit_code": 0,
+        "pytest_native_exit_code": 0
+      },
+      "origins": {
+        "python": "3.12.12 | packaged by conda-forge | (main, Jan 26 2026, 23:51:32) [GCC 14.3.0]",
+        "executable": "existing interpreter molsyssuite@uibcdf_3.12 prefix/bin/python",
+        "providers": {
+          "molsysmt": {
+            "distribution_version": "0.23.0+393.ge1facf624.dirty",
+            "module_version": "0.23.0+393.ge1facf624.dirty",
+            "origin": "molsysmt/__init__.py",
+            "sha256": "97b7698e7027c768ce8700ec991e2f02c5a97d7caf233707c05e2886fe2f7280"
+          },
+          "nglview": {
+            "distribution_version": "3.0.4",
+            "module_version": "3.0.4",
+            "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/__init__.py",
+            "sha256": "e782f2aaaa818db97ae275e42a25226acd864c9e7ab18e2920f2473944a24782"
+          },
+          "nglview.widget": {
+            "distribution_version": "3.0.4",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/widget.py",
+            "sha256": "5d3182b6c4182f697ce967611393c306d151ddae470b6dbb857dbf3fae65c166"
+          },
+          "nglview.color": {
+            "distribution_version": "3.0.4",
+            "module_version": null,
+            "origin": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/sdist-nglview-3.0.4/nglview-3.0.4/nglview/color.py",
+            "sha256": "8ed5990ca5c1470ae3b422535e517c650a801aaf3e17db827351eae43f406178"
+          },
+          "ipywidgets": {
+            "distribution_version": "8.1.8",
+            "module_version": "8.1.8",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/ipywidgets/__init__.py",
+            "sha256": "3ae03596f80c8fe0eaf2ee0f698a88db89a98af23a9c804f4127d00abbfb15e3"
+          },
+          "traitlets": {
+            "distribution_version": "5.14.3",
+            "module_version": "5.14.3",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/traitlets/__init__.py",
+            "sha256": "a2040be9b1c774396085125f9d8035fc453394d9790368d1d8d543c2bf505e7e"
+          },
+          "numpy": {
+            "distribution_version": "2.3.5",
+            "module_version": "2.3.5",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/numpy/__init__.py",
+            "sha256": "93924ac4b793328947dfd9eb9355e54eccdfd26a92c8dd52188aed2e52c7eb38"
+          },
+          "pandas": {
+            "distribution_version": "2.3.3",
+            "module_version": "2.3.3",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/pandas/__init__.py",
+            "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyunitwizard": {
+            "distribution_version": "0.28.1",
+            "module_version": "0.28.1",
+            "origin": "existing Conda cache: pyunitwizard-0.28.1-py_0/site-packages/pyunitwizard/__init__.py",
+            "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "distribution_version": "0.14.0",
+            "module_version": "0.14.0",
+            "origin": "existing Conda cache: argdigest-0.14.0-py_0/site-packages/argdigest/__init__.py",
+            "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+          },
+          "depdigest": {
+            "distribution_version": "0.15.1",
+            "module_version": "0.15.1",
+            "origin": "existing Conda cache: depdigest-0.15.1-py_0/site-packages/depdigest/__init__.py",
+            "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "distribution_version": "0.16.0",
+            "module_version": "0.16.0",
+            "origin": "existing Conda cache: smonitor-0.16.0-py_1/site-packages/smonitor/__init__.py",
+            "sha256": "25e4ef25dfcd5533fc3457328f833deb8e8b08049b3020ef0411a65a0cd5acb3"
+          },
+          "pytest": {
+            "distribution_version": "9.0.2",
+            "module_version": "9.0.2",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.12 prefix/lib/python3.12/site-packages/pytest/__init__.py",
+            "sha256": "7be7a1e2218dc59a19d1ad131e4abe21172a295087efc72898938248782e8766"
+          },
+          "pytest_receptor": {
+            "distribution_version": "1.2.1",
+            "module_version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        },
+        "scope": "Headless Python API/source consumer receiving; no frontend visual qualification."
+      },
+      "unsuccessful_nodes": []
+    },
+    {
+      "junit": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-current314-isolated_export_theme_received.xml",
+      "junit_sha256": "46e9f71f7ac2f32749384c9eae99e929c27d2c93332ad0cbbfaa2263d56f5626",
+      "counts": {
+        "tests": 104,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "invocation": {
+        "profile": "current314",
+        "command": [
+          "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n",
+          "12",
+          "tests/form/nglview_NGLWidget",
+          "tests/basic/get/test_get_nglview_NGLWidget.py",
+          "tests/basic/view/test_view_molsysmt_MolSys_with_NGLView.py",
+          "tests/basic/view/test_empty_view_contract.py",
+          "tests/third_party/nglview",
+          "--doctest-modules",
+          "molsysmt/third_party/nglview/write_html.py",
+          "--junitxml=.pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-current314-isolated_export_theme_received.xml"
+        ],
+        "pythonpath": [
+          "existing sibling checkout: molsysmt",
+          ".pytest_cache/pr543-viewer-4223-20261105",
+          ".pytest_cache/stabilization-551/tooling/published"
+        ],
+        "inherited_pytest_addopts": null,
+        "origins": ".pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/524-nglview-current314-isolated_export_theme_received-origins.json",
+        "artifact": {
+          "url": "https://conda.anaconda.org/conda-forge/noarch/nglview-4.0.1-pyh460f6b1_0.conda",
+          "sha256": "af9161e2667741b13477110111cc280689e7ad53a58e0b8cea7c33d91efaef0e",
+          "metadata": "existing interpreter molsyssuite@uibcdf_3.14 prefix/conda-meta/nglview-4.0.1-pyh460f6b1_0.json",
+          "selected_installed_files": [
+            {
+              "path": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/__init__.py",
+              "sha256": "1f45be88feb8acb87c8745655d89fab0d123145d0be6e04f4eaccd3302a98e64",
+              "link_receipt_sha256": "1f45be88feb8acb87c8745655d89fab0d123145d0be6e04f4eaccd3302a98e64"
+            },
+            {
+              "path": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/widget.py",
+              "sha256": "18092e6a032539780a4d819294a2cf8fc5590a98d57555d47d55221adaf0d899",
+              "link_receipt_sha256": "18092e6a032539780a4d819294a2cf8fc5590a98d57555d47d55221adaf0d899"
+            },
+            {
+              "path": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/color.py",
+              "sha256": "6639cf5865421ab042fd5d790001851031fa04f6d5edebc8183c66ab44eb73b1",
+              "link_receipt_sha256": "6639cf5865421ab042fd5d790001851031fa04f6d5edebc8183c66ab44eb73b1"
+            }
+          ],
+          "archive_rehashed": false
+        },
+        "scope": "Source receiving with reused public-support/dependency closure; headless Python/widget/HTML only. No install, no frontend visual qualification.",
+        "git_head": "e5d1dd0f853cdd69da1908bdd4b60b972441bf4b",
+        "source_hashes": {
+          "molsysmt/basic/viewer/nglview.py": "1cd565e3a0c504ec7716a9f604bdd970bb8891d9214353c4a8e0fab787b08ea5",
+          "molsysmt/form/molsysmt_MolSys/to_nglview_NGLWidget.py": "e628875df28fe0e5ba63c8a982eb112fd1ba2252ad9863c64da98e054a547a04",
+          "molsysmt/form/nglview_NGLWidget/__init__.py": "a701b86f8a8814034fa19e18335341346cfd7b99d6dbc1e24568c7161f6a2284",
+          "molsysmt/form/nglview_NGLWidget/_read_native.py": "3ecf26cd9b8a6206cb59464cf473d55dc5d534e308a2e76412f62e563646e7dc",
+          "molsysmt/form/nglview_NGLWidget/_topology_sidecar.py": "f0cd2daf0ceb58e3269fa1eb7b2f10cf7b38c72e25818320738d1e7238130187",
+          "molsysmt/form/nglview_NGLWidget/add.py": "e8652d7384e35b0ba91423fb1d435d60c8dd42a05cb83f311881df21f1226a54",
+          "molsysmt/form/nglview_NGLWidget/append_structures.py": "4ad35a2efbcda40a2b9ab08af23b728369958e6009b21a9251ae31f6215f02fe",
+          "molsysmt/form/nglview_NGLWidget/attributes.py": "056cb4ad2544957eab604df5debc29bc844fe7531adc53f78d1dd4f403a58852",
+          "molsysmt/form/nglview_NGLWidget/copy.py": "409b83a983e1428fad4881cf9a9197a2b2cfc319be3e74d9445d66ea071c9a65",
+          "molsysmt/form/nglview_NGLWidget/extract.py": "6e36191e02cc0407f775bcd56c9c2abc2e985fc908f83020068ce6c7c34896dc",
+          "molsysmt/form/nglview_NGLWidget/get_structural_attributes.py": "31889aa6aa0574eacec26261462dedadfddacbaed89b2d9c9a8d75b05c5b5102",
+          "molsysmt/form/nglview_NGLWidget/get_topological_attributes.py": "30d373a1e999a3b3ae76f2009a8b0a9104821ef624a8bff7f7b1c314098c6aca",
+          "molsysmt/form/nglview_NGLWidget/has_attribute.py": "d5b22dd7ad4e891bdae153bf18cb764cbdb5fe4c25230fce93279ca6a22df0d1",
+          "molsysmt/form/nglview_NGLWidget/is_form.py": "3d545a9afb77fccf2e47153853c8f9113c82fa244bed4f076e319e6222b7decb",
+          "molsysmt/form/nglview_NGLWidget/iterators.py": "cf1328b9c8b92a61ecdbe41b01d39c1f130f02d70c5548e6344faf0850c8439e",
+          "molsysmt/form/nglview_NGLWidget/merge.py": "c390a1a650f18cb288f5b2a995ceb0982d6b6a6a67c1938e3a60916ce9b9b54f",
+          "molsysmt/form/nglview_NGLWidget/set.py": "1f16a7f4d4b3a672e8a5ca9d7ffb9a0dfebb472c3ea8375e55bd45c639b7fb83",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_MolSys.py": "9282df89ad3af7710ff99294e277a0a4ab344e2b23bc952ebf9d4b68f756fefe",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_Structures.py": "962308a242e823ef276bc5da6a8921b4de137a1dfdea9ba1188c37a1bffb82f3",
+          "molsysmt/form/nglview_NGLWidget/to_molsysmt_Topology.py": "bb5285ab1c1510e518163d081c57f3c6a97a105991a242a759da94a2613e38c4",
+          "molsysmt/form/nglview_NGLWidget/to_nglview_NGLWidget.py": "6c3852b343aed6bdeb9051ed9c01d47f63c288ac26ace5f708e1d5f7b5b8a175",
+          "molsysmt/form/nglview_NGLWidget/to_openmm_Topology.py": "255504d005d73fdfd1dc54a97db1b086cc191a3a80b6648967d1669ac3a3cc7c",
+          "molsysmt/form/nglview_NGLWidget/to_string_amino_acids_1.py": "949e27f360e75d680f54c71f920913fb53a8825252a0cfb816101c05694f1110",
+          "molsysmt/form/nglview_NGLWidget/to_string_amino_acids_3.py": "91003d73e9fde0bbfcac4b36f930c1f5c49a44d34c209746425dd7f8f65afa99",
+          "molsysmt/form/nglview_NGLWidget/to_string_pdb_text.py": "8601bff07901d4da8f70d169f52fbc1a07fd5d6eba4f810479396303e8386cac",
+          "molsysmt/third_party/nglview/__init__.py": "c1ea09201358dd2a97ffc017e432fcde0dd68a55120fce32d37357d7dc40efc1",
+          "molsysmt/third_party/nglview/add_arrows.py": "5a318adba8e1b4def46bc48deddd7dbc7b6bcafd91f3401850a88452400a0685",
+          "molsysmt/third_party/nglview/add_contacts.py": "100f7c1f7c339944f6fcc6d843239a35838e6922ab87f2d59917f800eb4a043d",
+          "molsysmt/third_party/nglview/add_cylinders.py": "c33295f46cec104a76437d5c0da18e2e9a28fc70f34664fbea64a8da8b3f538e",
+          "molsysmt/third_party/nglview/add_hbonds.py": "e23a57cd1cde25e40a4ca32ce2f80fca058e4a171842dcb9d1f45bdfa1a6ea6d",
+          "molsysmt/third_party/nglview/clear.py": "9155641e103ade394d8ec7dd14563283a0ab18b310844ad200bb21a843d2a85a",
+          "molsysmt/third_party/nglview/load_html_in_jupyter_notebook.py": "a85fb69a6f4630381ac1b4dd97b57ae9c3bcf909f48c92829e42519d6b101e3d",
+          "molsysmt/third_party/nglview/molsysmt_trajectory.py": "a98b1d13a58414ae75e5e0fd10105821e927919f87c38400a3b11fabd7c49b10",
+          "molsysmt/third_party/nglview/patching_nglview.py": "7c62c786b5b856024436b8199b71147936ba57ee23704432464b8b1688cb7835",
+          "molsysmt/third_party/nglview/set_color.py": "9d196c82bbc48ac00c5c5d2a687544b0c99b635664b33a80c4b0a16e1faa2595",
+          "molsysmt/third_party/nglview/set_color_by_value.py": "15fb7a409a69b349a47e49d1a71d78063cc645c039f55d08bcba222622137f14",
+          "molsysmt/third_party/nglview/show_as_balls_and_sticks.py": "92414ce60411ce2ea54a857f55ff4e9afe1c332ffebb1c47e8f609aeb9aec524",
+          "molsysmt/third_party/nglview/show_as_cartoon.py": "e254f12d3cc0572e8a45d5fca87c3049096bd7bc6b5f582e833369c67a1a30e3",
+          "molsysmt/third_party/nglview/show_as_licorice.py": "a1f286bbb3bf77ca02318bdff14c62d779dc83addf13c9aa654a3239f23a8ea0",
+          "molsysmt/third_party/nglview/show_as_surface.py": "b9d47db50f1066dd00162e5e74e66dabe5bf5e0c3fc53217f55845974c407a24",
+          "molsysmt/third_party/nglview/show_gui.py": "fd0e3cd575eb973efd3fae33d738bcb7fb101cd4e91ba882a2f7e56d03aa3052",
+          "molsysmt/third_party/nglview/standardize_view.py": "83584565d70090170a8b917073ede8deead910372b44a66cf317d561d064a0c3",
+          "molsysmt/third_party/nglview/write_html.py": "8ca37ac4620750c52a9c2ce09588f4364d2a69b3eb3df52b2907a115fe6fd533"
+        },
+        "runner_sha256": "5e73a7c1e253b9464f807bd4c8e543f8febbcadd505ba8efe74062fb3232b031",
+        "preflight_native_exit_code": 0,
+        "pytest_native_exit_code": 0
+      },
+      "origins": {
+        "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+        "executable": "existing interpreter molsyssuite@uibcdf_3.14 prefix/bin/python",
+        "providers": {
+          "molsysmt": {
+            "distribution_version": "0.23.0+393.ge1facf624.dirty",
+            "module_version": "0.23.0+393.ge1facf624.dirty",
+            "origin": "molsysmt/__init__.py",
+            "sha256": "97b7698e7027c768ce8700ec991e2f02c5a97d7caf233707c05e2886fe2f7280"
+          },
+          "nglview": {
+            "distribution_version": "4.0.1",
+            "module_version": "4.0.1",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/__init__.py",
+            "sha256": "1f45be88feb8acb87c8745655d89fab0d123145d0be6e04f4eaccd3302a98e64"
+          },
+          "nglview.widget": {
+            "distribution_version": "4.0.1",
+            "module_version": null,
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/widget.py",
+            "sha256": "18092e6a032539780a4d819294a2cf8fc5590a98d57555d47d55221adaf0d899"
+          },
+          "nglview.color": {
+            "distribution_version": "4.0.1",
+            "module_version": null,
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/nglview/color.py",
+            "sha256": "6639cf5865421ab042fd5d790001851031fa04f6d5edebc8183c66ab44eb73b1"
+          },
+          "ipywidgets": {
+            "distribution_version": "8.1.9",
+            "module_version": "8.1.9",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/ipywidgets/__init__.py",
+            "sha256": "3ae03596f80c8fe0eaf2ee0f698a88db89a98af23a9c804f4127d00abbfb15e3"
+          },
+          "traitlets": {
+            "distribution_version": "5.16.1",
+            "module_version": "5.16.1",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/traitlets/__init__.py",
+            "sha256": "1fa4d4fb3906b3f4e4efcf6c201490482b85cde918d89d19c1133c4fe5eaf7e2"
+          },
+          "numpy": {
+            "distribution_version": "2.4.6",
+            "module_version": "2.4.6",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/numpy/__init__.py",
+            "sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+          },
+          "pandas": {
+            "distribution_version": "2.3.3",
+            "module_version": "2.3.3",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/pandas/__init__.py",
+            "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+          },
+          "pyunitwizard": {
+            "distribution_version": "0.29.1+6.gf82b618",
+            "module_version": "0.29.1+6.gf82b618",
+            "origin": "existing sibling checkout: pyunitwizard/pyunitwizard/__init__.py",
+            "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+          },
+          "argdigest": {
+            "distribution_version": "0.16.0+1.g6dabaf7",
+            "module_version": "0.16.0+1.g6dabaf7",
+            "origin": "existing sibling checkout: argdigest/argdigest/__init__.py",
+            "sha256": "07518ec0f8d53c99d67f40aa76dc1a9f021ab659fc97ee4eb24a2e325e4feaee"
+          },
+          "depdigest": {
+            "distribution_version": "0.15.1+3.ga27172b",
+            "module_version": "0.15.1+3.ga27172b",
+            "origin": "existing sibling checkout: depdigest/depdigest/__init__.py",
+            "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+          },
+          "smonitor": {
+            "distribution_version": "0.21.0+1.gd6b2394",
+            "module_version": "0.22.0+15.g5ee88c1",
+            "origin": "existing sibling checkout: smonitor/smonitor/__init__.py",
+            "sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+          },
+          "pytest": {
+            "distribution_version": "9.1.1",
+            "module_version": "9.1.1",
+            "origin": "existing interpreter molsyssuite@uibcdf_3.14 prefix/lib/python3.14/site-packages/pytest/__init__.py",
+            "sha256": "ee37885c9583f843390684dfb496907f87a0905128e7a3cf4ad227f49ff34c2d"
+          },
+          "pytest_receptor": {
+            "distribution_version": "1.2.1",
+            "module_version": "1.2.1",
+            "origin": ".pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+            "sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+          }
+        },
+        "scope": "Headless Python API/source consumer receiving; no frontend visual qualification."
+      },
+      "unsuccessful_nodes": []
+    }
+  ],
+  "accepted_plan_progress_percent": 40,
+  "additional_progress_points": 0,
+  "backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "attempt_dispositions": [
+    "NGLView3.0.3 fails actual HTML export with ipywidgets8;3.0.4 and4.0.1 pass the relevant Python/display/HTML probes. No browser rendering acceptance is inferred.",
+    "The initial coordinate-test run fails on a global NGLModel count assumption; the coordinate guard now selects the requested model identity. A separate fresh synthetic two-widget probe proves unrelated initial PDB export, which #631 directly repairs and guards.",
+    "The #630 strict warning counterexample exits1 on supported3.0.4; all95 selected cases pass after the boundary fix, and the unrecognized-keyword warnings disappear.",
+    "Pre-theme #631 receiving passes103 cases per profile; review then demonstrates a required unsynchronized theme resource. The final exporter includes the requested view theme, and both complete profiles pass104 cases including nine dedicated HTML guards and one actual doctest, with no omissions.",
+    "Private resource hooks match3.0.4/4.0.1. Required public embedding APIs exist in the official ipywidgets7.0.0 wheel, source-inspected only; runtime profiles use8.x. No higher transitive minimum is invented.",
+    "Final profiles retain visible LegacyH5MSM warnings (61 minimum,60 newer). The ordinary current SMonitor bridge is enabled; only the public SMonitor0.16 minimum uses the preexisting documented bridge exception."
+  ],
+  "limits": [
+    "Finite Linux source receiving with actual provider sources; not clean installed MolSysMT or every supported platform/interpreter.",
+    "Current NGLView Conda artifact identity and selected installed file hashes are verified; the current full Conda archive was not rehashed in this runner.",
+    "Only the requested widget and its referenced/shared required resources are exported. The shared color registry and explicitly requested theme are resources, not arbitrary-data isolation guarantees.",
+    "No unrelated trajectory-buffer exposure was demonstrated; the old defect proves initial structure/PDB and synchronized message state inclusion.",
+    "Frontend/human/Qt/session/browser acceptance remains distinct. No new candidate, tag, Release or CI workflow is selected.",
+    "No environment was created, overwritten or downgraded and no native backend was rebuilt."
+  ],
+  "joint_receiving": {
+    "receipt": "devtools/data/remaining_optional_runtime_receiving_524_20261106.json",
+    "passed": 798,
+    "skipped": 0,
+    "native_exit_observed": 0
+  },
+  "documentation_compilation": {
+    "native_exit_observed": 0,
+    "warning_count": 4,
+    "notebooks_executed": false,
+    "autosummary_source_generation": false
+  }
+}

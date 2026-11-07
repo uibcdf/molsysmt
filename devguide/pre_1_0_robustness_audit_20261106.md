@@ -13,13 +13,27 @@ scopes overlap. Accepted progress is 40%; #613 and #620 are published and closed
 The #620 precision correction and #524 default-renderer declaration are delivered
 in public checkpoint `8d466268c`, with all 43 checked blobs independently matched. Remaining
 #524 review and the actual Viewer floor still prevent phase-three credit.
-No replacement candidate is selected. Current phase-three work is the remaining optional-provider and actual
-host/installed closure under #524. Public checkpoint 82bfa1c82 independently
+No replacement candidate is selected. Public checkpoint `82bfa1c82` independently
 matches all 58 checked blobs; #627/#628/#629 are verified closed, bringing the
-audit-related closed count to 17. The existing phase weights remain unchanged. Their final paired provider
-profiles pass 155 and 185 cases respectively without omissions; joint receiving
-passes 1,271 and scientific execution 97. Counts overlap. Remaining optional
-providers and actual host/installed closure still prevent phase-three credit.
+audit-related closed count to 17. The MDAnalysis and ParmEd paired profiles pass
+155 and 185 cases respectively without omissions; joint receiving passes 1,271
+and scientific execution 97. Counts overlap. Existing phase weights are unchanged.
+
+Current phase-three work closes the optional-provider review under #524.
+Biopython's minimum/newer consumer profiles now each pass 385 without omissions;
+OpenFF pairs each pass 86. PyTraj acquisition/engine/diagnostic/auditor receiving
+passes 146. The revised floor profile retains actual auxiliary payloads rather
+than dropping the original four failed/two skipped cases. New included-operation
+NGLView defects #630/#631 are admitted: validation-keyword forwarding is locally
+corrected in `e5d1dd0f8`; independent molecular widget state in HTML export is
+being corrected and qualified. Their guards and provider boundary review add no
+new method or progress weight. These optional profiles now qualify sources
+`d850f6cc1`/`5cd744ebf` and corrections `e5d1dd0f8`/`fae9ab557`. Final OpenFF
+profiles pass 199 and NGLView profiles 104 without omissions; joint receiving
+passes 798, scientific execution 97/64 nodes and all 14 fast gates pass. HTML
+compilation exits zero with four retained title-underline warnings. Source
+delivery/board closeout and actual host/installed closure still prevent
+phase-three credit.
 
 The subsequent #524 support-floor review qualifies the five retained required
 providers and optional public Ackredit without changing their floors. Native
@@ -886,6 +900,7 @@ issue state and next unresolved exit. Do not copy complete issue bodies here.
 | 2026-11-06 | RDKit API and fixture qualification | Source 883e4e45a selects optional RDKit 2024.3.4; 13b82905c repairs #627 reference fixtures. Minimum/newer profiles each pass 541 with one documented conditional omission; literal chemical/score assertions are retained. New #628/#629 data-loss baselines are reproduced and admitted as correctness work. Accepted progress stays 40%. | Deliver/close #627, finish MDAnalysis/ParmEd owner repairs and actual-provider receiving, then remaining optional and host/installed scope under #524. |
 | 2026-11-06 | MDAnalysis/ParmEd consumer repairs qualified | #628 source f81ba2025 and #629 source e270eda9b preserve represented metadata/geometry/chemistry and explicit target limits. Final actual-provider pairs pass 155 and 185 per profile without omissions; joint receiving passes 1,271, scientific execution 97/64 nodes. Source 33a702bfa aligns optional floors. Original failures and failed harness attempts remain in portable receipts; scopes overlap. Accepted progress stays 40%. | Independently receive the batched public sources and close #627/#628/#629, then finish OpenFF/Biopython/NGLView/PyTraj and actual host/installed closure. No new tag, candidate or remote workflow. |
 | 2026-11-06 | Consumer repair block delivered | Public checkpoint 82bfa1c82 independently matches all 58 changed blobs. #627/#628/#629 are verified completed; audit-related closed count 17. Complete acquisition has 561 issues/98 open and unchanged PR #543 at 8ab2f5474. Fourteen fast gates pass. Accepted progress remains 40%. | Finish remaining optional providers and actual host/installed closure under #524; keep graphical, installed-package and final-candidate qualification separate. |
+| 2026-11-06 | Final optional-provider source block qualified | d850f6cc1 uses public alignment rows; 5cd744ebf declares supported optional acquisition/floors; e5d1dd0f8/fae9ab557 repair #630/#631. Final profiles pass Biopython 385 each, OpenFF 199 each and NGLView 104 each with no omissions; joint 798, scientific 97/64 nodes and fast gates 14/14 pass. HTML compilation exits 0 with four retained source-title warnings. Counts overlap; accepted progress stays 40%. | Publish and independently verify the block, close #630/#631, then receive the newer exact Viewer source and reconcile PR #543 while keeping public-host/clean installed closure explicit under #524. |
 
 Once this work is complete, consolidate any lasting rules into their normative
 owners and archive the dated packet through the owning release/reporting route.

@@ -618,7 +618,62 @@ No new externally reported issue appeared in the complete board refresh:
 561 total issues, 98 open; PR #543 remains at `8ab2f5474`. Remaining optional
 providers and actual host/installed closure keep #524 partial, progress 40%.
 
+## Final optional-provider source qualification — 2026-11-06
+
+Source `d850f6cc1` uses public Biopython row access, with optional minimum 1.80;
+earlier 1.79 integer-row indexing exists but raises NotImplementedError. Final
+actual minimum/newer profiles each pass 385, zero omissions. Source `5cd744ebf`
+aligns the remaining provider floors and supported acquisition routes, including
+optional NGLView >=3.0.4 and Conda-forge AmberTools for PyTraj. The existing
+OpenFF minima remain >=0.17.1/0.3.0, with floors stored once in the non-installer
+`tool.molsysmt.provider-requirements` table in pyproject. Its ordinary pip extra
+and DepDigest commands no longer point to yanked/unusable distributions. Project
+existence, exact-version absence and ordinary installer usability are distinct.
+
+Versioned Conda providers derive names/channels from DepDigest and constraints
+from pyproject. Unversioned PyTraj keeps its deliberate bundle/ABI disposition.
+The route auditor rejects missing/duplicate providers, invented aliases, pip
+overrides, channel/constraint drift and malformed declarations. Actual artifact
+and engine receiving is separate from those static declarations.
+
+Both final OpenFF/runtime/route profiles pass 199 without omissions. The actual
+current PyTraj/native/diagnostic selection passes 146; old/new CPPTRAJ plain
+probes retain their distinct engine scope. Source `e5d1dd0f8` corrects #630 and
+`fae9ab557` corrects #631; complete NGLView minimum/newer selections each pass
+104, including a real doctest and scoped coordinates/resources/theme guards.
+The [NGLView receipt](../../devtools/data/nglview_runtime_receiving_524_630_631_20261106.json)
+and [remaining-provider receipt](../../devtools/data/remaining_optional_runtime_receiving_524_20261106.json)
+retain failed attempts, actual origins, namespace/version anomalies, native
+exits, source-only boundaries and exact source commits.
+
+Joint receiving passes 798; registered scientific execution passes 97/64 nodes;
+all 14 fast gates pass. HTML compilation exits zero with notebook execution and
+autosummary source generation disabled; four existing title-underline warnings
+remain visible. Protected human edits are unchanged. Counts overlap. This
+finishes finite optional-provider source qualification, not #524's compatible
+public Viewer floor or clean installed closure. Public delivery/board closeout
+of the new corrections follows; accepted audit progress remains 40%.
+
 ## Remaining scope and acceptance criteria
+
+The latest local profiles pass 385/385 for Biopython minimum/newer, 86/86 for
+OpenFF minimum/newer and 146 for PyTraj acquisition/native/diagnostic/auditor
+receiving. Counts overlap with prior blocks. Original missing-helper and guard
+authoring failures are retained, not converted into provider defects or omitted
+cases. Biopython uses the public row-indexing protocol, operational since 1.80;
+OpenFF floors stay unchanged. PyTraj acquisition is Conda-forge AmberTools with
+explicitly disabled pip routing, guarded native ABI and no invented bundle-to-
+provider version equivalence. Static route checking does not qualify a resolver.
+
+The NGLView review additionally owns #630 (internal validation keyword leak,
+locally corrected in `e5d1dd0f8`, minimum receiving 95 passes) and #631 (HTML
+includes an independent molecular widget's initial structure; implementation
+and receiving in progress). They are included-operation corrections rather than
+new graphical features. Complete their delivery/guards before this provider's
+review closes, preserving frontend and installed-artifact limits. OpenFF's
+declared installation commands are also being checked against actual official
+distribution routes; exact-version metadata absence alone is not treated as
+proof that a project does not exist.
 
 Public checkpoint `f5c909e75d786a20d92f4b57e6fa2875a3ba651e` independently
 matches all 32 checked source/test/documentation/receiving blobs. #623 is
@@ -632,11 +687,11 @@ retains these boundaries. This report stays partial.
 - Resolve the public Viewer acquisition/floor boundary with its owner. Source
   receiving and the redesigned host's eventual public release remain distinct;
   complete clean installed-runtime closure with the actual qualified host artifact.
-- Finish OpenFF/PyTraj/NGLView/Biopython after the delivered MDAnalysis/ParmEd
-  consumer repairs (#628/#629). Distinguish an API-grounded floor and actual receiving
-  from an incidental installation. MDTraj, OpenMM, PDBFixer, RDKit and the parser/NumPy
-  dispositions above are received; OpenMMTools/Plotly runtime declarations are
-  retired with their distinct unsupported-draft/documentation dispositions.
+- Publish and independently receive the final optional-provider source block;
+  close #630/#631 with their guards and archived records. The API-grounded
+  optional floors, Conda-only routes and finite consumer qualification are now
+  complete locally. Runtime declarations retired as unsupported/docs-only keep
+  those distinct dispositions. This does not supply a public Viewer floor.
 - For each retained bound/exclusion, record exact provider behavior, owner and
   reassessment condition. The NumPy version/ABI disposition above is complete;
   preserve exact development/build/release pins and any demonstrated restrictions.

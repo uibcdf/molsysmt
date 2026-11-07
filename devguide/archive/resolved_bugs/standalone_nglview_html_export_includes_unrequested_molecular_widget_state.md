@@ -1,9 +1,9 @@
 ---
 summary: Standalone NGLView HTML export includes unrequested molecular widget state
 issue: uibcdf/molsysmt#631
-status: active
+status: resolved
 opened: 2026-11-06
-closed:
+closed: 2026-11-06
 severity: medium
 verification: reproduced
 area: [form, docs]
@@ -17,8 +17,8 @@ supersedes: []
 
 **Reported:** 2026-11-06 during NGLView dependency-floor receiving under
 uibcdf/molsysmt#524. An unexpected model count prompted a separate data-scope probe.
-**Status:** Active. The owner repair and regression guards are implemented; root
-pytest and doctest qualification remain pending.
+**Status:** Source correction and paired actual-provider qualification complete;
+public delivery and board closeout follow.
 
 ## What
 
@@ -33,14 +33,14 @@ trajectories with distinct PDB remarks and coordinates. No real private data is 
 
     PYTHONDONTWRITEBYTECODE=1 python .pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/run_probe.py
 
-The [invocations](../../.pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/invocations.json)
+The [invocations](../../../.pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/invocations.json)
 retain exact commands, origins, stdout/stderr and native exits. Both processes
 exit 0 because their assertions verify the observed defect and a filtered-state
 control; this is not a passing fidelity result for the old wrapper.
 
 ## How
 
-The former [wrapper](../../molsysmt/third_party/nglview/write_html.py) delegated
+The former [wrapper](../../../molsysmt/third_party/nglview/write_html.py) delegated
 to nglview.write_html with a one-view list and the complete frame_range.
 Inspected NGLView 3.0.4 and 4.0.1 accept only fp, views and frame_range: there is
 no state parameter or general keyword forwarding. Both prepare resources,
@@ -113,7 +113,7 @@ embed_data with explicit state (line 138) and embed_snippet with explicit
 state (line 186), with the required contract. No higher ipywidgets floor is
 needed for these APIs.
 
-The [artifact receipt](../../.pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/ipywidgets7-api-artifact.json)
+The [artifact receipt](../../../.pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/ipywidgets7-api-artifact.json)
 records wheel SHA-256
 44be54c52b68db4b59b246e67051076aaee9141441e7b009c865f7202512d63f.
 This establishes source/API availability in 7.0.0, not execution of an old
@@ -142,8 +142,8 @@ extra data, not a real private-data disclosure or remote transfer.
 
 These counts characterize the isolated probes, not a general model-count
 invariant. Receipts select models by their actual model_id:
-[3.0.4](../../.pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/ngl304-receipt.json),
-[4.0.1](../../.pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/ngl401-receipt.json).
+[3.0.4](../../../.pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/ngl304-receipt.json),
+[4.0.1](../../../.pytest_cache/pre1-review-20261106/providers/nglview-pytraj-review/export-scope/ngl401-receipt.json).
 No unrelated trajectory-coordinate resource was observed; the demonstrated
 extra molecular data is B's initial PDB and archived structure message.
 
@@ -215,3 +215,38 @@ e7ea100e77bfbf52bc89aaac5692da4358c86be4de103c78c34c76076f4bc9a8.
 
 Reproduction writes only ignored-cache synthetic HTML and receipts. Production
 edits are restricted to the wrapper, its mirrored test module and this report.
+
+## Resolution — 2026-11-06
+
+Source `fae9ab5575383018a19ca8fac484f7ea3300da9d` replaces unbounded manager-state delegation with an explicit
+widget dependency closure. Only the requested view, its shared color registry
+and its explicitly referenced GUI theme/resources are prepared and embedded.
+Unrelated molecular widget data is neither serialized first nor pruned later.
+Native NGL resource preparation retains all requested structures and angstrom
+coordinates; finally cleanup executes even when writing fails. A different
+valid MolSysViewer is rejected before the NGL hooks.
+
+Both final actual NGLView 3.0.4/Python 3.12 and 4.0.1/Python 3.14 selections pass 104,
+no omissions, native exits 0. This includes nine dedicated HTML cases and the
+real public doctest. The cases assert coordinate values/units, A's retained PDB,
+B's excluded PDB/model, required resource/view specs, no global serialization
+before filtering, normal/trusted write-error cleanup, wrong-viewer rejection
+and two-phase GUI-theme scope. They check molecular/state behavior rather than
+just model counts or an existing HTML file.
+
+Pre-theme receiving passed 103 per provider, but review then reproduced a
+required unsynchronized theme omission. The final guard excludes B's theme
+when A has no GUI theme, then includes the shared theme actually referenced by
+A after A enables its GUI; B's molecular state stays excluded. Original
+coordinate/unit assertions are retained. Source-only inspection of the official
+ipywidgets 7.0.0 payload verifies that the public state-embedding APIs already
+exist; no invented higher transitive floor is added. Runtime receiving uses 8.x.
+
+User Guide tutorial/form and course module 06 explain exported scope, required
+resources and structure selection for smaller exports. Their code, outputs,
+anchors, IDs and metadata are unchanged. The
+[portable receipt](../../../devtools/data/nglview_runtime_receiving_524_630_631_20261106.json)
+retains public artifacts, native exits, prior failed assumptions, theme probes,
+private-provider-hook bounds and source/installed/browser limits. It does not
+claim unrelated trajectory-buffer exposure, arbitrary-data isolation or visual
+acceptance. Public delivery and actual board closeout remain separate.

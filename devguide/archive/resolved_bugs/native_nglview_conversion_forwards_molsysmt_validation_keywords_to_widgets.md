@@ -1,13 +1,13 @@
 ---
 summary: Native NGLView conversion forwards MolSysMT validation keywords to widgets
 issue: uibcdf/molsysmt#630
-status: active
+status: resolved
 opened: 2026-11-06
-closed:
+closed: 2026-11-06
 severity: low
 verification: reproduced
 area: [form, deps]
-guard:
+guard: tests/form/nglview_NGLWidget/test_conversion_boundary.py
 normative:
 blocked_by: []
 supersedes: []
@@ -67,3 +67,23 @@ Python 3.14/default bridge. Public NGLView 3.0.4 sdist is hash-verified; the
 newer 4.0.1 route uses selected verified public Conda payload files. All source,
 public-artifact, preflight and native-exit boundaries remain in #524's receipt.
 No environment was created or replaced and no new native backend was built.
+
+## Resolution — 2026-11-06
+
+Source `e5d1dd0f853cdd69da1908bdd4b60b972441bf4b` consumes MolSysMT's validation
+flag locally and declares the optional NGLView dependency on the direct native
+converter. The mirrored guard elevates the actual unrecognized-keyword warning
+and checks the represented atom/structure counts. A second case exercises the
+real dependency decorator's absent-provider diagnostic.
+
+The strict pre-repair minimum counterexample fails once. Post-repair minimum
+receiving passes 95; final complete NGLView 3.0.4/Python 3.12 and 4.0.1/Python 3.14
+receiving each pass 104, including the later #631 guards/doctest, without
+omissions. The validation-keyword warnings disappear on 3.0.4. Ordinary 4.0.1
+never reproduced the original warning. Counts overlap.
+
+The [portable receipt](../../../devtools/data/nglview_runtime_receiving_524_630_631_20261106.json)
+retains both providers, original outcomes, explicit old-SMonitor bridge exception
+and source/installed/frontend limits. Public source delivery and actual issue
+closure are recorded separately. #524 remains partial for its remaining route,
+actual Viewer and clean installed closure.
