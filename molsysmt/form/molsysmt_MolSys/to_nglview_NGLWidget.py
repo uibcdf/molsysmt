@@ -1,8 +1,11 @@
+from depdigest import dep_digest
+
 from molsysmt._private.argdigest import arg_digest
 from molsysmt._private.variables import is_all
 
 
 @arg_digest(form="molsysmt.MolSys")
+@dep_digest("nglview")
 def to_nglview_NGLWidget(
     item, atom_indices="all", structure_indices="all", skip_digestion=False
 ):
@@ -26,6 +29,12 @@ def to_nglview_NGLWidget(
     nglview.NGLWidget
         Resulting object in nglview.NGLWidget form.
 
+    Raises
+    ------
+    LibraryNotFoundError
+        If the optional NGLView provider is unavailable. Skipping argument
+        digestion does not bypass this dependency check.
+
 
     .. versionadded:: 1.0.0
     """
@@ -47,6 +56,6 @@ def to_nglview_NGLWidget(
     else:
         tmp_item = item
 
-    tmp_item = show_molsysmt(tmp_item, skip_digestion=True)
+    tmp_item = show_molsysmt(tmp_item)
 
     return tmp_item
