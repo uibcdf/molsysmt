@@ -229,9 +229,7 @@ def test_complementary_native_domains_keep_naming_owner_and_source_axes(
         == "HEH"
     )
     with pytest.raises(ArgumentError, match="contradicts"):
-        msm.convert(
-            domains, to_form="string:amino_acids_1", from_naming_scheme="amber"
-        )
+        msm.convert(domains, to_form="string:amino_acids_1", from_naming_scheme="amber")
 
     result = msm.convert(
         domains,

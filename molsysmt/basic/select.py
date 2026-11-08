@@ -162,7 +162,6 @@ def select(
     from molsysmt.basic import get, where_is_attribute
     from molsysmt.form import _dict_modules
 
-
     if (
         chemical_state != "reference"
         and syntax != "MolSysMT"

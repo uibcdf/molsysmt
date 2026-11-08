@@ -424,8 +424,7 @@ def test_pdb_multimodel_alternate_locations_share_a_canonical_atom_axis():
     assert roundtrip.structures.structure_id.tolist() == ["1", "2"]
     np.testing.assert_allclose(
         puw.get_value(roundtrip.structures.coordinates, to_unit="nm"),
-        [[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]],
-         [[0.2, 0.0, 0.0], [0.0, 0.0, 0.0]]],
+        [[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]], [[0.2, 0.0, 0.0], [0.0, 0.0, 0.0]]],
         atol=5.1e-5,
     )
     np.testing.assert_allclose(roundtrip.structures.occupancy, [[0.6, 1.0], [0.3, 1.0]])
@@ -433,7 +432,12 @@ def test_pdb_multimodel_alternate_locations_share_a_canonical_atom_axis():
         puw.get_value(roundtrip.structures.b_factor, to_unit="nm**2"),
         [[0.10, 0.12], [0.13, 0.15]],
     )
-    for structure_index, expected_coordinates, expected_occupancy, expected_b_factor in (
+    for (
+        structure_index,
+        expected_coordinates,
+        expected_occupancy,
+        expected_b_factor,
+    ) in (
         (0, [[0.0, 0.0, 0.0], [0.1, 0.0, 0.0]], [0.6, 0.4], [0.10, 0.11]),
         (1, [[0.2, 0.0, 0.0], [0.3, 0.0, 0.0]], [0.3, 0.7], [0.13, 0.14]),
     ):

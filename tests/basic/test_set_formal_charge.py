@@ -56,7 +56,9 @@ def states(charge_policy):
         np.array(1.5),
     ],
 )
-def test_invalid_nonquantity_charge_has_public_diagnostic_and_no_mutation(states, value):
+def test_invalid_nonquantity_charge_has_public_diagnostic_and_no_mutation(
+    states, value
+):
     before = msm.get(states, element="atom", formal_charge=True)
     with pytest.raises(msm.ArgumentError) as refusal:
         msm.set(states, element="atom", selection=[0], formal_charge=value)
