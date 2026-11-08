@@ -232,3 +232,15 @@ uibcdf/molsysmt#144 documentation debt. These checks protect the adopted
 software convention, not the unresolved original-paper scientific claim.
 No full-suite, installed-pair, cross-platform or publication qualification is
 asserted for this checkpoint.
+
+## Bounded public-claim review — 2026-11-08
+
+The retained pre-1.0 convention is explicit in the maintained scientific
+validation contract. Public get_charge introductions and Returns no longer
+present ECI as certified physical charge or formal-charge assignment; the
+validation index excludes ECI from its physical_pH7 reference row. The Tool
+and Common Core retain the same qualification. ISA remains provisionally
+typed by the earlier maintainer decision. Original values, units, wrappers
+and aggregation are unchanged; original-paper verification is still pending.
+This closes no primary-reference question and promotes no scientific evidence
+classification. Scoped execution/documentation acceptance is recorded separately.

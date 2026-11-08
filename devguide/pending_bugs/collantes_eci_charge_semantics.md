@@ -106,3 +106,15 @@ justified aggregation. Existing ECI quantities/sums stay unchanged and this
 issue remains open as the original-paper reminder. It is not replaced by ISA's
 new provisional area-quantity convention. Exact sources, hashes and exclusions:
 [the shared source audit](../../devtools/data/collantes_external_sources_20261026.json).
+
+## Bounded public-claim review — 2026-11-08
+
+The retained pre-1.0 convention is explicit in the maintained scientific
+validation contract. Public get_charge introductions and Returns no longer
+present ECI as certified physical charge or formal-charge assignment; the
+validation index excludes ECI from its physical_pH7 reference row. The Tool
+and Common Core retain the same qualification. ISA remains provisionally
+typed by the earlier maintainer decision. Original values, units, wrappers
+and aggregation are unchanged; original-paper verification is still pending.
+This closes no primary-reference question and promotes no scientific evidence
+classification. Scoped execution/documentation acceptance is recorded separately.

@@ -18,14 +18,17 @@ def get_charge(
     skip_digestion=False,
 ):
     """
-    Getting tabulated or mechanical electric charges for a selected population.
+    Getting reference charge scales or mechanical partial charges.
 
-    Returns the electric charge aggregated at the requested hierarchical level.
-    Two families of definitions are supported:
+    Returns the selected definition at the requested hierarchical level.
+    Definitions have different scientific meanings:
 
-    * ``'physical_pH7'`` and ``'collantes'`` — residue-based tabulated scales
-      that assign a fixed charge to each amino acid group.  The charge is then
-      summed across all groups within the requested element.
+    * ``'physical_pH7'`` — fixed amino-acid group reference charges at neutral
+      pH, summed across the groups within the requested element. These are
+      reference values, not a new formal-charge or protonation assignment.
+    * ``'collantes'`` — retained electronic charge index (ECI) QSAR scores.
+      Their legacy electric-charge wrapper and higher-level sums remain for
+      compatibility; physical dimension and justified additivity are unverified.
     * ``'OpenMM'`` — reads partial charges from an ``openmm.System`` or
       ``openmm.Simulation`` object's ``NonbondedForce``.  If a different form
       is provided, the system is first converted to ``openmm.System`` using
@@ -54,8 +57,10 @@ def get_charge(
     Returns
     -------
     quantity
-        Electric charge as a PyUnitWizard quantity in elementary charge
-        units (e).  Shape is ``(n_elements,)`` for atom/group/component/
+        Selected values as a PyUnitWizard quantity, standardized to the active
+        policy. Physical_pH7/OpenMM use electric-charge units; Collantes retains
+        its legacy elementary-charge wrapper without physical certification.
+        Shape is ``(n_elements,)`` for atom/group/component/
         molecule/chain/entity elements, or a scalar for ``element='system'``.
 
 

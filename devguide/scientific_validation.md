@@ -187,7 +187,7 @@ does not replace the analytic oracles above.
 | OpenMM particle mass | `molsysmt.physchem.get_mass` | External | Three particles with arbitrary explicit masses | `1e-12 Da` |
 | Elemental van der Waals radius | `molsysmt.physchem.get_atomic_radius` | Versioned reference | H, C, N, O, and Cl atoms | `1e-12 nm` |
 | ProtOr radius | `molsysmt.physchem.get_atomic_radius` | Versioned reference | Typed alanine heavy atoms | `1e-12 nm` |
-| Residue-scale charge | `molsysmt.physchem.get_charge` | Versioned reference and analytic aggregation | Arg, Asp, and Ala under the `physical_pH7` and Collantes definitions | `1e-12 e` |
+| Amino-acid group reference charge | `molsysmt.physchem.get_charge` | Versioned reference and analytic aggregation | Arg, Asp, and Ala under `physical_pH7` only; Collantes ECI is excluded | `1e-12 e` |
 | OpenMM partial charge | `molsysmt.physchem.get_charge` | External | Three particles with arbitrary explicit `NonbondedForce` charges | `1e-12 e` |
 
 Reference values are transcribed directly in the Scientific Truth tests rather
@@ -283,3 +283,19 @@ interpretation remain under uibcdf/molsysmt#475; the API is therefore partial.
 Its legacy wrapper regression is retained outside the scientific-truth inventory.
 Passing that regression preserves compatibility; it does not establish the
 original descriptor's physical meaning or original-table accuracy.
+
+The pre-1.0 experimental convention for both Collantes tables is bounded:
+
+- ISA retains the maintainer-adopted provisional angstrom-squared interpretation
+  and PyUnitWizard standardization. It is a group-reference lookup, not geometric
+  SASA or an interface measurement; no higher-level aggregation is offered.
+- ECI retains its historical numeric values, electric-charge wrapper and arithmetic
+  sums for compatibility. Neither that wrapper nor a sum certifies physical charge,
+  force-field parameters or justified additive meaning. Public introductions,
+  return documentation and tutorials must carry this distinction as well as Notes.
+- #473 and #475 remain open for original-table/formula/unit verification. Third-party
+  parity and passing compatibility controls do not close either scientific question.
+  A later dimensional or aggregation correction requires an explicit compatibility
+  decision rather than an unannounced numerical replacement.
+- Source acceptance of this bounded convention does not promote the scientific
+  evidence classifications or accept an installed client, candidate or release.
