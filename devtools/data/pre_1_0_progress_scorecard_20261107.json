@@ -2,7 +2,7 @@
   "schema_version": "molsysmt.pre1-progress@1",
   "date": "2026-11-07",
   "owner_issue": "uibcdf/molsysmt#334",
-  "qualified_source": "dae961200c2c855cdf24f50fb2806ecabef8aaa6",
+  "qualified_source": "be11ef8f5c32008e4299e3b406062f8d587f323c",
   "measure": "Verified implementation/source-delivery milestones; approximate operational completion, not elapsed effort, scientific coverage, a readiness probability or publication authority.",
   "accounting_change": "The earlier all-or-nothing phase-exit indicator was 40%. The same six phase weights and full scope now receive explicit partial milestone credit. This is a catch-up remeasurement of delivered work, not a new 21-point implementation in this turn.",
   "method": "Within phases 3\u20136, each named requirement package has equal weight. Nested accepted GUI families have equal family weight, then equal declared intent/task weight within that family. Verified-source leaves score 1, pending leaves score 0; parents average children. Supplemental defect/test/issue counts add no bonus. Pending means not accepted by this audit, not absent code.",
@@ -398,7 +398,7 @@
                   "evidence": [
                     "devtools/data/general_periodic_gui_receiving_421_20261108.json"
                   ],
-                  "review": "Public 1659a1515 receives clean 2f0eeb1c1: 336 source cases and fixed/general actual-Jupyter guards pass, with native row-basis/previous-transition-cell oracles. Fourteen fast gates and HTML pass on 1659a1515; six unchanged heading warnings remain. Cell assignment, tiny-boundary reference-point receiving and whole-family/installed/human gates stay pending."
+                  "review": "Public 1659a1515 receives clean 2f0eeb1c1: 336 source cases and fixed/general actual-Jupyter guards pass, with native row-basis/previous-transition-cell oracles. Fourteen fast gates and HTML pass on 1659a1515; six unchanged heading warnings remain. Cell assignment, tiny-boundary reference-point receiving and whole-family/installed/human gates stay pending. Dedicated small-origin and ignored-input-unit source receiving is now verified on public be11ef8f5; see small_origin_gui_receiving_421_20261108.json. No additional intent or score is added."
                 },
                 {
                   "id": "cell-assignment",
@@ -407,7 +407,7 @@
                   "evidence": [
                     "devtools/data/cell_assignment_gui_receiving_421_20261108.json"
                   ],
-                  "review": "Public dae961200 receives clean 7ba4f2ed5: 550 affected source cases and two actual-Jupyter guards / sixteen checks. Explicit physical lengths/angles/units, canonical rows, complete-structure scope, all-structure initialization, unchanged coordinates, coverage/effects, expiring reviews and sync-only retry are retained. Fourteen fast gates and HTML pass on dae961200; six existing title warnings remain. Tiny-origin cross-policy and full-family/human/installed qualification remain due."
+                  "review": "Public dae961200 receives clean 7ba4f2ed5: 550 affected source cases and two actual-Jupyter guards / sixteen checks. Explicit physical lengths/angles/units, canonical rows, complete-structure scope, all-structure initialization, unchanged coordinates, coverage/effects, expiring reviews and sync-only retry are retained. Fourteen fast gates and HTML pass on dae961200; six existing title warnings remain. Tiny-origin cross-policy and full-family/human/installed qualification remain due. Dedicated small-origin and ignored-input-unit source receiving is now verified on public be11ef8f5; see small_origin_gui_receiving_421_20261108.json. No additional intent or score is added."
                 }
               ]
             },
@@ -866,9 +866,9 @@
       "uibcdf/molsysmt#614"
     ],
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
-    "owner_verification": "Public dae961200 is independently verified across all 22 changed paths; clean 7ba4f2ed5 passes 550 affected source cases and two actual-Jupyter guards. Fourteen fast gates and HTML pass on dae961200. Earlier source closures and all scoped evidence remain recorded.",
+    "owner_verification": "Public be11ef8f5 independently matches all fourteen changed paths and preserves the four human files. Native/request origin receiving passes 264 cases on db16eec9b; stronger actual-Jupyter receiving, fourteen fast gates and HTML pass on d2918aa6c. The original failed pm fixture and narrower passing population remain recorded.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Receive dedicated tiny-boundary-origin cross-policy graphical controls, then remaining accepted GUI families. Preserve #615 causal uncertainty, #567 policy, #582 requested/effective mechanics and every installed/platform/exact-candidate requirement.",
+    "scope": "Continue the accepted sequence-fit intent using native sequence/structural tools, then the remaining declared graphical families. Preserve #615 causal uncertainty, #567 policy, #582 requested/effective mechanics and every installed/platform/exact-candidate gate.",
     "active_related": [
       "uibcdf/molsysmt#615"
     ],
@@ -943,5 +943,15 @@
     "weighted_milestone_change": 1.4285714285714306,
     "issues_closed": false
   },
-  "qualification_scope": "Full product source/Amber receiving on 03c59caef9, developer/CI repairs on 12a6c6fc2, fourteen Jupyter guards on 68323539e, general-periodic receiving on 2f0eeb1c1 and cell assignment on 7ba4f2ed5 retain separate scopes. Fast gates/HTML on dae961200 are not a new full-suite, installed or final-candidate qualification."
+  "qualification_scope": "Full product source/Amber on 03c59caef9, developer/CI repairs on 12a6c6fc2, fourteen Jupyter guards on 68323539e, general-periodic receiving on 2f0eeb1c1, cell assignment on 7ba4f2ed5 and small-origin scopes on db16eec9b/25d9b8105/d2918aa6c remain separate. Fast gates/HTML on d2918aa6c are not a new full-suite, installed or final-candidate qualification.",
+  "last_periodic_receiving": {
+    "source": "d2918aa6c2f9605383055d73e1e3d4164f810697",
+    "public_checkpoint": "be11ef8f5c32008e4299e3b406062f8d587f323c",
+    "evidence": "devtools/data/pre_1_0_progress_scorecard_20261107.json",
+    "state": "declared_source_profile_received",
+    "weighted_milestone_change": 0,
+    "graphical_accepted": 25,
+    "graphical_total": 50,
+    "audit_related_source_closures": 51
+  }
 }

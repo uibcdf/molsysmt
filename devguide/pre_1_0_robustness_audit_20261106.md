@@ -5,6 +5,28 @@
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-08.
 
+## Dedicated periodic-origin source delivery — 2026-11-08
+
+Public checkpoint `be11ef8f5c32008e4299e3b406062f8d587f323c` independently matches
+all fourteen delivered paths and preserves four human root files. The
+[origin receipt](../devtools/data/small_origin_gui_receiving_421_20261108.json)
+retains 264 clean native/request passes, the first failed pm fixture, corrected
+two-probe receiving and stronger four-probe nm/pm Jupyter receiving. The latter
+passes fourteen checks on clean `d2918aa6c`, distinguishing zero-origin and
+ignored-input-unit counterfactuals by complete cells. Exact stored boxes/units,
+all native coordinates and actual Mol* images remain guarded. Source/export
+fingerprints agree; runtime/Rust behavior and all deadlines are unchanged.
+Fourteen fast gates and HTML pass with six unchanged title warnings, validated
+rendered links and unchanged course code/outputs. The board is unchanged at
+585 issues / 88 open / no open PR, with local queue agreement.
+
+Progress remains **approximately 72.3%**, **25/50 graphical intents** and
+**51 audit-related source closures**; this dedicated receiving adds no intent
+or closure bonus. Continue the accepted sequence-fit intent and remaining
+families, retaining #615 uncertainty, #567 policy, #582 effective recipes and
+all human/installed/platform/exact-candidate requirements. No tag, package,
+Release, promotion or hosted matrix is launched.
+
 ## Cell-assignment source delivery — 2026-11-08
 
 Public checkpoint `dae961200c2c855cdf24f50fb2806ecabef8aaa6` independently matches

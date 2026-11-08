@@ -2117,5 +2117,75 @@
     "open_prs": 0,
     "queues_agree": true
   },
-  "concurrent_resource_scope": "Measured fast checks and then HTML may overlap the GUI run: aggregate configured limits 5 CPU and 6 GiB, each with independent shared-host reserve monitoring. No whole-host reservation or universal product memory bound is implied."
+  "concurrent_resource_scope": "Measured fast checks and then HTML may overlap the GUI run: aggregate configured limits 5 CPU and 6 GiB, each with independent shared-host reserve monitoring. No whole-host reservation or universal product memory bound is implied.",
+  "public_source_delivery": {
+    "public_checkpoint": "be11ef8f5c32008e4299e3b406062f8d587f323c",
+    "base": "cdd5376b62740c76aff39491efdd7b0cb3214385",
+    "verified_paths": [
+      {
+        "path": "devguide/molsysviewer_tools_gui_design.md",
+        "git_blob_sha": "50dad010a866a5bb407465833851ca55325f26ee"
+      },
+      {
+        "path": "devguide/pending_proposals/molsysviewer_tools_addon.md",
+        "git_blob_sha": "888497b66f2b5d83ead1a6b53456f1c7630d1984"
+      },
+      {
+        "path": "devguide/periodic_tools_gui_qualification.md",
+        "git_blob_sha": "2284fa19ce27425c90d47b6a5ee37c5c4262c1b7"
+      },
+      {
+        "path": "devtools/data/small_origin_gui_receiving_421_20261108.json",
+        "git_blob_sha": "37dd091bbacf6678cf7ec62dce126aa2a6d54a1a"
+      },
+      {
+        "path": "docs/content/course/Path_Alzheimer/41_Wrapping_Unwrapping.ipynb",
+        "git_blob_sha": "bf125c507a0d6e5d82dc380413c6e865c28b476d"
+      },
+      {
+        "path": "docs/content/course/Path_Antiviral/41_Wrapping_Unwrapping.ipynb",
+        "git_blob_sha": "01f9ec396f3e718d3aa11ac21701e265dda8ee3c"
+      },
+      {
+        "path": "docs/content/course/Path_Biophysics/41_Wrapping_Unwrapping.ipynb",
+        "git_blob_sha": "43a6b0f8e8957641fcd984160e9f4b3a2044ed50"
+      },
+      {
+        "path": "docs/content/course/Path_Enzyme/41_Wrapping_Unwrapping.ipynb",
+        "git_blob_sha": "b60949b4dbf7de8b4f5e1217e54052e42933c2db"
+      },
+      {
+        "path": "docs/content/user/tools/molsysviewer_tools.md",
+        "git_blob_sha": "1fcda687d65bb04513de4cb7c617fcb508514066"
+      },
+      {
+        "path": "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md",
+        "git_blob_sha": "82db68c2e84fe73fda0d0ffd09ce93228fed04bf"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py",
+        "git_blob_sha": "aedaef1afed16eafb3f7395513422762a2fb9591"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/periodic_origins_jupyter.mjs",
+        "git_blob_sha": "4e893415b46608c2a197696edb5c4b9c60400ac4"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/system_panel_jupyter.py",
+        "git_blob_sha": "bbe72da34f9ff1c3e75ac629bea1c7a71109a831"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/test_periodic_panel.py",
+        "git_blob_sha": "df7cb7824ac66675f5217904af1d463d010b0d0d"
+      }
+    ],
+    "protected_human_files": {
+      "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": "3b97cf0d5c813a1e3c2212ad118c7f6c32763d85af91cb800640209095fd53d6",
+      "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": "d564291bb01387663f178f5e041bc8d55d1022bfa71584ddd11f1dd9dba12d95",
+      "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": "a112aa640da192a121d1ccec3c5011c9652729abacf2a38c1b222632a55dcf20",
+      "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": "6b3f17a698bc7393ca3ecad31891d693b8a8169dfdd892dbae77f3ca91b25abe"
+    },
+    "human_bytes_unchanged": true,
+    "scope": "Fast-forward source delivery only; no package, tag, Release or hosted matrix launched."
+  }
 }
