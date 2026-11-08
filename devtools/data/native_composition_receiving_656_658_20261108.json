@@ -1,0 +1,3434 @@
+{
+  "schema_version": "molsysmt.native_composition_receiving@1",
+  "date": "2026-11-08",
+  "owner_issues": [
+    "uibcdf/molsysmt#656",
+    "uibcdf/molsysmt#658"
+  ],
+  "source": "35ad4bc59bcf5770f8ac05cc02ae8c70b06ae33f",
+  "scope": "Bounded Linux/Python 3.14 source receiving; not full-suite, installed/platform/client/candidate qualification.",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "runs": {
+    "composition-656-baseline": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/composition-656-baseline.xml",
+          "-n0",
+          "tests/basic/convert/mult_to_one/test_topology_structures_copy_policy.py"
+        ],
+        "exit_code": 1,
+        "seconds": 3.220016134204343,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "ce48b1c2e10d5acd5525a23620a7b44c116311a0",
+        "starting_git_status": "?? tests/basic/convert/mult_to_one/test_topology_structures_copy_policy.py\n",
+        "ending_git_status": "?? tests/basic/convert/mult_to_one/test_topology_structures_copy_policy.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8597
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "13",
+          "skipped": "0",
+          "tests": "23",
+          "time": "1.385",
+          "timestamp": "2026-11-08T15:30:13.934210-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-False-False]",
+          "seconds": 0.094,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-False-True]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-True-False]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-True-True]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-False-False]",
+          "seconds": 0.013,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-False-True]",
+          "seconds": 0.015,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-True-False]",
+          "seconds": 0.014,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-True-True]",
+          "seconds": 0.013,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-False-False]",
+          "seconds": 0.013,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-False-True]",
+          "seconds": 0.013,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-True-False]",
+          "seconds": 0.013,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-True-True]",
+          "seconds": 0.015,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[False-False]",
+          "seconds": 0.021,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[False-True]",
+          "seconds": 0.016,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[True-False]",
+          "seconds": 0.015,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[True-True]",
+          "seconds": 0.014,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_atom_selection_cannot_hide_conflicting_original_domains[False]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atom_selection_cannot_hide_conflicting_original_domains[True]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[None]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[1]",
+          "seconds": 0.012,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[false]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[copy_policy3]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_structural_observables_without_an_atom_axis_remain_composable",
+          "seconds": 0.013,
+          "outcome": "failure"
+        }
+      ],
+      "resources": {
+        "seconds": 9.009342224802822,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.462890625,
+            0.701171875,
+            1.5791015625
+          ],
+          "cpu_utilization": 0.02058232931726911,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16456056832,
+        "cgroup_memory_peak_bytes": 188399616,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 4,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 8479289\nuser_usec 7672451\nsystem_usec 806837\nnice_usec 7671000\ncore_sched.force_idle_usec 0\nnr_periods 89\nnr_throttled 15\nthrottled_usec 312331\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "b00c34ed942fe25f926b9fc4dad9bc4f6310dcf1019cbcf4bf610f991625301f",
+        "-bounded.json": "ae33e4f8ad7bfe080d973cf40e74ca7533f86436fbd46af119295d1d53f7956a",
+        ".xml": "f7573eb0607878c7f0f483fba753e5f47ebfe413ec4d0f5b0641d353ce9c0cfb",
+        ".log": "ca34e912cc6f2f563bb14f95362fd0b0cab46383db3ddb31c8d65513421242a0",
+        "-inputs-before.json": "e8ae800ae6f0e17fc75df055aad19106ccba8deed9dd85af3df055dd17d11132",
+        "-inputs-after.json": "e8ae800ae6f0e17fc75df055aad19106ccba8deed9dd85af3df055dd17d11132",
+        "-reference-driver.py": "c7f88a6b3623f64f60cfc00e00e6901e937fed540001e4a19642b3c90491278b",
+        "-resource-driver.py": "48d0bc39fd2109a3338fdd63a6fda3efebb77fde2067cb0e8722e13a6623497c"
+      },
+      "jupyter": []
+    },
+    "composition-656-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/composition-656-directed.xml",
+          "-n0",
+          "tests/basic/convert/mult_to_one/test_topology_structures_copy_policy.py"
+        ],
+        "exit_code": 1,
+        "seconds": 2.6716650167945772,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "ce48b1c2e10d5acd5525a23620a7b44c116311a0",
+        "starting_git_status": " M molsysmt/_private/conversion_shortcuts/to_molsysmt_MolSys.py\n?? tests/basic/convert/mult_to_one/test_topology_structures_copy_policy.py\n",
+        "ending_git_status": " M molsysmt/_private/conversion_shortcuts/to_molsysmt_MolSys.py\n?? tests/basic/convert/mult_to_one/test_topology_structures_copy_policy.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8597
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "4",
+          "skipped": "0",
+          "tests": "23",
+          "time": "0.863",
+          "timestamp": "2026-11-08T15:31:00.819943-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-False-False]",
+          "seconds": 0.097,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-False-True]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-True-False]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-True-True]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-False-False]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-False-True]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-True-False]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-True-True]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-False-False]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-False-True]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-True-False]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-True-True]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[False-False]",
+          "seconds": 0.032,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[False-True]",
+          "seconds": 0.037,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[True-False]",
+          "seconds": 0.039,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[True-True]",
+          "seconds": 0.046,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_atom_selection_cannot_hide_conflicting_original_domains[False]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atom_selection_cannot_hide_conflicting_original_domains[True]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[None]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[1]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[false]",
+          "seconds": 0.012,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[copy_policy3]",
+          "seconds": 0.012,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_structural_observables_without_an_atom_axis_remain_composable",
+          "seconds": 0.013,
+          "outcome": "passed"
+        }
+      ],
+      "resources": {
+        "seconds": 8.008390935137868,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.61474609375,
+            0.73779296875,
+            1.54638671875
+          ],
+          "cpu_utilization": 0.020090406830738372,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16432742400,
+        "cgroup_memory_peak_bytes": 186081280,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 4,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 8017791\nuser_usec 7216411\nsystem_usec 801379\nnice_usec 7220000\ncore_sched.force_idle_usec 0\nnr_periods 83\nnr_throttled 26\nthrottled_usec 226866\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "88395d8d22603086d20168452224f57d247e83b567cf66da2f5736129cd7a181",
+        "-bounded.json": "b5e2e69276ae3db7e61e482e3bd8105bb5ce3e390890310975780426172e6a63",
+        ".xml": "ef15632692c02e060fa4e7169c42ed5be974f97ace22896069d7de4c5a84dfaf",
+        ".log": "fb3900d324b3c7c4392c332ea0ef9ffb22b2dd82eae172b49b42332cc7d10c4b",
+        "-inputs-before.json": "32d3f42512698fd2af158e97fc18e146511bd6ba021d9bbdefe96ec19b568095",
+        "-inputs-after.json": "32d3f42512698fd2af158e97fc18e146511bd6ba021d9bbdefe96ec19b568095",
+        "-reference-driver.py": "cb3511b843846ebde79230563b34b345ed153fd64e4458386a5a2fe518e9a913",
+        "-resource-driver.py": "916787625f56caf69451e93eac1859fee2692e42793ddfd00cad89cfdf0ac042"
+      },
+      "jupyter": []
+    },
+    "composition-656-order-counterexample": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/composition-656-order-counterexample.xml",
+          "-n0",
+          "tests/basic/convert/mult_to_one/test_topology_structures_copy_policy.py"
+        ],
+        "exit_code": 1,
+        "seconds": 3.045156949898228,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "ce48b1c2e10d5acd5525a23620a7b44c116311a0",
+        "starting_git_status": " M molsysmt/_private/conversion_shortcuts/to_molsysmt_MolSys.py\n?? devguide/pending_bugs/topology_and_structures_composition_misaligns_unsorted_atom_selections.md\n?? tests/basic/convert/mult_to_one/test_topology_structures_copy_policy.py\n",
+        "ending_git_status": " M molsysmt/_private/conversion_shortcuts/to_molsysmt_MolSys.py\n?? devguide/pending_bugs/topology_and_structures_composition_misaligns_unsorted_atom_selections.md\n?? tests/basic/convert/mult_to_one/test_topology_structures_copy_policy.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8598
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "6",
+          "skipped": "0",
+          "tests": "25",
+          "time": "1.129",
+          "timestamp": "2026-11-08T15:32:41.104307-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-False-False]",
+          "seconds": 0.359,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-False-True]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-True-False]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-True-True]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-False-False]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-False-True]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-True-False]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-True-True]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-False-False]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-False-True]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-True-False]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-True-True]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[False-default]",
+          "seconds": 0.033,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[False-False]",
+          "seconds": 0.031,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[False-True]",
+          "seconds": 0.029,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[True-default]",
+          "seconds": 0.029,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[True-False]",
+          "seconds": 0.03,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[True-True]",
+          "seconds": 0.029,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_atom_selection_cannot_hide_conflicting_original_domains[False]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atom_selection_cannot_hide_conflicting_original_domains[True]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[None]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[1]",
+          "seconds": 0.012,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[false]",
+          "seconds": 0.012,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[copy_policy3]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_structural_observables_without_an_atom_axis_remain_composable",
+          "seconds": 0.013,
+          "outcome": "passed"
+        }
+      ],
+      "resources": {
+        "seconds": 9.009372364031151,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.822265625,
+            0.78076171875,
+            1.47802734375
+          ],
+          "cpu_utilization": 0.021597187343043722,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16344854528,
+        "cgroup_memory_peak_bytes": 212803584,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 4,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 8273000\nuser_usec 7411417\nsystem_usec 861583\nnice_usec 7413000\ncore_sched.force_idle_usec 0\nnr_periods 87\nnr_throttled 20\nthrottled_usec 138442\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "00e94cc7f8adc18c6dac3647c6bfa29e4c3f6f59b8115e7986a55e51e4a373be",
+        "-bounded.json": "7b2ca5961299e5f9d42df632ab0d24411aab893a28319071834aed526c9514ae",
+        ".xml": "d48ffbc510bd7914513a333db71b6812d4833a39df6fe44f69586f27333eb7a4",
+        ".log": "43e88fe6ce8b6a09357e77e563b91a7b2e180fdbcf5b97d6af1f5784db8d6efb",
+        "-inputs-before.json": "67593276423b71c9ebe142c42d40417010cab16e6ba5feef81be5366986f1780",
+        "-inputs-after.json": "67593276423b71c9ebe142c42d40417010cab16e6ba5feef81be5366986f1780",
+        "-reference-driver.py": "5f2bc06a7e43aed44384153023815a6aac2ef3ec86606a2e8e658b4cac9427f5",
+        "-resource-driver.py": "f3fe78953622340e3bab0965cc470fd49ce0a55799aeb8490ca14de603be4c92"
+      },
+      "jupyter": []
+    },
+    "composition-656-658-integrated": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/composition-656-658-integrated.xml",
+          "-n0",
+          "tests/basic/convert/mult_to_one",
+          "tests/test_argument_contract.py",
+          "tests/form/molsysmt_MolSys/test_partial_domains.py",
+          "tests/molsysviewer_molsysmt/test_composition_tools.py",
+          "tests/documentation/test_pairwise_geometry_tutorials.py",
+          "molsysmt/basic/convert.py"
+        ],
+        "exit_code": 0,
+        "seconds": 76.3738616660703,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "ce48b1c2e10d5acd5525a23620a7b44c116311a0",
+        "starting_git_status": " M devguide/forms_and_conversions.md\n M devguide/pending_bugs/topology_and_structures_composition_rejects_explicit_copy_if_all.md\n M docs/content/course/Common_Core/05_Combined_Forms.ipynb\n M docs/content/user/cookbook/group_free_hierarchy.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md\n M docs/content/user/tools/basic/convert.ipynb\n M molsysmt/_private/conversion_shortcuts/to_molsysmt_MolSys.py\n M molsysmt/basic/convert.py\n?? devguide/pending_bugs/topology_and_structures_composition_misaligns_unsorted_atom_selections.md\n?? tests/basic/convert/mult_to_one/test_topology_structures_copy_policy.py\n",
+        "ending_git_status": " M devguide/forms_and_conversions.md\n M devguide/pending_bugs/topology_and_structures_composition_rejects_explicit_copy_if_all.md\n M docs/content/course/Common_Core/05_Combined_Forms.ipynb\n M docs/content/user/cookbook/group_free_hierarchy.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md\n M docs/content/user/tools/basic/convert.ipynb\n M molsysmt/_private/conversion_shortcuts/to_molsysmt_MolSys.py\n M molsysmt/basic/convert.py\n?? devguide/pending_bugs/topology_and_structures_composition_misaligns_unsorted_atom_selections.md\n?? tests/basic/convert/mult_to_one/test_topology_structures_copy_policy.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8598
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "247",
+          "time": "72.229",
+          "timestamp": "2026-11-08T15:35:27.942775-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_compose_chemical_and_structural_domains_without_inventing_topology[False-False]",
+          "seconds": 0.399,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_compose_chemical_and_structural_domains_without_inventing_topology[False-True]",
+          "seconds": 0.08,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_compose_chemical_and_structural_domains_without_inventing_topology[True-False]",
+          "seconds": 0.038,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_compose_chemical_and_structural_domains_without_inventing_topology[True-True]",
+          "seconds": 0.067,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_selected_composition_remaps_bonds_charges_and_frames_in_requested_order[False-False]",
+          "seconds": 0.075,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_selected_composition_remaps_bonds_charges_and_frames_in_requested_order[False-True]",
+          "seconds": 0.08,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_selected_composition_remaps_bonds_charges_and_frames_in_requested_order[True-False]",
+          "seconds": 0.064,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_selected_composition_remaps_bonds_charges_and_frames_in_requested_order[True-True]",
+          "seconds": 0.08,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_incompatible_full_atom_axes_fail_before_a_selection_can_hide_them[False]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_incompatible_full_atom_axes_fail_before_a_selection_can_hide_them[True]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_and_single_state_implicit_association",
+          "seconds": 0.048,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_composed_domains_persist_through_public_h5msm_conversion",
+          "seconds": 0.494,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices0-False-False]",
+          "seconds": 0.256,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices0-False-True]",
+          "seconds": 0.12,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices0-True-False]",
+          "seconds": 0.101,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices0-True-True]",
+          "seconds": 0.12,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices1-False-False]",
+          "seconds": 0.101,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices1-False-True]",
+          "seconds": 0.119,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices1-True-False]",
+          "seconds": 0.103,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices1-True-True]",
+          "seconds": 0.123,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices2-False-False]",
+          "seconds": 0.099,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices2-False-True]",
+          "seconds": 0.111,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices2-True-False]",
+          "seconds": 0.093,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices2-True-True]",
+          "seconds": 0.11,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order0-False]",
+          "seconds": 0.047,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order0-True]",
+          "seconds": 0.064,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order1-False]",
+          "seconds": 0.047,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order1-True]",
+          "seconds": 0.063,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order2-False]",
+          "seconds": 0.045,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order2-True]",
+          "seconds": 0.063,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order3-False]",
+          "seconds": 0.047,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order3-True]",
+          "seconds": 0.066,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order4-False]",
+          "seconds": 0.046,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order4-True]",
+          "seconds": 0.065,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order5-False]",
+          "seconds": 0.054,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order5-True]",
+          "seconds": 0.066,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_projects_domains_together[atoms0-indices0-False-False]",
+          "seconds": 0.089,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_projects_domains_together[atoms0-indices0-False-True]",
+          "seconds": 0.105,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_projects_domains_together[atoms0-indices0-True-False]",
+          "seconds": 0.089,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_projects_domains_together[atoms0-indices0-True-True]",
+          "seconds": 0.107,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_projects_domains_together[atoms1-indices1-False-False]",
+          "seconds": 0.084,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_projects_domains_together[atoms1-indices1-False-True]",
+          "seconds": 0.106,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_projects_domains_together[atoms1-indices1-True-False]",
+          "seconds": 0.147,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_projects_domains_together[atoms1-indices1-True-True]",
+          "seconds": 0.104,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_rejects_full_atom_conflicts_before_selection[topology-False]",
+          "seconds": 0.051,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_rejects_full_atom_conflicts_before_selection[topology-True]",
+          "seconds": 0.058,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_rejects_full_atom_conflicts_before_selection[chemistry-False]",
+          "seconds": 0.071,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_rejects_full_atom_conflicts_before_selection[chemistry-True]",
+          "seconds": 0.071,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_rejects_full_atom_conflicts_before_selection[structures-False]",
+          "seconds": 0.04,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_rejects_full_atom_conflicts_before_selection[structures-True]",
+          "seconds": 0.042,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_dictionary_composition_rejects_repeated_domains[topology]",
+          "seconds": 0.042,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_dictionary_composition_rejects_repeated_domains[chemistry]",
+          "seconds": 0.041,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_dictionary_composition_rejects_repeated_domains[mixed-chemistry]",
+          "seconds": 0.042,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_dictionary_composition_rejects_repeated_domains[structures]",
+          "seconds": 0.044,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_dictionary_composition_keeps_single_state_and_no_final_copy_policy",
+          "seconds": 0.053,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_dictionary_inventory_composition_persists_selected_domains",
+          "seconds": 0.21,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_dictionary_inventory_composition_preserves_zero_states",
+          "seconds": 0.052,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_dictionary_inventory_composition_preserves_mechanics[False]",
+          "seconds": 0.125,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_dictionary_inventory_composition_preserves_mechanics[True]",
+          "seconds": 0.115,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_real_complementary_files_compose_before_nonconsecutive_selection[False-False]",
+          "seconds": 0.327,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_real_complementary_files_compose_before_nonconsecutive_selection[False-True]",
+          "seconds": 0.243,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_real_complementary_files_compose_before_nonconsecutive_selection[True-False]",
+          "seconds": 0.24,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_real_complementary_files_compose_before_nonconsecutive_selection[True-True]",
+          "seconds": 0.278,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_composition_remaps_detached_analyses_and_preserves_empty_frames",
+          "seconds": 0.376,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_full_axes_and_independent_copy_policy",
+          "seconds": 0.206,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_state_association_survives_without_invalidating_analyses",
+          "seconds": 0.143,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_incompatible_domains_fail_before_selection_can_hide_them[atoms]",
+          "seconds": 0.206,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_incompatible_domains_fail_before_selection_can_hide_them[frames]",
+          "seconds": 0.196,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_incompatible_domains_fail_before_selection_can_hide_them[duplicate_structures]",
+          "seconds": 0.189,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_incompatible_domains_fail_before_selection_can_hide_them[duplicate_analysis]",
+          "seconds": 0.195,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_complete_files_remain_distinct_systems",
+          "seconds": 0.206,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_frame_only_domain_has_no_invented_atom_axis",
+          "seconds": 0.199,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_classification_reads_h5msm_metadata_without_materializing_arrays",
+          "seconds": 0.13,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_nondefault_units_and_topology_selection_are_applied_after_composition",
+          "seconds": 0.239,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_partial_composition_rejects_mechanics_without_silent_loss",
+          "seconds": 0.195,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_file_gro_and_file_xtc_to_mdtraj_Trajectory",
+          "seconds": 1.145,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_file_prmtop_and_file_inpcrd_to_molsysmt_MolSys",
+          "seconds": 0.679,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_file_psf_and_file_dcd_to_molsysmt_MolSys",
+          "seconds": 11.406,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_file_gro_and_file_xtc_to_molsysmt_MolSys",
+          "seconds": 0.726,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_single_state_topology_and_trajectory_reconciles_structure_association",
+          "seconds": 1.503,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_molsysmt_MolSys_and_molsysmt_MolecularMechanicsDict_to_molsysmt_MolecularMechanics",
+          "seconds": 0.868,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_molsysmt_MolecularMechanicsDict_and_molsysmt_MolecularMechanicsDict_to_molsysmt_MolecularMechanics",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_molsysmt_MolSys_and_molsysmt_MolecularMechanicsDict_to_molsysmt_MolecularMechanicsDict",
+          "seconds": 0.07,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_molsysmt_MolecularMechanicsDict_and_molsysmt_MolecularMechanicsDict_to_molsysmt_MolecularMechanics",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_file_psf_and_file_dcd_to_molsysmt_Structures",
+          "seconds": 12.24,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_file_psf_and_file_dcd_to_molsysmt_Topology",
+          "seconds": 12.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_molsysmt_Topology_and_molsysmt_Structures_to_string_pdb_text",
+          "seconds": 1.406,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_charge_getter_returns_numeric_values_for_public_setters",
+          "seconds": 0.043,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_topology_structures_mechanics_compose_with_nondefault_charge_policy",
+          "seconds": 0.045,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order0]",
+          "seconds": 0.046,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order1]",
+          "seconds": 0.046,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order2]",
+          "seconds": 0.047,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order3]",
+          "seconds": 0.046,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order4]",
+          "seconds": 0.045,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order5]",
+          "seconds": 0.047,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order6]",
+          "seconds": 0.054,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order7]",
+          "seconds": 0.046,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order8]",
+          "seconds": 0.046,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order9]",
+          "seconds": 0.045,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order10]",
+          "seconds": 0.046,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order11]",
+          "seconds": 0.045,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order12]",
+          "seconds": 0.046,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order13]",
+          "seconds": 0.045,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order14]",
+          "seconds": 0.045,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order15]",
+          "seconds": 0.045,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order16]",
+          "seconds": 0.045,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order17]",
+          "seconds": 0.045,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order18]",
+          "seconds": 0.046,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order19]",
+          "seconds": 0.045,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order20]",
+          "seconds": 0.046,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order21]",
+          "seconds": 0.046,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order22]",
+          "seconds": 0.044,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order23]",
+          "seconds": 0.046,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemical_domain_owns_states_instead_of_topology_compatibility",
+          "seconds": 0.044,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_selected_four_domain_composition_uses_existing_native_remapping",
+          "seconds": 0.082,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_full_atom_conflicts_fail_before_selection[chemistry]",
+          "seconds": 0.067,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_full_atom_conflicts_fail_before_selection[structures]",
+          "seconds": 0.04,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_full_atom_conflicts_fail_before_selection[mechanics]",
+          "seconds": 0.04,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_duplicate_explicit_providers_are_rejected[0]",
+          "seconds": 0.038,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_duplicate_explicit_providers_are_rejected[1]",
+          "seconds": 0.037,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_duplicate_explicit_providers_are_rejected[2]",
+          "seconds": 0.037,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_duplicate_explicit_providers_are_rejected[3]",
+          "seconds": 0.037,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_mechanics_with_chemical_or_structural_only_domain",
+          "seconds": 0.042,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_shared_copy_policy_and_empty_chemistry",
+          "seconds": 0.042,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_full_axis_no_copy_shares_unowned_structures_and_mechanics",
+          "seconds": 0.039,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_mechanical_parameters_and_named_provenance_survive_without_reassignment",
+          "seconds": 0.35,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_domain_h5msm_preserves_chemistry_and_rejects_nonempty_mechanics",
+          "seconds": 0.183,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_absent_structural_atom_axis_is_not_a_declared_zero_length_axis[False]",
+          "seconds": 0.043,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_absent_structural_atom_axis_is_not_a_declared_zero_length_axis[True]",
+          "seconds": 0.048,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-False-False]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-False-True]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-True-False]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-True-True]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-False-False]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-False-True]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-True-False]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-True-True]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-False-False]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-False-True]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-True-False]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-True-True]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection0-False-default]",
+          "seconds": 0.029,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection0-False-False]",
+          "seconds": 0.028,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection0-False-True]",
+          "seconds": 0.029,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection0-True-default]",
+          "seconds": 0.028,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection0-True-False]",
+          "seconds": 0.028,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection0-True-True]",
+          "seconds": 0.028,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection1-False-default]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection1-False-False]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection1-False-True]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection1-True-default]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection1-True-False]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection1-True-True]",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection2-False-default]",
+          "seconds": 0.029,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection2-False-False]",
+          "seconds": 0.027,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection2-False-True]",
+          "seconds": 0.028,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection2-True-default]",
+          "seconds": 0.028,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection2-True-False]",
+          "seconds": 0.028,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection2-True-True]",
+          "seconds": 0.029,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atom_selection_cannot_hide_conflicting_original_domains[False]",
+          "seconds": 0.012,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atom_selection_cannot_hide_conflicting_original_domains[True]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[None]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[1]",
+          "seconds": 0.012,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[false]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[copy_policy3]",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_structural_observables_without_an_atom_axis_remain_composable",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_the_typo_that_silently_read_a_whole_trajectory_now_raises",
+          "seconds": 0.157,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_the_diagnostic_suggests_the_intended_name",
+          "seconds": 0.046,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_closed_function_rejects_a_keyword_it_does_not_declare",
+          "seconds": 0.004,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_an_attribute_that_does_not_exist_is_refused",
+          "seconds": 0.004,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_the_attribute_domain_still_passes_through[<lambda>0]",
+          "seconds": 0.004,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_the_attribute_domain_still_passes_through[<lambda>1]",
+          "seconds": 0.004,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_the_attribute_domain_still_passes_through[<lambda>2]",
+          "seconds": 0.005,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_the_attribute_domain_still_passes_through[<lambda>3]",
+          "seconds": 0.006,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_no_public_function_raises_an_uncatalogued_error_for_a_typo",
+          "seconds": 0.005,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_every_open_signature_declares_its_domain",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_the_attribute_domain_points_at_the_catalogue",
+          "seconds": 0.002,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_get_neighbors_refuses_both_search_criteria",
+          "seconds": 0.005,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_get_neighbors_refuses_neither_search_criterion",
+          "seconds": 0.004,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_get_neighbors_accepts_exactly_one_criterion[criterion0]",
+          "seconds": 0.007,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_get_neighbors_accepts_exactly_one_criterion[criterion1]",
+          "seconds": 0.007,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_admits_what_the_target_converter_accepts",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_refuses_a_mistyped_converter_keyword",
+          "seconds": 0.004,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_an_unknown_target_form_is_reported_as_such",
+          "seconds": 0.552,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_the_converter_table_is_plain_data",
+          "seconds": 0.002,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_the_converter_table_still_matches_the_converters",
+          "seconds": 0.644,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_state_only_molsys_exposes_its_atom_and_chemical_state_domains",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_topology_free_molsys_exposes_stored_structures_and_associations",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_missing_domain_conversions_fail_before_creating_output",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_state_selection_fails_clearly_without_a_topology",
+          "seconds": 0.006,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_signature_defaults_keyword_controls_digestion_and_aliases[add]",
+          "seconds": 2.536,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_signature_defaults_keyword_controls_digestion_and_aliases[append_structures]",
+          "seconds": 0.188,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_signature_defaults_keyword_controls_digestion_and_aliases[merge]",
+          "seconds": 0.179,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_signature_defaults_keyword_controls_digestion_and_aliases[concatenate_structures]",
+          "seconds": 0.175,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collections_work_before_loading_and_do_not_insert_a_primary[list-merge]",
+          "seconds": 0.326,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collections_work_before_loading_and_do_not_insert_a_primary[list-concatenate_structures]",
+          "seconds": 0.228,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collections_work_before_loading_and_do_not_insert_a_primary[tuple-merge]",
+          "seconds": 0.335,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collections_work_before_loading_and_do_not_insert_a_primary[tuple-concatenate_structures]",
+          "seconds": 0.207,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collection_per_source_lists_and_common_arrays_preserve_order[indices0-merge]",
+          "seconds": 0.475,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collection_per_source_lists_and_common_arrays_preserve_order[indices0-concatenate_structures]",
+          "seconds": 0.341,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collection_per_source_lists_and_common_arrays_preserve_order[indices1-merge]",
+          "seconds": 0.519,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collection_per_source_lists_and_common_arrays_preserve_order[indices1-concatenate_structures]",
+          "seconds": 0.34,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collection_lengths_retain_native_rejection_without_scene_effect[merge]",
+          "seconds": 0.18,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collection_lengths_retain_native_rejection_without_scene_effect[concatenate_structures]",
+          "seconds": 0.181,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[False-False-False-add]",
+          "seconds": 0.267,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[False-False-False-append_structures]",
+          "seconds": 0.218,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[False-False-True-add]",
+          "seconds": 0.282,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[False-False-True-append_structures]",
+          "seconds": 0.224,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[False-True-False-add]",
+          "seconds": 0.272,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[False-True-False-append_structures]",
+          "seconds": 0.227,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[False-True-True-add]",
+          "seconds": 0.284,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[False-True-True-append_structures]",
+          "seconds": 0.231,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[True-False-False-add]",
+          "seconds": 0.265,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[True-False-False-append_structures]",
+          "seconds": 0.23,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[True-False-True-add]",
+          "seconds": 0.277,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[True-False-True-append_structures]",
+          "seconds": 0.222,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[True-True-False-add]",
+          "seconds": 0.27,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[True-True-False-append_structures]",
+          "seconds": 0.222,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[True-True-True-add]",
+          "seconds": 0.28,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[True-True-True-append_structures]",
+          "seconds": 0.223,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_repeated_nonconsecutive_source_structures[add]",
+          "seconds": 0.318,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_repeated_nonconsecutive_source_structures[append_structures]",
+          "seconds": 0.216,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_strict_rejection_preserves_previous_scientific_and_scene_state[False-add]",
+          "seconds": 0.212,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_strict_rejection_preserves_previous_scientific_and_scene_state[False-append_structures]",
+          "seconds": 0.186,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_strict_rejection_preserves_previous_scientific_and_scene_state[True-add]",
+          "seconds": 0.221,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_strict_rejection_preserves_previous_scientific_and_scene_state[True-append_structures]",
+          "seconds": 0.193,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_named_target_coverage_remains_native_and_incoming_analyses_reject[add]",
+          "seconds": 0.244,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_append_named_analysis_with_implicit_single_state_keeps_coverage",
+          "seconds": 0.161,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_append_named_analysis_and_explicit_state_links_receive_native_outcome",
+          "seconds": 0.201,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_cached_destination_tracks_replacement_and_closed_view[add]",
+          "seconds": 0.279,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_cached_destination_tracks_replacement_and_closed_view[append_structures]",
+          "seconds": 0.253,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_primary_override_and_empty_view_reject_before_mutation[add]",
+          "seconds": 0.21,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_primary_override_and_empty_view_reject_before_mutation[append_structures]",
+          "seconds": 0.185,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_growth_and_removal_compose_from_last_scene_without_rerunning_science",
+          "seconds": 0.285,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_append_unknown_per_structure_visual_data_rejects_before_native_write",
+          "seconds": 0.188,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_coordinate_only_and_h5msm_sources_preserve_native_scope",
+          "seconds": 0.432,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_coordinate_drop_is_completed_science_and_retry_never_repeats_it[add]",
+          "seconds": 0.221,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_coordinate_drop_is_completed_science_and_retry_never_repeats_it[append_structures]",
+          "seconds": 0.195,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_complementary_source_items_are_one_system[add]",
+          "seconds": 0.26,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_complementary_source_items_are_one_system[append_structures]",
+          "seconds": 0.206,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_mechanics_collection_keeps_native_form_units_and_report_policy",
+          "seconds": 0.013,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_file_output_defaults_retain_native_not_implemented_rejection",
+          "seconds": 0.447,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bounded_pose_examples_are_executed_and_keep_scientific_assertions[docs/content/user/tools/structure/get_pairwise_rmsd.ipynb]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bounded_pose_examples_are_executed_and_keep_scientific_assertions[docs/content/user/tools/structure/get_distance_clusters.ipynb]",
+          "seconds": 0.005,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bounded_pose_examples_are_executed_and_keep_scientific_assertions[docs/content/user/cookbook/clustering_poses.ipynb]",
+          "seconds": 0.007,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bounded_pose_examples_are_executed_and_keep_scientific_assertions[docs/content/course/Common_Core/16_Structural_Operations.ipynb]",
+          "seconds": 0.008,
+          "outcome": "passed"
+        },
+        {
+          "name": "molsysmt.basic.convert.convert",
+          "seconds": 0.214,
+          "outcome": "passed"
+        }
+      ],
+      "resources": {
+        "seconds": 82.07705066795461,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.921875,
+            0.85546875,
+            1.3916015625
+          ],
+          "cpu_utilization": 0.02008032128514059,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 15701585920,
+        "cgroup_memory_peak_bytes": 821706752,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 5,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 81638085\nuser_usec 79456179\nsystem_usec 2181906\nnice_usec 79492000\ncore_sched.force_idle_usec 0\nnr_periods 821\nnr_throttled 104\nthrottled_usec 318285\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "cda0d5ac8052b6a88e0ac057228baa8d38baa8a298ea70f1a570123e6899d974",
+        "-bounded.json": "1a8e10a40a78e4e261d02c1321be8a72e9de556d8865815cdf7ac703b2aa7591",
+        ".xml": "8eb4a414ffcfb276d5112e74452dfad4f2362226b023e77cbbb09cf7d5ef1d95",
+        ".log": "c2f307c559e2402479da536af9c06662f4309a7bfee7fe8223ba8dba9f262ce8",
+        "-inputs-before.json": "ce0309659ad02b789219fe4d82ecac63ebdfd7c2f1bc39ce0cfbaae00c59a874",
+        "-inputs-after.json": "ce0309659ad02b789219fe4d82ecac63ebdfd7c2f1bc39ce0cfbaae00c59a874",
+        "-reference-driver.py": "dba1286d7507a78d72df5701d0be141c0ea4267a470476cb63307c5fc10120d9",
+        "-resource-driver.py": "e8a1dddcd5adb35f37d9fd9f661dc9d17f79ab94e35cc8babba2555d923a5af5"
+      },
+      "jupyter": []
+    },
+    "composition-656-658-received": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/composition-656-658-received.xml",
+          "-n0",
+          "tests/basic/convert/mult_to_one",
+          "tests/test_argument_contract.py",
+          "tests/form/molsysmt_MolSys/test_partial_domains.py",
+          "tests/molsysviewer_molsysmt/test_composition_tools.py",
+          "tests/documentation/test_pairwise_geometry_tutorials.py",
+          "molsysmt/basic/convert.py"
+        ],
+        "exit_code": 0,
+        "seconds": 83.46271942788735,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "35ad4bc59bcf5770f8ac05cc02ae8c70b06ae33f",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8598
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "247",
+          "time": "78.962",
+          "timestamp": "2026-11-08T15:38:47.151764-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_compose_chemical_and_structural_domains_without_inventing_topology[False-False]",
+          "seconds": 0.453,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_compose_chemical_and_structural_domains_without_inventing_topology[False-True]",
+          "seconds": 0.085,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_compose_chemical_and_structural_domains_without_inventing_topology[True-False]",
+          "seconds": 0.04,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_compose_chemical_and_structural_domains_without_inventing_topology[True-True]",
+          "seconds": 0.057,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_selected_composition_remaps_bonds_charges_and_frames_in_requested_order[False-False]",
+          "seconds": 0.089,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_selected_composition_remaps_bonds_charges_and_frames_in_requested_order[False-True]",
+          "seconds": 0.095,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_selected_composition_remaps_bonds_charges_and_frames_in_requested_order[True-False]",
+          "seconds": 0.072,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_selected_composition_remaps_bonds_charges_and_frames_in_requested_order[True-True]",
+          "seconds": 0.09,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_incompatible_full_atom_axes_fail_before_a_selection_can_hide_them[False]",
+          "seconds": 0.138,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_incompatible_full_atom_axes_fail_before_a_selection_can_hide_them[True]",
+          "seconds": 0.037,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_and_single_state_implicit_association",
+          "seconds": 0.054,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_composed_domains_persist_through_public_h5msm_conversion",
+          "seconds": 0.555,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices0-False-False]",
+          "seconds": 0.275,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices0-False-True]",
+          "seconds": 0.137,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices0-True-False]",
+          "seconds": 0.115,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices0-True-True]",
+          "seconds": 0.135,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices1-False-False]",
+          "seconds": 0.115,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices1-False-True]",
+          "seconds": 0.143,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices1-True-False]",
+          "seconds": 0.122,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices1-True-True]",
+          "seconds": 0.135,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices2-False-False]",
+          "seconds": 0.109,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices2-False-True]",
+          "seconds": 0.124,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices2-True-False]",
+          "seconds": 0.104,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemistry_and_dcd_read_only_requested_structures[indices2-True-True]",
+          "seconds": 0.126,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order0-False]",
+          "seconds": 0.052,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order0-True]",
+          "seconds": 0.072,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order1-False]",
+          "seconds": 0.055,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order1-True]",
+          "seconds": 0.074,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order2-False]",
+          "seconds": 0.058,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order2-True]",
+          "seconds": 0.073,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order3-False]",
+          "seconds": 0.052,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order3-True]",
+          "seconds": 0.073,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order4-False]",
+          "seconds": 0.053,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order4-True]",
+          "seconds": 0.072,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order5-False]",
+          "seconds": 0.052,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_chemistry_structures_composition_preserves_explicit_domains[order5-True]",
+          "seconds": 0.074,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_projects_domains_together[atoms0-indices0-False-False]",
+          "seconds": 0.101,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_projects_domains_together[atoms0-indices0-False-True]",
+          "seconds": 0.121,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_projects_domains_together[atoms0-indices0-True-False]",
+          "seconds": 0.101,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_projects_domains_together[atoms0-indices0-True-True]",
+          "seconds": 0.124,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_projects_domains_together[atoms1-indices1-False-False]",
+          "seconds": 0.103,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_projects_domains_together[atoms1-indices1-False-True]",
+          "seconds": 0.115,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_projects_domains_together[atoms1-indices1-True-False]",
+          "seconds": 0.097,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_projects_domains_together[atoms1-indices1-True-True]",
+          "seconds": 0.118,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_rejects_full_atom_conflicts_before_selection[topology-False]",
+          "seconds": 0.055,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_rejects_full_atom_conflicts_before_selection[topology-True]",
+          "seconds": 0.06,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_rejects_full_atom_conflicts_before_selection[chemistry-False]",
+          "seconds": 0.077,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_rejects_full_atom_conflicts_before_selection[chemistry-True]",
+          "seconds": 0.08,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_rejects_full_atom_conflicts_before_selection[structures-False]",
+          "seconds": 0.046,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_inventory_composition_rejects_full_atom_conflicts_before_selection[structures-True]",
+          "seconds": 0.047,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_dictionary_composition_rejects_repeated_domains[topology]",
+          "seconds": 0.047,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_dictionary_composition_rejects_repeated_domains[chemistry]",
+          "seconds": 0.047,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_dictionary_composition_rejects_repeated_domains[mixed-chemistry]",
+          "seconds": 0.047,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_dictionary_composition_rejects_repeated_domains[structures]",
+          "seconds": 0.049,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_dictionary_composition_keeps_single_state_and_no_final_copy_policy",
+          "seconds": 0.061,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_dictionary_inventory_composition_persists_selected_domains",
+          "seconds": 0.243,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_dictionary_inventory_composition_preserves_zero_states",
+          "seconds": 0.05,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_dictionary_inventory_composition_preserves_mechanics[False]",
+          "seconds": 0.123,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_dictionary_inventory_composition_preserves_mechanics[True]",
+          "seconds": 0.124,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_real_complementary_files_compose_before_nonconsecutive_selection[False-False]",
+          "seconds": 0.364,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_real_complementary_files_compose_before_nonconsecutive_selection[False-True]",
+          "seconds": 0.282,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_real_complementary_files_compose_before_nonconsecutive_selection[True-False]",
+          "seconds": 0.271,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_real_complementary_files_compose_before_nonconsecutive_selection[True-True]",
+          "seconds": 0.376,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_composition_remaps_detached_analyses_and_preserves_empty_frames",
+          "seconds": 0.433,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_full_axes_and_independent_copy_policy",
+          "seconds": 0.233,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_state_association_survives_without_invalidating_analyses",
+          "seconds": 0.153,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_incompatible_domains_fail_before_selection_can_hide_them[atoms]",
+          "seconds": 0.224,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_incompatible_domains_fail_before_selection_can_hide_them[frames]",
+          "seconds": 0.268,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_incompatible_domains_fail_before_selection_can_hide_them[duplicate_structures]",
+          "seconds": 0.217,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_incompatible_domains_fail_before_selection_can_hide_them[duplicate_analysis]",
+          "seconds": 0.216,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_complete_files_remain_distinct_systems",
+          "seconds": 0.233,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_frame_only_domain_has_no_invented_atom_axis",
+          "seconds": 0.226,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_classification_reads_h5msm_metadata_without_materializing_arrays",
+          "seconds": 0.146,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_nondefault_units_and_topology_selection_are_applied_after_composition",
+          "seconds": 0.271,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_partial_composition_rejects_mechanics_without_silent_loss",
+          "seconds": 0.221,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_file_gro_and_file_xtc_to_mdtraj_Trajectory",
+          "seconds": 1.289,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_file_prmtop_and_file_inpcrd_to_molsysmt_MolSys",
+          "seconds": 0.772,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_file_psf_and_file_dcd_to_molsysmt_MolSys",
+          "seconds": 12.702,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_file_gro_and_file_xtc_to_molsysmt_MolSys",
+          "seconds": 0.801,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_single_state_topology_and_trajectory_reconciles_structure_association",
+          "seconds": 1.598,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_molsysmt_MolSys_and_molsysmt_MolecularMechanicsDict_to_molsysmt_MolecularMechanics",
+          "seconds": 0.947,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_molsysmt_MolecularMechanicsDict_and_molsysmt_MolecularMechanicsDict_to_molsysmt_MolecularMechanics",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_molsysmt_MolSys_and_molsysmt_MolecularMechanicsDict_to_molsysmt_MolecularMechanicsDict",
+          "seconds": 0.076,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_molsysmt_MolecularMechanicsDict_and_molsysmt_MolecularMechanicsDict_to_molsysmt_MolecularMechanics",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_file_psf_and_file_dcd_to_molsysmt_Structures",
+          "seconds": 12.879,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_file_psf_and_file_dcd_to_molsysmt_Topology",
+          "seconds": 12.749,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_molsysmt_Topology_and_molsysmt_Structures_to_string_pdb_text",
+          "seconds": 1.64,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_charge_getter_returns_numeric_values_for_public_setters",
+          "seconds": 0.049,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_topology_structures_mechanics_compose_with_nondefault_charge_policy",
+          "seconds": 0.049,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order0]",
+          "seconds": 0.05,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order1]",
+          "seconds": 0.05,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order2]",
+          "seconds": 0.05,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order3]",
+          "seconds": 0.05,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order4]",
+          "seconds": 0.05,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order5]",
+          "seconds": 0.051,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order6]",
+          "seconds": 0.05,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order7]",
+          "seconds": 0.05,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order8]",
+          "seconds": 0.05,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order9]",
+          "seconds": 0.05,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order10]",
+          "seconds": 0.05,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order11]",
+          "seconds": 0.05,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order12]",
+          "seconds": 0.049,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order13]",
+          "seconds": 0.051,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order14]",
+          "seconds": 0.055,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order15]",
+          "seconds": 0.051,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order16]",
+          "seconds": 0.05,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order17]",
+          "seconds": 0.052,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order18]",
+          "seconds": 0.053,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order19]",
+          "seconds": 0.058,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order20]",
+          "seconds": 0.059,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order21]",
+          "seconds": 0.058,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order22]",
+          "seconds": 0.054,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_native_domains_have_order_independent_owners_and_values[order23]",
+          "seconds": 0.051,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_chemical_domain_owns_states_instead_of_topology_compatibility",
+          "seconds": 0.05,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_selected_four_domain_composition_uses_existing_native_remapping",
+          "seconds": 0.092,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_full_atom_conflicts_fail_before_selection[chemistry]",
+          "seconds": 0.068,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_full_atom_conflicts_fail_before_selection[structures]",
+          "seconds": 0.043,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_full_atom_conflicts_fail_before_selection[mechanics]",
+          "seconds": 0.045,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_duplicate_explicit_providers_are_rejected[0]",
+          "seconds": 0.041,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_duplicate_explicit_providers_are_rejected[1]",
+          "seconds": 0.041,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_duplicate_explicit_providers_are_rejected[2]",
+          "seconds": 0.042,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_duplicate_explicit_providers_are_rejected[3]",
+          "seconds": 0.046,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_mechanics_with_chemical_or_structural_only_domain",
+          "seconds": 0.051,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_shared_copy_policy_and_empty_chemistry",
+          "seconds": 0.048,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_full_axis_no_copy_shares_unowned_structures_and_mechanics",
+          "seconds": 0.044,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_mechanical_parameters_and_named_provenance_survive_without_reassignment",
+          "seconds": 0.482,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_four_domain_h5msm_preserves_chemistry_and_rejects_nonempty_mechanics",
+          "seconds": 0.19,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_absent_structural_atom_axis_is_not_a_declared_zero_length_axis[False]",
+          "seconds": 0.047,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_absent_structural_atom_axis_is_not_a_declared_zero_length_axis[True]",
+          "seconds": 0.046,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-False-False]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-False-True]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-True-False]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[default-True-True]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-False-False]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-False-True]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-True-False]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[False-True-True]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-False-False]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-False-True]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-True-False]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_copy_policy_keeps_native_domain_ownership[True-True-True]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection0-False-default]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection0-False-False]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection0-False-True]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection0-True-default]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection0-True-False]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection0-True-True]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection1-False-default]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection1-False-False]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection1-False-True]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection1-True-default]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection1-True-False]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection1-True-True]",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection2-False-default]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection2-False-False]",
+          "seconds": 0.03,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection2-False-True]",
+          "seconds": 0.03,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection2-True-default]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection2-True-False]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_subset_is_independent_even_when_full_axis_copy_is_disabled[selection2-True-True]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atom_selection_cannot_hide_conflicting_original_domains[False]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atom_selection_cannot_hide_conflicting_original_domains[True]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[None]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[1]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[false]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_copy_policy_requires_a_plain_boolean[copy_policy3]",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_structural_observables_without_an_atom_axis_remain_composable",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_the_typo_that_silently_read_a_whole_trajectory_now_raises",
+          "seconds": 0.161,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_the_diagnostic_suggests_the_intended_name",
+          "seconds": 0.049,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_a_closed_function_rejects_a_keyword_it_does_not_declare",
+          "seconds": 0.005,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_an_attribute_that_does_not_exist_is_refused",
+          "seconds": 0.004,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_the_attribute_domain_still_passes_through[<lambda>0]",
+          "seconds": 0.004,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_the_attribute_domain_still_passes_through[<lambda>1]",
+          "seconds": 0.005,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_the_attribute_domain_still_passes_through[<lambda>2]",
+          "seconds": 0.005,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_the_attribute_domain_still_passes_through[<lambda>3]",
+          "seconds": 0.006,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_no_public_function_raises_an_uncatalogued_error_for_a_typo",
+          "seconds": 0.005,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_every_open_signature_declares_its_domain",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_the_attribute_domain_points_at_the_catalogue",
+          "seconds": 0.002,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_get_neighbors_refuses_both_search_criteria",
+          "seconds": 0.005,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_get_neighbors_refuses_neither_search_criterion",
+          "seconds": 0.004,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_get_neighbors_accepts_exactly_one_criterion[criterion0]",
+          "seconds": 0.007,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_get_neighbors_accepts_exactly_one_criterion[criterion1]",
+          "seconds": 0.007,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_admits_what_the_target_converter_accepts",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_convert_refuses_a_mistyped_converter_keyword",
+          "seconds": 0.004,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_an_unknown_target_form_is_reported_as_such",
+          "seconds": 0.589,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_the_converter_table_is_plain_data",
+          "seconds": 0.002,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_the_converter_table_still_matches_the_converters",
+          "seconds": 0.686,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_state_only_molsys_exposes_its_atom_and_chemical_state_domains",
+          "seconds": 0.014,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_topology_free_molsys_exposes_stored_structures_and_associations",
+          "seconds": 0.117,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_missing_domain_conversions_fail_before_creating_output",
+          "seconds": 0.016,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_state_selection_fails_clearly_without_a_topology",
+          "seconds": 0.006,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_signature_defaults_keyword_controls_digestion_and_aliases[add]",
+          "seconds": 2.824,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_signature_defaults_keyword_controls_digestion_and_aliases[append_structures]",
+          "seconds": 0.186,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_signature_defaults_keyword_controls_digestion_and_aliases[merge]",
+          "seconds": 0.186,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_signature_defaults_keyword_controls_digestion_and_aliases[concatenate_structures]",
+          "seconds": 0.185,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collections_work_before_loading_and_do_not_insert_a_primary[list-merge]",
+          "seconds": 0.359,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collections_work_before_loading_and_do_not_insert_a_primary[list-concatenate_structures]",
+          "seconds": 0.217,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collections_work_before_loading_and_do_not_insert_a_primary[tuple-merge]",
+          "seconds": 0.346,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collections_work_before_loading_and_do_not_insert_a_primary[tuple-concatenate_structures]",
+          "seconds": 0.226,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collection_per_source_lists_and_common_arrays_preserve_order[indices0-merge]",
+          "seconds": 0.53,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collection_per_source_lists_and_common_arrays_preserve_order[indices0-concatenate_structures]",
+          "seconds": 0.357,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collection_per_source_lists_and_common_arrays_preserve_order[indices1-merge]",
+          "seconds": 0.538,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collection_per_source_lists_and_common_arrays_preserve_order[indices1-concatenate_structures]",
+          "seconds": 0.341,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collection_lengths_retain_native_rejection_without_scene_effect[merge]",
+          "seconds": 0.215,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_collection_lengths_retain_native_rejection_without_scene_effect[concatenate_structures]",
+          "seconds": 0.203,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[False-False-False-add]",
+          "seconds": 0.288,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[False-False-False-append_structures]",
+          "seconds": 0.227,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[False-False-True-add]",
+          "seconds": 0.301,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[False-False-True-append_structures]",
+          "seconds": 0.247,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[False-True-False-add]",
+          "seconds": 0.28,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[False-True-False-append_structures]",
+          "seconds": 0.229,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[False-True-True-add]",
+          "seconds": 0.302,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[False-True-True-append_structures]",
+          "seconds": 0.25,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[True-False-False-add]",
+          "seconds": 0.282,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[True-False-False-append_structures]",
+          "seconds": 0.238,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[True-False-True-add]",
+          "seconds": 0.3,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[True-False-True-append_structures]",
+          "seconds": 0.24,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[True-True-False-add]",
+          "seconds": 0.28,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[True-True-False-append_structures]",
+          "seconds": 0.225,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[True-True-True-add]",
+          "seconds": 0.297,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bound_native_semantics_and_deferred_ownership[True-True-True-append_structures]",
+          "seconds": 0.239,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_repeated_nonconsecutive_source_structures[add]",
+          "seconds": 0.432,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_repeated_nonconsecutive_source_structures[append_structures]",
+          "seconds": 0.226,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_strict_rejection_preserves_previous_scientific_and_scene_state[False-add]",
+          "seconds": 0.226,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_strict_rejection_preserves_previous_scientific_and_scene_state[False-append_structures]",
+          "seconds": 0.197,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_strict_rejection_preserves_previous_scientific_and_scene_state[True-add]",
+          "seconds": 0.232,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_strict_rejection_preserves_previous_scientific_and_scene_state[True-append_structures]",
+          "seconds": 0.197,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_named_target_coverage_remains_native_and_incoming_analyses_reject[add]",
+          "seconds": 0.259,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_append_named_analysis_with_implicit_single_state_keeps_coverage",
+          "seconds": 0.185,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_append_named_analysis_and_explicit_state_links_receive_native_outcome",
+          "seconds": 0.216,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_cached_destination_tracks_replacement_and_closed_view[add]",
+          "seconds": 0.287,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_cached_destination_tracks_replacement_and_closed_view[append_structures]",
+          "seconds": 0.272,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_primary_override_and_empty_view_reject_before_mutation[add]",
+          "seconds": 0.193,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_primary_override_and_empty_view_reject_before_mutation[append_structures]",
+          "seconds": 0.199,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_growth_and_removal_compose_from_last_scene_without_rerunning_science",
+          "seconds": 0.305,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_append_unknown_per_structure_visual_data_rejects_before_native_write",
+          "seconds": 0.206,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_coordinate_only_and_h5msm_sources_preserve_native_scope",
+          "seconds": 0.454,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_coordinate_drop_is_completed_science_and_retry_never_repeats_it[add]",
+          "seconds": 0.233,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_coordinate_drop_is_completed_science_and_retry_never_repeats_it[append_structures]",
+          "seconds": 0.208,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_complementary_source_items_are_one_system[add]",
+          "seconds": 0.292,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_complementary_source_items_are_one_system[append_structures]",
+          "seconds": 0.206,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_mechanics_collection_keeps_native_form_units_and_report_policy",
+          "seconds": 0.015,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_file_output_defaults_retain_native_not_implemented_rejection",
+          "seconds": 0.589,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bounded_pose_examples_are_executed_and_keep_scientific_assertions[docs/content/user/tools/structure/get_pairwise_rmsd.ipynb]",
+          "seconds": 0.036,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bounded_pose_examples_are_executed_and_keep_scientific_assertions[docs/content/user/tools/structure/get_distance_clusters.ipynb]",
+          "seconds": 0.026,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bounded_pose_examples_are_executed_and_keep_scientific_assertions[docs/content/user/cookbook/clustering_poses.ipynb]",
+          "seconds": 0.008,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_bounded_pose_examples_are_executed_and_keep_scientific_assertions[docs/content/course/Common_Core/16_Structural_Operations.ipynb]",
+          "seconds": 0.009,
+          "outcome": "passed"
+        },
+        {
+          "name": "molsysmt.basic.convert.convert",
+          "seconds": 0.236,
+          "outcome": "passed"
+        }
+      ],
+      "resources": {
+        "seconds": 90.07920087710954,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.97314453125,
+            0.95556640625,
+            1.32958984375
+          ],
+          "cpu_utilization": 0.020603015075376874,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 15149678592,
+        "cgroup_memory_peak_bytes": 822231040,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 5,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 88789154\nuser_usec 86375721\nsystem_usec 2413433\nnice_usec 86394000\ncore_sched.force_idle_usec 0\nnr_periods 903\nnr_throttled 360\nthrottled_usec 1362185\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "a0551a82d64813e3e1c7db814115b7e731ac50c240e2f2f47debfbf59d273516",
+        "-bounded.json": "d8b2f0f5b0ec66f505a02646d5d5a3189426818665a387f636306c7aaae1e68b",
+        ".xml": "3299c659619efde2d4f8a6d8bcd34d8da73af2d2dd7816c1d1ed8f1d5aa31977",
+        ".log": "f90082d68da75a4a81758a1f27db8aaf434367f8c82e9828ef9b887e494d7c2f",
+        "-inputs-before.json": "57ab56b89adb3fc701c27dc959e422b56c5eea16aefe0f16abad16ef2ee7fceb",
+        "-inputs-after.json": "57ab56b89adb3fc701c27dc959e422b56c5eea16aefe0f16abad16ef2ee7fceb",
+        "-reference-driver.py": "89ae2ec9282df00dcb60cbaab958640868504f067734627dd855f69b1b6024bb",
+        "-resource-driver.py": "af6e61d14a42480eb5cd8f34cb8d6557609b0e232f19bb3c02789fbacdb0f170"
+      },
+      "jupyter": []
+    },
+    "composition-656-658-fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 23.098787676077336,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "35ad4bc59bcf5770f8ac05cc02ae8c70b06ae33f",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8598
+      },
+      "resources": {
+        "seconds": 30.030226797098294,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_available_minimum_observed_bytes": 15186968576,
+        "cgroup_memory_peak_bytes": 417468416,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 5,
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "5a9249975e883c21338bcd2b89bf4722ec7759c9fcda73e4b11a4c7dae0101af",
+        "-bounded.json": "48a61441daa205252c08ccb9f5f4973bd24a4f60761ad8312fcc8ac037740152",
+        ".log": "d107a1c8f1555dfa8ed0aa636fc121ae45892608a358336bcaa597d3d1afe881",
+        "-inputs-before.json": "57ab56b89adb3fc701c27dc959e422b56c5eea16aefe0f16abad16ef2ee7fceb",
+        "-inputs-after.json": "57ab56b89adb3fc701c27dc959e422b56c5eea16aefe0f16abad16ef2ee7fceb",
+        "-reference-driver.py": "1466ab7e668a71dcc201ba7d29d06125ed19e82101a080ba3741c012956d15ce",
+        "-resource-driver.py": "a5421b0f77c7651a2f159c6320548e57261013d0ac51f88f79a1898e7f30d3ef"
+      }
+    },
+    "composition-656-658-html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/composition-656-658-html"
+        ],
+        "exit_code": 0,
+        "seconds": 148.47795800794847,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "35ad4bc59bcf5770f8ac05cc02ae8c70b06ae33f",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8598
+      },
+      "resources": {
+        "seconds": 155.1483866260387,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_available_minimum_observed_bytes": 15150112768,
+        "cgroup_memory_peak_bytes": 1332137984,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 4,
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "c7dc0b557b12e161ace61aaf588045b6b483b1a0227766a44e2821270894f281",
+        "-bounded.json": "9d5baa7d979cbcd8fe5691f6306f9357f1fda5a1f7ccd11326d1a1d5a0de1c1f",
+        ".log": "c65c18e77a3b76373e48be7741e64bea1f1614a1661daa376f24a418e6eaabdd",
+        "-inputs-before.json": "57ab56b89adb3fc701c27dc959e422b56c5eea16aefe0f16abad16ef2ee7fceb",
+        "-inputs-after.json": "57ab56b89adb3fc701c27dc959e422b56c5eea16aefe0f16abad16ef2ee7fceb",
+        "-reference-driver.py": "24afa174b1dc95a3f863a4b7f1eb75e9688dbcdc1c90a5a7550cdf0dd0103129",
+        "-resource-driver.py": "6c4613857a55d630c1f3ae0659c6191a999229335fe3e6fbb3d8cc8bed7ddee6"
+      }
+    }
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "versions": {
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1"
+    },
+    "imports": {
+      "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+      "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261106/viewer-e4dd58cf-source/molsysviewer/__init__.py",
+      "pyunitwizard": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+      "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+      "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+      "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+    }
+  },
+  "html_inspection": {
+    "pages": [
+      {
+        "path": "content/user/tools/basic/convert.html",
+        "sha256": "bc424ad6e994cb217b2e02c9fe886de66ef34f61dc1b8c14557f61398f32b5fe"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "sha256": "109d300ef0fca5d591a57fd57eabf2bf7b40f9f76fd8ef406d911ba06d4993f6"
+      },
+      {
+        "path": "content/user/cookbook/group_free_hierarchy.html",
+        "sha256": "b5778142f80d75c96a6d42ea07a23c1a7c58974ca4546aeb0a4ea5d479277aa3"
+      },
+      {
+        "path": "content/course/Common_Core/05_Combined_Forms.html",
+        "sha256": "88de1158bd5338b2193bec7a98aa783dce85d21024d3605ae09d20930cc2c16f"
+      },
+      {
+        "path": "api/basic/autosummary/molsysmt.basic.convert.html",
+        "sha256": "144d81ee3265cc3067b2f6b9103b5612c2e1cdb6cb8ead2fcb27fae2753c2746"
+      }
+    ],
+    "notebooks": [
+      {
+        "path": "docs/content/user/tools/basic/convert.ipynb",
+        "code_and_saved_outputs_unchanged": true
+      },
+      {
+        "path": "docs/content/course/Common_Core/05_Combined_Forms.ipynb",
+        "code_and_saved_outputs_unchanged": true
+      },
+      {
+        "path": "docs/content/user/cookbook/group_free_hierarchy.ipynb",
+        "code_and_saved_outputs_unchanged": true
+      }
+    ],
+    "warnings": [
+      "docs/api/build/autosummary/molsysmt.build.ProtonationAssessment.rst:2: WARNING: Title underline too short.",
+      "docs/api/build/autosummary/molsysmt.build.add_ions.rst:2: WARNING: Title underline too short.",
+      "docs/api/build/autosummary/molsysmt.build.assess_protonation.rst:2: WARNING: Title underline too short.",
+      "docs/api/build/autosummary/molsysmt.build.reconcile_protonation.rst:2: WARNING: Title underline too short.",
+      "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst:2: WARNING: Title underline too short.",
+      "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst:2: WARNING: Title underline too short."
+    ],
+    "scope": "Rendered HTML and reference inspection; pre-existing notebook code and saved outputs are preserved, not re-executed."
+  },
+  "acceptance": [
+    "Explicit plain-boolean copy policy reaches native Structures extraction; Topology always detaches and existing owner rules remain authoritative.",
+    "Distinct public coordinate edits prove independence versus explicit all-axis adoption of an unowned domain.",
+    "Atom positions are canonicalized before both extractors. Literal source positions protect unsorted subset/full-permutation/empty selections in either provider order and all copy policies. Structure order and repetitions remain unchanged.",
+    "Full source-axis conflicts and malformed options retain existing rejection; missing ChemicalStates remains absent, including time-only structural providers.",
+    "37 new cases, all many-to-one conversions, argument contracts, partial domains, Viewer composition, existing public examples and convert doctests pass together: 247 clean tests. Fourteen fast gates pass and five rendered HTML pages are inspected with six unchanged warnings.",
+    "All 8,598 source and 2,463 Viewer-export before/after input hashes match in final receiving. No new whole-system intermediate copy, engine, schema, native binary or dependency is introduced."
+  ],
+  "limits": [
+    "The correction does not reconstruct the proper mapping of an already saved incorrectly selected composite; recreate it from original domains.",
+    "Runtime source-overlay version metadata retains the separately reported #657 ambiguity; source commits, import origins and complete manifests remain independent.",
+    "Remaining graphical, installed/platform/human/exact-candidate and #256 mechanics-persistence requirements are not accepted by this block."
+  ]
+}
