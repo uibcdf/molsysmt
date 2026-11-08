@@ -5,7 +5,7 @@
     "uibcdf/molsysmt#649",
     "uibcdf/molsysmt#650"
   ],
-  "state": "source_qualified_pending_public_closeout",
+  "state": "public_source_closed",
   "qualified_source": "a2993b8f0ec0bbf34b95966891f9b783f61dbe85",
   "runs": {
     "parmed-649-650-baseline": {
@@ -413,5 +413,10 @@
     "tests_package_included": false,
     "scope": "Discovery inspection only, not a wheel build or installed artifact."
   },
-  "scope": "Source fixture/harness receiving only; no runtime scientific, dependency, installed or release change."
+  "scope": "Source fixture/harness receiving only; no runtime scientific, dependency, installed or release change.",
+  "public_checkpoint": "a5fc92a23",
+  "verified_closures": {
+    "649": "2026-11-08T07:13:02Z",
+    "650": "2026-11-08T07:13:04Z"
+  }
 }

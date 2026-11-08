@@ -5,7 +5,7 @@
     "uibcdf/molsysmt#473",
     "uibcdf/molsysmt#475"
   ],
-  "state": "bounded_experimental_source_qualified_pending_publication",
+  "state": "bounded_experimental_source_received_original_reference_open",
   "qualified_source": "a2993b8f0ec0bbf34b95966891f9b783f61dbe85",
   "decision_basis": "Retain the already maintainer-adopted provisional ISA area convention and original ECI compatibility behavior pending original-reference review; the audit explicitly permits bounded experimental disposition.",
   "runs": {
@@ -250,5 +250,6 @@
   "html_content_checks": {
     "content/user/tools/physchem/get_charge.html": "a99f8a51e2c7bc28cb4af1fdf627122e14f767cd2bc2cb7e869f4429dce0bd92",
     "content/course/Common_Core/20_The_Specialized_Domains.html": "ce7f81a255e7fa0cdb75ccb2505b4e76a4cc2debd127f5778d486a5a785c7a91"
-  }
+  },
+  "public_checkpoint": "a5fc92a23"
 }

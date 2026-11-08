@@ -2,15 +2,15 @@
   "schema_version": "molsysmt.pre1-progress@1",
   "date": "2026-11-07",
   "owner_issue": "uibcdf/molsysmt#334",
-  "qualified_source": "d2ce182a46cf247fa466f31606402cf3734ba8d4",
+  "qualified_source": "a2993b8f0ec0bbf34b95966891f9b783f61dbe85",
   "measure": "Verified implementation/source-delivery milestones; approximate operational completion, not elapsed effort, scientific coverage, a readiness probability or publication authority.",
   "accounting_change": "The earlier all-or-nothing phase-exit indicator was 40%. The same six phase weights and full scope now receive explicit partial milestone credit. This is a catch-up remeasurement of delivered work, not a new 21-point implementation in this turn.",
   "method": "Within phases 3\u20136, each named requirement package has equal weight. Nested accepted GUI families have equal family weight, then equal declared intent/task weight within that family. Verified-source leaves score 1, pending leaves score 0; parents average children. Supplemental defect/test/issue counts add no bonus. Pending means not accepted by this audit, not absent code.",
   "gui_scope": "Tracking packages make the previously accepted workflow inventory explicit. They are user intents, not a GUI promise for every expert argument or a new scientific feature request. Native/expert APIs remain available and retain their own qualification.",
   "publication": "The existing pause remains. #640/#641/#642 and all other required correctness work retain owning acceptance. Exact candidate/platform/installed and final sign-off gates are not scored as passed by source tests.",
   "legacy_phase_exit_percent": 40,
-  "weighted_milestone_percent": 63.9060939060939,
-  "reported_approximate_percent": 63.9,
+  "weighted_milestone_percent": 65.33466533466533,
+  "reported_approximate_percent": 65.3,
   "phases": [
     {
       "id": "phase1",
@@ -742,9 +742,14 @@
         {
           "id": "473-475",
           "requirement": "Agree #473/#475 scientific meaning or bounded disposition",
-          "state": "pending",
-          "evidence": [],
-          "review": ""
+          "state": "verified_source",
+          "evidence": [
+            "devtools/data/collantes_public_claims_receiving_473_475_20261108.json",
+            "devguide/scientific_validation.md",
+            "devguide/pending_bugs/physchem_surface_area_unit_contract.md",
+            "devguide/pending_bugs/collantes_eci_charge_semantics.md"
+          ],
+          "review": "Accept only the explicitly permitted bounded experimental disposition: preserve provisional ISA units and legacy ECI values/wrapper/sums while removing physical-certification claims from introductions, Returns, the scientific index, Tool and course. 43 scoped cases include both unit policies, actual charge tutorial and public doctests; fourteen fast gates and HTML pass. Both original-reference issues remain open and no evidence classification, physical meaning or candidate acceptance is promoted."
         },
         {
           "id": "378-610",
@@ -773,8 +778,8 @@
         }
       ],
       "review": "Only individually accepted requirement leaves receive credit. Other pending source/claim/candidate work remains explicit; pending does not assert absent code.",
-      "verified_fraction": 0.2857142857142857,
-      "credited_points": 2.8571428571428568
+      "verified_fraction": 0.42857142857142855,
+      "credited_points": 4.285714285714286
     },
     {
       "id": "phase6",
@@ -831,10 +836,12 @@
       "uibcdf/molsysmt#647",
       "uibcdf/molsysmt#645",
       "uibcdf/molsysmt#648",
-      "uibcdf/molsysmt#610"
+      "uibcdf/molsysmt#610",
+      "uibcdf/molsysmt#649",
+      "uibcdf/molsysmt#650"
     ],
     "record": "devguide/pending_bugs/multimodel_alternate_location_fidelity_expectation.md",
-    "owner_verification": "#648 and #610 source-closeout and the bounded #378 public-example contribution are accepted. Receive the exact-source complete suite using the inspected serial cgroup route; no 12-worker restart.",
+    "owner_verification": "#649/#650 are independently source-closed after 525 parallel cases, fourteen fast gates and HTML. The seven task-starved controls pass with native threads controlled. The complete-source attempts remain incomplete; receive the inspected four-worker/6-GiB/512-task route with Rayon/BLAS/OpenMP/OpenMM one thread each.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
     "scope": "Retain #612 complete-source qualification through the resource-bounded serial route and every remaining #421 graphical, scientific-contract, installed/platform and exact-candidate requirement.",
     "pending_full_source": "uibcdf/molsysmt#612"
@@ -842,14 +849,16 @@
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
     "issues": [
-      "uibcdf/molsysmt#648"
+      "uibcdf/molsysmt#649",
+      "uibcdf/molsysmt#650"
     ],
-    "source": "d2ce182a46cf247fa466f31606402cf3734ba8d4",
-    "public_checkpoint": "0aa9d853418f5c7061bd26ff71b16976b87656f4",
+    "source": "a2993b8f0ec0bbf34b95966891f9b783f61dbe85",
+    "fix_commit": "242cbb98e",
+    "public_checkpoint": "a5fc92a23",
     "state": "public_source_closed",
-    "evidence": "devtools/data/public_graph_xyz_receiving_648_610_20261108.json",
+    "evidence": "devtools/data/conversion_fixture_receiving_649_650_20261108.json",
     "weighted_milestone_change": 0,
-    "audit_related_source_closures": 41
+    "audit_related_source_closures": 43
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
@@ -880,17 +889,28 @@
   },
   "last_source_qualification_attempt": {
     "issue": "uibcdf/molsysmt#612",
-    "source": "2465d6b0cb137446f9917c971572a921003a9b89",
-    "state": "interrupted_resource_exhaustion",
-    "evidence": "devtools/data/alternate_location_owner_receiving_612_20261107.json",
+    "source": "6205fcc78",
+    "state": "interrupted_task_starvation_and_missing_final_receipt",
+    "evidence": "devtools/data/source_suite_resource_adjustments_612_20261108.json",
     "weighted_milestone_change": 0
   },
   "incoming_intake": {
     "issues": [],
-    "complete_board_issues": 580,
+    "complete_board_issues": 582,
     "open_issues": 93,
     "open_prs": 0,
     "weighted_milestone_change": 0
   },
-  "last_updated": "2026-11-08"
+  "last_updated": "2026-11-08",
+  "last_scientific_claim_disposition": {
+    "issues": [
+      "uibcdf/molsysmt#473",
+      "uibcdf/molsysmt#475"
+    ],
+    "source": "a2993b8f0ec0bbf34b95966891f9b783f61dbe85",
+    "state": "bounded_experimental_source_received_original_reference_open",
+    "evidence": "devtools/data/collantes_public_claims_receiving_473_475_20261108.json",
+    "weighted_milestone_change": 1.4285714285714306,
+    "issues_closed": false
+  }
 }

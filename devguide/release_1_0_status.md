@@ -20,6 +20,46 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Fixture ownership and bounded scientific claims — 2026-11-08
+
+#649/#650 are published on main checkpoint `a5fc92a23` and independently verified
+closed. Their actual fixture fix is `242cbb98e`; qualified source `a2993b8f0ec0bbf34b95966891f9b783f61dbe85`
+passes **525 parallel cases**, zero skips/failures/errors, alongside fourteen
+fast gates, incremental HTML and applicable Ruff checks. The
+[fixture receipt](../devtools/data/conversion_fixture_receiving_649_650_20261108.json)
+retains the original six-failure/seven-pass serial diagnosis and 518-case
+serial receiving. Positive water fixtures explicitly declare order-one O–H
+bonds; unknown orders still fail. Fresh children select the real owner test
+package from an unrelated working directory, with every blocked-engine case
+retained. Package discovery excludes tests; no installed artifact is claimed.
+
+The same source receives **43 Collantes/reference/unit/tutorial/doctest cases**
+under normal and nondefault unit policy. Its
+[claim receipt](../devtools/data/collantes_public_claims_receiving_473_475_20261108.json)
+accepts only the audit's bounded experimental disposition: provisional ISA area
+and retained legacy ECI wrapper/sums. Misleading physical-charge introductions
+and the validation-index row are corrected. #473/#475 remain open for original
+formula/table/unit and justified aggregation review; no scientific classification
+is promoted. The Tool/Common Core retain unchanged executable cells and outputs.
+
+Progress is **approximately 65.3%**, with **43 audit-related source issues
+closed** and **23/50 graphical intents accepted**, under the unchanged weights.
+The complete issue inventory contains **582 issues, 93 open**; no open PR was
+present at the latest complete PR acquisition. This accepts one existing
+scientific-claim leaf; supplemental fixture repairs add no bonus.
+
+#612 remains active. The serial full attempt is deliberately interrupted after
+1,544 passes. A later four-worker/6-GiB attempt reaches its 128-task cap and is
+stopped; pytest/Receptor finalization and ending Git metadata are incomplete.
+There is no OOM. The [resource record](../devtools/data/source_suite_resource_adjustments_612_20261108.json)
+separates task-starvation errors from the two real fixture defects. The corrected
+525-case pilot peaks at 3.07 GiB and 32 tasks, with no limit events. Next run the
+complete exact-source suite with four workers, 6 GiB maximum/5 GiB high, no swap,
+512 tasks and one native thread per worker; preserve the maintainer's 2 GiB
+absolute host floor with earlier monitored stopping. Other graphical,
+scientific-contract, installed/platform and exact-candidate exits remain due.
+No new remote matrix, artifact, tag or release follows from these source gates.
+
 ## Public graph/XYZ examples received — 2026-11-08
 
 #648 and #610 are published on public main `0aa9d853418f5c7061bd26ff71b16976b87656f4`
