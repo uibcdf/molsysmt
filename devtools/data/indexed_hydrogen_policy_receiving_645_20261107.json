@@ -3,7 +3,7 @@
   "date": "2026-11-07",
   "issue": "uibcdf/molsysmt#645",
   "source_base": "b35d370f35f2970c7adaf5ac970b58ec24c91a2c",
-  "state": "Public implementation prepared after clean-source and documentation receiving.",
+  "state": "public_source_closed",
   "public_tool": "molsysmt.chemical_states.normalize_indexed_hydrogen_policy",
   "method": "closed_neutral_terminal_hydrogens",
   "stability": "experimental",
@@ -771,8 +771,8 @@
   },
   "weighted_milestone_change": 0,
   "remaining": [
-    "Publish/archive/independently close #645 and hand the supported source contract to DockingMT.",
-    "Retain independent #610/#378, #612 complete source and all remaining audit/candidate/installed-platform and consumer workflow gates."
+    "Receive #648 stale graph example and #610 public XYZ composition; preserve the broader #378 scope.",
+    "Complete #612 source suite and every remaining graphical, scientific-contract, installed/platform and exact-candidate gate."
   ],
   "qualified_source": "4f7c7e4c278a9995909c2f4d9bec917d03729a63",
   "documentation_source": "718576353997d86ea877c887c291fb6a5bd3b2b4",
@@ -806,5 +806,24 @@
     },
     "compiled_backend_or_dependency_changes": false
   },
-  "path_rendering": "Machine-local source/evidence/interpreter prefixes use named placeholders; original execution records remain in private evidence."
+  "path_rendering": "Machine-local source/evidence/interpreter prefixes use named placeholders; original execution records remain in private evidence.",
+  "last_updated": "2026-11-08",
+  "public_checkpoint": "4cafe7af25d626729c58df67adf30a788d2e0630",
+  "independently_verified_closed_at": "2026-11-08T05:59:39Z",
+  "public_source_verification": {
+    "changed_or_deleted_paths": 31,
+    "qualified_source_present": true,
+    "human_modifications_preserved": true,
+    "native_extension_unchanged": true
+  },
+  "consumer_handoff": {
+    "issue": "uibcdf/dockingmt#79",
+    "comment_id": 6718020308,
+    "scope": "Supported explicit source policy; consumer whole-provider, installed/RDKit prefix and complete workflow qualification remain independent."
+  },
+  "future_copy_feedback": {
+    "issue": "uibcdf/molsysmt#408",
+    "comment_id": 6718035629,
+    "scope": "Additional client branching/metadata-allocation qualification case; not a new 1.0 gate."
+  }
 }

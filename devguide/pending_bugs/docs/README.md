@@ -17,8 +17,9 @@ Entries are filed and closed under [reporting_protocol.md](../../reporting_proto
 
 <!-- generated: devguide_index -->
 
-### Open (1)
+### Open (2)
 
+- [`rigid_fragment_tutorial_uses_retired_topology_chemical_attributes.md`](rigid_fragment_tutorial_uses_retired_topology_chemical_attributes.md) — [#648](https://github.com/uibcdf/molsysmt/issues/648) — Rigid-fragment tutorial uses retired Topology chemical attributes *(medium, inspected)*
 - [`course_modules_lack_paired_content_contracts.md`](course_modules_lack_paired_content_contracts.md) — [#512](https://github.com/uibcdf/molsysmt/issues/512) — Course modules lack paired content-protection contracts. *(low, measured)*
 
 <!-- /generated -->

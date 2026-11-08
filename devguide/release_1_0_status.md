@@ -1,7 +1,7 @@
 # MolSysMT 1.0 Execution Status
 
 **Role:** operational status ledger
-**Last updated:** 2026-11-07
+**Last updated:** 2026-11-08
 **Plan:** [MolSysMT 1.0 Execution Plan](pending_proposals/release_1_0_execution_plan.md)
 **Release checklist:** [Release Gate](release_gate.md)
 
@@ -20,7 +20,53 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Scalar-ID closeout and next policy work — 2026-11-07
+## Indexed-H policy source closeout — 2026-11-08
+
+#645 is published and independently verified closed. The experimental public
+`chemical_states.normalize_indexed_hydrogen_policy` owns explicit admission,
+canonical assignment and typed transformation evidence; strict correspondence
+is unchanged. Qualified implementation `4f7c7e4c278a9995909c2f4d9bec917d03729a63`
+passes **247 clean-source cases**, including 57 new contracts and its public
+doctest, with zero skips/failures/errors. Fourteen fast gates pass on
+`6e3c8d23e440c703632bed55cbe39e2a03244406`; corrected HTML and rendered
+Tool/Cookbook/API/course links pass on `718576353997d86ea877c887c291fb6a5bd3b2b4`.
+Their hashed runtime/test/fixture inputs are identical. The generated scientific
+inventory adds no independent validation or coverage claim.
+
+Public main checkpoint `4cafe7af25d626729c58df67adf30a788d2e0630` retains
+all thirty-one verified changed/deleted paths. The
+[owner receipt](../devtools/data/indexed_hydrogen_policy_receiving_645_20261107.json)
+and [archived report](archive/resolved_proposals/normalize_stored_hydrogen_policy_for_correspondence.md)
+retain every actual attempt, admission rules and scope. DockingMT #79 received
+the supported contract and exact source handoff (6718020308). Its different
+provider/RDKit prefix, complete workflow and installed artifact remain separate.
+Native-copy future qualification #408 records this additional client case
+(6718035629), without making it a new 1.0 client gate.
+
+Tests peak at about 403 MiB. Full HTML peaks at about 1.50 GiB under the 2 GiB
+bound, with high-memory throttling and no max/OOM event or swap. Corrected
+incremental HTML peaks at about 477 MiB. All campaigns use one CPU, preserve
+the host reserve and terminate normally. Native coordinate/box sharing and
+later edit isolation are tested; other mutable metadata keeps its native-copy
+allocation rules. No realistic 100,000-atom by 10,000-structure benchmark is
+claimed. Twelve course code cells, saved outputs, IDs and metadata remain
+unchanged; the new Tool/Cookbook examples execute under both unit policies.
+
+The refreshed complete board contains **580 issues, 95 open and no open PR**.
+New #648 records an inspected
+[stale rigid-fragment tutorial](pending_bugs/docs/rigid_fragment_tutorial_uses_retired_topology_chemical_attributes.md)
+that still uses retired Topology chemistry. Reproduce and repair that bounded
+example next, then receive #610 public XYZ coordinate delivery. Preserve the
+broader #378 discoverability work and every other audit requirement.
+
+The accepted score stays **approximately 62.5%**, with **39 audit-related source
+issues closed** and **23/50 graphical intents accepted**. Supplemental capability
+work adds no bonus to the frozen milestone weights. #612's complete source suite,
+every remaining graphical, scientific-contract, installed/platform and exact-
+candidate exit remain due. No new tag, package, remote matrix or release follows
+from this source closeout.
+
+## Previous scalar-ID closeout and next policy work — 2026-11-07
 
 #647 is published and independently verified closed. Qualified source
 `d020ff4a4e005c1e6076a9f417446685465fdf71` passes **279 clean-source cases**,

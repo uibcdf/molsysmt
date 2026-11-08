@@ -101,3 +101,21 @@ Client maintainers own client implementation and acceptance. This proposal is no
 permission to change their source, publish packages or modify release pins.
 Representative workloads must be small enough for routine guards; larger resource
 campaigns remain opt-in measurements rather than fragile timing thresholds.
+
+## Additional client case — 2026-11-08
+
+#645 supplies a concrete explicit-policy branch for uibcdf/dockingmt#79. Its
+[provider source record](../archive/resolved_proposals/normalize_stored_hydrogen_policy_for_correspondence.md)
+receives independent chemical tables and analysis handles, protected geometry
+sharing, changed/no-op coverage, controlled edit isolation, unit authority and
+historical H5MSM persistence. This does not qualify the client's complete
+installed workflow. Add that branch/edit/persist composition to this future
+inventory, retaining exact provider and client identities.
+
+Measure other mutable structural series separately in realistic cases. Deferred
+copy protects coordinate/box blocks; dense per-structure atom metadata retains
+the existing eager allocation contract. The small guards do not certify a
+100,000-atom by 10,000-structure workload. This is an allocation/qualification
+limit to measure under the applicable resource policy, not evidence for a new
+copy algorithm or an automatic additional 1.0 client gate. Feedback is retained
+in comment 6718035629.
