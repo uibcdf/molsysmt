@@ -46,6 +46,51 @@ def _notebook(cells):
     }
 
 
+def _periodic_setup(*, general):
+    cells = (
+        [
+            [[0.0, 3.0, 0.0], [-4.0, 0.0, 0.0], [0.0, 0.0, 5.0]],
+            [[0.0, 0.0, 3.0], [4.0, 0.0, 0.7], [0.6, 5.0, 0.2]],
+            [[0.0, -6.0, 0.0], [8.0, 0.0, 0.0], [0.0, 0.0, 10.0]],
+        ]
+        if general
+        else [[[3.0, 0.0, 0.0], [0.7, 4.0, 0.0], [0.2, 0.6, 5.0]]] * 3
+    )
+    return f"""import itertools
+import json
+import numpy as np
+_periodic_boxes=np.array({cells!r})
+_periodic_general={general!r}
+_periodic_before=source_coordinates+[8.,7.,6.]
+view.addons.molsysmt.basic.set(coordinates=msm.pyunitwizard.quantity(_periodic_before,'nm'),box=msm.pyunitwizard.quantity(_periodic_boxes,'nm'))
+_periodic_revision=view.addons.molsysmt.get_sync_status()['target_revision']
+_origin=np.array([0.2,-0.4,0.7])
+_periodic_component=_periodic_before.copy()
+for structure in [2,0]:
+    box=_periodic_boxes[structure]
+    center=_periodic_before[structure].mean(axis=0)
+    fractional=(center-_origin)@np.linalg.inv(box)
+    target=_origin+(fractional-np.floor(fractional+0.5))@box
+    _periodic_component[structure]+=target-center
+_shifts=np.array(list(itertools.product(range(-2,3),repeat=3)))
+def _nearest_lattice(vectors,box):
+    seed=np.rint(vectors@np.linalg.inv(box))
+    candidates=vectors[:,None]-(seed[:,None]+_shifts[None])@box
+    return candidates[np.arange(len(vectors)),np.argmin(np.sum(candidates*candidates,axis=-1),axis=1)]
+_periodic_source=_periodic_component.copy()
+_periodic_source[0]=np.array([10.,10.,10.])+_nearest_lattice(_periodic_component[0]-[10.,10.,10.],_periodic_boxes[0])
+assert np.max(np.abs(_periodic_source[0]-_periodic_component[0]))>1
+_periodic_result=_periodic_source.copy()
+_periodic_wrong_cell=_periodic_source.copy()
+for structure in [1,2]:
+    _periodic_result[structure]=_periodic_result[structure-1]+_nearest_lattice(_periodic_source[structure]-_periodic_result[structure-1],_periodic_boxes[structure-1])
+    _periodic_wrong_cell[structure]=_periodic_wrong_cell[structure-1]+_nearest_lattice(_periodic_source[structure]-_periodic_wrong_cell[structure-1],_periodic_boxes[structure])
+_periodic_control=float(np.max(np.abs(_periodic_result-_periodic_wrong_cell)))
+if _periodic_general:
+    assert _periodic_control>0.1, 'General fixture must distinguish the previous/current transition cells'
+"""
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--viewer-root", type=Path, required=True)
@@ -64,6 +109,7 @@ def main():
             "fit",
             "fit-external",
             "periodic",
+            "periodic-general",
             "chemistry",
             "chemistry-pending",
             "chemistry-preparation",
@@ -200,6 +246,7 @@ def main():
         "fit",
         "fit-external",
         "periodic",
+        "periodic-general",
     }:
         initial = initial[: initial.index("view = msv.demo")] + (
             "with msv.demo['pentalanine'] as seed:\n"
@@ -369,12 +416,11 @@ def main():
             "_unit_policy.__exit__(None,None,None)\n"
             "print('JUPYTER_EXTERNAL_FIT_NATIVE_OK',len(records))\n"
         )
-    if args.scenario == "periodic":
-        initial = (
-            initial.removesuffix("view\n")
-            + "import itertools\nimport json\nimport numpy as np\n_periodic_box=np.array([[3.,0,0],[0.7,4.,0],[0.2,0.6,5.]])\n_periodic_boxes=np.repeat(_periodic_box[None],3,axis=0)\n_periodic_before=source_coordinates+[8.,7.,6.]\nview.addons.molsysmt.basic.set(coordinates=msm.pyunitwizard.quantity(_periodic_before,'nm'),box=msm.pyunitwizard.quantity(_periodic_boxes,'nm'))\n_periodic_revision=view.addons.molsysmt.get_sync_status()['target_revision']\n_origin=np.array([0.2,-0.4,0.7])\n_periodic_component=_periodic_before.copy()\nfor frame in [2,0]:\n    center=_periodic_before[frame].mean(axis=0)\n    fractional=(center-_origin)@np.linalg.inv(_periodic_box)\n    target=_origin+(fractional-np.floor(fractional+0.5))@_periodic_box\n    _periodic_component[frame]+=target-center\n_shifts=np.array(list(itertools.product(range(-2,3),repeat=3)))\ndef _nearest_lattice(vectors):\n    seed=np.rint(vectors@np.linalg.inv(_periodic_box))\n    candidates=vectors[:,None]-(seed[:,None]+_shifts[None])@_periodic_box\n    return candidates[np.arange(len(vectors)),np.argmin(np.sum(candidates*candidates,axis=-1),axis=1)]\n_periodic_source=_periodic_component.copy()\n_periodic_source[0]=np.array([10.,10.,10.])+_nearest_lattice(_periodic_component[0]-[10.,10.,10.])\nassert np.max(np.abs(_periodic_source[0]-_periodic_component[0]))>1\n_periodic_result=_periodic_source.copy()\nfor frame in [1,2]:\n    _periodic_result[frame]=_periodic_result[frame-1]+_nearest_lattice(_periodic_source[frame]-_periodic_result[frame-1])\n"
+    if args.scenario in {"periodic", "periodic-general"}:
+        initial = initial.removesuffix("view\n") + _periodic_setup(
+            general=args.scenario == "periodic-general"
         )
-        initial += f"Path({str(output / 'periodic-expected.json')!r}).write_text(json.dumps({{'before_angstrom':(_periodic_before*10).tolist(),'component_angstrom':(_periodic_component*10).tolist(),'source_angstrom':(_periodic_source*10).tolist(),'result_angstrom':(_periodic_result*10).tolist()}}))\nview\n"
+        initial += f"Path({str(output / 'periodic-expected.json')!r}).write_text(json.dumps({{'before_angstrom':(_periodic_before*10).tolist(),'component_angstrom':(_periodic_component*10).tolist(),'source_angstrom':(_periodic_source*10).tolist(),'result_angstrom':(_periodic_result*10).tolist(),'boxes_nm':_periodic_boxes.tolist(),'general_cells':_periodic_general,'transition_control_difference_nm':_periodic_control}}))\nview\n"
         final = (
             "np.testing.assert_allclose(msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm'),_periodic_source,atol=5e-12)\n"
             "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.molsys.structures.box,to_unit='nm'),_periodic_boxes)\n"
@@ -689,7 +735,7 @@ def main():
                         else Path(__file__).with_name("chemistry_panel_jupyter.mjs")
                         if args.scenario == "chemistry"
                         else Path(__file__).with_name("periodic_panel_jupyter.mjs")
-                        if args.scenario == "periodic"
+                        if args.scenario in {"periodic", "periodic-general"}
                         else Path(__file__).with_name("fit_panel_jupyter.mjs")
                         if args.scenario == "fit"
                         else Path(__file__).with_name("fit_external_panel_jupyter.mjs")

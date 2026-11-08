@@ -3488,3 +3488,21 @@ property/sequence/interaction/mechanics
 integration. Complete scientific-session GUI and installed/human/host-floor
 qualification are separate exits. No family is dropped or stable/candidate
 classification inferred from this source block.
+
+## General periodic editor receiving in progress — 2026-11-08
+
+The current candidate removes the temporary orientation/fixed-cell GUI guards
+under this existing accepted intent. It reuses the shared native physical-box
+validator after explicit nm extraction; image/reconstruction science still runs
+once through the native pbc operation. Preview rejects absent, nonfinite and
+singular stored cells before confirmation. New lattice controls exercise general
+row bases, changing transition-cell classifications, ordered nonconsecutive
+structures, selected atoms, nm/pm and current/independent effects.
+
+The original editor fails the first new rotated-cell counterexample. Initial
+directed receiving has 334 passes and two invalid-fixture setup failures: scene
+projection consumed NaN before the editor. A pending-edit variant also does not
+reach the scientific guard. Injecting already-stored invalid boxes instead
+passes all six specific-diagnostic/no-write cases. Preserve these attempts;
+clean combined and actual fixed/general Jupyter receiving remain due. No
+additional intent or release credit is claimed before that receiving.

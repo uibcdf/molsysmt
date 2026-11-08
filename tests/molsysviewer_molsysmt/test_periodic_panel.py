@@ -11,11 +11,14 @@ from tests.molsysviewer_molsysmt.test_pbc_edit_tools import cell, nearest, wrapp
 puw = msm.pyunitwizard
 
 
-def _prepare(view, *, skew=False, varying=False):
-    boxes = np.repeat(cell(skew)[None], 3, axis=0)
-    if varying:
-        boxes *= np.array([1.0, 1.1, 0.8])[:, None, None]
+def _prepare(view, *, skew=False, varying=False, boxes=None, offsets=None):
+    if boxes is None:
+        boxes = np.repeat(cell(skew)[None], 3, axis=0)
+        if varying:
+            boxes *= np.array([1.0, 1.1, 0.8])[:, None, None]
     values = coords(view) + [8.0, 7.0, 6.0]
+    if offsets is not None:
+        values += np.einsum("si,sij->sj", offsets, boxes)[:, None]
     view.addons.molsysmt.basic.set(
         box=puw.quantity(boxes, "nm"), coordinates=puw.quantity(values, "nm")
     )
@@ -28,6 +31,17 @@ def _prepare(view, *, skew=False, varying=False):
     )
     view.interactions.attach(analysis, name="scope", assume_aligned=True)
     return values, boxes, view.addons.molsysmt.get_sync_status()["target_revision"]
+
+
+def _general_cells():
+    # Literal row bases: rotated orthogonal, rotated triclinic, larger orthogonal.
+    return np.array(
+        [
+            [[0.0, 3, 0], [-4, 0, 0], [0, 0, 5]],
+            [[0.0, 0, 3], [4, 0, 0.7], [0.6, 5, 0.2]],
+            [[0.0, -6, 0], [8, 0, 0], [0, 0, 10]],
+        ]
+    )
 
 
 def _apply(view, sent, parameters, *, draft=None):
@@ -193,25 +207,131 @@ def test_gui_temporal_unwrap_uses_fixed_cell_and_explicit_sequence(case, skew, e
     )
 
 
+@pytest.mark.parametrize("unit", ["nm", "pm"])
+@pytest.mark.parametrize("effect", ["update", "result"])
+@pytest.mark.parametrize("mode", ["primary", "centered", "nearest"])
+@pytest.mark.parametrize("structures", [[2, 0], [1]])
+def test_gui_general_wrapping_uses_the_stored_row_basis(
+    case, unit, effect, mode, structures
+):
+    view, sent = case
+    before, boxes, revision = _prepare(view, boxes=_general_cells())
+    atoms, origin = [2, 4], np.array([0.2, -0.4, 0.7])
+    method = "wrap_to_mic" if mode == "nearest" else "wrap_to_pbc"
+    expected = before.copy()
+    for structure in structures:
+        expected[structure, atoms] = wrapped(
+            before[structure, atoms],
+            boxes[structure],
+            method,
+            origin,
+            centered=mode == "centered",
+        )
+    with puw.context(standard_units=[unit, "ps", "radians"]):
+        packet = _apply(
+            view,
+            sent,
+            {
+                "task": "wrap",
+                "wrap_mode": mode,
+                "wrap_compact": "atom",
+                "ox": "2",
+                "oy": "-4",
+                "oz": "7",
+                "origin_unit": "angstrom",
+                "structures": "indices",
+                "indices": ",".join(map(str, structures)),
+                "effect": effect,
+            },
+            draft={"source": "indices", "indices": "2,4"},
+        )
+    output = _output(view, packet, effect)
+    np.testing.assert_allclose(coords(output), expected, atol=5e-12, rtol=0)
+    np.testing.assert_array_equal(
+        puw.get_value(output.molsys.structures.box, to_unit="nm"), boxes
+    )
+    np.testing.assert_array_equal(
+        output.molsys.interactions["scope"].evaluated_structure_indices,
+        sorted(set(range(3)) - set(structures)),
+    )
+    if effect == "result":
+        np.testing.assert_array_equal(coords(view), before)
+        np.testing.assert_array_equal(
+            view.molsys.interactions["scope"].evaluated_structure_indices, [0, 1, 2]
+        )
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision + int(
+        effect == "update"
+    )
+
+
+@pytest.mark.parametrize("unit", ["nm", "pm"])
+@pytest.mark.parametrize("effect", ["update", "result"])
+@pytest.mark.parametrize("structures", [[0, 1, 2], [2, 1, 0], [2, 0]])
+def test_gui_general_unwrap_uses_each_previous_selected_cell(
+    case, unit, effect, structures
+):
+    view, sent = case
+    before, boxes, revision = _prepare(
+        view,
+        boxes=_general_cells(),
+        offsets=np.array([[0.8, -0.4, 0.3], [-1.2, 0.7, 1.6], [0.4, -1.6, 0.9]]),
+    )
+    atoms = [2, 4, 7]
+    expected, wrong_cell = before.copy(), before.copy()
+    for previous, current in zip(structures, structures[1:]):
+        expected[current, atoms] = expected[previous, atoms] + nearest(
+            before[current, atoms] - expected[previous, atoms], boxes[previous]
+        )
+        wrong_cell[current, atoms] = wrong_cell[previous, atoms] + nearest(
+            before[current, atoms] - wrong_cell[previous, atoms], boxes[current]
+        )
+    assert np.max(np.abs(expected - wrong_cell)) > 0.1, (
+        "The oracle must distinguish previous/current cells."
+    )
+    with puw.context(standard_units=[unit, "ps", "radians"]):
+        packet = _apply(
+            view,
+            sent,
+            {
+                "task": "unwrap",
+                "structures": "indices",
+                "indices": ",".join(map(str, structures)),
+                "effect": effect,
+            },
+            draft={"source": "indices", "indices": "2,4,7"},
+        )
+    output = _output(view, packet, effect)
+    np.testing.assert_allclose(coords(output), expected, atol=5e-12, rtol=0)
+    untouched = np.setdiff1d(np.arange(view.molsys.get_n_atoms()), atoms)
+    np.testing.assert_array_equal(coords(output)[:, untouched], before[:, untouched])
+    np.testing.assert_array_equal(
+        puw.get_value(output.molsys.structures.box, to_unit="nm"), boxes
+    )
+    if effect == "result":
+        np.testing.assert_array_equal(coords(view), before)
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision + int(
+        effect == "update"
+    )
+
+
 @pytest.mark.parametrize("task", ["wrap", "unwrap"])
-@pytest.mark.parametrize("problem", ["missing", "rotated", "singular"])
-def test_gui_periodic_missing_or_unreceived_box_rejects_without_science(
+@pytest.mark.parametrize("problem", ["missing", "nonfinite", "singular"])
+def test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes(
     case, task, problem
 ):
     view, sent = case
     _prepare(view)
     if problem == "missing":
         box = None
-    elif problem == "rotated":
-        box = puw.quantity(
-            np.repeat(
-                np.array([[0.0, 3, 0], [-4.0, 0, 0], [0, 0, 5.0]])[None], 3, axis=0
-            ),
-            "nm",
-        )
+    elif problem == "nonfinite":
+        values = np.repeat(np.eye(3)[None], 3, axis=0)
+        values[1, 1, 1] = np.nan
+        box = puw.quantity(values, "nm")
     else:
         box = puw.quantity(np.zeros((3, 3, 3)), "nm")
-    view.addons.molsysmt.basic.set(box=box)
+    # Inject malformed stored input without projecting it to the scene.
+    view.molsys.structures.box = box
+    before_status = view.addons.molsysmt.get_sync_status()
     before, revision = (
         coords(view),
         view.addons.molsysmt.get_sync_status()["target_revision"],
@@ -219,25 +339,16 @@ def test_gui_periodic_missing_or_unreceived_box_rejects_without_science(
     packet = act(
         view, sent, "review", draft={"source": "all"}, parameters={"task": task}
     )
-    if problem == "singular":
-        assert packet["stage"] == "review"
-        packet = act(view, sent, "apply", token=packet["review"]["token"])
     assert packet["stage"] == "error", packet
+    assert {"missing": "stored box", "nonfinite": "finite", "singular": "non-singular"}[
+        problem
+    ] in packet["message"]
     np.testing.assert_array_equal(coords(view), before)
     status = view.addons.molsysmt.get_sync_status()
-    assert status["state"] == "synchronized" and status["target_revision"] == revision
+    assert status["state"] == before_status["state"]
+    assert status["pending_operations"] == before_status["pending_operations"]
+    assert status["target_revision"] == revision
     assert not view.addons.manager.presentations.records()
-
-
-def test_gui_temporal_varying_cell_remains_explicitly_unreceived(case):
-    view, sent = case
-    before, _, revision = _prepare(view, varying=True)
-    failed = act(
-        view, sent, "review", draft={"source": "all"}, parameters={"task": "unwrap"}
-    )
-    assert failed["stage"] == "error" and "unchanged" in failed["message"]
-    np.testing.assert_array_equal(coords(view), before)
-    assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision
 
 
 @pytest.mark.parametrize(

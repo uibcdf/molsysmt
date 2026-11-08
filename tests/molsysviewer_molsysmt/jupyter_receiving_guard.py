@@ -294,6 +294,37 @@ def test_actual_jupyter_periodic_geometry(tmp_path):
     assert not (output / "config/jupyter_server_config.py").exists()
 
 
+def test_actual_jupyter_general_periodic_geometry(tmp_path):
+    viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
+    output = tmp_path / "jupyter-periodic-general"
+    command = [
+        sys.executable,
+        str(Path(__file__).with_name("system_panel_jupyter.py")),
+        "--viewer-root",
+        str(viewer),
+        "--scenario",
+        "periodic-general",
+        "--output",
+        str(output),
+    ]
+    if provider := os.environ.get("MOLSYSVIEWER_PROVIDER_ROOT"):
+        command.extend(["--provider-root", provider])
+    subprocess.run(command, check=True, timeout=300)
+    result = json.loads((output / "full-result.json").read_text())
+    expected = json.loads((output / "periodic-expected.json").read_text())
+    assert len(result["checks"]) == 8
+    assert "changing general-row cells" in result["scope"]
+    assert expected["general_cells"] is True
+    assert expected["transition_control_difference_nm"] > 0.1
+    boxes = expected["boxes_nm"]
+    assert any(box != boxes[0] for box in boxes[1:])
+    assert any(
+        box[i][j] != 0 for box in boxes for i in range(3) for j in range(i + 1, 3)
+    )
+    assert not (output / "settings.json").exists()
+    assert not (output / "config/jupyter_server_config.py").exists()
+
+
 def test_actual_jupyter_chemistry_inspection(tmp_path):
     viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
     output = tmp_path / "jupyter-chemistry"

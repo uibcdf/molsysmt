@@ -310,27 +310,22 @@ def _snapshot_reference(references):
     return puw.quantity(values, unit)
 
 
-def _admit_periodic_profile(target, frames, *, temporal):
-    """Bound the GUI's received native route; never repair a box or an image."""
+def _admit_periodic_profile(target, frames):
+    """Validate stored cells through the shared native physical-box primitive."""
     from molsysmt import basic
     from molsysmt import pyunitwizard as puw
+    from molsysmt._private.pbc_validation import validate_box_array
 
     box = basic.get(target, structure_indices=list(frames), box=True)
     if box is None:
         raise ValueError(
             "Periodic tools require stored box vectors. Load box data or explicitly assign a box before using this task."
         )
-    values = np.asarray(puw.get_value(box, to_unit="nm"))
-    # Temporary input admission for owner #607, not a new physical definition.
-    # No tolerance, rotation or minimum-image algorithm is introduced here.
-    if np.any(np.triu(values, k=1) != 0):
-        raise ValueError(
-            "This periodic editor does not yet support that box orientation. The molecular data were not changed."
-        )
-    if temporal and not np.all(values == values[:1]):
-        raise ValueError(
-            "Temporal unwrapping currently requires an unchanged periodic cell across the selected structures. Changing-cell support is pending."
-        )
+    validate_box_array(
+        puw.get_value(box, to_unit="nm"),
+        len(frames),
+        caller="molsysviewer_molsysmt._geometry_panel",
+    )
 
 
 @dataclass(frozen=True)
@@ -503,7 +498,7 @@ class _GeometryPanel(_MolecularTaskPanel):
                     "Choose at least two structures in their intended temporal order."
                 )
             if atoms.size:
-                _admit_periodic_profile(target, frames, temporal=temporal)
+                _admit_periodic_profile(target, frames)
             if not temporal:
                 _length_vector(self._parameters, "origin")
         elif self._parameters["task"] == "center":

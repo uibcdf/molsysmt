@@ -102,7 +102,8 @@ try{
   const tab=studio.locator('[data-molsysviewer-addon-workspace-tab="molsysmt"]');await tab.waitFor({state:'visible'});await tab.click();
   await studio.locator('[data-molsysviewer-addon-panel-tab="geometry"]').click();await studio.getByRole('heading',{name:'Unwrap trajectory',exact:true}).waitFor();
   await studio.locator('summary').filter({hasText:'Periodic conventions and current support'}).click();
-  assert.match(await studio.locator('[data-periodic]').innerText(),/unchanged cell/);
+  const conventions=await studio.locator('[data-periodic]').innerText();
+  assert.match(conventions,/previous selected structure.*cell/);assert.match(conventions,/finite, nonsingular/);assert.match(conventions,/undersampled motion/);
   await studio.screenshot({path:output+'/periodic-studio-popup.png'});await studio.close();await canvas.close();
  });
  await step('Python verifies all native arrays and drives a second structure of the rendered result',async()=>{
@@ -111,7 +112,7 @@ try{
  });
  const fingerprint=e=>e.error+'|'+(e.stack?.split('\n')[1]||'');
  assert.ok(errors.every(error=>baselineErrors.some(baseline=>fingerprint(error)===fingerprint(baseline))),'A page error was introduced beyond the plain Jupyter control');
- const receipt={checks,errors,baseline_errors:baselineErrors,scope:'Real local JupyterLab/ipykernel/AnyWidget, native compact/nearest wrapping and fixed-cell temporal unwrapping with independent lattice oracles, ordered structures, native numerical oracles, independent Mol* result and detached Geometry controls. Not visible human Qt qualification.'};
+ const receipt={checks,errors,baseline_errors:baselineErrors,scope:`Real local JupyterLab/ipykernel/AnyWidget, native compact/nearest wrapping and temporal unwrapping with ${oracle.general_cells?'changing general-row cells':'fixed cells'}, independent lattice oracles, ordered structures, native numerical oracles, independent Mol* result and detached Geometry controls. Not visible human Qt qualification.`};
  await writeFile(output+'/full-result.json',JSON.stringify(receipt,null,2));console.log(JSON.stringify(receipt,null,2));
 }catch(error){await writeFile(output+'/full-failure.json',JSON.stringify({stage,error:String(error),checks,errors},null,2));if(browser){for(const [index,p] of browser.contexts().flatMap(c=>c.pages()).entries())await writeFile(output+'/window-'+index+'-failure-dom.txt',await p.locator('body').innerText());}if(page){await page.screenshot({path:output+'/failure.png',fullPage:true});await writeFile(output+'/failure-dom.txt',await page.locator('body').innerText());}console.error(error);process.exitCode=1;}
 finally{if(browser)await browser.close();}
