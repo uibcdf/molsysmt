@@ -818,15 +818,16 @@
     }
   ],
   "new_priority": {
-    "issue": "uibcdf/molsysmt#612",
+    "issue": "uibcdf/molsysmt#644",
     "completed_related": [
       "uibcdf/molsysmt#587",
       "uibcdf/molsysmt#549"
     ],
-    "record": "devguide/pending_bugs/multimodel_alternate_location_fidelity_expectation.md",
-    "owner_verification": "#587/#549 are closed. #612 retains its complete-source obligation; a one-case bounded pilot passes. User-level process-tree memory/CPU/swap controls and admission/reserve monitoring now have measured receiving, with parallel plans rejected before pytest. No complete-suite success is claimed.",
-    "independent_lightweight_review": "uibcdf/molsysmt#610 public coordinate delivery and the remaining #378 composition/documentation scope",
-    "scope": "Continue complete source acceptance only through an inspected serial plan and resource-bounded execution; retain every remaining graphical, scientific-contract, installed and candidate requirement."
+    "record": "devguide/pending_bugs/formal_charge_nonquantity_error_leak.md",
+    "owner_verification": "#644 consumer reproduction is inspected and local boundary/units receiving is next. #549/#587 are closed. #612 retains its independent complete-suite requirement through a safe serial bounded route; it is not cleared by the small pilot.",
+    "independent_lightweight_review": "Assess #645 public stored-H policy composition, then #610/#378; do not weaken strict correspondence or infer new release gates.",
+    "scope": "Continue complete source acceptance only through an inspected serial plan and resource-bounded execution; retain every remaining graphical, scientific-contract, installed and candidate requirement.",
+    "pending_full_source": "uibcdf/molsysmt#612"
   },
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
@@ -867,6 +868,16 @@
     "source": "2465d6b0cb137446f9917c971572a921003a9b89",
     "state": "interrupted_resource_exhaustion",
     "evidence": "devtools/data/alternate_location_owner_receiving_612_20261107.json",
+    "weighted_milestone_change": 0
+  },
+  "incoming_intake": {
+    "issues": [
+      "uibcdf/molsysmt#644",
+      "uibcdf/molsysmt#645"
+    ],
+    "complete_board_issues": 577,
+    "open_issues": 96,
+    "open_prs": 0,
     "weighted_milestone_change": 0
   }
 }

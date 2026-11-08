@@ -20,7 +20,25 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Current naming-contract owner closeout — 2026-11-07
+## Incoming correctness and policy intake — 2026-11-07
+
+The complete post-closeout board acquisition finds **577 issues, 96 open and
+no open PR**. New #644 reports a public formal-charge argument error escaping
+as a unit-form exception; its
+[owner record](pending_bugs/formal_charge_nonquantity_error_leak.md)
+tracks current source inspection and pending local reproduction. Prioritize this
+bounded correctness repair before #610's composition clarification. New #645
+is a separate [stored-H policy proposal](pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md),
+not an established matcher defect or an automatic expansion of frozen gates.
+
+The accepted score stays **approximately 62.5%**, with **35 audit-related source
+issues closed** and **23/50 graphical intents accepted**. Preserve #612's complete
+source requirement and every remaining graphical, scientific-contract, installed
+and final-candidate exit. Shared execution observations were handed to
+uibcdf/uibcdf-infrastructure#1 (6716756474), related to uibcdf/moli#96; no project
+policy or permanent execution framework is introduced by that feedback.
+
+## Previous naming-contract owner closeout — 2026-11-07
 
 #549 is independently verified closed after D0–D7 source acceptance. Qualified
 source `d7c7b7e927824a45f806aca040199a2aa7d84d03` passes **545 focused cases**,
