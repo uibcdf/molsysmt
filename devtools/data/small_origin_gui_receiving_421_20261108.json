@@ -1,0 +1,1767 @@
+{
+  "schema_version": "molsysmt.small_origin_gui_receiving@1",
+  "date": "2026-11-08",
+  "owner_issue": "uibcdf/molsysmt#421",
+  "native_correction_issue": "uibcdf/molsysmt#608",
+  "source": "25d9b810527df7a624925e472623a15e3238f664",
+  "implementation_source": "db16eec9be4a45cd5e2ddbde16f96757c2934281",
+  "viewer_source": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "scope": "Dedicated small-origin source GUI receiving; not a new scientific algorithm, human Qt, installed package, general periodic-accuracy or final-candidate qualification.",
+  "runs": {
+    "origin-editor-received": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/origin-editor-received.xml",
+          "-n0",
+          "tests/molsysviewer_molsysmt/test_periodic_panel.py::test_gui_small_origins_retain_the_requested_physical_image",
+          "tests/pbc/test_small_periodic_origins.py"
+        ],
+        "exit_code": 0,
+        "seconds": 41.148240823997185,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "db16eec9be4a45cd5e2ddbde16f96757c2934281",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8565
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "264",
+          "time": "38.423",
+          "timestamp": "2026-11-08T09:49:02.915536-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-primary--1-nm]",
+          "seconds": 2.801,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-primary--1-angstrom]",
+          "seconds": 0.293,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-primary--1-pm]",
+          "seconds": 0.281,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-primary-0-nm]",
+          "seconds": 0.293,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-primary-0-angstrom]",
+          "seconds": 0.28,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-primary-0-pm]",
+          "seconds": 0.284,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-primary-1-nm]",
+          "seconds": 0.288,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-primary-1-angstrom]",
+          "seconds": 0.281,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-primary-1-pm]",
+          "seconds": 0.277,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-centered--1-nm]",
+          "seconds": 0.277,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-centered--1-angstrom]",
+          "seconds": 0.292,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-centered--1-pm]",
+          "seconds": 0.28,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-centered-0-nm]",
+          "seconds": 0.273,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-centered-0-angstrom]",
+          "seconds": 0.283,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-centered-0-pm]",
+          "seconds": 0.295,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-centered-1-nm]",
+          "seconds": 0.274,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-centered-1-angstrom]",
+          "seconds": 0.277,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-centered-1-pm]",
+          "seconds": 0.286,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-nearest--1-nm]",
+          "seconds": 0.277,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-nearest--1-angstrom]",
+          "seconds": 0.279,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-nearest--1-pm]",
+          "seconds": 0.281,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-nearest-0-nm]",
+          "seconds": 0.286,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-nearest-0-angstrom]",
+          "seconds": 0.275,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-nearest-0-pm]",
+          "seconds": 0.282,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-nearest-1-nm]",
+          "seconds": 0.286,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-nearest-1-angstrom]",
+          "seconds": 0.277,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-update-nearest-1-pm]",
+          "seconds": 0.279,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-primary--1-nm]",
+          "seconds": 0.271,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-primary--1-angstrom]",
+          "seconds": 0.278,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-primary--1-pm]",
+          "seconds": 0.268,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-primary-0-nm]",
+          "seconds": 0.312,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-primary-0-angstrom]",
+          "seconds": 0.303,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-primary-0-pm]",
+          "seconds": 0.268,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-primary-1-nm]",
+          "seconds": 0.266,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-primary-1-angstrom]",
+          "seconds": 0.268,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-primary-1-pm]",
+          "seconds": 0.29,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-centered--1-nm]",
+          "seconds": 0.269,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-centered--1-angstrom]",
+          "seconds": 0.27,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-centered--1-pm]",
+          "seconds": 0.272,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-centered-0-nm]",
+          "seconds": 0.296,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-centered-0-angstrom]",
+          "seconds": 0.269,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-centered-0-pm]",
+          "seconds": 0.274,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-centered-1-nm]",
+          "seconds": 0.288,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-centered-1-angstrom]",
+          "seconds": 0.27,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-centered-1-pm]",
+          "seconds": 0.272,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-nearest--1-nm]",
+          "seconds": 0.268,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-nearest--1-angstrom]",
+          "seconds": 0.284,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-nearest--1-pm]",
+          "seconds": 0.277,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-nearest-0-nm]",
+          "seconds": 0.27,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-nearest-0-angstrom]",
+          "seconds": 0.277,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-nearest-0-pm]",
+          "seconds": 0.27,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-nearest-1-nm]",
+          "seconds": 0.267,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-nearest-1-angstrom]",
+          "seconds": 0.273,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[atom-result-nearest-1-pm]",
+          "seconds": 0.278,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-primary--1-nm]",
+          "seconds": 0.286,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-primary--1-angstrom]",
+          "seconds": 0.28,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-primary--1-pm]",
+          "seconds": 0.294,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-primary-0-nm]",
+          "seconds": 0.287,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-primary-0-angstrom]",
+          "seconds": 0.28,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-primary-0-pm]",
+          "seconds": 0.279,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-primary-1-nm]",
+          "seconds": 0.29,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-primary-1-angstrom]",
+          "seconds": 0.281,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-primary-1-pm]",
+          "seconds": 0.283,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-centered--1-nm]",
+          "seconds": 0.28,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-centered--1-angstrom]",
+          "seconds": 0.304,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-centered--1-pm]",
+          "seconds": 0.277,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-centered-0-nm]",
+          "seconds": 0.285,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-centered-0-angstrom]",
+          "seconds": 0.294,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-centered-0-pm]",
+          "seconds": 0.283,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-centered-1-nm]",
+          "seconds": 0.288,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-centered-1-angstrom]",
+          "seconds": 0.283,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-centered-1-pm]",
+          "seconds": 0.291,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-nearest--1-nm]",
+          "seconds": 0.285,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-nearest--1-angstrom]",
+          "seconds": 0.291,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-nearest--1-pm]",
+          "seconds": 0.29,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-nearest-0-nm]",
+          "seconds": 0.282,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-nearest-0-angstrom]",
+          "seconds": 0.291,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-nearest-0-pm]",
+          "seconds": 0.296,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-nearest-1-nm]",
+          "seconds": 0.285,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-nearest-1-angstrom]",
+          "seconds": 0.281,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-update-nearest-1-pm]",
+          "seconds": 0.281,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-primary--1-nm]",
+          "seconds": 0.282,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-primary--1-angstrom]",
+          "seconds": 0.289,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-primary--1-pm]",
+          "seconds": 0.275,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-primary-0-nm]",
+          "seconds": 0.275,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-primary-0-angstrom]",
+          "seconds": 0.277,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-primary-0-pm]",
+          "seconds": 0.273,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-primary-1-nm]",
+          "seconds": 0.324,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-primary-1-angstrom]",
+          "seconds": 0.324,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-primary-1-pm]",
+          "seconds": 0.273,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-centered--1-nm]",
+          "seconds": 0.289,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-centered--1-angstrom]",
+          "seconds": 0.28,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-centered--1-pm]",
+          "seconds": 0.274,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-centered-0-nm]",
+          "seconds": 0.272,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-centered-0-angstrom]",
+          "seconds": 0.273,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-centered-0-pm]",
+          "seconds": 0.281,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-centered-1-nm]",
+          "seconds": 0.272,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-centered-1-angstrom]",
+          "seconds": 0.271,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-centered-1-pm]",
+          "seconds": 0.283,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-nearest--1-nm]",
+          "seconds": 0.277,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-nearest--1-angstrom]",
+          "seconds": 0.271,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-nearest--1-pm]",
+          "seconds": 0.27,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-nearest-0-nm]",
+          "seconds": 0.284,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-nearest-0-angstrom]",
+          "seconds": 0.268,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-nearest-0-pm]",
+          "seconds": 0.271,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-nearest-1-nm]",
+          "seconds": 0.268,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-nearest-1-angstrom]",
+          "seconds": 0.293,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_small_origins_retain_the_requested_physical_image[component-result-nearest-1-pm]",
+          "seconds": 0.275,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-primary--1-nm]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-primary--1-angstrom]",
+          "seconds": 0.035,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-primary--1-pm]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-primary-0-nm]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-primary-0-angstrom]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-primary-0-pm]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-primary-1-nm]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-primary-1-angstrom]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-primary-1-pm]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-centered--1-nm]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-centered--1-angstrom]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-centered--1-pm]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-centered-0-nm]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-centered-0-angstrom]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-centered-0-pm]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-centered-1-nm]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-centered-1-angstrom]",
+          "seconds": 0.036,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-centered-1-pm]",
+          "seconds": 0.039,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-mic--1-nm]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-mic--1-angstrom]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-mic--1-pm]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-mic-0-nm]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-mic-0-angstrom]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-mic-0-pm]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-mic-1-nm]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-mic-1-angstrom]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-False-mic-1-pm]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-primary--1-nm]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-primary--1-angstrom]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-primary--1-pm]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-primary-0-nm]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-primary-0-angstrom]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-primary-0-pm]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-primary-1-nm]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-primary-1-angstrom]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-primary-1-pm]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-centered--1-nm]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-centered--1-angstrom]",
+          "seconds": 0.038,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-centered--1-pm]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-centered-0-nm]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-centered-0-angstrom]",
+          "seconds": 0.035,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-centered-0-pm]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-centered-1-nm]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-centered-1-angstrom]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-centered-1-pm]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-mic--1-nm]",
+          "seconds": 0.035,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-mic--1-angstrom]",
+          "seconds": 0.04,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-mic--1-pm]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-mic-0-nm]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-mic-0-angstrom]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-mic-0-pm]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-mic-1-nm]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-mic-1-angstrom]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[False-component-mic-1-pm]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-primary--1-nm]",
+          "seconds": 0.03,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-primary--1-angstrom]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-primary--1-pm]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-primary-0-nm]",
+          "seconds": 0.03,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-primary-0-angstrom]",
+          "seconds": 0.03,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-primary-0-pm]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-primary-1-nm]",
+          "seconds": 0.03,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-primary-1-angstrom]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-primary-1-pm]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-centered--1-nm]",
+          "seconds": 0.03,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-centered--1-angstrom]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-centered--1-pm]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-centered-0-nm]",
+          "seconds": 0.03,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-centered-0-angstrom]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-centered-0-pm]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-centered-1-nm]",
+          "seconds": 0.029,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-centered-1-angstrom]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-centered-1-pm]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-mic--1-nm]",
+          "seconds": 0.029,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-mic--1-angstrom]",
+          "seconds": 0.03,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-mic--1-pm]",
+          "seconds": 0.03,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-mic-0-nm]",
+          "seconds": 0.029,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-mic-0-angstrom]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-mic-0-pm]",
+          "seconds": 0.035,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-mic-1-nm]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-mic-1-angstrom]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-False-mic-1-pm]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-primary--1-nm]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-primary--1-angstrom]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-primary--1-pm]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-primary-0-nm]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-primary-0-angstrom]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-primary-0-pm]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-primary-1-nm]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-primary-1-angstrom]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-primary-1-pm]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-centered--1-nm]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-centered--1-angstrom]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-centered--1-pm]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-centered-0-nm]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-centered-0-angstrom]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-centered-0-pm]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-centered-1-nm]",
+          "seconds": 0.03,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-centered-1-angstrom]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-centered-1-pm]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-mic--1-nm]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-mic--1-angstrom]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-mic--1-pm]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-mic-0-nm]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-mic-0-angstrom]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-mic-0-pm]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-mic-1-nm]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-mic-1-angstrom]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_small_explicit_origins_do_not_change_the_physical_periodic_image[True-component-mic-1-pm]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-1e-06-primary-nm]",
+          "seconds": 0.023,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-1e-06-primary-angstrom]",
+          "seconds": 0.025,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-1e-06-primary-pm]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-1e-06-primary-m]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-1e-06-mic-nm]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-1e-06-mic-angstrom]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-1e-06-mic-pm]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-1e-06-mic-m]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-1e-06-unwrap-nm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-1e-06-unwrap-angstrom]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-1e-06-unwrap-pm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-1e-06-unwrap-m]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-3.0-primary-nm]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-3.0-primary-angstrom]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-3.0-primary-pm]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-3.0-primary-m]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-3.0-mic-nm]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-3.0-mic-angstrom]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-3.0-mic-pm]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-3.0-mic-m]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-3.0-unwrap-nm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-3.0-unwrap-angstrom]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-3.0-unwrap-pm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[False-3.0-unwrap-m]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-1e-06-primary-nm]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-1e-06-primary-angstrom]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-1e-06-primary-pm]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-1e-06-primary-m]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-1e-06-mic-nm]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-1e-06-mic-angstrom]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-1e-06-mic-pm]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-1e-06-mic-m]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-1e-06-unwrap-nm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-1e-06-unwrap-angstrom]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-1e-06-unwrap-pm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-1e-06-unwrap-m]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-3.0-primary-nm]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-3.0-primary-angstrom]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-3.0-primary-pm]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-3.0-primary-m]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-3.0-mic-nm]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-3.0-mic-angstrom]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-3.0-mic-pm]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-3.0-mic-m]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-3.0-unwrap-nm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-3.0-unwrap-angstrom]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-3.0-unwrap-pm]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_box_nonsingularity_admission_is_invariant_under_length_units[True-3.0-unwrap-m]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        }
+      ],
+      "resources": {
+        "seconds": 48.04559264611453,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.31591796875,
+            1.0791015625,
+            1.9833984375
+          ],
+          "cpu_utilization": 0.028098344204716463,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16156639232,
+        "cgroup_memory_peak_bytes": 547897344,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 4,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 47293946\nuser_usec 46013895\nsystem_usec 1280051\nnice_usec 46046000\ncore_sched.force_idle_usec 0\nnr_periods 477\nnr_throttled 45\nthrottled_usec 140888\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "f25cb2397e7488ce0fb720de9496ed0c22441271b7bafc78160891b8fcbbadeb",
+        "-bounded.json": "2da7fbb4d588eec6337c918bcdb560b855678712952ed301115b31e3ebd7a216",
+        ".xml": "f5b43f0eadc3742153420d3c1777492bed75eb677c202ac5e92928b258c91e35",
+        ".log": "182d7a7496a71bf289a3d2579d41accf48e39390c7504175d76d393ad0e1a530",
+        "-inputs-before.json": "aeba2c60a3ff700a69f4eabe362d8a8bc6f16c7fcf0d349c18e59109c37372c8",
+        "-inputs-after.json": "aeba2c60a3ff700a69f4eabe362d8a8bc6f16c7fcf0d349c18e59109c37372c8",
+        "-reference-driver.py": "39ff571366e70fa6f011decced712b264451290d47bb3df33f54ab9a03698092",
+        "-resource-driver.py": "0616ad7ee5f6b8e38693c3cc6f40252a0db1031164271f17c4fa58ee1d25d685"
+      },
+      "jupyter": []
+    },
+    "origin-editor-gui": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/origin-editor-gui.xml",
+          "-n0",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_small_periodic_origins",
+          "--basetemp=<private-evidence>/origin-editor-gui"
+        ],
+        "exit_code": 1,
+        "seconds": 163.0974974972196,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "db16eec9be4a45cd5e2ddbde16f96757c2934281",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8565
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "2",
+          "time": "161.263",
+          "timestamp": "2026-11-08T09:50:05.318674-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_actual_jupyter_small_periodic_origins[nm]",
+          "seconds": 88.739,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_small_periodic_origins[pm]",
+          "seconds": 72.184,
+          "outcome": "failure"
+        }
+      ],
+      "resources": {
+        "seconds": 169.50371154909953,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "400000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.671875,
+            1.05810546875,
+            1.91943359375
+          ],
+          "cpu_utilization": 0.02664655605832078,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14482608128,
+        "cgroup_memory_peak_bytes": 1957163008,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 190,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 457979900\nuser_usec 422023703\nsystem_usec 35956196\nnice_usec 424673000\ncore_sched.force_idle_usec 0\nnr_periods 1698\nnr_throttled 924\nthrottled_usec 624610153\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "3e2b263f14bae184bd06cbc546add88ae00438ceb1d27205f259fa44fe46548d",
+        "-bounded.json": "3601951ed1d5611273e4f2b233d0f4a1437b5a86caa40ef34d0da70f8634feb3",
+        ".xml": "15529112dafd8739f07e1329779883c6df84e5d57a339dea3d6e71884123ad6c",
+        ".log": "d0d244157f53dfe9c1b70bdcbaf9bb04f7c86a4a6a3cf466c14a50d6d74aad9a",
+        "-inputs-before.json": "aeba2c60a3ff700a69f4eabe362d8a8bc6f16c7fcf0d349c18e59109c37372c8",
+        "-inputs-after.json": "aeba2c60a3ff700a69f4eabe362d8a8bc6f16c7fcf0d349c18e59109c37372c8",
+        "-reference-driver.py": "39ff571366e70fa6f011decced712b264451290d47bb3df33f54ab9a03698092",
+        "-resource-driver.py": "1eca06486583f4d6984205e331965073e327357b323153d4d1908137b131a9e2"
+      },
+      "jupyter": [
+        {
+          "guard_case": "test_actual_jupyter_small_peri0",
+          "file": "full-result.json",
+          "sha256": "c77f264bb3047ff8918a036ea0416cf43c0dbd5398ebeadeedff0c72ef960808",
+          "completed_checks": [
+            "Render a boundary-sensitive source under the declared application unit policy",
+            "Review a small positive origin and Back without changing rendered coordinates",
+            "Apply the small positive angstrom input and verify the nonzero-origin image",
+            "Compute the negative-origin independent result without altering the source",
+            "Preserve the same negative-origin result across acknowledged window ownership",
+            "Apply the same physical negative origin in nm through detached Studio",
+            "Verify every native structure source effect box chemistry coverage and unchanged unit policy"
+          ],
+          "browser_errors": 3,
+          "plain_notebook_errors": 1,
+          "scope": "Small positive and negative physical origins distinguished from zero, actual Mol* images, native analytical controls, nonconsecutive structures, current/independent effects and both popup authorities. Source only; not human Qt or installed qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.319060 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_small_peri1",
+          "file": "full-failure.json",
+          "sha256": "4060d3e6159e6388cfd5d0ee60673272e222125b74a1b2b9a489c79e3d9876ba",
+          "completed_checks": [
+            "Render a boundary-sensitive source under the declared application unit policy",
+            "Review a small positive origin and Back without changing rendered coordinates"
+          ],
+          "stage": "Apply the small positive angstrom input and verify the nonzero-origin image",
+          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n  - waiting for getByText('JUPYTER_ORIGINS_POSITIVE_OK 1', { exact: true }) to be visible\n",
+          "browser_errors": 2,
+          "plain_notebook_errors": null,
+          "scope": "Failure; no completed scenario acceptance.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.311423 s\n"
+        }
+      ]
+    },
+    "origin-editor-gui-final": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/origin-editor-gui-final.xml",
+          "-n0",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_small_periodic_origins",
+          "--basetemp=<private-evidence>/origin-editor-gui-final"
+        ],
+        "exit_code": 0,
+        "seconds": 180.26977602415718,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "25d9b810527df7a624925e472623a15e3238f664",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8565
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "2",
+          "time": "178.471",
+          "timestamp": "2026-11-08T09:54:39.889509-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_actual_jupyter_small_periodic_origins[nm]",
+          "seconds": 89.995,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_small_periodic_origins[pm]",
+          "seconds": 88.285,
+          "outcome": "passed"
+        }
+      ],
+      "resources": {
+        "seconds": 186.45140988985077,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "400000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            4.49365234375,
+            4.2978515625,
+            3.16064453125
+          ],
+          "cpu_utilization": 0.024610748367654423,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14646353920,
+        "cgroup_memory_peak_bytes": 1960148992,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 190,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 616257344\nuser_usec 570888742\nsystem_usec 45368601\nnice_usec 569796000\ncore_sched.force_idle_usec 0\nnr_periods 1868\nnr_throttled 1310\nthrottled_usec 876498158\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "1ee7202bffe8bf68e9957b1dcb7badf01a9f3df65aea54bc58bcbdda065f36e3",
+        "-bounded.json": "f448185c2e3d2e998fe4a708bb158a9fba47c07778919a04317f26957b2ed55a",
+        ".xml": "94734f6af3e6b2fb34b53fd6785cba48411b82a2da9df8daee111fa574aa9b92",
+        ".log": "b1c648444066312a1ae1891c73bd7b2b200e85152a83ba873db9a68601b703e0",
+        "-inputs-before.json": "27f983cf111616ebd294bfd07796b8c20dc21eecd9c7c18df020e4b67c29654e",
+        "-inputs-after.json": "27f983cf111616ebd294bfd07796b8c20dc21eecd9c7c18df020e4b67c29654e",
+        "-reference-driver.py": "a4429aaa2f454e0bf17512d4f6cf414ffa90fadd4101dcf9fa8ba4a509d15722",
+        "-resource-driver.py": "fd3f6d8efd95b65fccfcf62a9f985c7e56ebf96de4dcb6e3c271d14691e2ff5a"
+      },
+      "jupyter": [
+        {
+          "guard_case": "test_actual_jupyter_small_peri0",
+          "file": "full-result.json",
+          "sha256": "0c13c6b4c7570f7c9c2ac0217e92116b4e1430a392812de2f36704ab6ce11e1b",
+          "completed_checks": [
+            "Render a boundary-sensitive source under the declared application unit policy",
+            "Review a small positive origin and Back without changing rendered coordinates",
+            "Apply the small positive angstrom input and verify the nonzero-origin image",
+            "Compute the negative-origin independent result without altering the source",
+            "Preserve the same negative-origin result across acknowledged window ownership",
+            "Apply the same physical negative origin in nm through detached Studio",
+            "Verify every native structure source effect box chemistry coverage and unchanged unit policy"
+          ],
+          "browser_errors": 3,
+          "plain_notebook_errors": 1,
+          "scope": "Small positive and negative physical origins distinguished from zero, actual Mol* images, native analytical controls, nonconsecutive structures, current/independent effects and both popup authorities. Source only; not human Qt or installed qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.180597 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_small_peri1",
+          "file": "full-result.json",
+          "sha256": "567ef1cc9fdc7b5fbfed158e3857a493e588fe03c12123b09eb8db81df6e7571",
+          "completed_checks": [
+            "Render a boundary-sensitive source under the declared application unit policy",
+            "Review a small positive origin and Back without changing rendered coordinates",
+            "Apply the small positive angstrom input and verify the nonzero-origin image",
+            "Compute the negative-origin independent result without altering the source",
+            "Preserve the same negative-origin result across acknowledged window ownership",
+            "Apply the same physical negative origin in nm through detached Studio",
+            "Verify every native structure source effect box chemistry coverage and unchanged unit policy"
+          ],
+          "browser_errors": 3,
+          "plain_notebook_errors": 1,
+          "scope": "Small positive and negative physical origins distinguished from zero, actual Mol* images, native analytical controls, nonconsecutive structures, current/independent effects and both popup authorities. Source only; not human Qt or installed qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.332413 s\n"
+        }
+      ]
+    }
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "versions": {
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1"
+    },
+    "imports": {
+      "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+      "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261106/viewer-e4dd58cf-source/molsysviewer/__init__.py",
+      "pyunitwizard": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+      "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+      "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+      "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+    }
+  },
+  "fixture_controls": [
+    {
+      "standard": "nm",
+      "file_sha256": "f1bb759beb515b0e87496aa7a23e021980e9a157fdf4da721b6053b146fb89a0",
+      "maximum_difference_from_zero_origin_nm": {
+        "positive_angstrom": 2.9999999999999996,
+        "negative_angstrom": 3.0000000000000004
+      },
+      "structures": 3,
+      "atoms": 62
+    },
+    {
+      "standard": "pm",
+      "file_sha256": "7fd9e95909e519203a8c7a470f3a2213d824bb9e16d7dfe6aeaf367987a704e7",
+      "maximum_difference_from_zero_origin_nm": {
+        "positive_angstrom": 2.9999999999999996,
+        "negative_angstrom": 3.0000000000000004
+      },
+      "structures": 3,
+      "atoms": 62
+    }
+  ],
+  "initial_attempt": {
+    "profile": "origin-editor-gui",
+    "outcome": "one passed, one failed",
+    "stage": "pm positive-origin native box-preservation guard",
+    "observed_nm_difference": 4.440892098500626e-16,
+    "reason": "The fixture compared the initialized pm box after conversion with an ideal literal. Final guards snapshot the actual stored box after initialization and require exact raw-value and unit preservation; physical-coordinate tolerance and all deadlines stay unchanged."
+  },
+  "acceptance": [
+    "Clean source passes 264 affected cases: 108 new GUI-request controls and the existing 156 native origin/cell unit controls; no skips/failures/errors. This is not an aggregate with the earlier cell/general-periodic populations.",
+    "The GUI-request population spans positive/zero/negative origins, primary/centered/nearest placement, atom/component grouping, current/independent effects and nm/angstrom/pm application standards. Nonzero cases reject a zero-origin substitution by more than 2.9 nm.",
+    "Both corrected actual-Jupyter scenarios pass seven steps: positive/negative 0.00001 nm origins, explicit angstrom/nm inputs, application nm/pm policies, nonconsecutive structures, Back and current/independent effects. Actual Mol* positions and every native coordinate are checked independently.",
+    "Native boxes, chemical state, unselected structures, evaluated coverage and the existing application unit policy are preserved. Both popup authorities and result ownership are checked after actual acknowledgement.",
+    "Original 300/240-second scenario deadlines and UI waits remain unchanged. Browser errors are explicitly compared to an independent plain-notebook debugger baseline, not suppressed.",
+    "All registered source/export inputs remain unchanged during clean receiving. No runtime code, new optional engine, API, scientific formula, consumer tolerance, unit-policy override or Rust implementation is introduced.",
+    "This receives an existing periodic intent and adds no scorecard leaf or defect-closure bonus. Human/installed/platform/full-candidate gates and the remaining agreed GUI families stay required."
+  ]
+}

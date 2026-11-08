@@ -12,8 +12,8 @@ a 1.0 clearance or an expert-API restriction.
 
 | Operation | Received source GUI scope | Remaining work |
 | --- | --- | --- |
-| Wrap primary, centered-primary or nearest images | Stored finite/nonsingular general row-vector cells, with explicit component/atom grouping and different selected cells. | Dedicated tiny-boundary-origin receiving and remaining full-family qualification. |
-| Unwrap temporal coordinates | General row bases and changing cells; each transition uses the previous selected cell in the supplied order, with at least two distinct structures. | Tiny-boundary-origin cross-policy GUI receiving and full-family/human/installed qualification. |
+| Wrap primary, centered-primary or nearest images | Stored finite/nonsingular general row-vector cells, explicit grouping, changing cells and small-origin cross-policy controls. | General periodic-accuracy, human/installed/final-candidate qualification. |
+| Unwrap temporal coordinates | General row bases and changing cells; each transition uses the previous selected cell in the supplied order, with at least two distinct structures. | Human/installed/final-candidate qualification and explicitly bounded temporal reconstruction. |
 | Construct/assign a cell | Explicit nm/angstrom lengths and degree/radian angles through the native factory and managed box setter; canonical row orientation, complete-structure scope, unchanged coordinates and current/independent effects. | Human/installed/final-candidate qualification; arbitrary oriented rows remain an expert setter input. |
 
 Clean owner source `2f0eeb1c117f9217de58882162016408a85b383d`, with verified
@@ -34,8 +34,9 @@ Viewer-export inputs remain unchanged during clean receiving. This is source
 acceptance only; general periodic accuracy, human Qt, installed packages and
 release readiness are not certified. The native backend is unchanged.
 
-The remaining cell/reference-point work retains the original **2026-11-13 or
-earlier** reassessment checkpoint. No accepted family scope is silently deferred.
+The declared cell/reference-point source profile is now received. The original
+**2026-11-13 or earlier** reassessment checkpoint remains for full-family/human/
+installed exits; no accepted family scope is silently deferred.
 
 ## Cell-assignment source receiving — 2026-11-08
 
@@ -64,8 +65,9 @@ Mol* positions, chemical state, two exact source edits, independent triclinic
 results and canvas/detached Studio authority. The GUI tree peaks at 1.83 GiB and
 preserves at least 13.70 GiB host availability, with no memory/task-cap or OOM
 events. Original scenario/UI deadlines remain unchanged. No scientific formula,
-optional engine, new public API or Rust implementation is added. Small-origin
-cross-policy receiving and full-family/human/installed exits remain due.
+optional engine, new public API or Rust implementation is added. The dedicated
+small-origin source receiving below completes that consumer step; human/installed/
+final-candidate exits remain due.
 
 ## Reference-point owner correction and consumer receiving
 
@@ -73,12 +75,32 @@ The original #608 counterexample showed atomwise primary wrapping snapping a
 small nonzero origin with an application-unit-dependent threshold. The owner
 has delivered the [native correction](archive/resolved_bugs/periodic_origin_unit_policy.md).
 This receiving preserves the original evidence and adds no consumer tolerance,
-origin replacement or unit-policy override. Dedicated tiny-boundary-origin
-cross-policy graphical receiving remains due. **Do not clear the periodic family
-for 1.0 from the native fix alone.**
-The source GUI remains experimental/partial, not a general scientific readiness
-claim. Review the retained admission immediately against the delivered owner
-source, preserving the original 2026-11-13-or-earlier review/removal checkpoint.
+origin replacement or unit-policy override. Dedicated source receiving now passes **264 affected cases** on clean
+`db16eec9b` and **two actual-Jupyter guards / fourteen checks** on clean
+`25d9b8105`, with the same independently verified Viewer export. The
+[receipt](../devtools/data/small_origin_gui_receiving_421_20261108.json)
+retains the original one-pass/one-failure graphical campaign. Its pm fixture
+compared the initialized box converted to nm with an ideal literal; 4.0 became
+3.9999999999999996 through unit conversion. The corrected guard snapshots the
+actual stored box after initialization, then demands exact values and units.
+No coordinate tolerance, scientific calculation, deadline or assertion is removed.
+
+The 108 new request controls span three application units, three origin signs,
+three placements, atom/component grouping and both effects; 156 existing native
+origin/cell controls also pass. Nonzero cases distinguish a zero-origin
+substitution by more than 2.9 nm. Actual Jupyter checks positive/negative 1e-5 nm
+origins, nm/pm application standards, explicit angstrom/nm input, [2,0] structures,
+Back, source/independent ownership, exact stored boxes, chemical state, coverage
+and unchanged application policy. Both popup authorities and actual Mol* images
+are exercised. All 8,565 owner and 2,463 export inputs stay unchanged during each
+clean run. The final GUI tree peaks at 1.83 GiB, with at least 13.64 GiB host
+availability and no memory/task-cap or OOM events.
+
+**Do not clear the periodic family for 1.0 from source receiving alone.** This
+qualifies the stated source task profile, not arbitrary conditioning, exact-
+boundary conventions, human Qt, installed/platform or final-candidate execution.
+The original 2026-11-13-or-earlier checkpoint remains visible. No new scorecard
+intent or closure bonus is added for this dedicated receiving.
 
 ## Effects and required evidence
 

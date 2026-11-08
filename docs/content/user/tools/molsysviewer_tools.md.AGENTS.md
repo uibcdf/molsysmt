@@ -628,9 +628,13 @@ complete-structure scope, unchanged Cartesian positions and all-structures-first
 initialization are mandatory. Review retains one small cell without a coordinate
 copy or write; atom-selection drafts do not control a structure-level box.
 Keep selected-structure coverage invalidation, independent whole-system ownership,
-expiring reviews and synchronization-only retry. Tiny-boundary-origin cross-policy
-GUI receiving and the remaining periodic family must not be silently deferred
-or declared complete.
+expiring reviews and synchronization-only retry. Preserve the received small-
+origin controls: positive/negative physical origins must distinguish a zero-origin
+counterfactual, actual Mol* and full native arrays retain units, and original
+stored box values/units stay exact under nm/pm application policies. Never solve
+round-trip fixture differences by relaxing coordinate/image assertions, replacing
+origins or forcing a unit standard. General periodic-accuracy, human/installed
+and final-candidate qualification remain separate.
 Keep complete expert native signatures and their actual limits distinct from
 source/human/installed qualification. Follow devguide/periodic_tools_gui_qualification.md.
 

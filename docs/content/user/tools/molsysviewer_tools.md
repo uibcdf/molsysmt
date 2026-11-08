@@ -5584,11 +5584,15 @@ received capabilities, not a universal periodic-accuracy or installed-package
 claim. A stored box is necessary; use **Assign periodic cell** to initialize
 or replace it explicitly, as described below.
 
-The owner has corrected the handling of very small nonzero reference points
-([#608](https://github.com/uibcdf/molsysmt/issues/608)). The development editor
-still needs combined receiving across application length standards. This source
-editor is experimental; general periodic-reference and release qualification
-remain pending. The addon does not replace the origin or force a unit policy.
+Reference points retain their physical value when your application length
+standard changes. The source editor has received the native
+[#608 correction](https://github.com/uibcdf/molsysmt/issues/608) with positive and
+negative reference points of 0.00001 nm, explicit Å/nm inputs and application
+standards in nm/pm. These cases choose a different periodic image from a zero
+reference; they are not silently snapped to zero. The addon neither replaces
+your reference point nor forces a unit policy. This experimental source
+receiving remains distinct from general periodic-accuracy, human and
+installed-package qualification.
 
 ## Restoring temporal continuity through Geometry
 
@@ -5615,9 +5619,10 @@ produce a different image history.
 
 The fixed-cell and general/changing-cell source workflows have independent
 lattice, unit, order and actual Mol*/Jupyter/popup receiving. Human Qt,
-installed-package and final-candidate qualification remain separate. Dedicated
-small-reference-point receiving still prevents declaring the whole periodic
-family complete.
+installed-package and final-candidate qualification remain separate. Small
+reference-point receiving is also complete for the explicit source profile
+above. This does not establish a universal periodic-accuracy or full 1.0
+qualification.
 
 (user-tools-molsysviewer-cell)=
 ## Assigning a periodic cell through Geometry

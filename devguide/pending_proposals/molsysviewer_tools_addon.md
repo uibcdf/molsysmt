@@ -3589,4 +3589,19 @@ before the operation, not evidence of a changed box. The corrected guard records
 raw stored box values and their units after initialization, then demands exact
 preservation in the source and independent result. Physical coordinate tolerances,
 image counterfactuals and all deadlines are unchanged. Preserve the one-pass/
-one-failure campaign; complete corrected clean graphical receiving is still due.
+one-failure campaign. Corrected clean `25d9b8105` passes both nm/pm actual-
+Jupyter guards and fourteen checks, zero skips/failures/errors. Native/request
+receiving stays on `db16eec9b`; its test bodies and all runtime code are unchanged.
+The [receipt](../../devtools/data/small_origin_gui_receiving_421_20261108.json)
+retains both scopes, complete fingerprints and the original failure. Public
+source delivery remains due before updating the current operational ledger;
+no new graphical intent, score or defect-closure bonus is introduced.
+
+Before final delivery, fixture review identifies a further discrimination limit:
+the two probe positions reject a zero origin, but an angstrom/nm scale error can
+select the same image for those two atoms. The strengthened graphical fixture
+adds two intermediate boundary probes and requires both ignored-unit
+counterfactuals to differ from the correct result by a complete cell. It retains
+the original zero-origin controls, every coordinate/box/ownership assertion and
+all deadlines. The earlier passing two-probe campaign remains evidence for its
+stated scope; the stronger four-probe campaign is separately received.
