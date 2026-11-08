@@ -1,5 +1,6 @@
 /** Actual Jupyter transport receiving; run through system_panel_jupyter.py. */
 import assert from 'node:assert/strict';
+import {openMolecularPanel} from './jupyter_panel_controls.mjs';
 import {createRequire} from 'node:module';
 import {readFile,writeFile} from 'node:fs/promises';
 import {dirname,resolve} from 'node:path';
@@ -19,13 +20,7 @@ async function controls(p){
  await hot.focus();await p.keyboard.press('Enter');
 }
 async function workspace(p){
- const toggle=p.getByTitle('Panel mode (N / W)',{exact:true});
- if(!await p.locator('[data-molsysviewer-addon-workspace-tab="molsysmt"]').isVisible()){
-  if(await toggle.count()){await controls(p);await toggle.click();}
- }
- const tab=p.locator('[data-molsysviewer-panel-stack-option="addons"]');
- if(!await p.locator('[data-molsysviewer-addon-workspace-tab="molsysmt"]').isVisible()){await tab.waitFor({state:'visible'});await tab.click();}
- await p.locator('[data-molsysviewer-addon-workspace-tab="molsysmt"]').click();
+ await openMolecularPanel(p,'system');
  await p.locator('.msm-system [data-context]').waitFor();
 }
 async function execute(p,cell){

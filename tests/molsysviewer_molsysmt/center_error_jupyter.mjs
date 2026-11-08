@@ -1,5 +1,6 @@
 /** Independent results through actual Jupyter comms and the provider panel. */
 import assert from 'node:assert/strict';
+import {openMolecularPanel} from './jupyter_panel_controls.mjs';
 import {createRequire} from 'node:module';
 import {readFile,writeFile} from 'node:fs/promises';
 import {dirname,resolve} from 'node:path';
@@ -11,15 +12,8 @@ let browser,page,stage='start';const checks=[],errors=[],baselineErrors=[];
 async function step(name,action){stage=name;console.log('STEP '+name);await action();checks.push(name);}
 async function execute(cell,p=page){await p.getByText(/Isolated molecular tools receiving\s*\|\s*Idle/).waitFor();await cell.locator('.cm-content').click();await p.getByRole('button',{name:/Run this cell and advance/}).click();}
 async function workspace(p){
- const tab=p.locator('[data-molsysviewer-addon-workspace-tab="molsysmt"]');
- const toggle=p.getByTitle('Panel mode (N / W)',{exact:true});
- if(!await tab.isVisible()&&await toggle.count()){
-  const hot=p.getByRole('button',{name:'Show canvas controls',exact:true});await hot.focus();await p.keyboard.press('Enter');
-  await toggle.click();
- }
- if(!await tab.isVisible()){const addons=p.locator('[data-molsysviewer-panel-stack-option="addons"]');await addons.waitFor({state:'visible'});await addons.click();}
- await tab.waitFor({state:'visible'});
- await tab.click();await p.locator('[data-molsysviewer-addon-panel-tab="geometry"]').click();await p.getByRole('heading',{name:'Translate',exact:true}).waitFor();
+ await openMolecularPanel(p,'geometry');
+ await p.getByRole('heading',{name:'Translate',exact:true}).waitFor();
 }
 try{
  browser=await chromium.launch({headless:true,executablePath:config.chromium,args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});

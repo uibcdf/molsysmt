@@ -15,6 +15,29 @@ supersedes: []
 
 # Popup bootstrap navigation identity
 
+## Owner receiving follow-up — 2026-11-08
+
+Actual Jupyter receiving on clean MolSysMT `731bf01ea8a07e3ad8a7477700c4ae1e24730062`
+and Viewer `e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab` reproduces the same
+inactive-only Add-ons locator in the System and independent-results drivers.
+Both reach their popup stages, then wait for an inactive button that is hidden
+because Add-ons is current. Initial notebook cells finish in 5.97 s and 5.83 s;
+these failures do not establish #615's initial-canvas timeout. The two failures
+are retained; the nine-scenario campaign was deliberately interrupted, with
+pytest exit 2 and no acceptance claimed for the uncompleted scenarios. All
+8,560 fingerprinted inputs remain unchanged. Peak charged memory is
+2,358,976,512 bytes, host available memory stays above 14,493,093,888 bytes,
+and no memory/task limit or OOM events occur.
+
+Eleven remaining Jupyter drivers now delegate workspace navigation to the
+existing shared `openMolecularPanel` helper while retaining each original final
+panel/heading readiness check. The superposition driver's embedded result View
+also recognizes the current header. No result acknowledgement, exact title,
+coordinate/data oracle, browser error check, lifetime assertion or deadline is
+relaxed. This extends the already received helper to old consumers; it does not
+change scientific or Viewer product code. Directed System/results receiving and
+then a clean combined receiving campaign remain required before closure.
+
 ## Isolated owner receiving review — 2026-11-07
 
 The complete 5,009-case Python selection on isolated merge `653ed8e0` does not
