@@ -36,3 +36,5 @@ API Structure
    shift_dihedral_angles
    translate
    get_symmetry_corrected_rmsd
+   get_pairwise_rmsd
+   get_distance_clusters

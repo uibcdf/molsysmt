@@ -555,3 +555,15 @@ molsysmt.topology.get_atom_name_correspondence:
   summary: "Matches selected unique atom names and elements while retaining both source index axes."
   doc_ref: "{func}`molsysmt.topology.get_atom_name_correspondence`"
   admonition_hint: ":::{hint}\n:class: dropdown\n**msm.topology.get_atom_name_correspondence()**: Matches selected unique atom names and elements while retaining both source index axes.\n:::"
+
+molsysmt.structure.get_pairwise_rmsd:
+  name: "msm.structure.get_pairwise_rmsd"
+  first_introduced_in: "Common_Core/16_Structural_Operations.ipynb"
+  summary: "Compares a bounded pose population without fitting on a declared common atom axis."
+  doc_ref: "{func}`molsysmt.structure.get_pairwise_rmsd`"
+
+molsysmt.structure.get_distance_clusters:
+  name: "msm.structure.get_distance_clusters"
+  first_introduced_in: "Common_Core/16_Structural_Operations.ipynb"
+  summary: "Groups physical dissimilarities with declared linkage, cutoff and representatives."
+  doc_ref: "{func}`molsysmt.structure.get_distance_clusters`"

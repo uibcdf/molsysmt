@@ -2682,6 +2682,20 @@
       "owner": "chemical_states",
       "documentation": "docs/content/user/tools/chemical_states/normalize_indexed_hydrogen_policy.md",
       "contract_tests": "tests/chemical_states/test_normalize_indexed_hydrogen_policy.py"
+    },
+    "molsysmt.structure.get_pairwise_rmsd": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "structure",
+      "documentation": "docs/content/user/tools/structure/get_pairwise_rmsd.ipynb",
+      "contract_tests": "tests/structure/test_pairwise_geometry.py"
+    },
+    "molsysmt.structure.get_distance_clusters": {
+      "stability": "experimental",
+      "introduced": "pre-1.0",
+      "owner": "structure",
+      "documentation": "docs/content/user/tools/structure/get_distance_clusters.ipynb",
+      "contract_tests": "tests/structure/test_pairwise_geometry.py"
     }
   },
   "pre_1_0_namespace_moves": {

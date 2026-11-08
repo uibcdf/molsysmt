@@ -30,4 +30,6 @@ from .principal_component_analysis import principal_component_analysis
 from .align_principal_axes import align_principal_axes
 
 # isort: on
+from .get_distance_clusters import get_distance_clusters
+from .get_pairwise_rmsd import get_pairwise_rmsd
 from .get_symmetry_corrected_rmsd import get_symmetry_corrected_rmsd

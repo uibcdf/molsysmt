@@ -20,10 +20,11 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (3)
+### Open (4)
 
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
+- [`source_checkout_calculations_can_report_another_installed_molsysmt_version.md`](source_checkout_calculations_can_report_another_installed_molsysmt_version.md) — [#657](https://github.com/uibcdf/molsysmt/issues/657) — Source checkout calculations can report another installed MolSysMT version *(medium, reproduced)*
 - [`topology_and_structures_composition_rejects_explicit_copy_if_all.md`](topology_and_structures_composition_rejects_explicit_copy_if_all.md) — [#656](https://github.com/uibcdf/molsysmt/issues/656) — Topology and Structures composition rejects explicit copy_if_all *(medium, reproduced)*
 
 ### Partially resolved (1)

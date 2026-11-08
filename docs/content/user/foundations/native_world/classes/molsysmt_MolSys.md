@@ -639,6 +639,15 @@ Both use source indices and preserve the full chemical context. Keep the declare
 and `search_complete` refers to that scope. The baseline map only defines raw
 positional RMSD. Cached dictionaries retain their constraints on reuse.
 
+The experimental {func}`molsysmt.structure.get_pairwise_rmsd` compares an ordered
+population on this shared atom axis without fitting. It retains repeated structures
+as distinct members and preserves original indices and caller keys. Symmetry maps
+must include identity and every inverse; directional sets reject. The separate
+{func}`molsysmt.structure.get_distance_clusters` consumes a physical symmetric
+matrix with an explicit inclusive cutoff and complete/single linkage. Selected
+coordinates and dense output are resident and bounded. See
+{ref}`Cookbook_ClusteringPoses` for preparation, units and interpretation limits.
+
 ## Atom Axis
 
 Atom indices are positions shared by all attached domains. Selecting a complete

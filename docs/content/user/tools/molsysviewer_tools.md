@@ -40,7 +40,10 @@ Results retain native quantities, arrays and metadata. The separate
 `structure.shift_dihedral_angles` wrappers receive independent outputs and managed
 in-place coordinate changes. Sequence alignment receives the native self-reference and atom-index/mask
 repairs documented below. Reflection receiving includes the default z normal and finite nonzero scaled normals,
-with native pre-write rejection of invalid planes. Displacement receiving covers single-structure, finite nonzero directions; undefined directions and unsupported axes reject before native coordinate writes. The reviewed structure namespace now has explicit wrappers for all 28 native function exports; finite torsion requests and explicit block pools have bounded native and addon guards. This is source exposure and bounded receiving, not unconditional scientific or package compatibility.
+with native pre-write rejection of invalid planes. Displacement receiving covers single-structure, finite nonzero directions; undefined directions and unsupported axes reject before native coordinate writes. The reviewed structure namespace has explicit wrappers for its earlier 28 native function exports; finite torsion requests and explicit block pools have bounded native and addon guards. The newer bounded `get_pairwise_rmsd` and `get_distance_clusters` provider tools
+(#604, requested by DockingMT) are not exposed through this addon yet; their
+inventory entries remain explicitly missing pending a received Viewer intent (#421).
+This is source exposure and bounded receiving, not unconditional scientific or package compatibility.
 
 The explicit `view.addons.molsysmt.pbc` namespace also provides ten box queries
 and factories. Only `has_pbc` binds the current system; box/length/angle inputs

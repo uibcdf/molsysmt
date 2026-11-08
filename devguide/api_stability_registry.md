@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 124 |
-| experimental | 173 |
+| experimental | 175 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -148,12 +148,14 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.structure.get_center` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_contacts` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_dihedral_angles` | stable | active | pre-1.0 |
+| `molsysmt.structure.get_distance_clusters` | experimental | active | pre-1.0 |
 | `molsysmt.structure.get_distances` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_least_rmsd` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_least_squares_plane` | experimental | active | pre-1.0 |
 | `molsysmt.structure.get_maximum_distances` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_minimum_distances` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_neighbors` | stable | active | pre-1.0 |
+| `molsysmt.structure.get_pairwise_rmsd` | experimental | active | pre-1.0 |
 | `molsysmt.structure.get_principal_axes` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_radius_of_gyration` | stable | active | pre-1.0 |
 | `molsysmt.structure.get_rmsd` | stable | active | pre-1.0 |

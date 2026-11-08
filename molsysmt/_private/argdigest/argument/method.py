@@ -26,6 +26,15 @@ def digest_method(method, caller=None):
         If the method is not a string or its name is not supported.
     """
 
+    pairwise_methods = {
+        "molsysmt.structure.get_pairwise_rmsd.get_pairwise_rmsd": {"positional", "symmetry_corrected"},
+        "molsysmt.structure.get_distance_clusters.get_distance_clusters": {"complete_linkage", "single_linkage"},
+    }
+    if caller in pairwise_methods:
+        if isinstance(method, str) and method in pairwise_methods[caller]:
+            return method
+        raise ArgumentError("method", caller=caller)
+
     if caller == "molsysmt.physchem.get_lipophilicity.get_lipophilicity":
         if isinstance(method, str) and method == "wildman_crippen":
             return method

@@ -473,3 +473,31 @@ copy data; true native in-place no-ops preserve domains. There is no streaming
 publication or automatic interaction recalculation. See
 [the preparation contract](structure_preparation_pipeline.md) and
 `tests/build/test_protonation_assessment.py` for the actual supported boundaries.
+
+
+## Bounded pairwise pose geometry
+
+`structure.get_pairwise_rmsd` and `structure.get_distance_clusters` are
+experimental bounded-population tools, not out-of-core trajectory matrices.
+The RMSD tool reads selected coordinates using projected block delivery and
+reuses the Rust positional kernel. It retains the selected coordinate population,
+a dense symmetric output and compact oriented mapping witnesses. Chemical map
+construction/validation is shared once; identity and inverse closure are required
+before a symmetric matrix can be returned. Restricted scopes remain explicit.
+
+Preflight reserves at most half `configure.max_ram_usage` for resident numeric
+estimates, leaving room for delivery/kernel blocks. RMSD work is unordered pairs
+× selected atoms × admitted maps. Map enumeration remains independently bounded.
+The complete/single-linkage primitive implementation uses quadratic numeric
+storage and cubic scans; its conservative scan estimate is `N*N*max(0,N-1)`.
+Both operations reject work above `max_work` before expensive coordinate delivery
+or matrix conversion. These estimates exclude caller/source objects, Python
+chemistry and total process RSS; shared-host process-tree caps remain necessary.
+
+Coordinates, chemical assignments and periodic images are not changed. Cutoffs
+compare computed float64 nm values inclusively, without hidden tolerance.
+Single linkage can chain distant members. Empty/singleton and repeated structure
+populations retain typed shapes and original member positions. No numerical result
+asserts chemical identity, coordinate-frame authenticity or biological validity.
+See the public pairwise and clustering tutorials and the owning #604 report for
+receiving evidence and the independent DockingMT handoff.

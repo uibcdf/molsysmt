@@ -7,6 +7,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
 
 | Recipe | Objective |
 | :--- | :--- |
+| **{doc}`clustering_poses`** | Comparing saved positions and grouping their physical dissimilarities. |
 | **{doc}`aligning_components_by_sequence`** | Mapping atomic anchors through sequences and checking rigid component fits. |
 | **{doc}`placing_selected_centers`** | Moving populations between explicit source and destination centers. |
 | **{doc}`copying_disk_systems`** | Keeping byte-preserving file snapshots and editable native copies independent. |
@@ -65,6 +66,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
    copying_disk_systems.md
    placing_selected_centers.md
    aligning_components_by_sequence.md
+   clustering_poses.ipynb
    symmetry_pose_rmsd.ipynb
 
    saving_mediated_interactions

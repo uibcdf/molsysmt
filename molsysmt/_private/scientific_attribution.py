@@ -111,3 +111,19 @@ def attach_graph_attribution(result, caller):
     )
     with _ackredit.scope(caller) as provider:
         _ackredit.credit(provider, items, caller, contextual=True)
+
+
+def attach_scientific_attribution(result, caller, references=()):
+    """Retain references even when optional citation collection is unavailable."""
+    from molsysmt import _ackredit
+
+    result["references"] = deepcopy(list(references))
+    items = deepcopy(list(references)) + [
+        executed_software_reference(name, version)
+        for name, version in result["software"].items()
+    ]
+    result["attribution"] = dict(
+        schema="molsysmt.scientific_attribution@1", target=caller, items=items
+    )
+    with _ackredit.scope(caller) as provider:
+        _ackredit.credit(provider, items, caller, contextual=True)

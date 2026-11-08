@@ -5,6 +5,7 @@ import numpy as np
 from molsysmt._private.smonitor import ArgumentError
 
 CALLERS = {
+    "molsysmt.structure.get_pairwise_rmsd.get_pairwise_rmsd",
     "molsysmt.structure.least_rmsd_align.least_rmsd_align",
     "molsysmt.structure.center.center",
     "molsysmt.form.file_pdbqt.iterators.__init__",

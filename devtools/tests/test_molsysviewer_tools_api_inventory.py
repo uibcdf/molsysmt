@@ -259,7 +259,12 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         rows["structure.get_rotation_matrix_from_axis_angle"]["input_kind"]
         == "explicit_inputs"
     )
-    assert inventory["modules"]["structure"]["missing"] == []
+    # #604 adds bounded provider operations for DockingMT. They have no received
+    # Viewer intent yet (#421); retain visible missing routes, not fake wrappers.
+    assert inventory["modules"]["structure"]["missing"] == [
+        "structure.get_distance_clusters",
+        "structure.get_pairwise_rmsd",
+    ]
     assert "h5msm.arg_digest" not in rows
     assert (
         rows["hbonds.get_buch_hbonds"]["implementation"]
