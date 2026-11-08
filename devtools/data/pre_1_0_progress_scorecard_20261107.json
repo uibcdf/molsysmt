@@ -818,30 +818,31 @@
     }
   ],
   "new_priority": {
-    "issue": "uibcdf/molsysmt#647",
+    "issue": "uibcdf/molsysmt#645",
     "completed_related": [
       "uibcdf/molsysmt#587",
       "uibcdf/molsysmt#549",
       "uibcdf/molsysmt#644",
-      "uibcdf/molsysmt#646"
+      "uibcdf/molsysmt#646",
+      "uibcdf/molsysmt#647"
     ],
-    "record": "devguide/archive/resolved_bugs/scalar_string_component_id_is_rejected_by_the_molsys_assignment_adapter.md",
-    "owner_verification": "#644/#646 are independently verified source-closed. #647 is a separate scalar-ID setter defect reproduced during #646 receiving; repair it before accepting new stored-H policy. #612 retains its independent complete-source suite requirement.",
-    "independent_lightweight_review": "#645 real-input feasibility is measured for both unit policies and H5MSM. The explicit admission/provenance policy remains open; #610/#378 and every remaining audit exit are retained.",
+    "record": "devguide/pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md",
+    "owner_verification": "#644/#646/#647 are independently verified source-closed after bounded receiving. #645 feasibility is measured, but its admission policy, rejection controls, transformation record and public delivery shape remain open. #612 still requires complete source-suite acceptance.",
+    "independent_lightweight_review": "Finish the #645 provider policy decision, then receive #610 public XYZ delivery and retain the broader #378 scope; no strict matcher relaxation, invented release gate or omitted graphical/candidate requirement.",
     "scope": "Continue complete source acceptance only through an inspected serial plan and resource-bounded execution; retain every remaining graphical, scientific-contract, installed and candidate requirement.",
     "pending_full_source": "uibcdf/molsysmt#612"
   },
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
     "issues": [
-      "uibcdf/molsysmt#646"
+      "uibcdf/molsysmt#647"
     ],
-    "source": "ad67e0e915ba23d90cb9d6331c063c342852d67a",
-    "public_checkpoint": "4f642256996bd25a21a9b204d7a684207e589974",
+    "source": "d020ff4a4e005c1e6076a9f417446685465fdf71",
+    "public_checkpoint": "d04d413d77a7fa1b745dd5c4ad31565373b0de73",
     "state": "public_source_closed",
-    "evidence": "devtools/data/component_comparison_receiving_646_20261107.json",
+    "evidence": "devtools/data/component_id_assignment_receiving_647_20261107.json",
     "weighted_milestone_change": 0,
-    "audit_related_source_closures": 37
+    "audit_related_source_closures": 38
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
@@ -875,11 +876,10 @@
   },
   "incoming_intake": {
     "issues": [
-      "uibcdf/molsysmt#645",
-      "uibcdf/molsysmt#647"
+      "uibcdf/molsysmt#645"
     ],
     "complete_board_issues": 579,
-    "open_issues": 96,
+    "open_issues": 95,
     "open_prs": 0,
     "weighted_milestone_change": 0
   }

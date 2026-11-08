@@ -5,7 +5,40 @@
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-07.
 
-## Comparison closeout and stored-H feasibility — 2026-11-07
+## Scalar-ID closeout and next policy work — 2026-11-07
+
+#647 is published and independently verified closed. Qualified source
+`d020ff4a4e005c1e6076a9f417446685465fdf71` passes **279 clean-source cases**,
+including **138 new setter controls**, all 54 comparison controls, existing
+chemical-component/recovered-append tests and the public MolSys setter doctest.
+The fourteen fast gates and applicable Ruff checks pass. Public main checkpoint
+`d04d413d77a7fa1b745dd5c4ad31565373b0de73` retains all eighteen verified
+changed/deleted paths and the preceding #644/#646 source repairs. The
+[receipt](../devtools/data/component_id_assignment_receiving_647_20261107.json)
+and [archived report](archive/resolved_bugs/scalar_string_component_id_is_rejected_by_the_molsys_assignment_adapter.md)
+retain the original twenty-failure baseline and receiving scope. DockingMT
+#33/#49 received the source and separate #645 study handoff (6717492396).
+
+Tests peak at about 237 MiB, and fast gates at about 381 MiB, under serial
+execution, one CPU, an enforced 2 GiB process-tree limit and zero swap. No OOM
+or resource interruption occurs. No native kernel, dependency, storage schema
+or scientific model changes. Both documentation notebooks retain all code
+cells, outputs, IDs and metadata; their edits are Markdown only.
+
+The refreshed complete board contains **579 issues, 95 open and no open PR**.
+Next is #645's [explicit stored-H policy decision](pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md):
+the real-input normal/nondefault-unit and H5MSM feasibility study is measured,
+but a supported admission/rejection policy and transformation evidence remain
+open. Keep #610's public XYZ delivery and the broader #378 work in scope.
+
+The accepted score stays **approximately 62.5%**, with **38 audit-related source
+issues closed** and **23/50 graphical intents accepted**. Supplemental bug
+repairs and a private feasibility study add no milestone points. #612's complete
+source suite remains pending; preserve every graphical, scientific-contract,
+installed/platform and final-candidate exit. No new tag, package, remote matrix
+or release is authorized by these source deliveries.
+
+## Previous comparison closeout and stored-H feasibility — 2026-11-07
 
 #646 is independently verified closed after publication of qualified source
 `ad67e0e915ba23d90cb9d6331c063c342852d67a` on public checkpoint
