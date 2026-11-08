@@ -7,8 +7,8 @@ closed:
 severity: medium
 verification: reproduced
 area: [attribute, build]
-guard:
-normative:
+guard: tests/element/group/test_name_resolution.py
+normative: docs/content/user/foundations/molecular_system/naming_schemes.md
 blocked_by: []
 supersedes: []
 ---
@@ -17,7 +17,7 @@ supersedes: []
 
 **Reported:** 2026-11-03 while receiving #545/#547. **Status:** active; the
 maintainer accepts the explicit scheme design below. Native public cutover is
-delivered in D6 below; addon-expansion receiving and final acceptance remain due.
+delivered in D6 below. D6 owner acceptance is recorded on 2026-11-07; final D7 receiving remains due.
 
 ## What
 
@@ -192,7 +192,7 @@ report that authority but cannot substitute for scientific review of its entries
   unknown declarations and conflicting overrides across source maps, copies,
   extraction/reordering, merging, atom-free sequences and H5MSM/dictionary round
   trips. Old files retain unknown context; no implicit online enrichment.
-- [ ] **D6 — coordinated public cutover and documentation.** Move the public
+- [x] **D6 — coordinated public cutover and documentation.** Move the public
   code entry point, update old-path consumers and PR #543's mirror/manifest,
   User Guide, Cookbook, course, API help and stability/tier inventories. Any
   necessary bounded compatibility alias needs an explicit removal condition.
@@ -1665,3 +1665,46 @@ history. See the [owning #304 record](../archive/resolved_proposals/native_pdb_b
 and `tests/form/file_pdb/test_naming_context.py` for measured scope and evidence.
 This receives the six direct PDB routes; it does not close the broader producer/
 composite audit or qualify every external naming adapter in this staged rollout.
+
+
+## D6 owner acceptance and final receiving plan — 2026-11-07
+
+The native/addon cutover is now received on public main
+`3b16f23c5e2e794da981e609b2ba9169c78aac35`, after integration of #543. The
+canonical group-level export exists; the former amino-acid export, module and
+addon alias are absent. The registry keeps this surface experimental. The
+User Guide, migration page, executed tutorial source and Module 12 retain the
+four supported schemes, explicit legacy semantics and original source names.
+This closes D6 owner acceptance without promoting the scientific profiles.
+
+Current native and client receiving passes 191 cases, including eight signature/
+digestion mirrors, literal profile meanings, native diagnostic preservation,
+peptide construction, conversion declarations and unchanged source/scene state.
+Producer/lifecycle receiving passes 343 cases, including PDB routes, native
+construction, typed/H5MSM transport and the public scalar-helper doctest. Eleven
+foreign/GRO follow-up cases pass. These scopes overlap and are not summed.
+
+Three new cases cover both orders of complementary Topology/Structures input
+and a raw OpenMM inventory. They protect ordered/repeated sequence projection,
+conflict refusal, selected atom/structure coordinates and IDs, unchanged source
+objects, and preservation of declared graph evidence. Raw foreign declarations
+remain metadata: they do not recompute stored group types or rename compounds.
+Fresh PDB/GRO context-aware reading is a separate, documented route. No runtime
+algorithm, template, naming profile, dependency or scientific reference changes.
+
+All new receiving runs use a verified user cgroup: 2 GiB for the complete process
+tree, zero swap, one CPU, a task limit and finite runtime. Observed peaks are
+approximately 279 MiB for the one-case #612 pilot, 400 MiB for cutover receiving,
+478 MiB for producer receiving and 248 MiB for the foreign/GRO follow-up. The
+host-memory reserve monitor does not trigger. These observations are not full-
+suite sizing or an exclusive resource allocation. A rejected unsupported
+systemd property stops before pytest; the accepted OOMPolicy route verifies
+actual kernel cgroup values before launching work.
+
+The [owner receiving record](../../devtools/data/group_naming_owner_receiving_549_20261107.json)
+retains exact source/input hashes, commands, warnings, native exits and measured
+resource limits. D7 remains open until the reviewed inputs are committed,
+combined receiving is executed on that clean source, the canonical ten-cell
+tutorial is executed, applicable checks pass and the source/issue closeout is
+published. #612's interrupted complete suite and #334's platform/installed/
+candidate gates remain distinct obligations; no publication is authorized.

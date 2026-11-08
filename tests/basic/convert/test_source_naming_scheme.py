@@ -207,6 +207,87 @@ def test_explicit_atom_positions_select_molecular_groups_and_structures(source):
     )
 
 
+@pytest.mark.parametrize("reverse_domains", [False, True])
+def test_complementary_native_domains_keep_naming_owner_and_source_axes(
+    source, reverse_domains
+):
+    domains = [source.topology, source.structures]
+    if reverse_domains:
+        domains.reverse()
+    before_groups = source.topology.groups.copy(deep=True)
+    before_coordinates = msm.pyunitwizard.get_value(
+        source.structures.coordinates, to_unit="nm"
+    ).copy()
+
+    assert (
+        msm.convert(
+            domains,
+            to_form="string:amino_acids_1",
+            group_indices=[2, 0, 2],
+            from_naming_scheme="amber",
+        )
+        == "HEH"
+    )
+    with pytest.raises(ArgumentError, match="contradicts"):
+        msm.convert(
+            domains, to_form="string:amino_acids_1", from_naming_scheme="amber"
+        )
+
+    result = msm.convert(
+        domains,
+        to_form="molsysmt.MolSys",
+        atom_indices=[0, 1],
+        structure_indices=[1, 0],
+        from_naming_scheme="amber",
+        get_missing_bonds=False,
+    )
+    assert result.topology.groups.group_name.tolist() == ["HID", "GLH"]
+    assert result.topology.group_naming_schemes == ("amber", "amber")
+    assert result.topology.atoms.atom_id.tolist() == ["10", "11"]
+    np.testing.assert_array_equal(
+        msm.pyunitwizard.get_value(result.structures.coordinates, to_unit="nm"),
+        before_coordinates[[1, 0]][:, [0, 1]],
+    )
+    assert source.topology.group_naming_schemes == ("amber", "legacy", None)
+    pd.testing.assert_frame_equal(
+        source.topology.groups, before_groups, check_frame_type=False
+    )
+    np.testing.assert_array_equal(
+        msm.pyunitwizard.get_value(source.structures.coordinates, to_unit="nm"),
+        before_coordinates,
+    )
+
+
+def test_foreign_reader_declaration_preserves_types_names_and_explicit_chemistry():
+    app = pytest.importorskip("openmm.app")
+    original = app.Topology()
+    chain = original.addChain("A")
+    atoms = []
+    for index, name in enumerate(["GLH", "HID", "GLH"]):
+        group = original.addResidue(name, chain, id=f"group-{index}")
+        atoms.append(
+            original.addAtom("CA", app.element.carbon, group, id=str(index + 11))
+        )
+    original.addBond(atoms[0], atoms[1])
+
+    result = msm.convert(
+        original,
+        to_form="molsysmt.MolSys",
+        from_naming_scheme="amber",
+        get_missing_bonds=False,
+    )
+    assert result.topology.group_naming_schemes == ("amber",) * 3
+    assert result.topology.groups.group_name.tolist() == ["GLH", "HID", "GLH"]
+    assert result.topology.groups.group_type.tolist() == ["unknown"] * 3
+    assert result.topology.atoms.atom_id.tolist() == ["11", "12", "13"]
+    assert msm.convert(result, to_form="string:amino_acids_1") == "EHE"
+    bonds = result.chemical_states.get_bonds()
+    assert bonds[["atom1_index", "atom2_index"]].values.tolist() == [[0, 1]]
+    assert bonds.evidence.tolist() == ["explicit"]
+    assert [group.name for group in original.residues()] == ["GLH", "HID", "GLH"]
+    assert original.getNumBonds() == 1
+
+
 def test_matching_parent_letter_does_not_remove_a_vocabulary_conflict(source):
     source.topology.groups.loc[0, "group_name"] = "HIP"
     with pytest.raises(ArgumentError, match="contradicts"):
