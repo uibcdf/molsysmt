@@ -1,9 +1,9 @@
 ---
 summary: Reject invalid bare formal-charge values through the public argument boundary.
 issue: uibcdf/molsysmt#644
-status: active
+status: resolved
 opened: 2026-11-07
-closed:
+closed: 2026-11-07
 severity: medium
 verification: reproduced
 area: [basic, argdigest, units]
@@ -90,7 +90,35 @@ separate policy decision; #612/#334 retain their pending qualification.
 
 Affected native assignment/query, adapter/client and setter-doctest receiving
 passes 474 cases without skips/failures/errors, peaking at 414,072,832 bytes.
-The [receiving record](../../devtools/data/formal_charge_boundary_receiving_644_20261107.json)
+The [receiving record](../../../devtools/data/formal_charge_boundary_receiving_644_20261107.json)
 retains all commands, original failures, source hashes and measured execution
 limits. Source clean-point, fast gates and public closeout remain due; these
 passing scopes do not replace #612's complete suite or consumer qualification.
+
+
+## Resolution and clean final receiving — 2026-11-07
+
+Source `64f8c955ac8b93198f4926642d4f3d257a1d0c27` passes the 474-case affected
+selection, including the changed public setter doctest, with zero skips,
+failures or errors and unchanged source fingerprints. All fourteen fast gates
+and applicable whole-library/addon/new-test Ruff checks pass. The two changed
+notebooks retain all executable cells, outputs, IDs and metadata by comparison
+with the original committed source; only Markdown changes. No full course/site
+execution is claimed for this prose-only synchronization.
+
+The final test process tree peaks at 398,925,824 bytes and the fast-gate process
+tree at 399,876,096 bytes. Both use the verified 2 GiB process-tree limit,
+one-CPU quota, zero swap, finite runtime and host reserve/pressure monitoring;
+no pressure stop, soft-limit or OOM event occurs. Original probe/baseline and
+initial fixture-authoring errors remain retained; their scopes are not added
+to the final 474-case total.
+
+Invalid bare/form values now receive the component's ArgumentError at the
+existing ArgDigest value boundary. No partial mutation or analysis invalidation
+is published. Valid integer/nullable/quantity paths and genuine backend failures
+retain their contracts. This resolves the argument diagnostic; it does not
+qualify DockingMT's whole reference workflow, a new provider artifact or another
+Python/unit-provider profile. No scientific method, chemical assignment rule,
+force field, native kernel, public signature or dependency floor is changed.
+#645's representation-policy question and #612/#334's qualification remain
+separate. Source publication and consumer handoff retain their exact identities.

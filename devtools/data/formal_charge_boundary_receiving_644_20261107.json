@@ -3,7 +3,7 @@
   "date": "2026-11-07",
   "issue": "uibcdf/molsysmt#644",
   "source_base": "f86bd8370e70d3c876d5559f1612ebe71a9c3838",
-  "state": "Local correction and affected receiving passed; clean final source/fast/closeout receiving pending.",
+  "state": "Clean final source receiving passed; public owner closeout prepared.",
   "original_mechanism": "Bare unsupported input falls through to quantity extraction; a component-domain error escapes as unit-form/parser errors.",
   "correction": "Recognize genuine quantities through puw.is_quantity before extraction, after the existing integer/nullable-vector branches. Emit the existing SMonitor ArgumentError with argument/caller; leave recognized-quantity backend failures uncaught.",
   "original_final_baseline": {
@@ -338,6 +338,131 @@
         "cpu_stat": "usage_usec 38233792\nuser_usec 37466538\nsystem_usec 767253\nnice_usec 37499000\ncore_sched.force_idle_usec 0\nnr_periods 396\nnr_throttled 29\nthrottled_usec 160945\nnr_bursts 0\nburst_usec 0\n",
         "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
       }
+    },
+    "formal-644-final": {
+      "execution": {
+        "command": [
+          "python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/formal-644-final.xml",
+          "-n0",
+          "tests/basic/test_set_formal_charge.py",
+          "tests/basic/test_set_partial_charge.py",
+          "tests/native/test_chemical_state_public_assignments.py",
+          "tests/native/test_chemical_state_assignments.py",
+          "tests/native/test_chemical_state_field_queries.py",
+          "tests/native/test_chemical_state_queries.py",
+          "tests/form/molsysmt_ChemicalStates/test_get_chemical_fields.py",
+          "tests/molsysviewer_molsysmt/test_chemical_assignment_readers_tools.py",
+          "molsysmt/form/molsysmt_ChemicalStates/set.py"
+        ],
+        "exit_code": 0,
+        "seconds": 36.31489263707772,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "64f8c955ac8b93198f4926642d4f3d257a1d0c27",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5201
+      },
+      "resources": {
+        "started_utc": "2026-11-08T04:22:36.372810+00:00",
+        "seconds": 38.02166103082709,
+        "command": [
+          "python",
+          "<private-evidence>/reference-run.py",
+          "formal-644-final"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.64990234375,
+            2.09912109375,
+            3.34033203125
+          ],
+          "cpu_utilization": 0.02812656956303361,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 17000861696
+        },
+        "host_available_minimum_observed_bytes": 16167415808,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 398925824,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 37921763\nuser_usec 37101941\nsystem_usec 819821\nnice_usec 37107000\ncore_sched.force_idle_usec 0\nnr_periods 383\nnr_throttled 98\nthrottled_usec 115548\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      }
+    },
+    "formal-644-fast": {
+      "execution": {
+        "command": [
+          "python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 24.437330788001418,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "64f8c955ac8b93198f4926642d4f3d257a1d0c27",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5201
+      },
+      "resources": {
+        "started_utc": "2026-11-08T04:23:15.527923+00:00",
+        "seconds": 27.015232705976814,
+        "command": [
+          "python",
+          "<private-evidence>/reference-run.py",
+          "formal-644-fast"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.73291015625,
+            2.05615234375,
+            3.271484375
+          ],
+          "cpu_utilization": 0.18572874493927127,
+          "swap_bytes_per_second": 8185.131103830459
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16279306240
+        },
+        "host_available_minimum_observed_bytes": 15372906496,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 399876096,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 26158171\nuser_usec 24410095\nsystem_usec 1748075\nnice_usec 24420000\ncore_sched.force_idle_usec 0\nnr_periods 266\nnr_throttled 30\nthrottled_usec 78542\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      }
     }
   },
   "preservation": [
@@ -351,9 +476,49 @@
   "guard": "tests/basic/test_set_formal_charge.py::test_invalid_nonquantity_charge_has_public_diagnostic_and_no_mutation",
   "scientific_scope": "Argument-boundary correction; no new chemical model, independent scientific validation or reference dataset.",
   "remaining": [
-    "Freeze reviewed source and receive its focused tests/doctests plus fast gates.",
-    "Publish/verify source and archive/close the owner report; hand actual scope to DockingMT.",
-    "Preserve #645 policy study, #612 complete-source qualification and all remaining audit/candidate obligations."
+    "Publish and verify source/archive, then close #644 and hand actual scope to the consumer.",
+    "Separate #645 policy, #612 complete-source and all remaining audit/candidate obligations."
   ],
-  "weighted_milestone_change": 0
+  "weighted_milestone_change": 0,
+  "qualified_source": "64f8c955ac8b93198f4926642d4f3d257a1d0c27",
+  "clean_final": {
+    "passed": 474,
+    "skips": 0,
+    "failures": 0,
+    "errors": 0,
+    "changed_public_doctest": [
+      {
+        "classname": "molsysmt.form.molsysmt_ChemicalStates.set",
+        "name": "molsysmt.form.molsysmt_ChemicalStates.set.set_formal_charge_to_atom",
+        "time": "0.009"
+      }
+    ],
+    "fast_gates": {
+      "passed": 14,
+      "total": 14
+    },
+    "compiled_backend_or_dependency_changes": false,
+    "meaning": "Python argument-boundary fix; native extension and dependency versions are unchanged."
+  },
+  "notebooks": {
+    "docs/content/user/tools/basic/set.ipynb": {
+      "code_cells": 13,
+      "code_outputs_ids_metadata_preserved": true,
+      "markdown_only": true
+    },
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": {
+      "code_cells": 12,
+      "code_outputs_ids_metadata_preserved": true,
+      "markdown_only": true
+    }
+  },
+  "ruff": {
+    "scope": [
+      "molsysmt",
+      "molsysviewer_molsysmt",
+      "tests/basic/test_set_formal_charge.py"
+    ],
+    "parallelism": "RAYON_NUM_THREADS=1",
+    "exit_code": 0
+  }
 }

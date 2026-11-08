@@ -25,7 +25,7 @@ contracts.
 The complete post-closeout board acquisition finds **577 issues, 96 open and
 no open PR**. New #644 reports a public formal-charge argument error escaping
 as a unit-form exception; its
-[owner record](pending_bugs/formal_charge_nonquantity_error_leak.md)
+[owner record](archive/resolved_bugs/formal_charge_nonquantity_error_leak.md)
 tracks current source inspection and pending local reproduction. Prioritize this
 bounded correctness repair before #610's composition clarification. New #645
 is a separate [stored-H policy proposal](pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md),
