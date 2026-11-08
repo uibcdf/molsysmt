@@ -832,7 +832,7 @@
     }
   ],
   "new_priority": {
-    "issue": "uibcdf/molsysmt#612",
+    "issue": "uibcdf/molsysmt#421",
     "completed_related": [
       "uibcdf/molsysmt#587",
       "uibcdf/molsysmt#549",
@@ -849,10 +849,17 @@
       "uibcdf/molsysmt#611",
       "uibcdf/molsysmt#653"
     ],
-    "record": "devguide/archive/resolved_bugs/multimodel_alternate_location_fidelity_expectation.md",
+    "record": "devguide/pre_1_0_robustness_audit_20261106.md",
     "owner_verification": "Public 258702da0 is independently verified. #612/#611/#653 closeout is complete; 32,014 full-session passes, 23 separate Amber passes, 104 clean directed cases and fourteen fast gates retain distinct scopes. Continue original graphical and scientific-contract requirements; #567 remains partial.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Receive the nine original actual-Jupyter scenarios for #590/#591/#609/#614 with explicit CPU defaults and activated tool paths. Retain #615 causal uncertainty, every unaccepted graphical intent, scientific-contract, installed/platform and exact-candidate exit."
+    "scope": "Receive the nine original actual-Jupyter scenarios for #590/#591/#609/#614 with explicit CPU defaults and activated tool paths. Retain #615 causal uncertainty, every unaccepted graphical intent, scientific-contract, installed/platform and exact-candidate exit.",
+    "active_related": [
+      "uibcdf/molsysmt#590",
+      "uibcdf/molsysmt#591",
+      "uibcdf/molsysmt#609",
+      "uibcdf/molsysmt#614"
+    ],
+    "last_source_closeout_record": "devguide/archive/resolved_bugs/multimodel_alternate_location_fidelity_expectation.md"
   },
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
