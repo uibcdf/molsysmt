@@ -7,23 +7,26 @@
 
 ## Maintainer follow-up queue — 2026-11-08
 
-Provider **#604 is publicly delivered and closed** at `261967eaf` (41 verified
-paths). [Receiving](../devtools/data/bounded_pairwise_geometry_receiving_604_20261108.json)
-retains 2,599 dirty integrated / 200 clean affected passes, fourteen fast gates
-following a generated-document repair, ten inspected HTML pages, all negative
-attempts, explicit numeric resource limits and the synthetic pilot. The
-[delivery](../devtools/data/bounded_pairwise_geometry_delivery_604_20261108.json)
-preserves four human files and the DockingMT #79 notice. Client E3 receiving is
-independent; today's #256 comment adds a separate lossless mechanics-persistence
-question without changing post-1.0 H5MSM 0.6 policy.
+Native correctness issues **#656/#658 are closed** and public at `a450529c3`
+(13 verified changed/deleted paths, four human files preserved). Clean
+`35ad4bc59` passes 247 cases, fourteen fast gates and HTML. Five rendered pages,
+37 new selected-value/coordinate-edit controls and all prior failures are retained
+in [receiving](../devtools/data/native_composition_receiving_656_658_20261108.json)
+and [delivery](../devtools/data/native_composition_delivery_656_658_20261108.json).
+The atom-to-coordinate integrity fix introduces no new snapshot or model.
 
-Accept no new graphical intent or weight: **26/50**, all four fitting intents,
-**72.35035797535798% (approximately 72.4%)**. Separate source closures are now
-**53**. #421 remains partial. **#656 is the next finite correctness block**;
-#657 records reproduced source-overlay producer-version ambiguity. Keep #654's
-unreproduced GHECOM intake and the planned OpenMM/openmmtools comparison. The
-complete board has **589 issues / 90 open / no open PR**. Installed/platform/
-human/exact-candidate requirements and all frozen scientific gates are unchanged.
+Provider **#604 is also delivered and closed** at `261967eaf`; DockingMT #79
+receives its supported pairwise/clustering composition, with independent E3 and
+#256 persistence holds preserved. This changes no H5MSM 0.6 post-1.0 decision.
+
+Accept no additional graphical intent or weight: **26/50**, all four fitting
+intents, **72.35035797535798% (approximately 72.4%)**. Separate source closures
+are now **55**. #421 remains partial. **Next finite review: #657**, the reproduced
+source-overlay producer-version contract; audit existing supported lossless
+compositions under #256 before any storage proposal. Keep #654's unreproduced
+intake and the planned OpenMM/openmmtools comparison. Complete board:
+**590 issues / 89 open / no open PR**. Installed/platform/human/exact-candidate
+requirements and frozen scientific gates are unchanged.
 
 Before publication, sequence-fit completed clean local receiving on `63fc27883`: 113 affected source
 passes, two real Jupyter guards / sixteen checks, fourteen fast gates and HTML.
@@ -1709,4 +1712,5 @@ The deliverable is a dated comparative report and prioritized proposals, with
 owning issues where needed. This records the user's requested study without
 changing frozen 1.0 gates, adding a scorecard weight or promising unreviewed
 scientific functionality. #604 was the next finite block after sequence-fit and is now delivered above;
-continue with #656 and the separate #657 source-identity question.
+the subsequent #656/#658 fixes are also delivered above. Continue with #657
+and the existing-composition question under #256.

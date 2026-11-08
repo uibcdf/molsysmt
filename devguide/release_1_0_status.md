@@ -20,7 +20,35 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Current bounded pose-geometry checkpoint — 2026-11-08
+## Current native-composition checkpoint — 2026-11-08
+
+**#656 and #658 are closed.** Public `a450529c3` independently matches all
+**13 changed/deleted paths** and preserves the four human root files. Clean
+implementation `35ad4bc59` passes **247 cases**, **14/14 fast gates** and HTML;
+five rendered pages are inspected with six unchanged warnings. The guard includes
+37 new controls for explicit copy policy, actual coordinate-edit ownership,
+unsorted subsets/full permutations/empties, both provider orders and original
+structure order/repetitions. Inventory and coordinates now use one canonical
+atom population; no new whole-system intermediate snapshot is introduced.
+All 8,598 source and 2,463 Viewer-export input hashes agree before/after receiving.
+The [receiving record](../devtools/data/native_composition_receiving_656_658_20261108.json)
+retains all earlier failures; [public delivery](../devtools/data/native_composition_delivery_656_658_20261108.json)
+and the [#421 notice](https://github.com/uibcdf/molsysmt/issues/421#issuecomment-6727554799)
+keep native and client qualification separate. Existing notebook code/outputs are
+preserved. Source tests peak at 822,231,040 bytes; host availability remains above
+15 GB decimal with monitored caps and no OOM/reserve/pressure stop.
+
+There are now **55 audit-related source closures**, **26/50 graphical intents**
+and the same **72.35035797535798% (approximately 72.4%)**. Neither bug fix adds
+weight or a graphical intent. Complete board: **590 issues / 89 open / no open PR**.
+**Next finite correctness review: #657**, the source-overlay producer-version
+contract. #256 still asks for an existing supported lossless composition without
+moving H5MSM 0.6 before 1.0; #654 remains unreproduced intake. All remaining
+#421/#615/#567/#582, planned OpenMM/openmmtools and installed/platform/human/
+exact-candidate requirements stay explicit. No tag, package, Release, promotion
+or hosted CI was launched.
+
+## Bounded pose-geometry checkpoint — 2026-11-08
 
 **#604 is closed** and public source `261967eaf` independently matches all
 **41 changed paths**, preserving the four human root files. Two experimental
@@ -47,7 +75,8 @@ This is an extra provider closure: **53 audit-related source closures**,
 **26/50 graphical intents** and **72.35035797535798% (approximately 72.4%)** with
 unchanged weights. It adds no graphical intent or frozen initial 1.0 gate.
 The complete board has **589 issues / 90 open / no open PR**. **Next finite
-correctness block: #656**, followed by #657's source identity contract; #654
+correctness block at that checkpoint: #656**, now resolved above; #657's source
+identity contract and #654
 remains unreproduced intake. Remaining graphical, #615/#567/#582, planned
 OpenMM/openmmtools, installed/platform/human/exact-candidate gates stay separate.
 No tag, package, Release, promotion or hosted CI was launched.
