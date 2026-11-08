@@ -9,8 +9,8 @@ import numpy as np
 import pytest
 
 import molsysmt as msm
-from tests.molsysviewer_molsysmt.test_geometry_panel import act, coords, mount
 from tests.molsysviewer_molsysmt.sequence_jupyter_fixture import _sequence_systems
+from tests.molsysviewer_molsysmt.test_geometry_panel import act, coords, mount
 from tests.molsysviewer_molsysmt.test_system_panel import transport
 
 puw = msm.pyunitwizard

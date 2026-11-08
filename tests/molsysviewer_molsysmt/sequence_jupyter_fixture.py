@@ -68,6 +68,7 @@ print('JUPYTER_SEQUENCE_ALIGN_NATIVE_OK',len(records))
 def _sequence_systems(reference_count=5):
     """Use distinct amino-acid labels and an explicit rigid-pose oracle."""
     import numpy as np
+
     import molsysmt as msm
     from molsysmt import pyunitwizard as puw
     from molsysmt.native import MolecularMechanics
