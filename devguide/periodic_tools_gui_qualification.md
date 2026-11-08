@@ -12,9 +12,9 @@ a 1.0 clearance or an expert-API restriction.
 
 | Operation | Received source GUI scope | Remaining work |
 | --- | --- | --- |
-| Wrap primary, centered-primary or nearest images | Stored finite/nonsingular general row-vector cells, with explicit component/atom grouping and different selected cells. | Cell assignment and remaining full-family qualification. |
+| Wrap primary, centered-primary or nearest images | Stored finite/nonsingular general row-vector cells, with explicit component/atom grouping and different selected cells. | Dedicated tiny-boundary-origin receiving and remaining full-family qualification. |
 | Unwrap temporal coordinates | General row bases and changing cells; each transition uses the previous selected cell in the supplied order, with at least two distinct structures. | Tiny-boundary-origin cross-policy GUI receiving and full-family/human/installed qualification. |
-| Construct/assign a cell | Not registered yet; still required. | Receive the owner [#605 factory validation](archive/resolved_bugs/box_factory_physical_domain.md). |
+| Construct/assign a cell | Explicit nm/angstrom lengths and degree/radian angles through the native factory and managed box setter; canonical row orientation, complete-structure scope, unchanged coordinates and current/independent effects. | Human/installed/final-candidate qualification; arbitrary oriented rows remain an expert setter input. |
 
 Clean owner source `2f0eeb1c117f9217de58882162016408a85b383d`, with verified
 Viewer export `e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab`, receives the delivered
@@ -36,6 +36,36 @@ release readiness are not certified. The native backend is unchanged.
 
 The remaining cell/reference-point work retains the original **2026-11-13 or
 earlier** reassessment checkpoint. No accepted family scope is silently deferred.
+
+## Cell-assignment source receiving — 2026-11-08
+
+Clean source `7ba4f2ed5966bfca47eec82770975f929e293ff9`, with the same verified
+Viewer export, passes **550 affected native/addon cases** and **two actual-
+Jupyter guards / sixteen browser checks**, zero skips/failures/errors. The
+[receipt](../devtools/data/cell_assignment_gui_receiving_421_20261108.json)
+retains the earlier overlapping 543-case working-tree run. All 8,563 owner and
+2,463 export inputs remain unchanged. Jupyter page errors match the independent
+plain-notebook debugger baseline; this is not zero-page-error evidence.
+
+Assign periodic cell uses the public factory's physical-domain validation,
+canonical row-vector convention and six-decimal-nm rounding. It does not rescale,
+wrap or otherwise change Cartesian coordinates. Its atom editor is hidden and
+its selected structures are complete. A missing box series requires the native
+all-structures initialization route. Review retains one small cell, performs no
+write/copy, and expires with changed requests/source. Managed setting preserves
+native affected-structure interaction invalidation; independent results retain
+all source structures and leave the source unchanged. Projection recovery never
+repeats the native write. Explicit row orientations remain an expert setter
+input, not reconstructed from lengths/angles.
+
+The 96-case unit/effect/shape/scope population, invalid physics, missing-series,
+Back, expiry and retry controls are retained. Actual Jupyter verifies native and
+Mol* positions, chemical state, two exact source edits, independent triclinic
+results and canvas/detached Studio authority. The GUI tree peaks at 1.83 GiB and
+preserves at least 13.70 GiB host availability, with no memory/task-cap or OOM
+events. Original scenario/UI deadlines remain unchanged. No scientific formula,
+optional engine, new public API or Rust implementation is added. Small-origin
+cross-policy receiving and full-family/human/installed exits remain due.
 
 ## Reference-point owner correction and consumer receiving
 

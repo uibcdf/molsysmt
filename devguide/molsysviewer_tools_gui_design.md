@@ -549,10 +549,17 @@ cell; no image algorithm is duplicated. Clean receiving passes 336 source cases
 and both eight-step fixed/general actual-Jupyter scenarios. The
 [receipt](../devtools/data/general_periodic_gui_receiving_421_20261108.json)
 retains the failing original counterexample and fixture-development failures.
-Cell assignment using #605 and tiny-boundary-origin cross-policy GUI receiving
-remain explicit work; no full-family, human or installed acceptance follows.
+Cell assignment now receives #605 on clean `7ba4f2ed5`: 550 affected source
+cases and two actual-Jupyter guards / sixteen browser checks pass. The
+[cell receipt](../devtools/data/cell_assignment_gui_receiving_421_20261108.json)
+records native physical validation, explicit input units, canonical row cells,
+complete-structure scope and unchanged Cartesian positions. Missing boxes require
+all-structure initialization. Current/independent effects, coverage invalidation,
+no-copy/no-write review, expiring confirmation and synchronization-only retry
+retain their guards. Dedicated tiny-boundary-origin cross-policy GUI receiving
+remains work; no full-family, human or installed acceptance follows.
 
-No nonfunctional cell control is registered. The delivered owner corrections
+Every registered cell control invokes the existing public native factory/setter. The delivered owner corrections
 trigger review of these guards, retaining the 2026-11-13 checkpoint. The
 [periodic source receipt](../devtools/data/molsysviewer_tools_periodic_receiving_20261106.json)
 records the independent lattice controls, 356 affected System/Geometry/PBC cases
@@ -604,7 +611,7 @@ GUI result or an automatic post-1.0 exclusion.
 | System inventory, selection, removal, subset and copy | Core System/selection; basic remove/extract/copy; host edit/presentation services | Current three tasks have source and real Jupyter guards. Retain all-structure inventory semantics and independent output ownership. |
 | Geometry explicit translation, rotation and centering | structure translate/rotate/center/get_center | Translate, Center and Rotate are implemented with native/analytical and actual Jupyter/Mol*/popup receiving; Rotate is delivered in owner c16b970a9. Human/installed acceptance remains separate. Preserve centers, handedness, units, selections and actual rendered coordinates. |
 | Geometry structural comparison/fitting and principal-axis alignment | structure least_rmsd_fit/least_rmsd_align/align_principal_axes | Superpose structures implements rigid fitting within the current system, with explicit moving/fitting/reference populations, initial reference structure and user-declared index pairing. Principal-axis orientation is implemented and received through independent tensor/rigidity and actual rendered/popup checks. Sequence-derived matching and external-system reference workflows remain required. Preserve native degeneracy/prerequisite errors. |
-| Geometry periodic coordinates and cell assignment | pbc wrap_to_pbc/wrap_to_mic/unwrap, public cell factories and admitted basic.set | Wrap coordinates and Unwrap trajectory retain the bounded source profile in periodic_tools_gui_qualification.md. Receive the delivered native general-orientation (#607), varying-cell temporal (#606), reference-point (#608) and factory-validation (#605) corrections; cell editing remains unimplemented. Preserve explicit units/order/effects and native validation. |
+| Geometry periodic coordinates and cell assignment | pbc wrap_to_pbc/wrap_to_mic/unwrap, public cell factories and admitted basic.set | Wrap coordinates, Unwrap trajectory and Assign periodic cell retain the source profile in periodic_tools_gui_qualification.md. General-orientation (#607), varying-cell temporal (#606) and factory-validation (#605) corrections are received. Cell assignment preserves explicit length/angle units, canonical rows, complete-structure scope, unchanged coordinates, all-structures-first initialization and current/independent effects. Dedicated small-origin cross-policy receiving (#608) remains due alongside full-family/human/installed acceptance. |
 | Chemistry readiness and preparation audits | build audit readers, physchem chemical-readiness/H inventory, chemical_states reports | Preserve reference/state and assessed/unassessed scope. Reports do not prepare or assign chemistry. |
 | Chemistry explicit repair and assignments | Received build/physchem atom/bond/H/terminal and typing/charge tools | State method/model and prerequisites; use qualified maps for managed edits or independent results. No inferred identity by equal counts/names. |
 | Chemistry construction, solvent and ions | Received peptide/water-cell/assembly/solvation/add_ions tools | Explicit independent inputs, charge source, model, box, seed and placement limits. Construction may start without a loaded primary; no implicit equilibration. |

@@ -621,9 +621,16 @@ native #606/#607 corrections. Reuse the shared finite/nonsingular physical-box
 validator with explicit unit extraction; never copy/reorient cells or add image
 formulas. Each temporal transition uses the previous selected structure's actual
 cell. Retain independent lattice, unit, order, invalid-input/no-write, effect and
-actual Mol*/Jupyter/popup controls. Cell editing still requires delivered #605
-validation; tiny-boundary-origin cross-policy GUI receiving and the remaining
-periodic family must not be silently deferred or declared complete.
+actual Mol*/Jupyter/popup controls. Cell assignment receives delivered #605
+validation through the public native length/angle factory and managed basic.set.
+Preserve explicit units, canonical row orientation and six-decimal-nm rounding;
+complete-structure scope, unchanged Cartesian positions and all-structures-first
+initialization are mandatory. Review retains one small cell without a coordinate
+copy or write; atom-selection drafts do not control a structure-level box.
+Keep selected-structure coverage invalidation, independent whole-system ownership,
+expiring reviews and synchronization-only retry. Tiny-boundary-origin cross-policy
+GUI receiving and the remaining periodic family must not be silently deferred
+or declared complete.
 Keep complete expert native signatures and their actual limits distinct from
 source/human/installed qualification. Follow devguide/periodic_tools_gui_qualification.md.
 

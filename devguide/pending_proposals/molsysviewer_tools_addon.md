@@ -3539,14 +3539,21 @@ Preview constructs only one small cell and never copies coordinates or writes
 the system. Confirmation revalidates inside the existing source/effect lock.
 Native physical/rounding rules and SMonitor diagnostics remain authoritative;
 no new scientific factory, optional engine, dependency or Rust code is added.
-First directed receiving passes 543 cases on the declared working tree; seven
-additional expiry/projection-retry controls and actual Jupyter receiving are
-still due before acceptance. The latter exercises initial missing cells, invalid
-physics, Back, independent triclinic results, actual Cartesian positions and
-both popup authorities with original deadlines.
+First directed receiving passed 543 cases on the declared working tree. Clean
+source `7ba4f2ed5` then passes 550 affected cases, including seven additional
+expiry/projection-retry controls. Actual Jupyter passes two guards / sixteen
+browser checks, including initial missing cells, invalid physics, Back,
+independent triclinic results, actual Cartesian positions and both popup
+authorities with original deadlines. The
+[receipt](../../devtools/data/cell_assignment_gui_receiving_421_20261108.json)
+keeps the overlapping populations separate, all source fingerprints unchanged
+and the plain-Jupyter-matching debugger errors visible. Native cell rounding,
+canonical orientation and the complete-structure scope are explicit in the User
+Guide and course. No installed/human/final-candidate qualification follows.
 
 The candidate also corrects a missed secondary purpose sentence that still said
 'one unchanged cell' after general-cell receiving. The actual periodic driver
 now rejects that contradictory wording, in addition to checking the real
 previous-selected-cell and undersampling explanation. #421 stays partial; no
-cell-assignment intent or release credit is claimed before clean receiving.
+release credit follows. The existing cell-assignment leaf remains uncredited
+until public-source delivery is independently verified.

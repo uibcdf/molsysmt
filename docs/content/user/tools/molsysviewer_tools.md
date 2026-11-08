@@ -5581,9 +5581,8 @@ wrapping can process different cells in one selection. Review validates the
 selected cells without changing their vectors or calculating periodic images.
 The native operation owns image choice and reconstruction. These are source-
 received capabilities, not a universal periodic-accuracy or installed-package
-claim. A stored box is necessary; the graphical cell editor remains pending
-receiving of the native factory validation
-([#605](https://github.com/uibcdf/molsysmt/issues/605)).
+claim. A stored box is necessary; use **Assign periodic cell** to initialize
+or replace it explicitly, as described below.
 
 The owner has corrected the handling of very small nonzero reference points
 ([#608](https://github.com/uibcdf/molsysmt/issues/608)). The development editor
@@ -5616,9 +5615,53 @@ produce a different image history.
 
 The fixed-cell and general/changing-cell source workflows have independent
 lattice, unit, order and actual Mol*/Jupyter/popup receiving. Human Qt,
-installed-package and final-candidate qualification remain separate. The cell
-editor and remaining reference-point receiving still prevent declaring the
-whole periodic family complete.
+installed-package and final-candidate qualification remain separate. Dedicated
+small-reference-point receiving still prevents declaring the whole periodic
+family complete.
+
+(user-tools-molsysviewer-cell)=
+## Assigning a periodic cell through Geometry
+
+Choose **Assign periodic cell** in **Molecular tools > Geometry** to set a box
+for complete structures. This changes the periodic model while keeping every
+Cartesian coordinate fixed. It does not rescale or wrap atoms. The atom editor
+is hidden because a box belongs to a structure, including all its atoms.
+
+Enter positive lengths **a**, **b**, **c** in nm or Å, and angles **α**, **β**,
+**γ** in degrees or radians. Here α is between b and c, β between a and c, and
+γ between a and b. These are new requested values, not a display of the current
+box. The native {func}`molsysmt.pbc.get_box_from_lengths_and_angles` builds the
+canonical row-vector cell: a lies along +x and b lies in the xy plane. This
+control cannot preserve an arbitrary existing box orientation from lengths and
+angles alone. Use the expert box setter for explicit oriented row vectors.
+
+Native validation rejects nonfinite/nonpositive lengths and angles that cannot
+form a nonsingular physical cell. The factory rounds entries to six decimal
+places in nm; a cell that becomes singular at that resolution is rejected.
+Input units remain explicit even when your application uses another standard
+length unit.
+
+Choose **All structures**, **Current structure** or explicit distinct
+**Structure indices**. The same requested cell is assigned to each selected
+structure; existing unselected boxes stay unchanged. When the system has no box
+series, initialize **All structures** first. A partial request is rejected rather
+than inventing boxes for the others, even if an explicit index list happens to
+cover every structure.
+
+**Review cell assignment** states the lengths, angles, units, complete-structure
+scope and effect. Review keeps only one small cell, copies no coordinates and
+writes nothing; **Back** leaves the system unchanged. Changing the request or
+source invalidates its single-use confirmation. **Current system** applies one
+managed native {func}`molsysmt.basic.set` and synchronizes the view.
+**Independent result** copies the whole system, changes the requested boxes and
+keeps the source unchanged. Topology, chemical assignments and coordinates are
+preserved in both cases. Changing boxes invalidates stored interaction coverage
+for the affected structures, because periodic observations may have changed.
+
+If scene projection fails after the native write, **Update view** retries only
+synchronization. Scene Undo does not restore the molecular boxes. The source
+workflow has automated native and actual Jupyter/Mol*/popup receiving; human Qt,
+installed packages and full periodic-family qualification remain separate.
 
 ## Inspecting stored chemistry through Molecular tools
 
