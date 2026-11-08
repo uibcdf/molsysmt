@@ -1,14 +1,14 @@
 ---
 summary: Reconcile multi-model alternate-location fidelity with stable-ID preflight.
 issue: uibcdf/molsysmt#612
-status: active
+status: resolved
 opened: 2026-11-06
-closed:
+closed: 2026-11-08
 severity: medium
 verification: reproduced
 area: [build, convert, tests, molsysviewer]
 guard: tests/conversion_truth/test_pdb_fidelity.py::test_pdb_multimodel_alternate_locations_share_a_canonical_atom_axis
-normative:
+normative: devguide/testing_strategy.md
 blocked_by: []
 supersedes: []
 ---
@@ -104,7 +104,7 @@ machine, with 8 GiB swap already used and twelve workers around 0.9–1.3 GiB RS
 each. These are not measured peaks or reserved resources. The execution should
 have been stopped when shared-host pressure made that concurrency unsafe.
 
-The [receiving record](../../devtools/data/alternate_location_owner_receiving_612_20261107.json)
+The [receiving record](../../../devtools/data/alternate_location_owner_receiving_612_20261107.json)
 retains the passing focused controls, original negative control, interrupted
 command, partial-artifact status and resource observations. Logs and partial
 stream remain in private evidence; no completed result is invented. No heavy
@@ -122,7 +122,7 @@ The original complete attempt remains interrupted, not passing. A new one-case
 pilot on public source `3b16f23c5` passes under a verified 2 GiB process-tree
 limit, one-CPU quota and zero swap; its peak is 292,397,056 bytes. This is a
 sizing/control pilot, not complete-suite evidence. The
-[related owner receipt](../../devtools/data/group_naming_owner_receiving_549_20261107.json)
+[related owner receipt](../../../devtools/data/group_naming_owner_receiving_549_20261107.json)
 retains its command and measured controls alongside #549's scoped receiving.
 The private selector error and protected stop during that receiving are
 separate from the maintainer-terminated original attempt recorded above.
@@ -153,9 +153,9 @@ high and zero swap. The maintainer sets the absolute shared-host reserve to
 2 GiB; the controller stops 512 MiB above it. These observations do not reserve
 resources or qualify the full suite. Preserve all three incomplete full attempts.
 
-The [resource adjustment record](../../devtools/data/source_suite_resource_adjustments_612_20261108.json)
+The [resource adjustment record](../../../devtools/data/source_suite_resource_adjustments_612_20261108.json)
 retains actual attempts, stop evidence and limits; the
-[fixture receipt](../../devtools/data/conversion_fixture_receiving_649_650_20261108.json)
+[fixture receipt](../../../devtools/data/conversion_fixture_receiving_649_650_20261108.json)
 retains scoped correction evidence. Next receive the full exact-source suite
 with the inspected thread-controlled route. #612 remains active.
 
@@ -185,3 +185,30 @@ uses four workers, four CPU equivalents, 8 GiB max/7 GiB high, zero swap and
 512 tasks, with a 45-minute bound, a 2 GiB host reserve and monitored stopping
 512 MiB above that floor or on global memory pressure. Source inputs remain
 frozen for that run. Admission is not a reservation. #612 remains active.
+
+## Resolution — 2026-11-08
+
+The corrected fixture `ab789897bad51a7258f366aadc01840895d6366e` and
+independent strengthened guard `2465d6b0cb137446f9917c971572a921003a9b89`
+are accepted without relaxing stable-ID atomicity. Clean source
+`03c59caef9823bbca186aa4213626ddc5eb890f3` completes the normal CPU-default
+suite: 32,014 passes, 25 skips and no failures/errors over 32,039 cases.
+All 8,555 tracked inputs and native bytes remain unchanged. Separately, all
+23 Amber/LEaP omissions pass with the activated development tools, including
+three independent construction oracles. Preserve both original counts; the
+remaining SMILES-ambiguity/CuPy omissions are not silently removed.
+
+The [full receipt](../../../devtools/data/full_source_receiving_612_20261108.json)
+retains native exits, complete JUnit, the valid final Receptor counters and
+explicitly truncated detail policy, versions, hashes and scope. Its
+[resource history](../../../devtools/data/source_suite_resource_adjustments_612_20261108.json)
+retains every earlier failed/interrupted campaign, the observed implicit GPU
+allocation and the corrected CPU/default execution. Peak charged memory is
+6,840,324,096 bytes; host availability never falls below 9,789,304,832 bytes.
+No memory/task-limit or OOM event occurs. Initial PSI warnings are retained.
+
+The [testing strategy](../../testing_strategy.md) explains explicit OpenMM CPU
+selection independently of product defaults. This closes the owning source
+acceptance only. It does not replace the platform, registered scientific,
+installed-pair or final-candidate gates under #334, qualify GPU execution or
+authorize publication.

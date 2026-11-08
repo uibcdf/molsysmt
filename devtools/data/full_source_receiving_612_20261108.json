@@ -1,0 +1,436 @@
+{
+  "schema_version": "molsysmt.full_source_receiving@1",
+  "date": "2026-11-08",
+  "issue": "uibcdf/molsysmt#612",
+  "state": "default_cpu_source_passed_with_separate_amber_complement",
+  "qualified_source": "03c59caef9823bbca186aa4213626ddc5eb890f3",
+  "fixture_fix": "ab789897bad51a7258f366aadc01840895d6366e",
+  "strengthened_guard": "2465d6b0cb137446f9917c971572a921003a9b89",
+  "runs": {
+    "full_default": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/fidelity-612-full-source-cpu-reserve.xml",
+          "-n4",
+          "--receptor-events=<private-evidence>/fidelity-612-full-source-cpu-reserve.events.jsonl"
+        ],
+        "exit_code": 0,
+        "seconds": 1713.020034983987,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source with OpenMM CPU default; explicit Reference tests preserved; no installed/GPU/human Qt acceptance",
+        "openmm_default_platform": "CPU",
+        "source_commit": "03c59caef9823bbca186aa4213626ddc5eb890f3",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 8555
+      },
+      "resources": {
+        "started_utc": "2026-11-08T08:36:59.386711+00:00",
+        "seconds": 1718.3874505900312,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-tool>/molsysmt-reference-run-cpu-reserve.py",
+          "fidelity-612-full-source-cpu-reserve"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "stop_observation": null,
+        "maximum_host_full_pressure_avg10": 10.08,
+        "pressure_policy": {
+          "warning_full_avg10": 1.0,
+          "sustained_warning_stop_seconds": 30,
+          "low_available_pressure_full_avg10": 5.0,
+          "pressure_stop_requires_available_below_bytes": 4294967296,
+          "available_memory_stop_bytes": 2684354560
+        },
+        "pressure_warning_transitions": [
+          {
+            "seconds": 28.025446396088228,
+            "active": true,
+            "host_available_bytes": 13665411072,
+            "host_full_pressure_avg10": 2.5,
+            "own_memory_current": 2389626880,
+            "own_memory_pressure": "some avg10=1.77 avg60=0.32 avg300=0.06 total=360718\nfull avg10=1.77 avg60=0.32 avg300=0.06 total=360718\n"
+          },
+          {
+            "seconds": 70.07823589188047,
+            "active": false,
+            "host_available_bytes": 13115535360,
+            "host_full_pressure_avg10": 0.89,
+            "own_memory_current": 3370729472,
+            "own_memory_pressure": "some avg10=0.99 avg60=1.92 avg300=0.60 total=2109077\nfull avg10=0.99 avg60=1.92 avg300=0.60 total=2109077\n"
+          }
+        ],
+        "limits": {
+          "memory.max": "8589934592",
+          "memory.high": "7516192768",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "400000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.5888671875,
+            1.79150390625,
+            2.71337890625
+          ],
+          "cpu_utilization": 0.01907630522088355,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16521285632
+        },
+        "host_available_minimum_observed_bytes": 9789304832,
+        "host_reserve_bytes": 2147483648,
+        "cgroup_memory_peak_bytes": 6840324096,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 248,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 6772747233\nuser_usec 6640891876\nsystem_usec 131855356\nnice_usec 6634122000\ncore_sched.force_idle_usec 0\nnr_periods 17186\nnr_throttled 16107\nthrottled_usec 231944063\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "884b5d2d85f7fa953e46f44614f2bce42519de6994ecce37f131133fdf984ca3",
+        "-bounded.json": "13ba58332ae703f6ad72a26c5b671856408159b8fccc29bbf210b22805b3224d",
+        ".log": "d26e0158ce7402bcc0c0bc69a2d0eba6911384ba8d4e72240c45c2b3fef90f83",
+        ".xml": "f9231b6903ea88f383ea7b15732738184b05816d1428fbe01bcbf3b55c381959",
+        ".events.jsonl": "54b0dcacf8c29bf99038eea9625ac0f5ac4a72319db44a7305a11b1fb817043f",
+        "-inputs-before.json": "473069e1bfb7a2052e5411fb015310a163742c74ad506a132b74fec133e2dcff",
+        "-inputs-after.json": "473069e1bfb7a2052e5411fb015310a163742c74ad506a132b74fec133e2dcff",
+        "-runtime.json": "70d3acf9a62dfcc29427f608dde3bb272c612f65b6e82681d52ec5c451534706",
+        "-reference-driver.py": "7be8244fd3896752b819f25c1b89afde6178c7f1ea7aff80c58d87f8df7d6686",
+        "-resource-driver.py": "698e988845632afde7af20891a310b1f83a33f399df1aa68269af3326320b2cb"
+      },
+      "junit": {
+        "cases": 32039,
+        "failure": 0,
+        "error": 0,
+        "skipped": 25
+      }
+    },
+    "amber_complement": {
+      "execution": {
+        "source_commit": "03c59caef9823bbca186aa4213626ddc5eb890f3",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "exit_code": 0,
+        "seconds": 14.756215919042006,
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/fidelity-612-tleap-complement.xml",
+          "--receptor-events=<private-evidence>/fidelity-612-tleap-complement.events.jsonl",
+          "tests/build/add_missing_heavy_atoms/test_add_missing_heavy_atoms_molsysmt_MolSys.py::test_add_hydrogens_molsysmt_MolSys_1",
+          "tests/build/add_missing_terminal_cappings/test_add_missing_terminal_cappings.py::test_add_missing_terminal_cappings_molsysmt_MolSys_1",
+          "tests/build/add_missing_terminal_cappings/test_add_missing_terminal_cappings.py::test_add_missing_terminal_cappings_molsysmt_MolSys_2",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_explicit_leap_engine",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[ACEPROGLYNME]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[AP]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[GP]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[PA]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[PG]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[PP]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[CKCELQLYFF]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[IGGRCGKMYW]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[KKHKLECKKH]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[LDASKLIQET]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[LYFIGAIKVC]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[PTKVMRRLSC]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[QSRLTRVCYL]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[RCLMLHHSAQ]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[RRNMWPRQSS]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[SFYDNPNFHT]",
+          "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap[ACEALAALANME-ACE ALA ALA NME]",
+          "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap[GA-GLY ALA]",
+          "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap[GP-GLY PRO]"
+        ],
+        "changed_inputs": [],
+        "checked_inputs": 8555,
+        "selected_nodes": [
+          "tests/build/add_missing_heavy_atoms/test_add_missing_heavy_atoms_molsysmt_MolSys.py::test_add_hydrogens_molsysmt_MolSys_1",
+          "tests/build/add_missing_terminal_cappings/test_add_missing_terminal_cappings.py::test_add_missing_terminal_cappings_molsysmt_MolSys_1",
+          "tests/build/add_missing_terminal_cappings/test_add_missing_terminal_cappings.py::test_add_missing_terminal_cappings_molsysmt_MolSys_2",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_explicit_leap_engine",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[ACEPROGLYNME]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[AP]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[GP]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[PA]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[PG]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[PP]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[CKCELQLYFF]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[IGGRCGKMYW]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[KKHKLECKKH]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[LDASKLIQET]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[LYFIGAIKVC]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[PTKVMRRLSC]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[QSRLTRVCYL]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[RCLMLHHSAQ]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[RRNMWPRQSS]",
+          "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[SFYDNPNFHT]",
+          "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap[ACEALAALANME-ACE ALA ALA NME]",
+          "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap[GA-GLY ALA]",
+          "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap[GP-GLY PRO]"
+        ],
+        "scope": "Exact-source complementary receiving of every TLEaP skip from the completed CPU/default suite, with the development PATH and AMBERHOME. Does not rewrite the original full session or its omissions.",
+        "observed_tleap": "<development-environment>/bin/tleap",
+        "openmm_default_platform": "CPU"
+      },
+      "resources": {
+        "started_utc": "2026-11-08T09:08:15.938463+00:00",
+        "seconds": 19.016863538883626,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-tool>/molsysmt-reference-run-tleap-complement.py",
+          "fidelity-612-tleap-complement"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "stop_observation": null,
+        "maximum_host_full_pressure_avg10": 0.0,
+        "pressure_policy": {
+          "warning_full_avg10": 1.0,
+          "sustained_warning_stop_seconds": 30,
+          "low_available_pressure_full_avg10": 5.0,
+          "pressure_stop_requires_available_below_bytes": 4294967296,
+          "available_memory_stop_bytes": 2684354560
+        },
+        "pressure_warning_transitions": [],
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.0361328125,
+            2.9873046875,
+            3.6982421875
+          ],
+          "cpu_utilization": 0.036683417085427106,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16266579968
+        },
+        "host_available_minimum_observed_bytes": 15795236864,
+        "host_reserve_bytes": 2147483648,
+        "cgroup_memory_peak_bytes": 369049600,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 6,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 18135024\nuser_usec 16863373\nsystem_usec 1271651\nnice_usec 16865000\ncore_sched.force_idle_usec 0\nnr_periods 190\nnr_throttled 74\nthrottled_usec 33215\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "3bbee98572f78fecf4edd401e32358cc994814d6d6973c4d2b01ae833ce472f5",
+        "-bounded.json": "1a50f0f7fadbaeec89fd66def5948f9a32a5801a107f49d5f81feba694a60a8c",
+        ".log": "52ed4b51f8240e3b05ae75a06cac58f87f6d80cbe9f121343763fc0dd372b0f1",
+        ".xml": "6c4afe5797befdf2c4afe3da481921ea4161284a462b55db45a433910c89691f",
+        ".events.jsonl": "6671f91a6e56cfe7f16f8bb8e2c0c38dea87d6a0469c6083af7315d819c20af6",
+        "-inputs-before.json": "473069e1bfb7a2052e5411fb015310a163742c74ad506a132b74fec133e2dcff",
+        "-inputs-after.json": "473069e1bfb7a2052e5411fb015310a163742c74ad506a132b74fec133e2dcff",
+        "-reference-driver.py": "f8bfad82f65a00b6189aa48bc9d64388c6659fa3cfc2a90d7a275098885007fb",
+        "-resource-driver.py": "2a5d3f531827aed975fb6210c9dabf97e40d782a77908991ae103c10a653e63a"
+      },
+      "junit": {
+        "cases": 23,
+        "failure": 0,
+        "error": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "full_session_finish": {
+    "artifact_policy": {
+      "dropped_records": 24911,
+      "max_bytes": 52428800,
+      "truncated": true
+    },
+    "complete": true,
+    "counts": {
+      "collected": 32039,
+      "deselected": 0,
+      "errors": 0,
+      "executed": 32039,
+      "failed": 0,
+      "not_executed": 0,
+      "passed": 32014,
+      "reruns": 0,
+      "skipped": 25,
+      "subtests": {},
+      "warnings": 6033,
+      "xfailed": 0,
+      "xpassed": 0
+    },
+    "duration": 1708.0293715340085,
+    "exitstatus": 0,
+    "extensions": {
+      "dropped": 5552,
+      "incomplete": true,
+      "recorded": 11092
+    },
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "2f5ef29bfb2484bfcbe7362753868dc498377d13134ac9c44d39b2decb0c7a53",
+      "records": 92199
+    },
+    "invalid_selections": [],
+    "note": "",
+    "outcome": "PASS",
+    "root_causes": 0,
+    "run_id": "773ab1f656db4f558f3e9a151b39139f",
+    "schema": "pytest-receptor.events@1",
+    "stop_reason": "",
+    "type": "session_finish"
+  },
+  "full_skips": [
+    {
+      "nodeid": "tests/build/add_missing_heavy_atoms/test_add_missing_heavy_atoms_molsysmt_MolSys.py::test_add_hydrogens_molsysmt_MolSys_1",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/add_missing_heavy_atoms/test_add_missing_heavy_atoms_molsysmt_MolSys.py:24: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/add_missing_terminal_cappings/test_add_missing_terminal_cappings.py::test_add_missing_terminal_cappings_molsysmt_MolSys_1",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/add_missing_terminal_cappings/test_add_missing_terminal_cappings.py:20: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/add_missing_terminal_cappings/test_add_missing_terminal_cappings.py::test_add_missing_terminal_cappings_molsysmt_MolSys_2",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/add_missing_terminal_cappings/test_add_missing_terminal_cappings.py:41: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_explicit_leap_engine",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py:102: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[AP]",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py:192: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[GP]",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py:192: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[PP]",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py:192: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[PA]",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py:192: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[PG]",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py:192: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[ACEPROGLYNME]",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py:192: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[LYFIGAIKVC]",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py:265: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[KKHKLECKKH]",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py:265: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[SFYDNPNFHT]",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py:265: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[CKCELQLYFF]",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py:265: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[RCLMLHHSAQ]",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py:265: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[QSRLTRVCYL]",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py:265: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[IGGRCGKMYW]",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py:265: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[RRNMWPRQSS]",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py:265: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[PTKVMRRLSC]",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py:265: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[LDASKLIQET]",
+      "reason": "tleap is not available in PATH <owner-source>/tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py:265: tleap is not available in PATH"
+    },
+    {
+      "nodeid": "tests/form/string_smiles/test_is_form.py::test_is_form_cco_without_rdkit",
+      "reason": "with rdkit CCO is recognized as valid SMILES <owner-source>/tests/form/string_smiles/test_is_form.py:96: with rdkit CCO is recognized as valid SMILES"
+    },
+    {
+      "nodeid": "tests/form/test_cupy_ndarray.py::test_cupy_ndarray_form_detection_and_conversion",
+      "reason": "CuPy is not available. <owner-source>/tests/form/test_cupy_ndarray.py:14: CuPy is not available."
+    },
+    {
+      "nodeid": "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap[GA-GLY ALA]",
+      "reason": "Amber LEaP is required for the independent peptide oracle <owner-source>/tests/scientific_truth/external/ambertools/test_peptide_construction.py:21: Amber LEaP is required for the independent peptide oracle"
+    },
+    {
+      "nodeid": "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap[GP-GLY PRO]",
+      "reason": "Amber LEaP is required for the independent peptide oracle <owner-source>/tests/scientific_truth/external/ambertools/test_peptide_construction.py:21: Amber LEaP is required for the independent peptide oracle"
+    },
+    {
+      "nodeid": "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap[ACEALAALANME-ACE ALA ALA NME]",
+      "reason": "Amber LEaP is required for the independent peptide oracle <owner-source>/tests/scientific_truth/external/ambertools/test_peptide_construction.py:21: Amber LEaP is required for the independent peptide oracle"
+    }
+  ],
+  "source_inputs": "All 8,555 fingerprinted source/test/recipe/data/native inputs remain unchanged through the full run. Both runs start/end on the same clean source.",
+  "stream_scope": "The Receptor artifact is complete with valid final outcome/integrity, but its 50-MiB policy drops 24,911 detail records and 5,552 extensions. Retained phase counts are not final executed counts. Complete JUnit and native/final counters establish all 32,039 outcomes; JUnit supplies all omitted-node identities.",
+  "complement_scope": "The service inherited the user manager PATH rather than the activated development tools. All 23 Amber-related omissions, including three independent construction oracles, pass separately with captured development PATH/AMBERHOME. Do not rewrite the original 25 skips or claim a single zero-skip full run.",
+  "remaining_omissions": "The original SMILES-ambiguity control and unavailable CuPy study remain omitted in the full profile. No GPU scientific backend is qualified.",
+  "runtime_point": {
+    "observed_at_utc": "2026-11-08T08:45:38.245021+00:00",
+    "scope": "Point observation during the frozen CPU source campaign using its exact source/provider/published-tool overlay, not an immutable environment-lock certificate. Initial ordinary development metadata is preserved separately, including its different Pytest Receptor checkout version.",
+    "versions": {
+      "OpenMM": "8.6.1",
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "mdtraj": "1.11.1",
+      "MDAnalysis": "2.10.0",
+      "parmed": "4.3.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pytest": "9.1.1",
+      "pytest-receptor": "1.2.1",
+      "pyunitwizard": "0.28.1"
+    },
+    "openmm_cpu_binaries_sha256": {
+      "lib/libOpenMM.so": "403fe5072525d11677d082435757646ee2bda3e3116b50d1f7bdaa10970aec37",
+      "lib/plugins/libOpenMMCPU.so": "00e2fd1bc5791b4da9899e94577ae97404e291e60d57a6149fec72dc54ea4d7b"
+    }
+  },
+  "runtime_point_sha256": "171cdd4c2af7c4e09e8c350d217d98a3c744e97a97f8b1671296422531e94bad",
+  "safety": "Four workers/four CPU equivalents, 8-GiB max/7-GiB high, zero swap, 512 tasks and finite 45-minute service. Peak charged memory 6,840,324,096 bytes; lowest observed host MemAvailable 9,789,304,832 bytes. No high/max/OOM/task-cap events. Initial PSI warnings remain recorded; PSI alone did not establish RAM exhaustion.",
+  "resource_history": "devtools/data/source_suite_resource_adjustments_612_20261108.json",
+  "scope": "Linux/Python 3.14.7 local source and the recorded Viewer/provider stack only; no installed/platform/GPU/final-candidate/publication waiver."
+}

@@ -20,6 +20,43 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Complete local source receiving and CI/evidence correction — 2026-11-08
+
+Clean source `03c59caef9823bbca186aa4213626ddc5eb890f3` completes the default
+CPU profile: **32,014 passed, 25 skipped, zero failures/errors**, 32,039 selected
+cases. All 8,555 tracked inputs and native bytes remain unchanged. All **23
+Amber-related omissions pass separately** with the activated tools, including
+three independent construction oracles; the original 25 skips remain in the
+full-session receipt. Its complete JUnit and final Receptor counters agree;
+50-MiB detail truncation is explicitly retained. This is local source, not
+installed/platform/GPU/final-candidate qualification.
+
+The [full receipt](../devtools/data/full_source_receiving_612_20261108.json)
+and [resource history](../devtools/data/source_suite_resource_adjustments_612_20261108.json)
+retain every interrupted attempt, implicit CUDA allocation, early PSI threshold
+correction and actual CPU defaults. The completed run peaks at 6.37 GiB charged
+memory and preserves at least 9.11 GiB host availability, with no high/max/OOM
+or task-cap event. Initial PSI warnings are not hidden. No unrelated process
+is stopped. The provisional host reserve is not promoted into an AGENTS rule.
+
+#653 fixes one missing external-reference smoke argument; the unchanged guard
+catches it. Clean source `12a6c6fc2` receives **104 directed cases**, zero skips,
+failures or errors. The [#611/#653 receipt](../devtools/data/smoke_budget_and_selection_receiving_611_653_20261108.json)
+separates historical hosted success and finite budget acceptance from current
+source selection receiving. #567 remains partial: reference ownership and
+failure evidence are corrected, while role policy/comparability and actual
+hosted artifact receiving remain open. No baseline is renewed or threshold
+changed. See its [receipt](../devtools/data/benchmark_evidence_receiving_567_20261108.json).
+
+#612/#611/#653 are source-accepted and archived locally; publication and board
+closure follow this checkpoint. Until independently verified, accepted progress
+remains **65.3%**, with **44 delivered audit-related source closures** (#651
+included) and **23/50 graphical intents**. No supplemental bonus is added.
+Next receive the existing #590/#591/#609/#614 actual-Jupyter scopes, without
+claiming a causal repair for #615, and preserve remaining graphical, scientific-
+contract, installed/platform and exact-candidate exits. No remote matrix,
+artifact publication, tag or release is authorized here.
+
 ## Placement and benchmark-data receiving — 2026-11-08
 
 #651 is source-qualified in `51a3e1898`: all five placement examples now execute

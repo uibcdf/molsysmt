@@ -840,25 +840,23 @@
       "uibcdf/molsysmt#649",
       "uibcdf/molsysmt#650"
     ],
-    "record": "devguide/pending_bugs/multimodel_alternate_location_fidelity_expectation.md",
-    "owner_verification": "#649/#650 are independently source-closed after 525 parallel cases, fourteen fast gates and HTML. The seven task-starved controls pass with native threads controlled. The complete-source attempts remain incomplete; receive the inspected four-worker/6-GiB/512-task route with Rayon/BLAS/OpenMP/OpenMM one thread each.",
+    "record": "devguide/archive/resolved_bugs/multimodel_alternate_location_fidelity_expectation.md",
+    "owner_verification": "Full default CPU scope completes on clean 03c59caef9 with 32,014 passes/25 skips; all 23 Amber omissions pass separately on the same source. #653 CI-selector repair and partial #567 evidence correction pass 104 clean directed cases. Source #612/#611/#653 closeout awaits public verification; thread environment defaults do not override explicit native pools.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Retain #612 complete-source qualification through the resource-bounded serial route and every remaining #421 graphical, scientific-contract, installed/platform and exact-candidate requirement.",
+    "scope": "Continue actual-Jupyter owner closeout and remaining declared intents, scientific-contract, installed/platform and exact-candidate acceptance; no new full retry solely for bounded detail truncation.",
     "pending_full_source": "uibcdf/molsysmt#612"
   },
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
     "issues": [
-      "uibcdf/molsysmt#649",
-      "uibcdf/molsysmt#650"
+      "uibcdf/molsysmt#651"
     ],
-    "source": "a2993b8f0ec0bbf34b95966891f9b783f61dbe85",
-    "fix_commit": "242cbb98e",
-    "public_checkpoint": "a5fc92a23",
+    "source": "51a3e18986eec9d9e89cb268e149905ae6176ef8",
+    "public_checkpoint": "03c59caef9823bbca186aa4213626ddc5eb890f3",
     "state": "public_source_closed",
-    "evidence": "devtools/data/conversion_fixture_receiving_649_650_20261108.json",
+    "evidence": "devtools/data/placement_example_receiving_651_20261108.json",
     "weighted_milestone_change": 0,
-    "audit_related_source_closures": 43
+    "audit_related_source_closures": 44
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
@@ -889,9 +887,9 @@
   },
   "last_source_qualification_attempt": {
     "issue": "uibcdf/molsysmt#612",
-    "source": "6205fcc78",
-    "state": "interrupted_task_starvation_and_missing_final_receipt",
-    "evidence": "devtools/data/source_suite_resource_adjustments_612_20261108.json",
+    "source": "03c59caef9823bbca186aa4213626ddc5eb890f3",
+    "state": "complete_default_cpu_source_and_activated_amber_complement_board_closeout_pending",
+    "evidence": "devtools/data/full_source_receiving_612_20261108.json",
     "weighted_milestone_change": 0
   },
   "incoming_intake": {

@@ -1,9 +1,9 @@
 ---
 summary: Rebudget the expanded native-plus-addon smoke after measured 25-minute exhaustion.
 issue: uibcdf/molsysmt#611
-status: partial
+status: resolved
 opened: 2026-11-06
-closed:
+closed: 2026-11-08
 verification: measured
 area: [ci, molsysviewer]
 guard:
@@ -58,3 +58,22 @@ with the finite 45-minute maximum and both original tiers. The separate local
 complete addon collection passes 4,699 cases without skips in 1090.15 s. The
 original 25-minute cancellation remains non-success. Owner review/integration
 of PR #543 is still required before this report is archived and closed.
+
+## Owner decision and integration receiving — 2026-11-08
+
+Accept the implemented finite 45-minute budget in `699fc69be`, retaining the
+original cancelled 25-minute run. The corrected hosted source has official
+terminal success (42215709274, attempt 1, 20m33s); its native 6,042 passes/23
+skips and addon 4,695 passes/four skips remain their historical outcomes.
+PR #543 is integrated. Current source retains all 105 prior native selectors
+and, after separately received #653, all 74 addon modules in one invocation.
+The unchanged completeness guard and external-reference module pass; clean
+source `12a6c6fc2` receives all 104 selected developer/panel cases with no skips,
+failures or errors. No guard, scientific assertion or budget limit is removed.
+
+The [owner receipt](../../../devtools/data/smoke_budget_and_selection_receiving_611_653_20261108.json)
+retains the complete original hosted capture, workflow comparison and later
+selector failure/correction. This is source acceptance of the finite budget,
+not a runtime guarantee or exact-current hosted success. The final candidate
+still needs its own hosted and installed qualification. No workflow was
+rerun and no package/release was authorized by this decision.

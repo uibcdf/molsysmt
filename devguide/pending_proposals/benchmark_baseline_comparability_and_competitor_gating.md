@@ -131,3 +131,22 @@ bounded receiving. The guard rejects empty, absent, malformed and nonfinite
 numeric evidence while preserving real regression detection and the original
 15 percent and matched-third-party scope. This does not establish comparable
 workloads/environments, accept an owner policy, renew a baseline or close #567.
+
+## Session evidence and reference ownership — 2026-11-08
+
+`12a6c6fc2` adds explicit `run_matrix.py --output` and per-campaign owned
+reference files. A tiny original orchestration control proves that the old
+runner removes a pre-existing caller `solvated_villin.pdb`; the new independent
+ownership/failure controls preserve it. CI writes current data separately from
+the reference and is configured to retain the raw JSON, source identity and
+native-status-preserving logs after failures. Actual hosted upload remains
+unexecuted; a local YAML/shell guard is not an upload certificate.
+
+The [receiving record](../../devtools/data/benchmark_evidence_receiving_567_20261108.json)
+retains all prototype failures, the real original reference-file control,
+59 passing benchmark cases and the separate #653 selector correction. Clean
+joint receiving passes 104 cases. The original default 15 percent, matched
+third-party blocking scope, failed medians and reference bytes are unchanged.
+No timing matrix or reviewed baseline renewal is performed. Compatibility
+metadata and the explicit owner product/control-role decision remain open;
+this is partial work and does not complete #567's audit milestone.

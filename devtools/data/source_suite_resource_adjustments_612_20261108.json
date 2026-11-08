@@ -3,7 +3,7 @@
   "date": "2026-11-08",
   "issue": "uibcdf/molsysmt#612",
   "source": "6205fcc78",
-  "state": "complete_suite_still_pending",
+  "state": "default_cpu_source_passed_with_separate_amber_complement",
   "serial_attempt": {
     "execution": {
       "command": [
@@ -257,7 +257,7 @@
       "skipped": 0
     }
   },
-  "current_route": "Four workers, four-CPU quota, 8 GiB max/7 GiB high, zero swap, 512-task cap, 45-minute runtime bound. Environment thread defaults one; explicit tested per-call pools remain as requested. Absolute host reserve 2 GiB with stop 512 MiB before that floor and on global full PSI avg10 >= 1. Check every previous final outcome before a fresh named attempt; no tracked edits during qualification.",
+  "current_route": "Completed CPU-default source receiving with the recorded finite limits and separate activated-tool complement; no further full rerun is required solely to reconstruct truncated detail telemetry. Subsequent candidate qualification retains its own exact-source/installed/platform scope.",
   "scope": "The 525-case pilot does not qualify the complete source suite or a release.",
   "pressure_stopped_thread_controlled_attempt": {
     "resources": {
@@ -461,5 +461,530 @@
     },
     "interpretation": "Interrupted after 2,490 passes, exit 2, before the default suite completed. Deliberately stopped after final review of the previous partial stream exposed #651. The restart preceded that review and was premature; artifact finalization is not full-scope acceptance."
   },
-  "thread_control_clarification": "Thread environment variables set library defaults to one. MolSysMT Rust explicit per-call ThreadPoolBuilder.num_threads overrides RAYON_NUM_THREADS; distinct requested sizes are retained in its process-local cache. Observed task counts are not all attributed to this cache. #652 owns bounded measurement/design review. Aggregate CPU/memory/task limits apply to the complete test process tree."
+  "thread_control_clarification": "Thread environment variables set library defaults to one. MolSysMT Rust explicit per-call ThreadPoolBuilder.num_threads overrides RAYON_NUM_THREADS; distinct requested sizes are retained in its process-local cache. Observed task counts are not all attributed to this cache. #652 owns bounded measurement/design review. Aggregate CPU/memory/task limits apply to the complete test process tree.",
+  "after_651_pressure_stop": {
+    "resources": {
+      "started_utc": "2026-11-08T08:00:56.448362+00:00",
+      "seconds": 572.4161735789385,
+      "command": [
+        "<development-environment>/bin/python",
+        "<private-tool>/molsysmt-reference-run-after651.py",
+        "fidelity-612-full-source-after651"
+      ],
+      "process_exit_code": -15,
+      "stop_reason": "Global memory pressure threshold reached.",
+      "stop_observation": {
+        "host_available_bytes": 4925939712,
+        "host_full_pressure_avg10": 1.08,
+        "own_memory_current": 5903187968,
+        "own_memory_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=14060\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=14060\n",
+        "own_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n"
+      },
+      "maximum_host_full_pressure_avg10": 1.08,
+      "limits": {
+        "memory.max": "8589934592",
+        "memory.high": "7516192768",
+        "memory.swap.max": "0",
+        "memory.oom.group": "1",
+        "cpu.max": "400000 100000",
+        "pids.max": "512"
+      },
+      "host_load": {
+        "cpu_count": 20,
+        "affinity_cpus": 20,
+        "load_average": [
+          0.2822265625,
+          0.63232421875,
+          1.43701171875
+        ],
+        "cpu_utilization": 0.018090452261306567,
+        "swap_bytes_per_second": 0.0
+      },
+      "initial_host_memory": {
+        "MemTotal": 32934252544,
+        "MemAvailable": 16855388160
+      },
+      "host_available_minimum_observed_bytes": 4895150080,
+      "host_reserve_bytes": 2147483648,
+      "cgroup_memory_peak_bytes": 5966983168,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "peak_tasks_observed": 257,
+      "pids_events": "max 0\n",
+      "cpu_stat": "usage_usec 2233391573\nuser_usec 2184956561\nsystem_usec 48435012\nnice_usec 2179675000\ncore_sched.force_idle_usec 0\nnr_periods 5727\nnr_throttled 5055\nthrottled_usec 57179218\nnr_bursts 0\nburst_usec 0\n",
+      "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+    },
+    "artifact_sha256": {
+      "-bounded.json": "8bee01c3dce17198d79244cf18cadafe0c1d9aecb3f48bf58c82445ac96d17bc",
+      ".log": "51ae8d95cb840216837e2c54dd48e26fd1d1aa7e9b05c4a46f35e9a3eb10e49b",
+      ".events.jsonl": "565a9a2117012c072510a1963a508d20000afa5b9ea6ec825f5a3c588d9f6c1f",
+      "-inputs-before.json": "473069e1bfb7a2052e5411fb015310a163742c74ad506a132b74fec133e2dcff",
+      "-runtime.json": "454e8e8c6fcb286b105ca817ef7a79e5e10b52a72f7a99d6babd6ec798362673",
+      "-resource-driver.py": "e743ca932f327ffb643d711206d7486cd331b48bbabcaa6ea5ce1edb92a2508c"
+    },
+    "post_stop_review": {
+      "source": "03c59caef9823bbca186aa4213626ddc5eb890f3",
+      "complete": false,
+      "artifact_issue": "missing session_finish",
+      "partial_call_outcomes": {
+        "passed": 12151
+      },
+      "nonpassing_phases": [],
+      "changed_fingerprinted_inputs": [],
+      "source_status": "",
+      "inspection_correction": "First bounded artifact-reader invocation attempted ordinary Git preload threads under its 768-MiB address-space bound and failed metadata collection. Reinspection uses bounded Git index/preload settings; this is not a product or full-suite task-cap failure."
+    }
+  },
+  "implicit_gpu_attempt": {
+    "execution": {
+      "command": [
+        "<development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<private-evidence>/fidelity-612-full-source-pressure-aware.xml",
+        "-n4",
+        "--receptor-events=<private-evidence>/fidelity-612-full-source-pressure-aware.events.jsonl"
+      ],
+      "exit_code": 2,
+      "seconds": 898.9956706359517,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "source_commit": "03c59caef9823bbca186aa4213626ddc5eb890f3",
+      "starting_git_status": "",
+      "ending_git_status": "",
+      "changed_inputs": [],
+      "checked_inputs": 8555
+    },
+    "resources": {
+      "started_utc": "2026-11-08T08:15:51.784608+00:00",
+      "seconds": 921.8408611759078,
+      "command": [
+        "<development-environment>/bin/python",
+        "<private-tool>/molsysmt-reference-run-pressure-aware.py",
+        "fidelity-612-full-source-pressure-aware"
+      ],
+      "process_exit_code": 2,
+      "stop_reason": null,
+      "stop_observation": null,
+      "maximum_host_full_pressure_avg10": 0.86,
+      "pressure_policy": {
+        "warning_full_avg10": 1.0,
+        "sustained_warning_stop_seconds": 30,
+        "immediate_full_avg10_stop": 5.0,
+        "available_memory_stop_bytes": 2684354560
+      },
+      "pressure_warning_transitions": [],
+      "limits": {
+        "memory.max": "8589934592",
+        "memory.high": "7516192768",
+        "memory.swap.max": "0",
+        "memory.oom.group": "1",
+        "cpu.max": "400000 100000",
+        "pids.max": "512"
+      },
+      "host_load": {
+        "cpu_count": 20,
+        "affinity_cpus": 20,
+        "load_average": [
+          0.6396484375,
+          1.79150390625,
+          2.17626953125
+        ],
+        "cpu_utilization": 0.02511300853842291,
+        "swap_bytes_per_second": 0.0
+      },
+      "initial_host_memory": {
+        "MemTotal": 32934252544,
+        "MemAvailable": 16703295488
+      },
+      "host_available_minimum_observed_bytes": 4056076288,
+      "host_reserve_bytes": 2147483648,
+      "cgroup_memory_peak_bytes": 6527152128,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "peak_tasks_observed": 338,
+      "pids_events": "max 0\n",
+      "cpu_stat": "usage_usec 3473850620\nuser_usec 3399838794\nsystem_usec 74011826\nnice_usec 3391711000\ncore_sched.force_idle_usec 0\nnr_periods 9210\nnr_throttled 7810\nthrottled_usec 104175042\nnr_bursts 0\nburst_usec 0\n",
+      "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+    },
+    "artifact_sha256": {
+      ".json": "20e83a4a5504ee9a590181bd025957052f2b71cff8fbd603f043b6c5abd3a6f3",
+      "-bounded.json": "25afe46038e79eb6d01ec34c6810b8601bf2f0d8141bb797b105d0c2a36b2b8d",
+      ".log": "6a0d50a0114bcaefbec63350ed6a0b7aeee6be0c501f4f2f089100a189b3548c",
+      ".xml": "af3e1246af6f7d505ebb5d5272804fd6705d17c4e0104ec41820dd7f3531842e",
+      ".events.jsonl": "27b1f522b603662c0f5c63d0ecd3bd026af59c636cb2e0a0546db9829ecea930",
+      "-inputs-before.json": "473069e1bfb7a2052e5411fb015310a163742c74ad506a132b74fec133e2dcff",
+      "-inputs-after.json": "473069e1bfb7a2052e5411fb015310a163742c74ad506a132b74fec133e2dcff",
+      "-runtime.json": "454e8e8c6fcb286b105ca817ef7a79e5e10b52a72f7a99d6babd6ec798362673",
+      "-reference-driver.py": "5a960cc523f9514bbc5f076ec804f830e60183c6766bd0437c7fa4068fbf03e8",
+      "-resource-driver.py": "e5ad8c2bbcfd1e190440d2f3cd63caab0a6ba16dd0ddf18f4d45145713d1a70c"
+    },
+    "junit": {
+      "cases": 17223,
+      "failure": 0,
+      "error": 0,
+      "skipped": 22
+    },
+    "deliberate_stop": {
+      "time": "2026-11-08T08:30:41.231910+00:00",
+      "reason": "Measured implicit OpenMM CUDA contexts consume shared GPU memory outside the CPU/RAM execution budget. Gracefully stop only the owning pytest controller before selecting an explicit CPU default. No scientific input, assertion or selection is changed.",
+      "controller_pid": 2583136,
+      "controller_argv": [
+        "<development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<private-evidence>/fidelity-612-full-source-pressure-aware.xml",
+        "-n4",
+        "--receptor-events=<private-evidence>/fidelity-612-full-source-pressure-aware.events.jsonl",
+        ""
+      ],
+      "own_gpu_processes": [
+        {
+          "pid": 2583168,
+          "gpu_memory_mib": 1696
+        },
+        {
+          "pid": 2583163,
+          "gpu_memory_mib": 4982
+        },
+        {
+          "pid": 2583160,
+          "gpu_memory_mib": 106
+        }
+      ],
+      "memory_current": 6195675136,
+      "memory_peak": 6527152128,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "pids_events": "max 0\n"
+    },
+    "gpu_interpretation": "Three verified owned workers held 4,982/1,696/106 MiB GPU memory through implicit OpenMM Context selection. cgroup CPU/RAM limits do not constitute a VRAM limit. Device mappings, RSS/PSS and cgroup charges were observed separately; no sole causal attribution or summation of RSS as unique RAM is claimed."
+  },
+  "cpu_preflight_pressure_stop": {
+    "resources": {
+      "started_utc": "2026-11-08T08:33:12.436162+00:00",
+      "seconds": 15.025397148914635,
+      "command": [
+        "<development-environment>/bin/python",
+        "<private-tool>/molsysmt-reference-run-cpu-default.py",
+        "fidelity-612-full-source-cpu-default"
+      ],
+      "process_exit_code": -15,
+      "stop_reason": "Intense or sustained global memory pressure threshold reached.",
+      "stop_observation": {
+        "host_available_bytes": 15468331008,
+        "host_full_pressure_avg10": 5.59,
+        "own_memory_current": 1013559296,
+        "own_memory_pressure": "some avg10=6.56 avg60=1.30 avg300=0.27 total=855545\nfull avg10=6.56 avg60=1.30 avg300=0.27 total=855545\n",
+        "own_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n"
+      },
+      "maximum_host_full_pressure_avg10": 5.59,
+      "pressure_policy": {
+        "warning_full_avg10": 1.0,
+        "sustained_warning_stop_seconds": 30,
+        "immediate_full_avg10_stop": 5.0,
+        "available_memory_stop_bytes": 2684354560
+      },
+      "pressure_warning_transitions": [
+        {
+          "seconds": 15.017447381978855,
+          "active": true,
+          "host_available_bytes": 15468331008,
+          "host_full_pressure_avg10": 5.59,
+          "own_memory_current": 1013559296,
+          "own_memory_pressure": "some avg10=6.56 avg60=1.30 avg300=0.27 total=855545\nfull avg10=6.56 avg60=1.30 avg300=0.27 total=855545\n"
+        }
+      ],
+      "limits": {
+        "memory.max": "8589934592",
+        "memory.high": "7516192768",
+        "memory.swap.max": "0",
+        "memory.oom.group": "1",
+        "cpu.max": "400000 100000",
+        "pids.max": "512"
+      },
+      "host_load": {
+        "cpu_count": 20,
+        "affinity_cpus": 20,
+        "load_average": [
+          0.83447265625,
+          3.19970703125,
+          3.31396484375
+        ],
+        "cpu_utilization": 0.021575514300050225,
+        "swap_bytes_per_second": 0.0
+      },
+      "initial_host_memory": {
+        "MemTotal": 32934252544,
+        "MemAvailable": 16525365248
+      },
+      "host_available_minimum_observed_bytes": 15468331008,
+      "host_reserve_bytes": 2147483648,
+      "cgroup_memory_peak_bytes": 1013559296,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "peak_tasks_observed": 20,
+      "pids_events": "max 0\n",
+      "cpu_stat": "usage_usec 34291979\nuser_usec 32507282\nsystem_usec 1784697\nnice_usec 32528000\ncore_sched.force_idle_usec 0\nnr_periods 153\nnr_throttled 32\nthrottled_usec 24252\nnr_bursts 0\nburst_usec 0\n",
+      "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+    },
+    "artifact_sha256": {
+      "-bounded.json": "84dc7ade940c12668e6de983453884bc2e3b3c0f77680cefdaad4e7c5b09faee",
+      ".log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      ".events.jsonl": "6acbda4094b081424cce963fe3bd519c90fed667032280726724d5649e5876fe",
+      "-inputs-before.json": "473069e1bfb7a2052e5411fb015310a163742c74ad506a132b74fec133e2dcff",
+      "-runtime.json": "70d3acf9a62dfcc29427f608dde3bb272c612f65b6e82681d52ec5c451534706",
+      "-reference-driver.py": "d605e9ce5d26a4bc4eea3d1d4d238402d71a4b656413ff96cae5e249fd80ac57",
+      "-resource-driver.py": "744d503a6bdb2e5baf4f8b70da78b839d64d45635b39bbe75c224bd2c1742254"
+    }
+  },
+  "completed_cpu_default": {
+    "execution": {
+      "command": [
+        "<development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<private-evidence>/fidelity-612-full-source-cpu-reserve.xml",
+        "-n4",
+        "--receptor-events=<private-evidence>/fidelity-612-full-source-cpu-reserve.events.jsonl"
+      ],
+      "exit_code": 0,
+      "seconds": 1713.020034983987,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source with OpenMM CPU default; explicit Reference tests preserved; no installed/GPU/human Qt acceptance",
+      "openmm_default_platform": "CPU",
+      "source_commit": "03c59caef9823bbca186aa4213626ddc5eb890f3",
+      "starting_git_status": "",
+      "ending_git_status": "",
+      "changed_inputs": [],
+      "checked_inputs": 8555
+    },
+    "resources": {
+      "started_utc": "2026-11-08T08:36:59.386711+00:00",
+      "seconds": 1718.3874505900312,
+      "command": [
+        "<development-environment>/bin/python",
+        "<private-tool>/molsysmt-reference-run-cpu-reserve.py",
+        "fidelity-612-full-source-cpu-reserve"
+      ],
+      "process_exit_code": 0,
+      "stop_reason": null,
+      "stop_observation": null,
+      "maximum_host_full_pressure_avg10": 10.08,
+      "pressure_policy": {
+        "warning_full_avg10": 1.0,
+        "sustained_warning_stop_seconds": 30,
+        "low_available_pressure_full_avg10": 5.0,
+        "pressure_stop_requires_available_below_bytes": 4294967296,
+        "available_memory_stop_bytes": 2684354560
+      },
+      "pressure_warning_transitions": [
+        {
+          "seconds": 28.025446396088228,
+          "active": true,
+          "host_available_bytes": 13665411072,
+          "host_full_pressure_avg10": 2.5,
+          "own_memory_current": 2389626880,
+          "own_memory_pressure": "some avg10=1.77 avg60=0.32 avg300=0.06 total=360718\nfull avg10=1.77 avg60=0.32 avg300=0.06 total=360718\n"
+        },
+        {
+          "seconds": 70.07823589188047,
+          "active": false,
+          "host_available_bytes": 13115535360,
+          "host_full_pressure_avg10": 0.89,
+          "own_memory_current": 3370729472,
+          "own_memory_pressure": "some avg10=0.99 avg60=1.92 avg300=0.60 total=2109077\nfull avg10=0.99 avg60=1.92 avg300=0.60 total=2109077\n"
+        }
+      ],
+      "limits": {
+        "memory.max": "8589934592",
+        "memory.high": "7516192768",
+        "memory.swap.max": "0",
+        "memory.oom.group": "1",
+        "cpu.max": "400000 100000",
+        "pids.max": "512"
+      },
+      "host_load": {
+        "cpu_count": 20,
+        "affinity_cpus": 20,
+        "load_average": [
+          0.5888671875,
+          1.79150390625,
+          2.71337890625
+        ],
+        "cpu_utilization": 0.01907630522088355,
+        "swap_bytes_per_second": 0.0
+      },
+      "initial_host_memory": {
+        "MemTotal": 32934252544,
+        "MemAvailable": 16521285632
+      },
+      "host_available_minimum_observed_bytes": 9789304832,
+      "host_reserve_bytes": 2147483648,
+      "cgroup_memory_peak_bytes": 6840324096,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "peak_tasks_observed": 248,
+      "pids_events": "max 0\n",
+      "cpu_stat": "usage_usec 6772747233\nuser_usec 6640891876\nsystem_usec 131855356\nnice_usec 6634122000\ncore_sched.force_idle_usec 0\nnr_periods 17186\nnr_throttled 16107\nthrottled_usec 231944063\nnr_bursts 0\nburst_usec 0\n",
+      "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+    },
+    "artifact_sha256": {
+      ".json": "884b5d2d85f7fa953e46f44614f2bce42519de6994ecce37f131133fdf984ca3",
+      "-bounded.json": "13ba58332ae703f6ad72a26c5b671856408159b8fccc29bbf210b22805b3224d",
+      ".log": "d26e0158ce7402bcc0c0bc69a2d0eba6911384ba8d4e72240c45c2b3fef90f83",
+      ".xml": "f9231b6903ea88f383ea7b15732738184b05816d1428fbe01bcbf3b55c381959",
+      ".events.jsonl": "54b0dcacf8c29bf99038eea9625ac0f5ac4a72319db44a7305a11b1fb817043f",
+      "-inputs-before.json": "473069e1bfb7a2052e5411fb015310a163742c74ad506a132b74fec133e2dcff",
+      "-inputs-after.json": "473069e1bfb7a2052e5411fb015310a163742c74ad506a132b74fec133e2dcff",
+      "-runtime.json": "70d3acf9a62dfcc29427f608dde3bb272c612f65b6e82681d52ec5c451534706",
+      "-reference-driver.py": "7be8244fd3896752b819f25c1b89afde6178c7f1ea7aff80c58d87f8df7d6686",
+      "-resource-driver.py": "698e988845632afde7af20891a310b1f83a33f399df1aa68269af3326320b2cb"
+    },
+    "junit": {
+      "cases": 32039,
+      "failure": 0,
+      "error": 0,
+      "skipped": 25
+    }
+  },
+  "activated_amber_complement": {
+    "execution": {
+      "source_commit": "03c59caef9823bbca186aa4213626ddc5eb890f3",
+      "starting_git_status": "",
+      "ending_git_status": "",
+      "exit_code": 0,
+      "seconds": 14.756215919042006,
+      "command": [
+        "<development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<private-evidence>/fidelity-612-tleap-complement.xml",
+        "--receptor-events=<private-evidence>/fidelity-612-tleap-complement.events.jsonl",
+        "tests/build/add_missing_heavy_atoms/test_add_missing_heavy_atoms_molsysmt_MolSys.py::test_add_hydrogens_molsysmt_MolSys_1",
+        "tests/build/add_missing_terminal_cappings/test_add_missing_terminal_cappings.py::test_add_missing_terminal_cappings_molsysmt_MolSys_1",
+        "tests/build/add_missing_terminal_cappings/test_add_missing_terminal_cappings.py::test_add_missing_terminal_cappings_molsysmt_MolSys_2",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_explicit_leap_engine",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[ACEPROGLYNME]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[AP]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[GP]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[PA]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[PG]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[PP]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[CKCELQLYFF]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[IGGRCGKMYW]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[KKHKLECKKH]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[LDASKLIQET]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[LYFIGAIKVC]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[PTKVMRRLSC]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[QSRLTRVCYL]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[RCLMLHHSAQ]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[RRNMWPRQSS]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[SFYDNPNFHT]",
+        "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap[ACEALAALANME-ACE ALA ALA NME]",
+        "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap[GA-GLY ALA]",
+        "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap[GP-GLY PRO]"
+      ],
+      "changed_inputs": [],
+      "checked_inputs": 8555,
+      "selected_nodes": [
+        "tests/build/add_missing_heavy_atoms/test_add_missing_heavy_atoms_molsysmt_MolSys.py::test_add_hydrogens_molsysmt_MolSys_1",
+        "tests/build/add_missing_terminal_cappings/test_add_missing_terminal_cappings.py::test_add_missing_terminal_cappings_molsysmt_MolSys_1",
+        "tests/build/add_missing_terminal_cappings/test_add_missing_terminal_cappings.py::test_add_missing_terminal_cappings_molsysmt_MolSys_2",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_explicit_leap_engine",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[ACEPROGLYNME]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[AP]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[GP]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[PA]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[PG]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_6[PP]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[CKCELQLYFF]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[IGGRCGKMYW]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[KKHKLECKKH]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[LDASKLIQET]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[LYFIGAIKVC]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[PTKVMRRLSC]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[QSRLTRVCYL]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[RCLMLHHSAQ]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[RRNMWPRQSS]",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_9[SFYDNPNFHT]",
+        "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap[ACEALAALANME-ACE ALA ALA NME]",
+        "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap[GA-GLY ALA]",
+        "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap[GP-GLY PRO]"
+      ],
+      "scope": "Exact-source complementary receiving of every TLEaP skip from the completed CPU/default suite, with the development PATH and AMBERHOME. Does not rewrite the original full session or its omissions.",
+      "observed_tleap": "<development-environment>/bin/tleap",
+      "openmm_default_platform": "CPU"
+    },
+    "resources": {
+      "started_utc": "2026-11-08T09:08:15.938463+00:00",
+      "seconds": 19.016863538883626,
+      "command": [
+        "<development-environment>/bin/python",
+        "<private-tool>/molsysmt-reference-run-tleap-complement.py",
+        "fidelity-612-tleap-complement"
+      ],
+      "process_exit_code": 0,
+      "stop_reason": null,
+      "stop_observation": null,
+      "maximum_host_full_pressure_avg10": 0.0,
+      "pressure_policy": {
+        "warning_full_avg10": 1.0,
+        "sustained_warning_stop_seconds": 30,
+        "low_available_pressure_full_avg10": 5.0,
+        "pressure_stop_requires_available_below_bytes": 4294967296,
+        "available_memory_stop_bytes": 2684354560
+      },
+      "pressure_warning_transitions": [],
+      "limits": {
+        "memory.max": "2147483648",
+        "memory.high": "1879048192",
+        "memory.swap.max": "0",
+        "memory.oom.group": "1",
+        "cpu.max": "100000 100000",
+        "pids.max": "256"
+      },
+      "host_load": {
+        "cpu_count": 20,
+        "affinity_cpus": 20,
+        "load_average": [
+          1.0361328125,
+          2.9873046875,
+          3.6982421875
+        ],
+        "cpu_utilization": 0.036683417085427106,
+        "swap_bytes_per_second": 0.0
+      },
+      "initial_host_memory": {
+        "MemTotal": 32934252544,
+        "MemAvailable": 16266579968
+      },
+      "host_available_minimum_observed_bytes": 15795236864,
+      "host_reserve_bytes": 2147483648,
+      "cgroup_memory_peak_bytes": 369049600,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "peak_tasks_observed": 6,
+      "pids_events": "max 0\n",
+      "cpu_stat": "usage_usec 18135024\nuser_usec 16863373\nsystem_usec 1271651\nnice_usec 16865000\ncore_sched.force_idle_usec 0\nnr_periods 190\nnr_throttled 74\nthrottled_usec 33215\nnr_bursts 0\nburst_usec 0\n",
+      "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+    },
+    "artifact_sha256": {
+      ".json": "3bbee98572f78fecf4edd401e32358cc994814d6d6973c4d2b01ae833ce472f5",
+      "-bounded.json": "1a50f0f7fadbaeec89fd66def5948f9a32a5801a107f49d5f81feba694a60a8c",
+      ".log": "52ed4b51f8240e3b05ae75a06cac58f87f6d80cbe9f121343763fc0dd372b0f1",
+      ".xml": "6c4afe5797befdf2c4afe3da481921ea4161284a462b55db45a433910c89691f",
+      ".events.jsonl": "6671f91a6e56cfe7f16f8bb8e2c0c38dea87d6a0469c6083af7315d819c20af6",
+      "-inputs-before.json": "473069e1bfb7a2052e5411fb015310a163742c74ad506a132b74fec133e2dcff",
+      "-inputs-after.json": "473069e1bfb7a2052e5411fb015310a163742c74ad506a132b74fec133e2dcff",
+      "-reference-driver.py": "f8bfad82f65a00b6189aa48bc9d64388c6659fa3cfc2a90d7a275098885007fb",
+      "-resource-driver.py": "2a5d3f531827aed975fb6210c9dabf97e40d782a77908991ae103c10a653e63a"
+    },
+    "junit": {
+      "cases": 23,
+      "failure": 0,
+      "error": 0,
+      "skipped": 0
+    }
+  },
+  "controller_correction": "Preserve the earlier immediate 1-percent PSI abort and CPU preflight abort at PSI 5.59 with 15,468,331,008 bytes available. Those operational thresholds were too aggressive as standalone RAM-exhaustion proxies. Current policy records PSI warnings and combines sustained/intense pressure with low availability (<4 GiB), retaining the 2.5-GiB early stop above the maintainer 2-GiB floor. No scientific assertion or source selection changes."
 }

@@ -1,0 +1,353 @@
+{
+  "schema_version": "molsysmt.smoke_budget_owner_receiving@1",
+  "date": "2026-11-08",
+  "issues": [
+    "uibcdf/molsysmt#611",
+    "uibcdf/molsysmt#653"
+  ],
+  "state": "finite_budget_and_complete_selector_source_received",
+  "budget_fix": "699fc69be57ac0e89f9bced3fd4f39139ccabf38",
+  "selector_fix": "064bf0a704939dfd97589c91fe0eb547f89d2c11",
+  "clean_qualified_source": "12a6c6fc2697e56248d8281c7e297f2e58ae437b",
+  "official_historical_run": {
+    "id": 42215709274,
+    "attempt": 1,
+    "source": "699fc69be57ac0e89f9bced3fd4f39139ccabf38",
+    "conclusion": "success",
+    "job": 127885058083,
+    "duration_seconds": 1233,
+    "native_passed": 6042,
+    "native_skipped": 23,
+    "addon_passed": 4695,
+    "addon_skipped": 4,
+    "url": "https://github.com/uibcdf/molsysmt/actions/runs/42215709274"
+  },
+  "capture_sha256": {
+    "jobs.json": "3672c48b4a33bac81b8be8b9821460b7ad3d84b18b4569acc1d63d0b4d53e5a2",
+    "config.json": "df2ae1d12fc253da5eccb6b11ff5f07b7c7fd498b32df90b62981827903c6acd",
+    "logs.zip": "085543aa121a8e87cda7dd571d66cf8e632b6ddfd1ec68931ca9679e6a24f644",
+    "run.json": "8f0ed052fd4039687896ce7c6775c051ac747443ed5e7925abbbaebfe77b7048",
+    "workflow.json": "91b2e1211dcb4389258dfe83b50a6036ac3d38f4928d0dcbe4e2f73ab953ec69",
+    "checks.json": "4a093bd4f61480ce85ce65effec38e43eb32560a37729ee0530a76130facb58e",
+    "artifacts.json": "733015529a249a421892ec83190af9d23593d1877609d3653ae94f945a220490",
+    "manifest.json": "3313f9a8c08e6c83d47757a32922b4954f2ea5a78f694998f07b378d89fa87a8"
+  },
+  "later_selector_correction": "The unchanged dynamic guard detects one further missing external-reference module. #653 adds it without a new invocation or assertion removal; the current addon selector list contains all 74 modules, while all 105 historical native selectors remain.",
+  "runs": {
+    "benchmark-567-evidence-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/benchmark-567-evidence-directed.xml",
+          "-n0",
+          "devtools/tests/test_benchmark_comparison.py",
+          "devtools/tests/test_benchmark_evidence.py",
+          "devtools/tests/test_benchmark_reference.py",
+          "devtools/tests/test_smoke_addon_test_command.py"
+        ],
+        "exit_code": 1,
+        "seconds": 59.33011439186521,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "03c59caef9823bbca186aa4213626ddc5eb890f3",
+        "starting_git_status": " M .github/workflows/benchmarks.yml\n M benchmarks/README.md\n M benchmarks/competitors/run_matrix.py\n M devguide/testing_strategy.md\n M devtools/tests/test_benchmark_reference.py\n?? devtools/tests/test_benchmark_evidence.py\n",
+        "ending_git_status": " M .github/workflows/benchmarks.yml\n M benchmarks/README.md\n M benchmarks/competitors/run_matrix.py\n M devguide/testing_strategy.md\n M devtools/tests/test_benchmark_reference.py\n?? devtools/tests/test_benchmark_evidence.py\n",
+        "changed_inputs": [],
+        "checked_inputs": 8556
+      },
+      "resources": {
+        "started_utc": "2026-11-08T09:12:43.453504+00:00",
+        "seconds": 64.06160365790129,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-tool>/molsysmt-reference-run-post-full.py",
+          "benchmark-567-evidence-directed"
+        ],
+        "process_exit_code": 1,
+        "stop_reason": null,
+        "stop_observation": null,
+        "maximum_host_full_pressure_avg10": 0.0,
+        "pressure_policy": {
+          "warning_full_avg10": 1.0,
+          "sustained_warning_stop_seconds": 30,
+          "low_available_pressure_full_avg10": 5.0,
+          "pressure_stop_requires_available_below_bytes": 4294967296,
+          "available_memory_stop_bytes": 2684354560
+        },
+        "pressure_warning_transitions": [],
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.3662109375,
+            1.4658203125,
+            2.87255859375
+          ],
+          "cpu_utilization": 0.020561685055165535,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16247181312
+        },
+        "host_available_minimum_observed_bytes": 15874514944,
+        "host_reserve_bytes": 2147483648,
+        "cgroup_memory_peak_bytes": 368607232,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 6,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 63604934\nuser_usec 62363521\nsystem_usec 1241413\nnice_usec 62390000\ncore_sched.force_idle_usec 0\nnr_periods 642\nnr_throttled 112\nthrottled_usec 689473\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "ed5f26848db5f75a2fccdac874353139dd6ff168d0e19d9c844d74e489c8605e",
+        "-bounded.json": "639a1e21a03c2bcc733a7322f14876134b2da1826555247381ce58392afca034",
+        ".log": "27baa1d643490495d2c688edce20ded6eed28a7438a6f537a9c975559724ca44",
+        ".xml": "799a65318d366c6e8876a0afc2ffbbc7264e444878b2693b3ddfc2af8d3b1b83",
+        "-inputs-before.json": "5c386a2a7c4632ffb47d0a1162ace8dfb2bdb8b86d0d3a664ff0fb20a43ca5fd",
+        "-inputs-after.json": "5c386a2a7c4632ffb47d0a1162ace8dfb2bdb8b86d0d3a664ff0fb20a43ca5fd",
+        "-reference-driver.py": "cfab35eccb6ef3db227e0d4924870e629049b574f3e046c381330dd4c43ae2e5",
+        "-resource-driver.py": "18126693a967b944d8f73e293f4a6dce201005f8b9f97aabcbd0c44fdcf3b32a"
+      },
+      "junit": {
+        "cases": 60,
+        "failure": 1,
+        "error": 0,
+        "skipped": 0
+      }
+    },
+    "smoke-653-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/smoke-653-directed.xml",
+          "-n0",
+          "devtools/tests/test_smoke_addon_test_command.py",
+          "tests/molsysviewer_molsysmt/test_external_reference_panel.py"
+        ],
+        "exit_code": 0,
+        "seconds": 21.578286631964147,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "03c59caef9823bbca186aa4213626ddc5eb890f3",
+        "starting_git_status": " M .github/workflows/benchmarks.yml\n M .github/workflows/ci-smoke.yaml\n M benchmarks/README.md\n M benchmarks/competitors/run_matrix.py\n M devguide/pending_bugs/README.md\n M devguide/testing_strategy.md\n M devtools/tests/test_benchmark_reference.py\n?? devguide/pending_bugs/bound_addon_smoke_omits_the_external_reference_panel_regression_module.md\n?? devtools/tests/test_benchmark_evidence.py\n",
+        "ending_git_status": " M .github/workflows/benchmarks.yml\n M .github/workflows/ci-smoke.yaml\n M benchmarks/README.md\n M benchmarks/competitors/run_matrix.py\n M devguide/pending_bugs/README.md\n M devguide/testing_strategy.md\n M devtools/tests/test_benchmark_reference.py\n?? devguide/pending_bugs/bound_addon_smoke_omits_the_external_reference_panel_regression_module.md\n?? devtools/tests/test_benchmark_evidence.py\n",
+        "changed_inputs": [],
+        "checked_inputs": 8557
+      },
+      "resources": {
+        "started_utc": "2026-11-08T09:18:29.292248+00:00",
+        "seconds": 26.0255746380426,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-tool>/molsysmt-reference-run-post-full.py",
+          "smoke-653-directed"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "stop_observation": null,
+        "maximum_host_full_pressure_avg10": 0.0,
+        "pressure_policy": {
+          "warning_full_avg10": 1.0,
+          "sustained_warning_stop_seconds": 30,
+          "low_available_pressure_full_avg10": 5.0,
+          "pressure_stop_requires_available_below_bytes": 4294967296,
+          "available_memory_stop_bytes": 2684354560
+        },
+        "pressure_warning_transitions": [],
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.501953125,
+            0.93798828125,
+            2.212890625
+          ],
+          "cpu_utilization": 0.01857429718875503,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16163053568
+        },
+        "host_available_minimum_observed_bytes": 15609331712,
+        "host_reserve_bytes": 2147483648,
+        "cgroup_memory_peak_bytes": 596873216,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 5,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 25972461\nuser_usec 24689722\nsystem_usec 1282738\nnice_usec 24713000\ncore_sched.force_idle_usec 0\nnr_periods 263\nnr_throttled 38\nthrottled_usec 172007\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "2101b9531df020b313be5435c5da708aaf6026af338b8ae0823038851226b982",
+        "-bounded.json": "ac36c75d832936828703c91de2c185c57f9aa8b36bd6fbd01e0ad6a7efe41b5c",
+        ".log": "e96a5b08b3e736ac9c6a5f383a043bbdb42cb5707241257dd452feb31be5bd39",
+        ".xml": "65b679dabd06eec72c449731aa46ad7351904abadd6a98f0981a603672cde058",
+        "-inputs-before.json": "14ecafcdd4a89c6c75faf97bba11e37803702b53803fb03c52f59f72f3f784a9",
+        "-inputs-after.json": "14ecafcdd4a89c6c75faf97bba11e37803702b53803fb03c52f59f72f3f784a9",
+        "-reference-driver.py": "429742975e1d7eb536417b5ec41ea1f6dccd00ecb3334f78b2ca1bd2b4dcdd8f",
+        "-resource-driver.py": "057adfd6942be8584372270e5e8edef88be5d9b98b348dce5478e3da5cf30c8d"
+      },
+      "junit": {
+        "cases": 45,
+        "failure": 0,
+        "error": 0,
+        "skipped": 0
+      }
+    },
+    "benchmark-567-evidence-received": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/benchmark-567-evidence-received.xml",
+          "-n0",
+          "devtools/tests/test_benchmark_comparison.py",
+          "devtools/tests/test_benchmark_evidence.py",
+          "devtools/tests/test_benchmark_reference.py",
+          "devtools/tests/test_smoke_addon_test_command.py",
+          "tests/molsysviewer_molsysmt/test_external_reference_panel.py"
+        ],
+        "exit_code": 0,
+        "seconds": 78.0950987059623,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "12a6c6fc2697e56248d8281c7e297f2e58ae437b",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 8557
+      },
+      "resources": {
+        "started_utc": "2026-11-08T09:20:51.271532+00:00",
+        "seconds": 84.07214204897173,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-tool>/molsysmt-reference-run-post-full.py",
+          "benchmark-567-evidence-received"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "stop_observation": null,
+        "maximum_host_full_pressure_avg10": 0.0,
+        "pressure_policy": {
+          "warning_full_avg10": 1.0,
+          "sustained_warning_stop_seconds": 30,
+          "low_available_pressure_full_avg10": 5.0,
+          "pressure_stop_requires_available_below_bytes": 4294967296,
+          "available_memory_stop_bytes": 2684354560
+        },
+        "pressure_warning_transitions": [],
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.53759765625,
+            0.794921875,
+            1.97119140625
+          ],
+          "cpu_utilization": 0.026156941649899346,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16633200640
+        },
+        "host_available_minimum_observed_bytes": 16106274816,
+        "host_reserve_bytes": 2147483648,
+        "cgroup_memory_peak_bytes": 611586048,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 6,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 83294013\nuser_usec 81596683\nsystem_usec 1697329\nnice_usec 81674000\ncore_sched.force_idle_usec 0\nnr_periods 837\nnr_throttled 62\nthrottled_usec 505040\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "c59c858881f10a23a26ef28861e34a30b5216dd27c532a2c20b880ecde5b9ecd",
+        "-bounded.json": "1f30483f36ee996d8317cf26723cb951de6a950fed82d7d6db7007092860482a",
+        ".log": "ff5a941c464a686d12f5d87158c98bfa52760a876d7340dff0df40b66dafd46d",
+        ".xml": "b4dc06b0729cf237333602321b2924f2c66b16093323f18d50dbde59543de7ed",
+        "-inputs-before.json": "3d55e7ddd9d3e8e74b3d792b0760a51cf16707d12623389efd3ee786eceb792c",
+        "-inputs-after.json": "3d55e7ddd9d3e8e74b3d792b0760a51cf16707d12623389efd3ee786eceb792c",
+        "-runtime.json": "454e8e8c6fcb286b105ca817ef7a79e5e10b52a72f7a99d6babd6ec798362673",
+        "-reference-driver.py": "96ed0dc3256a1538a6aa9ddb99a5698bb1b6211c0fa5960300ba66e2746f2573",
+        "-resource-driver.py": "057adfd6942be8584372270e5e8edef88be5d9b98b348dce5478e3da5cf30c8d"
+      },
+      "junit": {
+        "cases": 104,
+        "failure": 0,
+        "error": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "acceptance": "The 45-minute maximum is a finite operational ceiling supported by the original completed hosted campaign. PR #543 is integrated and source owner review is complete. The corrected command and 44 external-reference cases pass in directed receiving and in the clean 104-case joint scope.",
+  "scope": "The historical hosted success is not re-labelled as exact-current CI. No new workflow is launched. Exact candidate hosted/installed gates remain mandatory; no scientific-performance or publication certificate is claimed.",
+  "pre_correction_workflow_review": {
+    "historical_source": "699fc69be57ac0e89f9bced3fd4f39139ccabf38",
+    "current_source": "03c59caef9823bbca186aa4213626ddc5eb890f3",
+    "historical_timeout_minutes": 45,
+    "current_timeout_minutes": 45,
+    "historical_workflow_sha256": "fb6c1de6fdfd770dba41f6e6a8a0bacec5c769ac0f00c59986e3d63aa4b64ae0",
+    "current_workflow_sha256": "8596bf19b8583232dc8a679ce29e44ea97034d46222236239494bc95f658e1b2",
+    "tiers": {
+      "Validate bound addon test command": {
+        "historical_selectors": 3,
+        "current_selectors": 3,
+        "removed": [],
+        "added": []
+      },
+      "Run test suite": {
+        "historical_selectors": 105,
+        "current_selectors": 105,
+        "removed": [],
+        "added": []
+      },
+      "Receive the bound MolSysViewer tools": {
+        "historical_selectors": 68,
+        "current_selectors": 73,
+        "removed": [],
+        "added": [
+          "tests/molsysviewer_molsysmt/test_analysis_panel.py",
+          "tests/molsysviewer_molsysmt/test_axis_angle_rotation_tools.py",
+          "tests/molsysviewer_molsysmt/test_chemistry_preparation_panel.py",
+          "tests/molsysviewer_molsysmt/test_native_receiving_583_584.py",
+          "tests/molsysviewer_molsysmt/test_scientific_session.py"
+        ]
+      }
+    }
+  }
+}

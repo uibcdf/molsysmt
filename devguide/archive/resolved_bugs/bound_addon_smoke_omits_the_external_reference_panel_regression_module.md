@@ -1,9 +1,9 @@
 ---
 summary: Bound addon smoke omits the external-reference panel regression module
 issue: uibcdf/molsysmt#653
-status: active
+status: resolved
 opened: 2026-11-08
-closed:
+closed: 2026-11-08
 severity: medium
 verification: reproduced
 area: [ci, tests]
@@ -64,3 +64,14 @@ the one-CPU/two-GiB cap, with no memory or task-limit events. This working-tree
 receiving preserves the original one-failure/59-pass report and changes no
 molecular code or assertion. Publication/board closure follows the clean-source
 checkpoint; final candidate hosted gates remain separate.
+
+## Resolution — 2026-11-08
+
+Fix `064bf0a70` adds the missing regression module to the same pytest command.
+The existing guard is unchanged and checks every current addon module against
+actual command arguments. Directed receiving passes 45 cases; clean joint
+source `12a6c6fc2` passes 104, zero skips/failures/errors, with no input changes.
+The [receipt](../../../devtools/data/smoke_budget_and_selection_receiving_611_653_20261108.json)
+preserves the original one-failure/59-pass result and the 44 retained legacy
+warnings. This repairs CI selection, not molecular geometry or the benchmark
+comparison policy. Final-candidate hosted execution remains due.
