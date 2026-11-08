@@ -3,7 +3,7 @@
   "date": "2026-11-07",
   "issue": "uibcdf/molsysmt#646",
   "source_base": "026437d16",
-  "state": "Prepared-source receiving passed; clean committed acceptance pending.",
+  "state": "Clean final source receiving passed; public owner closeout prepared.",
   "correction": "Accept Python Boolean flags for the exact basic.compare caller in the named component-type digester; setter validation and all comparison algorithms are unchanged.",
   "support_libraries": "Existing ArgDigest validation and SMonitor ArgumentError remain in use. No new optional engine, dependency, unit operation or scientific method is introduced.",
   "new_cases": 54,
@@ -224,6 +224,127 @@
         "total": 220,
         "passed": 220
       }
+    },
+    "compare-646-final": {
+      "execution": {
+        "command": [
+          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/compare-646-final.xml",
+          "-n0",
+          "tests/basic/compare",
+          "tests/native/test_chemical_component_assignments.py",
+          "tests/native/test_component_metadata_rebuild.py",
+          "tests/native/test_recovered_inventory_append.py",
+          "molsysmt/basic/compare.py"
+        ],
+        "exit_code": 0,
+        "seconds": 33.911409694934264,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "ad67e0e915ba23d90cb9d6331c063c342852d67a",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5203
+      },
+      "resources": {
+        "started_utc": "2026-11-08T04:43:43.256607+00:00",
+        "seconds": 36.020698733162135,
+        "command": [
+          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<private-evidence>/reference-run.py",
+          "compare-646-final"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.68701171875,
+            2.56884765625,
+            4.0458984375
+          ],
+          "cpu_utilization": 0.024108488196885935,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 17042919424
+        },
+        "host_available_minimum_observed_bytes": 16258637824,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 314970112,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 35492207\nuser_usec 34844714\nsystem_usec 647492\nnice_usec 34868000\ncore_sched.force_idle_usec 0\nnr_periods 359\nnr_throttled 34\nthrottled_usec 274866\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      }
+    },
+    "compare-646-fast": {
+      "execution": {
+        "command": [
+          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 20.864202630938962,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "ad67e0e915ba23d90cb9d6331c063c342852d67a",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5203
+      },
+      "resources": {
+        "started_utc": "2026-11-08T04:44:20.448510+00:00",
+        "seconds": 23.01231263903901,
+        "command": [
+          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<private-evidence>/reference-run.py",
+          "compare-646-fast"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.671875,
+            2.60107421875,
+            4.00048828125
+          ],
+          "cpu_utilization": 0.014558232931726867,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16876724224
+        },
+        "host_available_minimum_observed_bytes": 16579870720,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 400158720,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 22420685\nuser_usec 20840342\nsystem_usec 1580343\nnice_usec 20847000\ncore_sched.force_idle_usec 0\nnr_periods 229\nnr_throttled 83\nthrottled_usec 109883\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      }
     }
   },
   "guard": "tests/basic/compare/test_compare_component_metadata.py::test_component_type_flags_preserve_equality_and_negation",
@@ -247,5 +368,34 @@
       "unchanged_code_cells": 8,
       "outputs_ids_metadata_preserved": true
     }
+  },
+  "qualified_source": "ad67e0e915ba23d90cb9d6331c063c342852d67a",
+  "clean_final": {
+    "passed": 220,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "changed_public_doctest": [
+      {
+        "classname": "molsysmt.basic.compare",
+        "name": "molsysmt.basic.compare.compare",
+        "time": "0.322"
+      }
+    ],
+    "fast_gates": {
+      "passed": 14,
+      "total": 14
+    },
+    "expected_legacy_h5msm_warnings": 13,
+    "compiled_backend_or_dependency_changes": false
+  },
+  "ruff": {
+    "scope": [
+      "molsysmt",
+      "molsysviewer_molsysmt",
+      "tests/basic/compare/test_compare_component_metadata.py"
+    ],
+    "parallelism": "RAYON_NUM_THREADS=1",
+    "exit_code": 0
   }
 }

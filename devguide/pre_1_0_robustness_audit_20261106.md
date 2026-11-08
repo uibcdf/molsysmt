@@ -21,7 +21,7 @@ and zero swap. No native backend, dependency or scientific method is changed.
 
 The complete refreshed board contains **578 issues, 96 open and no open PR**.
 New #646 reports rejection of a supported `component_type` Boolean comparison
-flag. Its [owner record](pending_bugs/compare_component_type_boolean_flag.md)
+flag. Its [owner record](archive/resolved_bugs/compare_component_type_boolean_flag.md)
 starts with source inspection; bounded reproduction and repair take priority
 before the separate #645 [stored-H policy study](pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md).
 Strict chemical matching remains unchanged.

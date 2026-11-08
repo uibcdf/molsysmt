@@ -824,7 +824,7 @@
       "uibcdf/molsysmt#549",
       "uibcdf/molsysmt#644"
     ],
-    "record": "devguide/pending_bugs/compare_component_type_boolean_flag.md",
+    "record": "devguide/archive/resolved_bugs/compare_component_type_boolean_flag.md",
     "owner_verification": "#644 is independently verified closed after 474 focused cases and fourteen fast gates. #646 reports another component-owned argument-boundary defect and is next. #612 retains its separate complete-suite requirement through a safe serial bounded route; the small pilot does not clear it.",
     "independent_lightweight_review": "Assess #645 public stored-H policy composition, then #610/#378; do not weaken strict correspondence or infer new release gates.",
     "scope": "Continue complete source acceptance only through an inspected serial plan and resource-bounded execution; retain every remaining graphical, scientific-contract, installed and candidate requirement.",
