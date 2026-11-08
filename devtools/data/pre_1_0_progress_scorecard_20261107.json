@@ -867,19 +867,22 @@
       "uibcdf/molsysmt#591",
       "uibcdf/molsysmt#609",
       "uibcdf/molsysmt#614",
-      "uibcdf/molsysmt#655"
+      "uibcdf/molsysmt#655",
+      "uibcdf/molsysmt#604"
     ],
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
-    "owner_verification": "Public a28cb04fa independently matches all 28 changed paths and preserves the four human files. Sequence-fit receiving passes 113 final affected cases, two actual-Jupyter guards / sixteen checks, fourteen fast gates and inspected HTML, retaining the original broad failure and exact unchanged-runtime reuse.",
+    "owner_verification": "Public 261967eaf independently matches 41 changed paths and preserves four human files. #604 is closed with 200 clean affected checks, the earlier 2,599-case dirty integrated run, fourteen corrected fast gates and ten inspected HTML pages. DockingMT #79 receives the supported composition; its independent E3 and #256 persistence hold remain.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "The existing sequence-fit graphical intent is source-delivered. Proceed to queued #604 positional pairwise/clustering work, then the remaining agreed graphical families. Preserve #615 causal uncertainty, #567 policy, #582 requested/effective mechanics, #656 copy-policy intake and every installed/platform/exact-candidate gate.",
+    "scope": "Continue #656 native composition copy policy, then #657 source-overlay version identity. Audit only existing supported public lossless routes for the new #256 consumer question while preserving the post-1.0 H5MSM 0.6 decision. Remaining agreed graphical families, #615 causal uncertainty, #567 policy, #582 mechanics and every installed/platform/exact-candidate gate remain.",
     "active_related": [
       "uibcdf/molsysmt#615",
-      "uibcdf/molsysmt#656"
+      "uibcdf/molsysmt#656",
+      "uibcdf/molsysmt#657"
     ],
-    "last_source_closeout_record": "devguide/pending_proposals/molsysviewer_tools_addon.md",
+    "last_source_closeout_record": "devguide/archive/resolved_proposals/bounded_pairwise_pose_rmsd_and_distance_clustering.md",
     "after_active_block": [
-      "uibcdf/molsysmt#604"
+      "uibcdf/molsysmt#657",
+      "uibcdf/molsysmt#256"
     ],
     "planned_comparative_study": {
       "sources": [
@@ -893,18 +896,18 @@
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
     "issues": [
-      "uibcdf/molsysmt#655"
+      "uibcdf/molsysmt#604"
     ],
-    "source": "10d43b2a92a45b85b4a742a06b2548fce165dd6c",
-    "public_checkpoint": "ca96894ea5be1ad309a112b0fd140168b98dbdc7",
+    "source": "b649d10528b7214d95f752cdb43166d5cd27e579",
+    "public_checkpoint": "261967eafbf5d9d73ebed93e6d1e7b302226020d",
     "state": "public_source_closed",
-    "record": "devguide/archive/resolved_proposals/h5msm_static_topology_conversion_reads_coordinate_payload.md",
+    "record": "devguide/archive/resolved_proposals/bounded_pairwise_pose_rmsd_and_distance_clustering.md",
     "evidence": [
-      "devtools/data/h5msm_static_topology_receiving_655_20261108.json",
-      "devtools/data/h5msm_static_topology_delivery_655_20261108.json"
+      "devtools/data/bounded_pairwise_geometry_receiving_604_20261108.json",
+      "devtools/data/bounded_pairwise_geometry_delivery_604_20261108.json"
     ],
     "weighted_milestone_change": 0,
-    "audit_related_source_closures": 52
+    "audit_related_source_closures": 53
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
@@ -949,9 +952,10 @@
   "incoming_intake": {
     "issues": [
       "uibcdf/molsysmt#654",
-      "uibcdf/molsysmt#656"
+      "uibcdf/molsysmt#656",
+      "uibcdf/molsysmt#657"
     ],
-    "complete_board_issues": 588,
+    "complete_board_issues": 589,
     "open_issues": 90,
     "open_prs": 0,
     "weighted_milestone_change": 0
@@ -968,7 +972,7 @@
     "weighted_milestone_change": 1.4285714285714306,
     "issues_closed": false
   },
-  "qualification_scope": "Full product source/Amber on 03c59caef9, developer/CI repairs on 12a6c6fc2, fourteen Jupyter guards on 68323539e, general-periodic receiving on 2f0eeb1c1, cell assignment on 7ba4f2ed5 and small-origin scopes on db16eec9b/25d9b8105/d2918aa6c remain separate. Fast gates/HTML on d2918aa6c are not a new full-suite, installed or final-candidate qualification. The bounded H5MSM Topology projection is received on 10d43b2a9 and publicly verified at ca96894ea without changing the earlier full-suite or GUI receiving scopes. Sequence-fit source receiving on 63fc27883 and public a28cb04fa accepts one existing graphical intent only; exact unchanged runtime reuse from 7bf2949b1 is recorded separately from the repaired 113-case and two-guard profiles.",
+  "qualification_scope": "Full product source/Amber on 03c59caef9, developer/CI repairs on 12a6c6fc2, fourteen Jupyter guards on 68323539e, general-periodic receiving on 2f0eeb1c1, cell assignment on 7ba4f2ed5 and small-origin scopes on db16eec9b/25d9b8105/d2918aa6c remain separate. Fast gates/HTML on d2918aa6c are not a new full-suite, installed or final-candidate qualification. The bounded H5MSM Topology projection is received on 10d43b2a9 and publicly verified at ca96894ea without changing the earlier full-suite or GUI receiving scopes. Sequence-fit source receiving on 63fc27883 and public a28cb04fa accepts one existing graphical intent only; exact unchanged runtime reuse from 7bf2949b1 is recorded separately from the repaired 113-case and two-guard profiles. #604 provider source is received on b649d1052 with 200 affected checks and on adff859c4 with fourteen fast gates after a generated-view-only correction, publicly verified at 261967eaf. Earlier 2,599-case integrated receiving and the 32/128/256 synthetic pilot remain separate bounded evidence. No weight, graphical intent, frozen release gate or client E3 acceptance is added.",
   "last_periodic_receiving": {
     "source": "d2918aa6c2f9605383055d73e1e3d4164f810697",
     "public_checkpoint": "be11ef8f5c32008e4299e3b406062f8d587f323c",

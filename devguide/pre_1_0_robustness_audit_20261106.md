@@ -7,13 +7,23 @@
 
 ## Maintainer follow-up queue — 2026-11-08
 
-Sequence-fit is independently public at `a28cb04fa` (28 changed paths). Accept
-one existing graphical intent: 26/50, all four fitting intents received, and
-72.35035797535798% (approximately 72.4%) with the same six weights. Separate
-source issue closures stay 52. #421 remains partial; #604 is now the next finite
-block. #656 and #654 retain their owning intake, and the OpenMM/openmmtools
-comparison remains planned. The complete board has 588 issues, 90 open and no
-open PR. Installed/platform/human/exact-candidate requirements are unchanged.
+Provider **#604 is publicly delivered and closed** at `261967eaf` (41 verified
+paths). [Receiving](../devtools/data/bounded_pairwise_geometry_receiving_604_20261108.json)
+retains 2,599 dirty integrated / 200 clean affected passes, fourteen fast gates
+following a generated-document repair, ten inspected HTML pages, all negative
+attempts, explicit numeric resource limits and the synthetic pilot. The
+[delivery](../devtools/data/bounded_pairwise_geometry_delivery_604_20261108.json)
+preserves four human files and the DockingMT #79 notice. Client E3 receiving is
+independent; today's #256 comment adds a separate lossless mechanics-persistence
+question without changing post-1.0 H5MSM 0.6 policy.
+
+Accept no new graphical intent or weight: **26/50**, all four fitting intents,
+**72.35035797535798% (approximately 72.4%)**. Separate source closures are now
+**53**. #421 remains partial. **#656 is the next finite correctness block**;
+#657 records reproduced source-overlay producer-version ambiguity. Keep #654's
+unreproduced GHECOM intake and the planned OpenMM/openmmtools comparison. The
+complete board has **589 issues / 90 open / no open PR**. Installed/platform/
+human/exact-candidate requirements and all frozen scientific gates are unchanged.
 
 Before publication, sequence-fit completed clean local receiving on `63fc27883`: 113 affected source
 passes, two real Jupyter guards / sixteen checks, fourteen fast gates and HTML.
@@ -21,7 +31,8 @@ The [receipt](../devtools/data/molsysviewer_tools_sequence_alignment_receiving_4
 retains the broad partial failure, test-only repairs, unchanged runtime reuse and
 reference memory boundary. That local checkpoint carried no public-source
 acceptance, new score weight or closure count. #656 is a separately reported copy-policy bug;
-#604 and the planned OpenMM/openmmtools comparison remain queued.
+#604 was queued at that preceding checkpoint and is now delivered above; the
+OpenMM/openmmtools comparison remains planned.
 
 The #655 prerequisite is source-qualified in `10d43b2a9`: 1,181 passing tests,
 including conversion doctests, fourteen fast gates and inspected HTML. Its
@@ -31,8 +42,8 @@ and #655 is closed. No weighted leaf is added; progress stays 72.3%, with
 52 separate source closures and 25/50 accepted graphical intents.
 
 The completed sequence-fit intent uses the received #655 static-topology
-conversion prerequisite; #604's positional pairwise/clustering work follows
-that finite block. Record new incoming #654's GHECOM nonnumeric-REMARK
+conversion prerequisite. #604 then supplies the bounded provider operations
+recorded above. Record new incoming #654's GHECOM nonnumeric-REMARK
 compatibility question without claiming reproduction or a policy decision.
 At a forthcoming deliberate pause, audit available OpenMM/openmmtools analysis
 and system-manipulation tools against existing MolSysMT capabilities. Preserve
@@ -1697,4 +1708,5 @@ or analytical controls before proposing a scientific-equivalence claim.
 The deliverable is a dated comparative report and prioritized proposals, with
 owning issues where needed. This records the user's requested study without
 changing frozen 1.0 gates, adding a scorecard weight or promising unreviewed
-scientific functionality. #604 is now the next finite block after sequence-fit.
+scientific functionality. #604 was the next finite block after sequence-fit and is now delivered above;
+continue with #656 and the separate #657 source-identity question.

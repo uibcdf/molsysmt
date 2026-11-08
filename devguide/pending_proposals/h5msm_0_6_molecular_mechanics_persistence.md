@@ -87,3 +87,22 @@ native mechanics model before MolSysMT 1.0.
 The design follows MolSysMT 1.0 and a reviewed native mechanics parameter
 model. A premature codec would lock ambiguous units or particle mappings into
 the file format.
+
+
+## Additional consumer receiving — 2026-11-08
+
+[DockingMT's new owner question](https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6727270669)
+retains a complete failed reference selection on its declared editable source/
+native identities. Strict maps and same-current-producer preparation controls
+pass before the third H5MSM write rejects a prepared native ligand with nonempty
+mechanics. Reads/final checks and the second unit policy remain unreached.
+This is not a newly demonstrated writer defect: rejection preserves the 0.5
+contract and no file is created. Client #79/#88 must not discard mechanics or
+substitute private codecs to make the workflow pass.
+
+The requested next owner step is a bounded audit of **existing supported public
+lossless compositions** for mechanics, units, associations and history. No such
+route is verified by this note. Keep the consumer hold unless one is qualified;
+new 0.6 storage/model design stays post-1.0. #604's separately completed pairwise/
+clustering tools and provider notice do not resolve this persistence question or
+accept complete client E3.

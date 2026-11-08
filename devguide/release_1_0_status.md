@@ -20,7 +20,39 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Current source checkpoint — 2026-11-08
+## Current bounded pose-geometry checkpoint — 2026-11-08
+
+**#604 is closed** and public source `261967eaf` independently matches all
+**41 changed paths**, preserving the four human root files. Two experimental
+provider tools supply pairwise original-axis RMSD and explicit complete/single
+linkage with physical cutoffs, original member keys and geometric representatives.
+[Receiving](../devtools/data/bounded_pairwise_geometry_receiving_604_20261108.json)
+retains 2,599 dirty integrated passes, **200 clean affected passes on `b649d1052`**,
+the initial generated-view failure and **14/14 fast gates on `adff859c4`**.
+Only two generated documentation lines differ between those clean checkpoints;
+scientific/test bytes are identical. Ten rendered pages, all failed attempts,
+unit/map/analytic controls and resource limits remain inspectable. The
+[delivery](../devtools/data/bounded_pairwise_geometry_delivery_604_20261108.json)
+and [resolution](archive/resolved_proposals/bounded_pairwise_pose_rmsd_and_distance_clustering.md)
+retain scope and provenance, including the existing source-overlay version
+ambiguity now reported in **#657**. No new native binary or package was produced.
+
+[DockingMT #79 was notified](https://github.com/uibcdf/dockingmt/issues/79#issuecomment-6727310646).
+Its saved-pose/runtime/installed E3 receiving is independent and still has the
+separate **#256** lossless mechanics-persistence question. H5MSM 0.5 still rejects
+nonempty mechanics; H5MSM 0.6 remains post-1.0. Audit existing supported public
+compositions before proposing any new storage contract or changing that scope.
+
+This is an extra provider closure: **53 audit-related source closures**,
+**26/50 graphical intents** and **72.35035797535798% (approximately 72.4%)** with
+unchanged weights. It adds no graphical intent or frozen initial 1.0 gate.
+The complete board has **589 issues / 90 open / no open PR**. **Next finite
+correctness block: #656**, followed by #657's source identity contract; #654
+remains unreproduced intake. Remaining graphical, #615/#567/#582, planned
+OpenMM/openmmtools, installed/platform/human/exact-candidate gates stay separate.
+No tag, package, Release, promotion or hosted CI was launched.
+
+## Sequence-fit source checkpoint — 2026-11-08
 
 Public source `a28cb04fa7dafdc8853d3ccfe16f47077c0ecd98` independently matches
 all **28 changed paths** of sequence-derived Geometry alignment and its receiving.
@@ -48,7 +80,8 @@ The complete board has **588 issues / 90 open / no open PR**. #656 records an
 explicit copy-policy failure in two-domain native composition; the consumer uses
 its admitted default. #654 remains unreproduced GHECOM compatibility intake.
 
-**Next finite block: #604** positional pairwise/clustering. Remaining graphical
+At that preceding checkpoint, #604 positional pairwise/clustering was next;
+its completed provider delivery is recorded above. Remaining graphical
 families, #615 uncertainty, #567 policy, #582 effective mechanics and all
 installed/platform/human/exact-candidate/full-suite recovery requirements remain.
 The planned OpenMM/openmmtools study is preserved in the audit. No tag, package,
