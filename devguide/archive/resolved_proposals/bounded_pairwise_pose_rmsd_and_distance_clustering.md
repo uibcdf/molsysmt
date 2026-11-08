@@ -1,13 +1,13 @@
 ---
 summary: Provide supported bounded pairwise pose RMSD and geometric clustering.
 issue: uibcdf/molsysmt#604
-status: active
+status: resolved
 opened: 2026-11-08
-closed:
+closed: 2026-11-08
 verification: measured
 area: [structure, units, performance, tests]
-guard:
-normative:
+guard: tests/structure/test_pairwise_geometry.py
+normative: devguide/SCALABILITY.md
 blocked_by: []
 supersedes: []
 ---
@@ -139,3 +139,42 @@ The pilot also observed that source-overlay calculations inherit another install
 distribution's version string. This pre-existing root bootstrap ambiguity is
 tracked separately in #657; exact source manifests/import origins remain the
 receiving authority. No installed-package provenance qualification is claimed.
+
+
+## Resolution — 2026-11-08
+
+**Implemented, Contract-tested and bounded Parity-tested.** The analytical
+translations, chemical permutation and independent set-based linkage oracle
+scientifically validate the stated bounded examples. Broader chemical/production
+claims and independent client receiving remain excluded.
+
+Clean implementation `b649d10528b7214d95f752cdb43166d5cd27e579` passes
+**200 affected cases** after the attribution/helper/import cleanup. It also
+compiles the documentation; ten rendered pages, API targets, the new examples and
+four course cross-links are inspected, with the same six pre-existing title
+warnings. Existing code/outputs in all five affected course modules are preserved.
+The first fast gate run retained **13/14**: a generated scientific-evidence view
+needed two Experimental inventory lines. Documentation-only
+`adff859c4297a8b1e7b853564ae0582941d4f0ff` corrects those lines and passes
+**14/14 fast gates**. All scientific implementation/test bytes are unchanged
+between those two clean checkpoints; a new full 2,599-case run is not claimed.
+The generated view keeps both APIs Experimental and outside additional registered
+scientific release claims.
+
+The [portable receipt](../../../devtools/data/bounded_pairwise_geometry_receiving_604_20261108.json)
+retains every failed/directed/integrated attempt, exact-source manifests and import
+origins, the executed notebook resources, the serial pilot and the source-version
+limitation (#657). Source/Viewer-export before/after manifests match on receiving.
+The largest final charged peak is the HTML build's 1,340,657,664 bytes; all
+operations preserve the declared host reserve without OOM/cap/pressure stops.
+No Rust binary, format version, dependency, candidate or release is changed.
+
+The guard exercises public values, strict physical cutoffs, graph/map admission,
+original axes, nonmutation, typed empties, bounded work/memory failure before
+coordinate reads, projected H5MSM delivery and actual attribution ownership.
+It cannot pass merely by returning plausible shapes.
+
+The provider request is complete. DockingMT owns independent saved-population
+and installed receiving under uibcdf/dockingmt#79; this closure does not assert
+E3 acceptance. Viewer exposure is explicitly unreceived under #421. This extra
+provider capability adds no graphical intent, score weight or frozen 1.0 gate.
