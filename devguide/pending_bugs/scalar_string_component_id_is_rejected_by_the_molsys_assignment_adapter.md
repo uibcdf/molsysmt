@@ -57,3 +57,19 @@ Boolean IDs and test supported scalar/vector inputs through native chemical
 owner forms under normal/nondefault unit policies. Comparison flags and strict
 chemical matching remain separate. Do not skip digestion or change tables in a
 consumer. No repair is implemented by this report.
+
+## Independent baseline and repair
+
+The dedicated 138-case public setter battery fails twenty cases and passes
+118 controls on `ff03bf6bb`: scalar lexical/unit-like labels, None clearing
+and empty-selection requests fail only through MolSys, for both atom and
+component destinations and both unit policies. Standalone ChemicalStates and
+ChemicalStatesDict controls already pass. All failures originate in the same
+value-digestion caller omission; no test authoring error is included.
+
+The local correction recognizes only the exact MolSys atom/component ID setter
+callers in the existing assignment branch. Both reuse the canonical chemical
+normalizer before trusted delegation; no second normalization algorithm, broad
+caller bypass or selector/compare change is added. Existing ArgDigest/SMonitor
+provide validation and structured errors. No new optional-engine, scientific
+attribution, dependency or physical-unit operation is introduced. Prepared-source receiving passes 279 cases, including the 138 new setter controls, all 54 comparison controls, existing chemical-component/append tests and the updated MolSys component-setter doctest. The measured test peak is 248,209,408 bytes. Clean committed-source and fast-gate acceptance remain pending.

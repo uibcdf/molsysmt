@@ -227,6 +227,11 @@ labels also become unknown after a changed declaration. Stored row count remains
 unchanged, including rows with no assigned atoms; an explicit atom selection can
 still count distinct known memberships separately from the inventory size.
 
+The component-ID assignment contract also applies through an owning MolSys and
+ChemicalStatesDict. Scalar lexical IDs retain their spelling, numeric IDs become
+strings, and None clears selected labels; Boolean labels reject. Text such as
+`"1 nm"` is an opaque ID rather than a physical quantity. Indices remain positions.
+
 Use `component_id`, `component_name` or `component_type` to assign labels on
 `element='component'` (also the inferred destination). None clears a label;
 scalars and one-item vectors broadcast. IDs normalize integer labels to strings

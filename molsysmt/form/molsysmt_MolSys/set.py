@@ -1177,20 +1177,45 @@ def set_component_name_to_atom(item, indices="all", value=None, skip_digestion=F
 
 @arg_digest(form=form)
 def set_component_id_to_atom(item, indices="all", value=None, skip_digestion=False):
-    """
-    Setting component id to atom on form molsysmt.MolSys.
-
+    """Assigning component IDs through selected atoms of a native system.
 
     Parameters
     ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
+    item : molsysmt.MolSys
+        System with an unambiguous selected/reference chemical state.
+    indices : 'all', int or array-like of int, default='all'
+        Unique atom positions whose known components receive the labels.
+    value : scalar or array-like, default=None
+        String/integer labels or None. Scalars and one-item vectors broadcast;
+        other vectors follow selected atoms. Atoms sharing a component must
+        receive the same label. Numeric IDs are stored as strings; lexical
+        spelling is retained. Boolean and physical-quantity labels reject.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Skip digestion only for already validated arguments.
+
+    Returns
+    -------
+    None
+        Component IDs are assigned in the system's ChemicalStates owner.
+
+    Raises
+    ------
+    ArgumentError
+        If labels or atom positions are invalid.
+    StructuralInconsistencyError
+        If chemistry or component membership is unavailable or labels conflict.
+
+    Notes
+    -----
+    Unknown membership or conflicting labels reject before publication. Empty
+    selections are validated no-ops. Labels do not change bonds, membership,
+    coordinates, other chemical states or attached interaction observations.
+    Each attribute in a basic.set call is a separate staged edit.
+
+    See Also
+    --------
+    molsysmt.form.molsysmt_ChemicalStates.set.set_component_id_to_atom
+        Canonical chemical-owner assignment and projection contract.
 
     .. versionadded:: 1.0.0
     """
@@ -2293,20 +2318,56 @@ def set_component_name_to_component(
 def set_component_id_to_component(
     item, indices="all", value=None, skip_digestion=False
 ):
-    """
-    Setting component id to component on form molsysmt.MolSys.
-
+    """Assigning string component IDs in a native system's chemical owner.
 
     Parameters
     ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
+    item : molsysmt.MolSys
+        System with an unambiguous selected/reference chemical state and stored
+        component inventory.
+    indices : 'all', int or array-like of int, default='all'
+        Unique component positions in the selected state.
+    value : scalar or array-like, default=None
+        String/integer labels or None. Scalars and one-item vectors broadcast;
+        other vectors follow selected positions. Numeric IDs are stored as
+        strings; lexical spelling is retained. Boolean and physical-quantity
+        labels reject. None clears the selected labels.
     skip_digestion : bool, default=False
-        Whether to skip MolSysMT's internal argument digestion mechanism.
+        Skip digestion only for already validated arguments.
+
+    Returns
+    -------
+    None
+        Component IDs are assigned in the system's ChemicalStates owner.
+
+    Raises
+    ------
+    ArgumentError
+        If labels or component positions are invalid.
+    StructuralInconsistencyError
+        If the selected chemical state or component inventory is unavailable.
+
+    Notes
+    -----
+    Assignment is staged before publication; failure leaves the source unchanged.
+    Empty selections are validated no-ops. Label changes preserve bonds,
+    membership, coordinates, other states and attached interaction observations.
+    Each attribute in a basic.set call is a separate edit.
+
+    See Also
+    --------
+    molsysmt.form.molsysmt_ChemicalStates.set.set_component_id_to_component
+        Canonical chemical-owner component label contract.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> from molsysmt.native import MolSys
+    >>> molsys = MolSys(n_atoms=1, n_components=1)
+    >>> msm.set(molsys, element='atom', component_index=[0])
+    >>> msm.set(molsys, element='component', component_id='001')
+    >>> msm.get(molsys, element='component', component_id=True)
+    ['001']
 
     .. versionadded:: 1.0.0
     """

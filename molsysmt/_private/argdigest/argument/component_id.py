@@ -34,7 +34,11 @@ def digest_component_id(component_id, caller=None):
         If the given `component_id` has not of the correct type or value.
     """
 
-    if caller == "molsysmt.basic.set.set" or (
+    if caller in (
+        "molsysmt.basic.set.set",
+        "molsysmt.form.molsysmt_MolSys.set.set_component_id_to_atom",
+        "molsysmt.form.molsysmt_MolSys.set.set_component_id_to_component",
+    ) or (
         isinstance(caller, str)
         and caller.startswith(
             (

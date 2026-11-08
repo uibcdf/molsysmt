@@ -1,0 +1,185 @@
+{
+  "schema_version": "molsysmt.component_id_assignment_receiving@1",
+  "date": "2026-11-07",
+  "issue": "uibcdf/molsysmt#647",
+  "source_base": "ff03bf6bb",
+  "state": "Prepared-source receiving passed; clean committed acceptance pending.",
+  "correction": "Recognize the exact native MolSys atom/component ID setter callers in the existing chemical assignment branch; reuse canonical validation before trusted delegation. No selector/comparison semantics or chemical storage change.",
+  "new_cases": 138,
+  "source_sha256": {
+    "molsysmt/_private/argdigest/argument/component_id.py": "8929a352010e1303a2ba26310280d7bc03007f9152cd85d3328d20b807edb9d0",
+    "molsysmt/form/molsysmt_MolSys/set.py": "2aac0cb6b2216c5a3a0abdfbff1c40ed025f629c256029aa4e920880e9306091",
+    "tests/basic/test_set_component_id.py": "c9f47199e9c3c079357376244c9d6ea830a00b0e9d024e3c509aedd0d2ab32d5",
+    "docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md": "53326b280e3f89c6b5f61d27e6a59f39577ccc817470a8b6172735aaa9d64031",
+    "docs/content/user/cookbook/migrating_h5msm.md": "749298fbd7fe2e3efeeb8f388caf6f81d7df18f145b66c0ec9a9f9fa7a81cd5c",
+    "docs/content/user/tools/basic/set.ipynb": "a7a6aae442b317615e225be828cc989299f2b438a928de715f386504f7828d57",
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": "50a0612c1dca2ec5900d84b3cf64329471655280b4c86799492631929ef9f615"
+  },
+  "support_libraries": "Existing ArgDigest named value contracts and SMonitor ArgumentError. No new optional engine, dependency, physical-unit operation or scientific method.",
+  "guard": "tests/basic/test_set_component_id.py::test_scalar_component_ids_use_the_chemical_owner_contract",
+  "runs": {
+    "component-id-647-baseline": {
+      "execution": {
+        "command": [
+          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/component-id-647-baseline.xml",
+          "-n0",
+          "tests/basic/test_set_component_id.py"
+        ],
+        "exit_code": 1,
+        "seconds": 10.105765171116218,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "ff03bf6bb2dc7379197aeb3145cc2a5b59cb44db",
+        "starting_git_status": "?? tests/basic/test_set_component_id.py\n",
+        "ending_git_status": "?? tests/basic/test_set_component_id.py\n",
+        "changed_inputs": [],
+        "checked_inputs": 5205
+      },
+      "resources": {
+        "started_utc": "2026-11-08T04:52:49.674892+00:00",
+        "seconds": 12.006844682851806,
+        "command": [
+          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<private-evidence>/reference-run.py",
+          "component-id-647-baseline"
+        ],
+        "process_exit_code": 1,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            10.2109375,
+            8.24169921875,
+            5.951171875
+          ],
+          "cpu_utilization": 0.24697580645161288,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 15657603072
+        },
+        "host_available_minimum_observed_bytes": 15463956480,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 180690944,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 11095816\nuser_usec 10552266\nsystem_usec 543550\nnice_usec 10557000\ncore_sched.force_idle_usec 0\nnr_periods 115\nnr_throttled 17\nthrottled_usec 153606\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "outcome": {
+        "failures": 20,
+        "errors": 0,
+        "skips": 0,
+        "total": 138,
+        "passed": 118
+      }
+    },
+    "component-id-647-integrated": {
+      "execution": {
+        "command": [
+          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/component-id-647-integrated.xml",
+          "-n0",
+          "tests/basic/test_set_component_id.py",
+          "tests/basic/compare/test_compare_component_metadata.py",
+          "tests/native/test_chemical_component_assignments.py",
+          "tests/native/test_recovered_inventory_append.py",
+          "molsysmt/form/molsysmt_MolSys/set.py::molsysmt.form.molsysmt_MolSys.set.set_component_id_to_component"
+        ],
+        "exit_code": 0,
+        "seconds": 21.330480106873438,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "ff03bf6bb2dc7379197aeb3145cc2a5b59cb44db",
+        "starting_git_status": " M devguide/pending_bugs/scalar_string_component_id_is_rejected_by_the_molsys_assignment_adapter.md\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/migrating_h5msm.md\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/basic/set.ipynb\n M molsysmt/_private/argdigest/argument/component_id.py\n M molsysmt/form/molsysmt_MolSys/set.py\n?? tests/basic/test_set_component_id.py\n",
+        "ending_git_status": " M devguide/pending_bugs/scalar_string_component_id_is_rejected_by_the_molsys_assignment_adapter.md\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/migrating_h5msm.md\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/basic/set.ipynb\n M molsysmt/_private/argdigest/argument/component_id.py\n M molsysmt/form/molsysmt_MolSys/set.py\n?? tests/basic/test_set_component_id.py\n",
+        "changed_inputs": [],
+        "checked_inputs": 5205
+      },
+      "resources": {
+        "started_utc": "2026-11-08T04:54:11.587783+00:00",
+        "seconds": 23.013528478099033,
+        "command": [
+          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<private-evidence>/reference-run.py",
+          "component-id-647-integrated"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            7.244140625,
+            8.05615234375,
+            6.091796875
+          ],
+          "cpu_utilization": 0.026606425702811243,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 17052246016
+        },
+        "host_available_minimum_observed_bytes": 16727138304,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 248209408,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 22198178\nuser_usec 21610517\nsystem_usec 587660\nnice_usec 21620000\ncore_sched.force_idle_usec 0\nnr_periods 226\nnr_throttled 20\nthrottled_usec 100998\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "outcome": {
+        "failures": 0,
+        "errors": 0,
+        "skips": 0,
+        "total": 279,
+        "passed": 279
+      }
+    }
+  },
+  "preservation": [
+    "Opaque lexical IDs, including zero-prefixed and unit-like strings",
+    "Integer-to-string storage, nullable clearing, broadcast and selected order",
+    "Atom/component destinations; native MolSys, ChemicalStates and ChemicalStatesDict",
+    "Unsupported label refusal and unchanged metadata after failure",
+    "Component membership, unrelated names/types and caller unit-policy authority"
+  ],
+  "notebooks": {
+    "docs/content/user/tools/basic/set.ipynb": {
+      "unchanged_code_cells": 13,
+      "code_outputs_ids_metadata_preserved": true
+    },
+    "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb": {
+      "unchanged_code_cells": 12,
+      "code_outputs_ids_metadata_preserved": true
+    }
+  },
+  "scientific_scope": "Assignment boundary consistency; no new chemical interpretation, native engine or consumer workflow qualification.",
+  "weighted_milestone_change": 0,
+  "remaining": [
+    "Clean-source receiving, fast gates, publication and independent issue closure.",
+    "Independent stored-H policy, #612 complete source and all remaining audit/candidate exits."
+  ]
+}

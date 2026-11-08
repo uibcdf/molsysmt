@@ -81,6 +81,12 @@ representations. New structures extend named analyses as unevaluated, while
 existing observations and evaluated-empty coverage survive. See
 {ref}`Tutorial_Append_structures`.
 
+You can edit a recovered system's declared component IDs with
+`msm.set(molsys, element="component", selection=[0], component_id="001")` when
+component 0 exists. The lexical ID is preserved; integer IDs become strings and
+None clears selected labels. This edits the resident chemical owner without
+rewriting the source file, changing membership or assigning a new chemical state.
+
 To inspect component metadata after recovery, compare the original and loaded
 systems with `msm.compare(molsys_A, molsys_B, component_id=True,
 component_name=True, component_type=True, include_none=True,
