@@ -1,9 +1,9 @@
 ---
 summary: Clarify public XYZ coordinate delivery and default-element behavior
 issue: uibcdf/molsysmt#610
-status: active
+status: resolved
 opened: 2026-11-06
-closed:
+closed: 2026-11-08
 severity: medium
 verification: reproduced
 area: [docs, form]
@@ -57,3 +57,16 @@ No optional dependency, scientific method, unit implementation or public
 signature changes. Existing public routes retain ArgDigest, PyUnitWizard and
 SMonitor ownership. DepDigest and Ackredit gain no new boundary. Provider-source
 tests do not requalify DockingMT's original complete workflow or installed pair.
+
+## Resolution — 2026-11-08
+
+Clean source `d2ce182a46cf247fa466f31606402cf3734ba8d4` passes 89 combined cases,
+including twenty new example/axis controls and the changed public getter
+doctest; zero skips/failures/errors. Fourteen fast gates and the incremental
+HTML build pass on the same source with no changed hashed inputs. Actual
+Tool/Cookbook/course HTML content is checked separately from Python execution.
+No scientific algorithm or dependency changes. The
+[receiving record](../../../devtools/data/public_graph_xyz_receiving_648_610_20261108.json)
+retains exact commands, negative controls, authoring mistakes, checksums,
+notebook preservation and bounded memory measurements. Broader #378 and
+installed/full-source/final-candidate acceptance remain separate.

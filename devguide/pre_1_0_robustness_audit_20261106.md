@@ -39,7 +39,7 @@ unchanged; the new Tool/Cookbook examples execute under both unit policies.
 
 The refreshed complete board contains **580 issues, 95 open and no open PR**.
 New #648 records an inspected
-[stale rigid-fragment tutorial](pending_bugs/docs/rigid_fragment_tutorial_uses_retired_topology_chemical_attributes.md)
+[stale rigid-fragment tutorial](archive/resolved_bugs/rigid_fragment_tutorial_uses_retired_topology_chemical_attributes.md)
 that still uses retired Topology chemistry. Reproduce and repair that bounded
 example next, then receive #610 public XYZ coordinate delivery. Preserve the
 broader #378 discoverability work and every other audit requirement.

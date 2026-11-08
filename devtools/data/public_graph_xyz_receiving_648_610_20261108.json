@@ -1,0 +1,754 @@
+{
+  "schema_version": "molsysmt.public_graph_xyz_receiving@1",
+  "date": "2026-11-08",
+  "issues": [
+    "uibcdf/molsysmt#648",
+    "uibcdf/molsysmt#610"
+  ],
+  "related_partial_issue": "uibcdf/molsysmt#378",
+  "state": "source_qualified_pending_public_closeout",
+  "qualified_source": "d2ce182a46cf247fa466f31606402cf3734ba8d4",
+  "contract": "Public ChemicalStates construction and explicit typed completeness; existing atom-level XYZ query/direct setter and default-system refusal; README chemical graph namespace. No runtime algorithm, signature, dependency or storage change.",
+  "runs": {
+    "rigid-648-baseline": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/rigid-648-baseline.xml",
+          "-n0",
+          "<private-evidence>/test_molsysmt_rigid_648_original.py"
+        ],
+        "exit_code": 1,
+        "seconds": 2.494913080940023,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "3de256e1ca374416accb0639e82fc9c8a84b66a2",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5211
+      },
+      "resources": {
+        "started_utc": "2026-11-08T06:21:32.109658+00:00",
+        "seconds": 4.00313978199847,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "rigid-648-baseline"
+        ],
+        "process_exit_code": 1,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.10400390625,
+            0.86669921875,
+            1.2666015625
+          ],
+          "cpu_utilization": 0.02864321608040199,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16895733760
+        },
+        "host_available_minimum_observed_bytes": 16819351552,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 133767168,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 3340491\nuser_usec 2948785\nsystem_usec 391705\nnice_usec 2949000\ncore_sched.force_idle_usec 0\nnr_periods 38\nnr_throttled 3\nthrottled_usec 57345\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "bf1c5a41e00f7405fce3f814bdb55ef64aed920c749a62a0e027e268bf9fabf5",
+        "-bounded.json": "ce3f831352453a4fe981316e899b6c084f09e3f89e7b68127a61db204c7d6c1f",
+        ".log": "e281d50845a0641fd8a5b85615a0a47ca96d4f5b35be5f4218d83f2331b1e28d",
+        ".xml": "7682bd0c209c0ae6f816ecd401344c1ab539cf7f589137459e20581ef1e28831",
+        "-inputs-before.json": "f6f72ae050bb2d4550c7e044d02637b8c5b1be65c8e66e2764fdf69e0ef1a507",
+        "-inputs-after.json": "f6f72ae050bb2d4550c7e044d02637b8c5b1be65c8e66e2764fdf69e0ef1a507"
+      },
+      "pytest_counts": {
+        "cases": 1,
+        "failure": 1,
+        "error": 0,
+        "skipped": 0
+      }
+    },
+    "rigid-648-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/rigid-648-directed.xml",
+          "-n0",
+          "tests/chemical_states/test_public_graph_tutorials.py",
+          "tests/topology/test_get_rigid_fragments.py",
+          "tests/topology/test_get_rotatable_bonds.py",
+          "tests/topology/test_rigid_fragments_real_vina_examples.py",
+          "molsysmt/chemical_states/get_rigid_fragments.py"
+        ],
+        "exit_code": 0,
+        "seconds": 21.49161964817904,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "3de256e1ca374416accb0639e82fc9c8a84b66a2",
+        "starting_git_status": " M docs/content/user/tools/chemical_states/get_rigid_fragments.md\n?? tests/chemical_states/test_public_graph_tutorials.py\n",
+        "ending_git_status": " M docs/content/user/tools/chemical_states/get_rigid_fragments.md\n?? tests/chemical_states/test_public_graph_tutorials.py\n",
+        "changed_inputs": [],
+        "checked_inputs": 5212
+      },
+      "resources": {
+        "started_utc": "2026-11-08T06:23:06.250615+00:00",
+        "seconds": 23.012343372916803,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "rigid-648-directed"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.90966796875,
+            1.1259765625,
+            1.31689453125
+          ],
+          "cpu_utilization": 0.025125628140703515,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16914821120
+        },
+        "host_available_minimum_observed_bytes": 16531922944,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 339165184,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 22356226\nuser_usec 21631478\nsystem_usec 724747\nnice_usec 21635000\ncore_sched.force_idle_usec 0\nnr_periods 227\nnr_throttled 23\nthrottled_usec 72759\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "4171fd99a9caa2cd940d413e6c9a828c6e9f401e56e0ea7b2d5cf6583bb70cbe",
+        "-bounded.json": "800d872b9b0999def7b4366b8d0d45f36930d97782260ec907cb456bdf9eab94",
+        ".log": "dcc3be1918d928ea6868d0b716c3983fd51ea1f81867ba23ed069c8ac338c642",
+        ".xml": "f26ba8b72940fa205dbfb5df14b65016f70ea017d974f4c4cf2c8d0bd0c75517",
+        "-inputs-before.json": "764f4bb5e52d25523d50a4a281c4656d422d2f349f29b6273dad5ad541a6a4e1",
+        "-inputs-after.json": "764f4bb5e52d25523d50a4a281c4656d422d2f349f29b6273dad5ad541a6a4e1"
+      },
+      "pytest_counts": {
+        "cases": 48,
+        "failure": 0,
+        "error": 0,
+        "skipped": 0
+      }
+    },
+    "xyz-610-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/xyz-610-directed.xml",
+          "-n0",
+          "tests/form/XYZ",
+          "tests/documentation/test_alzheimer_preparation_examples.py"
+        ],
+        "exit_code": 0,
+        "seconds": 11.562364157056436,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "3de256e1ca374416accb0639e82fc9c8a84b66a2",
+        "starting_git_status": " M docs/content/user/tools/chemical_states/get_rigid_fragments.md\n?? tests/chemical_states/test_public_graph_tutorials.py\n?? tests/form/XYZ/test_public_coordinate_delivery.py\n",
+        "ending_git_status": " M docs/content/user/tools/chemical_states/get_rigid_fragments.md\n?? tests/chemical_states/test_public_graph_tutorials.py\n?? tests/form/XYZ/test_public_coordinate_delivery.py\n",
+        "changed_inputs": [],
+        "checked_inputs": 5213
+      },
+      "resources": {
+        "started_utc": "2026-11-08T06:24:50.313795+00:00",
+        "seconds": 13.007435537176207,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "xyz-610-directed"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            5.35302734375,
+            2.12890625,
+            1.63330078125
+          ],
+          "cpu_utilization": 0.23061430010070494,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 15143690240
+        },
+        "host_available_minimum_observed_bytes": 13952086016,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 499392512,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 12372218\nuser_usec 10836446\nsystem_usec 1535771\nnice_usec 10829000\ncore_sched.force_idle_usec 0\nnr_periods 129\nnr_throttled 61\nthrottled_usec 158123\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "71ff9744b2a99e74232e8d216835f3d22ffdc23f54532b705c44179a9cd550b6",
+        "-bounded.json": "c10b5b0c93dd36b941cd405d0fa61ed9101b03367d5f97905a9b95d7a10e900d",
+        ".log": "fd8c81e07401fb2734a08e7b0fbed141d91764e36153fd5f29921299550f51c9",
+        ".xml": "10d50ae21a945f5f102716c1e2448b7adadf24446cffba369f991bba50d22770",
+        "-inputs-before.json": "31c5f914d0f7fc7d6db9e098121db14d6fc189984141355ebeb1c9e2b22552fc",
+        "-inputs-after.json": "31c5f914d0f7fc7d6db9e098121db14d6fc189984141355ebeb1c9e2b22552fc"
+      },
+      "pytest_counts": {
+        "cases": 32,
+        "failure": 0,
+        "error": 0,
+        "skipped": 0
+      }
+    },
+    "graph-xyz-final": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/graph-xyz-final.xml",
+          "-n0",
+          "tests/form/XYZ",
+          "tests/chemical_states/test_public_graph_tutorials.py",
+          "tests/topology/test_get_rigid_fragments.py",
+          "tests/topology/test_get_rotatable_bonds.py",
+          "tests/topology/test_rigid_fragments_real_vina_examples.py",
+          "tests/documentation/test_alzheimer_preparation_examples.py",
+          "molsysmt/chemical_states/get_rigid_fragments.py"
+        ],
+        "exit_code": 1,
+        "seconds": 31.088316306937486,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "0504d74a6693475846fe4417135a20010cb22684",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5213
+      },
+      "resources": {
+        "started_utc": "2026-11-08T06:27:59.283522+00:00",
+        "seconds": 32.01835679705255,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "graph-xyz-final"
+        ],
+        "process_exit_code": 1,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            2.25390625,
+            2.69189453125,
+            2.01904296875
+          ],
+          "cpu_utilization": 0.15229450327786187,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16040157184
+        },
+        "host_available_minimum_observed_bytes": 14041616384,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 539422720,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 31950375\nuser_usec 30160410\nsystem_usec 1789965\nnice_usec 30156000\ncore_sched.force_idle_usec 0\nnr_periods 323\nnr_throttled 81\nthrottled_usec 127468\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "0160588be683ae4196eb3c4c8f3475d6e9a5bcbebd005f6aa467b760de4afd89",
+        "-bounded.json": "0f46d0b0ce09eb2865b10c8dfcaabc000df645fc58ad404391f75d114cd87a32",
+        ".log": "b52078d39090c1c9479d6c69b6bddfd7e241f3d2618a1349395cc9ce64bcf2e0",
+        ".xml": "c04d345858f58a04588d18282814fe8d6f2d6f27fa3cd16ba792889740125e1b",
+        "-inputs-before.json": "03fbd608d4320f4e2453ca3ac7be34d71abc5176bc98d3d389e03ccbe36eb463",
+        "-inputs-after.json": "03fbd608d4320f4e2453ca3ac7be34d71abc5176bc98d3d389e03ccbe36eb463"
+      },
+      "pytest_counts": {
+        "cases": 87,
+        "failure": 5,
+        "error": 0,
+        "skipped": 0
+      }
+    },
+    "readme-378-baseline": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/readme-378-baseline.xml",
+          "-n0",
+          "<private-evidence>/test_molsysmt_readme_378_original.py"
+        ],
+        "exit_code": 1,
+        "seconds": 11.315524802077562,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "0504d74a6693475846fe4417135a20010cb22684",
+        "starting_git_status": " M tests/form/XYZ/test_public_coordinate_delivery.py\n",
+        "ending_git_status": " M tests/form/XYZ/test_public_coordinate_delivery.py\n",
+        "changed_inputs": [],
+        "checked_inputs": 5213
+      },
+      "resources": {
+        "started_utc": "2026-11-08T06:28:57.906851+00:00",
+        "seconds": 13.007855593925342,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "readme-378-baseline"
+        ],
+        "process_exit_code": 1,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            8.87939453125,
+            4.52392578125,
+            2.68896484375
+          ],
+          "cpu_utilization": 0.24396378269617702,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 15209521152
+        },
+        "host_available_minimum_observed_bytes": 14828269568,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 308559872,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 12221170\nuser_usec 11590264\nsystem_usec 630905\nnice_usec 11590000\ncore_sched.force_idle_usec 0\nnr_periods 127\nnr_throttled 13\nthrottled_usec 49863\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "e4681a6240a573c97fe8d0e5da66a3105dc394d91de0ef31600a987bbfef2b02",
+        "-bounded.json": "e5f238cb39d0c1e999ce9a450b5bcfd75b1494021f5a9d7300b410c33e8cffec",
+        ".log": "3b6365fcc585dfec5201d766d815a3af9cdc55c50bea42be58b052a41d305cf1",
+        ".xml": "4911b213ee8dd345bc83a1405d410376898b1212ae6aa48d98d3d9bbbd2af93e",
+        "-inputs-before.json": "bd40de5f110d35b97e7e68dc3f82843c9ec65968a6db38c26a4e2a95033e64bc",
+        "-inputs-after.json": "bd40de5f110d35b97e7e68dc3f82843c9ec65968a6db38c26a4e2a95033e64bc"
+      },
+      "pytest_counts": {
+        "cases": 1,
+        "failure": 1,
+        "error": 0,
+        "skipped": 0
+      }
+    },
+    "readme-378-namespace-original": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/readme-378-namespace-original.xml",
+          "-n0",
+          "<private-evidence>/test_molsysmt_readme_378_original.py"
+        ],
+        "exit_code": 1,
+        "seconds": 3.774201133986935,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "0504d74a6693475846fe4417135a20010cb22684",
+        "starting_git_status": " M tests/form/XYZ/test_public_coordinate_delivery.py\n",
+        "ending_git_status": " M tests/form/XYZ/test_public_coordinate_delivery.py\n",
+        "changed_inputs": [],
+        "checked_inputs": 5213
+      },
+      "resources": {
+        "started_utc": "2026-11-08T06:29:33.738292+00:00",
+        "seconds": 5.0056402899790555,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "readme-378-namespace-original"
+        ],
+        "process_exit_code": 1,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            8.927734375,
+            5.02001953125,
+            2.923828125
+          ],
+          "cpu_utilization": 0.026633165829145766,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16873697280
+        },
+        "host_available_minimum_observed_bytes": 16679526400,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 206348288,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 4693494\nuser_usec 4162830\nsystem_usec 530664\nnice_usec 4186000\ncore_sched.force_idle_usec 0\nnr_periods 51\nnr_throttled 9\nthrottled_usec 397310\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "1cb86447382eeb9cb802f75e9bab81f0929d1f5743cda79da71a0d8b4353455d",
+        "-bounded.json": "88cf2cc9c159e75b01e461faac037e791670ec49407cd57d2b3d2f440dc326e5",
+        ".log": "1ea12d9c3acd1e26b6c5c782d55b27f0f2d2b00a9c32fa3b0e3302f033b986cc",
+        ".xml": "2eabd9e6f52a68ad080ed12942c99e950a7d8cd95375a7e1acbd073cb3f66515",
+        "-inputs-before.json": "bd40de5f110d35b97e7e68dc3f82843c9ec65968a6db38c26a4e2a95033e64bc",
+        "-inputs-after.json": "bd40de5f110d35b97e7e68dc3f82843c9ec65968a6db38c26a4e2a95033e64bc"
+      },
+      "pytest_counts": {
+        "cases": 1,
+        "failure": 1,
+        "error": 0,
+        "skipped": 0
+      }
+    },
+    "graph-xyz-received": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/graph-xyz-received.xml",
+          "-n0",
+          "tests/form/XYZ",
+          "tests/chemical_states/test_public_graph_tutorials.py",
+          "tests/topology/test_get_rigid_fragments.py",
+          "tests/topology/test_get_rotatable_bonds.py",
+          "tests/topology/test_rigid_fragments_real_vina_examples.py",
+          "tests/documentation/test_alzheimer_preparation_examples.py",
+          "tests/documentation/test_readme_structure_analysis.py",
+          "molsysmt/chemical_states/get_rigid_fragments.py",
+          "molsysmt/basic/get.py"
+        ],
+        "exit_code": 0,
+        "seconds": 27.967308865161613,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "d2ce182a46cf247fa466f31606402cf3734ba8d4",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5214
+      },
+      "resources": {
+        "started_utc": "2026-11-08T06:30:42.004804+00:00",
+        "seconds": 29.017030768096447,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "graph-xyz-received"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            3.96533203125,
+            4.4560546875,
+            2.88623046875
+          ],
+          "cpu_utilization": 0.03118712273641855,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16888864768
+        },
+        "host_available_minimum_observed_bytes": 15658381312,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 551813120,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 28773949\nuser_usec 27039012\nsystem_usec 1734936\nnice_usec 27038000\ncore_sched.force_idle_usec 0\nnr_periods 292\nnr_throttled 46\nthrottled_usec 131408\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "ab0feb2c704639a1e1c544fcede8afed2cba15444799de3130c91e46b28d7adc",
+        "-bounded.json": "35694f5f31a850b5c998c138a18c829c587e22455aef2e5bde6a8863d92b32fd",
+        ".log": "95b4a9e9475fab057ead688addd31049255f02bdd175f36be73911407c187514",
+        ".xml": "60d0c83f5a2cc071e4975a21ff5d6469ea710fbd1fd181a80da64bb706b24864",
+        "-inputs-before.json": "01fe9d68ae38d09e2d898171d49881893859fabcd570554456943aea02b90f7d",
+        "-inputs-after.json": "01fe9d68ae38d09e2d898171d49881893859fabcd570554456943aea02b90f7d"
+      },
+      "pytest_counts": {
+        "cases": 89,
+        "failure": 0,
+        "error": 0,
+        "skipped": 0
+      }
+    },
+    "rigid-648-fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 21.00725224101916,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "d2ce182a46cf247fa466f31606402cf3734ba8d4",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5214
+      },
+      "resources": {
+        "started_utc": "2026-11-08T06:31:35.939963+00:00",
+        "seconds": 22.01286949706264,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "rigid-648-fast"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            2.3408203125,
+            3.9306640625,
+            2.79541015625
+          ],
+          "cpu_utilization": 0.05477386934673367,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16892604416
+        },
+        "host_available_minimum_observed_bytes": 16523223040,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 400535552,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 21886327\nuser_usec 20289741\nsystem_usec 1596586\nnice_usec 20294000\ncore_sched.force_idle_usec 0\nnr_periods 223\nnr_throttled 134\nthrottled_usec 268191\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "88c5be0e5b10ef22e0eab566240fea6e81e7df50f8240a7286e46d3557bfcf0f",
+        "-bounded.json": "c11ca53461a459d8f5ae177a63f75dea79abc5761ee9057c3ca7c1f180dbe806",
+        ".log": "32f0d8f761b00dcbfa55447f08643aeea5e7613013fb855ea8b6690ea92f6681",
+        "-inputs-before.json": "01fe9d68ae38d09e2d898171d49881893859fabcd570554456943aea02b90f7d",
+        "-inputs-after.json": "01fe9d68ae38d09e2d898171d49881893859fabcd570554456943aea02b90f7d"
+      }
+    },
+    "rigid-648-html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/hydrogen-645-html"
+        ],
+        "exit_code": 0,
+        "seconds": 10.49684794805944,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "d2ce182a46cf247fa466f31606402cf3734ba8d4",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5214
+      },
+      "resources": {
+        "started_utc": "2026-11-08T06:31:59.129832+00:00",
+        "seconds": 12.007526434957981,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "rigid-648-html"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.8017578125,
+            3.677734375,
+            2.7412109375
+          ],
+          "cpu_utilization": 0.02462311557788943,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16834260992
+        },
+        "host_available_minimum_observed_bytes": 16555216896,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 398123008,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 11324174\nuser_usec 10523928\nsystem_usec 800245\nnice_usec 10543000\ncore_sched.force_idle_usec 0\nnr_periods 118\nnr_throttled 9\nthrottled_usec 342031\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "4447c7cfe5bacd4e40166b90fe5fc22b45f0fff3816c249c8844466908500291",
+        "-bounded.json": "161bb289c3eb95783272999235d3a93c6557d41c7f65a11927dbb92e2abb5127",
+        ".log": "382f82536b1648d7d2520d3a06b0ab3e720a4d958f7a2bbe24e74fa0f0f39b2f",
+        "-inputs-before.json": "01fe9d68ae38d09e2d898171d49881893859fabcd570554456943aea02b90f7d",
+        "-inputs-after.json": "01fe9d68ae38d09e2d898171d49881893859fabcd570554456943aea02b90f7d"
+      }
+    }
+  },
+  "limits": "Serial pytest/Receptor, enforced 2 GiB tree cap, one CPU, zero swap; no complete-suite or installed/candidate claim.",
+  "authoring_dispositions": [
+    "The first graph guard expected bonded_atoms to return pairs; corrected to public get_bonds table (1 failed,47 passed). That first log was overwritten by the same profile retry; the tool transcript retains the failure, not a second passing attempt.",
+    "First combined clean-source attempt: five invalid-input controls called nonexistent root msm.is_form (5 failed,82 passed); corrected to registered public XYZ adapter detector.",
+    "First README probe selected an unrelated preparation block and failed constructing an OpenMM model; preserved as probe-selection error, not the diagnosed namespace defect. The exact analysis-block negative control fails at retired topology namespace."
+  ],
+  "new_cases": 20,
+  "notebooks": {
+    "docs/content/user/tools/form/class/others/XYZ.ipynb": {
+      "code_cells": 1,
+      "all_code_cells_outputs_metadata_unchanged": true,
+      "code_sha256": "2bf2e74fa15f5a0da50341d0ec7eb24e4bfa7230c1ae034ff50af2e5866695e1"
+    },
+    "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb": {
+      "code_cells": 10,
+      "all_code_cells_outputs_metadata_unchanged": true,
+      "code_sha256": "91e54c64714f1abf066f6b2a0a095ca736b8974a94e6419a0998f1ec584a8d3c"
+    }
+  },
+  "scientific_scope": "Container/query/coordinate/example receiving only. No new independent scientific validation, full workflow or broad discoverability completion.",
+  "html_content_checks": {
+    "content/user/tools/chemical_states/get_rigid_fragments.html": {
+      "expected_content_present": true,
+      "sha256": "9999b9661a6c6dfa65f26c6f37bd2ec36a1bcaf87b9d065e744e5d67f7149a84"
+    },
+    "content/user/cookbook/delivering_coordinates.html": {
+      "expected_content_present": true,
+      "sha256": "687e94bcdc5174f22837d16de200505a96851633943221218bd7513b3fa66165"
+    },
+    "content/user/tools/form/class/others/XYZ.html": {
+      "expected_content_present": true,
+      "sha256": "fa835b0a8c9e861de4b7ec19dc4997cb3c23d92016ce9527844cba444ba7fa8f"
+    },
+    "content/course/Common_Core/08_Extracting_Molecular_Attributes.html": {
+      "expected_content_present": true,
+      "sha256": "a0884c4df4b84886c9dda38a3488dd4d2f60e924ab772436e7552d4dc6ad4595"
+    }
+  },
+  "source_sha256": {
+    "README.md": "fec2a5f301f1f639365cb87ac0392400b3d02f39efd26952fffe0c00eb1ef6eb",
+    "devguide/forms_and_conversions.md": "b9b1f7edcb5263a0f6098d95117e9fe30b677fa97be744d799f59f2aa3fd9f46",
+    "devguide/pending_bugs/docs/README.md": "512bfe146ecd4b41313f03c68f12a076ff7f22114637c5bbc74cdaaee6492cd0",
+    "devguide/pending_bugs/docs/clarify_public_xyz_coordinate_delivery.md": "ad1d6b643eaf4c0ffa7b02f163f835ea9cc6a8ede5c56b31b8009c983a09f54b",
+    "devguide/pending_bugs/docs/rigid_fragment_tutorial_uses_retired_topology_chemical_attributes.md": "40913d5e8f97b0bbf1f130f5db355771e9a0f1313d908fc20bcaa5f153d52f83",
+    "devguide/pending_proposals/docs/README.md": "f16d74ef27a38015ea78cde4c360920fe57ce3a00a014440add12b5c8765fe52",
+    "devguide/pending_proposals/docs/evidence_based_public_discoverability.md": "bf7ad0ad033d2816d98ecc0718d97f5d456ec263d42f3980457c7579eac726f8",
+    "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb": "3050b6ba1f509d8a21b21e467a8ab279cf825c13fe6d0e0d92c5f2f83b91896c",
+    "docs/content/user/cookbook/delivering_coordinates.md": "28391c70cc889d28d3bfa2ecea8905d600d946e09dd91bb51eca3850279cb058",
+    "docs/content/user/cookbook/delivering_coordinates.md.AGENTS.md": "232bdc22e418204bd1dad2749f77be3561805ad04816e456363628d64252dc9d",
+    "docs/content/user/cookbook/index.md": "66f3774381c62602d79c145b0a98fd6f341b4445d6d5cc6f6b99d16a682970b3",
+    "docs/content/user/tools/chemical_states/get_rigid_fragments.md": "847d1560f572cc4a20c3288ac1ed4279834e11977ae029edc51d54f982433dee",
+    "docs/content/user/tools/form/class/others/XYZ.ipynb": "03a9a35dcede1d3f7d6fd1383f1242be978492542890099551536c159d55fbfe",
+    "docs/docs_manifest.yml": "68b8e0e0cb3997e4bede0a2db9f190b3b6235c2f64f1de5a568446afe4541bee",
+    "molsysmt/basic/get.py": "595db989204f1bdb42006b3dbaa0dc31bd86de940e4cf9e07cf2741b446d5eea",
+    "tests/chemical_states/test_public_graph_tutorials.py": "176e1510a6740ad1ceb43de0ea66ac960d37b81fb8744bd1a35a3eb8e717b1e4",
+    "tests/documentation/test_readme_structure_analysis.py": "94dfd29a828b02d8dfc3e2414355d66ff4f05b3aca811302c4fca808f9477364",
+    "tests/form/XYZ/test_public_coordinate_delivery.py": "c687bc029f40058b6303813432b0b13d03429d8166b7f0d3588fbd644a989088"
+  }
+}

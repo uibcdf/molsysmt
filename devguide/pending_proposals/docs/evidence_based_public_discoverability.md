@@ -49,3 +49,12 @@ example contribution independently in the frozen audit scorecard, without
 expanding the requirement or claiming the broader proposal complete. Clean
 source, public documentation and regression receiving for this contribution
 remain pending until their actual results are recorded.
+
+## Bounded source acceptance — 2026-11-08
+
+The same clean source passes 89 combined graph/XYZ/README cases, fourteen fast
+gates and the incremental HTML build. The original README analysis fails at
+the retired namespace; its corrected actual blocks execute with bounded source
+receiving. See the [shared receipt](../../../devtools/data/public_graph_xyz_receiving_648_610_20261108.json).
+This completes only the #378 contribution to the audit public-example leaf.
+The wider discoverability proposal remains partial and open.

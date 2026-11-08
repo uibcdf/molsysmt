@@ -1,9 +1,9 @@
 ---
 summary: Rigid-fragment tutorial uses retired Topology chemical attributes
 issue: uibcdf/molsysmt#648
-status: active
+status: resolved
 opened: 2026-11-08
-closed:
+closed: 2026-11-08
 severity: medium
 verification: reproduced
 area: [docs]
@@ -63,3 +63,16 @@ get_bonds table. This was a test-authoring mistake, not a product defect. The
 corrected attempt peaks at 339,165,184 bytes under a 2 GiB/one-CPU/no-swap cap,
 without OOM or host-reserve violation. Exact clean-source receiving and shared
 documentation gates remain pending before closure.
+
+## Resolution — 2026-11-08
+
+Clean source `d2ce182a46cf247fa466f31606402cf3734ba8d4` passes 89 combined cases,
+including twenty new example/axis controls and the changed public getter
+doctest; zero skips/failures/errors. Fourteen fast gates and the incremental
+HTML build pass on the same source with no changed hashed inputs. Actual
+Tool/Cookbook/course HTML content is checked separately from Python execution.
+No scientific algorithm or dependency changes. The
+[receiving record](../../../devtools/data/public_graph_xyz_receiving_648_610_20261108.json)
+retains exact commands, negative controls, authoring mistakes, checksums,
+notebook preservation and bounded memory measurements. Broader #378 and
+installed/full-source/final-candidate acceptance remain separate.
