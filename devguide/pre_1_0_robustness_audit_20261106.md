@@ -5,7 +5,37 @@
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-07.
 
-## Current alternate-location qualification — 2026-11-07
+## Current naming-contract owner closeout — 2026-11-07
+
+#549 is independently verified closed after D0–D7 source acceptance. Qualified
+source `d7c7b7e927824a45f806aca040199a2aa7d84d03` passes **545 focused cases**,
+the public scalar-helper doctest, the canonical **ten-cell tutorial**, fourteen
+fast gates and applicable Ruff checks. Public main checkpoint
+`8f8b2e6646b0c7089e2b04d13d2d02e1fe6aff80` retains all eleven independently
+verified changed/deleted paths. The
+[owner receipt](../devtools/data/group_naming_owner_receiving_549_20261107.json)
+and [archived report](archive/resolved_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md)
+retain the exact source, original outcomes, semantic boundaries and authorized
+Viewer #315 handoff (6716685189).
+
+Three new cases cover complementary domain order, selected source axes and
+foreign declared chemistry. The namespace and bounded native/client naming
+contract are accepted; profile coverage and stability remain experimental.
+No values, scientific references, runtime algorithm or dependency are changed.
+The final tests peak at about 454 MiB under an enforced 2 GiB process-tree
+bound, one-CPU quota and zero swap. The preceding private selector mistake
+and protective stop are preserved; it is not product failure or passing
+qualification. Serial plans now reject parallel worker arguments before launch.
+
+The existing #549 phase-five leaf adds 10/7 points with unchanged phase weights:
+**approximately 62.5%**, **35 audit-related source issues closed**, and
+**23/50 graphical intents accepted**. #612's complete source suite remains
+pending; its one-case bounded pilot does not clear that gate. Continue its
+safe exact-source route and independent #610 composition review while retaining
+all remaining graphical, #473/#475, contract, installed/platform and final-
+candidate requirements. No publication is authorized by this source closeout.
+
+## Previous alternate-location qualification — 2026-11-07
 
 #612's strengthened PDB fidelity guard is committed at
 `2465d6b0cb137446f9917c971572a921003a9b89`: primary/alternate coordinates,

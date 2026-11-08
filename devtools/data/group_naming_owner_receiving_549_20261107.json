@@ -3,7 +3,7 @@
   "date": "2026-11-07",
   "issue": "uibcdf/molsysmt#549",
   "source_base": "3b16f23c5e2e794da981e609b2ba9169c78aac35",
-  "state": "D0-D7 source acceptance completed; public source/report closeout prepared.",
+  "state": "Public source accepted and issue independently verified closed.",
   "implementation_scope": "Existing runtime/native/client cutover is received. Three new regression cases protect complementary-domain conversion and foreign metadata/chemical preservation; no runtime API, profile, dependency or scientific dataset is changed.",
   "case_counts": {
     "native_and_client_cutover": 191,
@@ -512,8 +512,7 @@
     "meaning": "Measured local executions, not a machine reservation or a complete-suite memory guarantee."
   },
   "remaining": [
-    "Publish and independently verify the source/report, then close #549 with its guard.",
-    "Separate #612 complete-suite and #334 installed/platform/candidate requirements remain pending."
+    "Separate #612 complete-suite evidence, #473/#475 original-reference review and every remaining agreed graphical, contract, installed/platform/candidate requirement."
   ],
   "weighted_milestone_change": 0,
   "qualified_source": "d7c7b7e927824a45f806aca040199a2aa7d84d03",
@@ -564,5 +563,20 @@
       "pytest_started": false,
       "meaning": "The parallel plan is refused before execution; the accepted serial plans were inspected explicitly."
     }
+  },
+  "public_delivery": {
+    "commit": "8f8b2e6646b0c7089e2b04d13d2d02e1fe6aff80",
+    "qualified_source": "d7c7b7e927824a45f806aca040199a2aa7d84d03",
+    "changed_deleted_paths_verified": 11
+  },
+  "issue_closeout": {
+    "state": "closed",
+    "state_reason": "completed",
+    "closed_at": "2026-11-08T03:23:48Z",
+    "independently_verified": true
+  },
+  "viewer_handoff": {
+    "issue": "uibcdf/molsysviewer#315",
+    "comment_id": 6716685189
   }
 }

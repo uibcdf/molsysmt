@@ -114,3 +114,21 @@ source acceptance. Lack of safe capacity postpones this gate, not ordinary
 lightweight development. #612 stays open; the joint #612/#587 milestone receives
 no credit from this interrupted attempt. Local full-source evidence also does
 not replace platform, installed-pair or final-candidate gates under #334.
+
+
+## Bounded pilot follow-up — 2026-11-07
+
+The original complete attempt remains interrupted, not passing. A new one-case
+pilot on public source `3b16f23c5` passes under a verified 2 GiB process-tree
+limit, one-CPU quota and zero swap; its peak is 292,397,056 bytes. This is a
+sizing/control pilot, not complete-suite evidence. The
+[related owner receipt](../../devtools/data/group_naming_owner_receiving_549_20261107.json)
+retains its command and measured controls alongside #549's scoped receiving.
+The private selector error and protected stop during that receiving are
+separate from the maintainer-terminated original attempt recorded above.
+
+#549 is now source-accepted and closed. #612 remains active until its complete
+exact-source gate is met. Any next attempt must use an explicitly inspected
+serial command and bounded resources; the successful small campaigns do not
+establish the complete suite's peak requirements. Other incoming/API work can
+proceed independently without relabelling this gate.
