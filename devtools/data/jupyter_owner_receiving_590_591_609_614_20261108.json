@@ -1610,5 +1610,48 @@
     "harness_sha256": "8aee75ee4d76462c3da5b4d1699c44c1bec2b1a581a4d59eeea85ba458ad63db",
     "runtime_bundle_sha256": "1c350481afcd8bd433e29c897de8896e39cfa5774c86ef15c1d014f04ae4dbcb",
     "metadata_preparation_correction": "Installed owner tooling is playwright, not @playwright/test; no install or runtime rebuild occurred."
+  },
+  "fast_gate_receiving": {
+    "source": "9a27cc1beaebe5302337b75214174e5f76ed1318",
+    "exit_code": 0,
+    "gates_passed": 14,
+    "gates_total": 14,
+    "changed_inputs": [],
+    "checked_inputs": 8561,
+    "scope": "Fast source gates only; registry structure is not scientific execution, installed or final-candidate evidence.",
+    "resources": {
+      "seconds": 26.023189913015813,
+      "limits": {
+        "memory.max": "2147483648",
+        "memory.high": "1879048192",
+        "memory.swap.max": "0",
+        "memory.oom.group": "1",
+        "cpu.max": "100000 100000",
+        "pids.max": "256"
+      },
+      "host_available_minimum_observed_bytes": 16267218944,
+      "cgroup_memory_peak_bytes": 416878592,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "pids_events": "max 0\n"
+    },
+    "evidence_sha256": {
+      ".json": "e4fbb5be813ea2a51344cc0fce5716f20759c46cd494b4a704d01aaa6043376b",
+      "-bounded.json": "bbc71d6e2b8c3cd2112b3e9aea62b190745e7cf12eeffbd7d89f40bd5ee718e7",
+      ".log": "5c8d41f36ec2eff9e8ab458d37543bf7e018d25447910b708c56ef468de2f3fd",
+      "-inputs-before.json": "b355d04b989a40054db89b463bf08a26f128293bafbc955ffe9b9fc249756934",
+      "-inputs-after.json": "b355d04b989a40054db89b463bf08a26f128293bafbc955ffe9b9fc249756934"
+    }
+  },
+  "public_source_acceptance": {
+    "checkpoint": "9a27cc1beaebe5302337b75214174e5f76ed1318",
+    "verified_closed": [
+      590,
+      591,
+      609,
+      614
+    ],
+    "complete_board_issues": 585,
+    "open_issues": 88,
+    "open_prs": 0
   }
 }

@@ -20,28 +20,37 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Public source checkpoint accepted — 2026-11-08
+## Current owner checkpoint — 2026-11-08
 
-Public main `258702da0818e82fe703ede1b08194eaf246aa76` is independently
-verified; #612/#611/#653 are closed and the board agrees with every queue.
-The complete inventory contains **585 issues, 92 open and no open PR**.
-All fourteen fast gates pass on that clean checkpoint. Four human documentation
-edits and the native binary remain unchanged.
+Public main `9a27cc1beaebe5302337b75214174e5f76ed1318` is independently
+verified. **#590/#591/#609/#614 are closed**; the complete board and every queue
+agree: **585 issues, 88 open, no open PR**. The clean final GUI campaign passes
+**14/14 actual-Jupyter guards and 109 browser checks**, zero skips/failures/errors,
+in 1,451.53 s. All 8,560 owner and 2,463 verified Viewer-export inputs stay
+unchanged. The [receipt](../devtools/data/jupyter_owner_receiving_590_591_609_614_20261108.json)
+retains the original selector failures, the initial Geometry-marker mistake,
+both deliberate interruptions and the two-CPU Results timeout. No numerical,
+source, title, lifetime, error or functional-deadline check is relaxed.
 
-Accepted progress is now **approximately 68.0%**, with **47 audit-related source
-closures** and **23/50 graphical intents accepted**. Only the existing
-#612/#587 and #611 requirement leaves gain credit; #653 adds no bonus. The
-[scorecard](../devtools/data/pre_1_0_progress_scorecard_20261107.json) retains the
-six original weights and every pending leaf. Full-source, separate Amber,
-directed developer and historical hosted outcomes remain separate evidence.
+Accepted progress is **approximately 72.2%**, with **51 audit-related source
+closures**. **23/50 graphical intents remain accepted**: this receiving closes
+four existing owner milestones and does not duplicate their earlier intent credit.
+The [scorecard](../devtools/data/pre_1_0_progress_scorecard_20261107.json)
+retains all six weights and every remaining leaf. Fourteen fast gates pass on
+`9a27cc1bea`; these are not the outstanding exact-candidate heavy gates.
 
-#567 remains partial and its explicit product/control-role decision is still
-pending. The nonblocking provider recovery/documentation proposal is reported
-as uibcdf/pytest-receptor#51; correct native outcomes and declared truncation
-are not relabelled as a provider bug. Next receive the original nine Jupyter
-scenarios for #590/#591/#609/#614, without treating another startup pass as a
-causal repair of #615. Installed/platform/final-candidate and publication gates
-remain due; no new workflow, package, tag or release was launched.
+Next: receive the existing general-orientation/changing-cell periodic GUI intent
+under #421 using the corrected native primitives, then the remaining agreed
+families. #615 remains causally unresolved; #567's role/comparability policy and
+#582's engine-neutral requested/effective contract remain pending. The latter
+now records the observed legacy all_bonds-to-HBonds translation mismatch,
+without attributing it to the tested public conversion route.
+
+The final GUI campaign peaks at **2.20 GiB** charged memory and preserves at
+least **13.22 GiB** host availability, with no memory/task-cap or OOM event.
+The four human documentation files remain byte-identical after integration.
+No package, tag, Release, promotion or new hosted matrix was launched. Installed,
+platform, human Qt and final-candidate qualification remain separate requirements.
 
 ## Complete local source receiving and CI/evidence correction — 2026-11-08
 

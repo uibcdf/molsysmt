@@ -2,15 +2,15 @@
   "schema_version": "molsysmt.pre1-progress@1",
   "date": "2026-11-07",
   "owner_issue": "uibcdf/molsysmt#334",
-  "qualified_source": "258702da0818e82fe703ede1b08194eaf246aa76",
+  "qualified_source": "9a27cc1beaebe5302337b75214174e5f76ed1318",
   "measure": "Verified implementation/source-delivery milestones; approximate operational completion, not elapsed effort, scientific coverage, a readiness probability or publication authority.",
   "accounting_change": "The earlier all-or-nothing phase-exit indicator was 40%. The same six phase weights and full scope now receive explicit partial milestone credit. This is a catch-up remeasurement of delivered work, not a new 21-point implementation in this turn.",
   "method": "Within phases 3\u20136, each named requirement package has equal weight. Nested accepted GUI families have equal family weight, then equal declared intent/task weight within that family. Verified-source leaves score 1, pending leaves score 0; parents average children. Supplemental defect/test/issue counts add no bonus. Pending means not accepted by this audit, not absent code.",
   "gui_scope": "Tracking packages make the previously accepted workflow inventory explicit. They are user intents, not a GUI promise for every expert argument or a new scientific feature request. Native/expert APIs remain available and retain their own qualification.",
   "publication": "The existing pause remains. #640/#641/#642 and all other required correctness work retain owning acceptance. Exact candidate/platform/installed and final sign-off gates are not scored as passed by source tests.",
   "legacy_phase_exit_percent": 40,
-  "weighted_milestone_percent": 68.01323676323676,
-  "reported_approximate_percent": 68.0,
+  "weighted_milestone_percent": 72.17990342990342,
+  "reported_approximate_percent": 72.2,
   "phases": [
     {
       "id": "phase1",
@@ -170,16 +170,20 @@
             {
               "id": "removal-outcome",
               "requirement": "Complete owning #590 closeout and acceptance review",
-              "state": "pending",
-              "evidence": [],
-              "review": ""
+              "state": "verified_source",
+              "evidence": [
+                "devtools/data/jupyter_owner_receiving_590_591_609_614_20261108.json"
+              ],
+              "review": "Public source 9a27cc1bea is verified; the owning issue is closed, fourteen actual-Jupyter guards and 109 browser checks pass on clean 68323539e, and fourteen fast gates pass on 9a27cc1bea. Original failed attempts and #615 uncertainty remain. This closes only the existing owning milestone, not installed or final-candidate qualification."
             },
             {
               "id": "layout",
               "requirement": "Complete owning #591 layout acceptance review",
-              "state": "pending",
-              "evidence": [],
-              "review": ""
+              "state": "verified_source",
+              "evidence": [
+                "devtools/data/jupyter_owner_receiving_590_591_609_614_20261108.json"
+              ],
+              "review": "Public source 9a27cc1bea is verified; the owning issue is closed, fourteen actual-Jupyter guards and 109 browser checks pass on clean 68323539e, and fourteen fast gates pass on 9a27cc1bea. Original failed attempts and #615 uncertainty remain. This closes only the existing owning milestone, not installed or final-candidate qualification."
             },
             {
               "id": "rejected-outcome",
@@ -199,16 +203,20 @@
             {
               "id": "acknowledged-presentation",
               "requirement": "Complete #609 owning acceptance review",
-              "state": "pending",
-              "evidence": [],
-              "review": ""
+              "state": "verified_source",
+              "evidence": [
+                "devtools/data/jupyter_owner_receiving_590_591_609_614_20261108.json"
+              ],
+              "review": "Public source 9a27cc1bea is verified; the owning issue is closed, fourteen actual-Jupyter guards and 109 browser checks pass on clean 68323539e, and fourteen fast gates pass on 9a27cc1bea. Original failed attempts and #615 uncertainty remain. This closes only the existing owning milestone, not installed or final-candidate qualification."
             },
             {
               "id": "current-panel",
               "requirement": "Complete #614 owning acceptance review",
-              "state": "pending",
-              "evidence": [],
-              "review": ""
+              "state": "verified_source",
+              "evidence": [
+                "devtools/data/jupyter_owner_receiving_590_591_609_614_20261108.json"
+              ],
+              "review": "Public source 9a27cc1bea is verified; the owning issue is closed, fourteen actual-Jupyter guards and 109 browser checks pass on clean 68323539e, and fourteen fast gates pass on 9a27cc1bea. Original failed attempts and #615 uncertainty remain. This closes only the existing owning milestone, not installed or final-candidate qualification."
             }
           ]
         },
@@ -708,8 +716,8 @@
           ]
         }
       ],
-      "verified_fraction": 0.6252913752913754,
-      "credited_points": 15.632284382284384
+      "verified_fraction": 0.7919580419580419,
+      "credited_points": 19.798951048951047
     },
     {
       "id": "phase5",
@@ -847,19 +855,20 @@
       "uibcdf/molsysmt#651",
       "uibcdf/molsysmt#612",
       "uibcdf/molsysmt#611",
-      "uibcdf/molsysmt#653"
-    ],
-    "record": "devguide/pre_1_0_robustness_audit_20261106.md",
-    "owner_verification": "Public 258702da0 is independently verified. #612/#611/#653 closeout is complete; 32,014 full-session passes, 23 separate Amber passes, 104 clean directed cases and fourteen fast gates retain distinct scopes. Continue original graphical and scientific-contract requirements; #567 remains partial.",
-    "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Receive the nine original actual-Jupyter scenarios for #590/#591/#609/#614 with explicit CPU defaults and activated tool paths. Retain #615 causal uncertainty, every unaccepted graphical intent, scientific-contract, installed/platform and exact-candidate exit.",
-    "active_related": [
+      "uibcdf/molsysmt#653",
       "uibcdf/molsysmt#590",
       "uibcdf/molsysmt#591",
       "uibcdf/molsysmt#609",
       "uibcdf/molsysmt#614"
     ],
-    "last_source_closeout_record": "devguide/archive/resolved_bugs/multimodel_alternate_location_fidelity_expectation.md"
+    "record": "devguide/pre_1_0_robustness_audit_20261106.md",
+    "owner_verification": "Public 9a27cc1bea and the four owning closures are independently verified; board and queues agree. All fourteen existing actual-Jupyter guards and 109 browser checks pass on clean source; fourteen fast gates pass on the delivery checkpoint. Every failure and deliberate stop remains in the receipt.",
+    "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
+    "scope": "Continue the existing general-orientation/changing-cell periodic GUI intent under #421 using the delivered native primitives, then other unaccepted graphical intents and scientific-contract dispositions. Keep #615 causal uncertainty, #567 owner policy and installed/platform/exact-candidate gates explicit.",
+    "active_related": [
+      "uibcdf/molsysmt#615"
+    ],
+    "last_source_closeout_record": "devguide/archive/resolved_bugs/jupyter_popup_addon_navigation_identity.md"
   },
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
@@ -890,18 +899,18 @@
   },
   "last_owner_closeout": {
     "issues": [
-      "uibcdf/molsysmt#612",
-      "uibcdf/molsysmt#611"
+      "uibcdf/molsysmt#590",
+      "uibcdf/molsysmt#591",
+      "uibcdf/molsysmt#609",
+      "uibcdf/molsysmt#614"
     ],
-    "related_supplemental": "uibcdf/molsysmt#653",
-    "public_checkpoint": "258702da0818e82fe703ede1b08194eaf246aa76",
+    "public_checkpoint": "9a27cc1beaebe5302337b75214174e5f76ed1318",
     "state": "public_source_closed",
     "evidence": [
-      "devtools/data/full_source_receiving_612_20261108.json",
-      "devtools/data/smoke_budget_and_selection_receiving_611_653_20261108.json"
+      "devtools/data/jupyter_owner_receiving_590_591_609_614_20261108.json"
     ],
-    "weighted_milestone_change": 2.6785714285714306,
-    "audit_related_source_closures": 47
+    "weighted_milestone_change": 4.166666666666657,
+    "audit_related_source_closures": 51
   },
   "last_source_qualification_attempt": {
     "issue": "uibcdf/molsysmt#612",
@@ -911,11 +920,9 @@
     "weighted_milestone_change": 0
   },
   "incoming_intake": {
-    "issues": [
-      "uibcdf/molsysmt#653"
-    ],
+    "issues": [],
     "complete_board_issues": 585,
-    "open_issues": 92,
+    "open_issues": 88,
     "open_prs": 0,
     "weighted_milestone_change": 0
   },
@@ -931,5 +938,5 @@
     "weighted_milestone_change": 1.4285714285714306,
     "issues_closed": false
   },
-  "qualification_scope": "This public checkpoint combines frozen default product-source receiving on 03c59caef9, separate Amber receiving on that source, developer/CI changes received on 12a6c6fc2, and fourteen fast gates on 258702da0. It is not a claim of a new full-suite/candidate run on a later tracking-only commit."
+  "qualification_scope": "This checkpoint combines frozen default product-source receiving on 03c59caef9, separate Amber receiving on that source, developer/CI repairs on 12a6c6fc2, fourteen actual-Jupyter guards on 68323539e and fourteen fast gates on 9a27cc1bea. The last GUI changes affect test navigation only. A later tracking-only commit is not a new full-suite, installed or candidate qualification."
 }
