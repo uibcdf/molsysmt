@@ -925,6 +925,11 @@ def convert(
       The result is an independent resident inventory. Static tables may load
       in full; unrequested layers are neither loaded nor fully validated.
       Other conversion contexts retain their existing loading behavior.
+    - A native Topology and Structures pair accepts explicit ``copy_if_all``.
+      Topology always detaches; False can adopt unowned Structures for an all-axis
+      request, while an already owned Structures still detaches. Subsets use the
+      same ascending source atom order for inventory and coordinates; structure
+      order/repetitions remain unchanged. Missing chemical states stay absent.
     - A native ChemicalStates (or ChemicalStatesDict) and Structures pair can
       compose a topology-free MolSys, in either item order. Supplying the pair
       declares that their atom indices correspond; full axis counts must agree.

@@ -75,6 +75,14 @@ remaps inventory, every state and coordinates together. A foreign source with
 its own inventory or chemistry is not silently treated as coordinates by this
 route. Missing structure-to-state assignments remain unknown.
 
+A native `Topology` plus `Structures` pair also accepts explicit
+`copy_if_all=True` or `False`, in either input order. The default is independent.
+Topology is always copied for its single-owner rule. With both selections `'all'`,
+False can adopt an unowned Structures object; an already owned one still detaches.
+Atom subsets use ascending source positions for **both inventory and coordinates**;
+structure indices keep their requested order and repetitions. Subsets remain
+independent. Missing chemical states are not reconstructed from inventory.
+
 The default native composition result is independent. `copy_if_all=False` avoids
 the final snapshot for a full-axis request, but domains with a live molecular
 owner still detach according to their native ownership rules. Unowned structures

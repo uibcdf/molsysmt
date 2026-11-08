@@ -1019,3 +1019,18 @@ storage or request an independent transform. Ordinary `basic.copy()` retains the
 original dtype and does not perform this geometric promotion. These guarantees
 also cover complementary native-inventory/XYZ compositions. Floating computation
 retains the limitations of its representable numerical precision.
+
+
+## Two-domain native inventory and coordinate assembly
+
+Public `convert([topology, structures])` admits explicit boolean `copy_if_all`
+in either item order. The default/True path returns independent domains; Topology
+always detaches. False can adopt unowned Structures for the all-axis request,
+while the native Structures setter still detaches a domain with a live owner.
+Selections return an independent subset. Inventory extraction sorts source atom
+positions, so this shortcut canonicalizes the same atom population before both
+native extractors. Structure order and repetitions remain separate and unchanged.
+The pair declares index correspondence, not authenticated origin or chemistry;
+missing ChemicalStates stays absent. Full-axis conflicts and malformed copy
+options retain the existing public rejection. No whole-system intermediate
+snapshot or new reconstruction algorithm is required.

@@ -150,10 +150,17 @@ def file_gro_and_file_xtc_to_molsysmt_MolSys(
 
 
 def molsysmt_Topology_and_molsysmt_Structures_to_molsysmt_MolSys(
-    molecular_system, atom_indices="all", structure_indices="all", skip_digestion=False
+    molecular_system,
+    atom_indices="all",
+    structure_indices="all",
+    copy_if_all=True,
+    skip_digestion=False,
 ):
-    """Build a MolSys from native Topology and Structures objects."""
+    """Compose native domains while preserving single-owner and copy policies."""
 
+    import numpy as np
+
+    from molsysmt._private.variables import is_all
     from molsysmt.basic import get_form
     from molsysmt.native import MolSys
 
@@ -168,6 +175,11 @@ def molsysmt_Topology_and_molsysmt_Structures_to_molsysmt_MolSys(
         elif form == "molsysmt.Structures":
             item_structures = item
 
+    # Topology extraction uses ascending source positions. Geometry must use
+    # that same population, including for explicit permutations of all atoms.
+    if not is_all(atom_indices):
+        atom_indices = np.sort(np.asarray(atom_indices))
+
     output_item = MolSys._from_partial_domains(
         topology=item_topology.extract(
             atom_indices=atom_indices, copy_if_all=True, skip_digestion=True
@@ -175,7 +187,7 @@ def molsysmt_Topology_and_molsysmt_Structures_to_molsysmt_MolSys(
         structures=item_structures.extract(
             atom_indices=atom_indices,
             structure_indices=structure_indices,
-            copy_if_all=True,
+            copy_if_all=copy_if_all,
             skip_digestion=True,
         ),
     )
