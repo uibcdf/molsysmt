@@ -4141,5 +4141,112 @@
     "Per-scenario 300/240-second and original UI waits remain unchanged. No image or reconstruction algorithm is added to the addon.",
     "Native ArgDigest/DepDigest/unit/attribution ownership remains; the editor uses the shared physical-box validator and SMonitor diagnostics.",
     "Cell construction/assignment, tiny-boundary-origin cross-policy graphical receiving, installed/human/full-candidate gates and the remaining GUI intents stay explicit."
-  ]
+  ],
+  "pbc-general-fast": {
+    "source": "1659a1515468cfd7b09d1eb9244a3feb08a27a9a",
+    "exit_code": 0,
+    "changed_inputs": [],
+    "viewer_changed_inputs": [],
+    "checked_inputs": 8562,
+    "viewer_checked_inputs": 2463,
+    "resources": {
+      "seconds": 27.025058748899028,
+      "limits": {
+        "memory.max": "2147483648",
+        "memory.high": "1879048192",
+        "memory.swap.max": "0",
+        "memory.oom.group": "1",
+        "cpu.max": "100000 100000",
+        "pids.max": "256"
+      },
+      "host_available_minimum_observed_bytes": 16251969536,
+      "cgroup_memory_peak_bytes": 418004992,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "pids_events": "max 0\n"
+    },
+    "artifact_sha256": {
+      ".json": "7afe3eeb836f0e0bd5831e35f8f9220738b675075d6b3efe7af79250a652a8f6",
+      "-bounded.json": "ad9e121dad9d0b3d6f36b76b5bde431a0e5d7365cf70db8bbcaefcdfcee2a904",
+      ".log": "554e5d2a312e05ee8da585623214328473547df8e9618cee82af7ced9f89969e",
+      "-inputs-before.json": "b274a1b2735b81ac9e69f22997b43d589d7d2289671ed62901499f48fd3268e4",
+      "-inputs-after.json": "b274a1b2735b81ac9e69f22997b43d589d7d2289671ed62901499f48fd3268e4"
+    },
+    "gates_passed": 14
+  },
+  "pbc-general-html": {
+    "source": "1659a1515468cfd7b09d1eb9244a3feb08a27a9a",
+    "exit_code": 0,
+    "changed_inputs": [],
+    "viewer_changed_inputs": [],
+    "checked_inputs": 8562,
+    "viewer_checked_inputs": 2463,
+    "resources": {
+      "seconds": 149.16226249281317,
+      "limits": {
+        "memory.max": "2147483648",
+        "memory.high": "1879048192",
+        "memory.swap.max": "0",
+        "memory.oom.group": "1",
+        "cpu.max": "100000 100000",
+        "pids.max": "256"
+      },
+      "host_available_minimum_observed_bytes": 15941672960,
+      "cgroup_memory_peak_bytes": 1370312704,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "pids_events": "max 0\n"
+    },
+    "artifact_sha256": {
+      ".json": "4530fe66568df2478773e31a89ee5f36f84a692adce097021c57e3a8b6ebe8bb",
+      "-bounded.json": "2a563776cbe4cb948721578839fb0e3320f9b056bb6b70c983a78be9bb744ffc",
+      ".log": "c65c18e77a3b76373e48be7741e64bea1f1614a1661daa376f24a418e6eaabdd",
+      "-inputs-before.json": "b274a1b2735b81ac9e69f22997b43d589d7d2289671ed62901499f48fd3268e4",
+      "-inputs-after.json": "b274a1b2735b81ac9e69f22997b43d589d7d2289671ed62901499f48fd3268e4"
+    },
+    "nb_execution": "off",
+    "autosummary_generate": false,
+    "warnings": [
+      "docs/api/build/autosummary/molsysmt.build.ProtonationAssessment.rst:2: WARNING: Title underline too short.",
+      "docs/api/build/autosummary/molsysmt.build.add_ions.rst:2: WARNING: Title underline too short.",
+      "docs/api/build/autosummary/molsysmt.build.assess_protonation.rst:2: WARNING: Title underline too short.",
+      "docs/api/build/autosummary/molsysmt.build.reconcile_protonation.rst:2: WARNING: Title underline too short.",
+      "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst:2: WARNING: Title underline too short.",
+      "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst:2: WARNING: Title underline too short."
+    ],
+    "new_warning_identities_compared_with_retained_baselines": [],
+    "rendered_page_checks": [
+      {
+        "page": "content/user/tools/molsysviewer_tools.html",
+        "sha256": "ac5c2eb94b1f9ef3538a76b5311e0a900d0e1376ff1116e1f1c981c7d62d376e",
+        "physical_convention_and_links": true
+      },
+      {
+        "page": "content/course/Path_Alzheimer/41_Wrapping_Unwrapping.html",
+        "sha256": "19b5133487018e3f28f1739728b8dcd51071354a665ee4020cdee7c17d1bda8e",
+        "physical_convention_and_links": true
+      },
+      {
+        "page": "content/course/Path_Antiviral/41_Wrapping_Unwrapping.html",
+        "sha256": "d65a3b79c32e274e07a4f4e4eb6fa2859c4f2132bab52e5ba5d6da1a4c2d4eb5",
+        "physical_convention_and_links": true
+      },
+      {
+        "page": "content/course/Path_Biophysics/41_Wrapping_Unwrapping.html",
+        "sha256": "ba39fc15c000caa051b622e95550861dce0ac8431ee784d721dfbebdc2678ab6",
+        "physical_convention_and_links": true
+      },
+      {
+        "page": "content/course/Path_Enzyme/41_Wrapping_Unwrapping.html",
+        "sha256": "86bfaf385d68b8768f4d2d75bfcd96f19a59b60ff76a50c40a8a45ed27acd854",
+        "physical_convention_and_links": true
+      }
+    ],
+    "scope": "HTML build/link/content verification only; no fresh execution of the four unchanged course code/output cells."
+  },
+  "public_source_acceptance": {
+    "checkpoint": "1659a1515468cfd7b09d1eb9244a3feb08a27a9a",
+    "verified": true,
+    "general_periodic_intent": "source_received",
+    "whole_periodic_family": "partial",
+    "installed_human_final_candidate": "pending"
+  }
 }

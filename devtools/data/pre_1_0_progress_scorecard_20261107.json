@@ -2,14 +2,14 @@
   "schema_version": "molsysmt.pre1-progress@1",
   "date": "2026-11-07",
   "owner_issue": "uibcdf/molsysmt#334",
-  "qualified_source": "9a27cc1beaebe5302337b75214174e5f76ed1318",
+  "qualified_source": "1659a1515468cfd7b09d1eb9244a3feb08a27a9a",
   "measure": "Verified implementation/source-delivery milestones; approximate operational completion, not elapsed effort, scientific coverage, a readiness probability or publication authority.",
   "accounting_change": "The earlier all-or-nothing phase-exit indicator was 40%. The same six phase weights and full scope now receive explicit partial milestone credit. This is a catch-up remeasurement of delivered work, not a new 21-point implementation in this turn.",
   "method": "Within phases 3\u20136, each named requirement package has equal weight. Nested accepted GUI families have equal family weight, then equal declared intent/task weight within that family. Verified-source leaves score 1, pending leaves score 0; parents average children. Supplemental defect/test/issue counts add no bonus. Pending means not accepted by this audit, not absent code.",
   "gui_scope": "Tracking packages make the previously accepted workflow inventory explicit. They are user intents, not a GUI promise for every expert argument or a new scientific feature request. Native/expert APIs remain available and retain their own qualification.",
   "publication": "The existing pause remains. #640/#641/#642 and all other required correctness work retain owning acceptance. Exact candidate/platform/installed and final sign-off gates are not scored as passed by source tests.",
   "legacy_phase_exit_percent": 40,
-  "weighted_milestone_percent": 72.17990342990342,
+  "weighted_milestone_percent": 72.2367216117216,
   "reported_approximate_percent": 72.2,
   "phases": [
     {
@@ -394,9 +394,11 @@
                 {
                   "id": "general-periodic",
                   "requirement": "Receive broader delivered general-orientation/changing-cell native corrections in the GUI",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/general_periodic_gui_receiving_421_20261108.json"
+                  ],
+                  "review": "Public 1659a1515 receives clean 2f0eeb1c1: 336 source cases and fixed/general actual-Jupyter guards pass, with native row-basis/previous-transition-cell oracles. Fourteen fast gates and HTML pass on 1659a1515; six unchanged heading warnings remain. Cell assignment, tiny-boundary reference-point receiving and whole-family/installed/human gates stay pending."
                 },
                 {
                   "id": "cell-assignment",
@@ -716,8 +718,8 @@
           ]
         }
       ],
-      "verified_fraction": 0.7919580419580419,
-      "credited_points": 19.798951048951047
+      "verified_fraction": 0.7942307692307693,
+      "credited_points": 19.855769230769234
     },
     {
       "id": "phase5",
@@ -862,9 +864,9 @@
       "uibcdf/molsysmt#614"
     ],
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
-    "owner_verification": "Public 9a27cc1bea and the four owning closures are independently verified; board and queues agree. All fourteen existing actual-Jupyter guards and 109 browser checks pass on clean source; fourteen fast gates pass on the delivery checkpoint. Every failure and deliberate stop remains in the receipt.",
+    "owner_verification": "Public 1659a1515 is independently verified: the existing general-periodic intent receives 336 source cases and two actual-Jupyter guards; fourteen fast gates, course structure and HTML pass with six unchanged heading warnings. Earlier four owner closures and all failed attempts remain recorded.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Continue the existing general-orientation/changing-cell periodic GUI intent under #421 using the delivered native primitives, then other unaccepted graphical intents and scientific-contract dispositions. Keep #615 causal uncertainty, #567 owner policy and installed/platform/exact-candidate gates explicit.",
+    "scope": "Continue explicit periodic cell assignment and dedicated tiny-boundary-origin cross-policy graphical receiving, then remaining accepted GUI families. Preserve #615 causal uncertainty, #567 policy, #582 requested/effective mechanics and all installed/platform/exact-candidate requirements.",
     "active_related": [
       "uibcdf/molsysmt#615"
     ],
@@ -884,17 +886,18 @@
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
-    "verified_source_intents": 23,
+    "verified_source_intents": 24,
     "total_intents": 50,
     "global_weight_points": 2.5,
     "meaning": "A separate count of accepted declared intents; not equal effort, scientific coverage or installed acceptance."
   },
   "last_graphical_delivery": {
-    "source": "b3f4fd4cb38f98eb5d96d2617f6f1977c91717e1",
-    "milestone": "phase4/graphical-inventory/fitting/external-reference",
-    "evidence": "devtools/data/molsysviewer_tools_external_reference_delivery_20261107.json",
-    "weighted_milestone_change": 0.05681818181817988,
-    "graphical_accepted": 23,
+    "source": "2f0eeb1c117f9217de58882162016408a85b383d",
+    "public_checkpoint": "1659a1515468cfd7b09d1eb9244a3feb08a27a9a",
+    "milestone": "phase4/graphical-inventory/periodic-cell/general-periodic",
+    "evidence": "devtools/data/general_periodic_gui_receiving_421_20261108.json",
+    "weighted_milestone_change": 0.056818181818186986,
+    "graphical_accepted": 24,
     "graphical_total": 50
   },
   "last_owner_closeout": {
@@ -938,5 +941,5 @@
     "weighted_milestone_change": 1.4285714285714306,
     "issues_closed": false
   },
-  "qualification_scope": "This checkpoint combines frozen default product-source receiving on 03c59caef9, separate Amber receiving on that source, developer/CI repairs on 12a6c6fc2, fourteen actual-Jupyter guards on 68323539e and fourteen fast gates on 9a27cc1bea. The last GUI changes affect test navigation only. A later tracking-only commit is not a new full-suite, installed or candidate qualification."
+  "qualification_scope": "Frozen full product source/Amber receiving on 03c59caef9, developer/CI repairs on 12a6c6fc2, fourteen actual-Jupyter guards on 68323539e, and affected general-periodic source/GUI receiving on 2f0eeb1c1 retain their distinct scopes. Fast gates/HTML on 1659a1515 do not constitute a new full-suite, installed or final-candidate qualification."
 }
