@@ -3555,5 +3555,10 @@ The candidate also corrects a missed secondary purpose sentence that still said
 'one unchanged cell' after general-cell receiving. The actual periodic driver
 now rejects that contradictory wording, in addition to checking the real
 previous-selected-cell and undersampling explanation. #421 stays partial; no
-release credit follows. The existing cell-assignment leaf remains uncredited
-until public-source delivery is independently verified.
+release credit follows. Public checkpoint `dae961200` is now independently
+verified across all 22 changed paths. Fourteen fast gates and HTML pass; the
+six previous title warnings remain, with no new warning on the changed pages.
+Course executable cells/outputs and four human root files remain untouched.
+The original cell-assignment leaf is accepted in source, moving graphical
+tracking to 25/50 and weighted progress to approximately 72.3%. Tiny-origin
+cross-policy receiving and all other accepted families remain due.

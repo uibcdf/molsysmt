@@ -5,6 +5,28 @@
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-08.
 
+## Cell-assignment source delivery — 2026-11-08
+
+Public checkpoint `dae961200c2c855cdf24f50fb2806ecabef8aaa6` independently matches
+all 22 changed paths. Clean `7ba4f2ed5` passes 550 affected source cases and two
+actual-Jupyter guards / sixteen checks, without skips, failures or errors. The
+[cell receipt](../devtools/data/cell_assignment_gui_receiving_421_20261108.json)
+keeps source fingerprints, current/independent effects, selected-structure
+coverage, unchanged Cartesian positions/chemistry, physical units, factory
+validation and actual popup authorities explicit. Fourteen fast gates and HTML
+pass on `dae961200`; six existing title warnings are unchanged. Course code and
+saved outputs are preserved. Four unrelated owner-formatting corrections keep
+identical complete ASTs; whole-tree Ruff passes. Human root edits are untouched.
+
+The existing cell-assignment leaf advances the unchanged scorecard to
+**approximately 72.3%**, with **25/50 graphical intents accepted** and still
+**51 audit-related source closures**. No defect-closure bonus or new intent is
+introduced. Dedicated tiny-boundary-origin cross-policy graphical receiving
+precedes the remaining accepted task families; #421 is partial. #615 uncertainty,
+#567 policy, #582 effective recipes, installed/platform/human and exact-candidate
+qualification remain due. The complete board is 585 issues / 88 open / no open
+PR. No public artifact or hosted matrix was created.
+
 ## Fixture ownership and bounded scientific claims — 2026-11-08
 
 #649/#650 are published on main checkpoint `a5fc92a23` and independently verified

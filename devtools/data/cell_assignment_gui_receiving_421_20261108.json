@@ -5830,5 +5830,236 @@
       "structures": 3,
       "atoms": 62
     }
-  ]
+  ],
+  "completion": {
+    "public_source_delivery": {
+      "public_checkpoint": "dae961200c2c855cdf24f50fb2806ecabef8aaa6",
+      "base": "df9dbe2c80d3dc681c1bf667f1cf03232360c23f",
+      "verified_paths": [
+        {
+          "path": "devguide/molsysviewer_tools_gui_design.md",
+          "git_blob_sha": "c47790de9db7c8bff8704810f67b68a51b418f67"
+        },
+        {
+          "path": "devguide/pending_proposals/molsysviewer_tools_addon.md",
+          "git_blob_sha": "a945d231533d0edc1f512fb1598126e0c445e6f2"
+        },
+        {
+          "path": "devguide/periodic_tools_gui_qualification.md",
+          "git_blob_sha": "05c80bcc2243f93d1d0e7d7f857b4f65bba08f70"
+        },
+        {
+          "path": "devtools/data/cell_assignment_gui_receiving_421_20261108.json",
+          "git_blob_sha": "ffa7677b6f97640ea04941bc7b91a7f88ff9ac5b"
+        },
+        {
+          "path": "docs/content/course/Path_Alzheimer/41_Wrapping_Unwrapping.ipynb",
+          "git_blob_sha": "03ace82680bea54a35fba5fc99291498e36e484a"
+        },
+        {
+          "path": "docs/content/course/Path_Antiviral/41_Wrapping_Unwrapping.ipynb",
+          "git_blob_sha": "44847c6dc2d792b53efa351868193de109c1b19b"
+        },
+        {
+          "path": "docs/content/course/Path_Biophysics/41_Wrapping_Unwrapping.ipynb",
+          "git_blob_sha": "1ff7b8746499fcde3dd46616a48b5a299a54fcec"
+        },
+        {
+          "path": "docs/content/course/Path_Enzyme/41_Wrapping_Unwrapping.ipynb",
+          "git_blob_sha": "df0d4fe79f912bca51a26cb61c954040fee087d4"
+        },
+        {
+          "path": "docs/content/user/tools/molsysviewer_tools.md",
+          "git_blob_sha": "5f78b6794f05a94fc2b9c7d0070197925bc1bfcc"
+        },
+        {
+          "path": "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md",
+          "git_blob_sha": "90cbb4177754b07fa17c19c8da8b765612a2eb4a"
+        },
+        {
+          "path": "docs/docs_manifest.yml",
+          "git_blob_sha": "b77fd3cecfb775ad56bab03e2aaddfa6ef588e9b"
+        },
+        {
+          "path": "molsysmt/basic/select.py",
+          "git_blob_sha": "69af905cf2e1e35c84e13c6bfd60699ca9f9fd4f"
+        },
+        {
+          "path": "molsysviewer_molsysmt/_geometry_panel.py",
+          "git_blob_sha": "4ee58205d7441e13ab2281466fb703234d70b1bc"
+        },
+        {
+          "path": "molsysviewer_molsysmt/_geometry_panel_frontend.py",
+          "git_blob_sha": "18e5c0f74327ef3c0115f9b21d81948ab2598006"
+        },
+        {
+          "path": "tests/basic/convert/test_source_naming_scheme.py",
+          "git_blob_sha": "61a820afa9ee1ff1540f2036ac1a90cf272b5202"
+        },
+        {
+          "path": "tests/basic/test_set_formal_charge.py",
+          "git_blob_sha": "085c6d9cf247ecf359666f61f4848dab157c0113"
+        },
+        {
+          "path": "tests/conversion_truth/test_pdb_fidelity.py",
+          "git_blob_sha": "4d545dd42d57426cadfd3067fe7caa99e6c55d9e"
+        },
+        {
+          "path": "tests/molsysviewer_molsysmt/cell_panel_jupyter.mjs",
+          "git_blob_sha": "5d561ff0937e09208ad2a8cb7d8d57e49f56fc89"
+        },
+        {
+          "path": "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py",
+          "git_blob_sha": "af270fa0bc19bb1fc4200636e0a4e6e205b96f12"
+        },
+        {
+          "path": "tests/molsysviewer_molsysmt/periodic_panel_jupyter.mjs",
+          "git_blob_sha": "e6d817b503b248b76a8404d0e10cbd19fbadf3b1"
+        },
+        {
+          "path": "tests/molsysviewer_molsysmt/system_panel_jupyter.py",
+          "git_blob_sha": "330fb655805a363bcc24018832b35668778f9f7f"
+        },
+        {
+          "path": "tests/molsysviewer_molsysmt/test_periodic_panel.py",
+          "git_blob_sha": "30c8c2208a03431585990079a50ae553372982a3"
+        }
+      ],
+      "protected_human_files": {
+        "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": "3b97cf0d5c813a1e3c2212ad118c7f6c32763d85af91cb800640209095fd53d6",
+        "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": "d564291bb01387663f178f5e041bc8d55d1022bfa71584ddd11f1dd9dba12d95",
+        "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": "a112aa640da192a121d1ccec3c5011c9652729abacf2a38c1b222632a55dcf20",
+        "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": "6b3f17a698bc7393ca3ecad31891d693b8a8169dfdd892dbae77f3ca91b25abe"
+      },
+      "human_bytes_unchanged": true,
+      "scope": "Fast-forward source delivery only; no package, tag, Release or hosted matrix launched."
+    },
+    "fast_gates": {
+      "passed": 14,
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 20.935483291046694,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "dae961200c2c855cdf24f50fb2806ecabef8aaa6",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8564
+      }
+    },
+    "html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/cell-editor-html"
+        ],
+        "exit_code": 0,
+        "seconds": 144.93332306784578,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "dae961200c2c855cdf24f50fb2806ecabef8aaa6",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8564
+      },
+      "inspection": {
+        "pages": [
+          {
+            "page": "content/user/tools/molsysviewer_tools.html",
+            "sha256": "089564945c568695fd9e5c34c0e39bb3efc968efd53e17361c1f3d40ec1ae2dd"
+          },
+          {
+            "page": "content/course/Path_Enzyme/41_Wrapping_Unwrapping.html",
+            "sha256": "0b188d42128ee846c755a14d895fa2dd66e304fa31396029e8fbe4b305daaa0e",
+            "code_cells_and_outputs_unchanged": true
+          },
+          {
+            "page": "content/course/Path_Alzheimer/41_Wrapping_Unwrapping.html",
+            "sha256": "dd520ea8701fb978122149067623ed3ee0c0a1c55eb03663cf1d7cea918fc6d1",
+            "code_cells_and_outputs_unchanged": true
+          },
+          {
+            "page": "content/course/Path_Antiviral/41_Wrapping_Unwrapping.html",
+            "sha256": "4581cb263c930c2339a557018e14eb1db329aeb536e39a47229099de571cf5c2",
+            "code_cells_and_outputs_unchanged": true
+          },
+          {
+            "page": "content/course/Path_Biophysics/41_Wrapping_Unwrapping.html",
+            "sha256": "5d26abd87437876d076e623f3ac5c35598091590ba288f3b21c9b2056bcde44c",
+            "code_cells_and_outputs_unchanged": true
+          }
+        ],
+        "warnings": [
+          [
+            "api/build/autosummary/molsysmt.build.ProtonationAssessment.rst",
+            "Title underline too short."
+          ],
+          [
+            "api/build/autosummary/molsysmt.build.add_ions.rst",
+            "Title underline too short."
+          ],
+          [
+            "api/build/autosummary/molsysmt.build.assess_protonation.rst",
+            "Title underline too short."
+          ],
+          [
+            "api/build/autosummary/molsysmt.build.reconcile_protonation.rst",
+            "Title underline too short."
+          ],
+          [
+            "api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst",
+            "Title underline too short."
+          ],
+          [
+            "api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst",
+            "Title underline too short."
+          ]
+        ],
+        "warnings_match_previous_build": true,
+        "fast_gates": 14,
+        "source": "dae961200",
+        "scope": "HTML compilation and rendered content/link inspection without notebook execution."
+      }
+    },
+    "formatting": {
+      "source": "7ba4f2ed5966bfca47eec82770975f929e293ff9",
+      "files": [
+        "molsysmt/basic/select.py",
+        "tests/basic/convert/test_source_naming_scheme.py",
+        "tests/basic/test_set_formal_charge.py",
+        "tests/conversion_truth/test_pdb_fidelity.py"
+      ],
+      "scope": "Four unmodified owner files found by whole-tree Ruff; formatting-only changes preserve complete Python ASTs. No protected root human files touched.",
+      "identical_asts": true
+    },
+    "inspection_notes": [
+      "The first HTML inspection selected the empty MyST label span. Inspecting its semantic parent section verifies the unchanged title and every physical-contract assertion; no page content or assertion was removed.",
+      "The first delivery preflight stripped the leading Git status column and stopped before mutation. Preserving the original status columns passes the strict four-human-file whitelist."
+    ],
+    "scope": "Source and documentation delivery only. Hosted full-suite recovery, installed/platform/human and exact-candidate gates remain due."
+  }
 }

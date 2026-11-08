@@ -22,42 +22,40 @@ contracts.
 
 ## Current source checkpoint — 2026-11-08
 
-Public main `1659a1515468cfd7b09d1eb9244a3feb08a27a9a` is independently
-verified. The general-row/changing-cell periodic GUI intent now receives
-**336 source cases and two actual-Jupyter guards / sixteen browser checks**,
-zero skips/failures/errors, on clean `2f0eeb1c1`. Native physical-box validation
-and previous-selected-cell MIC are reused; no image algorithm or Rust change
-is added. All 8,561 owner and 2,463 verified-export inputs remain unchanged.
-The [receipt](../devtools/data/general_periodic_gui_receiving_421_20261108.json)
-retains the original counterexample and all fixture-development failures.
+Public main `dae961200c2c855cdf24f50fb2806ecabef8aaa6` is independently verified
+across all **22 changed paths**. **Assign periodic cell** receives clean source
+`7ba4f2ed5`: **550 affected source cases and two actual-Jupyter guards / sixteen
+browser checks**, zero skips/failures/errors. It delegates physical lengths and
+angles to the public native factory and publishes complete-structure boxes
+through managed setting. Cartesian positions and chemical state are unchanged;
+current/independent effects, coverage, Back/expiry and synchronization-only retry
+are checked. All 8,563 owner and 2,463 verified Viewer-export inputs remain fixed.
+The [receipt](../devtools/data/cell_assignment_gui_receiving_421_20261108.json)
+retains the separate overlapping 543-case development run and baseline-matching
+Jupyter debugger errors. No new scientific API, optional engine or Rust change.
 
-Accepted progress is **approximately 72.2% (72.24% to two decimals)**,
-with **51 audit-related source closures** and **24/50 graphical intents**.
-Only the original general-periodic leaf gains credit; #421 remains partial.
-The [scorecard](../devtools/data/pre_1_0_progress_scorecard_20261107.json)
-retains all six weights and every pending leaf. Fourteen fast gates and the HTML
-build pass on `1659a1515`; six heading warnings match retained earlier builds,
-with no new warning on the changed pages. Five rendered pages retain the physical
-convention and course-to-guide links. Course code/outputs are unchanged; no fresh
-full-course execution is claimed.
+Accepted progress is **approximately 72.3% (72.29% to two decimals)**,
+with **51 audit-related source closures** and **25/50 graphical intents**.
+Only the existing cell-assignment leaf gains credit; #421 stays partial. The
+[scorecard](../devtools/data/pre_1_0_progress_scorecard_20261107.json) preserves
+all six weights and every pending leaf. Fourteen fast gates and HTML pass on
+`dae961200`; six pre-existing title warnings match the retained build. Five
+rendered pages retain the new physical contract and links. Course code/saved
+outputs are unchanged; no fresh course execution is claimed. Whole-tree Ruff
+passes after four formatting-only corrections with identical complete ASTs.
 
-The prior **#590/#591/#609/#614 closures** remain verified on public `9a27cc1bea`.
-Their fourteen-guard / 109-check receiving belongs to clean `68323539e`, while
-only the two affected periodic GUI scenarios are rerun for the later change.
-The [earlier receipt](../devtools/data/jupyter_owner_receiving_590_591_609_614_20261108.json)
-preserves every stopped/failed attempt. Complete board: **585 issues, 88 open,
-no open PR**. Four human documentation files remain untouched after integration.
+The GUI tree peaks at **1.83 GiB**, preserving at least **13.70 GiB** host
+availability with no memory/task-cap or OOM events. Four human root documentation
+files retain their exact current bytes through integration. The complete board
+remains **585 issues / 88 open / no open PR**. The previous general-cell and
+four-owner-closure receipts retain their distinct source qualification.
 
-Next: explicit cell assignment and dedicated tiny-boundary-origin cross-policy
-GUI receiving, then the other agreed families. #615 causal startup uncertainty,
-#567 performance-role policy and #582 engine-neutral effective recipes remain
-pending. The last includes the observed legacy all_bonds-to-HBonds helper mismatch,
-without attributing it to the separately tested public conversion route.
-
-The periodic GUI run peaks at **1.65 GiB** charged memory and preserves at least
-**13.78 GiB** host availability, without memory/task-cap or OOM events. No package,
-tag, Release, promotion or new hosted matrix was launched. Installed/platform,
-human Qt and exact-candidate qualification remain separate requirements.
+Next: dedicated tiny-boundary-origin cross-policy GUI receiving, then the other
+agreed families. #615 causal startup uncertainty, #567 performance-role policy
+and #582 engine-neutral effective recipes remain pending, including the observed
+legacy all_bonds-to-HBonds helper mismatch. No package, tag, Release, promotion or
+hosted matrix was launched. Installed/platform/human Qt/exact-candidate exits
+and full-suite recovery remain required.
 
 ## Complete local source receiving and CI/evidence correction — 2026-11-08
 

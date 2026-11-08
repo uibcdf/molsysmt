@@ -2,15 +2,15 @@
   "schema_version": "molsysmt.pre1-progress@1",
   "date": "2026-11-07",
   "owner_issue": "uibcdf/molsysmt#334",
-  "qualified_source": "1659a1515468cfd7b09d1eb9244a3feb08a27a9a",
+  "qualified_source": "dae961200c2c855cdf24f50fb2806ecabef8aaa6",
   "measure": "Verified implementation/source-delivery milestones; approximate operational completion, not elapsed effort, scientific coverage, a readiness probability or publication authority.",
   "accounting_change": "The earlier all-or-nothing phase-exit indicator was 40%. The same six phase weights and full scope now receive explicit partial milestone credit. This is a catch-up remeasurement of delivered work, not a new 21-point implementation in this turn.",
   "method": "Within phases 3\u20136, each named requirement package has equal weight. Nested accepted GUI families have equal family weight, then equal declared intent/task weight within that family. Verified-source leaves score 1, pending leaves score 0; parents average children. Supplemental defect/test/issue counts add no bonus. Pending means not accepted by this audit, not absent code.",
   "gui_scope": "Tracking packages make the previously accepted workflow inventory explicit. They are user intents, not a GUI promise for every expert argument or a new scientific feature request. Native/expert APIs remain available and retain their own qualification.",
   "publication": "The existing pause remains. #640/#641/#642 and all other required correctness work retain owning acceptance. Exact candidate/platform/installed and final sign-off gates are not scored as passed by source tests.",
   "legacy_phase_exit_percent": 40,
-  "weighted_milestone_percent": 72.2367216117216,
-  "reported_approximate_percent": 72.2,
+  "weighted_milestone_percent": 72.2935397935398,
+  "reported_approximate_percent": 72.3,
   "phases": [
     {
       "id": "phase1",
@@ -403,9 +403,11 @@
                 {
                   "id": "cell-assignment",
                   "requirement": "Receive explicit physical cell editing",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/cell_assignment_gui_receiving_421_20261108.json"
+                  ],
+                  "review": "Public dae961200 receives clean 7ba4f2ed5: 550 affected source cases and two actual-Jupyter guards / sixteen checks. Explicit physical lengths/angles/units, canonical rows, complete-structure scope, all-structure initialization, unchanged coordinates, coverage/effects, expiring reviews and sync-only retry are retained. Fourteen fast gates and HTML pass on dae961200; six existing title warnings remain. Tiny-origin cross-policy and full-family/human/installed qualification remain due."
                 }
               ]
             },
@@ -718,8 +720,8 @@
           ]
         }
       ],
-      "verified_fraction": 0.7942307692307693,
-      "credited_points": 19.855769230769234
+      "verified_fraction": 0.7965034965034965,
+      "credited_points": 19.912587412587413
     },
     {
       "id": "phase5",
@@ -864,9 +866,9 @@
       "uibcdf/molsysmt#614"
     ],
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
-    "owner_verification": "Public 1659a1515 is independently verified: the existing general-periodic intent receives 336 source cases and two actual-Jupyter guards; fourteen fast gates, course structure and HTML pass with six unchanged heading warnings. Earlier four owner closures and all failed attempts remain recorded.",
+    "owner_verification": "Public dae961200 is independently verified across all 22 changed paths; clean 7ba4f2ed5 passes 550 affected source cases and two actual-Jupyter guards. Fourteen fast gates and HTML pass on dae961200. Earlier source closures and all scoped evidence remain recorded.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Continue explicit periodic cell assignment and dedicated tiny-boundary-origin cross-policy graphical receiving, then remaining accepted GUI families. Preserve #615 causal uncertainty, #567 policy, #582 requested/effective mechanics and all installed/platform/exact-candidate requirements.",
+    "scope": "Receive dedicated tiny-boundary-origin cross-policy graphical controls, then remaining accepted GUI families. Preserve #615 causal uncertainty, #567 policy, #582 requested/effective mechanics and every installed/platform/exact-candidate requirement.",
     "active_related": [
       "uibcdf/molsysmt#615"
     ],
@@ -886,18 +888,18 @@
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
-    "verified_source_intents": 24,
+    "verified_source_intents": 25,
     "total_intents": 50,
     "global_weight_points": 2.5,
     "meaning": "A separate count of accepted declared intents; not equal effort, scientific coverage or installed acceptance."
   },
   "last_graphical_delivery": {
-    "source": "2f0eeb1c117f9217de58882162016408a85b383d",
-    "public_checkpoint": "1659a1515468cfd7b09d1eb9244a3feb08a27a9a",
-    "milestone": "phase4/graphical-inventory/periodic-cell/general-periodic",
-    "evidence": "devtools/data/general_periodic_gui_receiving_421_20261108.json",
+    "source": "7ba4f2ed5966bfca47eec82770975f929e293ff9",
+    "public_checkpoint": "dae961200c2c855cdf24f50fb2806ecabef8aaa6",
+    "milestone": "phase4/graphical-inventory/periodic-cell/cell-assignment",
+    "evidence": "devtools/data/cell_assignment_gui_receiving_421_20261108.json",
     "weighted_milestone_change": 0.056818181818186986,
-    "graphical_accepted": 24,
+    "graphical_accepted": 25,
     "graphical_total": 50
   },
   "last_owner_closeout": {
@@ -941,5 +943,5 @@
     "weighted_milestone_change": 1.4285714285714306,
     "issues_closed": false
   },
-  "qualification_scope": "Frozen full product source/Amber receiving on 03c59caef9, developer/CI repairs on 12a6c6fc2, fourteen actual-Jupyter guards on 68323539e, and affected general-periodic source/GUI receiving on 2f0eeb1c1 retain their distinct scopes. Fast gates/HTML on 1659a1515 do not constitute a new full-suite, installed or final-candidate qualification."
+  "qualification_scope": "Full product source/Amber receiving on 03c59caef9, developer/CI repairs on 12a6c6fc2, fourteen Jupyter guards on 68323539e, general-periodic receiving on 2f0eeb1c1 and cell assignment on 7ba4f2ed5 retain separate scopes. Fast gates/HTML on dae961200 are not a new full-suite, installed or final-candidate qualification."
 }
