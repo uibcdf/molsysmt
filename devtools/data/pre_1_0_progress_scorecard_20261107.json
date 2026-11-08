@@ -2,15 +2,15 @@
   "schema_version": "molsysmt.pre1-progress@1",
   "date": "2026-11-07",
   "owner_issue": "uibcdf/molsysmt#334",
-  "qualified_source": "a2993b8f0ec0bbf34b95966891f9b783f61dbe85",
+  "qualified_source": "258702da0818e82fe703ede1b08194eaf246aa76",
   "measure": "Verified implementation/source-delivery milestones; approximate operational completion, not elapsed effort, scientific coverage, a readiness probability or publication authority.",
   "accounting_change": "The earlier all-or-nothing phase-exit indicator was 40%. The same six phase weights and full scope now receive explicit partial milestone credit. This is a catch-up remeasurement of delivered work, not a new 21-point implementation in this turn.",
   "method": "Within phases 3\u20136, each named requirement package has equal weight. Nested accepted GUI families have equal family weight, then equal declared intent/task weight within that family. Verified-source leaves score 1, pending leaves score 0; parents average children. Supplemental defect/test/issue counts add no bonus. Pending means not accepted by this audit, not absent code.",
   "gui_scope": "Tracking packages make the previously accepted workflow inventory explicit. They are user intents, not a GUI promise for every expert argument or a new scientific feature request. Native/expert APIs remain available and retain their own qualification.",
   "publication": "The existing pause remains. #640/#641/#642 and all other required correctness work retain owning acceptance. Exact candidate/platform/installed and final sign-off gates are not scored as passed by source tests.",
   "legacy_phase_exit_percent": 40,
-  "weighted_milestone_percent": 65.33466533466533,
-  "reported_approximate_percent": 65.3,
+  "weighted_milestone_percent": 68.01323676323676,
+  "reported_approximate_percent": 68.0,
   "phases": [
     {
       "id": "phase1",
@@ -235,9 +235,12 @@
             {
               "id": "finite-suite-budget",
               "requirement": "Complete #611 applicable full-tier/budget review",
-              "state": "pending",
-              "evidence": [],
-              "review": ""
+              "state": "verified_source",
+              "evidence": [
+                "devtools/data/smoke_budget_and_selection_receiving_611_653_20261108.json",
+                "devguide/archive/resolved_proposals/ci_smoke_budget_covers_expanded_native_and_addon_tiers.md"
+              ],
+              "review": "The finite 45-minute owner decision is implemented and source-accepted. The corrected historical hosted campaign has terminal success, all prior selectors remain, #653 restores the one newly omitted module, and 104 clean directed cases plus fourteen fast gates pass. #611/#653 are independently verified closed on public main. Exact-current/final-candidate hosted gates remain independent; #567 comparability is still pending."
             },
             {
               "id": "baseline-comparability",
@@ -705,8 +708,8 @@
           ]
         }
       ],
-      "verified_fraction": 0.5752913752913752,
-      "credited_points": 14.38228438228438
+      "verified_fraction": 0.6252913752913754,
+      "credited_points": 15.632284382284384
     },
     {
       "id": "phase5",
@@ -716,11 +719,13 @@
         {
           "id": "612-587",
           "requirement": "Reconcile #612/#587 actual acceptance and closeout",
-          "state": "pending",
+          "state": "verified_source",
           "evidence": [
-            "devtools/data/devguide_pagination_owner_closeout_587_20261107.json"
+            "devtools/data/devguide_pagination_owner_closeout_587_20261107.json",
+            "devtools/data/full_source_receiving_612_20261108.json",
+            "devguide/archive/resolved_bugs/multimodel_alternate_location_fidelity_expectation.md"
           ],
-          "review": "#587 is accepted and independently verified closed. The joint leaf remains pending until #612 receives its affected-fidelity and exact-head full-source acceptance; no partial credit is added."
+          "review": "Both owners are accepted and independently verified closed. Clean 03c59caef9 completes 32,039 default cases (32,014 passed/25 skipped) with unchanged inputs; all 23 Amber omissions pass separately on the same source with activated tools, including three independent oracles. Preserve the two original profiles and truncated phase-detail policy. No installed, platform, GPU, registered-candidate or publication qualification is inferred."
         },
         {
           "id": "549",
@@ -778,8 +783,8 @@
         }
       ],
       "review": "Only individually accepted requirement leaves receive credit. Other pending source/claim/candidate work remains explicit; pending does not assert absent code.",
-      "verified_fraction": 0.42857142857142855,
-      "credited_points": 4.285714285714286
+      "verified_fraction": 0.5714285714285714,
+      "credited_points": 5.7142857142857135
     },
     {
       "id": "phase6",
@@ -838,25 +843,28 @@
       "uibcdf/molsysmt#648",
       "uibcdf/molsysmt#610",
       "uibcdf/molsysmt#649",
-      "uibcdf/molsysmt#650"
+      "uibcdf/molsysmt#650",
+      "uibcdf/molsysmt#651",
+      "uibcdf/molsysmt#612",
+      "uibcdf/molsysmt#611",
+      "uibcdf/molsysmt#653"
     ],
     "record": "devguide/archive/resolved_bugs/multimodel_alternate_location_fidelity_expectation.md",
-    "owner_verification": "Full default CPU scope completes on clean 03c59caef9 with 32,014 passes/25 skips; all 23 Amber omissions pass separately on the same source. #653 CI-selector repair and partial #567 evidence correction pass 104 clean directed cases. Source #612/#611/#653 closeout awaits public verification; thread environment defaults do not override explicit native pools.",
+    "owner_verification": "Public 258702da0 is independently verified. #612/#611/#653 closeout is complete; 32,014 full-session passes, 23 separate Amber passes, 104 clean directed cases and fourteen fast gates retain distinct scopes. Continue original graphical and scientific-contract requirements; #567 remains partial.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Continue actual-Jupyter owner closeout and remaining declared intents, scientific-contract, installed/platform and exact-candidate acceptance; no new full retry solely for bounded detail truncation.",
-    "pending_full_source": "uibcdf/molsysmt#612"
+    "scope": "Receive the nine original actual-Jupyter scenarios for #590/#591/#609/#614 with explicit CPU defaults and activated tool paths. Retain #615 causal uncertainty, every unaccepted graphical intent, scientific-contract, installed/platform and exact-candidate exit."
   },
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
     "issues": [
-      "uibcdf/molsysmt#651"
+      "uibcdf/molsysmt#653"
     ],
-    "source": "51a3e18986eec9d9e89cb268e149905ae6176ef8",
-    "public_checkpoint": "03c59caef9823bbca186aa4213626ddc5eb890f3",
+    "source": "064bf0a70",
+    "public_checkpoint": "258702da0818e82fe703ede1b08194eaf246aa76",
     "state": "public_source_closed",
-    "evidence": "devtools/data/placement_example_receiving_651_20261108.json",
+    "evidence": "devtools/data/smoke_budget_and_selection_receiving_611_653_20261108.json",
     "weighted_milestone_change": 0,
-    "audit_related_source_closures": 44
+    "audit_related_source_closures": 47
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
@@ -875,27 +883,32 @@
   },
   "last_owner_closeout": {
     "issues": [
-      "uibcdf/molsysmt#610"
+      "uibcdf/molsysmt#612",
+      "uibcdf/molsysmt#611"
     ],
-    "related_partial": "uibcdf/molsysmt#378",
-    "qualified_source": "d2ce182a46cf247fa466f31606402cf3734ba8d4",
-    "public_checkpoint": "0aa9d853418f5c7061bd26ff71b16976b87656f4",
+    "related_supplemental": "uibcdf/molsysmt#653",
+    "public_checkpoint": "258702da0818e82fe703ede1b08194eaf246aa76",
     "state": "public_source_closed",
-    "evidence": "devtools/data/public_graph_xyz_receiving_648_610_20261108.json",
-    "weighted_milestone_change": 1.4285714285714235,
-    "audit_related_source_closures": 41
+    "evidence": [
+      "devtools/data/full_source_receiving_612_20261108.json",
+      "devtools/data/smoke_budget_and_selection_receiving_611_653_20261108.json"
+    ],
+    "weighted_milestone_change": 2.6785714285714306,
+    "audit_related_source_closures": 47
   },
   "last_source_qualification_attempt": {
     "issue": "uibcdf/molsysmt#612",
     "source": "03c59caef9823bbca186aa4213626ddc5eb890f3",
-    "state": "complete_default_cpu_source_and_activated_amber_complement_board_closeout_pending",
+    "state": "complete_default_cpu_and_activated_amber_source_received_and_publicly_closed",
     "evidence": "devtools/data/full_source_receiving_612_20261108.json",
     "weighted_milestone_change": 0
   },
   "incoming_intake": {
-    "issues": [],
-    "complete_board_issues": 582,
-    "open_issues": 93,
+    "issues": [
+      "uibcdf/molsysmt#653"
+    ],
+    "complete_board_issues": 585,
+    "open_issues": 92,
     "open_prs": 0,
     "weighted_milestone_change": 0
   },
@@ -910,5 +923,6 @@
     "evidence": "devtools/data/collantes_public_claims_receiving_473_475_20261108.json",
     "weighted_milestone_change": 1.4285714285714306,
     "issues_closed": false
-  }
+  },
+  "qualification_scope": "This public checkpoint combines frozen default product-source receiving on 03c59caef9, separate Amber receiving on that source, developer/CI changes received on 12a6c6fc2, and fourteen fast gates on 258702da0. It is not a claim of a new full-suite/candidate run on a later tracking-only commit."
 }

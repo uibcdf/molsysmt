@@ -305,5 +305,34 @@
   "behavior": "Explicit --output keeps CI current JSON separate from the reference; the historical manual default remains. Owned temporary reference files are cleaned on success/failure without reusing/removing a caller file. Native measurement/comparison failure statuses survive tee through pipefail. Dedicated raw session/log/source evidence is configured for always-on retention after reference acquisition, including hidden files in the narrow evidence folder.",
   "hosted_upload_executed": false,
   "remaining": "Workload/environment comparability metadata and owner acceptance, explicit product/control-role decision, reviewed baseline renewal. The default 15 percent and every matched third-party blocking path remain unchanged. Original failed runs/medians remain failures; no baseline or served copy is renewed.",
-  "support_libraries": "Standard-library developer orchestration and saved JSON/shell controls, reusing the existing harness. No new product API, molecular algorithm, optional engine, unit policy or scientific attribution boundary."
+  "support_libraries": "Standard-library developer orchestration and saved JSON/shell controls, reusing the existing harness. No new product API, molecular algorithm, optional engine, unit policy or scientific attribution boundary.",
+  "final_fast_receiving": {
+    "source_commit": "258702da0818e82fe703ede1b08194eaf246aa76",
+    "exit_code": 0,
+    "fast_gates_passed": 14,
+    "fast_gates_total": 14,
+    "seconds": 20.60919084493071,
+    "changed_inputs": [],
+    "checked_inputs": 8560,
+    "peak_memory_bytes": 416407552,
+    "artifact_sha256": {
+      ".json": "4a3a254129518c9f8ca44c7139dace18eaa5876569cd5fd24dccf3615df1d4e7",
+      "-bounded.json": "e433778919327ac5a02137095b091c2cb6f4973c54d8e75a945278804a3d63da",
+      ".log": "1841f3ada073d3ead9766f97f4909add8b0f54c93a90828ebfaf1c4ca5b9028c",
+      "-inputs-before.json": "5f7a8078e0a2725db18538c23de824b281e396815572357af0f2e5f9e52debad",
+      "-inputs-after.json": "5f7a8078e0a2725db18538c23de824b281e396815572357af0f2e5f9e52debad"
+    },
+    "scope": "Cheap source validators/public smoke only; no installed/platform/final-candidate waiver."
+  },
+  "public_checkpoint": {
+    "commit": "258702da0818e82fe703ede1b08194eaf246aa76",
+    "verified_owning_closures": [
+      611,
+      612,
+      653
+    ],
+    "board_issues": 585,
+    "board_open": 92,
+    "open_prs": []
+  }
 }

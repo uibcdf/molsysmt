@@ -20,6 +20,29 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Public source checkpoint accepted — 2026-11-08
+
+Public main `258702da0818e82fe703ede1b08194eaf246aa76` is independently
+verified; #612/#611/#653 are closed and the board agrees with every queue.
+The complete inventory contains **585 issues, 92 open and no open PR**.
+All fourteen fast gates pass on that clean checkpoint. Four human documentation
+edits and the native binary remain unchanged.
+
+Accepted progress is now **approximately 68.0%**, with **47 audit-related source
+closures** and **23/50 graphical intents accepted**. Only the existing
+#612/#587 and #611 requirement leaves gain credit; #653 adds no bonus. The
+[scorecard](../devtools/data/pre_1_0_progress_scorecard_20261107.json) retains the
+six original weights and every pending leaf. Full-source, separate Amber,
+directed developer and historical hosted outcomes remain separate evidence.
+
+#567 remains partial and its explicit product/control-role decision is still
+pending. The nonblocking provider recovery/documentation proposal is reported
+as uibcdf/pytest-receptor#51; correct native outcomes and declared truncation
+are not relabelled as a provider bug. Next receive the original nine Jupyter
+scenarios for #590/#591/#609/#614, without treating another startup pass as a
+causal repair of #615. Installed/platform/final-candidate and publication gates
+remain due; no new workflow, package, tag or release was launched.
+
 ## Complete local source receiving and CI/evidence correction — 2026-11-08
 
 Clean source `03c59caef9823bbca186aa4213626ddc5eb890f3` completes the default
