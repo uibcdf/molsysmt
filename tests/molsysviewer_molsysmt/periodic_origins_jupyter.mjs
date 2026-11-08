@@ -13,7 +13,7 @@ async function execute(cell,p=page){await p.getByText(/Isolated molecular tools 
 const panel=p=>p.locator('.msm-system').first();
 async function request(p,origin,unit='angstrom',effect='update'){
  const c=panel(p);await c.locator('[data-task]').selectOption('wrap');await c.getByRole('heading',{name:'Wrap coordinates',exact:true}).waitFor();
- await c.locator('[data-source]').selectOption('saved');await c.locator('[data-name]').fill('chosen');await c.locator('[data-wrap-mode]').selectOption('primary');await c.locator('[data-wrap-compact]').selectOption('atom');
+ await c.locator('[data-source]').selectOption('saved');await c.locator('[data-name]').fill('origin_probes');await c.locator('[data-wrap-mode]').selectOption('primary');await c.locator('[data-wrap-compact]').selectOption('atom');
  await c.locator('[data-unit]').selectOption(unit);await c.locator('[data-dx]').fill(origin);await c.locator('[data-dy]').fill('0');await c.locator('[data-dz]').fill('0');
  await c.locator('[data-scope]').selectOption('indices');await c.locator('[data-frames]').fill('2,0');await c.locator('[data-effect]').selectOption(effect);
 }
@@ -32,9 +32,10 @@ try{
   await page.waitForFunction(()=>window.__controllers?.[0]?.getStructureData()?.elementCount===62,null,{timeout:120000});await openMolecularPanel(page,'geometry');
   oracle=JSON.parse(await readFile(output+'/origins-expected.json','utf8'));await positionMatch(0,oracle.before_angstrom[0]);
   for(const key of ['positive_angstrom','negative_angstrom'])assert.ok(Math.max(...oracle[key][0].flatMap((xyz,i)=>xyz.map((v,j)=>Math.abs(v-oracle.zero_origin_angstrom[0][i][j]))))>29,'The fixture must reject replacing the physical origin with zero');
+  for(const [correct,wrong] of [['positive_angstrom','wrong_angstrom_as_nm'],['negative_angstrom','wrong_nm_as_angstrom']])assert.ok(Math.max(...oracle[correct][0].flatMap((xyz,i)=>xyz.map((v,j)=>Math.abs(v-oracle[wrong][0][i][j]))))>29,'The fixture must distinguish ignoring either input unit');
  });
  await step('Review a small positive origin and Back without changing rendered coordinates',async()=>{
-  await request(page,'0.0001');await panel(page).locator('[data-preview]').click();await panel(page).locator('[data-review]').waitFor({state:'visible'});assert.match(await panel(page).locator('[data-review-summary]').innerText(),/2 atoms in 2 structures/);
+  await request(page,'0.0001');await panel(page).locator('[data-preview]').click();await panel(page).locator('[data-review]').waitFor({state:'visible'});assert.match(await panel(page).locator('[data-review-summary]').innerText(),/4 atoms in 2 structures/);
   await panel(page).locator('[data-back]').click();await panel(page).locator('[data-review]').waitFor({state:'hidden'});await positionMatch(0,oracle.before_angstrom[0]);
  });
  await step('Apply the small positive angstrom input and verify the nonzero-origin image',async()=>{
