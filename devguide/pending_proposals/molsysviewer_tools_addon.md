@@ -16,6 +16,15 @@ supersedes: []
 
 ## Sequence-derived GUI prototype — 2026-11-08
 
+Clean `7bf2949b1` passes 597/598 selected cases, including all 32 new panel
+cases; the remaining preflight correctly identifies that the new test module
+was missing from the explicit hosted pytest command. Add it without weakening
+the guard. The first two actual-Jupyter guards fail before browser startup
+because the script cannot import pytest's test-package namespace. Move the
+shared fixture into its standalone helper and import its exact source file in
+the notebook, preserving the same gap/permutation oracle. Final affected-source
+and GUI receiving remain pending; no credit is claimed.
+
 Local implementation delegates to existing native least_rmsd_align. It keeps
 query/reference populations distinct from complete source components that move,
 permits unequal anchor counts and supports same-system or local-file references.

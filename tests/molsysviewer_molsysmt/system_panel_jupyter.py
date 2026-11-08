@@ -423,7 +423,7 @@ def main():
             "print('JUPYTER_EXTERNAL_FIT_NATIVE_OK',len(records))\n"
         )
     if args.scenario == "sequence":
-        from tests.molsysviewer_molsysmt.sequence_jupyter_fixture import _notebook_cells
+        from sequence_jupyter_fixture import _notebook_cells
 
         initial, final = _notebook_cells(
             initial[: initial.index("view = msv.demo")], output, args.length_standard

@@ -1,5 +1,7 @@
 """Construct the real-notebook sequence-fit oracle without invoking a fit."""
 
+from pathlib import Path
+
 
 def _notebook_cells(prefix, output, length_standard):
     initial = (
@@ -8,7 +10,11 @@ def _notebook_cells(prefix, output, length_standard):
 import hashlib
 import json
 import numpy as np
-from tests.molsysviewer_molsysmt.test_sequence_alignment_panel import _sequence_systems
+from importlib.util import module_from_spec, spec_from_file_location
+_fixture_spec = spec_from_file_location('_sequence_fixture', {str(Path(__file__).resolve())!r})
+_fixture = module_from_spec(_fixture_spec)
+_fixture_spec.loader.exec_module(_fixture)
+_sequence_systems = _fixture._sequence_systems
 _source, _reference, _aligned, _moving = _sequence_systems()
 view = msv.new_view(_source)
 source_coordinates = msm.pyunitwizard.get_value(view.molsys.structures.coordinates, to_unit='nm').copy()
@@ -57,3 +63,84 @@ _unit_policy.__exit__(None,None,None)
 print('JUPYTER_SEQUENCE_ALIGN_NATIVE_OK',len(records))
 """
     return initial, final
+
+
+def _sequence_systems(reference_count=5):
+    """Use distinct amino-acid labels and an explicit rigid-pose oracle."""
+    import numpy as np
+    import molsysmt as msm
+    from molsysmt import pyunitwizard as puw
+    from molsysmt.native import MolecularMechanics
+
+    peptide = msm.build.build_peptide("ACEALAGLYSERTHRNME")
+    reference = msm.build.build_peptide("ACEALASERTHRNME")
+    # This geometry fixture deliberately excludes the experimental mechanics
+    # domain, which H5MSM 0.5 does not encode; chemical assignments remain.
+    peptide.molecular_mechanics = MolecularMechanics()
+    reference.molecular_mechanics = MolecularMechanics()
+    data = msm.get(
+        peptide,
+        element="atom",
+        group_name=True,
+        atom_name=True,
+        output_type="dictionary",
+    )
+    ref_data = msm.get(
+        reference,
+        element="atom",
+        group_name=True,
+        atom_name=True,
+        output_type="dictionary",
+    )
+    n = msm.get(peptide, n_atoms=True)
+    i = np.arange(n, dtype=float)
+    base = np.column_stack([i * 0.04, (i % 5) * 0.1, (i % 9) * 0.07])
+    lookup = {
+        (group, atom): point
+        for group, atom, point in zip(
+            data["group_name"], data["atom_name"], base, strict=True
+        )
+    }
+    ref_base = np.array(
+        [
+            lookup[group, atom]
+            for group, atom in zip(
+                ref_data["group_name"], ref_data["atom_name"], strict=True
+            )
+        ]
+    )
+    turn = np.array([[0, -1, 0], [1, 0, 0], [0, 0, 1]], dtype=float)
+    query = np.stack(
+        [
+            base @ matrix.T + shift
+            for matrix, shift in [
+                (turn, [1.2, -0.3, 0.6]),
+                (np.eye(3), [-0.5, 0.4, 0.2]),
+                (turn.T, [0.3, 1.4, -0.8]),
+            ]
+        ]
+    )
+    msm.set(peptide, coordinates=puw.quantity(query, "nm"))
+    builder = msm.MolSysBuilder()
+    for name, kind in [("O", "O"), ("H1", "H"), ("H2", "H")]:
+        builder.add_atom(atom_name=name, atom_type=kind)
+    builder.add_group([0, 1, 2], group_name="HOH", group_type="water")
+    builder.add_bond(0, 1)
+    builder.add_bond(0, 2)
+    water = np.array([[10.0, 2.0, 1.0], [10.1, 2.0, 1.0], [10.0, 2.1, 1.0]])
+    builder.set_coordinates(puw.quantity(np.tile(water[None], (3, 1, 1)), "nm"))
+    query = msm.merge([peptide, builder.build()])
+    msm.set(query, box=puw.quantity(np.tile(np.eye(3) * 4, (3, 1, 1)), "nm"))
+    ref_turn = np.array([[1, 0, 0], [0, 0, -1], [0, 1, 0]], dtype=float)
+    ref_points = np.stack(
+        [
+            ref_base @ ref_turn.T + [3.1 + j * 0.1, -2.2, 0.7]
+            for j in range(reference_count)
+        ]
+    )
+    msm.set(reference, coordinates=puw.quantity(ref_points * 10, "angstrom"))
+    reference = msm.permute_atoms(
+        reference, atom_indices=list(range(len(ref_base) - 1, -1, -1))
+    )
+    expected = base @ ref_turn.T + [3.1 + (reference_count - 1) * 0.1, -2.2, 0.7]
+    return query, reference, expected, n
