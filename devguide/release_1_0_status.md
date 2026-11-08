@@ -20,23 +20,34 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Incoming correctness and policy intake — 2026-11-07
+## Formal-charge closeout and incoming comparison flag — 2026-11-07
 
-The complete post-closeout board acquisition finds **577 issues, 96 open and
-no open PR**. New #644 reports a public formal-charge argument error escaping
-as a unit-form exception; its
-[owner record](archive/resolved_bugs/formal_charge_nonquantity_error_leak.md)
-tracks current source inspection and pending local reproduction. Prioritize this
-bounded correctness repair before #610's composition clarification. New #645
-is a separate [stored-H policy proposal](pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md),
-not an established matcher defect or an automatic expansion of frozen gates.
+#644 is published and independently verified closed. Qualified source
+`64f8c955ac8b93198f4926642d4f3d257a1d0c27` passes **474 focused cases**, with
+zero skips, failures or errors, the updated public setter doctest, fourteen fast
+gates and applicable Ruff checks. Public checkpoint
+`f271a431d3c8b1f97261b1af573fb48ccc442d1f` retains all thirteen verified
+changed/deleted paths. The [owner receipt](../devtools/data/formal_charge_boundary_receiving_644_20261107.json)
+and [archived report](archive/resolved_bugs/formal_charge_nonquantity_error_leak.md)
+retain the original failures and exact scope. DockingMT #33/#49 received the
+source handoff (6717288667); its whole-provider/workflow qualification is separate.
+The final tests peak at about 380 MiB under a 2 GiB process-tree bound, one CPU
+and zero swap. No native backend, dependency or scientific method is changed.
 
-The accepted score stays **approximately 62.5%**, with **35 audit-related source
-issues closed** and **23/50 graphical intents accepted**. Preserve #612's complete
-source requirement and every remaining graphical, scientific-contract, installed
-and final-candidate exit. Shared execution observations were handed to
-uibcdf/uibcdf-infrastructure#1 (6716756474), related to uibcdf/moli#96; no project
-policy or permanent execution framework is introduced by that feedback.
+The complete refreshed board contains **578 issues, 96 open and no open PR**.
+New #646 reports rejection of a supported `component_type` Boolean comparison
+flag. Its [owner record](pending_bugs/compare_component_type_boolean_flag.md)
+starts with source inspection; bounded reproduction and repair take priority
+before the separate #645 [stored-H policy study](pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md).
+Strict chemical matching remains unchanged.
+
+The accepted score stays **approximately 62.5%**, with **36 audit-related source
+issues closed** and **23/50 graphical intents accepted**. This supplemental
+boundary repair adds no milestone points. Preserve #612's complete-source gate,
+all remaining graphical, scientific-contract, installed/platform and final-
+candidate requirements. Shared resource feedback remains owned by
+uibcdf/uibcdf-infrastructure#1 and uibcdf/moli#96. No release, candidate or new
+matrix is authorized by this source closeout.
 
 ## Previous naming-contract owner closeout — 2026-11-07
 

@@ -3,7 +3,7 @@
   "date": "2026-11-07",
   "issue": "uibcdf/molsysmt#644",
   "source_base": "f86bd8370e70d3c876d5559f1612ebe71a9c3838",
-  "state": "Clean final source receiving passed; public owner closeout prepared.",
+  "state": "public_source_closed",
   "original_mechanism": "Bare unsupported input falls through to quantity extraction; a component-domain error escapes as unit-form/parser errors.",
   "correction": "Recognize genuine quantities through puw.is_quantity before extraction, after the existing integer/nullable-vector branches. Emit the existing SMonitor ArgumentError with argument/caller; leave recognized-quantity backend failures uncaught.",
   "original_final_baseline": {
@@ -476,8 +476,7 @@
   "guard": "tests/basic/test_set_formal_charge.py::test_invalid_nonquantity_charge_has_public_diagnostic_and_no_mutation",
   "scientific_scope": "Argument-boundary correction; no new chemical model, independent scientific validation or reference dataset.",
   "remaining": [
-    "Publish and verify source/archive, then close #644 and hand actual scope to the consumer.",
-    "Separate #645 policy, #612 complete-source and all remaining audit/candidate obligations."
+    "Separate #646 comparison flags, #645 policy, #612 complete-source and all remaining audit/candidate obligations."
   ],
   "weighted_milestone_change": 0,
   "qualified_source": "64f8c955ac8b93198f4926642d4f3d257a1d0c27",
@@ -520,5 +519,18 @@
     ],
     "parallelism": "RAYON_NUM_THREADS=1",
     "exit_code": 0
+  },
+  "public_checkpoint": "f271a431d3c8b1f97261b1af573fb48ccc442d1f",
+  "independently_verified_closed_at": "2026-11-08T04:34:39Z",
+  "public_source_verification": {
+    "changed_or_deleted_paths": 13,
+    "qualified_source_present": true,
+    "human_modifications_preserved": true
+  },
+  "consumer_handoff": {
+    "issue": "uibcdf/dockingmt#33",
+    "comment_id": 6717288667,
+    "related": "uibcdf/dockingmt#49",
+    "scope": "Python source correction; consumer whole-provider and workflow receiving remain independent."
   }
 }
