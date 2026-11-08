@@ -22,6 +22,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
 | **{doc}`assigning_partial_charges`** | Calculating ligand or conventional protein charges with explicit model and coverage. |
 | **{doc}`applying_chemical_templates`** | Filling declared chemical assignments while preserving a ligand pose. |
 | **{doc}`aligning_stored_hydrogen_policies`** | Applying an explicit indexed-H permission policy before strict correspondence. |
+| **{doc}`delivering_coordinates`** | Assigning unit-bearing pose values with declared atom correspondence and explicit target structures. |
 | **{doc}`building_complex_dimers`** | Harvesting, superimposing, and merging monomers from multi-chain PDBs into a complete complex. |
 | **{doc}`spectacular_visualizations`** | Rendering molecular scenes with cartoon ribbons, pocket surfaces, and annotation vectors in NGLView. |
 | **{doc}`simulation_workflow`** | Setting up, solvating, and executing an OpenMM molecular dynamics simulation with in-memory frame streaming. |
@@ -54,6 +55,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
    :hidden:
 
    comparing_sequence_source_groups.md
+   delivering_coordinates.md
    weighting_pca.md
    exporting_bulkiness.md
    tpsa_descriptors.md

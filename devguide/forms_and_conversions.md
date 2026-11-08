@@ -983,6 +983,17 @@ uibcdf/molsysmt#476, uibcdf/molsysmt#477 and the execution scope in
 
 ## XYZ coordinate edits
 
+XYZ coordinate queries require `element='atom'`. `basic.get` defaults to
+`element='system'`; XYZ has no system-coordinate getter and that request raises
+`NotWithThisFormError`. This is an explicit supported-level boundary, not a
+missing unit or an instruction to reshape values downstream. The direct public
+route `msm.set(molsys, structure_indices=0, coordinates=quantity)` needs no
+intermediate getter. The caller declares matching atom positions and chooses
+the destination structures; neither route infers molecular correspondence.
+See the [coordinate-delivery recipe](../docs/content/user/cookbook/delivering_coordinates.md)
+and its public regression controls in
+`tests/form/XYZ/test_public_coordinate_delivery.py`.
+
 XYZ accepts length quantities of shape `(3,)`, `(n_atoms, 3)` and
 `(n_structures, n_atoms, 3)`. Queries normalize the coordinate axis to rank three;
 coordinate assignment and independent rigid transforms preserve the source's

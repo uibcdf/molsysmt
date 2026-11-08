@@ -776,6 +776,10 @@ sections:
         file: docs/content/user/cookbook/aligning_stored_hydrogen_policies.md
         agents_file: docs/content/user/cookbook/aligning_stored_hydrogen_policies.md.AGENTS.md
         description: Explicit common indexed-H policy before strict correspondence, original axes and H5MSM producer evidence.
+      - name: delivering_coordinates
+        file: docs/content/user/cookbook/delivering_coordinates.md
+        agents_file: docs/content/user/cookbook/delivering_coordinates.md.AGENTS.md
+        description: Declared XYZ atom-level queries and direct coordinate assignment with explicit units and target structures.
       - name: applying_chemical_templates
         file: docs/content/user/cookbook/applying_chemical_templates.md
         agents_file: docs/content/user/cookbook/applying_chemical_templates.md.AGENTS.md

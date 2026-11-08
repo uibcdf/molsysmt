@@ -1,13 +1,13 @@
 ---
 summary: Rigid-fragment tutorial uses retired Topology chemical attributes
 issue: uibcdf/molsysmt#648
-status: open
+status: active
 opened: 2026-11-08
 closed:
 severity: medium
-verification: inspected
+verification: reproduced
 area: [docs]
-guard:
+guard: tests/chemical_states/test_public_graph_tutorials.py::test_rigid_fragment_tutorial_uses_complete_public_chemical_state
 normative:
 blocked_by: []
 supersedes: []
@@ -42,3 +42,24 @@ fragment expectations. Add an executable public-example guard for every Python
 block, then check the adjacent graph examples at the documentation checkpoint.
 This is a bounded pre-1.0 repair, not completion of #378's whole discoverability
 proposal or a reason to change the scientific algorithm.
+
+## Reproduction and correction — 2026-11-08
+
+The unmodified Python block fails once on source `3de256e1c` with AttributeError
+at its retired `_chemical_states` access. A direct Python assignment of `bonds`
+does not restore a Topology chemical facade. The corrected example constructs
+standalone ChemicalStates, appends a state and uses public add_bonds/basic.set.
+It declares complete connectivity in the public ChemicalStatesDict transport
+and validates that payload by converting back. No private mutation or new graph
+algorithm is introduced. The original cut index and all packed outputs remain.
+
+The directed battery passes 48 cases, including all Python blocks in this page,
+the chemical-state portal and the adjacent rotatable-bond page. The guard also
+checks the literal atom/bond axes, packed memberships, int64 types and retained
+source bonds independently of the example's own assertions. Its first authored
+version incorrectly expected `bonded_atoms` to return pairs; that query returns
+the atom union. One failed/47 passed attempt preceded correction to the public
+get_bonds table. This was a test-authoring mistake, not a product defect. The
+corrected attempt peaks at 339,165,184 bytes under a 2 GiB/one-CPU/no-swap cap,
+without OOM or host-reserve violation. Exact clean-source receiving and shared
+documentation gates remain pending before closure.

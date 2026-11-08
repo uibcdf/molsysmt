@@ -81,6 +81,15 @@ def get(
 
     Notes
     -----
+    XYZ length quantities expose coordinates at the atom level. Use
+    ``element='atom'`` explicitly: the default ``element='system'`` has no XYZ
+    coordinate getter and raises NotWithThisFormError. Atom-level results have
+    shape (n_structures, n_atoms, 3), including for a single input vector or
+    structure. Requested atom and structure positions keep order and repeats.
+    An existing coordinate quantity can instead be passed directly as the
+    ``coordinates`` value of ``basic.set`` on a mutable molecular system;
+    select the intended target structures and preserve the declared atom order.
+
     H5MSM 0.5 paths retain their file form during queries. Axis counts use
     metadata; dense structural fields read only the requested atom/structure
     positions, including their order and repetitions. Static queries share
