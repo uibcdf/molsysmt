@@ -1,6 +1,6 @@
 """Reviewed coordinate tasks over qualified native geometry adapters."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from secrets import token_urlsafe
 from weakref import ref
@@ -8,13 +8,25 @@ from weakref import ref
 import numpy as np
 from smonitor import signal
 
-from ._geometry import _geometry_token, _prepare_geometry_transform
+from ._geometry import (
+    _geometry_token,
+    _prepare_geometry_set,
+    _prepare_geometry_transform,
+)
 from ._geometry_panel_frontend import ESM
 from ._panel_frontend import CSS
 from ._task_panel import _MolecularTaskPanel, _structures
 
 _PARAMETERS = {
     "task": "translate",
+    "cell_a": "3",
+    "cell_b": "3",
+    "cell_c": "3",
+    "cell_alpha": "90",
+    "cell_beta": "90",
+    "cell_gamma": "90",
+    "cell_length_unit": "nm",
+    "cell_angle_unit": "degree",
     "axes_expression": "",
     "axes_type": "inertia",
     "axes_weights": "uniform",
@@ -56,6 +68,7 @@ _PARAMETERS = {
     "title": "",
 }
 _COMPLETED = {
+    "cell": "Periodic cell assigned. The view is up to date.",
     "axes": "Principal-axis alignment applied. The view is up to date.",
     "translate": "Translation applied. The view is up to date.",
     "rotate": "Rotation applied. The view is up to date.",
@@ -66,6 +79,7 @@ _COMPLETED = {
 }
 
 _OPERATIONS = {
+    "cell": ("basic", "set"),
     "axes": ("structure", "align_principal_axes"),
     "translate": ("structure", "translate"),
     "rotate": ("structure", "rotate"),
@@ -84,6 +98,7 @@ def _operation(parameters):
 
 
 _RESULT_TITLES = {
+    "cell": "System with assigned periodic cell",
     "axes": "Principal-axis aligned system",
     "translate": "Translated system",
     "rotate": "Rotated system",
@@ -93,6 +108,7 @@ _RESULT_TITLES = {
     "unwrap": "Unwrapped trajectory",
 }
 _EFFECT_LABELS = {
+    "cell": "Cell assigned to",
     "axes": "Aligned",
     "translate": "Translated",
     "rotate": "Rotated",
@@ -109,6 +125,10 @@ def _parameters(value):
     result = dict(_PARAMETERS, **value)
     if result["task"] not in _OPERATIONS:
         raise ValueError("Choose a supported Geometry task.")
+    if result["cell_length_unit"] not in {"angstrom", "nm"} or result[
+        "cell_angle_unit"
+    ] not in {"degree", "radian"}:
+        raise ValueError("Choose explicit cell length and angle units.")
     if (
         result["axes_type"] not in {"inertia", "geometric"}
         or result["axes_weights"] not in {"uniform", "masses"}
@@ -144,6 +164,12 @@ def _parameters(value):
     if result["fit_reference_kind"] not in {"system", "file"}:
         raise ValueError("Choose the current system or an external reference file.")
     for key, limit in (
+        ("cell_a", 64),
+        ("cell_b", 64),
+        ("cell_c", 64),
+        ("cell_alpha", 64),
+        ("cell_beta", 64),
+        ("cell_gamma", 64),
         ("axes_expression", 4096),
         ("axes_basis", 512),
         ("ax", 64),
@@ -171,6 +197,30 @@ def _parameters(value):
         if not isinstance(result[key], str) or len(result[key]) > limit:
             raise ValueError("Coordinate fields contain invalid or overlong text.")
     return result
+
+
+def _cell_box(parameters):
+    """Build one physical cell through the public native factory."""
+    from molsysmt import pyunitwizard as puw
+    from molsysmt.pbc import get_box_from_lengths_and_angles
+
+    try:
+        lengths = [float(parameters[f"cell_{axis}"]) for axis in ("a", "b", "c")]
+        angles = [
+            float(parameters[f"cell_{angle}"]) for angle in ("alpha", "beta", "gamma")
+        ]
+    except ValueError as exc:
+        raise ValueError("Enter three cell lengths and three cell angles.") from exc
+    return get_box_from_lengths_and_angles(
+        puw.quantity(lengths, parameters["cell_length_unit"]),
+        puw.quantity(angles, parameters["cell_angle_unit"]),
+    )
+
+
+def _prepare_cell_assignment(target, parameters):
+    values = dict(parameters)
+    box = values.pop("box")
+    return _prepare_geometry_set(target, values, {"box": box})
 
 
 def _length_vector(parameters, kind="translation"):
@@ -337,6 +387,7 @@ class _GeometryReferences:
     reference_frame: int | None = None
     reference_total: int | None = None
     file: tuple = ()
+    cell: object = field(default=None, compare=False)
 
 
 @dataclass(frozen=True)
@@ -431,14 +482,19 @@ class _GeometryPanel(_MolecularTaskPanel):
         if target.structures.coordinates is None:
             raise ValueError("Load coordinates before transforming a molecular system.")
         total = int(target.structures.n_structures)
+        cell_task = self._parameters["task"] == "cell"
         frame = (
             int(self._view.player.index)
-            if self._draft["context"] == "current"
+            if cell_task or self._draft["context"] == "current"
             else self._draft["structure_index"]
         )
         if frame >= total:
             raise ValueError("The selection structure index is outside this system.")
-        atoms = self._selection(target, frame)
+        atoms = (
+            np.arange(int(target.get_n_atoms()), dtype=np.int64)
+            if cell_task
+            else self._selection(target, frame)
+        )
         if (
             atoms.ndim != 1
             or np.any(atoms < 0)
@@ -478,7 +534,16 @@ class _GeometryPanel(_MolecularTaskPanel):
             return tuple(int(i) for i in np.unique(indices))
 
         references = _GeometryReferences()
-        if self._parameters["task"] == "axes":
+        if cell_task:
+            if (
+                target.structures.box is None
+                and self._parameters["structures"] != "all"
+            ):
+                raise ValueError(
+                    "Initialize periodic boxes for all structures before assigning a subset; choose All structures."
+                )
+            references = _GeometryReferences(cell=_cell_box(self._parameters))
+        elif self._parameters["task"] == "axes":
             _target_axes(self._parameters)
             references = _GeometryReferences(
                 fit=population(self._parameters["axes_expression"], atoms)
@@ -617,6 +682,23 @@ class _GeometryPanel(_MolecularTaskPanel):
             raise ValueError(
                 "The selected atoms or structures changed. Review the coordinate change again."
             )
+        if review.parameters["task"] == "cell":
+            from molsysmt import pyunitwizard as puw
+
+            return {
+                "element": "system",
+                "selection": "all",
+                "structure_indices": "all"
+                if review.parameters["structures"] == "all"
+                else list(frames),
+                "syntax": "MolSysMT",
+                "chemical_state": "reference",
+                "skip_digestion": False,
+                "box": puw.quantity(
+                    np.repeat(puw.get_value(references.cell), len(frames), axis=0),
+                    puw.get_unit(references.cell),
+                ),
+            }
         parameters = {
             "selection": atoms.tolist(),
             "structure_indices": list(frames),
@@ -715,6 +797,10 @@ class _GeometryPanel(_MolecularTaskPanel):
         if review.parameters["effect"] == "update":
 
             def prepare(target):
+                if review.parameters["task"] == "cell":
+                    return _prepare_cell_assignment(
+                        target, self._check_review(target, review)
+                    )
                 return _prepare_geometry_transform(
                     target,
                     name,
@@ -743,9 +829,15 @@ class _GeometryPanel(_MolecularTaskPanel):
 
             def calculate(target):
                 parameters = self._check_review(target, review)
-                parameters["in_place"] = False
-                operation = getattr(getattr(self._owner, module), name)
-                candidate = operation(**parameters)
+                if review.parameters["task"] == "cell":
+                    from molsysmt.basic import copy
+
+                    candidate = copy(target)
+                    _prepare_cell_assignment(candidate, parameters)["run"]()
+                else:
+                    parameters["in_place"] = False
+                    operation = getattr(getattr(self._owner, module), name)
+                    candidate = operation(**parameters)
                 result = self._store_result(
                     candidate,
                     title=review.parameters["title"].strip()

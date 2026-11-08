@@ -110,6 +110,7 @@ def main():
             "fit-external",
             "periodic",
             "periodic-general",
+            "cell",
             "chemistry",
             "chemistry-pending",
             "chemistry-preparation",
@@ -247,6 +248,7 @@ def main():
         "fit-external",
         "periodic",
         "periodic-general",
+        "cell",
     }:
         initial = initial[: initial.index("view = msv.demo")] + (
             "with msv.demo['pentalanine'] as seed:\n"
@@ -416,6 +418,42 @@ def main():
             "_unit_policy.__exit__(None,None,None)\n"
             "print('JUPYTER_EXTERNAL_FIT_NATIVE_OK',len(records))\n"
         )
+    if args.scenario == "cell":
+        initial = initial.removesuffix("view\n") + (
+            "import json\nimport numpy as np\n"
+            "view.addons.molsysmt.basic.set(box=None)\n"
+            "_cell_revision=view.addons.molsysmt.get_sync_status()['target_revision']\n"
+            "_cell_before=source_coordinates.copy()\n"
+            "_cell_chemistry=msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict()\n"
+            "_cell_analysis=msm.Interactions.from_records([],n_atoms=62,n_structures=3,evaluated_structure_indices=[0,1,2],method='gui.cell.receiving')\n"
+            "view.interactions.attach(_cell_analysis,name='cell_scope',assume_aligned=True)\n"
+            f"Path({str(output / 'cell-expected.json')!r}).write_text(json.dumps({{'coordinates_angstrom':(_cell_before*10).tolist()}}))\nview\n"
+        )
+        cell_preview = (
+            "assert view.molsys.structures.box is None\n"
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.get_coordinates(),to_unit='nm'),_cell_before)\n"
+            "assert view.addons.molsysmt.get_sync_status()['target_revision']==_cell_revision\n"
+            "print('JUPYTER_CELL_PREVIEW_OK',0)\n"
+        )
+        cell_assigned = (
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.get_coordinates(),to_unit='nm'),_cell_before)\n"
+            "np.testing.assert_allclose(msm.pyunitwizard.get_value(view.molsys.structures.box,to_unit='nm'),np.tile(np.diag([3.,4.,5.]),(3,1,1)),rtol=0,atol=1e-12)\n"
+            "assert view.addons.molsysmt.get_sync_status()['target_revision']==_cell_revision+1\n"
+            "assert view.molsys.interactions['cell_scope'].evaluated_structure_indices.size==0\n"
+            "print('JUPYTER_CELL_ASSIGNED_OK',1)\n"
+        )
+        final = (
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.get_coordinates(),to_unit='nm'),_cell_before)\n"
+            "_cell_expected=np.tile(np.diag([3.,4.,5.]),(3,1,1));_cell_expected[1]=np.diag([6.,7.,8.])\n"
+            "np.testing.assert_allclose(msm.pyunitwizard.get_value(view.molsys.structures.box,to_unit='nm'),_cell_expected,rtol=0,atol=1e-12)\n"
+            "np.testing.assert_equal(msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict(),_cell_chemistry)\n"
+            "_cell_records=view.addons.manager.presentations.records();assert len(_cell_records)==1\n"
+            "_cell_result=view.addons.manager.presentations.get(_cell_records[0]['id']);assert _cell_result.molsys is not view.molsys\n"
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(_cell_result.get_coordinates(),to_unit='nm'),_cell_before)\n"
+            "np.testing.assert_allclose(msm.pyunitwizard.get_value(_cell_result.molsys.structures.box,to_unit='nm'),np.tile([[2.,0,0],[1.5,2.598076,0],[0,0,4]],(3,1,1)),rtol=0,atol=1e-12)\n"
+            "assert view.addons.molsysmt.get_sync_status()['target_revision']==_cell_revision+2\n"
+            "print('JUPYTER_CELL_NATIVE_OK',2)\n"
+        )
     if args.scenario in {"periodic", "periodic-general"}:
         initial = initial.removesuffix("view\n") + _periodic_setup(
             general=args.scenario == "periodic-general"
@@ -567,6 +605,8 @@ def main():
         + initial
     )
     cells = [initial, final]
+    if args.scenario == "cell":
+        cells = [initial, cell_preview, cell_assigned, final]
     if args.scenario == "axes":
         cells = [initial, axes_middle, final]
     if args.scenario == "chemistry-preparation":
@@ -734,6 +774,8 @@ def main():
                         if args.scenario == "chemistry-preparation"
                         else Path(__file__).with_name("chemistry_panel_jupyter.mjs")
                         if args.scenario == "chemistry"
+                        else Path(__file__).with_name("cell_panel_jupyter.mjs")
+                        if args.scenario == "cell"
                         else Path(__file__).with_name("periodic_panel_jupyter.mjs")
                         if args.scenario in {"periodic", "periodic-general"}
                         else Path(__file__).with_name("fit_panel_jupyter.mjs")

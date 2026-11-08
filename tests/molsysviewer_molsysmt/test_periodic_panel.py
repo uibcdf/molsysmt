@@ -431,3 +431,270 @@ def test_gui_periodic_projection_recovery_does_not_repeat_science(
     assert (
         status["state"] == "synchronized" and status["target_revision"] == revision + 1
     )
+
+
+def _cell_request(*, length_unit="nm", angle_unit="degree", skew=False, **kwargs):
+    lengths = [2.0, 3.0, 4.0]
+    angles = [90.0, 90.0, 60.0 if skew else 90.0]
+    if length_unit == "angstrom":
+        lengths = [10 * v for v in lengths]
+    if angle_unit == "radian":
+        angles = np.deg2rad(angles).tolist()
+    return {
+        "task": "cell",
+        **{f"cell_{key}": str(value) for key, value in zip(("a", "b", "c"), lengths)},
+        **{
+            f"cell_{key}": str(value)
+            for key, value in zip(("alpha", "beta", "gamma"), angles)
+        },
+        "cell_length_unit": length_unit,
+        "cell_angle_unit": angle_unit,
+        **kwargs,
+    }
+
+
+@pytest.mark.parametrize("effect", ["update", "result"])
+@pytest.mark.parametrize("standard", ["nm", "pm"])
+@pytest.mark.parametrize("length_unit", ["nm", "angstrom"])
+@pytest.mark.parametrize("angle_unit", ["degree", "radian"])
+@pytest.mark.parametrize(
+    "scope,indices,selected",
+    [("all", "", [0, 1, 2]), ("current", "", [0]), ("indices", "2,0", [2, 0])],
+)
+@pytest.mark.parametrize("skew", [False, True])
+def test_gui_cell_assignment_preserves_positions_and_owns_its_effect(
+    case, effect, standard, length_unit, angle_unit, scope, indices, selected, skew
+):
+    view, sent = case
+    before, boxes, revision = _prepare(view)
+    expected = boxes.copy()
+    # Closed-form 90/90/gamma cell, including the native six-decimal-nm contract.
+    assigned = (
+        np.array([[2.0, 0, 0], [1.5, 2.598076, 0], [0, 0, 4]])
+        if skew
+        else np.diag([2.0, 3, 4])
+    )
+    expected[selected] = assigned
+    with puw.context(standard_units=[standard, "ps", "radians"]):
+        packet = _apply(
+            view,
+            sent,
+            _cell_request(
+                length_unit=length_unit,
+                angle_unit=angle_unit,
+                skew=skew,
+                effect=effect,
+                structures=scope,
+                indices=indices,
+            ),
+            draft={"source": "none"},
+        )
+    output = _output(view, packet, effect)
+    np.testing.assert_array_equal(coords(output), before)
+    np.testing.assert_allclose(
+        puw.get_value(output.molsys.structures.box, to_unit="nm"),
+        expected,
+        rtol=0,
+        atol=1e-12,
+    )
+    np.testing.assert_array_equal(
+        output.molsys.interactions["scope"].evaluated_structure_indices,
+        sorted(set(range(3)) - set(selected)),
+    )
+    if effect == "result":
+        np.testing.assert_array_equal(coords(view), before)
+        np.testing.assert_array_equal(
+            puw.get_value(view.molsys.structures.box, to_unit="nm"), boxes
+        )
+        np.testing.assert_array_equal(
+            view.molsys.interactions["scope"].evaluated_structure_indices, [0, 1, 2]
+        )
+        assert output.molsys is not view.molsys
+        assert packet["result"]["operation"] == "molsysmt.basic.set"
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision + int(
+        effect == "update"
+    )
+
+
+@pytest.mark.parametrize("effect", ["update", "result"])
+def test_gui_cell_assignment_initializes_the_complete_missing_box_series(case, effect):
+    view, sent = case
+    _prepare(view)
+    view.addons.molsysmt.basic.set(box=None)
+    before = coords(view)
+    chemistry = msm.convert(
+        view.molsys.chemical_states, to_form="molsysmt.ChemicalStatesDict"
+    ).to_dict()
+    packet = _apply(view, sent, _cell_request(effect=effect), draft={"source": "none"})
+    result = _output(view, packet, effect)
+    np.testing.assert_array_equal(coords(result), before)
+    np.testing.assert_allclose(
+        puw.get_value(result.molsys.structures.box, to_unit="nm"),
+        np.tile(np.diag([2.0, 3.0, 4.0]), (3, 1, 1)),
+        rtol=0,
+        atol=1e-12,
+    )
+    np.testing.assert_equal(
+        msm.convert(
+            result.molsys.chemical_states, to_form="molsysmt.ChemicalStatesDict"
+        ).to_dict(),
+        chemistry,
+    )
+    if effect == "result":
+        assert view.molsys.structures.box is None
+
+
+@pytest.mark.parametrize(
+    "scope,indices", [("current", ""), ("indices", "2,0"), ("indices", "2,0,1")]
+)
+def test_gui_cell_subset_cannot_invent_missing_boxes_for_other_structures(
+    case, scope, indices
+):
+    view, sent = case
+    _prepare(view)
+    view.addons.molsysmt.basic.set(box=None)
+    revision = view.addons.molsysmt.get_sync_status()["target_revision"]
+    before = coords(view)
+    packet = act(
+        view,
+        sent,
+        "review",
+        parameters=_cell_request(structures=scope, indices=indices),
+    )
+    assert packet["stage"] == "error" and "All structures" in packet["message"]
+    assert view.molsys.structures.box is None
+    np.testing.assert_array_equal(coords(view), before)
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision
+    assert not view.addons.manager.presentations.records()
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        {"cell_a": "0"},
+        {"cell_b": "-1"},
+        {"cell_c": "nan"},
+        {"cell_a": "inf"},
+        {"cell_a": "x"},
+        {"cell_alpha": "0"},
+        {"cell_beta": "180"},
+        {"cell_alpha": "1", "cell_beta": "1", "cell_gamma": "179"},
+        {"cell_alpha": "140", "cell_beta": "140", "cell_gamma": "140"},
+        {"cell_length_unit": "ps"},
+        {"cell_angle_unit": "nm"},
+    ],
+)
+def test_gui_cell_invalid_physics_and_units_reject_before_writes(case, change):
+    view, sent = case
+    before, boxes, revision = _prepare(view)
+    analysis = view.molsys.interactions["scope"]
+    packet = act(view, sent, "review", parameters=_cell_request(**change))
+    assert packet["stage"] == "error", packet
+    assert "review" not in packet
+    np.testing.assert_array_equal(coords(view), before)
+    np.testing.assert_array_equal(
+        puw.get_value(view.molsys.structures.box, to_unit="nm"), boxes
+    )
+    assert view.molsys.interactions["scope"] is analysis
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision
+    assert not view.addons.manager.presentations.records()
+
+
+def test_gui_cell_review_neither_copies_nor_writes_and_back_expires_it(
+    case, monkeypatch
+):
+    view, sent = case
+    before, boxes, revision = _prepare(view)
+
+    def unexpected(*args, **kwargs):
+        raise AssertionError("Review must not copy a system or write attributes.")
+
+    with monkeypatch.context() as patch:
+        patch.setattr(msm.basic, "copy", unexpected)
+        patch.setattr(msm.basic, "set", unexpected)
+        reviewed = act(
+            view,
+            sent,
+            "review",
+            draft={"source": "expression", "expression": "not a molecular expression"},
+            parameters=_cell_request(),
+        )
+    assert reviewed["stage"] == "review", reviewed["message"]
+    assert reviewed["review"]["n_atoms"] == view.molsys.get_n_atoms()
+    act(view, sent, "back")
+    failed = act(view, sent, "apply", token=reviewed["review"]["token"])
+    assert failed["stage"] == "error"
+    np.testing.assert_array_equal(coords(view), before)
+    np.testing.assert_array_equal(
+        puw.get_value(view.molsys.structures.box, to_unit="nm"), boxes
+    )
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        {"cell_a": "4"},
+        {"cell_gamma": "60"},
+        {"cell_length_unit": "angstrom"},
+        {"cell_angle_unit": "radian"},
+        {"structures": "current"},
+        {"effect": "result"},
+    ],
+)
+def test_gui_cell_changed_requests_expire_confirmation(case, change):
+    view, sent = case
+    before, boxes, revision = _prepare(view)
+    reviewed = act(view, sent, "review", parameters=_cell_request())
+    assert reviewed["stage"] == "review"
+    failed = act(
+        view,
+        sent,
+        "apply",
+        parameters=_cell_request(**change),
+        token=reviewed["review"]["token"],
+    )
+    assert failed["stage"] == "error" and "expired" in failed["message"]
+    np.testing.assert_array_equal(coords(view), before)
+    np.testing.assert_array_equal(
+        puw.get_value(view.molsys.structures.box, to_unit="nm"), boxes
+    )
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision
+
+
+def test_gui_cell_projection_retry_does_not_repeat_the_native_write(case, monkeypatch):
+    view, sent = case
+    before, _, revision = _prepare(view)
+    reviewed = act(
+        view,
+        sent,
+        "review",
+        parameters=_cell_request(structures="indices", indices="2,0"),
+    )
+    assert reviewed["stage"] == "review"
+    rebuild = view._rebuild_view_from_current_molsys
+
+    def fail(*args, **kwargs):
+        raise RuntimeError("Injected projection failure after cell assignment")
+
+    monkeypatch.setattr(view, "_rebuild_view_from_current_molsys", fail)
+    packet = act(view, sent, "apply", token=reviewed["review"]["token"])
+    assert packet["stage"] == "sync_required", packet
+    stored = view.molsys.structures._box
+    completed = puw.get_value(view.molsys.structures.box, to_unit="nm").copy()
+    coverage = view.molsys.interactions["scope"]
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision + 1
+    monkeypatch.setattr(view, "_rebuild_view_from_current_molsys", rebuild)
+    view._handle_frontend_event(
+        {"event": "interaction_context_action", "action": "sync_system_edits"}
+    )
+    assert view.molsys.structures._box is stored
+    assert view.molsys.interactions["scope"] is coverage
+    np.testing.assert_array_equal(
+        puw.get_value(view.molsys.structures.box, to_unit="nm"), completed
+    )
+    np.testing.assert_array_equal(coords(view), before)
+    status = view.addons.molsysmt.get_sync_status()
+    assert (
+        status["state"] == "synchronized" and status["target_revision"] == revision + 1
+    )

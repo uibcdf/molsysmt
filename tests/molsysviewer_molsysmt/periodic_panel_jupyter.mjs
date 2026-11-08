@@ -103,7 +103,7 @@ try{
   await studio.locator('[data-molsysviewer-addon-panel-tab="geometry"]').click();await studio.getByRole('heading',{name:'Unwrap trajectory',exact:true}).waitFor();
   await studio.locator('summary').filter({hasText:'Periodic conventions and current support'}).click();
   const conventions=await studio.locator('[data-periodic]').innerText();
-  assert.match(conventions,/previous selected structure.*cell/);assert.match(conventions,/finite, nonsingular/);assert.match(conventions,/undersampled motion/);
+  assert.match(conventions,/previous selected structure.*cell/);assert.match(conventions,/finite, nonsingular/);assert.match(conventions,/undersampled motion/);assert.doesNotMatch(conventions,/unchanged cell/);
   await studio.screenshot({path:output+'/periodic-studio-popup.png'});await studio.close();await canvas.close();
  });
  await step('Python verifies all native arrays and drives a second structure of the rendered result',async()=>{

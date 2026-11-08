@@ -3524,3 +3524,29 @@ cell semantics. Course code/outputs are preserved; no fresh full-course executio
 is claimed. Source delivery/fast gates and public verification still precede
 crediting the one existing general-periodic intent. Cell assignment, tiny-boundary
 reference-point receiving and all other pending intents stay explicit.
+
+## Cell assignment candidate — 2026-11-08
+
+The candidate Geometry task assigns complete structure-level cells through the
+existing public native length/angle factory and managed basic.set adapter. It
+retains Cartesian positions, explicit nm/angstrom and degree/radian inputs,
+full independent results, selected-structure interaction invalidation and
+single-use review/revision checks. Atom-selection drafts are not used for a
+structure-level cell. Missing box series must first be initialized with the
+native all-structures route; no missing cells are invented for unselected data.
+
+Preview constructs only one small cell and never copies coordinates or writes
+the system. Confirmation revalidates inside the existing source/effect lock.
+Native physical/rounding rules and SMonitor diagnostics remain authoritative;
+no new scientific factory, optional engine, dependency or Rust code is added.
+First directed receiving passes 543 cases on the declared working tree; seven
+additional expiry/projection-retry controls and actual Jupyter receiving are
+still due before acceptance. The latter exercises initial missing cells, invalid
+physics, Back, independent triclinic results, actual Cartesian positions and
+both popup authorities with original deadlines.
+
+The candidate also corrects a missed secondary purpose sentence that still said
+'one unchanged cell' after general-cell receiving. The actual periodic driver
+now rejects that contradictory wording, in addition to checking the real
+previous-selected-cell and undersampling explanation. #421 stays partial; no
+cell-assignment intent or release credit is claimed before clean receiving.
