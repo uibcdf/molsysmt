@@ -9,6 +9,7 @@ import pytest
 import molsysmt as msm
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import NotWithThisFormError
+from molsysmt.form.XYZ import is_form
 
 
 @pytest.mark.parametrize("units", [["nm", "ps"], ["pm", "fs"]])
@@ -68,12 +69,12 @@ def test_default_system_xyz_coordinates_refuse_without_mutating_the_source():
 
 @pytest.mark.parametrize("shape", [(), (2,), (2, 4), (1, 1, 1, 3)])
 def test_unsupported_shapes_are_not_xyz(shape):
-    assert not msm.is_form(puw.quantity(np.zeros(shape), "nm"), "XYZ")
+    assert not is_form(puw.quantity(np.zeros(shape), "nm"))
 
 
 def test_bare_arrays_and_nonlength_quantities_are_not_xyz():
-    assert not msm.is_form(np.zeros((2, 3)), "XYZ")
-    assert not msm.is_form(puw.quantity(np.zeros((2, 3)), "ps"), "XYZ")
+    assert not is_form(np.zeros((2, 3)))
+    assert not is_form(puw.quantity(np.zeros((2, 3)), "ps"))
 
 
 @pytest.mark.parametrize("units", [["nm", "ps"], ["pm", "fs"]])

@@ -1,0 +1,51 @@
+---
+summary: Evidence-based public discoverability and scientific positioning
+issue: uibcdf/molsysmt#378
+status: partial
+opened: 2026-10-10
+closed:
+verification: reproduced
+area: [docs]
+guard: tests/documentation/test_readme_structure_analysis.py
+normative:
+blocked_by: []
+supersedes: []
+---
+
+# Evidence-based public discoverability
+
+## Scope and ownership
+
+The owning issue records the full proposal: verified indexing/canonical-site
+review, truthful positioning, a scoped software comparison, three independently
+executed task tutorials, version-pinned comparative evidence and external-reader
+receiving. The exploratory search observations are qualitative; no quantitative
+rank or discoverability improvement is established. Suite observatory work
+remains under uibcdf/molsyssuite#114. Those wider outcomes are not required by
+the bounded #378/#610 public-example leaf of the November 6 pre-1.0 audit.
+
+## Bounded pre-1.0 contribution — 2026-11-08
+
+The README structure-analysis block still calls retired
+`topology.get_dihedral_quartets`. Its bundled Trp-Cage load plus analysis raises
+AttributeError at that exact namespace on source `0504d74a6`. Replace it with the
+existing public chemical_states tool, preserve the scientific operations and
+execute the actual blocks. The addressable guard checks the original counts,
+nonempty quartet shape, finite angles and physical length/radian units. An
+earlier exploratory probe selected an unrelated preparation block and failed
+at OpenMM force-field construction; it does not diagnose this namespace defect.
+
+#610 separately receives and documents public XYZ query/assignment composition
+under both default and pm/fs policy, including actual Cookbook blocks and
+unchanged course/Tool code. Preserve both original failures and exact source
+receiving. No broad #378 completion, search improvement, comparative performance
+or scientific-model certification follows from these bounded corrections.
+
+## Remaining acceptance
+
+Complete the owning issue's full documented indexing, comparisons, tutorials,
+external-reader and evidence criteria before closing it. Track the pre-1.0
+example contribution independently in the frozen audit scorecard, without
+expanding the requirement or claiming the broader proposal complete. Clean
+source, public documentation and regression receiving for this contribution
+remain pending until their actual results are recorded.

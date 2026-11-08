@@ -14,7 +14,9 @@ Entries are filed and closed under [reporting_protocol.md](../../reporting_proto
 
 <!-- generated: devguide_index -->
 
-*No entries.*
+### Partially resolved (1)
+
+- [`evidence_based_public_discoverability.md`](evidence_based_public_discoverability.md) — [#378](https://github.com/uibcdf/molsysmt/issues/378) — Evidence-based public discoverability and scientific positioning *(reproduced)*
 
 <!-- /generated -->
 

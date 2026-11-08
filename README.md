@@ -159,7 +159,7 @@ molsys = msm.build.solvate(molsys, box_shape='truncated octahedral',
 rmsd = msm.structure.get_rmsd(molsys, selection='backbone')
 rg   = msm.structure.get_radius_of_gyration(molsys)
 
-quartets = msm.topology.get_dihedral_quartets(molsys, phi=True)
+quartets = msm.chemical_states.get_dihedral_quartets(molsys, phi=True)
 phi      = msm.structure.get_dihedral_angles(molsys, dihedral_quartets=quartets)
 
 # Experimental secondary-structure assignment
