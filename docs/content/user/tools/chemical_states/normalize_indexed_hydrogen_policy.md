@@ -108,8 +108,9 @@ do not certify its current chemical state.
 The native result has independent chemical tables, metadata and analysis handles.
 It uses {ref}`deferred native geometry copying <user-foundations-molsys-copying>`:
 coordinate and box blocks remain protected and shared until a controlled edit
-replaces affected blocks. The policy does not examine or duplicate coordinate
-structures. A foreign converter or a complete H5MSM load can still materialize
+replaces affected blocks. Other mutable series, including per-structure atom
+metadata, retain the native copy allocation rules. The policy does not examine
+or duplicate coordinate structures. A foreign converter or a complete H5MSM load can still materialize
 coordinates; provide already loaded native domains for repeated operations.
 
 Native quantities retain their exact values and units. Foreign reading follows

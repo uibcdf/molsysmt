@@ -218,3 +218,15 @@ zero swap and no OOM; host reserve is preserved. Two final admission controls
 are added for empty atoms with bond rows and retained fractional single-order
 encoding. Clean committed-source, applicable fast/HTML checks, source publication
 and independent closure are still required.
+
+## Clean source and generated-view correction — 2026-11-07
+
+Implementation source `4f7c7e4c2` passes **247 clean-source cases**, including
+the final two admission guards. The original fast campaign is **13/14**, not
+passing: adding the experimental API makes the generated scientific-evidence
+view stale. Regenerate that view from its unchanged normative registry; this
+adds the tool to the unclaimed/experimental inventory, not to independently
+validated scientific coverage. This metadata-only correction and a native-copy
+allocation clarification change no runtime, test or fixture bytes. Their
+applicable fast and HTML checks are received separately. The passing 247-case
+implementation evidence remains scoped to its exact source.

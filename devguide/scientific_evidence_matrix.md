@@ -136,6 +136,7 @@ after reviewing each operation's claim and available evidence.
 - `molsysmt.chemical_states.get_rings`
 - `molsysmt.chemical_states.get_rotatable_bonds`
 - `molsysmt.chemical_states.get_substructure_matches`
+- `molsysmt.chemical_states.normalize_indexed_hydrogen_policy`
 - `molsysmt.interactions.cation_pi.get_cation_pi_interactions`
 - `molsysmt.interactions.disulfides.get_disulfide_candidates`
 - `molsysmt.interactions.halogen_bonds.get_halogen_bonds`
