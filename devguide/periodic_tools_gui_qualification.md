@@ -102,6 +102,25 @@ boundary conventions, human Qt, installed/platform or final-candidate execution.
 The original 2026-11-13-or-earlier checkpoint remains visible. No new scorecard
 intent or closure bonus is added for this dedicated receiving.
 
+### Strengthened input-unit receiving — 2026-11-08
+
+The final four-probe fixture additionally distinguishes ignoring either explicit
+input unit (angstrom as nm or nm as angstrom), not just replacing the origin
+with zero. Each counterfactual changes an expected image by a complete 3 nm cell.
+Clean `d2918aa6c` passes both nm/pm Jupyter cases and fourteen checks; the two-
+probe campaign remains separately recorded for its narrower discrimination.
+All 8,566 owner and 2,463 export inputs remain unchanged. Fourteen fast gates and
+HTML pass on that same clean source, retaining six previous title warnings and
+unchanged course code/saved outputs. Five rendered pages retain the physical
+contract and course links. Full-tree Ruff and JavaScript syntax checks pass.
+
+The final GUI peak is 1.82 GiB and minimum host availability 12.87 GiB; all memory/
+task-cap and OOM counters stay zero. Fast checks and then HTML may overlap the
+GUI within aggregate configured limits of five CPU and six GiB, with independent
+shared-host reserve monitors. These are source-execution observations, not a
+universal molecular workload bound. No runtime or Rust change, scientific
+replay, threshold replacement, extra intent or source-closure credit follows.
+
 ## Effects and required evidence
 
 Preview freezes resolved atom populations, structure order and exact request

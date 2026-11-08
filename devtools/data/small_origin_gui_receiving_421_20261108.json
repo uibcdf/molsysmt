@@ -3,8 +3,9 @@
   "date": "2026-11-08",
   "owner_issue": "uibcdf/molsysmt#421",
   "native_correction_issue": "uibcdf/molsysmt#608",
-  "source": "25d9b810527df7a624925e472623a15e3238f664",
+  "source": "d2918aa6c2f9605383055d73e1e3d4164f810697",
   "implementation_source": "db16eec9be4a45cd5e2ddbde16f96757c2934281",
+  "two_probe_source": "25d9b810527df7a624925e472623a15e3238f664",
   "viewer_source": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
   "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
   "scope": "Dedicated small-origin source GUI receiving; not a new scientific algorithm, human Qt, installed package, general periodic-accuracy or final-candidate qualification.",
@@ -1702,6 +1703,154 @@
           "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.332413 s\n"
         }
       ]
+    },
+    "origin-editor-gui-unit-controls": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/origin-editor-gui-unit-controls.xml",
+          "-n0",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_small_periodic_origins",
+          "--basetemp=<private-evidence>/origin-editor-gui-unit-controls"
+        ],
+        "exit_code": 0,
+        "seconds": 185.63480145088397,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "d2918aa6c2f9605383055d73e1e3d4164f810697",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8566
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "2",
+          "time": "183.617",
+          "timestamp": "2026-11-08T10:03:00.425875-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_actual_jupyter_small_periodic_origins[nm]",
+          "seconds": 89.435,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_small_periodic_origins[pm]",
+          "seconds": 93.989,
+          "outcome": "passed"
+        }
+      ],
+      "resources": {
+        "seconds": 192.51432676706463,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "400000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.74560546875,
+            2.42333984375,
+            2.90087890625
+          ],
+          "cpu_utilization": 0.027624309392265234,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13815193600,
+        "cgroup_memory_peak_bytes": 1949278208,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 189,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 626499322\nuser_usec 582097434\nsystem_usec 44401887\nnice_usec 587602000\ncore_sched.force_idle_usec 0\nnr_periods 1917\nnr_throttled 1323\nthrottled_usec 887063150\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "dd62b91363696d863eb727daa754d7a68e63be2ff11484ba3f3ec7c7f1853c9b",
+        "-bounded.json": "881dde5d9077f1484f44d44eb544c34cdb1b4e018d2443f921b71def31e7469c",
+        ".xml": "4939119583d22f1f604d65a78bb5ecffaa2e81659a4bae8f92d3662af830b334",
+        ".log": "999249a07a8ecf7d777a9dfa30a65d8d064c3edd7242b4dc1e2a85bd85e7c66d",
+        "-inputs-before.json": "0ccc846e47e91f03e17722a63117fdd51419eb10ebcdbaa92b861004cccb2a09",
+        "-inputs-after.json": "0ccc846e47e91f03e17722a63117fdd51419eb10ebcdbaa92b861004cccb2a09",
+        "-reference-driver.py": "002bbe4b3501d1ba0985390a90127adcc10e315aea1912ac5316680a6cf2b024",
+        "-resource-driver.py": "043afb35241df7bcc5a1320bdb3fb2366200abb7fc17520bbe3427bfc53e26a7"
+      },
+      "jupyter": [
+        {
+          "guard_case": "test_actual_jupyter_small_peri0",
+          "file": "full-result.json",
+          "sha256": "5d0d8718255fc5beaa8fc1664afad4d09f89d42fb84ac9a62ae5d01f5a2e6c24",
+          "completed_checks": [
+            "Render a boundary-sensitive source under the declared application unit policy",
+            "Review a small positive origin and Back without changing rendered coordinates",
+            "Apply the small positive angstrom input and verify the nonzero-origin image",
+            "Compute the negative-origin independent result without altering the source",
+            "Preserve the same negative-origin result across acknowledged window ownership",
+            "Apply the same physical negative origin in nm through detached Studio",
+            "Verify every native structure source effect box chemistry coverage and unchanged unit policy"
+          ],
+          "browser_errors": 3,
+          "plain_notebook_errors": 1,
+          "scope": "Small positive and negative physical origins distinguished from zero, actual Mol* images, native analytical controls, nonconsecutive structures, current/independent effects and both popup authorities. Source only; not human Qt or installed qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.541518 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_small_peri1",
+          "file": "full-result.json",
+          "sha256": "e5593aa8885b0eca65a834a31e96f8c6d9f424dbb91b150d734462f638f49e22",
+          "completed_checks": [
+            "Render a boundary-sensitive source under the declared application unit policy",
+            "Review a small positive origin and Back without changing rendered coordinates",
+            "Apply the small positive angstrom input and verify the nonzero-origin image",
+            "Compute the negative-origin independent result without altering the source",
+            "Preserve the same negative-origin result across acknowledged window ownership",
+            "Apply the same physical negative origin in nm through detached Studio",
+            "Verify every native structure source effect box chemistry coverage and unchanged unit policy"
+          ],
+          "browser_errors": 3,
+          "plain_notebook_errors": 1,
+          "scope": "Small positive and negative physical origins distinguished from zero, actual Mol* images, native analytical controls, nonconsecutive structures, current/independent effects and both popup authorities. Source only; not human Qt or installed qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.302091 s\n"
+        }
+      ]
     }
   },
   "runtime": {
@@ -1728,6 +1877,7 @@
   },
   "fixture_controls": [
     {
+      "profile": "origin-editor-gui-final",
       "standard": "nm",
       "file_sha256": "f1bb759beb515b0e87496aa7a23e021980e9a157fdf4da721b6053b146fb89a0",
       "maximum_difference_from_zero_origin_nm": {
@@ -1735,9 +1885,15 @@
         "negative_angstrom": 3.0000000000000004
       },
       "structures": 3,
-      "atoms": 62
+      "atoms": 62,
+      "selected_probe_atoms": [
+        2,
+        4
+      ],
+      "input_unit_counterfactuals": "Not discriminated by this original two-probe population."
     },
     {
+      "profile": "origin-editor-gui-final",
       "standard": "pm",
       "file_sha256": "7fd9e95909e519203a8c7a470f3a2213d824bb9e16d7dfe6aeaf367987a704e7",
       "maximum_difference_from_zero_origin_nm": {
@@ -1745,7 +1901,54 @@
         "negative_angstrom": 3.0000000000000004
       },
       "structures": 3,
-      "atoms": 62
+      "atoms": 62,
+      "selected_probe_atoms": [
+        2,
+        4
+      ],
+      "input_unit_counterfactuals": "Not discriminated by this original two-probe population."
+    },
+    {
+      "profile": "origin-editor-gui-unit-controls",
+      "standard": "nm",
+      "file_sha256": "bf37ff284225d20e87f99b5fbed1f58ed2eae6155a255997480ce8c085c228bf",
+      "maximum_difference_from_zero_origin_nm": {
+        "positive_angstrom": 2.9999999999999996,
+        "negative_angstrom": 3.0000000000000004
+      },
+      "structures": 3,
+      "atoms": 62,
+      "maximum_difference_from_ignored_input_unit_nm": {
+        "angstrom_as_nm": 3.0,
+        "nm_as_angstrom": 3.0000000000000004
+      },
+      "selected_probe_atoms": [
+        2,
+        4,
+        7,
+        9
+      ]
+    },
+    {
+      "profile": "origin-editor-gui-unit-controls",
+      "standard": "pm",
+      "file_sha256": "6447091a149e545abe7de2aa31212ac186bbf20d5d6f81957ee5625284378848",
+      "maximum_difference_from_zero_origin_nm": {
+        "positive_angstrom": 2.9999999999999996,
+        "negative_angstrom": 3.0000000000000004
+      },
+      "structures": 3,
+      "atoms": 62,
+      "maximum_difference_from_ignored_input_unit_nm": {
+        "angstrom_as_nm": 3.0,
+        "nm_as_angstrom": 3.0000000000000004
+      },
+      "selected_probe_atoms": [
+        2,
+        4,
+        7,
+        9
+      ]
     }
   ],
   "initial_attempt": {
@@ -1753,15 +1956,166 @@
     "outcome": "one passed, one failed",
     "stage": "pm positive-origin native box-preservation guard",
     "observed_nm_difference": 4.440892098500626e-16,
-    "reason": "The fixture compared the initialized pm box after conversion with an ideal literal. Final guards snapshot the actual stored box after initialization and require exact raw-value and unit preservation; physical-coordinate tolerance and all deadlines stay unchanged."
+    "reason": "The fixture compared an initialized pm box after conversion with an ideal literal. Final guards snapshot the actual stored box and demand exact raw-value and unit preservation; coordinate tolerances and deadlines stay unchanged."
   },
   "acceptance": [
-    "Clean source passes 264 affected cases: 108 new GUI-request controls and the existing 156 native origin/cell unit controls; no skips/failures/errors. This is not an aggregate with the earlier cell/general-periodic populations.",
-    "The GUI-request population spans positive/zero/negative origins, primary/centered/nearest placement, atom/component grouping, current/independent effects and nm/angstrom/pm application standards. Nonzero cases reject a zero-origin substitution by more than 2.9 nm.",
-    "Both corrected actual-Jupyter scenarios pass seven steps: positive/negative 0.00001 nm origins, explicit angstrom/nm inputs, application nm/pm policies, nonconsecutive structures, Back and current/independent effects. Actual Mol* positions and every native coordinate are checked independently.",
-    "Native boxes, chemical state, unselected structures, evaluated coverage and the existing application unit policy are preserved. Both popup authorities and result ownership are checked after actual acknowledgement.",
-    "Original 300/240-second scenario deadlines and UI waits remain unchanged. Browser errors are explicitly compared to an independent plain-notebook debugger baseline, not suppressed.",
-    "All registered source/export inputs remain unchanged during clean receiving. No runtime code, new optional engine, API, scientific formula, consumer tolerance, unit-policy override or Rust implementation is introduced.",
-    "This receives an existing periodic intent and adds no scorecard leaf or defect-closure bonus. Human/installed/platform/full-candidate gates and the remaining agreed GUI families stay required."
-  ]
+    "Clean source passes 264 affected cases: 108 new GUI-request controls and 156 existing native origin/cell unit controls; zero skips/failures/errors. This is not an aggregate with earlier cell/general-periodic populations.",
+    "Requests span positive/zero/negative origins, primary/centered/nearest placement, atom/component grouping, current/independent effects and nm/angstrom/pm application standards. Nonzero cases reject zero-origin substitution by over 2.9 nm.",
+    "Corrected two-probe actual-Jupyter receiving passes both nm/pm cases and fourteen steps. Its original input-unit discrimination limit is retained explicitly.",
+    "The stronger four-probe campaign separately passes both cases and fourteen steps. Every sign also distinguishes ignored angstrom/nm input units by a full cell. Actual Mol* positions and all native structures are checked against independent analytical arrays.",
+    "Nonconsecutive [2,0] structure scope, Back, current/independent ownership, exact original stored box values/units, chemical state, coverage and application policy remain guarded. Both popup authorities and actual result acknowledgements are exercised.",
+    "Original 300/240-second scenario deadlines and UI waits are unchanged. Browser errors remain matched explicitly to an independent plain-notebook debugger baseline, not silently suppressed.",
+    "All registered source/export inputs remain unchanged during clean receiving. No runtime implementation, optional engine, public scientific API, consumer tolerance, policy override or Rust code is introduced.",
+    "This receives an existing periodic intent and adds no scorecard leaf or defect-closure bonus. Human/installed/platform/final-candidate gates and the remaining GUI families stay required."
+  ],
+  "checks": {
+    "origin-editor-fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 25.637529358034953,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "d2918aa6c2f9605383055d73e1e3d4164f810697",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8566
+      },
+      "resources": {
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "cgroup_memory_peak_bytes": 417554432,
+        "host_available_minimum_observed_bytes": 13850488832,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "pids_events": "max 0\n",
+        "stop_reason": null
+      }
+    },
+    "origin-editor-html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/origin-editor-html"
+        ],
+        "exit_code": 0,
+        "seconds": 148.36469111894257,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "d2918aa6c2f9605383055d73e1e3d4164f810697",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8566
+      },
+      "resources": {
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "cgroup_memory_peak_bytes": 1337458688,
+        "host_available_minimum_observed_bytes": 14199709696,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "pids_events": "max 0\n",
+        "stop_reason": null
+      }
+    }
+  },
+  "html_inspection": {
+    "pages": [
+      {
+        "page": "content/user/tools/molsysviewer_tools.html",
+        "sha256": "6823afa58d246b066b5d2b92af38cc0489e5a777d986de891b087b0e48da93a6"
+      },
+      {
+        "page": "content/course/Path_Enzyme/41_Wrapping_Unwrapping.html",
+        "sha256": "5ab68e0c341026d78efa44423f75998fa96328c45f134995b68845880c7629db",
+        "code_cells_and_outputs_unchanged": true
+      },
+      {
+        "page": "content/course/Path_Alzheimer/41_Wrapping_Unwrapping.html",
+        "sha256": "eba0e8a3c5ce2ecdb71ee33a11cf5ee34893cea9a86c50e48d1ff8d5e47729b0",
+        "code_cells_and_outputs_unchanged": true
+      },
+      {
+        "page": "content/course/Path_Antiviral/41_Wrapping_Unwrapping.html",
+        "sha256": "88cf4d0febdc66bcc49d0f0c9520566593852004d3592642db8b879f04978c21",
+        "code_cells_and_outputs_unchanged": true
+      },
+      {
+        "page": "content/course/Path_Biophysics/41_Wrapping_Unwrapping.html",
+        "sha256": "d0186591437d81db1a01bfcc687d03fad885aa04ad7ca67135e39a1135e67a5c",
+        "code_cells_and_outputs_unchanged": true
+      }
+    ],
+    "warnings": [
+      [
+        "api/build/autosummary/molsysmt.build.ProtonationAssessment.rst",
+        "Title underline too short."
+      ],
+      [
+        "api/build/autosummary/molsysmt.build.add_ions.rst",
+        "Title underline too short."
+      ],
+      [
+        "api/build/autosummary/molsysmt.build.assess_protonation.rst",
+        "Title underline too short."
+      ],
+      [
+        "api/build/autosummary/molsysmt.build.reconcile_protonation.rst",
+        "Title underline too short."
+      ],
+      [
+        "api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst",
+        "Title underline too short."
+      ],
+      [
+        "api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst",
+        "Title underline too short."
+      ]
+    ],
+    "warnings_match_previous_build": true,
+    "fast_gates": 14,
+    "source": "d2918aa6c",
+    "scope": "HTML compilation and rendered content/link inspection without notebook execution."
+  },
+  "board_review": {
+    "total": 585,
+    "open": 88,
+    "new_since_cell_checkpoint": [],
+    "open_prs": 0,
+    "queues_agree": true
+  },
+  "concurrent_resource_scope": "Measured fast checks and then HTML may overlap the GUI run: aggregate configured limits 5 CPU and 6 GiB, each with independent shared-host reserve monitoring. No whole-host reservation or universal product memory bound is implied."
 }

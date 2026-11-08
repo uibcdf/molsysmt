@@ -3605,3 +3605,13 @@ counterfactuals to differ from the correct result by a complete cell. It retains
 the original zero-origin controls, every coordinate/box/ownership assertion and
 all deadlines. The earlier passing two-probe campaign remains evidence for its
 stated scope; the stronger four-probe campaign is separately received.
+
+The stronger four-probe campaign passes both cases and fourteen checks on clean
+`d2918aa6c`, with all 8,566 owner and 2,463 verified export inputs unchanged.
+Fourteen fast gates, whole-tree Ruff/format, JavaScript syntax and HTML pass;
+six previous title warnings remain and course code/outputs are preserved.
+Both ignored-input-unit counterfactuals differ by a 3 nm image. All original
+attempts are in the source receipt. Complete board agreement holds: 585 issues /
+88 open / no open PR, with no new intake since the cell checkpoint. Public
+source delivery/verification follows; human/installed/platform/exact-candidate
+qualification and the remaining agreed families remain pending.
