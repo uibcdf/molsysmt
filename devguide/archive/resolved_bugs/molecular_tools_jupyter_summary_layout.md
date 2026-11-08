@@ -1,9 +1,9 @@
 ---
 summary: Molecular tools review summary inherits incompatible Jupyter definition-list floats
 issue: uibcdf/molsysmt#591
-status: partial
+status: resolved
 opened: 2026-11-05
-closed:
+closed: 2026-11-08
 severity: medium
 verification: reproduced
 area: [molsysviewer]
@@ -14,6 +14,27 @@ supersedes: []
 ---
 
 # Jupyter distorts the review summary
+
+## Resolution — owner receiving, 2026-11-08
+
+Fixed in `4c681998c9236f701521a892705548ca0ea80597` and received on clean source
+`68323539ee6b6473d453f6fbe61f5dc5ae826630` with independently verified
+Viewer export `e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab`. Actual Jupyter dt/dd floats are none, values sit below their labels and their left edges align; native water review remains 165 removed / 3,818 retained.
+
+All fourteen explicit Jupyter guards pass: 109 browser checks, zero skips,
+failures or errors, in 1,451.53 s. All 8,560 owner and 2,463 Viewer-export
+inputs remain unchanged. The
+[portable receipt](../../../devtools/data/jupyter_owner_receiving_590_591_609_614_20261108.json)
+retains original failures, both deliberate interruptions, the two-CPU Results
+deadline and four-CPU receiving. Peak charged memory is 2,365,796,352 bytes;
+host available memory remains above 14,193,504,256 bytes, with no memory/task-cap
+or OOM event. No numerical, source, title, browser-error, lifetime or functional
+deadline assertion is relaxed.
+
+This closes this source-owner defect, not installed, human Qt, other-platform,
+final-candidate or publication qualification. #615 remains open: later startup
+passes do not establish its causal repair. Earlier pending-owner/contribution
+statements below describe their historical checkpoints.
 
 ## What
 

@@ -25,12 +25,8 @@ that front matter -- edit the entries, not this list.
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
 
-### Partially resolved (5)
+### Partially resolved (1)
 
-- [`jupyter_popup_addon_navigation_identity.md`](jupyter_popup_addon_navigation_identity.md) — [#614](https://github.com/uibcdf/molsysmt/issues/614) — Jupyter popup receiving loses the current Add-ons header during bootstrap. *(medium, reproduced)*
-- [`jupyter_result_title_before_ack.md`](jupyter_result_title_before_ack.md) — [#609](https://github.com/uibcdf/molsysmt/issues/609) — Jupyter result-window guards read titles before presentation acknowledgement. *(medium, reproduced)*
-- [`molecular_tools_completion_lost_on_refresh.md`](molecular_tools_completion_lost_on_refresh.md) — [#590](https://github.com/uibcdf/molsysmt/issues/590) — Molecular tools loses the completed-removal outcome during automatic panel refresh *(medium, reproduced)*
-- [`molecular_tools_jupyter_summary_layout.md`](molecular_tools_jupyter_summary_layout.md) — [#591](https://github.com/uibcdf/molsysmt/issues/591) — Molecular tools review summary inherits incompatible Jupyter definition-list floats *(medium, reproduced)*
 - [`physchem_surface_area_unit_contract.md`](physchem_surface_area_unit_contract.md) — [#473](https://github.com/uibcdf/molsysmt/issues/473) — Verify the unit contract of Collantes surface-area descriptors. *(medium, inspected)*
 
 <!-- /generated -->

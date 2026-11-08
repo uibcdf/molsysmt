@@ -1,0 +1,1614 @@
+{
+  "schema_version": "molsysmt.jupyter_owner_receiving@1",
+  "date": "2026-11-08",
+  "issues": [
+    "uibcdf/molsysmt#590",
+    "uibcdf/molsysmt#591",
+    "uibcdf/molsysmt#609",
+    "uibcdf/molsysmt#614"
+  ],
+  "code_fixes": [
+    "db51a8db3efd0d34fe9b09ec03c3bc636819d400",
+    "68323539ee6b6473d453f6fbe61f5dc5ae826630"
+  ],
+  "source_qualified": "68323539ee6b6473d453f6fbe61f5dc5ae826630",
+  "viewer_source": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+  "viewer_acquisition": "Independently verified 2462-blob raw export; not a Git checkout. Runtime/package hashes checked and complete export inputs fingerprinted before/after the final campaign.",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "scope": "Explicit actual local JupyterLab/ipykernel/AnyWidget, Mol* and popup receiving. Source only; no installed package, human Qt, other OS or release qualification.",
+  "runs": {
+    "owner-590-591-609-614-gui": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/owner-590-591-609-614-gui.xml",
+          "-n0",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_review_and_independent_popups",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_independent_result_views",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_translation",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_centering",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_superposition",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_periodic_geometry",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_analysis_distance_family",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_chemistry_preparation_and_reviewed_replacement",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_pending_chemistry_readers",
+          "--basetemp=<private-evidence>/owner-590-591-609-614-gui"
+        ],
+        "exit_code": 2,
+        "seconds": 482.97352206194773,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "731bf01ea8a07e3ad8a7477700c4ae1e24730062",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 8560
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "2",
+          "skipped": "0",
+          "tests": "2",
+          "time": "479.477",
+          "timestamp": "2026-11-08T03:48:24.136072-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_actual_jupyter_review_and_independent_popups",
+          "seconds": 156.023,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_actual_jupyter_independent_result_views",
+          "seconds": 225.0,
+          "outcome": "failure"
+        }
+      ],
+      "resources": {
+        "seconds": 496.76438600593247,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.4853515625,
+            0.34619140625,
+            0.62060546875
+          ],
+          "cpu_utilization": 0.020090406830738372,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14493093888,
+        "cgroup_memory_peak_bytes": 2358976512,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 203,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 850416980\nuser_usec 788916459\nsystem_usec 61500520\nnice_usec 795745000\ncore_sched.force_idle_usec 0\nnr_periods 4971\nnr_throttled 3937\nthrottled_usec 3389548817\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "8bfa14dbc4574da3bdc95dc8066ce90f13d2fe4eb536d2da18909b411b1af28e",
+        "-bounded.json": "3e89621c0d1fcd3ef0e93d1e24b0654676b3528511411b9e33e5209f20dbf17c",
+        ".xml": "a1e7391dd6b744c82f7bfaf652c7e19272d9d4912b30189ea6e075c1cf2db801",
+        ".log": "3907fc2a4cac1c01015edc0bee3828389d1b59f26edf93fd5bf4ca406c965ade",
+        "-inputs-before.json": "234fb45b1bdbb2f4ddcd1e12710e528c26f08f4deb00019920253e53995e0c5a",
+        "-inputs-after.json": "234fb45b1bdbb2f4ddcd1e12710e528c26f08f4deb00019920253e53995e0c5a",
+        "-reference-driver.py": "96ed0dc3256a1538a6aa9ddb99a5698bb1b6211c0fa5960300ba66e2746f2573",
+        "-resource-driver.py": "93f3a7cdafba632ebc89e9b34b8601f3d778388586238411a74f0d4e1aab283e"
+      },
+      "jupyter": [
+        {
+          "guard_case": "test_actual_jupyter_independen0",
+          "file": "full-failure.json",
+          "sha256": "7d693acea655f0ca533b06c8eca182e6aa7a5e42ca98a599abe31f685493d923",
+          "completed_checks": [
+            "Render the source through the real notebook presentation surface",
+            "Extract ordered nonconsecutive structures without editing the source",
+            "Notebook delivery from fullscreen explains how to reach the result",
+            "Changing destination reuses one View through rapid window/notebook cycles",
+            "Copy opens a separate live View in an external window without recomputing"
+          ],
+          "stage": "Detached Studio can open and close an independent result without closing its source",
+          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('[data-molsysviewer-panel-stack-option=\"addons\"]') to be visible\n    62 \u00d7 locator resolved to hidden <button type=\"button\" data-molsysviewer-panel-stack-option=\"addons\">Add-ons</button>\n",
+          "browser_errors": 1,
+          "plain_notebook_errors": null,
+          "scope": "Failure; no completed scenario acceptance.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 5.828549 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_review_and0",
+          "file": "full-failure.json",
+          "sha256": "2ee57079576fb3fbe860d149ba915b1829cad2d607ac2c27fbfa45f87fc69df1",
+          "completed_checks": [
+            "Execute real notebook with source-pinned Python 3.14 kernel",
+            "Native review is 165 waters / 3818 retained; Back does not edit",
+            "Confirm traverses real widget comms, native edit and Mol* rendering",
+            "Empty ion selection and remount retain a bounded draft without a review"
+          ],
+          "stage": "Canvas popup and Studio popup share the actual Jupyter authority",
+          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('[data-molsysviewer-panel-stack-option=\"addons\"]') to be visible\n    62 \u00d7 locator resolved to hidden <button type=\"button\" data-molsysviewer-panel-stack-option=\"addons\">Add-ons</button>\n",
+          "browser_errors": 1,
+          "plain_notebook_errors": null,
+          "scope": "Failure; no completed scenario acceptance.",
+          "computed_review_layout": [
+            {
+              "text": "Remove",
+              "float": "none",
+              "width": "198.281px",
+              "margin": "0px",
+              "x": 672.546875,
+              "y": 711.3125,
+              "height": 16.5
+            },
+            {
+              "text": "165",
+              "float": "none",
+              "width": "198.281px",
+              "margin": "3px 0px 0px",
+              "x": 672.546875,
+              "y": 730.8125,
+              "height": 27
+            },
+            {
+              "text": "Keep",
+              "float": "none",
+              "width": "198.297px",
+              "margin": "0px",
+              "x": 878.828125,
+              "y": 711.3125,
+              "height": 16.5
+            },
+            {
+              "text": "3,818",
+              "float": "none",
+              "width": "198.297px",
+              "margin": "3px 0px 0px",
+              "x": 878.828125,
+              "y": 730.8125,
+              "height": 27
+            },
+            {
+              "text": "Structures",
+              "float": "none",
+              "width": "198.297px",
+              "margin": "0px",
+              "x": 1085.125,
+              "y": 711.3125,
+              "height": 16.5
+            },
+            {
+              "text": "1",
+              "float": "none",
+              "width": "198.297px",
+              "margin": "3px 0px 0px",
+              "x": 1085.125,
+              "y": 730.8125,
+              "height": 27
+            }
+          ],
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 5.971814 s\n"
+        }
+      ]
+    },
+    "navigation-614-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/navigation-614-directed.xml",
+          "-n0",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_review_and_independent_popups",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_independent_result_views",
+          "--basetemp=<private-evidence>/navigation-614-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 418.8493132099975,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "db51a8db3efd0d34fe9b09ec03c3bc636819d400",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 8560
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "2",
+          "time": "417.121",
+          "timestamp": "2026-11-08T04:03:13.032641-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_actual_jupyter_review_and_independent_popups",
+          "seconds": 171.384,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_independent_result_views",
+          "seconds": 245.43,
+          "outcome": "failure"
+        }
+      ],
+      "resources": {
+        "seconds": 424.6201624069363,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.49365234375,
+            0.92822265625,
+            1.068359375
+          ],
+          "cpu_utilization": 0.02055137844611532,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14323372032,
+        "cgroup_memory_peak_bytes": 2337480704,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 202,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 814929746\nuser_usec 759649957\nsystem_usec 55279788\nnice_usec 775564000\ncore_sched.force_idle_usec 0\nnr_periods 4243\nnr_throttled 3857\nthrottled_usec 3447228457\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "bc433460c5b1df7dbadab89d9ad4bb061e832b083c72be605e8751e66c898cd4",
+        "-bounded.json": "5b5b5dd0b67cf72a63ea160b1ec3696ffcb4346a7bd5d08a36f0c1959073ecc7",
+        ".xml": "a9dfdc024c585cc9d7a0d6332ab4c73356fd57af0d9ec198aa6487cb71d1e624",
+        ".log": "8108fcc09995655255bfb15f04a53069f0df2f289f595e18207519efe069fb0d",
+        "-inputs-before.json": "e55c6006d448b62a9445ea6d244608b50fff9b5e23dd64cd17e6ae4eaedbad82",
+        "-inputs-after.json": "e55c6006d448b62a9445ea6d244608b50fff9b5e23dd64cd17e6ae4eaedbad82",
+        "-reference-driver.py": "4030a6fe34a87dc6de928fecf5b86b0db1380263dea3cce7e15635a329d063f3",
+        "-resource-driver.py": "fe1d99cef4c029c6370445bb6e8347a1cf58b06afbba4732a719626e19352bb5"
+      },
+      "jupyter": [
+        {
+          "guard_case": "test_actual_jupyter_review_and0",
+          "file": "full-result.json",
+          "sha256": "bf6598af091eb729f68eaf2d204ce8ce1ae46f391d056efc8b59616fec4e2adc",
+          "completed_checks": [
+            "Execute real notebook with source-pinned Python 3.14 kernel",
+            "Native review is 165 waters / 3818 retained; Back does not edit",
+            "Confirm traverses real widget comms, native edit and Mol* rendering",
+            "Empty ion selection and remount retain a bounded draft without a review",
+            "Canvas popup and Studio popup share the actual Jupyter authority",
+            "Kernel verifies actual inventory and exactly two managed edits"
+          ],
+          "final_atoms": 3817,
+          "managed_edits": 2,
+          "browser_errors": 2,
+          "plain_notebook_errors": 1,
+          "scope": "Actual local JupyterLab server, ipykernel, anywidget/ipywidgets comms, real Mol* rendering and both popup lifecycles in headless Chromium. Not human visible Qt or installed-package qualification.",
+          "computed_review_layout": [
+            {
+              "text": "Remove",
+              "float": "none",
+              "width": "198.281px",
+              "margin": "0px",
+              "x": 672.546875,
+              "y": 711.3125,
+              "height": 16.5
+            },
+            {
+              "text": "165",
+              "float": "none",
+              "width": "198.281px",
+              "margin": "3px 0px 0px",
+              "x": 672.546875,
+              "y": 730.8125,
+              "height": 27
+            },
+            {
+              "text": "Keep",
+              "float": "none",
+              "width": "198.297px",
+              "margin": "0px",
+              "x": 878.828125,
+              "y": 711.3125,
+              "height": 16.5
+            },
+            {
+              "text": "3,818",
+              "float": "none",
+              "width": "198.297px",
+              "margin": "3px 0px 0px",
+              "x": 878.828125,
+              "y": 730.8125,
+              "height": 27
+            },
+            {
+              "text": "Structures",
+              "float": "none",
+              "width": "198.297px",
+              "margin": "0px",
+              "x": 1085.125,
+              "y": 711.3125,
+              "height": 16.5
+            },
+            {
+              "text": "1",
+              "float": "none",
+              "width": "198.297px",
+              "margin": "3px 0px 0px",
+              "x": 1085.125,
+              "y": 730.8125,
+              "height": 27
+            }
+          ],
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 5.776076 s\n"
+        }
+      ]
+    },
+    "navigation-614-results-cpu4": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/navigation-614-results-cpu4.xml",
+          "-n0",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_independent_result_views",
+          "--basetemp=<private-evidence>/navigation-614-results-cpu4"
+        ],
+        "exit_code": 0,
+        "seconds": 128.2379685351625,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "db51a8db3efd0d34fe9b09ec03c3bc636819d400",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 8560
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "126.467",
+          "timestamp": "2026-11-08T04:10:55.497423-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_actual_jupyter_independent_result_views",
+          "seconds": 126.304,
+          "outcome": "passed"
+        }
+      ],
+      "resources": {
+        "seconds": 133.48101628292352,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "400000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.17724609375,
+            2.53662109375,
+            1.8681640625
+          ],
+          "cpu_utilization": 0.025100401606425682,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14281289728,
+        "cgroup_memory_peak_bytes": 2322128896,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 188,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 454553945\nuser_usec 425048891\nsystem_usec 29505053\nnice_usec 426673000\ncore_sched.force_idle_usec 0\nnr_periods 1338\nnr_throttled 988\nthrottled_usec 643487919\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "920ec5a1569d496dc5a5446acdb689a73486fefcb2cac6ec609a0c7aa37122a9",
+        "-bounded.json": "3e106366c730025eb209706a13bc99c110313dfea86f0e0572a4efb12ea5750b",
+        ".xml": "6edcbeea8e74bd4f93f4715542cf61389753221d193b6361c7f8c0d4f57eed4d",
+        ".log": "167f8da488f91dfc667844959c7ce09ddf7ded2f51db8122f4790d4823de8417",
+        "-inputs-before.json": "e55c6006d448b62a9445ea6d244608b50fff9b5e23dd64cd17e6ae4eaedbad82",
+        "-inputs-after.json": "e55c6006d448b62a9445ea6d244608b50fff9b5e23dd64cd17e6ae4eaedbad82",
+        "-reference-driver.py": "e8698df31691026e259aa8430bf3641d483eacc3756ade663fbc5e08fd67aecf",
+        "-resource-driver.py": "61a97e388eaf80c53adae0584abd98c3bff6ab9db0a8ed91a5d95fb17ef3a0c9"
+      },
+      "jupyter": [
+        {
+          "guard_case": "test_actual_jupyter_independen0",
+          "file": "full-result.json",
+          "sha256": "c845a213ea78954172a8743c7c6270b0f9e408fa7b09804c4d774d0cf54ec6ff",
+          "completed_checks": [
+            "Render the source through the real notebook presentation surface",
+            "Extract ordered nonconsecutive structures without editing the source",
+            "Notebook delivery from fullscreen explains how to reach the result",
+            "Changing destination reuses one View through rapid window/notebook cycles",
+            "Copy opens a separate live View in an external window without recomputing",
+            "Detached Studio can open and close an independent result without closing its source",
+            "Python recovers both Views and source closure preserves them"
+          ],
+          "browser_errors": 2,
+          "plain_notebook_errors": 1,
+          "scope": "Real local JupyterLab/ipykernel/AnyWidget, ordered native extraction, independent Mol* Views, notebook and browser-window presentation including detached Studio. Not visible human Qt qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.577956 s\n"
+        }
+      ]
+    },
+    "navigation-614-all-received": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/navigation-614-all-received.xml",
+          "-n0",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_review_and_independent_popups",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_independent_result_views",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_translation",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_centering",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_superposition",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_periodic_geometry",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_analysis_distance_family",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_chemistry_preparation_and_reviewed_replacement",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_pending_chemistry_readers",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_rotation",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_principal_axes",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_rejected_operation_diagnostic",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_external_reference",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_chemistry_inspection",
+          "--basetemp=<private-evidence>/navigation-614-all-received"
+        ],
+        "exit_code": 2,
+        "seconds": 362.7691276909318,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "db51a8db3efd0d34fe9b09ec03c3bc636819d400",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8560
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "2",
+          "skipped": "0",
+          "tests": "4",
+          "time": "359.807",
+          "timestamp": "2026-11-08T04:14:20.759615-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_actual_jupyter_review_and_independent_popups",
+          "seconds": 84.246,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_independent_result_views",
+          "seconds": 121.88,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_geometry_translation",
+          "seconds": 66.884,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_actual_jupyter_geometry_centering",
+          "seconds": 67.414,
+          "outcome": "failure"
+        }
+      ],
+      "resources": {
+        "seconds": 378.82734211091883,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "400000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.69873046875,
+            2.5595703125,
+            2.0400390625
+          ],
+          "cpu_utilization": 0.024610748367654423,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14282342400,
+        "cgroup_memory_peak_bytes": 2307158016,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 191,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 1042918949\nuser_usec 963056292\nsystem_usec 79862657\nnice_usec 961129000\ncore_sched.force_idle_usec 0\nnr_periods 3788\nnr_throttled 2157\nthrottled_usec 1446032198\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "b9654cf03f7be43e5d81b881209def50e0a7fa49a6cdd6f4a23125afd001941f",
+        "-bounded.json": "bd837fce3b92697446be870502e5cf2d1e5abad5a6f77bc03f5f149976f4c4d9",
+        ".xml": "7563135263962d236bfe63b7db6f0a48abe2e8655f01c95e8a672e063c078f1c",
+        ".log": "f995f4c0ce627c689cb7a5e403349aa40bbfa0f2f5993861e185f5fbfda27055",
+        "-inputs-before.json": "e55c6006d448b62a9445ea6d244608b50fff9b5e23dd64cd17e6ae4eaedbad82",
+        "-inputs-after.json": "e55c6006d448b62a9445ea6d244608b50fff9b5e23dd64cd17e6ae4eaedbad82",
+        "-reference-driver.py": "b39a72a42fdf16ab6bdc49aa523571d6973dbe89dda32de65f4b4763f814c61d",
+        "-resource-driver.py": "7e5fa7b3da0167e185add2cd6957835e2650b1e0062ae2d988801efddc657f43"
+      },
+      "jupyter": [
+        {
+          "guard_case": "test_actual_jupyter_geometry_c0",
+          "file": "full-failure.json",
+          "sha256": "e149606ea211cb5adc604c2f3df8a34bf3f31857ab1df1d8a5558a6780cc0509",
+          "completed_checks": [],
+          "stage": "Render the source through the real notebook presentation surface",
+          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('.msm-geometry') to be visible\n",
+          "browser_errors": 1,
+          "plain_notebook_errors": null,
+          "scope": "Failure; no completed scenario acceptance.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.491230 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_geometry_s0",
+          "file": "full-failure.json",
+          "sha256": "a65595b2ed16c7e9b3ac8f7f12298f2ff657ef373b2e3614cf1a5cffc72082fd",
+          "completed_checks": [],
+          "stage": "Render the source through the real notebook presentation surface",
+          "error": "Error: page.waitForFunction: Target page, context or browser has been closed",
+          "browser_errors": 0,
+          "plain_notebook_errors": null,
+          "scope": "Failure; no completed scenario acceptance.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_geometry_t0",
+          "file": "full-failure.json",
+          "sha256": "3a24f7e9ecbe03c53682b3154dd3b7759b61f822bd618225db2036cf7e296643",
+          "completed_checks": [],
+          "stage": "Render the source through the real notebook presentation surface",
+          "error": "TimeoutError: locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('.msm-geometry') to be visible\n",
+          "browser_errors": 1,
+          "plain_notebook_errors": null,
+          "scope": "Failure; no completed scenario acceptance.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.476627 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_independen0",
+          "file": "full-result.json",
+          "sha256": "31b08dbe36bbc72bbc82137baa9b03e9a69afeaa0683101fd5ded253b41f5fad",
+          "completed_checks": [
+            "Render the source through the real notebook presentation surface",
+            "Extract ordered nonconsecutive structures without editing the source",
+            "Notebook delivery from fullscreen explains how to reach the result",
+            "Changing destination reuses one View through rapid window/notebook cycles",
+            "Copy opens a separate live View in an external window without recomputing",
+            "Detached Studio can open and close an independent result without closing its source",
+            "Python recovers both Views and source closure preserves them"
+          ],
+          "browser_errors": 2,
+          "plain_notebook_errors": 1,
+          "scope": "Real local JupyterLab/ipykernel/AnyWidget, ordered native extraction, independent Mol* Views, notebook and browser-window presentation including detached Studio. Not visible human Qt qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.469299 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_review_and0",
+          "file": "full-result.json",
+          "sha256": "0bf4a8d5ae586be5bd07c7ad77a8b33dc1246562206dad9121834c56cac765e2",
+          "completed_checks": [
+            "Execute real notebook with source-pinned Python 3.14 kernel",
+            "Native review is 165 waters / 3818 retained; Back does not edit",
+            "Confirm traverses real widget comms, native edit and Mol* rendering",
+            "Empty ion selection and remount retain a bounded draft without a review",
+            "Canvas popup and Studio popup share the actual Jupyter authority",
+            "Kernel verifies actual inventory and exactly two managed edits"
+          ],
+          "final_atoms": 3817,
+          "managed_edits": 2,
+          "browser_errors": 2,
+          "plain_notebook_errors": 1,
+          "scope": "Actual local JupyterLab server, ipykernel, anywidget/ipywidgets comms, real Mol* rendering and both popup lifecycles in headless Chromium. Not human visible Qt or installed-package qualification.",
+          "computed_review_layout": [
+            {
+              "text": "Remove",
+              "float": "none",
+              "width": "198.281px",
+              "margin": "0px",
+              "x": 672.546875,
+              "y": 711.3125,
+              "height": 16.5
+            },
+            {
+              "text": "165",
+              "float": "none",
+              "width": "198.281px",
+              "margin": "3px 0px 0px",
+              "x": 672.546875,
+              "y": 730.8125,
+              "height": 27
+            },
+            {
+              "text": "Keep",
+              "float": "none",
+              "width": "198.297px",
+              "margin": "0px",
+              "x": 878.828125,
+              "y": 711.3125,
+              "height": 16.5
+            },
+            {
+              "text": "3,818",
+              "float": "none",
+              "width": "198.297px",
+              "margin": "3px 0px 0px",
+              "x": 878.828125,
+              "y": 730.8125,
+              "height": 27
+            },
+            {
+              "text": "Structures",
+              "float": "none",
+              "width": "198.297px",
+              "margin": "0px",
+              "x": 1085.125,
+              "y": 711.3125,
+              "height": 16.5
+            },
+            {
+              "text": "1",
+              "float": "none",
+              "width": "198.297px",
+              "margin": "3px 0px 0px",
+              "x": 1085.125,
+              "y": 730.8125,
+              "height": 27
+            }
+          ],
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.117018 s\n"
+        }
+      ]
+    },
+    "navigation-614-geometry-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/navigation-614-geometry-directed.xml",
+          "-n0",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_translation",
+          "--basetemp=<private-evidence>/navigation-614-geometry-directed"
+        ],
+        "exit_code": 0,
+        "seconds": 88.86683218483813,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "68323539ee6b6473d453f6fbe61f5dc5ae826630",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8560
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "87.094",
+          "timestamp": "2026-11-08T04:21:22.333819-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_actual_jupyter_geometry_translation",
+          "seconds": 86.929,
+          "outcome": "passed"
+        }
+      ],
+      "resources": {
+        "seconds": 95.28024002700113,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "400000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.96923828125,
+            3.1630859375,
+            2.8310546875
+          ],
+          "cpu_utilization": 0.01957831325301207,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14699790336,
+        "cgroup_memory_peak_bytes": 1849937920,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 191,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 306179354\nuser_usec 283465827\nsystem_usec 22713527\nnice_usec 282672000\ncore_sched.force_idle_usec 0\nnr_periods 952\nnr_throttled 645\nthrottled_usec 427805941\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "af83366804bf9c841adc8ba44837209f707801b008afb23f2bddc1edd0a4b518",
+        "-bounded.json": "e9fb0635cf05d11efd81567305b7951c885a8b41a4da95ede7945dbace0841aa",
+        ".xml": "605579113eff654b08be20dceaaa866f01fd00bbc4a3662860cda644145493e6",
+        ".log": "ea7e08b32c3e86dbf5602615c5eff6ac1e05247018f3e10e9aa85fa458b5bfed",
+        "-inputs-before.json": "e5537d37f86586a75313b5d7dfd6d3498845c8c264be9635293742f808ac256c",
+        "-inputs-after.json": "e5537d37f86586a75313b5d7dfd6d3498845c8c264be9635293742f808ac256c",
+        "-reference-driver.py": "32a74c21ccf31b7e2a31cb328f07a79d9f75bdafe43c1e0f1946b36c881a57a4",
+        "-resource-driver.py": "b5910f3fa4dc35d9cd65bc066081182b34b07b4150ab55f592ec5e0b280601b3"
+      },
+      "jupyter": [
+        {
+          "guard_case": "test_actual_jupyter_geometry_t0",
+          "file": "full-result.json",
+          "sha256": "da9f48c7aafd8331656e388a606de69870a08de7bb59ddb29fa5fea9dc366d42",
+          "completed_checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review and cancel translation without changing the molecular system",
+            "Confirm the saved subset once through live Jupyter comms",
+            "Translate an independent whole-system result and display it below the source",
+            "The same result can move to its own live window and back",
+            "Geometry is reachable in canvas and detached Studio popups with its draft",
+            "Python verifies the numerical results and unchanged source of the independent calculation"
+          ],
+          "browser_errors": 2,
+          "plain_notebook_errors": 1,
+          "scope": "Real local JupyterLab/ipykernel/AnyWidget, saved selection translation, ordered structures, native numerical oracles, independent Mol* result and detached Geometry controls. Not visible human Qt qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.599883 s\n"
+        }
+      ]
+    },
+    "navigation-614-all-final": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/navigation-614-all-final.xml",
+          "-n0",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_review_and_independent_popups",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_independent_result_views",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_translation",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_centering",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_superposition",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_periodic_geometry",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_analysis_distance_family",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_chemistry_preparation_and_reviewed_replacement",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_pending_chemistry_readers",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_rotation",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_principal_axes",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_rejected_operation_diagnostic",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_geometry_external_reference",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_chemistry_inspection",
+          "--basetemp=<private-evidence>/navigation-614-all-final"
+        ],
+        "exit_code": 0,
+        "seconds": 1453.2349217929877,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "68323539ee6b6473d453f6fbe61f5dc5ae826630",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8560
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "14",
+          "time": "1451.459",
+          "timestamp": "2026-11-08T04:23:29.852593-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_actual_jupyter_review_and_independent_popups",
+          "seconds": 88.635,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_independent_result_views",
+          "seconds": 129.933,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_geometry_translation",
+          "seconds": 81.496,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_geometry_centering",
+          "seconds": 82.796,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_geometry_superposition",
+          "seconds": 93.098,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_periodic_geometry",
+          "seconds": 85.145,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_analysis_distance_family",
+          "seconds": 212.596,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_chemistry_preparation_and_reviewed_replacement",
+          "seconds": 186.742,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_pending_chemistry_readers",
+          "seconds": 105.746,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_geometry_rotation",
+          "seconds": 86.493,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_geometry_principal_axes",
+          "seconds": 85.595,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_rejected_operation_diagnostic",
+          "seconds": 42.243,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_geometry_external_reference",
+          "seconds": 101.102,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_chemistry_inspection",
+          "seconds": 69.594,
+          "outcome": "passed"
+        }
+      ],
+      "resources": {
+        "seconds": 1459.8850547720212,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "400000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.2099609375,
+            2.47021484375,
+            2.611328125
+          ],
+          "cpu_utilization": 0.022077270446562935,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14193504256,
+        "cgroup_memory_peak_bytes": 2365796352,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 194,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 4817595427\nuser_usec 4480833629\nsystem_usec 336761798\nnice_usec 4471854000\ncore_sched.force_idle_usec 0\nnr_periods 14596\nnr_throttled 10299\nthrottled_usec 7129256576\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "6f15bb88faefc55329b0ae6bd9d113ba1f56cf7e39ad14954926815782fde186",
+        "-bounded.json": "ab368eae3048e988c89c34418443d8bd51b17276e0f082e7dfd074dab09e3795",
+        ".xml": "4ab0114abc76004a1da27d0a3260de1d06b03adb02137ec74df284f927eeb08e",
+        ".log": "b80eb2e490542b983a5c26830e70eb3477a20e419ee3ecc2e673fdc5ca04d7f7",
+        "-inputs-before.json": "e5537d37f86586a75313b5d7dfd6d3498845c8c264be9635293742f808ac256c",
+        "-inputs-after.json": "e5537d37f86586a75313b5d7dfd6d3498845c8c264be9635293742f808ac256c",
+        "-reference-driver.py": "32a74c21ccf31b7e2a31cb328f07a79d9f75bdafe43c1e0f1946b36c881a57a4",
+        "-resource-driver.py": "b5910f3fa4dc35d9cd65bc066081182b34b07b4150ab55f592ec5e0b280601b3"
+      },
+      "jupyter": [
+        {
+          "guard_case": "test_actual_jupyter_analysis_d0",
+          "file": "full-result.json",
+          "sha256": "8d4786f0efb9b474dfe450bef60b1ae90e5c211fcc2c16363f222632f0e4e209",
+          "completed_checks": [
+            "Load TcTIM and open Analysis without calculating implicitly",
+            "Calculate explicit atom populations and verify native distances against coordinates",
+            "Inspect native minimum and maximum without changing molecular data",
+            "Inspect evaluated-empty neighbors and explicit nearest-count results",
+            "Page through TcTIM source indices without transferring the complete result",
+            "Use independent Analysis panels in canvas popup and detached Studio",
+            "Python verifies every molecular coordinate chemical domain and scene object unchanged",
+            "Select participants and focus the visible structure without losing the row acknowledgement",
+            "Mass-weighted observations retain participant actions and explain the disabled live conversion",
+            "Create a centroid Measure from TcTIM and preserve its actual geometry after Clear",
+            "Create core Measures through canvas and detached Studio popups with mirrored geometry",
+            "A repeated-population live Measure uses the visible structure and follows a real ensemble",
+            "Prepare independent conformation references from the unchanged real ensemble",
+            "Inspect RMSD optimal RMSD gyration and atom-indexed RMSF with explicit source axes",
+            "Add a correctly indexed core plot retain it after Clear and navigate by its actual point",
+            "Inspect and adopt conformational results through both real popup boundaries",
+            "Python verifies retained native data separate plots and deliberate structure navigation"
+          ],
+          "browser_errors": 7,
+          "plain_notebook_errors": 1,
+          "scope": "Actual TcTIM and real three-structure ensemble in Jupyter/Mol*/AnyWidget: native geometric/conformational queries, bounded source-index pages, explicit participant and core Measure/plot adoption from source and both popups. Independent numerical, actual geometry/text/plot-axis and molecular-invariance checks, including duplicate participants, atom-versus-structure axes, frozen observations versus deliberate navigation and mass-weighted live-distance refusal. Not human Qt or installed qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 3.924652 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_chemistry_0",
+          "file": "full-result.json",
+          "sha256": "f40ac08b2a221db6936c7a4692fae112e1b3992a074d63e6037b0c82e6acd83e",
+          "completed_checks": [
+            "Load actual TcTIM and explicitly prepare a separate heavy-atom result",
+            "Present the independent result in the notebook and keep it while changing tasks",
+            "Review Back preserves the original TcTIM and its chemical domain",
+            "Apply the reviewed result and render its independent copy in the original canvas",
+            "Inspect the adopted molecular data in the canvas popup and detached Studio",
+            "Python verifies one replacement, original preservation and independent result coordinates"
+          ],
+          "browser_errors": 3,
+          "plain_notebook_errors": 1,
+          "scope": "Actual TcTIM/Jupyter/Mol*/AnyWidget preparation, independent notebook result, heavy no-op 3983 atoms, hydrogen generation 7868 atoms, explicit losses, Back, conditional replacement and popup inspection. Source overlay; not human Qt or installed artifact qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.139476 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_chemistry_1",
+          "file": "full-result.json",
+          "sha256": "5fa5871cd8a23e831cc6be6b9830046c6b6d4e025e112c5d6cd079f58c43fef6",
+          "completed_checks": [
+            "Render bundled TcTIM and open Chemistry without starting an assessment",
+            "Inspect actual stored fields with distinct present partial and missing coverage",
+            "Read bounded source-index pages without recalculating the molecular system",
+            "Inspect a duplicate numeric selection and expose unassessed scientific checks",
+            "Keep unknown hydrogen counts distinct from zero and indexed atoms",
+            "Use the same native reports and clear only panel data in both popup hosts",
+            "Python verifies every source coordinate chemical domain scene and revision is unchanged"
+          ],
+          "browser_errors": 2,
+          "plain_notebook_errors": 1,
+          "scope": "Actual Jupyter/Mol*/AnyWidget stored-chemistry and hydrogen inventory, bounded pages, native coverage and both popup hosts. Synchronized source only; pending-state pointer/keyboard admission remains Viewer #304. Not human Qt qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 3.983407 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_geometry_c0",
+          "file": "full-result.json",
+          "sha256": "fea300f11708433a3b6da2b189e8a44d82113661f08e789ec83ec0a3aa8ee222",
+          "completed_checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review centering and cancel while actual Mol* coordinates stay unchanged",
+            "Apply centering and verify the actual displayed coordinates analytically",
+            "Create an independent result centered on another selection in the current structure",
+            "The centered result keeps its identity across window and notebook destinations",
+            "Center task and its references survive canvas and Studio popups",
+            "Python verifies every selected and unselected atom and structure"
+          ],
+          "browser_errors": 2,
+          "plain_notebook_errors": 1,
+          "scope": "Real local JupyterLab/ipykernel/AnyWidget, native centering with reference/target populations, ordered structures, native numerical oracles, independent Mol* result and detached Geometry controls. Not visible human Qt qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.583648 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_geometry_e0",
+          "file": "full-result.json",
+          "sha256": "738e895607b7e1ed592ac73cdd5d4324a19097f9100cbbb0571ec53c48999621",
+          "completed_checks": [
+            "Render the source through the real notebook presentation surface",
+            "Reject a missing external reference without changing rendered coordinates",
+            "Review ordered pairs against seven external structures and cancel without writes",
+            "Apply the external fit and verify actual Mol* positions against the analytical transform",
+            "Create an independent result using another structure of the same external file",
+            "The external result retains its identity between notebook and independent window",
+            "External file and ordered-pair controls survive canvas and detached Studio popups",
+            "Python verifies all structures atoms units boxes coverage and the untouched reference file"
+          ],
+          "browser_errors": 2,
+          "plain_notebook_errors": 1,
+          "scope": "Real local JupyterLab/ipykernel/AnyWidget, native external-file rigid fitting with independently sized populations, ordered atom pairs, repeated source structures, pm unit policy, analytical rigid-transform oracles, independent Mol* results and detached Geometry controls. Not visible human Qt qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.170779 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_geometry_p0",
+          "file": "full-result.json",
+          "sha256": "97740e1b6a14e82c6bcc32a52f517621221cf49e6fd4813f4bbfe6bdce650cc6",
+          "completed_checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review principal-axis options and cancel without copying or moving the system",
+            "Apply inertia alignment and compare actual Mol* vertices with independent tensor invariants",
+            "Capture the unchanged source reference for a distinct mass-weighted result",
+            "Create a centered covariance result in explicit row axes and inspect its actual geometry",
+            "The principal-axis result keeps its identity across window and notebook destinations",
+            "Principal-axis definitions weights and target rows survive both popup boundaries",
+            "Python verifies every selected and unselected atom and structure"
+          ],
+          "browser_errors": 3,
+          "plain_notebook_errors": 1,
+          "scope": "Real local JupyterLab/ipykernel/AnyWidget, native principal-axis alignment with distinct weights/tensors/centers/bases, ordered structures, independent covariance and proper-rigid numerical invariants, independent Mol* result and detached Geometry controls. Not visible human Qt qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.509208 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_geometry_r0",
+          "file": "full-result.json",
+          "sha256": "e4a64978894324b903f172311dfa457b00c6f85ae3aaec38bf5ed5d70369be09",
+          "completed_checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review a molecular-axis rotation and cancel without changing Mol* vertices",
+            "Apply a signed quarter turn about each structure centroid and inspect actual vertices",
+            "Create an independent negative-radian rotation about a unit-bearing fixed point",
+            "The rotated result keeps its identity across window and notebook destinations",
+            "Rotation axis angle and fixed point survive canvas and Studio popups",
+            "Python verifies every selected and unselected atom and structure"
+          ],
+          "browser_errors": 2,
+          "plain_notebook_errors": 1,
+          "scope": "Real local JupyterLab/ipykernel/AnyWidget, native axis-angle rotation with per-structure centroids and fixed point, ordered structures, independent signed quarter-turn numerical oracles, independent Mol* result and detached Geometry controls. Not visible human Qt qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.777505 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_geometry_s0",
+          "file": "full-result.json",
+          "sha256": "a21775f3eedbcb84a5088c1fabfb237c6ef261f3a7818f143f31e5136fb67fe6",
+          "completed_checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review explicit fitting atoms and cancel without changing rendered coordinates",
+            "Apply rigid superposition and compare actual Mol* positions with the independent SVD oracle",
+            "Create a separate result fitted to another explicit reference structure",
+            "The superposed result preserves its identity across window and notebook destinations",
+            "Fitting references remain explicit in canvas and detached Studio popups",
+            "Python verifies every selected/unselected atom and structure against the independent oracle",
+            "Independent notebook Views bind saved-choice inputs to their own datalist"
+          ],
+          "browser_errors": 2,
+          "plain_notebook_errors": 1,
+          "scope": "Real local JupyterLab/ipykernel/AnyWidget, native rigid fitting with explicit fitting/reference populations and reference structures, ordered structures, native numerical oracles, independent Mol* result and detached Geometry controls. Not visible human Qt qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.219686 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_geometry_t0",
+          "file": "full-result.json",
+          "sha256": "5c84c830fdaa10ece1781f178070f2149048a6f3f4e0b40fcf839191395531c9",
+          "completed_checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review and cancel translation without changing the molecular system",
+            "Confirm the saved subset once through live Jupyter comms",
+            "Translate an independent whole-system result and display it below the source",
+            "The same result can move to its own live window and back",
+            "Geometry is reachable in canvas and detached Studio popups with its draft",
+            "Python verifies the numerical results and unchanged source of the independent calculation"
+          ],
+          "browser_errors": 2,
+          "plain_notebook_errors": 1,
+          "scope": "Real local JupyterLab/ipykernel/AnyWidget, saved selection translation, ordered structures, native numerical oracles, independent Mol* result and detached Geometry controls. Not visible human Qt qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.447618 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_independen0",
+          "file": "full-result.json",
+          "sha256": "d4d8fb419b6ea61e6ddefd180ea1a8c300b4d83d69d77e3642cd26df9cfd2488",
+          "completed_checks": [
+            "Render the source through the real notebook presentation surface",
+            "Extract ordered nonconsecutive structures without editing the source",
+            "Notebook delivery from fullscreen explains how to reach the result",
+            "Changing destination reuses one View through rapid window/notebook cycles",
+            "Copy opens a separate live View in an external window without recomputing",
+            "Detached Studio can open and close an independent result without closing its source",
+            "Python recovers both Views and source closure preserves them"
+          ],
+          "browser_errors": 2,
+          "plain_notebook_errors": 1,
+          "scope": "Real local JupyterLab/ipykernel/AnyWidget, ordered native extraction, independent Mol* Views, notebook and browser-window presentation including detached Studio. Not visible human Qt qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.528278 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_pending_ch0",
+          "file": "full-result.json",
+          "sha256": "47c367ceaa367e79023e0f7d69774538abdb356fa3f2312944703d07b4d0213e",
+          "completed_checks": [
+            "Mount actual Chemistry in the embedded TcTIM view",
+            "Inspect and page current primary with real keys while embedded scene stays inert",
+            "Restore the same mounted panel after updating and open the canvas popup",
+            "Inspect current primary from the paused live canvas popup",
+            "Restore canvas popup and mount Chemistry in detached Studio",
+            "Inspect and page current primary in detached paused Studio",
+            "Restore detached Studio without recreating its panel and close popups",
+            "Verify native molecular data revisions scene regions and result ownership"
+          ],
+          "browser_errors": 8,
+          "plain_notebook_errors": 1,
+          "scope": "Actual Jupyter/AnyWidget/Mol*/canvas popup/detached Studio: pending native readers, real pointer/keyboard inputs, bounded pages, stale-scene sources disabled, exact reader DOM restored; three deliberate box edits only. Not human Qt acceptance.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.192767 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_periodic_g0",
+          "file": "full-result.json",
+          "sha256": "5a3a75b215d7931912ccd98ea44ccaf42f6abd0d79a229aadd880f6d0449a3f9",
+          "completed_checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review compact centered-box wrapping and Back without changing Mol* positions",
+            "Apply native compact wrapping and verify its actual centered image",
+            "Choose nearest images around an explicit point and verify lattice-enumerated positions",
+            "Review per-atom temporal unwrapping and create an independent whole-system result",
+            "The periodic result keeps its View while moving between notebook and window",
+            "Temporal order and support limits remain explicit in canvas and detached Studio popups",
+            "Python verifies all native arrays and drives a second structure of the rendered result"
+          ],
+          "browser_errors": 2,
+          "plain_notebook_errors": 1,
+          "scope": "Real local JupyterLab/ipykernel/AnyWidget, native compact/nearest wrapping and fixed-cell temporal unwrapping with independent lattice oracles, ordered structures, native numerical oracles, independent Mol* result and detached Geometry controls. Not visible human Qt qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.206288 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_rejected_o0",
+          "file": "full-result.json",
+          "sha256": "8bee6e8986148c8d441f8b4e03da26a8874106d0c771355aad3933639effb541",
+          "completed_checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review a native center-of-mass request under the explicit partial application policy",
+            "The native error remains visible after its automatic synchronized refresh",
+            "Python verifies that the rejected native call did not mutate the system",
+            "A new user choice clears the diagnostic and requires a new review"
+          ],
+          "browser_errors": 2,
+          "plain_notebook_errors": 1,
+          "scope": "Real local JupyterLab/ipykernel/AnyWidget, native centering rejection, actual synchronization/refresh notices and unchanged primary data. Not visible human Qt qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.362796 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_review_and0",
+          "file": "full-result.json",
+          "sha256": "ae782ad6a9890b0e87429409cb897f8c430a2b5407348d9d44582189c214f61e",
+          "completed_checks": [
+            "Execute real notebook with source-pinned Python 3.14 kernel",
+            "Native review is 165 waters / 3818 retained; Back does not edit",
+            "Confirm traverses real widget comms, native edit and Mol* rendering",
+            "Empty ion selection and remount retain a bounded draft without a review",
+            "Canvas popup and Studio popup share the actual Jupyter authority",
+            "Kernel verifies actual inventory and exactly two managed edits"
+          ],
+          "final_atoms": 3817,
+          "managed_edits": 2,
+          "browser_errors": 2,
+          "plain_notebook_errors": 1,
+          "scope": "Actual local JupyterLab server, ipykernel, anywidget/ipywidgets comms, real Mol* rendering and both popup lifecycles in headless Chromium. Not human visible Qt or installed-package qualification.",
+          "computed_review_layout": [
+            {
+              "text": "Remove",
+              "float": "none",
+              "width": "198.281px",
+              "margin": "0px",
+              "x": 672.546875,
+              "y": 711.3125,
+              "height": 16.5
+            },
+            {
+              "text": "165",
+              "float": "none",
+              "width": "198.281px",
+              "margin": "3px 0px 0px",
+              "x": 672.546875,
+              "y": 730.8125,
+              "height": 27
+            },
+            {
+              "text": "Keep",
+              "float": "none",
+              "width": "198.297px",
+              "margin": "0px",
+              "x": 878.828125,
+              "y": 711.3125,
+              "height": 16.5
+            },
+            {
+              "text": "3,818",
+              "float": "none",
+              "width": "198.297px",
+              "margin": "3px 0px 0px",
+              "x": 878.828125,
+              "y": 730.8125,
+              "height": 27
+            },
+            {
+              "text": "Structures",
+              "float": "none",
+              "width": "198.297px",
+              "margin": "0px",
+              "x": 1085.125,
+              "y": 711.3125,
+              "height": 16.5
+            },
+            {
+              "text": "1",
+              "float": "none",
+              "width": "198.297px",
+              "margin": "3px 0px 0px",
+              "x": 1085.125,
+              "y": 730.8125,
+              "height": 27
+            }
+          ],
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.570660 s\n"
+        }
+      ]
+    }
+  },
+  "preserved_limits": [
+    "All original numerical/coordinate/inventory/source/paging/title/acknowledgement/lifetime/browser-error checks remain.",
+    "Per-scenario pytest subprocess 300 s and Node subprocess 240 s, with original UI waits, remain unchanged.",
+    "The CPU2 directed campaign has one pass and a 240-second Results timeout; the same unchanged-source Results case passes with CPU4. This observation is not an exhaustive performance or causal study.",
+    "The first expanded helper used a nonexistent Geometry CSS class; its stopped fourteen-scenario campaign remains two passes/two failures, not a passing campaign. The actual heading correction receives a directed real Geometry guard before final receiving.",
+    "The original two inactive-header failures and interrupted nine-scenario campaign remain nonpassing.",
+    "JupyterLab debugger errors must match a real plain-notebook control by message and first stack frame; no additional error is permitted.",
+    "Later successful initial cells do not establish a causal correction for #615.",
+    "Only existing owner milestones can gain credit; the 23/50 previously accepted graphical intents do not gain duplicate credit."
+  ],
+  "infrastructure_feedback": "https://github.com/uibcdf/uibcdf-infrastructure/issues/1#issuecomment-6720150871",
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "versions": {
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1"
+    },
+    "imports": {
+      "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+      "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261106/viewer-e4dd58cf-source/molsysviewer/__init__.py",
+      "pyunitwizard": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+      "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+      "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+      "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+    }
+  },
+  "viewer_snapshot": {
+    "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+    "method": "Full raw Git blob snapshot, independently matched to the tree.",
+    "matched_blob_count": 2462,
+    "original_archive_bytes": 73277440,
+    "original_archive_sha256": "aeee69f8ac6ffd5768402c0f98356c91c2986237ea5c5636f8d780f690e81363",
+    "frontend_present_in_original_archive": true,
+    "preparation_notes": [
+      "Two metadata acquisitions queried package.json at an incorrect root path; frontend metadata is under molsysviewer/js. No molecular/browser run had begun.",
+      "An archive-omission explanation was premature: the original archive contains the frontend package. No archive defect is claimed."
+    ],
+    "files": {
+      "molsysviewer/js/package.json": "e268203616626efae48f49a1d9f4301fedc671fda2c5fc91f926057b2e411afc",
+      "molsysviewer/js/package-lock.json": "d20e7b34bbc9901925e8a2c7d4109794c21ec4ee911245d402dcbe36a5c0a3fd",
+      "molsysviewer/viewer.js": "1c350481afcd8bd433e29c897de8896e39cfa5774c86ef15c1d014f04ae4dbcb"
+    }
+  },
+  "viewer_assets": {
+    "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+    "complete_public_tree": true,
+    "independently_matched_blobs": 2462,
+    "existing_tools": {
+      "esbuild": "0.27.0",
+      "playwright": "1.57.0"
+    },
+    "owner_harness_script": "npx esbuild tests/e2e/harness.ts --bundle --format=iife --global-name=Harness --outfile=tests/e2e/harness.bundle.js",
+    "harness_sha256": "8aee75ee4d76462c3da5b4d1699c44c1bec2b1a581a4d59eeea85ba458ad63db",
+    "runtime_bundle_sha256": "1c350481afcd8bd433e29c897de8896e39cfa5774c86ef15c1d014f04ae4dbcb",
+    "metadata_preparation_correction": "Installed owner tooling is playwright, not @playwright/test; no install or runtime rebuild occurred."
+  }
+}

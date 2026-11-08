@@ -68,3 +68,20 @@ Ackredit attribution of the actual executed recipe.
 Source base d2c0882ede355e475a3b8f8a6e618d5021d01ba1 and #580 working changes,
 2026-11-05. Inspected native field declarations and OpenMM adapter signatures.
 Related: #421 / PR #543 and uibcdf/molsysviewer#264.
+
+## Bounded legacy-route observation — 2026-11-08
+
+A parameter-dictionary probe on source `731bf01ea8a07e3ad8a7477700c4ae1e24730062`
+confirms that
+`MolecularMechanics(non_bonded_method='no_cutoff', constraints='all_bonds').get_openmm_System_parameters()`
+returns `openmm.app.HBonds`, rather than the requested `openmm.app.AllBonds`.
+No Context, force field, simulation or energy calculation was constructed.
+This observed legacy-helper translation mismatch does not demonstrate the same
+defect in supported public conversion, which has its own constraint-list oracle
+under #581.
+
+Include this direct legacy helper in the requested/effective-control review.
+The current `get_forces` construction route already refuses unsupported stored
+overrides; that bounded protection does not certify every legacy method. The
+wider engine-neutral recipe contract and its source/energy validation remain
+pending.
