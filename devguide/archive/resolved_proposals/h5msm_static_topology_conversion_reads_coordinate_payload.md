@@ -167,3 +167,14 @@ retains all seven pytest attempts, commands, outcomes, fixture corrections,
 resources and fingerprints. Public-delivery identity is maintained in the
 [release ledger](../../release_1_0_status.md) after publication. #604 and the
 requested OpenMM/openmmtools capability study remain separate queued work.
+
+## Public delivery — 2026-11-08
+
+Public main `ca96894ea5be1ad309a112b0fd140168b98dbdc7` independently matches
+all 20 changed paths from the prior public checkpoint. The four human-edited
+root documentation files retain their actual pre-merge bytes. #655 is closed
+with implementation commit `10d43b2a9`, the payload-read guard and this archived
+record. The [delivery receipt](../../../devtools/data/h5msm_static_topology_delivery_655_20261108.json)
+records these checks. The complete board contains 587 issues, 89 open and no
+open PR. This adds one separate source closure, not scorecard weight, installed
+acceptance or a release authorization.

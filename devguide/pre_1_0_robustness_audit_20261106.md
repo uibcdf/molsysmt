@@ -10,10 +10,11 @@
 The #655 prerequisite is source-qualified in `10d43b2a9`: 1,181 passing tests,
 including conversion doctests, fourteen fast gates and inspected HTML. Its
 [resolution](archive/resolved_proposals/h5msm_static_topology_conversion_reads_coordinate_payload.md)
-retains the negative attempts and legacy reconstruction boundary. Publication
-and board closure remain a separate checkpoint; no weighted leaf is added.
+retains the negative attempts and legacy reconstruction boundary. Public delivery is independently verified at `ca96894ea` (20 changed paths),
+and #655 is closed. No weighted leaf is added; progress stays 72.3%, with
+52 separate source closures and 25/50 accepted graphical intents.
 
-The active sequence-fit intent first receives the measured #655 static-topology
+The active sequence-fit intent now has the received #655 static-topology
 conversion prerequisite; #604's positional pairwise/clustering work follows
 that finite block. Record new incoming #654's GHECOM nonnumeric-REMARK
 compatibility question without claiming reproduction or a policy decision.

@@ -1,0 +1,100 @@
+{
+  "public_checkpoint": "ca96894ea5be1ad309a112b0fd140168b98dbdc7",
+  "base": "2325038e8c68157f5c730693ffbb8535f0b45540",
+  "verified_paths": [
+    {
+      "path": "devguide/SCALABILITY.md",
+      "git_blob_sha": "8688bf198a71b6a90d2cc7fedc87093a8a6f8197"
+    },
+    {
+      "path": "devguide/archive/resolved_proposals/h5msm_static_topology_conversion_reads_coordinate_payload.md",
+      "git_blob_sha": "fb8785182ed2d31ba1ef6ceb9b038dc9fa3e53fa"
+    },
+    {
+      "path": "devguide/forms_and_conversions.md",
+      "git_blob_sha": "1d245a3b729c18059d973bfb97134ea8f2c6abc0"
+    },
+    {
+      "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+      "git_blob_sha": "914486b56b829c1f8ba60703b91f749bde35da41"
+    },
+    {
+      "path": "devguide/release_1_0_status.md",
+      "git_blob_sha": "21910474953aea25747d8292adfd9298f6fb5691"
+    },
+    {
+      "path": "devtools/data/h5msm_static_topology_receiving_655_20261108.json",
+      "git_blob_sha": "fe56db66011e79ce7b9d51b33006e647730cf5f3"
+    },
+    {
+      "path": "devtools/data/pre_1_0_progress_scorecard_20261107.json",
+      "git_blob_sha": "82c3ea4be0d17ed5a7ea9b39d1e4bc8116a6257c"
+    },
+    {
+      "path": "docs/content/course/Common_Core/04_Native_Forms.AGENTS.md",
+      "git_blob_sha": "10afff15db29a22d959de7c23771c059ae287917"
+    },
+    {
+      "path": "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+      "git_blob_sha": "6af52ce3b8795312ec2d8bf69530fdcf97cbf61b"
+    },
+    {
+      "path": "docs/content/user/cookbook/migrating_h5msm.md",
+      "git_blob_sha": "22e0a6e8131e97f453a1b79e4828e4c0f05f7482"
+    },
+    {
+      "path": "docs/content/user/cookbook/migrating_h5msm.md.AGENTS.md",
+      "git_blob_sha": "81640a4f953eae66c42cda81f1715058a8636567"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/files/file_h5msm.md",
+      "git_blob_sha": "347ca3469632fffc7d7129c350843b6c068d9bcb"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/files/file_h5msm.md.AGENTS.md",
+      "git_blob_sha": "4460a534edfb7192a33018228b5b5b7dc8e7489b"
+    },
+    {
+      "path": "docs/content/user/tools/basic/convert.ipynb",
+      "git_blob_sha": "d3b485b0fd7c54ac98bca3e53d102b4c064fd72c"
+    },
+    {
+      "path": "docs/content/user/tools/basic/convert.ipynb.AGENTS.md",
+      "git_blob_sha": "b536eaa61b4e3eabe19a52d5fe1b6a3340e3a847"
+    },
+    {
+      "path": "docs/content/user/tools/form/file/h5msm_05.md",
+      "git_blob_sha": "225c1992b738903cf6a0ef4c33e6625215cfe1ea"
+    },
+    {
+      "path": "docs/content/user/tools/form/file/h5msm_05.md.AGENTS.md",
+      "git_blob_sha": "f8041f9df9b6afa42c37a8e7f6a2f71ce4f435de"
+    },
+    {
+      "path": "molsysmt/_private/h5msm.py",
+      "git_blob_sha": "8feee7db4c001213b7b5c2006ba625966cbd9018"
+    },
+    {
+      "path": "molsysmt/basic/convert.py",
+      "git_blob_sha": "4e8455536a0739d62cec3eecc4b2ebe8ac7296bc"
+    },
+    {
+      "path": "tests/form/file_h5msm/test_topology_v05_probe.py",
+      "git_blob_sha": "f3a89e0fc050ffdaf7198e40c8317feed5727f7d"
+    }
+  ],
+  "human_bytes_unchanged": true,
+  "scope": "Fast-forward source delivery only; no package, tag, Release or hosted matrix launched.",
+  "protected_human_paths": [
+    "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst",
+    "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst",
+    "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst",
+    "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst"
+  ],
+  "complete_board_after_closeout": {
+    "issues": 587,
+    "open": 89,
+    "open_prs": 0
+  },
+  "issue_655_state": "CLOSED"
+}

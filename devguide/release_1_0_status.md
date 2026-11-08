@@ -22,6 +22,38 @@ contracts.
 
 ## Current source checkpoint — 2026-11-08
 
+Public main `ca96894ea5be1ad309a112b0fd140168b98dbdc7` independently matches
+all **20 changed paths** of #655's stored-topology projection and the maintainer
+follow-up queue. Clean implementation `10d43b2a9` passes **1,181 tests**,
+including the public conversion doctest, **fourteen fast gates** and HTML.
+The [receiving receipt](../devtools/data/h5msm_static_topology_receiving_655_20261108.json)
+retains all seven pytest attempts and their scope; the
+[delivery receipt](../devtools/data/h5msm_static_topology_delivery_655_20261108.json)
+records the public blobs and unchanged four human files. **#655 is closed**.
+
+A default whole `Topology` conversion from one H5MSM 0.5 path reads only the
+stored inventory. It reads no coordinate, chemical-state or interaction payload;
+contextual conversion routes remain unchanged. Old membership available only
+through associated chemistry stays unknown here; joint `MolSys` loading retains
+legacy reconstruction. Static tables can load in full. The
+[resolution](archive/resolved_proposals/h5msm_static_topology_conversion_reads_coordinate_payload.md)
+and [scalability contract](SCALABILITY.md#whole-h5msm-topology-conversion)
+maintain the exact admission and validation boundaries.
+
+The complete post-closeout board has **587 issues / 89 open / no open PR**.
+#654 is new, unreproduced GHECOM compatibility intake; #604 remains open and
+queued after the finite sequence-fit block. The requested OpenMM/openmmtools
+comparison is recorded in the
+[audit plan](pre_1_0_robustness_audit_20261106.md#planned-openmmopenmmtools-capability-comparison).
+It is planned research with no implicit feature or release-scope commitment.
+Accepted progress stays **72.3% (72.29% to two decimals)** and **25/50 graphical
+intents**; the separate source-closure count becomes **52**. This provider
+optimization adds no weight or new graphical acceptance. All installed,
+platform, scientific and exact-candidate gates retain their owning evidence.
+No tag, package, Release or hosted CI was launched.
+
+## Small-origin source checkpoint — 2026-11-08
+
 Public main `be11ef8f5c32008e4299e3b406062f8d587f323c` independently matches
 all **14 changed paths** of dedicated small-origin receiving. Clean
 `db16eec9b` passes **264 affected native/request cases**; clean `d2918aa6c`
@@ -70,8 +102,8 @@ candidate qualification and full-suite recovery remain required.
 
 Continue the accepted sequence-fit intent. Its static-reference preparation
 reproduces the separately tracked [#655 conversion optimization](archive/resolved_proposals/h5msm_static_topology_conversion_reads_coordinate_payload.md);
-its source is now qualified in `10d43b2a9` (1,181 tests, fourteen fast gates and
-HTML). Publish and verify that provider step before adding the GUI consumer. After the finite
+its source is qualified in `10d43b2a9` (1,181 tests, fourteen fast gates and
+HTML), publicly verified at `ca96894ea` and closed. Continue the GUI consumer. After the finite
 sequence-fit block, attend #604's supported positional pairwise/clustering
 contract for DockingMT. It remains open and adds no frozen release gate.
 Incoming #654 reports a coordinate-read failure on GHECOM's nonnumeric PDB

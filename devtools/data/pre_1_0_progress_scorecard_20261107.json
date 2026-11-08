@@ -2,7 +2,7 @@
   "schema_version": "molsysmt.pre1-progress@1",
   "date": "2026-11-07",
   "owner_issue": "uibcdf/molsysmt#334",
-  "qualified_source": "be11ef8f5c32008e4299e3b406062f8d587f323c",
+  "qualified_source": "ca96894ea5be1ad309a112b0fd140168b98dbdc7",
   "measure": "Verified implementation/source-delivery milestones; approximate operational completion, not elapsed effort, scientific coverage, a readiness probability or publication authority.",
   "accounting_change": "The earlier all-or-nothing phase-exit indicator was 40%. The same six phase weights and full scope now receive explicit partial milestone credit. This is a catch-up remeasurement of delivered work, not a new 21-point implementation in this turn.",
   "method": "Within phases 3\u20136, each named requirement package has equal weight. Nested accepted GUI families have equal family weight, then equal declared intent/task weight within that family. Verified-source leaves score 1, pending leaves score 0; parents average children. Supplemental defect/test/issue counts add no bonus. Pending means not accepted by this audit, not absent code.",
@@ -863,17 +863,17 @@
       "uibcdf/molsysmt#590",
       "uibcdf/molsysmt#591",
       "uibcdf/molsysmt#609",
-      "uibcdf/molsysmt#614"
+      "uibcdf/molsysmt#614",
+      "uibcdf/molsysmt#655"
     ],
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
-    "owner_verification": "Public be11ef8f5 independently matches all fourteen changed paths and preserves the four human files. Native/request origin receiving passes 264 cases on db16eec9b; stronger actual-Jupyter receiving, fourteen fast gates and HTML pass on d2918aa6c. The original failed pm fixture and narrower passing population remain recorded.",
+    "owner_verification": "Public ca96894ea independently matches all twenty changed paths and preserves the four human files. Clean 10d43b2a9 receives the bounded stored-topology projection in 1,181 tests, public conversion doctest, fourteen fast gates and inspected HTML. #655 is closed; no weighted leaf or graphical credit is added.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
     "scope": "Continue the accepted sequence-fit intent using native sequence/structural tools, then the remaining declared graphical families. Preserve #615 causal uncertainty, #567 policy, #582 requested/effective mechanics and every installed/platform/exact-candidate gate.",
     "active_related": [
-      "uibcdf/molsysmt#615",
-      "uibcdf/molsysmt#655"
+      "uibcdf/molsysmt#615"
     ],
-    "last_source_closeout_record": "devguide/archive/resolved_bugs/jupyter_popup_addon_navigation_identity.md",
+    "last_source_closeout_record": "devguide/archive/resolved_proposals/h5msm_static_topology_conversion_reads_coordinate_payload.md",
     "after_active_block": [
       "uibcdf/molsysmt#604"
     ],
@@ -882,20 +882,25 @@
         "OpenMM",
         "openmmtools"
       ],
-      "scope": "At a deliberate pause, compare reusable analysis/manipulation with MolSysMT; keep engine-neutral/form-agnostic APIs, units/index/provenance and Praxis/Nextia protocol ownership explicit. No automatic new feature, weight or release-scope commitment."
+      "scope": "At a deliberate pause, compare reusable analysis/manipulation with MolSysMT; keep engine-neutral/form-agnostic APIs, units/index/provenance and Praxis/Nextia protocol ownership explicit. No automatic new feature, weight or release-scope commitment.",
+      "plan": "devguide/pre_1_0_robustness_audit_20261106.md#planned-openmmopenmmtools-capability-comparison"
     }
   },
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
     "issues": [
-      "uibcdf/molsysmt#653"
+      "uibcdf/molsysmt#655"
     ],
-    "source": "064bf0a70",
-    "public_checkpoint": "258702da0818e82fe703ede1b08194eaf246aa76",
+    "source": "10d43b2a92a45b85b4a742a06b2548fce165dd6c",
+    "public_checkpoint": "ca96894ea5be1ad309a112b0fd140168b98dbdc7",
     "state": "public_source_closed",
-    "evidence": "devtools/data/smoke_budget_and_selection_receiving_611_653_20261108.json",
+    "record": "devguide/archive/resolved_proposals/h5msm_static_topology_conversion_reads_coordinate_payload.md",
+    "evidence": [
+      "devtools/data/h5msm_static_topology_receiving_655_20261108.json",
+      "devtools/data/h5msm_static_topology_delivery_655_20261108.json"
+    ],
     "weighted_milestone_change": 0,
-    "audit_related_source_closures": 47
+    "audit_related_source_closures": 52
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
@@ -939,8 +944,8 @@
     "issues": [
       "uibcdf/molsysmt#654"
     ],
-    "complete_board_issues": 585,
-    "open_issues": 88,
+    "complete_board_issues": 587,
+    "open_issues": 89,
     "open_prs": 0,
     "weighted_milestone_change": 0
   },
@@ -956,7 +961,7 @@
     "weighted_milestone_change": 1.4285714285714306,
     "issues_closed": false
   },
-  "qualification_scope": "Full product source/Amber on 03c59caef9, developer/CI repairs on 12a6c6fc2, fourteen Jupyter guards on 68323539e, general-periodic receiving on 2f0eeb1c1, cell assignment on 7ba4f2ed5 and small-origin scopes on db16eec9b/25d9b8105/d2918aa6c remain separate. Fast gates/HTML on d2918aa6c are not a new full-suite, installed or final-candidate qualification.",
+  "qualification_scope": "Full product source/Amber on 03c59caef9, developer/CI repairs on 12a6c6fc2, fourteen Jupyter guards on 68323539e, general-periodic receiving on 2f0eeb1c1, cell assignment on 7ba4f2ed5 and small-origin scopes on db16eec9b/25d9b8105/d2918aa6c remain separate. Fast gates/HTML on d2918aa6c are not a new full-suite, installed or final-candidate qualification. The bounded H5MSM Topology projection is received on 10d43b2a9 and publicly verified at ca96894ea without changing the earlier full-suite or GUI receiving scopes.",
   "last_periodic_receiving": {
     "source": "d2918aa6c2f9605383055d73e1e3d4164f810697",
     "public_checkpoint": "be11ef8f5c32008e4299e3b406062f8d587f323c",
