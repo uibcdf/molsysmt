@@ -698,3 +698,96 @@ def test_gui_cell_projection_retry_does_not_repeat_the_native_write(case, monkey
     assert (
         status["state"] == "synchronized" and status["target_revision"] == revision + 1
     )
+
+
+@pytest.mark.parametrize("unit", ["nm", "angstrom", "pm"])
+@pytest.mark.parametrize("sign", [-1, 0, 1])
+@pytest.mark.parametrize("mode", ["primary", "centered", "nearest"])
+@pytest.mark.parametrize("effect", ["update", "result"])
+@pytest.mark.parametrize("grouping", ["atom", "component"])
+def test_gui_small_origins_retain_the_requested_physical_image(
+    case, unit, sign, mode, effect, grouping
+):
+    view, sent = case
+    before = coords(view)
+    origin = sign * 1e-5
+    center = origin / 2 + (0 if mode == "primary" else 1.5) if sign else 0.3
+    if grouping == "component":
+        atoms = list(range(view.molsys.get_n_atoms()))
+        before[:, :, 0] += center - before[:, :, 0].mean(axis=1)[:, None]
+    else:
+        atoms = [2, 4]
+        before[:, atoms, 0] = [center, center + origin / 4]
+    boxes = np.tile(np.diag([3.0, 4, 5]), (3, 1, 1))
+    view.addons.molsysmt.basic.set(
+        coordinates=puw.quantity(before, "nm"), box=puw.quantity(boxes, "nm")
+    )
+    analysis = msm.Interactions.from_records(
+        [],
+        n_atoms=view.molsys.get_n_atoms(),
+        n_structures=3,
+        evaluated_structure_indices=[0, 1, 2],
+        method="gui.small.origin.receiving",
+    )
+    view.interactions.attach(analysis, name="scope", assume_aligned=True)
+    revision = view.addons.molsysmt.get_sync_status()["target_revision"]
+    expected = before.copy()
+    shift = 0 if mode == "primary" else 0.5
+    for structure in [2, 0]:
+        positions = before[structure, atoms, 0]
+        reference = positions.mean() if grouping == "component" else positions
+        expected[structure, atoms, 0] -= np.floor((reference - origin) / 3 + shift) * 3
+    if sign:
+        zero = before.copy()
+        for structure in [2, 0]:
+            positions = before[structure, atoms, 0]
+            reference = positions.mean() if grouping == "component" else positions
+            zero[structure, atoms, 0] -= np.floor(reference / 3 + shift) * 3
+        assert np.max(np.abs(expected - zero)) > 2.9
+    # Other Cartesian axes also follow the ordinary primary/nearest image rule.
+    for structure in [2, 0]:
+        if grouping == "component":
+            reference = before[structure, atoms].mean(axis=0)
+            expected[structure, atoms, 1:] -= np.floor(
+                reference[1:] / [4, 5] + shift
+            ) * [4, 5]
+        else:
+            expected[structure, atoms, 1:] -= np.floor(
+                before[structure, atoms, 1:] / [4, 5] + shift
+            ) * [4, 5]
+    with puw.context(standard_units=[unit, "ps", "radians"]):
+        policy = dict(puw.configure.get_standard_units())
+        packet = _apply(
+            view,
+            sent,
+            {
+                "task": "wrap",
+                "wrap_mode": mode,
+                "wrap_compact": grouping,
+                "ox": str(origin * 10),
+                "oy": "0",
+                "oz": "0",
+                "origin_unit": "angstrom",
+                "structures": "indices",
+                "indices": "2,0",
+                "effect": effect,
+            },
+            draft={"source": "indices", "indices": ",".join(map(str, atoms))},
+        )
+        assert dict(puw.configure.get_standard_units()) == policy
+    output = _output(view, packet, effect)
+    np.testing.assert_allclose(coords(output), expected, rtol=0, atol=1e-11)
+    np.testing.assert_array_equal(
+        puw.get_value(output.molsys.structures.box, to_unit="nm"), boxes
+    )
+    np.testing.assert_array_equal(
+        output.molsys.interactions["scope"].evaluated_structure_indices, [1]
+    )
+    if effect == "result":
+        np.testing.assert_array_equal(coords(view), before)
+        np.testing.assert_array_equal(
+            view.molsys.interactions["scope"].evaluated_structure_indices, [0, 1, 2]
+        )
+    assert view.addons.molsysmt.get_sync_status()["target_revision"] == revision + int(
+        effect == "update"
+    )

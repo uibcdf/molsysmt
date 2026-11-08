@@ -3562,3 +3562,21 @@ Course executable cells/outputs and four human root files remain untouched.
 The original cell-assignment leaf is accepted in source, moving graphical
 tracking to 25/50 and weighted progress to approximately 72.3%. Tiny-origin
 cross-policy receiving and all other accepted families remain due.
+
+## Small-origin graphical receiving candidate — 2026-11-08
+
+The native #608 correction is already source-delivered; this finite #421
+consumer step adds no replacement image algorithm or new public API. New tests
+exercise small positive, zero and negative physical reference points through
+all three GUI placements, atom/component grouping, current/independent effects
+and three application length standards. Nonzero cases must distinguish the
+requested image from a zero-origin control by a full cell, rather than merely
+comparing two implementations within a loose tolerance.
+
+Two actual-Jupyter cases select nm/pm application standards, explicit angstrom
+and nm inputs, a nonconsecutive structure scope, native full-array oracles and
+actual Mol* positions. They retain Back, current/independent ownership, coverage,
+box/chemical-state preservation and both popup authorities. The existing
+scenario/UI deadlines remain unchanged. This is a receiving candidate until
+its clean execution and publication are independently verified; no added
+milestone or complete periodic-family/installed/human acceptance is claimed.

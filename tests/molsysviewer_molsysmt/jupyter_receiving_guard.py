@@ -11,6 +11,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 
 def test_actual_jupyter_analysis_distance_family(tmp_path):
     viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
@@ -343,6 +345,33 @@ def test_actual_jupyter_general_periodic_geometry(tmp_path):
     assert any(
         box[i][j] != 0 for box in boxes for i in range(3) for j in range(i + 1, 3)
     )
+    assert not (output / "settings.json").exists()
+    assert not (output / "config/jupyter_server_config.py").exists()
+
+
+@pytest.mark.parametrize("standard", ["nm", "pm"])
+def test_actual_jupyter_small_periodic_origins(tmp_path, standard):
+    viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
+    output = tmp_path / f"jupyter-origins-{standard}"
+    command = [
+        sys.executable,
+        str(Path(__file__).with_name("system_panel_jupyter.py")),
+        "--viewer-root",
+        str(viewer),
+        "--scenario",
+        "periodic-origins",
+        "--length-standard",
+        standard,
+        "--output",
+        str(output),
+    ]
+    if provider := os.environ.get("MOLSYSVIEWER_PROVIDER_ROOT"):
+        command.extend(["--provider-root", provider])
+    subprocess.run(command, check=True, timeout=300)
+    result = json.loads((output / "full-result.json").read_text())
+    expected = json.loads((output / "origins-expected.json").read_text())
+    assert len(result["checks"]) == 7
+    assert expected["standard"] == standard
     assert not (output / "settings.json").exists()
     assert not (output / "config/jupyter_server_config.py").exists()
 

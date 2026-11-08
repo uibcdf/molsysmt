@@ -110,6 +110,7 @@ def main():
             "fit-external",
             "periodic",
             "periodic-general",
+            "periodic-origins",
             "cell",
             "chemistry",
             "chemistry-pending",
@@ -118,6 +119,7 @@ def main():
         ),
         default="system",
     )
+    parser.add_argument("--length-standard", choices=("nm", "pm"), default="nm")
     parser.add_argument("--node", default="/usr/bin/node")
     parser.add_argument(
         "--chromium",
@@ -248,6 +250,7 @@ def main():
         "fit-external",
         "periodic",
         "periodic-general",
+        "periodic-origins",
         "cell",
     }:
         initial = initial[: initial.index("view = msv.demo")] + (
@@ -454,6 +457,49 @@ def main():
             "assert view.addons.molsysmt.get_sync_status()['target_revision']==_cell_revision+2\n"
             "print('JUPYTER_CELL_NATIVE_OK',2)\n"
         )
+    if args.scenario == "periodic-origins":
+        initial = initial.removesuffix("view\n") + (
+            "import json\nimport numpy as np\n"
+            f"_origin_context=msm.pyunitwizard.context(standard_units=[{args.length_standard!r},'ps','radians'])\n"
+            "_origin_context.__enter__()\n"
+            "_origin_policy=dict(msm.pyunitwizard.configure.get_standard_units())\n"
+            "_origin_before=source_coordinates.copy();_origin_before[:,2,0]=5e-6;_origin_before[:,4,0]=-5e-6\n"
+            "_origin_box=np.tile(np.diag([3.,4.,5.]),(3,1,1))\n"
+            "view.addons.molsysmt.basic.set(coordinates=msm.pyunitwizard.quantity(_origin_before,'nm'),box=msm.pyunitwizard.quantity(_origin_box,'nm'))\n"
+            "_origin_revision=view.addons.molsysmt.get_sync_status()['target_revision']\n"
+            "_origin_chemistry=msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict()\n"
+            "view.interactions.attach(msm.Interactions.from_records([],n_atoms=62,n_structures=3,evaluated_structure_indices=[0,1,2],method='gui.origin.receiving'),name='origin_scope',assume_aligned=True)\n"
+            "_origin_positive=_origin_before.copy();_origin_negative=_origin_before.copy();_origin_zero=_origin_before.copy()\n"
+            "for _s in [2,0]:\n"
+            "    for _target,_o in [(_origin_positive,1e-5),(_origin_negative,-1e-5),(_origin_zero,0.)]:\n"
+            "        _origin_relative=_origin_before[_s,[2,4]]-[_o,0,0]\n"
+            "        _target[_s,[2,4]]=_origin_before[_s,[2,4]]-np.floor(_origin_relative/[3.,4.,5.])*[3.,4.,5.]\n"
+            "assert np.max(np.abs(_origin_positive-_origin_zero))>2.9\n"
+            "assert np.max(np.abs(_origin_negative-_origin_zero))>2.9\n"
+            f"Path({str(output / 'origins-expected.json')!r}).write_text(json.dumps({{'standard':{args.length_standard!r},'before_angstrom':(_origin_before*10).tolist(),'positive_angstrom':(_origin_positive*10).tolist(),'negative_angstrom':(_origin_negative*10).tolist(),'zero_origin_angstrom':(_origin_zero*10).tolist()}}))\nview\n"
+        )
+        origins_middle = (
+            "np.testing.assert_allclose(msm.pyunitwizard.get_value(view.get_coordinates(),to_unit='nm'),_origin_positive,rtol=0,atol=1e-11)\n"
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.molsys.structures.box,to_unit='nm'),_origin_box)\n"
+            "assert view.addons.molsysmt.get_sync_status()['target_revision']==_origin_revision+1\n"
+            "np.testing.assert_array_equal(view.molsys.interactions['origin_scope'].evaluated_structure_indices,[1])\n"
+            "assert dict(msm.pyunitwizard.configure.get_standard_units())==_origin_policy\n"
+            "print('JUPYTER_ORIGINS_POSITIVE_OK',1)\n"
+        )
+        final = (
+            "np.testing.assert_allclose(msm.pyunitwizard.get_value(view.get_coordinates(),to_unit='nm'),_origin_negative,rtol=0,atol=1e-11)\n"
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.molsys.structures.box,to_unit='nm'),_origin_box)\n"
+            "np.testing.assert_equal(msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict(),_origin_chemistry)\n"
+            "assert view.addons.molsysmt.get_sync_status()['target_revision']==_origin_revision+2\n"
+            "np.testing.assert_array_equal(view.molsys.interactions['origin_scope'].evaluated_structure_indices,[1])\n"
+            "_origin_records=view.addons.manager.presentations.records();assert len(_origin_records)==1\n"
+            "_origin_result=view.addons.manager.presentations.get(_origin_records[0]['id']);assert _origin_result.molsys is not view.molsys\n"
+            "np.testing.assert_allclose(msm.pyunitwizard.get_value(_origin_result.get_coordinates(),to_unit='nm'),_origin_negative,rtol=0,atol=1e-11)\n"
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(_origin_result.molsys.structures.box,to_unit='nm'),_origin_box)\n"
+            "assert dict(msm.pyunitwizard.configure.get_standard_units())==_origin_policy\n"
+            "_origin_context.__exit__(None,None,None)\n"
+            "print('JUPYTER_ORIGINS_NATIVE_OK',2)\n"
+        )
     if args.scenario in {"periodic", "periodic-general"}:
         initial = initial.removesuffix("view\n") + _periodic_setup(
             general=args.scenario == "periodic-general"
@@ -605,6 +651,8 @@ def main():
         + initial
     )
     cells = [initial, final]
+    if args.scenario == "periodic-origins":
+        cells = [initial, origins_middle, final]
     if args.scenario == "cell":
         cells = [initial, cell_preview, cell_assigned, final]
     if args.scenario == "axes":
@@ -776,6 +824,8 @@ def main():
                         if args.scenario == "chemistry"
                         else Path(__file__).with_name("cell_panel_jupyter.mjs")
                         if args.scenario == "cell"
+                        else Path(__file__).with_name("periodic_origins_jupyter.mjs")
+                        if args.scenario == "periodic-origins"
                         else Path(__file__).with_name("periodic_panel_jupyter.mjs")
                         if args.scenario in {"periodic", "periodic-general"}
                         else Path(__file__).with_name("fit_panel_jupyter.mjs")
