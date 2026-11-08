@@ -8,7 +8,35 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import sys
+
+
+def _validated_results(data, label):
+    """Require actual finite positive timing records before comparing ratios."""
+    if not isinstance(data, dict):
+        raise ValueError(f"{label} must be a JSON object.")
+    results = data.get("results")
+    if not isinstance(results, dict) or not results:
+        raise ValueError(f"{label} must contain nonempty results.")
+    for name, entry in results.items():
+        if not isinstance(name, str) or not name.strip() or not isinstance(entry, dict):
+            raise ValueError(f"{label} contains an invalid benchmark record.")
+        value = entry.get("median_seconds")
+        try:
+            valid = (
+                not isinstance(value, bool)
+                and isinstance(value, (int, float))
+                and math.isfinite(value)
+                and value > 0
+            )
+        except OverflowError:
+            valid = False
+        if not valid:
+            raise ValueError(
+                f"{label} benchmark {name!r} requires finite positive median_seconds."
+            )
+    return results
 
 
 def compare_baselines(
@@ -29,28 +57,47 @@ def compare_baselines(
     -------
     int
         Exit code (0 if passes validation, 1 if regressions are detected).
+
+    Notes
+    -----
+    Empty/malformed data, missing reference measurements and invalid medians
+    or thresholds fail before numerical comparison. This does not establish
+    environment/workload comparability; that separate #567 review remains open.
+    Existing matched third-party measurements retain their blocking role and
+    the default threshold remains 15 percent.
     """
     try:
         with open(baseline_path, "r", encoding="utf-8") as f:
             baseline_data = json.load(f)
-    except Exception as e:
+    except (OSError, ValueError, TypeError) as e:
         print(f"❌ Error loading baseline JSON from {baseline_path}: {e}")
         return 1
 
     try:
         with open(current_path, "r", encoding="utf-8") as f:
             current_data = json.load(f)
-    except Exception as e:
+    except (OSError, ValueError, TypeError) as e:
         print(f"❌ Error loading current JSON from {current_path}: {e}")
         return 1
 
-    base_results = baseline_data.get("results", {})
-    curr_results = current_data.get("results", {})
-
-    if not base_results:
-        print(f"⚠️ Warning: Reference baseline has no results key: {baseline_path}")
-    if not curr_results:
-        print(f"⚠️ Warning: Current run has no results key: {current_path}")
+    try:
+        if (
+            isinstance(threshold, bool)
+            or not isinstance(threshold, (int, float))
+            or not math.isfinite(threshold)
+            or threshold < 0
+        ):
+            raise ValueError("The threshold must be finite and nonnegative.")
+        base_results = _validated_results(baseline_data, "Reference baseline")
+        curr_results = _validated_results(current_data, "Current run")
+        missing = sorted(set(base_results) - set(curr_results))
+        if missing:
+            raise ValueError(
+                f"Current run is missing reference measurements: {missing}"
+            )
+    except (ValueError, OverflowError) as e:
+        print(f"Invalid benchmark comparison: {e}")
+        return 1
 
     regressions: list[str] = []
     improvements: list[str] = []
@@ -73,10 +120,6 @@ def compare_baselines(
         base_entry = base_results[name]
         base_median = base_entry["median_seconds"]
         curr_median = curr_entry["median_seconds"]
-
-        if base_median <= 0.0:
-            print(f"⚠️ Skipped '{name}': baseline median is 0 or negative.")
-            continue
 
         pct_change = (curr_median - base_median) / base_median
         diff_us = (curr_median - base_median) * 1e6
@@ -113,7 +156,8 @@ def compare_baselines(
         return 1
 
     print("\n======================================================================")
-    print("  🎉 PASS: All benchmarks conform to the performance target.")
+    print("  PASS: Matched recorded timings meet the numeric threshold.")
+    print("  New paths without a reference remain unassessed.")
     print("======================================================================")
     return 0
 

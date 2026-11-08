@@ -99,3 +99,24 @@ Source `ee1153d983a37416eaee85710c5b97e0acb2ecc1`, PR #543; run
 The native log and GH Run Receptor bundle are retained in Viewer `.pytest_cache`
 through receiving, with resource review by 2026-11-11. This proposal qualifies
 no package, candidate, scientific method or installed artifact.
+
+## Independent malformed-data findings — 2026-11-08
+
+Three tiny controls on unchanged comparer `fbafc69a5` return exit 0 for empty
+sessions, missing reference measurements and a NaN median. These are false
+numeric successes independent of the unresolved product/control blocking
+decision. Original source, input hashes and output are retained in private
+receiving. A scoped correction rejects invalid/empty records, nonfinite or
+nonpositive medians, absent reference measurements and invalid thresholds
+before comparing. It preserves the default 15 percent limit and every matched
+third-party blocking path. New paths without reference remain explicitly
+unassessed. The script does not claim environment/workload comparability.
+
+The owner has been asked asynchronously whether direct external measurements
+should remain blocking or serve as informational controls. Until that answer,
+the existing scope is preserved. Original failed campaigns/medians are not
+relabelled, no baseline is renewed and no benchmark computation is run. This
+stdlib-only saved-JSON developer route adds no optional molecular engine,
+unit-policy mutation, scientific attribution or product API boundary. Full
+metadata/role/artifact and owner acceptance remain pending; this issue is not
+closed by the malformed-data correction.
