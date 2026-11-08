@@ -1,0 +1,258 @@
+{
+  "schema_version": "molsysmt.benchmark_data_receiving@1",
+  "date": "2026-11-08",
+  "issue": "uibcdf/molsysmt#567",
+  "state": "partial_numeric_data_validation_received_owner_policy_pending",
+  "fix_commit": "e21cd13419ccedcc7ebebd7aef1bb1e7c585f34a",
+  "original_controls": {
+    "source": "fbafc69a5",
+    "comparer_sha256": "cdcd2f8f44d162077f81bda786feaf0d38a603538dbbc6d04fab38084cc23bd0",
+    "scope": "Tiny malformed-data controls only; no molecular benchmark or baseline renewal.",
+    "cases": {
+      "empty": {
+        "exit_code": 0,
+        "baseline_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "current_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+        "output": "\u26a0\ufe0f Warning: Reference baseline has no results key: .pytest_cache/external-reference-421/benchmark-567-empty-baseline.json\n\u26a0\ufe0f Warning: Current run has no results key: .pytest_cache/external-reference-421/benchmark-567-empty-current.json\n======================================================================\n MOLSYSMT PERFORMANCE REGRESSION AUDIT\n Reference Baseline: .pytest_cache/external-reference-421/benchmark-567-empty-baseline.json\n Current Run:        .pytest_cache/external-reference-421/benchmark-567-empty-current.json\n Allowed Threshold:  15.0%\n======================================================================\n\n--- Conforming Paths ---\n  (None)\n\n--- Improved Paths ---\n  (None)\n\n======================================================================\n  \ud83c\udf89 PASS: All benchmarks conform to the performance target.\n======================================================================\n"
+      },
+      "missing_required": {
+        "exit_code": 0,
+        "baseline_sha256": "91dad185bd7df7d03589414fbc3fc029655df6efd27da989f91d4829f8c2aaff",
+        "current_sha256": "47a44f3580e2fbbfb11d94356669a55cf1fc6992bc0f68455214a1f389c074af",
+        "output": "\u26a0\ufe0f Warning: Current run has no results key: .pytest_cache/external-reference-421/benchmark-567-missing_required-current.json\n======================================================================\n MOLSYSMT PERFORMANCE REGRESSION AUDIT\n Reference Baseline: .pytest_cache/external-reference-421/benchmark-567-missing_required-baseline.json\n Current Run:        .pytest_cache/external-reference-421/benchmark-567-missing_required-current.json\n Allowed Threshold:  15.0%\n======================================================================\n\n--- Conforming Paths ---\n  (None)\n\n--- Improved Paths ---\n  (None)\n\n======================================================================\n  \ud83c\udf89 PASS: All benchmarks conform to the performance target.\n======================================================================\n"
+      },
+      "nonfinite": {
+        "exit_code": 0,
+        "baseline_sha256": "91dad185bd7df7d03589414fbc3fc029655df6efd27da989f91d4829f8c2aaff",
+        "current_sha256": "3c66b78f365376b23e3f425a07e510d49428b1ad2b3a3da54a3132ccc3967ca8",
+        "output": "======================================================================\n MOLSYSMT PERFORMANCE REGRESSION AUDIT\n Reference Baseline: .pytest_cache/external-reference-421/benchmark-567-nonfinite-baseline.json\n Current Run:        .pytest_cache/external-reference-421/benchmark-567-nonfinite-current.json\n Allowed Threshold:  15.0%\n======================================================================\n\n--- Conforming Paths ---\n  \u2705 product: Base 1000000.00 \u03bcs | Curr nan \u03bcs | Change +nan% (+nan \u03bcs)\n\n--- Improved Paths ---\n  (None)\n\n======================================================================\n  \ud83c\udf89 PASS: All benchmarks conform to the performance target.\n======================================================================\n"
+      }
+    }
+  },
+  "runs": {
+    "benchmark-567-data-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/benchmark-567-data-directed.xml",
+          "-n0",
+          "devtools/tests/test_benchmark_comparison.py"
+        ],
+        "exit_code": 0,
+        "seconds": 1.9094092990271747,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "51a3e18986eec9d9e89cb268e149905ae6176ef8",
+        "starting_git_status": " M benchmarks/compare_runs.py\n M devguide/pending_proposals/benchmark_baseline_comparability_and_competitor_gating.md\n?? devtools/tests/test_benchmark_comparison.py\n",
+        "ending_git_status": " M benchmarks/compare_runs.py\n M devguide/pending_proposals/benchmark_baseline_comparability_and_competitor_gating.md\n?? devtools/tests/test_benchmark_comparison.py\n",
+        "changed_inputs": [],
+        "checked_inputs": 5220
+      },
+      "resources": {
+        "started_utc": "2026-11-08T07:50:43.001426+00:00",
+        "seconds": 3.002749596023932,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-tool>/molsysmt-reference-run.py",
+          "benchmark-567-data-directed"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.4990234375,
+            1.0400390625,
+            2.24609375
+          ],
+          "cpu_utilization": 0.01957831325301207,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16690319360
+        },
+        "host_available_minimum_observed_bytes": 16570413056,
+        "host_reserve_bytes": 2147483648,
+        "cgroup_memory_peak_bytes": 156991488,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 2749146\nuser_usec 2375254\nsystem_usec 373891\nnice_usec 2392000\ncore_sched.force_idle_usec 0\nnr_periods 32\nnr_throttled 4\nthrottled_usec 382425\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "15a6484495003e01d4dc1af617e3f1800618b353f037d3813a7964e1ca4e0b0e",
+        "-bounded.json": "78d6e1ab5f5b173ed9b5e37148d932a1ff6f2fc3ef6e26ccfd5cae739a1bee4f",
+        ".log": "e971db2c07a39e7959f79dd1ffff64edf15fd198628dd9e74aaea8c207905150",
+        ".xml": "ea749d6a67c0aaa2cde79dffa437acdb6cb2abbc3cdaa82b990678e66025d1f1",
+        "-inputs-before.json": "a9bf5100796c6f06673d34d4eb9de826452acae29a0863a6f1d91033bc52032b",
+        "-inputs-after.json": "a9bf5100796c6f06673d34d4eb9de826452acae29a0863a6f1d91033bc52032b",
+        "-command-plan.json": "e8b977bcae7f4e47b53eac4afe6b0f440cdbd927b8a6dfeac45600e9af831990",
+        "-resource-driver.py": "3099bd60a1705e0064bcb9f3141d4372e564c1ce8d938ada9397a20859acf241"
+      },
+      "junit": {
+        "cases": 45,
+        "failure": 0,
+        "error": 0,
+        "skipped": 0
+      }
+    },
+    "benchmark-567-data-received": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/benchmark-567-data-received.xml",
+          "-n0",
+          "devtools/tests/test_benchmark_comparison.py"
+        ],
+        "exit_code": 0,
+        "seconds": 1.8930286508984864,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "e21cd13419ccedcc7ebebd7aef1bb1e7c585f34a",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5220
+      },
+      "resources": {
+        "started_utc": "2026-11-08T07:51:40.920718+00:00",
+        "seconds": 3.002647555898875,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-tool>/molsysmt-reference-run.py",
+          "benchmark-567-data-received"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.6875,
+            0.99951171875,
+            2.1552734375
+          ],
+          "cpu_utilization": 0.02359437751004012,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16698589184
+        },
+        "host_available_minimum_observed_bytes": 16576032768,
+        "host_reserve_bytes": 2147483648,
+        "cgroup_memory_peak_bytes": 154537984,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 2805290\nuser_usec 2392100\nsystem_usec 413190\nnice_usec 2389000\ncore_sched.force_idle_usec 0\nnr_periods 32\nnr_throttled 4\nthrottled_usec 43892\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "9a8530cea58b2f5420f95ab6d43f49b1a282d1965ce4507de492849537fa1907",
+        "-bounded.json": "0a492db6bd3ebfa8e114c36aea0cb4b08056508622e9f1d4e0ffc2a5fb4c86d5",
+        ".log": "d0bc5c9a90278924acff1bffbc5d0a34df3b1e3fdbca96552885b3e692dfc24f",
+        ".xml": "22d9597471e6f15cd0288628b41aecac856e3d08cc0c2e570e20f50134d58264",
+        "-inputs-before.json": "5aecfc4b34eaa65bb62a9b14d2590b9576d944b573e313cc5f13f07d4e027b02",
+        "-inputs-after.json": "5aecfc4b34eaa65bb62a9b14d2590b9576d944b573e313cc5f13f07d4e027b02",
+        "-command-plan.json": "c3bc20f4d966e05ab8027213e139895e33b6ded9886e11367b8dc1d4e89fcff1",
+        "-resource-driver.py": "3099bd60a1705e0064bcb9f3141d4372e564c1ce8d938ada9397a20859acf241"
+      },
+      "junit": {
+        "cases": 45,
+        "failure": 0,
+        "error": 0,
+        "skipped": 0
+      }
+    },
+    "benchmark-567-data-fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 20.61046779388562,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "e21cd13419ccedcc7ebebd7aef1bb1e7c585f34a",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5220
+      },
+      "resources": {
+        "started_utc": "2026-11-08T07:51:45.053041+00:00",
+        "seconds": 22.013183921109885,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-tool>/molsysmt-reference-run.py",
+          "benchmark-567-data-fast"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.63232421875,
+            0.98291015625,
+            2.1435546875
+          ],
+          "cpu_utilization": 0.018045112781954864,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16725393408
+        },
+        "host_available_minimum_observed_bytes": 16306741248,
+        "host_reserve_bytes": 2147483648,
+        "cgroup_memory_peak_bytes": 400011264,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 21488175\nuser_usec 19981443\nsystem_usec 1506731\nnice_usec 19984000\ncore_sched.force_idle_usec 0\nnr_periods 220\nnr_throttled 35\nthrottled_usec 99535\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "b6e25c9c217dfa3aea076d2ee766e786c673ad9e56aab2eb9f9e4821a0b57f3e",
+        "-bounded.json": "999431b74a0f2aecfa5e099aa4ad17c72b68db1261e5c291bea025c4546e8b54",
+        ".log": "7a95aa8ae9951b7280c524b8895ee0ce5b7bd9b360f6d39f0cc73c9e2c16c96a",
+        "-inputs-before.json": "5aecfc4b34eaa65bb62a9b14d2590b9576d944b573e313cc5f13f07d4e027b02",
+        "-inputs-after.json": "5aecfc4b34eaa65bb62a9b14d2590b9576d944b573e313cc5f13f07d4e027b02",
+        "-command-plan.json": "80251c7a5c0f197a00e165a42c30ac7e10a00400d2356416101f2dac1acf56ff",
+        "-resource-driver.py": "3099bd60a1705e0064bcb9f3141d4372e564c1ce8d938ada9397a20859acf241"
+      }
+    }
+  },
+  "acceptance": "45 semantic cases pass, including malformed-data rejection and legitimate improvement/regression controls. Clean-source receiving and fourteen fast gates exit zero.",
+  "preserved": "Default 15 percent threshold, matched third-party blocking paths, original medians and campaign failures, baseline bytes. New unmatched paths are explicitly unassessed.",
+  "remaining": "Owner decision on product/control roles; workload/environment comparability metadata; retained full session artifacts on failure; reviewed baseline renewal and owning acceptance. No molecular benchmark was run.",
+  "support_libraries": "Standalone standard-library saved-JSON development CLI; no molecular-system input, physical quantity conversion, optional engine or scientific attribution boundary.",
+  "weighted_milestone_change": 0
+}

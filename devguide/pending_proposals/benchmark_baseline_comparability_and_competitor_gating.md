@@ -1,12 +1,12 @@
 ---
 summary: Define comparable performance baselines and third-party gate semantics.
 issue: uibcdf/molsysmt#567
-status: open
+status: partial
 opened: 2026-11-04
 closed:
 verification: measured
 area: [ci, performance]
-guard:
+guard: devtools/tests/test_benchmark_comparison.py
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,7 @@ supersedes: []
 
 **Reported:** 2026-11-04, with explicit maintainer authorization, while receiving
 PR #543 under uibcdf/molsysviewer#264.
-**Status:** open proposal for the owning team's benchmark/CI contract decision.
+**Status:** partial implementation; open proposal for the owning team's benchmark/CI contract decision.
 
 ## What
 
@@ -120,3 +120,14 @@ stdlib-only saved-JSON developer route adds no optional molecular engine,
 unit-policy mutation, scientific attribution or product API boundary. Full
 metadata/role/artifact and owner acceptance remain pending; this issue is not
 closed by the malformed-data correction.
+
+## Scoped numeric-data receiving — 2026-11-08
+
+`e21cd13419ccedcc7ebebd7aef1bb1e7c585f34a` passes 45 semantic cases
+and fourteen fast gates on clean source. The
+[receipt](../../devtools/data/benchmark_data_receiving_567_20261108.json)
+retains the original three false-success controls, source/input hashes and
+bounded receiving. The guard rejects empty, absent, malformed and nonfinite
+numeric evidence while preserving real regression detection and the original
+15 percent and matched-third-party scope. This does not establish comparable
+workloads/environments, accept an owner policy, renew a baseline or close #567.

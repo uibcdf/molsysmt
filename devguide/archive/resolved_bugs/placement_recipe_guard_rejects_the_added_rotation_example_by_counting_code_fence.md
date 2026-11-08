@@ -1,9 +1,9 @@
 ---
 summary: Placement recipe guard rejects the added rotation example by counting code fences
 issue: uibcdf/molsysmt#651
-status: active
+status: resolved
 opened: 2026-11-08
-closed:
+closed: 2026-11-08
 severity: medium
 verification: reproduced
 area: [tests, docs]
@@ -63,3 +63,15 @@ unchanged. Existing Sphinx/provider warnings are preserved. Peak memory is
 1,022,181,376 bytes under the two-GiB/one-CPU cap, without high/max/OOM events.
 Other inspected fixed fence/cell guards match their current inputs; this
 scoped receiving does not certify every documentation page or complete #612.
+
+## Resolution — 2026-11-08
+
+Fix `51a3e18986eec9d9e89cb268e149905ae6176ef8` replaces the fence-count
+assertion with executable, independent geometry and ownership checks. The
+addressable guard in the front matter protects the five actual scenarios,
+including captured-center rotation, under both application unit policies.
+Fourteen fast gates and incremental HTML also pass on that clean source.
+The [receiving record](../../../devtools/data/placement_example_receiving_651_20261108.json)
+retains the first failed nondefault-unit check, corrected 598-case result,
+working-tree versus clean-source scopes, warnings, limits and input hashes.
+This fixes the example lifecycle; full-source #612 remains separate and open.

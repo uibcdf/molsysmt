@@ -147,8 +147,8 @@ A controlled serial diagnosis proves six independent test defects and seven
 passing formerly starved cases. #649/#650 correct only positive export fixtures
 and test-package ownership. The corrected four-worker pilot on `a2993b8f0ec0bbf34b95966891f9b783f61dbe85`
 passes 525 cases, peaks at 3,292,508,160 bytes and 32 tasks, with zero task-cap
-or memory events. Rayon now joins BLAS/OpenMP/OpenMM at one thread per worker;
-the finite task ceiling is 512. CPU remains four cores, memory 6 GiB max/5 GiB
+or memory events. Rayon/BLAS/OpenMP/OpenMM environment defaults are one; explicit MolSysMT
+per-call Rust pools retain their requested size. The finite task ceiling is 512. CPU remains four cores, memory 6 GiB max/5 GiB
 high and zero swap. The maintainer sets the absolute shared-host reserve to
 2 GiB; the controller stops 512 MiB above it. These observations do not reserve
 resources or qualify the full suite. Preserve all three incomplete full attempts.
@@ -158,3 +158,30 @@ retains actual attempts, stop evidence and limits; the
 [fixture receipt](../../devtools/data/conversion_fixture_receiving_649_650_20261108.json)
 retains scoped correction evidence. Next receive the full exact-source suite
 with the inspected thread-controlled route. #612 remains active.
+
+## Further interrupted attempts and correction — 2026-11-08
+
+The next four-worker 6-GiB attempt stops on the controller's global memory
+pressure branch, with 7,306,313,728 bytes still available, peak process-tree
+memory 5,454,446,592 bytes and 1,609 high-memory events. No max/OOM or task-cap
+event occurs. Throttling coincides with global pressure; its sole cause is not
+established. Final partial-stream review recovers 12,017 passing calls and
+one stale placement-guard failure, now separately fixed under #651. The
+stream has no session_finish. Earlier progress observations are not its final
+outcome and must not be described as failure-free acceptance.
+
+An eight-GiB attempt was started before that final review; it is deliberately
+interrupted once the defect is recovered. Its 2,490 passes and exit 2 do not
+complete the default 32,038-case scope. Peak memory is 3,991,306,240 bytes; no
+memory/task limit event occurs. Preserve this premature restart and all prior
+attempts in the resource receipt. #651's 598-case receiving fixes the discovered
+example test; it does not complete this issue's acceptance.
+
+The environment thread variables set defaults, not a hard one-thread guarantee
+for explicit Rust pools. Inspection finds a cache keyed by requested pool size;
+#652 records the bounded retention/overhead review without attributing all
+observed threads to it or changing native behavior. The next fresh full run
+uses four workers, four CPU equivalents, 8 GiB max/7 GiB high, zero swap and
+512 tasks, with a 45-minute bound, a 2 GiB host reserve and monitored stopping
+512 MiB above that floor or on global memory pressure. Source inputs remain
+frozen for that run. Admission is not a reservation. #612 remains active.

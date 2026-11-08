@@ -20,6 +20,42 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Placement and benchmark-data receiving — 2026-11-08
+
+#651 is source-qualified in `51a3e1898`: all five placement examples now execute
+under both unit policies with independent geometry and exact owned-snapshot
+checks. The corrected receiving passes 598 cases, zero skips/failures/errors;
+clean-source fast gates pass 14/14 and incremental HTML exits zero. The
+[receipt](../devtools/data/placement_example_receiving_651_20261108.json)
+preserves the initial pm/fs comparison failure and distinguishes working-tree
+receiving from clean-source checks. Publication and board closure follow this
+record; the audit closure count is not yet incremented.
+
+#567 is partial: clean source `e21cd1341` passes 45 malformed-data and legitimate
+regression cases plus fourteen fast gates. Its
+[receipt](../devtools/data/benchmark_data_receiving_567_20261108.json) preserves
+the three original false successes. The default 15 percent threshold and every
+matched third-party blocker remain unchanged. Owner policy on product/control
+roles, comparability metadata, failure artifact retention and baseline renewal
+remain open. No benchmark was computed or baseline replaced.
+
+The [#612 resource receipt](../devtools/data/source_suite_resource_adjustments_612_20261108.json)
+now retains both later incomplete attempts: pressure-stopped 12,017 passing
+calls plus the #651 failure, and the premature eight-GiB restart interrupted
+after 2,490 passes. No full-source acceptance is claimed. The next inspected
+route is four workers, four CPU equivalents, 8 GiB max/7 GiB high, zero swap,
+512 tasks and a 45-minute bound, preserving the maintainer's absolute 2 GiB
+host reserve with earlier stopping and global pressure monitoring. Thread
+environment defaults are one; explicit per-call native pools retain requested
+sizes, as tracked for measurement/design review in #652. No Rust change or
+automatic new release gate follows from that proposal.
+
+Accepted weighted progress remains approximately **65.3%**, with **43 delivered
+audit-related source closures** and **23/50 graphical intents accepted** until
+the new source/board checkpoint is verified. Supplemental repairs add no bonus.
+No installed/platform/exact-candidate qualification, artifact, tag or release
+is inferred from this receiving.
+
 ## Fixture ownership and bounded scientific claims — 2026-11-08
 
 #649/#650 are published on main checkpoint `a5fc92a23` and independently verified
@@ -54,8 +90,9 @@ stopped; pytest/Receptor finalization and ending Git metadata are incomplete.
 There is no OOM. The [resource record](../devtools/data/source_suite_resource_adjustments_612_20261108.json)
 separates task-starvation errors from the two real fixture defects. The corrected
 525-case pilot peaks at 3.07 GiB and 32 tasks, with no limit events. Next run the
-complete exact-source suite with four workers, 6 GiB maximum/5 GiB high, no swap,
-512 tasks and one native thread per worker; preserve the maintainer's 2 GiB
+complete exact-source suite after the newer placement correction with four
+workers, 8 GiB maximum/7 GiB high, no swap and 512 tasks; environment thread
+defaults are one, while explicit per-call native pools retain requested sizes; preserve the maintainer's 2 GiB
 absolute host floor with earlier monitored stopping. Other graphical,
 scientific-contract, installed/platform and exact-candidate exits remain due.
 No new remote matrix, artifact, tag or release follows from these source gates.

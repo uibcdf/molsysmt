@@ -1,0 +1,318 @@
+{
+  "schema_version": "molsysmt.placement_example_receiving@1",
+  "date": "2026-11-08",
+  "issue": "uibcdf/molsysmt#651",
+  "state": "scoped_source_qualified",
+  "fix_commit": "51a3e18986eec9d9e89cb268e149905ae6176ef8",
+  "runs": {
+    "placement-651-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/placement-651-directed.xml",
+          "-n0",
+          "tests/documentation",
+          "tests/chemical_states/test_public_graph_tutorials.py",
+          "tests/chemical_states/test_indexed_hydrogen_policy_producers.py"
+        ],
+        "exit_code": 1,
+        "seconds": 82.2064177908469,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "fbafc69a52d9e8912d7f6a4e4c5a22ce64d3f08e",
+        "starting_git_status": " M tests/documentation/test_move_away_examples.py\n?? devguide/pending_bugs/placement_recipe_guard_rejects_the_added_rotation_example_by_counting_code_fence.md\n",
+        "ending_git_status": " M tests/documentation/test_move_away_examples.py\n?? devguide/pending_bugs/placement_recipe_guard_rejects_the_added_rotation_example_by_counting_code_fence.md\n?? devguide/pending_proposals/review_bounded_retention_of_native_thread_pools_across_requested_thread_counts.md\n",
+        "changed_inputs": [],
+        "checked_inputs": 5219
+      },
+      "resources": {
+        "started_utc": "2026-11-08T07:35:07.775017+00:00",
+        "seconds": 83.04217691090889,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-tool>/molsysmt-reference-run.py",
+          "placement-651-directed"
+        ],
+        "process_exit_code": 1,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.5595703125,
+            4.5859375,
+            4.0126953125
+          ],
+          "cpu_utilization": 0.030653266331658324,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16844443648
+        },
+        "host_available_minimum_observed_bytes": 13195898880,
+        "host_reserve_bytes": 2147483648,
+        "cgroup_memory_peak_bytes": 1027088384,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 80050802\nuser_usec 77169202\nsystem_usec 2881600\nnice_usec 77044000\ncore_sched.force_idle_usec 0\nnr_periods 833\nnr_throttled 538\nthrottled_usec 325165\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "9b087c792fae02ba2bf15c236e48755f1729c2353d656df81c48473f99697e03",
+        "-bounded.json": "d6ab82a8db6ae700f359241525bf79dd99cc2aa09791dc24bd78fdbb03bbe449",
+        ".log": "992334bef42e0180b1fa71e9acf328510bbf693d867cc800d8f061be43230306",
+        ".xml": "8ed706c24924c70614cd38edb1e20c79fe5d392c5f7baf0fdf4478f132c705a2",
+        "-inputs-before.json": "5c06fee167ddc3efd07a8ad74fd9e40c99c72dcd77effde04814c52e81661711",
+        "-inputs-after.json": "5c06fee167ddc3efd07a8ad74fd9e40c99c72dcd77effde04814c52e81661711",
+        "-command-plan.json": "55b03e44d67f0abc1cb55f55883de636db2e85c31d08fa29a1a0ad6f6be88d57",
+        "-resource-driver.py": "3099bd60a1705e0064bcb9f3141d4372e564c1ce8d938ada9397a20859acf241"
+      },
+      "junit": {
+        "cases": 598,
+        "failure": 1,
+        "error": 0,
+        "skipped": 0
+      }
+    },
+    "placement-651-received": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/placement-651-received.xml",
+          "-n0",
+          "tests/documentation",
+          "tests/chemical_states/test_public_graph_tutorials.py",
+          "tests/chemical_states/test_indexed_hydrogen_policy_producers.py"
+        ],
+        "exit_code": 0,
+        "seconds": 71.91656722011976,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "fbafc69a52d9e8912d7f6a4e4c5a22ce64d3f08e",
+        "starting_git_status": " M docs/content/user/cookbook/placing_selected_centers.md\n M tests/documentation/test_move_away_examples.py\n?? devguide/pending_bugs/placement_recipe_guard_rejects_the_added_rotation_example_by_counting_code_fence.md\n?? devguide/pending_proposals/review_bounded_retention_of_native_thread_pools_across_requested_thread_counts.md\n",
+        "ending_git_status": " M docs/content/user/cookbook/placing_selected_centers.md\n M tests/documentation/test_move_away_examples.py\n?? devguide/pending_bugs/placement_recipe_guard_rejects_the_added_rotation_example_by_counting_code_fence.md\n?? devguide/pending_proposals/review_bounded_retention_of_native_thread_pools_across_requested_thread_counts.md\n",
+        "changed_inputs": [],
+        "checked_inputs": 5219
+      },
+      "resources": {
+        "started_utc": "2026-11-08T07:39:46.046533+00:00",
+        "seconds": 73.04001703881659,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-tool>/molsysmt-reference-run.py",
+          "placement-651-received"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            2.63623046875,
+            3.6669921875,
+            3.798828125
+          ],
+          "cpu_utilization": 0.035175879396984966,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16720338944
+        },
+        "host_available_minimum_observed_bytes": 14952169472,
+        "host_reserve_bytes": 2147483648,
+        "cgroup_memory_peak_bytes": 1022181376,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 72647928\nuser_usec 69838153\nsystem_usec 2809775\nnice_usec 69966000\ncore_sched.force_idle_usec 0\nnr_periods 732\nnr_throttled 311\nthrottled_usec 435554\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "75ec0052bf13cbf493efa35070d93c169aa7888499da977bc9e886fd0fc98492",
+        "-bounded.json": "bb27df5a1576280a72c56f5a4caa01034fed8b51c8c5e2f49f6adbc9bfe38fe5",
+        ".log": "6a373cf2b0378bf03fa55bfb534af90b04751155479b285912de2f5fbf22eb1e",
+        ".xml": "58d073f79e150819b0bdd7df90e37f3f1ff36fc47966982a4a667db96143d2e9",
+        "-inputs-before.json": "578fd1843b7f9aa41148445593eeed222f1784cf5c48c2ce73cda5b1bbd3e4e4",
+        "-inputs-after.json": "578fd1843b7f9aa41148445593eeed222f1784cf5c48c2ce73cda5b1bbd3e4e4",
+        "-command-plan.json": "9ef711d1bd1812804f7662ce7bd9e3e7af070da195bd266b3f5bb64c0cae4d3f",
+        "-resource-driver.py": "3099bd60a1705e0064bcb9f3141d4372e564c1ce8d938ada9397a20859acf241"
+      },
+      "junit": {
+        "cases": 598,
+        "failure": 0,
+        "error": 0,
+        "skipped": 0
+      }
+    },
+    "placement-651-fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 21.259937098948285,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "51a3e18986eec9d9e89cb268e149905ae6176ef8",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5219
+      },
+      "resources": {
+        "started_utc": "2026-11-08T07:45:22.852000+00:00",
+        "seconds": 23.01342664612457,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-tool>/molsysmt-reference-run.py",
+          "placement-651-fast"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.59375,
+            1.67626953125,
+            2.873046875
+          ],
+          "cpu_utilization": 0.026130653266331683,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16732639232
+        },
+        "host_available_minimum_observed_bytes": 16239357952,
+        "host_reserve_bytes": 2147483648,
+        "cgroup_memory_peak_bytes": 399671296,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 22032572\nuser_usec 20473805\nsystem_usec 1558767\nnice_usec 20488000\ncore_sched.force_idle_usec 0\nnr_periods 226\nnr_throttled 21\nthrottled_usec 108597\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "285aa808ff36ae2e052785cb4924a8a11c9529b48b14489cdb581eafdad6a57e",
+        "-bounded.json": "4091c11901269118181437ba413e68c1fd293f1496c982a6dae6c6096d9e7f19",
+        ".log": "ef58d2dd144a8c693d227197915cbd46e01dfae4a95096efe7c9cb39bdd46dce",
+        "-inputs-before.json": "578fd1843b7f9aa41148445593eeed222f1784cf5c48c2ce73cda5b1bbd3e4e4",
+        "-inputs-after.json": "578fd1843b7f9aa41148445593eeed222f1784cf5c48c2ce73cda5b1bbd3e4e4",
+        "-command-plan.json": "80251c7a5c0f197a00e165a42c30ac7e10a00400d2356416101f2dac1acf56ff",
+        "-resource-driver.py": "3099bd60a1705e0064bcb9f3141d4372e564c1ce8d938ada9397a20859acf241"
+      }
+    },
+    "placement-651-html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/hydrogen-645-html"
+        ],
+        "exit_code": 0,
+        "seconds": 14.599290227051824,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "51a3e18986eec9d9e89cb268e149905ae6176ef8",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5219
+      },
+      "resources": {
+        "started_utc": "2026-11-08T07:45:46.988951+00:00",
+        "seconds": 16.01019548298791,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-tool>/molsysmt-reference-run.py",
+          "placement-651-html"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.65283203125,
+            1.6044921875,
+            2.81640625
+          ],
+          "cpu_utilization": 0.03612644254892128,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16532340736
+        },
+        "host_available_minimum_observed_bytes": 16397303808,
+        "host_reserve_bytes": 2147483648,
+        "cgroup_memory_peak_bytes": 517349376,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 9367117\nuser_usec 8441193\nsystem_usec 925924\nnice_usec 8449000\ncore_sched.force_idle_usec 0\nnr_periods 159\nnr_throttled 8\nthrottled_usec 46601\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "bcaa158c3c6173f85a84861b40f8fe6ccc05ca2a24e148dabcb973e87a3081cb",
+        "-bounded.json": "fbeb60709d60ff70fd400bcdec34545578e6908a4c5159855a7202078e905de6",
+        ".log": "382f82536b1648d7d2520d3a06b0ab3e720a4d958f7a2bbe24e74fa0f0f39b2f",
+        "-inputs-before.json": "578fd1843b7f9aa41148445593eeed222f1784cf5c48c2ce73cda5b1bbd3e4e4",
+        "-inputs-after.json": "578fd1843b7f9aa41148445593eeed222f1784cf5c48c2ce73cda5b1bbd3e4e4",
+        "-command-plan.json": "eaf57ab5194f9a0239930a0d39e9fee710612c5c833f1115aa39ba03aadad9e2",
+        "-resource-driver.py": "3099bd60a1705e0064bcb9f3141d4372e564c1ce8d938ada9397a20859acf241"
+      }
+    }
+  },
+  "acceptance": "598 cases pass with zero skips/failures/errors; all five recipe examples execute under nm/ps and pm/fs. Literal geometry and independent unit-bearing ownership checks replace the fence-count gate. Fourteen fast gates and incremental HTML pass.",
+  "initial_failure": "Expanded first run: 597 passed and one pm/fs exact-conversion assertion failed. Corrected by retaining an owned snapshot in its original units, with physical expected geometry tested separately. No weakened mutation assertion.",
+  "scope": "The 598-case run used an explicitly modified working tree subsequently committed unchanged at the fix. Fast gates and HTML used that clean commit. The captured input inventory hashes executable inputs, not every Markdown file; no nonexistent Markdown pre/post hash certificate is claimed. No operator, Rust kernel or course code changes; complete #612 and installed/platform/candidate gates remain pending.",
+  "warnings": "560 retained provider/documentation warnings in the 598-case run, detailed in the hashed log; no warning suppression.",
+  "support_libraries": "Only recipe/assertion changes. Existing public MolSysMT validation and unit-bearing operations are exercised; no new runtime/dependency/attribution boundary.",
+  "checked_files": {
+    "tests/documentation/test_move_away_examples.py": "3e972a244da4faf7ccdfab80985abb6a4d22e9a2dddf5e6e2c1deeba6a408f91",
+    "docs/content/user/cookbook/placing_selected_centers.md": "6b0121015ef814ee34095cca0c9690eb880b198fffd275737cb7d10a3123e3c3"
+  }
+}

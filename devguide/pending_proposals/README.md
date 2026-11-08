@@ -37,13 +37,12 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (36)
+### Open (35)
 
 - [`add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md`](add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md) — [#308](https://github.com/uibcdf/molsysmt/issues/308) — Add a native general ligand hydrogen engine for fixed chemical states *(inspected)*
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
 - [`add_compact_molecule_to_the_wrapping_functions.md`](add_compact_molecule_to_the_wrapping_functions.md) — [#173](https://github.com/uibcdf/molsysmt/issues/173) — Add compact='molecule' to the wrapping functions *(measured)*
 - [`adopt_pyunitwizard_fast_paths_at_quantity_boundaries.md`](adopt_pyunitwizard_fast_paths_at_quantity_boundaries.md) — [#155](https://github.com/uibcdf/molsysmt/issues/155) — Audit PyUnitWizard fast-path adoption at quantity boundaries. *(inspected)*
-- [`benchmark_baseline_comparability_and_competitor_gating.md`](benchmark_baseline_comparability_and_competitor_gating.md) — [#567](https://github.com/uibcdf/molsysmt/issues/567) — Define comparable performance baselines and third-party gate semantics. *(measured)*
 - [`define_faithful_openmm_runtime_and_state_snapshot_copy_contracts.md`](define_faithful_openmm_runtime_and_state_snapshot_copy_contracts.md) — [#592](https://github.com/uibcdf/molsysmt/issues/592) — Define faithful OpenMM runtime and State snapshot copy contracts. *(inspected)*
 - [`define_small_molecule_chemical_state_enumeration_with_atom_correspondence.md`](define_small_molecule_chemical_state_enumeration_with_atom_correspondence.md) — [#220](https://github.com/uibcdf/molsysmt/issues/220) — Define small-molecule chemical-state enumeration with atom correspondence *(inspected)*
 - [`energy_minimized_placement_for_ambiguous_modified_residue_gaps.md`](energy_minimized_placement_for_ambiguous_modified_residue_gaps.md) — [#249](https://github.com/uibcdf/molsysmt/issues/249) — Energy-minimized placement for ambiguous modified-residue gaps *(measured)*
@@ -88,10 +87,11 @@ Entries carrying front matter under
 - [`enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md`](enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md) — [#229](https://github.com/uibcdf/molsysmt/issues/229) — Enumerate ligand tautomers and stereoisomers as explicit chemical states *(inspected)*
   Blocked by uibcdf/molsysmt#220.
 
-### Partially resolved (16)
+### Partially resolved (17)
 
 - [`add_pdbqt_file_and_string_forms_with_molsys_conversion.md`](add_pdbqt_file_and_string_forms_with_molsys_conversion.md) — [#214](https://github.com/uibcdf/molsysmt/issues/214) — Add PDBQT file and string forms with MolSys conversion *(reproduced)*
 - [`add_sdf_file_form_with_molsys_conversion.md`](add_sdf_file_form_with_molsys_conversion.md) — [#215](https://github.com/uibcdf/molsysmt/issues/215) — Add SDF file form with MolSys conversion *(reproduced)*
+- [`benchmark_baseline_comparability_and_competitor_gating.md`](benchmark_baseline_comparability_and_competitor_gating.md) — [#567](https://github.com/uibcdf/molsysmt/issues/567) — Define comparable performance baselines and third-party gate semantics. *(measured)*
 - [`ci_smoke_budget_covers_expanded_native_and_addon_tiers.md`](ci_smoke_budget_covers_expanded_native_and_addon_tiers.md) — [#611](https://github.com/uibcdf/molsysmt/issues/611) — Rebudget the expanded native-plus-addon smoke after measured 25-minute exhaustion. *(measured)*
 - [`compare_attributed_cation_pi_detectors_with_the_molsysmt_geometric_proposal.md`](compare_attributed_cation_pi_detectors_with_the_molsysmt_geometric_proposal.md) — [#271](https://github.com/uibcdf/molsysmt/issues/271) — Compare attributed cation-pi detectors with the MolSysMT geometric proposal *(measured)*
 - [`evaluate_aaindex_modlamp_and_peptides_for_additional_physicochemical_observables.md`](evaluate_aaindex_modlamp_and_peptides_for_additional_physicochemical_observables.md) — [#485](https://github.com/uibcdf/molsysmt/issues/485) — Evaluate AAindex, modlAMP and Peptides for additional physicochemical observables *(inspected)*

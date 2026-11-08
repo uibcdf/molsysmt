@@ -257,6 +257,209 @@
       "skipped": 0
     }
   },
-  "current_route": "Four workers, four-CPU quota, 6 GiB max/5 GiB high, no swap, 512 task cap; Rayon/BLAS/OpenMP/OpenMM threads one. The maintainer changed the absolute host reserve to 2 GiB, with a stop 512 MiB before that floor. Git preload/index threads are bounded and metadata errors are retained.",
-  "scope": "The 525-case pilot does not qualify the complete source suite or a release."
+  "current_route": "Four workers, four-CPU quota, 8 GiB max/7 GiB high, zero swap, 512-task cap, 45-minute runtime bound. Environment thread defaults one; explicit tested per-call pools remain as requested. Absolute host reserve 2 GiB with stop 512 MiB before that floor and on global full PSI avg10 >= 1. Check every previous final outcome before a fresh named attempt; no tracked edits during qualification.",
+  "scope": "The 525-case pilot does not qualify the complete source suite or a release.",
+  "pressure_stopped_thread_controlled_attempt": {
+    "resources": {
+      "started_utc": "2026-11-08T07:16:07.676779+00:00",
+      "seconds": 583.4257375949528,
+      "command": [
+        "<development-environment>/bin/python",
+        "<private-tool>/molsysmt-reference-run-thread-controlled.py",
+        "fidelity-612-full-source-thread-controlled"
+      ],
+      "process_exit_code": -15,
+      "stop_reason": "Shared-host memory reserve or pressure threshold reached.",
+      "limits": {
+        "memory.max": "6442450944",
+        "memory.high": "5368709120",
+        "memory.swap.max": "0",
+        "memory.oom.group": "1",
+        "cpu.max": "400000 100000",
+        "pids.max": "512"
+      },
+      "host_load": {
+        "cpu_count": 20,
+        "affinity_cpus": 20,
+        "load_average": [
+          0.3388671875,
+          1.52392578125,
+          2.37841796875
+        ],
+        "cpu_utilization": 0.06797583081571001,
+        "swap_bytes_per_second": 0.0
+      },
+      "initial_host_memory": {
+        "MemTotal": 32934252544,
+        "MemAvailable": 16903053312
+      },
+      "host_available_minimum_observed_bytes": 7306313728,
+      "host_reserve_bytes": 2147483648,
+      "cgroup_memory_peak_bytes": 5454446592,
+      "memory_events": "low 0\nhigh 1609\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "peak_tasks_observed": 207,
+      "pids_events": "max 0\n",
+      "cpu_stat": "usage_usec 2312508225\nuser_usec 2265253172\nsystem_usec 47255053\nnice_usec 2267980000\ncore_sched.force_idle_usec 0\nnr_periods 5837\nnr_throttled 5298\nthrottled_usec 59487446\nnr_bursts 0\nburst_usec 0\n",
+      "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+    },
+    "artifact_sha256": {
+      "-bounded.json": "a9d700cd302fccb099404d37db756d04eff4e2a37ae32ee013d9bc9ea832a064",
+      ".log": "c89c8a7e83bfcaad451ad6023e172758b8d4a322fa57f22ec7e501acfed0a242",
+      ".events.jsonl": "744db4c52a5a26e90b9c924141024792ad7fbe6c34ff163e583b0680384e34f2",
+      "-inputs-before.json": "086ca5c85198f33cc46d3b0ab6c5d6b51d3eb47910e431ca001234429dd8de0b",
+      "-command-plan.json": "48b6aacb06fd2feb8bf9351aa42cbec0e02c3aee23a2aa1e66ec2f89b7fc61e5",
+      "-resource-driver.py": "fd3349cd1030bf74b57d368b6547d7628473a4503197f20ab09e9a70bf444414"
+    },
+    "post_stop_review": {
+      "date": "2026-11-08T07:28:20.291811+00:00",
+      "source": "fbafc69a52d9e8912d7f6a4e4c5a22ce64d3f08e",
+      "source_status_after_stop": "",
+      "receptor_complete": false,
+      "receptor_issue": "missing session_finish",
+      "partial_call_outcomes": {
+        "passed": 12017,
+        "failed": 1
+      },
+      "failed_phases": [
+        "tests/documentation/test_move_away_examples.py::test_placement_recipe_preserves_centers_modes_and_ownership"
+      ],
+      "changed_hashed_inputs_after_stop": [],
+      "controller": {
+        "started_utc": "2026-11-08T07:16:07.676779+00:00",
+        "seconds": 583.4257375949528,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-tool>/molsysmt-reference-run-thread-controlled.py",
+          "fidelity-612-full-source-thread-controlled"
+        ],
+        "process_exit_code": -15,
+        "stop_reason": "Shared-host memory reserve or pressure threshold reached.",
+        "limits": {
+          "memory.max": "6442450944",
+          "memory.high": "5368709120",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "400000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.3388671875,
+            1.52392578125,
+            2.37841796875
+          ],
+          "cpu_utilization": 0.06797583081571001,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16903053312
+        },
+        "host_available_minimum_observed_bytes": 7306313728,
+        "host_reserve_bytes": 2147483648,
+        "cgroup_memory_peak_bytes": 5454446592,
+        "memory_events": "low 0\nhigh 1609\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 207,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 2312508225\nuser_usec 2265253172\nsystem_usec 47255053\nnice_usec 2267980000\ncore_sched.force_idle_usec 0\nnr_periods 5837\nnr_throttled 5298\nthrottled_usec 59487446\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "conclusion": "Safety-interrupted incomplete full attempt. Available-memory floor was not crossed; the controller pressure branch fired while cgroup high events were recorded. This does not prove the sole pressure cause."
+    },
+    "interpretation": "Incomplete stream: 12,017 passing call outcomes and one placement-guard failure (#651). Controller exits after global PSI pressure crosses its threshold; the available-memory reserve was not reached. Memory-high throttling coincides with pressure but sole causation is unproven."
+  },
+  "premature_eight_gib_attempt": {
+    "execution": {
+      "command": [
+        "<development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "--junitxml=<private-evidence>/fidelity-612-full-source-four-workers-8g.xml",
+        "-n4",
+        "--receptor-events=<private-evidence>/fidelity-612-full-source-four-workers-8g.events.jsonl"
+      ],
+      "exit_code": 2,
+      "seconds": 123.77400586311705,
+      "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "source_commit": "fbafc69a52d9e8912d7f6a4e4c5a22ce64d3f08e",
+      "starting_git_status": "",
+      "ending_git_status": "",
+      "changed_inputs": [],
+      "checked_inputs": 5219
+    },
+    "resources": {
+      "started_utc": "2026-11-08T07:29:45.033752+00:00",
+      "seconds": 126.07717659091577,
+      "command": [
+        "<development-environment>/bin/python",
+        "<private-tool>/molsysmt-reference-run-four-workers-8g.py",
+        "fidelity-612-full-source-four-workers-8g"
+      ],
+      "process_exit_code": 2,
+      "stop_reason": null,
+      "stop_observation": null,
+      "maximum_host_full_pressure_avg10": 0.0,
+      "limits": {
+        "memory.max": "8589934592",
+        "memory.high": "7516192768",
+        "memory.swap.max": "0",
+        "memory.oom.group": "1",
+        "cpu.max": "400000 100000",
+        "pids.max": "512"
+      },
+      "host_load": {
+        "cpu_count": 20,
+        "affinity_cpus": 20,
+        "load_average": [
+          2.220703125,
+          2.58984375,
+          2.8876953125
+        ],
+        "cpu_utilization": 0.1703629032258065,
+        "swap_bytes_per_second": 0.0
+      },
+      "initial_host_memory": {
+        "MemTotal": 32934252544,
+        "MemAvailable": 15446630400
+      },
+      "host_available_minimum_observed_bytes": 10323902464,
+      "host_reserve_bytes": 2147483648,
+      "cgroup_memory_peak_bytes": 3991306240,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "peak_tasks_observed": 54,
+      "pids_events": "max 0\n",
+      "cpu_stat": "usage_usec 469596870\nuser_usec 455302198\nsystem_usec 14294672\nnice_usec 455662000\ncore_sched.force_idle_usec 0\nnr_periods 1263\nnr_throttled 652\nthrottled_usec 5665291\nnr_bursts 0\nburst_usec 0\n",
+      "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+    },
+    "artifact_sha256": {
+      ".json": "f183075d5ef2f58043a9fd235c38d7243003b808ef1a209a6e9cd101d7ddd00d",
+      "-bounded.json": "0e77a8dd2aef1616b4872b4b25d4dd960f2df50e53bbc798ce2a4eff9fe765f7",
+      ".log": "e3b5ac006a4ed20f7cd9ced64ea1d7103ca1ed6a18e599f9a18aadf1ee4e4118",
+      ".xml": "cfdb80c18aa0b2c63e2fea1f31fee379835547fcdb6873d19ca25196ba03c84a",
+      ".events.jsonl": "bc8d308b1929387fb50f1eb90bc69605faa4099406e2c93d24463c275cdb5007",
+      "-inputs-before.json": "086ca5c85198f33cc46d3b0ab6c5d6b51d3eb47910e431ca001234429dd8de0b",
+      "-inputs-after.json": "086ca5c85198f33cc46d3b0ab6c5d6b51d3eb47910e431ca001234429dd8de0b",
+      "-command-plan.json": "18397e4e57b2a95d3aa3190dc86c6051d1badda0b862d1eaad3f2bc11e750a39",
+      "-resource-driver.py": "80c46f8413308357b31de0963580fe68b70b8c1c040e9b40072beb058955fe6f"
+    },
+    "junit": {
+      "cases": 2494,
+      "failure": 0,
+      "error": 0,
+      "skipped": 0
+    },
+    "stop": {
+      "reason": "Stop the premature new attempt after final partial-stream reading identifies a stale recipe guard (four expected blocks, five actual). Correct before full-source qualification.",
+      "pid": 2544156,
+      "memory_peak": 3819503616,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "pids_events": "max 0\n"
+    },
+    "interpretation": "Interrupted after 2,490 passes, exit 2, before the default suite completed. Deliberately stopped after final review of the previous partial stream exposed #651. The restart preceded that review and was premature; artifact finalization is not full-scope acceptance."
+  },
+  "thread_control_clarification": "Thread environment variables set library defaults to one. MolSysMT Rust explicit per-call ThreadPoolBuilder.num_threads overrides RAYON_NUM_THREADS; distinct requested sizes are retained in its process-local cache. Observed task counts are not all attributed to this cache. #652 owns bounded measurement/design review. Aggregate CPU/memory/task limits apply to the complete test process tree."
 }
