@@ -3580,3 +3580,13 @@ box/chemical-state preservation and both popup authorities. The existing
 scenario/UI deadlines remain unchanged. This is a receiving candidate until
 its clean execution and publication are independently verified; no added
 milestone or complete periodic-family/installed/human acceptance is claimed.
+
+The first clean campaign passes all 264 source cases. Actual Jupyter passes nm
+but fails pm after the positive-image coordinate oracle already passes: the
+fixture compares an ideal literal `4.0 nm` with the initialized stored pm box
+converted back to `3.9999999999999996 nm`. The 4.44e-16 nm discrepancy is present
+before the operation, not evidence of a changed box. The corrected guard records
+raw stored box values and their units after initialization, then demands exact
+preservation in the source and independent result. Physical coordinate tolerances,
+image counterfactuals and all deadlines are unchanged. Preserve the one-pass/
+one-failure campaign; complete corrected clean graphical receiving is still due.

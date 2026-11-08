@@ -466,6 +466,8 @@ def main():
             "_origin_before=source_coordinates.copy();_origin_before[:,2,0]=5e-6;_origin_before[:,4,0]=-5e-6\n"
             "_origin_box=np.tile(np.diag([3.,4.,5.]),(3,1,1))\n"
             "view.addons.molsysmt.basic.set(coordinates=msm.pyunitwizard.quantity(_origin_before,'nm'),box=msm.pyunitwizard.quantity(_origin_box,'nm'))\n"
+            "_origin_stored_box=msm.pyunitwizard.get_value(view.molsys.structures.box).copy()\n"
+            "_origin_stored_box_unit=msm.pyunitwizard.get_unit(view.molsys.structures.box)\n"
             "_origin_revision=view.addons.molsysmt.get_sync_status()['target_revision']\n"
             "_origin_chemistry=msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict()\n"
             "view.interactions.attach(msm.Interactions.from_records([],n_atoms=62,n_structures=3,evaluated_structure_indices=[0,1,2],method='gui.origin.receiving'),name='origin_scope',assume_aligned=True)\n"
@@ -480,7 +482,8 @@ def main():
         )
         origins_middle = (
             "np.testing.assert_allclose(msm.pyunitwizard.get_value(view.get_coordinates(),to_unit='nm'),_origin_positive,rtol=0,atol=1e-11)\n"
-            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.molsys.structures.box,to_unit='nm'),_origin_box)\n"
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.molsys.structures.box),_origin_stored_box)\n"
+            "assert msm.pyunitwizard.get_unit(view.molsys.structures.box)==_origin_stored_box_unit\n"
             "assert view.addons.molsysmt.get_sync_status()['target_revision']==_origin_revision+1\n"
             "np.testing.assert_array_equal(view.molsys.interactions['origin_scope'].evaluated_structure_indices,[1])\n"
             "assert dict(msm.pyunitwizard.configure.get_standard_units())==_origin_policy\n"
@@ -488,14 +491,16 @@ def main():
         )
         final = (
             "np.testing.assert_allclose(msm.pyunitwizard.get_value(view.get_coordinates(),to_unit='nm'),_origin_negative,rtol=0,atol=1e-11)\n"
-            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.molsys.structures.box,to_unit='nm'),_origin_box)\n"
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.molsys.structures.box),_origin_stored_box)\n"
+            "assert msm.pyunitwizard.get_unit(view.molsys.structures.box)==_origin_stored_box_unit\n"
             "np.testing.assert_equal(msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict(),_origin_chemistry)\n"
             "assert view.addons.molsysmt.get_sync_status()['target_revision']==_origin_revision+2\n"
             "np.testing.assert_array_equal(view.molsys.interactions['origin_scope'].evaluated_structure_indices,[1])\n"
             "_origin_records=view.addons.manager.presentations.records();assert len(_origin_records)==1\n"
             "_origin_result=view.addons.manager.presentations.get(_origin_records[0]['id']);assert _origin_result.molsys is not view.molsys\n"
             "np.testing.assert_allclose(msm.pyunitwizard.get_value(_origin_result.get_coordinates(),to_unit='nm'),_origin_negative,rtol=0,atol=1e-11)\n"
-            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(_origin_result.molsys.structures.box,to_unit='nm'),_origin_box)\n"
+            "np.testing.assert_array_equal(msm.pyunitwizard.get_value(_origin_result.molsys.structures.box),_origin_stored_box)\n"
+            "assert msm.pyunitwizard.get_unit(_origin_result.molsys.structures.box)==_origin_stored_box_unit\n"
             "assert dict(msm.pyunitwizard.configure.get_standard_units())==_origin_policy\n"
             "_origin_context.__exit__(None,None,None)\n"
             "print('JUPYTER_ORIGINS_NATIVE_OK',2)\n"
