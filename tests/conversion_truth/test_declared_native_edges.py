@@ -127,7 +127,7 @@ def _source(form):
         oxygen = topology.add_atom("O", md.element.oxygen, group)
         for name in ("H1", "H2"):
             hydrogen = topology.add_atom(name, md.element.hydrogen, group)
-            topology.add_bond(oxygen, hydrogen)
+            topology.add_bond(oxygen, hydrogen, order=1)
         if form == "mdtraj.Topology":
             return topology
         return md.Trajectory(_water_coordinates(), topology)
@@ -142,7 +142,7 @@ def _source(form):
             hydrogen = topology.addAtom(
                 name, app.element.hydrogen, group, id=str(index)
             )
-            topology.addBond(oxygen, hydrogen)
+            topology.addBond(oxygen, hydrogen, type=app.Single, order=1)
         if form == "openmm.Topology":
             return topology
         return app.Modeller(topology, _water_coordinates()[0] * unit.nanometer)
@@ -182,6 +182,26 @@ def _water_coordinates():
     # A literal three-atom, two-structure fixture in nanometers.
     first = np.array([[0.0, 0.0, 0.0], [0.095, 0.0, 0.0], [-0.024, 0.092, 0.0]])
     return np.stack([first, first + [0.1, 0.2, 0.3]])
+
+
+@pytest.mark.parametrize(
+    "form", ["mdtraj.Topology", "mdtraj.Trajectory", "openmm.Topology"]
+)
+def test_external_water_fixtures_preserve_explicit_single_bond_orders(form):
+    pytest.importorskip("parmed")
+    source = _source(form)
+    expected_pairs = [(0, 1), (0, 2)]
+    exported = msm.convert(source, to_form="parmed.Structure")
+    assert len(exported.atoms) == 3
+    assert [
+        (bond.atom1.idx, bond.atom2.idx) for bond in exported.bonds
+    ] == expected_pairs
+    assert [bond.order for bond in exported.bonds] == [1, 1]
+    # Unknown orders must still fail; these fixtures explicitly declare the
+    # independently known single O–H bonds of water rather than assuming them.
+    topology = source.topology if form == "mdtraj.Trajectory" else source
+    bonds = topology.bonds() if form == "openmm.Topology" else topology.bonds
+    assert [bond.order for bond in bonds] == [1, 1]
 
 
 def _edge_arguments(source, target):

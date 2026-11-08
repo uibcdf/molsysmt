@@ -194,8 +194,11 @@ def test_declared_docking_edge_executes_directly_and_publicly(
                 item.close()
 
 
-def test_docking_routes_do_not_attempt_optional_engine_imports():
-    script = r"""
+def test_docking_routes_do_not_attempt_optional_engine_imports(tmp_path):
+    source_root = Path(__file__).resolve().parents[2]
+    script = (
+        f"import sys\nsys.path.insert(0, {str(source_root)!r})\n"
+        + r"""
 import importlib.abc
 import importlib.machinery
 import sys
@@ -232,11 +235,13 @@ assert not attempted, attempted
 assert not engines.intersection(name.split(".")[0] for name in sys.modules)
 print(len(CASES))
 """
+    )
     result = subprocess.run(
         [sys.executable, "-c", script],
         capture_output=True,
         text=True,
         timeout=120,
+        cwd=tmp_path,
     )
     assert result.returncode == 0, result.stdout + result.stderr
     assert result.stdout.strip() == str(len(CASES))

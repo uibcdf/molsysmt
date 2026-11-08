@@ -105,7 +105,7 @@ ROUTES = {
     "openmm.Topology": ("convert", "molsys"),
     "openff.Molecule": ("openff", "molecule"),
     "openff.Topology": ("openff", "topology"),
-    "parmed.Structure": ("convert", "molsys"),
+    "parmed.Structure": ("parmed", "explicit-water"),
     "pdbfixer.PDBFixer": ("convert", "molsys"),
     "pytraj.Topology": ("convert", "molsys"),
     "pytraj.Trajectory": ("convert", "molsys"),
@@ -186,6 +186,23 @@ def origins():
 
 def _build(form, origins):
     route = ROUTES[form]
+    if route[0] == "parmed":
+        pmd = pytest.importorskip("parmed")
+        item = pmd.Structure()
+        for name, atomic_number, mass in (
+            ("O", 8, 15.999),
+            ("H1", 1, 1.008),
+            ("H2", 1, 1.008),
+        ):
+            item.add_atom(
+                pmd.Atom(name=name, atomic_number=atomic_number, mass=mass),
+                "HOH",
+                1,
+                chain="A",
+            )
+        for index in (1, 2):
+            item.bonds.append(pmd.Bond(item.atoms[0], item.atoms[index], order=1))
+        return item
     if form == "pytraj.Trajectory":
         try:
             from molsysmt.form.pytraj_Trajectory._runtime import (
