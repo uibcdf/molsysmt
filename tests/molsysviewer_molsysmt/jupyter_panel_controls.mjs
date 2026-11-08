@@ -35,5 +35,6 @@ export async function openMolecularPanel(page,panel){
   if(!await tab.isVisible())await page.locator('[data-molsysviewer-panel-stack-option="addons"], [data-molsysviewer-panel-stack-current="addons"]').click();
   await tab.waitFor({state:'visible'});await tab.click();
   await page.locator(`[data-molsysviewer-addon-panel-tab="${panel}"]`).click();
-  await page.locator(`.msm-${panel}`).waitFor();
+  // Geometry reuses System styling and identifies itself with this heading.
+  await page.locator(panel==='geometry'?'[data-geometry-heading]':`.msm-${panel}`).waitFor();
 }

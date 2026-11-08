@@ -38,6 +38,27 @@ relaxed. This extends the already received helper to old consumers; it does not
 change scientific or Viewer product code. Directed System/results receiving and
 then a clean combined receiving campaign remain required before closure.
 
+### Directed results and receiving-helper correction
+
+Clean navigation source `db51a8db3efd0d34fe9b09ec03c3bc636819d400` passes
+System's six actual-Jupyter checks. The two-CPU campaign has one pass and a
+Results Node subprocess timeout at its unchanged 240 s limit. On the same
+unchanged source, the isolated Results guard passes all seven checks in
+126.53 s with four CPU equivalents and the same 4-GiB cap. CPU throttling was
+recorded in both profiles; this is a bounded execution observation, not an
+exhaustive causal or performance claim. No timeout was raised to obtain a pass.
+
+The subsequent fourteen-scenario campaign exposes a mistake in extending the
+helper: Geometry uses the shared `msm-system` class and the real
+`data-geometry-heading` marker, not a `msm-geometry` class. Translation and
+centering fail that added helper wait after System and Results pass. The
+campaign is deliberately interrupted (exit 2, two passes/two failures, four of
+fourteen completed); all 8,560 owner and 2,463 verified-export inputs remain
+unchanged. The helper now waits for Geometry's actual heading, preserving the
+original driver heading checks as well. Directed Geometry and complete combined
+receiving remain due. The original failures and both deliberate stops are
+retained, without crediting uncompleted scenarios.
+
 ## Isolated owner receiving review — 2026-11-07
 
 The complete 5,009-case Python selection on isolated merge `653ed8e0` does not
