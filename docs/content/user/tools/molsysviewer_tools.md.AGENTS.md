@@ -616,14 +616,16 @@ nearest-image semantics distinct, with explicit length units and provided-bond
 component versus atomwise grouping. Temporal unwrapping follows supplied order
 per atom, not within-structure molecular reconstruction. Preserve boxes, exact
 selected scope, source ownership, coverage and synchronization-only retry.
-Keep interim source admission visible: exact lower-triangular cells (#607) and
-fixed selected cells for temporal unwrapping (#606). Do not copy/reorient cells
-or implement periodic formulas in the addon. Native #605–#608 are owner-resolved;
-retain consumer admission until exact combined receiving. Cell editing remains
-required and must receive the delivered #605 validation; general-cell support is
-not silently deferred or declared complete.
+The general-row/changing-cell source editor is received on 2f0eeb1c1 after
+native #606/#607 corrections. Reuse the shared finite/nonsingular physical-box
+validator with explicit unit extraction; never copy/reorient cells or add image
+formulas. Each temporal transition uses the previous selected structure's actual
+cell. Retain independent lattice, unit, order, invalid-input/no-write, effect and
+actual Mol*/Jupyter/popup controls. Cell editing still requires delivered #605
+validation; tiny-boundary-origin cross-policy GUI receiving and the remaining
+periodic family must not be silently deferred or declared complete.
 Keep complete expert native signatures and their actual limits distinct from
-this graphical admission. Follow devguide/periodic_tools_gui_qualification.md.
+source/human/installed qualification. Follow devguide/periodic_tools_gui_qualification.md.
 
 Preserve Chemistry inspection as read-only native chemical-readiness/hydrogen
 reports over one explicit structure and stated chemical state. Distinguish

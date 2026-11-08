@@ -542,14 +542,16 @@ a deliberately supplied sequence of at least two structures. Both retain the
 same reviewed current/independent effects, box vectors, selected scope and
 projection-only recovery. No periodic formula or chemical preparation is added.
 
-The [bounded source qualification](periodic_tools_gui_qualification.md) admits
-exact lower-triangular row-vector cells; temporal unwrapping additionally needs
-identical selected cells. These retained consumer controls await receiving of
-the delivered native #607/#606 corrections; they are not general physical
-definitions. The expert API remains native. The owner has also repaired #608;
-combined cross-policy receiving remains due without a scientific addon workaround.
-General orientation, changing-cell unwrapping and the cell editor using the
-delivered #605 validation remain required before declaring this family complete.
+The [source qualification](periodic_tools_gui_qualification.md) now receives
+general row-vector cells and changing-cell temporal unwrapping on `2f0eeb1c1`.
+The editor reuses native finite/nonsingular validation and each previous selected
+cell; no image algorithm is duplicated. Clean receiving passes 336 source cases
+and both eight-step fixed/general actual-Jupyter scenarios. The
+[receipt](../devtools/data/general_periodic_gui_receiving_421_20261108.json)
+retains the failing original counterexample and fixture-development failures.
+Cell assignment using #605 and tiny-boundary-origin cross-policy GUI receiving
+remain explicit work; no full-family, human or installed acceptance follows.
+
 No nonfunctional cell control is registered. The delivered owner corrections
 trigger review of these guards, retaining the 2026-11-13 checkpoint. The
 [periodic source receipt](../devtools/data/molsysviewer_tools_periodic_receiving_20261106.json)

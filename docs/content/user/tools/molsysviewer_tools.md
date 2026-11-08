@@ -5575,13 +5575,14 @@ ownership rules above apply. Native analysis coverage follows coordinate edits;
 Scene Undo does not restore them. Retry only **Update view** after a completed
 calculation whose scene projection failed.
 
-The current development GUI admits conventional lower-triangular box vectors.
-It rejects other orientations before a molecular edit, pending consumer receiving
-of the native correction in [#607](https://github.com/uibcdf/molsysmt/issues/607). This is a
-qualification boundary of the current editor, not a definition of every valid
-physical box or a new restriction on the expert wrapper. General orientation
-remains required work. A stored box is necessary; the graphical cell editor
-still needs to receive the delivered native factory validation
+The development editor accepts finite, nonsingular row-vector cells, including
+oriented orthogonal and triclinic boxes. Each structure uses its stored box;
+wrapping can process different cells in one selection. Review validates the
+selected cells without changing their vectors or calculating periodic images.
+The native operation owns image choice and reconstruction. These are source-
+received capabilities, not a universal periodic-accuracy or installed-package
+claim. A stored box is necessary; the graphical cell editor remains pending
+receiving of the native factory validation
 ([#605](https://github.com/uibcdf/molsysmt/issues/605)).
 
 The owner has corrected the handling of very small nonzero reference points
@@ -5606,14 +5607,18 @@ result explicitly. Only the chosen atoms and structures change; an independent
 result retains all source structures in their original storage order. Unselected
 structures keep their original coordinates and the box vectors stay fixed.
 
-The current GUI admits an identical periodic cell across the selected sequence,
-in the conventional orientation described above. Varying-cell support is
-pending consumer receiving of the delivered native correction in
-[#606](https://github.com/uibcdf/molsysmt/issues/606). The limitation is explicit
-and temporary; the full periodic task family is not yet complete. The expert
-`pbc.unwrap` route retains the native signature, supplied order and result/error
-semantics, with the reported native limits. Human Jupyter/visible Qt acceptance,
-owner integration and installed-package qualification remain separate.
+Cells may change their lengths, orientation and orthogonal/triclinic class.
+For each transition, native unwrapping uses the box of the **previous selected
+structure**, in the supplied order. It does not use the destination structure's
+cell or assume the first cell applies throughout. The first selected structure
+anchors continuity. Choosing a different nonconsecutive order can therefore
+produce a different image history.
+
+The fixed-cell and general/changing-cell source workflows have independent
+lattice, unit, order and actual Mol*/Jupyter/popup receiving. Human Qt,
+installed-package and final-candidate qualification remain separate. The cell
+editor and remaining reference-point receiving still prevent declaring the
+whole periodic family complete.
 
 ## Inspecting stored chemistry through Molecular tools
 

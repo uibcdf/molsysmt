@@ -3506,3 +3506,21 @@ reach the scientific guard. Injecting already-stored invalid boxes instead
 passes all six specific-diagnostic/no-write cases. Preserve these attempts;
 clean combined and actual fixed/general Jupyter receiving remain due. No
 additional intent or release credit is claimed before that receiving.
+
+### General periodic clean receiving completed — 2026-11-08
+
+Clean `2f0eeb1c117f9217de58882162016408a85b383d` passes all 336 directed source
+cases, zero skips/failures/errors, and both original/general actual-Jupyter
+guards (sixteen browser steps). The new fixture independently distinguishes
+previous/current transition cells. All 8,561 owner and 2,463 verified-export
+inputs remain unchanged; the Rust backend is unchanged. The
+[receipt](../../devtools/data/general_periodic_gui_receiving_421_20261108.json)
+retains the original rejected valid box, initial 334/336 and six pending-edit
+fixture failures, plus the corrected six invalid-storage controls.
+
+User Guide, paired content contract, current qualification/design and four course
+narratives now describe native row bases, changing cells and previous-selected
+cell semantics. Course code/outputs are preserved; no fresh full-course execution
+is claimed. Source delivery/fast gates and public verification still precede
+crediting the one existing general-periodic intent. Cell assignment, tiny-boundary
+reference-point receiving and all other pending intents stay explicit.

@@ -1,0 +1,4145 @@
+{
+  "schema_version": "molsysmt.general_periodic_gui_receiving@1",
+  "date": "2026-11-08",
+  "owner_issue": "uibcdf/molsysmt#421",
+  "source": "2f0eeb1c117f9217de58882162016408a85b383d",
+  "viewer_source": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "scope": "Source-owner receiving of the existing general-periodic GUI intent, not a complete periodic family, installed package, other platform or human Qt qualification.",
+  "runs": {
+    "pbc-general-baseline": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/pbc-general-baseline.xml",
+          "-n0",
+          "tests/molsysviewer_molsysmt/test_periodic_panel.py::test_gui_general_wrapping_uses_the_stored_row_basis",
+          "--maxfail=1"
+        ],
+        "exit_code": 1,
+        "seconds": 6.247678839135915,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "d3f58c49159d426f5c3a4a1b951932637f81c67e",
+        "starting_git_status": " M tests/molsysviewer_molsysmt/test_periodic_panel.py\n",
+        "ending_git_status": " M tests/molsysviewer_molsysmt/test_periodic_panel.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8561
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "1",
+          "time": "3.698",
+          "timestamp": "2026-11-08T04:57:35.987645-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-primary-update-nm]",
+          "seconds": 2.788,
+          "outcome": "failure"
+        }
+      ],
+      "resources": {
+        "seconds": 12.012334362138063,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.458984375,
+            0.8271484375,
+            1.9833984375
+          ],
+          "cpu_utilization": 0.02057200200702458,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16218443776,
+        "cgroup_memory_peak_bytes": 367132672,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 4,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 11567160\nuser_usec 10549290\nsystem_usec 1017870\nnice_usec 10559000\ncore_sched.force_idle_usec 0\nnr_periods 120\nnr_throttled 15\nthrottled_usec 304659\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "3ae67e0d582c5e4b0cbd064dd43fbe20a30f3f02797450b8fa081d697aa461a8",
+        "-bounded.json": "a115fcb04d4d90b2f7b7a161129db610f700ebc7c3251e090cfcdcb946e21309",
+        ".xml": "6fad65af823e701ceb1e151c2c92db3ae98e4a9ff427e79d39d14d2f0675ebe0",
+        ".log": "591fc1d55e29d8b67459e4b5074f100ee28b71d5bf917201104083e40a78c910",
+        "-inputs-before.json": "e51ae5d800ae25c00807a0e1661167f45f9dec43d38f2f8e3b8a42f4fb06e2c8",
+        "-inputs-after.json": "e51ae5d800ae25c00807a0e1661167f45f9dec43d38f2f8e3b8a42f4fb06e2c8",
+        "-reference-driver.py": "a70a3bdf33d4b2cf66712ebc805ea50fd2cf04b9824dca35861a7258d1449172",
+        "-resource-driver.py": "617937358386dc11bdb3fcf27c1b257b04144bf051d3f6f29d8ca6cc82552d01"
+      },
+      "jupyter": []
+    },
+    "pbc-general-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/pbc-general-directed.xml",
+          "-n0",
+          "tests/molsysviewer_molsysmt/test_periodic_panel.py",
+          "tests/molsysviewer_molsysmt/test_pbc_edit_tools.py",
+          "tests/pbc/test_general_cell_wrapping.py",
+          "tests/pbc/unwrap/test_changing_cells.py",
+          "tests/scientific_truth/pbc/test_wrapping.py"
+        ],
+        "exit_code": 1,
+        "seconds": 56.44108581007458,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "d3f58c49159d426f5c3a4a1b951932637f81c67e",
+        "starting_git_status": " M molsysviewer_molsysmt/_geometry_panel.py\n M molsysviewer_molsysmt/_geometry_panel_frontend.py\n M tests/molsysviewer_molsysmt/test_periodic_panel.py\n",
+        "ending_git_status": " M molsysviewer_molsysmt/_geometry_panel.py\n M molsysviewer_molsysmt/_geometry_panel_frontend.py\n M tests/molsysviewer_molsysmt/test_periodic_panel.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8561
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "2",
+          "skipped": "0",
+          "tests": "336",
+          "time": "53.778",
+          "timestamp": "2026-11-08T04:59:02.884413-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-False-False-primary]",
+          "seconds": 2.678,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-False-False-centered]",
+          "seconds": 0.28,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-False-False-nearest]",
+          "seconds": 0.28,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-False-True-primary]",
+          "seconds": 0.272,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-False-True-centered]",
+          "seconds": 0.283,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-False-True-nearest]",
+          "seconds": 0.273,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-True-False-primary]",
+          "seconds": 0.269,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-True-False-centered]",
+          "seconds": 0.271,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-True-False-nearest]",
+          "seconds": 0.273,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-True-True-primary]",
+          "seconds": 0.266,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-True-True-centered]",
+          "seconds": 0.262,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-True-True-nearest]",
+          "seconds": 0.263,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-False-False-primary]",
+          "seconds": 0.26,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-False-False-centered]",
+          "seconds": 0.259,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-False-False-nearest]",
+          "seconds": 0.255,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-False-True-primary]",
+          "seconds": 0.266,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-False-True-centered]",
+          "seconds": 0.265,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-False-True-nearest]",
+          "seconds": 0.253,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-True-False-primary]",
+          "seconds": 0.258,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-True-False-centered]",
+          "seconds": 0.265,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-True-False-nearest]",
+          "seconds": 0.251,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-True-True-primary]",
+          "seconds": 0.258,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-True-True-centered]",
+          "seconds": 0.257,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-True-True-nearest]",
+          "seconds": 0.265,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[update-False-primary]",
+          "seconds": 0.303,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[update-False-centered]",
+          "seconds": 0.295,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[update-False-nearest]",
+          "seconds": 0.291,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[update-True-primary]",
+          "seconds": 0.291,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[update-True-centered]",
+          "seconds": 0.292,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[update-True-nearest]",
+          "seconds": 0.286,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[result-False-primary]",
+          "seconds": 0.291,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[result-False-centered]",
+          "seconds": 0.303,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[result-False-nearest]",
+          "seconds": 0.305,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[result-True-primary]",
+          "seconds": 0.295,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[result-True-centered]",
+          "seconds": 0.277,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[result-True-nearest]",
+          "seconds": 0.291,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_temporal_unwrap_uses_fixed_cell_and_explicit_sequence[update-False]",
+          "seconds": 0.289,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_temporal_unwrap_uses_fixed_cell_and_explicit_sequence[update-True]",
+          "seconds": 0.302,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_temporal_unwrap_uses_fixed_cell_and_explicit_sequence[result-False]",
+          "seconds": 0.285,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_temporal_unwrap_uses_fixed_cell_and_explicit_sequence[result-True]",
+          "seconds": 0.288,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-primary-update-nm]",
+          "seconds": 0.277,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-primary-update-pm]",
+          "seconds": 0.267,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-primary-result-nm]",
+          "seconds": 0.273,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-primary-result-pm]",
+          "seconds": 0.283,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-centered-update-nm]",
+          "seconds": 0.279,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-centered-update-pm]",
+          "seconds": 0.267,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-centered-result-nm]",
+          "seconds": 0.26,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-centered-result-pm]",
+          "seconds": 0.268,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-nearest-update-nm]",
+          "seconds": 0.273,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-nearest-update-pm]",
+          "seconds": 0.271,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-nearest-result-nm]",
+          "seconds": 0.255,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-nearest-result-pm]",
+          "seconds": 0.266,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-primary-update-nm]",
+          "seconds": 0.265,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-primary-update-pm]",
+          "seconds": 0.267,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-primary-result-nm]",
+          "seconds": 0.257,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-primary-result-pm]",
+          "seconds": 0.268,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-centered-update-nm]",
+          "seconds": 0.276,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-centered-update-pm]",
+          "seconds": 0.272,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-centered-result-nm]",
+          "seconds": 0.257,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-centered-result-pm]",
+          "seconds": 0.268,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-nearest-update-nm]",
+          "seconds": 0.267,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-nearest-update-pm]",
+          "seconds": 0.265,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-nearest-result-nm]",
+          "seconds": 0.264,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-nearest-result-pm]",
+          "seconds": 0.267,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures0-update-nm]",
+          "seconds": 0.272,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures0-update-pm]",
+          "seconds": 0.274,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures0-result-nm]",
+          "seconds": 0.266,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures0-result-pm]",
+          "seconds": 0.258,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures1-update-nm]",
+          "seconds": 0.267,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures1-update-pm]",
+          "seconds": 0.264,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures1-result-nm]",
+          "seconds": 0.266,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures1-result-pm]",
+          "seconds": 0.258,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures2-update-nm]",
+          "seconds": 0.272,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures2-update-pm]",
+          "seconds": 0.279,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures2-result-nm]",
+          "seconds": 0.262,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures2-result-pm]",
+          "seconds": 0.259,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[missing-wrap]",
+          "seconds": 0.261,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[missing-unwrap]",
+          "seconds": 0.266,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[nonfinite-wrap]",
+          "seconds": 0.249,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[nonfinite-unwrap]",
+          "seconds": 0.249,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[singular-wrap]",
+          "seconds": 0.261,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[singular-unwrap]",
+          "seconds": 0.268,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_inputs_are_not_implicit_defaults[parameters0]",
+          "seconds": 0.238,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_inputs_are_not_implicit_defaults[parameters1]",
+          "seconds": 0.232,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_inputs_are_not_implicit_defaults[parameters2]",
+          "seconds": 0.235,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_inputs_are_not_implicit_defaults[parameters3]",
+          "seconds": 0.235,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_inputs_are_not_implicit_defaults[parameters4]",
+          "seconds": 0.241,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_inputs_are_not_implicit_defaults[parameters5]",
+          "seconds": 0.242,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_parameters_expire_confirmation[change0]",
+          "seconds": 0.266,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_parameters_expire_confirmation[change1]",
+          "seconds": 0.246,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_parameters_expire_confirmation[change2]",
+          "seconds": 0.244,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_projection_recovery_does_not_repeat_science[wrap]",
+          "seconds": 0.269,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_projection_recovery_does_not_repeat_science[unwrap]",
+          "seconds": 0.271,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_scientific_signature_defaults_and_effect_help[wrap_to_pbc]",
+          "seconds": 0.171,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_scientific_signature_defaults_and_effect_help[wrap_to_mic]",
+          "seconds": 0.184,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_scientific_signature_defaults_and_effect_help[unwrap]",
+          "seconds": 0.173,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[nm-False-False-wrap_to_pbc]",
+          "seconds": 0.197,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[nm-False-False-wrap_to_mic]",
+          "seconds": 0.198,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[nm-False-True-wrap_to_pbc]",
+          "seconds": 0.198,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[nm-False-True-wrap_to_mic]",
+          "seconds": 0.204,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[nm-True-False-wrap_to_pbc]",
+          "seconds": 0.193,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[nm-True-False-wrap_to_mic]",
+          "seconds": 0.2,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[nm-True-True-wrap_to_pbc]",
+          "seconds": 0.206,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[nm-True-True-wrap_to_mic]",
+          "seconds": 0.206,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[angstrom-False-False-wrap_to_pbc]",
+          "seconds": 0.207,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[angstrom-False-False-wrap_to_mic]",
+          "seconds": 0.193,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[angstrom-False-True-wrap_to_pbc]",
+          "seconds": 0.2,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[angstrom-False-True-wrap_to_mic]",
+          "seconds": 0.202,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[angstrom-True-False-wrap_to_pbc]",
+          "seconds": 0.195,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[angstrom-True-False-wrap_to_mic]",
+          "seconds": 0.204,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[angstrom-True-True-wrap_to_pbc]",
+          "seconds": 0.197,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[angstrom-True-True-wrap_to_mic]",
+          "seconds": 0.196,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[pm-False-False-wrap_to_pbc]",
+          "seconds": 0.199,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[pm-False-False-wrap_to_mic]",
+          "seconds": 0.196,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[pm-False-True-wrap_to_pbc]",
+          "seconds": 0.208,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[pm-False-True-wrap_to_mic]",
+          "seconds": 0.197,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[pm-True-False-wrap_to_pbc]",
+          "seconds": 0.205,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[pm-True-False-wrap_to_mic]",
+          "seconds": 0.199,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[pm-True-True-wrap_to_pbc]",
+          "seconds": 0.195,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[pm-True-True-wrap_to_mic]",
+          "seconds": 0.207,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_origin_and_center_are_native_periodic_cell_parameters[False-False-False]",
+          "seconds": 0.181,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_origin_and_center_are_native_periodic_cell_parameters[False-False-True]",
+          "seconds": 0.178,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_origin_and_center_are_native_periodic_cell_parameters[False-True-False]",
+          "seconds": 0.185,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_origin_and_center_are_native_periodic_cell_parameters[False-True-True]",
+          "seconds": 0.182,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_origin_and_center_are_native_periodic_cell_parameters[True-False-False]",
+          "seconds": 0.194,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_origin_and_center_are_native_periodic_cell_parameters[True-False-True]",
+          "seconds": 0.183,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_origin_and_center_are_native_periodic_cell_parameters[True-True-False]",
+          "seconds": 0.185,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_origin_and_center_are_native_periodic_cell_parameters[True-True-True]",
+          "seconds": 0.181,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_independent_output_preserves_input_and_weighted_centering[nm-wrap_to_pbc]",
+          "seconds": 0.187,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_independent_output_preserves_input_and_weighted_centering[nm-wrap_to_mic]",
+          "seconds": 0.187,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_independent_output_preserves_input_and_weighted_centering[angstrom-wrap_to_pbc]",
+          "seconds": 0.2,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_independent_output_preserves_input_and_weighted_centering[angstrom-wrap_to_mic]",
+          "seconds": 0.188,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_independent_output_preserves_input_and_weighted_centering[pm-wrap_to_pbc]",
+          "seconds": 0.189,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_independent_output_preserves_input_and_weighted_centering[pm-wrap_to_mic]",
+          "seconds": 0.192,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_component_wrapping_reconstructs_actual_peptide_geometry[False-False-wrap_to_pbc]",
+          "seconds": 0.182,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_component_wrapping_reconstructs_actual_peptide_geometry[False-False-wrap_to_mic]",
+          "seconds": 0.199,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_component_wrapping_reconstructs_actual_peptide_geometry[False-True-wrap_to_pbc]",
+          "seconds": 0.185,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_component_wrapping_reconstructs_actual_peptide_geometry[False-True-wrap_to_mic]",
+          "seconds": 0.182,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_component_wrapping_reconstructs_actual_peptide_geometry[True-False-wrap_to_pbc]",
+          "seconds": 0.186,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_component_wrapping_reconstructs_actual_peptide_geometry[True-False-wrap_to_mic]",
+          "seconds": 0.185,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_component_wrapping_reconstructs_actual_peptide_geometry[True-True-wrap_to_pbc]",
+          "seconds": 0.195,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_component_wrapping_reconstructs_actual_peptide_geometry[True-True-wrap_to_mic]",
+          "seconds": 0.186,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-nm-False-False]",
+          "seconds": 0.188,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-nm-False-True]",
+          "seconds": 0.182,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-nm-True-False]",
+          "seconds": 0.187,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-nm-True-True]",
+          "seconds": 0.181,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-angstrom-False-False]",
+          "seconds": 0.191,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-angstrom-False-True]",
+          "seconds": 0.183,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-angstrom-True-False]",
+          "seconds": 0.184,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-angstrom-True-True]",
+          "seconds": 0.183,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-pm-False-False]",
+          "seconds": 0.18,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-pm-False-True]",
+          "seconds": 0.191,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-pm-True-False]",
+          "seconds": 0.184,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-pm-True-True]",
+          "seconds": 0.186,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-nm-False-False]",
+          "seconds": 0.184,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-nm-False-True]",
+          "seconds": 0.179,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-nm-True-False]",
+          "seconds": 0.184,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-nm-True-True]",
+          "seconds": 0.188,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-angstrom-False-False]",
+          "seconds": 0.185,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-angstrom-False-True]",
+          "seconds": 0.188,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-angstrom-True-False]",
+          "seconds": 0.199,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-angstrom-True-True]",
+          "seconds": 0.181,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-pm-False-False]",
+          "seconds": 0.192,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-pm-False-True]",
+          "seconds": 0.186,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-pm-True-False]",
+          "seconds": 0.184,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-pm-True-True]",
+          "seconds": 0.184,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-nm-False-wrap_to_pbc]",
+          "seconds": 0.206,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-nm-False-wrap_to_mic]",
+          "seconds": 0.217,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-nm-True-wrap_to_pbc]",
+          "seconds": 0.208,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-nm-True-wrap_to_mic]",
+          "seconds": 0.205,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-angstrom-False-wrap_to_pbc]",
+          "seconds": 0.214,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-angstrom-False-wrap_to_mic]",
+          "seconds": 0.209,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-angstrom-True-wrap_to_pbc]",
+          "seconds": 0.221,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-angstrom-True-wrap_to_mic]",
+          "seconds": 0.209,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-pm-False-wrap_to_pbc]",
+          "seconds": 0.211,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-pm-False-wrap_to_mic]",
+          "seconds": 0.211,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-pm-True-wrap_to_pbc]",
+          "seconds": 0.212,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-pm-True-wrap_to_mic]",
+          "seconds": 0.212,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-nm-False-wrap_to_pbc]",
+          "seconds": 0.22,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-nm-False-wrap_to_mic]",
+          "seconds": 0.208,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-nm-True-wrap_to_pbc]",
+          "seconds": 0.206,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-nm-True-wrap_to_mic]",
+          "seconds": 0.215,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-angstrom-False-wrap_to_pbc]",
+          "seconds": 0.21,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-angstrom-False-wrap_to_mic]",
+          "seconds": 0.208,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-angstrom-True-wrap_to_pbc]",
+          "seconds": 0.212,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-angstrom-True-wrap_to_mic]",
+          "seconds": 0.206,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-pm-False-wrap_to_pbc]",
+          "seconds": 0.218,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-pm-False-wrap_to_mic]",
+          "seconds": 0.208,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-pm-True-wrap_to_pbc]",
+          "seconds": 0.205,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-pm-True-wrap_to_mic]",
+          "seconds": 0.21,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_prewrite_rejections_preserve_science_and_clean_sync_state[arguments0-wrap_to_pbc]",
+          "seconds": 0.181,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_prewrite_rejections_preserve_science_and_clean_sync_state[arguments0-wrap_to_mic]",
+          "seconds": 0.189,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_prewrite_rejections_preserve_science_and_clean_sync_state[arguments0-unwrap]",
+          "seconds": 0.181,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_prewrite_rejections_preserve_science_and_clean_sync_state[arguments1-wrap_to_pbc]",
+          "seconds": 0.187,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_prewrite_rejections_preserve_science_and_clean_sync_state[arguments1-wrap_to_mic]",
+          "seconds": 0.187,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_prewrite_rejections_preserve_science_and_clean_sync_state[arguments1-unwrap]",
+          "seconds": 0.186,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_prewrite_rejections_preserve_science_and_clean_sync_state[arguments2-wrap_to_pbc]",
+          "seconds": 0.191,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_prewrite_rejections_preserve_science_and_clean_sync_state[arguments2-wrap_to_mic]",
+          "seconds": 0.186,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_prewrite_rejections_preserve_science_and_clean_sync_state[arguments2-unwrap]",
+          "seconds": 0.182,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_missing_box_is_native_error_without_coordinate_publication[wrap_to_pbc]",
+          "seconds": 0.179,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_missing_box_is_native_error_without_coordinate_publication[wrap_to_mic]",
+          "seconds": 0.18,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_missing_box_is_native_error_without_coordinate_publication[unwrap]",
+          "seconds": 0.179,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_deferred_pbc_and_structure_edits_compose_and_preserve_scene_owners",
+          "seconds": 0.235,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_scene_retry_does_not_replay_completed_periodic_edit",
+          "seconds": 0.218,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_cached_editor_lifetime_and_closed_primary_guards[wrap_to_pbc]",
+          "seconds": 0.009,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_cached_editor_lifetime_and_closed_primary_guards[wrap_to_mic]",
+          "seconds": 0.008,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_cached_editor_lifetime_and_closed_primary_guards[unwrap]",
+          "seconds": 0.008,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-nm-primary-quarter-turn]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-nm-primary-rotated-orthogonal]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-nm-primary-rotated-triclinic]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-nm-centered-quarter-turn]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-nm-centered-rotated-orthogonal]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-nm-centered-rotated-triclinic]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-nm-mic-quarter-turn]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-nm-mic-rotated-orthogonal]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-nm-mic-rotated-triclinic]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-pm-primary-quarter-turn]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-pm-primary-rotated-orthogonal]",
+          "seconds": 0.024,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-pm-primary-rotated-triclinic]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-pm-centered-quarter-turn]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-pm-centered-rotated-orthogonal]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-pm-centered-rotated-triclinic]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-pm-mic-quarter-turn]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-pm-mic-rotated-orthogonal]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-pm-mic-rotated-triclinic]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-m-primary-quarter-turn]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-m-primary-rotated-orthogonal]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-m-primary-rotated-triclinic]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-m-centered-quarter-turn]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-m-centered-rotated-orthogonal]",
+          "seconds": 0.023,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-m-centered-rotated-triclinic]",
+          "seconds": 0.024,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-m-mic-quarter-turn]",
+          "seconds": 0.027,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-m-mic-rotated-orthogonal]",
+          "seconds": 0.025,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-m-mic-rotated-triclinic]",
+          "seconds": 0.023,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-nm-primary-quarter-turn]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-nm-primary-rotated-orthogonal]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-nm-primary-rotated-triclinic]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-nm-centered-quarter-turn]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-nm-centered-rotated-orthogonal]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-nm-centered-rotated-triclinic]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-nm-mic-quarter-turn]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-nm-mic-rotated-orthogonal]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-nm-mic-rotated-triclinic]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-pm-primary-quarter-turn]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-pm-primary-rotated-orthogonal]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-pm-primary-rotated-triclinic]",
+          "seconds": 0.024,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-pm-centered-quarter-turn]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-pm-centered-rotated-orthogonal]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-pm-centered-rotated-triclinic]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-pm-mic-quarter-turn]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-pm-mic-rotated-orthogonal]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-pm-mic-rotated-triclinic]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-m-primary-quarter-turn]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-m-primary-rotated-orthogonal]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-m-primary-rotated-triclinic]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-m-centered-quarter-turn]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-m-centered-rotated-orthogonal]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-m-centered-rotated-triclinic]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-m-mic-quarter-turn]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-m-mic-rotated-orthogonal]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-m-mic-rotated-triclinic]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_single_vector_kernel_uses_the_general_basis[primary-quarter-turn]",
+          "seconds": 0.002,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_single_vector_kernel_uses_the_general_basis[primary-rotated-orthogonal]",
+          "seconds": 0.002,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_single_vector_kernel_uses_the_general_basis[primary-rotated-triclinic]",
+          "seconds": 0.002,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_single_vector_kernel_uses_the_general_basis[centered-quarter-turn]",
+          "seconds": 0.002,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_single_vector_kernel_uses_the_general_basis[centered-rotated-orthogonal]",
+          "seconds": 0.002,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_single_vector_kernel_uses_the_general_basis[centered-rotated-triclinic]",
+          "seconds": 0.002,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_single_vector_kernel_uses_the_general_basis[mic-quarter-turn]",
+          "seconds": 0.002,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_single_vector_kernel_uses_the_general_basis[mic-rotated-orthogonal]",
+          "seconds": 0.003,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_single_vector_kernel_uses_the_general_basis[mic-rotated-triclinic]",
+          "seconds": 0.003,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[nm-primary-quarter-turn]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[nm-primary-rotated-orthogonal]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[nm-primary-rotated-triclinic]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[nm-centered-quarter-turn]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[nm-centered-rotated-orthogonal]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[nm-centered-rotated-triclinic]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[nm-mic-quarter-turn]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[nm-mic-rotated-orthogonal]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[nm-mic-rotated-triclinic]",
+          "seconds": 0.03,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[m-primary-quarter-turn]",
+          "seconds": 0.034,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[m-primary-rotated-orthogonal]",
+          "seconds": 0.038,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[m-primary-rotated-triclinic]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[m-centered-quarter-turn]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[m-centered-rotated-orthogonal]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[m-centered-rotated-triclinic]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[m-mic-quarter-turn]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[m-mic-rotated-orthogonal]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[m-mic-rotated-triclinic]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_reclassifies_each_previous_transition_cell[False-nm-False]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_reclassifies_each_previous_transition_cell[False-nm-True]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_reclassifies_each_previous_transition_cell[False-pm-False]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_reclassifies_each_previous_transition_cell[False-pm-True]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_reclassifies_each_previous_transition_cell[True-nm-False]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_reclassifies_each_previous_transition_cell[True-nm-True]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_reclassifies_each_previous_transition_cell[True-pm-False]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_reclassifies_each_previous_transition_cell[True-pm-True]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_uses_previous_cell_in_requested_structure_order[order0]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_uses_previous_cell_in_requested_structure_order[order1]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[0.5-0.5-False-nm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[0.5-0.5-False-pm]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[0.5-0.5-True-nm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[0.5-0.5-True-pm]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[1.5--0.5-False-nm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[1.5--0.5-False-pm]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[1.5--0.5-True-nm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[1.5--0.5-True-pm]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[-0.5--0.5-False-nm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[-0.5--0.5-False-pm]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[-0.5--0.5-True-nm]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[-0.5--0.5-True-pm]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[-1.5-0.5-False-nm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[-1.5-0.5-False-pm]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[-1.5-0.5-True-nm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[-1.5-0.5-True-pm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_wrap_to_pbc_changes_only_requested_frames",
+          "seconds": 0.007,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_wrap_to_mic_changes_only_requested_frames",
+          "seconds": 0.006,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_temporal_unwrap_recovers_continuous_orthorhombic_motion",
+          "seconds": 0.005,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_temporal_unwrap_changes_only_requested_frames",
+          "seconds": 0.005,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_temporal_unwrap_recovers_continuous_triclinic_motion",
+          "seconds": 0.004,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+          "seconds": 0.117,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+          "seconds": 0.086,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_periodic_transformations_reject_missing_and_singular_boxes",
+          "seconds": 0.005,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_rotated_row_cell_wrapping_matches_explicit_images[False-nm]",
+          "seconds": 0.007,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_rotated_row_cell_wrapping_matches_explicit_images[False-pm]",
+          "seconds": 0.009,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_rotated_row_cell_wrapping_matches_explicit_images[False-m]",
+          "seconds": 0.01,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_rotated_row_cell_wrapping_matches_explicit_images[True-nm]",
+          "seconds": 0.007,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_rotated_row_cell_wrapping_matches_explicit_images[True-pm]",
+          "seconds": 0.008,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_rotated_row_cell_wrapping_matches_explicit_images[True-m]",
+          "seconds": 0.007,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_changing_cells_follow_the_previous_transition_basis[False-nm]",
+          "seconds": 0.005,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_changing_cells_follow_the_previous_transition_basis[False-m]",
+          "seconds": 0.006,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_changing_cells_follow_the_previous_transition_basis[True-nm]",
+          "seconds": 0.005,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_changing_cells_follow_the_previous_transition_basis[True-m]",
+          "seconds": 0.006,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_small_origin_keeps_the_requested_primary_cell[nm]",
+          "seconds": 0.007,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_small_origin_keeps_the_requested_primary_cell[angstrom]",
+          "seconds": 0.008,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_small_origin_keeps_the_requested_primary_cell[pm]",
+          "seconds": 0.008,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_small_origin_keeps_the_requested_primary_cell[m]",
+          "seconds": 0.008,
+          "outcome": "passed"
+        }
+      ],
+      "resources": {
+        "seconds": 62.0622179240454,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.50390625,
+            0.82080078125,
+            1.8779296875
+          ],
+          "cpu_utilization": 0.023103967855349072,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16109457408,
+        "cgroup_memory_peak_bytes": 548245504,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 5,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 61666683\nuser_usec 60200547\nsystem_usec 1466136\nnice_usec 60234000\ncore_sched.force_idle_usec 0\nnr_periods 621\nnr_throttled 47\nthrottled_usec 211558\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "eecc05abb31da0a6a4b50a332b4c582cef0fdee94b1edc3ea25dbaac372b07eb",
+        "-bounded.json": "67874613d4f189c558e39504df49eea93b7989d15fb5b989bb687d76243edafc",
+        ".xml": "b69d943071b0ede3a622220a3c75d978d03243cf44508bfb274677fabaf402de",
+        ".log": "d1e1fac3c12423334f8e3b6e9633c311eed28c16bc70b2b691de14cba8906c6b",
+        "-inputs-before.json": "5f971895709712c37a1f913b725043b4634120a050aedbc84d94bf07a179f0bf",
+        "-inputs-after.json": "5f971895709712c37a1f913b725043b4634120a050aedbc84d94bf07a179f0bf",
+        "-reference-driver.py": "a70a3bdf33d4b2cf66712ebc805ea50fd2cf04b9824dca35861a7258d1449172",
+        "-resource-driver.py": "617937358386dc11bdb3fcf27c1b257b04144bf051d3f6f29d8ca6cc82552d01"
+      },
+      "jupyter": []
+    },
+    "pbc-general-invalid": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/pbc-general-invalid.xml",
+          "-n0",
+          "tests/molsysviewer_molsysmt/test_periodic_panel.py::test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes"
+        ],
+        "exit_code": 1,
+        "seconds": 7.617400371003896,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "d3f58c49159d426f5c3a4a1b951932637f81c67e",
+        "starting_git_status": " M molsysviewer_molsysmt/_geometry_panel.py\n M molsysviewer_molsysmt/_geometry_panel_frontend.py\n M tests/molsysviewer_molsysmt/test_periodic_panel.py\n",
+        "ending_git_status": " M molsysviewer_molsysmt/_geometry_panel.py\n M molsysviewer_molsysmt/_geometry_panel_frontend.py\n M tests/molsysviewer_molsysmt/test_periodic_panel.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8561
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "6",
+          "skipped": "0",
+          "tests": "6",
+          "time": "4.922",
+          "timestamp": "2026-11-08T05:01:13.420035-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[missing-wrap]",
+          "seconds": 2.76,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[missing-unwrap]",
+          "seconds": 0.243,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[nonfinite-wrap]",
+          "seconds": 0.236,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[nonfinite-unwrap]",
+          "seconds": 0.244,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[singular-wrap]",
+          "seconds": 0.236,
+          "outcome": "failure"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[singular-unwrap]",
+          "seconds": 0.234,
+          "outcome": "failure"
+        }
+      ],
+      "resources": {
+        "seconds": 13.013595376862213,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.73779296875,
+            0.88037109375,
+            1.76318359375
+          ],
+          "cpu_utilization": 0.025576730190571717,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16207204352,
+        "cgroup_memory_peak_bytes": 410726400,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 4,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 12786462\nuser_usec 11753395\nsystem_usec 1033067\nnice_usec 11760000\ncore_sched.force_idle_usec 0\nnr_periods 133\nnr_throttled 21\nthrottled_usec 97239\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "8d39a6f74c6d2bc4b8be051284a04c35971e7228674929c6578dca7e9d6af099",
+        "-bounded.json": "cab1bf551bf860fa505e8133edd195d21771197b2aa4090a36c6d5e3d35b6657",
+        ".xml": "33b9359efc2af8f5d2cc59e8818ba630659efd8946149ac5821df6d3fef6b3ee",
+        ".log": "3789d8a24e30e1d8d6e8128e5bd1e0c2ec0800ce2e760fc649dfdef5bdb1ed43",
+        "-inputs-before.json": "2d8d007e08d4b8b657fb930dac770662e6ca2b5e867697aa8d9e358c36939da5",
+        "-inputs-after.json": "2d8d007e08d4b8b657fb930dac770662e6ca2b5e867697aa8d9e358c36939da5",
+        "-reference-driver.py": "3c2cc70501fb6d8fb51b433d5961d8be5349df75133ac76b5a9408599415c8f6",
+        "-resource-driver.py": "2fd032496590973193f38bc70ee3c1fa869c69c25648e7e27d2c71247a95f7aa"
+      },
+      "jupyter": []
+    },
+    "pbc-general-invalid-storage": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/pbc-general-invalid-storage.xml",
+          "-n0",
+          "tests/molsysviewer_molsysmt/test_periodic_panel.py::test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes"
+        ],
+        "exit_code": 0,
+        "seconds": 7.29186188406311,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "d3f58c49159d426f5c3a4a1b951932637f81c67e",
+        "starting_git_status": " M molsysviewer_molsysmt/_geometry_panel.py\n M molsysviewer_molsysmt/_geometry_panel_frontend.py\n M tests/molsysviewer_molsysmt/test_periodic_panel.py\n",
+        "ending_git_status": " M molsysviewer_molsysmt/_geometry_panel.py\n M molsysviewer_molsysmt/_geometry_panel_frontend.py\n M tests/molsysviewer_molsysmt/test_periodic_panel.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8561
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "6",
+          "time": "4.698",
+          "timestamp": "2026-11-08T05:03:09.368644-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[missing-wrap]",
+          "seconds": 2.708,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[missing-unwrap]",
+          "seconds": 0.268,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[nonfinite-wrap]",
+          "seconds": 0.242,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[nonfinite-unwrap]",
+          "seconds": 0.238,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[singular-wrap]",
+          "seconds": 0.245,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[singular-unwrap]",
+          "seconds": 0.252,
+          "outcome": "passed"
+        }
+      ],
+      "resources": {
+        "seconds": 13.01352853095159,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.32470703125,
+            0.68994140625,
+            1.587890625
+          ],
+          "cpu_utilization": 0.020090406830738372,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16298012672,
+        "cgroup_memory_peak_bytes": 395304960,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 5,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 12508173\nuser_usec 11550074\nsystem_usec 958098\nnice_usec 11571000\ncore_sched.force_idle_usec 0\nnr_periods 130\nnr_throttled 19\nthrottled_usec 211040\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "7284c244a627ddfc12c8ad4ff6ec96aeb56866a7dd85934460be88332a1a1993",
+        "-bounded.json": "e683bac59b1a51b9c5a54a20b5dc2d906c30e4e5f98f9aa344cdc0f994dce840",
+        ".xml": "e60afa03eca5e1e2a640811f8d4ef1c98e06dfe732d4d27b41b934e1fd12ef32",
+        ".log": "ab36529801228c0fd0c78702fd75ef3810a62fc4c14876adcfa52c923e444af5",
+        "-inputs-before.json": "251189d1f4d5897767b6b168bcb995c14489aef2496c118fe2a0ad7ac9052a3d",
+        "-inputs-after.json": "251189d1f4d5897767b6b168bcb995c14489aef2496c118fe2a0ad7ac9052a3d",
+        "-reference-driver.py": "974cf504b2e8f9b4b3e8f21068102a44b48170f4e8459e57381bc72f00b56569",
+        "-resource-driver.py": "f8c587fa738c78861f2a4e54481f9253a70876edd4bec88fdbbff0346db64078"
+      },
+      "jupyter": []
+    },
+    "pbc-general-received": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/pbc-general-received.xml",
+          "-n0",
+          "tests/molsysviewer_molsysmt/test_periodic_panel.py",
+          "tests/molsysviewer_molsysmt/test_pbc_edit_tools.py",
+          "tests/pbc/test_general_cell_wrapping.py",
+          "tests/pbc/unwrap/test_changing_cells.py",
+          "tests/scientific_truth/pbc/test_wrapping.py"
+        ],
+        "exit_code": 0,
+        "seconds": 55.201200555078685,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "2f0eeb1c117f9217de58882162016408a85b383d",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8561
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "336",
+          "time": "52.553",
+          "timestamp": "2026-11-08T05:06:37.239040-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-False-False-primary]",
+          "seconds": 2.679,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-False-False-centered]",
+          "seconds": 0.272,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-False-False-nearest]",
+          "seconds": 0.267,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-False-True-primary]",
+          "seconds": 0.277,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-False-True-centered]",
+          "seconds": 0.286,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-False-True-nearest]",
+          "seconds": 0.28,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-True-False-primary]",
+          "seconds": 0.269,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-True-False-centered]",
+          "seconds": 0.284,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-True-False-nearest]",
+          "seconds": 0.273,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-True-True-primary]",
+          "seconds": 0.263,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-True-True-centered]",
+          "seconds": 0.275,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[update-True-True-nearest]",
+          "seconds": 0.265,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-False-False-primary]",
+          "seconds": 0.266,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-False-False-centered]",
+          "seconds": 0.254,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-False-False-nearest]",
+          "seconds": 0.269,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-False-True-primary]",
+          "seconds": 0.259,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-False-True-centered]",
+          "seconds": 0.272,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-False-True-nearest]",
+          "seconds": 0.253,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-True-False-primary]",
+          "seconds": 0.267,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-True-False-centered]",
+          "seconds": 0.257,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-True-False-nearest]",
+          "seconds": 0.256,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-True-True-primary]",
+          "seconds": 0.254,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-True-True-centered]",
+          "seconds": 0.266,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_atomwise_periodic_images_match_lattice_truth[result-True-True-nearest]",
+          "seconds": 0.254,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[update-False-primary]",
+          "seconds": 0.3,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[update-False-centered]",
+          "seconds": 0.298,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[update-False-nearest]",
+          "seconds": 0.288,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[update-True-primary]",
+          "seconds": 0.297,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[update-True-centered]",
+          "seconds": 0.29,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[update-True-nearest]",
+          "seconds": 0.299,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[result-False-primary]",
+          "seconds": 0.285,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[result-False-centered]",
+          "seconds": 0.278,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[result-False-nearest]",
+          "seconds": 0.301,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[result-True-primary]",
+          "seconds": 0.281,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[result-True-centered]",
+          "seconds": 0.286,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_component_default_reconstructs_the_real_peptide[result-True-nearest]",
+          "seconds": 0.282,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_temporal_unwrap_uses_fixed_cell_and_explicit_sequence[update-False]",
+          "seconds": 0.299,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_temporal_unwrap_uses_fixed_cell_and_explicit_sequence[update-True]",
+          "seconds": 0.292,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_temporal_unwrap_uses_fixed_cell_and_explicit_sequence[result-False]",
+          "seconds": 0.283,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_temporal_unwrap_uses_fixed_cell_and_explicit_sequence[result-True]",
+          "seconds": 0.301,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-primary-update-nm]",
+          "seconds": 0.265,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-primary-update-pm]",
+          "seconds": 0.269,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-primary-result-nm]",
+          "seconds": 0.256,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-primary-result-pm]",
+          "seconds": 0.297,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-centered-update-nm]",
+          "seconds": 0.272,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-centered-update-pm]",
+          "seconds": 0.267,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-centered-result-nm]",
+          "seconds": 0.264,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-centered-result-pm]",
+          "seconds": 0.27,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-nearest-update-nm]",
+          "seconds": 0.269,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-nearest-update-pm]",
+          "seconds": 0.265,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-nearest-result-nm]",
+          "seconds": 0.28,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures0-nearest-result-pm]",
+          "seconds": 0.274,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-primary-update-nm]",
+          "seconds": 0.271,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-primary-update-pm]",
+          "seconds": 0.269,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-primary-result-nm]",
+          "seconds": 0.266,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-primary-result-pm]",
+          "seconds": 0.269,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-centered-update-nm]",
+          "seconds": 0.276,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-centered-update-pm]",
+          "seconds": 0.278,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-centered-result-nm]",
+          "seconds": 0.255,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-centered-result-pm]",
+          "seconds": 0.259,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-nearest-update-nm]",
+          "seconds": 0.265,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-nearest-update-pm]",
+          "seconds": 0.273,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-nearest-result-nm]",
+          "seconds": 0.252,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_wrapping_uses_the_stored_row_basis[structures1-nearest-result-pm]",
+          "seconds": 0.27,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures0-update-nm]",
+          "seconds": 0.27,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures0-update-pm]",
+          "seconds": 0.28,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures0-result-nm]",
+          "seconds": 0.254,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures0-result-pm]",
+          "seconds": 0.256,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures1-update-nm]",
+          "seconds": 0.26,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures1-update-pm]",
+          "seconds": 0.276,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures1-result-nm]",
+          "seconds": 0.254,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures1-result-pm]",
+          "seconds": 0.26,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures2-update-nm]",
+          "seconds": 0.264,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures2-update-pm]",
+          "seconds": 0.277,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures2-result-nm]",
+          "seconds": 0.259,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_general_unwrap_uses_each_previous_selected_cell[structures2-result-pm]",
+          "seconds": 0.259,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[missing-wrap]",
+          "seconds": 0.245,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[missing-unwrap]",
+          "seconds": 0.234,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[nonfinite-wrap]",
+          "seconds": 0.239,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[nonfinite-unwrap]",
+          "seconds": 0.235,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[singular-wrap]",
+          "seconds": 0.237,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_box_rejects_before_confirmation_without_writes[singular-unwrap]",
+          "seconds": 0.25,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_inputs_are_not_implicit_defaults[parameters0]",
+          "seconds": 0.234,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_inputs_are_not_implicit_defaults[parameters1]",
+          "seconds": 0.246,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_inputs_are_not_implicit_defaults[parameters2]",
+          "seconds": 0.232,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_inputs_are_not_implicit_defaults[parameters3]",
+          "seconds": 0.243,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_inputs_are_not_implicit_defaults[parameters4]",
+          "seconds": 0.235,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_invalid_inputs_are_not_implicit_defaults[parameters5]",
+          "seconds": 0.234,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_parameters_expire_confirmation[change0]",
+          "seconds": 0.232,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_parameters_expire_confirmation[change1]",
+          "seconds": 0.244,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_parameters_expire_confirmation[change2]",
+          "seconds": 0.235,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_projection_recovery_does_not_repeat_science[wrap]",
+          "seconds": 0.266,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_gui_periodic_projection_recovery_does_not_repeat_science[unwrap]",
+          "seconds": 0.264,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_scientific_signature_defaults_and_effect_help[wrap_to_pbc]",
+          "seconds": 0.192,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_scientific_signature_defaults_and_effect_help[wrap_to_mic]",
+          "seconds": 0.171,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_scientific_signature_defaults_and_effect_help[unwrap]",
+          "seconds": 0.172,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[nm-False-False-wrap_to_pbc]",
+          "seconds": 0.194,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[nm-False-False-wrap_to_mic]",
+          "seconds": 0.194,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[nm-False-True-wrap_to_pbc]",
+          "seconds": 0.202,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[nm-False-True-wrap_to_mic]",
+          "seconds": 0.194,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[nm-True-False-wrap_to_pbc]",
+          "seconds": 0.197,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[nm-True-False-wrap_to_mic]",
+          "seconds": 0.194,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[nm-True-True-wrap_to_pbc]",
+          "seconds": 0.198,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[nm-True-True-wrap_to_mic]",
+          "seconds": 0.203,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[angstrom-False-False-wrap_to_pbc]",
+          "seconds": 0.197,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[angstrom-False-False-wrap_to_mic]",
+          "seconds": 0.194,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[angstrom-False-True-wrap_to_pbc]",
+          "seconds": 0.203,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[angstrom-False-True-wrap_to_mic]",
+          "seconds": 0.199,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[angstrom-True-False-wrap_to_pbc]",
+          "seconds": 0.205,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[angstrom-True-False-wrap_to_mic]",
+          "seconds": 0.202,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[angstrom-True-True-wrap_to_pbc]",
+          "seconds": 0.214,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[angstrom-True-True-wrap_to_mic]",
+          "seconds": 0.198,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[pm-False-False-wrap_to_pbc]",
+          "seconds": 0.198,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[pm-False-False-wrap_to_mic]",
+          "seconds": 0.203,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[pm-False-True-wrap_to_pbc]",
+          "seconds": 0.195,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[pm-False-True-wrap_to_mic]",
+          "seconds": 0.196,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[pm-True-False-wrap_to_pbc]",
+          "seconds": 0.196,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[pm-True-False-wrap_to_mic]",
+          "seconds": 0.196,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[pm-True-True-wrap_to_pbc]",
+          "seconds": 0.21,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_atomwise_wrap_lattice_truth_units_order_and_native_ownership[pm-True-True-wrap_to_mic]",
+          "seconds": 0.196,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_origin_and_center_are_native_periodic_cell_parameters[False-False-False]",
+          "seconds": 0.184,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_origin_and_center_are_native_periodic_cell_parameters[False-False-True]",
+          "seconds": 0.179,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_origin_and_center_are_native_periodic_cell_parameters[False-True-False]",
+          "seconds": 0.181,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_origin_and_center_are_native_periodic_cell_parameters[False-True-True]",
+          "seconds": 0.184,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_origin_and_center_are_native_periodic_cell_parameters[True-False-False]",
+          "seconds": 0.19,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_origin_and_center_are_native_periodic_cell_parameters[True-False-True]",
+          "seconds": 0.181,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_origin_and_center_are_native_periodic_cell_parameters[True-True-False]",
+          "seconds": 0.188,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_origin_and_center_are_native_periodic_cell_parameters[True-True-True]",
+          "seconds": 0.184,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_independent_output_preserves_input_and_weighted_centering[nm-wrap_to_pbc]",
+          "seconds": 0.187,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_independent_output_preserves_input_and_weighted_centering[nm-wrap_to_mic]",
+          "seconds": 0.2,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_independent_output_preserves_input_and_weighted_centering[angstrom-wrap_to_pbc]",
+          "seconds": 0.188,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_independent_output_preserves_input_and_weighted_centering[angstrom-wrap_to_mic]",
+          "seconds": 0.189,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_independent_output_preserves_input_and_weighted_centering[pm-wrap_to_pbc]",
+          "seconds": 0.189,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_independent_output_preserves_input_and_weighted_centering[pm-wrap_to_mic]",
+          "seconds": 0.188,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_component_wrapping_reconstructs_actual_peptide_geometry[False-False-wrap_to_pbc]",
+          "seconds": 0.194,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_component_wrapping_reconstructs_actual_peptide_geometry[False-False-wrap_to_mic]",
+          "seconds": 0.184,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_component_wrapping_reconstructs_actual_peptide_geometry[False-True-wrap_to_pbc]",
+          "seconds": 0.189,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_component_wrapping_reconstructs_actual_peptide_geometry[False-True-wrap_to_mic]",
+          "seconds": 0.191,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_component_wrapping_reconstructs_actual_peptide_geometry[True-False-wrap_to_pbc]",
+          "seconds": 0.189,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_component_wrapping_reconstructs_actual_peptide_geometry[True-False-wrap_to_mic]",
+          "seconds": 0.189,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_component_wrapping_reconstructs_actual_peptide_geometry[True-True-wrap_to_pbc]",
+          "seconds": 0.196,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_component_wrapping_reconstructs_actual_peptide_geometry[True-True-wrap_to_mic]",
+          "seconds": 0.198,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-nm-False-False]",
+          "seconds": 0.208,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-nm-False-True]",
+          "seconds": 0.186,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-nm-True-False]",
+          "seconds": 0.2,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-nm-True-True]",
+          "seconds": 0.189,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-angstrom-False-False]",
+          "seconds": 0.181,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-angstrom-False-True]",
+          "seconds": 0.179,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-angstrom-True-False]",
+          "seconds": 0.182,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-angstrom-True-True]",
+          "seconds": 0.184,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-pm-False-False]",
+          "seconds": 0.193,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-pm-False-True]",
+          "seconds": 0.182,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-pm-True-False]",
+          "seconds": 0.183,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope0-pm-True-True]",
+          "seconds": 0.183,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-nm-False-False]",
+          "seconds": 0.182,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-nm-False-True]",
+          "seconds": 0.187,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-nm-True-False]",
+          "seconds": 0.183,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-nm-True-True]",
+          "seconds": 0.185,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-angstrom-False-False]",
+          "seconds": 0.178,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-angstrom-False-True]",
+          "seconds": 0.18,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-angstrom-True-False]",
+          "seconds": 0.186,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-angstrom-True-True]",
+          "seconds": 0.196,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-pm-False-False]",
+          "seconds": 0.188,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-pm-False-True]",
+          "seconds": 0.182,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-pm-True-False]",
+          "seconds": 0.192,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_temporal_order_is_distinct_from_covalent_reconstruction[scope1-pm-True-True]",
+          "seconds": 0.184,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-nm-False-wrap_to_pbc]",
+          "seconds": 0.215,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-nm-False-wrap_to_mic]",
+          "seconds": 0.208,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-nm-True-wrap_to_pbc]",
+          "seconds": 0.205,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-nm-True-wrap_to_mic]",
+          "seconds": 0.204,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-angstrom-False-wrap_to_pbc]",
+          "seconds": 0.213,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-angstrom-False-wrap_to_mic]",
+          "seconds": 0.219,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-angstrom-True-wrap_to_pbc]",
+          "seconds": 0.215,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-angstrom-True-wrap_to_mic]",
+          "seconds": 0.206,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-pm-False-wrap_to_pbc]",
+          "seconds": 0.21,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-pm-False-wrap_to_mic]",
+          "seconds": 0.215,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-pm-True-wrap_to_pbc]",
+          "seconds": 0.218,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[False-pm-True-wrap_to_mic]",
+          "seconds": 0.208,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-nm-False-wrap_to_pbc]",
+          "seconds": 0.206,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-nm-False-wrap_to_mic]",
+          "seconds": 0.21,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-nm-True-wrap_to_pbc]",
+          "seconds": 0.22,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-nm-True-wrap_to_mic]",
+          "seconds": 0.204,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-angstrom-False-wrap_to_pbc]",
+          "seconds": 0.21,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-angstrom-False-wrap_to_mic]",
+          "seconds": 0.206,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-angstrom-True-wrap_to_pbc]",
+          "seconds": 0.208,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-angstrom-True-wrap_to_mic]",
+          "seconds": 0.216,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-pm-False-wrap_to_pbc]",
+          "seconds": 0.207,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-pm-False-wrap_to_mic]",
+          "seconds": 0.211,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-pm-True-wrap_to_pbc]",
+          "seconds": 0.206,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_centered_in_place_retains_primary_lattice_truth_scope_and_managed_sync[True-pm-True-wrap_to_mic]",
+          "seconds": 0.207,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_prewrite_rejections_preserve_science_and_clean_sync_state[arguments0-wrap_to_pbc]",
+          "seconds": 0.197,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_prewrite_rejections_preserve_science_and_clean_sync_state[arguments0-wrap_to_mic]",
+          "seconds": 0.184,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_prewrite_rejections_preserve_science_and_clean_sync_state[arguments0-unwrap]",
+          "seconds": 0.189,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_prewrite_rejections_preserve_science_and_clean_sync_state[arguments1-wrap_to_pbc]",
+          "seconds": 0.179,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_prewrite_rejections_preserve_science_and_clean_sync_state[arguments1-wrap_to_mic]",
+          "seconds": 0.185,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_prewrite_rejections_preserve_science_and_clean_sync_state[arguments1-unwrap]",
+          "seconds": 0.189,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_prewrite_rejections_preserve_science_and_clean_sync_state[arguments2-wrap_to_pbc]",
+          "seconds": 0.19,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_prewrite_rejections_preserve_science_and_clean_sync_state[arguments2-wrap_to_mic]",
+          "seconds": 0.182,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_native_prewrite_rejections_preserve_science_and_clean_sync_state[arguments2-unwrap]",
+          "seconds": 0.178,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_missing_box_is_native_error_without_coordinate_publication[wrap_to_pbc]",
+          "seconds": 0.176,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_missing_box_is_native_error_without_coordinate_publication[wrap_to_mic]",
+          "seconds": 0.177,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_missing_box_is_native_error_without_coordinate_publication[unwrap]",
+          "seconds": 0.186,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_deferred_pbc_and_structure_edits_compose_and_preserve_scene_owners",
+          "seconds": 0.223,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_scene_retry_does_not_replay_completed_periodic_edit",
+          "seconds": 0.215,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_cached_editor_lifetime_and_closed_primary_guards[wrap_to_pbc]",
+          "seconds": 0.009,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_cached_editor_lifetime_and_closed_primary_guards[wrap_to_mic]",
+          "seconds": 0.008,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_cached_editor_lifetime_and_closed_primary_guards[unwrap]",
+          "seconds": 0.008,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-nm-primary-quarter-turn]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-nm-primary-rotated-orthogonal]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-nm-primary-rotated-triclinic]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-nm-centered-quarter-turn]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-nm-centered-rotated-orthogonal]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-nm-centered-rotated-triclinic]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-nm-mic-quarter-turn]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-nm-mic-rotated-orthogonal]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-nm-mic-rotated-triclinic]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-pm-primary-quarter-turn]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-pm-primary-rotated-orthogonal]",
+          "seconds": 0.024,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-pm-primary-rotated-triclinic]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-pm-centered-quarter-turn]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-pm-centered-rotated-orthogonal]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-pm-centered-rotated-triclinic]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-pm-mic-quarter-turn]",
+          "seconds": 0.023,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-pm-mic-rotated-orthogonal]",
+          "seconds": 0.024,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-pm-mic-rotated-triclinic]",
+          "seconds": 0.027,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-m-primary-quarter-turn]",
+          "seconds": 0.023,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-m-primary-rotated-orthogonal]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-m-primary-rotated-triclinic]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-m-centered-quarter-turn]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-m-centered-rotated-orthogonal]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-m-centered-rotated-triclinic]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-m-mic-quarter-turn]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-m-mic-rotated-orthogonal]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[False-m-mic-rotated-triclinic]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-nm-primary-quarter-turn]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-nm-primary-rotated-orthogonal]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-nm-primary-rotated-triclinic]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-nm-centered-quarter-turn]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-nm-centered-rotated-orthogonal]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-nm-centered-rotated-triclinic]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-nm-mic-quarter-turn]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-nm-mic-rotated-orthogonal]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-nm-mic-rotated-triclinic]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-pm-primary-quarter-turn]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-pm-primary-rotated-orthogonal]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-pm-primary-rotated-triclinic]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-pm-centered-quarter-turn]",
+          "seconds": 0.024,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-pm-centered-rotated-orthogonal]",
+          "seconds": 0.023,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-pm-centered-rotated-triclinic]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-pm-mic-quarter-turn]",
+          "seconds": 0.023,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-pm-mic-rotated-orthogonal]",
+          "seconds": 0.023,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-pm-mic-rotated-triclinic]",
+          "seconds": 0.021,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-m-primary-quarter-turn]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-m-primary-rotated-orthogonal]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-m-primary-rotated-triclinic]",
+          "seconds": 0.022,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-m-centered-quarter-turn]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-m-centered-rotated-orthogonal]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-m-centered-rotated-triclinic]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-m-mic-quarter-turn]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-m-mic-rotated-orthogonal]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_public_wrap_uses_the_actual_row_basis[True-m-mic-rotated-triclinic]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_single_vector_kernel_uses_the_general_basis[primary-quarter-turn]",
+          "seconds": 0.002,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_single_vector_kernel_uses_the_general_basis[primary-rotated-orthogonal]",
+          "seconds": 0.002,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_single_vector_kernel_uses_the_general_basis[primary-rotated-triclinic]",
+          "seconds": 0.003,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_single_vector_kernel_uses_the_general_basis[centered-quarter-turn]",
+          "seconds": 0.003,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_single_vector_kernel_uses_the_general_basis[centered-rotated-orthogonal]",
+          "seconds": 0.003,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_single_vector_kernel_uses_the_general_basis[centered-rotated-triclinic]",
+          "seconds": 0.002,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_single_vector_kernel_uses_the_general_basis[mic-quarter-turn]",
+          "seconds": 0.003,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_single_vector_kernel_uses_the_general_basis[mic-rotated-orthogonal]",
+          "seconds": 0.003,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_single_vector_kernel_uses_the_general_basis[mic-rotated-triclinic]",
+          "seconds": 0.003,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[nm-primary-quarter-turn]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[nm-primary-rotated-orthogonal]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[nm-primary-rotated-triclinic]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[nm-centered-quarter-turn]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[nm-centered-rotated-orthogonal]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[nm-centered-rotated-triclinic]",
+          "seconds": 0.039,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[nm-mic-quarter-turn]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[nm-mic-rotated-orthogonal]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[nm-mic-rotated-triclinic]",
+          "seconds": 0.03,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[m-primary-quarter-turn]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[m-primary-rotated-orthogonal]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[m-primary-rotated-triclinic]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[m-centered-quarter-turn]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[m-centered-rotated-orthogonal]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[m-centered-rotated-triclinic]",
+          "seconds": 0.033,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[m-mic-quarter-turn]",
+          "seconds": 0.031,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[m-mic-rotated-orthogonal]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_covalent_component_reconstruction_keeps_the_observed_row_basis[m-mic-rotated-triclinic]",
+          "seconds": 0.032,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_reclassifies_each_previous_transition_cell[False-nm-False]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_reclassifies_each_previous_transition_cell[False-nm-True]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_reclassifies_each_previous_transition_cell[False-pm-False]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_reclassifies_each_previous_transition_cell[False-pm-True]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_reclassifies_each_previous_transition_cell[True-nm-False]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_reclassifies_each_previous_transition_cell[True-nm-True]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_reclassifies_each_previous_transition_cell[True-pm-False]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_reclassifies_each_previous_transition_cell[True-pm-True]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_uses_previous_cell_in_requested_structure_order[order0]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_uses_previous_cell_in_requested_structure_order[order1]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[0.5-0.5-False-nm]",
+          "seconds": 0.017,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[0.5-0.5-False-pm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[0.5-0.5-True-nm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[0.5-0.5-True-pm]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[1.5--0.5-False-nm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[1.5--0.5-False-pm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[1.5--0.5-True-nm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[1.5--0.5-True-pm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[-0.5--0.5-False-nm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[-0.5--0.5-False-pm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[-0.5--0.5-True-nm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[-0.5--0.5-True-pm]",
+          "seconds": 0.019,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[-1.5-0.5-False-nm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[-1.5-0.5-False-pm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[-1.5-0.5-True-nm]",
+          "seconds": 0.018,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_unwrap_preserves_actual_half_cell_ties_to_even[-1.5-0.5-True-pm]",
+          "seconds": 0.02,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_wrap_to_pbc_changes_only_requested_frames",
+          "seconds": 0.007,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_wrap_to_mic_changes_only_requested_frames",
+          "seconds": 0.006,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_temporal_unwrap_recovers_continuous_orthorhombic_motion",
+          "seconds": 0.004,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_temporal_unwrap_changes_only_requested_frames",
+          "seconds": 0.005,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_temporal_unwrap_recovers_continuous_triclinic_motion",
+          "seconds": 0.004,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+          "seconds": 0.127,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+          "seconds": 0.084,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_periodic_transformations_reject_missing_and_singular_boxes",
+          "seconds": 0.005,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_rotated_row_cell_wrapping_matches_explicit_images[False-nm]",
+          "seconds": 0.007,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_rotated_row_cell_wrapping_matches_explicit_images[False-pm]",
+          "seconds": 0.008,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_rotated_row_cell_wrapping_matches_explicit_images[False-m]",
+          "seconds": 0.008,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_rotated_row_cell_wrapping_matches_explicit_images[True-nm]",
+          "seconds": 0.006,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_rotated_row_cell_wrapping_matches_explicit_images[True-pm]",
+          "seconds": 0.007,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_rotated_row_cell_wrapping_matches_explicit_images[True-m]",
+          "seconds": 0.007,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_changing_cells_follow_the_previous_transition_basis[False-nm]",
+          "seconds": 0.005,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_changing_cells_follow_the_previous_transition_basis[False-m]",
+          "seconds": 0.006,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_changing_cells_follow_the_previous_transition_basis[True-nm]",
+          "seconds": 0.005,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_changing_cells_follow_the_previous_transition_basis[True-m]",
+          "seconds": 0.006,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_small_origin_keeps_the_requested_primary_cell[nm]",
+          "seconds": 0.006,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_small_origin_keeps_the_requested_primary_cell[angstrom]",
+          "seconds": 0.008,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_small_origin_keeps_the_requested_primary_cell[pm]",
+          "seconds": 0.007,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_explicit_small_origin_keeps_the_requested_primary_cell[m]",
+          "seconds": 0.008,
+          "outcome": "passed"
+        }
+      ],
+      "resources": {
+        "seconds": 62.05826923483983,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.89501953125,
+            0.64892578125,
+            1.3720703125
+          ],
+          "cpu_utilization": 0.02209944751381221,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16023552000,
+        "cgroup_memory_peak_bytes": 618172416,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 5,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 61135628\nuser_usec 59629524\nsystem_usec 1506103\nnice_usec 59663000\ncore_sched.force_idle_usec 0\nnr_periods 616\nnr_throttled 55\nthrottled_usec 172313\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "4e5dfa62fc909b0d27b601d73536d8e781faf098b088880e8329051eae635f86",
+        "-bounded.json": "415ccc6bc07c608b6896910bb23d11a2d0878e8e6ce161533f0de42a9c72a3f2",
+        ".xml": "6568f10607d2c7fa53c2e7bafac2a065f3620e8e8f1ef466bce2bb3c587685b0",
+        ".log": "20ac0dd2b67665456878351b497b11f5f6b48bea6f7c618630c221bf3be2bfd3",
+        "-inputs-before.json": "04e8c38ae47d916b8dcdfca5069eb5d279ca59bf28681795c2a8169f3de37e00",
+        "-inputs-after.json": "04e8c38ae47d916b8dcdfca5069eb5d279ca59bf28681795c2a8169f3de37e00",
+        "-reference-driver.py": "974cf504b2e8f9b4b3e8f21068102a44b48170f4e8459e57381bc72f00b56569",
+        "-resource-driver.py": "f8c587fa738c78861f2a4e54481f9253a70876edd4bec88fdbbff0346db64078"
+      },
+      "jupyter": []
+    },
+    "pbc-general-gui": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/pbc-general-gui.xml",
+          "-n0",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_periodic_geometry",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_general_periodic_geometry",
+          "--basetemp=<private-evidence>/pbc-general-gui"
+        ],
+        "exit_code": 0,
+        "seconds": 174.39222309202887,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "2f0eeb1c117f9217de58882162016408a85b383d",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8561
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "2",
+          "time": "172.630",
+          "timestamp": "2026-11-08T05:08:40.120504-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "cases": [
+        {
+          "name": "test_actual_jupyter_periodic_geometry",
+          "seconds": 84.722,
+          "outcome": "passed"
+        },
+        {
+          "name": "test_actual_jupyter_general_periodic_geometry",
+          "seconds": 87.738,
+          "outcome": "passed"
+        }
+      ],
+      "resources": {
+        "seconds": 180.4921673689969,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "400000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.61962890625,
+            0.71435546875,
+            1.30908203125
+          ],
+          "cpu_utilization": 0.01957831325301207,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14799073280,
+        "cgroup_memory_peak_bytes": 1767657472,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "peak_tasks_observed": 189,
+        "pids_events": "max 0\n",
+        "cpu_stat": "usage_usec 597231570\nuser_usec 555192044\nsystem_usec 42039525\nnice_usec 559911000\ncore_sched.force_idle_usec 0\nnr_periods 1806\nnr_throttled 1258\nthrottled_usec 864679714\nnr_bursts 0\nburst_usec 0\n",
+        "maximum_host_full_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "evidence_sha256": {
+        ".json": "3ecc29db0b3bec070168fa97f7b947907e976211a4b94d57b058590e77bb7cbc",
+        "-bounded.json": "85e168a0f7b75bb005ecdc019134bd7a4055ebd6193ff4776d5336845f76c1c6",
+        ".xml": "51057c30f40b321d57d018eee4956e31b74748dce01758c6cf70d7dfc892d05a",
+        ".log": "aea888cb8b93b72b9e35e447c0d1c004de7abe52e99fbe485488862ee87e92d4",
+        "-inputs-before.json": "04e8c38ae47d916b8dcdfca5069eb5d279ca59bf28681795c2a8169f3de37e00",
+        "-inputs-after.json": "04e8c38ae47d916b8dcdfca5069eb5d279ca59bf28681795c2a8169f3de37e00",
+        "-reference-driver.py": "974cf504b2e8f9b4b3e8f21068102a44b48170f4e8459e57381bc72f00b56569",
+        "-resource-driver.py": "ca1a910349ea47de82a9ae591a165153f1c575645201412d494faa94412c1fe9"
+      },
+      "jupyter": [
+        {
+          "guard_case": "test_actual_jupyter_general_pe0",
+          "file": "full-result.json",
+          "sha256": "eca74fa43d50f892738b38a1aee51053a4dab3dee981d5ac3a219603949fb82b",
+          "completed_checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review compact centered-box wrapping and Back without changing Mol* positions",
+            "Apply native compact wrapping and verify its actual centered image",
+            "Choose nearest images around an explicit point and verify lattice-enumerated positions",
+            "Review per-atom temporal unwrapping and create an independent whole-system result",
+            "The periodic result keeps its View while moving between notebook and window",
+            "Temporal order and support limits remain explicit in canvas and detached Studio popups",
+            "Python verifies all native arrays and drives a second structure of the rendered result"
+          ],
+          "browser_errors": 2,
+          "plain_notebook_errors": 1,
+          "scope": "Real local JupyterLab/ipykernel/AnyWidget, native compact/nearest wrapping and temporal unwrapping with changing general-row cells, independent lattice oracles, ordered structures, native numerical oracles, independent Mol* result and detached Geometry controls. Not visible human Qt qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.462796 s\n"
+        },
+        {
+          "guard_case": "test_actual_jupyter_periodic_g0",
+          "file": "full-result.json",
+          "sha256": "76be3e71dc0645ed28f5c143efbfa12d7e85ba5ff8082d03117423f437518bd4",
+          "completed_checks": [
+            "Render the source through the real notebook presentation surface",
+            "Review compact centered-box wrapping and Back without changing Mol* positions",
+            "Apply native compact wrapping and verify its actual centered image",
+            "Choose nearest images around an explicit point and verify lattice-enumerated positions",
+            "Review per-atom temporal unwrapping and create an independent whole-system result",
+            "The periodic result keeps its View while moving between notebook and window",
+            "Temporal order and support limits remain explicit in canvas and detached Studio popups",
+            "Python verifies all native arrays and drives a second structure of the rendered result"
+          ],
+          "browser_errors": 2,
+          "plain_notebook_errors": 1,
+          "scope": "Real local JupyterLab/ipykernel/AnyWidget, native compact/nearest wrapping and temporal unwrapping with fixed cells, independent lattice oracles, ordered structures, native numerical oracles, independent Mol* result and detached Geometry controls. Not visible human Qt qualification.",
+          "environment": {
+            "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+            "packages": {
+              "jupyterlab": "4.6.4",
+              "ipykernel": "7.3.0",
+              "anywidget": "0.11.0",
+              "ipywidgets": "8.1.9"
+            },
+            "node": "v22.22.1"
+          },
+          "initial_cell_trace": "Initial cell started\nInitial cell completed in 4.201306 s\n"
+        }
+      ]
+    }
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "versions": {
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1"
+    },
+    "imports": {
+      "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+      "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261106/viewer-e4dd58cf-source/molsysviewer/__init__.py",
+      "pyunitwizard": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+      "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+      "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+      "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+    }
+  },
+  "fixture_controls": [
+    {
+      "general_cells": true,
+      "boxes_nm": [
+        [
+          [
+            0.0,
+            3.0,
+            0.0
+          ],
+          [
+            -4.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            5.0
+          ]
+        ],
+        [
+          [
+            0.0,
+            0.0,
+            3.0
+          ],
+          [
+            4.0,
+            0.0,
+            0.7
+          ],
+          [
+            0.6,
+            5.0,
+            0.2
+          ]
+        ],
+        [
+          [
+            0.0,
+            -6.0,
+            0.0
+          ],
+          [
+            8.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            10.0
+          ]
+        ]
+      ],
+      "transition_control_difference_nm": 6.4,
+      "oracle_sha256": "9facb84eac02df71586ee5bd8a9ee7aaa62bd602a6b60ff6a6bede2a9155ee45"
+    },
+    {
+      "general_cells": false,
+      "boxes_nm": [
+        [
+          [
+            3.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.7,
+            4.0,
+            0.0
+          ],
+          [
+            0.2,
+            0.6,
+            5.0
+          ]
+        ],
+        [
+          [
+            3.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.7,
+            4.0,
+            0.0
+          ],
+          [
+            0.2,
+            0.6,
+            5.0
+          ]
+        ],
+        [
+          [
+            3.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.7,
+            4.0,
+            0.0
+          ],
+          [
+            0.2,
+            0.6,
+            5.0
+          ]
+        ]
+      ],
+      "transition_control_difference_nm": 0.0,
+      "oracle_sha256": "2d20ddbd26a38fb6ec9b97dfc80a15042c878e1c4f19faf69ea9228fe134baa3"
+    }
+  ],
+  "acceptance": [
+    "The previous editor rejects the first new valid rotated-box counterexample; that bounded maxfail diagnostic remains failing.",
+    "The first complete directed run passes 334/336, with two NaN setup/projection failures. A pending-edit fixture then prevents the intended review; all six failures remain. Injecting already-stored invalid boxes receives all six specific-diagnostic/no-write cases.",
+    "Clean complete receiving passes 336/336, including 36 added general-cell/unit/order/effect controls; 204 pre-existing legacy-H5MSM warnings remain.",
+    "Fixed and general/changing-cell Jupyter both pass eight original browser steps with independent lattice/coordinate oracles and actual Mol* positions.",
+    "Per-scenario 300/240-second and original UI waits remain unchanged. No image or reconstruction algorithm is added to the addon.",
+    "Native ArgDigest/DepDigest/unit/attribution ownership remains; the editor uses the shared physical-box validator and SMonitor diagnostics.",
+    "Cell construction/assignment, tiny-boundary-origin cross-policy graphical receiving, installed/human/full-candidate gates and the remaining GUI intents stay explicit."
+  ]
+}

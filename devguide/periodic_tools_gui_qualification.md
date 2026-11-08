@@ -1,44 +1,50 @@
 # Periodic tools GUI — bounded native receiving
 
 **Role:** operational qualification boundary for the source addon under #421 /
-PR #543 and uibcdf/molsysviewer#264. **Date:** 2026-11-06.
+merged contribution PR #543 and uibcdf/molsysviewer#264. **Initial date:** 2026-11-06. **Updated:** 2026-11-08.
 
 Wrap coordinates and Unwrap trajectory delegate all image/reconstruction science
 to public MolSysMT operations through existing managed/independent adapters.
-The complete general-cell family remains required work; this interim source
-slice is not a 1.0 clearance or an expert-API restriction.
+The remaining periodic family stays required work; this source receiving is not
+a 1.0 clearance or an expert-API restriction.
 
-## Interim admission and ownership
+## Current source admission — 2026-11-08
 
-| Operation | Temporary source GUI admission | Remaining consumer receiving |
+| Operation | Received source GUI scope | Remaining work |
 | --- | --- | --- |
-| Wrap primary, centered-primary or nearest images | Stored lower-triangular row-vector cells (exact zero upper triangle). Components or atomwise grouping are explicit; selected cells may vary. | Receive the owner [#607 correction](archive/resolved_bugs/periodic_wrapping_rotated_basis.md). |
-| Unwrap temporal coordinates | Same orientation admission and identical box vectors across the selected structure sequence; at least two structures. | Receive the owner [#606 transition-cell correction](archive/resolved_bugs/unwrap_changing_cell_classification.md) and #607. |
-| Construct/assign a cell | Not registered yet; remains required before completion. | Receive the owner [#605 factory validation](archive/resolved_bugs/box_factory_physical_domain.md) in the graphical task. |
+| Wrap primary, centered-primary or nearest images | Stored finite/nonsingular general row-vector cells, with explicit component/atom grouping and different selected cells. | Cell assignment and remaining full-family qualification. |
+| Unwrap temporal coordinates | General row bases and changing cells; each transition uses the previous selected cell in the supplied order, with at least two distinct structures. | Tiny-boundary-origin cross-policy GUI receiving and full-family/human/installed qualification. |
+| Construct/assign a cell | Not registered yet; still required. | Receive the owner [#605 factory validation](archive/resolved_bugs/box_factory_physical_domain.md). |
 
-The native owner is MolSysMT. The consumer admission belongs to this addon in
-MolSysMT, with Viewer integration tracked in uibcdf/molsysviewer#264. Reassess
-by **2026-11-13**, or immediately when a published native correction is available.
-Remove each guard only after receiving the exact owner fix and independent
-lattice/unit/order/atomicity tests for the formerly rejected cases. Keep the
-remaining full-scope tasks visible; none is silently deferred past 1.0.
+Clean owner source `2f0eeb1c117f9217de58882162016408a85b383d`, with verified
+Viewer export `e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab`, receives the delivered
+[#607 general-basis correction](archive/resolved_bugs/periodic_wrapping_rotated_basis.md)
+and [#606 transition-cell correction](archive/resolved_bugs/unwrap_changing_cell_classification.md).
+The editor removes its temporary triangular/fixed-cell guards only after 336
+source cases and both eight-step fixed/general actual-Jupyter scenarios pass.
+The [receipt](../devtools/data/general_periodic_gui_receiving_421_20261108.json)
+keeps the original rejected valid cell and all failed fixture attempts.
 
-The owner has delivered the native corrections. The orientation and fixed-cell
-checks remain unchanged in this isolated reconciliation until their exact
-consumer receiving. They are not definitions of all valid physical boxes. They
-use no tolerance, cell rotation, lattice reduction or replacement image algorithm.
-Native public getters own box selection and quantity conversion. Invalid stored
-cells still undergo native scientific validation before publication. Expert
-wrappers retain native signatures, behavior and currently reported limits.
+The editor calls the shared native physical-box validator after explicit nm
+extraction. Preview rejects absent, nonfinite or singular stored cells before
+confirmation without coordinate writes. Image choice/reconstruction still runs
+once through public native operations. No tolerance, cell reorientation or
+replacement image algorithm is introduced. All 8,561 owner and 2,463 verified
+Viewer-export inputs remain unchanged during clean receiving. This is source
+acceptance only; general periodic accuracy, human Qt, installed packages and
+release readiness are not certified. The native backend is unchanged.
+
+The remaining cell/reference-point work retains the original **2026-11-13 or
+earlier** reassessment checkpoint. No accepted family scope is silently deferred.
 
 ## Reference-point owner correction and consumer receiving
 
 The original #608 counterexample showed atomwise primary wrapping snapping a
 small nonzero origin with an application-unit-dependent threshold. The owner
 has delivered the [native correction](archive/resolved_bugs/periodic_origin_unit_policy.md).
-This reconciliation preserves the original receiving evidence and adds no
-consumer tolerance, origin replacement or unit-policy override. Combined
-cross-policy consumer receiving remains due. **Do not clear the periodic family
+This receiving preserves the original evidence and adds no consumer tolerance,
+origin replacement or unit-policy override. Dedicated tiny-boundary-origin
+cross-policy graphical receiving remains due. **Do not clear the periodic family
 for 1.0 from the native fix alone.**
 The source GUI remains experimental/partial, not a general scientific readiness
 claim. Review the retained admission immediately against the delivered owner
