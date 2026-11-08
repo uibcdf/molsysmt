@@ -1,0 +1,254 @@
+{
+  "schema_version": "molsysmt.collantes_public_claims_receiving@1",
+  "date": "2026-11-08",
+  "issues": [
+    "uibcdf/molsysmt#473",
+    "uibcdf/molsysmt#475"
+  ],
+  "state": "bounded_experimental_source_qualified_pending_publication",
+  "qualified_source": "a2993b8f0ec0bbf34b95966891f9b783f61dbe85",
+  "decision_basis": "Retain the already maintainer-adopted provisional ISA area convention and original ECI compatibility behavior pending original-reference review; the audit explicitly permits bounded experimental disposition.",
+  "runs": {
+    "collantes-473-475-received": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/collantes-473-475-received.xml",
+          "-n0",
+          "tests/physchem/get_charge",
+          "tests/physchem/get_surface_area",
+          "tests/physchem/test_collantes_legacy_contract.py",
+          "tests/scientific_truth/physchem/test_reference_properties.py",
+          "molsysmt/physchem/get_charge.py",
+          "molsysmt/physchem/get_surface_area.py",
+          "<private-evidence>/test_molsysmt_collantes_public_tutorial.py"
+        ],
+        "exit_code": 0,
+        "seconds": 12.26288678497076,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "a2993b8f0ec0bbf34b95966891f9b783f61dbe85",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5216
+      },
+      "resources": {
+        "started_utc": "2026-11-08T07:08:19.429327+00:00",
+        "seconds": 14.008361363084987,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/molsysmt-reference-run.py",
+          "collantes-473-475-received"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.07568359375,
+            1.42041015625,
+            2.4970703125
+          ],
+          "cpu_utilization": 0.0603318250377074,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16810840064
+        },
+        "host_available_minimum_observed_bytes": 15052476416,
+        "host_reserve_bytes": 2147483648,
+        "cgroup_memory_peak_bytes": 338780160,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 13357191\nuser_usec 12748681\nsystem_usec 608509\nnice_usec 12733000\ncore_sched.force_idle_usec 0\nnr_periods 137\nnr_throttled 11\nthrottled_usec 53840\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "924a031a25637f60855e74a6777796f20d8dac534f4c21f136dd33f747ac8dc8",
+        "-bounded.json": "43acb654323024860a7491474f77c7335a6be9f25add7cc1cd72032dcf7f8194",
+        ".log": "969dc911638998ca3061407f68b2d4731a83e981fc8f5f56b0b603592ea961b3",
+        ".xml": "4cd94c67eaa2af928282e8507d18785ee5009dbd9368fcf4b80d4e5f0af32433",
+        "-inputs-before.json": "9bf038153099c317fb2812806e143dc96a22b876165145ba07fde7bb7dbdfd4d",
+        "-inputs-after.json": "9bf038153099c317fb2812806e143dc96a22b876165145ba07fde7bb7dbdfd4d"
+      },
+      "pytest_counts": {
+        "cases": 43,
+        "failure": 0,
+        "error": 0,
+        "skipped": 0
+      }
+    },
+    "parmed-649-650-fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 25.942138826008886,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "a2993b8f0ec0bbf34b95966891f9b783f61dbe85",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5216
+      },
+      "resources": {
+        "started_utc": "2026-11-08T07:08:34.561803+00:00",
+        "seconds": 27.014695602003485,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/molsysmt-reference-run.py",
+          "parmed-649-650-fast"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            3.0390625,
+            1.8212890625,
+            2.60546875
+          ],
+          "cpu_utilization": 0.38140703517587937,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 15416729600
+        },
+        "host_available_minimum_observed_bytes": 14594977792,
+        "host_reserve_bytes": 2147483648,
+        "cgroup_memory_peak_bytes": 399654912,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 26965699\nuser_usec 25118651\nsystem_usec 1847047\nnice_usec 25115000\ncore_sched.force_idle_usec 0\nnr_periods 273\nnr_throttled 51\nthrottled_usec 118003\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "c3d52d6e6b764aa8dc5ab645fe9ee023789735da4c2302cf305ca79a516f0655",
+        "-bounded.json": "e52a15faa89dc5a9880e419d27d72266f32a2bef4459137247450f2261239922",
+        ".log": "db9d086dc0d611f17a24247aa29fa9ea10829405d38c03cf7aea5ce954eaddf8",
+        "-inputs-before.json": "9bf038153099c317fb2812806e143dc96a22b876165145ba07fde7bb7dbdfd4d",
+        "-inputs-after.json": "9bf038153099c317fb2812806e143dc96a22b876165145ba07fde7bb7dbdfd4d"
+      }
+    },
+    "parmed-649-650-html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/hydrogen-645-html"
+        ],
+        "exit_code": 0,
+        "seconds": 13.311728500993922,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "a2993b8f0ec0bbf34b95966891f9b783f61dbe85",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5216
+      },
+      "resources": {
+        "started_utc": "2026-11-08T07:09:02.700408+00:00",
+        "seconds": 15.007330621825531,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/molsysmt-reference-run.py",
+          "parmed-649-650-html"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            4.86376953125,
+            2.32421875,
+            2.75048828125
+          ],
+          "cpu_utilization": 0.32730015082956254,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 15036440576
+        },
+        "host_available_minimum_observed_bytes": 14536847360,
+        "host_reserve_bytes": 2147483648,
+        "cgroup_memory_peak_bytes": 391831552,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 14555383\nuser_usec 13609488\nsystem_usec 945894\nnice_usec 13609000\ncore_sched.force_idle_usec 0\nnr_periods 150\nnr_throttled 22\nthrottled_usec 54022\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "artifact_sha256": {
+        ".json": "d71325e41cf510ae3f113ec93da9043b15b8adaa0418c119594559f1d68cba9e",
+        "-bounded.json": "81dbfdfc6045baf7fa1fb89caa5576acf96a95429b4f9f187dcfb5099c4931d1",
+        ".log": "382f82536b1648d7d2520d3a06b0ab3e720a4d958f7a2bbe24e74fa0f0f39b2f",
+        "-inputs-before.json": "9bf038153099c317fb2812806e143dc96a22b876165145ba07fde7bb7dbdfd4d",
+        "-inputs-after.json": "9bf038153099c317fb2812806e143dc96a22b876165145ba07fde7bb7dbdfd4d"
+      }
+    }
+  },
+  "notebooks": {
+    "docs/content/user/tools/physchem/get_charge.ipynb": {
+      "code_cells": 7,
+      "all_code_cells_outputs_ids_metadata_unchanged": true,
+      "code_sha256": "fa898924fde8fa26b453012868d46e82196f26de4b3e2dd460dade7e0fb69847"
+    },
+    "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb": {
+      "code_cells": 5,
+      "all_code_cells_outputs_ids_metadata_unchanged": true,
+      "code_sha256": "7fd968c278543d71d21ec75ba8b98fa907223f33ad538f7e54f3cd86217889c7"
+    }
+  },
+  "original_reference_verified": false,
+  "scientific_classifications_promoted": false,
+  "runtime_values_units_aggregation_changed": false,
+  "open_followup": "Original formula/table/unit and justified aggregation remain in the two open owner issues. No physical charge, SASA, scientific-profile, installed-client or release certification follows.",
+  "normative": "devguide/scientific_validation.md",
+  "support_libraries": "Existing public ArgDigest/PyUnitWizard/SMonitor routes unchanged; no new optional engine or method/attribution boundary.",
+  "html_content_checks": {
+    "content/user/tools/physchem/get_charge.html": "a99f8a51e2c7bc28cb4af1fdf627122e14f767cd2bc2cb7e869f4429dce0bd92",
+    "content/course/Common_Core/20_The_Specialized_Domains.html": "ce7f81a255e7fa0cdb75ccb2505b4e76a4cc2debd127f5778d486a5a785c7a91"
+  }
+}

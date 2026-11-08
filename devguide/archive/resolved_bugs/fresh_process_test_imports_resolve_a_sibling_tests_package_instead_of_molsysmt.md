@@ -1,9 +1,9 @@
 ---
 summary: Fresh-process test imports resolve a sibling tests package instead of MolSysMT
 issue: uibcdf/molsysmt#650
-status: active
+status: resolved
 opened: 2026-11-08
-closed:
+closed: 2026-11-08
 severity: medium
 verification: reproduced
 area: [tests]
@@ -58,3 +58,14 @@ fixtures declare known single O–H bonds; runtime unknown-order refusals remain
 The fresh child executes all original docking cases from an unrelated temporary
 working directory under the same blocked optional engines. This is source test
 receiving; exact committed-source/fast and full-suite acceptance remain due.
+
+## Resolution — 2026-11-08
+
+Clean source `a2993b8f0ec0bbf34b95966891f9b783f61dbe85` passes 525 cases with four workers, zero
+skips/failures/errors, including every previously task-starved selector.
+Fourteen fast gates, incremental HTML and applicable Ruff checks pass.
+[The source receipt](../../../devtools/data/conversion_fixture_receiving_649_650_20261108.json)
+retains the original six-failure/seven-pass diagnosis, 518-case serial receiving,
+525-case parallel receiving, exact commands, package-discovery and resource
+evidence. No runtime adapter is weakened. #612 still requires the complete
+exact-source suite; these passing directed cases are not that acceptance.

@@ -132,3 +132,29 @@ exact-source gate is met. Any next attempt must use an explicitly inspected
 serial command and bounded resources; the successful small campaigns do not
 establish the complete suite's peak requirements. Other incoming/API work can
 proceed independently without relabelling this gate.
+
+## Measured concurrency and full-suite blockers — 2026-11-08
+
+The maintainer requested measured use of shared resources beyond the one-CPU
+pilot. The serial full attempt on `6205fcc78` is deliberately interrupted after
+1,544 passes; it is not a passing full run. Four-worker/6-GiB receiving then
+reaches a 128-task ceiling (160 blocked creations, peak memory 5,343,064,064
+bytes), causing EAGAIN and thread-creation failures. It is stopped; final
+pytest/Receptor evidence is incomplete, and ending Git metadata capture also
+fails under task starvation. There is no OOM or host-reserve violation.
+
+A controlled serial diagnosis proves six independent test defects and seven
+passing formerly starved cases. #649/#650 correct only positive export fixtures
+and test-package ownership. The corrected four-worker pilot on `a2993b8f0ec0bbf34b95966891f9b783f61dbe85`
+passes 525 cases, peaks at 3,292,508,160 bytes and 32 tasks, with zero task-cap
+or memory events. Rayon now joins BLAS/OpenMP/OpenMM at one thread per worker;
+the finite task ceiling is 512. CPU remains four cores, memory 6 GiB max/5 GiB
+high and zero swap. The maintainer sets the absolute shared-host reserve to
+2 GiB; the controller stops 512 MiB above it. These observations do not reserve
+resources or qualify the full suite. Preserve all three incomplete full attempts.
+
+The [resource adjustment record](../../devtools/data/source_suite_resource_adjustments_612_20261108.json)
+retains actual attempts, stop evidence and limits; the
+[fixture receipt](../../devtools/data/conversion_fixture_receiving_649_650_20261108.json)
+retains scoped correction evidence. Next receive the full exact-source suite
+with the inspected thread-controlled route. #612 remains active.

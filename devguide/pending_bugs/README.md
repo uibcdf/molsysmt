@@ -25,10 +25,8 @@ that front matter -- edit the entries, not this list.
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
 
-### In progress (3)
+### In progress (1)
 
-- [`conversion_and_form_detection_fixtures_violate_explicit_parmed_export_prerequisi.md`](conversion_and_form_detection_fixtures_violate_explicit_parmed_export_prerequisi.md) — [#649](https://github.com/uibcdf/molsysmt/issues/649) — Conversion and form-detection fixtures violate explicit ParmEd export prerequisites *(medium, reproduced)*
-- [`fresh_process_test_imports_resolve_a_sibling_tests_package_instead_of_molsysmt.md`](fresh_process_test_imports_resolve_a_sibling_tests_package_instead_of_molsysmt.md) — [#650](https://github.com/uibcdf/molsysmt/issues/650) — Fresh-process test imports resolve a sibling tests package instead of MolSysMT *(medium, reproduced)*
 - [`multimodel_alternate_location_fidelity_expectation.md`](multimodel_alternate_location_fidelity_expectation.md) — [#612](https://github.com/uibcdf/molsysmt/issues/612) — Reconcile multi-model alternate-location fidelity with stable-ID preflight. *(medium, reproduced)*
 
 ### Partially resolved (5)
