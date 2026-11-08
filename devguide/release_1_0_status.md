@@ -22,6 +22,40 @@ contracts.
 
 ## Current source checkpoint — 2026-11-08
 
+Public source `a28cb04fa7dafdc8853d3ccfe16f47077c0ecd98` independently matches
+all **28 changed paths** of sequence-derived Geometry alignment and its receiving.
+Clean `63fc27883` passes **113 affected cases**, including the public native
+doctest and three hosted preflight modules, and **two actual-Jupyter guards /
+sixteen checks** under nm/pm policies. Broad `7bf2949b1` retains 597 passes and
+one repaired hosted-list failure; identical runtime reuse is explicit, not a
+new full passing 598-case claim. Fourteen fast gates and HTML pass; seven pages
+and unchanged code/outputs in four course modules are checked.
+
+The [receiving receipt](../devtools/data/molsysviewer_tools_sequence_alignment_receiving_421_20261108.json)
+retains every attempt, native/Mol* rigid-pose oracles, gap/permutation controls,
+complete-component movement, source/result ownership, coverage, reference-byte
+preservation and retained popup controls. The
+[delivery receipt](../devtools/data/molsysviewer_tools_sequence_alignment_delivery_421_20261108.json)
+records public blobs and four preserved human files. All 8,573 owner and 2,463
+Viewer-export inputs remain unchanged during final receiving. GUI peak charged
+memory is **1.89 GiB**, with host availability above **12.8 GiB** and no cap/OOM/
+reserve stop under the monitored aggregate limit of five CPU/six GiB.
+
+Accept one existing graphical intent: **26/50**, completing the fitting family.
+The unchanged six weights yield **72.35035797535798% (approximately 72.4%)**.
+Separate audit-related source closures stay **52**. #421 remains partial.
+The complete board has **588 issues / 90 open / no open PR**. #656 records an
+explicit copy-policy failure in two-domain native composition; the consumer uses
+its admitted default. #654 remains unreproduced GHECOM compatibility intake.
+
+**Next finite block: #604** positional pairwise/clustering. Remaining graphical
+families, #615 uncertainty, #567 policy, #582 effective mechanics and all
+installed/platform/human/exact-candidate/full-suite recovery requirements remain.
+The planned OpenMM/openmmtools study is preserved in the audit. No tag, package,
+Release, promotion or hosted CI was launched.
+
+## Static Topology source checkpoint — 2026-11-08
+
 Public main `ca96894ea5be1ad309a112b0fd140168b98dbdc7` independently matches
 all **20 changed paths** of #655's stored-topology projection and the maintainer
 follow-up queue. Clean implementation `10d43b2a9` passes **1,181 tests**,
@@ -98,7 +132,7 @@ observed legacy all_bonds-to-HBonds helper mismatch. No package, tag, Release,
 promotion or hosted matrix was launched. Installed/platform/human Qt/exact-
 candidate qualification and full-suite recovery remain required.
 
-## Sequence-derived local receiving — 2026-11-08
+## Sequence-derived local receiving before publication — 2026-11-08
 
 Clean `63fc27883` receives the existing sequence-fit intent in 113 affected
 source cases and two actual-Jupyter guards / sixteen checks under nm/pm policy.
@@ -114,10 +148,11 @@ OpenMM/openmmtools study remains planned.
 
 ## Maintainer queue and incoming reference work — 2026-11-08
 
-Continue the accepted sequence-fit intent. Its static-reference preparation
+The accepted sequence-fit intent is received. Its static-reference preparation
 reproduces the separately tracked [#655 conversion optimization](archive/resolved_proposals/h5msm_static_topology_conversion_reads_coordinate_payload.md);
 its source is qualified in `10d43b2a9` (1,181 tests, fourteen fast gates and
-HTML), publicly verified at `ca96894ea` and closed. Continue the GUI consumer. After the finite
+HTML), publicly verified at `ca96894ea` and closed. The GUI consumer is now
+received and public at `a28cb04fa`. After the completed finite
 sequence-fit block, attend #604's supported positional pairwise/clustering
 contract for DockingMT. It remains open and adds no frozen release gate.
 Incoming #654 reports a coordinate-read failure on GHECOM's nonnumeric PDB

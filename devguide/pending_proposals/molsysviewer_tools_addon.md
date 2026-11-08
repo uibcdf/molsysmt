@@ -4,7 +4,7 @@ issue: uibcdf/molsysmt#421
 status: partial
 opened: 2026-10-22
 closed:
-verification: inspected
+verification: measured
 area: [api, molsysviewer, addons]
 guard:
 normative:
@@ -14,7 +14,26 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
-## Sequence-derived GUI receiving — 2026-11-08
+## Sequence-derived public delivery — 2026-11-08
+
+Public source `a28cb04fa7dafdc8853d3ccfe16f47077c0ecd98` independently matches
+all 28 changed paths. The [delivery receipt](../../devtools/data/molsysviewer_tools_sequence_alignment_delivery_421_20261108.json)
+records the complete public tree and unchanged four human files. Accept the
+existing sequence-fit graphical intent: **26/50** intents are source-delivered
+and all four fitting intents are received. The six original weights remain;
+progress becomes **72.35035797535798% (approximately 72.4%)**. Source issue
+closures stay **52**, because #421 remains partial and #656 stays open.
+
+The source/GUI/HTML evidence and explicit failed-run reuse remain in the preceding
+receiving record. Native methods retain scientific ownership; public reference
+memory and unsupported predicates remain visible. The next finite block is #604;
+#654/#656 intake, #615 uncertainty, #567/#582 policy and all remaining graphical,
+installed/platform/human/final-candidate requirements retain their separate scope.
+The complete board contains 588 issues, 90 open and no open PR. No new tag,
+package, Release, promotion or remote CI was launched. The requested OpenMM/
+openmmtools comparison remains planned rather than implemented.
+
+## Sequence-derived local receiving before publication — 2026-11-08
 
 **Locally received, public delivery pending.** Clean `63fc27883` passes 113
 affected cases, including all 32 new panel cases, the public alignment doctest

@@ -7,12 +7,20 @@
 
 ## Maintainer follow-up queue — 2026-11-08
 
-Sequence-fit now has clean local receiving on `63fc27883`: 113 affected source
+Sequence-fit is independently public at `a28cb04fa` (28 changed paths). Accept
+one existing graphical intent: 26/50, all four fitting intents received, and
+72.35035797535798% (approximately 72.4%) with the same six weights. Separate
+source issue closures stay 52. #421 remains partial; #604 is now the next finite
+block. #656 and #654 retain their owning intake, and the OpenMM/openmmtools
+comparison remains planned. The complete board has 588 issues, 90 open and no
+open PR. Installed/platform/human/exact-candidate requirements are unchanged.
+
+Before publication, sequence-fit completed clean local receiving on `63fc27883`: 113 affected source
 passes, two real Jupyter guards / sixteen checks, fourteen fast gates and HTML.
 The [receipt](../devtools/data/molsysviewer_tools_sequence_alignment_receiving_421_20261108.json)
 retains the broad partial failure, test-only repairs, unchanged runtime reuse and
-reference memory boundary. Public-source acceptance remains pending, with no
-new score weight or closure count. #656 is a separately reported copy-policy bug;
+reference memory boundary. That local checkpoint carried no public-source
+acceptance, new score weight or closure count. #656 is a separately reported copy-policy bug;
 #604 and the planned OpenMM/openmmtools comparison remain queued.
 
 The #655 prerequisite is source-qualified in `10d43b2a9`: 1,181 passing tests,
@@ -22,7 +30,7 @@ retains the negative attempts and legacy reconstruction boundary. Public deliver
 and #655 is closed. No weighted leaf is added; progress stays 72.3%, with
 52 separate source closures and 25/50 accepted graphical intents.
 
-The active sequence-fit intent now has the received #655 static-topology
+The completed sequence-fit intent uses the received #655 static-topology
 conversion prerequisite; #604's positional pairwise/clustering work follows
 that finite block. Record new incoming #654's GHECOM nonnumeric-REMARK
 compatibility question without claiming reproduction or a policy decision.
@@ -1689,4 +1697,4 @@ or analytical controls before proposing a scientific-equivalence claim.
 The deliverable is a dated comparative report and prioritized proposals, with
 owning issues where needed. This records the user's requested study without
 changing frozen 1.0 gates, adding a scorecard weight or promising unreviewed
-scientific functionality. #604 remains queued after the active sequence-fit block.
+scientific functionality. #604 is now the next finite block after sequence-fit.
