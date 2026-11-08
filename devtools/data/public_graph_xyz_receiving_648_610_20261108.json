@@ -6,7 +6,7 @@
     "uibcdf/molsysmt#610"
   ],
   "related_partial_issue": "uibcdf/molsysmt#378",
-  "state": "source_qualified_pending_public_closeout",
+  "state": "public_source_closed",
   "qualified_source": "d2ce182a46cf247fa466f31606402cf3734ba8d4",
   "contract": "Public ChemicalStates construction and explicit typed completeness; existing atom-level XYZ query/direct setter and default-system refusal; README chemical graph namespace. No runtime algorithm, signature, dependency or storage change.",
   "runs": {
@@ -750,5 +750,16 @@
     "tests/chemical_states/test_public_graph_tutorials.py": "176e1510a6740ad1ceb43de0ea66ac960d37b81fb8744bd1a35a3eb8e717b1e4",
     "tests/documentation/test_readme_structure_analysis.py": "94dfd29a828b02d8dfc3e2414355d66ff4f05b3aca811302c4fca808f9477364",
     "tests/form/XYZ/test_public_coordinate_delivery.py": "c687bc029f40058b6303813432b0b13d03429d8166b7f0d3588fbd644a989088"
-  }
+  },
+  "public_checkpoint": "0aa9d853418f5c7061bd26ff71b16976b87656f4",
+  "independently_verified_issue_closures": {
+    "648": "2026-11-08T06:35:02Z",
+    "610": "2026-11-08T06:35:04Z"
+  },
+  "complete_board": {
+    "issues": 580,
+    "open": 93,
+    "open_prs": 0
+  },
+  "weighted_milestone_change": 1.4285714285714235
 }

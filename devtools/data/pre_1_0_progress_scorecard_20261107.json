@@ -2,15 +2,15 @@
   "schema_version": "molsysmt.pre1-progress@1",
   "date": "2026-11-07",
   "owner_issue": "uibcdf/molsysmt#334",
-  "qualified_source": "d7c7b7e927824a45f806aca040199a2aa7d84d03",
+  "qualified_source": "d2ce182a46cf247fa466f31606402cf3734ba8d4",
   "measure": "Verified implementation/source-delivery milestones; approximate operational completion, not elapsed effort, scientific coverage, a readiness probability or publication authority.",
   "accounting_change": "The earlier all-or-nothing phase-exit indicator was 40%. The same six phase weights and full scope now receive explicit partial milestone credit. This is a catch-up remeasurement of delivered work, not a new 21-point implementation in this turn.",
   "method": "Within phases 3\u20136, each named requirement package has equal weight. Nested accepted GUI families have equal family weight, then equal declared intent/task weight within that family. Verified-source leaves score 1, pending leaves score 0; parents average children. Supplemental defect/test/issue counts add no bonus. Pending means not accepted by this audit, not absent code.",
   "gui_scope": "Tracking packages make the previously accepted workflow inventory explicit. They are user intents, not a GUI promise for every expert argument or a new scientific feature request. Native/expert APIs remain available and retain their own qualification.",
   "publication": "The existing pause remains. #640/#641/#642 and all other required correctness work retain owning acceptance. Exact candidate/platform/installed and final sign-off gates are not scored as passed by source tests.",
   "legacy_phase_exit_percent": 40,
-  "weighted_milestone_percent": 62.47752247752248,
-  "reported_approximate_percent": 62.5,
+  "weighted_milestone_percent": 63.9060939060939,
+  "reported_approximate_percent": 63.9,
   "phases": [
     {
       "id": "phase1",
@@ -749,9 +749,13 @@
         {
           "id": "378-610",
           "requirement": "Receive #378/#610 public namespace/composition examples",
-          "state": "pending",
-          "evidence": [],
-          "review": ""
+          "state": "verified_source",
+          "evidence": [
+            "devtools/data/public_graph_xyz_receiving_648_610_20261108.json",
+            "devguide/archive/resolved_bugs/clarify_public_xyz_coordinate_delivery.md",
+            "devguide/pending_proposals/docs/evidence_based_public_discoverability.md"
+          ],
+          "review": "Clean source d2ce182a4 passes 89 combined cases, the public getter doctest, original README analysis and literal graph/XYZ recipes; fourteen fast gates and incremental HTML pass. #610/#648 are independently verified closed on public main 0aa9d8534. This accepts only the original bounded public-example requirement; broader #378 discoverability remains partial/open. No numerical method, installed or candidate claim is added."
         },
         {
           "id": "582",
@@ -769,8 +773,8 @@
         }
       ],
       "review": "Only individually accepted requirement leaves receive credit. Other pending source/claim/candidate work remains explicit; pending does not assert absent code.",
-      "verified_fraction": 0.14285714285714285,
-      "credited_points": 1.4285714285714284
+      "verified_fraction": 0.2857142857142857,
+      "credited_points": 2.8571428571428568
     },
     {
       "id": "phase6",
@@ -818,32 +822,34 @@
     }
   ],
   "new_priority": {
-    "issue": "uibcdf/molsysmt#648",
+    "issue": "uibcdf/molsysmt#612",
     "completed_related": [
       "uibcdf/molsysmt#587",
       "uibcdf/molsysmt#549",
       "uibcdf/molsysmt#644",
       "uibcdf/molsysmt#646",
       "uibcdf/molsysmt#647",
-      "uibcdf/molsysmt#645"
+      "uibcdf/molsysmt#645",
+      "uibcdf/molsysmt#648",
+      "uibcdf/molsysmt#610"
     ],
-    "record": "devguide/pending_bugs/docs/rigid_fragment_tutorial_uses_retired_topology_chemical_attributes.md",
-    "owner_verification": "#645 is independently source-closed after 247 cases, fourteen fast gates and corrected HTML. #648 is an inspected stale tutorial example, not an established algorithm defect. Its bounded executable-example repair is next.",
-    "independent_lightweight_review": "After #648, receive #610 public XYZ coordinate delivery; preserve #378 broader discoverability and every remaining audit exit.",
+    "record": "devguide/pending_bugs/multimodel_alternate_location_fidelity_expectation.md",
+    "owner_verification": "#648 and #610 source-closeout and the bounded #378 public-example contribution are accepted. Receive the exact-source complete suite using the inspected serial cgroup route; no 12-worker restart.",
+    "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
     "scope": "Retain #612 complete-source qualification through the resource-bounded serial route and every remaining #421 graphical, scientific-contract, installed/platform and exact-candidate requirement.",
     "pending_full_source": "uibcdf/molsysmt#612"
   },
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
     "issues": [
-      "uibcdf/molsysmt#645"
+      "uibcdf/molsysmt#648"
     ],
-    "source": "4f7c7e4c278a9995909c2f4d9bec917d03729a63",
-    "public_checkpoint": "4cafe7af25d626729c58df67adf30a788d2e0630",
+    "source": "d2ce182a46cf247fa466f31606402cf3734ba8d4",
+    "public_checkpoint": "0aa9d853418f5c7061bd26ff71b16976b87656f4",
     "state": "public_source_closed",
-    "evidence": "devtools/data/indexed_hydrogen_policy_receiving_645_20261107.json",
+    "evidence": "devtools/data/public_graph_xyz_receiving_648_610_20261108.json",
     "weighted_milestone_change": 0,
-    "audit_related_source_closures": 39
+    "audit_related_source_closures": 41
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
@@ -861,12 +867,16 @@
     "graphical_total": 50
   },
   "last_owner_closeout": {
-    "issue": "uibcdf/molsysmt#549",
-    "qualified_source": "d7c7b7e927824a45f806aca040199a2aa7d84d03",
+    "issues": [
+      "uibcdf/molsysmt#610"
+    ],
+    "related_partial": "uibcdf/molsysmt#378",
+    "qualified_source": "d2ce182a46cf247fa466f31606402cf3734ba8d4",
+    "public_checkpoint": "0aa9d853418f5c7061bd26ff71b16976b87656f4",
     "state": "public_source_closed",
-    "evidence": "devtools/data/group_naming_owner_receiving_549_20261107.json",
-    "weighted_milestone_change": 1.4285714285714306,
-    "audit_related_source_closures": 35
+    "evidence": "devtools/data/public_graph_xyz_receiving_648_610_20261108.json",
+    "weighted_milestone_change": 1.4285714285714235,
+    "audit_related_source_closures": 41
   },
   "last_source_qualification_attempt": {
     "issue": "uibcdf/molsysmt#612",
@@ -876,11 +886,9 @@
     "weighted_milestone_change": 0
   },
   "incoming_intake": {
-    "issues": [
-      "uibcdf/molsysmt#648"
-    ],
+    "issues": [],
     "complete_board_issues": 580,
-    "open_issues": 95,
+    "open_issues": 93,
     "open_prs": 0,
     "weighted_milestone_change": 0
   },

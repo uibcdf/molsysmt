@@ -20,6 +20,34 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Public graph/XYZ examples received — 2026-11-08
+
+#648 and #610 are published on public main `0aa9d853418f5c7061bd26ff71b16976b87656f4`
+and independently verified closed. Qualified source `d2ce182a46cf247fa466f31606402cf3734ba8d4`
+passes **89 cases**, including twenty new public-example/axis controls, literal
+README graph-analysis and graph/XYZ recipe blocks, and the public getter
+doctest. Fourteen fast gates and incremental HTML pass on the same source.
+The [receiving record](../devtools/data/public_graph_xyz_receiving_648_610_20261108.json)
+retains original failures, authoring corrections, checksums, notebook preservation
+and resource observations. Tests peak at about 526 MiB, fast gates at 382 MiB
+and incremental HTML at 380 MiB under the verified serial 2 GiB/one-CPU/no-swap
+route. There is no OOM event or host-reserve violation. Four human documentation
+edits and the native binary remain unchanged.
+
+The rigid-fragment example now uses public ChemicalStates and explicitly typed
+complete connectivity. XYZ retains its documented atom-level query and direct
+quantity assignment; default system-coordinate delivery remains unsupported.
+README quartets use chemical_states. #378 receives its bounded pre-1.0 example
+contribution; its broader discoverability proposal stays partial and open.
+
+The original #378/#610 milestone is now accepted. Progress is **approximately
+63.9%**, with **41 audit-related source issues closed** and **23/50 graphical
+intents accepted**, retaining all six original weights. The complete paginated
+board contains **580 issues, 93 open and no open PR**. Next is #612's complete
+exact-source receiving through the bounded serial route; continue the remaining
+graphical and scientific-contract work without losing installed/platform or
+final-candidate exits. No new artifact, remote matrix, tag or release is claimed.
+
 ## Indexed-H policy source closeout — 2026-11-08
 
 #645 is published and independently verified closed. The experimental public
