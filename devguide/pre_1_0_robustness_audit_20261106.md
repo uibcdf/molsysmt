@@ -7,6 +7,12 @@
 
 ## Maintainer follow-up queue — 2026-11-08
 
+The #655 prerequisite is source-qualified in `10d43b2a9`: 1,181 passing tests,
+including conversion doctests, fourteen fast gates and inspected HTML. Its
+[resolution](archive/resolved_proposals/h5msm_static_topology_conversion_reads_coordinate_payload.md)
+retains the negative attempts and legacy reconstruction boundary. Publication
+and board closure remain a separate checkpoint; no weighted leaf is added.
+
 The active sequence-fit intent first receives the measured #655 static-topology
 conversion prerequisite; #604's positional pairwise/clustering work follows
 that finite block. Record new incoming #654's GHECOM nonnumeric-REMARK
@@ -1646,3 +1652,32 @@ what was known, decided, implemented and qualified at each checkpoint.
 | 2026-11-08 | Four graphical owner defects publicly closed | Clean `68323539e` passes all fourteen actual-Jupyter guards / 109 browser checks; all 8,560 owner and 2,463 verified-export inputs agree before/after. Fourteen fast gates pass on public `9a27cc1bea`. #590/#591/#609/#614 are independently verified closed; complete board 585 issues/88 open/no PR and queue sync pass. Accepted milestones 72.2%, 51 source closures, graphical intents still 23/50. | Continue the existing general-orientation/changing-cell periodic GUI intent and remaining agreed families. Preserve every failed/stopped attempt, #615 uncertainty, #567 policy, #582 recipe work and all installed/platform/final-candidate requirements. No release authority. |
 
 | 2026-11-08 | General periodic graphical intent publicly received | Public `1659a1515` delivers clean `2f0eeb1c1`: 336 source cases, fixed/general real-Jupyter guards (sixteen browser checks), shared physical-box validation and previous-selected transition cells. Fourteen fast gates, course structure and HTML pass; six old heading warnings remain. Code/outputs in four course modules are preserved. | Credit only the existing general-periodic leaf: 24/50 graphical intents, 51 source closures, weighted 72.2367%. Continue cell assignment, tiny-boundary-origin graphical receiving and all other original/external/final-candidate requirements. No full-family, installed, human or release acceptance. |
+
+## Planned OpenMM/openmmtools capability comparison
+
+At the requested deliberate pause, inspect the local source repositories and
+record their exact revisions and local modifications before drawing conclusions.
+Currently observed heads are OpenMM `ba0aa236ac4d07241382869604c4d2ea58c4f3f5`
+and openmmtools `a42cbdc862a0a4fe996a579dd1b04611ce9916a4`; these are inventory
+observations, not yet reviewed or qualified sources. Do not implement anything
+merely because another package exports it.
+
+Build an evidence table with one meaningful operation per row: scientific
+purpose; source API/implementation and reference; existing MolSysMT equivalent
+and real gap; prospective users; domain owner; reusable public contract; units,
+atom/group/structure/state axes and PBC assumptions; optional-provider boundary;
+licensing/attribution; independent tests and estimated resource cost. Distinguish
+an existing but undiscoverable tool from a missing capability.
+
+Rank the findings as reuse/document now, investigate/implement later, provider
+request, or outside MolSysMT's remit, with explicit reasons. General tools must
+retain engine-neutral, form-agnostic boundaries and use the appropriate owning
+module. Protocol orchestration and sampling strategies require an explicit
+Praxis/Nextia ownership decision. Reuse compiled primitives first; justify any
+new Rust work by measurement. Compare representative cases against independent
+or analytical controls before proposing a scientific-equivalence claim.
+
+The deliverable is a dated comparative report and prioritized proposals, with
+owning issues where needed. This records the user's requested study without
+changing frozen 1.0 gates, adding a scorecard weight or promising unreviewed
+scientific functionality. #604 remains queued after the active sequence-fit block.

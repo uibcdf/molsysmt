@@ -1,13 +1,13 @@
 ---
 summary: Avoid reading coordinate payloads for whole H5MSM topology conversion.
 issue: uibcdf/molsysmt#655
-status: active
+status: resolved
 opened: 2026-11-08
-closed:
+closed: 2026-11-08
 verification: measured
 area: [convert, performance]
-guard:
-normative:
+guard: tests/form/file_h5msm/test_topology_v05_probe.py::test_default_topology_conversion_reads_no_other_layer_payload
+normative: devguide/SCALABILITY.md
 blocked_by: []
 supersedes: []
 ---
@@ -15,7 +15,7 @@ supersedes: []
 # Static topology conversion reads an unrelated structural layer
 
 **Reported:** 2026-11-08, while preparing the accepted sequence-fit GUI intent
-under #421. **Status:** bounded baseline reproduced; implementation and directed receiving complete, final qualification pending.
+under #421. **Status:** source-qualified; public delivery and board closeout are recorded separately below.
 
 ## What
 
@@ -135,3 +135,35 @@ unknown in this projection. A joint `MolSys` load remains the supported legacy
 reconstruction; the existing migration test now contrasts both public routes.
 This is an explicit projection boundary, not a claim that implicit legacy
 reconstruction can be retained without chemistry.
+
+## Resolution — 2026-11-08
+
+Accepted as a bounded stored-topology projection in source
+`10d43b2a92a45b85b4a742a06b2548fce165dd6c`. The existing public selected-layer
+reader owns decoding; conversion admits only the documented default whole-domain
+case. No chemical reconstruction is hidden inside this coordinate-free target.
+
+Clean receiving passes **1,181 cases**, including the public convert doctest,
+legacy files, modular queries, naming, ownership, complementary inputs and reports.
+The HDF5 guard rejects every structural, chemical-state or interaction dataset
+access during the admitted route; the pre-change tracked guard fails at the
+first coordinate read. Positive tables, canonical string IDs, naming declarations,
+missing/corrupt topology, nm/pm session policy and contextual fallbacks are checked.
+The old group-free migration case contrasts projection with joint reconstruction.
+
+Fourteen fast gates and HTML compilation pass on that same clean source. Five
+rendered pages retain the scope and limits, and both edited notebooks retain every
+executable cell and saved output. Six existing HTML title warnings are unchanged.
+Whole-tree Ruff check and format check pass. All 8,567 owner inputs (including the
+unchanged Rust binary) and 2,463 verified Viewer-export inputs are unchanged in
+each final run. No runtime Viewer change or graphical-intent credit is claimed.
+
+The source service peaks at **820,248,576 bytes**, fast checks at **417,345,536
+bytes** and HTML at **1,337,757,696 bytes**. Individual one-CPU/two-GiB caps and
+reserve monitors remain active during their brief overlap; no cap/OOM/reserve
+stop occurs. These are receiving costs, not conversion throughput or total-memory
+benchmarks. The portable [receipt](../../../devtools/data/h5msm_static_topology_receiving_655_20261108.json)
+retains all seven pytest attempts, commands, outcomes, fixture corrections,
+resources and fingerprints. Public-delivery identity is maintained in the
+[release ledger](../../release_1_0_status.md) after publication. #604 and the
+requested OpenMM/openmmtools capability study remain separate queued work.

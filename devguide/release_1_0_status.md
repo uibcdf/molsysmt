@@ -69,8 +69,9 @@ candidate qualification and full-suite recovery remain required.
 ## Maintainer queue and incoming reference work — 2026-11-08
 
 Continue the accepted sequence-fit intent. Its static-reference preparation
-reproduces the separately tracked [#655 conversion optimization](pending_proposals/h5msm_static_topology_conversion_reads_coordinate_payload.md);
-receive that provider step before adding the GUI consumer. After the finite
+reproduces the separately tracked [#655 conversion optimization](archive/resolved_proposals/h5msm_static_topology_conversion_reads_coordinate_payload.md);
+its source is now qualified in `10d43b2a9` (1,181 tests, fourteen fast gates and
+HTML). Publish and verify that provider step before adding the GUI consumer. After the finite
 sequence-fit block, attend #604's supported positional pairwise/clustering
 contract for DockingMT. It remains open and adds no frozen release gate.
 Incoming #654 reports a coordinate-read failure on GHECOM's nonnumeric PDB
