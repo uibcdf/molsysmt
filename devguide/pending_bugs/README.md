@@ -25,10 +25,9 @@ that front matter -- edit the entries, not this list.
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
 
-### In progress (2)
+### In progress (1)
 
 - [`multimodel_alternate_location_fidelity_expectation.md`](multimodel_alternate_location_fidelity_expectation.md) — [#612](https://github.com/uibcdf/molsysmt/issues/612) — Reconcile multi-model alternate-location fidelity with stable-ID preflight. *(medium, reproduced)*
-- [`scalar_string_component_id_is_rejected_by_the_molsys_assignment_adapter.md`](scalar_string_component_id_is_rejected_by_the_molsys_assignment_adapter.md) — [#647](https://github.com/uibcdf/molsysmt/issues/647) — Scalar string component_id is rejected by the MolSys assignment adapter *(medium, reproduced)*
 
 ### Partially resolved (5)
 

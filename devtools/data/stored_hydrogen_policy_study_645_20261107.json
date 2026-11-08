@@ -125,7 +125,7 @@
   },
   "execution": {
     "command": [
-      "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+      "<development-environment>/bin/python",
       "<private-evidence>/hydrogen-policy-probe-645.py"
     ],
     "exit_code": 0,
@@ -142,7 +142,7 @@
     "started_utc": "2026-11-08T04:47:35.083232+00:00",
     "seconds": 7.004721320932731,
     "command": [
-      "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+      "<development-environment>/bin/python",
       "<private-evidence>/reference-run.py",
       "hydrogen-645-probe"
     ],
@@ -186,5 +186,6 @@
     "RDKit 2025.9.5 is executed here, not the consumer's 2026.09.2 prefix.",
     "No RMSD, docking workflow, independent biological/chemical equivalence certification or exact artifact is qualified."
   ],
-  "weighted_milestone_change": 0
+  "weighted_milestone_change": 0,
+  "path_rendering": "Machine-local source, evidence and interpreter prefixes use named placeholders; original execution records remain in private evidence."
 }

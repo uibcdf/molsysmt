@@ -20,7 +20,7 @@
     "compare-646-baseline": {
       "execution": {
         "command": [
-          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<development-environment>/bin/python",
           "-m",
           "pytest",
           "--receptor=llm",
@@ -42,7 +42,7 @@
         "started_utc": "2026-11-08T04:39:26.733597+00:00",
         "seconds": 9.00663210498169,
         "command": [
-          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<development-environment>/bin/python",
           "<private-evidence>/reference-run.py",
           "compare-646-baseline"
         ],
@@ -88,7 +88,7 @@
     "compare-646-baseline-final": {
       "execution": {
         "command": [
-          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<development-environment>/bin/python",
           "-m",
           "pytest",
           "--receptor=llm",
@@ -110,7 +110,7 @@
         "started_utc": "2026-11-08T04:40:34.464817+00:00",
         "seconds": 8.005444901064038,
         "command": [
-          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<development-environment>/bin/python",
           "<private-evidence>/reference-run.py",
           "compare-646-baseline-final"
         ],
@@ -156,7 +156,7 @@
     "compare-646-integrated": {
       "execution": {
         "command": [
-          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<development-environment>/bin/python",
           "-m",
           "pytest",
           "--receptor=llm",
@@ -182,7 +182,7 @@
         "started_utc": "2026-11-08T04:42:12.163234+00:00",
         "seconds": 35.0200125221163,
         "command": [
-          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<development-environment>/bin/python",
           "<private-evidence>/reference-run.py",
           "compare-646-integrated"
         ],
@@ -228,7 +228,7 @@
     "compare-646-final": {
       "execution": {
         "command": [
-          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<development-environment>/bin/python",
           "-m",
           "pytest",
           "--receptor=llm",
@@ -254,7 +254,7 @@
         "started_utc": "2026-11-08T04:43:43.256607+00:00",
         "seconds": 36.020698733162135,
         "command": [
-          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<development-environment>/bin/python",
           "<private-evidence>/reference-run.py",
           "compare-646-final"
         ],
@@ -293,7 +293,7 @@
     "compare-646-fast": {
       "execution": {
         "command": [
-          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<development-environment>/bin/python",
           "devtools/scripts/release_gate.py"
         ],
         "exit_code": 0,
@@ -310,7 +310,7 @@
         "started_utc": "2026-11-08T04:44:20.448510+00:00",
         "seconds": 23.01231263903901,
         "command": [
-          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<development-environment>/bin/python",
           "<private-evidence>/reference-run.py",
           "compare-646-fast"
         ],
@@ -410,5 +410,6 @@
     "comment_id": 6717397158,
     "related": "uibcdf/dockingmt#33",
     "scope": "Python source repair; consumer whole-provider/artifact and complete workflow qualification remain independent."
-  }
+  },
+  "path_rendering": "Machine-local source, evidence and interpreter prefixes use named placeholders; original execution records remain in private evidence."
 }

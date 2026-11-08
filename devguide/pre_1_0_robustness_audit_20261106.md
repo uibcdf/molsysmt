@@ -20,7 +20,7 @@ the source handoff (6717397158); its complete workflow/artifact gates remain sep
 
 The complete board contains **579 issues, 96 open and no open PR**. #647 owns
 the separate scalar string-ID setter rejection found by the original controls.
-Its [record](pending_bugs/scalar_string_component_id_is_rejected_by_the_molsys_assignment_adapter.md)
+Its [record](archive/resolved_bugs/scalar_string_component_id_is_rejected_by_the_molsys_assignment_adapter.md)
 retains that failure; this bounded repair is next. For #645, a
 [real-input study](pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md)
 reproduces zero strict maps, then two maps after a private explicit-copy/set

@@ -1,13 +1,13 @@
 ---
 summary: Scalar string component_id is rejected by the MolSys assignment adapter
 issue: uibcdf/molsysmt#647
-status: active
+status: resolved
 opened: 2026-11-07
-closed:
+closed: 2026-11-07
 severity: medium
 verification: reproduced
 area: [basic, argdigest]
-guard:
+guard: tests/basic/test_set_component_id.py::test_scalar_component_ids_use_the_chemical_owner_contract
 normative:
 blocked_by: []
 supersedes: []
@@ -73,3 +73,29 @@ normalizer before trusted delegation; no second normalization algorithm, broad
 caller bypass or selector/compare change is added. Existing ArgDigest/SMonitor
 provide validation and structured errors. No new optional-engine, scientific
 attribution, dependency or physical-unit operation is introduced. Prepared-source receiving passes 279 cases, including the 138 new setter controls, all 54 comparison controls, existing chemical-component/append tests and the updated MolSys component-setter doctest. The measured test peak is 248,209,408 bytes. Clean committed-source and fast-gate acceptance remain pending.
+
+## Resolution — 2026-11-07
+
+Qualified source `d020ff4a4e005c1e6076a9f417446685465fdf71` passes **279 clean-source cases**
+with zero skips, failures or errors. This includes 138 new ID-assignment controls,
+54 comparison controls, existing chemical-component/recovered-append tests and
+the changed public MolSys component-setter doctest. All fourteen fast gates
+and applicable whole-library/addon plus affected-test Ruff checks pass. Final
+test peak is 248,082,432 bytes under one CPU, a 2 GiB process-tree cap and zero
+swap; no OOM or resource interruption. No kernel, dependency, storage schema,
+chemistry or comparison algorithm is changed.
+
+The guard checks literal lexical/string storage, integer normalization, null
+clearing, scalar broadcasting and both atom/component destinations through
+MolSys, standalone ChemicalStates and ChemicalStatesDict. Related controls
+verify selected order, empty selections, invalid values, unchanged unrelated
+metadata/membership and normal/nondefault unit-policy authority. Restoring
+the original caller restriction reproduces twenty refusals in this same battery.
+There is no skipped-digestion workaround or duplicate normalization logic.
+
+The [source receiving record](../../../devtools/data/component_id_assignment_receiving_647_20261107.json)
+preserves original and final results, source hashes and resource bounds. Only
+Markdown cells changed in the tutorial/course: code cells, saved outputs, IDs
+and notebook metadata remain unchanged. Full notebook/HTML execution, complete
+library/consumer workflow, installed/platform and release acceptance remain
+separate. The experimental stored-H policy under #645 remains open.

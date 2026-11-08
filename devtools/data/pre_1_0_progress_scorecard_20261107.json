@@ -825,7 +825,7 @@
       "uibcdf/molsysmt#644",
       "uibcdf/molsysmt#646"
     ],
-    "record": "devguide/pending_bugs/scalar_string_component_id_is_rejected_by_the_molsys_assignment_adapter.md",
+    "record": "devguide/archive/resolved_bugs/scalar_string_component_id_is_rejected_by_the_molsys_assignment_adapter.md",
     "owner_verification": "#644/#646 are independently verified source-closed. #647 is a separate scalar-ID setter defect reproduced during #646 receiving; repair it before accepting new stored-H policy. #612 retains its independent complete-source suite requirement.",
     "independent_lightweight_review": "#645 real-input feasibility is measured for both unit policies and H5MSM. The explicit admission/provenance policy remains open; #610/#378 and every remaining audit exit are retained.",
     "scope": "Continue complete source acceptance only through an inspected serial plan and resource-bounded execution; retain every remaining graphical, scientific-contract, installed and candidate requirement.",

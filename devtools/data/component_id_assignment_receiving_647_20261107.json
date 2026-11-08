@@ -3,7 +3,7 @@
   "date": "2026-11-07",
   "issue": "uibcdf/molsysmt#647",
   "source_base": "ff03bf6bb",
-  "state": "Prepared-source receiving passed; clean committed acceptance pending.",
+  "state": "Clean final source receiving passed; public owner closeout prepared.",
   "correction": "Recognize the exact native MolSys atom/component ID setter callers in the existing chemical assignment branch; reuse canonical validation before trusted delegation. No selector/comparison semantics or chemical storage change.",
   "new_cases": 138,
   "source_sha256": {
@@ -21,7 +21,7 @@
     "component-id-647-baseline": {
       "execution": {
         "command": [
-          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<development-environment>/bin/python",
           "-m",
           "pytest",
           "--receptor=llm",
@@ -43,7 +43,7 @@
         "started_utc": "2026-11-08T04:52:49.674892+00:00",
         "seconds": 12.006844682851806,
         "command": [
-          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<development-environment>/bin/python",
           "<private-evidence>/reference-run.py",
           "component-id-647-baseline"
         ],
@@ -89,7 +89,7 @@
     "component-id-647-integrated": {
       "execution": {
         "command": [
-          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<development-environment>/bin/python",
           "-m",
           "pytest",
           "--receptor=llm",
@@ -115,7 +115,7 @@
         "started_utc": "2026-11-08T04:54:11.587783+00:00",
         "seconds": 23.013528478099033,
         "command": [
-          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<development-environment>/bin/python",
           "<private-evidence>/reference-run.py",
           "component-id-647-integrated"
         ],
@@ -157,6 +157,127 @@
         "total": 279,
         "passed": 279
       }
+    },
+    "component-id-647-final": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/component-id-647-final.xml",
+          "-n0",
+          "tests/basic/test_set_component_id.py",
+          "tests/basic/compare/test_compare_component_metadata.py",
+          "tests/native/test_chemical_component_assignments.py",
+          "tests/native/test_recovered_inventory_append.py",
+          "molsysmt/form/molsysmt_MolSys/set.py::molsysmt.form.molsysmt_MolSys.set.set_component_id_to_component"
+        ],
+        "exit_code": 0,
+        "seconds": 20.9559151600115,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "d020ff4a4e005c1e6076a9f417446685465fdf71",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5206
+      },
+      "resources": {
+        "started_utc": "2026-11-08T04:55:47.201558+00:00",
+        "seconds": 23.011850152164698,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "component-id-647-final"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            2.40478515625,
+            6.16064453125,
+            5.6025390625
+          ],
+          "cpu_utilization": 0.026117528879959773,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 17013751808
+        },
+        "host_available_minimum_observed_bytes": 16718704640,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 248082432,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 22574040\nuser_usec 21924385\nsystem_usec 649655\nnice_usec 21934000\ncore_sched.force_idle_usec 0\nnr_periods 230\nnr_throttled 21\nthrottled_usec 165931\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      }
+    },
+    "component-id-647-fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 21.096417607041076,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "d020ff4a4e005c1e6076a9f417446685465fdf71",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5206
+      },
+      "resources": {
+        "started_utc": "2026-11-08T04:56:11.398752+00:00",
+        "seconds": 23.01412498112768,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "component-id-647-fast"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            2.60791015625,
+            5.9052734375,
+            5.53173828125
+          ],
+          "cpu_utilization": 0.024108488196885935,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16977063936
+        },
+        "host_available_minimum_observed_bytes": 16471580672,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 399941632,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 22722268\nuser_usec 21112587\nsystem_usec 1609681\nnice_usec 21139000\ncore_sched.force_idle_usec 0\nnr_periods 231\nnr_throttled 26\nthrottled_usec 279878\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      }
     }
   },
   "preservation": [
@@ -181,5 +302,34 @@
   "remaining": [
     "Clean-source receiving, fast gates, publication and independent issue closure.",
     "Independent stored-H policy, #612 complete source and all remaining audit/candidate exits."
-  ]
+  ],
+  "qualified_source": "d020ff4a4e005c1e6076a9f417446685465fdf71",
+  "clean_final": {
+    "passed": 279,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "changed_public_doctest": [
+      {
+        "classname": "molsysmt.form.molsysmt_MolSys.set",
+        "name": "molsysmt.form.molsysmt_MolSys.set.set_component_id_to_component",
+        "time": "0.025"
+      }
+    ],
+    "fast_gates": {
+      "passed": 14,
+      "total": 14
+    },
+    "compiled_backend_or_dependency_changes": false
+  },
+  "ruff": {
+    "scope": [
+      "molsysmt",
+      "molsysviewer_molsysmt",
+      "tests/basic/test_set_component_id.py"
+    ],
+    "parallelism": "RAYON_NUM_THREADS=1",
+    "exit_code": 0
+  },
+  "path_rendering": "Machine-local source, evidence and interpreter prefixes use named placeholders; original execution records remain in private evidence."
 }
