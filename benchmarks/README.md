@@ -54,6 +54,36 @@ python benchmarks/native_queries.py --iterations 3 --repeats 5 --output /tmp/nat
 python benchmarks/rust/bench_release_runtime.py --output /tmp/molsysmt-rust-runtime.json
 ```
 
+## Competitive-session evidence and baseline ownership
+
+To measure a new competitive session without renewing the committed reference,
+choose a separate output explicitly:
+
+```bash
+python benchmarks/competitors/run_matrix.py --output .pytest_cache/benchmarks/current_session.json
+python benchmarks/compare_runs.py --baseline benchmarks/baselines/competitor_matrix_session.json --current .pytest_cache/benchmarks/current_session.json --threshold 0.15
+```
+
+The runner gives each campaign an owned temporary reference PDB and removes it
+on completion or failure. It does not reuse or remove a pre-existing
+`solvated_villin.pdb` in the checkout. Omitting `--output` retains the historical
+manual baseline-generation destination; baseline renewal remains a separate
+reviewed operation. A CI result must not replace its reference before comparison.
+
+The numeric comparer rejects empty or malformed sessions, missing reference
+measurements and nonfinite/nonpositive medians. Its default 15 percent threshold
+and matched third-party blocking roles remain unchanged. It does not establish
+compatible environments or scientifically equivalent workloads; that contract
+and the product/control-role decision remain under uibcdf/molsysmt#567.
+
+The performance workflow is configured to retain reference/current JSON when produced, the
+source commit and producer/comparison logs for fourteen days, including after
+measurement or comparison failure. A failed producer can have logs without a
+completed current session; this is incomplete evidence, not a passing result.
+Shell logging preserves native failures through `pipefail`. Provisioning before
+reference acquisition can fail without producing a session artifact. Hosted
+upload itself remains subject to the applicable workflow's executed result.
+
 After regenerating `competitor_matrix_session.json` or `macro_kernels_session.json`,
 synchronize the copies served by the documentation and verify that they match:
 

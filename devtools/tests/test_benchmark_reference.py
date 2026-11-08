@@ -122,4 +122,7 @@ def test_ci_installs_the_compiled_checkout_before_preparation_and_timing():
         )
     )
     assert install < guard < timing
-    assert "--threshold 0.15" in steps[-1]["run"]
+    audit = next(
+        step for step in steps if step.get("name") == "Audit Performance Regressions"
+    )
+    assert "--threshold 0.15" in audit["run"]

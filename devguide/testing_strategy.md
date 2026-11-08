@@ -19,9 +19,10 @@ outcome model remain authoritative.
 - GitHub Actions uses `python -m pytest --receptor=ci ...`. CI logs must retain
   every root-cause group because the runner-local report disappears with the
   job.
-- `pytest-receptor=0.6.0` is pinned in the CI Conda environment. Profile changes
-  must be reviewed and upgraded deliberately rather than following an
-  unversioned plugin checkout.
+- The CI tool pin is declared in `devtools/conda-envs/test_env.yaml`; an
+  explicitly recorded qualification overlay can use a different exact version.
+  Record actual import/version evidence. Profile changes must be reviewed
+  deliberately rather than following an unversioned plugin checkout.
 - `receptor_rerun_command = python -m pytest` keeps emitted rerun commands
   consistent with the repository invocation.
 
@@ -29,6 +30,29 @@ Installing the plugin does not authorize a different selection, marker,
 coverage, JUnit, or exit-code policy. Any disagreement with normal pytest, bad
 root-cause grouping, or compact report that is insufficient to act on must be
 reported to the pytest-receptor project.
+
+### Explicit OpenMM execution platform
+
+A CPU/RAM-limited pytest invocation does not select a CPU platform for an
+implicit OpenMM `Context`. On a GPU-equipped host, OpenMM can select an
+accelerator when no platform is supplied. Device allocations are not a GPU
+reservation or a VRAM limit merely because the caller has CPU and RAM limits.
+
+For an explicitly CPU-default OpenMM validation profile, use:
+
+```bash
+OPENMM_DEFAULT_PLATFORM=CPU OPENMM_CPU_THREADS=1 python -m pytest --receptor=llm tests/molecular_mechanics
+```
+
+The CPU plugin must be installed. `OPENMM_DEFAULT_PLATFORM` affects implicit
+platform selection; it does not override a platform explicitly supplied by a
+test, including `Reference`. `OPENMM_CPU_THREADS` controls the CPU engine's
+worker setting, independently of pytest worker count and MolSysMT's native
+per-call pools. Record the chosen platform, an actual Context probe and provider
+versions in the receiving evidence. Such a run does not qualify GPU execution
+or change product defaults. GPU qualification uses its own explicit execution
+scope and resource admission. The measured #612 campaign retains the original
+implicit-CUDA observation separately from its later CPU-default receiving.
 
 ### Source-doctest collection order is a hard contract
 

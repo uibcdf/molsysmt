@@ -6,11 +6,13 @@ into an interactive summary, and exports the baselines session JSON.
 
 from __future__ import annotations
 
+import argparse
 import importlib.metadata
 import importlib.util
 import json
 import os
 import sys
+import tempfile
 from pathlib import Path
 
 # Add repository root to python path to ensure robust imports
@@ -77,30 +79,36 @@ def _prepare_reference(pdb_path):
         msm.convert(h5, to_form="file:pdb", output_filename=pdb_path)
 
 
-def main():
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=Path(repo_root) / "benchmarks/baselines/competitor_matrix_session.json",
+        help="Session JSON destination; CI uses a separate evidence file rather than renewing the baseline.",
+    )
+    args = parser.parse_args(argv)
+    args.output = args.output.expanduser().resolve()
+    if args.output.is_dir():
+        parser.error("--output must name a JSON file, not a directory")
     print("======================================================================")
     print(" STARTING MOLSYSMT COMPETITIVE PERFORMANCE BENCHMARK MATRIX")
     print("======================================================================")
 
-    # 1. Setup temporary PDB file for the topology reference
-    pdb_path = os.path.join(repo_root, "solvated_villin.pdb")
-    _prepare_reference(pdb_path)
-
-    # 2. Run all benchmark suites
+    # Give each campaign its own reference; never reuse or remove a caller file.
     results = []
-
-    print("\n--- PHASE 1: Trajectory Loading Suite ---")
-    run_loading_benchmarks(pdb_path, results)
-
-    print("\n--- PHASE 2: Selection Language Suite ---")
-    run_selection_benchmarks(pdb_path, results)
-
-    print("\n--- PHASE 3: Coordinate Geometric Calculations Suite ---")
-    run_geometry_benchmarks(pdb_path, results)
+    with tempfile.TemporaryDirectory(prefix="molsysmt-benchmark-") as directory:
+        pdb_path = str(Path(directory) / "reference.pdb")
+        _prepare_reference(pdb_path)
+        print("\n--- PHASE 1: Trajectory Loading Suite ---")
+        run_loading_benchmarks(pdb_path, results)
+        print("\n--- PHASE 2: Selection Language Suite ---")
+        run_selection_benchmarks(pdb_path, results)
+        print("\n--- PHASE 3: Coordinate Geometric Calculations Suite ---")
+        run_geometry_benchmarks(pdb_path, results)
 
     # 3. Save JSON Session results
-    out_dir = os.path.join(repo_root, "benchmarks", "baselines")
-    out_file = os.path.join(out_dir, "competitor_matrix_session.json")
+    out_file = args.output
     print(f"\nExporting telemetry session to {out_file}...")
     save_session_results(
         session_name="competitive-performance-matrix",
@@ -280,11 +288,6 @@ def main():
     )
 
     print("=" * 86 + "\n")
-
-    # Clean up temporary PDB file to keep repo clean
-    if os.path.exists(pdb_path):
-        print(f"Cleaning up temporary reference PDB: {pdb_path}")
-        os.remove(pdb_path)
 
 
 if __name__ == "__main__":

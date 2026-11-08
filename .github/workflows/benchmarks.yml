@@ -25,6 +25,8 @@ jobs:
       )
     runs-on: ${{ matrix.cfg.os }}
     timeout-minutes: 20
+    env:
+      BENCHMARK_EVIDENCE_DIR: .pytest_cache/benchmark-evidence
     strategy:
       fail-fast: false
       matrix:
@@ -81,20 +83,36 @@ jobs:
         run: python -m pytest --receptor=ci devtools/tests/test_benchmark_reference.py
 
       - name: Extract Reference Baseline
+        id: reference
         shell: bash -l {0}
         run: |
-          if ! git show origin/${{ github.base_ref || 'main' }}:benchmarks/baselines/competitor_matrix_session.json > reference_baseline.json 2>/dev/null; then
+          set -euo pipefail
+          mkdir -p "${BENCHMARK_EVIDENCE_DIR}"
+          git rev-parse HEAD > "${BENCHMARK_EVIDENCE_DIR}/source_commit.txt"
+          if ! git show origin/${{ github.base_ref || 'main' }}:benchmarks/baselines/competitor_matrix_session.json > "${BENCHMARK_EVIDENCE_DIR}/reference_session.json" 2>/dev/null; then
             echo "⚠️ Could not retrieve baseline from origin/${{ github.base_ref || 'main' }}. Using local baseline copy."
-            cp benchmarks/baselines/competitor_matrix_session.json reference_baseline.json
+            cp benchmarks/baselines/competitor_matrix_session.json "${BENCHMARK_EVIDENCE_DIR}/reference_session.json"
           fi
 
       - name: Run Current Benchmarks
         shell: bash -l {0}
         run: |
+          set -euo pipefail
           export SMONITOR_PROFILE="qa"
-          python benchmarks/competitors/run_matrix.py
+          python benchmarks/competitors/run_matrix.py --output "${BENCHMARK_EVIDENCE_DIR}/current_session.json" 2>&1 | tee "${BENCHMARK_EVIDENCE_DIR}/current.log"
 
       - name: Audit Performance Regressions
         shell: bash -l {0}
         run: |
-          python benchmarks/compare_runs.py --baseline reference_baseline.json --current benchmarks/baselines/competitor_matrix_session.json --threshold 0.15
+          set -euo pipefail
+          python benchmarks/compare_runs.py --baseline "${BENCHMARK_EVIDENCE_DIR}/reference_session.json" --current "${BENCHMARK_EVIDENCE_DIR}/current_session.json" --threshold 0.15 2>&1 | tee "${BENCHMARK_EVIDENCE_DIR}/comparison.log"
+
+      - name: Retain benchmark evidence after success or failure
+        if: always() && steps.reference.outcome == 'success'
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: benchmark-${{ matrix.cfg.os }}-py${{ matrix.cfg.python-version }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .pytest_cache/benchmark-evidence/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
