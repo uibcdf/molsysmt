@@ -89,8 +89,28 @@ executed as an isolated negative control against the current runtime, still
 fails once at the stable-ID preflight (native exit 1). This preserves the
 original disagreement rather than weakening the scientific safety boundary.
 
-Next: commit the reviewed inputs and execute the complete default source suite
-on that exact clean commit. Retain
-all native outcomes and source fingerprints; do not close this report from
-focused passes alone. Local full-source evidence does not replace the required
-platform, installed-pair or final-candidate gates under #334.
+The strengthened guard is committed at
+`2465d6b0cb137446f9917c971572a921003a9b89`. Fourteen fast gates also pass.
+The complete default source suite was started on that clean commit with twelve
+workers, without marker/path exclusions. The maintainer terminated the processes
+after the shared machine exhausted RAM. The outer command exits 143; there is
+no finalized JUnit or pytest outcome. Pytest Receptor's supported reader reports
+an incomplete artifact and no final record. Its last rendered 6,344/31,719
+threshold is not the final executed count. A teardown closed-channel error after
+termination does not establish a Pytest Receptor or pytest defect.
+
+Point observations fell from roughly 16 GiB available to 5.7 GiB on a 30 GiB
+machine, with 8 GiB swap already used and twelve workers around 0.9–1.3 GiB RSS
+each. These are not measured peaks or reserved resources. The execution should
+have been stopped when shared-host pressure made that concurrency unsafe.
+
+The [receiving record](../../devtools/data/alternate_location_owner_receiving_612_20261107.json)
+retains the passing focused controls, original negative control, interrupted
+command, partial-artifact status and resource observations. Logs and partial
+stream remain in private evidence; no completed result is invented. No heavy
+retry is launched. Next: select a bounded execution route and measure a small
+representative workload before choosing concurrency for the remaining exact-
+source acceptance. Lack of safe capacity postpones this gate, not ordinary
+lightweight development. #612 stays open; the joint #612/#587 milestone receives
+no credit from this interrupted attempt. Local full-source evidence also does
+not replace platform, installed-pair or final-candidate gates under #334.

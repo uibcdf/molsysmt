@@ -818,7 +818,7 @@
     "issue": "uibcdf/molsysmt#612",
     "completed_related": "uibcdf/molsysmt#587",
     "record": "devguide/pending_bugs/multimodel_alternate_location_fidelity_expectation.md",
-    "owner_verification": "#587 is independently verified closed, with current transport guards, a failing historical control and complete live board acquisition. #612 passes affected controls but retains its own explicit exact-head full-suite obligation.",
+    "owner_verification": "#587 is closed. #612 focused receiving passes 103 cases and fourteen fast gates; exact-source full-suite execution on 2465d6b0c was terminated by the maintainer after shared-host RAM exhaustion, with outer exit 143 and incomplete evidence. Complete qualification remains due through a measured, resource-bounded route.",
     "scope": "Receive the already-corrected stable-ID semantics and round-trip fidelity without weakening atomicity or reimplementing corrected runtime code. Preserve every remaining graphical, contract, installed and candidate requirement."
   },
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
@@ -854,5 +854,12 @@
     "evidence": "devtools/data/devguide_pagination_owner_closeout_587_20261107.json",
     "weighted_milestone_change": 0,
     "audit_related_source_closures": 34
+  },
+  "last_source_qualification_attempt": {
+    "issue": "uibcdf/molsysmt#612",
+    "source": "2465d6b0cb137446f9917c971572a921003a9b89",
+    "state": "interrupted_resource_exhaustion",
+    "evidence": "devtools/data/alternate_location_owner_receiving_612_20261107.json",
+    "weighted_milestone_change": 0
   }
 }

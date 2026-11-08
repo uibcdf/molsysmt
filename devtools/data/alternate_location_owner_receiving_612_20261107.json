@@ -1,0 +1,82 @@
+{
+  "schema_version": "molsysmt.alternate_location_owner_receiving@1",
+  "date": "2026-11-07",
+  "issue": "uibcdf/molsysmt#612",
+  "source_commit": "2465d6b0cb137446f9917c971572a921003a9b89",
+  "prior_expectation_fix": "ab789897bad51a7258f366aadc01840895d6366e",
+  "state": "Focused source receiving passed; full-source attempt interrupted for shared-host RAM exhaustion.",
+  "guard": "tests/conversion_truth/test_pdb_fidelity.py::test_pdb_multimodel_alternate_locations_share_a_canonical_atom_axis",
+  "focused": {
+    "cases": 103,
+    "exit_code": 0,
+    "scope": "PDB/alternate-site contracts plus five independent pagination controls; overlapping, not the complete source suite."
+  },
+  "historical_control": {
+    "source": "ed09f64539a5af6c1dbe9bd352c7ef65dcd4a7a6",
+    "cases_failed": 1,
+    "exit_code": 1,
+    "meaning": "Unmodified historical test body still reaches the native stable-ID refusal; this is retained negative evidence."
+  },
+  "fast_gates": {
+    "passed": 14,
+    "total": 14,
+    "exit_code": 0
+  },
+  "full_source_attempt": {
+    "command": [
+      "python",
+      "-m",
+      "pytest",
+      "--receptor=llm",
+      "--junitxml=<private-evidence>/fidelity-612-full-source.xml",
+      "-n12",
+      "--receptor-events=<private-evidence>/fidelity-612-full-source.events.jsonl"
+    ],
+    "scope": "Complete default pytest.ini testpaths, no marker or path exclusions.",
+    "outer_process_exit_code": 143,
+    "termination": "Maintainer confirmed manual termination after shared-host RAM exhaustion.",
+    "pytest_final_outcome": null,
+    "junit_finalized": false,
+    "receptor_artifact_complete": false,
+    "receptor_final_record": null,
+    "last_rendered_progress": {
+      "completed": 6344,
+      "collected": 31719,
+      "elapsed_seconds": 134,
+      "meaning": "Last rendered threshold, not a claim about the final executed count."
+    },
+    "teardown_observation": "OSError: cannot send (already closed?) after termination; not established as the cause of termination or a provider defect.",
+    "qualification": "Not passing evidence; does not close #612 or clear source/candidate gates."
+  },
+  "resource_observations": {
+    "physical_memory_gib_approx": 30,
+    "initial_available_gib_approx": 16,
+    "later_available_gib_approx": 5.7,
+    "swap_total_gib_approx": 8,
+    "swap_used_gib_approx": 8,
+    "observed_worker_rss_mib_approx_range": [
+      915,
+      1320
+    ],
+    "meaning": "Point observations, not a measured peak, process-tree allocation or reservation. Twelve workers were inappropriate for the observed shared-host pressure."
+  },
+  "scheduler_observation": "No srun/sbatch executable was found on PATH and this session declared no SLURM_JOB_ID; no managed allocation was used.",
+  "retained_private_evidence": [
+    "fidelity-612-directed.log",
+    "fidelity-612-directed.xml",
+    "fidelity-612-directed.json",
+    "fidelity-612-original.log",
+    "fidelity-612-original.xml",
+    "fidelity-612-original.json",
+    "fidelity-612-full-source.log",
+    "fidelity-612-full-source.events.jsonl",
+    "fidelity-612-full-source-inputs-before.json",
+    "fidelity-612-full-source-runtime.json"
+  ],
+  "remaining": [
+    "Complete exact-source acceptance using a resource-bounded execution strategy; measure a representative workload before choosing concurrency.",
+    "Preserve stable-ID atomicity, literal round-trip values and every other agreed audit/installed/candidate requirement."
+  ],
+  "weighted_milestone_change": 0,
+  "scope": "Local development evidence only; no package, platform matrix, release candidate or publication acceptance."
+}

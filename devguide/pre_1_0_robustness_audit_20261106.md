@@ -5,7 +5,29 @@
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-07.
 
-## Current pagination owner closeout — 2026-11-07
+## Current alternate-location qualification — 2026-11-07
+
+#612's strengthened PDB fidelity guard is committed at
+`2465d6b0cb137446f9917c971572a921003a9b89`: primary/alternate coordinates,
+occupancies, B factors and string IDs are checked against literal fixture
+values while preserving stable-ID atomicity. The affected 103-case battery
+and all fourteen fast gates pass. The historical inconsistent test still fails
+at the native refusal, as expected.
+
+The complete default local suite was interrupted by the maintainer after
+shared-host RAM exhaustion. The outer process exits 143 without finalized
+JUnit/pytest results; the partial Receptor stream is incomplete. The
+[receiving record](../devtools/data/alternate_location_owner_receiving_612_20261107.json)
+preserves the exact source, command, passing focused controls and interruption.
+This is not complete-suite acceptance. No heavy retry is launched; remaining
+qualification needs a measured, resource-bounded execution route.
+
+#612 remains open. Progress stays **approximately 61%**, with **34 audit-related
+source issues closed** and **23/50 graphical intents accepted**. All graphical,
+contract, installed, platform and final-candidate requirements remain. Continue
+lightweight development while this resource-sensitive gate is deferred.
+
+## Previous pagination owner closeout — 2026-11-07
 
 #587 is accepted and independently verified closed. The implementation and
 regression guard from `96191e07e6c0ba755b53e14c785ad953e7aa55f3` are unchanged
