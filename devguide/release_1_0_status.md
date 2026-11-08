@@ -20,7 +20,35 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Formal-charge closeout and incoming comparison flag — 2026-11-07
+## Comparison closeout and stored-H feasibility — 2026-11-07
+
+#646 is independently verified closed after publication of qualified source
+`ad67e0e915ba23d90cb9d6331c063c342852d67a` on public checkpoint
+`4f642256996bd25a21a9b204d7a684207e589974`. Receiving passes **220 cases**,
+including **54 new controls**, the public compare doctest and fourteen fast
+gates; applicable Ruff checks pass. All fifteen changed/deleted paths match
+the public tree. Tests peak at about 300 MiB under one CPU, a 2 GiB process-tree
+bound and zero swap. The [receipt](../devtools/data/component_comparison_receiving_646_20261107.json)
+and [archived report](archive/resolved_bugs/compare_component_type_boolean_flag.md)
+retain failures, output/metadata semantics and limits. DockingMT #33/#49 received
+the source handoff (6717397158); its complete workflow/artifact gates remain separate.
+
+The complete board contains **579 issues, 96 open and no open PR**. #647 owns
+the separate scalar string-ID setter rejection found by the original controls.
+Its [record](pending_bugs/scalar_string_component_id_is_rejected_by_the_molsys_assignment_adapter.md)
+retains that failure; this bounded repair is next. For #645, a
+[real-input study](pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md)
+reproduces zero strict maps, then two maps after a private explicit-copy/set
+policy experiment, under both unit policies and after H5MSM. This is feasibility;
+no supported normalization policy or scientific equivalence is accepted.
+
+The accepted score stays **approximately 62.5%**, with **37 audit-related source
+issues closed** and **23/50 graphical intents accepted**. Supplemental repairs
+and the study add no milestone points. Preserve #612's complete-source suite,
+#610/#378 and every remaining graphical, scientific-contract, installed/platform
+and final-candidate exit. No release or new remote matrix is authorized.
+
+## Previous formal-charge closeout and incoming comparison flag — 2026-11-07
 
 #644 is published and independently verified closed. Qualified source
 `64f8c955ac8b93198f4926642d4f3d257a1d0c27` passes **474 focused cases**, with

@@ -818,29 +818,30 @@
     }
   ],
   "new_priority": {
-    "issue": "uibcdf/molsysmt#646",
+    "issue": "uibcdf/molsysmt#647",
     "completed_related": [
       "uibcdf/molsysmt#587",
       "uibcdf/molsysmt#549",
-      "uibcdf/molsysmt#644"
+      "uibcdf/molsysmt#644",
+      "uibcdf/molsysmt#646"
     ],
-    "record": "devguide/archive/resolved_bugs/compare_component_type_boolean_flag.md",
-    "owner_verification": "#644 is independently verified closed after 474 focused cases and fourteen fast gates. #646 reports another component-owned argument-boundary defect and is next. #612 retains its separate complete-suite requirement through a safe serial bounded route; the small pilot does not clear it.",
-    "independent_lightweight_review": "Assess #645 public stored-H policy composition, then #610/#378; do not weaken strict correspondence or infer new release gates.",
+    "record": "devguide/pending_bugs/scalar_string_component_id_is_rejected_by_the_molsys_assignment_adapter.md",
+    "owner_verification": "#644/#646 are independently verified source-closed. #647 is a separate scalar-ID setter defect reproduced during #646 receiving; repair it before accepting new stored-H policy. #612 retains its independent complete-source suite requirement.",
+    "independent_lightweight_review": "#645 real-input feasibility is measured for both unit policies and H5MSM. The explicit admission/provenance policy remains open; #610/#378 and every remaining audit exit are retained.",
     "scope": "Continue complete source acceptance only through an inspected serial plan and resource-bounded execution; retain every remaining graphical, scientific-contract, installed and candidate requirement.",
     "pending_full_source": "uibcdf/molsysmt#612"
   },
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
     "issues": [
-      "uibcdf/molsysmt#644"
+      "uibcdf/molsysmt#646"
     ],
-    "source": "64f8c955ac8b93198f4926642d4f3d257a1d0c27",
-    "public_checkpoint": "f271a431d3c8b1f97261b1af573fb48ccc442d1f",
+    "source": "ad67e0e915ba23d90cb9d6331c063c342852d67a",
+    "public_checkpoint": "4f642256996bd25a21a9b204d7a684207e589974",
     "state": "public_source_closed",
-    "evidence": "devtools/data/formal_charge_boundary_receiving_644_20261107.json",
+    "evidence": "devtools/data/component_comparison_receiving_646_20261107.json",
     "weighted_milestone_change": 0,
-    "audit_related_source_closures": 36
+    "audit_related_source_closures": 37
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
@@ -875,9 +876,9 @@
   "incoming_intake": {
     "issues": [
       "uibcdf/molsysmt#645",
-      "uibcdf/molsysmt#646"
+      "uibcdf/molsysmt#647"
     ],
-    "complete_board_issues": 578,
+    "complete_board_issues": 579,
     "open_issues": 96,
     "open_prs": 0,
     "weighted_milestone_change": 0

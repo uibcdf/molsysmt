@@ -1,0 +1,190 @@
+{
+  "schema_version": "molsysmt.stored_hydrogen_policy_study@1",
+  "date": "2026-11-07",
+  "issue": "uibcdf/molsysmt#645",
+  "source": "4f642256996bd25a21a9b204d7a684207e589974",
+  "state": "feasibility_measured_policy_not_accepted",
+  "observations": {
+    "scope": "Private feasibility study on two public producers, not a supported normalization policy, scientific certification or consumer workflow qualification.",
+    "input_sha256": {
+      "5x72_ligand_p59H.sdf": "ef26c05a198a16972efcf8baae644f6b38fd953561f130ee230626088766b08a",
+      "5x72_ligand_p59.sdf": "a476b0d62652664596801fc88024fbd756294e9e2faf9234c8d90c2288aaa373"
+    },
+    "rdkit_version": "2025.9.5",
+    "records": [
+      {
+        "units": [
+          "nm",
+          "ps",
+          "elementary_charge"
+        ],
+        "stage": "complete",
+        "original_witness": {
+          "candidates": 2,
+          "retained": 0,
+          "search_complete": true,
+          "shape": [
+            0,
+            24,
+            2
+          ]
+        },
+        "candidate_policy": [
+          {
+            "indexed_hydrogens": 15,
+            "changed_permission_flags": 15,
+            "original_history_records": 0,
+            "candidate_history_records": 0
+          },
+          {
+            "indexed_hydrogens": 15,
+            "changed_permission_flags": 0,
+            "original_history_records": 2,
+            "candidate_history_records": 2
+          }
+        ],
+        "candidate_witness": {
+          "candidates": 2,
+          "retained": 2,
+          "search_complete": true,
+          "shape": [
+            2,
+            24,
+            2
+          ]
+        },
+        "persisted_witness": {
+          "candidates": 2,
+          "retained": 2,
+          "search_complete": true,
+          "shape": [
+            2,
+            24,
+            2
+          ]
+        },
+        "source_unchanged": true,
+        "caller_unit_policy_unchanged": true
+      },
+      {
+        "units": [
+          "pm",
+          "fs",
+          "coulomb"
+        ],
+        "stage": "complete",
+        "original_witness": {
+          "candidates": 2,
+          "retained": 0,
+          "search_complete": true,
+          "shape": [
+            0,
+            24,
+            2
+          ]
+        },
+        "candidate_policy": [
+          {
+            "indexed_hydrogens": 15,
+            "changed_permission_flags": 15,
+            "original_history_records": 0,
+            "candidate_history_records": 0
+          },
+          {
+            "indexed_hydrogens": 15,
+            "changed_permission_flags": 0,
+            "original_history_records": 2,
+            "candidate_history_records": 2
+          }
+        ],
+        "candidate_witness": {
+          "candidates": 2,
+          "retained": 2,
+          "search_complete": true,
+          "shape": [
+            2,
+            24,
+            2
+          ]
+        },
+        "persisted_witness": {
+          "candidates": 2,
+          "retained": 2,
+          "search_complete": true,
+          "shape": [
+            2,
+            24,
+            2
+          ]
+        },
+        "source_unchanged": true,
+        "caller_unit_policy_unchanged": true
+      }
+    ],
+    "remaining": "Define preconditions/rejections and provider-owned transformation evidence; receive isotope, charge, radical, unknown, incompatible and multistate controls before accepting a general policy."
+  },
+  "execution": {
+    "command": [
+      "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+      "<private-evidence>/hydrogen-policy-probe-645.py"
+    ],
+    "exit_code": 0,
+    "seconds": 6.1022620250005275,
+    "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+    "scope": "local source; not installed package or human Qt acceptance",
+    "source_commit": "4f642256996bd25a21a9b204d7a684207e589974",
+    "starting_git_status": "",
+    "ending_git_status": "",
+    "changed_inputs": [],
+    "checked_inputs": 5203
+  },
+  "resources": {
+    "started_utc": "2026-11-08T04:47:35.083232+00:00",
+    "seconds": 7.004721320932731,
+    "command": [
+      "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+      "<private-evidence>/reference-run.py",
+      "hydrogen-645-probe"
+    ],
+    "process_exit_code": 0,
+    "stop_reason": null,
+    "limits": {
+      "memory.max": "2147483648",
+      "memory.swap.max": "0",
+      "memory.oom.group": "1",
+      "cpu.max": "100000 100000",
+      "pids.max": "64"
+    },
+    "host_load": {
+      "cpu_count": 20,
+      "affinity_cpus": 20,
+      "load_average": [
+        7.18310546875,
+        3.4658203125,
+        3.98291015625
+      ],
+      "cpu_utilization": 0.25327291037260824,
+      "swap_bytes_per_second": 0.0
+    },
+    "initial_host_memory": {
+      "MemTotal": 32934252544,
+      "MemAvailable": 15612862464
+    },
+    "host_available_minimum_observed_bytes": 14998212608,
+    "host_reserve_bytes": 6586850509,
+    "cgroup_memory_peak_bytes": 175140864,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "cpu_stat": "usage_usec 7001853\nuser_usec 6554757\nsystem_usec 447096\nnice_usec 6565000\ncore_sched.force_idle_usec 0\nnr_periods 73\nnr_throttled 9\nthrottled_usec 157829\nnr_bursts 0\nburst_usec 0\n",
+    "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+  },
+  "private_probe_sha256": "8798ecc8a90f097bba4b059e618a64c278c0e4c7d941a1f2bcaee53ffb292dea",
+  "limits": [
+    "No supported normalization API, automatic policy or new scientific validation is delivered.",
+    "The private prototype uses public copy/get/select/set/inventory and H5MSM APIs; it does not change the matcher.",
+    "Only neutral, nonradical P59 controls are executed. Unknown, charged, isotopic, radical, multistate and truly incompatible policy controls remain.",
+    "Existing preparation history survives, but copy/set does not append a policy transformation record.",
+    "RDKit 2025.9.5 is executed here, not the consumer's 2026.09.2 prefix.",
+    "No RMSD, docking workflow, independent biological/chemical equivalence certification or exact artifact is qualified."
+  ],
+  "weighted_milestone_change": 0
+}

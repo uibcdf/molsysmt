@@ -3,7 +3,7 @@
   "date": "2026-11-07",
   "issue": "uibcdf/molsysmt#646",
   "source_base": "026437d16",
-  "state": "Clean final source receiving passed; public owner closeout prepared.",
+  "state": "public_source_closed",
   "correction": "Accept Python Boolean flags for the exact basic.compare caller in the named component-type digester; setter validation and all comparison algorithms are unchanged.",
   "support_libraries": "Existing ArgDigest validation and SMonitor ArgumentError remain in use. No new optional engine, dependency, unit operation or scientific method is introduced.",
   "new_cases": 54,
@@ -351,8 +351,8 @@
   "scientific_scope": "Declared metadata comparison; not independent chemical or consumer workflow validation.",
   "weighted_milestone_change": 0,
   "remaining": [
-    "Clean exact-source receiving, fast gates, source publication, independent closure and consumer handoff.",
-    "Independent #647 scalar-ID setter, #645 policy, #612 complete suite and all remaining audit/candidate requirements."
+    "Independent #647 scalar-ID assignment and #645 stored-H policy.",
+    "Complete #612 source suite and all remaining graphical, scientific-contract, installed/platform and exact-candidate obligations."
   ],
   "initial_extra_finding": {
     "issue": "uibcdf/molsysmt#647",
@@ -397,5 +397,18 @@
     ],
     "parallelism": "RAYON_NUM_THREADS=1",
     "exit_code": 0
+  },
+  "public_checkpoint": "4f642256996bd25a21a9b204d7a684207e589974",
+  "independently_verified_closed_at": "2026-11-08T04:46:13Z",
+  "public_source_verification": {
+    "changed_or_deleted_paths": 15,
+    "qualified_source_present": true,
+    "human_modifications_preserved": true
+  },
+  "consumer_handoff": {
+    "issue": "uibcdf/dockingmt#49",
+    "comment_id": 6717397158,
+    "related": "uibcdf/dockingmt#33",
+    "scope": "Python source repair; consumer whole-provider/artifact and complete workflow qualification remain independent."
   }
 }

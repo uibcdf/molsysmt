@@ -1,7 +1,7 @@
 ---
 summary: Scalar string component_id is rejected by the MolSys assignment adapter
 issue: uibcdf/molsysmt#647
-status: open
+status: active
 opened: 2026-11-07
 closed:
 severity: medium
