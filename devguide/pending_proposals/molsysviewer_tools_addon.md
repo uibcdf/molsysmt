@@ -14,6 +14,35 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Sequence-derived GUI receiving — 2026-11-08
+
+**Locally received, public delivery pending.** Clean `63fc27883` passes 113
+affected cases, including all 32 new panel cases, the public alignment doctest
+and three hosted preflight modules. Both actual-Jupyter nm/pm guards complete
+eight checks each: sequence gaps, permuted reference atoms, unequal populations,
+full-component motion, analytical native/Mol* coordinates, source/result ownership,
+coverage and retained popup controls. All 8,573 owner inputs and 2,463 verified
+Viewer-export inputs remain unchanged. The positional-pair counterfactual differs
+by more than 0.01 nm. New code delegates scientific work to native tools.
+
+Broad `7bf2949b1` receiving retains its original 597 passes / one hosted-list
+failure in 598 cases. Product runtime bytes are identical on the repaired head;
+only test fixture imports, the explicit hosted target and import style changed.
+The final 113-case profile receives those affected inputs. Do not describe this
+as a new complete passing 598-case run or full-suite qualification.
+
+Fourteen fast gates and HTML pass on `63fc27883`; seven rendered pages retain
+the contract and four course notebooks keep their code and outputs. Six prior
+HTML title warnings are unchanged. The
+[receipt](../../devtools/data/molsysviewer_tools_sequence_alignment_receiving_421_20261108.json)
+retains all failed attempts and source-reuse boundaries. GUI peak charged memory
+is 2,024,472,576 bytes, with host availability above 12.8 GiB. Source/GUI/auxiliary
+services stay within configured aggregate caps of five CPU/six GiB and record
+no cap/OOM/reserve stop. Public delivery, one existing graphical-leaf acceptance
+and board intake follow as separate steps; #421 remains partial. #604 stays
+queued after this finite block; #656 and #654 retain their owning open scope.
+
+
 ## Sequence-derived GUI prototype — 2026-11-08
 
 Clean `7bf2949b1` passes 597/598 selected cases, including all 32 new panel

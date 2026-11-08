@@ -98,6 +98,20 @@ observed legacy all_bonds-to-HBonds helper mismatch. No package, tag, Release,
 promotion or hosted matrix was launched. Installed/platform/human Qt/exact-
 candidate qualification and full-suite recovery remain required.
 
+## Sequence-derived local receiving — 2026-11-08
+
+Clean `63fc27883` receives the existing sequence-fit intent in 113 affected
+source cases and two actual-Jupyter guards / sixteen checks under nm/pm policy.
+The broad 597/598 run and repaired preflight/fixture route remain explicitly
+separate in the [owning record](pending_proposals/molsysviewer_tools_addon.md)
+and [receipt](../devtools/data/molsysviewer_tools_sequence_alignment_receiving_421_20261108.json).
+Fourteen fast gates and HTML pass; course code/outputs remain unchanged. Public
+delivery and one existing graphical leaf are pending; do not advance the score
+or claim installed/full-suite/candidate acceptance yet. Newly filed #656 records
+an explicit copy-policy failure in Topology/Structures composition; this consumer
+uses its supported default. #604 follows the finite accepted block. The requested
+OpenMM/openmmtools study remains planned.
+
 ## Maintainer queue and incoming reference work — 2026-11-08
 
 Continue the accepted sequence-fit intent. Its static-reference preparation

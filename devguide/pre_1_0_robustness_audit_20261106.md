@@ -7,6 +7,14 @@
 
 ## Maintainer follow-up queue — 2026-11-08
 
+Sequence-fit now has clean local receiving on `63fc27883`: 113 affected source
+passes, two real Jupyter guards / sixteen checks, fourteen fast gates and HTML.
+The [receipt](../devtools/data/molsysviewer_tools_sequence_alignment_receiving_421_20261108.json)
+retains the broad partial failure, test-only repairs, unchanged runtime reuse and
+reference memory boundary. Public-source acceptance remains pending, with no
+new score weight or closure count. #656 is a separately reported copy-policy bug;
+#604 and the planned OpenMM/openmmtools comparison remain queued.
+
 The #655 prerequisite is source-qualified in `10d43b2a9`: 1,181 passing tests,
 including conversion doctests, fourteen fast gates and inspected HTML. Its
 [resolution](archive/resolved_proposals/h5msm_static_topology_conversion_reads_coordinate_payload.md)
