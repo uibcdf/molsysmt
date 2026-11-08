@@ -7,3 +7,6 @@ Retain unchanged input/reference ownership and the link to the common structural
 operations module and alignment tutorial. Alzheimer uses the bundled HP35
 ensemble with the explicit peptide classification and native conversion before
 edits. Other paths keep their explicit PDB identifiers and one selected structure.
+Preserve the sequence-derived Geometry task link, requested-anchor versus
+matched-pair distinction, complete-component movement and reference-memory limits.
+Keep all executable examples and saved outputs intact during narrative updates.

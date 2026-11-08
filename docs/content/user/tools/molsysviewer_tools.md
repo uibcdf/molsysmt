@@ -1982,6 +1982,47 @@ received in the bound addon with actual scene and selected-structure checks.
 This qualification covers CPU calls with explicit precision where tested; forwarding GPU/backend choices is not GPU qualification.
 
 
+(user-tools-molsysviewer-sequence-fit)=
+### Aligning components by sequence through Geometry
+
+Choose **Molecular tools > Geometry > Align components by sequence** when
+atom correspondence must follow amino-acid sequences. Select the current system
+or a kernel-accessible reference file and its structure index. Blank query and
+reference anchor fields independently select CA atoms. Expressions and JSON
+lists define atom populations; repetitions and their input order do not declare
+pairs. Reference-file expressions use stored inventory fields; use the expert
+Python API for coordinate/state-dependent reference predicates.
+
+Choose the structures and **Current system** or **Independent result**, then
+review the requested query/reference anchor counts and the full moving-atom
+count. These counts are not a matched-pair count and may differ between systems.
+Native `least_rmsd_align` uses Biopython to align sequences, keeps identically
+aligned amino-acid groups and pairs unique selected atom names within each group.
+Caps and unmatched groups supply no fit anchors. Complete source components
+containing any query anchor move, including their non-anchor atoms and unmatched
+groups. Other components and unselected structures stay unchanged. Three
+non-collinear corresponding atoms are required. Correspondence and geometry
+validation run on confirmation; Review performs no fit or trajectory copy.
+
+H5MSM 0.5 reference preparation reads stored Topology and only the selected
+anchor coordinates of one structure. To preserve sequence interpretation after
+atom permutation, the snapshot retains the original atom/group axes and one
+resident atom-axis coordinate array; unrequested positions are unknown (`NaN`).
+Budget for that array and the static inventory, not a complete coordinate series.
+Other file formats retain their conversion/loading routes. Reference chemistry
+is not reconstructed. The file remains unchanged; an ordinary file change
+expires confirmation.
+
+The qualified calculation route uses Biopython and native MolSysMT CPU Kabsch.
+No chain-assignment search, chemical preparation, periodic reconstruction or box
+rotation is performed. Make components whole first when appropriate. Native
+coordinate publication invalidates interaction coverage on edited structures.
+Independent results retain the complete source system, with their own memory
+cost. Back cancels, reviews expire, and a failed scene update retries projection
+without repeating the alignment. See
+{ref}`Cookbook_Aligning_Components_By_Sequence` for the equivalent Python workflow.
+
+
 ## Centering the current molecular system
 
 ```python

@@ -24,3 +24,14 @@ expressions and explicit indices have no source axis and are rejected before
 creation. With a molecular source, its extraction and backend loading requirements
 still apply. The caller owns the returned widget and closes it when finished.
 Python construction is distinct from browser rendering and session persistence.
+
+## Molecular tools
+
+The optional MolSysMT tools addon exposes molecular calculations alongside the
+scene. Its Geometry tasks distinguish user-declared atom correspondences from
+sequence-derived component alignment. Those operations edit molecular coordinates
+or create independent systems; camera movement changes only the presentation.
+Review identifies the molecular scope before confirmation. Native tools retain
+scientific ownership, units and prerequisites. See
+{ref}`user-tools-molsysviewer-sequence-fit` for the sequence workflow and its
+reference-memory limits.

@@ -605,8 +605,8 @@ atom/structure counts, positional ordered JSON pairs, first-occurrence source
 structure deduplication, unit-bearing selected-reference snapshots, ordinary
 file-change expiry and public projected H5MSM queries. References stay read-only
 and unadopted. Canvas focus remains an explicit core action. Expert external
-references and complete signatures remain unchanged. Sequence-matching GUI
-workflows retain their own pending scope; principal-axis
+references and complete signatures remain unchanged. Sequence-derived component alignment retains a separate reviewed task and
+receiving scope; principal-axis
 orientation and periodic task receiving are recorded separately.
 
 
@@ -712,3 +712,12 @@ flag-free native API always validates. Keep ordered distinct structures,
 proper rigidity, unchanged chemistry/box, coverage invalidation, independent
 full results, expiring reviews and synchronization-only retry. External-system
 reference and sequence workflows remain separate accepted work.
+
+Preserve Geometry/Align components by sequence as native least_rmsd_align
+rather than positional Kabsch pairs. Keep independent query/reference anchor
+populations, requested versus matched counts, full-component motion, gaps/name
+matching, fixed boxes, explicit Biopython/CPU ownership and no periodic/chain
+search. External reference snapshots retain original group axes, read one
+selected coordinate slab and budget one resident full-atom structure with unknown
+unrequested positions. Static-only reference expressions and non-H5MSM loading
+limits remain visible. Retain expiry, source ownership and projection-only retry.

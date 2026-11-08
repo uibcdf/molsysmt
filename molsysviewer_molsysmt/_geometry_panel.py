@@ -74,6 +74,7 @@ _COMPLETED = {
     "rotate": "Rotation applied. The view is up to date.",
     "center": "Centering applied. The view is up to date.",
     "fit": "Superposition applied. The view is up to date.",
+    "sequence": "Sequence-derived alignment applied. The view is up to date.",
     "wrap": "Periodic wrapping applied. The view is up to date.",
     "unwrap": "Temporal unwrapping applied. The view is up to date.",
 }
@@ -85,6 +86,7 @@ _OPERATIONS = {
     "rotate": ("structure", "rotate"),
     "center": ("structure", "center"),
     "fit": ("structure", "least_rmsd_fit"),
+    "sequence": ("structure", "least_rmsd_align"),
     "wrap": ("pbc", "wrap_to_pbc"),
     "unwrap": ("pbc", "unwrap"),
 }
@@ -104,6 +106,7 @@ _RESULT_TITLES = {
     "rotate": "Rotated system",
     "center": "Centered system",
     "fit": "Superposed system",
+    "sequence": "Sequence-aligned system",
     "wrap": "Wrapped system",
     "unwrap": "Unwrapped trajectory",
 }
@@ -114,6 +117,7 @@ _EFFECT_LABELS = {
     "rotate": "Rotated",
     "center": "Centered",
     "fit": "Superposed",
+    "sequence": "Aligned",
     "wrap": "Wrapped",
     "unwrap": "Unwrapped",
 }
@@ -324,7 +328,7 @@ def _fit_population(system, expression, fallback, structure_index):
             system,
             selection=selection,
             element="atom",
-            structure_indices=[structure_index],
+            structure_indices="all" if structure_index is None else [structure_index],
             chemical_state="reference",
         ),
         dtype=np.int64,
@@ -332,6 +336,51 @@ def _fit_population(system, expression, fallback, structure_index):
     if indices.ndim != 1 or not indices.size:
         raise ValueError("Choose a nonempty fitting atom population.")
     return tuple(int(index) for index in indices)
+
+
+def _sequence_components(system, anchors):
+    """Resolve the reviewed moving population through public component queries."""
+    from molsysmt import basic
+
+    components = basic.get(
+        system, element="atom", selection=list(anchors), component_index=True
+    )
+    if components is None or any(value is None for value in components):
+        raise ValueError(
+            "Sequence alignment requires stored chemical-state component membership."
+        )
+    selected = sorted({int(value) for value in components})
+    return np.asarray(
+        basic.select(
+            system,
+            selection=f"component_index in {selected}",
+            chemical_state="reference",
+        ),
+        dtype=np.int64,
+    )
+
+
+def _snapshot_reference_system(references, coordinates):
+    """Compose stored inventory and one selected slab without reference chemistry."""
+    from molsysmt import basic
+    from molsysmt import pyunitwizard as puw
+    from molsysmt.native import Structures
+
+    topology = references.topology
+    # Atom extraction compacts hierarchy in atom encounter order. Retain the
+    # original group axis for sequence interpretation, even after permutation.
+    # Only one reference structure is resident; unrequested positions stay unknown.
+    points = np.full((1, topology.n_atoms, 3), np.nan, dtype=np.float64)
+    points[0, list(references.reference)] = puw.get_value(coordinates)[0]
+    result = basic.convert(
+        [
+            topology,
+            Structures(coordinates=puw.quantity(points, puw.get_unit(coordinates))),
+        ],
+    )
+    if _reference_file_identity(references.file[0]) != references.file:
+        raise ValueError("The reference file changed while reading. Review again.")
+    return result
 
 
 def _snapshot_reference(references):
@@ -388,6 +437,7 @@ class _GeometryReferences:
     reference_total: int | None = None
     file: tuple = ()
     cell: object = field(default=None, compare=False)
+    topology: object = field(default=None, compare=False)
 
 
 @dataclass(frozen=True)
@@ -403,6 +453,7 @@ class _GeometryReview:
     frames: tuple
     references: _GeometryReferences
     reference_coordinates: object = None
+    reference_system: object = None
 
 
 class _GeometryPanel(_MolecularTaskPanel):
@@ -462,6 +513,7 @@ class _GeometryPanel(_MolecularTaskPanel):
                 "n_center_atoms": len(review.references.center),
                 "n_target_atoms": len(review.references.target),
                 "n_fit_atoms": len(review.references.fit),
+                "n_reference_atoms": len(review.references.reference),
                 "reference_structure": review.references.reference_frame,
                 "reference_kind": "file" if review.references.file else "system",
                 "reference_filename": Path(review.references.file[0]).name
@@ -483,9 +535,10 @@ class _GeometryPanel(_MolecularTaskPanel):
             raise ValueError("Load coordinates before transforming a molecular system.")
         total = int(target.structures.n_structures)
         cell_task = self._parameters["task"] == "cell"
+        sequence_task = self._parameters["task"] == "sequence"
         frame = (
             int(self._view.player.index)
-            if cell_task or self._draft["context"] == "current"
+            if cell_task or sequence_task or self._draft["context"] == "current"
             else self._draft["structure_index"]
         )
         if frame >= total:
@@ -493,6 +546,16 @@ class _GeometryPanel(_MolecularTaskPanel):
         atoms = (
             np.arange(int(target.get_n_atoms()), dtype=np.int64)
             if cell_task
+            else np.asarray(
+                _fit_population(
+                    target,
+                    self._parameters["fit_expression"].strip() or 'atom_name=="CA"',
+                    (),
+                    frame,
+                ),
+                dtype=np.int64,
+            )
+            if sequence_task
             else self._selection(target, frame)
         )
         if (
@@ -506,9 +569,9 @@ class _GeometryPanel(_MolecularTaskPanel):
             self._parameters["indices"],
             total,
             int(self._view.player.index),
-            allow_repeated=self._parameters["task"] == "fit",
+            allow_repeated=self._parameters["task"] in {"fit", "sequence"},
         )
-        if self._parameters["task"] == "fit":
+        if self._parameters["task"] in {"fit", "sequence"}:
             # Coordinate editing applies once per physical structure, in the
             # first requested order; fitting atom-pair order is independent.
             frames = list(dict.fromkeys(frames))
@@ -613,13 +676,26 @@ class _GeometryPanel(_MolecularTaskPanel):
             fit = _fit_population(
                 target, self._parameters["fit_expression"], atoms, frame
             )
+            reference_topology = None
+            if sequence_task and file:
+                reference_topology = basic.convert(file[0], to_form="molsysmt.Topology")
+                reference_system = reference_topology
             reference = _fit_population(
                 reference_system,
-                self._parameters["fit_reference_expression"],
+                self._parameters["fit_reference_expression"].strip()
+                or ('atom_name=="CA"' if sequence_task else ""),
                 fit,
-                reference_frame,
+                None if reference_topology is not None else reference_frame,
             )
-            if atoms.size and (len(fit) < 3 or len(reference) != len(fit)):
+            if sequence_task:
+                fit = tuple(sorted(set(fit)))
+                reference = tuple(sorted(set(reference)))
+                atoms = _sequence_components(target, fit)
+            if (
+                not sequence_task
+                and atoms.size
+                and (len(fit) < 3 or len(reference) != len(fit))
+            ):
                 raise ValueError(
                     "A rigid fit needs at least three corresponding atom pairs with equal population sizes."
                 )
@@ -629,6 +705,7 @@ class _GeometryPanel(_MolecularTaskPanel):
                 reference_frame=reference_frame,
                 reference_total=reference_total,
                 file=file,
+                topology=reference_topology,
             )
         return status, total, frame, atoms, tuple(frames), references
 
@@ -653,6 +730,9 @@ class _GeometryPanel(_MolecularTaskPanel):
             frames,
             references,
             reference_coordinates,
+            _snapshot_reference_system(references, reference_coordinates)
+            if references.file and self._parameters["task"] == "sequence"
+            else None,
         )
 
     def _check_review(self, target, review):
@@ -769,6 +849,18 @@ class _GeometryPanel(_MolecularTaskPanel):
                     else "masses",
                     "engine": "MolSysMT",
                 }
+            )
+        elif review.parameters["task"] == "sequence":
+            parameters.update(
+                selection=list(references.fit),
+                reference_molecular_system=review.reference_system,
+                reference_selection=list(references.reference),
+                reference_structure_index=0
+                if references.file
+                else references.reference_frame,
+                engine_sequence_alignment="Biopython",
+                engine_least_rmsd_fit="MolSysMT",
+                use_gpu=False,
             )
         else:
             parameters.update(

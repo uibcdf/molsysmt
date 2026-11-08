@@ -73,8 +73,12 @@ For an already declared ordered atom pairing, the graphical **Molecular tools >
 Geometry > Superpose structures** task can use an external coordinate file.
 Choose the kernel-accessible path, its reference structure and explicit atom
 lists. That workflow performs rigid fitting with your correspondence; the
-sequence-derived mapping in this recipe remains an expert Python operation.
-See {ref}`user-tools-molsysviewer`.
+sequence-derived mapping uses the separate **Align components by sequence** task.
+Its blank anchor fields independently select CA atoms; review the complete moving
+components and both requested anchor counts before confirming. The native tool
+owns sequence/name matching, including gaps and unequal populations. See
+{ref}`user-tools-molsysviewer-sequence-fit` for the reference snapshot, memory and
+validation limits.
 
 :::{seealso}
 :class: dropdown

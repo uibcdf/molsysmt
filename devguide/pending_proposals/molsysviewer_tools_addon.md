@@ -14,6 +14,28 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Sequence-derived GUI prototype — 2026-11-08
+
+Local implementation delegates to existing native least_rmsd_align. It keeps
+query/reference populations distinct from complete source components that move,
+permits unequal anchor counts and supports same-system or local-file references.
+H5MSM 0.5 reuses #655's static Topology projection and #643's selected coordinate
+query. A permutation/gap test exposed that ordinary atom extraction compacts
+groups in encounter order. The reference now retains original hierarchy/atom
+axes with one resident structure whose unrequested positions are NaN, preserving
+scientific correspondence without reading the trajectory. Budget that array
+and static inventory; this is not an anchor-only total-RAM guarantee.
+
+Preserve the six initial source attempts: two fixture setup failures, group-axis
+compaction, the separate #656 explicit copy-policy rejection, an unrelated
+reference-chemistry read during string selection, and a final assertion that
+incorrectly treated a managed rejection's operation ID as immutable. Positive
+coordinates already pass in both unit policies; final expanded receiving,
+actual Jupyter/Mol*/popup checks, clean-source evidence and public delivery are
+still pending. No graphical leaf or progress credit is added yet. #656 is
+reported independently; this consumer uses ordinary admitted composition.
+
+
 ## External-reference source delivery — 2026-11-07
 
 Source `b3f4fd4cb` is public on main, all fifteen changed paths independently

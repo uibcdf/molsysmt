@@ -5,3 +5,6 @@ pentalanine and known 1 nm rigid translation. Keep independent atom-axis
 selections, group/name correspondence, complete-component motion, separate
 RMSD queries and unchanged input ownership. Distinguish the default original
 self-reference structure and in-place return/invalidation from independent output.
+Keep the graphical sequence-derived task distinct from explicitly ordered
+positional superposition, with complete-component motion and reference-memory
+limits linked to the owning Tools guide.

@@ -108,6 +108,7 @@ def main():
             "center-errors",
             "fit",
             "fit-external",
+            "sequence",
             "periodic",
             "periodic-general",
             "periodic-origins",
@@ -420,6 +421,12 @@ def main():
             "assert hashlib.sha256(_reference_path.read_bytes()).hexdigest()==_reference_digest\n"
             "_unit_policy.__exit__(None,None,None)\n"
             "print('JUPYTER_EXTERNAL_FIT_NATIVE_OK',len(records))\n"
+        )
+    if args.scenario == "sequence":
+        from tests.molsysviewer_molsysmt.sequence_jupyter_fixture import _notebook_cells
+
+        initial, final = _notebook_cells(
+            initial[: initial.index("view = msv.demo")], output, args.length_standard
         )
     if args.scenario == "cell":
         initial = initial.removesuffix("view\n") + (
@@ -842,6 +849,8 @@ def main():
                         if args.scenario == "fit"
                         else Path(__file__).with_name("fit_external_panel_jupyter.mjs")
                         if args.scenario == "fit-external"
+                        else Path(__file__).with_name("sequence_panel_jupyter.mjs")
+                        if args.scenario == "sequence"
                         else Path(__file__).with_name("center_error_jupyter.mjs")
                         if args.scenario == "center-errors"
                         else Path(__file__).with_name("axes_panel_jupyter.mjs")
