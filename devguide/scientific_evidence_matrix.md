@@ -183,7 +183,9 @@ after reviewing each operation's claim and available evidence.
 - `molsysmt.physchem.get_volume`
 - `molsysmt.physchem.get_water_sites`
 - `molsysmt.physchem.normalize_aromatic_bond_orders`
+- `molsysmt.structure.get_distance_clusters`
 - `molsysmt.structure.get_least_squares_plane`
+- `molsysmt.structure.get_pairwise_rmsd`
 - `molsysmt.structure.get_symmetry_corrected_rmsd`
 - `molsysmt.structure.get_vectors`
 - `molsysmt.topology.get_atom_name_correspondence`
