@@ -30,6 +30,12 @@ See {ref}`user-foundations-entrance-demo-systems` for the bundled datasets.
 
 The native partial-charge array uses elementary charge. Formal charges remain
 in ChemicalStates; the total check does not establish electrostatic accuracy.
+Stored `formal_charge` edits accept integer counts or aligned charge quantities
+with integer values. Unsupported bare inputs such as `1.5` raise `ArgumentError`
+before changing the chemical state or its analyses. See
+{ref}`ChemicalStates <user-foundations-native-world-classes-molsysmt-chemicalstates>`
+for the assignment contract.
+
 Save the report with the result for provenance. H5MSM 0.5 does not persist the
 experimental mechanical domain; full mechanical persistence is planned for 0.6.
 

@@ -61,6 +61,9 @@ def digest_formal_charge(formal_charge, caller=None):
             "formal_charge", value=formal_charge, caller=caller, message=None
         )
 
+    if not puw.is_quantity(formal_charge):
+        raise ArgumentError("formal_charge", value=formal_charge, caller=caller)
+
     value = puw.get_value(formal_charge)
     unit = puw.get_unit(formal_charge)
 

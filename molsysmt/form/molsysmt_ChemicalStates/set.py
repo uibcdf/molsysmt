@@ -26,6 +26,18 @@ def set_formal_charge_to_atom(item, indices="all", value=None, skip_digestion=Fa
     skip_digestion : bool, default=False
         Skip digestion only for already validated arguments.
 
+    Returns
+    -------
+    None
+        The selected state's assignments are modified in place after validation.
+
+    Raises
+    ------
+    ArgumentError
+        If a bare value is not an admitted integer count or nullable vector,
+        or a supplied quantity has incompatible units. A bare float is not
+        interpreted as a charge quantity.
+
     Notes
     -----
     One attribute is staged and validated before publication. A failed assignment
@@ -43,6 +55,13 @@ def set_formal_charge_to_atom(item, indices="all", value=None, skip_digestion=Fa
     >>> chemical_states.append_state()
     0
     >>> msm.set(chemical_states, element='atom', selection=[1], formal_charge=-1)
+    >>> chemical_states.get(element='atom', formal_charge=True)
+    [None, -1]
+    >>> try:
+    ...     msm.set(chemical_states, element='atom', selection=[1], formal_charge=1.5)
+    ... except msm.ArgumentError as error:
+    ...     print(error.extra['argument'])
+    formal_charge
     >>> chemical_states.get(element='atom', formal_charge=True)
     [None, -1]
 

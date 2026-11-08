@@ -173,7 +173,9 @@ charge quantities. Quantities are converted explicitly to elementary charge
 before storing integer counts, independently of application standard units.
 Hydrogen and unpaired-electron counts use UInt8. Boolean flags cannot stand in
 for integer counts. Incompatible units, fractions, nonfinite charge quantities
-and overflow reject.
+and overflow reject. Unsupported bare inputs, including fractional floats,
+raise `ArgumentError` naming `formal_charge` before an assignment is published.
+The stored values, attached analyses and caller unit policy remain unchanged.
 
 Each attribute is validated and staged before publication. Rejection preserves
 source tables and analyses; other states, coordinates, the reference, structure
