@@ -24,6 +24,7 @@ state-only graph operations do not create fake topology or coordinates.
 | [Get rigid fragments](get_rigid_fragments.md) | Partitioning connectivity at declared active cuts. |
 | [Get substructure matches](get_substructure_matches.ipynb) | Matching complete chemical SMARTS with declared prerequisites. |
 | [Get atom correspondences](get_atom_correspondences.ipynb) | Comparing declared chemical graphs independently of Cartesian alignment. |
+| [Normalize indexed hydrogen policy](normalize_indexed_hydrogen_policy.md) | Closing a declared terminal-H permission with retained source evidence. |
 
 For typed in-memory interchange, convert a collection to ChemicalStatesDict:
 
@@ -57,4 +58,5 @@ get_rotatable_bonds
 get_rigid_fragments
 get_substructure_matches
 get_atom_correspondences
+normalize_indexed_hydrogen_policy
 ```

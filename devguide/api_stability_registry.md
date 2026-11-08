@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 124 |
-| experimental | 172 |
+| experimental | 173 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -411,6 +411,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.chemical_states.get_rings` | experimental | active | pre-1.0 |
 | `molsysmt.chemical_states.get_rotatable_bonds` | experimental | active | 1.0.0 |
 | `molsysmt.chemical_states.get_substructure_matches` | experimental | active | pre-1.0 |
+| `molsysmt.chemical_states.normalize_indexed_hydrogen_policy` | experimental | active | pre-1.0 |
 
 ### `molsysmt.element.group`
 

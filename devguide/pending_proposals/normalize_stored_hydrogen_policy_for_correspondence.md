@@ -31,7 +31,7 @@ uibcdf/molsysmt#645 and uibcdf/dockingmt#79. The reported 39-atom/42-bond
 comparison and successful heavy-coordinate preservation are consumer findings,
 not newly executed provider acceptance in that original intake. Other differing identifiers/coverage
 metadata also require review; literal record agreement does not certify
-chemical equivalence. The bounded feasibility study below now receives the exact public input bytes; no supported normalization is implemented here.
+chemical equivalence. The bounded feasibility study below now receives the exact public input bytes; the initial intake contained no supported normalization.
 
 ## Intended study
 
@@ -113,7 +113,7 @@ ChemicalStatesDict/H5MSM history persistence already exists. No new serializer,
 force field, minimizer, Rust kernel, optional dependency or chemical store is
 needed for the measured assignment.
 
-## Decision still required before implementation
+## Alternatives before the receiving decision
 
 Two defensible delivery shapes remain: a documented composition using the
 existing tools, or a small provider-owned policy tool that performs the same
@@ -122,7 +122,7 @@ another API but leaves callers to repeat the chemical admission and provenance
 logic. A general tool centralizes that logic and can be received independently,
 but needs an exact scope rather than a blanket claim of H canonicalization.
 The latter is the preferred direction if this policy is reused across clients.
-No public function name, default, report schema or accepted policy is fixed yet.
+At that study checkpoint no public function name, default, report schema or accepted policy was fixed.
 
 The first candidate policy should be bounded to already indexed, terminal
 covalent H with known zero virtual counts and declared supported chemistry. It
@@ -142,3 +142,79 @@ rejection cases, isotope/charge/radical/stereo controls, nondefault units and
 detached persistence. Review copy costs for large coordinate ensembles; a
 chemical-state policy must not require an unexplained full-coordinate snapshot.
 The proposal remains open and adds no release milestone credit.
+
+## Local receiving decision — 2026-11-07
+
+Implement one experimental general tool,
+`chemical_states.normalize_indexed_hydrogen_policy`, using the existing native
+copy, assignment, inventory audit and historical-record machinery. It accepts
+one state index or the resolved reference and returns an independent native
+MolSys plus a detached report. Its single descriptive method closes implicit-H
+permission on all already indexed neutral, nonradical, nonaromatic terminal H
+with known zero virtual counts, one declared ordinary single covalent bond to
+a known non-H parent, and no unsupported atom/bond stereo. It perceives no H,
+protonation, valence or coordinates. Unknown fields and unsupported chemistry
+reject atomically; isotopic labels remain intact, including deuterium/tritium.
+
+Use the public hydrogen-inventory auditor through an existing read-only native
+metadata view, so coordinate structures are neither consulted nor copied for
+admission. Its complete ordinary-covalent inventory requirement is deliberately
+conservative. Native outputs use MolSys.copy(deep=False): independent chemistry,
+metadata and analysis handles, with protected coordinate/box blocks and later
+controlled edit isolation. Foreign forms use their existing native converter;
+full file loading can still materialize coordinates and must be documented.
+
+A changed result invalidates the returned system's analyses through the existing
+chemical writer. An unchanged/empty result retains them. Every successful call
+appends an independent provider-owned operation record, including no-op cases.
+The report has deterministic int64 H/changed indices and parent-H pairs, original
+Boolean flags, selected state, producer version and compact identity atom-map
+semantics. Older history and its original operation domains remain intact.
+
+Receive analytical native cases before the real producer composition: known
+neutral terminal H; isotope preservation; virtual/unknown/charged/radical, H-H,
+nonterminal, dative, order and stereo refusals; missing/ambiguous states; no-H and
+empty arrays; selected state/reference and structure-map preservation; named
+analysis invalidation/no-op retention; deferred geometry copy and subsequent
+edit isolation; complementary/dictionary/H5MSM forms; typed history round trips;
+normal/nondefault units; original P59 conversion/H-generation witnesses; and
+strict rejection of genuinely different chemistry after normalization.
+Use bounded serial test groups, update the public registry, User Guide, Cookbook
+and course, then require clean-source receiving, relevant fast checks and
+independent public closure. Keep #612 and every other audit/candidate gate due.
+
+## Prepared implementation and receiving — 2026-11-07
+
+The experimental public tool is implemented with the conservative policy above.
+Native MolSys uses deferred geometry copying. Only declared native-domain
+composition receives copy_if_all=False; other forms use their supported
+conversion signatures. Read-only metadata views remain confined to inventory
+auditing and never escape as mutable outputs. No new chemical store, engine,
+Rust kernel or unit policy is introduced. The work processes metadata, not a
+coordinate trajectory; it needs no coordinate ChunkedExecutor. Existing
+ArgDigest/SMonitor handle arguments/diagnostics. Optional input converters own
+their DepDigest routes. Ackredit records the MolSysMT software applying this
+component-defined representation policy, without claiming a third-party
+protonation method.
+
+The two-case native/geometry pilot passes. The original 44-case attempt has
+37 passes and seven failures: three new-caller conversion-option errors and
+four fixture expectations about canonical string storage. The next 49-case
+attempt has 44 passes and five failures: improper promotion of a read-only
+query view, a missing-context route and a fixture manifest key. These were
+corrected in the new implementation/tests; no provider defect or old test was
+hidden. The next attempt has 47 passes and two failures from comparing a
+Pandas copy's internal table class rather than its fields. Receiving now checks
+all field dtypes and the complete public MolSysDict payload for source
+nonmutation. The four producer cases pass, including zero-to-two strict P59
+witnesses, H5MSM, both unit policies and isotope incompatibility. All attempts
+remain retained as their actual outcomes.
+
+Prepared integrated receiving passes **245 cases**, including the new tool,
+public doctest, executable Tool/Cookbook examples, inventory, fixed-state H,
+history, native copying and strict correspondence. The 17 existing warning
+instances remain visible. Cgroup peak is 422,731,776 bytes under one CPU/2 GiB,
+zero swap and no OOM; host reserve is preserved. Two final admission controls
+are added for empty atoms with bond rows and retained fractional single-order
+encoding. Clean committed-source, applicable fast/HTML checks, source publication
+and independent closure are still required.

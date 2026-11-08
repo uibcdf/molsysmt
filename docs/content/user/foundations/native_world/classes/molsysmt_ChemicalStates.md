@@ -82,6 +82,15 @@ matching labels alone do not certify chemical equivalence. A False flag tests
 inequality, and `output_type="dictionary"` exposes each result. See
 {ref}`Tutorial_Compare` for the query and missing-value contract.
 
+The experimental indexed-H policy operation can close implicit-H permission on
+already indexed neutral terminal H, without adding atoms or selecting protonation.
+It requires an available declared inventory and preserves isotope/stereo labels,
+other states and source assignments. Every success appends original operation
+evidence; a changed result invalidates analyses only on its independent returned
+system. Geometry uses protected deferred copying. See
+{ref}`Tutorial_Normalize_Indexed_Hydrogen_Policy` for exact admission, memory and
+historical-index limits.
+
 ## Chemical and structural scope
 
 Chemical-site recognition can use stored chemistry without coordinates. Its

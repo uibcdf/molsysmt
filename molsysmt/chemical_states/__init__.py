@@ -9,3 +9,4 @@ from .get_rigid_fragments import get_rigid_fragments
 from .get_rings import get_rings
 from .get_rotatable_bonds import get_rotatable_bonds
 from .get_substructure_matches import get_substructure_matches
+from .normalize_indexed_hydrogen_policy import normalize_indexed_hydrogen_policy

@@ -17,3 +17,4 @@ API Chemical States
    get_rings
    get_rotatable_bonds
    get_substructure_matches
+   normalize_indexed_hydrogen_policy

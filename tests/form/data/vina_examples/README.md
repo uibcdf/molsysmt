@@ -1,6 +1,6 @@
 # Original AutoDock Vina reference inputs
 
-These nine files are unmodified examples from
+These pinned files are unmodified examples from
 [`ccsb-scripps/AutoDock-Vina` commit `3c65c0b3e6c2c1d183f6a175ecb65e3c5ba91645`](https://github.com/ccsb-scripps/AutoDock-Vina/tree/3c65c0b3e6c2c1d183f6a175ecb65e3c5ba91645/example).
 The upstream Apache License 2.0 is retained in `LICENSE`. Original field widths,
 trailing spaces, SD properties and unsupported flags are preserved. Do not
@@ -54,3 +54,10 @@ explicitly when their provider is absent. No upstream executable/library is
 made a MolSysMT runtime dependency by this data collection. Related provider
 work is uibcdf/molsysmt#214/#215; consumer acceptance is
 uibcdf/dockingmt#33 and torsion-policy differences are uibcdf/dockingmt#17.
+
+The supplemental original `5x72_ligand_p59.sdf` contains 24 heavy atoms and
+27 bonds. Its `additional_files` manifest entry retains the upstream path and
+SHA-256. #645 uses it alongside the original 39-atom hydrogenated P59 SDF to
+receive native/RDKit source interpretation, fixed-state H generation and an
+explicit indexed-H permission policy. Their different coordinate poses remain
+unchanged; admitting a graph mapping does not validate a pose or docking score.

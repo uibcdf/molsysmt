@@ -1,0 +1,462 @@
+{
+  "schema_version": "molsysmt.indexed_hydrogen_policy_receiving@1",
+  "date": "2026-11-07",
+  "issue": "uibcdf/molsysmt#645",
+  "source_base": "b35d370f35f2970c7adaf5ac970b58ec24c91a2c",
+  "state": "Prepared integrated receiving passed; final admission guards and clean-source acceptance pending.",
+  "public_tool": "molsysmt.chemical_states.normalize_indexed_hydrogen_policy",
+  "method": "closed_neutral_terminal_hydrogens",
+  "stability": "experimental",
+  "scope": "Explicit stored-flag representation policy; not protonation, H placement, valence/geometry validation, chemical equivalence certification or a matcher relaxation.",
+  "source_sha256": {
+    "molsysmt/chemical_states/normalize_indexed_hydrogen_policy.py": "918d89e2e67968c4f21192ffede84957c0fcfb71119e0662ee5a301a5b2ae88b",
+    "molsysmt/chemical_states/_indexed_hydrogen_policy.py": "a3fb5e74eae973aeb10b35b3932219d85a1187b1a3fadef22d807683b8bb796d",
+    "molsysmt/chemical_states/__init__.py": "e80f9893d292615c44cb494ae6e66e0d651082c2588a504520b97fdecb7c5032",
+    "tests/chemical_states/test_normalize_indexed_hydrogen_policy.py": "6a7d3c4611f788905bc2827bc886332ecf16455ff74eec2155e02c946e95c623",
+    "tests/chemical_states/test_indexed_hydrogen_policy_producers.py": "f502ed3eec283addb7ce729542aa5fbd66319262da5127d126e3ba75f1174fe3"
+  },
+  "guard": "tests/chemical_states/test_indexed_hydrogen_policy_producers.py::test_original_p59_producers_require_explicit_policy_and_survive_persistence",
+  "memory_contract": "Independent native mutable chemistry with protected shared geometry; metadata auditing uses a private read-only view; foreign resident conversion can materialize coordinates.",
+  "support_libraries": "Existing ArgDigest, SMonitor, PyUnitWizard policy preservation and optional own-software Ackredit. No new dependency/engine/Rust kernel; optional input converters retain DepDigest ownership.",
+  "preservation": [
+    "All atoms/bonds and positional axes, heavy permissions, counts, charge, isotope/radical/stereo and original sources",
+    "Selected state only; reference and structure associations retained",
+    "Changed result analyses invalidated by the owner; unchanged/empty coverage retained; source analyses unaffected",
+    "Deterministic typed reports, compact identity maps, original operation history and producer versions",
+    "Normal/nondefault caller unit authority and executed Tool/Cookbook examples",
+    "Native geometry sharing plus subsequent edit isolation; no coordinate processing for admission"
+  ],
+  "runs": {
+    "hydrogen-645-native-pilot": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/hydrogen-645-native-pilot.xml",
+          "-n0",
+          "tests/chemical_states/test_normalize_indexed_hydrogen_policy.py::test_literal_policy_preserves_other_data_and_records_original_source_evidence",
+          "tests/chemical_states/test_normalize_indexed_hydrogen_policy.py::test_geometry_is_shared_protected_and_later_edits_are_isolated"
+        ],
+        "exit_code": 0,
+        "seconds": 2.761982789961621,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b35d370f35f2970c7adaf5ac970b58ec24c91a2c",
+        "starting_git_status": " M devguide/pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md\n M molsysmt/chemical_states/__init__.py\n?? molsysmt/chemical_states/_indexed_hydrogen_policy.py\n?? molsysmt/chemical_states/normalize_indexed_hydrogen_policy.py\n?? tests/chemical_states/test_normalize_indexed_hydrogen_policy.py\n",
+        "ending_git_status": " M devguide/pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md\n M molsysmt/chemical_states/__init__.py\n?? molsysmt/chemical_states/_indexed_hydrogen_policy.py\n?? molsysmt/chemical_states/normalize_indexed_hydrogen_policy.py\n?? tests/chemical_states/test_normalize_indexed_hydrogen_policy.py\n",
+        "changed_inputs": [],
+        "checked_inputs": 5209
+      },
+      "resources": {
+        "started_utc": "2026-11-08T05:21:55.964512+00:00",
+        "seconds": 4.002917353063822,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "hydrogen-645-native-pilot"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.7333984375,
+            0.78515625,
+            1.611328125
+          ],
+          "cpu_utilization": 0.024120603015075348,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 17006325760
+        },
+        "host_available_minimum_observed_bytes": 16839909376,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 177889280,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 3636804\nuser_usec 3238374\nsystem_usec 398430\nnice_usec 3241000\ncore_sched.force_idle_usec 0\nnr_periods 40\nnr_throttled 5\nthrottled_usec 34439\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "outcome": {
+        "failures": 0,
+        "errors": 0,
+        "skips": 0,
+        "total": 2,
+        "passed": 2
+      }
+    },
+    "hydrogen-645-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/hydrogen-645-directed.xml",
+          "-n0",
+          "tests/chemical_states/test_normalize_indexed_hydrogen_policy.py"
+        ],
+        "exit_code": 1,
+        "seconds": 7.01984732109122,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b35d370f35f2970c7adaf5ac970b58ec24c91a2c",
+        "starting_git_status": " M devguide/pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md\n M molsysmt/chemical_states/__init__.py\n?? molsysmt/chemical_states/_indexed_hydrogen_policy.py\n?? molsysmt/chemical_states/normalize_indexed_hydrogen_policy.py\n?? tests/chemical_states/test_normalize_indexed_hydrogen_policy.py\n",
+        "ending_git_status": " M devguide/pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md\n M molsysmt/chemical_states/__init__.py\n?? molsysmt/chemical_states/_indexed_hydrogen_policy.py\n?? molsysmt/chemical_states/normalize_indexed_hydrogen_policy.py\n?? tests/chemical_states/test_normalize_indexed_hydrogen_policy.py\n",
+        "changed_inputs": [],
+        "checked_inputs": 5209
+      },
+      "resources": {
+        "started_utc": "2026-11-08T05:22:25.855284+00:00",
+        "seconds": 8.005633536027744,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "hydrogen-645-directed"
+        ],
+        "process_exit_code": 1,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.7705078125,
+            0.79052734375,
+            1.5859375
+          ],
+          "cpu_utilization": 0.02464788732394363,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16983695360
+        },
+        "host_available_minimum_observed_bytes": 16767057920,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 216088576,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 7893326\nuser_usec 7418607\nsystem_usec 474718\nnice_usec 7420000\ncore_sched.force_idle_usec 0\nnr_periods 83\nnr_throttled 8\nthrottled_usec 95800\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "outcome": {
+        "failures": 7,
+        "errors": 0,
+        "skips": 0,
+        "total": 44,
+        "passed": 37
+      }
+    },
+    "hydrogen-645-directed-complete": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/hydrogen-645-directed-complete.xml",
+          "-n0",
+          "tests/chemical_states/test_normalize_indexed_hydrogen_policy.py",
+          "tests/chemical_states/test_indexed_hydrogen_policy_producers.py",
+          "molsysmt/chemical_states/normalize_indexed_hydrogen_policy.py"
+        ],
+        "exit_code": 1,
+        "seconds": 8.11414558114484,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b35d370f35f2970c7adaf5ac970b58ec24c91a2c",
+        "starting_git_status": " M devguide/pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md\n M molsysmt/chemical_states/__init__.py\n M tests/form/data/vina_examples/README.md\n M tests/form/data/vina_examples/manifest.json\n?? molsysmt/chemical_states/_indexed_hydrogen_policy.py\n?? molsysmt/chemical_states/normalize_indexed_hydrogen_policy.py\n?? tests/chemical_states/test_indexed_hydrogen_policy_producers.py\n?? tests/chemical_states/test_normalize_indexed_hydrogen_policy.py\n?? tests/form/data/vina_examples/5x72_ligand_p59.sdf\n",
+        "ending_git_status": " M devguide/pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md\n M molsysmt/chemical_states/__init__.py\n M tests/form/data/vina_examples/README.md\n M tests/form/data/vina_examples/manifest.json\n?? molsysmt/chemical_states/_indexed_hydrogen_policy.py\n?? molsysmt/chemical_states/normalize_indexed_hydrogen_policy.py\n?? tests/chemical_states/test_indexed_hydrogen_policy_producers.py\n?? tests/chemical_states/test_normalize_indexed_hydrogen_policy.py\n?? tests/form/data/vina_examples/5x72_ligand_p59.sdf\n",
+        "changed_inputs": [],
+        "checked_inputs": 5210
+      },
+      "resources": {
+        "started_utc": "2026-11-08T05:26:36.692515+00:00",
+        "seconds": 9.005802826024592,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "hydrogen-645-directed-complete"
+        ],
+        "process_exit_code": 1,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.6416015625,
+            0.640625,
+            1.3271484375
+          ],
+          "cpu_utilization": 0.09141135107985932,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16920174592
+        },
+        "host_available_minimum_observed_bytes": 16689541120,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 228143104,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 9045797\nuser_usec 8580322\nsystem_usec 465474\nnice_usec 8585000\ncore_sched.force_idle_usec 0\nnr_periods 92\nnr_throttled 13\nthrottled_usec 149634\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "outcome": {
+        "failures": 5,
+        "errors": 0,
+        "skips": 0,
+        "total": 49,
+        "passed": 44
+      }
+    },
+    "hydrogen-645-directed-received": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/hydrogen-645-directed-received.xml",
+          "-n0",
+          "tests/chemical_states/test_normalize_indexed_hydrogen_policy.py",
+          "tests/chemical_states/test_indexed_hydrogen_policy_producers.py",
+          "molsysmt/chemical_states/normalize_indexed_hydrogen_policy.py"
+        ],
+        "exit_code": 1,
+        "seconds": 10.2072045491077,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b35d370f35f2970c7adaf5ac970b58ec24c91a2c",
+        "starting_git_status": " M devguide/pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md\n M molsysmt/chemical_states/__init__.py\n M tests/form/data/vina_examples/README.md\n M tests/form/data/vina_examples/manifest.json\n?? molsysmt/chemical_states/_indexed_hydrogen_policy.py\n?? molsysmt/chemical_states/normalize_indexed_hydrogen_policy.py\n?? tests/chemical_states/test_indexed_hydrogen_policy_producers.py\n?? tests/chemical_states/test_normalize_indexed_hydrogen_policy.py\n?? tests/form/data/vina_examples/5x72_ligand_p59.sdf\n",
+        "ending_git_status": " M devguide/pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md\n M molsysmt/chemical_states/__init__.py\n M tests/form/data/vina_examples/README.md\n M tests/form/data/vina_examples/manifest.json\n?? molsysmt/chemical_states/_indexed_hydrogen_policy.py\n?? molsysmt/chemical_states/normalize_indexed_hydrogen_policy.py\n?? tests/chemical_states/test_indexed_hydrogen_policy_producers.py\n?? tests/chemical_states/test_normalize_indexed_hydrogen_policy.py\n?? tests/form/data/vina_examples/5x72_ligand_p59.sdf\n",
+        "changed_inputs": [],
+        "checked_inputs": 5210
+      },
+      "resources": {
+        "started_utc": "2026-11-08T05:29:44.637127+00:00",
+        "seconds": 11.007383699063212,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "hydrogen-645-directed-received"
+        ],
+        "process_exit_code": 1,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.43310546875,
+            0.537109375,
+            1.15673828125
+          ],
+          "cpu_utilization": 0.02714932126696834,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16890789888
+        },
+        "host_available_minimum_observed_bytes": 16710045696,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 227905536,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 11052283\nuser_usec 10540733\nsystem_usec 511550\nnice_usec 10548000\ncore_sched.force_idle_usec 0\nnr_periods 113\nnr_throttled 9\nthrottled_usec 53159\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "outcome": {
+        "failures": 2,
+        "errors": 0,
+        "skips": 0,
+        "total": 49,
+        "passed": 47
+      }
+    },
+    "hydrogen-645-real-producers": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/hydrogen-645-real-producers.xml",
+          "-n0",
+          "tests/chemical_states/test_indexed_hydrogen_policy_producers.py"
+        ],
+        "exit_code": 0,
+        "seconds": 6.496421934105456,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b35d370f35f2970c7adaf5ac970b58ec24c91a2c",
+        "starting_git_status": " M devguide/pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md\n M molsysmt/chemical_states/__init__.py\n M tests/form/data/vina_examples/README.md\n M tests/form/data/vina_examples/manifest.json\n?? molsysmt/chemical_states/_indexed_hydrogen_policy.py\n?? molsysmt/chemical_states/normalize_indexed_hydrogen_policy.py\n?? tests/chemical_states/test_indexed_hydrogen_policy_producers.py\n?? tests/chemical_states/test_normalize_indexed_hydrogen_policy.py\n?? tests/form/data/vina_examples/5x72_ligand_p59.sdf\n",
+        "ending_git_status": " M devguide/pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md\n M molsysmt/chemical_states/__init__.py\n M tests/form/data/vina_examples/README.md\n M tests/form/data/vina_examples/manifest.json\n?? molsysmt/chemical_states/_indexed_hydrogen_policy.py\n?? molsysmt/chemical_states/normalize_indexed_hydrogen_policy.py\n?? tests/chemical_states/test_indexed_hydrogen_policy_producers.py\n?? tests/chemical_states/test_normalize_indexed_hydrogen_policy.py\n?? tests/form/data/vina_examples/5x72_ligand_p59.sdf\n",
+        "changed_inputs": [],
+        "checked_inputs": 5210
+      },
+      "resources": {
+        "started_utc": "2026-11-08T05:33:02.604512+00:00",
+        "seconds": 8.005375739885494,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "hydrogen-645-real-producers"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.50048828125,
+            0.48974609375,
+            1.0166015625
+          ],
+          "cpu_utilization": 0.029145728643216073,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 17004191744
+        },
+        "host_available_minimum_observed_bytes": 16822423552,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 192425984,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 7358344\nuser_usec 6924795\nsystem_usec 433548\nnice_usec 6930000\ncore_sched.force_idle_usec 0\nnr_periods 77\nnr_throttled 29\nthrottled_usec 35983\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "outcome": {
+        "failures": 0,
+        "errors": 0,
+        "skips": 0,
+        "total": 4,
+        "passed": 4
+      }
+    },
+    "hydrogen-645-integrated": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/hydrogen-645-integrated.xml",
+          "-n0",
+          "tests/chemical_states/test_normalize_indexed_hydrogen_policy.py",
+          "tests/chemical_states/test_indexed_hydrogen_policy_producers.py",
+          "tests/physchem/get_hydrogen_inventory/test_inventory.py",
+          "tests/build/add_missing_hydrogens/test_fixed_state.py",
+          "tests/native/test_preparation_history.py",
+          "tests/native/test_molsys_copy.py",
+          "tests/topology/test_get_atom_correspondences.py",
+          "molsysmt/chemical_states/normalize_indexed_hydrogen_policy.py"
+        ],
+        "exit_code": 0,
+        "seconds": 53.382179975975305,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b35d370f35f2970c7adaf5ac970b58ec24c91a2c",
+        "starting_git_status": " M devguide/api_stability_registry.md\n M devguide/pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md\n M devtools/data/public_api_stability.json\n M docs/api/chemical_states/api_chemical_states.rst\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/course/function_inventory.yml\n M docs/content/user/cookbook/index.md\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/chemical_states/index.AGENTS.md\n M docs/content/user/tools/chemical_states/index.md\n M docs/docs_manifest.yml\n M molsysmt/chemical_states/__init__.py\n M tests/form/data/vina_examples/README.md\n M tests/form/data/vina_examples/manifest.json\n?? docs/api/chemical_states/autosummary/molsysmt.chemical_states.normalize_indexed_hydrogen_policy.rst\n?? docs/content/user/cookbook/aligning_stored_hydrogen_policies.md\n?? docs/content/user/cookbook/aligning_stored_hydrogen_policies.md.AGENTS.md\n?? docs/content/user/tools/chemical_states/normalize_indexed_hydrogen_policy.md\n?? docs/content/user/tools/chemical_states/normalize_indexed_hydrogen_policy.md.AGENTS.md\n?? molsysmt/chemical_states/_indexed_hydrogen_policy.py\n?? molsysmt/chemical_states/normalize_indexed_hydrogen_policy.py\n?? tests/chemical_states/test_indexed_hydrogen_policy_producers.py\n?? tests/chemical_states/test_normalize_indexed_hydrogen_policy.py\n?? tests/form/data/vina_examples/5x72_ligand_p59.sdf\n",
+        "ending_git_status": " M devguide/api_stability_registry.md\n M devguide/pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md\n M devtools/data/public_api_stability.json\n M docs/api/chemical_states/api_chemical_states.rst\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/course/function_inventory.yml\n M docs/content/user/cookbook/index.md\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/chemical_states/index.AGENTS.md\n M docs/content/user/tools/chemical_states/index.md\n M docs/docs_manifest.yml\n M molsysmt/chemical_states/__init__.py\n M tests/form/data/vina_examples/README.md\n M tests/form/data/vina_examples/manifest.json\n?? docs/api/chemical_states/autosummary/molsysmt.chemical_states.normalize_indexed_hydrogen_policy.rst\n?? docs/content/user/cookbook/aligning_stored_hydrogen_policies.md\n?? docs/content/user/cookbook/aligning_stored_hydrogen_policies.md.AGENTS.md\n?? docs/content/user/tools/chemical_states/normalize_indexed_hydrogen_policy.md\n?? docs/content/user/tools/chemical_states/normalize_indexed_hydrogen_policy.md.AGENTS.md\n?? molsysmt/chemical_states/_indexed_hydrogen_policy.py\n?? molsysmt/chemical_states/normalize_indexed_hydrogen_policy.py\n?? tests/chemical_states/test_indexed_hydrogen_policy_producers.py\n?? tests/chemical_states/test_normalize_indexed_hydrogen_policy.py\n?? tests/form/data/vina_examples/5x72_ligand_p59.sdf\n",
+        "changed_inputs": [],
+        "checked_inputs": 5210
+      },
+      "resources": {
+        "started_utc": "2026-11-08T05:39:33.040312+00:00",
+        "seconds": 55.02990321186371,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "hydrogen-645-integrated"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.3232421875,
+            1.69287109375,
+            1.3818359375
+          ],
+          "cpu_utilization": 0.026606425702811243,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16959209472
+        },
+        "host_available_minimum_observed_bytes": 16465362944,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 422731776,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 54135082\nuser_usec 53362337\nsystem_usec 772744\nnice_usec 53376000\ncore_sched.force_idle_usec 0\nnr_periods 546\nnr_throttled 44\nthrottled_usec 35995\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "outcome": {
+        "failures": 0,
+        "errors": 0,
+        "skips": 0,
+        "total": 245,
+        "passed": 245
+      }
+    }
+  },
+  "notebook": {
+    "path": "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+    "unchanged_code_cells": 12,
+    "code_outputs_ids_metadata_preserved": true
+  },
+  "weighted_milestone_change": 0,
+  "remaining": [
+    "Clean exact-source receiving of the final guards, fourteen fast gates and applicable documentation checks.",
+    "Publish/archive/independently close the provider and hand the supported source scope to DockingMT.",
+    "Keep #612 complete suite and all remaining audit/candidate/platform/consumer acceptance separate."
+  ]
+}

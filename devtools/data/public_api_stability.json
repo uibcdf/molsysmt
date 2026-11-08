@@ -2674,6 +2674,14 @@
       "owner": "structure",
       "documentation": "docs/content/user/tools/structure/rotate.ipynb",
       "contract_tests": "tests/structure/test_get_rotation_matrix_from_axis_angle.py"
+    },
+    "molsysmt.chemical_states.normalize_indexed_hydrogen_policy": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "introduced": "pre-1.0",
+      "owner": "chemical_states",
+      "documentation": "docs/content/user/tools/chemical_states/normalize_indexed_hydrogen_policy.md",
+      "contract_tests": "tests/chemical_states/test_normalize_indexed_hydrogen_policy.py"
     }
   },
   "pre_1_0_namespace_moves": {

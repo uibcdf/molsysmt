@@ -310,6 +310,10 @@ sections:
             file: docs/content/user/tools/chemical_states/get_covalent_blocks.ipynb
             agents_file: docs/content/user/tools/chemical_states/get_covalent_blocks.ipynb.AGENTS.md
             description: State-aware induced connectivity, explicit cuts, deterministic source-index blocks and empty selections.
+          - name: normalize_indexed_hydrogen_policy
+            file: docs/content/user/tools/chemical_states/normalize_indexed_hydrogen_policy.md
+            agents_file: docs/content/user/tools/chemical_states/normalize_indexed_hydrogen_policy.md.AGENTS.md
+            description: Explicit conservative indexed-H permission policy, protected geometry, strict witnesses and typed historical evidence.
           - name: get_atom_correspondences
             file: docs/content/user/tools/chemical_states/get_atom_correspondences.ipynb
             agents_file: docs/content/user/tools/chemical_states/get_atom_correspondences.ipynb.AGENTS.md
@@ -768,6 +772,10 @@ sections:
         file: docs/content/user/cookbook/assigning_partial_charges.md
         agents_file: docs/content/user/cookbook/assigning_partial_charges.md.AGENTS.md
         status: reviewed
+      - name: aligning_stored_hydrogen_policies
+        file: docs/content/user/cookbook/aligning_stored_hydrogen_policies.md
+        agents_file: docs/content/user/cookbook/aligning_stored_hydrogen_policies.md.AGENTS.md
+        description: Explicit common indexed-H policy before strict correspondence, original axes and H5MSM producer evidence.
       - name: applying_chemical_templates
         file: docs/content/user/cookbook/applying_chemical_templates.md
         agents_file: docs/content/user/cookbook/applying_chemical_templates.md.AGENTS.md

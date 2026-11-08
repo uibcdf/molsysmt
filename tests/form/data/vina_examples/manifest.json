@@ -359,5 +359,14 @@
       "branch_serial_pairs": [],
       "fragment_serials": []
     }
-  ]
+  ],
+  "additional_files": {
+    "5x72_ligand_p59.sdf": {
+      "source_path": "example/mulitple_ligands_docking/solution/5x72_ligand_p59.sdf",
+      "sha256": "a476b0d62652664596801fc88024fbd756294e9e2faf9234c8d90c2288aaa373",
+      "n_atoms": 24,
+      "n_bonds": 27,
+      "purpose": "Original heavy P59 reference for the separate stored-H policy producer composition under #645."
+    }
+  }
 }

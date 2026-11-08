@@ -1,3 +1,9 @@
+molsysmt.chemical_states.normalize_indexed_hydrogen_policy:
+  name: "msm.chemical_states.normalize_indexed_hydrogen_policy"
+  first_introduced_in: "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+  summary: "Closes a declared indexed-H permission with retained source evidence, without adding H or relaxing correspondence."
+  doc_ref: "{func}`molsysmt.chemical_states.normalize_indexed_hydrogen_policy`"
+
 molsysmt.structure.get_rotation_matrix_from_axis_angle:
   name: "msm.structure.get_rotation_matrix_from_axis_angle"
   first_introduced_in: "Path_Alzheimer/46_Geometric_Transformations.ipynb"
