@@ -75,6 +75,13 @@ An identity link requires equal populations and the same index at every position
 Reference-state choice and unknown associations remain separate. See
 {ref}`user-tools-form-h5msm-05` for the versioned association contract.
 
+A complete default conversion to `molsysmt.Topology` from one 0.5 path loads
+only the stable inventory. That resident object is independent of the file;
+unrequested coordinate, chemical-state and interaction payloads stay unloaded.
+This does not validate every layer or bound the size of the inventory. Selection,
+reporting and other contextual conversion options keep their existing route.
+See {ref}`user-tools-form-h5msm-05` for the supported boundary.
+
 ## Performance and Storage Invariants
 
 - **Gzip & LZF Chunk Compression**: Trajectory coordinate datasets are chunked along the structure axis and compressed using Gzip (level 4) or LZF.

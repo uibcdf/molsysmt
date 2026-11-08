@@ -53,3 +53,7 @@ and unchanged input declarations during one-letter queries.
 Preserve InteractionsDict's complete evidence table/code identity through .h5i
 and named H5MSM persistence, including unused labels after invalidation. Keep
 producer identity and evaluated-empty versus unevaluated coverage distinct.
+
+Preserve the default single-path H5MSM 0.5 whole-Topology projection: resident
+stable inventory only, no unrelated domain payloads, explicit contextual-route
+and requested-layer validation limits. Do not imply a constant-memory load.

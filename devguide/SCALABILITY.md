@@ -107,6 +107,25 @@ selected-layer loading and sparse/dense output storage need their own budgets.
 HDF5 decompression may touch complete stored chunks even when logical selections
 are smaller. Tests observe dataset windows, not physical disk bytes or total RSS.
 
+### Whole H5MSM topology conversion
+
+`basic.convert` admits a stored-topology projection from one scalar H5MSM 0.5
+path when `to_form="molsysmt.Topology"`, selection and structure indices are
+`"all"`, syntax is `"MolSysMT"`, strict/report flags are false,
+`from_naming_scheme` is None and no converter kwargs are supplied. It delegates
+to public `h5msm.read_layers(..., layers=["topology"])` and the native reader.
+The target uses its stored index space without joining other layer axes.
+Coordinates, chemical states and interaction payloads are not read. The result
+is detached, preserves canonical string IDs and stored naming declarations,
+and retains the existing missing-topology error.
+
+Other targets, contextual selections/reports, naming/extra options, composites
+and legacy inputs retain their existing routes. Requested topology schema is
+validated; unrequested layer schemas are not completely validated. Static tables
+can still load in full. This is an I/O exclusion contract, not a whole-file
+validation, physical disk-byte, constant-memory or throughput guarantee. Guard:
+`tests/form/file_h5msm/test_topology_v05_probe.py::test_default_topology_conversion_reads_no_other_layer_payload`.
+
 ### Force evaluation working estimates
 
 `molecular_mechanics.get_forces` constructs one complete model context, filters

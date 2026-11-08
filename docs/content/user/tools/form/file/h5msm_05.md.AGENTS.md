@@ -7,3 +7,7 @@ errors rather than silent conversion. Use native indices, not element IDs,
 when explaining structure-to-state mappings.
 Preserve topology layer 4 naming declarations, registry/code validation, unknown
 old context and the unchanged H5MSM 0.5 root.
+
+Preserve the default single-path H5MSM 0.5 whole-Topology projection: resident
+stable inventory only, no unrelated domain payloads, explicit contextual-route
+and requested-layer validation limits. Do not imply a constant-memory load.

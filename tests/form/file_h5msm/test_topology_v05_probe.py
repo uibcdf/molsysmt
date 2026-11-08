@@ -169,6 +169,8 @@ def test_legacy_group_free_membership_is_migrated_only_on_joint_load(tmp_path):
         file["topology"].attrs["schema_version"] = 1
     projected = msm.h5msm.read_layers(filename, layers=["topology"])["topology"]
     assert projected.get(element="atom", molecule_index=True) == [None] * 3
+    converted = msm.convert(filename, to_form="molsysmt.Topology")
+    assert converted.get(element="atom", molecule_index=True) == [None] * 3
     complete = msm.h5msm.read(filename)
     assert complete.topology.get(element="atom", molecule_index=True) == [0, 0, 1]
     complete.chemical_states.remove_bonds([0])
@@ -211,6 +213,16 @@ def test_legacy_equal_axis_lengths_do_not_establish_molecule_correspondence(tmp_
     assert payload["chemical_states"].n_atoms == 3
 
 
+def _assert_converted_table(actual, source):
+    # Native loading canonicalizes ID labels even when a fixture replaced a
+    # typed Series with an object-dtype list before writing. Keep dtype checks.
+    expected = source.copy(deep=True)
+    for column in expected.columns:
+        if column.endswith("_id"):
+            expected[column] = pd.array(expected[column], dtype="string")
+    pd.testing.assert_frame_equal(actual, expected)
+
+
 @pytest.mark.parametrize("path_type", [str, lambda p: p])
 def test_default_topology_conversion_reads_no_other_layer_payload(
     tmp_path, monkeypatch, path_type
@@ -233,6 +245,8 @@ def test_default_topology_conversion_reads_no_other_layer_payload(
                 "axis": "atom",
                 "source": "structures",
                 "target": "topology",
+                "source_name": None,
+                "target_name": None,
                 "indices": "identity",
             }
         ],
@@ -255,8 +269,127 @@ def test_default_topology_conversion_reads_no_other_layer_payload(
     assert result is not topology
     assert result.group_naming_schemes == topology.group_naming_schemes
     for name in ("atoms", "groups", "molecules", "entities", "chains"):
-        pd.testing.assert_frame_equal(getattr(result, name), getattr(topology, name))
+        _assert_converted_table(getattr(result, name), getattr(topology, name))
     assert not hasattr(result, "bonds")
     result.atoms.loc[0, "atom_id"] = "changed"
     assert topology.atoms.loc[0, "atom_id"] == "10"
     assert source.read_bytes() == raw
+
+
+def _static_conversion_file(tmp_path):
+    from tests.native.test_molsys import build_minimal_molsys
+
+    source = build_minimal_molsys(n_structures=5)
+    path = tmp_path / "static-conversion.h5msm"
+    msm.h5msm.write(source, path)
+    return path, source
+
+
+def _guard_unrequested_payload(monkeypatch):
+    original = h5py.Dataset.__getitem__
+
+    def getitem(dataset, key):
+        if dataset.name.startswith(
+            ("/structures/", "/chemical_states/", "/interactions/")
+        ):
+            pytest.fail(
+                "A static Topology request read an unrelated payload: " + dataset.name
+            )
+        return original(dataset, key)
+
+    monkeypatch.setattr(h5py.Dataset, "__getitem__", getitem)
+
+
+@pytest.mark.parametrize("standard", ["nm", "pm"])
+def test_static_topology_conversion_keeps_policy_and_domain_ownership(
+    tmp_path, monkeypatch, standard
+):
+    path, source = _static_conversion_file(tmp_path)
+    _guard_unrequested_payload(monkeypatch)
+    with msm.pyunitwizard.context(standard_units=[standard, "ps"]):
+        policy = dict(msm.pyunitwizard.configure.get_standard_units())
+        result = msm.convert(str(path), to_form="molsysmt.Topology")
+        assert dict(msm.pyunitwizard.configure.get_standard_units()) == policy
+    for name in ("atoms", "groups", "molecules", "entities", "chains"):
+        _assert_converted_table(getattr(result, name), getattr(source.topology, name))
+    assert getattr(result, "_molsys_owner_ref", None) is None
+    assert not hasattr(result, "chemical_states")
+
+
+def test_static_topology_conversion_does_not_invent_a_missing_domain(
+    tmp_path, monkeypatch
+):
+    from molsysmt.native import Structures
+
+    path = tmp_path / "no-topology.h5msm"
+    msm.h5msm.write_layers(
+        path,
+        structures=Structures(
+            coordinates=msm.pyunitwizard.quantity(np.zeros((2, 3, 3)), "nm")
+        ),
+    )
+    _guard_unrequested_payload(monkeypatch)
+    with pytest.raises(ValueError, match="no topology domain to convert"):
+        msm.convert(str(path), to_form="molsysmt.Topology")
+
+
+def test_static_topology_conversion_validates_its_requested_schema(
+    tmp_path, monkeypatch
+):
+    path, _ = _static_conversion_file(tmp_path)
+    with h5py.File(path, "r+") as file:
+        file["topology"].attrs["schema_version"] = 99
+    _guard_unrequested_payload(monkeypatch)
+    with pytest.raises(ValueError, match="topology layer schema"):
+        msm.convert(str(path), to_form="molsysmt.Topology")
+
+
+def test_static_topology_conversion_is_not_complete_file_validation(
+    tmp_path, monkeypatch
+):
+    path, source = _static_conversion_file(tmp_path)
+    with h5py.File(path, "r+") as file:
+        file["structures"].attrs["schema_version"] = 99
+    _guard_unrequested_payload(monkeypatch)
+    result = msm.convert(str(path), to_form="molsysmt.Topology")
+    _assert_converted_table(result.atoms, source.topology.atoms)
+
+
+def test_static_topology_conversion_preserves_atom_free_group_inventory(tmp_path):
+    from tests.native.test_group_naming_schemes import topology_with_schemes
+
+    topology = topology_with_schemes(atoms=False)
+    path = tmp_path / "group-inventory.h5msm"
+    msm.h5msm.write_layers(path, topology=topology)
+    result = msm.convert(str(path), to_form="molsysmt.Topology")
+    assert result.n_atoms == 0 and result.n_groups == 3
+    assert result.group_naming_schemes == topology.group_naming_schemes
+    assert msm.get(result, element="chain", group_index=True) == msm.get(
+        topology, element="chain", group_index=True
+    )
+
+
+@pytest.mark.parametrize("options", [{"selection": [2, 0]}, {"return_report": True}])
+def test_contextual_topology_conversion_keeps_existing_resident_route(
+    tmp_path, monkeypatch, options
+):
+    path, source = _static_conversion_file(tmp_path)
+    original = h5py.Dataset.__getitem__
+    reads = []
+
+    def getitem(dataset, key):
+        if dataset.name == "/structures/coordinates":
+            reads.append(key)
+        return original(dataset, key)
+
+    monkeypatch.setattr(h5py.Dataset, "__getitem__", getitem)
+    converted = msm.convert(str(path), to_form="molsysmt.Topology", **options)
+    if options.get("return_report"):
+        result, report = converted
+        assert report.to_form == "molsysmt.Topology"
+        expected = source.topology
+    else:
+        result = converted
+        expected = source.topology.extract(atom_indices=[0, 2])
+    assert reads, "This explicitly unoptimized context must keep its existing route"
+    _assert_converted_table(result.atoms, expected.atoms)

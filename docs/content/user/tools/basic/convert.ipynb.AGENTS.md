@@ -27,3 +27,7 @@ This document defines micro-governance rules for the `convert.ipynb` tutorial un
 Preserve naming-fidelity reporting, prospective source context and strict
 pre-write rejection alongside the unchanged default loss policy. Label equality
 is not preservation of a source vocabulary.
+
+Preserve the default single-path H5MSM 0.5 whole-Topology projection: resident
+stable inventory only, no unrelated domain payloads, explicit contextual-route
+and requested-layer validation limits. Do not imply a constant-memory load.

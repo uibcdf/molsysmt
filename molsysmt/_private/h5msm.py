@@ -108,10 +108,12 @@ def modular_h5msm_dimensions(item):
     return n_atoms, sizes.get(("structures", None, "structure"), 0)
 
 
-def maybe_read_modular_h5msm(item):
-    """Materialize a 0.5 file when a legacy file adapter cannot query its schema."""
+def maybe_read_modular_h5msm(item, *, topology_only=False):
+    """Read an admitted topology projection or the ordinary resident domains."""
     if isinstance(item, (list, tuple)):
-        converted = [maybe_read_modular_h5msm(part) for part in item]
+        converted = [
+            maybe_read_modular_h5msm(part, topology_only=topology_only) for part in item
+        ]
         if all(new is old for new, old in zip(converted, item)):
             return item
         return type(item)(converted)
@@ -129,6 +131,14 @@ def maybe_read_modular_h5msm(item):
         version = version.decode()
     if version != "0.5":
         return item
+
+    if topology_only:
+        from molsysmt.h5msm import read_layers
+
+        topology = read_layers(str(path), layers=["topology"])["topology"]
+        if topology is None:
+            raise ValueError("This MolSys has no topology domain to convert.")
+        return topology
 
     from molsysmt.form._h5msm05_modular import read_molsys_file
 

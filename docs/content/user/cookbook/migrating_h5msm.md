@@ -100,6 +100,16 @@ An invalid identity marker across unequal populations is rejected. If an older
 writer produced such a file, regenerate it from the original native source with
 the corrected writer; the reader does not guess missing correspondence.
 
+## Loading only the stable inventory
+
+After migration, use `msm.convert("trajectory_05.h5msm", to_form="molsysmt.Topology")`
+when your next step needs the complete stored inventory. With default arguments,
+this loads an independent resident Topology without reading coordinates,
+chemical states or interaction observations. The file must contain that layer;
+missing topology raises an error. Selecting atoms, requesting reports or passing
+other conversion options retains the existing resident route. See
+{ref}`user-tools-form-h5msm-05` for the exact scope and validation limits.
+
 ## Inspecting independent layers
 
 Read only the domains needed for the next step:

@@ -404,6 +404,17 @@ public conversion with the full-domain sharing policy for a read-only context.
 
 ## Forms with partial source information
 
+### Whole H5MSM stable inventory
+
+A default whole conversion from one H5MSM 0.5 path to `molsysmt.Topology`
+reads only its stored topology through the existing selected-layer reader.
+It does not load coordinates, chemical states or interactions and does not infer
+cross-layer correspondence. Static tables remain resident. Explicit selection,
+structure scopes, reports, naming overrides, converter kwargs and composite
+sources retain their existing routes. Requested-layer validation is distinct
+from complete-file validation. The exact admission and guard are maintained in
+[the scalability contract](SCALABILITY.md#whole-h5msm-topology-conversion).
+
 ### Complementary partial native systems
 
 Public conversion composes lists/tuples of complementary partial MolSys objects,

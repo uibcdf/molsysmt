@@ -54,8 +54,17 @@ candidate atoms, but only in the requested structures. External selection
 backends retain their conversion behavior. Sparse alternate-site queries can
 read their offset/index metadata; this is not an out-of-core guarantee for
 every attribute or downstream analysis. File handles close at the query boundary,
-and later queries observe later file changes. `msm.convert` and `read_layers`
-remain resident loads, including when conversion extracts a subset afterward.
+and later queries observe later file changes. Full-system conversion and
+`read_layers` produce resident native objects; subset conversion can load
+complete source domains before extraction.
+
+A whole-topology conversion, `msm.convert(path, to_form="molsysmt.Topology")`,
+reads only the stored Topology layer of a single H5MSM 0.5 path. The result is
+an independent resident inventory; coordinates, chemical states and interactions
+are not loaded. This applies with all atoms and structures, default MolSysMT
+syntax and no strict/report, source-naming or extra converter options. Other
+conversion contexts retain their existing loading behavior. Static tables may
+still be read in full, and this projection does not validate unrequested layers.
 
 Each analysis's `software` dictionary retains the versions that produced its
 observations. For example, a Buch result records the MolSysMT version used
@@ -113,8 +122,9 @@ group-free layers 1/2, jointly loading the associated topology and chemical stat
 can recover the original reference-component representation once, provided an
 identity atom-axis association is declared and it unambiguously matches the
 molecule inventory. Equal axis lengths alone are insufficient. Loading only the old topology
-leaves that unavailable membership unknown. No chemistry is loaded implicitly
-for a projection. The H5MSM root version remains 0.5; atomic coordinate,
+leaves that unavailable membership unknown, including a default whole-Topology
+conversion. Load a joint `MolSys` first if you need this legacy reconstruction.
+No chemistry is loaded implicitly for a projection. The H5MSM root version remains 0.5; atomic coordinate,
 chemical-state and interaction codecs are unchanged.
 
 ## Reading legacy units
@@ -149,9 +159,9 @@ without a second eager copy by default. Repeated loads are independently
 editable; editing a loaded object does not write back to its file. Explicit
 `copy_if_all=True` requests the additional snapshot, while converting an
 already resident `MolSys` still copies by default. Multiple-output and composed
-input conversions retain their own copy rules. Public 0.5 conversion still
-loads resident data before extracting a requested subset; it is not a public
-selective-file query API.
+input conversions retain their own copy rules. Public 0.5 subset conversion still
+loads resident data before extracting the requested subset. The whole-Topology
+projection above avoids unrelated domains; it does not provide lazy coordinates.
 
 `msm.h5msm.write` creates a new file and rejects domain data that the current
 0.5 codec cannot encode. Coordinates are stored in nanometers and time in

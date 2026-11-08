@@ -15,7 +15,7 @@ supersedes: []
 # Static topology conversion reads an unrelated structural layer
 
 **Reported:** 2026-11-08, while preparing the accepted sequence-fit GUI intent
-under #421. **Status:** bounded baseline reproduced; implementation is pending.
+under #421. **Status:** bounded baseline reproduced; implementation and directed receiving complete, final qualification pending.
 
 ## What
 
@@ -100,3 +100,38 @@ The existing modular reader and native Topology own decoding. ArgDigest and
 SMonitor remain at their public boundaries; the private helper has no decorator.
 No new optional-dependency or scientific-attribution boundary exists. Maintain
 original index spaces and avoid changing spatial-query or report semantics.
+
+## Tracked-guard fixture admission
+
+The first tracked negative run stops in fixture writing because its explicit
+association omitted the required source_name/target_name keys. It executes one
+of two parameter cases under maxfail and does not reach conversion. The fixed
+fixture declares both unnamed endpoints explicitly; this changes no public
+implementation or payload-read assertion. Keep both negative attempts.
+
+## First directed receiving
+
+The first integrated profile passes 103/109 cases. Six new table comparisons
+fail because hand-built fixtures assigned ID columns as object dtype, while
+native loading correctly restores the canonical pandas string ID dtype. The
+corrected expected tables explicitly normalize only ID columns and retain full
+DataFrame dtype/value/index checks. No production output, coordinate/I/O guard
+or unrelated field is relaxed. Existing native/legacy ownership and naming
+cases remain in the same profile; preserve the original six failures.
+
+## Corrected directed receiving
+
+All 109 selected tests pass after canonicalizing expected ID columns only.
+The one-CPU/two-GiB service peaks at 271,421,440 charged bytes, observes at least
+16,212,611,072 available host bytes and records no cap, OOM or reserve stop.
+The declared working tree is unchanged during execution; this is local source
+receiving, not installed-package or full-suite evidence. Final clean-source
+qualification and public delivery remain pending.
+
+The whole-Topology target now has the same stored-only meaning as the existing
+single-layer reader. For old group-free topology layers 1/2 whose molecule
+membership exists only in associated reference chemistry, that membership stays
+unknown in this projection. A joint `MolSys` load remains the supported legacy
+reconstruction; the existing migration test now contrasts both public routes.
+This is an explicit projection boundary, not a claim that implicit legacy
+reconstruction can be retained without chemistry.

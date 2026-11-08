@@ -11,3 +11,7 @@ Governs `docs/content/user/foundations/native_world/files/file_h5msm.md`.
   3. `## Read, Write, and Streaming Operations`
   4. `## Performance and Storage Invariants`
 - Covers Schema 0.4 specification and Schema 0.3 backward compatibility.
+
+Preserve the default single-path H5MSM 0.5 whole-Topology projection: resident
+stable inventory only, no unrelated domain payloads, explicit contextual-route
+and requested-layer validation limits. Do not imply a constant-memory load.

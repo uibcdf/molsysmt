@@ -919,6 +919,12 @@ def convert(
       independent; explicit ``copy_if_all=True`` still requests that snapshot.
       Existing resident inputs retain their independent-copy default. This
       optimization does not provide lazy or selective file-backed coordinates.
+    - Converting a single H5MSM 0.5 path to ``molsysmt.Topology`` reads only
+      its stored Topology layer with all atoms/structures, default MolSysMT
+      syntax and no strict/report, source-naming or extra converter options.
+      The result is an independent resident inventory. Static tables may load
+      in full; unrequested layers are neither loaded nor fully validated.
+      Other conversion contexts retain their existing loading behavior.
     - A native ChemicalStates (or ChemicalStatesDict) and Structures pair can
       compose a topology-free MolSys, in either item order. Supplying the pair
       declares that their atom indices correspond; full axis counts must agree.
@@ -1020,7 +1026,22 @@ def convert(
 
     incoming_system = molecular_system
     validate_h5msm_handler_target(molecular_system, to_form)
-    molecular_system = maybe_read_modular_h5msm(molecular_system)
+    # A complete static target needs neither trajectory payloads nor joins to
+    # other stored axes. Context-sensitive selections/reports keep their route.
+    topology_only = (
+        to_form == "molsysmt.Topology"
+        and not isinstance(molecular_system, (list, tuple))
+        and is_all(selection)
+        and is_all(structure_indices)
+        and syntax == "MolSysMT"
+        and not strict
+        and not return_report
+        and from_naming_scheme is None
+        and not kwargs
+    )
+    molecular_system = maybe_read_modular_h5msm(
+        molecular_system, topology_only=topology_only
+    )
     fresh_file_result = molecular_system is not incoming_system and not isinstance(
         incoming_system, (list, tuple)
     )
