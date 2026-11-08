@@ -41,7 +41,7 @@ or scientific model changes. Both documentation notebooks retain all code
 cells, outputs, IDs and metadata; their edits are Markdown only.
 
 The refreshed complete board contains **579 issues, 95 open and no open PR**.
-Next is #645's [explicit stored-H policy decision](pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md):
+Next is #645's [explicit stored-H policy decision](archive/resolved_proposals/normalize_stored_hydrogen_policy_for_correspondence.md):
 the real-input normal/nondefault-unit and H5MSM feasibility study is measured,
 but a supported admission/rejection policy and transformation evidence remain
 open. Keep #610's public XYZ delivery and the broader #378 work in scope.
@@ -70,7 +70,7 @@ The complete board contains **579 issues, 96 open and no open PR**. #647 owns
 the separate scalar string-ID setter rejection found by the original controls.
 Its [record](archive/resolved_bugs/scalar_string_component_id_is_rejected_by_the_molsys_assignment_adapter.md)
 retains that failure; this bounded repair is next. For #645, a
-[real-input study](pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md)
+[real-input study](archive/resolved_proposals/normalize_stored_hydrogen_policy_for_correspondence.md)
 reproduces zero strict maps, then two maps after a private explicit-copy/set
 policy experiment, under both unit policies and after H5MSM. This is feasibility;
 no supported normalization policy or scientific equivalence is accepted.
@@ -99,7 +99,7 @@ The complete refreshed board contains **578 issues, 96 open and no open PR**.
 New #646 reports rejection of a supported `component_type` Boolean comparison
 flag. Its [owner record](archive/resolved_bugs/compare_component_type_boolean_flag.md)
 starts with source inspection; bounded reproduction and repair take priority
-before the separate #645 [stored-H policy study](pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md).
+before the separate #645 [stored-H policy study](archive/resolved_proposals/normalize_stored_hydrogen_policy_for_correspondence.md).
 Strict chemical matching remains unchanged.
 
 The accepted score stays **approximately 62.5%**, with **36 audit-related source

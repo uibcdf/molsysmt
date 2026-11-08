@@ -826,7 +826,7 @@
       "uibcdf/molsysmt#646",
       "uibcdf/molsysmt#647"
     ],
-    "record": "devguide/pending_proposals/normalize_stored_hydrogen_policy_for_correspondence.md",
+    "record": "devguide/archive/resolved_proposals/normalize_stored_hydrogen_policy_for_correspondence.md",
     "owner_verification": "#644/#646/#647 are independently verified source-closed after bounded receiving. #645 feasibility is measured, but its admission policy, rejection controls, transformation record and public delivery shape remain open. #612 still requires complete source-suite acceptance.",
     "independent_lightweight_review": "Finish the #645 provider policy decision, then receive #610 public XYZ delivery and retain the broader #378 scope; no strict matcher relaxation, invented release gate or omitted graphical/candidate requirement.",
     "scope": "Continue complete source acceptance only through an inspected serial plan and resource-bounded execution; retain every remaining graphical, scientific-contract, installed and candidate requirement.",

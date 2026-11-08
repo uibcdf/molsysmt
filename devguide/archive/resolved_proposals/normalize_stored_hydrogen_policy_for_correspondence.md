@@ -1,13 +1,13 @@
 ---
 summary: Define an explicit stored-hydrogen policy composition before strict correspondence.
 issue: uibcdf/molsysmt#645
-status: active
+status: resolved
 opened: 2026-11-07
-closed:
+closed: 2026-11-07
 verification: measured
 area: [api, build]
-guard:
-normative:
+guard: tests/chemical_states/test_indexed_hydrogen_policy_producers.py::test_original_p59_producers_require_explicit_policy_and_survive_persistence
+normative: docs/content/user/tools/chemical_states/normalize_indexed_hydrogen_policy.md
 blocked_by: []
 supersedes: []
 ---
@@ -65,7 +65,7 @@ Clean public source `4f642256996bd25a21a9b204d7a684207e589974`, with RDKit
 in the issue. Attribution remains with the pinned AutoDock Vina examples in
 uibcdf/dockingmt#79 and uibcdf/molsysmt#645; these input files are not chemically validated ground
 truth. No fixture is copied into the product or test tree. The
-[study receipt](../../devtools/data/stored_hydrogen_policy_study_645_20261107.json)
+[study receipt](../../../devtools/data/stored_hydrogen_policy_study_645_20261107.json)
 retains observations, exact execution and enforced resource limits.
 
 The source chain is native SDF conversion with explicit RDKit stereo/discard
@@ -230,3 +230,45 @@ validated scientific coverage. This metadata-only correction and a native-copy
 allocation clarification change no runtime, test or fixture bytes. Their
 applicable fast and HTML checks are received separately. The passing 247-case
 implementation evidence remains scoped to its exact source.
+
+## Resolution — 2026-11-07
+
+Accepted and implemented as the experimental
+`molsysmt.chemical_states.normalize_indexed_hydrogen_policy` public tool.
+Qualified implementation `4f7c7e4c278a9995909c2f4d9bec917d03729a63` passes **247 clean-source cases**,
+including 57 new contract cases and the public doctest, with zero skips,
+failures or errors. It retains seventeen existing warning instances. Source
+`6e3c8d23e440c703632bed55cbe39e2a03244406` passes fourteen fast gates after
+the generated inventory correction. Documentation source `718576353997d86ea877c887c291fb6a5bd3b2b4`
+passes corrected incremental HTML with zero new warnings, and the rendered
+Tool, Cookbook, API and course links are checked. The first full build's six
+existing warnings remain baseline; its new title warning is corrected.
+All hashed runtime/test/fixture inputs are identical across those sources.
+No passing numerical-evidence or full-library/candidate claim follows from the
+structural matrix validator. The [owner receipt](../../../devtools/data/indexed_hydrogen_policy_receiving_645_20261107.json)
+retains every actual result and admission rule.
+
+The guard reproduces the original strict P59 zero-map result before applying
+any policy, then receives two maps only after explicit normalization. Both
+original source/H-generation producers, pm/fs/coulomb, heavy coordinates,
+stereo, complete source payload nonmutation, history and H5MSM are exercised.
+Analytical controls cover isotope preservation/incompatibility, unknown,
+charged, radical and unsupported H; selected state, missing/empty context,
+no-op coverage, typed reports, old operation axes, protected geometry and
+subsequent edit isolation. There is no hidden normalization in correspondence.
+
+Tests peak at 422,817,792 bytes (about 403 MiB). Full HTML peaks at
+1,611,382,784 bytes under a 2 GiB cap; its high-memory throttling is retained,
+with no max/OOM event or swap. Corrected incremental HTML peaks at
+500,375,552 bytes. The minimum observed host availability stays above the
+conservative reserve. Native deferred copy protects coordinate/box blocks;
+other mutable metadata retains the native copy allocation contract. There is
+no claim of a fully qualified 100,000-atom by 10,000-structure workload.
+
+The course change is Markdown only: all twelve code cells, outputs, IDs and
+notebook metadata are unchanged. The Tool/Cookbook code blocks execute under
+both unit policies. This closes the provider's explicit policy/composition
+request, not DockingMT's separate whole workflow or its different installed
+provider/RDKit prefix. #612's complete source suite and every remaining
+scientific-contract, graphical, installed/platform and exact-candidate gate
+remain independent. No package, tag or release is authorized.

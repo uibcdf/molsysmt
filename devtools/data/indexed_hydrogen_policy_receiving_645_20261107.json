@@ -3,7 +3,7 @@
   "date": "2026-11-07",
   "issue": "uibcdf/molsysmt#645",
   "source_base": "b35d370f35f2970c7adaf5ac970b58ec24c91a2c",
-  "state": "Prepared integrated receiving passed; final admission guards and clean-source acceptance pending.",
+  "state": "Public implementation prepared after clean-source and documentation receiving.",
   "public_tool": "molsysmt.chemical_states.normalize_indexed_hydrogen_policy",
   "method": "closed_neutral_terminal_hydrogens",
   "stability": "experimental",
@@ -446,6 +446,322 @@
         "total": 245,
         "passed": 245
       }
+    },
+    "hydrogen-645-final": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/hydrogen-645-final.xml",
+          "-n0",
+          "tests/chemical_states/test_normalize_indexed_hydrogen_policy.py",
+          "tests/chemical_states/test_indexed_hydrogen_policy_producers.py",
+          "tests/physchem/get_hydrogen_inventory/test_inventory.py",
+          "tests/build/add_missing_hydrogens/test_fixed_state.py",
+          "tests/native/test_preparation_history.py",
+          "tests/native/test_molsys_copy.py",
+          "tests/topology/test_get_atom_correspondences.py",
+          "molsysmt/chemical_states/normalize_indexed_hydrogen_policy.py"
+        ],
+        "exit_code": 0,
+        "seconds": 54.40998549084179,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "4f7c7e4c278a9995909c2f4d9bec917d03729a63",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5211
+      },
+      "resources": {
+        "started_utc": "2026-11-08T05:44:01.427044+00:00",
+        "seconds": 56.03037972585298,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "hydrogen-645-final"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.33154296875,
+            1.009765625,
+            1.18310546875
+          ],
+          "cpu_utilization": 0.026659959758551288,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16948740096
+        },
+        "host_available_minimum_observed_bytes": 16488341504,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 422817792,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 56038762\nuser_usec 55193992\nsystem_usec 844770\nnice_usec 55207000\ncore_sched.force_idle_usec 0\nnr_periods 563\nnr_throttled 114\nthrottled_usec 167065\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      }
+    },
+    "hydrogen-645-fast-original": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 1,
+        "seconds": 22.095520070986822,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "4f7c7e4c278a9995909c2f4d9bec917d03729a63",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5211
+      },
+      "resources": {
+        "started_utc": "2026-11-08T05:44:58.602654+00:00",
+        "seconds": 24.01288425293751,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "hydrogen-645-fast"
+        ],
+        "process_exit_code": 1,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.0283203125,
+            1.107421875,
+            1.2060546875
+          ],
+          "cpu_utilization": 0.021618903971845183,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16975368192
+        },
+        "host_available_minimum_observed_bytes": 16384258048,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 399552512,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 23500457\nuser_usec 21840778\nsystem_usec 1659679\nnice_usec 21843000\ncore_sched.force_idle_usec 0\nnr_periods 243\nnr_throttled 92\nthrottled_usec 392361\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      }
+    },
+    "hydrogen-645-fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 21.110100055811927,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "6e3c8d23e440c703632bed55cbe39e2a03244406",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5211
+      },
+      "resources": {
+        "started_utc": "2026-11-08T05:47:28.465931+00:00",
+        "seconds": 23.01364764990285,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "hydrogen-645-fast"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            8.7783203125,
+            3.1494140625,
+            1.8828125
+          ],
+          "cpu_utilization": 0.033651431441486745,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16828379136
+        },
+        "host_available_minimum_observed_bytes": 16397987840,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 399765504,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 22698037\nuser_usec 21101667\nsystem_usec 1596369\nnice_usec 21107000\ncore_sched.force_idle_usec 0\nnr_periods 231\nnr_throttled 36\nthrottled_usec 67119\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      }
+    },
+    "hydrogen-645-html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/hydrogen-645-html"
+        ],
+        "exit_code": 0,
+        "seconds": 197.37829465279356,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "6e3c8d23e440c703632bed55cbe39e2a03244406",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5211
+      },
+      "resources": {
+        "started_utc": "2026-11-08T05:47:52.645621+00:00",
+        "seconds": 199.117246003123,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "hydrogen-645-html"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            6.33837890625,
+            3.0244140625,
+            1.87548828125
+          ],
+          "cpu_utilization": 0.047714716223003495,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16798011392
+        },
+        "host_available_minimum_observed_bytes": 14529794048,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 1611382784,
+        "memory_events": "low 0\nhigh 598\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 159213140\nuser_usec 156349335\nsystem_usec 2863804\nnice_usec 156359000\ncore_sched.force_idle_usec 0\nnr_periods 1938\nnr_throttled 146\nthrottled_usec 92406\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      }
+    },
+    "hydrogen-645-html-fixed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/hydrogen-645-html"
+        ],
+        "exit_code": 0,
+        "seconds": 19.66448526107706,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "718576353997d86ea877c887c291fb6a5bd3b2b4",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5211
+      },
+      "resources": {
+        "started_utc": "2026-11-08T05:52:57.114280+00:00",
+        "seconds": 21.01345960982144,
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-evidence>/reference-run.py",
+          "hydrogen-645-html-fixed"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.9638671875,
+            2.70166015625,
+            2.15283203125
+          ],
+          "cpu_utilization": 0.02865761689291102,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 16898834432
+        },
+        "host_available_minimum_observed_bytes": 16488177664,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 500375552,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 10533583\nuser_usec 9547533\nsystem_usec 986050\nnice_usec 9516000\ncore_sched.force_idle_usec 0\nnr_periods 209\nnr_throttled 4\nthrottled_usec 54276\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      }
     }
   },
   "notebook": {
@@ -455,8 +771,40 @@
   },
   "weighted_milestone_change": 0,
   "remaining": [
-    "Clean exact-source receiving of the final guards, fourteen fast gates and applicable documentation checks.",
-    "Publish/archive/independently close the provider and hand the supported source scope to DockingMT.",
-    "Keep #612 complete suite and all remaining audit/candidate/platform/consumer acceptance separate."
-  ]
+    "Publish/archive/independently close #645 and hand the supported source contract to DockingMT.",
+    "Retain independent #610/#378, #612 complete source and all remaining audit/candidate/installed-platform and consumer workflow gates."
+  ],
+  "qualified_source": "4f7c7e4c278a9995909c2f4d9bec917d03729a63",
+  "documentation_source": "718576353997d86ea877c887c291fb6a5bd3b2b4",
+  "clean_final": {
+    "passed": 247,
+    "new_contract_cases": 57,
+    "public_doctest_nodes": 1,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "fast_gates": {
+      "passed": 14,
+      "total": 14
+    },
+    "original_fast_gates": {
+      "passed": 13,
+      "total": 14,
+      "cause": "Generated scientific inventory stale after adding an experimental API; normative evidence unchanged."
+    },
+    "html": {
+      "initial_existing_warnings": 6,
+      "initial_new_title_warning": 1,
+      "corrected_incremental_new_warnings": 0,
+      "rendered_public_pages_checked": 4
+    },
+    "runtime_test_fixture_input_correspondence": {
+      "implementation": "4f7c7e4c278a9995909c2f4d9bec917d03729a63",
+      "documentation": "718576353997d86ea877c887c291fb6a5bd3b2b4",
+      "hashed_inputs": 5211,
+      "identical": true
+    },
+    "compiled_backend_or_dependency_changes": false
+  },
+  "path_rendering": "Machine-local source/evidence/interpreter prefixes use named placeholders; original execution records remain in private evidence."
 }
