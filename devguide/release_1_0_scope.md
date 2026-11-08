@@ -50,8 +50,9 @@ source context, group-aligned Topology declarations and H5MSM/native-dictionary
 persistence. The group-level public one-letter helper becomes the canonical
 entry point. Supported scheme identifiers, differences, defaults and coverage
 must be documented. The
-[owning phase plan](pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#implementation-sequence-and-exit-evidence)
-records the accepted scope and unexecuted exits.
+[owning phase plan](archive/resolved_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#implementation-sequence-and-exit-evidence)
+records the accepted scope and completed D0–D7 source receiving. Installed,
+platform and exact-candidate qualification remain under #334.
 
 This admits the bounded naming-contract correction before 1.0. It does not admit
 general atom/group renaming, new chemical-state selection, new protonation or

@@ -852,7 +852,7 @@ conversion/preflight mirrors now expose native from_naming_scheme; source,
 scene, pending-state and independent-result ownership have focused guards.
 PR #543 remains separate and must update its element/template/construction
 signatures and discovery against this provider. The
-[owning adaptation handoff](../pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#pr-543-adaptation-handoff)
+[owning adaptation handoff](../archive/resolved_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#pr-543-adaptation-handoff)
 records inspected expansion head and required changes. Earlier expansion
 counts and native scientific receipts keep their own source identities. This
 does not admit that PR, stabilize profiles or qualify installed artifacts.

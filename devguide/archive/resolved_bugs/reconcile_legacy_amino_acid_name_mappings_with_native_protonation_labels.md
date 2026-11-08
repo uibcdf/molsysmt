@@ -1,9 +1,9 @@
 ---
 summary: Reconcile legacy amino-acid name mappings with native protonation labels
 issue: uibcdf/molsysmt#549
-status: active
+status: resolved
 opened: 2026-11-03
-closed:
+closed: 2026-11-07
 severity: medium
 verification: reproduced
 area: [attribute, build]
@@ -15,9 +15,9 @@ supersedes: []
 
 # Legacy names versus explicit native protonation labels
 
-**Reported:** 2026-11-03 while receiving #545/#547. **Status:** active; the
-maintainer accepts the explicit scheme design below. Native public cutover is
-delivered in D6 below. D6 owner acceptance is recorded on 2026-11-07; final D7 receiving remains due.
+**Reported:** 2026-11-03 while receiving #545/#547. **Status:** resolved in sources after D0–D7 owner acceptance on 2026-11-07.
+The bounded scientific profiles remain experimental; installed/platform and
+release-candidate qualification remain under #334.
 
 ## What
 
@@ -93,7 +93,7 @@ no upstream source or coordinate asset was changed.
 
 ## Source study — 2026-11-04
 
-The [dated inspection record](../../devtools/data/name_scheme_review_549_20261104.json)
+The [dated inspection record](../../../devtools/data/name_scheme_review_549_20261104.json)
 retains exact AmberClassic/MDTraj commits, the Amber library content digest,
 native Meeko fragment provenance, bounded RCSB CCD observations and executed
 native sequence probes. It is review evidence, not a new runtime dictionary.
@@ -153,7 +153,7 @@ unused `to_naming_scheme` parameter is added merely to reserve a spelling.
 ## Documentation contract
 
 The conceptual User Guide page
-[Group naming schemes](../../docs/content/user/foundations/molecular_system/naming_schemes.md)
+[Group naming schemes](../../../docs/content/user/foundations/molecular_system/naming_schemes.md)
 compares sequence/amber/ccd/legacy and distinguishes the delivered group helper
 and native projection, including explicit conversion context, from pending other
 consumer migration. It links
@@ -196,7 +196,7 @@ report that authority but cannot substitute for scientific review of its entries
   code entry point, update old-path consumers and PR #543's mirror/manifest,
   User Guide, Cookbook, course, API help and stability/tier inventories. Any
   necessary bounded compatibility alias needs an explicit removal condition.
-- [ ] **D7 — final receiving and closure.** Verify exact-source guards, units
+- [x] **D7 — final receiving and closure.** Verify exact-source guards, units
   where other operations carry quantities, source/chemistry preservation,
   documentation execution, Ruff and required gates. Close #549 only with its
   addressable guard and public evidence. Installed-client/release qualification
@@ -361,7 +361,7 @@ registry extension; older readers reject the unsupported new registry.
 ### Bounded resolver and data provenance
 
 The offline asset and generator are under `molsysmt/data/`; the primary review
-is [the dated profile receipt](../../devtools/data/name_scheme_profile_review_549_20261104.json).
+is [the dated profile receipt](../../../devtools/data/name_scheme_profile_review_549_20261104.json).
 Generation reuses the canonical alphabet and preserves the reviewed source URLs,
 revisions/response digests and generator-input digest. `--check` regenerates and
 compares the complete payload without a network request.
@@ -661,7 +661,7 @@ The public minimum is raised to `argdigest>=0.14.0` across maintained acquisitio
 routes instead of forking the provider's bypass rules. Seven public boundaries
 are covered by non-boolean bypass rejection tests. Biopython's host installation metadata now names
 the Conda package correctly. The
-[#524 receiving record](../pending_proposals/runtime_dependency_api_floors.md#argdigest-bypass-contract-and-biopython-route--2026-11-04)
+[#524 receiving record](../../pending_proposals/runtime_dependency_api_floors.md#argdigest-bypass-contract-and-biopython-route--2026-11-04)
 owns that dependency decision, archive digest and the older-SMonitor pytest
 entry-point limitation; it does not establish a clean installed closure.
 
@@ -1571,11 +1571,11 @@ D6; no downstream compatibility or package qualification is claimed yet.
 Contribution merge `393757795` implements the explicit naming-context handoff
 above, including canonical path retirement, exact native signatures, discovery
 and independent output ownership. The
-[consumer receipt](../../devtools/data/molsysviewer_tools_naming_cutover_receiving_20261105.json)
+[consumer receipt](../../../devtools/data/molsysviewer_tools_naming_cutover_receiving_20261105.json)
 retains 4,263 addon/integration and 298 directed native passes on d3650cc09,
 with a fixed published PyUnitWizard source snapshot. The subsequent owner
 alternate-site repair has its
-[separate receiving](../../devtools/data/molsysviewer_tools_alternate_site_repaired_receiving_20261105.json).
+[separate receiving](../../../devtools/data/molsysviewer_tools_alternate_site_repaired_receiving_20261105.json).
 This delivers the requested adaptation for owner review; it does not itself
 admit the expansion, complete D7 or stabilize naming profiles. Historical source
 and original owner test evidence below remain unchanged.
@@ -1624,7 +1624,7 @@ optional Ackredit remain at the canonical native boundary. This cutover adds no
 physical quantity, heavy backend or optional dependency: there is no additional
 PyUnitWizard/Rust/DepDigest capability to invent.
 
-The [receiving receipt](../../devtools/data/group_naming_cutover_receiving_549_20261105.json)
+The [receiving receipt](../../../devtools/data/group_naming_cutover_receiving_549_20261105.json)
 retains final code/test hashes and JUnit identities in
 `.pytest_cache/group-name-resolution-549/`. Native/runtime tests and public
 source attribution are distinct from hosted exact-source, expansion and
@@ -1661,7 +1661,7 @@ native inference under #304. Semantic selections use interpreted inventory;
 context-aware name-only projection does not request implicit bond reconstruction.
 The shared external preparation refusal is retained for unsupported contextual
 labels and incompatible caps. Original source naming is retained in typed reader
-history. See the [owning #304 record](../archive/resolved_proposals/native_pdb_bond_inference_with_explicit_policy.md)
+history. See the [owning #304 record](../resolved_proposals/native_pdb_bond_inference_with_explicit_policy.md)
 and `tests/form/file_pdb/test_naming_context.py` for measured scope and evidence.
 This receives the six direct PDB routes; it does not close the broader producer/
 composite audit or qualify every external naming adapter in this staged rollout.
@@ -1701,10 +1701,45 @@ suite sizing or an exclusive resource allocation. A rejected unsupported
 systemd property stops before pytest; the accepted OOMPolicy route verifies
 actual kernel cgroup values before launching work.
 
-The [owner receiving record](../../devtools/data/group_naming_owner_receiving_549_20261107.json)
+The [owner receiving record](../../../devtools/data/group_naming_owner_receiving_549_20261107.json)
 retains exact source/input hashes, commands, warnings, native exits and measured
 resource limits. D7 remains open until the reviewed inputs are committed,
 combined receiving is executed on that clean source, the canonical ten-cell
 tutorial is executed, applicable checks pass and the source/issue closeout is
 published. #612's interrupted complete suite and #334's platform/installed/
 candidate gates remain distinct obligations; no publication is authorized.
+
+
+## D7 final owner receiving and resolution — 2026-11-07
+
+Clean source `d7c7b7e927824a45f806aca040199a2aa7d84d03` passes **545 cases**,
+including the public scalar-helper doctest, with zero skips/failures/errors.
+The exact-source fingerprint stays unchanged. The canonical tutorial executes
+all ten published code cells plus one private interpreter/source preflight;
+its published bytes are unchanged. All fourteen fast gates and the applicable
+whole-library/addon/test Ruff checks pass. The twelve focused warnings and
+existing kernel transport warning remain visible in the receipts/logs.
+
+The final pytest process tree peaks at 475,570,176 bytes (about 454 MiB), the
+tutorial at 455,704,576 bytes and fast gates at 401,858,560 bytes. Each execution
+has the verified 2 GiB hard bound, one-CPU quota and zero swap. No final run
+reaches the soft limit, OOM or reserve-monitor stop condition. A preceding
+private selector mistake reached the old default-suite/12-worker branch;
+the cgroup/pressure monitor stopped it at 1,675,575,296 bytes, with the host
+still retaining 15,122,534,400 available bytes. That interrupted attempt is
+not product failure or passing evidence. The selector is corrected and an
+explicit negative control rejects parallel plans before pytest starts.
+
+The accepted outcome is the bounded source naming contract and its coordinated
+native/client namespace cutover, not complete CCD coverage, chemical assignment,
+profile stabilization or a new geometry method. D0–D7 are complete for this
+contract. Original labels, stored chemistry, source axes, declared losses,
+unsupported meanings and unknown context retain their documented semantics.
+The regression module rejects restoration of implicit mixed-profile meanings;
+new composition/foreign cases protect the remaining owner routes.
+
+The owner receiving record retains exact-source commands/hashes, native exits,
+measured limits, original failed attempts and the accepted scope. #612 retains
+its separate interrupted complete-source gate. #473/#475 still require their
+primary-reference scientific review; #334 retains installed/platform/candidate
+qualification. No tag, artifact or publication is authorized by this closeout.

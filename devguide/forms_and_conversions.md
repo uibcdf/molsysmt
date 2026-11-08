@@ -513,7 +513,7 @@ lost selected evaluated coverage, including evaluated-empty structures. Matching
 context, unevaluated coverage and unselected structures do not invent this
 invalidation loss. Source snapshots remain unchanged. Report scope does not
 certify scientific methods, schema validity, dependencies or writer availability.
-See [the owning #549 record](pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md)
+See [the owning #549 record](archive/resolved_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md)
 and the public conversion/preflight documentation for boundaries and evidence.
 
 ### Contractual MDAnalysis forms

@@ -26,7 +26,7 @@ candidate artifact is qualified here.
 
 ### ArgDigest bypass contract and Biopython route — 2026-11-04
 
-Consumer receiving under [#549](../pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md)
+Consumer receiving under [#549](../archive/resolved_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md)
 exposes a limitation missed by the earlier focal API probes: public ArgDigest
 0.13.0 allows a truthy non-boolean `skip_digestion` to bypass its own validator.
 The existing sequence-identity invalid-flag guard fails unchanged. This is the

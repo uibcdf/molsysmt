@@ -3,14 +3,17 @@
   "date": "2026-11-07",
   "issue": "uibcdf/molsysmt#549",
   "source_base": "3b16f23c5e2e794da981e609b2ba9169c78aac35",
-  "state": "D6 owner source acceptance completed; clean final D7 receiving pending.",
+  "state": "D0-D7 source acceptance completed; public source/report closeout prepared.",
   "implementation_scope": "Existing runtime/native/client cutover is received. Three new regression cases protect complementary-domain conversion and foreign metadata/chemical preservation; no runtime API, profile, dependency or scientific dataset is changed.",
   "case_counts": {
     "native_and_client_cutover": 191,
     "producer_lifecycle_public_doctest": 343,
     "foreign_and_gro_followup": 11,
     "new_complementary_cases": 2,
-    "warning": "Scopes overlap; these counts must not be summed as unique tests."
+    "warning": "Scopes overlap; these counts must not be summed as unique tests.",
+    "clean_final_combined": 545,
+    "clean_final_warnings": 12,
+    "public_scalar_helper_doctest_nodes": 1
   },
   "source_inspection": {
     "canonical_export": "molsysmt.element.group.get_1_letter_code_from_name",
@@ -309,6 +312,190 @@
         "cpu_stat": "usage_usec 5754272\nuser_usec 5323401\nsystem_usec 430870\nnice_usec 5322000\ncore_sched.force_idle_usec 0\nnr_periods 68\nnr_throttled 5\nthrottled_usec 90376\nnr_bursts 0\nburst_usec 0\n",
         "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
       }
+    },
+    "naming-549-final-receiving-serial": {
+      "execution": {
+        "command": [
+          "python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/naming-549-final-receiving-serial.xml",
+          "-n0",
+          "tests/element/group/test_name_resolution.py",
+          "tests/molsysviewer_molsysmt/test_naming_context_tools.py",
+          "tests/molsysviewer_molsysmt/test_conversion_tools.py::test_source_naming_context_stays_on_the_independent_output",
+          "tests/molsysviewer_molsysmt/test_conversion_tools.py::test_naming_conflicts_and_invalid_profiles_keep_native_rejection",
+          "tests/basic/convert/test_source_naming_scheme.py",
+          "tests/conversion_truth/test_group_naming_fidelity.py",
+          "tests/form/file_pdb/test_naming_context.py",
+          "tests/build/build_peptide/test_naming_schemes.py",
+          "tests/native/test_group_naming_schemes.py",
+          "tests/form/file_h5msm/test_group_naming_schemes.py",
+          "tests/form/file_gro/test_mdtraj_connectivity.py",
+          "molsysmt/element/group/get_1_letter_code_from_name.py"
+        ],
+        "exit_code": 0,
+        "seconds": 37.11983648315072,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "d7c7b7e927824a45f806aca040199a2aa7d84d03",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5199
+      },
+      "resources": {
+        "started_utc": "2026-11-08T03:15:42.246119+00:00",
+        "seconds": 39.02273636194877,
+        "command": [
+          "python",
+          "<private-evidence>/reference-run.py",
+          "naming-549-final-receiving-serial"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.759765625,
+            0.8447265625,
+            1.86181640625
+          ],
+          "cpu_utilization": 0.027624309392265234,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 17029529600
+        },
+        "host_available_minimum_observed_bytes": 16577462272,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 475570176,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 38768403\nuser_usec 37710801\nsystem_usec 1057601\nnice_usec 37722000\ncore_sched.force_idle_usec 0\nnr_periods 392\nnr_throttled 30\nthrottled_usec 106544\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      }
+    },
+    "naming-549-tutorial": {
+      "execution": {
+        "command": [
+          "python",
+          "<private-evidence>/naming-tutorial.py"
+        ],
+        "exit_code": 0,
+        "seconds": 14.552170115057379,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "d7c7b7e927824a45f806aca040199a2aa7d84d03",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5199
+      },
+      "resources": {
+        "started_utc": "2026-11-08T03:16:22.435026+00:00",
+        "seconds": 17.010074452031404,
+        "command": [
+          "python",
+          "<private-evidence>/reference-run.py",
+          "naming-549-tutorial"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.984375,
+            0.896484375,
+            1.83447265625
+          ],
+          "cpu_utilization": 0.02408429503261411,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 17055399936
+        },
+        "host_available_minimum_observed_bytes": 16615374848,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 455704576,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 8790702\nuser_usec 7919641\nsystem_usec 871060\nnice_usec 7908000\ncore_sched.force_idle_usec 0\nnr_periods 164\nnr_throttled 18\nthrottled_usec 232411\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      }
+    },
+    "naming-549-fast": {
+      "execution": {
+        "command": [
+          "python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 22.371072236914188,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "d7c7b7e927824a45f806aca040199a2aa7d84d03",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "changed_inputs": [],
+        "checked_inputs": 5199
+      },
+      "resources": {
+        "started_utc": "2026-11-08T03:16:40.623854+00:00",
+        "seconds": 24.0139613149222,
+        "command": [
+          "python",
+          "<private-evidence>/reference-run.py",
+          "naming-549-fast"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.98876953125,
+            0.90234375,
+            1.81982421875
+          ],
+          "cpu_utilization": 0.024144869215291798,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 17037840384
+        },
+        "host_available_minimum_observed_bytes": 16563716096,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 401858560,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 22711094\nuser_usec 21083446\nsystem_usec 1627648\nnice_usec 21085000\ncore_sched.force_idle_usec 0\nnr_periods 243\nnr_throttled 23\nthrottled_usec 145768\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      }
     }
   },
   "resource_control_receiving": {
@@ -325,10 +512,57 @@
     "meaning": "Measured local executions, not a machine reservation or a complete-suite memory guarantee."
   },
   "remaining": [
-    "Commit reviewed guard inputs, then run combined exact-source receiving.",
-    "Execute the canonical ten-cell tutorial without changing published code/outputs.",
-    "Complete applicable Ruff/fast/lifecycle checks and public source/issue closeout.",
-    "Keep #612 complete-suite and #334 platform/installed/candidate obligations separate."
+    "Publish and independently verify the source/report, then close #549 with its guard.",
+    "Separate #612 complete-suite and #334 installed/platform/candidate requirements remain pending."
   ],
-  "weighted_milestone_change": 0
+  "weighted_milestone_change": 0,
+  "qualified_source": "d7c7b7e927824a45f806aca040199a2aa7d84d03",
+  "tutorial": {
+    "source_sha256": "e6acadc6c6b3a3904742bd6fd5c3bcceb5d6949eb5059506aa28a08db7d0a65a",
+    "executed_source_code_cells": 10,
+    "additional_preflight_cells": 1,
+    "source_notebook_unchanged": true,
+    "kernel_source_preflight": true,
+    "warning": "The existing kernel emits its TCP transport warning; retained in the local execution log."
+  },
+  "fast_gates": {
+    "passed": 14,
+    "total": 14,
+    "exit_code": 0
+  },
+  "ruff": {
+    "exit_code": 0,
+    "parallelism": "RAYON_NUM_THREADS=1",
+    "scope": [
+      "molsysmt",
+      "molsysviewer_molsysmt",
+      "tests/basic/convert/test_source_naming_scheme.py"
+    ]
+  },
+  "private_selector_incident": {
+    "intended_scope": "545 focused cases, -n0",
+    "actual_scope": "Private profile selection reached the default full-suite branch with -n12 before the intended later branch.",
+    "actual_command": [
+      "python",
+      "-m",
+      "pytest",
+      "--receptor=llm",
+      "--junitxml=<private-evidence>/naming-549-final-receiving.xml",
+      "-n12",
+      "--receptor-events=<private-evidence>/naming-549-final-receiving.events.jsonl"
+    ],
+    "outer_exit_code": 143,
+    "process_exit_code": -15,
+    "stop_reason": "Host-pressure monitor stopped the capped process tree.",
+    "cgroup_peak_bytes": 1675575296,
+    "host_minimum_available_bytes": 15122534400,
+    "oom_events": 0,
+    "scope": "Private orchestration defect; no final pytest result or MolSysMT failure inferred.",
+    "correction": "Separate the exact profile branches and reject all pytest worker arguments except -n0 under the bounded route.",
+    "negative_control": {
+      "exit_code": 1,
+      "pytest_started": false,
+      "meaning": "The parallel plan is refused before execution; the accepted serial plans were inspected explicitly."
+    }
+  }
 }

@@ -1530,7 +1530,7 @@ Local receiving passes **9,062 native tests**, **2,699 addon/integration
 controls**, **270 published-floor cases**, **548 documentation controls** and
 **three doctest items**, without omissions. The tutorial executes ten cells;
 course executable content is unchanged. The
-[owning record](pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#d6-native-public-cutover-and-addon-receiving--2026-11-05)
+[owning record](archive/resolved_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#d6-native-public-cutover-and-addon-receiving--2026-11-05)
 retains failures/corrections, source hashes and PR #543's required wrapper,
 signature, discovery and manifest handoff. This checkpoint does not admit that
 expansion or complete D7/installed-release qualification; #549 stays active.
@@ -1684,7 +1684,7 @@ block is not scientific profile validation, hosted CI or package qualification.
 
 The maintainer accepts #549's explicit source-scheme design and requests a public
 comparison of supported schemes and their differences. The
-[owning plan](pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#accepted-design--2026-11-04)
+[owning plan](archive/resolved_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#accepted-design--2026-11-04)
 records group-aligned Topology ownership, default ambiguity refusal, source
 argument spelling, helper relocation and native/H5MSM/dictionary preservation.
 The conceptual User Guide page distinguishes the delivered scheme-aware helper
@@ -2047,7 +2047,7 @@ Current receiving and next admitted defect/contribution reviews:
    Exactly the standard-name print/example guard is received from PR #543;
    remaining addon changes are unmerged. Broader receiving passes 430 cases,
    final focal guards 77 and documentation/doctests 570, all without omissions.
-9. **[#549](pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md):**
+9. **[#549](archive/resolved_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md):**
    newly observed mismatch between legacy label lookup and explicit native
    protonation names. GLH resolves to Q/GLN; HID/HIE are absent from the one-letter
    route, while the native template inventory supplies those state labels.

@@ -167,11 +167,12 @@ or installed qualification; exact receipts retain their input and scope.
 
 Native #549 retires `element.group.amino_acid.get_1_letter_code_from_name` in
 favor of the explicit group-level query. The native element count remains 57;
-main still exposes zero element paths while PR #543 is pending. Both existing
+at that original checkpoint main still exposed zero element paths while #543
+was pending. The 2026-11-07 owner receiving below supersedes that pending status. Both existing
 bound conversion/preflight signatures now expose `from_naming_scheme` and
 retain native conflict/loss handling without source or scene edits. The live
 inventory and guard name the new path; historical receipts are unchanged.
-The [owning cutover record](pending_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#pr-543-adaptation-handoff)
+The [owning cutover record](archive/resolved_bugs/reconcile_legacy_amino_acid_name_mappings_with_native_protonation_labels.md#pr-543-adaptation-handoff)
 lists the expansion's required mirror, signature and manifest receiving. Counts
 alone cannot certify that expansion against the corrected provider.
 
@@ -676,3 +677,15 @@ force field, exact density or absence of periodic-face overlaps is claimed.
 normalization or bypass is inserted. Source exposure is 241/244: native forces
 #572 and two unconditional MD stubs remain unexposed, while protonation's
 managed in-place mode remains separately pending #576.
+
+
+## Naming-contract owner receiving — 2026-11-07
+
+#549's D0–D7 source receiving is complete on `d7c7b7e92`. The canonical group
+helper and eight changed explicit mirrors, peptide construction and bound
+conversion/preflight preserve native signatures, context/errors and independent
+source ownership. The old amino-acid path and alias are absent. A clean 545-case
+combined selection and the canonical ten-cell tutorial pass under measured
+resource limits. Scientific profiles remain experimental; this accepts the
+bounded naming cutover, not the complete graphical or installed-client scope.
+See the [owner receipt](../devtools/data/group_naming_owner_receiving_549_20261107.json).
