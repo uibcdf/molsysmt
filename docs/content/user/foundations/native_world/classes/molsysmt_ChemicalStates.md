@@ -75,6 +75,13 @@ complete knowledge. Rebuilding an observed graph does not certify complete
 chemistry. Complete connectivity with known participation can yield a complete
 component partition, including isolated atoms and an empty edge set.
 
+Component IDs, names and types can be compared explicitly through
+`msm.compare(molsys_A, molsys_B, component_type=True)` and the corresponding
+ID/name flags. These compare reference-state labels without rewriting tables;
+matching labels alone do not certify chemical equivalence. A False flag tests
+inequality, and `output_type="dictionary"` exposes each result. See
+{ref}`Tutorial_Compare` for the query and missing-value contract.
+
 ## Chemical and structural scope
 
 Chemical-site recognition can use stored chemistry without coordinates. Its

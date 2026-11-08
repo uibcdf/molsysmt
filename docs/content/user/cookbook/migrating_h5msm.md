@@ -81,6 +81,15 @@ representations. New structures extend named analyses as unevaluated, while
 existing observations and evaluated-empty coverage survive. See
 {ref}`Tutorial_Append_structures`.
 
+To inspect component metadata after recovery, compare the original and loaded
+systems with `msm.compare(molsys_A, molsys_B, component_id=True,
+component_name=True, component_type=True, include_none=True,
+output_type="dictionary")`. Each True request tests equality; False would test
+inequality rather than disable a check. Matching missing entries compare equal,
+while a missing and populated label differ. This compares declared reference-state
+metadata without modifying either table or certifying chemical equivalence.
+See {ref}`Tutorial_Compare` for supported comparison scope.
+
 An invalid identity marker across unequal populations is rejected. If an older
 writer produced such a file, regenerate it from the original native source with
 the corrected writer; the reader does not guess missing correspondence.

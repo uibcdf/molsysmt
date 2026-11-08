@@ -40,7 +40,7 @@ def digest_component_type(component_type, caller=None):
 
         return normalize_assignment("component_type", component_type, caller)
 
-    if caller == "molsysmt.basic.get.get":
+    if caller in ("molsysmt.basic.get.get", "molsysmt.basic.compare.compare"):
         if isinstance(component_type, bool):
             return component_type
     elif (

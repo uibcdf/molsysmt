@@ -64,6 +64,12 @@ def compare(
         Whether to reassign contiguous 0-based indices.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    **kwargs : bool
+        Attribute requests such as ``component_type=True`` or
+        ``component_name=True``. True tests equality; False tests inequality
+        for that attribute rather than omitting it. Component metadata belongs
+        to the resolved reference chemical state, independently of stable
+        molecule labels. With Boolean output, every requested test must pass.
 
     Returns
     -------
@@ -119,6 +125,10 @@ def compare(
     True
     >>> msm.compare(A, B, selection='molecule_type=="protein"', n_groups=True)
     True
+    >>> msm.compare(A, A, component_type=True, output_type='dictionary')
+    {'component_type': True}
+    >>> msm.compare(A, A, component_type=False)
+    False
 
 
     .. admonition:: Tutorial with more examples

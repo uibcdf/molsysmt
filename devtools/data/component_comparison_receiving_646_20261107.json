@@ -1,0 +1,251 @@
+{
+  "schema_version": "molsysmt.component_comparison_receiving@1",
+  "date": "2026-11-07",
+  "issue": "uibcdf/molsysmt#646",
+  "source_base": "026437d16",
+  "state": "Prepared-source receiving passed; clean committed acceptance pending.",
+  "correction": "Accept Python Boolean flags for the exact basic.compare caller in the named component-type digester; setter validation and all comparison algorithms are unchanged.",
+  "support_libraries": "Existing ArgDigest validation and SMonitor ArgumentError remain in use. No new optional engine, dependency, unit operation or scientific method is introduced.",
+  "new_cases": 54,
+  "source_sha256": {
+    "molsysmt/_private/argdigest/argument/component_type.py": "82917525e78e52d2473ae519b990d718268f83139f03221295f3ece7a09aa544",
+    "molsysmt/basic/compare.py": "48aab9e3c877838c2b95570373f2e2eb923cd267a067b418115015960103def5",
+    "tests/basic/compare/test_compare_component_metadata.py": "2290cb079e5ee7fb9ff9cceb72fd6172e2e86c5b6bcdd9e38625f702f2e89f67",
+    "docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md": "504f9fc3cff6906b0bf7e2e7efd8d9bc60a644445aea4e7bbe616b00fd04dd5e",
+    "docs/content/user/cookbook/migrating_h5msm.md": "41cc96fa242898e5587fefc405bee21b565908c8b60e48b6d96b5bbe9c98c7d7",
+    "docs/content/user/tools/basic/compare.ipynb": "708292a04c3aaa1712d923a0c6ff67f296240799406c8c8bb52c2a6f37cffbd4",
+    "docs/content/course/Common_Core/14_System_Comparison_and_Validation.ipynb": "fe27759adae6418ed82ad20a6b0db2b72a0f48f7a581bd5bfcf8600d5a81c074"
+  },
+  "runs": {
+    "compare-646-baseline": {
+      "execution": {
+        "command": [
+          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/compare-646-baseline.xml",
+          "-n0",
+          "tests/basic/compare/test_compare_component_metadata.py"
+        ],
+        "exit_code": 1,
+        "seconds": 7.407944230828434,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "026437d16eec574e24efb17f7329a5177aecb9c3",
+        "starting_git_status": "?? tests/basic/compare/test_compare_component_metadata.py\n",
+        "ending_git_status": "?? tests/basic/compare/test_compare_component_metadata.py\n",
+        "changed_inputs": [],
+        "checked_inputs": 5202
+      },
+      "resources": {
+        "started_utc": "2026-11-08T04:39:26.733597+00:00",
+        "seconds": 9.00663210498169,
+        "command": [
+          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<private-evidence>/reference-run.py",
+          "compare-646-baseline"
+        ],
+        "process_exit_code": 1,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.9091796875,
+            5.12353515625,
+            5.12646484375
+          ],
+          "cpu_utilization": 0.02360622802611756,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 17063165952
+        },
+        "host_available_minimum_observed_bytes": 16872435712,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 183128064,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 8305423\nuser_usec 7810874\nsystem_usec 494548\nnice_usec 7815000\ncore_sched.force_idle_usec 0\nnr_periods 88\nnr_throttled 14\nthrottled_usec 85212\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "outcome": {
+        "failures": 34,
+        "errors": 0,
+        "skips": 0,
+        "total": 54,
+        "passed": 20
+      }
+    },
+    "compare-646-baseline-final": {
+      "execution": {
+        "command": [
+          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/compare-646-baseline-final.xml",
+          "-n0",
+          "tests/basic/compare/test_compare_component_metadata.py"
+        ],
+        "exit_code": 1,
+        "seconds": 6.981698158895597,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "026437d16eec574e24efb17f7329a5177aecb9c3",
+        "starting_git_status": "?? devguide/pending_bugs/scalar_string_component_id_is_rejected_by_the_molsys_assignment_adapter.md\n?? tests/basic/compare/test_compare_component_metadata.py\n",
+        "ending_git_status": "?? devguide/pending_bugs/scalar_string_component_id_is_rejected_by_the_molsys_assignment_adapter.md\n?? tests/basic/compare/test_compare_component_metadata.py\n",
+        "changed_inputs": [],
+        "checked_inputs": 5202
+      },
+      "resources": {
+        "started_utc": "2026-11-08T04:40:34.464817+00:00",
+        "seconds": 8.005444901064038,
+        "command": [
+          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<private-evidence>/reference-run.py",
+          "compare-646-baseline-final"
+        ],
+        "process_exit_code": 1,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.0,
+            4.18310546875,
+            4.79736328125
+          ],
+          "cpu_utilization": 0.025615268709191397,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 17043083264
+        },
+        "host_available_minimum_observed_bytes": 16864522240,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 181866496,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 7902659\nuser_usec 7384713\nsystem_usec 517945\nnice_usec 7410000\ncore_sched.force_idle_usec 0\nnr_periods 83\nnr_throttled 6\nthrottled_usec 351056\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "outcome": {
+        "failures": 26,
+        "errors": 0,
+        "skips": 0,
+        "total": 54,
+        "passed": 28
+      }
+    },
+    "compare-646-integrated": {
+      "execution": {
+        "command": [
+          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/compare-646-integrated.xml",
+          "-n0",
+          "tests/basic/compare",
+          "tests/native/test_chemical_component_assignments.py",
+          "tests/native/test_component_metadata_rebuild.py",
+          "tests/native/test_recovered_inventory_append.py",
+          "molsysmt/basic/compare.py"
+        ],
+        "exit_code": 0,
+        "seconds": 33.166418423876166,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "026437d16eec574e24efb17f7329a5177aecb9c3",
+        "starting_git_status": " M devguide/pending_bugs/README.md\n M devguide/pending_bugs/compare_component_type_boolean_flag.md\n M docs/content/course/Common_Core/14_System_Comparison_and_Validation.ipynb\n M docs/content/user/cookbook/migrating_h5msm.md\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/basic/compare.ipynb\n M molsysmt/_private/argdigest/argument/component_type.py\n M molsysmt/basic/compare.py\n?? devguide/pending_bugs/scalar_string_component_id_is_rejected_by_the_molsys_assignment_adapter.md\n?? tests/basic/compare/test_compare_component_metadata.py\n",
+        "ending_git_status": " M devguide/pending_bugs/README.md\n M devguide/pending_bugs/compare_component_type_boolean_flag.md\n M docs/content/course/Common_Core/14_System_Comparison_and_Validation.ipynb\n M docs/content/user/cookbook/migrating_h5msm.md\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/basic/compare.ipynb\n M molsysmt/_private/argdigest/argument/component_type.py\n M molsysmt/basic/compare.py\n?? devguide/pending_bugs/scalar_string_component_id_is_rejected_by_the_molsys_assignment_adapter.md\n?? tests/basic/compare/test_compare_component_metadata.py\n",
+        "changed_inputs": [],
+        "checked_inputs": 5202
+      },
+      "resources": {
+        "started_utc": "2026-11-08T04:42:12.163234+00:00",
+        "seconds": 35.0200125221163,
+        "command": [
+          "/home/diego/Myopt/miniconda3/envs/molsyssuite@uibcdf_3.14/bin/python",
+          "<private-evidence>/reference-run.py",
+          "compare-646-integrated"
+        ],
+        "process_exit_code": 0,
+        "stop_reason": null,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "64"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.74755859375,
+            3.24853515625,
+            4.40283203125
+          ],
+          "cpu_utilization": 0.025125628140703515,
+          "swap_bytes_per_second": 0.0
+        },
+        "initial_host_memory": {
+          "MemTotal": 32934252544,
+          "MemAvailable": 17098588160
+        },
+        "host_available_minimum_observed_bytes": 16745050112,
+        "host_reserve_bytes": 6586850509,
+        "cgroup_memory_peak_bytes": 315367424,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "cpu_stat": "usage_usec 33991934\nuser_usec 33376605\nsystem_usec 615329\nnice_usec 33411000\ncore_sched.force_idle_usec 0\nnr_periods 345\nnr_throttled 27\nthrottled_usec 427144\nnr_bursts 0\nburst_usec 0\n",
+        "scope": "One resource-capped local test process tree; no installed or complete-suite acceptance."
+      },
+      "outcome": {
+        "failures": 0,
+        "errors": 0,
+        "skips": 0,
+        "total": 220,
+        "passed": 220
+      }
+    }
+  },
+  "guard": "tests/basic/compare/test_compare_component_metadata.py::test_component_type_flags_preserve_equality_and_negation",
+  "scientific_scope": "Declared metadata comparison; not independent chemical or consumer workflow validation.",
+  "weighted_milestone_change": 0,
+  "remaining": [
+    "Clean exact-source receiving, fast gates, source publication, independent closure and consumer handoff.",
+    "Independent #647 scalar-ID setter, #645 policy, #612 complete suite and all remaining audit/candidate requirements."
+  ],
+  "initial_extra_finding": {
+    "issue": "uibcdf/molsysmt#647",
+    "failures": 8,
+    "scope": "The initial mismatch controls also reach a distinct scalar string-ID setter rejection before comparison. This is preserved as a separate product finding; one-item vector controls isolate #646."
+  },
+  "notebooks": {
+    "docs/content/user/tools/basic/compare.ipynb": {
+      "unchanged_code_cells": 14,
+      "outputs_ids_metadata_preserved": true
+    },
+    "docs/content/course/Common_Core/14_System_Comparison_and_Validation.ipynb": {
+      "unchanged_code_cells": 8,
+      "outputs_ids_metadata_preserved": true
+    }
+  }
+}

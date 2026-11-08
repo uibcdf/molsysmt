@@ -5,7 +5,7 @@ status: active
 opened: 2026-11-07
 closed:
 severity: medium
-verification: inspected
+verification: reproduced
 area: [basic, argdigest]
 guard:
 normative:
@@ -41,3 +41,18 @@ invalid flags/assignments, and source preservation under normal/nondefault units
 Run a failing baseline before the smallest repair, then focused serial receiving
 with the shared-host resource bounds. Consumer workflow and exact-artifact
 qualification remain separate.
+
+## Failing baseline and local repair
+
+The final unchanged-runtime baseline fails 26 cases and passes 28 controls,
+all remaining failures at the reported component-type digester. An earlier
+34-failure baseline also exposed an independent scalar component-ID setter
+defect, now owned by #647. Comparison mismatch controls use aligned one-item
+label vectors so their failure mechanism remains comparison, not that setter.
+Both original results are retained.
+
+The local repair adds only the exact basic.compare caller to Boolean acceptance.
+Setter normalization still precedes that branch; no broad catch or bypass is
+introduced. Existing ArgDigest/SMonitor diagnostics remain the public boundary.
+There is no new API, scientific method, optional engine or dependency; DepDigest
+and Ackredit need no new integration here. Prepared-source receiving passes 220 cases, including all 54 new controls, the public compare doctest and existing component editing/recovered-append tests. Thirteen expected legacy-H5MSM warnings are retained. Runtime is 30.66 seconds; cgroup peak is 315,367,424 bytes, with no swap or OOM. Clean committed-source and fast-gate acceptance remain pending.
