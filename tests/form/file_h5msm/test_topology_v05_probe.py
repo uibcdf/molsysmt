@@ -209,3 +209,54 @@ def test_legacy_equal_axis_lengths_do_not_establish_molecule_correspondence(tmp_
     payload = msm.h5msm.read_layers(filename, layers=["topology", "chemical_states"])
     assert payload["topology"].get(element="atom", molecule_index=True) == [None] * 3
     assert payload["chemical_states"].n_atoms == 3
+
+
+@pytest.mark.parametrize("path_type", [str, lambda p: p])
+def test_default_topology_conversion_reads_no_other_layer_payload(
+    tmp_path, monkeypatch, path_type
+):
+    from molsysmt.native import Structures
+    from tests.native.test_group_naming_schemes import topology_with_schemes
+
+    topology = topology_with_schemes()
+    source = tmp_path / "static-reference.h5msm"
+    msm.h5msm.write_layers(
+        source,
+        topology=topology,
+        structures=Structures(
+            coordinates=msm.pyunitwizard.quantity(
+                np.zeros((5000, topology.n_atoms, 3)), "nm"
+            )
+        ),
+        associations=[
+            {
+                "axis": "atom",
+                "source": "structures",
+                "target": "topology",
+                "indices": "identity",
+            }
+        ],
+    )
+    raw = source.read_bytes()
+    original = h5py.Dataset.__getitem__
+
+    def getitem(dataset, key):
+        if dataset.name.startswith(
+            ("/structures/", "/chemical_states/", "/interactions/")
+        ):
+            pytest.fail(
+                "A static Topology request read an unrelated payload: " + dataset.name
+            )
+        return original(dataset, key)
+
+    monkeypatch.setattr(h5py.Dataset, "__getitem__", getitem)
+    result = msm.convert(path_type(source), to_form="molsysmt.Topology")
+    assert isinstance(result, Topology)
+    assert result is not topology
+    assert result.group_naming_schemes == topology.group_naming_schemes
+    for name in ("atoms", "groups", "molecules", "entities", "chains"):
+        pd.testing.assert_frame_equal(getattr(result, name), getattr(topology, name))
+    assert not hasattr(result, "bonds")
+    result.atoms.loc[0, "atom_id"] = "changed"
+    assert topology.atoms.loc[0, "atom_id"] == "10"
+    assert source.read_bytes() == raw

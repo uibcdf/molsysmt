@@ -5,6 +5,18 @@
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-08.
 
+## Maintainer follow-up queue — 2026-11-08
+
+The active sequence-fit intent first receives the measured #655 static-topology
+conversion prerequisite; #604's positional pairwise/clustering work follows
+that finite block. Record new incoming #654's GHECOM nonnumeric-REMARK
+compatibility question without claiming reproduction or a policy decision.
+At a forthcoming deliberate pause, audit available OpenMM/openmmtools analysis
+and system-manipulation tools against existing MolSysMT capabilities. Preserve
+form-agnostic/engine-neutral boundaries and attribution; distinguish reusable
+molecular tools from Praxis/Nextia protocol/sampling orchestration. The study
+and queued issues do not add scorecard leaves or alter frozen release gates.
+
 ## Dedicated periodic-origin source delivery — 2026-11-08
 
 Public checkpoint `be11ef8f5c32008e4299e3b406062f8d587f323c` independently matches

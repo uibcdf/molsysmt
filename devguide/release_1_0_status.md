@@ -66,6 +66,25 @@ observed legacy all_bonds-to-HBonds helper mismatch. No package, tag, Release,
 promotion or hosted matrix was launched. Installed/platform/human Qt/exact-
 candidate qualification and full-suite recovery remain required.
 
+## Maintainer queue and incoming reference work — 2026-11-08
+
+Continue the accepted sequence-fit intent. Its static-reference preparation
+reproduces the separately tracked [#655 conversion optimization](pending_proposals/h5msm_static_topology_conversion_reads_coordinate_payload.md);
+receive that provider step before adding the GUI consumer. After the finite
+sequence-fit block, attend #604's supported positional pairwise/clustering
+contract for DockingMT. It remains open and adds no frozen release gate.
+Incoming #654 reports a coordinate-read failure on GHECOM's nonnumeric PDB
+REMARK metadata; its compatibility/diagnostic decision is not yet reproduced.
+
+At a deliberate forthcoming pause, compare the available OpenMM and openmmtools
+source repositories with MolSysMT's analysis/manipulation inventory. Identify
+existing overlaps, reusable missing tools, units/index contracts, provider and
+attribution requirements, and validation evidence. Keep public tools engine-
+neutral/form-agnostic. Protocols/sampling orchestration should be assessed for
+Praxis/Nextia ownership rather than copied into MolSysMT. This requested study
+is planned work, not a new implementation or release-scope commitment. All
+current scorecard weights and pending qualification requirements are unchanged.
+
 ## Complete local source receiving and CI/evidence correction — 2026-11-08
 
 Clean source `03c59caef9823bbca186aa4213626ddc5eb890f3` completes the default

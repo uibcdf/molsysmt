@@ -870,9 +870,20 @@
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
     "scope": "Continue the accepted sequence-fit intent using native sequence/structural tools, then the remaining declared graphical families. Preserve #615 causal uncertainty, #567 policy, #582 requested/effective mechanics and every installed/platform/exact-candidate gate.",
     "active_related": [
-      "uibcdf/molsysmt#615"
+      "uibcdf/molsysmt#615",
+      "uibcdf/molsysmt#655"
     ],
-    "last_source_closeout_record": "devguide/archive/resolved_bugs/jupyter_popup_addon_navigation_identity.md"
+    "last_source_closeout_record": "devguide/archive/resolved_bugs/jupyter_popup_addon_navigation_identity.md",
+    "after_active_block": [
+      "uibcdf/molsysmt#604"
+    ],
+    "planned_comparative_study": {
+      "sources": [
+        "OpenMM",
+        "openmmtools"
+      ],
+      "scope": "At a deliberate pause, compare reusable analysis/manipulation with MolSysMT; keep engine-neutral/form-agnostic APIs, units/index/provenance and Praxis/Nextia protocol ownership explicit. No automatic new feature, weight or release-scope commitment."
+    }
   },
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
@@ -925,7 +936,9 @@
     "weighted_milestone_change": 0
   },
   "incoming_intake": {
-    "issues": [],
+    "issues": [
+      "uibcdf/molsysmt#654"
+    ],
     "complete_board_issues": 585,
     "open_issues": 88,
     "open_prs": 0,
