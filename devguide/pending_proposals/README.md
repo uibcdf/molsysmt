@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (35)
+### Open (36)
 
 - [`add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md`](add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md) — [#308](https://github.com/uibcdf/molsysmt/issues/308) — Add a native general ligand hydrogen engine for fixed chemical states *(inspected)*
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
@@ -70,6 +70,7 @@ Entries carrying front matter under
 - [`read_only_geometry_and_steric_plausibility_assessment.md`](read_only_geometry_and_steric_plausibility_assessment.md) — [#555](https://github.com/uibcdf/molsysmt/issues/555) — Provide explicit read-only molecular geometry and steric plausibility assessment. *(inspected)*
 - [`refine_fixed_state_hydrogen_geometry_in_an_explicit_molecular_environment.md`](refine_fixed_state_hydrogen_geometry_in_an_explicit_molecular_environment.md) — [#323](https://github.com/uibcdf/molsysmt/issues/323) — Refine fixed-state hydrogen geometry in an explicit molecular environment *(measured)*
 - [`requalify_newer_mkl_builds_and_retire_the_temporary_runtime_ceiling.md`](requalify_newer_mkl_builds_and_retire_the_temporary_runtime_ceiling.md) — [#403](https://github.com/uibcdf/molsysmt/issues/403) — Requalify newer MKL builds and retire the temporary runtime ceiling *(upstream)*
+- [`review_bounded_retention_of_native_thread_pools_across_requested_thread_counts.md`](review_bounded_retention_of_native_thread_pools_across_requested_thread_counts.md) — [#652](https://github.com/uibcdf/molsysmt/issues/652) — Review bounded retention of native thread pools across requested thread counts *(inspected)*
 - [`review_h5msm05_module_ownership_and_location.md`](review_h5msm05_module_ownership_and_location.md) — [#438](https://github.com/uibcdf/molsysmt/issues/438) — Review ownership and location of form/_h5msm05_* implementation modules *(inspected)*
 - [`shared_reporting_vocabulary_across_molsyssuite.md`](shared_reporting_vocabulary_across_molsyssuite.md) — [#156](https://github.com/uibcdf/molsysmt/issues/156) — A reporting vocabulary every MolSysSuite tool can adopt unchanged. *(measured)*
 - [`standard_residue_side_chain_reconstruction.md`](standard_residue_side_chain_reconstruction.md) — [#327](https://github.com/uibcdf/molsysmt/issues/327) — Reconstruct ambiguous standard-residue side chains with explicit geometric evidence *(inspected)*

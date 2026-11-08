@@ -25,6 +25,8 @@ from molsysmt.native import Structures
 puw = msm.pyunitwizard
 molsys = Structures(coordinates=puw.quantity(
     [[[2, 0, 0], [4, 0, 0], [10, 0, 0], [12, 0, 0]]], 'nm'))
+original_coordinates = msm.copy(
+    msm.get(molsys, element='atom', coordinates=True))
 molsys_centered = msm.structure.center(
     molsys, selection=[2, 3], target_center_selection=[0, 1])
 xyz = puw.get_value(msm.get(molsys_centered, element='atom', coordinates=True),
@@ -35,6 +37,8 @@ np.testing.assert_allclose(xyz[0, :, 0], [2, 4, 2, 4], atol=1e-12)
 To move C alone to 3 nm, use `selection=[2]` with the same target selection.
 By default the source center belongs to `selection`, not the entire system.
 The input remains unchanged unless you request `in_place=True`.
+Keep an independent coordinate snapshot with its units when checking this
+exactly; converting to another unit can introduce floating-point roundoff.
 
 ## Using one atom as the source center
 
@@ -83,8 +87,9 @@ offset = puw.get_value(msm.get(molsys_offset, coordinates=True), to_unit='nm')
 np.testing.assert_allclose(incremented[0, :, 0], [2, 4, 12, 14], atol=1e-12)
 np.testing.assert_allclose(offset[0, :, 0], [2, 4, 4, 6], atol=1e-12)
 np.testing.assert_array_equal(
-    puw.get_value(msm.get(molsys, coordinates=True), to_unit='nm')[0, :, 0],
-    [2, 4, 10, 12])
+    puw.get_value(msm.get(molsys, coordinates=True),
+                  to_unit=puw.get_unit(original_coordinates)),
+    puw.get_value(original_coordinates))
 ```
 
 For this tool, both the moving and reference structure scopes must contain
@@ -142,8 +147,9 @@ np.testing.assert_allclose(
 np.testing.assert_allclose(
     np.linalg.norm(rotated[0, 3] - rotated[0, 2]), 2.0, rtol=0, atol=1e-12)
 np.testing.assert_array_equal(
-    puw.get_value(msm.get(molsys, coordinates=True), to_unit='nm'),
-    [[[2, 0, 0], [4, 0, 0], [10, 0, 0], [12, 0, 0]]])
+    puw.get_value(msm.get(molsys, coordinates=True),
+                  to_unit=puw.get_unit(original_coordinates)),
+    puw.get_value(original_coordinates))
 ```
 
 The constructor returns a dimensionless matrix; `rotation_center` keeps its
@@ -159,6 +165,7 @@ reconstruction is a separate operation.
 - {ref}`Get center <Tutorial_Get_center>`
 - {ref}`The molecular system <user-foundations-molecular-system-definition>`
 - {func}`molsysmt.structure.center`
+- {func}`molsysmt.basic.copy`
 - {ref}`Move away <Tutorial_Move_away>`
 - {ref}`Flip <Tutorial_Flip>`
 - {ref}`Rotate <Tutorial_Rotate>`
