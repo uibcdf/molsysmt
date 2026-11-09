@@ -800,3 +800,42 @@ storage evidence, but final schema/default-writer policy, old-format policy and
 stable H5MSM 1.0 freeze plus exact-candidate gates remain open. The default stays
 0.5; 0.6 is explicit and experimental. No package, minimum released version,
 tag, release, CI dispatch or installed-client acceptance is supplied.
+
+
+### P6 encoding/default review — 2026-11-08
+
+No new independent client result is present in #256 or DockingMT #79 after the
+latest portable handoff. Their P5 receiving stays open. The default remains 0.5;
+0.6 is explicitly experimental. Existing 0.3/0.4 warnings and source-preserving
+migration to 0.5 remain applicable; experimental availability does not deprecate
+0.5. The target stable root is still 1.0 only after the complete receiving/freeze.
+
+The field audit identifies a real pre-freeze boundary defect, #663: generic
+conversion silently accepted the legacy `single` precision values while the
+modular structural codec writes float64 and other domains retain typed data.
+The bounded correction rejects explicit global precision controls with the
+existing SMonitor conflict diagnostic. It leaves schema values/dtypes, units,
+scientific reports and compression defaults unchanged. This is not a lossy
+precision feature or authorization to globally cast evidence. The original
+32-case selection has 28 failures/four passing no-override controls; qualification
+of the correction follows separately. The source availability/default decision,
+format stability and external/installed acceptance remain distinct.
+
+
+The corrected directed selection passes 64 cases: all 32 new option/default/
+publication controls, the existing public mechanical routes and the public
+conversion doctest. The immutable qualified Viewer source export inspected for
+this work contains no Python references to the two precision keyword names;
+this bounded source search does not establish independent client compatibility.
+The existing legacy single/double fidelity selection is included in final
+receiving to protect its distinct supported contract. No legacy assertion is
+weakened or reassigned to a modular codec.
+
+| Review boundary | Maintained rule after the correction | Remaining exit |
+| --- | --- | --- |
+| Root versus layer versions | 0.5/0.6 and their implemented layer revisions remain explicit; target stable root 1.0 is independent of library numbering. | Independent receiving and whole-format freeze before any stable claim. |
+| Default writing | Ordinary conversion/write remain 0.5; mechanics requires explicit 0.6. | Default switch only after the newest schema and consuming routes qualify. |
+| Precision and typed evidence | Schema-specific field types; explicit unsupported global precision flags refuse, preserving represented values and reports. | Qualify the corrected public boundary and its legacy controls. |
+| Old files | 0.3/0.4 remain readable with existing warnings and source-preserving migration; no 0.5 deprecation from experimental 0.6 alone. | Decide any additional legacy policy at stable-root freeze. |
+| Memory/disk | Three synthetic cases and scoped-query costs are measured with explicit limitations. | No large-scale or installed extrapolation; retain independent evidence. |
+| Consumer/release | DockingMT #79/#88 own independent complete reference acceptance; #334 owns exact candidate/installed/platform gates. | Unexecuted gates remain pending and no tag/package is authorized. |

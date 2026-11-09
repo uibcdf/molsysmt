@@ -129,6 +129,18 @@ append is not crash transactional. Unsupported compositions refuse. For other
 modifications, load a resident system, use its supported editing tools and write
 a new file; the legacy handler is not a modular mutation interface.
 
+## Respecting stored types
+
+Modular H5MSM 0.5/0.6 uses field-specific stored types. Structural floating
+series use float64; chemistry, topology, maps and mechanical payloads follow
+their declared encodings. The legacy global `float_precision` and `int_precision`
+conversion options are unsupported, including explicit `'single'` or `'double'`.
+Omit them: public conversion raises `ArgumentConflictError` before publishing
+output instead of accepting an ineffective setting. This neither changes the
+schema nor rounds stored scientific evidence. Legacy 0.3/0.4 handlers keep
+their separate precision controls.
+
+
 ## Measuring storage costs
 
 The repository's reusable study exercises six public operations with fresh

@@ -138,6 +138,16 @@ Legacy H5MSM 0.3/0.4 readers require explicit units. Dataset units are checked a
 
 ## Writing and reading a molecular system
 
+Modular H5MSM 0.5/0.6 uses field-specific stored types. Structural floating
+series use float64; chemistry, topology, maps and mechanical payloads follow
+their declared encodings. The legacy global `float_precision` and `int_precision`
+conversion options are unsupported, including explicit `'single'` or `'double'`.
+Omit them: public conversion raises `ArgumentConflictError` before publishing
+output instead of accepting an ineffective setting. This neither changes the
+schema nor rounds stored scientific evidence. Legacy 0.3/0.4 handlers keep
+their separate precision controls.
+
+
 ```python
 import numpy as np
 import molsysmt as msm

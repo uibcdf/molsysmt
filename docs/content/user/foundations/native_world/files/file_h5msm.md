@@ -92,6 +92,16 @@ See {ref}`user-tools-form-h5msm-05` for the supported boundary.
 
 ## Performance and Storage Invariants
 
+Modular H5MSM 0.5/0.6 uses field-specific stored types. Structural floating
+series use float64; chemistry, topology, maps and mechanical payloads follow
+their declared encodings. The legacy global `float_precision` and `int_precision`
+conversion options are unsupported, including explicit `'single'` or `'double'`.
+Omit them: public conversion raises `ArgumentConflictError` before publishing
+output instead of accepting an ineffective setting. This neither changes the
+schema nor rounds stored scientific evidence. Legacy 0.3/0.4 handlers keep
+their separate precision controls.
+
+
 - **Gzip & LZF Chunk Compression**: Trajectory coordinate datasets are chunked along the structure axis and compressed using Gzip (level 4) or LZF.
 - **Selective I/O**: Legacy 0.3/0.4 handlers support dataset slicing. H5MSM 0.5 `get()` projects requested dense fields and atom/structure positions; counts use metadata. Static queries load required inventory/chemistry without coordinate series. Full conversion and `read_layers()` remain resident operations. Results and downstream analyses need their own memory budget.
 - **Schema 0.4 Invariants**: Stable atom inventories and isotopes are isolated from chemical state definitions.

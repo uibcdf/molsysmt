@@ -55,6 +55,23 @@ coordinate structures, other dense fields and named interaction observations
 are not loaded. Full conversion remains a resident operation. See
 {ref}`user-tools-form-h5msm-05` for expression-selection and static-domain limits.
 
+## Choosing stored precision
+
+Modular H5MSM 0.5/0.6 uses field-specific stored types. Structural floating
+series use float64; chemistry, topology, maps and mechanical payloads follow
+their declared encodings. The legacy global `float_precision` and `int_precision`
+conversion options are unsupported, including explicit `'single'` or `'double'`.
+Omit them: public conversion raises `ArgumentConflictError` before publishing
+output instead of accepting an ineffective setting. This neither changes the
+schema nor rounds stored scientific evidence. Legacy 0.3/0.4 handlers keep
+their separate precision controls.
+
+For example, `msm.convert(molsys, to_form='file:h5msm',
+output_filename='migrated.h5msm')` uses the modular codec without a global
+precision override. Inspect each HDF5 dataset's dtype when auditing disk costs.
+A float32 source mechanical column can remain float32 while coordinates use
+float64; a single label cannot describe that mixed typed snapshot.
+
 ## Resolving unit errors
 
 Legacy H5MSM 0.3/0.4 readers require explicit units. Dataset units are checked against any duplicated group/root declarations; equivalent spellings are accepted, but different scales or dimensions raise `FormatError`. A missing dataset unit may use a coherent explicit group/root declaration. Velocity units may be derived from explicit length/time declarations. B factors require their own unit because legacy writers negotiated it independently of coordinates; missing metadata never implies nm or ps. Public queries and iteration convert the resulting quantities to your active PyUnitWizard policy. Migration to 0.5 validates these units before writing.

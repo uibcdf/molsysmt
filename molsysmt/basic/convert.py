@@ -732,11 +732,24 @@ def _convert_to_h5msm(
     from molsysmt._private.h5msm_storage.versions import write_version
 
     version = write_version(options.pop("format_version", "0.5"))
+    for name in ("int_precision", "float_precision"):
+        if name in options:
+            from molsysmt._private.smonitor import ArgumentConflictError
+
+            raise ArgumentConflictError(
+                name,
+                "format_version",
+                reason=(
+                    f"H5MSM {version} uses field-specific stored dtypes and does "
+                    "not implement legacy global precision overrides. Omit "
+                    f"{name}; structural floating series use float64 and typed "
+                    "domain data keep their declared encoding."
+                ),
+                caller="molsysmt.convert",
+            )
     for name, default in (
         ("compression", "gzip"),
         ("compression_opts", 4),
-        ("int_precision", "single"),
-        ("float_precision", "single"),
     ):
         value = options.pop(name, default)
         if value != default:
@@ -869,8 +882,9 @@ def convert(
     Raises
     ------
     FormatError
-        If an H5MSM 0.5 file is requested as ``molsysmt.H5MSMFileHandler``.
-        This handler supports only 0.3 and 0.4; load 0.5 as a resident MolSys.
+        If a modular H5MSM 0.5/0.6 file is requested as
+        ``molsysmt.H5MSMFileHandler``. This handler supports only 0.3/0.4;
+        load modular files as resident MolSys objects.
     NotSupportedFormError
         If the input system or the requested target form is not supported.
     NotCompatibleConversionError
@@ -878,6 +892,10 @@ def convert(
     ArgumentError
         If any input argument is invalid or inconsistent, including an
         out-of-range structure index.
+    ArgumentConflictError
+        If a legacy global int_precision or float_precision override is
+        supplied for modular H5MSM 0.5/0.6. These schemas use field-specific
+        encodings; omit those overrides rather than requesting a global cast.
     MolecularSystemVerificationError
         If form loading, detection or complementary-system inspection cannot
         finish because of an operational failure. The original exception chain
@@ -924,6 +942,12 @@ def convert(
       assignments. Reading supports both modular versions. Legacy 0.3 and 0.4
       files remain readable and can be migrated with
       :func:`molsysmt.h5msm.migrate_to_05`.
+    - Modular H5MSM writing uses field-specific stored dtypes. Structural
+      floating series use float64; typed chemistry/mechanics payloads retain
+      their declared encodings. Explicit ``int_precision`` or
+      ``float_precision`` controls are rejected before file publication,
+      including their legacy 'single'/'double' values. Omitting those controls
+      preserves the default codec and does not round stored assignments.
     - Loading one H5MSM 0.5 path as one MolSys uses the reader's fresh resident
       graph without a second eager snapshot by default. Repeated loads remain
       independent; explicit ``copy_if_all=True`` still requests that snapshot.

@@ -42,6 +42,21 @@ with explicit associations; MolecularMechanics is outside 0.5. Absence of an opt
 dataset is different from a present nullable dataset and from a dataset filled
 with zero or `False`.
 
+## Modular encoding controls
+
+Roots 0.5/0.6 use field-specific dtypes rather than a global precision flag.
+Structural floating series use float64; structure IDs use int64 or explicit
+text encoding; topology/chemical/reference data follow their layer contracts;
+mechanical tables/reports retain their declared admitted dtypes. Global casting
+could alter scientific binding or truncate typed data and is not implemented.
+Public conversion rejects explicitly supplied `int_precision`/`float_precision`
+with SMonitor `ArgumentConflictError`, including legacy single/double values,
+before file publication. Omit those keywords. Ordinary writing and represented
+values are unchanged. Legacy handler controls retain their 0.3/0.4 scope.
+Compression controls currently accept only the modular defaults (gzip, level 4);
+non-default requests are refused rather than silently substituted. These are
+writer capabilities, independent of the root and layer schema identities.
+
 ## Experimental version 0.6
 
 The existing four domain codecs are reused with optional `molecular_mechanics`
