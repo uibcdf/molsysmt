@@ -20,7 +20,44 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Current native-composition checkpoint — 2026-11-08
+## Current producer-version checkpoint — 2026-11-08
+
+**#657 is closed.** Public source `c35a342143a2de8205e74438f3787b07b9b7f5d3`
+independently matches all **15 changed/deleted paths**, preserving four human
+root files. Clean implementation `bbb5eb7c7` passes **172 affected cases** and
+**14/14 fast gates**. Four rendered User Guide/course pages are checked;
+HTML retains the same six baseline warnings and existing notebook code/outputs
+are unchanged. The root prefers its own generated build stamp, accepts legacy
+metadata only when it locates the imported initializer, otherwise reports
+`0+unknown`. Existing recorded producer versions remain unchanged on read/save.
+A build stamp is not a fingerprint of mutable source.
+
+[Receiving](../devtools/data/runtime_version_receiving_657_20261108.json)
+preserves six original baseline failures, the expanded test-fixture collection
+error, all successful runs and resource/input manifests. All 8,602 source and
+2,463 Viewer-export before/after hashes agree. Final tests peak at 408,023,040
+bytes; all monitored runs retain more than 13 GB decimal host availability
+without OOM, reserve or pressure stops. Repository-wide Ruff checks pass,
+including two AST-identical formatting repairs to earlier #604 code.
+[Delivery](../devtools/data/runtime_version_delivery_657_20261108.json),
+[DockingMT #79](https://github.com/uibcdf/dockingmt/issues/79#issuecomment-6729187941)
+and [#421](https://github.com/uibcdf/molsysmt/issues/421#issuecomment-6729188709)
+retain source/client qualification boundaries.
+
+There are **56 audit-related source closures**, **26/50 graphical intents**
+and unchanged **72.35035797535798% (approximately 72.4%)** weighted progress.
+Complete paginated board: **591 issues / 89 open / no open PR**. **Next: #659**,
+the newly reported inclusive clustering cutoff/unit-policy discrepancy from
+DockingMT. Its [intake](pending_bugs/inclusive_distance_clustering_cutoff_changes_under_a_nondefault_length_policy.md)
+keeps the reported failure separate from an unperformed local reproduction.
+Then audit existing public lossless compositions under #256, preserving the
+post-1.0 H5MSM 0.6 decision. #654, remaining graphical, #615/#567/#582, the
+planned OpenMM/openmmtools comparison and all installed/platform/human/
+exact-candidate gates remain owned. No tag, package, Release, promotion or
+hosted CI was launched; skipped development commits remain in the normal
+full-matrix recovery backlog.
+
+## Native-composition checkpoint — 2026-11-08
 
 **#656 and #658 are closed.** Public `a450529c3` independently matches all
 **13 changed/deleted paths** and preserves the four human root files. Clean

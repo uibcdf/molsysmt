@@ -870,17 +870,18 @@
       "uibcdf/molsysmt#655",
       "uibcdf/molsysmt#604",
       "uibcdf/molsysmt#656",
-      "uibcdf/molsysmt#658"
-    ],
-    "record": "devguide/pre_1_0_robustness_audit_20261106.md",
-    "owner_verification": "Public a450529c3 independently matches thirteen changed/deleted paths and preserves four human files. Clean 35ad4bc59 passes 247 cases, fourteen fast gates and HTML; all original copy/atom-order failures and actual ownership/value guards are retained. Native #421 receiving is distinct from GUI/installed acceptance.",
-    "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Review #657 source-overlay producer-version identity next. Audit existing supported public lossless compositions for #256 while preserving post-1.0 H5MSM 0.6. Remaining graphical families, #615 uncertainty, #567 policy, #582 mechanics and all installed/platform/exact-candidate gates remain.",
-    "active_related": [
-      "uibcdf/molsysmt#615",
+      "uibcdf/molsysmt#658",
       "uibcdf/molsysmt#657"
     ],
-    "last_source_closeout_record": "devguide/archive/resolved_bugs/topology_and_structures_composition_misaligns_unsorted_atom_selections.md",
+    "record": "devguide/pre_1_0_robustness_audit_20261106.md",
+    "owner_verification": "Public c35a342143a2de8205e74438f3787b07b9b7f5d3 independently matches fifteen changed/deleted paths and preserves four human files. Clean bbb5eb7c7 passes 172 affected cases, fourteen fast gates and HTML; all original mismatched-metadata failures and expanded fixture error remain inspectable. No installed, GUI, other-platform or exact-candidate acceptance is added.",
+    "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
+    "scope": "Review #659 inclusive clustering cutoff/unit-policy discrepancy first. Then audit existing supported public lossless compositions for #256 while preserving post-1.0 H5MSM 0.6. Remaining graphical families, #615 uncertainty, #567 policy, #582 mechanics and all installed/platform/exact-candidate gates remain.",
+    "active_related": [
+      "uibcdf/molsysmt#615",
+      "uibcdf/molsysmt#659"
+    ],
+    "last_source_closeout_record": "devguide/archive/resolved_bugs/source_checkout_calculations_can_report_another_installed_molsysmt_version.md",
     "after_active_block": [
       "uibcdf/molsysmt#256"
     ],
@@ -896,19 +897,18 @@
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
     "issues": [
-      "uibcdf/molsysmt#656",
-      "uibcdf/molsysmt#658"
+      "uibcdf/molsysmt#657"
     ],
-    "source": "35ad4bc59bcf5770f8ac05cc02ae8c70b06ae33f",
-    "public_checkpoint": "a450529c3c8b491bcb76aa3e7bd8052c185a4093",
+    "source": "bbb5eb7c71ced43fa1cee7b49f835ddda3b0550d",
+    "public_checkpoint": "c35a342143a2de8205e74438f3787b07b9b7f5d3",
     "state": "public_source_closed",
-    "record": "devguide/archive/resolved_bugs/topology_and_structures_composition_misaligns_unsorted_atom_selections.md",
-    "evidence": [
-      "devtools/data/native_composition_receiving_656_658_20261108.json",
-      "devtools/data/native_composition_delivery_656_658_20261108.json"
-    ],
+    "record": "devguide/archive/resolved_bugs/source_checkout_calculations_can_report_another_installed_molsysmt_version.md",
     "weighted_milestone_change": 0,
-    "audit_related_source_closures": 55
+    "evidence": [
+      "devtools/data/runtime_version_receiving_657_20261108.json",
+      "devtools/data/runtime_version_delivery_657_20261108.json"
+    ],
+    "audit_related_source_closures": 56
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
@@ -953,9 +953,9 @@
   "incoming_intake": {
     "issues": [
       "uibcdf/molsysmt#654",
-      "uibcdf/molsysmt#657"
+      "uibcdf/molsysmt#659"
     ],
-    "complete_board_issues": 590,
+    "complete_board_issues": 591,
     "open_issues": 89,
     "open_prs": 0,
     "weighted_milestone_change": 0

@@ -7,6 +7,15 @@
 
 ## Maintainer follow-up queue — 2026-11-08
 
+Producer-version **#657 is closed** and public at `c35a342143a2de8205e74438f3787b07b9b7f5d3`
+(15 independently verified changed/deleted paths, four human root files preserved).
+Clean `bbb5eb7c7` passes 172 affected cases and fourteen fast gates; four rendered
+pages, six unchanged warnings and preserved course code/outputs are retained in
+[receiving](../devtools/data/runtime_version_receiving_657_20261108.json) and
+[delivery](../devtools/data/runtime_version_delivery_657_20261108.json).
+Unmatched unstamped source reports `0+unknown`; original producer metadata is
+preserved. Build labels and exact mutable-source identity remain distinct.
+
 Native correctness issues **#656/#658 are closed** and public at `a450529c3`
 (13 verified changed/deleted paths, four human files preserved). Clean
 `35ad4bc59` passes 247 cases, fourteen fast gates and HTML. Five rendered pages,
@@ -21,12 +30,15 @@ receives its supported pairwise/clustering composition, with independent E3 and
 
 Accept no additional graphical intent or weight: **26/50**, all four fitting
 intents, **72.35035797535798% (approximately 72.4%)**. Separate source closures
-are now **55**. #421 remains partial. **Next finite review: #657**, the reproduced
-source-overlay producer-version contract; audit existing supported lossless
-compositions under #256 before any storage proposal. Keep #654's unreproduced
-intake and the planned OpenMM/openmmtools comparison. Complete board:
-**590 issues / 89 open / no open PR**. Installed/platform/human/exact-candidate
-requirements and frozen scientific gates are unchanged.
+are now **56**. #421 remains partial. **Next finite review: #659**, DockingMT's
+newly reported inclusive clustering cutoff discrepancy under a nondefault length
+policy. The [intake](pending_bugs/inclusive_distance_clustering_cutoff_changes_under_a_nondefault_length_policy.md)
+explicitly awaits local reproduction; source #657 does not resolve that numerical
+boundary. Then audit existing supported lossless compositions under #256 before
+any storage proposal. Keep #654's unreproduced intake and the planned
+OpenMM/openmmtools comparison. Complete board: **591 issues / 89 open / no open PR**.
+Installed/platform/human/exact-candidate requirements and frozen scientific gates
+are unchanged.
 
 Before publication, sequence-fit completed clean local receiving on `63fc27883`: 113 affected source
 passes, two real Jupyter guards / sixteen checks, fourteen fast gates and HTML.
