@@ -1048,16 +1048,19 @@
   "last_public_mechanics_receiving": {
     "owner_issue": "uibcdf/molsysmt#256",
     "source": "69f9389479036044fd5a3c01fbfb75b07f4c2735",
-    "state": "experimental_public_routes_source_qualified_delivery_pending",
+    "state": "experimental_public_routes_qualified_and_publicly_delivered",
     "guard": "tests/form/file_h5msm/test_public_mechanics_v06.py",
     "affected_tests": 1843,
     "fresh_public_readers": 3,
     "evidence": [
-      "devtools/data/public_mechanics_receiving_256_20261108.json"
+      "devtools/data/public_mechanics_receiving_256_20261108.json",
+      "devtools/data/public_mechanics_delivery_256_20261108.json"
     ],
     "public_default_version": "0.5",
     "explicit_experimental_version": "0.6",
     "source_issue_closed": false,
-    "weighted_milestone_change": 0
+    "weighted_milestone_change": 0,
+    "public_checkpoint": "52df76db2e9e29cc4812493e1cf3ca984e9fd57f",
+    "owner_response": "https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6732726967"
   }
 }

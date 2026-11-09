@@ -1,0 +1,264 @@
+{
+  "public_checkpoint": "52df76db2e9e29cc4812493e1cf3ca984e9fd57f",
+  "base": "322f77460c7c8d2e8916d450112e08989ca7ebdc",
+  "verified_paths": [
+    {
+      "path": "devguide/SCALABILITY.md",
+      "git_blob_sha": "53d558857623c30650c5d3bac4cc7653cbc3b3d5"
+    },
+    {
+      "path": "devguide/api_stability_registry.md",
+      "git_blob_sha": "9fb0128edd42a55ec3a429720f41c710ddb8511e"
+    },
+    {
+      "path": "devguide/forms_and_conversions.md",
+      "git_blob_sha": "c200557b16a504444b9914409dc0e4b14e32ea90"
+    },
+    {
+      "path": "devguide/h5msm_format.md",
+      "git_blob_sha": "63639048de247cacc1d0cbc25dbc7a03296219f8"
+    },
+    {
+      "path": "devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md",
+      "git_blob_sha": "ff92a9bca9fa77bc2619ffde218da9bfd8372e23"
+    },
+    {
+      "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+      "git_blob_sha": "8c05ebc2241041d7f5db63ae62ca2a450fac9fa2"
+    },
+    {
+      "path": "devguide/release_1_0_status.md",
+      "git_blob_sha": "46edc506dcb18305bb8f1ac9f3db09db642a6fe8"
+    },
+    {
+      "path": "devtools/data/pre_1_0_progress_scorecard_20261107.json",
+      "git_blob_sha": "1d2f9f91391d4bfee455b290ba89f6b9d655982f"
+    },
+    {
+      "path": "devtools/data/public_api_stability.json",
+      "git_blob_sha": "974cd10c19a637317d18c177aaae2306d632ef74"
+    },
+    {
+      "path": "devtools/data/public_mechanics_receiving_256_20261108.json",
+      "git_blob_sha": "ec4091ce4530d7977786f216e4d19676f83ddb53"
+    },
+    {
+      "path": "docs/api/h5msm.md",
+      "git_blob_sha": "1dee40ac9b5ad5f22abd198ddb8cf725747a0693"
+    },
+    {
+      "path": "docs/api/index.md",
+      "git_blob_sha": "0d6d13aacfc590aec624d7cb2111382d8ef8a556"
+    },
+    {
+      "path": "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+      "git_blob_sha": "d6b7bb459c947a052d72aa50dab07a6d4646f834"
+    },
+    {
+      "path": "docs/content/user/cookbook/assigning_partial_charges.md",
+      "git_blob_sha": "b75bb124d62b14defa547600b1e5b8a30659f43b"
+    },
+    {
+      "path": "docs/content/user/cookbook/migrating_h5msm.md",
+      "git_blob_sha": "3c325aced6563cce676eae09bd5335c7e0333d5c"
+    },
+    {
+      "path": "docs/content/user/foundations/molecular_system/the_molecular_system.md",
+      "git_blob_sha": "2fdb8250b386162524a409812fa3809eccaed3db"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md",
+      "git_blob_sha": "2aaf3006d6671990fd5c6faf6538986e6fb00d83"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md",
+      "git_blob_sha": "9090308c836c9e8c8d68f926254e785c1af82614"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/files/file_h5msm.md",
+      "git_blob_sha": "83b1f858e45b190815427a6b1b7e3833a3d6456c"
+    },
+    {
+      "path": "docs/content/user/tools/form/file/h5msm_05.md",
+      "git_blob_sha": "15af8f7b518f7e0f94be88710e2b97f3e1ec91bd"
+    },
+    {
+      "path": "docs/content/user/tools/form/file/h5msm_06.md",
+      "git_blob_sha": "fd13ff2485dc10bb6364fa89d678415f4a116485"
+    },
+    {
+      "path": "docs/content/user/tools/form/file/h5msm_06.md.AGENTS.md",
+      "git_blob_sha": "ea69f2aeb0bd22f642b75d703d4e517b103a9e90"
+    },
+    {
+      "path": "docs/content/user/tools/form/file/index.md",
+      "git_blob_sha": "4fda8026f46c9c4046a0949e2802564ec348637f"
+    },
+    {
+      "path": "docs/docs_manifest.yml",
+      "git_blob_sha": "a7fc76cf1c3a49c834cc2a2f62ff3ec711d459fe"
+    },
+    {
+      "path": "molsysmt/_private/argdigest/argument/format_version.py",
+      "git_blob_sha": "007049e0a73fb6311256c01547a9f76dbbde4c2f"
+    },
+    {
+      "path": "molsysmt/_private/argdigest/argument/layers.py",
+      "git_blob_sha": "a648579f3abac35788850c84266f04d21ce43c13"
+    },
+    {
+      "path": "molsysmt/_private/argdigest/argument/mechanics_n_atoms.py",
+      "git_blob_sha": "d9ad46ac1fc54fc22be2e09cfcfd6a08dc1dae02"
+    },
+    {
+      "path": "molsysmt/_private/argdigest/argument/molecular_mechanics.py",
+      "git_blob_sha": "80822ba22f542c4f1f1805b81b39224b6cdd89c8"
+    },
+    {
+      "path": "molsysmt/_private/argdigest/domain/converter_arguments.py",
+      "git_blob_sha": "8ce0d611f1cacfbdeb4869c4d8b0966ca4d8a713"
+    },
+    {
+      "path": "molsysmt/_private/autodock_assignment.py",
+      "git_blob_sha": "f575703b6936497ff2c231b061f2b008fe85a57a"
+    },
+    {
+      "path": "molsysmt/_private/conversion_report.py",
+      "git_blob_sha": "fde8fb54b9b4b8f1baf610f26c809809cc92a21b"
+    },
+    {
+      "path": "molsysmt/_private/h5msm.py",
+      "git_blob_sha": "5e5e646c152764f4d1ee9ea967dfbb402400d9cb"
+    },
+    {
+      "path": "molsysmt/_private/h5msm_storage/modular.py",
+      "git_blob_sha": "69c1b70011d01493bc4236af0c1eddcc8921ac99"
+    },
+    {
+      "path": "molsysmt/_private/h5msm_storage/versions.py",
+      "git_blob_sha": "e603603c5225e878bae032ab26e877746ca1c769"
+    },
+    {
+      "path": "molsysmt/_private/molecular_forces.py",
+      "git_blob_sha": "7f8764ed982e47ffb610f5722b8882085c8dd5c6"
+    },
+    {
+      "path": "molsysmt/_private/native_composition.py",
+      "git_blob_sha": "b46c57a87541fec7cf172987ab16c7074530471c"
+    },
+    {
+      "path": "molsysmt/_private/partial_charges.py",
+      "git_blob_sha": "7f2c4388e83cfe6aaef2448ba62124269097ba2f"
+    },
+    {
+      "path": "molsysmt/_private/protonation_preparation.py",
+      "git_blob_sha": "5a49efebe25bdea5e2ea96b5eff8a32b44356b35"
+    },
+    {
+      "path": "molsysmt/basic/convert.py",
+      "git_blob_sha": "807a7613ec9f3f067896c0e71b0dde0f586c9bfa"
+    },
+    {
+      "path": "molsysmt/basic/extract.py",
+      "git_blob_sha": "ed320df1d67dade7759e8d72b4c4df7892df367d"
+    },
+    {
+      "path": "molsysmt/form/_h5msm05_iterator.py",
+      "git_blob_sha": "baa142d20123d214c25dcb6f2bdbf44bf9c63b99"
+    },
+    {
+      "path": "molsysmt/form/_h5msm05_modular.py",
+      "git_blob_sha": "b379404b2b3160001dcd669ad1d3f529d2e0ae5f"
+    },
+    {
+      "path": "molsysmt/form/_query_delegation.py",
+      "git_blob_sha": "60f83998995659f1c8f69711eaacea48576ed15c"
+    },
+    {
+      "path": "molsysmt/form/file_h5msm/__init__.py",
+      "git_blob_sha": "6923520b198c9e9601389a7ec0ed555e5f513460"
+    },
+    {
+      "path": "molsysmt/form/file_h5msm/_modular_query.py",
+      "git_blob_sha": "ef35e1c6efe39d9827d98f4577680abc175a1ede"
+    },
+    {
+      "path": "molsysmt/form/file_h5msm/attributes.py",
+      "git_blob_sha": "69637bc3198ba92c5e1e64c68ef8297e73d76e97"
+    },
+    {
+      "path": "molsysmt/form/file_h5msm/extract.py",
+      "git_blob_sha": "dea7aaa1d83f48a2c1a524d64b29a84236db6843"
+    },
+    {
+      "path": "molsysmt/form/file_h5msm/get_mechanical_attributes.py",
+      "git_blob_sha": "c85a2704cab0a150099fd6f5a2490da180682c5c"
+    },
+    {
+      "path": "molsysmt/form/file_h5msm/has_attribute.py",
+      "git_blob_sha": "ffebb5b998d5b652628e426bda206c95ef383128"
+    },
+    {
+      "path": "molsysmt/form/file_h5msm/to_file_h5msm.py",
+      "git_blob_sha": "a2e22fac735bcc459e3f077aae6713e7d8e5d3db"
+    },
+    {
+      "path": "molsysmt/h5msm.py",
+      "git_blob_sha": "f4687876a68bf552f3e638dce14ecd88c49951fd"
+    },
+    {
+      "path": "molsysmt/native/h5msm_file_handler.py",
+      "git_blob_sha": "d91e2eeaf39ebb4e776f00986e15bec79927cf7a"
+    },
+    {
+      "path": "tests/basic/convert/mult_to_one/test_convert_complementary_h5msm_domains.py",
+      "git_blob_sha": "14df6854586c50252e0749e4d826c10485af089b"
+    },
+    {
+      "path": "tests/documentation/test_h5msm_06_examples.py",
+      "git_blob_sha": "4ac8947e71b6ebc2c1d3bd068c13594cde72e71b"
+    },
+    {
+      "path": "tests/form/file_h5msm/test_modular_mechanics.py",
+      "git_blob_sha": "f76536ec95d1c98c886e01cf0e8f6b68f198cc11"
+    },
+    {
+      "path": "tests/form/file_h5msm/test_public_mechanics_v06.py",
+      "git_blob_sha": "51a5a45bb7e16761ba017ae3c762c6067aefe5f8"
+    },
+    {
+      "path": "tests/molecular_mechanics/get_forces/test_native_contract.py",
+      "git_blob_sha": "acf396741c83a70708f6a08f547971137a4085ab"
+    },
+    {
+      "path": "tests/native/test_unknown_mechanical_assignment_reports.py",
+      "git_blob_sha": "d75ef0d17f60d7d12df31a80d94223ba133f8e26"
+    }
+  ],
+  "protected_human_files": {
+    "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": "3b97cf0d5c813a1e3c2212ad118c7f6c32763d85af91cb800640209095fd53d6",
+    "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": "d564291bb01387663f178f5e041bc8d55d1022bfa71584ddd11f1dd9dba12d95",
+    "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": "a112aa640da192a121d1ccec3c5011c9652729abacf2a38c1b222632a55dcf20",
+    "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": "6b3f17a698bc7393ca3ecad31891d693b8a8169dfdd892dbae77f3ca91b25abe"
+  },
+  "human_bytes_unchanged": true,
+  "scope": "Fast-forward source delivery only; no package, tag, Release or hosted matrix launched.",
+  "schema_version": "molsysmt.public_mechanics_delivery@1",
+  "date": "2026-11-08",
+  "owner_issue": "uibcdf/molsysmt#256",
+  "qualified_source": "69f9389479036044fd5a3c01fbfb75b07f4c2735",
+  "receiving_record": "devtools/data/public_mechanics_receiving_256_20261108.json",
+  "owner_response": "https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6732726967",
+  "source_issue_closed": false,
+  "experimental_public_format_available": "0.6 with explicit format_version",
+  "public_default_format": "0.5",
+  "new_stable_format_available": false,
+  "board_checkpoint": {
+    "complete_board_issues": 593,
+    "open_issues": 88,
+    "open_prs": 0,
+    "newer_than_661": []
+  },
+  "board_checkpoint_sha256": "93e683d9b19d1579619c5b0e1e5f9705d8a8b41a05503dc880f9518759fbd0b7",
+  "ci_scope": "Internal [skip ci] source checkpoint under the existing maintainer instruction; no complete-suite, installed/platform or exact-candidate acceptance. Nightly full-suite and #334 candidate gates remain pending."
+}

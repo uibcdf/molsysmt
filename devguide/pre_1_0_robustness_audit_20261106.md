@@ -23,8 +23,7 @@ projections are versioned too. Known assignments retain their existing science;
 unknown/incomplete reports remain stored evidence but refuse scientific use or
 atom remapping through SMonitor. No new model or force algorithm is introduced.
 
-P4's bounded provider implementation is source-qualified, with public delivery
-separate. **Next P5:** independent consumer/reference-workflow receiving, including
+P4's bounded provider implementation is source-qualified and publicly delivered. **Next P5:** independent consumer/reference-workflow receiving, including
 prepared persistence and original producer/unit/binding checks. **Then P6:**
 bounded storage/memory measurements, final schema/default-writer qualification
 and the first stable H5MSM 1.0 freeze. #256 remains open; no client, installed,
@@ -33,6 +32,13 @@ platform or release gate is accepted here. Original weighted progress remains
 board snapshot remains 593 issues, 88 open and no PR, with no issue above #661.
 Tests peak near 1.62 GiB and HTML near 1.26 GiB; all final jobs retain over
 13 GB decimal host availability without pressure/OOM/reserve interruptions.
+
+Public `52df76db2e9e29cc4812493e1cf3ca984e9fd57f` independently matches all
+58 changed paths and preserves four human files. The
+[delivery record](../devtools/data/public_mechanics_delivery_256_20261108.json)
+and [owner handoff](https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6732726967)
+provide the exact source and opt-in invocation for independent P5 receiving.
+No new package or minimum released package version is asserted.
 
 ## Private whole-file mechanics composition — 2026-11-08
 
