@@ -19,31 +19,77 @@ def get_angles(
     gpu_backend=None,
     skip_digestion=False,
 ):
-    """
-    Calculating bond angles for given atom triplets.
-
+    """Computing geometric angles for ordered atom-index triplets.
 
     Parameters
     ----------
     molecular_system : molecular system
-        Molecular system in any supported MolSysMT format.
-    triplets : list, tuple, or numpy.ndarray
-        Zero-based atom-index triplets defining the angles.
-    structure_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include or process.
+        Any supported form supplying coordinates for the requested atoms.
+    triplets : list, tuple or numpy.ndarray
+        Source atom indices with shape (n_triplets, 3), or one length-three
+        triplet. The middle atom is the vertex. Order and repetitions remain.
+    structure_indices : int, list, tuple or numpy.ndarray, default='all'
+        Source structure indices, preserving their requested order/repetitions.
     pbc : bool, default=False
-        Whether to take periodic boundary conditions into account.
-    use_gpu : bool, default=None
-        Whether to perform computation using GPU acceleration.
+        Use minimum-image vectors from the vertex when a box is available.
+        Without a stored box, the native calculation is nonperiodic.
+    use_gpu : bool or None, default=None
+        Override configured GPU dispatch. CPU execution uses the Rust backend.
     gpu_backend : str or None, default=None
-        GPU array backend, or `None` to use the configured backend.
+        Optional GPU backend selector, or None for the configured backend.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     quantity
-        Angles in radians as a PyUnitWizard quantity.
+        Shape (n_structures, n_triplets) in the active PyUnitWizard angular
+        standard. The initial MolSysMT default is radians; an existing
+        application policy or enclosing context can choose degrees instead.
+
+    Raises
+    ------
+    ArgumentError
+        If the triplet shape is unsupported.
+
+    Notes
+    -----
+    These are geometric observations; connectivity or chemical angle assignments
+    are not inferred. Zero-length legs can produce undefined native values,
+    which are not replaced with zero. Coordinates for all requested structures
+    and participating atoms, and the complete output, are currently resident.
+    No chunked or universal memory guarantee is provided by this API.
+
+    Convert explicitly at numerical boundaries, for example
+    puw.get_value(angles, to_unit='degrees'). Conversion for display does not
+    change the native returned quantity or the application's unit policy.
+
+    See Also
+    --------
+    get_dihedral_angles
+        Compute signed angular observations for ordered atom quartets.
+    get_vectors
+        Compute directed vectors between endpoints.
+
+    Examples
+    --------
+    >>> import molsysmt as msm
+    >>> from molsysmt import pyunitwizard as puw
+    >>> from molsysmt.native import Structures
+    >>> molsys = Structures(coordinates=puw.quantity(
+    ...     [[[1, 0, 0], [0, 0, 0], [0, 1, 0]]], 'nm'))
+    >>> with puw.context(standard_units=['nm', 'ps', 'degrees']):
+    ...     angles = msm.structure.get_angles(molsys, [[0, 1, 2]], use_gpu=False)
+    ...     puw.get_unit(angles) == puw.unit('degrees')
+    True
+    >>> round(float(puw.get_value(angles, to_unit='degrees')[0, 0]), 6)
+    90.0
+
+    .. admonition:: User guide
+
+       See :ref:`Tutorial_Get_angles` for triplets and structural ensembles.
+
+    .. versionadded:: 1.0.0
     """
 
     import molsysmt.configure as config

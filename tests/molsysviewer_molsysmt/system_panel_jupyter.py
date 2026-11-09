@@ -732,6 +732,27 @@ def main():
                 "    _rotation=_u@np.diag([1.,1.,np.linalg.det(_u@_vt)])@_vt\n"
                 "    _conformation_least.append(float(np.sqrt(np.mean(np.sum((_centered@_rotation-_reference_centered)**2,axis=1)))))\n"
                 f"Path({str(output / 'conformation-expected.json')!r}).write_text(json.dumps({{'rmsd':_conformation_rmsd.tolist(),'least_rmsd':_conformation_least,'gyration':_conformation_rg.tolist(),'rmsf':_conformation_rmsf.tolist()}}))\n"
+                "_geometry_frames=[0,2,0]\n"
+                "_geometry_xyz=_ensemble_xyz[_geometry_frames]\n"
+                "_geometry_vectors=_geometry_xyz[:,None,[5,2]]-_geometry_xyz[:,[4,0],None]\n"
+                "_geometry_triplets=[[0,2,5],[2,5,7]]\n"
+                "_geometry_quartets=[[4,0,2,5],[0,2,5,7]]\n"
+                "def _angle_reference(points):\n"
+                "    u=points[:,0]-points[:,1]\n"
+                "    v=points[:,2]-points[:,1]\n"
+                "    return np.arctan2(np.linalg.norm(np.cross(u,v),axis=1),np.sum(u*v,axis=1))\n"
+                "def _torsion_reference(points):\n"
+                "    a=points[:,0]-points[:,1]\n"
+                "    axis=points[:,2]-points[:,1]\n"
+                "    axis=axis/np.linalg.norm(axis,axis=1)[:,None]\n"
+                "    b=points[:,3]-points[:,2]\n"
+                "    u=a-np.sum(a*axis,axis=1)[:,None]*axis\n"
+                "    v=b-np.sum(b*axis,axis=1)[:,None]*axis\n"
+                "    return np.arctan2(np.sum(np.cross(axis,u)*v,axis=1),np.sum(u*v,axis=1))\n"
+                "_geometry_angles=np.stack([_angle_reference(_geometry_xyz[:,t]) for t in _geometry_triplets],axis=1)\n"
+                "_geometry_torsions=np.stack([_torsion_reference(_geometry_xyz[:,t]) for t in _geometry_quartets],axis=1)\n"
+                "_geometry_expected={'structures':_geometry_frames,'vectors':_geometry_vectors.reshape(-1,3).tolist(),'triplets':_geometry_triplets,'quartets':_geometry_quartets,'angles_degrees':np.rad2deg(_geometry_angles).ravel().tolist(),'torsions_degrees':np.rad2deg(_geometry_torsions).ravel().tolist()}\n"
+                f"Path({str(output / 'geometry-expected.json')!r}).write_text(json.dumps(_geometry_expected))\n"
                 "_conformation_callbacks=[]\nview.on_frame_change(_conformation_callbacks.append)\n"
                 "print('JUPYTER_CONFORMATION_ORACLES_OK',3)\n",
                 "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.get_coordinates(),to_unit='nm'),_ensemble_xyz)\n"
@@ -868,7 +889,7 @@ def main():
                 ],
                 env=env,
                 check=True,
-                timeout=240,
+                timeout=300 if args.scenario == "analysis" else 240,
             )
     finally:
         if server is not None:

@@ -1,0 +1,970 @@
+{
+  "schema_version": "molsysmt.viewer_vector_angular_receiving@1",
+  "date": "2026-11-09",
+  "owner_issue": "uibcdf/molsysmt#421",
+  "qualified_source": "6a8552850d92ac3d6119f383673e499ce6d34a5d",
+  "native_receiving_source": "6302af9d62d1df85d0af829a642afccb5613fdb4",
+  "product_docs_and_numeric_test_bytes_identical_between_sources": true,
+  "viewer_source": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "scope": "Bounded Linux/Python 3.14 source, native analytic/parity and actual Jupyter/Mol*/popup receiving. Not human, Qt, installed/platform or final-candidate acceptance.",
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "molsysmt_version": "0+unknown",
+    "versions": {
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pandas": "2.3.3",
+      "pint": "0.25.3",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1"
+    },
+    "imports": {
+      "pandas": "<development-environment>/lib/python3.14/site-packages/pandas/__init__.py",
+      "pint": "<development-environment>/lib/python3.14/site-packages/pint/__init__.py",
+      "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+      "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261106/viewer-e4dd58cf-source/molsysviewer/__init__.py",
+      "pyunitwizard": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+      "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+      "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+      "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+    }
+  },
+  "accepted_existing_intents": [
+    "phase4/graphical-inventory/geometric-analysis/vectors",
+    "phase4/graphical-inventory/geometric-analysis/angles",
+    "phase4/graphical-inventory/geometric-analysis/torsions"
+  ],
+  "runs": {
+    "vectors-angular-421-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/vectors-angular-421-directed.xml",
+          "--receptor-events=<private-evidence>/vectors-angular-421-directed.events.jsonl",
+          "tests/molsysviewer_molsysmt/test_vector_angular_analysis_panel.py",
+          "tests/molsysviewer_molsysmt/test_analysis_panel.py",
+          "devtools/tests/test_smoke_addon_test_command.py"
+        ],
+        "exit_code": 1,
+        "seconds": 51.74112791195512,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "efbe67e1c6042078144bce1db24aa80bb565dbd2",
+        "starting_git_status": " M .github/workflows/ci-smoke.yaml\n M molsysviewer_molsysmt/_analysis_panel.py\n M molsysviewer_molsysmt/_analysis_panel_frontend.py\n?? tests/molsysviewer_molsysmt/test_vector_angular_analysis_panel.py\n",
+        "ending_git_status": " M .github/workflows/ci-smoke.yaml\n M molsysviewer_molsysmt/_analysis_panel.py\n M molsysviewer_molsysmt/_analysis_panel_frontend.py\n?? tests/molsysviewer_molsysmt/test_vector_angular_analysis_panel.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8658
+      },
+      "resources": {
+        "started_utc": "2026-11-09T16:22:01.106882+00:00",
+        "seconds": 59.064062559977174,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            6.59912109375,
+            4.92626953125,
+            3.25244140625
+          ],
+          "cpu_utilization": 0.2349094567404426,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12363898880,
+        "cgroup_memory_peak_bytes": 603852800,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "0e82122347914b99a8e5dd806678e5ab18ab3a36248c518c062f413cc94b9958",
+        "-bounded.json": "1a8964d9b92443d3a1c830c67e247d16a68cc14b59ebfeac15dc3f88873fa13f",
+        ".xml": "dd3179ba0274f9b5fb7ad26f15773500d8a1e3507d9ec02ac95d7b1daaba1b8c",
+        ".log": "c6b43fb7b280495d7756e39e53249318cf76f71987acb95db0f79c0545ccaa61",
+        "-inputs-before.json": "4790079220d4bb0a8d6e4e1615c62de88abf10a05b6265ac25e241785f96c123",
+        "-inputs-after.json": "4790079220d4bb0a8d6e4e1615c62de88abf10a05b6265ac25e241785f96c123",
+        "-reference-driver.py": "99392d5ce43f6bff75942dd162752426f03b5294f0e4c49b71c1a04e4d9b48dc",
+        "-resource-driver.py": "99aa7dd15e0cb1af655e16820085eb8512a8df88588128b8ec2d5281caecbc89",
+        ".events.jsonl": "3f28bb5e90b9ec9b9e77ae30bf167a2ac900efa205d37160c99b556b85ebc234"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "3",
+          "skipped": "0",
+          "tests": "179",
+          "time": "48.652",
+          "timestamp": "2026-11-09T10:22:07.034894-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.molsysviewer_molsysmt.test_vector_angular_analysis_panel",
+          "name": "test_pending_readers_and_stale_result_tokens[vectors]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.molsysviewer_molsysmt.test_vector_angular_analysis_panel",
+          "name": "test_pending_readers_and_stale_result_tokens[angles]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.molsysviewer_molsysmt.test_vector_angular_analysis_panel",
+          "name": "test_pending_readers_and_stale_result_tokens[torsions]",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "vector-angular-421-native-final": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--doctest-modules",
+          "--junitxml=<private-evidence>/vector-angular-421-native-final.xml",
+          "--receptor-events=<private-evidence>/vector-angular-421-native-final.events.jsonl",
+          "tests/molsysviewer_molsysmt/test_vector_angular_analysis_panel.py",
+          "tests/molsysviewer_molsysmt/test_analysis_panel.py",
+          "tests/structure/test_get_vectors.py",
+          "tests/structure/get_angles/test_get_angles_from_molsysmt_MolSys.py",
+          "tests/structure/get_dihedral_angles",
+          "molsysmt/structure/get_angles.py",
+          "devtools/tests/test_smoke_addon_test_command.py",
+          "devtools/tests/test_molsysviewer_tools_api_inventory.py"
+        ],
+        "exit_code": 0,
+        "seconds": 67.2700324759353,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "6302af9d62d1df85d0af829a642afccb5613fdb4",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8658
+      },
+      "resources": {
+        "started_utc": "2026-11-09T16:34:15.370575+00:00",
+        "seconds": 75.0687793949619,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.77099609375,
+            2.05224609375,
+            2.48095703125
+          ],
+          "cpu_utilization": 0.11907164480322907,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 10654187520,
+        "cgroup_memory_peak_bytes": 694906880,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "d34d5751149ec0ed734a588490a73d3ef97278f299e1c52d423767725379a770",
+        "-bounded.json": "d9ddc236fcd76ac1c346e925b668eba395225171a76dd434bcaa6752b2a9e437",
+        ".xml": "681bfb3816d7c933fcac8f143be68376d1ffa4fae7384993414d348ba3df7c5c",
+        ".log": "ba2d399ab0b9d156e197107a3518001203829a875bbd221ce4245faf65ab946a",
+        "-inputs-before.json": "ab5cf32b878b18e819ff2cd6d3869ae87fd65677adb8eb9aa776ea4cca0ccb7f",
+        "-inputs-after.json": "ab5cf32b878b18e819ff2cd6d3869ae87fd65677adb8eb9aa776ea4cca0ccb7f",
+        "-reference-driver.py": "67ae4d8fe1f54520a5660bdad5d7762bad579ead817f817194bb105f33c8b5ba",
+        "-resource-driver.py": "36f1872b24b2b21e2f2e2c5cc033ca8c8ac2970d3a971d2cf76574f87ad35dec",
+        ".events.jsonl": "2f46912a29313774fc03d649ec9a4905b71b56a1fb66866bfbffadd422b9999e"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "228",
+          "time": "63.080",
+          "timestamp": "2026-11-09T10:34:21.442678-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "vector-angular-421-gui-final": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/vector-angular-421-gui-final.xml",
+          "--receptor-events=<private-evidence>/vector-angular-421-gui-final.events.jsonl",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_analysis_distance_family",
+          "--basetemp=<private-evidence>/vector-angular-421-gui-final"
+        ],
+        "exit_code": 1,
+        "seconds": 248.0350753220264,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "6302af9d62d1df85d0af829a642afccb5613fdb4",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8658
+      },
+      "resources": {
+        "started_utc": "2026-11-09T16:34:17.697161+00:00",
+        "seconds": 255.50489068194292,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.77099609375,
+            2.05224609375,
+            2.48095703125
+          ],
+          "cpu_utilization": 0.14393558127830897,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 10518192128,
+        "cgroup_memory_peak_bytes": 2351464448,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "3d517203a5d4517d3865c066d10aee59b927bb6adb8e6dfb4e8955e0d6ddac6e",
+        "-bounded.json": "4f3c18f05aa6459f2d15724a0f799dac48c5a93e2669be614808cd5cf657aeb1",
+        ".xml": "f3e2da919728026c0e470786a47d6b2b604ba2f4d630979a717d1d98793198e6",
+        ".log": "90cbc4518f2692260eaddba107f4059fee913d9222633334834c8034ee325ae6",
+        "-inputs-before.json": "ab5cf32b878b18e819ff2cd6d3869ae87fd65677adb8eb9aa776ea4cca0ccb7f",
+        "-inputs-after.json": "ab5cf32b878b18e819ff2cd6d3869ae87fd65677adb8eb9aa776ea4cca0ccb7f",
+        "-reference-driver.py": "12b2c4d9a72bd07f85f3a9f50e514ee1d3fb0ef4f926a40ec57c747233df86d5",
+        "-resource-driver.py": "b383dab04c23563e56d16ae32605d9b256efd48a35c80225b3d082aca2de2d75",
+        ".events.jsonl": "b10d680430f3367a309a8a315df7a80746d70ea1a8f91a87e15665022b492ae6"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "1",
+          "time": "245.850",
+          "timestamp": "2026-11-09T10:34:23.603538-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.molsysviewer_molsysmt.jupyter_receiving_guard",
+          "name": "test_actual_jupyter_analysis_distance_family",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "vector-angular-421-gui-cpu4": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/vector-angular-421-gui-cpu4.xml",
+          "--receptor-events=<private-evidence>/vector-angular-421-gui-cpu4.events.jsonl",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_analysis_distance_family",
+          "--basetemp=<private-evidence>/vector-angular-421-gui-cpu4"
+        ],
+        "exit_code": 1,
+        "seconds": 248.14924626308493,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "dc3f915968babf828ee6814022670e63b1bfe034",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8658
+      },
+      "resources": {
+        "started_utc": "2026-11-09T16:42:52.009583+00:00",
+        "seconds": 255.563633921789,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "400000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.5537109375,
+            2.1591796875,
+            2.49169921875
+          ],
+          "cpu_utilization": 0.10237014624306606,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 10147221504,
+        "cgroup_memory_peak_bytes": 2455851008,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "8ad26b54ce138423ae4de6860f48f9554fd6defe48441ff353af99c04c6560e9",
+        "-bounded.json": "e8720a27cd7f2d580116212634d61eac3fa584b0d14613ce6be39741ab8b229f",
+        ".xml": "a1bea9f611cfa3688effa3649e8a287ce4ec6444aada0f085f5de65b3a1773e3",
+        ".log": "7af11670e61da2f5e34a8be0b1e2ca7697378474f09f4ed08b73c5f597a38c6a",
+        "-inputs-before.json": "8b0114712aaea50ed4427b985df84fdf87667c21d79ad6ab4507a83fd9141b4c",
+        "-inputs-after.json": "8b0114712aaea50ed4427b985df84fdf87667c21d79ad6ab4507a83fd9141b4c",
+        "-reference-driver.py": "f862dc49e8bae855d0c0ce32133eb15f42b23f07e4f236d3fa94e7aee1295be0",
+        "-resource-driver.py": "7db48bd7f7ab08edf811d1a33f8adcd34f3e1d20e7e02884b0152d677443fddb",
+        ".events.jsonl": "e8eadcc01dee783c8d0aacb8d70a80ce0b09d4d8b75c489399adde1314eab2c6"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "1",
+          "time": "246.071",
+          "timestamp": "2026-11-09T10:42:57.737243-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.molsysviewer_molsysmt.jupyter_receiving_guard",
+          "name": "test_actual_jupyter_analysis_distance_family",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "vector-angular-421-gui-extended": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/vector-angular-421-gui-extended.xml",
+          "--receptor-events=<private-evidence>/vector-angular-421-gui-extended.events.jsonl",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_analysis_distance_family",
+          "--basetemp=<private-evidence>/vector-angular-421-gui-extended"
+        ],
+        "exit_code": 0,
+        "seconds": 264.5217459218111,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "6a8552850d92ac3d6119f383673e499ce6d34a5d",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8659
+      },
+      "resources": {
+        "started_utc": "2026-11-09T16:51:08.485968+00:00",
+        "seconds": 271.8765318891965,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "400000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.904296875,
+            1.7421875,
+            2.2255859375
+          ],
+          "cpu_utilization": 0.07638190954773871,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12170371072,
+        "cgroup_memory_peak_bytes": 2354016256,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "558157290ab389e7928e5ec9aea3b85ee4c12ed6a71cef7d54f3391c79d1f856",
+        "-bounded.json": "18c7339f3ceeec5d931e395c1508569402e684ee2e231e904cf6cd43be82f7ef",
+        ".xml": "972b45f6271711600ac466671ea8ffe649a43a3b9f5426013d1130ab599e9544",
+        ".log": "7df62b727312001bef3fe336ecb63ad06538255702159def3d84411d4a8cf0a2",
+        "-inputs-before.json": "2ec7f7feb8e4e62cb942bf182167d1f1f823302e45815ed12d4e73b1a1d17c4e",
+        "-inputs-after.json": "2ec7f7feb8e4e62cb942bf182167d1f1f823302e45815ed12d4e73b1a1d17c4e",
+        "-reference-driver.py": "6895d852796718a84429a4efc9edeaec80e43ca39a02a30d9c7a878ebc45c14d",
+        "-resource-driver.py": "ca50161bb59642b4a7d6c98adda52e65fd1ed7e1e62a415e88723e3b34094f68",
+        ".events.jsonl": "88b3a074c30f87d468141026ce88ac2068797e107c3ad2147ef372caadc2d655"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "262.415",
+          "timestamp": "2026-11-09T10:51:14.108035-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "vector-angular-421-fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 25.683846729109064,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "dc3f915968babf828ee6814022670e63b1bfe034",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8658
+      },
+      "resources": {
+        "started_utc": "2026-11-09T16:44:18.066088+00:00",
+        "seconds": 34.02634015190415,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            2.0234375,
+            2.2099609375,
+            2.48291015625
+          ],
+          "cpu_utilization": 0.28370221327967804,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 10146521088,
+        "cgroup_memory_peak_bytes": 417497088,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "5cfdfc790a3cf51d615dad7dee1219e84ad7f4c36ecdc4a380ab30e91249b498",
+        "-bounded.json": "e3446a5144bf7ef83bbf6705d7682383ca1a88ab6885dbea3e47562e58ebce21",
+        ".log": "6ad0fd7aff549c1abdbcaa86c0b253ab65f5572cad2ea4157469bc25e2dc514f",
+        "-inputs-before.json": "8b0114712aaea50ed4427b985df84fdf87667c21d79ad6ab4507a83fd9141b4c",
+        "-inputs-after.json": "8b0114712aaea50ed4427b985df84fdf87667c21d79ad6ab4507a83fd9141b4c",
+        "-reference-driver.py": "97b7bc52c43f1f5212e447674bd7840b82d3ec3b355f1bed8b3bc3ba9c41db28",
+        "-resource-driver.py": "619b467605db9418e2624c9cc3f83c489ca0fbd5d8240f7de4edb5f493fb4e8e"
+      }
+    },
+    "vector-angular-421-fast-final": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 24.096151114907116,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "6a8552850d92ac3d6119f383673e499ce6d34a5d",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8659
+      },
+      "resources": {
+        "started_utc": "2026-11-09T16:51:07.193855+00:00",
+        "seconds": 32.02707497496158,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.904296875,
+            1.7421875,
+            2.2255859375
+          ],
+          "cpu_utilization": 0.030622489959839405,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13683867648,
+        "cgroup_memory_peak_bytes": 417468416,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "4d23df814c44b347c06c5f092044caabcbddfb929bccb42cd5170db6dc959c76",
+        "-bounded.json": "b1b4d9cfb7e5f38b83613c0348f8125957718d1c5c407a4247885e323cc92b80",
+        ".log": "3039e874d0c0b38f6ec1a3aecd9aac3050592f91d530c3c00b9049d271d2b0da",
+        "-inputs-before.json": "2ec7f7feb8e4e62cb942bf182167d1f1f823302e45815ed12d4e73b1a1d17c4e",
+        "-inputs-after.json": "2ec7f7feb8e4e62cb942bf182167d1f1f823302e45815ed12d4e73b1a1d17c4e",
+        "-reference-driver.py": "c925ce05f09bf5efd1566d36a9749c4924498ccb962735827a3b92735a358483",
+        "-resource-driver.py": "6e0c272fa290a73539274408f79033137546658ab41caff0b6dbd03817f1d884"
+      }
+    },
+    "vector-angular-421-html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/hydrogen-645-html"
+        ],
+        "exit_code": 0,
+        "seconds": 12.967441730899736,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "6a8552850d92ac3d6119f383673e499ce6d34a5d",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8659
+      },
+      "resources": {
+        "started_utc": "2026-11-09T16:53:11.308167+00:00",
+        "seconds": 21.017985124140978,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.78076171875,
+            1.80615234375,
+            2.18798828125
+          ],
+          "cpu_utilization": 0.22949169602415698,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12158377984,
+        "cgroup_memory_peak_bytes": 420896768,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "ee1e698d357262994f7c0718415995117d369a996e4f0288083dd594796f0566",
+        "-bounded.json": "d2601c259233c051d523caa367fc7eed380f6cc4c7a6bc6bf3541510186e45a8",
+        ".log": "8d89e528fc25e92a1a8d710fb8fecdfc3dd97fb7cc673821579f10de0776c4a5",
+        "-inputs-before.json": "2ec7f7feb8e4e62cb942bf182167d1f1f823302e45815ed12d4e73b1a1d17c4e",
+        "-inputs-after.json": "2ec7f7feb8e4e62cb942bf182167d1f1f823302e45815ed12d4e73b1a1d17c4e",
+        "-reference-driver.py": "ddeeb7dd25946e589130da63b7d3e5dc749e1c8fda5c538cc028fb01e35317a9",
+        "-resource-driver.py": "56845727ee0ec829532aa23969ff6ad247d6b5dd1c896f2ef5511d6e6307dd28"
+      }
+    }
+  },
+  "gui": {
+    "checks": [
+      "Load TcTIM and open Analysis without calculating implicitly",
+      "Calculate explicit atom populations and verify native distances against coordinates",
+      "Inspect native minimum and maximum without changing molecular data",
+      "Inspect evaluated-empty neighbors and explicit nearest-count results",
+      "Page through TcTIM source indices without transferring the complete result",
+      "Use independent Analysis panels in canvas popup and detached Studio",
+      "Python verifies every molecular coordinate chemical domain and scene object unchanged",
+      "Select participants and focus the visible structure without losing the row acknowledgement",
+      "Mass-weighted observations retain participant actions and explain the disabled live conversion",
+      "Create a centroid Measure from TcTIM and preserve its actual geometry after Clear",
+      "Create core Measures through canvas and detached Studio popups with mirrored geometry",
+      "A repeated-population live Measure uses the visible structure and follows a real ensemble",
+      "Prepare independent conformation references from the unchanged real ensemble",
+      "Inspect RMSD optimal RMSD gyration and atom-indexed RMSF with explicit source axes",
+      "Add a correctly indexed core plot retain it after Clear and navigate by its actual point",
+      "Inspect and adopt conformational results through both real popup boundaries",
+      "Inspect directed vector components and repeated source structures against coordinates",
+      "Inspect ordered atom-triplet angles with explicit angular display units",
+      "Inspect signed quartet torsions and deliberate participant actions without navigating",
+      "Python verifies retained native data separate plots and deliberate structure navigation"
+    ],
+    "step_timings": [
+      {
+        "stage": "Load TcTIM and open Analysis without calculating implicitly",
+        "phase": "start",
+        "elapsed_ms": 9620.175402
+      },
+      {
+        "stage": "Load TcTIM and open Analysis without calculating implicitly",
+        "phase": "complete",
+        "elapsed_ms": 31793.834045
+      },
+      {
+        "stage": "Calculate explicit atom populations and verify native distances against coordinates",
+        "phase": "start",
+        "elapsed_ms": 31794.51644
+      },
+      {
+        "stage": "Calculate explicit atom populations and verify native distances against coordinates",
+        "phase": "complete",
+        "elapsed_ms": 33115.598343000005
+      },
+      {
+        "stage": "Inspect native minimum and maximum without changing molecular data",
+        "phase": "start",
+        "elapsed_ms": 33116.387744
+      },
+      {
+        "stage": "Inspect native minimum and maximum without changing molecular data",
+        "phase": "complete",
+        "elapsed_ms": 35026.197861
+      },
+      {
+        "stage": "Inspect evaluated-empty neighbors and explicit nearest-count results",
+        "phase": "start",
+        "elapsed_ms": 35026.891737000005
+      },
+      {
+        "stage": "Inspect evaluated-empty neighbors and explicit nearest-count results",
+        "phase": "complete",
+        "elapsed_ms": 36722.112338
+      },
+      {
+        "stage": "Page through TcTIM source indices without transferring the complete result",
+        "phase": "start",
+        "elapsed_ms": 36793.860992
+      },
+      {
+        "stage": "Page through TcTIM source indices without transferring the complete result",
+        "phase": "complete",
+        "elapsed_ms": 38801.436149
+      },
+      {
+        "stage": "Use independent Analysis panels in canvas popup and detached Studio",
+        "phase": "start",
+        "elapsed_ms": 38801.851134000004
+      },
+      {
+        "stage": "Use independent Analysis panels in canvas popup and detached Studio",
+        "phase": "complete",
+        "elapsed_ms": 61404.37367
+      },
+      {
+        "stage": "Python verifies every molecular coordinate chemical domain and scene object unchanged",
+        "phase": "start",
+        "elapsed_ms": 61405.249710000004
+      },
+      {
+        "stage": "Python verifies every molecular coordinate chemical domain and scene object unchanged",
+        "phase": "complete",
+        "elapsed_ms": 63706.173218
+      },
+      {
+        "stage": "Select participants and focus the visible structure without losing the row acknowledgement",
+        "phase": "start",
+        "elapsed_ms": 63707.014599
+      },
+      {
+        "stage": "Select participants and focus the visible structure without losing the row acknowledgement",
+        "phase": "complete",
+        "elapsed_ms": 75417.283849
+      },
+      {
+        "stage": "Mass-weighted observations retain participant actions and explain the disabled live conversion",
+        "phase": "start",
+        "elapsed_ms": 75417.780172
+      },
+      {
+        "stage": "Mass-weighted observations retain participant actions and explain the disabled live conversion",
+        "phase": "complete",
+        "elapsed_ms": 80104.648928
+      },
+      {
+        "stage": "Create a centroid Measure from TcTIM and preserve its actual geometry after Clear",
+        "phase": "start",
+        "elapsed_ms": 80106.637569
+      },
+      {
+        "stage": "Create a centroid Measure from TcTIM and preserve its actual geometry after Clear",
+        "phase": "complete",
+        "elapsed_ms": 88210.752855
+      },
+      {
+        "stage": "Create core Measures through canvas and detached Studio popups with mirrored geometry",
+        "phase": "start",
+        "elapsed_ms": 88211.089306
+      },
+      {
+        "stage": "Create core Measures through canvas and detached Studio popups with mirrored geometry",
+        "phase": "complete",
+        "elapsed_ms": 139717.703079
+      },
+      {
+        "stage": "A repeated-population live Measure uses the visible structure and follows a real ensemble",
+        "phase": "start",
+        "elapsed_ms": 139793.93798
+      },
+      {
+        "stage": "A repeated-population live Measure uses the visible structure and follows a real ensemble",
+        "phase": "complete",
+        "elapsed_ms": 158829.845504
+      },
+      {
+        "stage": "Prepare independent conformation references from the unchanged real ensemble",
+        "phase": "start",
+        "elapsed_ms": 158830.298661
+      },
+      {
+        "stage": "Prepare independent conformation references from the unchanged real ensemble",
+        "phase": "complete",
+        "elapsed_ms": 160407.427739
+      },
+      {
+        "stage": "Inspect RMSD optimal RMSD gyration and atom-indexed RMSF with explicit source axes",
+        "phase": "start",
+        "elapsed_ms": 160408.003689
+      },
+      {
+        "stage": "Inspect RMSD optimal RMSD gyration and atom-indexed RMSF with explicit source axes",
+        "phase": "complete",
+        "elapsed_ms": 170618.301701
+      },
+      {
+        "stage": "Add a correctly indexed core plot retain it after Clear and navigate by its actual point",
+        "phase": "start",
+        "elapsed_ms": 170626.258784
+      },
+      {
+        "stage": "Add a correctly indexed core plot retain it after Clear and navigate by its actual point",
+        "phase": "complete",
+        "elapsed_ms": 177503.240063
+      },
+      {
+        "stage": "Inspect and adopt conformational results through both real popup boundaries",
+        "phase": "start",
+        "elapsed_ms": 177503.68316
+      },
+      {
+        "stage": "Inspect and adopt conformational results through both real popup boundaries",
+        "phase": "complete",
+        "elapsed_ms": 205470.768528
+      },
+      {
+        "stage": "Inspect directed vector components and repeated source structures against coordinates",
+        "phase": "start",
+        "elapsed_ms": 205471.322327
+      },
+      {
+        "stage": "Inspect directed vector components and repeated source structures against coordinates",
+        "phase": "complete",
+        "elapsed_ms": 211732.413042
+      },
+      {
+        "stage": "Inspect ordered atom-triplet angles with explicit angular display units",
+        "phase": "start",
+        "elapsed_ms": 211732.933781
+      },
+      {
+        "stage": "Inspect ordered atom-triplet angles with explicit angular display units",
+        "phase": "complete",
+        "elapsed_ms": 214722.41329199998
+      },
+      {
+        "stage": "Inspect signed quartet torsions and deliberate participant actions without navigating",
+        "phase": "start",
+        "elapsed_ms": 214722.739689
+      },
+      {
+        "stage": "Inspect signed quartet torsions and deliberate participant actions without navigating",
+        "phase": "complete",
+        "elapsed_ms": 249595.006917
+      },
+      {
+        "stage": "Python verifies retained native data separate plots and deliberate structure navigation",
+        "phase": "start",
+        "elapsed_ms": 249595.613414
+      },
+      {
+        "stage": "Python verifies retained native data separate plots and deliberate structure navigation",
+        "phase": "complete",
+        "elapsed_ms": 255618.144622
+      }
+    ],
+    "browser_error_occurrences": 7,
+    "plain_jupyter_baseline_occurrences": 1,
+    "no_new_browser_error_fingerprints": true,
+    "browser_error_interpretation": "Repeated plain-control fingerprints are retained; passing does not claim a zero-error browser environment.",
+    "credentials_removed": true,
+    "evidence_sha256": {
+      "full-result.json": "b639b04a1e2599cedd2f3f419deacd2d8459b78431b575d59ccbd17a57ac0943",
+      "step-timings.jsonl": "9aa539d7f4987988ef4f9d2ffa3e34d020f1218dead9373e22ba62234081a80c",
+      "geometry-expected.json": "3550a972ab22a059c822e5aa2a73507b7bd1f3dbfa6ff495c4343a5c14e73c1a",
+      "analysis-vector-components.png": "7b5c957394cde71435a5682cd9ce1d29e957c263a02a66a4696c9e6b4d6a357a",
+      "analysis-triplet-angles.png": "9fb70b14710078fd0e42fd9d9aff3caad58eca29c0144c79c294a02d66477b9d",
+      "analysis-signed-torsions.png": "502535d7a505c1d7c9b29566321fb93a97c0f1c92a31ea12e2ca07e5a75e9020"
+    },
+    "screenshot_review": "Directed components and angular units/source indices are present. Source-panel tables follow the existing scroll surface; detached Studio shows signed quartet rows and deliberate participant actions. Automated source review is separate from human acceptance."
+  },
+  "html_inspection": [
+    {
+      "path": "content/user/tools/molsysviewer_tools.html",
+      "sha256": "611df6ffa1447a28e6e2ec707f670e30186930374ceb463c329283a30515188e",
+      "required_visible_text": [
+        "Inspecting vectors, angles and torsions in Studio",
+        "X/Y/Z",
+        "JSON list",
+        "undefined"
+      ]
+    },
+    {
+      "path": "content/course/Common_Core/16_Structural_Operations.html",
+      "sha256": "ac7300a054b1d9c1ca3518addda733f8af33599d93adc87c58e9db606d686f5d",
+      "required_visible_text": [
+        "native directed vectors",
+        "native sign convention",
+        "out-of-core calculation"
+      ]
+    },
+    {
+      "path": "content/user/tools/structure/get_angles.html",
+      "sha256": "6d9866abe49557db796ef904383e4b469137d3db6a4d45a1cd3a4e8cde5aaad2",
+      "required_visible_text": [
+        "actual unit",
+        "chemical connectivity"
+      ]
+    },
+    {
+      "path": "api/structure/autosummary/molsysmt.structure.get_angles.html",
+      "sha256": "68434903c695e2ff4ab7beb50aab3d5632502048a6f38bfa2ec88b8fb27b4808",
+      "required_visible_text": [
+        "active PyUnitWizard angular",
+        "degrees",
+        "Zero-length legs"
+      ]
+    }
+  ],
+  "html_warnings": [],
+  "notebook_preservation": [
+    {
+      "path": "docs/content/course/Common_Core/16_Structural_Operations.ipynb",
+      "executed_code_cells": 11,
+      "code_metadata_counts_and_outputs_unchanged": true,
+      "code_sha256": "4282cc888d1911e1c1756ce8889e53d9492bd700ba886a59bb12b3bdedb5595e"
+    },
+    {
+      "path": "docs/content/user/tools/structure/get_angles.ipynb",
+      "executed_code_cells": 7,
+      "code_metadata_counts_and_outputs_unchanged": true,
+      "code_sha256": "dbf759c2f5553202c8e50f23a138a082206094665301e70af5d4726b09891c48"
+    }
+  ],
+  "acceptance": [
+    "Three new private GUI tasks call existing public native tools; no scientific formula, chemical inference or generic result store is added.",
+    "Directed vectors preserve molecular Cartesian orientation, repeated endpoint/structure axes, centers/weights, pairs, PBC and native disk-result retirement.",
+    "Angular tasks keep explicit source triplets/quartets, roles/order/repetition, native signs/undefined values and caller-owned angular policies; presentation converts explicitly to degrees/radians.",
+    "Pages transfer at most 50 observations. Source/revision/lifetime validation and host reader/action ownership remain; select/focus never navigate to observation structures or create live geometry.",
+    "Native get_angles help now describes its actual active-angle return; the formula, defaults and signature remain unchanged. Its public executable example and analytic native controls pass.",
+    "All 17 old browser workflow checks are retained with three new independent-oracle checks. Kernel coordinate/chemical/plot/Measure invariance and popup boundaries remain asserted."
+  ],
+  "attempts_and_limits": [
+    "Initial directed selection: 176 passed/3 fixture failures from expecting an addon error packet for a request the pending host never dispatches. Guards now check unchanged source/scene/report and fresh request identity; scientific assertions remain.",
+    "The first GUI attempt hits the 240-second Node limit in an old Measure/popup step under 2 CPU. Cgroup CPU saturation/throttling is measured, without a memory-pressure/OOM stop.",
+    "The 4-CPU retry retains the old deadline and completes 18 steps, reaching the new torsion/two-popup step at 214 seconds; the deadline interrupts it. That attempt remains failed/incomplete.",
+    "Only expanded Analysis receives a finite 300-second Node and 360-second outer budget, still under 600-second service lifetime and 4 GiB memory. Other scenarios and all numerical/scene assertions remain. Final receiving completes all 20 checks.",
+    "New display assertions compare the documented nine significant digits with the independently computed observation. Higher-precision native controls and old scalar checks are unchanged.",
+    "Angular APIs currently gather participating coordinates and full output in RAM; paging does not make them out-of-core. Post-1.0 general native chunking is tracked by #667. No large unsafe stress run is made.",
+    "Artificial tiny-budget native tests emit MemoryPressureWarnings relative to that test budget; actual host/cgroup observations remain separate.",
+    "Contacts/#666 and uibcdf/pyunitwizard#143, PCA/other original GUI intents, #256, #524, #615 and #334 gates remain outstanding. No package, tag, Release, hosted matrix or scientific-profile promotion is claimed."
+  ]
+}

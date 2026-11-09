@@ -9,7 +9,7 @@
   "gui_scope": "Tracking packages make the previously accepted workflow inventory explicit. They are user intents, not a GUI promise for every expert argument or a new scientific feature request. Native/expert APIs remain available and retain their own qualification.",
   "publication": "The existing pause remains. #640/#641/#642 and all other required correctness work retain owning acceptance. Exact candidate/platform/installed and final sign-off gates are not scored as passed by source tests.",
   "legacy_phase_exit_percent": 40,
-  "weighted_milestone_percent": 72.35035797535798,
+  "weighted_milestone_percent": 72.40280552780553,
   "reported_approximate_percent": 72.4,
   "phases": [
     {
@@ -616,23 +616,29 @@
                 {
                   "id": "vectors",
                   "requirement": "Receive vector observations",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_vector_angular_receiving_421_20261109.json"
+                  ],
+                  "review": "Native 6302af9d6 passes 228 analytic/parity/UI cases; identical product/numeric-test bytes on 6a8552850 pass all twenty real Jupyter/Mol*/popup checks with per-step timing. Directed components, tuple roles/order/signs, explicit angular units and native undefined values are retained. Original failures/timeouts remain recorded. This credits only the existing explicit observation intent, not every native mode, human/installed or final-candidate acceptance."
                 },
                 {
                   "id": "angles",
                   "requirement": "Receive angular observations",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_vector_angular_receiving_421_20261109.json"
+                  ],
+                  "review": "Native 6302af9d6 passes 228 analytic/parity/UI cases; identical product/numeric-test bytes on 6a8552850 pass all twenty real Jupyter/Mol*/popup checks with per-step timing. Directed components, tuple roles/order/signs, explicit angular units and native undefined values are retained. Original failures/timeouts remain recorded. This credits only the existing explicit observation intent, not every native mode, human/installed or final-candidate acceptance."
                 },
                 {
                   "id": "torsions",
                   "requirement": "Receive torsional observations",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_vector_angular_receiving_421_20261109.json"
+                  ],
+                  "review": "Native 6302af9d6 passes 228 analytic/parity/UI cases; identical product/numeric-test bytes on 6a8552850 pass all twenty real Jupyter/Mol*/popup checks with per-step timing. Directed components, tuple roles/order/signs, explicit angular units and native undefined values are retained. Original failures/timeouts remain recorded. This credits only the existing explicit observation intent, not every native mode, human/installed or final-candidate acceptance."
                 },
                 {
                   "id": "raw-rmsd",
@@ -723,8 +729,8 @@
           ]
         }
       ],
-      "verified_fraction": 0.7987762237762237,
-      "credited_points": 19.969405594405593
+      "verified_fraction": 0.8008741258741259,
+      "credited_points": 20.021853146853147
     },
     {
       "id": "phase5",
@@ -879,8 +885,10 @@
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
     "owner_verification": "Public 1d033b656 independently matches 21 changed paths and preserves four human files. Clean b184e9d18 passes 1,229 affected cases without omissions, fourteen fast gates and three inspected HTML pages. #661 is closed. #256 remains open and public H5MSM writing remains 0.5; no client/installed/candidate acceptance is added.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Complete #256 P5 independent consumer/reference-workflow receiving after experimental public 0.6 source qualification; then P6 bounded storage/memory measurements, schema/default-writer review and first stable H5MSM 1.0 freeze. Continue remaining #421 intents and preserve #654, #615, #567/#582, installed/platform and exact-candidate ownership.",
+    "scope": "Resolve native cutoff/unit contract #666 with uibcdf/pyunitwizard#143 while completing remaining #421 intents, including PCA, chemistry, construction/refinement, properties, interactions, mechanics and complete sessions. Preserve #256 P5 independent client receiving and P6 stable H5MSM 1.0/default-writer review, #524 actual public floors/installed closure, #615 causality and #334 exact-candidate/platform/publication gates. Angular chunking #667 remains post-1.0 rather than an added release exit.",
     "active_related": [
+      "uibcdf/molsysmt#666",
+      "uibcdf/molsysmt#421",
       "uibcdf/molsysmt#615",
       "uibcdf/molsysmt#256"
     ],
@@ -915,7 +923,7 @@
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
-    "verified_source_intents": 26,
+    "verified_source_intents": 29,
     "total_intents": 50,
     "global_weight_points": 2.5,
     "meaning": "A separate count of accepted declared intents; not equal effort, scientific coverage or installed acceptance."
@@ -962,7 +970,7 @@
     "open_prs": 0,
     "weighted_milestone_change": 0
   },
-  "last_updated": "2026-11-08",
+  "last_updated": "2026-11-09",
   "last_scientific_claim_disposition": {
     "issues": [
       "uibcdf/molsysmt#473",
@@ -1108,5 +1116,27 @@
     "default_format": "0.5",
     "explicit_experimental_format": "0.6",
     "weighted_milestone_change": 0
+  },
+  "last_vector_angular_receiving": {
+    "owner_issue": "uibcdf/molsysmt#421",
+    "qualified_source": "6a8552850d92ac3d6119f383673e499ce6d34a5d",
+    "native_source": "6302af9d62d1df85d0af829a642afccb5613fdb4",
+    "state": "qualified_source_and_actual_graphical_receiving",
+    "evidence": [
+      "devtools/data/molsysviewer_vector_angular_receiving_421_20261109.json"
+    ],
+    "native_cases": 228,
+    "actual_jupyter_checks": 20,
+    "accepted_existing_intents": [
+      "vectors",
+      "angles",
+      "torsions"
+    ],
+    "new_graphical_intents_added_to_scope": 0,
+    "verified_source_intents": 29,
+    "total_intents": 50,
+    "post_1_0_scalability_followup": "uibcdf/molsysmt#667",
+    "guard": "tests/molsysviewer_molsysmt/test_vector_angular_analysis_panel.py",
+    "human_installed_or_final_candidate_accepted": false
   }
 }

@@ -4872,6 +4872,59 @@ with msv.new_view(source) as view:
     assert view.molsys is original
 ```
 
+## Inspecting vectors, angles and torsions in Studio
+
+Choose **Vectors**, **Angles (atom triplets)** or **Torsions (atom quartets)**
+under Studio > MolSysMT > Analysis. These are read-only native observations;
+calculating them changes neither the molecular system nor the scene.
+
+**Vectors** reuses the two-population controls: Cartesian or corresponding pairs,
+within-population queries, ordered/repeated atoms, and individual atoms or
+geometric/mass-weighted centers. Each row gives the vector **from the first
+endpoint to the second**, as X/Y/Z components in molecular Cartesian axes.
+Camera orientation is independent. Components are displayed in nm; no scalar
+length or graphical arrow is substituted. Centers use the supplied coordinates,
+without reconstructing split periodic molecules. The scientific owner is
+{func}`molsysmt.structure.get_vectors`.
+
+**Angles** takes an explicit JSON list such as `[[0, 1, 2], [2, 3, 4]]`.
+The middle atom is the vertex. **Torsions** takes ordered quartets such as
+`[[0, 1, 2, 3], [2, 3, 4, 5]]`. It preserves native signed angles and ordering;
+these explicit quartets do not infer named backbone or side-chain dihedrals.
+Indices address the source atom axis; tuple order and repeated tuples remain.
+The general atom-selection editors do not apply to these tuple requests.
+See {func}`molsysmt.structure.get_angles` and
+{func}`molsysmt.structure.get_dihedral_angles`.
+
+Choose degrees or radians for the angular table. Conversion is explicit at
+presentation; Python retains the original quantity in the application's active
+angular standard. An undefined native value is shown as **undefined**, never
+changed to zero. No connectivity, protonation or chemical validity is inferred.
+
+All three tasks accept an explicit ordered structure list, including repetitions
+such as `2, 0, 2`. Optional PBC uses native minimum-image geometry with the stored
+box; a missing box retains the native nonperiodic fallback, which is stated in
+the report. Only fifty rows are sent to the browser per page. Vector block output
+can use native temporary disk storage. Angular calculations currently gather
+participating coordinates and the complete angular array in RAM; bounded pages
+do not make their calculation out-of-core. Use a small explicit structure scope
+for large systems. There is no universal RAM bound or cancellation promise.
+
+A chosen row can **Select participants** or **Focus participants** through the
+core scene owner. Repeated participant atoms are selected once. Focus uses the
+visible structure and does not navigate to the observation's structure. These
+tasks do not create live distances, vector arrows, angular Measures or plots.
+Scene actions require synchronized molecular data. Explicit-index calculations
+remain declared readers of current data during pending synchronization; old-scene
+selection populations are unavailable then. Inputs, managed source edits,
+replacement, closure or unmount expire the mounted result and release its native
+resources. Raw external writes are not automatically observed.
+
+Expert Python signatures, defaults, native units, results and method ownership
+are unchanged. These mounted reports are not stored `Interactions` analyses or
+generic H5MSM results. Source receiving, human and installed qualification remain
+distinct.
+
 ## Comparing an ordered structure population
 
 The experimental {func}`molsysmt.structure.get_pairwise_rmsd` mirror reads the

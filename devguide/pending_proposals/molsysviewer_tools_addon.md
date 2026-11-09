@@ -3730,3 +3730,66 @@ and the original unsuccessful attempts. The source inventory is 251/253 with
 only the two native MD stubs omitted. There is no new GUI acceptance or score
 credit; the unpublished contact prototype remains held by #666. Later Viewer,
 installed, human and release gates are unchanged.
+
+
+### Vector and angular task implementation — 2026-11-09
+
+Three accepted geometric-analysis intents now have source implementations:
+directed vector components, explicit triplet angles and explicit quartet torsions.
+They reuse native tools, unit-bearing results and the existing source/revision,
+paging and scene-action owners. The first directed selection has 176 passes and
+three fixture-contract failures: the tests incorrectly expected an addon error
+packet when the host rejects non-reader actions before dispatch while pending.
+The correction checks preserved source/scene/report identity and uses a fresh
+request identity for the later stale-token check; no scientific assertion is
+relaxed. Expanded native/parity/analytical and actual-Jupyter receiving are still
+pending. No GUI milestone credit is added until that receiving completes.
+Native get_angles help now describes its already implemented active-unit return
+rather than incorrectly promising radians under a degree policy. The formula,
+API signature and defaults are unchanged. Course/tutorial code and outputs stay
+exact. Contacts remain held by #666 / uibcdf/pyunitwizard#143.
+
+
+The clean 6302af9d6 native selection passes 228 cases, including all three tasks,
+analytic MIC/sign controls and the updated get_angles doctest. Its first actual
+Jupyter attempt times out at the unchanged 240-second Node limit during the old
+Measure/popup workflow, before any of the three new tasks. The 2-CPU cgroup uses
+485 CPU seconds in 255 wall seconds and is throttled in 2,271/2,556 periods;
+peak memory is 2,351,464,448 bytes, host available RAM remains over 10 GiB, and
+there is no OOM or memory-pressure stop. This is incomplete graphical evidence.
+The retry records per-step timing and uses four CPU with the same 4 GiB cap and
+unchanged deadlines/scientific/old-workflow assertions. New angular presentation
+checks compare the documented nine significant digits against independent
+oracles, rather than an unrounded absolute tolerance inappropriate for that
+display precision. Higher-precision native numerical controls are unchanged.
+
+
+At four CPU, all first sixteen old workflow steps plus new vector and angular
+checks complete; the explicit-torsion/two-popup step starts at 214.029 seconds.
+The original 240-second Node deadline interrupts that step before its completion.
+No new numerical or layout failure is recorded, but this second attempt is also
+incomplete. Only the expanded Analysis scenario receives a measured finite
+300-second Node budget and 360-second outer collection/cleanup budget. Other
+scenarios keep their prior deadlines, and resource/scientific/scene assertions
+remain unchanged. Per-step timings remain durable in the private receipt.
+General native angular chunking is now tracked post-1.0 in #667, rather than
+being hidden behind frontend paging or added as another release requirement.
+
+
+### Vector/angular receiving completed — 2026-11-09
+
+The [receiving record](../../devtools/data/molsysviewer_vector_angular_receiving_421_20261109.json)
+qualifies the three existing intents on native 6302af9d6 / graphical 6a8552850
+with identical product/docs/numeric-test inputs: 228 source cases, all twenty
+actual Jupyter checks, fourteen fast gates and four HTML pages. Both source and
+detached popup boundaries retain source indices, signed/nine-digit observations,
+unit-bearing native data, deliberate participant actions and unchanged molecular
+coordinates/chemistry. All seventeen old browser checks remain.
+
+The native/GUI failures and timeouts above remain historical outcomes. The final
+finite expanded-scenario budget completes at approximately 256 browser seconds;
+no old assertion is removed. Browser errors match plain-Jupyter fingerprints,
+not a zero-error environment claim. The canonical scorecard credits only vectors,
+angles and torsions: 29/50 accepted intents, weighted 72.4028%. No new scope,
+human/installed/candidate or scientific-profile acceptance is added. Contacts
+remain held by #666; general angular chunking #667 is post-1.0.

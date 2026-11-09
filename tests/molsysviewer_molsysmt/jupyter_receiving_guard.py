@@ -29,7 +29,7 @@ def test_actual_jupyter_analysis_distance_family(tmp_path):
     ]
     if provider := os.environ.get("MOLSYSVIEWER_PROVIDER_ROOT"):
         command.extend(["--provider-root", provider])
-    subprocess.run(command, check=True, timeout=300)
+    subprocess.run(command, check=True, timeout=360)
     result = json.loads((output / "full-result.json").read_text())
     assert result["checks"] == [
         "Load TcTIM and open Analysis without calculating implicitly",
@@ -48,6 +48,9 @@ def test_actual_jupyter_analysis_distance_family(tmp_path):
         "Inspect RMSD optimal RMSD gyration and atom-indexed RMSF with explicit source axes",
         "Add a correctly indexed core plot retain it after Clear and navigate by its actual point",
         "Inspect and adopt conformational results through both real popup boundaries",
+        "Inspect directed vector components and repeated source structures against coordinates",
+        "Inspect ordered atom-triplet angles with explicit angular display units",
+        "Inspect signed quartet torsions and deliberate participant actions without navigating",
         "Python verifies retained native data separate plots and deliberate structure navigation",
     ]
     assert not (output / "settings.json").exists()
