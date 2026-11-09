@@ -776,6 +776,17 @@ a universal RAM bound. No report persistence or parallel chemical store is added
 The existing serialized reader, pending/failed scene admission, mounted lifetime,
 input/revision/source expiry and diagnostic retention are reused. Coverage old-scene
 selectors refuse; whole-system checks do not depend on hidden selection drafts.
-This implementation still needs exact-source native/Jupyter/HTML receiving before
-milestone credit. No general readiness certificate, new scientific method, engine,
-managed edit, provider dependency or public signature is introduced.
+Exact-source native/Jupyter/HTML receiving is recorded below; only the two
+existing source-assessment intents receive credit. No general readiness certificate,
+new scientific method, engine, managed edit, provider dependency or public signature
+is introduced.
+
+
+**Receiving — 2026-11-09:** native 0d7f5505b passes 347 affected cases/doctests;
+unchanged native/backend/numeric-test bytes on dc8568446 receive ten actual
+Jupyter/Mol*/popup checks and fourteen fast gates. The unchanged guide/course
+HTML is inspected; twelve executed code cells remain exact. The
+[receipt](../devtools/data/molsysviewer_chemistry_assessment_receiving_421_20261109.json)
+retains original failures and the empty-page wait/reference-disclosure corrections.
+This receives two original assessment intents, not scientific-method, full-family,
+human/installed/newer-host or release acceptance. No repair/removal is applied.

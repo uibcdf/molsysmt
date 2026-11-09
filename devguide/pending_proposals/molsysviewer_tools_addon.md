@@ -3832,3 +3832,22 @@ identifier in a separate collapsed scientific-reference disclosure, leaving
 scope/status/removal counts visible. This frontend-only presentation correction
 needs a new actual graphical run; native science, rows, data, assertions and
 deadlines remain unchanged. No human/installed or milestone acceptance yet.
+
+
+### Chemistry assessment receiving completed — 2026-11-09
+
+The [receiving record](../../devtools/data/molsysviewer_chemistry_assessment_receiving_421_20261109.json)
+qualifies native 0d7f5505b (347 affected tests/doctests), final graphical dc8568446
+(ten actual Jupyter/Mol*/popup checks, fourteen fast gates) and unchanged rendered
+guide/course bytes from 5d74273b2. Twelve executed Module 12 cells remain exact.
+Only the frontend reference disclosure and its browser assertion differ from the
+native-tested product; all backend/scientific/numeric-test inputs stay unchanged.
+Ruff lint/format pass repository-wide. Original failed attempts remain recorded.
+
+Accept only the two existing readiness/state-assessment leaves: 31/50 graphical
+intents and 72.51644189144189% weighted progress, approximately 72.5%. Three
+inspection task names are not three added milestone leaves. No generic readiness
+certificate, scientific stability, human/installed/newer-host/platform, whole-suite
+or final-candidate acceptance follows. The separate #256 consumer record receives
+only its bounded upstream reference/E3 prerequisite; wider P5/P6 stays open.
+#666/provider143, remaining original tasks and final gates remain due.
