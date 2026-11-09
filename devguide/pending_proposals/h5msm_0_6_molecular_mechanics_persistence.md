@@ -221,7 +221,7 @@ implementation tools, not registered forms or public calculation functions.
 New primitives live in an owning private storage package instead of adding more
 root-level `form/_h5msm05_*` files. The initial `form/_h5msm` placement failed
 the adapter-only directory contract; it is corrected without relaxing that gate.
-The seven existing modules in #441 are not relocated by this bounded correction.
+The seven existing modules in #438 are not relocated by this bounded correction.
 
 ```text
 molecular_mechanics/                  attrs: schema_version=1, n_atoms
@@ -264,12 +264,50 @@ full regression/HTML gates and source delivery are still pending at this point.
 
 ### Work packages and exit evidence
 
+#### P3 composition decisions — 2026-11-08
+
+- Develop the whole-file path privately as root `0.6`; public 0.5 functions and
+  their defaults remain unchanged until public-operation and freeze gates pass.
+  Do not emit an unqualified public 1.0 file by changing a header.
+- Reuse existing topology, chemistry, structure and sparse-analysis layer codecs.
+  The new orchestrator lives alongside the private mechanics codec. Extend the
+  shared association primitive with an explicit caller-provided layer vocabulary;
+  its default remains the closed four-domain 0.5 vocabulary.
+- Independent layer reads retain declared maps without coercing populations.
+  Resident MolSys reconstruction requires connected identity declarations for
+  each shared atom and structure axis. Equal counts alone never identify axes.
+  Explicit nonidentity maps remain readable as independent layers; reconstruction
+  refuses them until the caller deliberately aligns the domains.
+- A single `Structures -> ChemicalStates` association preserves the optional
+  nullable structure-state vector. Missing declarations remain missing. Other
+  structure-state endpoints are unsupported by the current native container and
+  refuse during resident assembly rather than being omitted.
+- A mechanics-only layer remains accessible independently; the current MolSys
+  cannot represent it without another information domain. No topology or
+  coordinates are synthesized to make an unsupported composition fit.
+- An explicitly present but entirely empty mechanics layer, and an empty named
+  analysis collection, remain independently readable. Resident MolSys has no
+  distinct presence marker for those declarations; assembly refuses them rather
+  than letting a later native export silently erase their presence. Present-empty
+  mechanical reports/tables have stored native markers and remain supported.
+- Writer provenance is root metadata distinct from stored scientific producer
+  versions. I/O never reports a new calculation or rebinds assignment evidence.
+- Validate declared native extensions without building intermediate JSON record
+  lists or duplicating complete coordinate arrays. Reuse a native-owned transport
+  extension check across dictionary and HDF5 paths.
+- Stage a private file in the destination directory, close HDF5 successfully,
+  then publish exclusively through an atomic hard link. Existing files, including
+  dangling symlinks and publication races, stay unchanged. Normal failure cleans
+  staging files. Unsupported hard-link filesystems refuse; there is no partial
+  copy fallback. This is atomic visibility, not a crash-durable transaction;
+  process termination can leave a recognizable private staging file.
+
 | Package | Current state | Required exit evidence |
 | --- | --- | --- |
 | P0 — repair #660 | Closed; clean `272745fc8` passes 1,111 cases, fourteen fast gates and HTML; public `af71a6d29` verified | All affected branches, strict requests, present-empty state and unchanged existing file are guarded; no expansion of 0.5. |
 | P1 — bound the schema | Bounded field/type/unit catalog specified; whole-file associations remain P3 | Exact field/type/unit catalog, domain/layer versions, identity and index-link rules, absent/empty semantics and unsupported-input policy. |
 | P2 — mechanics codec | Clean `5c38a1022`: 1,178 cases, fourteen fast gates; unchanged HTML scope reused with proof; public `2cca126fe` verified | Typed native/HDF5 round trips for all admitted settings, tables and reports; malformed data/unknown versions refuse; no engine imports or evidence rebinding. |
-| P3 — modular orchestration | Pending | Reuse existing domain codecs; explicit version dispatch, associations, source-preserving migration and failure before file publication; unchanged 0.3/0.4/0.5 reads. |
+| P3 — modular orchestration | Private root implemented; 1,229 integrated cases pass locally; clean receiving/public dispatch remain pending | Reuse existing domain codecs; explicit version dispatch, associations, source-preserving migration and failure before file publication; unchanged 0.3/0.4/0.5 reads. |
 | P4 — public operations | Pending | `convert`, explicit H5MSM reads/writes/layer reads, `get`/`has_attribute`, selected extraction/reordering, copying and structure append are audited; no recognized-but-inaccessible mechanics. Preserve the legacy handler's actual scope. |
 | P5 — consumer receiving | Pending | Fresh-reader complete/projected/nonpolar-H-merged fixtures, multiple unit policies, original producer labels, prepared PDBQT re-export, edit invalidation, stale refusals and the full DockingMT reference route. Provider and installed evidence remain distinct. |
 | P6 — format freeze | Pending | Public schema, API docstrings/doctests, Foundations/Toolbox/Cookbook/course, bounded memory/storage measurements, default-writer decision and old-format/migration policy agree; then qualify the exact source/artifacts. |
@@ -486,6 +524,52 @@ changed paths and preserves the four human root files. The
 [delivery record](../../devtools/data/mechanics_layer_delivery_256_20261108.json)
 links the qualified private layer and
 [owner response](https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6731162300).
-#441 receives the new placement evidence without closing its original audit.
+#438 receives the new placement evidence without closing its original audit.
 No new public file capability, installed/client acceptance or release is added;
 #256 remains open for P3–P6.
+
+## Ownership-reference correction — 2026-11-08
+
+The module-location owner is **uibcdf/molsysmt#438**, as declared by its owning
+report. The earlier #441 references in this checkpoint were incorrect: #441 is
+an unrelated closed distance bug. Current records now use #438 and retain a
+correction note with their original hashes; original commands, source/data
+hashes and outcomes are unchanged. The misplaced #441 comment is corrected and
+[the placement evidence is recorded in #438](https://github.com/uibcdf/molsysmt/issues/438#issuecomment-6731313441).
+
+## Private whole-file composition — 2026-11-08
+
+The private `h5msm_storage.modular` orchestrator stages root 0.6 with the existing
+four domain codecs and mechanics schema 1. Resident writes declare shared atom/
+structure identities and preserve the optional nullable structure-state vector.
+Independent reads retain their explicit maps; resident assembly checks connected
+identity declarations instead of trusting counts. Independent mechanical atom
+counts can be inspected without loading tables. Unsupported mechanical-only or
+time-only combinations, unrepresented extensions and unsupported root metadata
+refuse. The default public reader/writer still implements only 0.3/0.4/0.5.
+Public migration/default selection belongs to P4/P6 and is not completed here.
+
+A native-owned extension check is reused by dictionary/HDF transport; preparation
+of mechanical arrays happens once. Structural transfers reuse the bounded writer.
+All-identity association metadata does not allocate an atom-sized index vector,
+even when another axis has an explicit map. Atomic publication uses a reusable
+private file helper with guards for failure, races and existing destinations.
+
+Three actual complete, projected and nonpolar-H-merged preparations are loaded in
+fresh processes under another unit policy with RDKit/OpenMM/Ackredit unavailable.
+Their observations retain original assignments, producer/history/maps, chemistry
+and sparse analyses. Selected PDBQT outputs remain byte-identical; a subsequent
+coordinate edit invalidates affected interaction observations through restored
+ownership. The two expected transport normalizations are explicit in the oracle:
+textual structure labels use object-array storage (existing structural schema 1),
+and QuantityRecord scalar quantities decode to zero-dimensional arrays with the
+same numeric dtype/unit. All other checkpoint observations retain strict checks.
+The original pilot's three representation mismatches and mistaken expected public
+exception class remain failed evidence; no stored-value loss was demonstrated.
+
+The expanded two-worker selection passes **1,229 cases without omissions**,
+including the 12 #661 public overflow guards, corrected #660 absence fixture,
+existing H5MSM versions and native dictionaries. Peak cgroup memory is
+1,031,282,688 bytes, host availability remains above 15 GB decimal, and there is
+no resource interruption. Clean source/fast gates and public delivery follow
+separately; P4–P6 and the full consumer qualification remain open.

@@ -61,7 +61,7 @@ def _axis_sizes_from_file(root):
     return sizes
 
 
-def _normalize_link(link, sizes):
+def _normalize_link(link, sizes, *, layers=_LAYERS):
     if not isinstance(link, dict):
         raise TypeError("Each axis link must be a dictionary.")
     if set(link) != {
@@ -78,7 +78,7 @@ def _normalize_link(link, sizes):
     target = link["target"]
     source_name = link["source_name"]
     target_name = link["target_name"]
-    if axis not in _AXIS_PAIRS or source not in _LAYERS or target not in _LAYERS:
+    if axis not in _AXIS_PAIRS or source not in layers or target not in layers:
         raise ValueError("Axis link has an unsupported axis or layer.")
     if source == target and source_name == target_name:
         raise ValueError("An axis link must connect distinct domains.")
@@ -109,6 +109,8 @@ def _normalize_link(link, sizes):
             or values.dtype.kind not in "iu"
         ):
             raise ValueError("Axis link indices must match the source axis length.")
+        if values.dtype.kind == "u" and np.any(values > np.iinfo(np.int64).max):
+            raise ValueError("Axis link indices are outside signed 64-bit range.")
         values = values.astype(np.int64, copy=True)
         if np.any(values < -1) or np.any(values >= target_size):
             raise ValueError("Axis link indices are outside the target axis.")
@@ -133,11 +135,11 @@ def _normalize_link(link, sizes):
     }
 
 
-def normalize_associations(links, sizes):
+def normalize_associations(links, sizes, *, layers=_LAYERS):
     """Validate links without mutating an HDF5 file."""
     if links is None:
         return None
-    normalized = [_normalize_link(link, sizes) for link in links]
+    normalized = [_normalize_link(link, sizes, layers=layers) for link in links]
     identities = [
         (
             item["axis"],
@@ -224,6 +226,11 @@ def _check_redundant_paths(links, sizes):
             for link in links
             if link["axis"] == axis
         }
+        if all(
+            isinstance(link["indices"], str) and link["indices"] == "identity"
+            for link in edges.values()
+        ):
+            continue
         for (source, middle), first in edges.items():
             forward = _link_array(first, sizes)
             reverse = edges.get((middle, source))
@@ -278,7 +285,7 @@ def write_associations(root, links):
             child.create_dataset("indices", data=indices, compression="gzip", **options)
 
 
-def read_associations(root, sizes, *, axes=None):
+def read_associations(root, sizes, *, axes=None, layers=_LAYERS):
     """Read and revalidate optional cross-layer links."""
     if "associations" not in root:
         return None
@@ -312,4 +319,4 @@ def read_associations(root, sizes, *, axes=None):
                 "indices": indices,
             }
         )
-    return normalize_associations(links, sizes)
+    return normalize_associations(links, sizes, layers=layers)

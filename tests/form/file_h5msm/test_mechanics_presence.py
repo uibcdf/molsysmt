@@ -27,7 +27,9 @@ def _system(domain):
             topology=Topology(n_atoms=2), structures=structures
         )
     if domain == "no_structures":
-        return MolSys(n_atoms=2)
+        source = MolSys(n_atoms=2)
+        source.structures = None
+        return source
     return MolSys._from_partial_domains(
         interactions={
             "empty": msm.Interactions.from_records(
@@ -51,6 +53,11 @@ def test_report_only_mechanics_is_refused_before_transport(
     tmp_path, domain, field, strict
 ):
     source = _system(domain)
+    assert (source.structures is None) == (domain in {"no_structures", "interactions"})
+    assert (source.topology is None) == (domain in {"topology_free", "interactions"})
+    assert (source.chemical_states is None) == (
+        domain in {"no_chemistry", "interactions"}
+    )
     report = {"schema": "synthetic-negative-fixture", "status": "stale"}
     setattr(source.molecular_mechanics, field, report)
     # This remains a parameter projection, not the complete stored domain.

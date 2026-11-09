@@ -351,8 +351,7 @@ def _prepare_mechanics(mechanics, n_atoms):
     return _prepare_tree(payload, quantity_field=_quantity_field)
 
 
-def write_mechanics(root, mechanics, *, n_atoms):
-    """Write a private layer after validating all stored fields, without engines."""
+def _validate_destination(root):
     if "molecular_mechanics" in root:
         raise ValueError("The molecular_mechanics layer already exists.")
     kind, version = root.attrs.get("type"), root.attrs.get("version")
@@ -363,12 +362,23 @@ def write_mechanics(root, mechanics, *, n_atoms):
         "1.0",
     }:
         raise ValueError("This H5MSM version has no molecular mechanics layer.")
+
+
+def _write_prepared_mechanics(root, prepared, *, n_atoms):
+    _validate_destination(root)
     n_atoms = _atom_count(n_atoms)
-    prepared = _prepare_mechanics(mechanics, n_atoms)
     group = root.create_group("molecular_mechanics")
     group.attrs["schema_version"] = 1
     group.attrs["n_atoms"] = n_atoms
     _write_tree(group, "snapshot", prepared)
+
+
+def write_mechanics(root, mechanics, *, n_atoms):
+    """Write a private layer after validating all stored fields, without engines."""
+    _validate_destination(root)
+    n_atoms = _atom_count(n_atoms)
+    prepared = _prepare_mechanics(mechanics, n_atoms)
+    _write_prepared_mechanics(root, prepared, n_atoms=n_atoms)
 
 
 def read_mechanics(root, *, n_atoms=None):

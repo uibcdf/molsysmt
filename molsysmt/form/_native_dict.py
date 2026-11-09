@@ -3,6 +3,12 @@
 import numpy as np
 import pandas as pd
 
+from molsysmt.native._transport import (
+    _validate_molsys_extensions,
+    _validate_structures_extensions,
+    _validate_topology_extensions,
+)
+
 from ._serialization import decode_typed_tree, encode_typed_tree, normalize_scalar
 
 TABLES = {
@@ -19,18 +25,6 @@ TABLES = {
     "entities": ("entity_id", "entity_name", "entity_type"),
     "chains": ("chain_id", "chain_name", "chain_type"),
 }
-
-
-def _reject_extensions(source, allowed):
-    """Refuse native payloads this wire schema cannot preserve explicitly."""
-    from molsysmt.native._copy import _slots
-
-    if set(vars(source)) - set(allowed) - {"_molsys_owner_ref"} or _slots(
-        source, exclude=("_molsys_owner_ref",), qualified=True
-    ):
-        raise ValueError(
-            f"Unsupported {type(source).__name__} extension payload in dictionary export."
-        )
 
 
 def _version(data, kind):
@@ -54,20 +48,7 @@ def encode_topology(topology):
     from molsysmt.native._chain_groups import by_chain
     from molsysmt.native._group_naming import encode as encode_naming
 
-    _reject_extensions(
-        topology,
-        {
-            *TABLES,
-            "_atom_molecule_membership",
-            "_chain_group_membership",
-            "_group_naming_codes",
-            "_atoms_dirty",
-            "_groups_dirty",
-            "_molecules_dirty",
-            "_entities_dirty",
-            "_chains_dirty",
-        },
-    )
+    _validate_topology_extensions(topology)
     data = {"format": "molsysmt", "kind": "topology", "version": "0.2", "metadata": {}}
     for name, columns in TABLES.items():
         table = getattr(topology, name)
@@ -251,28 +232,7 @@ def encode_structures(structures):
         to_molsysmt_StructuresDict,
     )
 
-    _reject_extensions(
-        structures,
-        {
-            "_coordinates",
-            "_box",
-            "_time",
-            "_time_step",
-            "_velocities",
-            "_b_factor",
-            "_occupancy",
-            "_temperature",
-            "_potential_energy",
-            "_kinetic_energy",
-            "constant_box",
-            "constant_time_step",
-            "constant_id_step",
-            "id_step",
-            "structure_id",
-            "alternate_location",
-            "bioassembly",
-        },
-    )
+    _validate_structures_extensions(structures)
     series = to_molsysmt_StructuresDict(structures, skip_digestion=True)
     alternate = series.get("alternate_location")
     if alternate is not None:
@@ -361,37 +321,7 @@ def encode_molsys(molsys):
     )
     from molsysmt.native.interactions_dict import _encode_interactions
 
-    _reject_extensions(
-        molsys,
-        {
-            "_topology",
-            "_chemical_states_domain",
-            "_structures",
-            "molecular_mechanics",
-            "_structure_chemical_state_indices",
-            "_interactions",
-        },
-    )
-    if molsys.chemical_states is not None:
-        _reject_extensions(
-            molsys.chemical_states, {"_n_atoms", "_states", "_reference_index"}
-        )
-        for state in molsys.chemical_states._states:
-            _reject_extensions(
-                state,
-                {
-                    "state_id",
-                    "atom_attributes",
-                    "component_indices",
-                    "bonds",
-                    "components",
-                    "_connectivity_completeness",
-                    "_component_completeness",
-                    "_component_evidence",
-                    "_provenance_index",
-                    "_preparation_history",
-                },
-            )
+    _validate_molsys_extensions(molsys)
     from molsysmt.native._mechanics_presence import has_stored_mechanics
 
     if has_stored_mechanics(molsys.molecular_mechanics):

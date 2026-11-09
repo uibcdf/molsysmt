@@ -6,6 +6,34 @@ from pathlib import Path, PosixPath
 from molsysmt._private.smonitor import ArgumentError
 
 
+@contextmanager
+def atomic_new_file(destination):
+    """Stage privately and publish one complete new file without replacing a path.
+
+    The caller must close its writer before leaving the context. Publication
+    requires hard-link support on the destination filesystem. Normal failures
+    remove staging files; abrupt process termination may leave private staging.
+    Atomic visibility does not imply crash durability.
+    """
+    import os
+
+    target = Path(destination)
+    if os.path.lexists(target):
+        raise FileExistsError(f"Output already exists: {target}")
+    descriptor, staged = tempfile.mkstemp(
+        dir=target.parent, prefix=".molsysmt-new-", suffix=".tmp"
+    )
+    os.close(descriptor)
+    try:
+        yield Path(staged)
+        os.link(staged, target)
+    finally:
+        try:
+            os.unlink(staged)
+        except FileNotFoundError:
+            pass
+
+
 def validate_copy_destination(source, destination, *, caller=None):
     """Validate a resolved destination independent of the source inode."""
     if destination is None:

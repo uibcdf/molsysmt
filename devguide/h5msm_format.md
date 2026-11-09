@@ -117,7 +117,9 @@ retain the same association meaning and a reader-valid encoding.
 The number of structures need not equal the number of chemical states. A system
 with one structure, two states and a structure-to-state map `[0]` retains both
 states, its independent reference index, and the explicit map. Unknown state
-associations remain `-1`. Existing field, bound, injectivity and redundant-path
+associations remain `-1`. Unsigned input maps must fit signed 64-bit storage
+before conversion; an overflowing value cannot become the unknown marker.
+Existing field, bound, injectivity and redundant-path
 checks apply; readers still reject an identity marker across unequal populations.
 This requires no H5MSM root or association-schema version change.
 
