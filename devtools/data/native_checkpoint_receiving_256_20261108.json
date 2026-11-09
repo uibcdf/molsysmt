@@ -1,0 +1,921 @@
+{
+  "schema_version": "molsysmt.native_checkpoint_receiving@1",
+  "date": "2026-11-08",
+  "owner_issue": "uibcdf/molsysmt#256",
+  "related_issue": "uibcdf/molsysmt#660",
+  "source": "e02ed4debf27ea5927eccb93c758b518f866867c",
+  "scope": "Qualification of an existing trusted native Python checkpoint in the tested compatible Linux/Python/Pint stack; not a new API, registered file form, H5MSM schema, chemical validation, installed/client/platform or release acceptance.",
+  "runtime_code_changed": false,
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "runs": {
+    "native-checkpoint-256-pilot": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/native-checkpoint-256-pilot.xml",
+          "-n0",
+          "tests/native/test_prepared_system_checkpoint.py",
+          "-k",
+          "complete and policy0",
+          "--maxfail=1"
+        ],
+        "exit_code": 1,
+        "seconds": 3.425477271899581,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "fab8cbccf570a60205a3863aad19dd4b7cfb8d3a",
+        "starting_git_status": "?? tests/native/test_prepared_system_checkpoint.py\n",
+        "ending_git_status": "?? tests/native/test_prepared_system_checkpoint.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8609
+      },
+      "resources": {
+        "started_utc": "2026-11-09T00:52:24.922348+00:00",
+        "seconds": 9.008702498860657,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.4208984375,
+            0.78955078125,
+            1.30078125
+          ],
+          "cpu_utilization": 0.02864321608040199,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16251822080,
+        "cgroup_memory_peak_bytes": 229928960,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "44249193b10cd3ece4d4ae78c1d4674eade8de65dc847fec44c11f0b80108b5a",
+        "-bounded.json": "b3ccc9bd5571fadcfb67741f2c09ed92c88817f1b16c7b2f2f89f7643684e970",
+        ".xml": "86852a225f582968b63bab1cb9126222a73493f930cb5fc2f5c3f8aa53cef9a1",
+        ".log": "c111fd0d5d309091cb88b0f94da36fcc9a24d62b109e46de5147beb203fdfcef",
+        "-inputs-before.json": "a699848056931c8311de21d54a43ba5e57ce780bee355144edca618ffdc19d36",
+        "-inputs-after.json": "a699848056931c8311de21d54a43ba5e57ce780bee355144edca618ffdc19d36",
+        "-reference-driver.py": "c06cbec488a734ba836de5447dbcfa11e533d00451210bbd24cda2b990f1a894",
+        "-resource-driver.py": "8e43309a1d1d95690ab011e461428f4f94997dd9e27ffcb973bff8b8e917a6ca"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "1",
+          "time": "1.358",
+          "timestamp": "2026-11-08T18:52:29.119064-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.native.test_prepared_system_checkpoint",
+          "name": "test_prepared_checkpoint_retains_full_public_state_in_a_fresh_reader[policy0-complete]",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "native-checkpoint-256-pilot-fixed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/native-checkpoint-256-pilot-fixed.xml",
+          "-n0",
+          "tests/native/test_prepared_system_checkpoint.py",
+          "-k",
+          "complete and policy0",
+          "--maxfail=1"
+        ],
+        "exit_code": 0,
+        "seconds": 5.499702159082517,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "fab8cbccf570a60205a3863aad19dd4b7cfb8d3a",
+        "starting_git_status": "?? tests/native/test_prepared_system_checkpoint.py\n",
+        "ending_git_status": "?? tests/native/test_prepared_system_checkpoint.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8609
+      },
+      "resources": {
+        "started_utc": "2026-11-09T00:53:58.434341+00:00",
+        "seconds": 11.015074967872351,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.68359375,
+            0.76416015625,
+            1.23779296875
+          ],
+          "cpu_utilization": 0.02812656956303361,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16186589184,
+        "cgroup_memory_peak_bytes": 360460288,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "a22578c5d300614df90e46bf71b248eb85db81950af471591b05c41b30ac58c2",
+        "-bounded.json": "dafb03b0320edcc9021086f9c6c14c5490d8fcbec03d0e870778b8edde1db0da",
+        ".xml": "4d3bdc1c0b0972ac05c90f565e7276a89d6dcbacf122f9b3617e51a9d31bcc06",
+        ".log": "74d9ed843d15de9a46dae2b67e1f542dad10240f590b45a99866335e1b0dbbf8",
+        "-inputs-before.json": "7e351ccba43222b9569d606c9b0c03844e2216bf552c92fabc4c7c185dd120ed",
+        "-inputs-after.json": "7e351ccba43222b9569d606c9b0c03844e2216bf552c92fabc4c7c185dd120ed",
+        "-reference-driver.py": "b1a2d8e2121d10d71f009c82cb66daf3abd1702a28a23aa50ac5a9b1f215b0e6",
+        "-resource-driver.py": "6c6a69d7b1814f5918b262bc6cf3b27c0d3025311f8ac83d7c4d3e2c7e3e9a2b"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "3.531",
+          "timestamp": "2026-11-08T18:54:02.587290-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "native-checkpoint-256-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/native-checkpoint-256-directed.xml",
+          "-n0",
+          "tests/native/test_prepared_system_checkpoint.py",
+          "--basetemp=<private-evidence>/native-checkpoint-256-directed"
+        ],
+        "exit_code": 0,
+        "seconds": 30.610939639853314,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "fab8cbccf570a60205a3863aad19dd4b7cfb8d3a",
+        "starting_git_status": "?? tests/native/test_prepared_system_checkpoint.py\n",
+        "ending_git_status": "?? tests/native/test_prepared_system_checkpoint.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8609
+      },
+      "resources": {
+        "started_utc": "2026-11-09T00:57:51.476151+00:00",
+        "seconds": 36.03138619987294,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.8466796875,
+            0.93798828125,
+            1.20703125
+          ],
+          "cpu_utilization": 0.026130653266331683,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16013340672,
+        "cgroup_memory_peak_bytes": 360378368,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "7d864c1d4980c87af23065d63e7c0ef415ca861f520589a382c4c19035576b63",
+        "-bounded.json": "ab50534ecd54770d3652b2549ee2804d2183c64007200e365c220de6516b62e8",
+        ".xml": "2b01f0bc4a49a5320773f42608041cdb046f7aed1705e30f74ca751379e8142a",
+        ".log": "75083172ac7074c4f4fdc7e7b4ed8c98ffc7cd11ea0a54bd1d352127a1c60248",
+        "-inputs-before.json": "d7c210a7a4ec12f690ed4569af41f761d1d760263907902b7bea113ed700d931",
+        "-inputs-after.json": "d7c210a7a4ec12f690ed4569af41f761d1d760263907902b7bea113ed700d931",
+        "-reference-driver.py": "9205e8773be36546a356d7049de5ce01e0a39c7364fd1d8fb5caf3416337bfa7",
+        "-resource-driver.py": "e653db204877712a2cbb25519fa27c24eb8d45d34eee6798461d38b4989325ee"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "10",
+          "time": "28.571",
+          "timestamp": "2026-11-08T18:57:55.643129-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "native-checkpoint-256-presence-probe": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-temporary>/molsysmt-mechanics-presence-probe-256.py"
+        ],
+        "exit_code": 1,
+        "seconds": 0.7025736139621586,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "fab8cbccf570a60205a3863aad19dd4b7cfb8d3a",
+        "starting_git_status": " M devguide/forms_and_conversions.md\n M docs/content/course/Common_Core/04_Native_Forms.ipynb\n M docs/content/user/cookbook/clustering_poses.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSysDict.md\n?? tests/native/test_prepared_system_checkpoint.py\n",
+        "ending_git_status": " M devguide/forms_and_conversions.md\n M docs/content/course/Common_Core/04_Native_Forms.ipynb\n M docs/content/user/cookbook/clustering_poses.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSysDict.md\n?? tests/native/test_prepared_system_checkpoint.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8609
+      },
+      "resources": {
+        "started_utc": "2026-11-09T01:05:11.205794+00:00",
+        "seconds": 7.007265625987202,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.2470703125,
+            0.85498046875,
+            1.0341796875
+          ],
+          "cpu_utilization": 0.030120481927710885,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16447954944,
+        "cgroup_memory_peak_bytes": 84221952,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "f0d981f9745e12d6d6450de1943c1fe02c81e5848666d2dc137d773d9bfc7181",
+        "-bounded.json": "2a98e90a09cd14561ef8a074a84da3aa5e8475b8c1a5a82973a47c64a554b6df",
+        ".log": "51e42a5953729b434fb03392eb395de1df79687d25ced41719be9621c9fb4372",
+        "-inputs-before.json": "10b25342aae3291c3ee81400baf295cc05cd2285bbbee99300419bf19fb05721",
+        "-inputs-after.json": "10b25342aae3291c3ee81400baf295cc05cd2285bbbee99300419bf19fb05721",
+        "-reference-driver.py": "839df5c1b11b15717f2d186f276a30e8694dd91a4bc7ec172cc2eaf7b23e706a",
+        "-resource-driver.py": "c3d3a77eefe59b389c08e2fedef30a48411d5180770c2f86d654f5e0c5eead9b"
+      }
+    },
+    "native-checkpoint-256-presence-probe-fixed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-temporary>/molsysmt-mechanics-presence-probe-fixed-256.py"
+        ],
+        "exit_code": 0,
+        "seconds": 2.5645044548437,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "fab8cbccf570a60205a3863aad19dd4b7cfb8d3a",
+        "starting_git_status": " M devguide/forms_and_conversions.md\n M docs/content/course/Common_Core/04_Native_Forms.ipynb\n M docs/content/user/cookbook/clustering_poses.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSysDict.md\n?? tests/native/test_prepared_system_checkpoint.py\n",
+        "ending_git_status": " M devguide/forms_and_conversions.md\n M docs/content/course/Common_Core/04_Native_Forms.ipynb\n M docs/content/user/cookbook/clustering_poses.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSysDict.md\n?? tests/native/test_prepared_system_checkpoint.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8609
+      },
+      "resources": {
+        "started_utc": "2026-11-09T01:06:36.334696+00:00",
+        "seconds": 8.008368632057682,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.7099609375,
+            0.798828125,
+            0.99462890625
+          ],
+          "cpu_utilization": 0.028140703517587906,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16322105344,
+        "cgroup_memory_peak_bytes": 202584064,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "b9a83494ff2560c4309e1c5cec7ede08dfba8a8b99d9a2e9bb52c758ad315132",
+        "-bounded.json": "56f3a67d2797e6a374902cd2f6434ac0552bea385d902b1efdd03b7a096b958f",
+        ".log": "285c519f775c8c5eadb5816368c7d00a74b6e99ab7da8c348508acebecd451f1",
+        "-inputs-before.json": "10b25342aae3291c3ee81400baf295cc05cd2285bbbee99300419bf19fb05721",
+        "-inputs-after.json": "10b25342aae3291c3ee81400baf295cc05cd2285bbbee99300419bf19fb05721",
+        "-reference-driver.py": "9f6bab38e16423b1ad92001483842fc08cd351d0b3e74bdbbf0ad9ea7564cc13",
+        "-resource-driver.py": "ca6813a0de29d2f1479243dbf115fba0aa3b86f63933d7cc30e59d22e42aebac"
+      }
+    },
+    "native-checkpoint-256-received": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/native-checkpoint-256-received.xml",
+          "-n0",
+          "--basetemp=<private-evidence>/native-checkpoint-256-received",
+          "tests/native/test_prepared_system_checkpoint.py",
+          "tests/build/test_assign_partial_charges.py",
+          "tests/build/test_assign_autodock_atom_types.py",
+          "tests/basic/convert/mult_to_one/test_native_mechanics_composition.py",
+          "tests/native/test_molsys_copy.py",
+          "tests/native/test_structure_owner.py",
+          "tests/form/file_h5msm/test_public_h5msm_v05.py",
+          "tests/form/molsysmt_MolSysDict"
+        ],
+        "exit_code": 0,
+        "seconds": 72.7799299811013,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "e02ed4debf27ea5927eccb93c758b518f866867c",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8610
+      },
+      "resources": {
+        "started_utc": "2026-11-09T01:14:11.197039+00:00",
+        "seconds": 82.06236703996547,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.416015625,
+            2.13818359375,
+            1.642578125
+          ],
+          "cpu_utilization": 0.041729512317747575,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13713899520,
+        "cgroup_memory_peak_bytes": 363069440,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "d5f4382d4886b85ecdcf317517fab04cf2d97df60422b2a459ae4ff300093328",
+        "-bounded.json": "a88e846b312662640cb45e045cb369c10530a85c8f756496c9e5c39963a486c4",
+        ".xml": "966b0208ed2176b43840846b359bff60cade4350e7b7bd24b5c8b0e2cf57c5b3",
+        ".log": "57ab18d86a1ac72c4a06b9a0b7a3d86ce95126856f464b9cc60f6e8708332a0c",
+        "-inputs-before.json": "58243863098b673dcbf1fb7e3d25da34063e89a80bc61d29531f434429cc8401",
+        "-inputs-after.json": "58243863098b673dcbf1fb7e3d25da34063e89a80bc61d29531f434429cc8401",
+        "-reference-driver.py": "2f3d41ee6cc245e5d27a26d8e7f5eb94e783d36eda8ff906633da8b045d356fa",
+        "-resource-driver.py": "4d5c4a9f12dbe7bfeb39c64e248fa62831590514865ae95e7c05741811071614"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "235",
+          "time": "69.361",
+          "timestamp": "2026-11-08T19:14:16.631043-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "native-checkpoint-256-fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 24.778617681004107,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "e02ed4debf27ea5927eccb93c758b518f866867c",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8610
+      },
+      "resources": {
+        "started_utc": "2026-11-09T01:14:12.661549+00:00",
+        "seconds": 32.024716845015064,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.462890625,
+            2.1357421875,
+            1.64453125
+          ],
+          "cpu_utilization": 0.11211664152840628,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14587404288,
+        "cgroup_memory_peak_bytes": 417255424,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "bda34b043ceceebe052cfd3295ff0b3e1c3900f0259fff8e61140134c5833d84",
+        "-bounded.json": "c8acdbe5093d93e17dd854a677de5506c6257c93abedaa892d789b50743a8be4",
+        ".log": "9193274ceef683606a3ba68fe10376edac99fe978207c2878f26362c0531930e",
+        "-inputs-before.json": "58243863098b673dcbf1fb7e3d25da34063e89a80bc61d29531f434429cc8401",
+        "-inputs-after.json": "58243863098b673dcbf1fb7e3d25da34063e89a80bc61d29531f434429cc8401",
+        "-reference-driver.py": "dca1472597ea1a230a2352cdd5f30c00bd3b99483acbc17ba599796592b280e2",
+        "-resource-driver.py": "15afdc7eecd5b001ffa2ca34a790aceea8c245da186e88e4b745f542f168e383"
+      }
+    },
+    "native-checkpoint-256-html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/native-checkpoint-256-html"
+        ],
+        "exit_code": 0,
+        "seconds": 164.93519907491282,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "e02ed4debf27ea5927eccb93c758b518f866867c",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8610
+      },
+      "resources": {
+        "started_utc": "2026-11-09T01:14:12.109275+00:00",
+        "seconds": 172.15614347998053,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.416015625,
+            2.13818359375,
+            1.642578125
+          ],
+          "cpu_utilization": 0.09145728643216078,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13714128896,
+        "cgroup_memory_peak_bytes": 1340157952,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "01464c5f1fc4afb0e853b80ecbfb771cf0c9f7953009ddcbbd2d505b867b7212",
+        "-bounded.json": "80a0ca053a9b84319f850fc8760b51ecab9f29a47b5c8d5bacc6d26ac2909bec",
+        ".log": "ce063ee891fc7aef51560a97192d89859f48c588708d26e49a310e310f708880",
+        "-inputs-before.json": "58243863098b673dcbf1fb7e3d25da34063e89a80bc61d29531f434429cc8401",
+        "-inputs-after.json": "58243863098b673dcbf1fb7e3d25da34063e89a80bc61d29531f434429cc8401",
+        "-reference-driver.py": "e5ff03d29a9e808aa7098c7ecda9109853862a1a1b575a6e51f541971aea07aa",
+        "-resource-driver.py": "fb4f47342f0c635daf24673794b2cff97193a52682abad8e29bf000521c42d3b"
+      }
+    }
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "molsysmt_version": "0+unknown",
+    "versions": {
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1"
+    },
+    "imports": {
+      "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+      "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261106/viewer-e4dd58cf-source/molsysviewer/__init__.py",
+      "pyunitwizard": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+      "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+      "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+      "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+    }
+  },
+  "fresh_readers": [
+    {
+      "case": "test_checkpoint_does_not_rebin0",
+      "pickle_protocol": 5,
+      "checkpoint_bytes": 17816,
+      "checkpoint_sha256": "09f8c5b244c54e4af7df8a14581a38d85b2b0420aa6fa17b790bc997b1befb4a",
+      "reader_flags": {
+        "restored": true,
+        "stale_assignment_refused": true,
+        "original_producer_retained": true,
+        "assignment_recalculation": false,
+        "policy_preserved": true
+      },
+      "reader_stderr": "ERROR: Structural inconsistency detected: Stored partial charges no longer match their bound chemistry or values; explicitly recalculate or replace the assignment.. Check the reported reason for incompatible geometry, dimensions or index correspondence. When comparing or merging systems, also verify the selected atoms, groups and structures. Docs: https://www.uibcdf.org/MolSysMT (Hint: Check the reported reason for incompatible geometry, dimensions or index correspondence. When comparing or merging systems, also verify the selected atoms, groups and structures. Docs: https://www.uibcdf.org/MolSysMT)\n",
+      "evidence_sha256": {
+        "reader_result.json": "9017527c33caa3fc8214c84ac141916c68d06c036660dc9bfa8cdb203eb95be3",
+        "prepared.pkl": "09f8c5b244c54e4af7df8a14581a38d85b2b0420aa6fa17b790bc997b1befb4a",
+        "expected.json": "0e7bf68a861fc66254eb82fefc377105ed690ac9c9556df0e608b79133dbdf05"
+      }
+    },
+    {
+      "case": "test_checkpoint_does_not_rebin1",
+      "pickle_protocol": 5,
+      "checkpoint_bytes": 17819,
+      "checkpoint_sha256": "38283b32e6fd5c961b40e177c6f19ac02115775f13975bf341d20d463e3cf53c",
+      "reader_flags": {
+        "restored": true,
+        "stale_assignment_refused": true,
+        "original_producer_retained": true,
+        "assignment_recalculation": false,
+        "policy_preserved": true
+      },
+      "reader_stderr": "ERROR: Structural inconsistency detected: Stored AutoDock types no longer match bound chemistry or values; explicitly recalculate or replace them.. Check the reported reason for incompatible geometry, dimensions or index correspondence. When comparing or merging systems, also verify the selected atoms, groups and structures. Docs: https://www.uibcdf.org/MolSysMT (Hint: Check the reported reason for incompatible geometry, dimensions or index correspondence. When comparing or merging systems, also verify the selected atoms, groups and structures. Docs: https://www.uibcdf.org/MolSysMT)\n",
+      "evidence_sha256": {
+        "reader_result.json": "3b3176aae6310370a9e50bc27691f319a42f8339037a5c2dbccbb60f2772392b",
+        "prepared.pkl": "38283b32e6fd5c961b40e177c6f19ac02115775f13975bf341d20d463e3cf53c",
+        "expected.json": "66f97780f2dca638e58f69050a3b7f5fedac53670e8d9808c4cc1510b61ccc80"
+      }
+    },
+    {
+      "case": "test_checkpoint_does_not_rebin2",
+      "pickle_protocol": 5,
+      "checkpoint_bytes": 17657,
+      "checkpoint_sha256": "a7728b8f93418538fdb019a9228eb210ff0036e2582bcb5357bd61342c0f9d27",
+      "reader_flags": {
+        "restored": true,
+        "stale_assignment_refused": true,
+        "original_producer_retained": true,
+        "assignment_recalculation": false,
+        "policy_preserved": true
+      },
+      "reader_stderr": "ERROR: Structural inconsistency detected: Stored partial charges no longer match their bound chemistry or values; explicitly recalculate or replace the assignment.. Check the reported reason for incompatible geometry, dimensions or index correspondence. When comparing or merging systems, also verify the selected atoms, groups and structures. Docs: https://www.uibcdf.org/MolSysMT (Hint: Check the reported reason for incompatible geometry, dimensions or index correspondence. When comparing or merging systems, also verify the selected atoms, groups and structures. Docs: https://www.uibcdf.org/MolSysMT)\n",
+      "evidence_sha256": {
+        "reader_result.json": "eadc1f4350b6f08838917935252f77c26f7b3a67a810aec81f292a58abc93a63",
+        "prepared.pkl": "a7728b8f93418538fdb019a9228eb210ff0036e2582bcb5357bd61342c0f9d27",
+        "expected.json": "728e7842334c22393014817106de25e292e9c98a654a7ff711fc02f305928aae"
+      }
+    },
+    {
+      "case": "test_checkpoint_does_not_rebin3",
+      "pickle_protocol": 5,
+      "checkpoint_bytes": 17657,
+      "checkpoint_sha256": "27f737d4ab4a0fc383535a1872fc28d592c8b9fa92a4de8fca96d205fdb9cc00",
+      "reader_flags": {
+        "restored": true,
+        "stale_assignment_refused": true,
+        "original_producer_retained": true,
+        "assignment_recalculation": false,
+        "policy_preserved": true
+      },
+      "reader_stderr": "ERROR: Structural inconsistency detected: Stored partial charges do not match the chemical state associated with the output structures.. Check the reported reason for incompatible geometry, dimensions or index correspondence. When comparing or merging systems, also verify the selected atoms, groups and structures. Docs: https://www.uibcdf.org/MolSysMT (Hint: Check the reported reason for incompatible geometry, dimensions or index correspondence. When comparing or merging systems, also verify the selected atoms, groups and structures. Docs: https://www.uibcdf.org/MolSysMT)\n",
+      "evidence_sha256": {
+        "reader_result.json": "d1575071d6544b5d1727f65d7d8ea963c28d0162715e76daec6b9107bc5411da",
+        "prepared.pkl": "27f737d4ab4a0fc383535a1872fc28d592c8b9fa92a4de8fca96d205fdb9cc00",
+        "expected.json": "d171f98e27d0ec9531e963d3bf33313e196e8c67a37b3ed32a511c36c4c8bbe4"
+      }
+    },
+    {
+      "case": "test_prepared_checkpoint_retai0",
+      "pickle_protocol": 5,
+      "checkpoint_bytes": 17803,
+      "checkpoint_sha256": "bf387d44adcb8d9bc1dc41397ea832dea0a18daa2f80f133cab3acb78c83fc6e",
+      "reader_flags": {
+        "restored": true,
+        "assignment_recalculation": false,
+        "public_reexport_identical": true,
+        "original_producer_retained": true,
+        "coordinate_edit_and_invalidation": true,
+        "policy_preserved": true
+      },
+      "reader_stderr": "",
+      "evidence_sha256": {
+        "reader_result.json": "7e2a90a8daf4d7516bbbb1fcd8e0903bb27904d1d740daa9d846a04b860776d4",
+        "prepared.pkl": "bf387d44adcb8d9bc1dc41397ea832dea0a18daa2f80f133cab3acb78c83fc6e",
+        "expected.json": "719f752b1a1ebfe88a7bc69f24647d22f8779f42f5a74e599eba59093b815814",
+        "expected_pdbqt.json": "8f630d72a3a7fb6dc48645d210dfe6ec33325f1336b225f431251a52ac30f459"
+      }
+    },
+    {
+      "case": "test_prepared_checkpoint_retai1",
+      "pickle_protocol": 5,
+      "checkpoint_bytes": 16334,
+      "checkpoint_sha256": "822773f96b5db7e27da303d8c18ece7c5d675e77ec74f9befb780406d1d79629",
+      "reader_flags": {
+        "restored": true,
+        "assignment_recalculation": false,
+        "public_reexport_identical": true,
+        "original_producer_retained": true,
+        "coordinate_edit_and_invalidation": true,
+        "policy_preserved": true
+      },
+      "reader_stderr": "",
+      "evidence_sha256": {
+        "reader_result.json": "08b021fe129e0955f74b8d29971e7338ab518b79cd48b4f158f6a2a82427a332",
+        "prepared.pkl": "822773f96b5db7e27da303d8c18ece7c5d675e77ec74f9befb780406d1d79629",
+        "expected.json": "8314ed7fc83e51b3810c6278aa03ae16fddc25c0508185a0381218d5105e5d6a",
+        "expected_pdbqt.json": "31b2c4d6d3487b2bd335b46c978966b591f9c6a1a89e9864145d3f34e492d52c"
+      }
+    },
+    {
+      "case": "test_prepared_checkpoint_retai2",
+      "pickle_protocol": 5,
+      "checkpoint_bytes": 18811,
+      "checkpoint_sha256": "98efdad16a1a0a0c9eba608444f6a54e02ba8549c5efd42ca076b32a4f789e2f",
+      "reader_flags": {
+        "restored": true,
+        "assignment_recalculation": false,
+        "public_reexport_identical": true,
+        "original_producer_retained": true,
+        "coordinate_edit_and_invalidation": true,
+        "policy_preserved": true
+      },
+      "reader_stderr": "",
+      "evidence_sha256": {
+        "reader_result.json": "03a2e46dfcdd4f53b1bd63ef4798d58839cab04c33f068ff657947729c8be961",
+        "prepared.pkl": "98efdad16a1a0a0c9eba608444f6a54e02ba8549c5efd42ca076b32a4f789e2f",
+        "expected.json": "bcfdd59a12204a25e1148be2f60a19a42de529681a7f1ab615785c9a1aef7724",
+        "expected_pdbqt.json": "4ec8cab7018c3237075f4dfdf8b80d8f3d62e2b71d981b4770566a3cd0aec0a5"
+      }
+    },
+    {
+      "case": "test_prepared_checkpoint_retai3",
+      "pickle_protocol": 5,
+      "checkpoint_bytes": 17816,
+      "checkpoint_sha256": "293c6d810a1ed5091bde471fd5a6d5b3bb86077f76da8f6b29bca8981ccb28cc",
+      "reader_flags": {
+        "restored": true,
+        "assignment_recalculation": false,
+        "public_reexport_identical": true,
+        "original_producer_retained": true,
+        "coordinate_edit_and_invalidation": true,
+        "policy_preserved": true
+      },
+      "reader_stderr": "",
+      "evidence_sha256": {
+        "reader_result.json": "6319a9bd478b59a5895be06c4bb3ebfd5236af26b5043855f1806fc4979ba0b3",
+        "prepared.pkl": "293c6d810a1ed5091bde471fd5a6d5b3bb86077f76da8f6b29bca8981ccb28cc",
+        "expected.json": "d9a8af1bf317b316a90f002f88aa4a461ca1dcf5c415ff84ee0201f4398884b5",
+        "expected_pdbqt.json": "8f630d72a3a7fb6dc48645d210dfe6ec33325f1336b225f431251a52ac30f459"
+      }
+    },
+    {
+      "case": "test_prepared_checkpoint_retai4",
+      "pickle_protocol": 5,
+      "checkpoint_bytes": 16350,
+      "checkpoint_sha256": "95fb63e50bc785e07408b38c6a695cee794ec0d24f472306de6a0ca71862dbaa",
+      "reader_flags": {
+        "restored": true,
+        "assignment_recalculation": false,
+        "public_reexport_identical": true,
+        "original_producer_retained": true,
+        "coordinate_edit_and_invalidation": true,
+        "policy_preserved": true
+      },
+      "reader_stderr": "",
+      "evidence_sha256": {
+        "reader_result.json": "2e2dfcc85ce5c59804134bde72424ba2159ca4569db2499c5f7edb145e8ebbdb",
+        "prepared.pkl": "95fb63e50bc785e07408b38c6a695cee794ec0d24f472306de6a0ca71862dbaa",
+        "expected.json": "6dc5426a7114ff8f384b133e9033fc8c270b075ffd5c458b3035b7f2a44bbadc",
+        "expected_pdbqt.json": "31b2c4d6d3487b2bd335b46c978966b591f9c6a1a89e9864145d3f34e492d52c"
+      }
+    },
+    {
+      "case": "test_prepared_checkpoint_retai5",
+      "pickle_protocol": 5,
+      "checkpoint_bytes": 18811,
+      "checkpoint_sha256": "8f86ba76000556484801afa7dc554d6d6cb20f8d144b7e2ade043f5a528f4a5f",
+      "reader_flags": {
+        "restored": true,
+        "assignment_recalculation": false,
+        "public_reexport_identical": true,
+        "original_producer_retained": true,
+        "coordinate_edit_and_invalidation": true,
+        "policy_preserved": true
+      },
+      "reader_stderr": "",
+      "evidence_sha256": {
+        "reader_result.json": "348042cf3a97ea52598f4f7eac24ef70227faf5cf8cb77eb31a70198a58f740b",
+        "prepared.pkl": "8f86ba76000556484801afa7dc554d6d6cb20f8d144b7e2ade043f5a528f4a5f",
+        "expected.json": "7e81206d4ea8335e3a097052d37efb0d6985d10a2e93ca485e542e886223393e",
+        "expected_pdbqt.json": "4ec8cab7018c3237075f4dfdf8b80d8f3d62e2b71d981b4770566a3cd0aec0a5"
+      }
+    }
+  ],
+  "notebook_preservation": [
+    {
+      "file": "docs/content/user/cookbook/clustering_poses.ipynb",
+      "code_and_outputs_unchanged": true,
+      "code_and_outputs_sha256": "5d0401a4bfa3e05cb709723cf0376fe2b451844f4e9eb30f7cfec615d2127345"
+    },
+    {
+      "file": "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+      "code_and_outputs_unchanged": true,
+      "code_and_outputs_sha256": "69eacb4ce900be84be7c9f6d9b6435faf62b6b633ab30995164cce4917091b18"
+    }
+  ],
+  "html_inspection": {
+    "pages": [
+      {
+        "page": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "sha256": "31edee07ea6cbf9d4c991107e47bf4ba83cb854c1ddac6cfdcfb17d4aa2030b0",
+        "excerpt": "ith attached analyses. See Changing coordinates . For bounded trusted workspace checkpoints, the existing native pickle protocol also retains prepared mechanical reports in the tested compatible environment. See Native Checkpoints for the example, fidelity scope and distinction from portable H5MSM p",
+        "checkpoint_links": [
+          "molsysmt_MolSysDict.html#user-foundations-native-checkpoints"
+        ]
+      },
+      {
+        "page": "content/user/foundations/native_world/classes/molsysmt_MolSysDict.html",
+        "sha256": "266466c593795b987311414761c5b3d2fcb40c1439640c5d0acab5319b700d98",
+        "excerpt": "calStatesDict and InteractionsDict retain their existing typed NumPy contracts. Native Checkpoints # For a bounded workspace checkpoint, you can save the native MolSys object through Python\u2019s existing pickle protocol. This is separate from MolSysDict and H5MSM; it does not add a MolSysMT file form o",
+        "checkpoint_links": []
+      },
+      {
+        "page": "content/user/cookbook/clustering_poses.html",
+        "sha256": "833efbea01228230fb51d2f5f97998631770d9076f87f314b115b1d77164b7e9",
+        "excerpt": " no H5MSM persistence schema for RMSD/clustering reports. For a bounded trusted checkpoint of the prepared native molecular object, see Native Checkpoints . Save detached RMSD/clustering reports separately. A workflow requiring a complete H5MSM round trip retains the current nonempty-mechanics limit",
+        "checkpoint_links": [
+          "../foundations/native_world/classes/molsysmt_MolSysDict.html#user-foundations-native-checkpoints"
+        ]
+      },
+      {
+        "page": "content/course/Common_Core/04_Native_Forms.html",
+        "sha256": "525973a5377610a38b3f5f99aedb33a1ac83f0fbc4c651c913a4cb7083b55799",
+        "excerpt": " commit/change record. See Inspecting the running version . For bounded trusted checkpoints of an already prepared native object, you can use the existing Python pickle protocol in a compatible environment. See Native Checkpoints for the tested mechanical-report scope, whole-object memory behavior a",
+        "checkpoint_links": [
+          "../../user/foundations/native_world/classes/molsysmt_MolSysDict.html#user-foundations-native-checkpoints"
+        ]
+      }
+    ],
+    "warnings": [
+      "api/build/autosummary/molsysmt.build.ProtonationAssessment.rst:2: WARNING: Title underline too short.",
+      "api/build/autosummary/molsysmt.build.add_ions.rst:2: WARNING: Title underline too short.",
+      "api/build/autosummary/molsysmt.build.assess_protonation.rst:2: WARNING: Title underline too short.",
+      "api/build/autosummary/molsysmt.build.reconcile_protonation.rst:2: WARNING: Title underline too short.",
+      "api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst:2: WARNING: Title underline too short.",
+      "api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst:2: WARNING: Title underline too short."
+    ],
+    "warnings_unchanged": true,
+    "scope": "Rendered text/anchor/link inspection; unchanged notebook code and outputs, no new browser or full notebook execution.",
+    "target_anchor_and_trust_text_independently_verified": true
+  },
+  "report_only_negative_probe": {
+    "scope": "Manual report-only negative fixture, not a valid prepared chemical assignment.",
+    "results": [
+      {
+        "field": "partial_charge_assignment",
+        "route": "molsysmt.MolSysDict",
+        "writer": "accepted",
+        "restored_value": null
+      },
+      {
+        "field": "partial_charge_assignment",
+        "route": "file:h5msm",
+        "writer": "accepted",
+        "restored_value": null
+      },
+      {
+        "field": "atom_type_assignment",
+        "route": "molsysmt.MolSysDict",
+        "writer": "accepted",
+        "restored_value": null
+      },
+      {
+        "field": "atom_type_assignment",
+        "route": "file:h5msm",
+        "writer": "accepted",
+        "restored_value": null
+      }
+    ]
+  },
+  "private_probe_script_sha256": "0ed7d637e443e939c818cf8457d5a6a7e6a030f817e043094bf238f2b681b257",
+  "acceptance": [
+    "The original pilot failed before checkpointing because its PDBQT fixture selected all three structures; explicit one-structure exports repair the fixture without production changes.",
+    "Six valid full/projected/nonpolar-H-merged cases retain public stored data and named provenance through fresh process readers with different output units.",
+    "Four deliberately changed charge/type/chemistry/association cases remain refused after restoration rather than receiving fabricated new bindings.",
+    "Readers block RDKit/OpenMM/Ackredit, forbid assignment calculations, check chosen policy across root import and loading, and test a synthetic reader-version label only during restoration. Actual version is restored before same-current-producer byte comparison.",
+    "Public selected PDBQT exports are byte-identical; controlled coordinate editing preserves graph-based assignments and actually invalidates the restored sparse analysis.",
+    "Clean source passes 235 affected cases with no skips, fourteen fast gates and full HTML. Ten fresh readers exclude pytest symlink aliases. Two existing notebook code/output populations are unchanged."
+  ],
+  "limits": [
+    "Compatible source/package/unit-backend definitions and trusted input are required. No arbitrary extension, external engine object or cross-release/platform compatibility is received.",
+    "Whole-object resident Python serialization has no MolSysMT chunk or RAM-budget preflight; the small fixture sizes are observations, not a storage/performance comparison.",
+    "H5MSM 0.5/MolSysDict 0.2 are not extended. The independent manual report-only refusal gap is owned by #660; no valid client corruption is claimed.",
+    "The original complete H5MSM client gate remains held. A checkpoint alternative requires its own explicit consumer prescription and independent receiving. #256 remains open for post-1.0 H5MSM 0.6."
+  ],
+  "source_change_scope": {
+    "base": "fab8cbccf570a60205a3863aad19dd4b7cfb8d3a",
+    "changed_paths": [
+      "devguide/forms_and_conversions.md",
+      "devguide/pending_bugs/README.md",
+      "devguide/pending_bugs/full_system_writers_silently_discard_report_only_mechanical_provenance.md",
+      "devguide/pending_proposals/README.md",
+      "devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md",
+      "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+      "docs/content/user/cookbook/clustering_poses.ipynb",
+      "docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md",
+      "docs/content/user/foundations/native_world/classes/molsysmt_MolSysDict.md",
+      "tests/native/test_prepared_system_checkpoint.py"
+    ],
+    "runtime_library_paths_changed": []
+  }
+}

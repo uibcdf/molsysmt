@@ -172,9 +172,9 @@ that fixture, one pilot passes; the first complete directed run passes all ten
 cases. Its process tree peaks at 360,378,368 bytes with host availability above
 16 GB decimal, one CPU, a 2-GiB limit and no resource interruption. Original
 attempts and per-reader outputs remain under
-`.pytest_cache/external-reference-421/native-checkpoint-256-*`. Final clean
-combined receiving and the added reader-label/import-policy controls remain
-pending before this route is offered publicly.
+`.pytest_cache/external-reference-421/native-checkpoint-256-*`. Final clean combined receiving below includes the added reader-label/import-policy
+controls. Public source delivery and the independent consumer decision remain
+separate from that evidence.
 
 This is a current native-data checkpoint, not a fully parameterized force-field
 or external simulation-engine snapshot. The stored force-field/solvent settings
@@ -190,3 +190,39 @@ metadata disappears in both full-system encoders. This uses a manual stale
 negative fixture, not a valid calculated assignment or affected client file.
 The defect is separately owned by uibcdf/molsysmt#660; fixing that rejection
 must not introduce mechanics storage into H5MSM 0.5.
+
+## Bounded review outcome — 2026-11-08
+
+Clean source `e02ed4debf27ea5927eccb93c758b518f866867c` passes **235 affected
+cases with no omissions**, including all ten fresh-reader scenarios and the
+existing preparation, native-copy/owner, composition, typed-dictionary and H5MSM
+restriction guards. Fourteen fast gates pass. Four rendered Foundation/Cookbook/
+course pages and their checkpoint links are inspected; the same six preexisting
+HTML warnings remain. Existing code, execution counts and outputs in both edited
+notebooks are unchanged. The library runtime, dependencies and Rust binary are
+unchanged by this receiving work.
+
+The [portable receiving record](../../devtools/data/native_checkpoint_receiving_256_20261108.json)
+retains every original attempt and ten distinct reader records (excluding pytest
+symlink aliases). Six positive readers preserve full public observation trees,
+original producer labels and byte-identical selected exports. Four adverse
+readers continue to refuse stale evidence. All 8,610 source and 2,463 Viewer
+before/after input hashes match. Final tests peak at 363,069,440 bytes; all final
+process trees preserve more than 13 GB decimal host availability without OOM,
+reserve or pressure stops. Small checkpoint lengths are fixture observations,
+not a storage benchmark or evidence for large systems.
+
+| Existing route | Current bounded conclusion |
+| --- | --- |
+| H5MSM 0.5 | Mechanical parameters are intentionally refused; the separate report-only refusal gap is #660. No mechanics layer is added. |
+| MolSysDict 0.2 | Same parameter restriction and #660 boundary; not a complete prepared-system mechanics transport. |
+| MolecularMechanicsDict | Parameter projection omits full named reports; not a complete checkpoint by itself. |
+| Native Python pickle | Contract-tested for the compatible trusted native fixtures above; retains the complete represented prepared object and permits continued use. |
+
+The owner can now offer that **existing bounded native checkpoint option** to
+DockingMT for a separately declared local workflow. Its original complete H5MSM
+selection must retain its failure/hold until its own criterion is met; it is
+not silently replaced by this option. The H5MSM 0.6 proposal stays **open and
+post-1.0** with all five original schema/model acceptance criteria. This review
+adds no weighted release milestone or claimed source-issue closure. Next local
+correctness work is #660's explicit rejection boundary, not new storage design.
