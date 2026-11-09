@@ -1,14 +1,14 @@
 ---
 summary: Inclusive distance-clustering cutoff changes under a nondefault length policy
 issue: uibcdf/molsysmt#659
-status: active
+status: resolved
 opened: 2026-11-08
-closed:
+closed: 2026-11-08
 severity: high
 verification: reproduced
 area: [structure, units]
-guard:
-normative:
+guard: tests/structure/test_distance_clusters_unit_policy.py
+normative: devguide/SCALABILITY.md
 blocked_by: []
 supersedes: []
 ---
@@ -122,5 +122,35 @@ notebooks preserve every code cell, execution count and output.
 The refreshed bounded component inventory finds PyUnitWizard clean/current at
 `f82b618ea88c151a9b43009228126b1cf7fda65c`. Its four reported MolSysMT root
 modifications are human-owned files and remain protected; our work stays in the
-isolated owner worktree. Read-only qualification against that provider source,
-clean final checks, public delivery and client handoff remain pending.
+isolated owner worktree. The final source receiving below covers both provider routes. Public delivery
+and the independent client handoff follow that evidence.
+
+## Final clean source receiving
+
+Clean implementation `68350e0b27249b8337c04779ba0a86196d861a18` passes all
+210 affected cases with published PyUnitWizard 0.28.1 and the same 210 with
+provider source `f82b618ea88c151a9b43009228126b1cf7fda65c`. These are two
+provider routes over the same guards, not 420 unique assertions or client E3
+acceptance. Both runs include the nondefault-policy public doctest and the
+original provenance, Ackredit, diagnostics and shared-unit-policy controls.
+
+Fourteen fast gates pass on that clean source. Five rendered API/User Guide/
+course pages contain the direct-conversion distinction; HTML retains exactly
+six existing warnings. Repository-wide Ruff lint and format checks pass. Every
+code cell/output/execution count in the three edited notebooks is unchanged.
+All 8,606 source, 2,463 Viewer-export and (for the source-provider route) 596
+PyUnitWizard input hashes agree before/after receiving. Provider source remains
+clean at the inspected full commit.
+
+The [portable receiving record](../../../devtools/data/distance_clustering_unit_policy_receiving_659_20261108.json)
+retains the original direct-value probe, 25 failing baseline controls, first
+151-pass/one-fixture-error run, successful directed run and clean receiving.
+Final scientific runs peak at 388,665,344 and 404,017,152 bytes; HTML peaks at
+1,343,250,432 bytes. Every monitored attempt keeps more than 14 GB decimal host
+availability with no OOM, reserve or pressure stop.
+
+DockingMT's [independent original evidence](https://github.com/uibcdf/molsysmt/issues/659#issuecomment-6729158031)
+remains a failed complete selection until its owners rerun all original normal/
+nondefault controls, adverse cases and final live checks. No tolerance or client
+assertion is weakened. This closes the provider defect only, leaving #256's
+mechanics-persistence hold and all installed/platform/exact-candidate gates.

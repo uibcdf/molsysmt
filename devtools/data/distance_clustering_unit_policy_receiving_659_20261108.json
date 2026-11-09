@@ -1,0 +1,1052 @@
+{
+  "schema_version": "molsysmt.distance_clustering_units_receiving@1",
+  "date": "2026-11-08",
+  "owner_issue": "uibcdf/molsysmt#659",
+  "source": "68350e0b27249b8337c04779ba0a86196d861a18",
+  "scope": "Bounded Linux/Python 3.14 source receiving. Repeating the same 210 cases on two provider routes does not create 420 unique guards or accept the consumer workflow.",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "original_boundary_probe": {
+    "molsysmt": "0+unknown",
+    "pyunitwizard": "0.28.1",
+    "records": [
+      {
+        "policy": [
+          "nm",
+          "ps"
+        ],
+        "cutoff_form": "str",
+        "method": "complete_linkage",
+        "matrix_edge_nm": "1.0",
+        "supplied_cutoff_nm": "1.0",
+        "digested_cutoff_nm": "1.0",
+        "partition": [
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "policy": [
+          "nm",
+          "ps"
+        ],
+        "cutoff_form": "str",
+        "method": "single_linkage",
+        "matrix_edge_nm": "1.0",
+        "supplied_cutoff_nm": "1.0",
+        "digested_cutoff_nm": "1.0",
+        "partition": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "policy": [
+          "nm",
+          "ps"
+        ],
+        "cutoff_form": "Quantity",
+        "method": "complete_linkage",
+        "matrix_edge_nm": "1.0",
+        "supplied_cutoff_nm": "1.0",
+        "digested_cutoff_nm": "1.0",
+        "partition": [
+          0,
+          0,
+          1
+        ]
+      },
+      {
+        "policy": [
+          "nm",
+          "ps"
+        ],
+        "cutoff_form": "Quantity",
+        "method": "single_linkage",
+        "matrix_edge_nm": "1.0",
+        "supplied_cutoff_nm": "1.0",
+        "digested_cutoff_nm": "1.0",
+        "partition": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "policy": [
+          "pm",
+          "fs"
+        ],
+        "cutoff_form": "str",
+        "method": "complete_linkage",
+        "matrix_edge_nm": "1.0",
+        "supplied_cutoff_nm": "1.0",
+        "digested_cutoff_nm": "0.9999999999999999",
+        "partition": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "policy": [
+          "pm",
+          "fs"
+        ],
+        "cutoff_form": "str",
+        "method": "single_linkage",
+        "matrix_edge_nm": "1.0",
+        "supplied_cutoff_nm": "1.0",
+        "digested_cutoff_nm": "0.9999999999999999",
+        "partition": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "policy": [
+          "pm",
+          "fs"
+        ],
+        "cutoff_form": "Quantity",
+        "method": "complete_linkage",
+        "matrix_edge_nm": "1.0",
+        "supplied_cutoff_nm": "1.0",
+        "digested_cutoff_nm": "0.9999999999999999",
+        "partition": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "policy": [
+          "pm",
+          "fs"
+        ],
+        "cutoff_form": "Quantity",
+        "method": "single_linkage",
+        "matrix_edge_nm": "1.0",
+        "supplied_cutoff_nm": "1.0",
+        "digested_cutoff_nm": "0.9999999999999999",
+        "partition": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "policy": [
+          "angstrom",
+          "ps"
+        ],
+        "cutoff_form": "str",
+        "method": "complete_linkage",
+        "matrix_edge_nm": "1.0",
+        "supplied_cutoff_nm": "1.0",
+        "digested_cutoff_nm": "0.9999999999999999",
+        "partition": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "policy": [
+          "angstrom",
+          "ps"
+        ],
+        "cutoff_form": "str",
+        "method": "single_linkage",
+        "matrix_edge_nm": "1.0",
+        "supplied_cutoff_nm": "1.0",
+        "digested_cutoff_nm": "0.9999999999999999",
+        "partition": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "policy": [
+          "angstrom",
+          "ps"
+        ],
+        "cutoff_form": "Quantity",
+        "method": "complete_linkage",
+        "matrix_edge_nm": "1.0",
+        "supplied_cutoff_nm": "1.0",
+        "digested_cutoff_nm": "0.9999999999999999",
+        "partition": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "policy": [
+          "angstrom",
+          "ps"
+        ],
+        "cutoff_form": "Quantity",
+        "method": "single_linkage",
+        "matrix_edge_nm": "1.0",
+        "supplied_cutoff_nm": "1.0",
+        "digested_cutoff_nm": "0.9999999999999999",
+        "partition": [
+          0,
+          1,
+          2
+        ]
+      }
+    ]
+  },
+  "runs": {
+    "cluster-659-probe-original": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-temporary>/molsysmt-clustering-boundary-probe-659.py"
+        ],
+        "exit_code": 0,
+        "seconds": 1.3492017658427358,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "6c84e731d44426324de0ae06900a7f84787ab86c",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8605
+      },
+      "resources": {
+        "started_utc": "2026-11-09T00:21:59.248271+00:00",
+        "seconds": 8.007976467953995,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.36572265625,
+            1.97216796875,
+            1.82568359375
+          ],
+          "cpu_utilization": 0.02812656956303361,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16262950912,
+        "cgroup_memory_peak_bytes": 136613888,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "695610c3f34f50f9b96ed1a296d4dcec94452f9f99e3ec8fcb707277a30ab292",
+        "-bounded.json": "14d230415b8a3301601a2588a861275e054be719e8f5c9b299fa3a0f5c147fa5",
+        ".log": "6b54a590674f7b2839d5936d8dc82eabdc76ca34e1454ec20fef6b5fb8bbffa2",
+        "-inputs-before.json": "81517cc6b157ffc0c1abc6161f9cfb840e3026df3ada1ec94a6f40066638ef93",
+        "-inputs-after.json": "81517cc6b157ffc0c1abc6161f9cfb840e3026df3ada1ec94a6f40066638ef93",
+        "-reference-driver.py": "cde799bb800027c94032e9f43e3041edc1152db3c74450c7c516b6b14f0a9478",
+        "-resource-driver.py": "a7df7a8ea1e8a46141670245a70c933a3845f906eb9f7368fdab46077a765899"
+      }
+    },
+    "cluster-659-baseline": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/cluster-659-baseline.xml",
+          "-n0",
+          "tests/structure/test_distance_clusters_unit_policy.py"
+        ],
+        "exit_code": 1,
+        "seconds": 2.827315534930676,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "6c84e731d44426324de0ae06900a7f84787ab86c",
+        "starting_git_status": "?? tests/structure/test_distance_clusters_unit_policy.py\n",
+        "ending_git_status": "?? tests/structure/test_distance_clusters_unit_policy.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8606
+      },
+      "resources": {
+        "started_utc": "2026-11-09T00:23:49.740583+00:00",
+        "seconds": 9.009506433969364,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.9013671875,
+            1.66796875,
+            1.7333984375
+          ],
+          "cpu_utilization": 0.027624309392265234,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16202952704,
+        "cgroup_memory_peak_bytes": 174874624,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "70b87a08449e1eca563312e5a9b09e3e26d48f8dd969b2742e24408f73b66080",
+        "-bounded.json": "50adecc345b3bc0305d5aaafa26ac1286700190e350389d7ecde5155327350cb",
+        ".xml": "f48e851b06f0e47d463dc8390e7ea4b88536dd82fbbe212183fbdf36416263f2",
+        ".log": "578c77e6fde110f785d2e345ace252bfd30bdee1ed256b360ab5b5a5899c67c2",
+        "-inputs-before.json": "9f02610a08dc52357627e77d38ca86e52f662c2d37c02fa8adb72c162dbaed6a",
+        "-inputs-after.json": "9f02610a08dc52357627e77d38ca86e52f662c2d37c02fa8adb72c162dbaed6a",
+        "-reference-driver.py": "c264c89a0ba4f6ab5ba99575cd68b12e7c2704c0ce778628d2ceed6b0631930c",
+        "-resource-driver.py": "cd9165e1a97c33c727a0180602b2c1dab1975b0e15cb54341fd270c4ee4ea09f"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "25",
+          "skipped": "0",
+          "tests": "73",
+          "time": "0.934",
+          "timestamp": "2026-11-08T18:23:54.023474-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_exact_and_adjacent_cutoffs_ignore_output_policy[equal-False-policy1-complete_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_exact_and_adjacent_cutoffs_ignore_output_policy[equal-False-policy1-single_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_exact_and_adjacent_cutoffs_ignore_output_policy[equal-False-policy2-complete_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_exact_and_adjacent_cutoffs_ignore_output_policy[equal-False-policy2-single_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_exact_and_adjacent_cutoffs_ignore_output_policy[equal-True-policy1-complete_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_exact_and_adjacent_cutoffs_ignore_output_policy[equal-True-policy1-single_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_exact_and_adjacent_cutoffs_ignore_output_policy[equal-True-policy2-complete_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_exact_and_adjacent_cutoffs_ignore_output_policy[equal-True-policy2-single_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_explicit_input_units_keep_their_decision_across_output_policies[False-nm-nm-complete_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_explicit_input_units_keep_their_decision_across_output_policies[False-nm-nm-single_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_explicit_input_units_keep_their_decision_across_output_policies[False-pm-nm-complete_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_explicit_input_units_keep_their_decision_across_output_policies[False-pm-nm-single_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_explicit_input_units_keep_their_decision_across_output_policies[False-angstrom-pm-complete_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_explicit_input_units_keep_their_decision_across_output_policies[False-angstrom-pm-single_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_explicit_input_units_keep_their_decision_across_output_policies[False-angstrom-angstrom-complete_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_explicit_input_units_keep_their_decision_across_output_policies[False-angstrom-angstrom-single_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_explicit_input_units_keep_their_decision_across_output_policies[True-nm-nm-complete_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_explicit_input_units_keep_their_decision_across_output_policies[True-nm-nm-single_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_explicit_input_units_keep_their_decision_across_output_policies[True-pm-nm-complete_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_explicit_input_units_keep_their_decision_across_output_policies[True-pm-nm-single_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_explicit_input_units_keep_their_decision_across_output_policies[True-angstrom-pm-complete_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_explicit_input_units_keep_their_decision_across_output_policies[True-angstrom-pm-single_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_explicit_input_units_keep_their_decision_across_output_policies[True-angstrom-angstrom-complete_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_explicit_input_units_keep_their_decision_across_output_policies[True-angstrom-angstrom-single_linkage]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_cutoff_validation_preserves_clustering_values_but_other_consumers_still_standardize",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "cluster-659-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/cluster-659-directed.xml",
+          "-n0",
+          "tests/structure/test_distance_clusters_unit_policy.py",
+          "tests/structure/test_pairwise_geometry.py",
+          "tests/_private/argdigest/test_quantity_digesters.py",
+          "molsysmt/structure/get_distance_clusters.py"
+        ],
+        "exit_code": 1,
+        "seconds": 9.080364624038339,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "6c84e731d44426324de0ae06900a7f84787ab86c",
+        "starting_git_status": " M devguide/pending_bugs/inclusive_distance_clustering_cutoff_changes_under_a_nondefault_length_policy.md\n M molsysmt/_private/argdigest/argument/cutoff_distance.py\n M molsysmt/structure/get_distance_clusters.py\n?? tests/structure/test_distance_clusters_unit_policy.py\n",
+        "ending_git_status": " M devguide/pending_bugs/inclusive_distance_clustering_cutoff_changes_under_a_nondefault_length_policy.md\n M molsysmt/_private/argdigest/argument/cutoff_distance.py\n M molsysmt/structure/get_distance_clusters.py\n?? tests/structure/test_distance_clusters_unit_policy.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8606
+      },
+      "resources": {
+        "started_utc": "2026-11-09T00:25:17.849218+00:00",
+        "seconds": 15.01462931605056,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.8212890625,
+            1.423828125,
+            1.63671875
+          ],
+          "cpu_utilization": 0.02661978905072826,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16051400704,
+        "cgroup_memory_peak_bytes": 336007168,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "b7baed2002b14a1748991ed5daf15d2123f87edfd56886e0da5eaecd133e666b",
+        "-bounded.json": "39c68848738519a65f8746a12bfec1be1e0ee7e48e107f974142aa37d782c0c9",
+        ".xml": "447bdd0784580ff79bcb673d089ab6b404b09580c72ce7c3cfc934563ee4e119",
+        ".log": "3ae3f2847e578488ee3e0c5fec2383aeace9dde0a2501ca1077109b664bae31a",
+        "-inputs-before.json": "f41ac943f6a8b7b016205c4e0ec4435c0ac62b2efb98f7751c29837083e27a81",
+        "-inputs-after.json": "f41ac943f6a8b7b016205c4e0ec4435c0ac62b2efb98f7751c29837083e27a81",
+        "-reference-driver.py": "d856a56d3796c1dfb98434d18d7c3b318cde026b520db8ffc9bcc8850c21c671",
+        "-resource-driver.py": "b8443c2becfe6aeac36ecad95e55eaea5fbfda739fb1844adbb68c181609d2c2"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "152",
+          "time": "6.907",
+          "timestamp": "2026-11-08T18:25:22.089906-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.structure.test_distance_clusters_unit_policy",
+          "name": "test_cutoff_validation_preserves_clustering_values_but_other_consumers_still_standardize",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "cluster-659-directed-fixed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/cluster-659-directed-fixed.xml",
+          "-n0",
+          "tests/structure/test_distance_clusters_unit_policy.py",
+          "tests/structure/test_pairwise_geometry.py",
+          "tests/_private/argdigest/test_quantity_digesters.py",
+          "molsysmt/structure/get_distance_clusters.py"
+        ],
+        "exit_code": 0,
+        "seconds": 9.831759430933744,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "6c84e731d44426324de0ae06900a7f84787ab86c",
+        "starting_git_status": " M devguide/pending_bugs/inclusive_distance_clustering_cutoff_changes_under_a_nondefault_length_policy.md\n M molsysmt/_private/argdigest/argument/cutoff_distance.py\n M molsysmt/structure/get_distance_clusters.py\n?? tests/structure/test_distance_clusters_unit_policy.py\n",
+        "ending_git_status": " M devguide/pending_bugs/inclusive_distance_clustering_cutoff_changes_under_a_nondefault_length_policy.md\n M molsysmt/_private/argdigest/argument/cutoff_distance.py\n M molsysmt/structure/get_distance_clusters.py\n?? tests/structure/test_distance_clusters_unit_policy.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8606
+      },
+      "resources": {
+        "started_utc": "2026-11-09T00:26:12.070212+00:00",
+        "seconds": 16.016556750983,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.26904296875,
+            1.45751953125,
+            1.634765625
+          ],
+          "cpu_utilization": 0.0905432595573441,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 15978049536,
+        "cgroup_memory_peak_bytes": 335867904,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "3a677b8e606d744ce9530effb66d8bc085995af4b3919dabda602f9400963c17",
+        "-bounded.json": "0a788a68fe5bc9bcd81b42a0ff36587244f182e1e823a85b5a4fa323206c5853",
+        ".xml": "b0668d73b5cd2fb79e66d36456673a2923823e0e8ee8b0e635f40d2c27f105d1",
+        ".log": "ae2380191da8c904f3b6023a5431397bc268976ef0d98e9322d99c5d3b6bc7df",
+        "-inputs-before.json": "274d4a5ac0ed1fa90c6389adbfa1741ff1a1c782ce5b0d15baa1149488a84ea5",
+        "-inputs-after.json": "274d4a5ac0ed1fa90c6389adbfa1741ff1a1c782ce5b0d15baa1149488a84ea5",
+        "-reference-driver.py": "e1fc9e4351a331269ad2b0c9287effda9416ecc72d825484b9169fa6052f3fdd",
+        "-resource-driver.py": "842c6a6d473c74e8a5031197354b711044e3e551c91e6af14b9689d9631a1b77"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "152",
+          "time": "7.439",
+          "timestamp": "2026-11-08T18:26:16.658108-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "cluster-659-received": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/cluster-659-received.xml",
+          "-n0",
+          "tests/structure/test_distance_clusters_unit_policy.py",
+          "tests/structure/test_pairwise_geometry.py",
+          "tests/_private/argdigest/test_quantity_digesters.py",
+          "tests/test_runtime_version.py",
+          "tests/test_ackredit.py",
+          "tests/interactions/test_software_provenance.py",
+          "tests/cross_repo/test_smonitor_contracts.py",
+          "tests/cross_repo/test_unit_policy_authority.py",
+          "molsysmt/structure/get_distance_clusters.py"
+        ],
+        "exit_code": 0,
+        "seconds": 28.270521736936644,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "68350e0b27249b8337c04779ba0a86196d861a18",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8606
+      },
+      "resources": {
+        "started_utc": "2026-11-09T00:30:10.681307+00:00",
+        "seconds": 35.030417752917856,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.16650390625,
+            1.24853515625,
+            1.5166015625
+          ],
+          "cpu_utilization": 0.02815485168426346,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 15186911232,
+        "cgroup_memory_peak_bytes": 388665344,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "b820bdab5f79407935ef9642803f021bbc1f2210a002a186d312c37d95df23c5",
+        "-bounded.json": "f9c52d9cdbc7aed720031d3f25c36a230b8448a8218c736028968bdedccd34fa",
+        ".xml": "993233e577117179a23ceefe8bdf1bee8fcb2060be2b381f108f1a1f989f3b7d",
+        ".log": "887c1a148a4d8abfb42f8123000b8f2bd019bd8e3ec6d2770aa82466fdfd6539",
+        "-inputs-before.json": "ccdbb68ce5d57ca1970d3b3144cbeceb4aa8083ac62b0174ce26e972fa5a633d",
+        "-inputs-after.json": "ccdbb68ce5d57ca1970d3b3144cbeceb4aa8083ac62b0174ce26e972fa5a633d",
+        "-reference-driver.py": "ee101e7236a6c89cb293c8a25e5e57395682200a09d4047eee75f1e82daa7ba1",
+        "-resource-driver.py": "a64cf8d0084555167c335c56175c69adfd2ecb24898f6c1d82319675ee985c5d"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "210",
+          "time": "25.664",
+          "timestamp": "2026-11-08T18:30:16.243590-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "cluster-659-provider-source": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/cluster-659-provider-source.xml",
+          "-n0",
+          "tests/structure/test_distance_clusters_unit_policy.py",
+          "tests/structure/test_pairwise_geometry.py",
+          "tests/_private/argdigest/test_quantity_digesters.py",
+          "tests/test_runtime_version.py",
+          "tests/test_ackredit.py",
+          "tests/interactions/test_software_provenance.py",
+          "tests/cross_repo/test_smonitor_contracts.py",
+          "tests/cross_repo/test_unit_policy_authority.py",
+          "molsysmt/structure/get_distance_clusters.py"
+        ],
+        "exit_code": 0,
+        "seconds": 27.999330976046622,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "provider_source": {
+          "commit": "f82b618ea88c151a9b43009228126b1cf7fda65c",
+          "starting_status": "",
+          "ending_status": "",
+          "checked_inputs": 596,
+          "changed_inputs": []
+        },
+        "source_commit": "68350e0b27249b8337c04779ba0a86196d861a18",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8606
+      },
+      "resources": {
+        "started_utc": "2026-11-09T00:31:10.592605+00:00",
+        "seconds": 40.03844783292152,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            3.025390625,
+            1.7685546875,
+            1.6796875
+          ],
+          "cpu_utilization": 0.07634354595680559,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 15383683072,
+        "cgroup_memory_peak_bytes": 404017152,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "6445fa5e6b9709e9f803514148ddf7dfba7ef9952cf3e4004614f1697c264251",
+        "-bounded.json": "8239a7731a792b3220ea5ea9da64a50d4a20c11c219b5f8bc854c1aca059c1b6",
+        ".xml": "faeebf14dfedb862bdc5ecb3c3d92aa56b7987d66d632ea660f26197cbc19a3a",
+        ".log": "3c773aa9c0dabbe9995c58a288cf5208b64b76d995bf498d3bb57efc595c6b57",
+        "-inputs-before.json": "ccdbb68ce5d57ca1970d3b3144cbeceb4aa8083ac62b0174ce26e972fa5a633d",
+        "-inputs-after.json": "ccdbb68ce5d57ca1970d3b3144cbeceb4aa8083ac62b0174ce26e972fa5a633d",
+        "-reference-driver.py": "f610bbc059b6ad187ad0a37655b690341175296f3f97fe12cd4ebed4a443b426",
+        "-resource-driver.py": "fadb918f50e401f00d72b01c272a8d0d23cb0abb79e74616b6b00d9d7642d4d1",
+        "-provider-inputs-before.json": "6fe0957f43a2f772ccbc5ec88ab83f4edf84a6b98d15f933a7cfb7a86969d993",
+        "-provider-inputs-after.json": "6fe0957f43a2f772ccbc5ec88ab83f4edf84a6b98d15f933a7cfb7a86969d993"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "210",
+          "time": "25.467",
+          "timestamp": "2026-11-08T18:31:21.157260-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "cluster-659-fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 23.797618901822716,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "68350e0b27249b8337c04779ba0a86196d861a18",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8606
+      },
+      "resources": {
+        "started_utc": "2026-11-09T00:30:12.065606+00:00",
+        "seconds": 31.026579335099086,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.2333984375,
+            1.26123046875,
+            1.51953125
+          ],
+          "cpu_utilization": 0.0905432595573441,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 15168159744,
+        "cgroup_memory_peak_bytes": 417333248,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "43665969d73b5312b6e455e936be1ca0b990a9cdaedd548a47488df49dd7a718",
+        "-bounded.json": "26ae6b09475f588922d7063915dced82b947dce68ade0138bc3a2597e771ac35",
+        ".log": "ad0e695a66ae86083279532fce31ec3c78e5a96b7f60b9f2ec7b298a8a14e8d3",
+        "-inputs-before.json": "ccdbb68ce5d57ca1970d3b3144cbeceb4aa8083ac62b0174ce26e972fa5a633d",
+        "-inputs-after.json": "ccdbb68ce5d57ca1970d3b3144cbeceb4aa8083ac62b0174ce26e972fa5a633d",
+        "-reference-driver.py": "0c8a394db495564908b390ecf56cb0909cc4d7406fca53790f2fe85bd3e4169d",
+        "-resource-driver.py": "0b9685e88c421a60a893033e2febe9b661b6e52a7537f83ae4e1c6cf153db89d"
+      }
+    },
+    "cluster-659-html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/cluster-659-html"
+        ],
+        "exit_code": 0,
+        "seconds": 153.57070017117076,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "68350e0b27249b8337c04779ba0a86196d861a18",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8606
+      },
+      "resources": {
+        "started_utc": "2026-11-09T00:30:11.936600+00:00",
+        "seconds": 161.1601971120108,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.16650390625,
+            1.24853515625,
+            1.5166015625
+          ],
+          "cpu_utilization": 0.08756919979869149,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14256459776,
+        "cgroup_memory_peak_bytes": 1343250432,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "f0b4cc5cc82a864e4cb2b0ed25a7d3d078094b4af3f252a6af76e6626d87e075",
+        "-bounded.json": "070b14a4a4afd0853789c8b1e83a04ded3cb80c358198efd91cd905ccc2a848f",
+        ".log": "ce063ee891fc7aef51560a97192d89859f48c588708d26e49a310e310f708880",
+        "-inputs-before.json": "ccdbb68ce5d57ca1970d3b3144cbeceb4aa8083ac62b0174ce26e972fa5a633d",
+        "-inputs-after.json": "ccdbb68ce5d57ca1970d3b3144cbeceb4aa8083ac62b0174ce26e972fa5a633d",
+        "-reference-driver.py": "44a7073622708683cb990d047258984b3345d3c3d6769e4025153e44fcc1a986",
+        "-resource-driver.py": "cbd044685304ab61bdfe680e48605bdf61431d0288ff5724e1dd7c8e129c1e62"
+      }
+    }
+  },
+  "runtime": {
+    "cluster-659-received": {
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "molsysmt_version": "0+unknown",
+      "versions": {
+        "numpy": "2.4.6",
+        "h5py": "3.16.0",
+        "pytest": "9.1.1",
+        "pytest-xdist": "3.8.0",
+        "pytest-receptor": "1.2.1",
+        "argdigest": "0.16.0+1.g6dabaf7",
+        "depdigest": "0.15.1+3.ga27172b",
+        "smonitor": "0.21.0+1.gd6b2394",
+        "pyunitwizard": "0.28.1"
+      },
+      "imports": {
+        "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+        "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261106/viewer-e4dd58cf-source/molsysviewer/__init__.py",
+        "pyunitwizard": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+        "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+        "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+        "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+      }
+    },
+    "cluster-659-provider-source": {
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "molsysmt_version": "0+unknown",
+      "versions": {
+        "numpy": "2.4.6",
+        "h5py": "3.16.0",
+        "pytest": "9.1.1",
+        "pytest-xdist": "3.8.0",
+        "pytest-receptor": "1.2.1",
+        "argdigest": "0.16.0+1.g6dabaf7",
+        "depdigest": "0.15.1+3.ga27172b",
+        "smonitor": "0.21.0+1.gd6b2394",
+        "pyunitwizard": "0.29.1+6.gf82b618"
+      },
+      "imports": {
+        "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+        "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261106/viewer-e4dd58cf-source/molsysviewer/__init__.py",
+        "pyunitwizard": "<development-checkouts>/pyunitwizard/pyunitwizard/__init__.py",
+        "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+        "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+        "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+      }
+    }
+  },
+  "notebook_preservation": [
+    {
+      "file": "docs/content/user/tools/structure/get_distance_clusters.ipynb",
+      "code_and_outputs_unchanged": true,
+      "code_and_outputs_sha256": "7f3c50569c78751fef5f35f38cc43b778f75ba910cea86db27fb55789301981b"
+    },
+    {
+      "file": "docs/content/user/cookbook/clustering_poses.ipynb",
+      "code_and_outputs_unchanged": true,
+      "code_and_outputs_sha256": "5d0401a4bfa3e05cb709723cf0376fe2b451844f4e9eb30f7cfec615d2127345"
+    },
+    {
+      "file": "docs/content/course/Common_Core/16_Structural_Operations.ipynb",
+      "code_and_outputs_unchanged": true,
+      "code_and_outputs_sha256": "4282cc888d1911e1c1756ce8889e53d9492bd700ba886a59bb12b3bdedb5595e"
+    }
+  ],
+  "html_inspection": {
+    "pages": [
+      {
+        "page": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "sha256": "c3e392216073244934a0c456c80a5b66e97c2c58d6a4005a5864f7af6606c9e2",
+        "verified_excerpt": "bership decisions use the supplied inputs converted directly to float64 nm; changing your output-unit policy only changes returned quantities. Selected coordinates and dense output are resident and bounded. See Comparing and clustering saved poses for preparation, units and inter"
+      },
+      {
+        "page": "content/user/tools/structure/get_distance_clusters.html",
+        "sha256": "6f6e9ae30369aa5e82f5361b64aa83fcf50d691e068526eaf6dd6c13cf3d16cd",
+        "verified_excerpt": "g or tolerance. Matrix and cutoff convert directly to that comparison unit. Changing your output-unit policy, for example from nm/ps to pm/fs, changes returned quantities without changing membership for the same supplied inputs. Unit conversion and geometric arithmetic can place "
+      },
+      {
+        "page": "content/user/cookbook/clustering_poses.html",
+        "sha256": "60cc93a8ae15e590a5282745a0eadfc49590c54daf35398c5490e492450a14dc",
+        "verified_excerpt": "rix and cutoff convert directly to float64 nm for the inclusive comparison. Changing your output-unit policy changes the returned quantities, not cluster membership for these supplied inputs. Earlier conversions can have rounded the inputs; no implicit tolerance repairs them. Com"
+      },
+      {
+        "page": "content/course/Common_Core/16_Structural_Operations.html",
+        "sha256": "5fe7d7473be24465acd7eba148a64191131d345fbc4ca91a3b893a63e111968f",
+        "verified_excerpt": "mber keys; clustering consumes the matrix with an explicit physical cutoff. Changing your output-unit policy changes returned quantities, not the partition for the same supplied inputs. The comparison uses float64 nm directly without a hidden tolerance. Complete linkage bounds di"
+      },
+      {
+        "page": "api/structure/autosummary/molsysmt.structure.get_distance_clusters.html",
+        "sha256": "2a83200ce16844c3da3dbca43601d3da04fbd8d93ba7b3a2f816cf3ccff1e58c",
+        "verified_excerpt": "ired. Matrix and cutoff are converted directly to float64 nm for comparison. The caller\u2019s output-unit policy affects returned quantities, not membership. Comparison is inclusive on the represented canonical values, without a hidden tolerance. Earlier caller conversions or geometr"
+      }
+    ],
+    "warnings": [
+      "api/build/autosummary/molsysmt.build.ProtonationAssessment.rst:2: WARNING: Title underline too short.",
+      "api/build/autosummary/molsysmt.build.add_ions.rst:2: WARNING: Title underline too short.",
+      "api/build/autosummary/molsysmt.build.assess_protonation.rst:2: WARNING: Title underline too short.",
+      "api/build/autosummary/molsysmt.build.reconcile_protonation.rst:2: WARNING: Title underline too short.",
+      "api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst:2: WARNING: Title underline too short.",
+      "api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst:2: WARNING: Title underline too short."
+    ],
+    "warnings_unchanged": true,
+    "scope": "Parsed rendered text and the new direct-conversion documentation; no new GUI or full notebook execution."
+  },
+  "acceptance": [
+    "The original clean public source reproduces the changed cutoff: supplied 1.0 nm becomes 0.9999999999999999 nm through the output-policy detour.",
+    "The clustering-specific digester validates and preserves the supplied quantity, followed by the existing direct conversion to float64 nm. Other cutoff consumers retain standardization.",
+    "Independent literal complete/single partitions at exactly 1 nm pass under nm/ps, pm/fs and angstrom/ps. One float64 step below remains rejected, without a fuzzy tolerance.",
+    "73 new controls include quantity/string cuts, separate matrix/cutoff units, fixed-input policy invariance, unchanged caller/source and the public mechanical setter.",
+    "Clean 68350e0b2 passes 210 affected cases with published PyUnitWizard 0.28.1 and the same 210 with clean read-only source f82b618, including the new doctest and existing provenance/attribution/unit/diagnostics controls.",
+    "Fourteen fast gates, repository-wide Ruff lint/format, three notebook code/output preservation checks and five rendered pages pass. Six baseline HTML warnings remain unchanged."
+  ],
+  "limits": [
+    "Earlier caller conversions can already round supplied values. Exact canonical comparisons and matrix hashes do not promise bitwise identity across different input conversion histories or a later output-presentation round trip. Preserve original supplied inputs for exact boundary replay.",
+    "The source-provider run records complete before/after provider hashes; it is not a published-provider, other-platform, installed-pair or exact-candidate qualification.",
+    "No tolerance, linkage algorithm, dependency floor, backend, schema, tag or package is added. No provider defect is established by ordinary floating-point conversion.",
+    "DockingMT must independently repeat its full failed selection with original assertions and adverse/final checks; #256 remains a separate mechanics-persistence hold."
+  ]
+}

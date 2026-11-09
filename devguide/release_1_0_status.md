@@ -48,7 +48,7 @@ There are **56 audit-related source closures**, **26/50 graphical intents**
 and unchanged **72.35035797535798% (approximately 72.4%)** weighted progress.
 Complete paginated board: **591 issues / 89 open / no open PR**. **Next: #659**,
 the newly reported inclusive clustering cutoff/unit-policy discrepancy from
-DockingMT. Its [intake](pending_bugs/inclusive_distance_clustering_cutoff_changes_under_a_nondefault_length_policy.md)
+DockingMT. Its [intake](archive/resolved_bugs/inclusive_distance_clustering_cutoff_changes_under_a_nondefault_length_policy.md)
 keeps the reported failure separate from an unperformed local reproduction.
 Then audit existing public lossless compositions under #256, preserving the
 post-1.0 H5MSM 0.6 decision. #654, remaining graphical, #615/#567/#582, the

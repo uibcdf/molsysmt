@@ -32,7 +32,7 @@ Accept no additional graphical intent or weight: **26/50**, all four fitting
 intents, **72.35035797535798% (approximately 72.4%)**. Separate source closures
 are now **56**. #421 remains partial. **Next finite review: #659**, DockingMT's
 newly reported inclusive clustering cutoff discrepancy under a nondefault length
-policy. The [intake](pending_bugs/inclusive_distance_clustering_cutoff_changes_under_a_nondefault_length_policy.md)
+policy. The [intake](archive/resolved_bugs/inclusive_distance_clustering_cutoff_changes_under_a_nondefault_length_policy.md)
 explicitly awaits local reproduction; source #657 does not resolve that numerical
 boundary. Then audit existing supported lossless compositions under #256 before
 any storage proposal. Keep #654's unreproduced intake and the planned
