@@ -1,14 +1,14 @@
 ---
 summary: Source checkout calculations can report another installed MolSysMT version
 issue: uibcdf/molsysmt#657
-status: active
+status: resolved
 opened: 2026-11-08
-closed:
+closed: 2026-11-08
 severity: medium
 verification: reproduced
 area: [packaging]
-guard:
-normative:
+guard: tests/test_runtime_version.py
+normative: devguide/dependency_contract_audit.md
 blocked_by: []
 supersedes: []
 ---
@@ -74,7 +74,7 @@ The root now prefers its package-local generated stamp, then metadata whose
 file inventory locates the actual imported initializer, otherwise `0+unknown`.
 It does not execute Git or add a runtime build dependency. A broken generated
 module's own import failure remains visible. The maintained contract is
-[Identifying imported MolSysMT builds](../dependency_contract_audit.md#identifying-imported-molsysmt-builds).
+[Identifying imported MolSysMT builds](../../dependency_contract_audit.md#identifying-imported-molsysmt-builds).
 This build label is not a fingerprint of mutable source: exact source commits,
 changes, import origins and file hashes remain separate receiving evidence.
 
@@ -106,7 +106,7 @@ JUnit, logs, complete before/after source manifests and monitored resources:
 The User Guide's installation, interaction result and cookbook pages explain
 explicit unknown versions and original producer preservation. Module 04 adds a
 linked source-identity note with every existing code cell/output unchanged.
-Final clean-source checks, public delivery and issue closure remain pending.
+Final clean-source checks are recorded below; issue closure follows verified public delivery.
 
 No new public callable, scientific method, quantity, optional backend,
 dependency floor or schema is introduced. ArgDigest/DepDigest are not applicable
@@ -119,3 +119,26 @@ The repository-wide Ruff format check initially found two earlier #604 formattin
 omissions in the method digester and pairwise helper. Formatting them preserves
 both ASTs exactly; all 4,564 Python files now satisfy the format check and Ruff
 lint passes. The affected geometry tests are included in final receiving.
+
+## Final source checkpoint
+
+Clean implementation `bbb5eb7c71ced43fa1cee7b49f835ddda3b0550d` passes all
+172 affected tests and fourteen fast gates. The four rendered User Guide/course
+pages contain the explicit unknown-version explanation and working links;
+the full HTML build retains exactly the same six baseline warnings. Every
+original course code cell, execution count and output is unchanged.
+
+The [portable receiving record](../../../devtools/data/runtime_version_receiving_657_20261108.json)
+retains the original six failing baseline controls, first nine directed passes,
+the expanded fixture collection error and both successful 172-case runs.
+All 8,602 source and 2,463 Viewer-export input hashes agree before/after final
+receiving. The scientific tests peak at 408,023,040 bytes; all three capped
+runs preserve more than 13 GB decimal host availability without an OOM,
+pressure or reserve stop. The runtime honestly reports `0+unknown` for this
+unstamped owner checkout. Provider versions and import origins are retained
+independently; none is relabeled as an installed-artifact qualification.
+
+Incoming uibcdf/molsysmt#659 independently reports a clustering/unit-boundary
+failure and takes the next correctness priority. It remains separate from this
+provenance fix and the already closed #604 feature delivery. Existing #256,
+remaining graphical, platform, installed and exact-candidate holds remain.

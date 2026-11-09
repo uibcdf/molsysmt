@@ -1,0 +1,896 @@
+{
+  "schema_version": "molsysmt.runtime_version_receiving@1",
+  "date": "2026-11-08",
+  "owner_issue": "uibcdf/molsysmt#657",
+  "source": "bbb5eb7c71ced43fa1cee7b49f835ddda3b0550d",
+  "scope": "Bounded Linux/Python 3.14 source receiving; no installed, other-platform, GUI, full-suite or exact-candidate qualification.",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "runs": {
+    "runtime-version-657-baseline": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/runtime-version-657-baseline.xml",
+          "-n0",
+          "tests/test_runtime_version.py"
+        ],
+        "exit_code": 1,
+        "seconds": 2.8403740860521793,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "8af8628e61ac28b519827802c39cf2e3eaa48b7e",
+        "starting_git_status": "?? tests/test_runtime_version.py\n",
+        "ending_git_status": "?? tests/test_runtime_version.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8601
+      },
+      "resources": {
+        "started_utc": "2026-11-08T23:58:14.512147+00:00",
+        "seconds": 9.009368981933221,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.509765625,
+            0.56396484375,
+            0.40478515625
+          ],
+          "cpu_utilization": 0.026606425702811243,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16400969728,
+        "cgroup_memory_peak_bytes": 174030848,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "4b50814a6023a83175cd7c82bc6389055f89477dbcd6a8fc977b06ca4369c399",
+        "-bounded.json": "aa1aef7f75e3de079a9be367abe2a0ac0202f465f1efa7d7c88ce5b5fd09240d",
+        ".xml": "56501b626e0cd2c144e48137213a4888aac33b5c18b52410a8f0b12fe59677ee",
+        ".log": "2ee1d7b6dbb8ff7645b29b96fd65269a4911055f2fb07bafb5410c82f01dff2f",
+        "-inputs-before.json": "fffcd5ae6f78088bca74f22e495a2042f72c817ca3f0db903153a4c7834fd8df",
+        "-inputs-after.json": "fffcd5ae6f78088bca74f22e495a2042f72c817ca3f0db903153a4c7834fd8df",
+        "-reference-driver.py": "667997edeb3fda773f21bcf31026d0756ae4cf1a8624a11d54209fab9d4ed5d3",
+        "-resource-driver.py": "877057ee9c6cfddbacb2b9cb8c7550488a4d19659381387506f7a644a1cf8eef"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "6",
+          "skipped": "0",
+          "tests": "9",
+          "time": "1.030",
+          "timestamp": "2026-11-08T17:58:18.707696-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.test_runtime_version",
+          "name": "test_source_overlay_does_not_borrow_another_installation_version",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.test_runtime_version",
+          "name": "test_embedded_package_version_precedes_foreign_distribution",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.test_runtime_version",
+          "name": "test_embedded_package_version_precedes_matching_metadata",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.test_runtime_version",
+          "name": "test_unrecorded_metadata_does_not_prove_package_ownership",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.test_runtime_version",
+          "name": "test_no_build_or_installation_metadata_is_explicitly_unknown",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.test_runtime_version",
+          "name": "test_broken_embedded_module_is_not_silently_relabelled",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": [
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_source_overlay_does_not_borrow_another_installation_version",
+          "time": "0.093"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_embedded_package_version_precedes_foreign_distribution",
+          "time": "0.089"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_embedded_package_version_precedes_matching_metadata",
+          "time": "0.086"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_owned_legacy_distribution_can_supply_a_missing_build_stamp",
+          "time": "0.085"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_unrecorded_metadata_does_not_prove_package_ownership",
+          "time": "0.087"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_no_build_or_installation_metadata_is_explicitly_unknown",
+          "time": "0.081"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_embedded_version_works_without_distribution_metadata",
+          "time": "0.075"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_broken_embedded_module_is_not_silently_relabelled",
+          "time": "0.089"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_scientific_results_use_the_cached_imported_package_version",
+          "time": "0.168"
+        }
+      ]
+    },
+    "runtime-version-657-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/runtime-version-657-directed.xml",
+          "-n0",
+          "tests/test_runtime_version.py"
+        ],
+        "exit_code": 0,
+        "seconds": 3.2514346009120345,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "8af8628e61ac28b519827802c39cf2e3eaa48b7e",
+        "starting_git_status": " M molsysmt/__init__.py\n?? molsysmt/_runtime_version.py\n?? tests/test_runtime_version.py\n",
+        "ending_git_status": " M molsysmt/__init__.py\n?? molsysmt/_runtime_version.py\n?? tests/test_runtime_version.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8602
+      },
+      "resources": {
+        "started_utc": "2026-11-08T23:59:13.593373+00:00",
+        "seconds": 10.009826363995671,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.7919921875,
+            0.6298828125,
+            0.43798828125
+          ],
+          "cpu_utilization": 0.09104627766599593,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 15721271296,
+        "cgroup_memory_peak_bytes": 173428736,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "f05f602d60bd5c1fec790a92aca0932f473304fb3f0652905cd9ade50cb53493",
+        "-bounded.json": "a24f48dd985bb10df0cc9b7d1da1e95d47103062242f8bfe07a449c8d6cb144d",
+        ".xml": "96e1e6e765ea9a3e3bf97c7b363c0d528f0d5f449a41dd6ddd31e6b56d59eedf",
+        ".log": "dad488306402a1f6e73d6f8c548588dc4f68c550406deea44e3829ceceacc184",
+        "-inputs-before.json": "984231f8e204e0fa26dd381883c16bf1e87dfb80e7c6298fce7eda907e913b10",
+        "-inputs-after.json": "984231f8e204e0fa26dd381883c16bf1e87dfb80e7c6298fce7eda907e913b10",
+        "-reference-driver.py": "aeae932f7588873f21e2b2df1d498d632163b27882f51d671e35e10a734bdf39",
+        "-resource-driver.py": "95c70b866f529854323a4540054e35018ebd2e1e82c1025ad656f5fd9378258c"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "9",
+          "time": "0.925",
+          "timestamp": "2026-11-08T17:59:18.494806-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": [
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_source_overlay_does_not_borrow_another_installation_version",
+          "time": "0.081"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_embedded_package_version_precedes_foreign_distribution",
+          "time": "0.080"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_embedded_package_version_precedes_matching_metadata",
+          "time": "0.079"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_owned_legacy_distribution_can_supply_a_missing_build_stamp",
+          "time": "0.096"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_unrecorded_metadata_does_not_prove_package_ownership",
+          "time": "0.082"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_no_build_or_installation_metadata_is_explicitly_unknown",
+          "time": "0.083"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_embedded_version_works_without_distribution_metadata",
+          "time": "0.081"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_broken_embedded_module_is_not_silently_relabelled",
+          "time": "0.091"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_scientific_results_use_the_cached_imported_package_version",
+          "time": "0.178"
+        }
+      ]
+    },
+    "runtime-version-657-integrated": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/runtime-version-657-integrated.xml",
+          "-n0",
+          "tests/test_runtime_version.py",
+          "tests/test_import.py",
+          "tests/interactions/test_software_provenance.py",
+          "tests/topology/test_correspondence_attribution.py",
+          "tests/test_ackredit.py",
+          "tests/cross_repo/test_smonitor_contracts.py",
+          "tests/cross_repo/test_unit_policy_authority.py",
+          "tests/structure/test_pairwise_geometry.py",
+          "tests/interactions/test_execution_provenance.py",
+          "devtools/tests/test_native_viewer_integration.py"
+        ],
+        "exit_code": 2,
+        "seconds": 7.95406835898757,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "8af8628e61ac28b519827802c39cf2e3eaa48b7e",
+        "starting_git_status": " M molsysmt/__init__.py\n?? molsysmt/_runtime_version.py\n?? tests/test_runtime_version.py\n",
+        "ending_git_status": " M molsysmt/__init__.py\n?? molsysmt/_runtime_version.py\n?? tests/test_runtime_version.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8602
+      },
+      "resources": {
+        "started_utc": "2026-11-09T00:01:41.965734+00:00",
+        "seconds": 14.013427634024993,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.4912109375,
+            1.0966796875,
+            0.65625
+          ],
+          "cpu_utilization": 0.03060712493728046,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16280612864,
+        "cgroup_memory_peak_bytes": 279392256,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "13822e169c23f534a6cc490413da9cf4bb050e82650596db913c822038e76136",
+        "-bounded.json": "26cf8d610bd229f477ada0de6760bba7a0455a646b21317f0baec7b6c10bcc8e",
+        ".xml": "fb4a83791abf9ff795a7fa9c5c1a635e4d3cc41f064b1cb78961d09b9f6a0773",
+        ".log": "56c46f7b7d614e35e66b2f614b1c704b7f7b63f14cdbd965cb7b89ca1940e873",
+        "-inputs-before.json": "994a3aa2f17e5b4fdbb5844fad8dc7be89dfb7aa7fd8d0a6bc87865cba399028",
+        "-inputs-after.json": "994a3aa2f17e5b4fdbb5844fad8dc7be89dfb7aa7fd8d0a6bc87865cba399028",
+        "-reference-driver.py": "28f25b840e03f10f0a834fbcbf9d183c0a4de96eebfe3240b98cf97e34afd82d",
+        "-resource-driver.py": "80d65ad1193da6ba27128d95a749c87a445c585ca6f04c1bbdf37b420c9eebf8"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "1",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "5.980",
+          "timestamp": "2026-11-08T18:01:46.272612-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "",
+          "name": "tests.test_runtime_version",
+          "outcome": "error"
+        }
+      ],
+      "version_controls": []
+    },
+    "runtime-version-657-integrated-fixed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/runtime-version-657-integrated-fixed.xml",
+          "-n0",
+          "tests/test_runtime_version.py",
+          "tests/test_import.py",
+          "tests/interactions/test_software_provenance.py",
+          "tests/topology/test_correspondence_attribution.py",
+          "tests/test_ackredit.py",
+          "tests/cross_repo/test_smonitor_contracts.py",
+          "tests/cross_repo/test_unit_policy_authority.py",
+          "tests/structure/test_pairwise_geometry.py",
+          "tests/interactions/test_execution_provenance.py",
+          "devtools/tests/test_native_viewer_integration.py"
+        ],
+        "exit_code": 0,
+        "seconds": 38.945814195787534,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "8af8628e61ac28b519827802c39cf2e3eaa48b7e",
+        "starting_git_status": " M molsysmt/__init__.py\n?? molsysmt/_runtime_version.py\n?? tests/test_runtime_version.py\n",
+        "ending_git_status": " M molsysmt/__init__.py\n?? molsysmt/_runtime_version.py\n?? tests/test_runtime_version.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8602
+      },
+      "resources": {
+        "started_utc": "2026-11-09T00:05:36.657001+00:00",
+        "seconds": 45.0391297400929,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.98828125,
+            1.15283203125,
+            0.748046875
+          ],
+          "cpu_utilization": 0.03619909502262442,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16115437568,
+        "cgroup_memory_peak_bytes": 403202048,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "3136bf82e2c0702f7a5433bb060d1d207c2487cb5c405d5d726eb201c8dcde7d",
+        "-bounded.json": "3257d485bcb558a7248a08ec469cd26060ae07242a2ea0000736ed6b977f444c",
+        ".xml": "edc07f366abef85d4bdf10f3b6ed75ee7873a7f2dfa9fd885e0d7b51d0dce20c",
+        ".log": "e1f46e1c94ffc8a3770c6f69c5919d89168993de0a1b7b75a1cdd859e55514a8",
+        "-inputs-before.json": "0a28a6cf89464b46bd18e4e1527e7c2c491e9428f57642e5ffc2f6fcd2d7cbb0",
+        "-inputs-after.json": "0a28a6cf89464b46bd18e4e1527e7c2c491e9428f57642e5ffc2f6fcd2d7cbb0",
+        "-reference-driver.py": "55203a410fd8b74febb4b8b0009f653467176ba7aa3795d789dc1881589805d4",
+        "-resource-driver.py": "83b5727d354c04ec5b99e190df2ab83529cee3829ddcc278fa60a1c3e624cd03"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "172",
+          "time": "36.504",
+          "timestamp": "2026-11-08T18:05:40.983299-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": [
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_source_overlay_does_not_borrow_another_installation_version",
+          "time": "0.083"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_embedded_package_version_precedes_foreign_distribution",
+          "time": "0.074"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_embedded_package_version_precedes_matching_metadata",
+          "time": "0.073"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_owned_legacy_distribution_can_supply_a_missing_build_stamp",
+          "time": "0.090"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_unrecorded_metadata_does_not_prove_package_ownership",
+          "time": "0.077"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_no_build_or_installation_metadata_is_explicitly_unknown",
+          "time": "0.076"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_embedded_version_works_without_distribution_metadata",
+          "time": "0.081"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_broken_embedded_module_is_not_silently_relabelled",
+          "time": "0.093"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_invalid_embedded_versions_are_explicitly_unknown[17]",
+          "time": "0.080"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_invalid_embedded_versions_are_explicitly_unknown[False]",
+          "time": "0.080"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_invalid_embedded_versions_are_explicitly_unknown[]",
+          "time": "0.078"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_invalid_embedded_versions_are_explicitly_unknown[   ]",
+          "time": "0.076"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_scientific_results_use_the_cached_imported_package_version",
+          "time": "0.129"
+        }
+      ]
+    },
+    "runtime-version-657-received": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/runtime-version-657-received.xml",
+          "-n0",
+          "tests/test_runtime_version.py",
+          "tests/test_import.py",
+          "tests/interactions/test_software_provenance.py",
+          "tests/topology/test_correspondence_attribution.py",
+          "tests/test_ackredit.py",
+          "tests/cross_repo/test_smonitor_contracts.py",
+          "tests/cross_repo/test_unit_policy_authority.py",
+          "tests/structure/test_pairwise_geometry.py",
+          "tests/interactions/test_execution_provenance.py",
+          "devtools/tests/test_native_viewer_integration.py"
+        ],
+        "exit_code": 0,
+        "seconds": 53.372854164103046,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "bbb5eb7c71ced43fa1cee7b49f835ddda3b0550d",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8602
+      },
+      "resources": {
+        "started_utc": "2026-11-09T00:09:45.538956+00:00",
+        "seconds": 61.05579082691111,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.13134765625,
+            1.2236328125,
+            0.8896484375
+          ],
+          "cpu_utilization": 0.19767441860465118,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14022844416,
+        "cgroup_memory_peak_bytes": 408023040,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "0e25a5c2ea8138cb510e52f067d7e21f13be1a7c2770fb2c84467f85f8d45d6d",
+        "-bounded.json": "fe751c5ace6b029230336ff90de46f4a18b61ddcc921a43db8e3abd2517e9a4c",
+        ".xml": "f4ee4aaed8b775d231b0e7891f47f38bf1d9dc0d5a3808cf734ecdd03baaef9f",
+        ".log": "f87fbb43c36edfc5dbec27450d7f710694eaedc1ccc94d7301f407181d263465",
+        "-inputs-before.json": "77005a129f962b7db7d0883d0b8827db652485470c8c0044c471354b8106e31f",
+        "-inputs-after.json": "77005a129f962b7db7d0883d0b8827db652485470c8c0044c471354b8106e31f",
+        "-reference-driver.py": "4023f7d909188ec384cf590191aa6f1e284a62e663e155fba8897241d3176862",
+        "-resource-driver.py": "2902e1405cea1588b1346bbb7844025965b7e894d97338bef08654649a512e73"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "172",
+          "time": "50.388",
+          "timestamp": "2026-11-08T18:09:51.708471-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": [
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_source_overlay_does_not_borrow_another_installation_version",
+          "time": "0.127"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_embedded_package_version_precedes_foreign_distribution",
+          "time": "0.093"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_embedded_package_version_precedes_matching_metadata",
+          "time": "0.092"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_owned_legacy_distribution_can_supply_a_missing_build_stamp",
+          "time": "0.109"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_unrecorded_metadata_does_not_prove_package_ownership",
+          "time": "0.094"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_no_build_or_installation_metadata_is_explicitly_unknown",
+          "time": "0.104"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_embedded_version_works_without_distribution_metadata",
+          "time": "0.093"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_broken_embedded_module_is_not_silently_relabelled",
+          "time": "0.104"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_invalid_embedded_versions_are_explicitly_unknown[17]",
+          "time": "0.090"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_invalid_embedded_versions_are_explicitly_unknown[False]",
+          "time": "0.090"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_invalid_embedded_versions_are_explicitly_unknown[]",
+          "time": "0.090"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_invalid_embedded_versions_are_explicitly_unknown[   ]",
+          "time": "0.091"
+        },
+        {
+          "classname": "tests.test_runtime_version",
+          "name": "test_scientific_results_use_the_cached_imported_package_version",
+          "time": "0.150"
+        }
+      ]
+    },
+    "runtime-version-657-fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 25.881590325850993,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "bbb5eb7c71ced43fa1cee7b49f835ddda3b0550d",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8602
+      },
+      "resources": {
+        "started_utc": "2026-11-09T00:09:45.581798+00:00",
+        "seconds": 34.030696474947035,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.13134765625,
+            1.2236328125,
+            0.8896484375
+          ],
+          "cpu_utilization": 0.20262758969176353,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14006190080,
+        "cgroup_memory_peak_bytes": 417337344,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "cdd25997ed19d3398f2bdf8c6c49c78de67d8cef8cafcb3fb40db00221c63903",
+        "-bounded.json": "7ec3ac16821a9dd635bac83596d134cc585baa9a0e99d188f62e2af57fbe7fa3",
+        ".log": "2b4c2ab7e440eea02af9e7233305899bda033c529899eae02c15b62604e9b6e6",
+        "-inputs-before.json": "77005a129f962b7db7d0883d0b8827db652485470c8c0044c471354b8106e31f",
+        "-inputs-after.json": "77005a129f962b7db7d0883d0b8827db652485470c8c0044c471354b8106e31f",
+        "-reference-driver.py": "ef965050649b895d77179fc03c5c426e0416225a90d0f33d99984cbfe45e6a70",
+        "-resource-driver.py": "522cdfcfef6b22916af23c62f1300801bd64564826e8b94992a7f39e3608f2a7"
+      }
+    },
+    "runtime-version-657-html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/runtime-version-657-html"
+        ],
+        "exit_code": 0,
+        "seconds": 156.75721307983622,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "bbb5eb7c71ced43fa1cee7b49f835ddda3b0550d",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8602
+      },
+      "resources": {
+        "started_utc": "2026-11-09T00:09:45.221771+00:00",
+        "seconds": 165.16635475913063,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.13134765625,
+            1.2236328125,
+            0.8896484375
+          ],
+          "cpu_utilization": 0.1826923076923077,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13941575680,
+        "cgroup_memory_peak_bytes": 1342734336,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "badc723f65f43c89ef68e64e285f109c8c90813d06a6b139ebb0d268271458cc",
+        "-bounded.json": "56ff41ad0923b59e552f8fd7205b67f2b5dfeb726924402cfa7f8775a555844f",
+        ".log": "ce063ee891fc7aef51560a97192d89859f48c588708d26e49a310e310f708880",
+        "-inputs-before.json": "77005a129f962b7db7d0883d0b8827db652485470c8c0044c471354b8106e31f",
+        "-inputs-after.json": "77005a129f962b7db7d0883d0b8827db652485470c8c0044c471354b8106e31f",
+        "-reference-driver.py": "e6177f7a4efdccc5c70b93fc01debff8eb1f0bff2129d88e2f3498ef85b09730",
+        "-resource-driver.py": "69613ada5eda3d4feb7e5211e89e09995fd19b5d024776d30201e524f8e31943"
+      }
+    }
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "molsysmt_version": "0+unknown",
+    "versions": {
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1"
+    },
+    "imports": {
+      "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+      "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261106/viewer-e4dd58cf-source/molsysviewer/__init__.py",
+      "pyunitwizard": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+      "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+      "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+      "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+    }
+  },
+  "html_inspection": {
+    "pages": [
+      {
+        "page": "content/user/foundations/entrance/installation.html",
+        "sha256": "d5705fab65686d02634b825df32f52d60cf03d9667a1c3b74a37e58f6bce561b",
+        "verified_excerpt": "tly locates the imported package file. A source checkout with no matching build information reports 0+unknown . import molsysmt as msm print ( msm . __version__ ) print ( msm . __file__ ) An editable checkout can change after its build version was generated. For a reproducible source calculation, al",
+        "runtime_version_links": []
+      },
+      {
+        "page": "content/user/tools/interactions/result.html",
+        "sha256": "76f631c08bec4a26a2174a1c0d3051a7f67978b55cffc3cb16130b15702a073c",
+        "verified_excerpt": "sions with software={\"detector_name\": \"1.2\"} . A MolSysMT source calculation can explicitly record \"0+unknown\" when the imported package has no matching build-version information. This differs from {} , which means no producer version was recorded. A build stamp can also predate edits to an editable",
+        "runtime_version_links": [
+          "../../foundations/entrance/installation.html#user-foundations-runtime-version"
+        ]
+      },
+      {
+        "page": "content/user/cookbook/querying_sparse_interactions.html",
+        "sha256": "371a93eb383a8f9261b692e2ede94b28487f1f6cbf0202b467667d3d94feb833",
+        "verified_excerpt": "roducer version was not recorded, as in these manually constructed synthetic records. {\"molsysmt\": \"0+unknown\"} instead records an explicit unknown build version for the imported source. A version string labels a build; edited source also needs its own commit/change record. See Inspecting the runnin",
+        "runtime_version_links": [
+          "../foundations/entrance/installation.html#user-foundations-runtime-version"
+        ]
+      },
+      {
+        "page": "content/course/Common_Core/04_Native_Forms.html",
+        "sha256": "7ebfd78bbe3a4f2ea1abd7c59fce6ae91d1e9e9c8938daa232151bc935c10644",
+        "verified_excerpt": ".__version__ identifies an available build stamp; source without matching build information reports 0+unknown . An edited checkout also needs its own commit/change record. See Inspecting the running version . # Inspect an H5MSM file from the demo repository h5msm_file = systems [ 'T4 lysozyme L99A' ",
+        "runtime_version_links": [
+          "../../user/foundations/entrance/installation.html#user-foundations-runtime-version"
+        ]
+      }
+    ],
+    "warnings": [
+      "api/build/autosummary/molsysmt.build.ProtonationAssessment.rst:2: WARNING: Title underline too short.",
+      "api/build/autosummary/molsysmt.build.add_ions.rst:2: WARNING: Title underline too short.",
+      "api/build/autosummary/molsysmt.build.assess_protonation.rst:2: WARNING: Title underline too short.",
+      "api/build/autosummary/molsysmt.build.reconcile_protonation.rst:2: WARNING: Title underline too short.",
+      "api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst:2: WARNING: Title underline too short.",
+      "api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst:2: WARNING: Title underline too short."
+    ],
+    "warnings_unchanged_from_previous_composition_build": true,
+    "scope": "Parsed rendered HTML text, anchors and links; existing notebook code and outputs preserved, no new browser or notebook execution."
+  },
+  "course_preservation": {
+    "file": "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+    "original_code_and_outputs_sha256": "69eacb4ce900be84be7c9f6d9b6435faf62b6b633ab30995164cce4917091b18",
+    "code_and_outputs_unchanged": true
+  },
+  "acceptance": [
+    "Prefer a generated version inside the imported package; accept legacy distribution metadata only when its file inventory locates the actual initializer.",
+    "Foreign/absent/unrecorded metadata does not supply a release label. Explicit unknown is 0+unknown; broken generated-module imports remain visible.",
+    "The actual bootstrap runs in fresh isolated processes with subprocess creation forbidden; the full package uses its cached version for scientific producer attribution.",
+    "Existing H5MSM, query, remap, copy and portable-attribution readers preserve the original producer version rather than recalculate it.",
+    "Thirteen version controls and the affected provenance/provider/unit/native-route suites pass together: 172 cases on clean bbb5eb7c7. Fourteen fast gates pass.",
+    "Repository-wide Ruff lint and format checks pass after two AST-identical formatting repairs to earlier #604 files."
+  ],
+  "limits": [
+    "A build stamp labels a build, not current mutable-source identity or authentication. Record exact source/import/artifact identities independently.",
+    "No runtime Git/network/build tool, scientific method, backend, schema, dependency floor or public callable is introduced.",
+    "Fresh bootstrap stubs isolate version selection only; they do not establish installed or provider-policy qualification.",
+    "#659 is newly reported independent clustering/unit-boundary evidence and is not covered or resolved by this provenance repair.",
+    "Remaining #256, graphical, installed/platform/human and exact-candidate gates stay owned and unaccepted."
+  ]
+}
