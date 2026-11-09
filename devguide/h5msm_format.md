@@ -21,7 +21,7 @@ the same major. Changing a version attribute is not a schema migration.
 
 The maintainer's accepted target on 2026-11-08 is to qualify and publish the first
 stable **H5MSM 1.0 alongside MolSysMT 1.0**. Development version 0.6 may precede
-that freeze. This target does not change current 0.5 writing or supported reads;
+that freeze. This target does not change default 0.5 writing or promote experimental 0.6 to stable;
 the bounded mechanics and whole-format qualification work remains in
 [the #256 plan](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#revised-implementation-plan--2026-11-08).
 Format stability concerns the stored contract, not certification of every

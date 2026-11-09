@@ -20,6 +20,35 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Experimental public mechanics persistence — 2026-11-08
+
+Clean `69f938947` qualifies explicit public H5MSM 0.6: **1,843 affected cases
+without omissions**, **14/14 fast gates** and fresh HTML, with five inspected
+pages, the new API anchor and six unchanged baseline warnings. The
+[receiving record](../devtools/data/public_mechanics_receiving_256_20261108.json)
+retains original attempts, source/runtime inputs, twelve scientific-report refusal
+controls and actual complete/projected/nonpolar-H-merged fresh readers.
+
+`format_version="0.6"` is an explicit experimental write/convert option; default
+output remains **0.5**. Supported public reads, scoped geometry/parameter queries,
+metadata cardinalities, structural iteration, copying, selected extraction and
+bounded topology-free append dispatch both modular roots. Native composition
+preserves one mechanical provider, including report-only evidence. Calculation
+projections are versioned too. Known assignments retain their existing science;
+unknown/incomplete reports remain stored evidence but refuse scientific use or
+atom remapping through SMonitor. No new model or force algorithm is introduced.
+
+P4's bounded provider implementation is source-qualified, with public delivery
+separate. **Next P5:** independent consumer/reference-workflow receiving, including
+prepared persistence and original producer/unit/binding checks. **Then P6:**
+bounded storage/memory measurements, final schema/default-writer qualification
+and the first stable H5MSM 1.0 freeze. #256 remains open; no client, installed,
+platform or release gate is accepted here. Original weighted progress remains
+**72.4%**, with **59 source closures and 26/50 graphical intents**. The full
+board snapshot remains 593 issues, 88 open and no PR, with no issue above #661.
+Tests peak near 1.62 GiB and HTML near 1.26 GiB; all final jobs retain over
+13 GB decimal host availability without pressure/OOM/reserve interruptions.
+
 ## Private whole-file mechanics composition — 2026-11-08
 
 Clean `b184e9d18` qualifies the #256 private whole-file root 0.6 orchestration:

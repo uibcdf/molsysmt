@@ -879,7 +879,7 @@
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
     "owner_verification": "Public 1d033b656 independently matches 21 changed paths and preserves four human files. Clean b184e9d18 passes 1,229 affected cases without omissions, fourteen fast gates and three inspected HTML pages. #661 is closed. #256 remains open and public H5MSM writing remains 0.5; no client/installed/candidate acceptance is added.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Implement #256 P4 public version dispatch/conversion/query/selection/copy/append and source-preserving migration after the qualified private whole-file composition, toward the accepted first stable H5MSM 1.0/MolSysMT 1.0 target. Continue remaining #421 intents; retain #654, #615, #567/#582 and installed/platform/exact-candidate ownership.",
+    "scope": "Complete #256 P5 independent consumer/reference-workflow receiving after experimental public 0.6 source qualification; then P6 bounded storage/memory measurements, schema/default-writer review and first stable H5MSM 1.0 freeze. Continue remaining #421 intents and preserve #654, #615, #567/#582, installed/platform and exact-candidate ownership.",
     "active_related": [
       "uibcdf/molsysmt#615",
       "uibcdf/molsysmt#256"
@@ -1002,7 +1002,7 @@
   "h5msm_stable_format_target": {
     "owner_issue": "uibcdf/molsysmt#256",
     "milestone": "1.0.0",
-    "state": "private_whole_file_composition_qualified_public_routes_and_freeze_pending",
+    "state": "experimental_public_0_6_source_qualified_consumer_and_stable_freeze_pending",
     "first_stable_format": "1.0",
     "coordinated_library_release": "1.0",
     "development_version": "0.6 may precede the stable freeze",
@@ -1044,5 +1044,20 @@
     "weighted_milestone_change": 0,
     "public_checkpoint": "1d033b65693dc0db84e594efccd2bf8651a19dda",
     "owner_response": "https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6731932749"
+  },
+  "last_public_mechanics_receiving": {
+    "owner_issue": "uibcdf/molsysmt#256",
+    "source": "69f9389479036044fd5a3c01fbfb75b07f4c2735",
+    "state": "experimental_public_routes_source_qualified_delivery_pending",
+    "guard": "tests/form/file_h5msm/test_public_mechanics_v06.py",
+    "affected_tests": 1843,
+    "fresh_public_readers": 3,
+    "evidence": [
+      "devtools/data/public_mechanics_receiving_256_20261108.json"
+    ],
+    "public_default_version": "0.5",
+    "explicit_experimental_version": "0.6",
+    "source_issue_closed": false,
+    "weighted_milestone_change": 0
   }
 }

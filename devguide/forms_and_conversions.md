@@ -418,20 +418,21 @@ from complete-file validation. The exact admission and guard are maintained in
 ### Complementary partial native systems
 
 Public conversion composes lists/tuples of complementary partial MolSys objects,
-including materialized H5MSM 0.5 files, before selection. The input container is a
-declaration of positional atom/frame correspondence; it is not authentication or
+including materialized H5MSM 0.5 or experimental 0.6 files, before selection. The input container is a
+declaration of positional atom/structure correspondence; it is not authentication or
 an atom-matching procedure. Classification inspects actual native domain presence
-and H5MSM 0.5 axis metadata rather than assuming every file provides topology.
+and modular H5MSM axis metadata rather than assuming every file provides topology.
 Readers still validate each file's own associations. Full-file conversion loads
 arrays; metadata-only classification is not a streaming conversion contract.
 
 Require one topology, chemistry and Structures provider, distinct analysis names
 and compatible full axes before selection. Native extraction then owns sorted
-topology atom indices, ordered/repeated frame selection and interaction remapping.
-Preserve declared state/frame assignments; do not synthesize an assignment from
+topology atom indices, ordered/repeated structure selection and interaction remapping.
+Preserve declared state/structure assignments; do not synthesize an assignment from
 the chemical reference state. Topology is copied for its single-owner binding,
 even if full-axis `copy_if_all=False` shares structural arrays. This bounded route
-rejects mechanics rather than losing it. Complete-system and legacy-form routes
+accepts one stored mechanical provider with matching atom rows, preserving
+original reports without recalculation. Repeated nonempty providers refuse. Complete-system and legacy-form routes
 retain their existing rules. Guard:
 `tests/basic/convert/mult_to_one/test_convert_complementary_h5msm_domains.py`.
 
@@ -1068,5 +1069,34 @@ per-atom values; the parameter projection cannot prove absence. The parameter-on
 MolecularMechanicsDict omits complete named reports. Native pickle does not
 replace a client's explicitly required H5MSM round trip or accept its entire
 workflow. The maintainer authorizes a bounded H5MSM 0.6 model/schema implementation before
-1.0 under uibcdf/molsysmt#256; it is not yet a supported transport. See the
+1.0 under uibcdf/molsysmt#256. Experimental 0.6 is now explicitly selectable
+through `format_version="0.6"`; default 0.5 writing and the parameter-only
+dictionary contract are unchanged. See the
 [checkpoint guide](../docs/content/user/foundations/native_world/classes/molsysmt_MolSysDict.md#native-checkpoints).
+
+## Experimental public H5MSM 0.6 operations
+
+`h5msm.write`, `write_layers` and general `convert` require explicit
+`format_version="0.6"` for mechanics persistence; default output remains 0.5.
+General reads support both modular roots, while the legacy handler still refuses
+both. `read_axis_sizes` reads independent metadata endpoints without payload
+arrays. The [public contract](../docs/content/user/tools/form/file/h5msm_06.md)
+and [format owner](h5msm_format.md#experimental-version-0-6) define the schema,
+identity, presence, query and publication limits.
+
+File extraction preserves a 0.6 source version; explicit conversion retains its
+0.5 default and refuses unsupported stored mechanics. Copies preserve bytes.
+Topology-free, interaction-free append can retain a compatible mechanics layer
+and extend an explicit structure/state map after validation. Other modifications
+use resident editing and new output. Known assignments retain projection rules;
+unknown/incomplete charge/type reports are transportable evidence but refuse
+scientific use/remapping through SMonitor rather than acquiring new bindings.
+
+Source `69f938947` qualifies these routes with 1,843 affected cases, fourteen
+fast gates and fresh HTML. Three public fresh-reader preparations preserve
+original producers, a different unit policy, selected PDBQT bytes and actual edit
+invalidation without preparation engines. Scientific file projections dispatch
+by root and retain explicitly requested mechanical context. These are bounded
+source/contract/parity checks, not installed-client acceptance or a stable 1.0
+schema declaration. See
+[receiving](../devtools/data/public_mechanics_receiving_256_20261108.json).

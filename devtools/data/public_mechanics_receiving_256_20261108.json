@@ -1,0 +1,1256 @@
+{
+  "schema_version": "molsysmt.public_mechanics_receiving@1",
+  "date": "2026-11-08",
+  "owner_issue": "uibcdf/molsysmt#256",
+  "source": "69f9389479036044fd5a3c01fbfb75b07f4c2735",
+  "scope": "Linux/Python 3.14 source qualification of explicit experimental public H5MSM 0.6 routes. Default writing remains 0.5. Not stable-format, installed/platform, complete-suite, client E3 or exact-release-candidate acceptance.",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "runs": {
+    "mechanics-256-public-pilot": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/mechanics-256-public-pilot.xml",
+          "-n0",
+          "tests/form/file_h5msm/test_public_mechanics_v06.py",
+          "tests/form/file_h5msm/test_modular_mechanics.py",
+          "tests/test_argument_contract.py",
+          "--maxfail=5",
+          "--basetemp=<private-evidence>/mechanics-256-public-pilot"
+        ],
+        "exit_code": 1,
+        "seconds": 4.651754048885778,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "322f77460c7c8d2e8916d450112e08989ca7ebdc",
+        "starting_git_status": " M molsysmt/_private/argdigest/argument/layers.py\n M molsysmt/_private/argdigest/argument/molecular_mechanics.py\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/_private/conversion_report.py\n M molsysmt/_private/h5msm.py\n M molsysmt/_private/h5msm_storage/modular.py\n M molsysmt/basic/convert.py\n M molsysmt/basic/extract.py\n M molsysmt/form/_h5msm05_iterator.py\n M molsysmt/form/_h5msm05_modular.py\n M molsysmt/form/_query_delegation.py\n M molsysmt/form/file_h5msm/__init__.py\n M molsysmt/form/file_h5msm/_modular_query.py\n M molsysmt/form/file_h5msm/attributes.py\n M molsysmt/form/file_h5msm/extract.py\n M molsysmt/form/file_h5msm/has_attribute.py\n M molsysmt/form/file_h5msm/to_file_h5msm.py\n M molsysmt/h5msm.py\n M molsysmt/native/h5msm_file_handler.py\n M tests/form/file_h5msm/test_modular_mechanics.py\n?? molsysmt/_private/argdigest/argument/format_version.py\n?? molsysmt/_private/argdigest/argument/mechanics_n_atoms.py\n?? molsysmt/_private/h5msm_storage/versions.py\n?? molsysmt/form/file_h5msm/get_mechanical_attributes.py\n?? tests/form/file_h5msm/test_public_mechanics_v06.py\n",
+        "ending_git_status": " M molsysmt/_private/argdigest/argument/layers.py\n M molsysmt/_private/argdigest/argument/molecular_mechanics.py\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/_private/conversion_report.py\n M molsysmt/_private/h5msm.py\n M molsysmt/_private/h5msm_storage/modular.py\n M molsysmt/basic/convert.py\n M molsysmt/basic/extract.py\n M molsysmt/form/_h5msm05_iterator.py\n M molsysmt/form/_h5msm05_modular.py\n M molsysmt/form/_query_delegation.py\n M molsysmt/form/file_h5msm/__init__.py\n M molsysmt/form/file_h5msm/_modular_query.py\n M molsysmt/form/file_h5msm/attributes.py\n M molsysmt/form/file_h5msm/extract.py\n M molsysmt/form/file_h5msm/has_attribute.py\n M molsysmt/form/file_h5msm/to_file_h5msm.py\n M molsysmt/h5msm.py\n M molsysmt/native/h5msm_file_handler.py\n M tests/form/file_h5msm/test_modular_mechanics.py\n?? molsysmt/_private/argdigest/argument/format_version.py\n?? molsysmt/_private/argdigest/argument/mechanics_n_atoms.py\n?? molsysmt/_private/h5msm_storage/versions.py\n?? molsysmt/form/file_h5msm/get_mechanical_attributes.py\n?? tests/form/file_h5msm/test_public_mechanics_v06.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8635
+      },
+      "resources": {
+        "started_utc": "2026-11-09T04:21:28.583067+00:00",
+        "seconds": 10.010254014050588,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.37060546875,
+            0.80419921875,
+            1.4951171875
+          ],
+          "cpu_utilization": 0.038210155857214656,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16163078144,
+        "cgroup_memory_peak_bytes": 241479680,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "86eb32201582698ba7791acf44042a8df8e225fd40487fc0711472f413bd21e2",
+        "-bounded.json": "5358ca9ef2d83d1c141d7e06e9f03ca3752ab13bdc8c6ab3d5f594f7d83766b4",
+        ".xml": "197494f0aca7e10578ad8f9b5977ded4b819b816789b3d22b65a9ec3069ec63e",
+        ".log": "25c3a5f682a336ae05ef6f569934e8c9e717267935c374b7f253749ca07d3730",
+        "-inputs-before.json": "fe2356114fade9fd6a1d33dc37f2901eadb38d3ba0d2922af91f714e835b1aab",
+        "-inputs-after.json": "fe2356114fade9fd6a1d33dc37f2901eadb38d3ba0d2922af91f714e835b1aab",
+        "-reference-driver.py": "70341d7e9659992174a9256372ffd973da87f746a595f73a6cc85ca869c3afab",
+        "-resource-driver.py": "886aa7c8c482685a8d0cd72ead665900676bcc943ce532192be52701b6589ed1"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "5",
+          "skipped": "0",
+          "tests": "16",
+          "time": "2.570",
+          "timestamp": "2026-11-08T22:21:32.727531-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.form.file_h5msm.test_public_mechanics_v06",
+          "name": "test_unknown_write_versions_are_rejected_by_public_digestion[1.0]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_public_mechanics_v06",
+          "name": "test_unknown_write_versions_are_rejected_by_public_digestion[0.4]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_public_mechanics_v06",
+          "name": "test_unknown_write_versions_are_rejected_by_public_digestion[0.6]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_public_mechanics_v06",
+          "name": "test_unknown_write_versions_are_rejected_by_public_digestion[True]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_public_mechanics_v06",
+          "name": "test_unknown_write_versions_are_rejected_by_public_digestion[version4]",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "mechanics-256-public-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/mechanics-256-public-directed.xml",
+          "-n0",
+          "tests/form/file_h5msm/test_public_mechanics_v06.py",
+          "tests/form/file_h5msm/test_modular_mechanics.py",
+          "tests/test_argument_contract.py",
+          "--basetemp=<private-evidence>/mechanics-256-public-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 20.814618597971275,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "322f77460c7c8d2e8916d450112e08989ca7ebdc",
+        "starting_git_status": " M molsysmt/_private/argdigest/argument/layers.py\n M molsysmt/_private/argdigest/argument/molecular_mechanics.py\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/_private/conversion_report.py\n M molsysmt/_private/h5msm.py\n M molsysmt/_private/h5msm_storage/modular.py\n M molsysmt/basic/convert.py\n M molsysmt/basic/extract.py\n M molsysmt/form/_h5msm05_iterator.py\n M molsysmt/form/_h5msm05_modular.py\n M molsysmt/form/_query_delegation.py\n M molsysmt/form/file_h5msm/__init__.py\n M molsysmt/form/file_h5msm/_modular_query.py\n M molsysmt/form/file_h5msm/attributes.py\n M molsysmt/form/file_h5msm/extract.py\n M molsysmt/form/file_h5msm/has_attribute.py\n M molsysmt/form/file_h5msm/to_file_h5msm.py\n M molsysmt/h5msm.py\n M molsysmt/native/h5msm_file_handler.py\n M tests/form/file_h5msm/test_modular_mechanics.py\n?? molsysmt/_private/argdigest/argument/format_version.py\n?? molsysmt/_private/argdigest/argument/mechanics_n_atoms.py\n?? molsysmt/_private/h5msm_storage/versions.py\n?? molsysmt/form/file_h5msm/get_mechanical_attributes.py\n?? tests/form/file_h5msm/test_public_mechanics_v06.py\n",
+        "ending_git_status": " M molsysmt/_private/argdigest/argument/layers.py\n M molsysmt/_private/argdigest/argument/molecular_mechanics.py\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/_private/conversion_report.py\n M molsysmt/_private/h5msm.py\n M molsysmt/_private/h5msm_storage/modular.py\n M molsysmt/basic/convert.py\n M molsysmt/basic/extract.py\n M molsysmt/form/_h5msm05_iterator.py\n M molsysmt/form/_h5msm05_modular.py\n M molsysmt/form/_query_delegation.py\n M molsysmt/form/file_h5msm/__init__.py\n M molsysmt/form/file_h5msm/_modular_query.py\n M molsysmt/form/file_h5msm/attributes.py\n M molsysmt/form/file_h5msm/extract.py\n M molsysmt/form/file_h5msm/has_attribute.py\n M molsysmt/form/file_h5msm/to_file_h5msm.py\n M molsysmt/h5msm.py\n M molsysmt/native/h5msm_file_handler.py\n M tests/form/file_h5msm/test_modular_mechanics.py\n?? molsysmt/_private/argdigest/argument/format_version.py\n?? molsysmt/_private/argdigest/argument/mechanics_n_atoms.py\n?? molsysmt/_private/h5msm_storage/versions.py\n?? molsysmt/form/file_h5msm/get_mechanical_attributes.py\n?? tests/form/file_h5msm/test_public_mechanics_v06.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8635
+      },
+      "resources": {
+        "started_utc": "2026-11-09T04:22:51.916933+00:00",
+        "seconds": 27.02693095197901,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.4765625,
+            0.7470703125,
+            1.412109375
+          ],
+          "cpu_utilization": 0.02713567839195985,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 15952781312,
+        "cgroup_memory_peak_bytes": 483893248,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "96b1d94b7a68d4eaac9b2cfe5f38c09b6a14cf65513b810c520fa5691cf27ff6",
+        "-bounded.json": "f16dd24f9839427654ead157df4741ee4bf7769349b2bc9d6b42fd0f2b7a26c1",
+        ".xml": "dabaa5584c61ce75ac6f97eea91324d94801b1e3064f13a1f98308bec8a49cd4",
+        ".log": "68a52135bb604b9cad7e0489643b6c8d9e51fbb3bf9b6c1887fdc2771c5477f7",
+        "-inputs-before.json": "4e04baf89c39d4ed8408fe4506f72a3a5852ff6d9a601de3857d5b130b75e72f",
+        "-inputs-after.json": "4e04baf89c39d4ed8408fe4506f72a3a5852ff6d9a601de3857d5b130b75e72f",
+        "-reference-driver.py": "8c65e8d2ac132ef845b1d7a79b3223fa740a47224fabd69be4d368b0d1fb9794",
+        "-resource-driver.py": "d8521c7d62726c2f594dae2d55d751d701b4c5541bc4b1cff6cbaa63bed724f2"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "3",
+          "skipped": "0",
+          "tests": "72",
+          "time": "17.207",
+          "timestamp": "2026-11-08T22:22:56.123413-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.form.file_h5msm.test_public_mechanics_v06",
+          "name": "test_structure_queries_and_iterator_never_decode_unrequested_mechanics",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_public_mechanics_v06",
+          "name": "test_copy_and_selected_file_extraction_retain_root_version_and_mechanics",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_public_mechanics_v06",
+          "name": "test_public_append_preserves_mechanics_and_extends_state_assignments",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "mechanics-256-public-directed-fixed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/mechanics-256-public-directed-fixed.xml",
+          "-n0",
+          "tests/form/file_h5msm/test_public_mechanics_v06.py",
+          "tests/form/file_h5msm/test_modular_mechanics.py",
+          "tests/test_argument_contract.py",
+          "--basetemp=<private-evidence>/mechanics-256-public-directed-fixed"
+        ],
+        "exit_code": 0,
+        "seconds": 21.897741836030036,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "322f77460c7c8d2e8916d450112e08989ca7ebdc",
+        "starting_git_status": " M molsysmt/_private/argdigest/argument/layers.py\n M molsysmt/_private/argdigest/argument/molecular_mechanics.py\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/_private/conversion_report.py\n M molsysmt/_private/h5msm.py\n M molsysmt/_private/h5msm_storage/modular.py\n M molsysmt/_private/native_composition.py\n M molsysmt/basic/convert.py\n M molsysmt/basic/extract.py\n M molsysmt/form/_h5msm05_iterator.py\n M molsysmt/form/_h5msm05_modular.py\n M molsysmt/form/_query_delegation.py\n M molsysmt/form/file_h5msm/__init__.py\n M molsysmt/form/file_h5msm/_modular_query.py\n M molsysmt/form/file_h5msm/attributes.py\n M molsysmt/form/file_h5msm/extract.py\n M molsysmt/form/file_h5msm/has_attribute.py\n M molsysmt/form/file_h5msm/to_file_h5msm.py\n M molsysmt/h5msm.py\n M molsysmt/native/h5msm_file_handler.py\n M tests/form/file_h5msm/test_modular_mechanics.py\n?? molsysmt/_private/argdigest/argument/format_version.py\n?? molsysmt/_private/argdigest/argument/mechanics_n_atoms.py\n?? molsysmt/_private/h5msm_storage/versions.py\n?? molsysmt/form/file_h5msm/get_mechanical_attributes.py\n?? tests/form/file_h5msm/test_public_mechanics_v06.py\n",
+        "ending_git_status": " M molsysmt/_private/argdigest/argument/layers.py\n M molsysmt/_private/argdigest/argument/molecular_mechanics.py\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/_private/conversion_report.py\n M molsysmt/_private/h5msm.py\n M molsysmt/_private/h5msm_storage/modular.py\n M molsysmt/_private/native_composition.py\n M molsysmt/basic/convert.py\n M molsysmt/basic/extract.py\n M molsysmt/form/_h5msm05_iterator.py\n M molsysmt/form/_h5msm05_modular.py\n M molsysmt/form/_query_delegation.py\n M molsysmt/form/file_h5msm/__init__.py\n M molsysmt/form/file_h5msm/_modular_query.py\n M molsysmt/form/file_h5msm/attributes.py\n M molsysmt/form/file_h5msm/extract.py\n M molsysmt/form/file_h5msm/has_attribute.py\n M molsysmt/form/file_h5msm/to_file_h5msm.py\n M molsysmt/h5msm.py\n M molsysmt/native/h5msm_file_handler.py\n M tests/form/file_h5msm/test_modular_mechanics.py\n?? molsysmt/_private/argdigest/argument/format_version.py\n?? molsysmt/_private/argdigest/argument/mechanics_n_atoms.py\n?? molsysmt/_private/h5msm_storage/versions.py\n?? molsysmt/form/file_h5msm/get_mechanical_attributes.py\n?? tests/form/file_h5msm/test_public_mechanics_v06.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8635
+      },
+      "resources": {
+        "started_utc": "2026-11-09T04:25:58.869866+00:00",
+        "seconds": 28.028975641122088,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.49755859375,
+            0.72705078125,
+            1.28466796875
+          ],
+          "cpu_utilization": 0.028672032193158947,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 15969591296,
+        "cgroup_memory_peak_bytes": 484716544,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "fbe54be25bedf129e70479c27ca870503847d2edc3747257e63658f7ce8a47dd",
+        "-bounded.json": "4e7f17387ec72e4ec7ca132f2eba3893f143d3b41c9371e75b03a62519aa2ece",
+        ".xml": "a85ef61019e613fdf4eafeabc9cd4667330f6f1e3f71c8f03af30d53a27c71e4",
+        ".log": "641a9a196f2182e00f10b6a2ddd247f121f716b1fdfd283b7332054ae81ad57d",
+        "-inputs-before.json": "e978a021197c797f9470ddc0be9a39c2b5bdb547f3e7a7104060fe8c7059585b",
+        "-inputs-after.json": "e978a021197c797f9470ddc0be9a39c2b5bdb547f3e7a7104060fe8c7059585b",
+        "-reference-driver.py": "07acc4fd4d8fa4c983a3fd72987f8825aadc53b4c43d3c9de8138b2084b499b3",
+        "-resource-driver.py": "8e4d69743472a7d28911afc094c6a994a849a60b0979c38cfbbd6958bc3d5c64"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "77",
+          "time": "18.289",
+          "timestamp": "2026-11-08T22:26:03.045986-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "mechanics-256-public-integrated": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/mechanics-256-public-integrated.xml",
+          "-n2",
+          "tests/form/file_h5msm",
+          "tests/form/molsysmt_MolSysDict",
+          "tests/basic/convert",
+          "tests/test_argument_contract.py",
+          "tests/basic/test_compose_atom_maps.py",
+          "tests/native/test_prepared_system_checkpoint.py",
+          "tests/form/molsysmt_MolSys/test_partial_domains.py",
+          "tests/_private/test_atomic_new_file.py",
+          "molsysmt/h5msm.py",
+          "--basetemp=<private-evidence>/mechanics-256-public-integrated"
+        ],
+        "exit_code": 1,
+        "seconds": 135.01958270999603,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "322f77460c7c8d2e8916d450112e08989ca7ebdc",
+        "starting_git_status": " M devguide/api_stability_registry.md\n M devtools/data/public_api_stability.json\n M docs/content/course/Common_Core/04_Native_Forms.ipynb\n M docs/content/user/cookbook/assigning_partial_charges.md\n M docs/content/user/cookbook/migrating_h5msm.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md\n M docs/content/user/foundations/native_world/files/file_h5msm.md\n M docs/content/user/tools/form/file/h5msm_05.md\n M docs/content/user/tools/form/file/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/layers.py\n M molsysmt/_private/argdigest/argument/molecular_mechanics.py\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/_private/conversion_report.py\n M molsysmt/_private/h5msm.py\n M molsysmt/_private/h5msm_storage/modular.py\n M molsysmt/_private/native_composition.py\n M molsysmt/basic/convert.py\n M molsysmt/basic/extract.py\n M molsysmt/form/_h5msm05_iterator.py\n M molsysmt/form/_h5msm05_modular.py\n M molsysmt/form/_query_delegation.py\n M molsysmt/form/file_h5msm/__init__.py\n M molsysmt/form/file_h5msm/_modular_query.py\n M molsysmt/form/file_h5msm/attributes.py\n M molsysmt/form/file_h5msm/extract.py\n M molsysmt/form/file_h5msm/has_attribute.py\n M molsysmt/form/file_h5msm/to_file_h5msm.py\n M molsysmt/h5msm.py\n M molsysmt/native/h5msm_file_handler.py\n M tests/form/file_h5msm/test_modular_mechanics.py\n?? docs/content/user/tools/form/file/h5msm_06.md\n?? docs/content/user/tools/form/file/h5msm_06.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/format_version.py\n?? molsysmt/_private/argdigest/argument/mechanics_n_atoms.py\n?? molsysmt/_private/h5msm_storage/versions.py\n?? molsysmt/form/file_h5msm/get_mechanical_attributes.py\n?? tests/form/file_h5msm/test_public_mechanics_v06.py\n",
+        "ending_git_status": " M devguide/api_stability_registry.md\n M devtools/data/public_api_stability.json\n M docs/content/course/Common_Core/04_Native_Forms.ipynb\n M docs/content/user/cookbook/assigning_partial_charges.md\n M docs/content/user/cookbook/migrating_h5msm.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md\n M docs/content/user/foundations/native_world/files/file_h5msm.md\n M docs/content/user/tools/form/file/h5msm_05.md\n M docs/content/user/tools/form/file/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/layers.py\n M molsysmt/_private/argdigest/argument/molecular_mechanics.py\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/_private/conversion_report.py\n M molsysmt/_private/h5msm.py\n M molsysmt/_private/h5msm_storage/modular.py\n M molsysmt/_private/native_composition.py\n M molsysmt/basic/convert.py\n M molsysmt/basic/extract.py\n M molsysmt/form/_h5msm05_iterator.py\n M molsysmt/form/_h5msm05_modular.py\n M molsysmt/form/_query_delegation.py\n M molsysmt/form/file_h5msm/__init__.py\n M molsysmt/form/file_h5msm/_modular_query.py\n M molsysmt/form/file_h5msm/attributes.py\n M molsysmt/form/file_h5msm/extract.py\n M molsysmt/form/file_h5msm/has_attribute.py\n M molsysmt/form/file_h5msm/to_file_h5msm.py\n M molsysmt/h5msm.py\n M molsysmt/native/h5msm_file_handler.py\n M tests/form/file_h5msm/test_modular_mechanics.py\n?? docs/content/user/tools/form/file/h5msm_06.md\n?? docs/content/user/tools/form/file/h5msm_06.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/format_version.py\n?? molsysmt/_private/argdigest/argument/mechanics_n_atoms.py\n?? molsysmt/_private/h5msm_storage/versions.py\n?? molsysmt/form/file_h5msm/get_mechanical_attributes.py\n?? tests/form/file_h5msm/test_public_mechanics_v06.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8637
+      },
+      "resources": {
+        "started_utc": "2026-11-09T04:32:04.587345+00:00",
+        "seconds": 141.1251091780141,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.74462890625,
+            0.95458984375,
+            1.23974609375
+          ],
+          "cpu_utilization": 0.027624309392265234,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14676156416,
+        "cgroup_memory_peak_bytes": 1825935360,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "623b6757deed60d0248ce2c5ce9b9d46d43817ad29617fd6a50673cef5e1bcf3",
+        "-bounded.json": "2d157607738a3781702ebcfc1d0c20f96d94f34a7645256d037f007ba7476635",
+        ".xml": "c5ea1febfcafbd865cc9ac6928e269e4d666a013ff147001046440b4821b202b",
+        ".log": "94fb0be628c2bf1c3fa8bfa1fba41972f4f1a988d0e22101570f3af84e4d72a6",
+        "-inputs-before.json": "4dde12e98c4db9b080bc547826ef15f79f67149a59cd3bd00da088309250a770",
+        "-inputs-after.json": "4dde12e98c4db9b080bc547826ef15f79f67149a59cd3bd00da088309250a770",
+        "-reference-driver.py": "999d4ed11f5b493355bf1e2e18e3855d66b16b4b9305fc6db9a835cb2a8f657b",
+        "-resource-driver.py": "e541fc707d835a9ca91d0a0a4d55b2e5ac01a341a3814d42e780e4cdb751de62"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "1617",
+          "time": "133.028",
+          "timestamp": "2026-11-08T22:32:08.750976-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.basic.convert.mult_to_one.test_convert_complementary_h5msm_domains",
+          "name": "test_partial_composition_rejects_mechanics_without_silent_loss",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "mechanics-256-unknown-reports-original": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/mechanics-256-unknown-reports-original.xml",
+          "-n0",
+          "tests/native/test_unknown_mechanical_assignment_reports.py",
+          "--basetemp=<private-evidence>/mechanics-256-unknown-reports-original"
+        ],
+        "exit_code": 1,
+        "seconds": 5.919815280009061,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "322f77460c7c8d2e8916d450112e08989ca7ebdc",
+        "starting_git_status": " M devguide/api_stability_registry.md\n M devtools/data/public_api_stability.json\n M docs/content/course/Common_Core/04_Native_Forms.ipynb\n M docs/content/user/cookbook/assigning_partial_charges.md\n M docs/content/user/cookbook/migrating_h5msm.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md\n M docs/content/user/foundations/native_world/files/file_h5msm.md\n M docs/content/user/tools/form/file/h5msm_05.md\n M docs/content/user/tools/form/file/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/layers.py\n M molsysmt/_private/argdigest/argument/molecular_mechanics.py\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/_private/conversion_report.py\n M molsysmt/_private/h5msm.py\n M molsysmt/_private/h5msm_storage/modular.py\n M molsysmt/_private/native_composition.py\n M molsysmt/basic/convert.py\n M molsysmt/basic/extract.py\n M molsysmt/form/_h5msm05_iterator.py\n M molsysmt/form/_h5msm05_modular.py\n M molsysmt/form/_query_delegation.py\n M molsysmt/form/file_h5msm/__init__.py\n M molsysmt/form/file_h5msm/_modular_query.py\n M molsysmt/form/file_h5msm/attributes.py\n M molsysmt/form/file_h5msm/extract.py\n M molsysmt/form/file_h5msm/has_attribute.py\n M molsysmt/form/file_h5msm/to_file_h5msm.py\n M molsysmt/h5msm.py\n M molsysmt/native/h5msm_file_handler.py\n M tests/form/file_h5msm/test_modular_mechanics.py\n?? docs/content/user/tools/form/file/h5msm_06.md\n?? docs/content/user/tools/form/file/h5msm_06.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/format_version.py\n?? molsysmt/_private/argdigest/argument/mechanics_n_atoms.py\n?? molsysmt/_private/h5msm_storage/versions.py\n?? molsysmt/form/file_h5msm/get_mechanical_attributes.py\n?? tests/form/file_h5msm/test_public_mechanics_v06.py\n?? tests/native/test_unknown_mechanical_assignment_reports.py\n",
+        "ending_git_status": " M devguide/api_stability_registry.md\n M devtools/data/public_api_stability.json\n M docs/content/course/Common_Core/04_Native_Forms.ipynb\n M docs/content/user/cookbook/assigning_partial_charges.md\n M docs/content/user/cookbook/migrating_h5msm.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md\n M docs/content/user/foundations/native_world/files/file_h5msm.md\n M docs/content/user/tools/form/file/h5msm_05.md\n M docs/content/user/tools/form/file/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/layers.py\n M molsysmt/_private/argdigest/argument/molecular_mechanics.py\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/_private/conversion_report.py\n M molsysmt/_private/h5msm.py\n M molsysmt/_private/h5msm_storage/modular.py\n M molsysmt/_private/native_composition.py\n M molsysmt/basic/convert.py\n M molsysmt/basic/extract.py\n M molsysmt/form/_h5msm05_iterator.py\n M molsysmt/form/_h5msm05_modular.py\n M molsysmt/form/_query_delegation.py\n M molsysmt/form/file_h5msm/__init__.py\n M molsysmt/form/file_h5msm/_modular_query.py\n M molsysmt/form/file_h5msm/attributes.py\n M molsysmt/form/file_h5msm/extract.py\n M molsysmt/form/file_h5msm/has_attribute.py\n M molsysmt/form/file_h5msm/to_file_h5msm.py\n M molsysmt/h5msm.py\n M molsysmt/native/h5msm_file_handler.py\n M tests/form/file_h5msm/test_modular_mechanics.py\n?? docs/content/user/tools/form/file/h5msm_06.md\n?? docs/content/user/tools/form/file/h5msm_06.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/format_version.py\n?? molsysmt/_private/argdigest/argument/mechanics_n_atoms.py\n?? molsysmt/_private/h5msm_storage/versions.py\n?? molsysmt/form/file_h5msm/get_mechanical_attributes.py\n?? tests/form/file_h5msm/test_public_mechanics_v06.py\n?? tests/native/test_unknown_mechanical_assignment_reports.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8638
+      },
+      "resources": {
+        "started_utc": "2026-11-09T04:37:13.048307+00:00",
+        "seconds": 12.01267808699049,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.501953125,
+            1.13916015625,
+            1.30322265625
+          ],
+          "cpu_utilization": 0.02058232931726911,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16226467840,
+        "cgroup_memory_peak_bytes": 234139648,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "54232b21db04ca32d415a9f30bd7877052c145a3b22c2861c4c03c9050e7933e",
+        "-bounded.json": "4b3610f3953a44dca865ebbc6cd1ac40ea6041fde9a78821d46221b3ff5486e9",
+        ".xml": "0c5de121f83fa70fdb8b14f719155288d39dcdd22433ff05499645361ac57c6d",
+        ".log": "d8b10ee7164ee893487d57a7b6b9cb8af102ca059186a50ad3ef7361458c401f",
+        "-inputs-before.json": "0e425b0a6c38141eb714ab7f9dd0bee92a6dd7dca26c2c8724b20b5513d23702",
+        "-inputs-after.json": "0e425b0a6c38141eb714ab7f9dd0bee92a6dd7dca26c2c8724b20b5513d23702",
+        "-reference-driver.py": "9e94da97c36694d5c2e315d06c8c43233726c537a95933d61eb94892cfe36c8b",
+        "-resource-driver.py": "d2a285e88068c7367791ea32580de4e35e78a61020204a2849aa673408460fe3"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "6",
+          "skipped": "0",
+          "tests": "6",
+          "time": "3.937",
+          "timestamp": "2026-11-08T22:37:17.197409-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.native.test_unknown_mechanical_assignment_reports",
+          "name": "test_unknown_reports_roundtrip_but_refuse_projection_and_scientific_export[future_schema-partial_charge_assignment]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.native.test_unknown_mechanical_assignment_reports",
+          "name": "test_unknown_reports_roundtrip_but_refuse_projection_and_scientific_export[future_schema-atom_type_assignment]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.native.test_unknown_mechanical_assignment_reports",
+          "name": "test_unknown_reports_roundtrip_but_refuse_projection_and_scientific_export[empty-partial_charge_assignment]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.native.test_unknown_mechanical_assignment_reports",
+          "name": "test_unknown_reports_roundtrip_but_refuse_projection_and_scientific_export[empty-atom_type_assignment]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.native.test_unknown_mechanical_assignment_reports",
+          "name": "test_unknown_reports_roundtrip_but_refuse_projection_and_scientific_export[missing_index-partial_charge_assignment]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.native.test_unknown_mechanical_assignment_reports",
+          "name": "test_unknown_reports_roundtrip_but_refuse_projection_and_scientific_export[missing_index-atom_type_assignment]",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "mechanics-256-public-consumers-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/mechanics-256-public-consumers-directed.xml",
+          "-n0",
+          "tests/native/test_unknown_mechanical_assignment_reports.py",
+          "tests/build/test_assign_partial_charges.py",
+          "tests/build/test_assign_autodock_atom_types.py",
+          "tests/form/file_h5msm/test_public_mechanics_v06.py",
+          "tests/form/file_h5msm/test_modular_mechanics.py",
+          "molsysmt/h5msm.py",
+          "--basetemp=<private-evidence>/mechanics-256-public-consumers-directed"
+        ],
+        "exit_code": 0,
+        "seconds": 42.994090357096866,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "322f77460c7c8d2e8916d450112e08989ca7ebdc",
+        "starting_git_status": " M devguide/SCALABILITY.md\n M devguide/api_stability_registry.md\n M devguide/h5msm_format.md\n M devtools/data/public_api_stability.json\n M docs/api/index.md\n M docs/content/course/Common_Core/04_Native_Forms.ipynb\n M docs/content/user/cookbook/assigning_partial_charges.md\n M docs/content/user/cookbook/migrating_h5msm.md\n M docs/content/user/foundations/molecular_system/the_molecular_system.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md\n M docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md\n M docs/content/user/foundations/native_world/files/file_h5msm.md\n M docs/content/user/tools/form/file/h5msm_05.md\n M docs/content/user/tools/form/file/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/layers.py\n M molsysmt/_private/argdigest/argument/molecular_mechanics.py\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/_private/autodock_assignment.py\n M molsysmt/_private/conversion_report.py\n M molsysmt/_private/h5msm.py\n M molsysmt/_private/h5msm_storage/modular.py\n M molsysmt/_private/native_composition.py\n M molsysmt/_private/partial_charges.py\n M molsysmt/basic/convert.py\n M molsysmt/basic/extract.py\n M molsysmt/form/_h5msm05_iterator.py\n M molsysmt/form/_h5msm05_modular.py\n M molsysmt/form/_query_delegation.py\n M molsysmt/form/file_h5msm/__init__.py\n M molsysmt/form/file_h5msm/_modular_query.py\n M molsysmt/form/file_h5msm/attributes.py\n M molsysmt/form/file_h5msm/extract.py\n M molsysmt/form/file_h5msm/has_attribute.py\n M molsysmt/form/file_h5msm/to_file_h5msm.py\n M molsysmt/h5msm.py\n M molsysmt/native/h5msm_file_handler.py\n M tests/basic/convert/mult_to_one/test_convert_complementary_h5msm_domains.py\n M tests/form/file_h5msm/test_modular_mechanics.py\n?? docs/api/h5msm.md\n?? docs/content/user/tools/form/file/h5msm_06.md\n?? docs/content/user/tools/form/file/h5msm_06.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/format_version.py\n?? molsysmt/_private/argdigest/argument/mechanics_n_atoms.py\n?? molsysmt/_private/h5msm_storage/versions.py\n?? molsysmt/form/file_h5msm/get_mechanical_attributes.py\n?? tests/form/file_h5msm/test_public_mechanics_v06.py\n?? tests/native/test_unknown_mechanical_assignment_reports.py\n",
+        "ending_git_status": " M devguide/SCALABILITY.md\n M devguide/api_stability_registry.md\n M devguide/h5msm_format.md\n M devtools/data/public_api_stability.json\n M docs/api/index.md\n M docs/content/course/Common_Core/04_Native_Forms.ipynb\n M docs/content/user/cookbook/assigning_partial_charges.md\n M docs/content/user/cookbook/migrating_h5msm.md\n M docs/content/user/foundations/molecular_system/the_molecular_system.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md\n M docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md\n M docs/content/user/foundations/native_world/files/file_h5msm.md\n M docs/content/user/tools/form/file/h5msm_05.md\n M docs/content/user/tools/form/file/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/layers.py\n M molsysmt/_private/argdigest/argument/molecular_mechanics.py\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/_private/autodock_assignment.py\n M molsysmt/_private/conversion_report.py\n M molsysmt/_private/h5msm.py\n M molsysmt/_private/h5msm_storage/modular.py\n M molsysmt/_private/native_composition.py\n M molsysmt/_private/partial_charges.py\n M molsysmt/basic/convert.py\n M molsysmt/basic/extract.py\n M molsysmt/form/_h5msm05_iterator.py\n M molsysmt/form/_h5msm05_modular.py\n M molsysmt/form/_query_delegation.py\n M molsysmt/form/file_h5msm/__init__.py\n M molsysmt/form/file_h5msm/_modular_query.py\n M molsysmt/form/file_h5msm/attributes.py\n M molsysmt/form/file_h5msm/extract.py\n M molsysmt/form/file_h5msm/has_attribute.py\n M molsysmt/form/file_h5msm/to_file_h5msm.py\n M molsysmt/h5msm.py\n M molsysmt/native/h5msm_file_handler.py\n M tests/basic/convert/mult_to_one/test_convert_complementary_h5msm_domains.py\n M tests/form/file_h5msm/test_modular_mechanics.py\n?? docs/api/h5msm.md\n?? docs/content/user/tools/form/file/h5msm_06.md\n?? docs/content/user/tools/form/file/h5msm_06.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/format_version.py\n?? molsysmt/_private/argdigest/argument/mechanics_n_atoms.py\n?? molsysmt/_private/h5msm_storage/versions.py\n?? molsysmt/form/file_h5msm/get_mechanical_attributes.py\n?? tests/form/file_h5msm/test_public_mechanics_v06.py\n?? tests/native/test_unknown_mechanical_assignment_reports.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8639
+      },
+      "resources": {
+        "started_utc": "2026-11-09T04:40:51.839279+00:00",
+        "seconds": 49.05185121903196,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.28515625,
+            0.97509765625,
+            1.18310546875
+          ],
+          "cpu_utilization": 0.0817862518815855,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 15823761408,
+        "cgroup_memory_peak_bytes": 480387072,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "ee7ad08627191eecac5b6a35ef3958e88816a8f041b8aff2b81b86a1ee8cd429",
+        "-bounded.json": "3f7b669c021c788fd92bd3f4a00e80016ceb4b75e27ce418c2ecd1ea4cbf5650",
+        ".xml": "8928d824752697142dc3d95f6abc1e7a049c3bd7a7e685106f8ee1d979733e39",
+        ".log": "03f50c2c319a018b163fc58c37726efbcf37949b7fc665e53ce5112013d725ca",
+        "-inputs-before.json": "befaeaec948eabe18703587ccd821a994b8882cfa1a37bc094325d26c5c41ff3",
+        "-inputs-after.json": "befaeaec948eabe18703587ccd821a994b8882cfa1a37bc094325d26c5c41ff3",
+        "-reference-driver.py": "0bf3df7e838737e491a89125a22dd14b1599ac3e6a2d44181c341b1882505cfe",
+        "-resource-driver.py": "327129d3938ccafcb184fa7540655c78145ba51cbd949f7abfcdee74a9ba9b95"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "108",
+          "time": "40.510",
+          "timestamp": "2026-11-08T22:40:56.227115-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "mechanics-256-public-fast-pilot": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 22.30624410393648,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "322f77460c7c8d2e8916d450112e08989ca7ebdc",
+        "starting_git_status": " M devguide/SCALABILITY.md\n M devguide/api_stability_registry.md\n M devguide/h5msm_format.md\n M devtools/data/public_api_stability.json\n M docs/api/index.md\n M docs/content/course/Common_Core/04_Native_Forms.ipynb\n M docs/content/user/cookbook/assigning_partial_charges.md\n M docs/content/user/cookbook/migrating_h5msm.md\n M docs/content/user/foundations/molecular_system/the_molecular_system.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md\n M docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md\n M docs/content/user/foundations/native_world/files/file_h5msm.md\n M docs/content/user/tools/form/file/h5msm_05.md\n M docs/content/user/tools/form/file/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/layers.py\n M molsysmt/_private/argdigest/argument/molecular_mechanics.py\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/_private/autodock_assignment.py\n M molsysmt/_private/conversion_report.py\n M molsysmt/_private/h5msm.py\n M molsysmt/_private/h5msm_storage/modular.py\n M molsysmt/_private/native_composition.py\n M molsysmt/_private/partial_charges.py\n M molsysmt/basic/convert.py\n M molsysmt/basic/extract.py\n M molsysmt/form/_h5msm05_iterator.py\n M molsysmt/form/_h5msm05_modular.py\n M molsysmt/form/_query_delegation.py\n M molsysmt/form/file_h5msm/__init__.py\n M molsysmt/form/file_h5msm/_modular_query.py\n M molsysmt/form/file_h5msm/attributes.py\n M molsysmt/form/file_h5msm/extract.py\n M molsysmt/form/file_h5msm/has_attribute.py\n M molsysmt/form/file_h5msm/to_file_h5msm.py\n M molsysmt/h5msm.py\n M molsysmt/native/h5msm_file_handler.py\n M tests/basic/convert/mult_to_one/test_convert_complementary_h5msm_domains.py\n M tests/form/file_h5msm/test_modular_mechanics.py\n?? docs/api/h5msm.md\n?? docs/content/user/tools/form/file/h5msm_06.md\n?? docs/content/user/tools/form/file/h5msm_06.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/format_version.py\n?? molsysmt/_private/argdigest/argument/mechanics_n_atoms.py\n?? molsysmt/_private/h5msm_storage/versions.py\n?? molsysmt/form/file_h5msm/get_mechanical_attributes.py\n?? tests/form/file_h5msm/test_public_mechanics_v06.py\n?? tests/native/test_unknown_mechanical_assignment_reports.py\n",
+        "ending_git_status": " M devguide/SCALABILITY.md\n M devguide/api_stability_registry.md\n M devguide/h5msm_format.md\n M devtools/data/public_api_stability.json\n M docs/api/index.md\n M docs/content/course/Common_Core/04_Native_Forms.ipynb\n M docs/content/user/cookbook/assigning_partial_charges.md\n M docs/content/user/cookbook/migrating_h5msm.md\n M docs/content/user/foundations/molecular_system/the_molecular_system.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md\n M docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md\n M docs/content/user/foundations/native_world/files/file_h5msm.md\n M docs/content/user/tools/form/file/h5msm_05.md\n M docs/content/user/tools/form/file/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/layers.py\n M molsysmt/_private/argdigest/argument/molecular_mechanics.py\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/_private/autodock_assignment.py\n M molsysmt/_private/conversion_report.py\n M molsysmt/_private/h5msm.py\n M molsysmt/_private/h5msm_storage/modular.py\n M molsysmt/_private/native_composition.py\n M molsysmt/_private/partial_charges.py\n M molsysmt/basic/convert.py\n M molsysmt/basic/extract.py\n M molsysmt/form/_h5msm05_iterator.py\n M molsysmt/form/_h5msm05_modular.py\n M molsysmt/form/_query_delegation.py\n M molsysmt/form/file_h5msm/__init__.py\n M molsysmt/form/file_h5msm/_modular_query.py\n M molsysmt/form/file_h5msm/attributes.py\n M molsysmt/form/file_h5msm/extract.py\n M molsysmt/form/file_h5msm/has_attribute.py\n M molsysmt/form/file_h5msm/to_file_h5msm.py\n M molsysmt/h5msm.py\n M molsysmt/native/h5msm_file_handler.py\n M tests/basic/convert/mult_to_one/test_convert_complementary_h5msm_domains.py\n M tests/form/file_h5msm/test_modular_mechanics.py\n?? docs/api/h5msm.md\n?? docs/content/user/tools/form/file/h5msm_06.md\n?? docs/content/user/tools/form/file/h5msm_06.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/format_version.py\n?? molsysmt/_private/argdigest/argument/mechanics_n_atoms.py\n?? molsysmt/_private/h5msm_storage/versions.py\n?? molsysmt/form/file_h5msm/get_mechanical_attributes.py\n?? tests/form/file_h5msm/test_public_mechanics_v06.py\n?? tests/native/test_unknown_mechanical_assignment_reports.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8639
+      },
+      "resources": {
+        "started_utc": "2026-11-09T04:40:47.725689+00:00",
+        "seconds": 28.025437670992687,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.04833984375,
+            0.923828125,
+            1.16748046875
+          ],
+          "cpu_utilization": 0.026633165829145766,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 15834206208,
+        "cgroup_memory_peak_bytes": 418013184,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "c0ce2cd89dac6a0925c9c13d8a3811b9f5d4eca1f08738cb9b0f9e80ff05637b",
+        "-bounded.json": "eeb5a1e0051a4ecc386a62f686df8cd66de610a27d7f289b5ba26b371295d641",
+        ".log": "e5a6d757a0fde7c5c75dee30984882019c9341e8e8458b6a8c2756203b475a78",
+        "-inputs-before.json": "befaeaec948eabe18703587ccd821a994b8882cfa1a37bc094325d26c5c41ff3",
+        "-inputs-after.json": "befaeaec948eabe18703587ccd821a994b8882cfa1a37bc094325d26c5c41ff3",
+        "-reference-driver.py": "bc9740d17124f944b12e406f1cd41264dee28d523a849e8bdd62f6fc95a79fe4",
+        "-resource-driver.py": "d72275dfe66f787efb306779c32ad7921208dceb170989661f495a042147d7f0"
+      }
+    },
+    "mechanics-256-public-calculation-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/mechanics-256-public-calculation-directed.xml",
+          "-n0",
+          "tests/form/file_h5msm/test_public_mechanics_v06.py",
+          "tests/native/test_unknown_mechanical_assignment_reports.py",
+          "tests/molecular_mechanics/get_forces/test_native_contract.py",
+          "--basetemp=<private-evidence>/mechanics-256-public-calculation-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 16.656549592036754,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "322f77460c7c8d2e8916d450112e08989ca7ebdc",
+        "starting_git_status": " M devguide/SCALABILITY.md\n M devguide/api_stability_registry.md\n M devguide/h5msm_format.md\n M devtools/data/public_api_stability.json\n M docs/api/index.md\n M docs/content/course/Common_Core/04_Native_Forms.ipynb\n M docs/content/user/cookbook/assigning_partial_charges.md\n M docs/content/user/cookbook/migrating_h5msm.md\n M docs/content/user/foundations/molecular_system/the_molecular_system.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md\n M docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md\n M docs/content/user/foundations/native_world/files/file_h5msm.md\n M docs/content/user/tools/form/file/h5msm_05.md\n M docs/content/user/tools/form/file/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/layers.py\n M molsysmt/_private/argdigest/argument/molecular_mechanics.py\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/_private/autodock_assignment.py\n M molsysmt/_private/conversion_report.py\n M molsysmt/_private/h5msm.py\n M molsysmt/_private/h5msm_storage/modular.py\n M molsysmt/_private/molecular_forces.py\n M molsysmt/_private/native_composition.py\n M molsysmt/_private/partial_charges.py\n M molsysmt/_private/protonation_preparation.py\n M molsysmt/basic/convert.py\n M molsysmt/basic/extract.py\n M molsysmt/form/_h5msm05_iterator.py\n M molsysmt/form/_h5msm05_modular.py\n M molsysmt/form/_query_delegation.py\n M molsysmt/form/file_h5msm/__init__.py\n M molsysmt/form/file_h5msm/_modular_query.py\n M molsysmt/form/file_h5msm/attributes.py\n M molsysmt/form/file_h5msm/extract.py\n M molsysmt/form/file_h5msm/has_attribute.py\n M molsysmt/form/file_h5msm/to_file_h5msm.py\n M molsysmt/h5msm.py\n M molsysmt/native/h5msm_file_handler.py\n M tests/basic/convert/mult_to_one/test_convert_complementary_h5msm_domains.py\n M tests/form/file_h5msm/test_modular_mechanics.py\n?? docs/api/h5msm.md\n?? docs/content/user/tools/form/file/h5msm_06.md\n?? docs/content/user/tools/form/file/h5msm_06.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/format_version.py\n?? molsysmt/_private/argdigest/argument/mechanics_n_atoms.py\n?? molsysmt/_private/h5msm_storage/versions.py\n?? molsysmt/form/file_h5msm/get_mechanical_attributes.py\n?? tests/form/file_h5msm/test_public_mechanics_v06.py\n?? tests/native/test_unknown_mechanical_assignment_reports.py\n",
+        "ending_git_status": " M devguide/SCALABILITY.md\n M devguide/api_stability_registry.md\n M devguide/h5msm_format.md\n M devtools/data/public_api_stability.json\n M docs/api/index.md\n M docs/content/course/Common_Core/04_Native_Forms.ipynb\n M docs/content/user/cookbook/assigning_partial_charges.md\n M docs/content/user/cookbook/migrating_h5msm.md\n M docs/content/user/foundations/molecular_system/the_molecular_system.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md\n M docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md\n M docs/content/user/foundations/native_world/files/file_h5msm.md\n M docs/content/user/tools/form/file/h5msm_05.md\n M docs/content/user/tools/form/file/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/layers.py\n M molsysmt/_private/argdigest/argument/molecular_mechanics.py\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/_private/autodock_assignment.py\n M molsysmt/_private/conversion_report.py\n M molsysmt/_private/h5msm.py\n M molsysmt/_private/h5msm_storage/modular.py\n M molsysmt/_private/molecular_forces.py\n M molsysmt/_private/native_composition.py\n M molsysmt/_private/partial_charges.py\n M molsysmt/_private/protonation_preparation.py\n M molsysmt/basic/convert.py\n M molsysmt/basic/extract.py\n M molsysmt/form/_h5msm05_iterator.py\n M molsysmt/form/_h5msm05_modular.py\n M molsysmt/form/_query_delegation.py\n M molsysmt/form/file_h5msm/__init__.py\n M molsysmt/form/file_h5msm/_modular_query.py\n M molsysmt/form/file_h5msm/attributes.py\n M molsysmt/form/file_h5msm/extract.py\n M molsysmt/form/file_h5msm/has_attribute.py\n M molsysmt/form/file_h5msm/to_file_h5msm.py\n M molsysmt/h5msm.py\n M molsysmt/native/h5msm_file_handler.py\n M tests/basic/convert/mult_to_one/test_convert_complementary_h5msm_domains.py\n M tests/form/file_h5msm/test_modular_mechanics.py\n?? docs/api/h5msm.md\n?? docs/content/user/tools/form/file/h5msm_06.md\n?? docs/content/user/tools/form/file/h5msm_06.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/format_version.py\n?? molsysmt/_private/argdigest/argument/mechanics_n_atoms.py\n?? molsysmt/_private/h5msm_storage/versions.py\n?? molsysmt/form/file_h5msm/get_mechanical_attributes.py\n?? tests/form/file_h5msm/test_public_mechanics_v06.py\n?? tests/native/test_unknown_mechanical_assignment_reports.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8639
+      },
+      "resources": {
+        "started_utc": "2026-11-09T04:44:54.600575+00:00",
+        "seconds": 23.02254870790057,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.5380859375,
+            0.97900390625,
+            1.1640625
+          ],
+          "cpu_utilization": 0.02963335007533907,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16166019072,
+        "cgroup_memory_peak_bytes": 360038400,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "0dbcfad398d8f899cbc5800ff7bb323ab590f0c6a49e19151ab422e472032cbb",
+        "-bounded.json": "c480040b92f8d43f319127774532d08c92c1e69749acf89435296d9cb7af9b09",
+        ".xml": "2e6f5d3758ff828a2908cd88ea892adfbf9c9b969e265313c8a1ab1cf1329492",
+        ".log": "761e24480ab89325ed090eb526c3b55f901d2833df7ab1c35447009f9cd3f2f2",
+        "-inputs-before.json": "9e699a5bd2ce9c8c96f53d88da1a5738ecfdc5085ea630be3ff7d4675ee40849",
+        "-inputs-after.json": "9e699a5bd2ce9c8c96f53d88da1a5738ecfdc5085ea630be3ff7d4675ee40849",
+        "-reference-driver.py": "62ce60c0740258ed597031647d5e4f9f1541084095bd82ed526c1f9cd666480a",
+        "-resource-driver.py": "a13a698633cb5601dee4821edf4057fd536983fc1eac16c3cc00756f18f7a738"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "97",
+          "time": "14.147",
+          "timestamp": "2026-11-08T22:44:58.848676-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.form.file_h5msm.test_public_mechanics_v06",
+          "name": "test_chemical_calculation_uses_versioned_projection_and_preserves_stored_requests",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "mechanics-256-public-calculation-fixed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/mechanics-256-public-calculation-fixed.xml",
+          "-n0",
+          "tests/form/file_h5msm/test_public_mechanics_v06.py",
+          "tests/native/test_unknown_mechanical_assignment_reports.py",
+          "tests/molecular_mechanics/get_forces/test_native_contract.py",
+          "--basetemp=<private-evidence>/mechanics-256-public-calculation-fixed"
+        ],
+        "exit_code": 0,
+        "seconds": 17.393285580910742,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "322f77460c7c8d2e8916d450112e08989ca7ebdc",
+        "starting_git_status": " M devguide/SCALABILITY.md\n M devguide/api_stability_registry.md\n M devguide/h5msm_format.md\n M devtools/data/public_api_stability.json\n M docs/api/index.md\n M docs/content/course/Common_Core/04_Native_Forms.ipynb\n M docs/content/user/cookbook/assigning_partial_charges.md\n M docs/content/user/cookbook/migrating_h5msm.md\n M docs/content/user/foundations/molecular_system/the_molecular_system.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md\n M docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md\n M docs/content/user/foundations/native_world/files/file_h5msm.md\n M docs/content/user/tools/form/file/h5msm_05.md\n M docs/content/user/tools/form/file/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/layers.py\n M molsysmt/_private/argdigest/argument/molecular_mechanics.py\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/_private/autodock_assignment.py\n M molsysmt/_private/conversion_report.py\n M molsysmt/_private/h5msm.py\n M molsysmt/_private/h5msm_storage/modular.py\n M molsysmt/_private/molecular_forces.py\n M molsysmt/_private/native_composition.py\n M molsysmt/_private/partial_charges.py\n M molsysmt/_private/protonation_preparation.py\n M molsysmt/basic/convert.py\n M molsysmt/basic/extract.py\n M molsysmt/form/_h5msm05_iterator.py\n M molsysmt/form/_h5msm05_modular.py\n M molsysmt/form/_query_delegation.py\n M molsysmt/form/file_h5msm/__init__.py\n M molsysmt/form/file_h5msm/_modular_query.py\n M molsysmt/form/file_h5msm/attributes.py\n M molsysmt/form/file_h5msm/extract.py\n M molsysmt/form/file_h5msm/has_attribute.py\n M molsysmt/form/file_h5msm/to_file_h5msm.py\n M molsysmt/h5msm.py\n M molsysmt/native/h5msm_file_handler.py\n M tests/basic/convert/mult_to_one/test_convert_complementary_h5msm_domains.py\n M tests/form/file_h5msm/test_modular_mechanics.py\n M tests/molecular_mechanics/get_forces/test_native_contract.py\n?? docs/api/h5msm.md\n?? docs/content/user/tools/form/file/h5msm_06.md\n?? docs/content/user/tools/form/file/h5msm_06.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/format_version.py\n?? molsysmt/_private/argdigest/argument/mechanics_n_atoms.py\n?? molsysmt/_private/h5msm_storage/versions.py\n?? molsysmt/form/file_h5msm/get_mechanical_attributes.py\n?? tests/form/file_h5msm/test_public_mechanics_v06.py\n?? tests/native/test_unknown_mechanical_assignment_reports.py\n",
+        "ending_git_status": " M devguide/SCALABILITY.md\n M devguide/api_stability_registry.md\n M devguide/h5msm_format.md\n M devtools/data/public_api_stability.json\n M docs/api/index.md\n M docs/content/course/Common_Core/04_Native_Forms.ipynb\n M docs/content/user/cookbook/assigning_partial_charges.md\n M docs/content/user/cookbook/migrating_h5msm.md\n M docs/content/user/foundations/molecular_system/the_molecular_system.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md\n M docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md\n M docs/content/user/foundations/native_world/files/file_h5msm.md\n M docs/content/user/tools/form/file/h5msm_05.md\n M docs/content/user/tools/form/file/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/layers.py\n M molsysmt/_private/argdigest/argument/molecular_mechanics.py\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/_private/autodock_assignment.py\n M molsysmt/_private/conversion_report.py\n M molsysmt/_private/h5msm.py\n M molsysmt/_private/h5msm_storage/modular.py\n M molsysmt/_private/molecular_forces.py\n M molsysmt/_private/native_composition.py\n M molsysmt/_private/partial_charges.py\n M molsysmt/_private/protonation_preparation.py\n M molsysmt/basic/convert.py\n M molsysmt/basic/extract.py\n M molsysmt/form/_h5msm05_iterator.py\n M molsysmt/form/_h5msm05_modular.py\n M molsysmt/form/_query_delegation.py\n M molsysmt/form/file_h5msm/__init__.py\n M molsysmt/form/file_h5msm/_modular_query.py\n M molsysmt/form/file_h5msm/attributes.py\n M molsysmt/form/file_h5msm/extract.py\n M molsysmt/form/file_h5msm/has_attribute.py\n M molsysmt/form/file_h5msm/to_file_h5msm.py\n M molsysmt/h5msm.py\n M molsysmt/native/h5msm_file_handler.py\n M tests/basic/convert/mult_to_one/test_convert_complementary_h5msm_domains.py\n M tests/form/file_h5msm/test_modular_mechanics.py\n M tests/molecular_mechanics/get_forces/test_native_contract.py\n?? docs/api/h5msm.md\n?? docs/content/user/tools/form/file/h5msm_06.md\n?? docs/content/user/tools/form/file/h5msm_06.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/format_version.py\n?? molsysmt/_private/argdigest/argument/mechanics_n_atoms.py\n?? molsysmt/_private/h5msm_storage/versions.py\n?? molsysmt/form/file_h5msm/get_mechanical_attributes.py\n?? tests/form/file_h5msm/test_public_mechanics_v06.py\n?? tests/native/test_unknown_mechanical_assignment_reports.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8639
+      },
+      "resources": {
+        "started_utc": "2026-11-09T04:48:53.157582+00:00",
+        "seconds": 23.031161633087322,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.6064453125,
+            0.88427734375,
+            1.083984375
+          ],
+          "cpu_utilization": 0.02664655605832078,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16199340032,
+        "cgroup_memory_peak_bytes": 361480192,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "ededc8fa1b89b2bd266513478182421990bdd945b47762b9d4c0cd23d72cff46",
+        "-bounded.json": "910ae2aabe208f44b7a9651c1cfa9fa281987e40773931ca3dbadeb8bd43e3e0",
+        ".xml": "a6eeeca767548f9863347af188535eb4f3ba74b31f1d9baeea7b567c04300010",
+        ".log": "6b243e1d8a51ac8f13a00f26f0920747f4f49d443a65bea831688c2600838a07",
+        "-inputs-before.json": "463b812d96aadf783c52f69844faa17a25135cddd23ea7f1bae21d66cec4f825",
+        "-inputs-after.json": "463b812d96aadf783c52f69844faa17a25135cddd23ea7f1bae21d66cec4f825",
+        "-reference-driver.py": "8559c2e246821ce3b99bd46455fdf58915efa547b53d591884a1d303e905f886",
+        "-resource-driver.py": "64b3c63a45197960e3b5fbf3ec1566ec234d4665f6bab110d3ed0fdc52617b75"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "101",
+          "time": "14.923",
+          "timestamp": "2026-11-08T22:48:57.321987-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "mechanics-256-public-final": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/mechanics-256-public-final.xml",
+          "-n2",
+          "tests/form/file_h5msm",
+          "tests/form/molsysmt_MolSysDict",
+          "tests/basic/convert",
+          "tests/test_argument_contract.py",
+          "tests/basic/test_compose_atom_maps.py",
+          "tests/native/test_prepared_system_checkpoint.py",
+          "tests/native/test_unknown_mechanical_assignment_reports.py",
+          "tests/form/molsysmt_MolSys/test_partial_domains.py",
+          "tests/_private/test_atomic_new_file.py",
+          "tests/build/test_assign_partial_charges.py",
+          "tests/build/test_assign_autodock_atom_types.py",
+          "tests/physchem/test_get_partial_charges.py",
+          "tests/physchem/test_get_autodock_atom_types.py",
+          "tests/molecular_mechanics/get_forces",
+          "tests/documentation/test_h5msm_06_examples.py",
+          "tests/build/test_protonation_assessment.py",
+          "molsysmt/h5msm.py",
+          "--basetemp=<private-evidence>/mechanics-256-public-final"
+        ],
+        "exit_code": 0,
+        "seconds": 170.01804782892577,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "69f9389479036044fd5a3c01fbfb75b07f4c2735",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8640
+      },
+      "resources": {
+        "started_utc": "2026-11-09T04:56:02.032061+00:00",
+        "seconds": 177.14759418996982,
+        "limits": {
+          "memory.max": "3221225472",
+          "memory.high": "2684354560",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.431640625,
+            0.57568359375,
+            0.86669921875
+          ],
+          "cpu_utilization": 0.043194374686087444,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13850513408,
+        "cgroup_memory_peak_bytes": 1741561856,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "5a6e059ff10ee8b2189f53d4d78ead457ca7308d1b525454dfa4f2099a482b29",
+        "-bounded.json": "f7c618ecc11acdb3c0de27057bfa1f6839fe6ccf4adc2ce7b676104b019ca6d3",
+        ".xml": "28b24a820c7c66a319ac2eac23db015206dbbb832065479096a7672fe728f406",
+        ".log": "fa3c5f1f82984ce2a82dfa1db71a738b8e040b449f98b3610eda8f9801da2c0f",
+        "-inputs-before.json": "8a39ea724e5bdb3757a68ee607c08eb50a5571ee6e3963f471ae6a0c5f77dd0b",
+        "-inputs-after.json": "8a39ea724e5bdb3757a68ee607c08eb50a5571ee6e3963f471ae6a0c5f77dd0b",
+        "-reference-driver.py": "138dda6616e947f8acff27806b2e467d0cd6305d137b3efa68695ac4546b532e",
+        "-resource-driver.py": "8350243873ea8274a5d25cbfb415c450b7d7d61270c3503c84e5f2bdee400721"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1843",
+          "time": "167.797",
+          "timestamp": "2026-11-08T22:56:07.814813-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "mechanics-256-public-fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 23.796276558889076,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "69f9389479036044fd5a3c01fbfb75b07f4c2735",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8640
+      },
+      "resources": {
+        "started_utc": "2026-11-09T04:56:02.060805+00:00",
+        "seconds": 31.030164706986398,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.431640625,
+            0.57568359375,
+            0.86669921875
+          ],
+          "cpu_utilization": 0.042735042735042694,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14789021696,
+        "cgroup_memory_peak_bytes": 418115584,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "e2545f7c611b1a1483e0e631f767b6b685f6d25ae18c2e6fc6cab781b7891f18",
+        "-bounded.json": "86227bc017db61fd586c546a475724b02c64f0b56eacd1595f4fda0224347b0f",
+        ".log": "9c6b16a2eb6960cfb820e7a57864e45cae3b12408aceea6e5385ce86a1bd241b",
+        "-inputs-before.json": "8a39ea724e5bdb3757a68ee607c08eb50a5571ee6e3963f471ae6a0c5f77dd0b",
+        "-inputs-after.json": "8a39ea724e5bdb3757a68ee607c08eb50a5571ee6e3963f471ae6a0c5f77dd0b",
+        "-reference-driver.py": "72892afec1700d98ac2e33fe76a234d8d0a2549a710665faebd649fb7e517436",
+        "-resource-driver.py": "d86de40e6fcbe51fc11432fc98224082b94bad992dce63a15fd70fbed5c15c98"
+      }
+    },
+    "mechanics-256-public-html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/mechanics-256-public-html"
+        ],
+        "exit_code": 0,
+        "seconds": 164.45882030483335,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "69f9389479036044fd5a3c01fbfb75b07f4c2735",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8640
+      },
+      "resources": {
+        "started_utc": "2026-11-09T04:56:02.792332+00:00",
+        "seconds": 172.17039327393286,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.431640625,
+            0.57568359375,
+            0.86669921875
+          ],
+          "cpu_utilization": 0.1068010075566751,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13795266560,
+        "cgroup_memory_peak_bytes": 1347325952,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "2c9406cae7f65bc6f30190cd9dddfd7fcf7e0880c70f53e2308f79e2b885fcf4",
+        "-bounded.json": "3a30abda550e01894f9e80e80e78e4f1ef9c7e98dc1e8b1fbad7f2a7bcdc7c5f",
+        ".log": "ce063ee891fc7aef51560a97192d89859f48c588708d26e49a310e310f708880",
+        "-inputs-before.json": "8a39ea724e5bdb3757a68ee607c08eb50a5571ee6e3963f471ae6a0c5f77dd0b",
+        "-inputs-after.json": "8a39ea724e5bdb3757a68ee607c08eb50a5571ee6e3963f471ae6a0c5f77dd0b",
+        "-reference-driver.py": "eb235ef1cd184962c9304d2936e4ef7659ddd3775f23718ff993c788b589bc26",
+        "-resource-driver.py": "3153a3f52395867f0da3a26a0176482c0a91c4a6ddab1424d0bac4aaa2f3f56f"
+      }
+    }
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "molsysmt_version": "0+unknown",
+    "versions": {
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pandas": "2.3.3",
+      "pint": "0.25.3",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1"
+    },
+    "imports": {
+      "pandas": "<development-environment>/lib/python3.14/site-packages/pandas/__init__.py",
+      "pint": "<development-environment>/lib/python3.14/site-packages/pint/__init__.py",
+      "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+      "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261106/viewer-e4dd58cf-source/molsysviewer/__init__.py",
+      "pyunitwizard": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+      "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+      "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+      "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+    }
+  },
+  "fresh_reader_cases": [
+    {
+      "case": "test_prepared_whole_file_in_a_0",
+      "scope": "complete",
+      "route": "private",
+      "bytes": 256349,
+      "files_sha256": {
+        "prepared06.h5msm": "a1f8dde90cf747108fd74c3c2931790299c3c378433d517fae0cedf73ee7feb0",
+        "case.json": "6a3f4edc2f42bc070d1c1697c98953486dbe1665144c7295323e267a1cce740c",
+        "expected.json": "7a0debca774c15a04a24043e2d1a7191f7b7639bb3a80fcedac9d88689b7b7e8",
+        "actual.json": "7a0debca774c15a04a24043e2d1a7191f7b7639bb3a80fcedac9d88689b7b7e8",
+        "exports.json": "8f630d72a3a7fb6dc48645d210dfe6ec33325f1336b225f431251a52ac30f459",
+        "reader_result.json": "9e8207caef0ec290a34b5b8c7afad0745e6a3186d95c7516be709860cf428981"
+      },
+      "reader": {
+        "restored": true,
+        "reexport_identical": true,
+        "edit_invalidates_analysis": true,
+        "no_engines": true,
+        "policy_preserved": true
+      }
+    },
+    {
+      "case": "test_prepared_whole_file_in_a_1",
+      "scope": "projected",
+      "route": "private",
+      "bytes": 254328,
+      "files_sha256": {
+        "prepared06.h5msm": "8f9f2a5a330334d06cd43958790ccdfaca8c8c39ca9ba1edd45c0b002c290952",
+        "case.json": "3063e96be85c62bf4cfa9adf23abe66f0a5b28cb653e4c00d7a597c10600eb27",
+        "expected.json": "25e30f44b8910b21aaec746fbccfcefa75ef444b829d13374659bdfa2a248f48",
+        "actual.json": "25e30f44b8910b21aaec746fbccfcefa75ef444b829d13374659bdfa2a248f48",
+        "exports.json": "31b2c4d6d3487b2bd335b46c978966b591f9c6a1a89e9864145d3f34e492d52c",
+        "reader_result.json": "9e8207caef0ec290a34b5b8c7afad0745e6a3186d95c7516be709860cf428981"
+      },
+      "reader": {
+        "restored": true,
+        "reexport_identical": true,
+        "edit_invalidates_analysis": true,
+        "no_engines": true,
+        "policy_preserved": true
+      }
+    },
+    {
+      "case": "test_prepared_whole_file_in_a_2",
+      "scope": "merged",
+      "route": "private",
+      "bytes": 288602,
+      "files_sha256": {
+        "prepared06.h5msm": "7fca98797f8fed70d75d130f55c94c9daef0ac8db71cf54f3a18bdae3e2e0956",
+        "case.json": "5690c09b22c7008b6c36598182506c7dee4bc012745fa611bae55d1d5ffc1918",
+        "expected.json": "c5c88382467301037a2d45e2749b262efc2b8acacb1c73d68f5fa6359c97416e",
+        "actual.json": "c5c88382467301037a2d45e2749b262efc2b8acacb1c73d68f5fa6359c97416e",
+        "exports.json": "4ec8cab7018c3237075f4dfdf8b80d8f3d62e2b71d981b4770566a3cd0aec0a5",
+        "reader_result.json": "9e8207caef0ec290a34b5b8c7afad0745e6a3186d95c7516be709860cf428981"
+      },
+      "reader": {
+        "restored": true,
+        "reexport_identical": true,
+        "edit_invalidates_analysis": true,
+        "no_engines": true,
+        "policy_preserved": true
+      }
+    },
+    {
+      "case": "test_prepared_whole_file_in_a_3",
+      "scope": "complete",
+      "route": "public",
+      "bytes": 256349,
+      "files_sha256": {
+        "prepared06.h5msm": "a6308a2c969c49b9dd6eabd13f3d4c8f36e89b6e863efc4428fb5becf0d75aa4",
+        "case.json": "fec0d487578e4b6418a76728f0e4d98708335886b9350be9cf961f652d396a4f",
+        "expected.json": "7a0debca774c15a04a24043e2d1a7191f7b7639bb3a80fcedac9d88689b7b7e8",
+        "actual.json": "7a0debca774c15a04a24043e2d1a7191f7b7639bb3a80fcedac9d88689b7b7e8",
+        "exports.json": "8f630d72a3a7fb6dc48645d210dfe6ec33325f1336b225f431251a52ac30f459",
+        "reader_result.json": "9e8207caef0ec290a34b5b8c7afad0745e6a3186d95c7516be709860cf428981"
+      },
+      "reader": {
+        "restored": true,
+        "reexport_identical": true,
+        "edit_invalidates_analysis": true,
+        "no_engines": true,
+        "policy_preserved": true
+      }
+    },
+    {
+      "case": "test_prepared_whole_file_in_a_4",
+      "scope": "projected",
+      "route": "public",
+      "bytes": 254328,
+      "files_sha256": {
+        "prepared06.h5msm": "20fc01e4955166468079b8f9b008b2bfaa54050db1bc8353bcda7c2134a5881e",
+        "case.json": "da419162f28ea0959d4b68c5301432e5a4671ad359dda471542b7b7cb732519a",
+        "expected.json": "25e30f44b8910b21aaec746fbccfcefa75ef444b829d13374659bdfa2a248f48",
+        "actual.json": "25e30f44b8910b21aaec746fbccfcefa75ef444b829d13374659bdfa2a248f48",
+        "exports.json": "31b2c4d6d3487b2bd335b46c978966b591f9c6a1a89e9864145d3f34e492d52c",
+        "reader_result.json": "9e8207caef0ec290a34b5b8c7afad0745e6a3186d95c7516be709860cf428981"
+      },
+      "reader": {
+        "restored": true,
+        "reexport_identical": true,
+        "edit_invalidates_analysis": true,
+        "no_engines": true,
+        "policy_preserved": true
+      }
+    },
+    {
+      "case": "test_prepared_whole_file_in_a_5",
+      "scope": "merged",
+      "route": "public",
+      "bytes": 288602,
+      "files_sha256": {
+        "prepared06.h5msm": "95b6e5925440c4e0aab7c93cc68f8d104aaa7c2ac83511ca6db13690ec79f53d",
+        "case.json": "ff2d2d55ff3f1d6c99f34b268ab066919b7aabaf34bfc48851948c7f0f832b82",
+        "expected.json": "c5c88382467301037a2d45e2749b262efc2b8acacb1c73d68f5fa6359c97416e",
+        "actual.json": "c5c88382467301037a2d45e2749b262efc2b8acacb1c73d68f5fa6359c97416e",
+        "exports.json": "4ec8cab7018c3237075f4dfdf8b80d8f3d62e2b71d981b4770566a3cd0aec0a5",
+        "reader_result.json": "9e8207caef0ec290a34b5b8c7afad0745e6a3186d95c7516be709860cf428981"
+      },
+      "reader": {
+        "restored": true,
+        "reexport_identical": true,
+        "edit_invalidates_analysis": true,
+        "no_engines": true,
+        "policy_preserved": true
+      }
+    }
+  ],
+  "html_inspection": [
+    {
+      "page": "content/user/tools/form/file/h5msm_06.html",
+      "sha256": "099ba0e645f5a16de7ebd4ca01ecadfa6bfed85ede240ce693cc971cd4d5ed65",
+      "phrases": [
+        "Preserving stored mechanical parameters and their original evidence.",
+        "ordinary writing still uses 0.5.",
+        "Static-domain reads are resident,",
+        "matching counts alone are insufficient."
+      ],
+      "read_axis_sizes_anchor": false
+    },
+    {
+      "page": "api/h5msm.html",
+      "sha256": "b37f99e52bb7dfe7f5250405765cc112b96da8f28468fa82d03343298239979a",
+      "phrases": [
+        "Reading declared modular index-space cardinalities without payload arrays.",
+        "Output schema."
+      ],
+      "read_axis_sizes_anchor": true
+    },
+    {
+      "page": "content/user/foundations/native_world/files/file_h5msm.html",
+      "sha256": "5527109750e4e8d840c4f50942a979abd7b930d4b57f883220b47f4dee26079a",
+      "phrases": [
+        "Experimental Schema 0.6",
+        "The default stays 0.5."
+      ],
+      "read_axis_sizes_anchor": false
+    },
+    {
+      "page": "content/user/cookbook/migrating_h5msm.html",
+      "sha256": "9b46f4b3e12c6240c3e477793c20a0e2022b6f151a122cd5f090a86e5243b2ec",
+      "phrases": [
+        "Trying the experimental mechanical snapshot",
+        "The source file is unchanged."
+      ],
+      "read_axis_sizes_anchor": false
+    },
+    {
+      "page": "content/course/Common_Core/04_Native_Forms.html",
+      "sha256": "e37f852c167ab76864e662eaade5aceeb263b07de3c6e89afcf7fcdf060a8dae",
+      "phrases": [
+        "Experimental H5MSM 0.6 is available",
+        "the default remains 0.5."
+      ],
+      "read_axis_sizes_anchor": false
+    }
+  ],
+  "html_warning_comparison": {
+    "count": 6,
+    "unchanged": true,
+    "baseline": "mechanics-256-composition-html",
+    "baseline_log_sha256": "ce063ee891fc7aef51560a97192d89859f48c588708d26e49a310e310f708880",
+    "current_log_sha256": "ce063ee891fc7aef51560a97192d89859f48c588708d26e49a310e310f708880"
+  },
+  "course_preservation": {
+    "path": "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+    "code_cells": 14,
+    "all_code_execution_counts_and_outputs_equal": true,
+    "unchanged_code_cells_sha256": "69eacb4ce900be84be7c9f6d9b6435faf62b6b633ab30995164cce4917091b18"
+  },
+  "original_attempts": [
+    "Public pilot: 11 pass, five wrong expected diagnostic-class failures, stopped at maxfail. ArgDigest correctly raised the catalog choice error.",
+    "Directed: 69 pass, three fixture mismatches: projecting an unsupported synthetic assignment, context-manager syntax unsupported by the public Iterator, and a nonexistent count convenience method.",
+    "Corrected directed: 77 pass with actual prepared-system projection and the documented iterator/count APIs.",
+    "Integrated: 1,616 pass, one obsolete expected refusal for a now-supported single mechanical provider. The corrected assertion checks independent preservation, not a weaker no-exception result.",
+    "Unknown-report negative: six independent projection cases fail; four expose missing keys and two accept unknown future schema labels. Scientific export was not reached in those original loop-based cases. The final twelve cases test export and projection independently.",
+    "Subsequent consumer selection: 108 pass and fourteen fast gates.",
+    "Calculation pilot: 96 pass, one test mistakenly indexes the public charge quantity as a dictionary. Corrected explicit charge-unit observation: 101 pass, including both modular roots in streamed-force controls."
+  ],
+  "acceptance": [
+    "Explicit format_version selects experimental 0.6 in write/write_layers/convert; default 0.5 and its missing-mechanics encoding remain unchanged. Invalid choices are handled through ArgDigest/SMonitor.",
+    "Public full/layer reads, root recognition, legacy-handler refusal, scoped parameter/geometry queries, structural iteration and metadata cardinalities support 0.6 without pretending the legacy handler supports it.",
+    "Geometry queries/iterations do not decode unrequested mechanics; mechanical queries do not read unrelated native domains or coordinates. Mechanical-domain loading is resident, not a constant-memory column API.",
+    "Declared identity graphs, independent atom counts, chemical formal charge versus legacy mechanical formal charge, absent/default-empty/report-only/present-empty semantics and old-format upgrades are guarded.",
+    "Byte copies retain the source file; selected extraction preserves 0.6 and remaps known reports/analyses. Actual complete/reordered/complementary-file prepared systems preserve values, original reports, state bindings and selected export bytes.",
+    "Three public and three private fresh readers retain another unit policy, original producers, selected exports and actual edit invalidation with RDKit/OpenMM/Ackredit unavailable. Public cases additionally use general conversion in the fresh reader.",
+    "Known charge/type report contracts are required only at scientific-use/projection boundaries. Unknown/incomplete reports remain transportable but receive structural diagnostics rather than missing-key errors, accidental future-schema acceptance or rebinding.",
+    "Shared versioned calculation chemistry supports file inputs and preserves explicitly requested mechanical model context. Both modular roots pass the existing streamed-force and explicit-model controls; no new force algorithm or scientific model is introduced.",
+    "Clean source passes 1,843 affected cases without omissions, fourteen fast gates and fresh HTML. Five rendered pages and the API anchor are inspected; unchanged course code/outputs and six baseline warnings are retained."
+  ],
+  "limits": [
+    "#256 remains open. P5 retains independent DockingMT reference-workflow/installed-client acceptance; P6 retains bounded memory/storage benchmarks, schema/default-writer freeze and first stable H5MSM 1.0 qualification.",
+    "Experimental schema support is not a tag, package, release, promotion, complete external-engine checkpoint or certification of stored assignments.",
+    "Subset conversion can load complete source domains; mechanics queries read the full static mechanical domain. Unsupported independent-layer resident compositions and legacy-handler requests refuse.",
+    "Append remains topology-free and interaction-free, validates before resizing and is not crash transactional. New 0.6 file publication requires hard links and provides atomic visibility, not crash durability.",
+    "Earlier failed attempts remain failures. The original progress weights, graphical intents and supplemental closure count receive no extra credit for this added format scope.",
+    "The previous two-worker broad selection peaked near 1.7 GiB with no pressure/OOM events; final broad testing keeps two CPUs but raises its enforced ceiling to 3 GiB. Other final jobs retain individual 2 GiB limits, one computational thread per native backend, host monitoring and the shared reserve."
+  ]
+}
