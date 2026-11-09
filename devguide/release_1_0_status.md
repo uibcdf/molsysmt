@@ -33,14 +33,20 @@ original reports, atom/state binding, partial-domain refusals, public operations
 fresh-reader/client gates and the default-writer/freeze decision.
 No new format, tag, release or package is implemented or published by this plan.
 
-**#660 is corrected locally:** a shared presence check catches report-only and
+**#660 is source-qualified:** a shared presence check catches report-only and
 present-empty stored mechanics in all five H5MSM branches and MolSysDict 0.2.
-The new guard fails against the original implementation; 84 corrected directed
-cases pass. The 0.5 schema and parameter-only dictionary projection are unchanged.
-Clean-source receiving and source delivery are next. Formal progress stays at
-72.4%, with 57 source closures and 26/50 graphical intents until that receiving
-and closeout are complete. The earlier post-1.0 statements below retain their
-dated review context and are superseded by this maintainer decision.
+Clean `272745fc8` passes **1,111 cases without omissions**, fourteen fast gates
+and HTML. Three rendered pages are inspected; six existing HTML warnings and
+course code/outputs are unchanged. The
+[receiving record](../devtools/data/mechanics_presence_receiving_660_20261108.json)
+retains the original failure, 29 new guards, runtime versions and resource limits.
+The 0.5 schema and parameter-only dictionary projection are unchanged. Tests
+peak at 542,543,872 bytes; final runs retain over 14 GB decimal host availability
+without resource stops. Public source delivery and issue closeout are next.
+Formal progress remains 72.4%, with 57 source closures and 26/50 graphical intents
+until closeout. New #256 work does not receive artificial completion credit.
+The earlier post-1.0 statements below retain their dated review context and are
+superseded by this maintainer decision.
 
 ## Current native-checkpoint review — 2026-11-08
 

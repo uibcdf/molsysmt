@@ -1,13 +1,13 @@
 ---
 summary: Full-system writers silently discard report-only mechanical provenance
 issue: uibcdf/molsysmt#660
-status: active
+status: resolved
 opened: 2026-11-08
-closed:
+closed: 2026-11-08
 severity: medium
 verification: reproduced
 area: [form, data]
-guard:
+guard: tests/form/file_h5msm/test_mechanics_presence.py
 normative:
 blocked_by: []
 supersedes: []
@@ -96,3 +96,25 @@ including all 29 new guards, public 0.5 behavior and native dictionary routes.
 The monitored process tree peaks at 303,808,512 bytes with host availability over
 15 GB decimal, no swap use in its cgroup and no resource stop. Final clean-source
 receiving, documentation verification and public delivery remain pending here.
+
+## Resolution and clean receiving — 2026-11-08
+
+Fixed in `272745fc8df870b9a75b4e6d89b4e09a1dea0f7a`. The complete affected
+selection passes **1,111 cases with no omissions**, including H5MSM 0.3/0.4/0.5,
+partial/full native routes, typed dictionaries, real prepared-system checkpoints
+and public H5MSM doctests. Fourteen fast gates and HTML pass. Three rendered
+pages are inspected; course code, execution counts and outputs are unchanged.
+The six preexisting HTML warnings remain. The test warnings are 680 legacy-file
+deprecations and two unchanged unknown-atom-name diagnostics.
+
+The [receiving record](../../devtools/data/mechanics_presence_receiving_660_20261108.json)
+retains the incomplete original negative run, directed run and clean-source
+profiles with unchanged input manifests and explicit pandas/Pint versions.
+Tests peak at 542,543,872 bytes; all final process trees retain more than 14 GB
+decimal host availability without resource interruption. Public source delivery
+is recorded separately; no new format, client acceptance or release follows.
+
+The guard independently submits report-only evidence through every H5MSM branch
+and both complete-system transports. It also checks strict conversion, actual
+absence, unprojected storage, unknown extensions and preservation of an existing
+file. It fails when the original parameter-only emptiness decision returns.

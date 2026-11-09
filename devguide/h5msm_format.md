@@ -9,6 +9,23 @@ are rejected explicitly. The legacy codec details below describe 0.3/0.4; the
 public modular layout is documented in
 [H5MSM 0.5](../docs/content/user/tools/form/file/h5msm_05.md).
 
+## Version identities
+
+MolSysMT library versions and H5MSM format versions evolve independently.
+A new format major denotes an incompatible change to the schema or represented
+meaning; a new library major does not automatically renumber compatible files.
+Record the file version and the writing library's version separately. Readers
+accept their explicitly implemented versions/layer schemas, not every file with
+the same major. Changing a version attribute is not a schema migration.
+
+The maintainer's accepted target on 2026-11-08 is to qualify and publish the first
+stable **H5MSM 1.0 alongside MolSysMT 1.0**. Development version 0.6 may precede
+that freeze. This target does not change current 0.5 writing or supported reads;
+the bounded mechanics and whole-format qualification work remains in
+[the #256 plan](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#revised-implementation-plan--2026-11-08).
+Format stability concerns the stored contract, not certification of every
+scientific model or completion of a requested force-field parameterization.
+
 ## Root contract
 
 Every file carries at least:
