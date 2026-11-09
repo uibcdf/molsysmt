@@ -16,7 +16,13 @@ HDF5 datasets; UTF-8 labels use bounded fixed-width transfers. Source producer
 metadata and original historical maps remain stored evidence, without rebinding.
 The [owning plan](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#p1-catalog-mechanics-layer-schema-1-draft)
 records exact types/units, absent/empty semantics, malformed-data refusals and
-original prototype failures. Clean source qualification and delivery are next.
+original prototype failures. Clean `5c38a1022` now passes **1,178 affected cases
+without omissions** (67 new codec guards) and **14/14 fast gates**. The
+[receiving record](../devtools/data/mechanics_layer_receiving_256_20261108.json)
+retains the initial layout failure and its AST-identical relocation to private
+storage. Passing HTML from `d3e6b1ac7` is reused for an explicitly unchanged
+scope, with three inspected pages and six unchanged warnings. The failed old
+fast result is retained separately. Public source delivery is next.
 
 This private layer does not yet make H5MSM 0.6 or 1.0 publicly writable/readable.
 P3/P4 still need modular associations, public queries/conversion and persistence

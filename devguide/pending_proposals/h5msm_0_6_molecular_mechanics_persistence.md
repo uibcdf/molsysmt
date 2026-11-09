@@ -268,7 +268,7 @@ full regression/HTML gates and source delivery are still pending at this point.
 | --- | --- | --- |
 | P0 — repair #660 | Closed; clean `272745fc8` passes 1,111 cases, fourteen fast gates and HTML; public `af71a6d29` verified | All affected branches, strict requests, present-empty state and unchanged existing file are guarded; no expansion of 0.5. |
 | P1 — bound the schema | Bounded field/type/unit catalog specified; whole-file associations remain P3 | Exact field/type/unit catalog, domain/layer versions, identity and index-link rules, absent/empty semantics and unsupported-input policy. |
-| P2 — mechanics codec | Private implementation; 94 directed cases pass; clean receiving pending | Typed native/HDF5 round trips for all admitted settings, tables and reports; malformed data/unknown versions refuse; no engine imports or evidence rebinding. |
+| P2 — mechanics codec | Clean `5c38a1022`: 1,178 cases, fourteen fast gates; unchanged HTML scope reused with proof; public delivery pending | Typed native/HDF5 round trips for all admitted settings, tables and reports; malformed data/unknown versions refuse; no engine imports or evidence rebinding. |
 | P3 — modular orchestration | Pending | Reuse existing domain codecs; explicit version dispatch, associations, source-preserving migration and failure before file publication; unchanged 0.3/0.4/0.5 reads. |
 | P4 — public operations | Pending | `convert`, explicit H5MSM reads/writes/layer reads, `get`/`has_attribute`, selected extraction/reordering, copying and structure append are audited; no recognized-but-inaccessible mechanics. Preserve the legacy handler's actual scope. |
 | P5 — consumer receiving | Pending | Fresh-reader complete/projected/nonpolar-H-merged fixtures, multiple unit policies, original producer labels, prepared PDBQT re-export, edit invalidation, stale refusals and the full DockingMT reference route. Provider and installed evidence remain distinct. |
@@ -448,3 +448,33 @@ adapter validator remains unchanged and its direct preflight now passes.
 Two further guards explicitly refuse wrong/absent per-atom charge units in the
 fixed elementary-charge table protocol. The next clean attempt must include
 that relocation and both guards; original attempts remain retained.
+
+## Final private-layer source qualification — 2026-11-08
+
+**Contract-tested:** clean `5c38a102216ab8cb3dd16bf8027779d8c8b9b2fa` passes
+**1,178 affected cases without omissions**, including **67 private codec guards**,
+and **14/14 fast gates**. This includes the added elementary-charge protocol
+refusals. The private implementation is in `_private/h5msm_storage`; no form
+adapter or public calculation is introduced. The adapter gate is unchanged.
+
+The passing HTML build on `d3e6b1ac7` is reused only for its unchanged scope:
+all `docs/` bytes and public library modules agree, the two implementation module
+ASTs agree across relocation, and three rendered pages are inspected. Its six
+baseline warnings are unchanged. The original 13/14 fast failure on that source
+is retained and does not become passing evidence. The new source has its own
+passing fast and complete selected-test runs.
+
+[Receiving](../../devtools/data/mechanics_layer_receiving_256_20261108.json)
+retains all twelve original attempts, three fresh-reader payload hashes and
+expected observation hashes, actual pandas/Pint/provider versions, unchanged
+input manifests and resource limits. Tests use two measured workers with a
+2-GiB cap; their peak remains approximately 1 GiB. No resource stop or OOM occurs.
+This is bounded private-layer qualification, not a performance benchmark,
+installed/platform qualification or a passed whole-system H5MSM consumer gate.
+
+**Next P3/P4:** compose the existing domains and the new mechanics layer with
+explicit atom associations, version dispatch and whole-file publication semantics;
+then implement/query the supported public read/write/conversion/selection/append
+routes. Preserve 0.5 mechanics exclusion and legacy reads. The first stable 1.0
+root and default-writer switch await P5/P6 qualification; no new file-format
+capability is public in this source checkpoint. #256 remains open.

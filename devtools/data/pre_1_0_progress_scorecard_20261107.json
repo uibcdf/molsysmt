@@ -878,7 +878,7 @@
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
     "owner_verification": "Public af71a6d29 independently matches 17 changed/deleted paths and preserves four human files. Clean 272745fc8 passes 1,111 affected cases without omissions, fourteen fast gates and three inspected HTML pages. #660 is closed; no new H5MSM schema or client/installed/candidate acceptance is added.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Complete the bounded #256 portable mechanics field/unit/axis catalog and codec toward the accepted first stable H5MSM 1.0/MolSysMT 1.0 target. 0.6 may be an intermediate development schema. Version evolution is independent afterward. Continue remaining #421 intents; keep #654 intake, #615 uncertainty, #567 policy, #582 mechanics and installed/platform/exact-candidate gates explicit.",
+    "scope": "Deliver the qualified private #256 mechanics layer, then implement modular whole-file associations/version dispatch and public operations toward the accepted first stable H5MSM 1.0/MolSysMT 1.0 target. Continue remaining #421 intents; retain #654, #615, #567/#582 and installed/platform/exact-candidate ownership.",
     "active_related": [
       "uibcdf/molsysmt#615",
       "uibcdf/molsysmt#256"
@@ -1001,7 +1001,7 @@
   "h5msm_stable_format_target": {
     "owner_issue": "uibcdf/molsysmt#256",
     "milestone": "1.0.0",
-    "state": "accepted_plan_no_new_codec",
+    "state": "private_mechanics_layer_source_qualified_modular_public_routes_pending",
     "first_stable_format": "1.0",
     "coordinated_library_release": "1.0",
     "development_version": "0.6 may precede the stable freeze",
@@ -1011,5 +1011,18 @@
     "owner_decision": "https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6730428162",
     "weighted_milestone_change": 0,
     "scope_addition": "Track before release without silently changing the original audit weights or declaring the new format implemented."
+  },
+  "last_mechanics_codec_receiving": {
+    "owner_issue": "uibcdf/molsysmt#256",
+    "source": "5c38a102216ab8cb3dd16bf8027779d8c8b9b2fa",
+    "state": "private_layer_source_qualified_public_delivery_pending",
+    "evidence": [
+      "devtools/data/mechanics_layer_receiving_256_20261108.json"
+    ],
+    "guard": "tests/form/file_h5msm/test_mechanics_layer.py",
+    "affected_tests": 1178,
+    "private_codec_cases": 67,
+    "source_issue_closed": false,
+    "weighted_milestone_change": 0
   }
 }
