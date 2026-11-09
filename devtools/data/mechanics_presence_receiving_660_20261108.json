@@ -560,5 +560,15 @@
     "unchanged_from": "native-checkpoint-256-html",
     "baseline_log_sha256": "ce063ee891fc7aef51560a97192d89859f48c588708d26e49a310e310f708880",
     "current_log_sha256": "ce063ee891fc7aef51560a97192d89859f48c588708d26e49a310e310f708880"
-  }
+  },
+  "corrections": [
+    {
+      "date": "2026-11-08",
+      "original_record_sha256": "6f606939fa88a39bffe749b2881448f7db663c5eb2301ddb640522c3a4eba4b7",
+      "subject": "Original no_structures fixture did not establish an absent Structures domain.",
+      "correction": "MolSys(n_atoms=2) created an empty Structures object. Original 1,111 passing cases/counts and raw evidence are unchanged; they covered four distinct H5MSM branch compositions, not five. The runtime helper is present in all five preflights by inspection. The #256 composition selection explicitly removes Structures and asserts each native domain before writing. Its new source qualification is separate from the original run.",
+      "replacement_guard": "tests/form/file_h5msm/test_mechanics_presence.py::test_report_only_mechanics_is_refused_before_transport",
+      "replacement_receiving": "devtools/data/mechanics_composition_receiving_256_20261108.json"
+    }
+  ]
 }

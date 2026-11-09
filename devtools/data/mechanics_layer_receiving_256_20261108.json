@@ -2,7 +2,7 @@
   "schema_version": "molsysmt.mechanics_layer_receiving@1",
   "date": "2026-11-08",
   "owner_issue": "uibcdf/molsysmt#256",
-  "related_issue": "uibcdf/molsysmt#441",
+  "related_issue": "uibcdf/molsysmt#438",
   "source": "5c38a102216ab8cb3dd16bf8027779d8c8b9b2fa",
   "scope": "Private mechanics-layer source qualification on Linux/Python 3.14; not public H5MSM 0.6/1.0 support, a complete engine state or client/installed/platform/release qualification.",
   "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
@@ -1513,6 +1513,16 @@
     "P3/P4 still need whole-file associations, publication semantics and public operations. P5/P6 retain full prepared-system/client/platform and final format qualification.",
     "No massive-system memory/disk performance, arbitrary object/dtype, multi-parameterization or engine-state claim is made.",
     "Only the unchanged HTML scope is reused from d3e6b1ac7; its original 13/14 fast result remains failed. Final source passes its own 14/14 fast result.",
-    "#256/#441 remain open. No weighted milestone, graphical intent or source-issue closure is added."
+    "#256/#438 remain open. No weighted milestone, graphical intent or source-issue closure is added."
+  ],
+  "corrections": [
+    {
+      "date": "2026-11-08",
+      "kind": "ownership_reference",
+      "original_value": "uibcdf/molsysmt#441",
+      "original_record_sha256": "57c284392dc3502229ccc17aeb5fcb66874769fbc73ac2004708770827497e92",
+      "correct_owner": "uibcdf/molsysmt#438",
+      "explanation": "The H5MSM module-location review is #438. #441 is an unrelated closed distance bug; its misplaced comment was corrected. Executed runs, code, data hashes and outcomes are unchanged."
+    }
   ]
 }

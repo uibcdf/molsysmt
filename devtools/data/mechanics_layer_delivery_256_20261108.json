@@ -57,7 +57,7 @@
   "qualified_source": "5c38a102216ab8cb3dd16bf8027779d8c8b9b2fa",
   "receiving_record": "devtools/data/mechanics_layer_receiving_256_20261108.json",
   "owner_response": "https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6731162300",
-  "placement_response": "https://github.com/uibcdf/molsysmt/issues/441#issuecomment-6731162999",
+  "placement_response": "https://github.com/uibcdf/molsysmt/issues/438#issuecomment-6731313441",
   "source_issue_closed": false,
   "new_public_format_available": false,
   "board_checkpoint": {
@@ -66,5 +66,15 @@
     "open_prs": 0,
     "newer_than_660": []
   },
-  "board_checkpoint_sha256": "7b4f67f19332fe6f44d8fc8d6bb5d99ad829cb42008680b9f606ee008949afae"
+  "board_checkpoint_sha256": "7b4f67f19332fe6f44d8fc8d6bb5d99ad829cb42008680b9f606ee008949afae",
+  "corrections": [
+    {
+      "date": "2026-11-08",
+      "kind": "ownership_reference",
+      "original_value": "https://github.com/uibcdf/molsysmt/issues/441#issuecomment-6731162999",
+      "original_record_sha256": "cb0b19eb54ea7964a42a849f7fe8acfe8025bd087b1107339cbf9b342c41346f",
+      "correct_owner": "uibcdf/molsysmt#438",
+      "explanation": "The H5MSM module-location review is #438. #441 is an unrelated closed distance bug; its misplaced comment was corrected. Executed runs, code, data hashes and outcomes are unchanged."
+    }
+  ]
 }

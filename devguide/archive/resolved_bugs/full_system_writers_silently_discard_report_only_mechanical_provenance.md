@@ -118,3 +118,19 @@ The guard independently submits report-only evidence through every H5MSM branch
 and both complete-system transports. It also checks strict conversion, actual
 absence, unprojected storage, unknown extensions and preservation of an existing
 file. It fails when the original parameter-only emptiness decision returns.
+
+## Correction — 2026-11-08: partial-domain fixture
+
+The earlier statement that the original guards independently reached every H5MSM
+branch was too broad. `_system("no_structures")` used `MolSys(n_atoms=2)`, which
+creates an empty Structures object; it repeated a represented-structures route
+instead of exercising actual absence. The original counts, commands and passing
+results remain historical observations, but do not prove that fifth branch.
+The shared runtime correction still covers all five branch preflights by inspection.
+
+The #256 composition work now explicitly removes Structures in that fixture and
+asserts domain presence before each report-only call. Its integrated selection
+passes 1,229 cases without omissions, including the corrected absence case and
+all existing 29 presence controls. Final clean-source receiving is recorded in
+the #256 composition receipt. This is a coverage-claim correction, not evidence
+that the original runtime repair failed or that a valid client file was lost.
