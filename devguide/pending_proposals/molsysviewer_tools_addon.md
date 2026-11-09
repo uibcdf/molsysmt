@@ -3719,3 +3719,14 @@ unit controls; #421 remains partial. Current progress stays approximately
 the accepted sequence-fit intent; retain the remaining families and separate
 human/installed/platform/full-candidate requirements. No package, tag or hosted
 matrix is created by this delivery.
+
+
+### Native additions received — 2026-11-09
+
+#665 is resolved by four native wrappers and explicit H5MSM format/mechanics
+controls. The [archived record](../archive/resolved_bugs/bound_addon_omits_newly_exported_native_tools.md)
+retains source receiving, complete case-universe accounting, exact-owner limits
+and the original unsuccessful attempts. The source inventory is 251/253 with
+only the two native MD stubs omitted. There is no new GUI acceptance or score
+credit; the unpublished contact prototype remains held by #666. Later Viewer,
+installed, human and release gates are unchanged.

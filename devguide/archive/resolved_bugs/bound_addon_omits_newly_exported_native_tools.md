@@ -1,13 +1,13 @@
 ---
 summary: Bound addon omits newly exported native tools
 issue: uibcdf/molsysmt#665
-status: active
+status: resolved
 opened: 2026-11-09
-closed:
+closed: 2026-11-09
 severity: high
 verification: reproduced
 area: [api, structure, tests]
-guard:
+guard: tests/molsysviewer_molsysmt/test_provider_admission_tools.py
 normative:
 blocked_by: []
 supersedes: []
@@ -96,3 +96,37 @@ Two stale sentences in the already edited course module are corrected to retain
 ChemicalStates ownership and distinguish default 0.5 from experimental 0.6.
 The affected complete modules and documentation are being rerun. The original
 failures/time limit remain evidence; no single all-in-one passing run is claimed.
+
+## Resolution — 2026-11-09
+
+Implemented and contract/parity/analytically tested on clean source 46ed67b7e.
+The [receiving record](../../../devtools/data/bound_provider_admission_receiving_665_20261109.json)
+retains all failed/interrupted attempts and proves coverage of 5,806 current
+logical test cases across bounded executions. A case requires passed setup,
+call and teardown. Earlier passes are reused only for unchanged test modules;
+every changed module is rerun on the final source. Scientific ASTs are unchanged
+between the two receiving checkpoints; the sole native change is executable
+H5MSM help. This is not one passing all-in-one run or final-candidate evidence.
+
+The final affected selection passes 398 cases with no omissions, including the
+strict namespace guards, four native additions, both H5MSM writers, six permanent
+inherited-help examples and the guide recipe. Fourteen fast gates pass. Four
+rendered pages (API, guide, course, Cookbook) are inspected. All fourteen course
+code cells and the Cookbook's executed cell remain exact, including outputs and
+execution metadata. The final smaller HTML rebuild emits no warnings; the six
+existing title warnings observed earlier are not thereby repaired.
+
+The source inventory exposes 251 of 253 callable paths; only the two unconditional
+native MD stubs remain omitted. Native scientific/work/memory controls,
+experimental labels, units, detached ownership and diagnostics are retained.
+No new graphical task, scientific detector, dependency, backend, package or
+release is introduced. Viewer e4dd58cf is the exact retained host used here;
+newer-client, installed, human and final-release qualification remain separate.
+Native contact review #666 and uibcdf/pyunitwizard#143 stay open, with the contact
+prototype isolated. No graphical milestone credit is added.
+
+Argument admission uses the existing addon ArgDigest configuration, while native
+scientific validation, conditional DepDigest availability and executed-branch
+Ackredit attribution remain at their original owners. No new scientific method
+or third-party resource is implemented by these wrappers, so no additional
+scientific attribution registration or dependency floor is introduced.

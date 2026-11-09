@@ -6512,3 +6512,23 @@ graphical families, the full Jupyter selection, #314 conformational navigation,
 hosted/installed and postponed human/Qt acceptance remain due. Accepted audit
 progress is still **40%**, with 19 closed audit-related issues. No publication
 or new remote matrix follows from these local source/GUI results.
+
+
+## Native addon additions received — 2026-11-09 (#665)
+
+Source 46ed67b7e receives four real public wrappers and current H5MSM schema/
+mechanics signatures. It preserves current-primary versus explicit-input
+ownership, exact native contracts and experimental limits. The final affected
+selection passes 398 cases; an explicit union of complete case outcomes covers
+all 5,806 current cases in the reviewed scope. The original 600-second full
+invocation and subsequent stale-namespace/help failures remain recorded, not
+relabeled as passes. Fourteen fast gates pass; API/guide/course/Cookbook HTML
+is inspected and fifteen executed notebook cells remain exact.
+
+See the [archived report](archive/resolved_bugs/bound_addon_omits_newly_exported_native_tools.md)
+and [receiving evidence](../devtools/data/bound_provider_admission_receiving_665_20261109.json).
+This is source receiving with retained Viewer e4dd58cf, not qualification of the
+newer reporter host, an installed pair or a final candidate. No graphical intent
+or weighted-score bonus is added. #421's contact task remains held by native
+unit-boundary review #666 / uibcdf/pyunitwizard#143. #256 handoffs, #524 floors,
+remaining graphical work and #334 release gates remain outstanding.
