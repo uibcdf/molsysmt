@@ -14,6 +14,46 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Viewer scientific receiving contribution — 2026-11-09
+
+PR #668 updates the controlled consumer to Viewer
+`346c331901c418fddb6b45a31da4690eee794129`. That source corrects
+uibcdf/molsysviewer#346: native-validated structure append preserves the
+unchanged evaluated interaction prefix after canonical session recovery. It
+does not weaken arbitrary-edit invalidation or native inventory matching.
+The selected owner runtime baseline is `9be08134`; later owner-main changes
+remain outside this contribution's original consumer evidence.
+
+New regression modules receive #613 through competing global context writers
+and explicit CPU queries on two actual independent Views, and retain the
+accepted bounded experimental dispositions of #473/#475 under nondefault unit
+policy and pending projection. These controls neither promise thread-local
+configuration nor certify the original Collantes definition.
+
+The explicit native Qt guard is run separately from the default scientific
+lane, on a real WebGL-capable display with the qualified Viewer/provider source
+routes:
+
+```bash
+python -m pytest --receptor=llm tests/molsysviewer_molsysmt/qt_receiving_guard.py
+```
+
+It exercises the shared Geometry UI for rotation, principal axes, fitting,
+wrapping and periodic cell assignment: review/Back, ordered structures, native
+updates, actual Mol* model coordinates and independent native result windows,
+including close/ownership. Missing prerequisites fail when explicitly selected.
+This is representative automated host receiving, not human visual acceptance,
+installed qualification or a new default GUI requirement for headless users.
+Jupyter and native operation/effect/degeneracy tests retain their separate
+scientific oracles and popup coverage. The receiving packet under
+uibcdf/molsysviewer#315 retains original failures and fixed-input runs.
+
+PR #668 also proposes the #669 CI artifact-placement correction, preserving the
+strict scientific clean-source certificate and all matrix cases. Owner review,
+corrected hosted gates, installed receiving and human acceptance remain pending.
+No scientific implementation, facade export or detector changes in this batch;
+no package, tag or release is authorized.
+
 ## Contact prototype and new facade intake — 2026-11-09
 
 The registered contact intent has a local unpublished prototype at c96d258b9,

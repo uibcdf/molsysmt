@@ -29,8 +29,9 @@ that front matter -- edit the entries, not this list.
 
 - [`contact_cutoff_equality_changes_across_equivalent_length_units.md`](contact_cutoff_equality_changes_across_equivalent_length_units.md) — [#666](https://github.com/uibcdf/molsysmt/issues/666) — Contact cutoff equality changes across equivalent length units *(high, reproduced)*
 
-### Partially resolved (1)
+### Partially resolved (2)
 
+- [`controlled_viewer_wheel_in_source_checkout.md`](controlled_viewer_wheel_in_source_checkout.md) — [#669](https://github.com/uibcdf/molsysmt/issues/669) — Keep controlled Viewer artifacts outside the scientific source checkout. *(medium, reproduced)*
 - [`physchem_surface_area_unit_contract.md`](physchem_surface_area_unit_contract.md) — [#473](https://github.com/uibcdf/molsysmt/issues/473) — Verify the unit contract of Collantes surface-area descriptors. *(medium, inspected)*
 
 <!-- /generated -->

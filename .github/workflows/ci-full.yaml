@@ -30,23 +30,24 @@ jobs:
       - name: Require an exact MolSysViewer commit
         shell: bash
         env:
-          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha || 'ce9163dff8d82b870e6ef599ef57f7416f596a5b' }}
+          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha || '346c331901c418fddb6b45a31da4690eee794129' }}
         run: |
           [[ "$MOLSYSVIEWER_SHA" =~ ^[0-9a-f]{40}$ ]]
 
       - name: Build the exact portable MolSysViewer dependency
         env:
-          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha || 'ce9163dff8d82b870e6ef599ef57f7416f596a5b' }}
+          MOLSYSVIEWER_SHA: ${{ inputs.molsysviewer_sha || '346c331901c418fddb6b45a31da4690eee794129' }}
         run: >-
           python -m pip wheel --no-deps
           git+https://github.com/uibcdf/molsysviewer@$MOLSYSVIEWER_SHA
-          --wheel-dir controlled-wheelhouse
+          --wheel-dir "${RUNNER_TEMP}/controlled-wheelhouse"
 
       - name: Require one platform-independent wheel
         run: |
           python - <<'PY'
+          import os
           from pathlib import Path
-          wheels = list(Path("controlled-wheelhouse").glob("*.whl"))
+          wheels = list((Path(os.environ["RUNNER_TEMP"]) / "controlled-wheelhouse").glob("*.whl"))
           if len(wheels) != 1 or not wheels[0].name.endswith("-py3-none-any.whl"):
               raise SystemExit(f"expected one py3-none-any MolSysViewer wheel, found {wheels}")
           PY
@@ -54,7 +55,7 @@ jobs:
       - uses: actions/upload-artifact@v7
         with:
           name: controlled-molsysviewer-wheel
-          path: controlled-wheelhouse/*.whl
+          path: ${{ runner.temp }}/controlled-wheelhouse/*.whl
           if-no-files-found: error
           retention-days: 14
 
@@ -110,7 +111,7 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: controlled-molsysviewer-wheel
-          path: controlled-wheelhouse
+          path: ${{ runner.temp }}/controlled-wheelhouse
 
       - name: Select the pinned minimal Rust toolchain
         shell: bash -l {0}
@@ -126,7 +127,7 @@ jobs:
           set -euo pipefail
           python -m pip install --no-deps \
             -r devtools/controlled_sources.txt \
-            controlled-wheelhouse/*.whl
+            "${RUNNER_TEMP}"/controlled-wheelhouse/*.whl
           python -m pip install --editable . --no-deps
 
       - name: Validate controlled dependency versions
