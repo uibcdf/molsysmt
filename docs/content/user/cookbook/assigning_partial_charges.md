@@ -71,6 +71,13 @@ assert molsys.get(element='atoms', selection=14, atom_index=True) == [14]
 assert molsys.get(n_atoms=True, output_type='dictionary') == {'n_atoms': 24}
 ```
 
+Stored `partial_charge` queries return detached float64 arrays in elementary
+charge. For a partly populated column, `pandas.NA`, `None` and `NaN` become
+`numpy.nan`; an absent or entirely missing column returns `None`. Explicit
+indices retain their order and repetitions, including an empty array for an
+empty selection of a partly populated column. Reading does not replace missing
+charges, edit the stored nullable dtype, or certify assignment completeness.
+
 Keep `skip_digestion=False` for user input. The provider validates attribute
 flags and output selectors; `molsys.get` is not an unchecked access to tables.
 

@@ -69,6 +69,14 @@ Ackredit. These records do not qualify a complete simulation protocol.
 
 ## Invariants and Performance
 
+Stored `partial_charge` queries return detached float64 arrays in elementary
+charge. For a partly populated column, `pandas.NA`, `None` and `NaN` become
+`numpy.nan`; an absent or entirely missing column returns `None`. Explicit
+indices retain their order and repetitions, including an empty array for an
+empty selection of a partly populated column. Reading does not replace missing
+charges, edit the stored nullable dtype, or certify assignment completeness.
+
+
 `mechanics.copy()`, Python copies and enclosing `MolSys` copies preserve stored parameters, producer
 reports and supported extension state through the same copy memo, without
 running a constructor or legacy restoration. Mutable mechanics data remain

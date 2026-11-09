@@ -133,19 +133,33 @@ def get_partial_charge_from_atom(item, indices="all", skip_digestion=False):
     Returns
     -------
     numpy.ndarray or None
-        Float64 charge values in canonical elementary-charge units, or None
-        when no charge column is stored. Object-backed native storage is
-        normalized so public setters and native composition can consume it.
+        Detached float64 charge values in canonical elementary-charge units.
+        Missing entries in a partly populated column become numpy.nan. Return
+        None when the charge column is absent or entirely missing. Storage,
+        its nullable dtype and assignment evidence are not changed.
+
+    Examples
+    --------
+    >>> import numpy as np
+    >>> import pandas as pd
+    >>> import molsysmt as msm
+    >>> from molsysmt.native import MolecularMechanics
+    >>> mechanics = MolecularMechanics(partial_charge=[0.25, pd.NA])
+    >>> charges = msm.get(mechanics, element='atom', partial_charge=True)
+    >>> float(charges[0]), bool(np.isnan(charges[1]))
+    (0.25, True)
 
     .. versionadded:: 1.0.0
     """
-    pc = item.partial_charge
-    if pc is None:
+    table = item.atoms_ff
+    if table is None or "partial_charge" not in table:
         return None
-    pc = np.asarray(pc, dtype=np.float64)
-    if is_all(indices):
-        return pc
-    return pc[indices]
+    column = table["partial_charge"]
+    if column.isna().all():
+        return None
+    if not is_all(indices):
+        column = column.iloc[indices]
+    return column.to_numpy(dtype=np.float64, na_value=np.nan, copy=True)
 
 
 @arg_digest(form=form)

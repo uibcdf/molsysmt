@@ -102,7 +102,9 @@ load coordinates, topology or chemical states. Static-domain reads are resident,
 not constant-memory column queries.
 
 Partial-charge getters return canonical elementary-charge magnitudes as they do
-for native objects. Mechanical scalar quantities retain their explicit stored
+for native objects. Mixed missing values are returned as `numpy.nan` in a
+detached float64 query array; absent or entirely missing columns return `None`.
+The stored nullable column and its evidence remain unchanged. Mechanical scalar quantities retain their explicit stored
 units. Public `formal_charge` queries read authoritative ChemicalStates, even
 when a legacy formal-charge column is also stored in mechanics.
 
