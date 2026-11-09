@@ -20,7 +20,48 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Current clustering-unit checkpoint — 2026-11-08
+## Current native-checkpoint review — 2026-11-08
+
+The bounded existing-public-route review under **#256 is complete**. Its
+H5MSM 0.6 proposal remains **open and post-1.0**. Verified public source
+`89b492e0f9c54702a3650dd95a47b517c2c7a17a` matches **11 changed paths** and
+preserves the four human root files. No library runtime, dependency or Rust
+implementation changed. Clean `e02ed4deb` passes **235 affected cases without
+omissions**, **14/14 fast gates** and HTML. Four rendered Foundation/Cookbook/
+course pages are checked, with six unchanged warnings and existing notebook
+code/outputs preserved.
+
+[Receiving](../devtools/data/native_checkpoint_receiving_256_20261108.json)
+retains six valid and four adverse fresh-reader cases. The existing trusted
+Python checkpoint retains the represented prepared native object, original
+named reports, units/history/associations and sparse observations in the tested
+compatible stack. Readers block preparation engines/Ackredit and recalculation,
+preserve another unit policy, reproduce selected PDBQT bytes and retain actual
+coordinate-edit invalidation. Stale bindings remain refused. Whole-object
+residency, file trust and compatible definitions are explicit; this is not a
+portable H5MSM schema, external-engine snapshot or client E3 acceptance.
+All 8,610 source and 2,463 Viewer hashes agree. Final tests peak at 363,069,440
+bytes; monitored runs retain over 13 GB decimal host availability without OOM,
+reserve or pressure stops.
+
+[Delivery](../devtools/data/native_checkpoint_delivery_256_20261108.json) and
+the [owner response](https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6730065636)
+give DockingMT a separately declared local checkpoint option. Its original
+complete H5MSM selection retains its failure/hold. No future schema criterion
+or installed/platform/human/exact-candidate requirement is waived.
+
+**Next: #660**, the independently reproduced report-only mechanics refusal gap
+in both complete-system transports. The negative manual fixture is not a valid
+chemical assignment or evidence of a corrupted client artifact. Correct the
+explicit refusal without adding mechanics storage to 0.5. Keep #654 intake,
+remaining #421 intents, #615/#567/#582 and the planned OpenMM/openmmtools review.
+Source closures remain **57**, graphical intents **26/50** and weighted progress
+**72.35035797535798% (about 72.4%)**; this review closes no schema issue or new
+weighted leaf. Complete board: **592 issues / 89 open / no open PR**. No package,
+tag, Release, promotion or hosted CI was launched; skipped commits retain their
+normal full-matrix recovery backlog.
+
+## Clustering-unit checkpoint — 2026-11-08
 
 **#659 is closed.** Public source `61b072b46b1c8bb1cba84b3ed42ca1e23dc287d9`
 independently matches **14 changed/deleted paths** and preserves the four human

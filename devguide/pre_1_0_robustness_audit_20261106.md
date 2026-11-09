@@ -7,6 +7,18 @@
 
 ## Maintainer follow-up queue — 2026-11-08
 
+The bounded **#256 existing-public-composition review is complete** on public
+`89b492e0f9c54702a3650dd95a47b517c2c7a17a` (11 verified paths; human files
+preserved). Its future H5MSM 0.6 proposal remains open/post-1.0. No runtime
+implementation changed: clean `e02ed4deb` passes 235 affected cases without
+omissions, fourteen fast gates and HTML. Six valid and four adverse fresh readers
+receive the existing native Python checkpoint under compatible trusted conditions;
+[receiving](../devtools/data/native_checkpoint_receiving_256_20261108.json) and
+[delivery](../devtools/data/native_checkpoint_delivery_256_20261108.json) keep
+original reports, unit/association/history checks, selected public export,
+invalidation and all scope exclusions. This is a local checkpoint option,
+not the client's original complete H5MSM acceptance.
+
 Clustering-unit defect **#659 is closed** and public at
 `61b072b46b1c8bb1cba84b3ed42ca1e23dc287d9` (14 verified changed/deleted paths,
 four human root files preserved). Clean `68350e0b2` passes 210 affected cases
@@ -41,15 +53,15 @@ receives its supported pairwise/clustering composition, with independent E3 and
 
 Accept no additional graphical intent or weight: **26/50**, all four fitting
 intents, **72.35035797535798% (approximately 72.4%)**. Separate source closures
-are now **57**. #421 remains partial. **Next finite review: #256's existing
-public compositions**, without moving H5MSM 0.6 before 1.0. Initial inspection
-rules out parameter-only dictionaries as complete assignment transport; native
-object checkpoint/restoration needs explicit bounded receiving before any route
-is offered. No complete lossless storage route is newly qualified. Keep #654's
-unreproduced intake, remaining graphical requirements and the planned
-OpenMM/openmmtools comparison. Complete board: **591 issues / 88 open / no open PR**.
-Installed/platform/human/exact-candidate requirements and frozen scientific gates
-are unchanged.
+are now **57**. #421 remains partial. **Next finite correctness work: #660**,
+the report-only mechanical provenance refusal gap reproduced during the review.
+A synthetic invalid/stale report with no parameter values currently disappears
+on accepted H5MSM/MolSysDict round trips; no valid client artifact loss is claimed.
+Fix the rejection without adding mechanics storage. Keep #654 intake, remaining
+graphical requirements and the planned OpenMM/openmmtools comparison. Complete
+board: **592 issues / 89 open / no open PR**. Installed/platform/human/exact-candidate
+requirements and frozen scientific gates are unchanged. The #256 review changes
+no weighted leaf or closed-issue count.
 
 Before publication, sequence-fit completed clean local receiving on `63fc27883`: 113 affected source
 passes, two real Jupyter guards / sixteen checks, fourteen fast gates and HTML.

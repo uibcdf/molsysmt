@@ -1,0 +1,69 @@
+{
+  "public_checkpoint": "89b492e0f9c54702a3650dd95a47b517c2c7a17a",
+  "base": "fab8cbccf570a60205a3863aad19dd4b7cfb8d3a",
+  "verified_paths": [
+    {
+      "path": "devguide/forms_and_conversions.md",
+      "git_blob_sha": "6167ac6ae7cc082270f8820e9893429ef5410c99"
+    },
+    {
+      "path": "devguide/pending_bugs/README.md",
+      "git_blob_sha": "3345dd1936e5b7b8c25e555f448bcdcdc591c6fe"
+    },
+    {
+      "path": "devguide/pending_bugs/full_system_writers_silently_discard_report_only_mechanical_provenance.md",
+      "git_blob_sha": "13ef2e2010c83ec131757f194a0bdac4fee5f68d"
+    },
+    {
+      "path": "devguide/pending_proposals/README.md",
+      "git_blob_sha": "ee5850825215757f458a56b5e30ab8ccf49ffead"
+    },
+    {
+      "path": "devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md",
+      "git_blob_sha": "f977902138739984dbe4aec6cbae34839f7d0993"
+    },
+    {
+      "path": "devtools/data/native_checkpoint_receiving_256_20261108.json",
+      "git_blob_sha": "39e1c79e4d9d59c47b0fc8208f2519a185871426"
+    },
+    {
+      "path": "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+      "git_blob_sha": "efbf7621b29896fa0cbedf6c6d1863c669d8611c"
+    },
+    {
+      "path": "docs/content/user/cookbook/clustering_poses.ipynb",
+      "git_blob_sha": "bd939fb97cdda590b8f057184ffd6211df171f86"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md",
+      "git_blob_sha": "4f33d279c773ed3a11bf7f6d5bb8b08657a8bf10"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/classes/molsysmt_MolSysDict.md",
+      "git_blob_sha": "fcdb33dcbc00aed3694fc4d43127db13aac23334"
+    },
+    {
+      "path": "tests/native/test_prepared_system_checkpoint.py",
+      "git_blob_sha": "e30d9c9ef25427516d9160f6547452f1c69a2809"
+    }
+  ],
+  "protected_human_files": {
+    "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": "3b97cf0d5c813a1e3c2212ad118c7f6c32763d85af91cb800640209095fd53d6",
+    "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": "d564291bb01387663f178f5e041bc8d55d1022bfa71584ddd11f1dd9dba12d95",
+    "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": "a112aa640da192a121d1ccec3c5011c9652729abacf2a38c1b222632a55dcf20",
+    "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": "6b3f17a698bc7393ca3ecad31891d693b8a8169dfdd892dbae77f3ca91b25abe"
+  },
+  "human_bytes_unchanged": true,
+  "scope": "Fast-forward source delivery only; no package, tag, Release or hosted matrix launched.",
+  "schema_version": "molsysmt.native_checkpoint_delivery@1",
+  "date": "2026-11-08",
+  "owner_issue": "uibcdf/molsysmt#256",
+  "qualified_source": "e02ed4debf27ea5927eccb93c758b518f866867c",
+  "receiving": "devtools/data/native_checkpoint_receiving_256_20261108.json",
+  "future_schema_issue_remains_open": true,
+  "notifications": [
+    "https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6730065636",
+    "https://github.com/uibcdf/dockingmt/issues/79#issuecomment-6730082336",
+    "https://github.com/uibcdf/dockingmt/issues/88#issuecomment-6730085728"
+  ]
+}
