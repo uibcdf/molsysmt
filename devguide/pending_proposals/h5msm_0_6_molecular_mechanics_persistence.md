@@ -58,7 +58,9 @@ native `MolSys` routes. The public rejection is guarded by
 **Inspected and contract-tested locally:** the bounded existing field inventory
 is specified below and a private schema-1 codec now has directed guards.
 **Assumed:** a future native model may need several parameterizations per system.
-No large-scale storage benchmark or public whole-system codec is qualified here.
+The P4 section qualifies bounded experimental public whole-system routes. The
+P6 study below measures three bounded synthetic storage workloads; no general
+large-scale performance guarantee follows.
 
 ## What was refuted
 
@@ -310,7 +312,7 @@ full regression/HTML gates and source delivery are still pending at this point.
 | P3 — modular orchestration | Private root qualified on clean `b184e9d18`: 1,229 cases, fourteen fast gates and HTML; public dispatch/migration remain P4 | Reuse existing domain codecs; explicit version dispatch, associations, source-preserving migration and failure before file publication; unchanged 0.3/0.4/0.5 reads. |
 | P4 — public operations | Clean `69f938947`: 1,843 cases, fourteen fast gates and fresh HTML; public `52df76db2` verified; consumer qualification pending | `convert`, explicit H5MSM reads/writes/layer reads, `get`/`has_attribute`, selected extraction/reordering, copying and structure append are audited; no recognized-but-inaccessible mechanics. Preserve the legacy handler's actual scope. |
 | P5 — consumer receiving | Pending | Fresh-reader complete/projected/nonpolar-H-merged fixtures, multiple unit policies, original producer labels, prepared PDBQT re-export, edit invalidation, stale refusals and the full DockingMT reference route. Provider and installed evidence remain distinct. |
-| P6 — format freeze | Pending | Public schema, API docstrings/doctests, Foundations/Toolbox/Cookbook/course, bounded memory/storage measurements, default-writer decision and old-format/migration policy agree; then qualify the exact source/artifacts. |
+| P6 — format freeze | Bounded storage study measured on clean `b7269b77e`; final schema/default/freeze pending | Public schema, API docstrings/doctests, Foundations/Toolbox/Cookbook/course, bounded memory/storage measurements, default-writer decision and old-format/migration policy agree; then qualify the exact source/artifacts. |
 
 P1 must precede a public codec contract. P2/P3 do not make the format stable;
 P4/P5/P6 determine whether a first stable H5MSM 1.0 is justified. Each package
@@ -735,3 +737,44 @@ qualification, larger measurements and their exact records follow separately.
 DockingMT's independent receiving is requested in uibcdf/dockingmt#79 and #88;
 its local checkout is clean but behind its fetched remote and is not altered.
 The new portable handoff is source availability, not client E3 acceptance.
+
+
+### Bounded storage measurements — 2026-11-08
+
+The exact preregistered three-case campaign completes on clean
+`b7269b77ec8140c88aca217fcc928e17849275f0`, with six public operations and three
+untraced samples each. The
+[measurements and environment](../../devtools/data/h5msm_mechanics_storage_benchmark_256_20261108.json)
+retain every sample, the actual per-dataset layout/allocation, scripts, whole-source
+hash evidence and shared-host limits. Linux x86-64 / Intel Xeon E5-2630 v4 / Python
+3.14 uses published PyUnitWizard 0.28.1 and unchanged native bytes.
+
+| Atoms × structures | Whole file (MiB) | Write median (s) | Full read median (s) | Mechanical layer (s) | Three selected charges (s) | Selected coordinates (s) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 62 × 5,000 | 3.42 | 0.215 | 0.117 | 0.009 | 0.019 | 0.015 |
+| 10,000 × 1,000 | 77.37 | 5.096 | 0.934 | 0.016 | 0.025 | 0.015 |
+| 100,000 × 100 | 85.12 | 5.802 | 1.567 | 0.074 | 0.093 | 0.017 |
+
+The largest selected-coordinate operation traces about 50 kB; the full read traces
+267 MB decimal. The entire sequential process tree peaks at 732,151,808 bytes
+(about 698 MiB), below its 3 GiB limit; host availability stays above 15.8 GB
+with zero pressure warnings, high/limit/OOM events or reserve interruption.
+The complete campaign takes about 129 seconds. These are warm-cache synthetic
+measurements, not independent replicates, cold-disk/device durability timings,
+real-data compression predictions or a general peak-memory bound.
+
+The file's mechanical datasets allocate 4,154 / 65,761 / 562,636 bytes in the
+three cases, excluding HDF5 group/object metadata and every other domain. The
+regular report arrays and repeated labels compress favorably. Full file sizes
+must not be interpreted as mechanics size or predicted for arbitrary coordinates.
+The coordinate codec's actual on-disk float32 dtype is recorded; source arrays
+are float64 and numerical checks retain the existing storage tolerance.
+
+**Operational consequence:** selected geometry stays bounded and avoids loading
+mechanics. A file query for a scalar setting or three charges still reads the
+whole static mechanical domain; it does not become constant-memory merely because
+its result is small. For repeated mechanical queries, read that layer once and
+query the resident native object. This observation changes no codec/default.
+P5 independent client receiving and P6 final schema/default-writer/freeze plus
+exact source/artifact gates remain open. #662's broad regression qualification
+is separate from this successful benchmark and its 23 directed controls.

@@ -129,6 +129,38 @@ append is not crash transactional. Unsupported compositions refuse. For other
 modifications, load a resident system, use its supported editing tools and write
 a new file; the legacy handler is not a modular mutation interface.
 
+## Measuring storage costs
+
+The repository's reusable study exercises six public operations with fresh
+sequential workers, one warm-up, repeated untraced timing and a separate
+allocation measurement. Start with its small default cases under suitable
+resource limits:
+
+```bash
+python -m devtools.scripts.benchmark_h5msm_mechanics --output h5msm-mechanics.json
+```
+
+Use a new output path. Larger `--case ATOMSxSTRUCTURES` values require an explicit
+`--max-coordinate-mib` admission bound; that bound covers fixture coordinates,
+not peak RAM or reserved resources. The three-case study used one CPU, a 3 GiB
+process-tree limit, no swap and a shared-host reserve monitor.
+
+On 2026-11-08, synthetic 62 × 5,000, 10,000 × 1,000 and 100,000 × 100 systems
+produced 3.42, 77.37 and 85.12 MiB files. Median whole-system writes were 0.215,
+5.096 and 5.802 seconds; full reads were 0.117, 0.934 and 1.567 seconds. The
+whole sequential campaign peaked near 698 MiB. These observations use regular
+coordinates and reports, warm/uncontrolled OS cache and the actual float32
+coordinate codec; they do not predict real-data compression, cold disk behavior,
+durability latency or a general memory bound. See the
+{download}`complete measurements <../../../../../../devtools/data/h5msm_mechanics_storage_benchmark_256_20261108.json>`
+for source, hardware, versions, layouts, every sample and memory definitions.
+
+For repeated mechanical queries, load `msm.h5msm.read_layers(path,
+layers='molecular_mechanics')['molecular_mechanics']` once and use `msm.get` on
+that resident object. Selected coordinate queries can keep using the file;
+they avoid loading the static mechanical domain. Reading a small mechanical
+query result directly from the file still decodes that whole domain.
+
 ## Experimental storage contract
 
 Root metadata is explicit text: `type="h5msm"`, `version="0.6"`, `creator`,
