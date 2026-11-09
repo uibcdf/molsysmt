@@ -1,7 +1,7 @@
 ---
 summary: Design H5MSM 0.6 persistence for MolecularMechanics
 issue: uibcdf/molsysmt#256
-status: open
+status: active
 opened: 2026-09-29
 closed:
 verification: measured
@@ -15,14 +15,16 @@ supersedes: []
 # H5MSM 0.6 MolecularMechanics persistence
 
 **Reported:** 2026-09-29, during the H5MSM 0.5 pre-1.0 scope review.
-**Status:** Open for design after MolSysMT 1.0.
+**Status:** Active bounded pre-1.0 design, authorized by the maintainer on
+2026-11-08. The earlier post-1.0 calendar restriction is superseded; no new file
+schema or release is made public by that authorization alone.
 
 ## What
 
 Design a versioned H5MSM 0.6 representation for the native
-`MolecularMechanics` domain after its parameter model is sufficiently defined.
+`MolecularMechanics` domain with an explicitly bounded parameter model.
 The [H5MSM 0.5 contract](h5msm_0_5_modular_layers.md) intentionally contains
-no mechanics layer. This proposal must not delay MolSysMT 1.0.
+no mechanics layer. The maintainer now permits this work before MolSysMT 1.0.
 
 ## How
 
@@ -43,7 +45,9 @@ The pre-1.0 native `MolecularMechanics` object is minimal and experimental.
 Freezing its current fields into H5MSM 0.5 would make the pre-1.0 format depend
 on a parameterization model that has not been settled. Deferring persistence
 leaves the 0.5 topology, chemical-state, structure, and interaction contracts
-free to stabilize for 1.0.
+free to stabilize for 1.0. The 2026-11-08 consumer review now demonstrates a
+concrete prepared-system persistence need; the bounded plan below supersedes
+the original scheduling decision without expanding the 0.5 schema.
 
 ## What is measured and what is assumed
 
@@ -66,8 +70,8 @@ parameter inventory has been performed for H5MSM 0.6.
 
 This proposal covers mechanics persistence in H5MSM 0.6 and compatible reads
 of older files. It excludes changes to the accepted H5MSM 0.5 root layout,
-the pre-1.0 `Interactions` persistence gate, and a requirement to finish the
-native mechanics model before MolSysMT 1.0.
+the pre-1.0 `Interactions` persistence gate, and a requirement to finish every
+possible future mechanics representation before MolSysMT 1.0.
 
 ## Acceptance criteria
 
@@ -84,9 +88,94 @@ native mechanics model before MolSysMT 1.0.
 
 ## Dependencies and risks
 
-The design follows MolSysMT 1.0 and a reviewed native mechanics parameter
-model. A premature codec would lock ambiguous units or particle mappings into
-the file format.
+The design requires a reviewed, bounded native mechanics parameter model.
+A premature codec would lock ambiguous units or particle mappings into the
+file format. The maintainer permits completing that review before MolSysMT 1.0.
+
+## Revised implementation plan — 2026-11-08
+
+**Decision:** advance a bounded portable snapshot of the existing experimental
+native domain. The successful trusted Python checkpoint review below is useful
+evidence for the required content, but does not satisfy H5MSM acceptance. No
+0.6 writer or reader is implemented by this planning update.
+
+**Accepted versioning direction:** publish the first stable format as
+**H5MSM 1.0 with MolSysMT 1.0**, after the complete schema has passed its gates.
+A 0.6 development schema can precede that freeze. The maintainer accepts
+independent evolution afterward: a new H5MSM major denotes an incompatible
+format change, not an automatic renumbering at a MolSysMT major. A future
+MolSysMT 2.0 can therefore continue using a compatible H5MSM 1.x schema.
+Record the library release, writer version and file-schema version separately.
+The public writer still emits 0.5 today. This is a target and versioning policy,
+not a claim that H5MSM 1.0 is implemented, qualified or published; no release
+artifact or tag is created by this decision.
+
+### Required content and boundaries
+
+- Store the existing model requests separately from actual per-atom values and
+  assignment reports. `forcefield`/`implicit_solvent` describe requested models;
+  their presence never certifies a completed Hamiltonian or external engine state.
+- Preserve the existing `atoms_ff` columns, their positional atom axis, nullable
+  values and supported dtypes. Native bare partial charges are elementary-charge
+  magnitudes. `atom_ff_type` is a force-field label, not the element symbol.
+  Legacy mechanical formal-charge storage must remain explicitly distinguished
+  from authoritative chemical-state assignments; do not invent or migrate
+  chemistry merely by reading a snapshot.
+- Keep both original detached assignment reports, producer versions, scientific
+  attribution, parent/projection provenance, digests and state associations.
+  Parent history can intentionally refer to a larger source axis. Do not
+  reinterpret every historical array as aligned to the current atom count.
+- Restore stored evidence without invoking RDKit, OpenMM, Ackredit registration,
+  assignment calculations or a new binding operation. Stale/unknown bindings
+  remain stale/unknown and must still fail the relevant scientific consumer.
+- Distinguish an absent domain from present-empty tables/reports and explicit
+  false/zero settings. The parameter-only `MolecularMechanicsDict` and `to_dict()`
+  projection keep their current meanings.
+- Use typed numeric/string datasets, null masks and versioned declarative
+  metadata. Reject unsupported classes, extensions, columns, units and engine
+  objects before publishing output. No pickle or executable object codec belongs
+  in this portable file layer.
+- Energies already stored as structural observations remain in `Structures`;
+  no second energy store or speculative bonded-term API is introduced.
+- Complete or partial systems require an explicit compatible atom domain when
+  mechanical atom data are present. Do not infer correspondence from equal counts.
+  Unsupported independent-layer compositions receive a clear refusal.
+
+### Work packages and exit evidence
+
+| Package | Current state | Required exit evidence |
+| --- | --- | --- |
+| P0 — repair #660 | Implemented locally; 84 directed cases pass | Public source delivery, all affected branches, strict requests, present-empty state and unchanged existing file; no expansion of 0.5. |
+| P1 — bound the schema | This plan; implementation pending | Exact field/type/unit catalog, domain/layer versions, identity and index-link rules, absent/empty semantics and unsupported-input policy. |
+| P2 — mechanics codec | Pending | Typed native/HDF5 round trips for all admitted settings, tables and reports; malformed data/unknown versions refuse; no engine imports or evidence rebinding. |
+| P3 — modular orchestration | Pending | Reuse existing domain codecs; explicit version dispatch, associations, source-preserving migration and failure before file publication; unchanged 0.3/0.4/0.5 reads. |
+| P4 — public operations | Pending | `convert`, explicit H5MSM reads/writes/layer reads, `get`/`has_attribute`, selected extraction/reordering, copying and structure append are audited; no recognized-but-inaccessible mechanics. Preserve the legacy handler's actual scope. |
+| P5 — consumer receiving | Pending | Fresh-reader complete/projected/nonpolar-H-merged fixtures, multiple unit policies, original producer labels, prepared PDBQT re-export, edit invalidation, stale refusals and the full DockingMT reference route. Provider and installed evidence remain distinct. |
+| P6 — format freeze | Pending | Public schema, API docstrings/doctests, Foundations/Toolbox/Cookbook/course, bounded memory/storage measurements, default-writer decision and old-format/migration policy agree; then qualify the exact source/artifacts. |
+
+P1 must precede a public codec contract. P2/P3 do not make the format stable;
+P4/P5/P6 determine whether a first stable H5MSM 1.0 is justified. Each package
+records executed commands, source identities, original failures and resource
+limits. Storage/fresh-reader tests must record pandas and the actual unit backend
+alongside NumPy/h5py/PyUnitWizard. Preserve the shared-host reserve and increase
+concurrency only after a measured admission check.
+
+### Compatibility and closeout decisions still required
+
+1. Fix the final root version and independent mechanics-layer schema version only
+   after the catalog is reviewed; do not claim that merely changing a header
+   provides a new supported format.
+2. Keep 0.5 mechanics-free and readable. Decide its warning policy explicitly;
+   experimental development of a newer layer is not itself a deprecation decision.
+3. Switch public default writing to the newest qualified schema only after all
+   affected adapters and fidelity/loss reports agree. Retain a documented explicit
+   old-format route if supported; otherwise refuse rather than discard mechanics.
+4. Keep #256 open until its portable consumer requirements are met. The existing
+   native checkpoint, #660 refusal correction or a passing private codec test cannot
+   close the consumer's complete H5MSM gate.
+5. Deliver exact source and schema compatibility notes to DockingMT and other
+   consumers. Their independent acceptance and the release/installed/platform
+   gates remain separate. This plan adds no artificial scorecard completion credit.
 
 
 ## Additional consumer receiving — 2026-11-08

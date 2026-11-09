@@ -5,6 +5,28 @@
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-08.
 
+## Current mechanics persistence work — 2026-11-08
+
+The maintainer authorizes advancing **#256 before 1.0**, superseding the old
+calendar restriction recorded in the checkpoint review below. The accepted
+target is **H5MSM 1.0 alongside MolSysMT 1.0**, after schema qualification;
+0.6 may be a development stage. Subsequent format versions evolve independently,
+with incompatible changes requiring a new format major. The
+[bounded plan](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#revised-implementation-plan--2026-11-08)
+defines P0–P6, model requests versus completed assignments, typed units/tables,
+original reports, atom/state binding, partial-domain refusals, public operations,
+fresh-reader/client gates and the default-writer/freeze decision.
+No new format, tag, release or package is implemented or published by this plan.
+
+**#660 is corrected locally:** a shared presence check catches report-only and
+present-empty stored mechanics in all five H5MSM branches and MolSysDict 0.2.
+The new guard fails against the original implementation; 84 corrected directed
+cases pass. The 0.5 schema and parameter-only dictionary projection are unchanged.
+Clean-source receiving and source delivery are next. Formal progress stays at
+72.4%, with 57 source closures and 26/50 graphical intents until that receiving
+and closeout are complete. The earlier post-1.0 statements below retain their
+dated review context and are superseded by this maintainer decision.
+
 ## Maintainer follow-up queue — 2026-11-08
 
 The bounded **#256 existing-public-composition review is complete** on public

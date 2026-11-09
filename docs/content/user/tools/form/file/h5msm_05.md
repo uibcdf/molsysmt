@@ -171,7 +171,9 @@ Biological assemblies use typed chain-index and rotation arrays with translation
 stored in nanometers. Alternate atom locations use sparse frame and site offsets,
 typed values, and explicit nanometer and square-nanometer units. Structure IDs
 retain either their integer or string type. H5MSM 0.5 has no
-`MolecularMechanics` layer. Writing a system with nonempty mechanics data
+`MolecularMechanics` layer. The refusal includes stored assignment reports without
+parameter values, present-empty reports/tables and unsupported mechanics
+extensions. A default empty native mechanics object or `None` remains accepted. Writing a system with nonempty mechanics data
 raises an error before creating the file. Mechanics persistence is planned
 for H5MSM 0.6 after MolSysMT 1.0, once its native parameter model is defined.
 The structures-only reader rejects atom subsets when a stored biological

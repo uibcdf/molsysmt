@@ -86,7 +86,8 @@ def write(molecular_system, output_filename, skip_digestion=False):
     ValueError
         If the native system contains data that the 0.5 codec cannot encode
         without loss. Nonempty molecular-mechanics data are rejected because
-        H5MSM 0.5 has no mechanics layer.
+        H5MSM 0.5 has no mechanics layer. Stored assignment reports and
+        present-empty reports or tables also count as mechanics data.
 
     Notes
     -----

@@ -86,10 +86,11 @@ than silently omitted. No arbitrary Python class identity is serialized. Inspect
 conversion reports and use `strict=True` for reported projections; successful
 JSON encoding alone does not certify the source's scientific completeness.
 
-A manual report-only mechanical object with no parameter values currently slips
-through that refusal and loses its metadata. This negative-input boundary is
-tracked in [MolSysMT #660](https://github.com/uibcdf/molsysmt/issues/660). Such an
-accepted write is not a complete checkpoint of the submitted object.
+The refusal includes stored assignment reports even when parameter values are
+absent, present-empty reports or tables, and unrepresented mechanics extensions.
+Only `None` or the default empty native mechanics domain counts as absent. The
+parameter-only `MolecularMechanics.to_dict()` projection does not establish that
+a complete molecular system contains no mechanics.
 
 Legacy 0.1 reads retain their four structural fields and reference bond projection;
 they cannot recover chemical data never written. Writers always emit 0.2.

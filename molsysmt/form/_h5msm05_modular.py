@@ -9,6 +9,7 @@ from molsysmt.interactions._hdf5_collection import (
     read_named_analyses,
     write_named_analyses,
 )
+from molsysmt.native._mechanics_presence import has_stored_mechanics
 
 from ._h5msm05_associations import (
     _axis_sizes,
@@ -292,8 +293,7 @@ def write_complete_molsys_file(filename, molsys):
 
     if not isinstance(molsys, MolSys):
         raise TypeError("A complete H5MSM 0.5 MolSys probe requires native MolSys.")
-    mechanics = molsys.molecular_mechanics.to_dict()
-    if any(value is not None for value in mechanics.values()):
+    if has_stored_mechanics(molsys.molecular_mechanics):
         raise ValueError("H5MSM 0.5 probe cannot encode molecular mechanics yet.")
 
     analyses = dict(molsys.interactions)
@@ -483,8 +483,7 @@ def write_topology_free_molsys_file(filename, molsys):
 
     if not isinstance(molsys, MolSys) or molsys.topology is not None:
         raise TypeError("A topology-free H5MSM probe requires a partial native MolSys.")
-    mechanics = molsys.molecular_mechanics.to_dict()
-    if any(value is not None for value in mechanics.values()):
+    if has_stored_mechanics(molsys.molecular_mechanics):
         raise ValueError("H5MSM 0.5 probe cannot encode molecular mechanics yet.")
     structures = molsys.structures
     analyses = dict(molsys.interactions)
@@ -601,9 +600,7 @@ def write_no_chemical_states_molsys_file(filename, molsys):
         raise ValueError("A molecular payload needs topology or structures.")
     if molsys._structure_chemical_state_indices is not None:
         raise ValueError("Structure-to-state assignments require chemical states.")
-    if any(
-        value is not None for value in molsys.molecular_mechanics.to_dict().values()
-    ):
+    if has_stored_mechanics(molsys.molecular_mechanics):
         raise ValueError("H5MSM 0.5 probe cannot encode molecular mechanics yet.")
 
     analyses = dict(molsys.interactions)
@@ -695,9 +692,7 @@ def write_topology_chemistry_molsys_file(filename, molsys):
         raise TypeError(
             "This H5MSM route requires topology and chemistry without Structures."
         )
-    if any(
-        value is not None for value in molsys.molecular_mechanics.to_dict().values()
-    ):
+    if has_stored_mechanics(molsys.molecular_mechanics):
         raise ValueError("H5MSM 0.5 probe cannot encode molecular mechanics yet.")
     analyses = dict(molsys.interactions)
     links = [_identity_link("atom", "chemical_states", "topology")]
@@ -779,9 +774,7 @@ def write_molsys_file(filename, molsys):
     ):
         if not molsys.interactions:
             raise ValueError("An interaction-only MolSys needs a named analysis.")
-        if any(
-            value is not None for value in molsys.molecular_mechanics.to_dict().values()
-        ):
+        if has_stored_mechanics(molsys.molecular_mechanics):
             raise ValueError("H5MSM 0.5 cannot encode molecular mechanics yet.")
         return write_modular_file(filename, interactions=dict(molsys.interactions))
     if molsys.chemical_states is None:

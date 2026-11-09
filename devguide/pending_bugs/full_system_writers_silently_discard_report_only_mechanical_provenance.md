@@ -1,7 +1,7 @@
 ---
 summary: Full-system writers silently discard report-only mechanical provenance
 issue: uibcdf/molsysmt#660
-status: open
+status: active
 opened: 2026-11-08
 closed:
 severity: medium
@@ -21,7 +21,8 @@ A native MolecularMechanics may carry partial_charge_assignment or
 atom_type_assignment while its projected parameter values are all None.
 H5MSM 0.5 and MolSysDict 0.2 accept this object and reconstruct both report
 fields as None. They should refuse unsupported mechanical state rather than
-silently omit it. This is separate from #256's post-1.0 format design.
+silently omit it. This is separate from #256's future format design, which the maintainer now
+permits before 1.0.
 
 ## How
 
@@ -79,3 +80,19 @@ values are None. The first attempt used a nonexistent root constructor alias
 and failed before any writer; it remains separately retained. The successful
 probe used a monitored one-CPU/2-GiB process tree with no resource interruption.
 No complete-suite, installed, release or valid-client-loss claim follows.
+
+## Local correction — 2026-11-08
+
+**Contract-tested locally:** one native presence helper now inspects the complete
+stored domain by reference, without the parameter projection, per-atom scans or
+copies. `None` and the default native object remain absent; non-None stored
+values, empty tables/reports and unsupported extensions/implementations do not.
+All five native H5MSM branch preflights and MolSysDict 0.2 use that helper.
+`MolecularMechanics.to_dict()` remains parameter-only.
+
+The new guard fails on the original code (two cases reached before maxfail,
+not a completed suite). The first corrected directed selection passes 84 cases,
+including all 29 new guards, public 0.5 behavior and native dictionary routes.
+The monitored process tree peaks at 303,808,512 bytes with host availability over
+15 GB decimal, no swap use in its cgroup and no resource stop. Final clean-source
+receiving, documentation verification and public delivery remain pending here.

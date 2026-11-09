@@ -1061,10 +1061,12 @@ Custom extension/engine objects and cross-release/platform compatibility are
 not qualified by this scope. Serialization is whole-object/resident and does
 not use the chunk executor or configure.max_ram_usage preflight.
 
-H5MSM 0.5 and MolSysDict 0.2 still refuse mechanical parameter values; the
-report-only refusal gap is owned by uibcdf/molsysmt#660. The parameter-only
+H5MSM 0.5 and MolSysDict 0.2 refuse stored mechanics, including reports
+without parameter values, present-empty tables/reports and unknown extensions.
+One native presence helper inspects stored references without copying or scanning
+per-atom values; the parameter projection cannot prove absence. The parameter-only
 MolecularMechanicsDict omits complete named reports. Native pickle does not
 replace a client's explicitly required H5MSM round trip or accept its entire
-workflow. The H5MSM 0.6 model/schema design stays post-1.0 under
-uibcdf/molsysmt#256. See the
+workflow. The maintainer authorizes a bounded H5MSM 0.6 model/schema implementation before
+1.0 under uibcdf/molsysmt#256; it is not yet a supported transport. See the
 [checkpoint guide](../docs/content/user/foundations/native_world/classes/molsysmt_MolSysDict.md#native-checkpoints).

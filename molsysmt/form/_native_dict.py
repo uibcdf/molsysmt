@@ -392,9 +392,9 @@ def encode_molsys(molsys):
                     "_preparation_history",
                 },
             )
-    if molsys.molecular_mechanics is not None and any(
-        value is not None for value in molsys.molecular_mechanics.to_dict().values()
-    ):
+    from molsysmt.native._mechanics_presence import has_stored_mechanics
+
+    if has_stored_mechanics(molsys.molecular_mechanics):
         raise ValueError(
             "MolSysDict 0.2 does not persist MolecularMechanics; omit it explicitly before transport."
         )
