@@ -29,7 +29,7 @@ def test_actual_jupyter_analysis_distance_family(tmp_path):
     ]
     if provider := os.environ.get("MOLSYSVIEWER_PROVIDER_ROOT"):
         command.extend(["--provider-root", provider])
-    subprocess.run(command, check=True, timeout=300)
+    subprocess.run(command, check=True, timeout=360)
     result = json.loads((output / "full-result.json").read_text())
     assert result["checks"] == [
         "Load TcTIM and open Analysis without calculating implicitly",

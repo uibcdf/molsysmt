@@ -889,7 +889,7 @@ def main():
                 ],
                 env=env,
                 check=True,
-                timeout=240,
+                timeout=300 if args.scenario == "analysis" else 240,
             )
     finally:
         if server is not None:

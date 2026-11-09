@@ -3762,3 +3762,15 @@ unchanged deadlines/scientific/old-workflow assertions. New angular presentation
 checks compare the documented nine significant digits against independent
 oracles, rather than an unrounded absolute tolerance inappropriate for that
 display precision. Higher-precision native numerical controls are unchanged.
+
+
+At four CPU, all first sixteen old workflow steps plus new vector and angular
+checks complete; the explicit-torsion/two-popup step starts at 214.029 seconds.
+The original 240-second Node deadline interrupts that step before its completion.
+No new numerical or layout failure is recorded, but this second attempt is also
+incomplete. Only the expanded Analysis scenario receives a measured finite
+300-second Node budget and 360-second outer collection/cleanup budget. Other
+scenarios keep their prior deadlines, and resource/scientific/scene assertions
+remain unchanged. Per-step timings remain durable in the private receipt.
+General native angular chunking is now tracked post-1.0 in #667, rather than
+being hidden behind frontend paging or added as another release requirement.
