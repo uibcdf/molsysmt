@@ -145,7 +145,7 @@ artifact or tag is created by this decision.
 
 | Package | Current state | Required exit evidence |
 | --- | --- | --- |
-| P0 — repair #660 | Clean `272745fc8` passes 1,111 cases, fourteen fast gates and HTML; public delivery pending | All affected branches, strict requests, present-empty state and unchanged existing file are guarded; no expansion of 0.5. |
+| P0 — repair #660 | Closed; clean `272745fc8` passes 1,111 cases, fourteen fast gates and HTML; public `af71a6d29` verified | All affected branches, strict requests, present-empty state and unchanged existing file are guarded; no expansion of 0.5. |
 | P1 — bound the schema | This plan; implementation pending | Exact field/type/unit catalog, domain/layer versions, identity and index-link rules, absent/empty semantics and unsupported-input policy. |
 | P2 — mechanics codec | Pending | Typed native/HDF5 round trips for all admitted settings, tables and reports; malformed data/unknown versions refuse; no engine imports or evidence rebinding. |
 | P3 — modular orchestration | Pending | Reuse existing domain codecs; explicit version dispatch, associations, source-preserving migration and failure before file publication; unchanged 0.3/0.4/0.5 reads. |

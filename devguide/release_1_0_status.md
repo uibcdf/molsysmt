@@ -42,9 +42,17 @@ course code/outputs are unchanged. The
 retains the original failure, 29 new guards, runtime versions and resource limits.
 The 0.5 schema and parameter-only dictionary projection are unchanged. Tests
 peak at 542,543,872 bytes; final runs retain over 14 GB decimal host availability
-without resource stops. Public source delivery and issue closeout are next.
-Formal progress remains 72.4%, with 57 source closures and 26/50 graphical intents
-until closeout. New #256 work does not receive artificial completion credit.
+without resource stops. Public delivery is independently verified at
+`af71a6d29a334d2ae9d102be8ea6647f9f5ff1b3`: all 17 changed/deleted paths agree,
+and the four human root files are preserved. **#660 is closed**; see
+[delivery](../devtools/data/mechanics_presence_delivery_660_20261108.json).
+Formal progress remains 72.4%, with **58 source closures and 26/50 graphical
+intents**. The complete board has 592 issues, 88 open and no open PR.
+#256 is now assigned to the 1.0.0 milestone; the
+[owner decision](https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6730428162)
+keeps its portable client gate open. Next complete P1's exact field/type/unit and
+axis catalog, then the codec and public/client receiving. New #256 work does not
+receive artificial completion credit; no 0.6/1.0 codec is available yet.
 The earlier post-1.0 statements below retain their dated review context and are
 superseded by this maintainer decision.
 

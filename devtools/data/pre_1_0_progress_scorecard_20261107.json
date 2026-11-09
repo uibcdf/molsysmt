@@ -872,17 +872,18 @@
       "uibcdf/molsysmt#656",
       "uibcdf/molsysmt#658",
       "uibcdf/molsysmt#657",
-      "uibcdf/molsysmt#659"
-    ],
-    "record": "devguide/pre_1_0_robustness_audit_20261106.md",
-    "owner_verification": "Public 89b492e0f9c54702a3650dd95a47b517c2c7a17a independently matches eleven changed paths and preserves four human files. Clean e02ed4deb passes 235 affected cases with no omissions, fourteen fast gates and four rendered pages. Existing native checkpoint scope is received; no runtime implementation, H5MSM 0.6, client workflow, installed or exact-candidate acceptance is added.",
-    "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Resolve #660 report-only mechanical provenance refusal without adding storage in H5MSM 0.5. The bounded #256 public-composition review is complete; its future schema stays open/post-1.0. Continue remaining #421 intents while keeping #654 intake, #615 uncertainty, #567 policy, #582 mechanics and installed/platform/exact-candidate gates explicit.",
-    "active_related": [
-      "uibcdf/molsysmt#615",
+      "uibcdf/molsysmt#659",
       "uibcdf/molsysmt#660"
     ],
-    "last_source_closeout_record": "devguide/archive/resolved_bugs/inclusive_distance_clustering_cutoff_changes_under_a_nondefault_length_policy.md",
+    "record": "devguide/pre_1_0_robustness_audit_20261106.md",
+    "owner_verification": "Public af71a6d29 independently matches 17 changed/deleted paths and preserves four human files. Clean 272745fc8 passes 1,111 affected cases without omissions, fourteen fast gates and three inspected HTML pages. #660 is closed; no new H5MSM schema or client/installed/candidate acceptance is added.",
+    "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
+    "scope": "Complete the bounded #256 portable mechanics field/unit/axis catalog and codec toward the accepted first stable H5MSM 1.0/MolSysMT 1.0 target. 0.6 may be an intermediate development schema. Version evolution is independent afterward. Continue remaining #421 intents; keep #654 intake, #615 uncertainty, #567 policy, #582 mechanics and installed/platform/exact-candidate gates explicit.",
+    "active_related": [
+      "uibcdf/molsysmt#615",
+      "uibcdf/molsysmt#256"
+    ],
+    "last_source_closeout_record": "devguide/archive/resolved_bugs/full_system_writers_silently_discard_report_only_mechanical_provenance.md",
     "after_active_block": [
       "uibcdf/molsysmt#421"
     ],
@@ -898,18 +899,18 @@
   "reporting": "Report newly accepted weighted leaves, supplemental repairs delivered and remaining local/external acceptance separately. This snapshot measures the audit work packages, not all MolSysMT implementation or remaining time.",
   "last_supplemental_delivery": {
     "issues": [
-      "uibcdf/molsysmt#659"
+      "uibcdf/molsysmt#660"
     ],
-    "source": "68350e0b27249b8337c04779ba0a86196d861a18",
-    "public_checkpoint": "61b072b46b1c8bb1cba84b3ed42ca1e23dc287d9",
+    "source": "272745fc8df870b9a75b4e6d89b4e09a1dea0f7a",
+    "public_checkpoint": "af71a6d29a334d2ae9d102be8ea6647f9f5ff1b3",
     "state": "public_source_closed",
-    "record": "devguide/archive/resolved_bugs/inclusive_distance_clustering_cutoff_changes_under_a_nondefault_length_policy.md",
+    "record": "devguide/archive/resolved_bugs/full_system_writers_silently_discard_report_only_mechanical_provenance.md",
     "evidence": [
-      "devtools/data/distance_clustering_unit_policy_receiving_659_20261108.json",
-      "devtools/data/distance_clustering_unit_policy_delivery_659_20261108.json"
+      "devtools/data/mechanics_presence_receiving_660_20261108.json",
+      "devtools/data/mechanics_presence_delivery_660_20261108.json"
     ],
     "weighted_milestone_change": 0,
-    "audit_related_source_closures": 57
+    "audit_related_source_closures": 58
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
@@ -953,11 +954,10 @@
   },
   "incoming_intake": {
     "issues": [
-      "uibcdf/molsysmt#654",
-      "uibcdf/molsysmt#660"
+      "uibcdf/molsysmt#654"
     ],
     "complete_board_issues": 592,
-    "open_issues": 89,
+    "open_issues": 88,
     "open_prs": 0,
     "weighted_milestone_change": 0
   },
@@ -997,5 +997,19 @@
     "runtime_code_changed": false,
     "source_issue_closed": false,
     "weighted_milestone_change": 0
+  },
+  "h5msm_stable_format_target": {
+    "owner_issue": "uibcdf/molsysmt#256",
+    "milestone": "1.0.0",
+    "state": "accepted_plan_no_new_codec",
+    "first_stable_format": "1.0",
+    "coordinated_library_release": "1.0",
+    "development_version": "0.6 may precede the stable freeze",
+    "evolution": "Independent library and format versions; incompatible format changes require a new format major.",
+    "normative": "devguide/h5msm_format.md#version-identities",
+    "plan": "devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md",
+    "owner_decision": "https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6730428162",
+    "weighted_milestone_change": 0,
+    "scope_addition": "Track before release without silently changing the original audit weights or declaring the new format implemented."
   }
 }

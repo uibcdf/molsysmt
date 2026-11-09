@@ -173,9 +173,12 @@ typed values, and explicit nanometer and square-nanometer units. Structure IDs
 retain either their integer or string type. H5MSM 0.5 has no
 `MolecularMechanics` layer. The refusal includes stored assignment reports without
 parameter values, present-empty reports/tables and unsupported mechanics
-extensions. A default empty native mechanics object or `None` remains accepted. Writing a system with nonempty mechanics data
-raises an error before creating the file. Mechanics persistence is planned
-for H5MSM 0.6 after MolSysMT 1.0, once its native parameter model is defined.
+extensions. A default empty native mechanics object or `None` remains accepted.
+Writing a system with stored mechanics raises an error before creating the file.
+A separate mechanics layer is being designed toward a first stable H5MSM 1.0
+coordinated with MolSysMT 1.0; an intermediate 0.6 development schema may precede
+it. This is future work, not a capability of the current writer. Later library
+and format versions will evolve independently.
 The structures-only reader rejects atom subsets when a stored biological
 assembly is present, because its chain indices cannot be remapped without a
 topology. `msm.convert` likewise rejects writing an atom subset that retains

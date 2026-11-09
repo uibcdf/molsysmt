@@ -188,7 +188,8 @@ Disulfide and metal-coordination observations must not replace that authority.
 Native Topology contains stable inventory only; its removed bond facade is not
 reconstructed by reading a file. ChemicalStates remains an independent domain.
 H5MSM 0.5 excludes `MolecularMechanics`; nonempty mechanics data are rejected
-rather than silently lost. Mechanics persistence belongs to 0.6 after 1.0.
+rather than silently lost. The bounded mechanics-persistence plan is now eligible
+before the first stable H5MSM 1.0 freeze; see the version identities above.
 
 ### Native composition without Structures
 

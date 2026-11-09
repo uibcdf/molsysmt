@@ -1,0 +1,91 @@
+{
+  "public_checkpoint": "af71a6d29a334d2ae9d102be8ea6647f9f5ff1b3",
+  "base": "802c5fb42e791ae3cc173718bc77484aa1b4c239",
+  "verified_paths": [
+    {
+      "path": "devguide/archive/resolved_bugs/full_system_writers_silently_discard_report_only_mechanical_provenance.md",
+      "git_blob_sha": "5016d61cdebcf2c33ed100f15a5d889aa68cd382"
+    },
+    {
+      "path": "devguide/forms_and_conversions.md",
+      "git_blob_sha": "d097636eef7d88e6c9c169ac5ea9b6aec16b0dad"
+    },
+    {
+      "path": "devguide/h5msm_format.md",
+      "git_blob_sha": "4a3148728a6e9a319b63f3cc2279756bcd33546c"
+    },
+    {
+      "path": "devguide/pending_bugs/README.md",
+      "git_blob_sha": "d2417a5b937baacec5e99f78563dfa5ac201aed4"
+    },
+    {
+      "path": "devguide/pending_proposals/README.md",
+      "git_blob_sha": "f40767829ae6dcd99140ce76840047d7955ebca7"
+    },
+    {
+      "path": "devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md",
+      "git_blob_sha": "0e8b84698a18535ba9fe996a211298102ebc3288"
+    },
+    {
+      "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+      "git_blob_sha": "31f502a290cbe772ea5b80b7d413dd2b54c529b1"
+    },
+    {
+      "path": "devguide/release_1_0_status.md",
+      "git_blob_sha": "65ae68a719c07322f95ab264c6170d2a9ef5ba20"
+    },
+    {
+      "path": "devtools/data/mechanics_presence_receiving_660_20261108.json",
+      "git_blob_sha": "ff9fcf8cd3897c76552dfc6d6990724e5adaf0ac"
+    },
+    {
+      "path": "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+      "git_blob_sha": "df88e28c69e6421850b0182b1a839cc3ac9fb5ef"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/classes/molsysmt_MolSysDict.md",
+      "git_blob_sha": "f948efa63e1059412c9c71a77aa84f3204d2d68d"
+    },
+    {
+      "path": "docs/content/user/tools/form/file/h5msm_05.md",
+      "git_blob_sha": "da173a9e7f46a7a6a385aa43465ec3ee7884fbdd"
+    },
+    {
+      "path": "molsysmt/form/_h5msm05_modular.py",
+      "git_blob_sha": "8d9d41078f8b087a503c3ca1f3bd27755e1e6769"
+    },
+    {
+      "path": "molsysmt/form/_native_dict.py",
+      "git_blob_sha": "2215cd396b364c34257a5effc6da7ceadda300f9"
+    },
+    {
+      "path": "molsysmt/h5msm.py",
+      "git_blob_sha": "4a3ab879ac465be5e9950378509f634cc785c436"
+    },
+    {
+      "path": "molsysmt/native/_mechanics_presence.py",
+      "git_blob_sha": "10e34d51fd82bb6b9e8775278edf6e3f9b02e09c"
+    },
+    {
+      "path": "tests/form/file_h5msm/test_mechanics_presence.py",
+      "git_blob_sha": "f98d889bcb1e93f1d2a004021b472ac4a08065ad"
+    }
+  ],
+  "protected_human_files": {
+    "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": "3b97cf0d5c813a1e3c2212ad118c7f6c32763d85af91cb800640209095fd53d6",
+    "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": "d564291bb01387663f178f5e041bc8d55d1022bfa71584ddd11f1dd9dba12d95",
+    "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": "a112aa640da192a121d1ccec3c5011c9652729abacf2a38c1b222632a55dcf20",
+    "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": "6b3f17a698bc7393ca3ecad31891d693b8a8169dfdd892dbae77f3ca91b25abe"
+  },
+  "human_bytes_unchanged": true,
+  "scope": "Fast-forward source delivery only; no package, tag, Release or hosted matrix launched.",
+  "schema_version": "molsysmt.mechanics_presence_delivery@1",
+  "date": "2026-11-08",
+  "owner_issue": "uibcdf/molsysmt#660",
+  "qualified_source": "272745fc8df870b9a75b4e6d89b4e09a1dea0f7a",
+  "receiving_record": "devtools/data/mechanics_presence_receiving_660_20261108.json",
+  "owner_decision": "https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6730428162",
+  "mechanics_schema_available": false,
+  "first_stable_format_target": "H5MSM 1.0 with MolSysMT 1.0 after qualification",
+  "future_versions": "Independent; incompatible format changes require a new format major."
+}
