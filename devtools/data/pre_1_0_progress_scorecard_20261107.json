@@ -878,7 +878,7 @@
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
     "owner_verification": "Public af71a6d29 independently matches 17 changed/deleted paths and preserves four human files. Clean 272745fc8 passes 1,111 affected cases without omissions, fourteen fast gates and three inspected HTML pages. #660 is closed; no new H5MSM schema or client/installed/candidate acceptance is added.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Implement #256 P3/P4 modular whole-file associations/version dispatch and public operations after the qualified private layer, toward the accepted first stable H5MSM 1.0/MolSysMT 1.0 target. Continue remaining #421 intents; retain #654, #615, #567/#582 and installed/platform/exact-candidate ownership.",
+    "scope": "Implement #256 P4 public version dispatch/conversion/query/selection/copy/append and source-preserving migration after the qualified private whole-file composition, toward the accepted first stable H5MSM 1.0/MolSysMT 1.0 target. Continue remaining #421 intents; retain #654, #615, #567/#582 and installed/platform/exact-candidate ownership.",
     "active_related": [
       "uibcdf/molsysmt#615",
       "uibcdf/molsysmt#256"
@@ -954,10 +954,11 @@
   },
   "incoming_intake": {
     "issues": [
-      "uibcdf/molsysmt#654"
+      "uibcdf/molsysmt#654",
+      "uibcdf/molsysmt#661"
     ],
-    "complete_board_issues": 592,
-    "open_issues": 88,
+    "complete_board_issues": 593,
+    "open_issues": 89,
     "open_prs": 0,
     "weighted_milestone_change": 0
   },
@@ -1001,7 +1002,7 @@
   "h5msm_stable_format_target": {
     "owner_issue": "uibcdf/molsysmt#256",
     "milestone": "1.0.0",
-    "state": "private_mechanics_layer_source_qualified_modular_public_routes_pending",
+    "state": "private_whole_file_composition_qualified_public_routes_and_freeze_pending",
     "first_stable_format": "1.0",
     "coordinated_library_release": "1.0",
     "development_version": "0.6 may precede the stable freeze",
@@ -1027,5 +1028,18 @@
     "weighted_milestone_change": 0,
     "public_checkpoint": "2cca126fe25ecf8f8d40e77acd8fb930e7e34f87",
     "owner_response": "https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6731162300"
+  },
+  "last_mechanics_composition_receiving": {
+    "owner_issue": "uibcdf/molsysmt#256",
+    "source": "b184e9d181513f50580aa8243f13d9f8941acdd7",
+    "state": "private_whole_file_source_qualified_public_delivery_pending",
+    "evidence": [
+      "devtools/data/mechanics_composition_receiving_256_20261108.json"
+    ],
+    "guard": "tests/form/file_h5msm/test_modular_mechanics.py",
+    "affected_tests": 1229,
+    "public_overflow_cases": 12,
+    "source_issue_closed": false,
+    "weighted_milestone_change": 0
   }
 }

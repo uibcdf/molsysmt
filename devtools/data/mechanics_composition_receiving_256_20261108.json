@@ -1,0 +1,814 @@
+{
+  "schema_version": "molsysmt.mechanics_composition_receiving@1",
+  "date": "2026-11-08",
+  "owner_issue": "uibcdf/molsysmt#256",
+  "related_issues": [
+    "uibcdf/molsysmt#661",
+    "uibcdf/molsysmt#660",
+    "uibcdf/molsysmt#438"
+  ],
+  "source": "b184e9d181513f50580aa8243f13d9f8941acdd7",
+  "scope": "Private whole-file development-root qualification on Linux/Python 3.14. Public writing remains H5MSM 0.5. No new public version, installed/platform/client/candidate or scientific-method qualification.",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "runs": {
+    "mechanics-256-unsigned-negative": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/mechanics-256-unsigned-negative.xml",
+          "-n0",
+          "tests/form/file_h5msm/test_association_uint64_overflow.py",
+          "--maxfail=2"
+        ],
+        "exit_code": 1,
+        "seconds": 2.2936813309788704,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "08a225009d8cc8b7bd48ad00942071ae052450e5",
+        "starting_git_status": " M devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md\n M devtools/data/mechanics_layer_delivery_256_20261108.json\n M devtools/data/mechanics_layer_receiving_256_20261108.json\n M molsysmt/_private/files_and_directories.py\n M molsysmt/_private/h5msm_storage/mechanics.py\n M molsysmt/form/_h5msm05_associations.py\n M molsysmt/form/_native_dict.py\n?? molsysmt/_private/h5msm_storage/modular.py\n?? molsysmt/native/_transport.py\n?? tests/form/file_h5msm/test_association_uint64_overflow.py\n",
+        "ending_git_status": " M devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md\n M devtools/data/mechanics_layer_delivery_256_20261108.json\n M devtools/data/mechanics_layer_receiving_256_20261108.json\n M molsysmt/_private/files_and_directories.py\n M molsysmt/_private/h5msm_storage/mechanics.py\n M molsysmt/form/_h5msm05_associations.py\n M molsysmt/form/_native_dict.py\n?? molsysmt/_private/h5msm_storage/modular.py\n?? molsysmt/native/_transport.py\n?? tests/form/file_h5msm/test_association_uint64_overflow.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8625
+      },
+      "resources": {
+        "started_utc": "2026-11-09T03:33:03.996543+00:00",
+        "seconds": 8.008455282077193,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.0361328125,
+            0.7587890625,
+            1.34423828125
+          ],
+          "cpu_utilization": 0.02661978905072826,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16304918528,
+        "cgroup_memory_peak_bytes": 180047872,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "0c0fe873a229b116a6b668a254b36910fa8847cc88972e660a4287046cf4f7c6",
+        "-bounded.json": "abdae26ef82a615b766999ff10223fe426bfa700015a58ae8e2e0dc16bba1f07",
+        ".xml": "2126507eb96ec3d64d6f799e7452079e848ceeb0363aef9fc057cc5384f88f39",
+        ".log": "ba8369f6bd4817cb54072515fa67537d634332f69d925ee5055a8d21201714ce",
+        "-inputs-before.json": "14fdfc7ca2e72750eb21067855678c7157de98d986b15c1e1ec444fa06502f0e",
+        "-inputs-after.json": "14fdfc7ca2e72750eb21067855678c7157de98d986b15c1e1ec444fa06502f0e",
+        "-reference-driver.py": "bcbd07a07353e73a95cb26305ee197d0e6fa8e11e2f6594fc779cb50ae967f73",
+        "-resource-driver.py": "7d2305f6b27df49a607634fb72399b574abbc4a58d96ff9af181af4951516d77"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "4",
+          "time": "0.450",
+          "timestamp": "2026-11-08T21:33:08.242336-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.form.file_h5msm.test_association_uint64_overflow",
+          "name": "test_unsigned_out_of_range_maps_are_refused_before_file_creation[18446744073709551615]",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "mechanics-256-composition-pilot": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/mechanics-256-composition-pilot.xml",
+          "-n0",
+          "tests/form/file_h5msm/test_modular_mechanics.py",
+          "tests/form/file_h5msm/test_association_uint64_overflow.py",
+          "tests/form/file_h5msm/test_mechanics_presence.py",
+          "tests/_private/test_atomic_new_file.py",
+          "tests/form/molsysmt_MolSysDict",
+          "--maxfail=4",
+          "--basetemp=<private-evidence>/mechanics-256-composition-pilot"
+        ],
+        "exit_code": 1,
+        "seconds": 11.898579784901813,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "08a225009d8cc8b7bd48ad00942071ae052450e5",
+        "starting_git_status": " M devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md\n M devtools/data/mechanics_layer_delivery_256_20261108.json\n M devtools/data/mechanics_layer_receiving_256_20261108.json\n M molsysmt/_private/files_and_directories.py\n M molsysmt/_private/h5msm_storage/mechanics.py\n M molsysmt/form/_h5msm05_associations.py\n M molsysmt/form/_native_dict.py\n M tests/form/file_h5msm/test_mechanics_presence.py\n?? devguide/pending_bugs/unsigned_h5msm_axis_maps_wrap_out_of_range_indices_to_unknown.md\n?? molsysmt/_private/h5msm_storage/modular.py\n?? molsysmt/native/_transport.py\n?? tests/_private/test_atomic_new_file.py\n?? tests/form/file_h5msm/test_association_uint64_overflow.py\n?? tests/form/file_h5msm/test_modular_mechanics.py\n",
+        "ending_git_status": " M devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md\n M devtools/data/mechanics_layer_delivery_256_20261108.json\n M devtools/data/mechanics_layer_receiving_256_20261108.json\n M molsysmt/_private/files_and_directories.py\n M molsysmt/_private/h5msm_storage/mechanics.py\n M molsysmt/form/_h5msm05_associations.py\n M molsysmt/form/_native_dict.py\n M tests/form/file_h5msm/test_mechanics_presence.py\n?? devguide/pending_bugs/unsigned_h5msm_axis_maps_wrap_out_of_range_indices_to_unknown.md\n?? molsysmt/_private/h5msm_storage/modular.py\n?? molsysmt/native/_transport.py\n?? tests/_private/test_atomic_new_file.py\n?? tests/form/file_h5msm/test_association_uint64_overflow.py\n?? tests/form/file_h5msm/test_modular_mechanics.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8628
+      },
+      "resources": {
+        "started_utc": "2026-11-09T03:44:37.287917+00:00",
+        "seconds": 18.017359288875014,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.41845703125,
+            0.9140625,
+            1.083984375
+          ],
+          "cpu_utilization": 0.028098344204716463,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16071725056,
+        "cgroup_memory_peak_bytes": 358944768,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "5a9c23b45268d9e530a32eb257c1f3795a7af069937c8bbfa6a62bf7b6480120",
+        "-bounded.json": "2893f9ddd9977e76a85c1df5db91d53e7bc6d3c7c85cca2ea7ffd7e9c8d75833",
+        ".xml": "57fff769d2c16c39d34d7b799b430eb3a5bd136ac4d4eca48797d45f77581e13",
+        ".log": "15a80dfef8ec026d195705aaed90c2a498b9a404cc2f5c44d19400ef74b1bd2b",
+        "-inputs-before.json": "998eed5069adabdc050ad02f33623f67fee04b5f625ebe1242d12b233b03fd93",
+        "-inputs-after.json": "998eed5069adabdc050ad02f33623f67fee04b5f625ebe1242d12b233b03fd93",
+        "-reference-driver.py": "3a62594eafa86409a21dbe35c8f85f4ecf914fc8de84606f888ded360d148d61",
+        "-resource-driver.py": "66cb61fe307dcf5fad693dfb18bc4f9033b4db56553bbc21555bfca89de4ed67"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "4",
+          "skipped": "0",
+          "tests": "22",
+          "time": "9.900",
+          "timestamp": "2026-11-08T21:44:41.439608-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.form.file_h5msm.test_modular_mechanics",
+          "name": "test_current_public_05_defaults_and_refusals_are_unchanged",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_mechanics",
+          "name": "test_prepared_whole_file_in_a_fresh_reader_retains_provenance_and_edit_ownership[complete]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_mechanics",
+          "name": "test_prepared_whole_file_in_a_fresh_reader_retains_provenance_and_edit_ownership[projected]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_mechanics",
+          "name": "test_prepared_whole_file_in_a_fresh_reader_retains_provenance_and_edit_ownership[merged]",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "mechanics-256-composition-diagnostic": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/mechanics-256-composition-diagnostic.xml",
+          "-n0",
+          "tests/form/file_h5msm/test_modular_mechanics.py",
+          "tests/form/file_h5msm/test_association_uint64_overflow.py",
+          "tests/form/file_h5msm/test_mechanics_presence.py",
+          "tests/_private/test_atomic_new_file.py",
+          "tests/form/molsysmt_MolSysDict",
+          "--basetemp=<private-evidence>/mechanics-256-composition-diagnostic"
+        ],
+        "exit_code": 1,
+        "seconds": 17.351386765018106,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "08a225009d8cc8b7bd48ad00942071ae052450e5",
+        "starting_git_status": " M devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md\n M devtools/data/mechanics_layer_delivery_256_20261108.json\n M devtools/data/mechanics_layer_receiving_256_20261108.json\n M molsysmt/_private/files_and_directories.py\n M molsysmt/_private/h5msm_storage/mechanics.py\n M molsysmt/form/_h5msm05_associations.py\n M molsysmt/form/_native_dict.py\n M tests/form/file_h5msm/test_mechanics_presence.py\n?? devguide/pending_bugs/unsigned_h5msm_axis_maps_wrap_out_of_range_indices_to_unknown.md\n?? molsysmt/_private/h5msm_storage/modular.py\n?? molsysmt/native/_transport.py\n?? tests/_private/test_atomic_new_file.py\n?? tests/form/file_h5msm/test_association_uint64_overflow.py\n?? tests/form/file_h5msm/test_modular_mechanics.py\n",
+        "ending_git_status": " M devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md\n M devtools/data/mechanics_layer_delivery_256_20261108.json\n M devtools/data/mechanics_layer_receiving_256_20261108.json\n M molsysmt/_private/files_and_directories.py\n M molsysmt/_private/h5msm_storage/mechanics.py\n M molsysmt/form/_h5msm05_associations.py\n M molsysmt/form/_native_dict.py\n M tests/form/file_h5msm/test_mechanics_presence.py\n?? devguide/pending_bugs/unsigned_h5msm_axis_maps_wrap_out_of_range_indices_to_unknown.md\n?? molsysmt/_private/h5msm_storage/modular.py\n?? molsysmt/native/_transport.py\n?? tests/_private/test_atomic_new_file.py\n?? tests/form/file_h5msm/test_association_uint64_overflow.py\n?? tests/form/file_h5msm/test_modular_mechanics.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8628
+      },
+      "resources": {
+        "started_utc": "2026-11-09T03:50:22.212163+00:00",
+        "seconds": 23.02296108403243,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            3.70556640625,
+            3.54638671875,
+            2.15966796875
+          ],
+          "cpu_utilization": 0.03010536879076764,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16006569984,
+        "cgroup_memory_peak_bytes": 359018496,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "21712e1697862c114aacf2c001341d9846e6dc26a74a6a3d2041636633b4e2ca",
+        "-bounded.json": "ef4aefdfcf1d90bcf9de9c8ab5b64b83c7632a0042523a73a7227070463487ea",
+        ".xml": "21c2dbb467ffb32e7805b6796593aabefab6b8641eb9e645409cb85d43111f95",
+        ".log": "d17eab5443462daced4891ada35bc513c19238febfcad090434fe872d9b9e295",
+        "-inputs-before.json": "d330e856cbb578bed3da2c98a1350405a3094c2b8839c50791903b3bb5742d25",
+        "-inputs-after.json": "d330e856cbb578bed3da2c98a1350405a3094c2b8839c50791903b3bb5742d25",
+        "-reference-driver.py": "c07e90da00eaacb382ee751a3b6865e8c45fc537fe9218228b91fa993f07a5b3",
+        "-resource-driver.py": "9e201ee5d68cd0d194c663f9d98cecca360aee27526735abc6b0f3a5249c712a"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "3",
+          "skipped": "0",
+          "tests": "107",
+          "time": "14.807",
+          "timestamp": "2026-11-08T21:50:26.380727-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.form.file_h5msm.test_modular_mechanics",
+          "name": "test_prepared_whole_file_in_a_fresh_reader_retains_provenance_and_edit_ownership[complete]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_mechanics",
+          "name": "test_prepared_whole_file_in_a_fresh_reader_retains_provenance_and_edit_ownership[projected]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_mechanics",
+          "name": "test_prepared_whole_file_in_a_fresh_reader_retains_provenance_and_edit_ownership[merged]",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "mechanics-256-composition-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/mechanics-256-composition-directed.xml",
+          "-n0",
+          "tests/form/file_h5msm/test_modular_mechanics.py",
+          "tests/form/file_h5msm/test_association_uint64_overflow.py",
+          "tests/form/file_h5msm/test_mechanics_presence.py",
+          "tests/_private/test_atomic_new_file.py",
+          "tests/form/molsysmt_MolSysDict",
+          "--basetemp=<private-evidence>/mechanics-256-composition-directed"
+        ],
+        "exit_code": 0,
+        "seconds": 17.768931529019028,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "08a225009d8cc8b7bd48ad00942071ae052450e5",
+        "starting_git_status": " M devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md\n M devtools/data/mechanics_layer_delivery_256_20261108.json\n M devtools/data/mechanics_layer_receiving_256_20261108.json\n M molsysmt/_private/files_and_directories.py\n M molsysmt/_private/h5msm_storage/mechanics.py\n M molsysmt/form/_h5msm05_associations.py\n M molsysmt/form/_native_dict.py\n M tests/form/file_h5msm/test_mechanics_presence.py\n?? devguide/pending_bugs/unsigned_h5msm_axis_maps_wrap_out_of_range_indices_to_unknown.md\n?? molsysmt/_private/h5msm_storage/modular.py\n?? molsysmt/native/_transport.py\n?? tests/_private/test_atomic_new_file.py\n?? tests/form/file_h5msm/test_association_uint64_overflow.py\n?? tests/form/file_h5msm/test_modular_mechanics.py\n",
+        "ending_git_status": " M devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md\n M devtools/data/mechanics_layer_delivery_256_20261108.json\n M devtools/data/mechanics_layer_receiving_256_20261108.json\n M molsysmt/_private/files_and_directories.py\n M molsysmt/_private/h5msm_storage/mechanics.py\n M molsysmt/form/_h5msm05_associations.py\n M molsysmt/form/_native_dict.py\n M tests/form/file_h5msm/test_mechanics_presence.py\n?? devguide/pending_bugs/unsigned_h5msm_axis_maps_wrap_out_of_range_indices_to_unknown.md\n?? molsysmt/_private/h5msm_storage/modular.py\n?? molsysmt/native/_transport.py\n?? tests/_private/test_atomic_new_file.py\n?? tests/form/file_h5msm/test_association_uint64_overflow.py\n?? tests/form/file_h5msm/test_modular_mechanics.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8628
+      },
+      "resources": {
+        "started_utc": "2026-11-09T03:51:51.335309+00:00",
+        "seconds": 24.02255617501214,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.2412109375,
+            2.7626953125,
+            2.0068359375
+          ],
+          "cpu_utilization": 0.026117528879959773,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16071569408,
+        "cgroup_memory_peak_bytes": 361852928,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "508d2b39a4ccb38561d51edfdf8faa95da08e4433b496840307d9cc49f947f19",
+        "-bounded.json": "ec035873b3bb22a8f21184c8ce835696265c6deb64a8338ec9a805cb73eb7341",
+        ".xml": "af687f3f3a124ce490cd962732973aefa4928ef13241bfb36b0fbd99b41899bd",
+        ".log": "70529f363ca1e7672a8f478a4fc09e4cb51d09e9c06995dc18a0fd1ac363dd4e",
+        "-inputs-before.json": "f5d9860fd6622638760ece88b754262edf1855dfbc0e9532632791b784193ff3",
+        "-inputs-after.json": "f5d9860fd6622638760ece88b754262edf1855dfbc0e9532632791b784193ff3",
+        "-reference-driver.py": "d4c573013dd1ceb64340bd122e5fc1fb784207da61be2c566764d44bddc98e21",
+        "-resource-driver.py": "bb8b7a090811377d878d093140d55d9b4bf62afa7ac89473db1a6d3f4d1fa951"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "107",
+          "time": "15.234",
+          "timestamp": "2026-11-08T21:51:55.500961-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "mechanics-256-composition-integrated": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/mechanics-256-composition-integrated.xml",
+          "-n2",
+          "tests/form/file_h5msm",
+          "tests/form/molsysmt_MolSysDict",
+          "tests/native/test_prepared_system_checkpoint.py",
+          "tests/basic/convert/mult_to_one/test_native_mechanics_composition.py",
+          "tests/form/molsysmt_MolSys/test_partial_domains.py",
+          "tests/_private/test_atomic_new_file.py",
+          "molsysmt/h5msm.py",
+          "--basetemp=<private-evidence>/mechanics-256-composition-integrated"
+        ],
+        "exit_code": 0,
+        "seconds": 82.89461838500574,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "08a225009d8cc8b7bd48ad00942071ae052450e5",
+        "starting_git_status": " M devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md\n M devtools/data/mechanics_layer_delivery_256_20261108.json\n M devtools/data/mechanics_layer_receiving_256_20261108.json\n M molsysmt/_private/files_and_directories.py\n M molsysmt/_private/h5msm_storage/mechanics.py\n M molsysmt/form/_h5msm05_associations.py\n M molsysmt/form/_native_dict.py\n M tests/form/file_h5msm/test_mechanics_presence.py\n?? devguide/pending_bugs/unsigned_h5msm_axis_maps_wrap_out_of_range_indices_to_unknown.md\n?? molsysmt/_private/h5msm_storage/modular.py\n?? molsysmt/native/_transport.py\n?? tests/_private/test_atomic_new_file.py\n?? tests/form/file_h5msm/test_association_uint64_overflow.py\n?? tests/form/file_h5msm/test_modular_mechanics.py\n",
+        "ending_git_status": " M devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md\n M devtools/data/mechanics_layer_delivery_256_20261108.json\n M devtools/data/mechanics_layer_receiving_256_20261108.json\n M molsysmt/_private/files_and_directories.py\n M molsysmt/_private/h5msm_storage/mechanics.py\n M molsysmt/form/_h5msm05_associations.py\n M molsysmt/form/_native_dict.py\n M tests/form/file_h5msm/test_mechanics_presence.py\n?? devguide/pending_bugs/unsigned_h5msm_axis_maps_wrap_out_of_range_indices_to_unknown.md\n?? molsysmt/_private/h5msm_storage/modular.py\n?? molsysmt/native/_transport.py\n?? tests/_private/test_atomic_new_file.py\n?? tests/form/file_h5msm/test_association_uint64_overflow.py\n?? tests/form/file_h5msm/test_modular_mechanics.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8628
+      },
+      "resources": {
+        "started_utc": "2026-11-09T03:53:54.226423+00:00",
+        "seconds": 89.07357357698493,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.5078125,
+            2.01171875,
+            1.82275390625
+          ],
+          "cpu_utilization": 0.027624309392265234,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 15513169920,
+        "cgroup_memory_peak_bytes": 1031282688,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "b3aec63c54f37e5f162f4379d30ebb5d265cae52ec644eb56620e6df8ace2fc1",
+        "-bounded.json": "c0a205805a85908481ca451fa5e12d09564151c9c69b80378e72e543530872a3",
+        ".xml": "e24f03b638b86f316d9514ff74661639d086f7be0aed4acae51e2b16652ea96e",
+        ".log": "3414cb4a901bcd4691e6fc0e90c0b7b68f47152cb7d711e9e6af791ab4b0bcba",
+        "-inputs-before.json": "6000bf6b08588c08d5221f9f192a2d89636be80ac7acbbb34bdbdb9c6c5ed1c4",
+        "-inputs-after.json": "6000bf6b08588c08d5221f9f192a2d89636be80ac7acbbb34bdbdb9c6c5ed1c4",
+        "-reference-driver.py": "ba9b5415a4a415e0a5cb6ed094155c96e5276f7d34b68aa389e66a8c897d5722",
+        "-resource-driver.py": "00ee7a03cb32dcef5928a9371fea12f73c2193fe43235a28182d62932c529b0c"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1229",
+          "time": "80.941",
+          "timestamp": "2026-11-08T21:53:58.342866-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "mechanics-256-composition-final": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/mechanics-256-composition-final.xml",
+          "-n2",
+          "tests/form/file_h5msm",
+          "tests/form/molsysmt_MolSysDict",
+          "tests/native/test_prepared_system_checkpoint.py",
+          "tests/basic/convert/mult_to_one/test_native_mechanics_composition.py",
+          "tests/form/molsysmt_MolSys/test_partial_domains.py",
+          "tests/_private/test_atomic_new_file.py",
+          "molsysmt/h5msm.py",
+          "--basetemp=<private-evidence>/mechanics-256-composition-final"
+        ],
+        "exit_code": 0,
+        "seconds": 99.48923481302336,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b184e9d181513f50580aa8243f13d9f8941acdd7",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8628
+      },
+      "resources": {
+        "started_utc": "2026-11-09T03:57:43.379567+00:00",
+        "seconds": 109.08484206604771,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            6.13330078125,
+            2.9560546875,
+            2.16552734375
+          ],
+          "cpu_utilization": 0.412682435832914,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12823298048,
+        "cgroup_memory_peak_bytes": 1067900928,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "eacb7f955f47fae21c3f9feacbb3dd908f0e3c51d5490ac5af7870b2b59fb879",
+        "-bounded.json": "f8da561a5f1a70a5cce2102ba1a3aa9b55ae70f6c6d9eb115b5ab8f013bcecd8",
+        ".xml": "4370300556f75065e44ba7a0c18440b6fa733a91af899964d2f288fd8b0f8cca",
+        ".log": "1663dfafd166d5669c628afea93260ca2d86e6aad69694148d73a92ca649e1da",
+        "-inputs-before.json": "6242efa431f696c747711a7dba7ab837bff3e721c31d3e2ecdd42fc0b27ba4ab",
+        "-inputs-after.json": "6242efa431f696c747711a7dba7ab837bff3e721c31d3e2ecdd42fc0b27ba4ab",
+        "-reference-driver.py": "c37c77c75ba6957ef0a07f922eca4a60893520b4b7fdd8e457f2da50d5964bdc",
+        "-resource-driver.py": "b77385664d93cab17f9a69de974a9568662a37202ed6708f5b99aa816806ca48"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1229",
+          "time": "96.544",
+          "timestamp": "2026-11-08T21:57:51.901720-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "mechanics-256-composition-fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 28.124571329914033,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b184e9d181513f50580aa8243f13d9f8941acdd7",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8628
+      },
+      "resources": {
+        "started_utc": "2026-11-09T03:57:43.767187+00:00",
+        "seconds": 37.02896020910703,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            6.13330078125,
+            2.9560546875,
+            2.16552734375
+          ],
+          "cpu_utilization": 0.44382871536523927,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13015920640,
+        "cgroup_memory_peak_bytes": 417656832,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "d040accac22ba4826e87a3e243d75064184c9b2c4efad4d05090f0b6c02f03c1",
+        "-bounded.json": "1de477dec25fba8c07b4b2be7936fac8f8a2c91aa720a7f9143f9fa0b46294bf",
+        ".log": "661569f1fd43ddbf26a2c2de828ae7e48b7206a330e48683381cdb00e251222f",
+        "-inputs-before.json": "6242efa431f696c747711a7dba7ab837bff3e721c31d3e2ecdd42fc0b27ba4ab",
+        "-inputs-after.json": "6242efa431f696c747711a7dba7ab837bff3e721c31d3e2ecdd42fc0b27ba4ab",
+        "-reference-driver.py": "d0d6b5dd9ebc1af2f01477e022e6282bfae72eb0ad9cc7a1aba3af370a00822e",
+        "-resource-driver.py": "916f921e45974df894683bbf3412d4923da656afa69960ddefff51f779800d5e"
+      }
+    },
+    "mechanics-256-composition-html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/mechanics-256-composition-html"
+        ],
+        "exit_code": 0,
+        "seconds": 170.04606204805896,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b184e9d181513f50580aa8243f13d9f8941acdd7",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8628
+      },
+      "resources": {
+        "started_utc": "2026-11-09T03:57:43.241319+00:00",
+        "seconds": 179.1676986401435,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            6.13330078125,
+            2.9560546875,
+            2.16552734375
+          ],
+          "cpu_utilization": 0.3812877263581489,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12823298048,
+        "cgroup_memory_peak_bytes": 1341902848,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "98d9e029dac31c5d4192083a2fd546436fae09d7fd8ac760f1fa97fd77b741df",
+        "-bounded.json": "78a48cbafe8c211147ad21df005289b7296bbf547ef5acf8702c2e59f443b815",
+        ".log": "ce063ee891fc7aef51560a97192d89859f48c588708d26e49a310e310f708880",
+        "-inputs-before.json": "6242efa431f696c747711a7dba7ab837bff3e721c31d3e2ecdd42fc0b27ba4ab",
+        "-inputs-after.json": "6242efa431f696c747711a7dba7ab837bff3e721c31d3e2ecdd42fc0b27ba4ab",
+        "-reference-driver.py": "d47fd1c0191c314ca09ae70c97f6350a683cdf6f291414c9dc89da751f7413af",
+        "-resource-driver.py": "4f7efbd649280d86e5541c0049f2d8369cf0370fcf8761aba30bab825afc31ea"
+      }
+    }
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "molsysmt_version": "0+unknown",
+    "versions": {
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pandas": "2.3.3",
+      "pint": "0.25.3",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1"
+    },
+    "imports": {
+      "pandas": "<development-environment>/lib/python3.14/site-packages/pandas/__init__.py",
+      "pint": "<development-environment>/lib/python3.14/site-packages/pint/__init__.py",
+      "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+      "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261106/viewer-e4dd58cf-source/molsysviewer/__init__.py",
+      "pyunitwizard": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+      "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+      "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+      "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+    }
+  },
+  "fresh_reader_cases": [
+    {
+      "case": "test_prepared_whole_file_in_a_0",
+      "bytes": 256349,
+      "files_sha256": {
+        "prepared06.h5msm": "111e16b730406a2a3b104790a398f3717a30f55806765a3cba2f0d04f66ba6cf",
+        "expected.json": "7a0debca774c15a04a24043e2d1a7191f7b7639bb3a80fcedac9d88689b7b7e8",
+        "actual.json": "7a0debca774c15a04a24043e2d1a7191f7b7639bb3a80fcedac9d88689b7b7e8",
+        "exports.json": "8f630d72a3a7fb6dc48645d210dfe6ec33325f1336b225f431251a52ac30f459",
+        "reader_result.json": "9e8207caef0ec290a34b5b8c7afad0745e6a3186d95c7516be709860cf428981"
+      },
+      "fresh_reader_outcome": {
+        "restored": true,
+        "reexport_identical": true,
+        "edit_invalidates_analysis": true,
+        "no_engines": true,
+        "policy_preserved": true
+      }
+    },
+    {
+      "case": "test_prepared_whole_file_in_a_1",
+      "bytes": 254328,
+      "files_sha256": {
+        "prepared06.h5msm": "f75a4904d04a727373065acbaa6c4b0fd640505bd1c5aa1cf1556a63fbd73235",
+        "expected.json": "25e30f44b8910b21aaec746fbccfcefa75ef444b829d13374659bdfa2a248f48",
+        "actual.json": "25e30f44b8910b21aaec746fbccfcefa75ef444b829d13374659bdfa2a248f48",
+        "exports.json": "31b2c4d6d3487b2bd335b46c978966b591f9c6a1a89e9864145d3f34e492d52c",
+        "reader_result.json": "9e8207caef0ec290a34b5b8c7afad0745e6a3186d95c7516be709860cf428981"
+      },
+      "fresh_reader_outcome": {
+        "restored": true,
+        "reexport_identical": true,
+        "edit_invalidates_analysis": true,
+        "no_engines": true,
+        "policy_preserved": true
+      }
+    },
+    {
+      "case": "test_prepared_whole_file_in_a_2",
+      "bytes": 288602,
+      "files_sha256": {
+        "prepared06.h5msm": "1665e7a43174881a2b3240b16d763e82cc1692ca1f8b4b87902c20736a74e5db",
+        "expected.json": "c5c88382467301037a2d45e2749b262efc2b8acacb1c73d68f5fa6359c97416e",
+        "actual.json": "c5c88382467301037a2d45e2749b262efc2b8acacb1c73d68f5fa6359c97416e",
+        "exports.json": "4ec8cab7018c3237075f4dfdf8b80d8f3d62e2b71d981b4770566a3cd0aec0a5",
+        "reader_result.json": "9e8207caef0ec290a34b5b8c7afad0745e6a3186d95c7516be709860cf428981"
+      },
+      "fresh_reader_outcome": {
+        "restored": true,
+        "reexport_identical": true,
+        "edit_invalidates_analysis": true,
+        "no_engines": true,
+        "policy_preserved": true
+      }
+    }
+  ],
+  "html_inspection": [
+    {
+      "page": "content/user/tools/form/file/h5msm_05.html",
+      "sha256": "8eb134200ab8268f5d0dd2414e5351bfb205c755a3b44d99d35acd142b7a6494",
+      "phrases": [
+        "a first stable H5MSM 1.0",
+        "Later library and format versions will evolve independently",
+        "The refusal includes stored assignment reports"
+      ]
+    },
+    {
+      "page": "content/user/foundations/native_world/classes/molsysmt_MolSysDict.html",
+      "sha256": "9081ce6a04c9ddd95c0239066528d7045b9ee00100a506b6010132b154d0b516",
+      "phrases": [
+        "present-empty reports or tables",
+        "Native Checkpoints"
+      ]
+    },
+    {
+      "page": "content/course/Common_Core/04_Native_Forms.html",
+      "sha256": "158b0e436658d27009fbf044d154d93aa2a3dfd12c1827e6d08850fb29288c4e",
+      "phrases": [
+        "including assignment reports without parameter values",
+        "not yet available"
+      ]
+    }
+  ],
+  "html_warning_comparison": {
+    "count": 6,
+    "baseline": "mechanics-256-codec-html",
+    "unchanged": true,
+    "current_log_sha256": "ce063ee891fc7aef51560a97192d89859f48c588708d26e49a310e310f708880",
+    "baseline_log_sha256": "ce063ee891fc7aef51560a97192d89859f48c588708d26e49a310e310f708880"
+  },
+  "original_attempt_interpretation": {
+    "unsigned_negative": "Four synthetic public atom-map cases: one failed refusal and three passing controls. The cast-before-validation defect is unchanged by other in-progress composition edits. Later guards extend to twelve cases across all three axis kinds.",
+    "composition_pilot": "18 pass/four failures before maxfail: three strict snapshot mismatches (object string-label dtype and zero-dimensional quantity magnitudes) plus an incorrect expected public exception class. No scientific value/unit loss was observed.",
+    "composition_diagnostic": "104 pass/three representation-only snapshot failures; writes actual observations for inspection.",
+    "composition_directed": "107 pass after explicitly observing the two schema-defined HDF normalizations. Later source adds empty-presence/root-refusal guards before integrated/final qualification.",
+    "no_structures_fixture": "Original #660 fixture created an empty Structures object. Corrected fixture explicitly removes it and asserts presence before each call. Original 1,111-case results remain valid for their actual four-branch coverage, not the claimed five. The runtime helper already covers five preflights by inspection. Archive/receipt corrections retain the original evidence."
+  },
+  "acceptance": [
+    "Reuse all four existing domain codecs; private root 0.6 adds typed mechanics and explicit root writer metadata without changing the public 0.5 defaults.",
+    "Resident reconstruction requires connected declared identity axes. Independent explicit permutations remain accessible; equal counts do not authorize attachment.",
+    "Absent domains stay absent. Present-empty mechanical reports/tables retain native markers. Explicitly empty entire mechanics/analysis layers remain readable independently and refuse resident assembly when their presence cannot round-trip.",
+    "Three actual complete/projected/nonpolar-H-merged preparations restore in new processes under another unit policy, preserve original assignments/producer/history/maps, reproduce selected PDBQT bytes and retain coordinate-edit interaction invalidation, with preparation/attribution backends unavailable.",
+    "Typed settings use explicit field/unit/dimension handshakes; existing structural string-label and shared QuantityRecord scalar storage normalizations are observed explicitly rather than treated as lost values.",
+    "The reusable atomic helper covers completed visibility, exception cleanup, existing files, dangling links, a two-writer race and unsupported-link refusal. It never publishes a partial-copy fallback.",
+    "Identity metadata does not allocate a billion-element index vector; mechanics preparation occurs once and geometry reuses bounded transfers. These are representation/control guards, not a massive-system benchmark.",
+    "Public unsigned maps reject out-of-range values before narrowing/output, while valid uint64 permutations and signed unknown entries survive across atom/structure/structure-state axes.",
+    "Clean source passes all 1,229 affected cases, fourteen fast gates and fresh HTML; three rendered pages are inspected and six baseline warnings retained."
+  ],
+  "limits": [
+    "#256 remains open. Public version dispatch/conversion/query/selection/copy/append and migration are P4; client and final format/default-writer qualification remain P5/P6.",
+    "No complete external-engine state, completed force field, arbitrary metadata class, whole-format stability or H5MSM 1.0 publication is implied.",
+    "Unsupported independent-layer resident compositions refuse; no atom identity, chemistry or coordinates are synthesized from matching cardinalities.",
+    "Hard-link publication is atomic visibility on a supporting destination filesystem, not crash durability. Abrupt termination can leave a private staging file.",
+    "All source attempts, warning counts and raw hashes remain separate. No earlier failed run is relabeled passing.",
+    "The original audit weights remain unchanged. #661 closure is supplemental work only after verified public delivery."
+  ]
+}

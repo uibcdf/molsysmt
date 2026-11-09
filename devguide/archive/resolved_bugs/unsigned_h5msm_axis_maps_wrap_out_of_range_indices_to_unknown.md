@@ -1,13 +1,13 @@
 ---
 summary: Unsigned H5MSM axis maps wrap out-of-range indices to unknown
 issue: uibcdf/molsysmt#661
-status: active
+status: resolved
 opened: 2026-11-08
-closed:
+closed: 2026-11-08
 severity: medium
 verification: reproduced
 area: [form, data]
-guard:
+guard: tests/form/file_h5msm/test_association_uint64_overflow.py
 normative:
 blocked_by: []
 supersedes: []
@@ -63,3 +63,19 @@ unsigned permutations and signed unknown maps across atom, structure and
 structure-state axes. They check unchanged input and refusal before output.
 The integrated 1,229-case selection passes without omissions. Final clean-source
 qualification, verified source delivery and issue closeout remain pending.
+
+## Resolution and clean-source qualification — 2026-11-08
+
+Fixed in `b184e9d181513f50580aa8243f13d9f8941acdd7`. The 12 public guards
+and the whole affected selection pass: **1,229 cases without omissions**,
+**14/14 fast gates**, and fresh HTML with six unchanged baseline warnings.
+The [composition receipt](../../devtools/data/mechanics_composition_receiving_256_20261108.json)
+retains the original failing atom-map control, all attempts, source/input hashes
+and resource observations. Final tests peak at 1,067,900,928 bytes; all final
+profiles preserve over 12 GB decimal host availability without resource stops.
+
+The guard fails when a uint64 maximum narrows to the meaningful -1 marker; valid
+unsigned permutations and signed unknown maps verify that the intended contract
+survives the correction. All three public axis kinds are exercised. No new public
+format or valid-client-data-loss claim follows. Public source delivery and issue
+closure are separately recorded after qualification.

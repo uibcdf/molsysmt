@@ -307,7 +307,7 @@ full regression/HTML gates and source delivery are still pending at this point.
 | P0 — repair #660 | Closed; clean `272745fc8` passes 1,111 cases, fourteen fast gates and HTML; public `af71a6d29` verified | All affected branches, strict requests, present-empty state and unchanged existing file are guarded; no expansion of 0.5. |
 | P1 — bound the schema | Bounded field/type/unit catalog specified; whole-file associations remain P3 | Exact field/type/unit catalog, domain/layer versions, identity and index-link rules, absent/empty semantics and unsupported-input policy. |
 | P2 — mechanics codec | Clean `5c38a1022`: 1,178 cases, fourteen fast gates; unchanged HTML scope reused with proof; public `2cca126fe` verified | Typed native/HDF5 round trips for all admitted settings, tables and reports; malformed data/unknown versions refuse; no engine imports or evidence rebinding. |
-| P3 — modular orchestration | Private root implemented; 1,229 integrated cases pass locally; clean receiving/public dispatch remain pending | Reuse existing domain codecs; explicit version dispatch, associations, source-preserving migration and failure before file publication; unchanged 0.3/0.4/0.5 reads. |
+| P3 — modular orchestration | Private root qualified on clean `b184e9d18`: 1,229 cases, fourteen fast gates and HTML; public dispatch/migration remain P4 | Reuse existing domain codecs; explicit version dispatch, associations, source-preserving migration and failure before file publication; unchanged 0.3/0.4/0.5 reads. |
 | P4 — public operations | Pending | `convert`, explicit H5MSM reads/writes/layer reads, `get`/`has_attribute`, selected extraction/reordering, copying and structure append are audited; no recognized-but-inaccessible mechanics. Preserve the legacy handler's actual scope. |
 | P5 — consumer receiving | Pending | Fresh-reader complete/projected/nonpolar-H-merged fixtures, multiple unit policies, original producer labels, prepared PDBQT re-export, edit invalidation, stale refusals and the full DockingMT reference route. Provider and installed evidence remain distinct. |
 | P6 — format freeze | Pending | Public schema, API docstrings/doctests, Foundations/Toolbox/Cookbook/course, bounded memory/storage measurements, default-writer decision and old-format/migration policy agree; then qualify the exact source/artifacts. |
@@ -573,3 +573,21 @@ existing H5MSM versions and native dictionaries. Peak cgroup memory is
 1,031,282,688 bytes, host availability remains above 15 GB decimal, and there is
 no resource interruption. Clean source/fast gates and public delivery follow
 separately; P4–P6 and the full consumer qualification remain open.
+
+### Final P3 private-source receiving — 2026-11-08
+
+Clean `b184e9d181513f50580aa8243f13d9f8941acdd7` passes the same **1,229**
+affected cases, fourteen fast gates and a fresh HTML build. The
+[composition receiving record](../../devtools/data/mechanics_composition_receiving_256_20261108.json)
+retains three actual fresh-reader whole-file outcomes, twelve public #661
+overflow controls, the corrected #660 presence fixture, original failed attempts,
+all source/runtime hashes and resource caps. Three rendered public pages are
+inspected; six baseline HTML warnings remain. Peak memory is 1,067,900,928 bytes
+for tests and 1,341,902,848 for HTML, with over 12 GB decimal host availability.
+No resource interruption occurs.
+
+This qualifies P3's private composition/atomic-publication core. Public root
+registration/dispatch and source-preserving migration remain explicitly required
+under P4; P3 does not waive them. Consumer E3, bounded storage measurements and
+final public-schema/default-writer qualification remain P5/P6. #661 is a separate
+public-input correction; #438's seven-module placement audit remains open.

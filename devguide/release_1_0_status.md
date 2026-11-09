@@ -20,6 +20,36 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
+## Private whole-file mechanics composition — 2026-11-08
+
+Clean `b184e9d18` qualifies the #256 private whole-file root 0.6 orchestration:
+**1,229 affected cases without omissions**, **14/14 fast gates** and fresh HTML.
+The [receiving record](../devtools/data/mechanics_composition_receiving_256_20261108.json)
+retains actual complete/projected/nonpolar-H-merged preparations in fresh readers,
+original producer/assignment/history/maps, selected PDBQT bytes, another unit
+policy, blocked preparation engines and actual edit invalidation. Resident
+assembly requires explicit connected identity associations; independent maps
+remain independently readable. Shared identity metadata avoids atom-sized index
+arrays. A reusable atomic helper publishes only completed new files.
+
+The new **#661** public uint64-overflow correction rejects invalid indices before
+signed conversion/file creation, with twelve guards across all three axis kinds.
+Its [resolved report](archive/resolved_bugs/unsigned_h5msm_axis_maps_wrap_out_of_range_indices_to_unknown.md)
+is ready for verified source delivery and issue closure. The #660 absent-Structures
+fixture is also corrected: original 1,111-case evidence did not exercise that
+fifth branch; the dated archive/receipt correction preserves the original results.
+The module-placement owner is #438; mistaken earlier #441 references are corrected
+without changing executed evidence or reopening that unrelated distance bug.
+
+The public default and supported reads remain H5MSM 0.5/0.3–0.5. P4 must integrate
+version dispatch, conversion/query/selection/copy/append and source-preserving
+migration; P5/P6 retain consumer and whole-format/default-writer qualification.
+#256 remains open. Original weighted progress is **72.4%**, with **58 source
+closures and 26/50 graphical intents** until #661's public closeout; no extra
+weight is credited for this added format scope. The complete board snapshot is
+593 issues, 89 open and no PR. Tests peak near 1.0 GiB, HTML near 1.25 GiB;
+all final runs retain over 12 GB decimal host availability without resource stops.
+
 ## Private mechanics-layer implementation — 2026-11-08
 
 The bounded #256 field/type/unit catalog and private schema-1 codec are now

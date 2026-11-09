@@ -134,3 +134,9 @@ passes 1,229 cases without omissions, including the corrected absence case and
 all existing 29 presence controls. Final clean-source receiving is recorded in
 the #256 composition receipt. This is a coverage-claim correction, not evidence
 that the original runtime repair failed or that a valid client file was lost.
+
+Replacement clean-source evidence is now available on `b184e9d18`: the same
+1,229-case selection passes without omissions, with fourteen fast gates and
+fresh HTML. The corrected 29 presence guards explicitly assert all five native
+compositions. See the
+[composition receipt](../../devtools/data/mechanics_composition_receiving_256_20261108.json).
