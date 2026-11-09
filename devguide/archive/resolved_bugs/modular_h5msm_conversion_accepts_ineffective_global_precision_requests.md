@@ -1,13 +1,13 @@
 ---
 summary: Modular H5MSM conversion accepts ineffective global precision requests
 issue: uibcdf/molsysmt#663
-status: active
+status: resolved
 opened: 2026-11-08
-closed:
+closed: 2026-11-09
 severity: medium
 verification: reproduced
 area: [convert, form]
-guard:
+guard: tests/form/file_h5msm/test_modular_precision_options.py
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,7 @@ supersedes: []
 # Modular writing accepts ineffective precision requests
 
 **Reported:** 2026-11-08, during the #256 P6 whole-format/default-writer audit.
-**Status:** Reproduced; bounded option-validation correction under qualification.
+**Status:** Resolved in clean qualified source `f03288768`; published delivery follows qualification.
 
 ## What
 
@@ -87,3 +87,28 @@ Shared Linux x86-64 host; Python 3.14; original source `c6ec38806d5fd0a3ed77e8f5
 with only the new guards. One computational CPU, 2 GiB process-tree ceiling,
 no swap and shared-host reserve/pressure monitoring. Exact runtime/import/version
 and measured resource evidence belongs to the final receiving record.
+
+
+## Resolution
+
+Clean `f032887686733047b64364afd59f2ebbfd209c7e` passes 1,907 affected
+cases without skips/failures/errors, including all 32 new public boundary/
+no-override/publication controls, five unchanged legacy fidelity cases and the
+conversion doctest. Fourteen fast gates and fresh HTML pass; six inspected pages
+and all fourteen unchanged course code cells/outputs agree. The existing six
+HTML warnings remain; three additional 0.4 warnings correspond to the added
+legacy selection, with the other pytest warning groups unchanged. No optional-ABI
+or warning-clean claim is made.
+
+[Exact receiving](../../../devtools/data/h5msm_encoding_review_receiving_663_20261109.json)
+retains the original 28 failures/four passes and the corrected directed 64 cases.
+Final tests peak at 1,779,310,592 bytes and HTML at 1,362,542,592 bytes. Host
+availability stays above 14.1 GB decimal without pressure/OOM/reserve interruption.
+ArgDigest retains keyword/value validation, and SMonitor's existing conflict
+catalog supplies the actionable refusal. No dependency or diagnostic catalog
+change, kernel, schema or scientific model is introduced.
+
+The request to qualify useful field-specific precision is tracked separately
+in #664 for post-1.0. This fix does not silently introduce lossy casting, alter
+legacy writer precision, or change default 0.5/explicit experimental 0.6.
+Independent #256 consumer receiving and #334 exact release gates stay pending.

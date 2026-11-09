@@ -1085,5 +1085,28 @@
     "default_format": "0.5",
     "explicit_experimental_format": "0.6",
     "weighted_milestone_change": 0
+  },
+  "last_h5msm_encoding_review": {
+    "owner_issues": [
+      "uibcdf/molsysmt#663",
+      "uibcdf/molsysmt#256"
+    ],
+    "source": "f032887686733047b64364afd59f2ebbfd209c7e",
+    "state": "qualified_source_precision_boundary_and_policy_review",
+    "affected_tests": 1907,
+    "new_public_controls": 32,
+    "unchanged_legacy_controls": 5,
+    "fast_gates": 14,
+    "html_pages": 6,
+    "evidence": [
+      "devtools/data/h5msm_encoding_review_receiving_663_20261109.json"
+    ],
+    "guard": "tests/form/file_h5msm/test_modular_precision_options.py",
+    "post_1_0_followup": "uibcdf/molsysmt#664",
+    "independent_client_received": false,
+    "stable_format_frozen": false,
+    "default_format": "0.5",
+    "explicit_experimental_format": "0.6",
+    "weighted_milestone_change": 0
   }
 }

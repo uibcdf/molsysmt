@@ -1,0 +1,860 @@
+{
+  "schema_version": "molsysmt.h5msm_encoding_review_receiving@1",
+  "date": "2026-11-09",
+  "date_timezone": "America/Mexico_City",
+  "owner_issues": [
+    "uibcdf/molsysmt#663",
+    "uibcdf/molsysmt#256"
+  ],
+  "source": "f032887686733047b64364afd59f2ebbfd209c7e",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "scope": "Bounded Linux/Python 3.14 source receiving of the modular write-option boundary and whole-format/default policy review. No new storage precision capability, schema, engine/model, stable-format, installed/platform, complete-suite or independent client acceptance.",
+  "runs": {
+    "h5msm-precision-original": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "tests/form/file_h5msm/test_modular_precision_options.py",
+          "--junitxml=<private-evidence>/h5msm-precision-original.xml"
+        ],
+        "exit_code": 1,
+        "seconds": 5.345657492987812,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "c6ec38806d5fd0a3ed77e8f5f1c52c5e738e9c18",
+        "starting_git_status": "?? tests/form/file_h5msm/test_modular_precision_options.py\n",
+        "ending_git_status": "?? tests/form/file_h5msm/test_modular_precision_options.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8649
+      },
+      "resources": {
+        "started_utc": "2026-11-09T05:48:36.319841+00:00",
+        "seconds": 11.011246658163145,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.4404296875,
+            1.0302734375,
+            1.50146484375
+          ],
+          "cpu_utilization": 0.02966314731020614,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16151437312,
+        "cgroup_memory_peak_bytes": 248156160,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "ddfa9c79c6989c609a6c1700e6cf28e114fd5d7d7a321b796af789ec65d96492",
+        "-bounded.json": "82f14bb9b234f81683c23a023bd3d17d91d497d7c7d7377cea3ce89477a2ec51",
+        ".xml": "6c4eaa8f59289aa67f01ef3cc2d0cc4d4110b11d9dec73cb88e74e7871e3ab6b",
+        ".log": "887ebb714a3ac1692aa2ccdecd779888282bc13f844ee793d1abe02da1ff25f5",
+        "-inputs-before.json": "fcce863cab17c3941824fb6c51f6d9df937ef85f32929fa767b6974945e65f2a",
+        "-inputs-after.json": "fcce863cab17c3941824fb6c51f6d9df937ef85f32929fa767b6974945e65f2a",
+        "-reference-driver.py": "39277879e87dd03dcec275827fe927568c744212788f5364fb20ce865a1e14d4",
+        "-resource-driver.py": "e1bea013b02d77e7402a481f8c2df1e05de5bf1bc1f68ee0e222b3dd0d680d7a"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "28",
+          "skipped": "0",
+          "tests": "32",
+          "time": "3.233",
+          "timestamp": "2026-11-08T23:48:40.532065-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[molsys-single-float_precision-0.5]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[molsys-single-float_precision-0.6]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[molsys-single-int_precision-0.5]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[molsys-single-int_precision-0.6]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[molsys-double-float_precision-0.5]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[molsys-double-float_precision-0.6]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[molsys-double-int_precision-0.5]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[molsys-double-int_precision-0.6]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[structures-single-float_precision-0.5]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[structures-single-float_precision-0.6]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[structures-single-int_precision-0.5]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[structures-single-int_precision-0.6]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[structures-double-float_precision-0.5]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[structures-double-float_precision-0.6]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[structures-double-int_precision-0.5]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[structures-double-int_precision-0.6]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[complementary-single-float_precision-0.5]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[complementary-single-float_precision-0.6]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[complementary-single-int_precision-0.5]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[complementary-single-int_precision-0.6]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[complementary-double-float_precision-0.5]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[complementary-double-float_precision-0.6]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[complementary-double-int_precision-0.5]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_explicit_global_precision_requests_refuse_before_publication[complementary-double-int_precision-0.6]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_refusal_preserves_existing_destination_even_with_trusted_delegation[False-0.5]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_refusal_preserves_existing_destination_even_with_trusted_delegation[False-0.6]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_refusal_preserves_existing_destination_even_with_trusted_delegation[True-0.5]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.form.file_h5msm.test_modular_precision_options",
+          "name": "test_refusal_preserves_existing_destination_even_with_trusted_delegation[True-0.6]",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "h5msm-precision-663-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "tests/form/file_h5msm/test_modular_precision_options.py",
+          "tests/form/file_h5msm/test_public_mechanics_v06.py",
+          "molsysmt/basic/convert.py::molsysmt.basic.convert.convert",
+          "--junitxml=<private-evidence>/h5msm-precision-663-directed.xml"
+        ],
+        "exit_code": 0,
+        "seconds": 9.641442571999505,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "c6ec38806d5fd0a3ed77e8f5f1c52c5e738e9c18",
+        "starting_git_status": " M devguide/h5msm_format.md\n M devguide/pending_bugs/README.md\n M devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md\n M docs/content/course/Common_Core/04_Native_Forms.ipynb\n M docs/content/user/cookbook/migrating_h5msm.md\n M docs/content/user/foundations/native_world/files/file_h5msm.md\n M docs/content/user/tools/form/file/h5msm_05.md\n M docs/content/user/tools/form/file/h5msm_06.md\n M molsysmt/basic/convert.py\n?? devguide/pending_bugs/modular_h5msm_conversion_accepts_ineffective_global_precision_requests.md\n?? tests/form/file_h5msm/test_modular_precision_options.py\n",
+        "ending_git_status": " M devguide/h5msm_format.md\n M devguide/pending_bugs/README.md\n M devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md\n M docs/content/course/Common_Core/04_Native_Forms.ipynb\n M docs/content/user/cookbook/migrating_h5msm.md\n M docs/content/user/foundations/native_world/files/file_h5msm.md\n M docs/content/user/tools/form/file/h5msm_05.md\n M docs/content/user/tools/form/file/h5msm_06.md\n M molsysmt/basic/convert.py\n?? devguide/pending_bugs/modular_h5msm_conversion_accepts_ineffective_global_precision_requests.md\n?? tests/form/file_h5msm/test_modular_precision_options.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8650
+      },
+      "resources": {
+        "started_utc": "2026-11-09T05:53:08.405385+00:00",
+        "seconds": 15.016919420100749,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.34130859375,
+            0.70849609375,
+            1.2548828125
+          ],
+          "cpu_utilization": 0.019085886489201398,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 16182591488,
+        "cgroup_memory_peak_bytes": 285110272,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "003a15cb4220748dbb6fa523122fd06937956daeebd90900c97c031d227e1d0e",
+        "-bounded.json": "a09d39ca8ce7b5f3d6f883721ea9068263dbfb597e0f78aef6c55220661bc13e",
+        ".xml": "be916ef3a1c877e4ccec3bc9c9c734512ea02fdf2bc3356244ae34a28f20ac47",
+        ".log": "56c43cf7c315a8cdb68723c6bf1ec50807d46e65fe346670c087290092d0fe08",
+        "-inputs-before.json": "6d9b58c10999a211087d79ca0dd513a9e84d85260dc01812c629975ba2cb73cf",
+        "-inputs-after.json": "6d9b58c10999a211087d79ca0dd513a9e84d85260dc01812c629975ba2cb73cf",
+        "-reference-driver.py": "22b0a5a5a915a2e2ddc23161a083164a8e1c08d53c3cdd04f00f49292d80aa14",
+        "-resource-driver.py": "70a4b67c2e5beaa37d13031274c005562a8ef2119da99e182a03df2021ae7c23"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "64",
+          "time": "7.339",
+          "timestamp": "2026-11-08T23:53:12.528985-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "h5msm-precision-663-final": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "--junitxml=<private-evidence>/h5msm-precision-663-final.xml",
+          "-n2",
+          "tests/form/file_h5msm",
+          "tests/form/molsysmt_MolSysDict",
+          "tests/basic/convert",
+          "tests/test_argument_contract.py",
+          "tests/basic/test_compose_atom_maps.py",
+          "tests/native/test_prepared_system_checkpoint.py",
+          "tests/native/test_unknown_mechanical_assignment_reports.py",
+          "tests/form/molsysmt_MolSys/test_partial_domains.py",
+          "tests/_private/test_atomic_new_file.py",
+          "tests/build/test_assign_partial_charges.py",
+          "tests/build/test_assign_autodock_atom_types.py",
+          "tests/physchem/test_get_partial_charges.py",
+          "tests/physchem/test_get_autodock_atom_types.py",
+          "tests/molecular_mechanics/get_forces",
+          "tests/documentation/test_h5msm_06_examples.py",
+          "tests/build/test_protonation_assessment.py",
+          "molsysmt/h5msm.py",
+          "tests/form/molsysmt_MolecularMechanics",
+          "devtools/tests/test_benchmark_h5msm_mechanics.py",
+          "molsysmt/form/molsysmt_MolecularMechanics/get_mechanical_attributes.py::molsysmt.form.molsysmt_MolecularMechanics.get_mechanical_attributes.get_partial_charge_from_atom",
+          "tests/conversion_truth/test_h5msm_fidelity.py",
+          "molsysmt/basic/convert.py::molsysmt.basic.convert.convert",
+          "--basetemp=<private-evidence>/h5msm-precision-663-final"
+        ],
+        "exit_code": 0,
+        "seconds": 179.08715848322026,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "f032887686733047b64364afd59f2ebbfd209c7e",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8650
+      },
+      "resources": {
+        "started_utc": "2026-11-09T05:57:16.542296+00:00",
+        "seconds": 186.1536374189891,
+        "limits": {
+          "memory.max": "3221225472",
+          "memory.high": "2684354560",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.50830078125,
+            0.51416015625,
+            1.03564453125
+          ],
+          "cpu_utilization": 0.027596588058203753,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14141870080,
+        "cgroup_memory_peak_bytes": 1779310592,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "84e1b7106da83c28b4b1efaadb7da6be646017073a5d10ebfc0c1945c8ee778e",
+        "-bounded.json": "33c2df6e0f4095220dcbb587541442945a88797772ef429f1aea8dbbf9cc0b10",
+        ".xml": "b65be9195e60d1a3fdb99ae945478b8cd7e3fe7eab05fc2a2c0e59bcdee63c97",
+        ".log": "3df0c9ac4544f000de166c273e391fccecd0c0080517bbdb15853bab0ba73beb",
+        "-inputs-before.json": "d3ec046721ad95b1995d6b664fd19fedec3499daa453af241ce712c78478d46d",
+        "-inputs-after.json": "d3ec046721ad95b1995d6b664fd19fedec3499daa453af241ce712c78478d46d",
+        "-reference-driver.py": "2d2024a226b02188f7ac9aba2577176af1d31e6df9e24bf4f800e8f025f0b6f8",
+        "-resource-driver.py": "e0e94a84006f601683d76130dd9bffaf79036df3c22777444316ba565c85ada1"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1907",
+          "time": "176.868",
+          "timestamp": "2026-11-08T23:57:22.172766-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "h5msm-precision-663-fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 23.6629718830809,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "f032887686733047b64364afd59f2ebbfd209c7e",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8650
+      },
+      "resources": {
+        "started_utc": "2026-11-09T05:57:17.629644+00:00",
+        "seconds": 31.026503870030865,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.50830078125,
+            0.51416015625,
+            1.03564453125
+          ],
+          "cpu_utilization": 0.0889000502260171,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14765195264,
+        "cgroup_memory_peak_bytes": 418062336,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "52325c65a516536d86cb709eb736258c89793a1452879a08c8c850c3b854ce85",
+        "-bounded.json": "6153e6dbb627599677267ac2fd2967376e1785f8cc27e11343787c0657d5f872",
+        ".log": "e422fa1bfa71cc080c2531f5616039e80af0e19426b3849ed5669dfb259cbbdc",
+        "-inputs-before.json": "d3ec046721ad95b1995d6b664fd19fedec3499daa453af241ce712c78478d46d",
+        "-inputs-after.json": "d3ec046721ad95b1995d6b664fd19fedec3499daa453af241ce712c78478d46d",
+        "-reference-driver.py": "7aa0483f8c7cbf98675b08f77c7ab063d8281a0bf3324324b00d7e90798b5d24",
+        "-resource-driver.py": "43a6b944d43af6cfac557b7ae664e00e9260be8f353316e9d83f7d8fc7af5fb3"
+      }
+    },
+    "h5msm-precision-663-html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/h5msm-precision-663-html"
+        ],
+        "exit_code": 0,
+        "seconds": 160.9605497410521,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "f032887686733047b64364afd59f2ebbfd209c7e",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8650
+      },
+      "resources": {
+        "started_utc": "2026-11-09T05:57:17.943150+00:00",
+        "seconds": 168.15559649188071,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.50830078125,
+            0.51416015625,
+            1.03564453125
+          ],
+          "cpu_utilization": 0.09250879839115134,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14143967232,
+        "cgroup_memory_peak_bytes": 1362542592,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "935f904253cee66f01594783bfeade1396cd0de2c28ff06123407801c1e49bbf",
+        "-bounded.json": "20ce5b148ce17b1e3162092ed3490e5393a61c24d41827fd44c77fbda05e0f2b",
+        ".log": "ce063ee891fc7aef51560a97192d89859f48c588708d26e49a310e310f708880",
+        "-inputs-before.json": "d3ec046721ad95b1995d6b664fd19fedec3499daa453af241ce712c78478d46d",
+        "-inputs-after.json": "d3ec046721ad95b1995d6b664fd19fedec3499daa453af241ce712c78478d46d",
+        "-reference-driver.py": "870324f2b709305a92b305bccd7501eca9d436e3cf7d1dc1e5656bdf22fdd15b",
+        "-resource-driver.py": "5227178ebd24e353fd38f94acf43bf67ead7e48c03b1809538cddcbe04eb3658"
+      }
+    }
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "molsysmt_version": "0+unknown",
+    "versions": {
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pandas": "2.3.3",
+      "pint": "0.25.3",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1"
+    },
+    "imports": {
+      "pandas": "<development-environment>/lib/python3.14/site-packages/pandas/__init__.py",
+      "pint": "<development-environment>/lib/python3.14/site-packages/pint/__init__.py",
+      "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+      "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261106/viewer-e4dd58cf-source/molsysviewer/__init__.py",
+      "pyunitwizard": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+      "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+      "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+      "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+    }
+  },
+  "new_public_guards": [
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[molsys-single-float_precision-0.5]",
+      "time": "0.021"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[molsys-single-float_precision-0.6]",
+      "time": "0.031"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[molsys-single-int_precision-0.5]",
+      "time": "0.021"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[molsys-single-int_precision-0.6]",
+      "time": "0.020"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[molsys-double-float_precision-0.5]",
+      "time": "0.020"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[molsys-double-float_precision-0.6]",
+      "time": "0.037"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[molsys-double-int_precision-0.5]",
+      "time": "0.019"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[molsys-double-int_precision-0.6]",
+      "time": "0.019"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[structures-single-float_precision-0.5]",
+      "time": "0.005"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[structures-single-float_precision-0.6]",
+      "time": "0.005"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[structures-single-int_precision-0.5]",
+      "time": "0.005"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[structures-single-int_precision-0.6]",
+      "time": "0.005"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[structures-double-float_precision-0.5]",
+      "time": "0.017"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[structures-double-float_precision-0.6]",
+      "time": "0.005"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[structures-double-int_precision-0.5]",
+      "time": "0.005"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[structures-double-int_precision-0.6]",
+      "time": "0.005"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[complementary-single-float_precision-0.5]",
+      "time": "0.021"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[complementary-single-float_precision-0.6]",
+      "time": "0.021"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[complementary-single-int_precision-0.5]",
+      "time": "0.021"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[complementary-single-int_precision-0.6]",
+      "time": "0.027"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[complementary-double-float_precision-0.5]",
+      "time": "0.022"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[complementary-double-float_precision-0.6]",
+      "time": "0.023"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[complementary-double-int_precision-0.5]",
+      "time": "0.022"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_explicit_global_precision_requests_refuse_before_publication[complementary-double-int_precision-0.6]",
+      "time": "0.027"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_default_modular_storage_preserves_double_geometry_and_declared_dtypes[flags0-0.5]",
+      "time": "0.109"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_default_modular_storage_preserves_double_geometry_and_declared_dtypes[flags0-0.6]",
+      "time": "0.126"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_default_modular_storage_preserves_double_geometry_and_declared_dtypes[flags1-0.5]",
+      "time": "0.111"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_default_modular_storage_preserves_double_geometry_and_declared_dtypes[flags1-0.6]",
+      "time": "0.119"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_refusal_preserves_existing_destination_even_with_trusted_delegation[False-0.5]",
+      "time": "0.020"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_refusal_preserves_existing_destination_even_with_trusted_delegation[False-0.6]",
+      "time": "0.019"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_refusal_preserves_existing_destination_even_with_trusted_delegation[True-0.5]",
+      "time": "0.019"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_modular_precision_options",
+      "name": "test_refusal_preserves_existing_destination_even_with_trusted_delegation[True-0.6]",
+      "time": "0.019"
+    }
+  ],
+  "legacy_fidelity_guards": [
+    {
+      "classname": "tests.conversion_truth.test_h5msm_fidelity",
+      "name": "test_h5msm_preserves_missing_bond_metadata_as_missing",
+      "time": "0.335"
+    },
+    {
+      "classname": "tests.conversion_truth.test_h5msm_fidelity",
+      "name": "test_h5msm_04_preserves_normalized_bond_fields",
+      "time": "0.340"
+    },
+    {
+      "classname": "tests.conversion_truth.test_h5msm_fidelity",
+      "name": "test_legacy_h5msm_single_and_double_precision_have_explicit_numeric_contracts",
+      "time": "0.426"
+    },
+    {
+      "classname": "tests.conversion_truth.test_h5msm_fidelity",
+      "name": "test_legacy_h5msm_writer_reads_component_membership_through_native_seam",
+      "time": "0.265"
+    },
+    {
+      "classname": "tests.conversion_truth.test_h5msm_fidelity",
+      "name": "test_h5msm_reader_restores_component_membership",
+      "time": "0.343"
+    }
+  ],
+  "html_inspection": [
+    {
+      "page": "content/user/tools/form/file/h5msm_05.html",
+      "sha256": "7401b039eae8beaa681d2c20e13a41d939036dc2924068d11a2c398a06eca18f",
+      "verified_phrases": [
+        "Structural floating series use float64;",
+        "public conversion raises ArgumentConflictError before publishing output"
+      ]
+    },
+    {
+      "page": "content/user/tools/form/file/h5msm_06.html",
+      "sha256": "fa1f0207906095b1d8265088dc1f7482b4fea8f8ea6f7c2566ef0652d45faba9",
+      "verified_phrases": [
+        "Structural floating series use float64;",
+        "public conversion raises ArgumentConflictError before publishing output"
+      ]
+    },
+    {
+      "page": "content/user/foundations/native_world/files/file_h5msm.html",
+      "sha256": "bc35c091ca69023fef0e6e12ee74214f466fc63effe5089aa8aa0cd175e78c6d",
+      "verified_phrases": [
+        "Legacy 0.3/0.4 handlers keep their separate precision controls."
+      ]
+    },
+    {
+      "page": "content/user/cookbook/migrating_h5msm.html",
+      "sha256": "403533663b930d81e015fc57cbff6990fb28ec9e04356efc09a97019a36bed99",
+      "verified_phrases": [
+        "A float32 source mechanical column can remain float32 while coordinates use float64;"
+      ]
+    },
+    {
+      "page": "content/course/Common_Core/04_Native_Forms.html",
+      "sha256": "18dc720b8008bd8d3a085c1e44abc3e7311339565590b4570c98c9afe8d96d84",
+      "verified_phrases": [
+        "explicit overrides raise ArgumentConflictError before file publication."
+      ]
+    },
+    {
+      "page": "api/basic/autosummary/molsysmt.basic.convert.html",
+      "sha256": "aaa2a14e5085e1755f6228e387e478d3a6e7cc6443a9ec35b9ff874fa84dcea0",
+      "verified_phrases": [
+        "These schemas use field-specific encodings;",
+        "controls are rejected before file publication,"
+      ]
+    }
+  ],
+  "course_preservation": {
+    "notebook": "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+    "reference": "c6ec38806d5fd0a3ed77e8f5f1c52c5e738e9c18",
+    "code_cells": 14,
+    "all_code_cells_execution_counts_outputs_unchanged": true
+  },
+  "html_warning_comparison": {
+    "count": 6,
+    "unchanged_from": "nullable-662-html",
+    "baseline_log_sha256": "ce063ee891fc7aef51560a97192d89859f48c588708d26e49a310e310f708880"
+  },
+  "pytest_warnings": {
+    "total": 763,
+    "groups": 6,
+    "summaries": [
+      "LegacyH5MSMWarning x726 | molsysmt/form/file_h5msm/to_molsysmt_H5MSMFileHandler.py:28 | H5MSM 0.4 is deprecated; reading remains supported. Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to...",
+      "LegacyH5MSMWarning x32 | molsysmt/form/molsysmt_H5MSMFileHandler/to_molsysmt_H5MSMFileHandler.py:44 | H5MSM 0.3 is deprecated; reading remains supported. Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to...",
+      "UnknownAtomNameWarning x2 | <development-checkouts>/argdigest/argdigest/core/decorator.py:202 | Atom name 'Ar' is not recognized; atom type 'UNK' will be used. Provide an explicit atom type when the name us...",
+      "RuntimeWarning x1 | <frozen importlib._bootstrap>:491 | numpy.ndarray size changed, may indicate binary incompatibility. Expected 16 from C header, got 96 from PyObje...",
+      "StructuralAttributeOffAxisWarning x1 | molsysmt/basic/convert.py:369 | Structural attributes were dropped because only an item outside the structure axis of the molecular system pro...",
+      "UserWarning x1 | formats/pdb/pdbfile.py:214 | Unlikely unit cell vectors detected in PDB file likely resulting from a dummy CRYST1 record. Discarding unit c..."
+    ],
+    "comparison": "Three additional legacy-0.4 warnings accompany the five extra legacy fidelity cases. Other warning-group summaries retain the prior six-group baseline. The known optional import ABI warning is not a passing ABI qualification.",
+    "unchanged_other_group_summaries_verified": true,
+    "comparison_scope": "Raw-to-raw warning summaries compared before publication redaction; sanitized paths do not substitute for this check."
+  },
+  "original_attempt": {
+    "tests": 32,
+    "failed": 28,
+    "passed": 4,
+    "meaning": "12 single overrides were silently accepted; 12 double controls encountered the old generic ValueError; four existing-target controls reached FileExistsError rather than option refusal. Four no-override exact-value/dtype controls passed. No existing-file overwrite was demonstrated."
+  },
+  "acceptance": [
+    "Both implemented modular versions reject explicit int_precision/float_precision single/double requests through the existing SMonitor ArgumentConflictError, with field-specific encoding and omission guidance. ArgDigest retains ordinary type/value validation and trusted calls cannot ignore the keys.",
+    "32 public controls cover MolSys, Structures and complementary origins, default/strict/report routes, a sub-float32 coordinate witness, mixed float64 geometry/float32 mechanics and preservation of existing targets and sources.",
+    "Five unchanged legacy H5MSM fidelity controls pass, including actual single/double 0.4 writers and their separate numerical tolerances; no adapter or assertion is reclassified or weakened.",
+    "1,907 affected cases pass without omissions; fourteen fast gates, six inspected HTML pages and fourteen unchanged course code cells/outputs are verified.",
+    "Ordinary writers, file values/dtypes/units, root/layer schemas, default 0.5, explicit experimental 0.6 and old-format warnings/migration stay unchanged. No numerical kernel/backend or dependency is changed."
+  ],
+  "policy_review": {
+    "default_format": "0.5",
+    "explicit_experimental_format": "0.6",
+    "target_first_stable_format": "1.0 after complete receiving/freeze",
+    "old_reads": "0.3/0.4 retain existing warnings and source-preserving migration to 0.5; experimental 0.6 does not deprecate 0.5",
+    "typed_storage": "Per-field schemas, not a global casting flag",
+    "independent_client_received": false,
+    "stable_format_frozen": false
+  },
+  "limits": [
+    "The future field-specific storage-precision capability is a separate post-1.0 proposal, requiring numerical-error, unit, fidelity/binding and performance receiving. No placeholder API or lossy cast is added.",
+    "The immutable Viewer export has no Python references to these keyword names; that source search does not accept a client, a different Viewer head or installed artifacts.",
+    "Previous bounded storage measurements remain at their actual b7269b77e source and are not rerun or relabelled as timings on this source.",
+    "#256 P5 independent consumer receiving, final root/default freeze and #334 full scientific/platform/installed/exact-candidate gates stay unaccepted. Every skip-CI commit remains in the nightly backlog; no remote matrix, package, tag or Release is authorized.",
+    "Original weighted milestones receive no added credit for this incidental correctness fix."
+  ],
+  "post_1_0_followup": "uibcdf/molsysmt#664",
+  "board_checkpoint": {
+    "acquisition": "Complete paginated inventory through devguide_issue._remote_state, with separately paginated open PRs.",
+    "issues": 596,
+    "open_before_663_close": 90,
+    "new_since_664": [],
+    "open_prs": 0,
+    "inventory_sha256": "32bce50d75b7a697b623cf46ea51c7fb96cc632d300f4c35513c1003e41cfab3"
+  }
+}

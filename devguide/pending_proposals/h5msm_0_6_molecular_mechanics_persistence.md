@@ -839,3 +839,17 @@ weakened or reassigned to a modular codec.
 | Old files | 0.3/0.4 remain readable with existing warnings and source-preserving migration; no 0.5 deprecation from experimental 0.6 alone. | Decide any additional legacy policy at stable-root freeze. |
 | Memory/disk | Three synthetic cases and scoped-query costs are measured with explicit limitations. | No large-scale or installed extrapolation; retain independent evidence. |
 | Consumer/release | DockingMT #79/#88 own independent complete reference acceptance; #334 owns exact candidate/installed/platform gates. | Unexecuted gates remain pending and no tag/package is authorized. |
+
+
+### P6 encoding receiving — 2026-11-09
+
+Clean `f03288768` receives the #663 option-boundary repair with 1,907 affected
+cases, fourteen fast gates and six inspected HTML pages, including the public
+conversion API. The [record](../../devtools/data/h5msm_encoding_review_receiving_663_20261109.json)
+preserves the original 28 failures/four passes, directed 64-case receipt and clean
+source/runtime/resource identities. Thirty-two new guards protect actual default
+field values/dtypes and refusal before publication; five unchanged legacy cases
+retain single/double 0.4 precision. All course code/output cells remain unchanged.
+The future #664 storage-precision study is post-1.0 and adds no initial-release
+blocker. Default writing stays 0.5, explicit 0.6 remains experimental, and
+independent P5 plus final stable-root/default/candidate gates are unaccepted.

@@ -1,5 +1,28 @@
 # Pre-1.0 robustness audit and action plan — 6 November 2026
 
+## Modular encoding review and precision refusal — 2026-11-09
+
+Clean `f03288768` receives #663's public option-boundary correction: 1,907
+selected cases without skips/failures/errors, fourteen fast gates and six inspected
+HTML pages. All 32 new controls pass, as do five unchanged legacy single/double
+fidelity controls and the conversion doctest. The fourteen course code cells,
+execution counts and outputs stay unchanged. Existing warning debt remains
+explicit; no optional-ABI or complete-suite acceptance is claimed.
+
+Explicit legacy `int_precision`/`float_precision` controls now refuse for modular
+H5MSM through SMonitor `ArgumentConflictError`. They were previously accepted
+without selecting the actual field dtypes. Ordinary writing retains float64
+structural series and declared typed domains. Default 0.5, explicit experimental
+0.6, units, scientific evidence, root/layer versions and old handler precision
+remain unchanged. Source/target preservation, strict/report calls, mixed dtypes
+and trusted-call refusal have public guards. See the
+[receiving record](../devtools/data/h5msm_encoding_review_receiving_663_20261109.json).
+
+Future field-specific precision/error budgets are recorded in #664 for post-1.0,
+without another release blocker or placeholder API. #256 retains P5 independent
+DockingMT receiving and P6 stable-root/default freeze; #334 retains exact source/
+scientific/platform/installed gates. Original milestone weight is unchanged.
+
 ## Measured mechanics storage and nullable charges — 2026-11-08
 
 Clean `990474db0` receives #662's shared stored-charge correction and the bounded
