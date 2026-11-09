@@ -732,3 +732,12 @@ closed owners reject, returned results remain caller-owned. Normalization is
 never a managed edit or automatic adoption. Both writers preserve H5MSM 0.5
 defaults and require explicit experimental 0.6 for stored mechanics. These
 expert routes do not imply new GUI tasks or installed-pair qualification.
+
+
+Preserve the explicit vector/triplet/quartet Analysis tasks: first-to-second
+Cartesian components, source atom/structure/tuple indices with repetitions,
+vertex and signed-torsion roles, explicit angular display conversion and retained
+native undefined values. Keep scientific delegation, native unit/policy/resource
+limits, fifty-row pages, pending-reader and stale-result rules. Angular calls
+retain eager coordinate/output storage; vector block storage is not a universal
+RAM guarantee. Participant actions do not navigate or create live geometry.

@@ -729,3 +729,30 @@ Set `MOLSYSVIEWER_ROOT` and optionally `MOLSYSVIEWER_PROVIDER_ROOT`, then run
 that node with `--receptor=llm` in the qualified GUI environment. This separate
 local GUI lane is not part of the default scientific filename collection;
 missing Jupyter/browser prerequisites fail rather than producing a skip.
+
+
+## Vector and explicit angular Analysis contracts — 2026-11-09 (#421)
+
+The three added tasks delegate to native get_vectors, get_angles and explicit
+get_dihedral_angles. Vectors reuse the population/center/pair controls, with
+first-to-second Cartesian X/Y/Z rows. Angular tasks keep explicit bounded JSON
+triplets/quartets and source indices; their hidden selection drafts do not define
+populations or scene dependencies. Tuple and structure order/repetitions remain.
+The middle triplet atom is the vertex; native torsion signs are retained.
+
+Pages extract only requested components or scalar angles, with explicit nm or
+chosen degree/radian units. Native quantities remain unchanged; nonfinite
+angular observations display undefined, not zero. No formula, chemical inference,
+force field or alternative scientific method is added. All actual calculations
+remain owned by public native APIs, including their ArgDigest, optional-provider,
+SMonitor and attribution boundaries.
+
+Existing source/revision/token/page/lifetime and declared-reader rules apply.
+Select/focus use actual participants in the visible structure without seeking
+the observation's structure. These families cannot create live distances,
+angular Measures, arrows or plots. Vector disk results use normal retirement;
+angular native APIs currently retain selected coordinates and full output in
+RAM. Frontend paging is not out-of-core execution or a universal memory limit.
+Source contracts and actual graphical receiving must be evidenced separately;
+human, installed and exact-candidate gates remain distinct. The contact task
+and native #666 / uibcdf/pyunitwizard#143 remain separate pending work.

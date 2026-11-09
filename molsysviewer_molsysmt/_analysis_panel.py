@@ -1,5 +1,6 @@
 """Native molecular analyses with bounded pages and explicit source axes."""
 
+import json
 from dataclasses import dataclass
 from math import isfinite
 from secrets import token_urlsafe
@@ -29,7 +30,10 @@ _DEFAULTS = {
     "reference_structure": "0",
     "reference_population": "same",
     "weighting": "uniform",
+    "atom_tuples": "",
+    "angle_unit": "degrees",
 }
+_ANGULAR_METHODS = {"angles": "get_angles", "torsions": "get_dihedral_angles"}
 _CONFORMATION_METHODS = {
     "rmsd": "get_rmsd",
     "least_rmsd": "get_least_rmsd",
@@ -38,10 +42,12 @@ _CONFORMATION_METHODS = {
 }
 _METHODS = {
     "distances": "get_distances",
+    "vectors": "get_vectors",
     "minimum": "get_minimum_distances",
     "maximum": "get_maximum_distances",
     "neighbors": "get_neighbors",
     **_CONFORMATION_METHODS,
+    **_ANGULAR_METHODS,
 }
 _PAGE_SIZE = 50
 _SCENE_ACTIONS = {
@@ -67,14 +73,15 @@ def _parameters(value):
         "cutoff_unit": {"nm", "angstrom", "pm"},
         "reference_population": {"same", "second"},
         "weighting": {"uniform", "masses"},
+        "angle_unit": {"degrees", "radians"},
     }.items():
         if not isinstance(result[key], str) or result[key] not in choices:
             raise ValueError(
                 "Choose supported analysis, population and structure options."
             )
-    for key in ("indices", "cutoff", "count", "reference_structure"):
+    for key in ("indices", "cutoff", "count", "reference_structure", "atom_tuples"):
         if not isinstance(result[key], str) or len(result[key]) > (
-            4096 if key == "indices" else 64
+            16384 if key == "atom_tuples" else 4096 if key == "indices" else 64
         ):
             raise ValueError("Enter bounded structure and neighborhood parameters.")
     if not isinstance(result["pbc"], bool):
@@ -108,6 +115,8 @@ class _AnalysisReport:
 
 
 def _uses_second(parameters):
+    if parameters["task"] in _ANGULAR_METHODS:
+        return False
     if parameters["task"] in _CONFORMATION_METHODS:
         return (
             parameters["task"] in {"rmsd", "least_rmsd"}
@@ -188,6 +197,8 @@ class _AnalysisPanel(_MolecularTaskPanel):
                 "Finish molecular recovery before calculating an analysis."
             )
         p = self._parameters
+        if p["task"] in _ANGULAR_METHODS:
+            return self._calculate_angular(target, status)
         first = self._population(target, self._draft, status)
         if p["task"] in _CONFORMATION_METHODS:
             return self._calculate_conformation(target, status, first)
@@ -280,13 +291,18 @@ class _AnalysisPanel(_MolecularTaskPanel):
         else:
             arguments["pairs"] = paired
             method = getattr(self._owner.structure, _METHODS[p["task"]])
-            if p["task"] == "distances":
+            if p["task"] in {"distances", "vectors"}:
                 # Explicit public native block mode bounds flat matrix work and
                 # returns its own disk handle when appropriate. Centers/pairs
                 # retain the native eager route; this is no universal RAM bound.
-                values = method(**arguments, heavy_mode="force", use_gpu=False)
-                total = int(np.prod(values.shape))
-                layout = "paired" if paired else "matrix"
+                if p["task"] == "vectors":
+                    values = method(**arguments, heavy_mode="force")
+                    total = int(np.prod(values.shape[:-1]))
+                    layout = "vector_paired" if paired else "vector_matrix"
+                else:
+                    values = method(**arguments, heavy_mode="force", use_gpu=False)
+                    total = int(np.prod(values.shape))
+                    layout = "paired" if paired else "matrix"
             else:
                 auxiliary, values = method(**arguments)
                 total = len(frames)
@@ -314,6 +330,80 @@ class _AnalysisPanel(_MolecularTaskPanel):
             offsets,
             layout,
             total,
+            bool(p["pbc"] and msm.pbc.has_pbc(target)),
+            str(msm.__version__)[:200],
+        )
+
+    def _calculate_angular(self, target, status):
+        import molsysmt as msm
+
+        p = self._parameters
+        arity = 3 if p["task"] == "angles" else 4
+        try:
+            rows = json.loads(p["atom_tuples"])
+        except (ValueError, RecursionError) as exc:
+            raise ValueError("Enter a JSON list of ordered atom-index tuples.") from exc
+        if (
+            not isinstance(rows, list)
+            or not rows
+            or any(
+                not isinstance(row, list)
+                or len(row) != arity
+                or any(
+                    isinstance(atom, bool)
+                    or not isinstance(atom, int)
+                    or not 0 <= atom < int(target.get_n_atoms())
+                    for atom in row
+                )
+                for row in rows
+            )
+        ):
+            raise ValueError(
+                f"Enter one or more ordered {arity}-atom lists of valid source atom indices."
+            )
+        tuples = np.asarray(rows, dtype=np.int64)
+        frames = _structures(
+            p["structures"],
+            p["indices"],
+            int(target.structures.n_structures),
+            int(self._view.player.index),
+            allow_repeated=True,
+        )
+        arguments = {
+            "triplets" if arity == 3 else "dihedral_quartets": tuples,
+            "structure_indices": frames,
+            "pbc": p["pbc"],
+            "use_gpu": False,
+        }
+        values = getattr(self._owner.structure, _ANGULAR_METHODS[p["task"]])(
+            **arguments
+        )
+        raw = np.asarray(msm.pyunitwizard.get_value(values))
+        if raw.shape != (len(frames), len(tuples)):
+            raise ValueError(
+                "The native result does not match the declared structure and tuple axes."
+            )
+        # Keep native undefined values; only their browser label changes.
+        participants = np.asarray(list(dict.fromkeys(tuples.flat)), dtype=np.int64)
+        return _AnalysisReport(
+            token_urlsafe(18),
+            ref(target),
+            status["target_revision"],
+            int(self._view.player.index),
+            dict(self._draft),
+            dict(self._second),
+            dict(p),
+            frames,
+            participants,
+            np.empty(0, dtype=np.int64),
+            (False, False),
+            values,
+            raw,
+            msm.pyunitwizard.get_unit(values),
+            tuples,
+            None,
+            "tuples",
+            len(frames) * len(tuples),
             bool(p["pbc"] and msm.pbc.has_pbc(target)),
             str(msm.__version__)[:200],
         )
@@ -404,7 +494,10 @@ class _AnalysisPanel(_MolecularTaskPanel):
             return None
         depends_on_visible = (
             report.parameters["structures"] == "current"
-            or report.first_draft["context"] == "current"
+            or (
+                report.parameters["task"] not in _ANGULAR_METHODS
+                and report.first_draft["context"] == "current"
+            )
             or (
                 _uses_second(report.parameters)
                 and report.second_draft["context"] == "current"
@@ -424,7 +517,11 @@ class _AnalysisPanel(_MolecularTaskPanel):
             self._release_task_data()
             return None
         for draft, atoms in [
-            (report.first_draft, report.first),
+            *(
+                []
+                if report.parameters["task"] in _ANGULAR_METHODS
+                else [(report.first_draft, report.first)]
+            ),
             *(
                 [(report.second_draft, report.second)]
                 if _uses_second(report.parameters)
@@ -449,12 +546,14 @@ class _AnalysisPanel(_MolecularTaskPanel):
     def _summary(self):
         r = self._report
         conformation = r.parameters["task"] in _CONFORMATION_METHODS
+        angular = r.parameters["task"] in _ANGULAR_METHODS
+        vector = r.parameters["task"] == "vectors"
         return {
             "id": r.token,
             "method": "molsysmt.structure." + _METHODS[r.parameters["task"]],
             "software": {"molsysmt": r.software},
             "rows": r.total,
-            "unit": "nm",
+            "unit": r.parameters["angle_unit"] if angular else "nm",
             "first_atoms": len(r.first),
             "second_atoms": len(r.second),
             "structure_indices": r.frames[:200],
@@ -465,12 +564,21 @@ class _AnalysisPanel(_MolecularTaskPanel):
             "requested_pbc": r.parameters["pbc"] if not conformation else False,
             "disk_backed": callable(getattr(r.native_values, "cleanup", None)),
             "live_distance_unavailable": self._live_distance_limit(r),
-            "family": "conformation" if conformation else "distance",
+            "family": "conformation"
+            if conformation
+            else "angular"
+            if angular
+            else "vector"
+            if vector
+            else "distance",
             "result_axis": "atom"
             if r.layout == "atom_values"
             else "structure"
             if conformation
+            else "tuple"
+            if angular
             else "pair",
+            "tuple_count": len(r.auxiliary) if angular else None,
             "reference_structure_index": r.reference_frame,
             "plot_unavailable": self._plot_limit(r),
         }
@@ -487,10 +595,13 @@ class _AnalysisPanel(_MolecularTaskPanel):
         r = self._report
         na = 1 if r.selections[0] else len(r.first)
         nb = 1 if r.selections[1] else len(r.second)
-        if r.layout == "matrix":
+        if r.layout == "tuples":
+            f, a = np.unravel_index(position, (len(r.frames), len(r.auxiliary)))
+            b, value = 0, r.native_values[f, a]
+        elif r.layout in {"matrix", "vector_matrix"}:
             f, a, b = np.unravel_index(position, (len(r.frames), na, nb))
             value = r.native_values[f, a, b]
-        elif r.layout == "paired":
+        elif r.layout in {"paired", "vector_paired"}:
             f, a = np.unravel_index(position, (len(r.frames), na))
             b = a
             value = r.native_values[f, a]
@@ -513,7 +624,11 @@ class _AnalysisPanel(_MolecularTaskPanel):
 
     @staticmethod
     def _live_distance_limit(report):
-        if report.parameters["task"] in _CONFORMATION_METHODS:
+        if report.parameters["task"] in {
+            *_CONFORMATION_METHODS,
+            *_ANGULAR_METHODS,
+            "vectors",
+        }:
             return "This result is not a pair distance."
         if report.periodic:
             return "A live distance uses nonperiodic coordinates; this result uses a periodic image."
@@ -555,26 +670,46 @@ class _AnalysisPanel(_MolecularTaskPanel):
         rows, samples = [], []
         for position in range(offset, min(r.total, offset + _PAGE_SIZE)):
             f, a, b, value = self._row(position)
-            first = "Center A" if r.selections[0] else int(r.first[a])
-            second = "Center B" if r.selections[1] else int(r.second[b])
-            rows.append([r.frames[f], first, second])
+            if r.layout == "tuples":
+                rows.append([r.frames[f], *(int(atom) for atom in r.auxiliary[a])])
+            else:
+                first = "Center A" if r.selections[0] else int(r.first[a])
+                second = "Center B" if r.selections[1] else int(r.second[b])
+                rows.append([r.frames[f], first, second])
             samples.append(value)
         converted = msm.pyunitwizard.get_value(
             msm.pyunitwizard.quantity(np.asarray(samples, dtype=float), r.unit),
-            to_unit="nm",
+            to_unit=r.parameters["angle_unit"] if r.layout == "tuples" else "nm",
         )
         for row, value in zip(rows, converted, strict=True):
-            row.append(format(float(value), ".9g"))
+            for component in np.asarray(value).reshape(-1):
+                row.append(
+                    format(float(component), ".9g")
+                    if np.isfinite(component)
+                    else "undefined"
+                )
         return {
             "offset": offset,
             "total": r.total,
             "page_size": _PAGE_SIZE,
-            "columns": [
-                "Structure index",
-                "First endpoint",
-                "Second endpoint",
-                "Distance (nm)",
-            ],
+            "columns": (
+                [
+                    "Structure index",
+                    *[f"Atom {i + 1} index" for i in range(r.auxiliary.shape[1])],
+                    f"Angle ({r.parameters['angle_unit']})",
+                ]
+                if r.layout == "tuples"
+                else [
+                    "Structure index",
+                    "First endpoint",
+                    "Second endpoint",
+                    *(
+                        ["X (nm)", "Y (nm)", "Z (nm)"]
+                        if r.parameters["task"] == "vectors"
+                        else ["Distance (nm)"]
+                    ),
+                ]
+            ),
             "rows": rows,
         }
 
@@ -629,7 +764,11 @@ class _AnalysisPanel(_MolecularTaskPanel):
             < min(report.total, self._offset + _PAGE_SIZE)
         ):
             raise ValueError("Choose a result row on the current page.")
-        if report.layout == "atom_values":
+        if report.layout == "tuples":
+            f, a, _, _ = self._row(position)
+            first, second = report.auxiliary[a].tolist(), []
+            observation_structure = report.frames[f]
+        elif report.layout == "atom_values":
             first, second, observation_structure = (
                 [int(report.first[position])],
                 [],

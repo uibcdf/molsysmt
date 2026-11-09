@@ -158,6 +158,45 @@ try{
   const detached=canvas.waitForEvent('popup');await canvas.getByTitle('Popout panel to external window',{exact:true}).click();const studio=await detached;record(studio);await studio.locator('#molsysviewer-loading').waitFor({state:'detached'});
   const rmsd=await conformationPanel(studio,'rmsd','all');await rmsd.locator('[data-add-structure-plot]').click();await rmsd.locator('[data-status]').filter({hasText:'Added a trajectory plot'}).waitFor();await verifyPlot(canvas,'rmsd',conformations.rmsd);await verifyPlot(page,'rmsd',conformations.rmsd);await rmsd.locator('[data-clear]').click();await rmsd.locator('[data-report]').waitFor({state:'hidden'});await verifyPlot(canvas,'rmsd',conformations.rmsd);await studio.screenshot({path:output+'/conformation-studio-popup.png'});await studio.close();await canvas.close();
  });
+ let geometryExpected;
+ await step('Inspect directed vector components and repeated source structures against coordinates',async()=>{
+  geometryExpected=JSON.parse(await readFile(output+'/geometry-expected.json','utf8'));
+  const p=await configureDistance(page,{first:'4,0',second:'5,2'});
+  await p.locator('[data-task]').selectOption('vectors');await p.locator('[data-heading]').filter({hasText:'Vectors'}).waitFor();
+  await p.locator('[data-structures]').selectOption('indices');await p.locator('[data-structure-indices]').fill('0,2,0');
+  await p.locator('[data-calculate]').click();await p.locator('[data-report-heading]').filter({hasText:'Vectors result'}).waitFor();
+  const rows=await numericRows(p);assert.equal(rows.length,12);assert.deepEqual(rows.map(r=>r[0]),[0,0,0,0,2,2,2,2,0,0,0,0]);
+  for(let i=0;i<rows.length;i++)for(let axis=0;axis<3;axis++)close(rows[i][3+axis],geometryExpected.vectors[i][axis]);
+  assert.match(await p.locator('[data-columns]').innerText(),/X \(nm\)[\s\S]*Y \(nm\)[\s\S]*Z \(nm\)/);
+  assert.equal(await p.locator('[data-add-live-distance]').isVisible(),false);
+  await page.screenshot({path:output+'/analysis-vector-components.png'});
+ });
+ await step('Inspect ordered atom-triplet angles with explicit angular display units',async()=>{
+  const p=page.locator('.msm-analysis');await p.locator('[data-task]').selectOption('angles');await p.locator('[data-angular-settings]').waitFor({state:'visible'});
+  assert.equal(await p.locator('[data-first]').isVisible(),false);assert.equal(await p.locator('[data-second]').isVisible(),false);
+  await p.locator('[data-atom-tuples]').fill(JSON.stringify(geometryExpected.triplets));await p.locator('[data-angle-unit]').selectOption('degrees');
+  await p.locator('[data-calculate]').click();await p.locator('[data-report-heading]').filter({hasText:'Angles result'}).waitFor();
+  let rows=await numericRows(p);assert.deepEqual(rows.map(r=>r[0]),[0,0,2,2,0,0]);
+  for(let i=0;i<rows.length;i++){assert.deepEqual(rows[i].slice(1,4),geometryExpected.triplets[i%2]);close(rows[i][4],geometryExpected.angles_degrees[i]);}
+  await p.locator('[data-angle-unit]').selectOption('radians');await p.locator('[data-calculate]').click();await p.locator('[data-report-heading]').filter({hasText:'Angles result'}).waitFor();rows=await numericRows(p);
+  for(let i=0;i<rows.length;i++)close(rows[i][4],geometryExpected.angles_degrees[i]*Math.PI/180);
+  assert.equal(await p.locator('[data-add-live-distance]').isVisible(),false);
+  await page.screenshot({path:output+'/analysis-triplet-angles.png'});
+ });
+ await step('Inspect signed quartet torsions and deliberate participant actions without navigating',async()=>{
+  const source=page.locator('[data-molsysviewer-canvas-output]').last();await source.getByRole('button',{name:'Show canvas controls',exact:true}).focus();await page.keyboard.press('Enter');
+  const opened=page.waitForEvent('popup');await source.getByTitle('Open popup',{exact:true}).click();const canvas=await opened;record(canvas);await canvas.locator('#molsysviewer-loading').waitFor({state:'hidden'});await workspace(canvas);
+  const detached=canvas.waitForEvent('popup');await canvas.getByTitle('Popout panel to external window',{exact:true}).click();const studio=await detached;record(studio);await studio.locator('#molsysviewer-loading').waitFor({state:'detached'});await workspace(studio);
+  const p=studio.locator('.msm-analysis');await p.locator('[data-task]').selectOption('torsions');await p.locator('[data-heading]').filter({hasText:'Torsions'}).waitFor();
+  await p.locator('[data-atom-tuples]').fill(JSON.stringify(geometryExpected.quartets));await p.locator('[data-angle-unit]').selectOption('degrees');
+  await p.locator('[data-calculate]').click();await p.locator('[data-report-heading]').filter({hasText:'Torsions result'}).waitFor();
+  const rows=await numericRows(p);for(let i=0;i<rows.length;i++){assert.deepEqual(rows[i].slice(1,5),geometryExpected.quartets[i%2]);close(rows[i][5],geometryExpected.torsions_degrees[i]);}
+  await chooseRow(p);await p.locator('[data-select-participants]').click();await p.locator('[data-status]').filter({hasText:'Selected 4 participant atoms'}).waitFor();
+  await page.waitForFunction(()=>JSON.stringify(window.__controllers[1].currentActiveSelection.atom_indices.slice().sort((a,b)=>a-b))==='[0,2,4,5]');
+  await p.locator('[data-focus-participants]').click();await p.locator('[data-status]').filter({hasText:'Focused participant atoms in visible structure 2'}).waitFor();
+  assert.equal(await page.evaluate(()=>window.__controllers[1].trajectory.getTrajectoryState().currentFrame),2);
+  await studio.screenshot({path:output+'/analysis-signed-torsions.png'});await studio.close();await canvas.close();
+ });
  await step('Python verifies retained native data separate plots and deliberate structure navigation',async()=>{
   await execute(page.locator('.jp-NotebookPanel:visible .jp-Cell').nth(6));await page.getByText('JUPYTER_CONFORMATION_SCENE_OK 2',{exact:true}).waitFor();assert.equal(await page.locator('.jp-OutputArea-error').count(),0);
  });

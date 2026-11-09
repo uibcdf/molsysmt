@@ -3730,3 +3730,21 @@ and the original unsuccessful attempts. The source inventory is 251/253 with
 only the two native MD stubs omitted. There is no new GUI acceptance or score
 credit; the unpublished contact prototype remains held by #666. Later Viewer,
 installed, human and release gates are unchanged.
+
+
+### Vector and angular task implementation — 2026-11-09
+
+Three accepted geometric-analysis intents now have source implementations:
+directed vector components, explicit triplet angles and explicit quartet torsions.
+They reuse native tools, unit-bearing results and the existing source/revision,
+paging and scene-action owners. The first directed selection has 176 passes and
+three fixture-contract failures: the tests incorrectly expected an addon error
+packet when the host rejects non-reader actions before dispatch while pending.
+The correction checks preserved source/scene/report identity and uses a fresh
+request identity for the later stale-token check; no scientific assertion is
+relaxed. Expanded native/parity/analytical and actual-Jupyter receiving are still
+pending. No GUI milestone credit is added until that receiving completes.
+Native get_angles help now describes its already implemented active-unit return
+rather than incorrectly promising radians under a degree policy. The formula,
+API signature and defaults are unchanged. Course/tutorial code and outputs stay
+exact. Contacts remain held by #666 / uibcdf/pyunitwizard#143.
