@@ -5,6 +5,26 @@
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  
 **Last tracking review:** 2026-11-08.
 
+## Private mechanics-layer implementation — 2026-11-08
+
+The bounded #256 field/type/unit catalog and private schema-1 codec are now
+implemented locally. The 94-case directed selection passes, including 65 new
+codec controls and the 29 existing refusal controls. Three actual prepared
+system variants retain complete mechanical reports through fresh readers with
+another unit policy and no preparation engines/Ackredit. Numeric arrays are
+HDF5 datasets; UTF-8 labels use bounded fixed-width transfers. Source producer
+metadata and original historical maps remain stored evidence, without rebinding.
+The [owning plan](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#p1-catalog-mechanics-layer-schema-1-draft)
+records exact types/units, absent/empty semantics, malformed-data refusals and
+original prototype failures. Clean source qualification and delivery are next.
+
+This private layer does not yet make H5MSM 0.6 or 1.0 publicly writable/readable.
+P3/P4 still need modular associations, public queries/conversion and persistence
+operations; P5/P6 need consumer receiving and whole-format qualification. #256
+remains open. Original weighted progress stays **72.4%**, with **58 source
+closures and 26/50 graphical intents**; no new weight or closure is claimed.
+The complete issue-board checkpoint still has 592 issues, 88 open and no PR.
+
 ## Current mechanics persistence work — 2026-11-08
 
 The maintainer authorizes advancing **#256 before 1.0**, superseding the old

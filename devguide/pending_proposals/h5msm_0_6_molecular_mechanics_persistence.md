@@ -55,9 +55,10 @@ the original scheduling decision without expanding the 0.5 schema.
 native `MolSys` routes. The public rejection is guarded by
 `tests/form/file_h5msm/test_public_h5msm_v05.py`.
 
-**Assumed:** The final native mechanics model may need more than one
-parameterization per molecular system. No storage benchmark or complete
-parameter inventory has been performed for H5MSM 0.6.
+**Inspected and contract-tested locally:** the bounded existing field inventory
+is specified below and a private schema-1 codec now has directed guards.
+**Assumed:** a future native model may need several parameterizations per system.
+No large-scale storage benchmark or public whole-system codec is qualified here.
 
 ## What was refuted
 
@@ -97,7 +98,8 @@ file format. The maintainer permits completing that review before MolSysMT 1.0.
 **Decision:** advance a bounded portable snapshot of the existing experimental
 native domain. The successful trusted Python checkpoint review below is useful
 evidence for the required content, but does not satisfy H5MSM acceptance. No
-0.6 writer or reader is implemented by this planning update.
+public 0.6/1.0 writer or reader is implemented by this planning update; the
+private layer codec described below does not register a file format.
 
 **Accepted versioning direction:** publish the first stable format as
 **H5MSM 1.0 with MolSysMT 1.0**, after the complete schema has passed its gates.
@@ -141,13 +143,130 @@ artifact or tag is created by this decision.
   mechanical atom data are present. Do not infer correspondence from equal counts.
   Unsupported independent-layer compositions receive a clear refusal.
 
+### P1 catalog: mechanics layer schema 1 (draft)
+
+This bounded catalog describes the private codec under development, not an
+available public H5MSM format. The new root will reuse the existing four domain
+codecs and add optional `molecular_mechanics`; its exact public root version is
+qualified separately. A reader rejects unsupported root/layer versions and
+unknown represented fields rather than dropping them.
+
+The mechanics group declares integer `schema_version=1` and nonnegative signed-64-bit integer
+`n_atoms`. Its atom axis is positional and must be explicitly associated with a
+compatible system axis by the modular orchestration. The layer does not infer
+system identity, particle mapping, chemistry or parameterization from counts.
+Systems without a usable atom domain are outside the first full-system mechanics
+composition; standalone layers declare their own atom domain explicitly.
+
+| Settings | Admitted non-null value | Physical interpretation |
+| --- | --- | --- |
+| `forcefield`, `non_bonded_method`, `constraints`, `water_model`, `implicit_solvent` | Text | Original model requests; names are not resolved or rewritten by I/O. |
+| `dispersion_correction`, `flexible_constraints`, `rigid_water` | Boolean | Explicit false differs from absence. |
+| `ewald_error_tolerance`, `solute_dielectric`, `solvent_dielectric` | Finite dimensionless numeric scalar | Original requests, not proof that a particular engine supports them. |
+| `cutoff_distance`, `switch_distance` | Scalar length quantity | Reader declares length dimensionality using nm as the schema reference. |
+| `hydrogen_mass` | Scalar mass quantity | Reader declares mass dimensionality using Da. |
+| `salt_concentration` | Scalar amount/volume quantity | Reader declares concentration using mole/liter. |
+| `kappa` | Scalar inverse-length quantity | Reader declares inverse length using 1/nm. |
+
+All sixteen settings are represented explicitly, including nulls. Physical
+quantities use sealed PyUnitWizard `QuantityRecord` values with a field binding
+and an explicit dimensional reader handshake. Original compatible units are
+preserved; no session default is inferred. The reader's quantity backend is
+respected without changing the application's unit policy. Bare values or text
+that parses as a dimensional quantity do not substitute for these quantity
+objects. Conversely, textual versions, references and labels remain literal text
+even if PyUnitWizard can parse them as quantities.
+
+`atoms_ff` is absent or a present atom-indexed table. A present table has exactly
+`n_atoms` rows in a zero-based RangeIndex, preserves column order, and admits:
+
+| Column | Values | Declared unit |
+| --- | --- | --- |
+| `partial_charge` | Finite numeric values or explicit missing values | elementary_charge |
+| `formal_charge` | Integral numeric values or explicit missing values | elementary_charge; legacy mechanics data, not authoritative chemical-state assignments |
+| `atom_ff_type` | Text labels or explicit missing values | None; these are not element symbols |
+
+The initial dtype catalog comprises NumPy object, signed/unsigned integers up to
+64 bits and float32/float64; pandas nullable integer/float dtypes; and Python-backed
+pandas string dtypes with their explicit NA policy. Unsupported columns, dtypes,
+table subclasses, custom attributes or noncanonical axes reject. Numeric storage
+retains its dtype; object columns use typed numeric/Unicode value vectors plus
+null codes distinguishing None, pandas NA and NaN. A present table with zero
+columns remains present. It does not imply any assignments.
+
+`partial_charge_assignment` and `atom_type_assignment` are absent or detached
+metadata mappings. Preserve them as stored evidence, including empty mappings,
+original schemas/status, software versions, scientific attribution and historical
+maps; do not certify unknown evidence or rebind stale evidence. Their supported
+vocabulary is primitive scalars, mappings with string keys, lists, tuples and
+typed numeric/boolean/Unicode arrays. Preserve tuples separately from lists.
+No Python class identity or executable payload is decoded. Nonfinite floating
+metadata requires an explicit typed array. Cycles and unsupported objects reject.
+Quantities outside the declared scalar settings have no negotiated meaning in
+this layer and reject until explicitly specified by a future schema.
+
+A declarative tree records metadata types and references, with arrays in separate
+HDF5 datasets rather than JSON/Base64 numeric expansions or lists per atom. The
+private metadata schema validates dataset references, shapes, dtypes, duplicate
+keys and unused arrays. Preparation validates the whole snapshot before creating
+the layer; P3 must additionally provide whole-file staging/publication semantics.
+This is resident static-domain reading, not a lazy mechanics query API or an
+external-engine checkpoint.
+
+### Private wire layout and directed receiving — 2026-11-08
+
+`molsysmt/form/_h5msm/mechanics.py` owns the mechanics layer; its private sibling
+`metadata.py` supplies concrete typed-tree HDF5 primitives. These are storage
+implementation tools, not registered forms or public calculation functions.
+New primitives live in an owning package instead of adding more root-level
+`form/_h5msm05_*` files; the existing location-review scope is not rewritten.
+
+```text
+molecular_mechanics/                  attrs: schema_version=1, n_atoms
+    snapshot/                        attrs: schema_version=1 (metadata tree)
+        json                         uint8 UTF-8 JSON, tagged nodes/references
+        arrays/0, arrays/1, ...      typed HDF5 numeric/boolean/UTF-8 datasets
+```
+
+The tree has exactly `settings`, `atoms_ff`, `partial_charge_assignment` and
+`atom_type_assignment`. The table is null or `{n_rows, columns}`; each ordered
+column declares `{name, dtype, unit, values, null_codes}`. Array nodes declare
+index, shape and NumPy dtype. Mapping/list/tuple/scalar/NumPy-scalar/quantity
+nodes have distinct tags; marker-like user mappings remain literal mappings.
+UTF-8 datasets use fixed byte widths sufficient for their declared Unicode
+widths, with compressed block transfers. No variable-length string heap, Python
+objects per atom or Base64 numeric-array expansion is used. Physical setting
+quantities remain sealed PyUnitWizard records.
+
+**Directed contract tests:** 94 cases pass, including 65 new codec guards and
+29 #660 refusal guards. Complete, selected and nonpolar-H-merged actual prepared
+systems retain their full mechanical reports in new process readers under a
+different unit policy, without RDKit/OpenMM/Ackredit or assignment calculation.
+Readers preserve original producer metadata; model settings remain requests.
+All admitted nullable dtype families, exact large integer values, empty states,
+three quantity integrity checks, malformed references/versions, literal text and
+mask-bearing unsupported array subclasses are covered. A 100,000-element array
+is a typed dataset while its fixture JSON remains under 10,000 bytes; this is a
+representation guard, not a large-scale performance benchmark.
+
+Original attempts remain separately retained: the inventory script initially
+resolved Viewer’s `tests` namespace, corrected by explicit source-first lookup;
+its quantity-candidate scan also recognizes parseable strings, so the actual
+reported Python types determine the inventory. Prototype guards exposed empty
+mask integer upcasting and validation after shared-buffer NA restoration; both
+are corrected. Fixed UTF-8 output additionally required an explicit matching
+HDF5 memory dtype. No published writer was changed by those prototype failures.
+The final directed process tree peaks at 313,372,672 bytes and preserves over
+15 GB decimal host availability with no resource stop. Clean-source receiving,
+full regression/HTML gates and source delivery are still pending at this point.
+
 ### Work packages and exit evidence
 
 | Package | Current state | Required exit evidence |
 | --- | --- | --- |
 | P0 — repair #660 | Closed; clean `272745fc8` passes 1,111 cases, fourteen fast gates and HTML; public `af71a6d29` verified | All affected branches, strict requests, present-empty state and unchanged existing file are guarded; no expansion of 0.5. |
-| P1 — bound the schema | This plan; implementation pending | Exact field/type/unit catalog, domain/layer versions, identity and index-link rules, absent/empty semantics and unsupported-input policy. |
-| P2 — mechanics codec | Pending | Typed native/HDF5 round trips for all admitted settings, tables and reports; malformed data/unknown versions refuse; no engine imports or evidence rebinding. |
+| P1 — bound the schema | Bounded field/type/unit catalog specified; whole-file associations remain P3 | Exact field/type/unit catalog, domain/layer versions, identity and index-link rules, absent/empty semantics and unsupported-input policy. |
+| P2 — mechanics codec | Private implementation; 94 directed cases pass; clean receiving pending | Typed native/HDF5 round trips for all admitted settings, tables and reports; malformed data/unknown versions refuse; no engine imports or evidence rebinding. |
 | P3 — modular orchestration | Pending | Reuse existing domain codecs; explicit version dispatch, associations, source-preserving migration and failure before file publication; unchanged 0.3/0.4/0.5 reads. |
 | P4 — public operations | Pending | `convert`, explicit H5MSM reads/writes/layer reads, `get`/`has_attribute`, selected extraction/reordering, copying and structure append are audited; no recognized-but-inaccessible mechanics. Preserve the legacy handler's actual scope. |
 | P5 — consumer receiving | Pending | Fresh-reader complete/projected/nonpolar-H-merged fixtures, multiple unit policies, original producer labels, prepared PDBQT re-export, edit invalidation, stale refusals and the full DockingMT reference route. Provider and installed evidence remain distinct. |
