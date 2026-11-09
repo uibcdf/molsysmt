@@ -698,3 +698,40 @@ experimental public provider routes available from source, while the default
 stays 0.5. No package/minimum released version, installed-client acceptance or
 stable H5MSM 1.0 is claimed. #256 stays open for P5/P6. The complete board still
 has 593 issues, 88 open and no PR, with no issue newer than #661.
+
+
+### P6 bounded storage study prescription — 2026-11-08
+
+The reusable `devtools.scripts.benchmark_h5msm_mechanics` measures public explicit
+0.6 writing, full reading, mechanical-layer reading, a scalar setting query,
+ordered/repeated charge selection and ordered/repeated coordinate selection.
+It reuses the existing native fixture, analytical coordinate oracle and timing
+helper. Each operation runs in a fresh sequential worker, with one warm-up,
+three untraced timing samples and a separate traced-allocation pass. Validation
+is outside timing; handles reopen per call and the OS cache stays warm/uncontrolled.
+No flush/fsync or durability latency is measured. Worker high-water memory
+includes imports/setup/validation, while traced operation memory excludes them.
+
+Prospectively selected cases are 62 atoms × 5,000 structures, 10,000 × 1,000
+and 100,000 × 100. The latter two each have 240,000,000 float64 coordinate bytes.
+The explicit 256 MiB coordinate admission bound is not a memory reservation.
+Run one computational thread under a 3 GiB cgroup, no swap, and the existing
+shared-host reserve/pressure monitor; defer rather than exceed safe resources.
+The nullable table contains three columns and both synthetic typed reports carry
+numeric atom-aligned arrays. Chemistry, sparse parallel observations and geometry
+are retained. Reports deliberately do not claim valid charge/type assignments.
+Highly regular coordinates, repeated type labels and regular report arrays limit
+compression representativeness; these results cannot predict arbitrary real-data
+size, billion-occurrence storage, independent client acceptance or installed gates.
+
+The first tiny pilot caught #662: public charge queries failed on an admitted
+pandas-NA entry. No timing campaign is accepted from that failure. Original guards
+reproduce five failures and six passes. The correction and revised guards now
+pass 23 directed tests, including the doctest and all six public benchmark
+operations. One intermediate test also assumed a nonexistent MolecularMechanics
+`.get` method; it was corrected to call that shortcut only on MolSys. Runtime
+qualification, larger measurements and their exact records follow separately.
+
+DockingMT's independent receiving is requested in uibcdf/dockingmt#79 and #88;
+its local checkout is clean but behind its fetched remote and is not altered.
+The new portable handoff is source availability, not client E3 acceptance.
