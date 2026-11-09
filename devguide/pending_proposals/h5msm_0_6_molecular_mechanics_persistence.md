@@ -591,3 +591,15 @@ registration/dispatch and source-preserving migration remain explicitly required
 under P4; P3 does not waive them. Consumer E3, bounded storage measurements and
 final public-schema/default-writer qualification remain P5/P6. #661 is a separate
 public-input correction; #438's seven-module placement audit remains open.
+
+### Verified P3 source delivery — 2026-11-08
+
+Public `1d033b65693dc0db84e594efccd2bf8651a19dda` independently matches all
+21 changed paths and preserves the four human files. The
+[delivery record](../../devtools/data/mechanics_composition_delivery_256_20261108.json)
+and [owner response](https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6731932749)
+retain its bounded source scope. #661 is closed through its public twelve-case
+guard; #256 and the separate #438 placement review remain open. No format,
+package, release, tag, installed matrix or new client acceptance is published.
+The complete refreshed board contains 593 issues, 88 open, and no open PR;
+there is no newer report above #661 at this checkpoint.

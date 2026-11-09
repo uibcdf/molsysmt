@@ -35,7 +35,7 @@ arrays. A reusable atomic helper publishes only completed new files.
 The new **#661** public uint64-overflow correction rejects invalid indices before
 signed conversion/file creation, with twelve guards across all three axis kinds.
 Its [resolved report](archive/resolved_bugs/unsigned_h5msm_axis_maps_wrap_out_of_range_indices_to_unknown.md)
-is ready for verified source delivery and issue closure. The #660 absent-Structures
+is published and #661 is closed. The #660 absent-Structures
 fixture is also corrected: original 1,111-case evidence did not exercise that
 fifth branch; the dated archive/receipt correction preserves the original results.
 The module-placement owner is #438; mistaken earlier #441 references are corrected
@@ -44,11 +44,18 @@ without changing executed evidence or reopening that unrelated distance bug.
 The public default and supported reads remain H5MSM 0.5/0.3–0.5. P4 must integrate
 version dispatch, conversion/query/selection/copy/append and source-preserving
 migration; P5/P6 retain consumer and whole-format/default-writer qualification.
-#256 remains open. Original weighted progress is **72.4%**, with **58 source
-closures and 26/50 graphical intents** until #661's public closeout; no extra
-weight is credited for this added format scope. The complete board snapshot is
-593 issues, 89 open and no PR. Tests peak near 1.0 GiB, HTML near 1.25 GiB;
+#256 remains open. Original weighted progress is **72.4%**, with **59 source
+closures and 26/50 graphical intents**; no extra weight is credited for this
+added format scope. The complete board snapshot is
+593 issues, 88 open and no PR. Tests peak near 1.0 GiB, HTML near 1.25 GiB;
 all final runs retain over 12 GB decimal host availability without resource stops.
+
+Public source `1d033b65693dc0db84e594efccd2bf8651a19dda` independently matches
+all 21 changed paths, with four human files preserved. The
+[delivery record](../devtools/data/mechanics_composition_delivery_256_20261108.json)
+and [owner response](https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6731932749)
+retain the private/public distinction. Next implement P4's supported public
+operations before requesting consumer acceptance; #256/#438 remain open.
 
 ## Private mechanics-layer implementation — 2026-11-08
 

@@ -1,0 +1,121 @@
+{
+  "public_checkpoint": "1d033b65693dc0db84e594efccd2bf8651a19dda",
+  "base": "08a225009d8cc8b7bd48ad00942071ae052450e5",
+  "verified_paths": [
+    {
+      "path": "devguide/archive/resolved_bugs/full_system_writers_silently_discard_report_only_mechanical_provenance.md",
+      "git_blob_sha": "8f6599b854389f06fac6293cbce62963303218b6"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/unsigned_h5msm_axis_maps_wrap_out_of_range_indices_to_unknown.md",
+      "git_blob_sha": "7025981c6ada07dd9d5380d1137972a3d32a5d07"
+    },
+    {
+      "path": "devguide/h5msm_format.md",
+      "git_blob_sha": "83ee1410dd73c2a19a50955dc455ba902d749976"
+    },
+    {
+      "path": "devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md",
+      "git_blob_sha": "c36850cf8eb9ea567d9362d9a09e7c75b1efc5b3"
+    },
+    {
+      "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+      "git_blob_sha": "1bf87f48d0026a86e7cd239b5031f2122de62f1e"
+    },
+    {
+      "path": "devguide/release_1_0_status.md",
+      "git_blob_sha": "c4309d1ec936fa7efe7cdce0b9184dacad2de8be"
+    },
+    {
+      "path": "devtools/data/mechanics_composition_receiving_256_20261108.json",
+      "git_blob_sha": "be3af6f65bc8e3cc8b2143d1b9afe76ea7bae087"
+    },
+    {
+      "path": "devtools/data/mechanics_layer_delivery_256_20261108.json",
+      "git_blob_sha": "d7950ad7cacc6dfa4ca798e598353d177dcb4911"
+    },
+    {
+      "path": "devtools/data/mechanics_layer_receiving_256_20261108.json",
+      "git_blob_sha": "f510284619c5c13e3d88319657216409cade13f4"
+    },
+    {
+      "path": "devtools/data/mechanics_presence_receiving_660_20261108.json",
+      "git_blob_sha": "3d09a4c2e00158c8a242a55f99519978e5f1d204"
+    },
+    {
+      "path": "devtools/data/pre_1_0_progress_scorecard_20261107.json",
+      "git_blob_sha": "d0e359b31185907f38842f47d8e704f8083da534"
+    },
+    {
+      "path": "molsysmt/_private/files_and_directories.py",
+      "git_blob_sha": "503dbb2e67eb7fcbbbca3a8916d596057ae863da"
+    },
+    {
+      "path": "molsysmt/_private/h5msm_storage/mechanics.py",
+      "git_blob_sha": "ebeabedae84b835d410a3471fd62679e77d3519a"
+    },
+    {
+      "path": "molsysmt/_private/h5msm_storage/modular.py",
+      "git_blob_sha": "4e560dc443cd81a84bfd7afdbc575cb29fc1a6dd"
+    },
+    {
+      "path": "molsysmt/form/_h5msm05_associations.py",
+      "git_blob_sha": "1343f1749f83d4edd3f3a134223040ae88075ac1"
+    },
+    {
+      "path": "molsysmt/form/_native_dict.py",
+      "git_blob_sha": "6f609c81197d8814fda2ffd1cbe20970ce39c99e"
+    },
+    {
+      "path": "molsysmt/native/_transport.py",
+      "git_blob_sha": "d4e50d18d7f16e8449008ac24acd8c8dea74d69e"
+    },
+    {
+      "path": "tests/_private/test_atomic_new_file.py",
+      "git_blob_sha": "bb5d6ee758b2b94220f9bbcc5940925310f0542c"
+    },
+    {
+      "path": "tests/form/file_h5msm/test_association_uint64_overflow.py",
+      "git_blob_sha": "b4cd545bf902870c81f3801601444c29b86c0e8f"
+    },
+    {
+      "path": "tests/form/file_h5msm/test_mechanics_presence.py",
+      "git_blob_sha": "d6ba9d755a537799933c0b488a94e5835dbde770"
+    },
+    {
+      "path": "tests/form/file_h5msm/test_modular_mechanics.py",
+      "git_blob_sha": "8c3659273fcedf625caead71486c591a7aeb8bfd"
+    }
+  ],
+  "protected_human_files": {
+    "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": "3b97cf0d5c813a1e3c2212ad118c7f6c32763d85af91cb800640209095fd53d6",
+    "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": "d564291bb01387663f178f5e041bc8d55d1022bfa71584ddd11f1dd9dba12d95",
+    "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": "a112aa640da192a121d1ccec3c5011c9652729abacf2a38c1b222632a55dcf20",
+    "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": "6b3f17a698bc7393ca3ecad31891d693b8a8169dfdd892dbae77f3ca91b25abe"
+  },
+  "human_bytes_unchanged": true,
+  "scope": "Fast-forward source delivery only; no package, tag, Release or hosted matrix launched.",
+  "schema_version": "molsysmt.mechanics_composition_delivery@1",
+  "date": "2026-11-08",
+  "owner_issue": "uibcdf/molsysmt#256",
+  "qualified_source": "b184e9d181513f50580aa8243f13d9f8941acdd7",
+  "receiving_record": "devtools/data/mechanics_composition_receiving_256_20261108.json",
+  "owner_response": "https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6731932749",
+  "presence_correction_response": "https://github.com/uibcdf/molsysmt/issues/660#issuecomment-6731933493",
+  "source_issue_closed": false,
+  "overflow_issue": {
+    "issue": "uibcdf/molsysmt#661",
+    "state": "closed",
+    "guard": "tests/form/file_h5msm/test_association_uint64_overflow.py",
+    "record": "devguide/archive/resolved_bugs/unsigned_h5msm_axis_maps_wrap_out_of_range_indices_to_unknown.md"
+  },
+  "new_public_format_available": false,
+  "board_checkpoint": {
+    "complete_board_issues": 593,
+    "open_issues": 88,
+    "open_prs": 0,
+    "newer_than_661": []
+  },
+  "board_checkpoint_sha256": "93e683d9b19d1579619c5b0e1e5f9705d8a8b41a05503dc880f9518759fbd0b7",
+  "ci_scope": "Internal [skip ci] source checkpoint under the existing maintainer instruction; no new complete-suite, hosted, installed or exact-candidate acceptance. The nightly/full-suite and #334 candidate gates remain pending."
+}
