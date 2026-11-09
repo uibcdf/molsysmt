@@ -1,7 +1,11 @@
+import os
+import re
+import shlex
 import subprocess
 from pathlib import Path
 
 import pytest
+import yaml
 
 from devtools.scripts.execute_scientific_evidence import execute_nodes
 
@@ -267,3 +271,85 @@ def test_development_execution_can_pass_without_claiming_source_correspondence(
     assert certificate["passed"] == 1
     assert certificate["release_eligible"] is False
     assert certificate["source_correspondence"] is False
+
+
+@pytest.mark.parametrize("location", ["workflow", "source-checkout"])
+def test_controlled_viewer_wheel_preserves_clean_source_certificate(
+    scientific_git_repo, tmp_path, location
+):
+    """Exercise the workflow's actual path against an independent Git checkout."""
+    repo = scientific_git_repo
+    runner_temp = tmp_path / "runner temporary directory"
+    workflow = yaml.safe_load(
+        (REPO_ROOT / ".github/workflows/ci-full.yaml").read_text()
+    )
+    steps = workflow["jobs"]["full-matrix"]["steps"]
+    download = next(
+        step
+        for step in steps
+        if step.get("uses", "").startswith("actions/download-artifact@")
+        and step.get("with", {}).get("name") == "controlled-molsysviewer-wheel"
+    )
+
+    def resolve(path):
+        path = path.replace("${{ runner.temp }}", str(runner_temp))
+        path = path.replace("${RUNNER_TEMP}", str(runner_temp))
+        path = path.replace("$RUNNER_TEMP", str(runner_temp))
+        return (repo / path).resolve()
+
+    declared = resolve(download["with"]["path"])
+    build_steps = workflow["jobs"]["controlled-molsysviewer"]["steps"]
+    build = next(
+        step["run"] for step in build_steps if "--wheel-dir" in step.get("run", "")
+    )
+    words = shlex.split(build)
+    assert resolve(words[words.index("--wheel-dir") + 1]) == declared
+    upload = next(
+        step
+        for step in build_steps
+        if step.get("uses", "").startswith("actions/upload-artifact@")
+    )
+    assert resolve(upload["with"]["path"]).parent == declared
+    install = next(
+        step["run"] for step in steps if step.get("name") == "Install package"
+    )
+    wheel_arguments = [word for word in shlex.split(install) if word.endswith("/*.whl")]
+    assert len(wheel_arguments) == 1
+    assert resolve(wheel_arguments[0]).parent == declared
+
+    declared.mkdir(parents=True, exist_ok=True)
+    artifact_name = "controlled-viewer-py3-none-any.whl"
+    (declared / artifact_name).write_bytes(b"artifact placement control")
+    pattern = next(
+        line.strip() for line in install.splitlines() if line.strip().endswith("/*.whl")
+    )
+    assert re.fullmatch(r"[A-Za-z0-9_./*$}{\"'-]+", pattern)
+    expanded = subprocess.run(
+        ["bash", "-c", 'printf "%s\\0" ' + pattern],
+        cwd=repo,
+        env={**os.environ, "RUNNER_TEMP": str(runner_temp)},
+        check=True,
+        capture_output=True,
+    )
+    arguments = [
+        Path(os.fsdecode(value)) for value in expanded.stdout.split(b"\0") if value
+    ]
+    assert [(repo / path).resolve() for path in arguments] == [declared / artifact_name]
+    if location == "source-checkout":
+        directory = repo / "controlled-wheelhouse"
+        directory.mkdir(exist_ok=True)
+        (directory / artifact_name).write_bytes(b"untracked source control")
+    verdict, certificate = execute_nodes(
+        ["test_evidence.py::test_evidence"], repo_root=repo, require_clean=True
+    )
+    assert certificate["passed"] == 1
+    assert certificate["tracked_source_dirty"] is False
+    assert verdict is (location == "workflow")
+    assert certificate["release_eligible"] is (location == "workflow")
+    if location == "workflow":
+        assert not declared.is_relative_to(repo)
+        assert certificate["source_after"]["untracked_source_paths"] == []
+    else:
+        assert certificate["source_after"]["untracked_source_paths"] == [
+            "controlled-wheelhouse/controlled-viewer-py3-none-any.whl"
+        ]
