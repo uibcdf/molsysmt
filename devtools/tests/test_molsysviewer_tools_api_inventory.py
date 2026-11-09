@@ -57,6 +57,7 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         "h5msm.read",
         "h5msm.write",
         "h5msm.read_layers",
+        "h5msm.read_axis_sizes",
         "h5msm.write_layers",
         "h5msm.append_structures",
         "h5msm.migrate_04_to_05",
@@ -259,12 +260,16 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         rows["structure.get_rotation_matrix_from_axis_angle"]["input_kind"]
         == "explicit_inputs"
     )
-    # #604 adds bounded provider operations for DockingMT. They have no received
-    # Viewer intent yet (#421); retain visible missing routes, not fake wrappers.
-    assert inventory["modules"]["structure"]["missing"] == [
-        "structure.get_distance_clusters",
-        "structure.get_pairwise_rmsd",
-    ]
+    for path, kind in {
+        "structure.get_distance_clusters": "explicit_inputs",
+        "structure.get_pairwise_rmsd": "primary",
+        "chemical_states.normalize_indexed_hydrogen_policy": "primary",
+        "h5msm.read_axis_sizes": "explicit_inputs",
+    }.items():
+        assert rows[path]["exposed"]
+        assert rows[path]["input_kind"] == kind
+    assert inventory["modules"]["structure"]["missing"] == []
+    assert inventory["modules"]["chemical_states"]["missing"] == []
     assert "h5msm.arg_digest" not in rows
     assert (
         rows["hbonds.get_buch_hbonds"]["implementation"]

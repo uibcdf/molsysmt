@@ -1,0 +1,525 @@
+{
+  "schema_version": "molsysmt.native_contact_unit_boundary@1",
+  "date": "2026-11-09",
+  "owner_issue": "uibcdf/molsysmt#666",
+  "provider_review": "uibcdf/pyunitwizard#143",
+  "parent_work": "uibcdf/molsysmt#421",
+  "native_source": "efffbaa8f4ae66a424bcd05ce17ae02e38d73fcc",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "scope": "Reproduced native inclusive-cutoff discrepancy and an isolated unqualified GUI prototype. No native repair, graphical acceptance, release or provider fault classification.",
+  "runs": {
+    "contacts-421-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "tests/molsysviewer_molsysmt/test_contacts_panel.py",
+          "tests/molsysviewer_molsysmt/test_analysis_panel.py",
+          "--junitxml=<private-evidence>/contacts-421-directed.xml"
+        ],
+        "exit_code": 1,
+        "seconds": 41.76270291302353,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "efffbaa8f4ae66a424bcd05ce17ae02e38d73fcc",
+        "starting_git_status": " M molsysviewer_molsysmt/_analysis_panel.py\n M molsysviewer_molsysmt/_analysis_panel_frontend.py\n?? tests/molsysviewer_molsysmt/test_contacts_panel.py\n",
+        "ending_git_status": " M molsysviewer_molsysmt/_analysis_panel.py\n M molsysviewer_molsysmt/_analysis_panel_frontend.py\n?? tests/molsysviewer_molsysmt/test_contacts_panel.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8653
+      },
+      "resources": {
+        "started_utc": "2026-11-09T15:03:42.845215+00:00",
+        "seconds": 48.04695993894711,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.98046875,
+            0.69384765625,
+            0.517578125
+          ],
+          "cpu_utilization": 0.03165829145728638,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 15307075584,
+        "cgroup_memory_peak_bytes": 578805760,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.18
+      },
+      "evidence_sha256": {
+        ".json": "5213459691b22708222a763f4fd95fe5090781ac48bd55580a0071c45fd9272f",
+        "-bounded.json": "41a42bace4652d1f036823036c9d34258123fc39d1fc18fab3eba5a4d8dc891e",
+        ".xml": "a07db822050cf238c8449a81822ab51405209cc4f84cd39650fe214b7895fcf6",
+        ".log": "8d9086e19324dc2f4da856688f1cfc187c89925d628c8ffbcda16bfd996d0101",
+        "-inputs-before.json": "2f7c73796b203b0d5bc729e436d0a947f2f61adb8c1bf6298c68a348aca4948c",
+        "-inputs-after.json": "2f7c73796b203b0d5bc729e436d0a947f2f61adb8c1bf6298c68a348aca4948c",
+        "-reference-driver.py": "c94591e4e956db675cb1ade0c6a9846156a8e98a04f1530b7fc790f16c8e8b5e",
+        "-resource-driver.py": "61c08aafe1da267deb2443667b92ca37ca08cf4c393d7d2e32a3cc6eed0c408d"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "3",
+          "skipped": "0",
+          "tests": "154",
+          "time": "38.952",
+          "timestamp": "2026-11-09T09:03:47.034605-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.molsysviewer_molsysmt.test_contacts_panel",
+          "name": "test_center_contacts_keep_population_identity_without_fictitious_atom_labels[mass]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.molsysviewer_molsysmt.test_contacts_panel",
+          "name": "test_inclusive_boundary_and_zero_contact_scope_are_explicit[angstrom-5]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.molsysviewer_molsysmt.test_contacts_panel",
+          "name": "test_inclusive_boundary_and_zero_contact_scope_are_explicit[pm-500]",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "contacts-421-corrected-oracle": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "tests/molsysviewer_molsysmt/test_contacts_panel.py",
+          "tests/molsysviewer_molsysmt/test_analysis_panel.py",
+          "--junitxml=<private-evidence>/contacts-421-corrected-oracle.xml"
+        ],
+        "exit_code": 1,
+        "seconds": 42.63477666093968,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "efffbaa8f4ae66a424bcd05ce17ae02e38d73fcc",
+        "starting_git_status": " M molsysviewer_molsysmt/_analysis_panel.py\n M molsysviewer_molsysmt/_analysis_panel_frontend.py\n?? devguide/pending_bugs/contact_cutoff_equality_changes_across_equivalent_length_units.md\n?? tests/molsysviewer_molsysmt/test_contacts_panel.py\n",
+        "ending_git_status": " M molsysviewer_molsysmt/_analysis_panel.py\n M molsysviewer_molsysmt/_analysis_panel_frontend.py\n?? devguide/pending_bugs/contact_cutoff_equality_changes_across_equivalent_length_units.md\n?? tests/molsysviewer_molsysmt/test_contacts_panel.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8654
+      },
+      "resources": {
+        "started_utc": "2026-11-09T15:16:39.199686+00:00",
+        "seconds": 49.04820561897941,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.5400390625,
+            0.67822265625,
+            0.6201171875
+          ],
+          "cpu_utilization": 0.03219315895372232,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14806847488,
+        "cgroup_memory_peak_bytes": 577830912,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "659ea5c74ecd3e6422d3801bc9e41d40d3043da9646d199e116daed297e3c101",
+        "-bounded.json": "8e4f574186f7ed56a86c622a6714a8eb9842fd3aac9e1b7aaeb9eca618df00be",
+        ".xml": "a4564dfed20ccaa1334769463a55b60099f01b5a0680fdd3bec331e7a02ab176",
+        ".log": "c1d94e0960ffe6eb3f1583ac45666e5a4288e1ac3875a5de584f9b2ebfebdc30",
+        "-inputs-before.json": "03cb35f3e40d0acd03cf04a27dd615869c2fdfe6d0005662ee169c9d18eec458",
+        "-inputs-after.json": "03cb35f3e40d0acd03cf04a27dd615869c2fdfe6d0005662ee169c9d18eec458",
+        "-reference-driver.py": "bfc20809fee5f81e5a4d54771f56697b52f25064d42e48840fedde9018570462",
+        "-resource-driver.py": "e5c25e26473d302759e6095d8f26f5092b99cc1fe7c8e8abb22822b8110538b1"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "2",
+          "skipped": "0",
+          "tests": "154",
+          "time": "39.732",
+          "timestamp": "2026-11-09T09:16:43.458422-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.molsysviewer_molsysmt.test_contacts_panel",
+          "name": "test_inclusive_boundary_and_zero_contact_scope_are_explicit[angstrom-5]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.molsysviewer_molsysmt.test_contacts_panel",
+          "name": "test_inclusive_boundary_and_zero_contact_scope_are_explicit[pm-500]",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "contacts-native-boundary-probe": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-temporary>/molsysmt-contacts-native-boundary-probe.py"
+        ],
+        "exit_code": 0,
+        "seconds": 2.051467952085659,
+        "viewer_commit": "e4dd58cf0edcb2c3afb2c982ccd50d3899d504ab",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "efffbaa8f4ae66a424bcd05ce17ae02e38d73fcc",
+        "starting_git_status": " M molsysviewer_molsysmt/_analysis_panel.py\n M molsysviewer_molsysmt/_analysis_panel_frontend.py\n?? tests/molsysviewer_molsysmt/test_contacts_panel.py\n",
+        "ending_git_status": " M molsysviewer_molsysmt/_analysis_panel.py\n M molsysviewer_molsysmt/_analysis_panel_frontend.py\n?? tests/molsysviewer_molsysmt/test_contacts_panel.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2463,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8653
+      },
+      "resources": {
+        "started_utc": "2026-11-09T15:10:52.725140+00:00",
+        "seconds": 8.007936856942251,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.69482421875,
+            0.56982421875,
+            0.53466796875
+          ],
+          "cpu_utilization": 0.06130653266331654,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 15643815936,
+        "cgroup_memory_peak_bytes": 173113344,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "90fe6ed360bd48d9359521ca3dad3734873dfc4f141f0d00605b25b28adf6266",
+        "-bounded.json": "8e43d547731f5e41eab5d0a603cd8e85e8e98d21ac86a3965471e0df77852a7b",
+        ".log": "4e67a3f4744fcf40ed932faadebbce919755dcea75b25d6efa68ecde49c92853",
+        "-inputs-before.json": "2f7c73796b203b0d5bc729e436d0a947f2f61adb8c1bf6298c68a348aca4948c",
+        "-inputs-after.json": "2f7c73796b203b0d5bc729e436d0a947f2f61adb8c1bf6298c68a348aca4948c",
+        "-reference-driver.py": "0d10f9baea16786b43c7c8c75eb2df4a26c595da09f18d34a6c320469e0d437a",
+        "-resource-driver.py": "ee82a6bd4c152539e018dfbbbbdfbc1cb5f4de4b07b5f32dc62f4437d93726cb"
+      }
+    }
+  },
+  "native_observations": [
+    {
+      "standard": "nm",
+      "input": 0.5,
+      "unit": "nm",
+      "raw_nm": 0.5,
+      "standardized_nm": 0.5,
+      "cell_list": false,
+      "native": true,
+      "trusted_native": true
+    },
+    {
+      "standard": "nm",
+      "input": 0.5,
+      "unit": "nm",
+      "raw_nm": 0.5,
+      "standardized_nm": 0.5,
+      "cell_list": true,
+      "native": true,
+      "trusted_native": true
+    },
+    {
+      "standard": "nm",
+      "input": 5.0,
+      "unit": "angstrom",
+      "raw_nm": 0.49999999999999994,
+      "standardized_nm": 0.49999999999999994,
+      "cell_list": false,
+      "native": false,
+      "trusted_native": false
+    },
+    {
+      "standard": "nm",
+      "input": 5.0,
+      "unit": "angstrom",
+      "raw_nm": 0.49999999999999994,
+      "standardized_nm": 0.49999999999999994,
+      "cell_list": true,
+      "native": false,
+      "trusted_native": false
+    },
+    {
+      "standard": "nm",
+      "input": 500.0,
+      "unit": "pm",
+      "raw_nm": 0.4999999999999999,
+      "standardized_nm": 0.4999999999999999,
+      "cell_list": false,
+      "native": false,
+      "trusted_native": false
+    },
+    {
+      "standard": "nm",
+      "input": 500.0,
+      "unit": "pm",
+      "raw_nm": 0.4999999999999999,
+      "standardized_nm": 0.4999999999999999,
+      "cell_list": true,
+      "native": false,
+      "trusted_native": false
+    },
+    {
+      "standard": "nm",
+      "input": 0.49999999999999994,
+      "unit": "nm",
+      "raw_nm": 0.49999999999999994,
+      "standardized_nm": 0.49999999999999994,
+      "cell_list": false,
+      "native": false,
+      "trusted_native": false
+    },
+    {
+      "standard": "nm",
+      "input": 0.49999999999999994,
+      "unit": "nm",
+      "raw_nm": 0.49999999999999994,
+      "standardized_nm": 0.49999999999999994,
+      "cell_list": true,
+      "native": false,
+      "trusted_native": false
+    },
+    {
+      "standard": "angstrom",
+      "input": 0.5,
+      "unit": "nm",
+      "raw_nm": 0.5,
+      "standardized_nm": 0.49999999999999994,
+      "cell_list": false,
+      "native": true,
+      "trusted_native": true
+    },
+    {
+      "standard": "angstrom",
+      "input": 0.5,
+      "unit": "nm",
+      "raw_nm": 0.5,
+      "standardized_nm": 0.49999999999999994,
+      "cell_list": true,
+      "native": true,
+      "trusted_native": true
+    },
+    {
+      "standard": "angstrom",
+      "input": 5.0,
+      "unit": "angstrom",
+      "raw_nm": 0.49999999999999994,
+      "standardized_nm": 0.49999999999999994,
+      "cell_list": false,
+      "native": true,
+      "trusted_native": true
+    },
+    {
+      "standard": "angstrom",
+      "input": 5.0,
+      "unit": "angstrom",
+      "raw_nm": 0.49999999999999994,
+      "standardized_nm": 0.49999999999999994,
+      "cell_list": true,
+      "native": true,
+      "trusted_native": true
+    },
+    {
+      "standard": "angstrom",
+      "input": 500.0,
+      "unit": "pm",
+      "raw_nm": 0.4999999999999999,
+      "standardized_nm": 0.49999999999999994,
+      "cell_list": false,
+      "native": true,
+      "trusted_native": true
+    },
+    {
+      "standard": "angstrom",
+      "input": 500.0,
+      "unit": "pm",
+      "raw_nm": 0.4999999999999999,
+      "standardized_nm": 0.49999999999999994,
+      "cell_list": true,
+      "native": true,
+      "trusted_native": true
+    },
+    {
+      "standard": "angstrom",
+      "input": 0.49999999999999994,
+      "unit": "nm",
+      "raw_nm": 0.49999999999999994,
+      "standardized_nm": 0.4999999999999999,
+      "cell_list": false,
+      "native": false,
+      "trusted_native": false
+    },
+    {
+      "standard": "angstrom",
+      "input": 0.49999999999999994,
+      "unit": "nm",
+      "raw_nm": 0.49999999999999994,
+      "standardized_nm": 0.4999999999999999,
+      "cell_list": true,
+      "native": false,
+      "trusted_native": false
+    },
+    {
+      "standard": "pm",
+      "input": 0.5,
+      "unit": "nm",
+      "raw_nm": 0.5,
+      "standardized_nm": 0.49999999999999994,
+      "cell_list": false,
+      "native": true,
+      "trusted_native": true
+    },
+    {
+      "standard": "pm",
+      "input": 0.5,
+      "unit": "nm",
+      "raw_nm": 0.5,
+      "standardized_nm": 0.49999999999999994,
+      "cell_list": true,
+      "native": true,
+      "trusted_native": true
+    },
+    {
+      "standard": "pm",
+      "input": 5.0,
+      "unit": "angstrom",
+      "raw_nm": 0.49999999999999994,
+      "standardized_nm": 0.4999999999999999,
+      "cell_list": false,
+      "native": false,
+      "trusted_native": false
+    },
+    {
+      "standard": "pm",
+      "input": 5.0,
+      "unit": "angstrom",
+      "raw_nm": 0.49999999999999994,
+      "standardized_nm": 0.4999999999999999,
+      "cell_list": true,
+      "native": false,
+      "trusted_native": false
+    },
+    {
+      "standard": "pm",
+      "input": 500.0,
+      "unit": "pm",
+      "raw_nm": 0.4999999999999999,
+      "standardized_nm": 0.4999999999999999,
+      "cell_list": false,
+      "native": false,
+      "trusted_native": false
+    },
+    {
+      "standard": "pm",
+      "input": 500.0,
+      "unit": "pm",
+      "raw_nm": 0.4999999999999999,
+      "standardized_nm": 0.4999999999999999,
+      "cell_list": true,
+      "native": false,
+      "trusted_native": false
+    },
+    {
+      "standard": "pm",
+      "input": 0.49999999999999994,
+      "unit": "nm",
+      "raw_nm": 0.49999999999999994,
+      "standardized_nm": 0.4999999999999999,
+      "cell_list": false,
+      "native": false,
+      "trusted_native": false
+    },
+    {
+      "standard": "pm",
+      "input": 0.49999999999999994,
+      "unit": "nm",
+      "raw_nm": 0.49999999999999994,
+      "standardized_nm": 0.4999999999999999,
+      "cell_list": true,
+      "native": false,
+      "trusted_native": false
+    }
+  ],
+  "prototype": {
+    "branch": "wip/contacts-panel-421-20261109",
+    "commit": "c96d258b97bf69a5285f699bd9e7042ae4f7a8da",
+    "published": false,
+    "qualified": false,
+    "last_selection": {
+      "cases": 154,
+      "passed": 152,
+      "failed": 2
+    },
+    "original_selection": {
+      "cases": 154,
+      "passed": 151,
+      "failed": 3,
+      "additional_fixture_error": "Mass oracle incorrectly requested mass=True through basic.get; corrected to public physchem.get_mass without weakening the contact assertions."
+    },
+    "browser_receiving_executed": false,
+    "milestone_credit_added": 0
+  },
+  "interpretation": [
+    "Equivalent physical cutoffs 0.5 nm, 5 angstrom and 500 pm change the exact-boundary outcome under different active length policies. Raw conversions to nm already show one-to-two float64 steps below 0.5 for the latter inputs.",
+    "Both native dense and cell-list routes reproduce the discrepancy; ordinary and trusted native calls agree in every recorded case. A blanket approximate comparison is not an accepted scientific correction.",
+    "The immediate float64 predecessor of 0.5 nm remains a negative control. Preserve original caller unit/value and inspect both threshold digestion and calculation/presentation unit choices.",
+    "The provider review asks for an existing supported API or a bounded general conversion/comparison contract. It does not assert that ordinary IEEE backend rounding violates an existing PyUnitWizard promise.",
+    "The prototype tests deliberately use a tiny configured numeric-output budget. Their MemoryPressureWarnings refer to that test budget; monitored host pressure and cgroup stops are recorded independently.",
+    "No sibling checkout, package, native backend, unit policy or environment is changed. The published 0.28.1 payload remains the runtime provider; the clean inspected f82b618 source is not substituted."
+  ],
+  "native_source_sha256": {
+    "molsysmt/structure/get_contacts.py": "3c95b34287d6ea31690bd914d3c914645916f97c26e913085247a04e35dc9144",
+    "molsysmt/_private/argdigest/argument/threshold.py": "ff4c0cd512687d85132ba7d54915b16f84698ddd5c716892a207521bdd4f6321",
+    "molsysmt/lib/structure/_kernel_inputs.py": "784f9ac9d187c400931df8fa3097d614527b6e272aa1b9924a74a10981570481"
+  },
+  "probe_sha256": "7184767650a7624cea9d6e5f16c38efd7bf42dea2e050574431f840dc9685dda"
+}

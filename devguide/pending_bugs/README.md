@@ -25,6 +25,11 @@ that front matter -- edit the entries, not this list.
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
 
+### In progress (2)
+
+- [`bound_addon_omits_newly_exported_native_tools.md`](bound_addon_omits_newly_exported_native_tools.md) — [#665](https://github.com/uibcdf/molsysmt/issues/665) — Bound addon omits newly exported native tools *(high, reproduced)*
+- [`contact_cutoff_equality_changes_across_equivalent_length_units.md`](contact_cutoff_equality_changes_across_equivalent_length_units.md) — [#666](https://github.com/uibcdf/molsysmt/issues/666) — Contact cutoff equality changes across equivalent length units *(high, reproduced)*
+
 ### Partially resolved (1)
 
 - [`physchem_surface_area_unit_contract.md`](physchem_surface_area_unit_contract.md) — [#473](https://github.com/uibcdf/molsysmt/issues/473) — Verify the unit contract of Collantes surface-area descriptors. *(medium, inspected)*

@@ -19,6 +19,7 @@ class _H5MSMTools:
         "read",
         "write",
         "read_layers",
+        "read_axis_sizes",
         "write_layers",
         "append_structures",
         "migrate_04_to_05",
@@ -46,7 +47,7 @@ class _H5MSMTools:
     @_native_documentation("write", module="h5msm", bind_primary=True)
     @signal(tags=["addon", "io"])
     @arg_digest(config="molsysviewer_molsysmt._argdigest")
-    def write(self, output_filename, skip_digestion=False):
+    def write(self, output_filename, skip_digestion=False, *, format_version="0.5"):
         from molsysmt.h5msm import write
 
         return self._owner._read(
@@ -54,6 +55,7 @@ class _H5MSMTools:
             {
                 "output_filename": output_filename,
                 "skip_digestion": skip_digestion,
+                "format_version": format_version,
             },
         )
 
@@ -73,6 +75,15 @@ class _H5MSMTools:
             skip_digestion=skip_digestion,
         )
 
+    @_native_documentation("read_axis_sizes", module="h5msm", bind_primary=False)
+    @signal(tags=["addon", "io"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def read_axis_sizes(self, filename, skip_digestion=False):
+        from molsysmt.h5msm import read_axis_sizes
+
+        self._owner._view()
+        return read_axis_sizes(filename=filename, skip_digestion=skip_digestion)
+
     @_native_documentation("write_layers", module="h5msm", bind_primary=False)
     @signal(tags=["addon", "io"])
     @arg_digest(config="molsysviewer_molsysmt._argdigest")
@@ -83,6 +94,9 @@ class _H5MSMTools:
         topology=None,
         chemical_states=None,
         structures=None,
+        molecular_mechanics=None,
+        mechanics_n_atoms=None,
+        format_version="0.5",
         interactions=None,
         associations=None,
         skip_digestion=False,
@@ -95,6 +109,9 @@ class _H5MSMTools:
             topology=topology,
             chemical_states=chemical_states,
             structures=structures,
+            molecular_mechanics=molecular_mechanics,
+            mechanics_n_atoms=mechanics_n_atoms,
+            format_version=format_version,
             interactions=interactions,
             associations=associations,
             skip_digestion=skip_digestion,

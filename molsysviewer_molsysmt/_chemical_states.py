@@ -17,6 +17,7 @@ class _ChemicalStatesTools:
         "get_rings",
         "get_substructure_matches",
         "get_atom_correspondences",
+        "normalize_indexed_hydrogen_policy",
     )
 
     def __init__(self, owner):
@@ -29,6 +30,22 @@ class _ChemicalStatesTools:
         from molsysmt import chemical_states
 
         return self._owner._read(getattr(chemical_states, name), parameters, extra)
+
+    @_native_documentation(
+        "normalize_indexed_hydrogen_policy", module="chemical_states"
+    )
+    @signal(tags=["addon", "chemical_states", "preparation"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def normalize_indexed_hydrogen_policy(
+        self, chemical_state="reference", skip_digestion=False
+    ):
+        return self._call(
+            "normalize_indexed_hydrogen_policy",
+            {
+                "chemical_state": chemical_state,
+                "skip_digestion": skip_digestion,
+            },
+        )
 
     @_native_documentation("get_bondgraph", module="chemical_states")
     @signal(tags=["addon", "chemical_states"])

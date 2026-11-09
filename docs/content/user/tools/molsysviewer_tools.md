@@ -18,9 +18,11 @@ helpers `get_form`, `is_a_molecular_system`, `where_is_attribute` and the explic
 collection utility `are_multiple_molecular_systems` are also available in source.
 Their root aliases are also available, such as `view.addons.molsysmt.get`.
 
-The `view.addons.molsysmt.chemical_states` namespace provides the nine native
+The `view.addons.molsysmt.chemical_states` namespace provides native
 graph tools: bond graphs, covalent blocks/paths, dihedral quartets, rings, rigid
-fragments, rotatable bonds, SMARTS matches and atom correspondences. Sequence
+fragments, rotatable bonds, SMARTS matches and atom correspondences. The separate
+`normalize_indexed_hydrogen_policy` operation returns an independent system/report
+without adopting it or editing the source. Sequence
 alignment and identity remain under `view.addons.molsysmt.topology`. Both follow
 the independent native domains introduced by MolSysMT #255. There are no old-path
 graph aliases or invented root aliases. Native scientific prerequisites and
@@ -40,9 +42,10 @@ Results retain native quantities, arrays and metadata. The separate
 `structure.shift_dihedral_angles` wrappers receive independent outputs and managed
 in-place coordinate changes. Sequence alignment receives the native self-reference and atom-index/mask
 repairs documented below. Reflection receiving includes the default z normal and finite nonzero scaled normals,
-with native pre-write rejection of invalid planes. Displacement receiving covers single-structure, finite nonzero directions; undefined directions and unsupported axes reject before native coordinate writes. The reviewed structure namespace has explicit wrappers for its earlier 28 native function exports; finite torsion requests and explicit block pools have bounded native and addon guards. The newer bounded `get_pairwise_rmsd` and `get_distance_clusters` provider tools
-(#604, requested by DockingMT) are not exposed through this addon yet; their
-inventory entries remain explicitly missing pending a received Viewer intent (#421).
+with native pre-write rejection of invalid planes. Displacement receiving covers single-structure, finite nonzero directions; undefined directions and unsupported axes reject before native coordinate writes. The structure namespace also exposes bounded `get_pairwise_rmsd` and
+`get_distance_clusters`. The first reads the current primary; the second keeps
+its matrix and cutoff explicit and works on an empty open view. Native
+experimental limits and independent results remain unchanged.
 This is source exposure and bounded receiving, not unconditional scientific or package compatibility.
 
 The explicit `view.addons.molsysmt.pbc` namespace also provides ten box queries
@@ -4869,9 +4872,59 @@ with msv.new_view(source) as view:
     assert view.molsys is original
 ```
 
+## Comparing an ordered structure population
+
+The experimental {func}`molsysmt.structure.get_pairwise_rmsd` mirror reads the
+serialized current primary, including completed pending edits. Requested
+structure order and repetitions retain distinct member positions and opaque
+`member_keys`. Positional comparison uses declared atom ordering in common
+Cartesian axes; it performs no fitting or periodic reconstruction. Chemical
+symmetry is an explicit native method with its own evidence and prerequisites.
+
+```python
+import molsysviewer as msv
+
+with msv.demo["pentalanine"] as view:
+    tools = view.addons.molsysmt
+    result = tools.structure.get_pairwise_rmsd(
+        selection="all", structure_indices=[0, 8, 3, 0],
+        member_keys=["first", "ninth", "fourth", "first-again"],
+    )
+    clusters = tools.structure.get_distance_clusters(
+        result["rmsd"], "0.1 nm", member_keys=result["member_keys"],
+    )
+    assert result["structure_indices"].tolist() == [0, 8, 3, 0]
+    assert len(clusters["cluster_indices"]) == 4
+```
+
+The {func}`molsysmt.structure.get_distance_clusters` mirror takes an explicit
+unit-bearing matrix and cutoff, even without a loaded primary. It uses native
+canonical comparison units independently of presentation policy. Complete linkage
+bounds within-cluster diameter; single linkage can chain distant members.
+Member indices address matrix positions, not structure IDs or atom indices.
+Keep caller inputs stable during calls. Neither tool changes the source, stores
+an `Interactions` analysis, updates the scene or infers affinity. Dense output
+is quadratic in members; native work and numeric-memory bounds are preserved
+and do not guarantee total process RSS. See {ref}`Cookbook_ClusteringPoses`.
+
+The {func}`molsysmt.chemical_states.normalize_indexed_hydrogen_policy` mirror
+also reads the current primary and returns the native independent
+`molecular_system`/`report`. It only closes implicit-H permission for already
+indexed, declared neutral terminal H in the supported chemical profile. It
+neither adds H nor selects protonation. Returned-system invalidation and
+preparation history remain separate from the unchanged source and scene.
+There is no `in_place`, `update_view` or automatic adoption. Use `view.load(...)`
+explicitly if you choose to replace the primary after reviewing the result.
+See {ref}`Tutorial_Normalize_Indexed_Hydrogen_Policy`.
+
+All returned results remain caller-owned after replacing or closing the view;
+new calls through a closed owner reject. The exposed APIs remain experimental.
+Their source qualification does not certify installed packages, graphical tasks
+or every scientific method/input population.
+
 ## Working with molecular files explicitly
 
-`tools.h5msm.write(output_filename)` writes the current primary, including pending
+`tools.h5msm.write(output_filename, *, format_version="0.5")` writes the current primary, including pending
 native edits, through the serialized reader. It does not synchronize the scene.
 All other H5MSM utilities keep filenames and domain objects explicit and work
 before loading a system while the view is open. Paths refer to the Python process
@@ -4883,8 +4936,12 @@ Viewer scene/session save or a browser download.
 - `read_layers(filename, layers=None, analysis_names=None)` returns selected native
   domains/analyses. An absent layer is `None`; present-empty interactions are `{}`.
   This is not a public out-of-core interaction query.
+- `read_axis_sizes(filename)` reads declared axis sizes from schema metadata,
+  without materializing domain arrays. Equal sizes do not establish correspondence
+  or full payload validity.
 - `write_layers(output_filename, *, topology=None, chemical_states=None,
-  structures=None, interactions=None, associations=None)` writes only explicit
+  structures=None, molecular_mechanics=None, mechanics_n_atoms=None,
+  format_version="0.5", interactions=None, associations=None)` writes only explicit
   caller-owned domains and declared associations, never implicitly adding the
   primary's topology, analyses or structures.
 - `append_structures(filename, structures, *, structure_state_indices=None,
@@ -4897,11 +4954,15 @@ Viewer scene/session save or a browser download.
 
 Native units, sparse coverage, associations, producer metadata, return types,
 errors and overwrite behavior remain unchanged. H5MSM 0.5 rejects nonempty
-molecular-mechanics data rather than silently discarding it. Explicit external
+molecular-mechanics data rather than silently discarding it. Explicit
+`format_version="0.6"` on either writer requests experimental stored mechanics;
+`mechanics_n_atoms` declares the atom count of an independent mechanics layer.
+No parameterization or model execution occurs during storage. Explicit external
 inputs/files must remain stable during calls; the view's molecular edit lock does
 not lock those resources. See {func}`molsysmt.h5msm.read`,
 {func}`molsysmt.h5msm.write`, {func}`molsysmt.h5msm.read_layers`,
-{func}`molsysmt.h5msm.write_layers`, {func}`molsysmt.h5msm.append_structures`,
+{func}`molsysmt.h5msm.write_layers`, {func}`molsysmt.h5msm.read_axis_sizes`,
+{func}`molsysmt.h5msm.append_structures`,
 {func}`molsysmt.h5msm.migrate_04_to_05` and {func}`molsysmt.h5msm.migrate_to_05`.
 
 ```python

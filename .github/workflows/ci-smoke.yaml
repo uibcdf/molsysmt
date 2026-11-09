@@ -277,6 +277,7 @@ jobs:
             tests/molsysviewer_molsysmt/test_structure_analysis_tools.py \
             tests/molsysviewer_molsysmt/test_structure_transform_tools.py \
             tests/molsysviewer_molsysmt/test_axis_angle_rotation_tools.py \
+            tests/molsysviewer_molsysmt/test_provider_admission_tools.py \
             tests/molsysviewer_molsysmt/test_structure_fitting_tools.py \
             tests/molsysviewer_molsysmt/test_structure_center_tools.py \
             tests/molsysviewer_molsysmt/test_structure_move_away_tools.py \

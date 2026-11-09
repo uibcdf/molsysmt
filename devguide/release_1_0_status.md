@@ -1,5 +1,22 @@
 # MolSysMT 1.0 Execution Status
 
+## New contact-boundary evidence and facade priority — 2026-11-09
+
+The #421 contact prototype exposes native #666: an inclusive 0.5 nm decision
+changes for equivalent 5 angstrom/500 pm cutoffs. Direct native dense/cell-list
+and ordinary/trusted probes reproduce it. The [receiving record](../devtools/data/native_contact_unit_boundary_666_20261109.json)
+retains all twenty-four observations and both original prototype selections.
+The corrected selection has 152 passes/two failures; the local prototype c96d258b9
+is isolated and unpublished. No graphical or milestone acceptance is added.
+The general unit-conversion/comparison contract is requested in
+uibcdf/pyunitwizard#143; no upstream defect or workaround is inferred.
+
+New Viewer report #665 identifies missing native tools in the bound facade.
+Reproduce and repair that public-inventory regression next, preserving native
+signatures, independent results, explicit-input utility ownership and experimental
+H5MSM controls. Independent #256 receiving, stable-format/candidate gates and
+the publication pause remain unchanged.
+
 ## Modular encoding review and precision refusal — 2026-11-09
 
 Clean `f03288768` receives #663's public option-boundary correction: 1,907

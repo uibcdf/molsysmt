@@ -17,6 +17,8 @@ class _StructureTools:
         "get_dihedral_angles",
         "get_rmsd",
         "get_least_rmsd",
+        "get_pairwise_rmsd",
+        "get_distance_clusters",
         "get_principal_axes",
         "get_least_squares_plane",
         "get_maximum_distances",
@@ -61,6 +63,74 @@ class _StructureTools:
         self._owner._view()
         return get_rotation_matrix_from_axis_angle(
             axis=axis, angle=angle, skip_digestion=skip_digestion
+        )
+
+    @_native_documentation("get_pairwise_rmsd", module="structure")
+    @signal(tags=["addon", "structure"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_pairwise_rmsd(
+        self,
+        selection='atom_type!="H"',
+        structure_indices="all",
+        method="positional",
+        chemical_state="reference",
+        correspondences=None,
+        max_matches=100000,
+        tie_tolerance="1e-12 nm",
+        member_keys=None,
+        max_work=100000000,
+        syntax="MolSysMT",
+        heavy_mode="auto",
+        parallel=None,
+        num_threads=None,
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_pairwise_rmsd",
+            {
+                "selection": selection,
+                "structure_indices": structure_indices,
+                "method": method,
+                "chemical_state": chemical_state,
+                "correspondences": correspondences,
+                "max_matches": max_matches,
+                "tie_tolerance": tie_tolerance,
+                "member_keys": member_keys,
+                "max_work": max_work,
+                "syntax": syntax,
+                "heavy_mode": heavy_mode,
+                "parallel": parallel,
+                "num_threads": num_threads,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation(
+        "get_distance_clusters", module="structure", bind_primary=False
+    )
+    @signal(tags=["addon", "structure", "utility"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_distance_clusters(
+        self,
+        distances,
+        cutoff_distance,
+        method="complete_linkage",
+        representative="medoid",
+        member_keys=None,
+        max_work=100000000,
+        skip_digestion=False,
+    ):
+        from molsysmt.structure import get_distance_clusters
+
+        self._owner._view()
+        return get_distance_clusters(
+            distances=distances,
+            cutoff_distance=cutoff_distance,
+            method=method,
+            representative=representative,
+            member_keys=member_keys,
+            max_work=max_work,
+            skip_digestion=skip_digestion,
         )
 
     @_native_documentation("get_distances", module="structure")

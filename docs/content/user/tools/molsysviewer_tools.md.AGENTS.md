@@ -721,3 +721,14 @@ search. External reference snapshots retain original group axes, read one
 selected coordinate slab and budget one resident full-atom structure with unknown
 unrequested positions. Static-only reference expressions and non-H5MSM loading
 limits remain visible. Retain expiry, source ownership and projection-only retry.
+
+
+Preserve the received #665 native additions: primary-bound bounded pairwise
+RMSD and independent indexed-H policy normalization, explicit distance-matrix
+clustering and metadata-only H5MSM axis-size inspection. Keep native signatures,
+unit/work/memory limits, ordered member/source indices, reports and diagnostics.
+Explicit utilities work on open empty owners without reading the primary;
+closed owners reject, returned results remain caller-owned. Normalization is
+never a managed edit or automatic adoption. Both writers preserve H5MSM 0.5
+defaults and require explicit experimental 0.6 for stored mechanics. These
+expert routes do not imply new GUI tasks or installed-pair qualification.

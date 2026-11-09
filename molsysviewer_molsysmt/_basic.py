@@ -67,6 +67,46 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 "after owner closure; new calls through a closed owner reject. "
                 "Applying the matrix is a separate structure.rotate operation.\n"
             )
+        if module == "structure" and name in {
+            "get_pairwise_rmsd",
+            "get_distance_clusters",
+        }:
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "Experimental bounded native analysis; no fitting, periodic "
+                "reconstruction, scene edit or automatic stored analysis is "
+                "added. Native work/memory limits, units, ordered member keys, "
+                "source indices and producer evidence remain unchanged. Results "
+                "are detached and remain caller-owned after view closure.\n"
+            )
+            if name == "get_pairwise_rmsd":
+                function.__doc__ += (
+                    "The serialized current-primary reader includes pending "
+                    "edits without synchronizing the scene. Requested structure "
+                    "order and repetitions remain distinct members; no visible "
+                    "structure is substituted. Chemical validation is limited "
+                    "to the selected native method.\n"
+                )
+            else:
+                function.__doc__ += (
+                    "An open empty view is sufficient. Matrix and cutoff remain "
+                    "explicit; no primary is read or synchronized. Clustering "
+                    "uses native canonical comparison units, independently of "
+                    "output-unit policy. Caller inputs must remain stable during "
+                    "the call. No molecular correspondence is inferred.\n"
+                )
+        if module == "chemical_states" and name == "normalize_indexed_hydrogen_policy":
+            function.__doc__ += (
+                "\n\nView integration\n----------------\n"
+                "The serialized current-primary reader returns the native "
+                "independent molecular_system/report, including pending edits. "
+                "The source, scene, history and synchronization status remain "
+                "unchanged; invalidation applies only to the returned system. "
+                "There is no in_place, update_view or implicit adoption. This "
+                "experimental representation policy neither adds hydrogens nor "
+                "chooses protonation. Returned data remain caller-owned after "
+                "owner closure; new calls require an open loaded owner.\n"
+            )
         if module == "build" and name == "make_water_box":
             function.__doc__ += (
                 "\n\nView integration\n----------------\n"
@@ -194,8 +234,10 @@ def _native_documentation(name, module="basic", *, bind_primary=True):
                 function.__doc__ += (
                     "The current primary is serialized through the managed reader, "
                     "including pending native edits; the scene is not reconciled. "
-                    "Molecular-mechanics data retain H5MSM 0.5 rejection, not silent "
-                    "discard. No source arrays or saved analyses are modified.\n"
+                    "The default format_version='0.5' rejects stored mechanics "
+                    "rather than discarding them. Explicit format_version='0.6' "
+                    "requests the experimental mechanics schema. No source "
+                    "arrays or saved analyses are modified.\n"
                 )
             else:
                 function.__doc__ += (

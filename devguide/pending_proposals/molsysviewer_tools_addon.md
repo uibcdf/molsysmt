@@ -8,11 +8,27 @@ verification: measured
 area: [api, molsysviewer, addons]
 guard:
 normative:
-blocked_by: [uibcdf/molsysviewer#304, uibcdf/molsysviewer#314]
+blocked_by: [uibcdf/molsysviewer#304, uibcdf/molsysviewer#314, uibcdf/molsysmt#666]
 supersedes: []
 ---
 
 # Bound MolSysMT tools addon for MolSysViewer
+
+## Contact prototype and new facade intake — 2026-11-09
+
+The registered contact intent has a local unpublished prototype at c96d258b9,
+retained in wip/contacts-panel-421-20261109. It delegates to native get_contacts,
+keeps Boolean rows, explicit cutoff/count/axes, bounded pages and read-only
+scene semantics. The 154-case pilot has one mass-oracle typo and two boundary
+failures; correcting only the typo yields 152 passes and two genuine failures.
+No browser receiving, graphical leaf or milestone credit is added. Native #666
+and the shared conversion-contract review uibcdf/pyunitwizard#143 own the exact
+unit-boundary problem; the panel must not compensate for it.
+
+New #665 from Viewer reports four missing native facade routes and changed
+H5MSM signatures. That public-inventory regression takes priority while the
+contact scientific review remains open. No prototype is merged into main and
+no client source/package identity or release gate is replaced by this intake.
 
 ## Sequence-derived public delivery — 2026-11-08
 

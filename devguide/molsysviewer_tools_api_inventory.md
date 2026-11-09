@@ -3,6 +3,17 @@
 **Role:** maintained source inventory and implementation plan under
 uibcdf/molsysmt#421 / uibcdf/molsysviewer#264.
 
+**Native-addition receiving — 2026-11-09 (#665):** explicit wrappers now expose
+`chemical_states.normalize_indexed_hydrogen_policy`, `structure.get_pairwise_rmsd`,
+`structure.get_distance_clusters` and `h5msm.read_axis_sizes`. The first two
+read the serialized current primary; the latter two retain explicit inputs and
+open-empty-view access. Normalization returns an independent system/report.
+Both H5MSM writers mirror explicit experimental 0.6 mechanics options, retaining
+0.5 defaults and native loss-prevention errors. Strict inventories, signatures,
+analytical examples, pending/closed-owner and detached-result guards are retained.
+Source and installed/current-pair qualification remain distinct. The older
+counts below describe dated snapshots; no new graphical intent is claimed.
+
 **Current reference receiving — 2026-11-06:** the expert facade additionally
 receives `topology.get_atom_name_correspondence`,
 `physchem.get_chemical_template` and `build.assess_protonation`. The first and

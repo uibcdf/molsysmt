@@ -30,6 +30,7 @@ PATHS = [
             "read",
             "write",
             "read_layers",
+            "read_axis_sizes",
             "write_layers",
             "append_structures",
             "migrate_04_to_05",
