@@ -23,11 +23,25 @@ try{
  page=await browser.newPage({viewport:{width:1440,height:1100}});page.setDefaultTimeout(30000);
  const record=p=>p.on('pageerror',error=>errors.push({stage,error:String(error),stack:error.stack}));record(page);
  const panel=()=>page.locator('.msm-chemistry').first();
+ let expected;
+ async function inspectAssessment(p,task){
+  const widget=p.locator('.msm-chemistry').first();
+  await widget.locator('[data-task]').selectOption(task);
+  await widget.locator('[data-heading]').filter({hasText:task==='coverage'?'Assess exact-template coverage':task==='terminals'?'Inspect missing terminal atoms':'Assess reference-rule protonation'}).waitFor();
+  if(task==='coverage')await widget.locator('[data-source]').selectOption('all');
+  if(task==='protonation')await widget.locator('[data-assessment-ph]').fill('12');
+  await widget.locator('[data-inspect]').click();await widget.locator('[data-report-heading]').filter({hasText:'report'}).waitFor();
+  const details=widget.locator('[data-details]');if(!await details.evaluate(e=>e.open))await details.locator('summary').click();
+  return widget;
+ }
+ async function table(widget){return widget.locator('[data-rows] tr').evaluateAll(rows=>rows.map(row=>Array.from(row.querySelectorAll('td'),cell=>cell.textContent)));}
+
  await step('Render bundled TcTIM and open Chemistry without starting an assessment',async()=>{
   await page.goto(`http://127.0.0.1:${config.port}/lab/workspaces/chemistry-${Date.now()}/tree/system.ipynb?token=${config.token}`,{waitUntil:'domcontentloaded'});
   const cell=page.locator('.jp-NotebookPanel:visible .jp-Cell').first();await cell.filter({hasText:'import molsysviewer as msv'}).waitFor();
   const no=page.getByRole('button',{name:'No',exact:true});if(await no.isVisible())await no.click();await execute(cell);
   await page.locator('canvas').waitFor();await workspace(page);
+  expected=JSON.parse(await readFile(output+'/assessment-expected.json','utf8'));
   assert.equal(await panel().locator('[data-report]').isVisible(),false);
   assert.equal(await panel().locator('[data-inspect]').isDisabled(),true);
  });
@@ -72,13 +86,55 @@ try{
   const opened=page.waitForEvent('popup');await source.getByTitle('Open popup',{exact:true}).click();const canvas=await opened;record(canvas);
   await canvas.locator('#molsysviewer-loading').waitFor({state:'hidden'});await workspace(canvas);
   await canvas.locator('[data-inspect]').click();await canvas.locator('[data-report-scope]').filter({hasText:'3,983 selected atoms'}).waitFor();
+  const assessedCanvas=await inspectAssessment(canvas,'protonation');
+  assert.match(await assessedCanvas.locator('[data-assessment-summary]').innerText(),new RegExp(`${expected.removed} proposed H removals, not applied`));
+  await assessedCanvas.locator('[data-task]').selectOption('hydrogens');
+  await assessedCanvas.locator('[data-heading]').filter({hasText:'Hydrogen inventory'}).waitFor();
+  await assessedCanvas.locator('[data-inspect]').click();await assessedCanvas.locator('[data-report-scope]').filter({hasText:'3,983 selected atoms'}).waitFor();
   const detached=canvas.waitForEvent('popup');await canvas.getByTitle('Popout panel to external window',{exact:true}).click();const studio=await detached;record(studio);
   await studio.locator('#molsysviewer-loading').waitFor({state:'detached'});
   const tab=studio.locator('[data-molsysviewer-addon-workspace-tab="molsysmt"]');await tab.waitFor({state:'visible'});await tab.click();
   await studio.locator('[data-molsysviewer-addon-panel-tab="chemistry"]').click();await studio.locator('.msm-chemistry').waitFor();
   await studio.locator('[data-inspect]').click();await studio.locator('[data-report-scope]').filter({hasText:'3,983 selected atoms'}).waitFor();
   await studio.screenshot({path:output+'/chemistry-studio-popup.png'});
+  // Preserve all existing popup inspection assertions, then receive the new
+  // whole-system reader independently on both actual endpoints.
+  for(const host of [studio]){
+   const widget=await inspectAssessment(host,'protonation');
+   assert.match(await widget.locator('[data-assessment-summary]').innerText(),new RegExp(`${expected.removed} proposed H removals, not applied`));
+   assert.equal(await widget.locator('[data-editor]').isVisible(),false);
+  }
+  await studio.screenshot({path:output+'/chemistry-assessment-studio.png'});
   await studio.locator('[data-clear]').click();await studio.locator('[data-report]').waitFor({state:'hidden'});await studio.close();await canvas.close();
+ });
+ await step('Inspect exact-template coverage with native source-group pages and unassessed scope',async()=>{
+  const widget=await inspectAssessment(page,'coverage');
+  const summary=await widget.locator('[data-assessment-summary]').innerText();
+  assert.match(summary,new RegExp(`${expected.counts.assessed} assessed, ${expected.counts.incomplete} incomplete, ${expected.counts.unassessed} unassessed`));
+  assert.equal((await table(widget)).length,50);
+  assert.deepEqual((await table(widget))[0].slice(0,4),expected.coverage_first);
+  await widget.locator('[data-next]').click();await widget.locator('[data-page-summary]').filter({hasText:'Rows 51–100'}).waitFor();
+  assert.equal((await table(widget))[0][0],'50');
+  await page.screenshot({path:output+'/chemistry-template-coverage.png',fullPage:true});
+ });
+ await step('Inspect missing terminal OXT on the whole system without certifying empty results',async()=>{
+  const widget=await inspectAssessment(page,'terminals');
+  assert.equal(await widget.locator('[data-editor]').isVisible(),false);
+  assert.equal(await widget.locator('[data-chemical-state]').isVisible(),false);
+  assert.deepEqual(await table(widget),expected.terminals);
+  assert.match(await widget.locator('[data-assessment-summary]').innerText(),/empty result does not certify/);
+  assert.equal(await widget.locator('[data-preparation]').isVisible(),false);
+ });
+ await step('Inspect a fixed-pKa removal decision without executing it or preparing a result',async()=>{
+  const widget=await inspectAssessment(page,'protonation');
+  assert.match(await widget.locator('[data-assessment-summary]').innerText(),new RegExp(`${expected.removed} proposed H removals, not applied`));
+  assert.match(await widget.locator('[data-assessment-summary]').innerText(),new RegExp(`Native status: ${expected.status}`));
+  assert.match(await widget.locator('[data-assessment-summary]').innerText(),new RegExp(`${expected.assessed} assessed groups; ${expected.unassessed} unassessed groups`));
+  await widget.locator('[data-dataset]').selectOption('protonation_removals');
+  if(expected.removal_rows.length)await widget.locator('[data-rows] tr').first().locator('td').first().filter({hasText:expected.removal_rows[0][0]}).waitFor();
+  assert.deepEqual(await table(widget),expected.removal_rows);
+  assert.equal(await widget.locator('[data-preparation-result]').isVisible(),false);
+  await page.screenshot({path:output+'/chemistry-protonation-assessment.png',fullPage:true});
  });
  await step('Python verifies every source coordinate chemical domain scene and revision is unchanged',async()=>{
   await execute(page.locator('.jp-NotebookPanel:visible .jp-Cell').nth(1));await page.getByText('JUPYTER_CHEMISTRY_UNCHANGED 3983',{exact:true}).waitFor();
@@ -86,7 +142,7 @@ try{
  });
  const fingerprint=e=>e.error+'|'+(e.stack?.split('\n')[1]||'');
  assert.ok(errors.every(error=>baselineErrors.some(baseline=>fingerprint(error)===fingerprint(baseline))),'A page error was introduced beyond the plain Jupyter control');
- const receipt={checks,errors,baseline_errors:baselineErrors,scope:'Actual Jupyter/Mol*/AnyWidget stored-chemistry and hydrogen inventory, bounded pages, native coverage and both popup hosts. Synchronized source only; pending-state pointer/keyboard admission remains Viewer #304. Not human Qt qualification.'};
+ const receipt={checks,errors,baseline_errors:baselineErrors,scope:'Actual Jupyter/Mol*/AnyWidget stored-chemistry/hydrogen inventory plus exact-template, terminal OXT and fixed-pKa read-only assessments; bounded pages and both popup hosts. Synchronized source only; pending-state pointer/keyboard admission remains Viewer #304. Not human Qt qualification.'};
  await writeFile(output+'/full-result.json',JSON.stringify(receipt,null,2));console.log(JSON.stringify(receipt,null,2));
 }catch(error){await writeFile(output+'/full-failure.json',JSON.stringify({stage,error:String(error),checks,errors},null,2));if(browser){for(const [i,p] of browser.contexts().flatMap(c=>c.pages()).entries())await writeFile(output+'/window-'+i+'-failure-dom.txt',await p.locator('body').innerText());}if(page){await page.screenshot({path:output+'/failure.png',fullPage:true});await writeFile(output+'/failure-dom.txt',await page.locator('body').innerText());}console.error(error);process.exitCode=1;}
 finally{if(browser)await browser.close();}

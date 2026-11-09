@@ -741,3 +741,13 @@ native undefined values. Keep scientific delegation, native unit/policy/resource
 limits, fifty-row pages, pending-reader and stale-result rules. Angular calls
 retain eager coordinate/output storage; vector block storage is not a universal
 RAM guarantee. Participant actions do not navigate or create live geometry.
+
+
+Preserve the read-only exact-template, missing-terminal and reference-rule
+protonation inspections. Coverage expands selected atoms to complete source
+groups, preserves explicit state/structure and refuses unknown membership.
+Terminal OXT inspection and fixed-pKa protonation use the whole system with
+explicit limits; hidden selection/state drafts never narrow them. No executable
+assessment is retained or applied. Keep unassessed/partial/no-change distinctions,
+native reference identifiers, source-index 50-row pages, pending-reader/expiry
+rules and absence of report/session/H5MSM persistence explicit.

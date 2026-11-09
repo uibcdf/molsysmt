@@ -261,6 +261,7 @@ jobs:
             tests/molsysviewer_molsysmt/test_sequence_alignment_panel.py \
             tests/molsysviewer_molsysmt/test_periodic_panel.py \
             tests/molsysviewer_molsysmt/test_chemistry_panel.py \
+            tests/molsysviewer_molsysmt/test_chemistry_assessments_panel.py \
             tests/molsysviewer_molsysmt/test_chemistry_preparation_panel.py \
             tests/molsysviewer_molsysmt/test_analysis_panel.py \
             tests/molsysviewer_molsysmt/test_vector_angular_analysis_panel.py \

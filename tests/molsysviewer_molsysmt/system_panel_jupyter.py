@@ -551,10 +551,15 @@ def main():
         )
     if args.scenario == "chemistry":
         initial = initial.removesuffix("view\n") + (
-            "import numpy as np\n"
+            "import numpy as np\nimport json\n"
             "source_coordinates=msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm').copy()\n"
             "source_chemistry=msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict()\n"
             "source_scene=view.export_state()\n"
+            "_coverage=msm.build.get_residue_chemical_coverage(view.molsys,structure_indices=[0])\n"
+            "_terminals=msm.build.get_missing_terminal_cappings(view.molsys)\n"
+            "_protonation=msm.build.assess_protonation(view.molsys,pH=12).to_dict()\n"
+            "_assessment_expected=dict(counts=_coverage['summary'],groups=len(_coverage['groups']),coverage_first=[str(_coverage['groups'][0]['group_index']),_coverage['groups'][0]['group_name'],_coverage['groups'][0]['status'],_coverage['groups'][0]['heavy_atoms']['status']],terminals=[[str(k),', '.join(v)] for k,v in _terminals.items()],status=_protonation['status'],removed=len(_protonation['removed_atom_indices']),removal_rows=[[str(v) for v in row] for row in _protonation['removed_atoms'][:50]],assessed=len(_protonation['coverage']['assessed_group_indices']),unassessed=len(_protonation['coverage']['unassessed_group_indices']))\n"
+            f"Path({str(output / 'assessment-expected.json')!r}).write_text(json.dumps(_assessment_expected))\n"
             "view\n"
         )
         final = (

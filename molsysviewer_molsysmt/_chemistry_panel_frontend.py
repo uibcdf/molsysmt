@@ -15,7 +15,7 @@ export function render({model,el}) {
   const labels={atom_type:'Element',atom_id:'Atom ID',isotope:'Isotope',formal_charge:'Formal charge',atom_is_aromatic:'Atom aromaticity',n_unpaired_electrons:'Unpaired electrons',n_implicit_hydrogens:'Stored implicit H count',n_explicit_hydrogens:'Stored explicit H count',allows_implicit_hydrogens:'Implicit H permission',atom_stereochemistry:'Atom stereochemistry',bond_id:'Bond ID',bond_type:'Bond type',bond_order:'Bond order',bond_is_aromatic:'Bond aromaticity',bond_stereochemistry:'Bond stereochemistry',covalent_multiplicity:'Covalent multiplicity',coordinates:'Coordinates'};
   const label=name=>labels[name]||String(name).replaceAll('_',' ');
   el.innerHTML=`<section class="msm-system msm-chemistry" aria-label="Molecular chemistry tools">
-    <label>Chemistry task<select data-task aria-label="Chemistry task"><optgroup label="Inspect"><option value="chemistry">Inspect stored chemistry</option><option value="hydrogens">Hydrogen inventory</option></optgroup><optgroup label="Prepare a separate system"><option value="heavy">Add missing heavy atoms</option><option value="add_hydrogens">Add missing hydrogens</option></optgroup></select></label>
+    <label>Chemistry task<select data-task aria-label="Chemistry task"><optgroup label="Inspect"><option value="chemistry">Inspect stored chemistry</option><option value="hydrogens">Hydrogen inventory</option><option value="coverage">Assess exact-template coverage</option><option value="terminals">Inspect missing terminal atoms</option><option value="protonation">Assess reference-rule protonation</option></optgroup><optgroup label="Prepare a separate system"><option value="heavy">Add missing heavy atoms</option><option value="add_hydrogens">Add missing hydrogens</option></optgroup></select></label>
     <h2 data-heading>Inspect stored chemistry</h2><p class="msm-context" data-context>Loading system information…</p>
     <p class="msm-hint" data-purpose></p>
     __SELECTION_EDITOR__
@@ -25,6 +25,7 @@ export function render({model,el}) {
       <label data-state-index-label hidden>Chemical state index<input data-state-index aria-label="Chemical state index" inputmode="numeric" maxlength="64"></label>
       <p class="msm-hint">Selections use the reference state. The report inspects these fixed atoms in the state chosen here. An absent or ambiguous state remains unassessed.</p>
     </details>
+    <label data-assessment-ph-label hidden>Assessment pH<input data-assessment-ph aria-label="Assessment pH" inputmode="decimal" maxlength="64"></label>
     <div data-preparation hidden>
       <label data-hydrogen-mode-label>Hydrogen method<select data-hydrogen-mode aria-label="Hydrogen method"><option value="pH">Template-based pH approximation</option><option value="fixed_chemical_state">Prepared chemical state (RDKit)</option></select></label>
       <label data-engine-label>Engine<select data-engine aria-label="Preparation engine"><option value="MolSysMT">MolSysMT</option><option value="PDBFixer">PDBFixer (optional)</option><option value="OpenMM">OpenMM (optional)</option></select></label>
@@ -49,6 +50,7 @@ export function render({model,el}) {
     <section data-report hidden aria-label="Chemistry report">
       <h3 data-report-heading tabindex="-1"></h3><button data-change-inspection>Change inspection</button><p data-report-scope></p><p class="msm-hint" data-state-summary></p>
       <p data-inventory-status></p><p class="msm-hint" data-count-convention></p><p class="msm-hint" data-connectivity></p>
+      <p class="msm-hint" data-assessment-summary hidden></p>
       <details data-fields-section open><summary>Stored information</summary><div class="msm-table-scroll"><table><thead><tr><th>Field</th><th>Coverage</th><th>Present / total</th></tr></thead><tbody data-fields></tbody></table></div><p class="msm-hint">Presence describes stored information, not independent chemical validation. Partial, missing, unsupported and conflicting values remain distinct in the details.</p></details>
       <details data-issues-section open hidden><summary>Inventory issues</summary><ul data-issue-counts></ul></details>
       <details data-details><summary>Inspect source indices and values</summary>
@@ -69,12 +71,12 @@ export function render({model,el}) {
   function tableRows(target,rows){target.replaceChildren(...rows.map(values=>{const tr=document.createElement('tr');tr.append(...values.map(x=>cell('td',x)));return tr;}));}
   function list(target,values){target.replaceChildren(...values.map(x=>cell('li',x)));}
   function render(){
-    const hydrogen=parameters.task==='hydrogens',heavy=parameters.task==='heavy',addH=parameters.task==='add_hydrogens',prepare=heavy||addH,fixed=addH&&parameters.hydrogen_mode==='fixed_chemical_state';renderSelection(draft,context);
+    const assessment=['coverage','terminals','protonation'].includes(parameters.task),whole=['terminals','protonation'].includes(parameters.task),protonation=parameters.task==='protonation',hydrogen=parameters.task==='hydrogens',heavy=parameters.task==='heavy',addH=parameters.task==='add_hydrogens',prepare=heavy||addH,fixed=addH&&parameters.hydrogen_mode==='fixed_chemical_state';renderSelection(draft,context);
     q('task').value=parameters.task;q('heading').textContent=heavy?'Add missing heavy atoms':addH?'Add missing hydrogens':hydrogen?'Hydrogen inventory':'Inspect stored chemistry';
     q('purpose').textContent=heavy?'Complete selected groups using the explicitly chosen native engine. Unassessed groups remain distinct from completed groups.':addH?'Add hydrogen atoms to a separate complete system, without removing existing hydrogens.':hydrogen?'Inspect indexed hydrogen neighbors and separately stored hydrogen counts, without adding or removing atoms.':'Inspect stored atom, bond and coordinate information without completing or repairing chemistry.';
     q('context').textContent=!context.has_system?'Load a system in Studio > Load first.':context.n_atoms!==undefined?`${context.n_atoms.toLocaleString()} atoms · ${context.n_structures} structures`:'Molecular data need explicit recovery.';
     q('state-mode').value=parameters.state_mode;q('state-index-label').hidden=parameters.state_mode!=='index';if(document.activeElement!==q('state-index'))q('state-index').value=parameters.state_index;
-    q('editor').hidden=addH;q('chemical-state').hidden=prepare&&!fixed;
+    q('editor').hidden=addH||whole;q('chemical-state').hidden=(prepare&&!fixed)||whole;q('assessment-ph-label').hidden=!protonation;if(document.activeElement!==q('assessment-ph'))q('assessment-ph').value=parameters.pH;
     q('scope').textContent=heavy?'The selection is evaluated in its chosen structure and reference state. The selected groups are completed across every source structure. Atom indices may change.':addH?'The complete system is prepared; no atom selection or visible-structure extraction is applied. This panel requires one source structure.':'The report uses the structure chosen in Selection context. One structure is inspected; other structures are not assessed.';
     q('preparation').hidden=!prepare||!!result;q('hydrogen-mode-label').hidden=!addH;q('hydrogen-mode').value=parameters.hydrogen_mode;
     q('engine-label').hidden=fixed;q('engine').value=parameters.engine;for(const option of q('engine').options)option.disabled=heavy&&option.value==='OpenMM';
@@ -93,13 +95,32 @@ export function render({model,el}) {
       q('replace-unavailable').textContent=result.adopted?'This result has been loaded here. Its separate view remains independent.':canReplace?'':!replacementSupported?'Update MolSysViewer to a qualified host for reviewed replacement.':'The source changed or needs recovery. The separate result is still available; prepare again before replacing the current system.';
     }
     q('replacement').hidden=!replacement;q('replace-apply').disabled=busy||!canReplace;q('replace-back').disabled=busy;
-    const sceneSource=['current','saved','region'].includes(draft.source)&&context.state!=='synchronized';
-    q('inspect').hidden=prepare;q('inspect').disabled=busy||!context.can_inspect||draft.source==='none'||sceneSource;
+    const sceneSource=!whole&&['current','saved','region'].includes(draft.source)&&context.state!=='synchronized';
+    q('inspect').hidden=prepare;q('inspect').disabled=busy||!context.can_inspect||(!whole&&draft.source==='none')||sceneSource;
     q('inspect').textContent=busy?'Working…':hydrogen?'Inspect hydrogens':'Inspect chemistry';q('refresh').disabled=busy;q('clear').hidden=!report;q('clear').disabled=busy;
     for(const input of el.querySelectorAll('input,select'))input.disabled=busy;
     q('status').textContent=message||(sceneSource?'Update the scene before using its selection or regions.':['pending','sync_failed'].includes(context.state)?'The scene update is pending. Inspection reads the current molecular data; use Update view to synchronize the scene.':'');
+    if(assessment){
+      const titles={coverage:'Assess exact-template coverage',terminals:'Inspect missing terminal atoms',protonation:'Assess reference-rule protonation'};
+      q('heading').textContent=titles[parameters.task];
+      q('purpose').textContent=protonation?'Inspect the existing fixed-pKa name-inventory decision. This is an approximation, not environment-dependent pKa prediction or a chemical-state choice. No proposed hydrogen removal is applied.':whole?'Inspect the native whole-system C-terminal OXT name check. Native chain/group-ID and capping conventions apply. This is not a complete terminal-chemistry assessment.':'Compare the whole groups containing selected atoms against exact supported native templates. Missing, unexpected, ambiguous and unsupported chemistry remain distinct.';
+      q('scope').textContent=whole?'Whole current molecular system, independent of the atom editor and visible structure. No coordinates or scene are changed.': 'Each selected atom contributes its complete source group. One chosen structure and chemical state are assessed. Group indices refer to the source, not a renumbered selection.';
+      q('inspect').textContent=busy?'Working…':'Inspect without changing';
+    }
     q('report').hidden=!report;
-    if(report){
+    q('assessment-summary').hidden=!assessment;
+    if(report&&assessment){
+      q('report-heading').textContent=q('heading').textContent+' report';
+      q('report-scope').textContent=whole?`${report.group_count.toLocaleString()} ${protonation?'source groups':'groups with missing terminal atoms'} · whole system`:`${report.group_count.toLocaleString()} source groups · ${report.structure_index===null?'no coordinate structures':`structure ${report.structure_index}`}`;
+      q('state-summary').textContent=parameters.task==='terminals'?'Inventory/name-based terminal check; no chemical-state selection.':`Chemical state: ${report.chemical_state_index===null?'unresolved':report.chemical_state_index}.`;
+      q('assessment-summary').textContent=protonation?`Native status: ${report.status}; pH ${report.pH}. ${report.removed_atoms} proposed H removals, not applied. ${report.assessed_groups} assessed groups; ${report.unassessed_groups} unassessed groups; ${report.unassessed_states} unassessed states; ${report.unassigned_atoms} unassigned atoms. Coverage complete: ${report.coverage_complete}. Reference data: ${report.attribution.join(', ')}${report.attribution_truncated?'…':''}.`:whole?'Only missing OXT names are returned; an empty result does not certify complete termini or unsupported groups.':`Native group coverage: ${report.counts.assessed} assessed, ${report.counts.incomplete} incomplete, ${report.counts.unassessed} unassessed. This is template comparison, not validation of all chemistry.`;
+      q('inventory-status').textContent='';q('count-convention').textContent='';q('connectivity').textContent='';q('fields-section').hidden=true;q('issues-section').hidden=true;
+      list(q('unassessed'),report.unassessed_checks.map(label));
+      q('provenance').textContent=`${report.method} · ${report.schema} · MolSysMT ${report.software.molsysmt} · molecular revision ${report.source_revision}. Full native arrays stay in Python; only 50 rows are sent per page. Reports expire on changed inputs/source or unmount; raw external writes are not observed. No report or executable decision is stored in sessions or H5MSM.`;
+      q('dataset').replaceChildren(...report.datasets.map(d=>{const o=document.createElement('option');o.value=d.id;o.textContent=d.label;return o;}));q('dataset').value=page?.dataset;
+      if(page){const tr=document.createElement('tr');tr.append(...page.columns.map(name=>cell('th',name)));q('columns').replaceChildren(tr);tableRows(q('rows'),page.rows);q('page-summary').textContent=page.total?`Rows ${page.offset+1}–${page.offset+page.rows.length} of ${page.total.toLocaleString()}.`:'No rows returned for this check; unsupported or unassessed chemistry is not certified.';q('page-unit').textContent='';q('previous').disabled=busy||!page.offset;q('next').disabled=busy||page.offset+page.rows.length>=page.total;}
+    }
+    if(report&&!assessment){
       q('report-heading').textContent=hydrogen?'Hydrogen inventory report':'Stored chemistry report';
       q('report-scope').textContent=`${report.n_atoms.toLocaleString()} selected atoms · ${report.structure_index===null?'no coordinate structures':`structure ${report.structure_index}`} · ${report.explicit_hydrogens.toLocaleString()} selected explicit H atoms`;
       q('state-summary').textContent=`Chemical state: ${report.chemical_state_index===null?'unresolved':report.chemical_state_index}${report.chemical_state_status?' · '+report.chemical_state_status:''}.`;
@@ -128,6 +149,7 @@ export function render({model,el}) {
   q('state-mode').addEventListener('change',()=>{parameters.state_mode=q('state-mode').value;changed();},options);
   q('state-index').addEventListener('input',()=>{parameters.state_index=q('state-index').value;changed();},options);
   for(const [key,name,event] of [['hydrogen-mode','hydrogen_mode','change'],['engine','engine','change'],['ph','pH','input'],['attribute-policy','attribute_policy','change'],['preparation-title','title','input']])q(key).addEventListener(event,()=>{parameters[name]=q(key).value;changed();},options);
+  q('assessment-ph').addEventListener('input',()=>{parameters.pH=q('assessment-ph').value;changed();},options);
   q('prepare').addEventListener('click',()=>request('prepare'),options);
   q('replace-review').addEventListener('click',()=>request('replacement.review'),options);
   q('replace-apply').addEventListener('click',()=>request('replacement.apply',{token:replacement?.token}),options);

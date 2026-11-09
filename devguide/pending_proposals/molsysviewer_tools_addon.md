@@ -3793,3 +3793,18 @@ not a zero-error environment claim. The canonical scorecard credits only vectors
 angles and torsions: 29/50 accepted intents, weighted 72.4028%. No new scope,
 human/installed/candidate or scientific-profile acceptance is added. Contacts
 remain held by #666; general angular chunking #667 is post-1.0.
+
+
+### Chemistry assessment implementation — 2026-11-09
+
+Exact-template group coverage, whole-system missing-terminal OXT inspection and
+reference-rule protonation assessment now have private task implementations.
+They call the existing validated bound/native owners and preserve source/state,
+coverage, finite pH, reference identifiers and no-change/unassessed distinctions.
+No removal/repair is applied or executable decision retained. Initial directed
+receiving retains a launcher syntax failure and a 91-pass/five-failure selection:
+four fixture expectations omitted native in_place=True, and the unknown-group
+fixture actually lacked group membership. Correcting those fixtures, adding a
+clear membership prerequisite and using an explicitly declared unknown group
+passes all 96 selected cases. Expanded exact-source, actual Jupyter/popup and HTML
+receiving remains due; no new milestone credit or release authority is claimed.

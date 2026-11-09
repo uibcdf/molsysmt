@@ -136,3 +136,9 @@ pending-reader transport distinct from recovery-sheet interaction in Viewer
 Preserve source-qualified addon CCD/reference-name availability without changing
 its explicit source authority, query/reference column order or separate chemical
 assessment. These are experimental source bindings, not installed qualification.
+
+
+Preserve the graphical read-only assessment guidance: whole-group exact-template
+coverage for explicit source structure/state, whole-system terminal OXT and fixed-pKa
+protonation checks, no applied repairs/removals, unassessed scope and ephemeral
+source-index pages. Keep all existing executed code, metadata and outputs exact.
