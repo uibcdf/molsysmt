@@ -131,6 +131,7 @@ try{
   assert.match(await widget.locator('[data-assessment-summary]').innerText(),new RegExp(`Native status: ${expected.status}`));
   assert.match(await widget.locator('[data-assessment-summary]').innerText(),new RegExp(`${expected.assessed} assessed groups; ${expected.unassessed} unassessed groups`));
   await widget.locator('[data-dataset]').selectOption('protonation_removals');
+  await widget.locator('[data-columns]').filter({hasText:'Source atom index'}).waitFor();
   if(expected.removal_rows.length)await widget.locator('[data-rows] tr').first().locator('td').first().filter({hasText:expected.removal_rows[0][0]}).waitFor();
   assert.deepEqual(await table(widget),expected.removal_rows);
   assert.equal(await widget.locator('[data-preparation-result]').isVisible(),false);

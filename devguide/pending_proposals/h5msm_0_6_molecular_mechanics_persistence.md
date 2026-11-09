@@ -311,7 +311,7 @@ full regression/HTML gates and source delivery are still pending at this point.
 | P2 — mechanics codec | Clean `5c38a1022`: 1,178 cases, fourteen fast gates; unchanged HTML scope reused with proof; public `2cca126fe` verified | Typed native/HDF5 round trips for all admitted settings, tables and reports; malformed data/unknown versions refuse; no engine imports or evidence rebinding. |
 | P3 — modular orchestration | Private root qualified on clean `b184e9d18`: 1,229 cases, fourteen fast gates and HTML; public dispatch/migration remain P4 | Reuse existing domain codecs; explicit version dispatch, associations, source-preserving migration and failure before file publication; unchanged 0.3/0.4/0.5 reads. |
 | P4 — public operations | Clean `69f938947`: 1,843 cases, fourteen fast gates and fresh HTML; public `52df76db2` verified; consumer qualification pending | `convert`, explicit H5MSM reads/writes/layer reads, `get`/`has_attribute`, selected extraction/reordering, copying and structure append are audited; no recognized-but-inaccessible mechanics. Preserve the legacy handler's actual scope. |
-| P5 — consumer receiving | Pending | Fresh-reader complete/projected/nonpolar-H-merged fixtures, multiple unit policies, original producer labels, prepared PDBQT re-export, edit invalidation, stale refusals and the full DockingMT reference route. Provider and installed evidence remain distinct. |
+| P5 — consumer receiving | Bounded reference/E3 prerequisite received upstream on DockingMT 9b077fab; broader P5 and installed profiles remain pending | Fresh-reader complete/projected/nonpolar-H-merged fixtures, multiple unit policies, original producer labels, prepared PDBQT re-export, edit invalidation, stale refusals and the full DockingMT reference route. Provider and installed evidence remain distinct. |
 | P6 — format freeze | Bounded storage study measured on clean `b7269b77e`; final schema/default/freeze pending | Public schema, API docstrings/doctests, Foundations/Toolbox/Cookbook/course, bounded memory/storage measurements, default-writer decision and old-format/migration policy agree; then qualify the exact source/artifacts. |
 
 P1 must precede a public codec contract. P2/P3 do not make the format stable;
@@ -853,3 +853,38 @@ retain single/double 0.4 precision. All course code/output cells remain unchange
 The future #664 storage-precision study is post-1.0 and adds no initial-release
 blocker. Default writing stays 0.5, explicit 0.6 remains experimental, and
 independent P5 plus final stable-root/default/candidate gates are unaccepted.
+
+
+### P5 independent bounded client receiving — 2026-11-09
+
+**Upstream reported and inspected, not replayed here.** DockingMT has published
+its completed original reference prerequisite and bounded three-P59-pose E3
+workflow on 9b077fabf41e19ffdfb945bc7aa3fb6c53265e0f, using editable MolSysMT
+efbe67e1c6042078144bce1db24aa80bb565dbd2 and its own unchanged native backend.
+The [receipt](../../devtools/data/docking_h5msm06_client_receiving_256_20261109.json)
+records immutable source documents and authenticated compressed/decoded reader
+receipts/manifests. The public source documents' Git blob hashes also match.
+The consumer backend hash differs from this machine's qualified binary; this
+is independent consumer evidence, not a local ABI/platform qualification.
+
+The reference reader receives 261 members and complete normal/pm-fs profiles,
+explicit 0.6 roots, four native writes/two full reads, original producer/settings/
+parameter-table/report fidelity and five actual altered-copy refusals. Its final
+observer preserves literal F versus farad; **zero actual quantity objects** occur
+in that mechanical observation. The earlier claim of 136 quantities came from
+unit-like text probing and is explicitly superseded. Original weaker seals,
+setup failures and default-0.5 failures remain historical failures. No provider
+unit/storage defect is established by that consumer-observer correction.
+
+The separate pose reader receives 256 members, 34 physical fields and four
+invalid quantity handshakes without molecular replay; both policies agree within
+1e-12 nm with exact cluster membership. These are the three original saved poses,
+not new independent molecular cases or new native searches. DockingMT #79/#88/#96
+are resolved for those bounded consumer scopes. See uibcdf/dockingmt#79 and #88
+for their retained provenance, failure accounting and public records.
+
+This receives the portable-reference prerequisite, not every P5 partial-domain,
+layer/reorder/append/size profile, edit/stale binding or installed route. P6's
+stable schema/default-writer and #334 exact-candidate/publication gates remain
+open. Public default 0.5 and explicit experimental 0.6 stay unchanged. No extra
+scorecard weight, full H5MSM closure or release authority is added.

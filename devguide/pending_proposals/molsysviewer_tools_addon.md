@@ -3808,3 +3808,15 @@ fixture actually lacked group membership. Correcting those fixtures, adding a
 clear membership prerequisite and using an explicitly declared unknown group
 passes all 96 selected cases. Expanded exact-source, actual Jupyter/popup and HTML
 receiving remains due; no new milestone credit or release authority is claimed.
+
+
+### Chemistry native receiving and graphical wait correction — 2026-11-09
+
+Clean 0d7f5505b passes all 347 affected native/panel/preparation/hosted-inventory
+cases, including public assessment doctests. All source and retained Viewer
+inputs stay unchanged. Its first graphical attempt reaches all three new tasks
+and both popup endpoints, but the removal-table assertion reads the previous
+page before the async empty result arrives. The complete attempt remains failed.
+The guard now waits for the new source-atom column before comparing the entire
+native removal table; no product, numeric assertion or deadline changes. Actual
+graphical receiving and final local gates remain due.
