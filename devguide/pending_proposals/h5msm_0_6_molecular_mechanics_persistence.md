@@ -215,11 +215,13 @@ external-engine checkpoint.
 
 ### Private wire layout and directed receiving — 2026-11-08
 
-`molsysmt/form/_h5msm/mechanics.py` owns the mechanics layer; its private sibling
+`molsysmt/_private/h5msm_storage/mechanics.py` owns the mechanics layer; its private sibling
 `metadata.py` supplies concrete typed-tree HDF5 primitives. These are storage
 implementation tools, not registered forms or public calculation functions.
-New primitives live in an owning package instead of adding more root-level
-`form/_h5msm05_*` files; the existing location-review scope is not rewritten.
+New primitives live in an owning private storage package instead of adding more
+root-level `form/_h5msm05_*` files. The initial `form/_h5msm` placement failed
+the adapter-only directory contract; it is corrected without relaxing that gate.
+The seven existing modules in #441 are not relocated by this bounded correction.
 
 ```text
 molecular_mechanics/                  attrs: schema_version=1, n_atoms
@@ -434,3 +436,15 @@ not silently replaced by this option. The H5MSM 0.6 proposal stays **open and
 post-1.0** with all five original schema/model acceptance criteria. This review
 adds no weighted release milestone or claimed source-issue closure. Next local
 correctness work is #660's explicit rejection boundary, not new storage design.
+
+## First clean private-layer attempt — 2026-11-08
+
+Clean `d3e6b1ac7` passes 1,176 affected tests without omissions (two measured
+workers, two CPUs, a 2-GiB cap) and HTML. The fast gate is **13/14**, not passing:
+the new `form/_h5msm` package is correctly rejected as an unregistered adapter.
+No public delivery or whole-format acceptance follows that attempt. Storage
+helpers move to `_private/h5msm_storage` with identical implementation ASTs; the
+adapter validator remains unchanged and its direct preflight now passes.
+Two further guards explicitly refuse wrong/absent per-atom charge units in the
+fixed elementary-charge table protocol. The next clean attempt must include
+that relocation and both guards; original attempts remain retained.

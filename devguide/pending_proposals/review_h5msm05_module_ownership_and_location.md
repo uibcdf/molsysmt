@@ -73,3 +73,14 @@ Do not duplicate codecs or change the on-disk format as a side effect.
 
 This is a review request, not authorization for immediate relocation, package
 publication or an additional 1.0 blocker. Existing stabilization work continues.
+
+## New-code placement evidence — 2026-11-08
+
+The #256 private mechanics codec now uses `molsysmt/_private/h5msm_storage/`.
+An initial `form/_h5msm` package failed the adapter-only directory contract;
+placing storage helpers in the private owner corrects that failure without
+changing the validator or inventing a registered form. The mechanics and metadata
+module ASTs are identical across the move. This provides a concrete package
+candidate for the later review, not completion of the seven-module caller audit
+or authorization to relocate them implicitly. Existing public paths and 0.5
+codecs remain unchanged.

@@ -11,8 +11,12 @@ import pandas as pd
 import pytest
 
 import molsysmt as msm
-from molsysmt.form._h5msm.mechanics import read_mechanics, write_mechanics
-from molsysmt.form._h5msm.metadata import _prepare_tree, _read_tree, _write_tree
+from molsysmt._private.h5msm_storage.mechanics import read_mechanics, write_mechanics
+from molsysmt._private.h5msm_storage.metadata import (
+    _prepare_tree,
+    _read_tree,
+    _write_tree,
+)
 from molsysmt.native import MolecularMechanics
 
 
@@ -290,7 +294,7 @@ with puw.context(standard_units=['angstrom','fs','coulomb','K','mole','dalton','
     before={key:puw.configure.report()[key] for key in keys}
     import h5py
     import molsysmt as msm
-    from molsysmt.form._h5msm.mechanics import read_mechanics
+    from molsysmt._private.h5msm_storage.mechanics import read_mechanics
     from tests.form.file_h5msm.test_mechanics_layer import _observation
     expected=json.loads(Path(sys.argv[2]).read_text())
     current=msm.__version__
@@ -493,3 +497,19 @@ def test_a_masked_array_cannot_lose_its_mask_in_an_assignment_report(tmp_path):
         with pytest.raises(ValueError, match="subclasses"):
             write_mechanics(file, source, n_atoms=0)
         assert not list(file)
+
+
+@pytest.mark.parametrize("unit", ["coulomb", None])
+def test_charge_column_units_are_an_explicit_fixed_unit_protocol(tmp_path, unit):
+    source = MolecularMechanics(partial_charge=np.array([0.1, 0.2, 0.3]))
+    path = tmp_path / "wrong_charge_unit.h5"
+    with h5py.File(path, "w") as file:
+        write_mechanics(file, source, n_atoms=3)
+        layer = file["molecular_mechanics"]
+        payload = _read_tree(layer["snapshot"])
+        payload["atoms_ff"]["columns"][0]["unit"] = unit
+        del layer["snapshot"]
+        _write_tree(layer, "snapshot", _prepare_tree(payload))
+    with h5py.File(path, "r") as file:
+        with pytest.raises(ValueError, match="wrong unit"):
+            read_mechanics(file, n_atoms=3)
