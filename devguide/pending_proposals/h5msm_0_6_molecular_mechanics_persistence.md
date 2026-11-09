@@ -767,8 +767,9 @@ The file's mechanical datasets allocate 4,154 / 65,761 / 562,636 bytes in the
 three cases, excluding HDF5 group/object metadata and every other domain. The
 regular report arrays and repeated labels compress favorably. Full file sizes
 must not be interpreted as mechanics size or predicted for arbitrary coordinates.
-The coordinate codec's actual on-disk float32 dtype is recorded; source arrays
-are float64 and numerical checks retain the existing storage tolerance.
+The actual on-disk coordinate dtype is float64 in all three cases, as recorded
+per dataset; source arrays are float64 too. Numerical checks retain the existing
+native-storage oracle and tolerance, without claiming a float32 measurement.
 
 **Operational consequence:** selected geometry stays bounded and avoids loading
 mechanics. A file query for a scalar setting or three charges still reads the

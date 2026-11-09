@@ -149,8 +149,8 @@ On 2026-11-08, synthetic 62 × 5,000, 10,000 × 1,000 and 100,000 × 100 systems
 produced 3.42, 77.37 and 85.12 MiB files. Median whole-system writes were 0.215,
 5.096 and 5.802 seconds; full reads were 0.117, 0.934 and 1.567 seconds. The
 whole sequential campaign peaked near 698 MiB. These observations use regular
-coordinates and reports, warm/uncontrolled OS cache and the actual float32
-coordinate codec; they do not predict real-data compression, cold disk behavior,
+coordinates and reports, warm/uncontrolled OS cache and the recorded float64
+coordinate datasets; they do not predict real-data compression, cold disk behavior,
 durability latency or a general memory bound. See the
 {download}`complete measurements <../../../../../../devtools/data/h5msm_mechanics_storage_benchmark_256_20261108.json>`
 for source, hardware, versions, layouts, every sample and memory definitions.
