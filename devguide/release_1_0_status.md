@@ -37,7 +37,12 @@ without omissions** (67 new codec guards) and **14/14 fast gates**. The
 retains the initial layout failure and its AST-identical relocation to private
 storage. Passing HTML from `d3e6b1ac7` is reused for an explicitly unchanged
 scope, with three inspected pages and six unchanged warnings. The failed old
-fast result is retained separately. Public source delivery is next.
+fast result is retained separately. Public `2cca126fe25ecf8f8d40e77acd8fb930e7e34f87`
+independently matches ten changed paths and preserves the four human files;
+[delivery](../devtools/data/mechanics_layer_delivery_256_20261108.json) and the
+[owner response](https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6731162300)
+retain that bounded scope. The measured final test peak is 1,046,847,488 bytes,
+with host availability above 13 GB decimal and no OOM/reserve/pressure stop.
 
 This private layer does not yet make H5MSM 0.6 or 1.0 publicly writable/readable.
 P3/P4 still need modular associations, public queries/conversion and persistence

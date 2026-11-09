@@ -268,7 +268,7 @@ full regression/HTML gates and source delivery are still pending at this point.
 | --- | --- | --- |
 | P0 — repair #660 | Closed; clean `272745fc8` passes 1,111 cases, fourteen fast gates and HTML; public `af71a6d29` verified | All affected branches, strict requests, present-empty state and unchanged existing file are guarded; no expansion of 0.5. |
 | P1 — bound the schema | Bounded field/type/unit catalog specified; whole-file associations remain P3 | Exact field/type/unit catalog, domain/layer versions, identity and index-link rules, absent/empty semantics and unsupported-input policy. |
-| P2 — mechanics codec | Clean `5c38a1022`: 1,178 cases, fourteen fast gates; unchanged HTML scope reused with proof; public delivery pending | Typed native/HDF5 round trips for all admitted settings, tables and reports; malformed data/unknown versions refuse; no engine imports or evidence rebinding. |
+| P2 — mechanics codec | Clean `5c38a1022`: 1,178 cases, fourteen fast gates; unchanged HTML scope reused with proof; public `2cca126fe` verified | Typed native/HDF5 round trips for all admitted settings, tables and reports; malformed data/unknown versions refuse; no engine imports or evidence rebinding. |
 | P3 — modular orchestration | Pending | Reuse existing domain codecs; explicit version dispatch, associations, source-preserving migration and failure before file publication; unchanged 0.3/0.4/0.5 reads. |
 | P4 — public operations | Pending | `convert`, explicit H5MSM reads/writes/layer reads, `get`/`has_attribute`, selected extraction/reordering, copying and structure append are audited; no recognized-but-inaccessible mechanics. Preserve the legacy handler's actual scope. |
 | P5 — consumer receiving | Pending | Fresh-reader complete/projected/nonpolar-H-merged fixtures, multiple unit policies, original producer labels, prepared PDBQT re-export, edit invalidation, stale refusals and the full DockingMT reference route. Provider and installed evidence remain distinct. |
@@ -478,3 +478,14 @@ then implement/query the supported public read/write/conversion/selection/append
 routes. Preserve 0.5 mechanics exclusion and legacy reads. The first stable 1.0
 root and default-writer switch await P5/P6 qualification; no new file-format
 capability is public in this source checkpoint. #256 remains open.
+
+## Public private-layer checkpoint — 2026-11-08
+
+Public `2cca126fe25ecf8f8d40e77acd8fb930e7e34f87` independently matches all ten
+changed paths and preserves the four human root files. The
+[delivery record](../../devtools/data/mechanics_layer_delivery_256_20261108.json)
+links the qualified private layer and
+[owner response](https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6731162300).
+#441 receives the new placement evidence without closing its original audit.
+No new public file capability, installed/client acceptance or release is added;
+#256 remains open for P3–P6.

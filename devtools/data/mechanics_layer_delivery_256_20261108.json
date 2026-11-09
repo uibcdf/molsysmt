@@ -1,0 +1,70 @@
+{
+  "public_checkpoint": "2cca126fe25ecf8f8d40e77acd8fb930e7e34f87",
+  "base": "5ae3e476b1133a604b50346289ca32529eef28fc",
+  "verified_paths": [
+    {
+      "path": "devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md",
+      "git_blob_sha": "8dba2ac8b5d3a656c8598377d8c71b4d09e9e89d"
+    },
+    {
+      "path": "devguide/pending_proposals/review_h5msm05_module_ownership_and_location.md",
+      "git_blob_sha": "f80d5f3c430fa5424e609a6bc1e6183fe1efb75c"
+    },
+    {
+      "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+      "git_blob_sha": "1f31edec8f9e301ac018a0570341e89aebc7ecee"
+    },
+    {
+      "path": "devguide/release_1_0_status.md",
+      "git_blob_sha": "0fd759b0f02a00d003b07e442b3dddb9808b8e3e"
+    },
+    {
+      "path": "devtools/data/mechanics_layer_receiving_256_20261108.json",
+      "git_blob_sha": "ef9c466898dc607a9a73cb497f7d5f6f0d7d3d20"
+    },
+    {
+      "path": "devtools/data/pre_1_0_progress_scorecard_20261107.json",
+      "git_blob_sha": "09749e3e9ab7d3f95e2aa67b9ff86006e69f0c54"
+    },
+    {
+      "path": "molsysmt/_private/h5msm_storage/__init__.py",
+      "git_blob_sha": "65be3d617799c962ba4ad54ab8970e9683fb73c9"
+    },
+    {
+      "path": "molsysmt/_private/h5msm_storage/mechanics.py",
+      "git_blob_sha": "b6fb99186c957b23f7d8864dcb10959b3b86a67a"
+    },
+    {
+      "path": "molsysmt/_private/h5msm_storage/metadata.py",
+      "git_blob_sha": "b88dc9029d7035d091d00e3695c6da7d4f0d82c3"
+    },
+    {
+      "path": "tests/form/file_h5msm/test_mechanics_layer.py",
+      "git_blob_sha": "2fa9e1f6e40132a1c92b687e367f9bde0c0299b9"
+    }
+  ],
+  "protected_human_files": {
+    "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": "3b97cf0d5c813a1e3c2212ad118c7f6c32763d85af91cb800640209095fd53d6",
+    "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": "d564291bb01387663f178f5e041bc8d55d1022bfa71584ddd11f1dd9dba12d95",
+    "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": "a112aa640da192a121d1ccec3c5011c9652729abacf2a38c1b222632a55dcf20",
+    "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": "6b3f17a698bc7393ca3ecad31891d693b8a8169dfdd892dbae77f3ca91b25abe"
+  },
+  "human_bytes_unchanged": true,
+  "scope": "Fast-forward source delivery only; no package, tag, Release or hosted matrix launched.",
+  "schema_version": "molsysmt.mechanics_layer_delivery@1",
+  "date": "2026-11-08",
+  "owner_issue": "uibcdf/molsysmt#256",
+  "qualified_source": "5c38a102216ab8cb3dd16bf8027779d8c8b9b2fa",
+  "receiving_record": "devtools/data/mechanics_layer_receiving_256_20261108.json",
+  "owner_response": "https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6731162300",
+  "placement_response": "https://github.com/uibcdf/molsysmt/issues/441#issuecomment-6731162999",
+  "source_issue_closed": false,
+  "new_public_format_available": false,
+  "board_checkpoint": {
+    "complete_board_issues": 592,
+    "open_issues": 88,
+    "open_prs": 0,
+    "newer_than_660": []
+  },
+  "board_checkpoint_sha256": "7b4f67f19332fe6f44d8fc8d6bb5d99ad829cb42008680b9f606ee008949afae"
+}
