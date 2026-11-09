@@ -20,9 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
+### Open (3)
 
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
+- [`full_system_writers_silently_discard_report_only_mechanical_provenance.md`](full_system_writers_silently_discard_report_only_mechanical_provenance.md) — [#660](https://github.com/uibcdf/molsysmt/issues/660) — Full-system writers silently discard report-only mechanical provenance *(medium, reproduced)*
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
 
 ### Partially resolved (1)

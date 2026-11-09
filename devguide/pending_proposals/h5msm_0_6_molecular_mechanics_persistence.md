@@ -4,7 +4,7 @@ issue: uibcdf/molsysmt#256
 status: open
 opened: 2026-09-29
 closed:
-verification: inspected
+verification: measured
 area: [form, data]
 guard:
 normative:
@@ -134,3 +134,59 @@ existing restoration guards, and qualify any proposed public composition on
 the consumer's required state before recommending it. Do not fabricate missing
 assignment reports or declare parameter-only transport lossless. New H5MSM 0.6
 schema/model design remains post-1.0 and does not block the initial release.
+
+## Existing native checkpoint receiving — 2026-11-08
+
+**Contract-tested, bounded compatible-environment route:** Python's existing
+`pickle.dump(molsys, stream)` / `pickle.load(stream)` native object protocol.
+No runtime implementation, registered file form or 0.6 schema is added. This
+answers the public-composition question for a trusted local object checkpoint;
+it does not make that checkpoint portable or accept the client's H5MSM gate.
+The maintained scope is in
+[Trusted native object checkpoints](../forms_and_conversions.md#trusted-native-object-checkpoints)
+and the User Guide links the same contract.
+
+`tests/native/test_prepared_system_checkpoint.py` builds actual AutoDock4 and
+Gasteiger–Marsili assignments through public preparation functions, using the
+existing indexed-H methanol fixture with three synthetic structures. Complete,
+selected and nonpolar-H-merged representations are saved under nm/ps/e and
+pm/fs/coulomb policies. Fresh readers enter an angstrom/fs/coulomb policy before
+importing MolSysMT, block RDKit/OpenMM/Ackredit and forbid the public assignment
+calculations. An independent observation tree compares stored tables, typed
+chemical transport/history, structure quantities, explicit associations,
+parameters, full original reports and sparse analyses. It never reconstructs
+any molecular data from those observations.
+
+Public PDBQT re-export validates the restored chemical/value/structure binding
+and matches original single-structure outputs for indices [2, 0, 2]. Controlled
+coordinate editing proves restored ownership through actual analysis invalidation;
+graph-based assignments remain usable. Four adverse cases retain refusal after
+charge/type/chemistry/association changes rather than rebinding stale evidence.
+A synthetic reader-version label additionally checks original producer retention;
+its actual version is restored before comparing current-producer export bytes.
+Only the real producer records are used as scientific evidence.
+
+The first pilot incorrectly requested all three structures from the documented
+single-structure PDBQT writer and failed before serializing. After correcting
+that fixture, one pilot passes; the first complete directed run passes all ten
+cases. Its process tree peaks at 360,378,368 bytes with host availability above
+16 GB decimal, one CPU, a 2-GiB limit and no resource interruption. Original
+attempts and per-reader outputs remain under
+`.pytest_cache/external-reference-421/native-checkpoint-256-*`. Final clean
+combined receiving and the added reader-label/import-policy controls remain
+pending before this route is offered publicly.
+
+This is a current native-data checkpoint, not a fully parameterized force-field
+or external simulation-engine snapshot. The stored force-field/solvent settings
+are requests. Python/MolSysMT/NumPy/pandas/unit-backend compatibility, file trust
+and whole-object residency are required; no cross-release/platform, arbitrary
+extension, large-scale memory or speed claim is made. Native parameter-only
+transport is still insufficient for full named reports. H5MSM 0.6 stays open,
+post-1.0, with its original model and typed-persistence criteria unchanged.
+
+The negative presence audit also reproduces a separate current refusal gap:
+report-only mechanics with all projected parameters absent is accepted and its
+metadata disappears in both full-system encoders. This uses a manual stale
+negative fixture, not a valid calculated assignment or affected client file.
+The defect is separately owned by uibcdf/molsysmt#660; fixing that rejection
+must not introduce mechanics storage into H5MSM 0.5.

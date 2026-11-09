@@ -1034,3 +1034,37 @@ The pair declares index correspondence, not authenticated origin or chemistry;
 missing ChemicalStates stays absent. Full-axis conflicts and malformed copy
 options retain the existing public rejection. No whole-system intermediate
 snapshot or new reconstruction algorithm is required.
+
+## Trusted native object checkpoints
+
+Native `MolSys` objects support Python's ordinary `pickle.dump`/`pickle.load`
+object protocol. This is not a registered MolSysMT file form, a new API, or a
+versioned molecular interchange schema. It is a bounded trusted checkpoint
+route in a compatible Python/package/backend environment; keep exact source,
+build and dependency identities. Only trusted files may be unpickled. Python
+object serialization does not establish molecular-source authentication.
+
+`tests/native/test_prepared_system_checkpoint.py` guards the prepared single-state
+native scope: full, selected and nonpolar-H-merged methanol, multiple structures,
+typed chemical history, explicit structure associations, mechanical parameters,
+named charge/type provenance and sparse analyses. Fresh readers use another unit
+policy, block RDKit/OpenMM/Ackredit, forbid assignment recalculation and reproduce
+public one-structure-at-a-time PDBQT exports. Coordinate edits still invalidate
+the restored analysis; stale charge/type/chemistry/association bindings remain
+refused. These are data-fidelity controls, not validation of chemical models.
+
+The checkpoint uses the existing native restoration/ownership hooks. It does
+not reconstruct named assignments from a parameter projection or diagnostic
+snapshot. Restoring a valid report does not rerun or recredit its calculation.
+Stored model requests remain requests rather than certified parameterization.
+Custom extension/engine objects and cross-release/platform compatibility are
+not qualified by this scope. Serialization is whole-object/resident and does
+not use the chunk executor or configure.max_ram_usage preflight.
+
+H5MSM 0.5 and MolSysDict 0.2 still refuse mechanical parameter values; the
+report-only refusal gap is owned by uibcdf/molsysmt#660. The parameter-only
+MolecularMechanicsDict omits complete named reports. Native pickle does not
+replace a client's explicitly required H5MSM round trip or accept its entire
+workflow. The H5MSM 0.6 model/schema design stays post-1.0 under
+uibcdf/molsysmt#256. See the
+[checkpoint guide](../docs/content/user/foundations/native_world/classes/molsysmt_MolSysDict.md#native-checkpoints).

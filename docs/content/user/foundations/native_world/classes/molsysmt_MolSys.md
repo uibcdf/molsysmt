@@ -219,6 +219,11 @@ whole-domain replacement still require explicit owner invalidation. Use
 `MolSys` extraction/append operations to change axes with attached analyses.
 See {ref}`Changing coordinates <user-tools-interactions-coordinate-edits>`.
 
+For bounded trusted workspace checkpoints, the existing native pickle protocol
+also retains prepared mechanical reports in the tested compatible environment.
+See {ref}`Native Checkpoints <user-foundations-native-checkpoints>` for the
+example, fidelity scope and distinction from portable H5MSM persistence.
+
 Tables are copied eagerly; this is not table copy-on-write. Use their canonical
 molecular columns rather than storing arbitrary mutable Python objects inside
 cells. Such objects and table metadata follow pandas' own copy protocols and
