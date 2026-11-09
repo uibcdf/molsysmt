@@ -439,8 +439,9 @@ def test_native_empty_axes_are_typed_without_model_evaluation(
     assert puw.get_unit(result) == puw.unit(FORCE_UNIT)
 
 
+@pytest.mark.parametrize("format_version", ["0.5", "0.6"])
 def test_modular_h5msm_streaming_avoids_full_molsys_or_analysis_loading(
-    native, tmp_path, monkeypatch
+    native, tmp_path, monkeypatch, format_version
 ):
     import hashlib
     import importlib
@@ -449,7 +450,7 @@ def test_modular_h5msm_streaming_avoids_full_molsys_or_analysis_loading(
         native, selection=[7, 0], structure_indices=[2, 0], platform="Reference"
     )
     path = tmp_path / "forces.h5msm"
-    msm.h5msm.write(native, path)
+    msm.h5msm.write(native, path, format_version=format_version)
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
     module = importlib.import_module("molsysmt.form._h5msm05_modular")
 
@@ -460,6 +461,9 @@ def test_modular_h5msm_streaming_avoids_full_molsys_or_analysis_loading(
 
     monkeypatch.setattr(module, "read_molsys_file", forbidden)
     monkeypatch.setattr(module, "read_named_analyses", forbidden)
+    current = importlib.import_module("molsysmt._private.h5msm_storage.modular")
+    monkeypatch.setattr(current, "read_molsys_file", forbidden)
+    monkeypatch.setattr(current, "read_named_analyses", forbidden)
     monkeypatch.setattr(msm.configure, "chunk_size", 1)
     result = msm.molecular_mechanics.get_forces(
         str(path), selection=[7, 0], structure_indices=[2, 0], platform="Reference"
@@ -582,8 +586,9 @@ def test_an_unimplemented_force_engine_does_not_fall_back(context):
 
 
 @pytest.mark.parametrize("periodic", [False, True])
+@pytest.mark.parametrize("format_version", ["0.5", "0.6"])
 def test_structures_only_h5msm_can_supply_a_parameterized_model(
-    harmonic, tmp_path, monkeypatch, periodic
+    harmonic, tmp_path, monkeypatch, periodic, format_version
 ):
     import importlib
 
@@ -598,7 +603,7 @@ def test_structures_only_h5msm_can_supply_a_parameterized_model(
         [[[0, 0, 0], [0.2, 0, 0]], [[0, 0, 0], [0.8 if periodic else 0.3, 0, 0]]], "nm"
     )
     path = tmp_path / "force_coordinates.h5msm"
-    msm.h5msm.write_layers(path, structures=structures)
+    msm.h5msm.write_layers(path, structures=structures, format_version=format_version)
     module = importlib.import_module("molsysmt.form._h5msm05_modular")
 
     def forbidden(*args, **kwargs):

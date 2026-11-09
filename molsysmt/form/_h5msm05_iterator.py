@@ -34,11 +34,9 @@ class _StructuresIterator05:
     ):
         self._file = h5py.File(filename, "r")
         try:
-            if (
-                self._file.attrs.get("type") != "h5msm"
-                or self._file.attrs.get("version") != "0.5"
-            ):
-                raise ValueError("Expected an H5MSM 0.5 modular file.")
+            from molsysmt._private.h5msm_storage.modular import _header
+
+            _header(self._file)
             self._group = self._file["structures"]
             if self._group.attrs.get("schema_version") != 1:
                 raise ValueError("Unsupported H5MSM 0.5 structures layer schema.")

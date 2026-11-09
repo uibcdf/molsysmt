@@ -308,7 +308,7 @@ full regression/HTML gates and source delivery are still pending at this point.
 | P1 — bound the schema | Bounded field/type/unit catalog specified; whole-file associations remain P3 | Exact field/type/unit catalog, domain/layer versions, identity and index-link rules, absent/empty semantics and unsupported-input policy. |
 | P2 — mechanics codec | Clean `5c38a1022`: 1,178 cases, fourteen fast gates; unchanged HTML scope reused with proof; public `2cca126fe` verified | Typed native/HDF5 round trips for all admitted settings, tables and reports; malformed data/unknown versions refuse; no engine imports or evidence rebinding. |
 | P3 — modular orchestration | Private root qualified on clean `b184e9d18`: 1,229 cases, fourteen fast gates and HTML; public dispatch/migration remain P4 | Reuse existing domain codecs; explicit version dispatch, associations, source-preserving migration and failure before file publication; unchanged 0.3/0.4/0.5 reads. |
-| P4 — public operations | Pending | `convert`, explicit H5MSM reads/writes/layer reads, `get`/`has_attribute`, selected extraction/reordering, copying and structure append are audited; no recognized-but-inaccessible mechanics. Preserve the legacy handler's actual scope. |
+| P4 — public operations | Explicit experimental 0.6 routes implemented locally; final source/consumer qualification pending | `convert`, explicit H5MSM reads/writes/layer reads, `get`/`has_attribute`, selected extraction/reordering, copying and structure append are audited; no recognized-but-inaccessible mechanics. Preserve the legacy handler's actual scope. |
 | P5 — consumer receiving | Pending | Fresh-reader complete/projected/nonpolar-H-merged fixtures, multiple unit policies, original producer labels, prepared PDBQT re-export, edit invalidation, stale refusals and the full DockingMT reference route. Provider and installed evidence remain distinct. |
 | P6 — format freeze | Pending | Public schema, API docstrings/doctests, Foundations/Toolbox/Cookbook/course, bounded memory/storage measurements, default-writer decision and old-format/migration policy agree; then qualify the exact source/artifacts. |
 
@@ -603,3 +603,66 @@ guard; #256 and the separate #438 placement review remain open. No format,
 package, release, tag, installed matrix or new client acceptance is published.
 The complete refreshed board contains 593 issues, 88 open, and no open PR;
 there is no newer report above #661 at this checkpoint.
+
+## P4 public operation implementation — 2026-11-08
+
+Public 0.6 writing requires `format_version="0.6"` in `h5msm.write`,
+`write_layers` or general `convert`; default writing remains 0.5. Root detection,
+legacy-handler refusal, scoped queries, structural iteration, metadata cardinality
+inspection, selected file extraction, byte copying and bounded topology-free
+append now dispatch the two modular roots. The old 0.3/0.4 adapter retains its
+actual legacy scope. Conversion upgrades use a distinct output and preserve the
+source; the version-specific 0.5 migration helpers/warnings are unchanged.
+The [experimental public contract](../../docs/content/user/tools/form/file/h5msm_06.md)
+documents supported types/units, explicit identities and presence limits.
+
+`read_axis_sizes` exposes independent declared cardinalities without payloads;
+this matters for a mechanical layer with no atom table. Coordinate queries do
+not decode mechanics; mechanical queries decode that resident static domain
+without unrelated data. A full mechanics projection can avoid resident MolSys
+assembly. Partial MolSys composition accepts one stored mechanical provider,
+including report-only evidence, and refuses duplicates/mismatched atom rows.
+Complete, selected, reordered and complementary-file preparations are exercised.
+
+The source-call audit found chemistry/force/preparation projections still bound
+to the 0.5 reader. Their shared chemistry projection now dispatches by root,
+checks connected atom identities for 0.6 and can explicitly retain model requests
+for force construction. Scoped chemistry/calculation reads still avoid complete
+coordinate/analysis loading. No force algorithm or model is changed.
+
+### Opaque report evidence versus scientific use
+
+A new six-case negative selection reproduces missing-key failures for empty/
+incomplete charge/type reports and acceptance of a future schema during native
+atom projection. These are synthetic evidence records, not a lost valid client
+artifact. The primitive transport intentionally preserves arbitrary detached
+metadata mappings; it does not certify that a scientific consumer understands
+those reports. This finding is tracked here as part of the #256 boundary audit.
+
+Charge/type consumers now require their implemented schema and scalar fields,
+and projection requires supported atom correspondence vectors. Unknown or
+incomplete reports remain losslessly readable/copyable but fail scientific use
+or remapping through the existing SMonitor structural diagnostic, before indexing
+missing fields or rebinding evidence. Twelve final controls independently cover
+both consumers and projection. Known assignments retain their existing scientific
+criteria, calculations and attribution. Original negative attempts are retained.
+
+### Directed evidence and remaining qualification
+
+The initial public pilot stops at five expected-diagnostic-class mistakes after
+11 passes; a corrected run has 69 passes and three fixture/API mismatches
+(unknown synthetic report projected as if complete, unsupported Iterator context
+syntax and a nonexistent count method). Correct fixtures pass 77 cases. A wider
+selection has 1,616 passes and one old expected-refusal test; that test now checks
+independent preservation of the supported single mechanical provider. A subsequent
+108-case consumer selection and fourteen fast gates pass. The first calculation
+fixture incorrectly indexed a returned charge quantity as a dictionary; after
+using explicit elementary-charge values, 101 cases pass, including both modular
+roots in streamed-force controls. None is a complete client/platform qualification.
+
+Final clean-source receiving must combine these routes, actual fresh public
+readers, argument-contract and documentation checks. P5 keeps the independent
+DockingMT reference workflow and installed-consumer decision. P6 keeps bounded
+storage measurements, final schema/default-writer decisions and the H5MSM 1.0
+freeze. The original progress weights and closed-issue count do not gain credit
+merely from the additional public experimental root.

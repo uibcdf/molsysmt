@@ -35,6 +35,11 @@ def has_attribute(molecular_system, attribute, include_none=False, skip_digestio
     if modular is not None:
         return modular
 
+    from molsysmt._private.attribute_catalog import mechanical_attributes
+
+    if attribute in mechanical_attributes:
+        return False
+
     output = attributes[attribute]
 
     if not include_none:

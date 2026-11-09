@@ -258,16 +258,31 @@ def _project_modular(source, selection, structure_indices, syntax, *, parameteri
     if len(frames):
         _budget((0,), n_atoms, 0)
     if parameterized:
+        from molsysmt._private.h5msm_storage.modular import read_modular_file
         from molsysmt.form._h5msm05_modular import (
             _identity_link,
             _link_key,
-            read_modular_file,
         )
         from molsysmt.native import MolSys
 
         payload = read_modular_file(filename, layers={"topology", "associations"})
         topology = payload["topology"]
-        if topology is not None:
+        import h5py
+
+        from molsysmt._private.h5msm_storage.versions import root_version
+
+        with h5py.File(filename, "r") as file:
+            version = root_version(file)
+        if version == "0.6":
+            from molsysmt._private.h5msm_storage.modular import (
+                _require_shared_axes,
+                read_axis_sizes,
+            )
+
+            _require_shared_axes(
+                payload["associations"] or [], read_axis_sizes(filename), axes=("atom",)
+            )
+        elif topology is not None:
             link = _identity_link("atom", "structures", "topology")
             observed = next(
                 (
@@ -290,6 +305,7 @@ def _project_modular(source, selection, structure_indices, syntax, *, parameteri
             filename,
             chemical_state="structure" if len(frames) else "reference",
             structure_indices=frames,
+            include_mechanics=True,
         )
         reference = model.chemical_states.reference_chemical_state_index
         if len(frames) and state != reference:

@@ -111,4 +111,10 @@ attributes["potential_energy"] = True
 attributes["kinetic_energy"] = True
 attributes["total_energy"] = True
 
+# The file form spans modular versions; instance checks retain absent layers.
+for _name, _description in _all_attributes.items():
+    if _description["mechanical"]:
+        attributes[_name] = True
+del _name, _description
+
 del _all_attributes

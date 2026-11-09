@@ -273,7 +273,10 @@ def read_axis_sizes(filename):
     """Read declared per-domain cardinalities without materializing payloads."""
     with h5py.File(filename, "r") as file:
         _header(file)
-        return _declared_sizes(file)
+        sizes = _declared_sizes(file)
+        if any(value < 0 for value in sizes.values()):
+            raise ValueError("Invalid modular layer axis cardinality.")
+        return sizes
 
 
 def _identity(axis, source, target):
@@ -314,9 +317,9 @@ def _native_links(payload, sizes, state_indices):
     return links
 
 
-def _require_shared_axes(links, sizes):
+def _require_shared_axes(links, sizes, *, axes=("atom", "structure")):
     """Require identity-connected axes; equal cardinalities provide no evidence."""
-    for axis in ("atom", "structure"):
+    for axis in axes:
         nodes = _nodes(sizes, axis)
         neighbors = {node: set() for node in nodes}
         for link in links:

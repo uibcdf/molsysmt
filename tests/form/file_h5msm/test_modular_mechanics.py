@@ -266,8 +266,7 @@ def test_current_public_05_defaults_and_refusals_are_unchanged(tmp_path):
         msm.h5msm.write(source, tmp_path / "public_refused.h5msm")
     development = tmp_path / "private06.h5msm"
     modular.write_molsys_file(development, source)
-    with pytest.raises(ValueError, match="H5MSM 0.5"):
-        msm.h5msm.read(development)
+    assert msm.h5msm.read(development).molecular_mechanics.forcefield == "request"
 
 
 def test_default_association_vocabulary_does_not_expand_05():
@@ -335,8 +334,9 @@ def _hdf_snapshot(source):
 
 
 @pytest.mark.parametrize("scope", ["complete", "projected", "merged"])
+@pytest.mark.parametrize("route", ["private", "public"])
 def test_prepared_whole_file_in_a_fresh_reader_retains_provenance_and_edit_ownership(
-    tmp_path, scope
+    tmp_path, scope, route
 ):
     from tests.native.test_prepared_system_checkpoint import (
         _pdbqt_texts,
@@ -344,12 +344,16 @@ def test_prepared_whole_file_in_a_fresh_reader_retains_provenance_and_edit_owner
         _snapshot,
     )
 
+    (tmp_path / "case.json").write_text(json.dumps({"scope": scope, "route": route}))
     source = _prepared(scope)
     path = tmp_path / "prepared06.h5msm"
     unchanged = _snapshot(source)
     expected = _hdf_snapshot(source)
     exports = _pdbqt_texts(source)
-    modular.write_molsys_file(path, source)
+    if route == "public":
+        msm.h5msm.write(source, path, format_version="0.6")
+    else:
+        modular.write_molsys_file(path, source)
     assert _snapshot(source) == unchanged
     (tmp_path / "expected.json").write_text(json.dumps(expected))
     (tmp_path / "exports.json").write_text(json.dumps(exports))
@@ -374,11 +378,13 @@ with puw.context(standard_units=['angstrom','fs','coulomb','K','mole','dalton','
     current=msm.__version__
     try:
         msm.__version__='999.0.0+reader.probe'
-        restored=read_molsys_file(sys.argv[1])
+        restored=msm.h5msm.read(sys.argv[1]) if sys.argv[4]=="public" else read_molsys_file(sys.argv[1])
     finally:msm.__version__=current
     actual=_hdf_snapshot(restored)
     Path(sys.argv[2]).with_name("actual.json").write_text(json.dumps(actual))
     assert actual==json.loads(Path(sys.argv[2]).read_text())
+    if sys.argv[4]=="public":
+        assert _hdf_snapshot(msm.convert(sys.argv[1]))==actual
     assert _pdbqt_texts(restored)==json.loads(Path(sys.argv[3]).read_text())
     xyz=puw.get_value(restored.structures.coordinates,to_unit='nm').copy()
     msm.structure.translate(restored,translation=puw.quantity([1,0,0],'nm'),structure_indices=[2],in_place=True)
@@ -398,6 +404,7 @@ with puw.context(standard_units=['angstrom','fs','coulomb','K','mole','dalton','
             str(path),
             str(tmp_path / "expected.json"),
             str(tmp_path / "exports.json"),
+            route,
         ],
         env=os.environ.copy(),
         text=True,

@@ -15,6 +15,14 @@ format; see {doc}`the modular 0.5 schema <../../../tools/form/file/h5msm_05>`.
 
 ---
 
+Experimental **Schema 0.6** is available by explicit `format_version="0.6"`
+in conversion or `msm.h5msm.write`; it preserves the bounded mechanical domain
+and original assignment reports. The default stays 0.5. Reading stored mechanics
+does not calculate or certify assignments. See {ref}`user-tools-form-h5msm-06`
+for public layer queries, metadata cardinalities, source-preserving extraction
+and the limitations of resident assembly. The legacy handler does not support
+modular roots.
+
 ## HDF5 Layout and Dataset Schema
 
 An `.h5msm` file organizes data into hierarchical HDF5 groups and dataset arrays:

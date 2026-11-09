@@ -26,6 +26,11 @@ Native `MolSys` round trips also support structures and attached interactions
 without topology or chemical states, provided their atom and structure axes
 are explicitly linked in the file.
 
+Experimental 0.6 adds stored mechanics only when explicitly requested with
+`format_version="0.6"`; see {ref}`user-tools-form-h5msm-06`. This does not extend
+0.5 or change the default. The legacy warnings and 0.5 migration helpers keep
+their existing meanings.
+
 ## Querying selected data
 
 For a file containing these atom and structure positions:

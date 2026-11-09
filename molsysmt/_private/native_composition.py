@@ -176,24 +176,36 @@ def compose_partial_molsys(items):
                         f"Complementary inputs repeat interaction analysis {name!r}."
                     )
                 analyses[name] = analysis
-            if any(
-                value is not None
-                for value in item.molecular_mechanics.to_dict().values()
-            ):
-                raise ValueError(
-                    "Partial-domain composition cannot transfer molecular mechanics yet."
-                )
+            from molsysmt.native._mechanics_presence import has_stored_mechanics
+
+            if has_stored_mechanics(item.molecular_mechanics):
+                if "molecular_mechanics" in domains:
+                    raise ValueError(
+                        "Complementary inputs repeat the molecular_mechanics domain."
+                    )
+                domains["molecular_mechanics"] = item.molecular_mechanics
             if item._structure_chemical_state_indices is not None:
                 state_indices = item._structure_chemical_state_indices.copy()
         for name in ("topology", "chemical_states"):
             if name in domains:
                 domains[name] = domains[name].copy()
+        mechanics = domains.pop("molecular_mechanics", None)
         result = MolSys._from_partial_domains(
             **domains, interactions=analyses if state_indices is None else None
         )
+        if mechanics is not None:
+            if (
+                mechanics.atoms_ff is not None
+                and len(mechanics.atoms_ff) != result._get_n_atoms()
+            ):
+                raise ValueError(
+                    "MolecularMechanics atom rows must match the declared atom domain."
+                )
         if state_indices is not None:
             result._set_structure_chemical_state_indices(state_indices)
             result.interactions = analyses
+        if mechanics is not None:
+            result.molecular_mechanics = mechanics
         return result
     except ValueError as error:
         raise StructuralInconsistencyError(

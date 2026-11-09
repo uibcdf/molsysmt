@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 124 |
-| experimental | 175 |
+| experimental | 176 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -323,6 +323,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.h5msm.migrate_04_to_05` | experimental | active | 1.0.0 |
 | `molsysmt.h5msm.migrate_to_05` | experimental | active | 1.0.0 |
 | `molsysmt.h5msm.read` | experimental | active | 1.0.0 |
+| `molsysmt.h5msm.read_axis_sizes` | experimental | active | 1.0.0 |
 | `molsysmt.h5msm.read_layers` | experimental | active | 1.0.0 |
 | `molsysmt.h5msm.write` | experimental | active | 1.0.0 |
 | `molsysmt.h5msm.write_layers` | experimental | active | 1.0.0 |

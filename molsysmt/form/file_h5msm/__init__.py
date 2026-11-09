@@ -28,6 +28,7 @@ from .merge import merge  # noqa: E402
 from .append_structures import append_structures  # noqa: E402
 from .get_topological_attributes import *  # noqa: E402, F403
 from .get_structural_attributes import *  # noqa: E402, F403
+from .get_mechanical_attributes import *  # noqa: E402, F403
 from .set import *  # noqa: E402, F403
 from .iterators import StructuresIterator, TopologyIterator  # noqa: E402
 # isort: on

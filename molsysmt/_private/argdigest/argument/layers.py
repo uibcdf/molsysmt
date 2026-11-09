@@ -5,7 +5,14 @@ from argdigest.core.caller import caller_matches
 from molsysmt._private.smonitor import ArgumentError
 
 _NAMES = frozenset(
-    {"topology", "chemical_states", "structures", "interactions", "associations"}
+    {
+        "topology",
+        "chemical_states",
+        "structures",
+        "molecular_mechanics",
+        "interactions",
+        "associations",
+    }
 )
 
 

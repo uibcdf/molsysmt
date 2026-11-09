@@ -88,7 +88,7 @@ def write_modular_file(
         write_associations(file, links)
 
 
-def _prepare_structure_state_append(file, links, indices, count, sizes):
+def _prepare_structure_state_append(file, links, indices, count, sizes, *, layers=None):
     """Validate one existing per-frame state map before any dataset grows."""
     matching = [
         (position, link)
@@ -147,12 +147,20 @@ def _prepare_structure_state_append(file, links, indices, count, sizes):
     updated_sizes[("structures", None, "structure")] = old_count + count
     updated_links = list(links)
     updated_links[position] = {**link, "indices": joined}
-    normalize_associations(updated_links, updated_sizes)
+    normalize_associations(
+        updated_links, updated_sizes, **({} if layers is None else {"layers": layers})
+    )
     return child, mapping, old_count, incoming, joined
 
 
 def append_modular_structures(
-    filename, structures, *, structure_state_indices=None, block_size=256
+    filename,
+    structures,
+    *,
+    structure_state_indices=None,
+    block_size=256,
+    expected_version="0.5",
+    layers=None,
 ):
     """Append complete frames to a topology-free file with optional state links."""
     from molsysmt.native import Structures
@@ -160,24 +168,47 @@ def append_modular_structures(
     if not isinstance(structures, Structures):
         raise TypeError("The structures layer requires native Structures.")
     with h5py.File(Path(filename), "r+") as file:
-        if file.attrs.get("type") != "h5msm" or file.attrs.get("version") != "0.5":
+        if (
+            file.attrs.get("type") != "h5msm"
+            or file.attrs.get("version") != expected_version
+        ):
             raise ValueError("Expected an H5MSM 0.5 modular file.")
-        if "structures" not in file or set(file) - {
-            "structures",
-            "chemical_states",
-            "associations",
-        }:
+        allowed = {"structures", "chemical_states", "associations"}
+        if expected_version == "0.6":
+            from molsysmt._private.h5msm_storage.mechanics import read_mechanics
+            from molsysmt._private.h5msm_storage.modular import (
+                _declared_sizes,
+                _header,
+                _require_shared_axes,
+            )
+
+            _header(file)
+            read_mechanics(file)
+            allowed.add("molecular_mechanics")
+        if "structures" not in file or set(file) - allowed:
             raise ValueError(
                 "Appending requires a topology-free file without interactions."
             )
-        sizes = _axis_sizes_from_file(file)
-        links = read_associations(file, sizes) or []
+        sizes = (
+            _declared_sizes(file)
+            if expected_version == "0.6"
+            else _axis_sizes_from_file(file)
+        )
+        options = {} if layers is None else {"layers": layers}
+        links = read_associations(file, sizes, **options) or []
+        if expected_version == "0.6":
+            _require_shared_axes(links, sizes, axes=("atom",))
         if any(link["axis"] == "structure" for link in links):
             raise ValueError(
                 "Appending cannot extend a stored structure-axis association."
             )
         state_update = _prepare_structure_state_append(
-            file, links, structure_state_indices, structures.n_structures, sizes
+            file,
+            links,
+            structure_state_indices,
+            structures.n_structures,
+            sizes,
+            layers=layers,
         )
         append_independent_structures(file, structures, block_size=block_size)
         if state_update is not None:
@@ -342,23 +373,34 @@ def _read_calculation_chemistry(
     structure_indices,
     require_topology=True,
     include_structures=False,
+    include_mechanics=False,
 ):
     """Prepare native chemistry, optionally retaining requested structural context."""
     import numpy as np
 
+    from molsysmt._private.h5msm_storage.modular import (
+        _declared_sizes,
+        _header,
+        _require_shared_axes,
+    )
+    from molsysmt._private.h5msm_storage.modular import (
+        read_modular_file as read_versioned,
+    )
     from molsysmt._private.smonitor import StructuralInconsistencyError
     from molsysmt.native import MolSys
 
-    payload = read_modular_file(
-        filename, layers={"topology", "chemical_states", "associations"}
-    )
+    requested = {"topology", "chemical_states", "associations"}
+    if include_mechanics:
+        requested.add("molecular_mechanics")
+    payload = read_versioned(filename, layers=requested)
     topology, states = payload["topology"], payload["chemical_states"]
     if states is None or (require_topology and topology is None):
         raise ValueError(
             "Calculation requires chemical states and, when requested, a topology layer."
         )
     with h5py.File(filename, "r") as file:
-        sizes = _axis_sizes_from_file(file)
+        version = _header(file)
+        sizes = _declared_sizes(file)
     by_key = {_link_key(link): link for link in payload["associations"] or []}
     required = (
         [_identity_link("atom", "chemical_states", "topology")]
@@ -369,15 +411,20 @@ def _read_calculation_chemistry(
         required.append(_identity_link("atom", "structures", "topology"))
     elif topology is None and ("structures", None, "atom") in sizes:
         required.append(_identity_link("atom", "structures", "chemical_states"))
-    for link in required:
-        observed = by_key.get(_link_key(link))
-        if (
-            observed is None
-            or not isinstance(observed["indices"], str)
-            or observed["target"] != link["target"]
-            or observed["target_name"] != link["target_name"]
-        ):
-            raise ValueError("Calculation requires declared identity atom-axis links.")
+    if version == "0.6":
+        _require_shared_axes(payload["associations"] or [], sizes, axes=("atom",))
+    else:
+        for link in required:
+            observed = by_key.get(_link_key(link))
+            if (
+                observed is None
+                or not isinstance(observed["indices"], str)
+                or observed["target"] != link["target"]
+                or observed["target_name"] != link["target_name"]
+            ):
+                raise ValueError(
+                    "Calculation requires declared identity atom-axis links."
+                )
     if chemical_state == "structure":
         frames = np.asarray(structure_indices, dtype=np.int64)
         key = ("structure_state", "structures", None, "chemical_states", None)
@@ -402,6 +449,8 @@ def _read_calculation_chemistry(
     prepared = MolSys._from_partial_domains(
         topology=topology, chemical_states=states, structures=structures
     )
+    if include_mechanics and payload["molecular_mechanics"] is not None:
+        prepared.molecular_mechanics = payload["molecular_mechanics"]
     return prepared, chemical_state
 
 

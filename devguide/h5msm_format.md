@@ -4,7 +4,8 @@
 
 H5MSM is the versioned native persistence format for complete or partial
 molecular systems. Public conversion and h5msm writers emit version 0.5. Readers support versions
-0.3, 0.4 and 0.5, with deprecation warnings for legacy input. Unknown versions
+0.3, 0.4, 0.5 and experimental 0.6, with deprecation warnings for 0.3/0.4.
+Writing 0.6 requires explicit `format_version="0.6"`; the default remains 0.5. Unknown versions
 are rejected explicitly. The legacy codec details below describe 0.3/0.4; the
 public modular layout is documented in
 [H5MSM 0.5](../docs/content/user/tools/form/file/h5msm_05.md).
@@ -28,19 +29,33 @@ scientific model or completion of a requested force-field parameterization.
 
 ## Root contract
 
-Every file carries at least:
-
-- `type = "h5msm"`;
-- `version`;
-- integer and floating-point precision declarations;
-- canonical unit declarations;
-- creation and modification timestamps.
+Every file carries `type="h5msm"` and an explicitly implemented `version`.
+Precision, units and timestamps belong to the declarations of the particular
+root/layer schema: legacy roots carry defaults; modular layers declare their
+stored fields and units. Do not infer a global root unit or precision attribute
+in a modular file. Experimental 0.6 requires the five text attributes `type`,
+`version`, `creator`, `creator_version` and UTC `created_at`.
 
 Legacy roots contain `topology` and `structures` groups. Modular 0.5 layers
 `topology`, `chemical_states`, `structures` and named `interactions` are optional,
 with explicit associations; MolecularMechanics is outside 0.5. Absence of an optional
 dataset is different from a present nullable dataset and from a dataset filled
 with zero or `False`.
+
+## Experimental version 0.6
+
+The existing four domain codecs are reused with optional `molecular_mechanics`
+schema 1. The [0.6 user contract](../docs/content/user/tools/form/file/h5msm_06.md)
+records the wire layout, field types, units, absence/empty distinctions and
+public operation limits. Public 0.6 writing is explicit and experimental; this
+is not the accepted first-stable-format freeze. Legacy handler support and 0.5
+writing remain unchanged. Metadata-only `h5msm.read_axis_sizes` preserves the
+independent declared domains without pretending matching counts identify them.
+
+Stored report trees may be unknown scientific schemas. Reads and full copies
+preserve them; assignment consumers and atom projection require their implemented
+schemas and refuse unsupported/incomplete reports through SMonitor. They do not
+repair, register, recalculate or rebind a stored report simply because it loaded.
 
 ## Version 0.5 topology membership
 

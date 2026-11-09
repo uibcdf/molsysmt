@@ -83,7 +83,7 @@ Native coordinate getters select the requested rows before copying. These
 paths avoid an additional full-source coordinate copy; the source remains
 resident in RAM and the reducer may still accumulate a large result.
 
-For a path to H5MSM 0.5, executor dimension preflight reads axis metadata.
+For a path to H5MSM 0.5 or experimental 0.6, executor dimension preflight reads axis metadata.
 The file-form iterator projects coordinates, box, time, and structure IDs in
 blocks and validates structural-series shapes and units before delivery.
 It preserves nonconsecutive and repeated frame indices and requested atom
@@ -98,6 +98,12 @@ positions. MolSysMT expressions reuse scoped native inventory/chemical domains,
 and spatial expressions read their requested structures. One lexical query
 owns its static decoded domains and closes its HDF5 handles on every exit;
 there is no persistent file cache. This is the [#643 query correction](archive/resolved_bugs/h5msm_0_5_queries_read_full_coordinate_series_before_applying_selection.md).
+
+Experimental 0.6 uses the same structural iterator/query primitives. Coordinate
+queries do not decode mechanics; mechanical queries decode that resident domain
+once per lexical scope, without loading coordinates or other native domains.
+Metadata cardinalities can be read through `h5msm.read_axis_sizes` without payload
+arrays. This does not make full resident or subset conversion streaming.
 
 This does not establish bounded memory for an entire public analysis. Static
 domains and explicit association maps may be decoded in full when required;

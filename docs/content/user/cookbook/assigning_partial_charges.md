@@ -37,7 +37,9 @@ before changing the chemical state or its analyses. See
 for the assignment contract.
 
 Save the report with the result for provenance. H5MSM 0.5 does not persist the
-experimental mechanical domain; full mechanical persistence is planned for 0.6.
+experimental mechanical domain. Explicit experimental 0.6 writing preserves
+its bounded values and original reports; see {ref}`user-tools-form-h5msm-06`.
+Storage does not rebind or certify the assignment.
 
 Native assignment also works when your unit policy contains no charge standard:
 

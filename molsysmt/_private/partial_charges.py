@@ -435,11 +435,55 @@ def bind_assignment(source, report):
     return result
 
 
+def _require_assignment_report(source, report, *, projecting=False):
+    """Refuse unrecognized evidence before interpreting or remapping fields."""
+    required = {
+        "chemical_state_index",
+        "method",
+        "status",
+        "chemical_digest",
+        "values_digest",
+    }
+    if (
+        not isinstance(report, dict)
+        or report.get("schema") != "molsysmt.partial_charge_assignment@1"
+        or not required <= report.keys()
+    ):
+        _fail(
+            "Stored partial-charge assignment report has an unsupported or incomplete schema; preserve it as evidence or explicitly recalculate the assignment."
+        )
+    if any(
+        not isinstance(report[name], str) or not report[name]
+        for name in required - {"chemical_state_index"}
+    ):
+        _fail("Stored partial-charge assignment report has invalid scalar fields.")
+    index = report["chemical_state_index"]
+    if (
+        isinstance(index, (bool, np.bool_))
+        or not isinstance(index, (int, np.integer))
+        or index < 0
+    ):
+        _fail(
+            "Stored partial-charge assignment report has an invalid chemical-state index."
+        )
+    if projecting:
+        mapping = report.get("atom_source_indices")
+        if (
+            not isinstance(mapping, np.ndarray)
+            or mapping.dtype.kind not in "iu"
+            or mapping.shape != (source.get_n_atoms(),)
+        ):
+            _fail(
+                "Stored partial-charge assignment report has no supported atom correspondence for projection."
+            )
+
+
 def validate_assignment(source):
     """Reject stale provenance while retaining legacy explicitly provided charges."""
     report = getattr(source.molecular_mechanics, "partial_charge_assignment", None)
     if report is None:
         return
+    _require_assignment_report(source, report)
     index = report["chemical_state_index"]
     if (
         source.topology is None
@@ -472,6 +516,7 @@ def project_assignment(source, output, indices):
 
     if is_all(indices):
         return
+    _require_assignment_report(source, report, projecting=True)
     projected = deepcopy(report)
     indices = np.asarray(indices, dtype=np.int64)
     try:

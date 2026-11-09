@@ -200,6 +200,17 @@ def extract(
         ]
 
     if to_form is not None:
+        options = {}
+        if forms_in == "file:h5msm" and (
+            to_form == "file:h5msm" or str(to_form).endswith(".h5msm")
+        ):
+            import h5py
+
+            from molsysmt._private.h5msm_storage.versions import root_version
+
+            with h5py.File(molecular_system, "r") as file:
+                if root_version(file) == "0.6":
+                    options["format_version"] = "0.6"
         return convert(
             molecular_system,
             to_form=to_form,
@@ -207,6 +218,7 @@ def extract(
             structure_indices=structure_indices,
             syntax=syntax,
             skip_digestion=True,
+            **options,
         )
 
     if not is_all(selection):

@@ -93,6 +93,25 @@ def extract(
 
         return output_filename
 
+    from molsysmt._private.h5msm import modular_h5msm_axes
+
+    if modular_h5msm_axes(item) is not None:
+        import h5py
+
+        from molsysmt import h5msm
+        from molsysmt._private.h5msm_storage.versions import root_version
+        from molsysmt.form.molsysmt_MolSys.extract import extract as extract_native
+
+        with h5py.File(item, "r") as file:
+            version = root_version(file)
+        native = extract_native(
+            h5msm.read(item),
+            atom_indices=atom_indices,
+            structure_indices=structure_indices,
+            skip_digestion=True,
+        )
+        return h5msm.write(native, output_filename, format_version=version)
+
     from molsysmt.native import H5MSMFileHandler
 
     from .to_molsysmt_H5MSMFileHandler import to_molsysmt_H5MSMFileHandler

@@ -116,6 +116,7 @@ Functions that integrate MolSysMT with third-party libraries.
    interactions/api_hydrophobic
    element/api_element
    form/api_form
+   h5msm
    supported/api_supported
    third_party/api_thirds
 

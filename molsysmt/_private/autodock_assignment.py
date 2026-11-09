@@ -240,10 +240,53 @@ def bind_assignment(source, report):
     return bound
 
 
+def _require_assignment_report(source, report, *, projecting=False):
+    """Keep opaque transport separate from this implemented typing contract."""
+    required = {
+        "chemical_state_index",
+        "typing_scheme",
+        "status",
+        "chemical_digest",
+        "values_digest",
+    }
+    if (
+        not isinstance(report, dict)
+        or report.get("schema") != "molsysmt.atom_type_assignment@1"
+        or not required <= report.keys()
+    ):
+        fail(
+            "Stored atom-type assignment report has an unsupported or incomplete schema; preserve it as evidence or explicitly recalculate the assignment."
+        )
+    if any(
+        not isinstance(report[name], str) or not report[name]
+        for name in required - {"chemical_state_index"}
+    ):
+        fail("Stored atom-type assignment report has invalid scalar fields.")
+    index = report["chemical_state_index"]
+    if (
+        isinstance(index, (bool, np.bool_))
+        or not isinstance(index, (int, np.integer))
+        or index < 0
+    ):
+        fail("Stored atom-type assignment report has an invalid chemical-state index.")
+    if projecting:
+        for name in ("atom_source_indices", "rule_indices", "n_matching_rules"):
+            values = report.get(name)
+            if (
+                not isinstance(values, np.ndarray)
+                or values.dtype.kind not in "iu"
+                or values.shape != (source.get_n_atoms(),)
+            ):
+                fail(
+                    "Stored atom-type assignment report has no supported atom correspondence for projection."
+                )
+
+
 def validate_assignment(source, typing_scheme):
     report = getattr(source.molecular_mechanics, "atom_type_assignment", None)
     if report is None:
         return
+    _require_assignment_report(source, report)
     if report["typing_scheme"] != typing_scheme:
         fail("Stored atom-type assignment uses a different typing_scheme.")
     if (
@@ -277,6 +320,7 @@ def project_assignment(source, output, indices):
 
     if is_all(indices):
         return
+    _require_assignment_report(source, report, projecting=True)
     projected = deepcopy(report)
     indices = np.asarray(indices, dtype=np.int64)
     try:

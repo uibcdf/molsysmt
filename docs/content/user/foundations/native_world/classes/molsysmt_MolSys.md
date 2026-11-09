@@ -89,7 +89,10 @@ owner still detach according to their native ownership rules. Unowned structures
 and supplied mechanics can be shared explicitly. Index selections use existing
 extraction: Topology-backed atom subsets are sorted; a chemical/structural-only
 system retains the requested atom order. Several chemical states do not acquire
-an automatic structure association. H5MSM 0.5 still rejects nonempty mechanics.
+an automatic structure association. H5MSM 0.5 still rejects nonempty mechanics. Explicit
+experimental 0.6 snapshots preserve supported values and original reports;
+see {ref}`user-tools-form-h5msm-06`. This neither parameterizes the system
+nor certifies the stored evidence.
 
 ---
 

@@ -2,12 +2,19 @@
 
 from pathlib import Path
 
+from .h5msm_storage.versions import MODULAR_VERSIONS
+
 MODULAR_HANDLER_REASON = (
     "H5MSM 0.5 cannot be opened as molsysmt.H5MSMFileHandler; "
     "that handler supports only H5MSM 0.3 and 0.4. "
     "Use molsysmt.convert(path, to_form='molsysmt.MolSys') for a resident load, "
     "or molsysmt.h5msm.read_layers(path, layers=...) to load selected domains."
 )
+
+
+def modular_handler_reason(version):
+    """Keep the requested root explicit in the legacy-handler refusal."""
+    return MODULAR_HANDLER_REASON.replace("H5MSM 0.5", f"H5MSM {version}")
 
 
 def has_h5msm_path(item):
@@ -69,8 +76,10 @@ def validate_h5msm_handler_target(item, to_form):
         version = file.attrs.get("version")
     if isinstance(version, bytes):
         version = version.decode()
-    if version == "0.5":
-        raise FormatError(reason=MODULAR_HANDLER_REASON, caller="molsysmt.convert")
+    if version in MODULAR_VERSIONS:
+        raise FormatError(
+            reason=modular_handler_reason(version), caller="molsysmt.convert"
+        )
 
 
 def modular_h5msm_axes(item):
@@ -85,8 +94,13 @@ def modular_h5msm_axes(item):
         version = file.attrs.get("version")
         if isinstance(version, bytes):
             version = version.decode()
-        if version != "0.5":
+        if version not in MODULAR_VERSIONS:
             return None
+        if version == "0.6":
+            from .h5msm_storage.modular import _declared_sizes, _header
+
+            _header(file)
+            return _declared_sizes(file)
         return _axis_sizes_from_file(file)
 
 
@@ -102,17 +116,24 @@ def modular_h5msm_dimensions(item):
     n_atoms = sizes.get(
         ("structures", None, "atom"),
         sizes.get(
-            ("topology", None, "atom"), sizes.get(("chemical_states", None, "atom"), 0)
+            ("topology", None, "atom"),
+            sizes.get(
+                ("chemical_states", None, "atom"),
+                sizes.get(("molecular_mechanics", None, "atom"), 0),
+            ),
         ),
     )
     return n_atoms, sizes.get(("structures", None, "structure"), 0)
 
 
-def maybe_read_modular_h5msm(item, *, topology_only=False):
+def maybe_read_modular_h5msm(item, *, topology_only=False, mechanics_only=False):
     """Read an admitted topology projection or the ordinary resident domains."""
     if isinstance(item, (list, tuple)):
         converted = [
-            maybe_read_modular_h5msm(part, topology_only=topology_only) for part in item
+            maybe_read_modular_h5msm(
+                part, topology_only=topology_only, mechanics_only=mechanics_only
+            )
+            for part in item
         ]
         if all(new is old for new, old in zip(converted, item)):
             return item
@@ -129,8 +150,18 @@ def maybe_read_modular_h5msm(item, *, topology_only=False):
         version = file.attrs.get("version")
     if isinstance(version, bytes):
         version = version.decode()
-    if version != "0.5":
+    if version not in MODULAR_VERSIONS:
         return item
+
+    if mechanics_only and version == "0.6":
+        from molsysmt.h5msm import read_layers
+
+        mechanics = read_layers(str(path), layers="molecular_mechanics")[
+            "molecular_mechanics"
+        ]
+        if mechanics is None:
+            raise ValueError("This file has no molecular mechanics domain to convert.")
+        return mechanics
 
     if topology_only:
         from molsysmt.h5msm import read_layers
@@ -140,6 +171,6 @@ def maybe_read_modular_h5msm(item, *, topology_only=False):
             raise ValueError("This MolSys has no topology domain to convert.")
         return topology
 
-    from molsysmt.form._h5msm05_modular import read_molsys_file
+    from .h5msm_storage.modular import read_molsys_file
 
     return read_molsys_file(path)

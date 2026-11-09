@@ -91,7 +91,9 @@ H5MSM 0.3 and 0.4. The explicit `msm.h5msm.write` and
 `msm.h5msm.read` functions use the modular 0.5 schema and preserve supported
 partial native systems. The {doc}`H5MSM 0.5 guide
 <../../tools/form/file/h5msm_05>` describes the versioned API and its current
-limits.
+limits. Experimental 0.6 additionally preserves the bounded mechanical
+domain when explicitly requested; the default stays 0.5. See
+{ref}`user-tools-form-h5msm-06` for that opt-in contract.
 
 ---
 

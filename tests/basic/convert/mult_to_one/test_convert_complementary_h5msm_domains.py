@@ -294,11 +294,14 @@ def test_nondefault_units_and_topology_selection_are_applied_after_composition(
     )
 
 
-def test_partial_composition_rejects_mechanics_without_silent_loss(split_system):
+def test_partial_composition_preserves_one_mechanical_provider_without_silent_loss(
+    split_system,
+):
     _, chemistry_file, structures_file = split_system
     identity = msm.h5msm.read(chemistry_file)
     geometry = msm.h5msm.read(structures_file)
     identity.molecular_mechanics.forcefield = "declared-model"
-    with pytest.raises(StructuralInconsistencyError, match="molecular mechanics"):
-        msm.convert([identity, geometry])
+    result = msm.convert([identity, geometry])
+    assert result.molecular_mechanics.forcefield == "declared-model"
+    result.molecular_mechanics.forcefield = "changed-independent-result"
     assert identity.molecular_mechanics.forcefield == "declared-model"

@@ -50,10 +50,10 @@ def _context(source):
     if dimensions is not None:
         import h5py
 
+        from molsysmt._private.h5msm_storage.modular import read_modular_file
         from molsysmt.form._h5msm05_modular import (
             _link_key,
             _read_calculation_chemistry,
-            read_modular_file,
         )
 
         with h5py.File(source, "r") as file:

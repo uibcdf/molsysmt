@@ -289,3 +289,21 @@ provisional Å² convention, then PyUnitWizard standardization. Extract explicit
 Å² values to retain the historical model input scale. Original-paper verification
 is still pending under #473; unit typing does not certify conformational SASA.
 See {ref}`Tutorial_Get_surface_area`.
+
+## Trying the experimental mechanical snapshot
+
+Keep the default 0.5 migration above for that schema. To explicitly upgrade a
+readable 0.3/0.4/0.5 source to experimental 0.6, use a separate destination:
+
+```python
+msm.convert("old.h5msm", to_form="file:h5msm",
+            output_filename="experimental_06.h5msm", format_version="0.6")
+molsys = msm.h5msm.read("experimental_06.h5msm")
+```
+
+The source file is unchanged. Its legacy unit validation/warning still applies;
+no mechanical assignments are invented. For a prepared resident `molsys`, the
+same explicit output option preserves its supported mechanical values/reports.
+An ordinary 0.5 write still rejects them. Whole conversion is resident; this is
+not a streaming migration or scientific validation. See
+{ref}`user-tools-form-h5msm-06` for schema, query and memory limits.

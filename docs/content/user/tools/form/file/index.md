@@ -15,6 +15,7 @@ On-disk molecular structure, trajectory, and topology file formats supported by 
 | [h5](file_h5.ipynb) | Generic Hierarchical Data Format (HDF5) container file |
 | [h5msm](file_h5msm.ipynb) | MolSysMT native HDF5 molecular system file format |
 | [H5MSM 0.5](h5msm_05.md) | Modular, versioned HDF5 storage and 0.4 migration |
+| [H5MSM 0.6](h5msm_06.md) | Experimental opt-in mechanical snapshots and original assignment evidence |
 | [inpcrd](file_inpcrd.ipynb) | AMBER ASCII coordinate/restart (inpcrd) file format |
 | [mdcrd](file_mdcrd.ipynb) | AMBER ASCII trajectory (mdcrd) file format |
 | [mol2](file_mol2.ipynb) | Tripos MOL2 molecular structure file format |
@@ -49,6 +50,7 @@ On-disk molecular structure, trajectory, and topology file formats supported by 
    h5 <file_h5.ipynb>
    h5msm <file_h5msm.ipynb>
    H5MSM 0.5 <h5msm_05.md>
+   H5MSM 0.6 (experimental) <h5msm_06.md>
    inpcrd <file_inpcrd.ipynb>
    mdcrd <file_mdcrd.ipynb>
    mol2 <file_mol2.ipynb>

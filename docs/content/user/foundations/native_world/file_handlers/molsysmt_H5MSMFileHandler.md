@@ -9,9 +9,9 @@
 
 `H5MSMFileHandler` manages disk handles for MolSysMT's native `.h5msm` binary format. It encapsulates `h5py.File` handles, manages compression filters (Gzip/LZF), enforces schema versioning (Schema 0.4 and 0.3), and powers chunked trajectory iterators.
 
-This handler supports **only 0.3 and 0.4**, not modular H5MSM 0.5. Both its
+This handler supports **only 0.3 and 0.4**, not modular H5MSM 0.5 or experimental 0.6. Both its
 constructor and `msm.convert(path, to_form="molsysmt.H5MSMFileHandler")` reject
-0.5 with `FormatError`. For 0.5, use `msm.convert(path)` or
+either modular version with `FormatError`. For these versions, use `msm.convert(path)` or
 `msm.h5msm.read(path)` to obtain a resident `MolSys`, or
 `msm.h5msm.read_layers(path, layers=["structures"])` to load selected domains.
 These operations materialize data; they do not return a file-backed handler.

@@ -9,6 +9,8 @@ def to_file_h5msm(
     output_filename=None,
     copy_if_all=True,
     skip_digestion=False,
+    *,
+    format_version=None,
 ):
     """
     Converting from file:h5msm to file:h5msm.
@@ -29,6 +31,10 @@ def to_file_h5msm(
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    format_version : str or none, default=None
+        None retains this adapter's legacy copy/extraction route. An explicit
+        '0.5' or experimental '0.6' reads native domains and writes that schema.
+
     Returns
     -------
     file:h5msm
@@ -37,6 +43,18 @@ def to_file_h5msm(
 
     .. versionadded:: 1.0.0
     """
+
+    if format_version is not None:
+        from molsysmt.basic import convert
+
+        return convert(
+            item,
+            to_form="file:h5msm",
+            selection=atom_indices,
+            structure_indices=structure_indices,
+            output_filename=output_filename,
+            format_version=format_version,
+        )
 
     from .extract import extract
 

@@ -699,7 +699,7 @@ def _reconcile_composed_structure_state_association(item):
         )
 
 
-def _convert_to_h5msm05(
+def _convert_to_h5msm(
     molecular_system,
     from_form,
     output_filename,
@@ -708,7 +708,7 @@ def _convert_to_h5msm05(
     syntax,
     kwargs,
 ):
-    """Write the public H5MSM target through the versioned 0.5 codec."""
+    """Write an explicitly selected modular schema through its owned codec."""
     from molsysmt import h5msm
     from molsysmt.form import _dict_modules
 
@@ -729,6 +729,9 @@ def _convert_to_h5msm05(
             )
 
     options = dict(kwargs)
+    from molsysmt._private.h5msm_storage.versions import write_version
+
+    version = write_version(options.pop("format_version", "0.5"))
     for name, default in (
         ("compression", "gzip"),
         ("compression_opts", 4),
@@ -738,7 +741,7 @@ def _convert_to_h5msm05(
         value = options.pop(name, default)
         if value != default:
             raise ValueError(
-                f"H5MSM 0.5 does not support the {name} conversion option yet."
+                f"H5MSM {version} does not support the {name} conversion option yet."
             )
 
     if isinstance(from_form, str):
@@ -788,10 +791,14 @@ def _convert_to_h5msm05(
             "its chain indices can be remapped."
         )
     if target == "molsysmt.Structures":
-        return h5msm.write_layers(output_filename, structures=native)
+        return h5msm.write_layers(
+            output_filename, structures=native, format_version=version
+        )
     if target == "molsysmt.ChemicalStates":
-        return h5msm.write_layers(output_filename, chemical_states=native)
-    return h5msm.write(native, output_filename)
+        return h5msm.write_layers(
+            output_filename, chemical_states=native, format_version=version
+        )
+    return h5msm.write(native, output_filename, format_version=version)
 
 
 # Keep the decorator import beside the public conversion boundary.
@@ -911,7 +918,10 @@ def convert(
       adapter limitation.
     - Ordinary conversions do not construct a preflight report. This keeps the
       reporting layer opt-in when neither `strict` nor `return_report` is used.
-    - Converting to ``file:h5msm`` writes H5MSM 0.5. Legacy 0.3 and 0.4
+    - Converting to ``file:h5msm`` writes H5MSM 0.5 by default. The explicit
+      converter option ``format_version="0.6"`` enables experimental stored
+      mechanics persistence; it never certifies parameterization or rebinds
+      assignments. Reading supports both modular versions. Legacy 0.3 and 0.4
       files remain readable and can be migrated with
       :func:`molsysmt.h5msm.migrate_to_05`.
     - Loading one H5MSM 0.5 path as one MolSys uses the reader's fresh resident
@@ -962,7 +972,9 @@ def convert(
       domains and unknown structure-to-state assignments stay absent/unknown.
       The default output is independent. Topology is always copied for its
       single-owner contract, even with ``copy_if_all=False``. This route loads
-      stored arrays and rejects molecular mechanics rather than discarding it.
+      stored arrays and permits one nonempty mechanical provider with matching
+      atom rows. Original reports, including report-only storage, are preserved
+      without recalculation. Repeated nonempty mechanical providers are refused.
 
 
     See Also
@@ -1044,8 +1056,19 @@ def convert(
         and from_naming_scheme is None
         and not kwargs
     )
+    mechanics_only = (
+        to_form == "molsysmt.MolecularMechanics"
+        and not isinstance(molecular_system, (list, tuple))
+        and is_all(selection)
+        and is_all(structure_indices)
+        and syntax == "MolSysMT"
+        and not strict
+        and not return_report
+        and from_naming_scheme is None
+        and not kwargs
+    )
     molecular_system = maybe_read_modular_h5msm(
-        molecular_system, topology_only=topology_only
+        molecular_system, topology_only=topology_only, mechanics_only=mechanics_only
     )
     fresh_file_result = molecular_system is not incoming_system and not isinstance(
         incoming_system, (list, tuple)
@@ -1152,7 +1175,7 @@ def convert(
         output_filename = options.pop("output_filename", None)
         if to_form != "file:h5msm":
             output_filename = to_form
-        output = _convert_to_h5msm05(
+        output = _convert_to_h5msm(
             molecular_system,
             from_form,
             output_filename,

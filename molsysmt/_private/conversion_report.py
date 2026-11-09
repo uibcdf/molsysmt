@@ -1346,7 +1346,7 @@ def build_conversion_report(
                 source_form == "file:h5msm"
                 and modular_h5msm_axes(source_item) is not None
             ):
-                from molsysmt.form._h5msm05_modular import read_modular_file
+                from molsysmt._private.h5msm_storage.modular import read_modular_file
                 from molsysmt.native import MolSys
 
                 payload = read_modular_file(

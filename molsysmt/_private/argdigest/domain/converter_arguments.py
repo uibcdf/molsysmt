@@ -251,6 +251,7 @@ CONVERTER_ARGUMENTS = {
         "coordinates",
         "copy_if_all",
         "float_precision",
+        "format_version",
         "get_missing_bonds",
         "int_precision",
         "output_filename",

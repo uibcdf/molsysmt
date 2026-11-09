@@ -681,6 +681,9 @@ sections:
           - file: docs/content/user/tools/form/file/h5msm_05.md
             agents_file: docs/content/user/tools/form/file/h5msm_05.md.AGENTS.md
             description: Modular persistence, topology layer-4 naming declarations, layer-3 atom/molecule and layer-2 chain/group membership, scoped file queries with repeated/nonconsecutive projections, independent projected reads, typed history, complementary file composition, shared axes, explicit state maps and legacy migration.
+          - file: docs/content/user/tools/form/file/h5msm_06.md
+            agents_file: docs/content/user/tools/form/file/h5msm_06.md.AGENTS.md
+            description: Explicit experimental mechanical snapshots, producer/units/presence semantics, independent axes, public queries and source-preserving operations.
           - file: docs/content/user/tools/form/file/file_structures_yaml.ipynb
             agents_file: docs/content/user/tools/form/file/file_structures_yaml.ipynb.AGENTS.md
             description: Structures YAML 0.2 quantity records, sparse alternate geometry, local indices and explicit 0.1 migration.

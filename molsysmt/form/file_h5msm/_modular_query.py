@@ -10,9 +10,11 @@ from pathlib import Path
 
 import h5py
 
+from molsysmt._private.attribute_catalog import mechanical_attributes as _MECHANICAL
+from molsysmt._private.h5msm_storage.versions import MODULAR_VERSIONS
 from molsysmt._private.variables import is_all
 
-from .._h5msm05_associations import _axis_sizes_from_file, read_associations
+from .._h5msm05_associations import read_associations
 from .._h5msm05_structures import (
     _FIELDS,
     read_independent_structures,
@@ -70,7 +72,7 @@ def _open_queries(source, queries, stack):
         version = file.attrs.get("version")
         if isinstance(version, bytes):
             version = version.decode()
-        if version != "0.5":
+        if version not in MODULAR_VERSIONS:
             file.close()
             queries[path] = None
             continue
@@ -104,6 +106,19 @@ def route_getter(legacy, item, **kwargs):
         return query.get(legacy.__name__, **kwargs)
 
 
+def route_mechanical_getter(target, item, **kwargs):
+    """Read stored mechanics, retaining absence in legacy files."""
+    with query_scope(item):
+        query = _current(item)
+        if query is not None:
+            return query.get(target.__name__, **kwargs)
+        from molsysmt.native import H5MSMFileHandler
+
+        handler = H5MSMFileHandler(item)
+        handler.close()
+        return None
+
+
 def query_has_attribute(item, attribute, include_none):
     """Return None only for a non-modular file, retaining legacy dispatch."""
     with query_scope(item):
@@ -113,7 +128,14 @@ def query_has_attribute(item, attribute, include_none):
 
 class _ModularQuery:
     def __init__(self, file):
-        if file.attrs.get("type") != "h5msm" or set(file) - {
+        from molsysmt._private.h5msm_storage.modular import (
+            _DOMAINS,
+            _declared_sizes,
+            _header,
+        )
+
+        self.version = _header(file)
+        if self.version == "0.5" and set(file) - {
             "topology",
             "chemical_states",
             "structures",
@@ -121,9 +143,14 @@ class _ModularQuery:
             "associations",
         }:
             raise ValueError("Expected an H5MSM 0.5 modular file.")
+        self.layers = (
+            _DOMAINS
+            if self.version == "0.6"
+            else set(_DOMAINS) - {"molecular_mechanics"}
+        )
         self.file = file
         validate_structures_metadata(file)
-        self.sizes = _axis_sizes_from_file(file)
+        self.sizes = _declared_sizes(file)
         if any(value < 0 for value in self.sizes.values()):
             raise ValueError("Invalid modular layer axis cardinality.")
         self._domains = {}
@@ -134,7 +161,12 @@ class _ModularQuery:
     @property
     def n_atoms(self):
         self._validate_axes()
-        for layer in ("topology", "chemical_states", "structures"):
+        for layer in (
+            "topology",
+            "chemical_states",
+            "structures",
+            "molecular_mechanics",
+        ):
             if (layer, None, "atom") in self.sizes:
                 return self.sizes[layer, None, "atom"]
         return self._interaction_axis("atom")
@@ -157,7 +189,17 @@ class _ModularQuery:
     def _validate_axes(self):
         if self._axes_checked:
             return
-        links = read_associations(self.file, self.sizes, axes={"atom"}) or []
+        links = (
+            read_associations(self.file, self.sizes, axes={"atom"}, layers=self.layers)
+            or []
+        )
+        if self.version == "0.6":
+            from molsysmt._private.h5msm_storage.modular import _require_shared_axes
+
+            _require_shared_axes(links, self.sizes, axes=("atom",))
+            self._links = links
+            self._axes_checked = True
+            return
         required = []
         if "topology" in self.file and "chemical_states" in self.file:
             required.append(("chemical_states", "topology"))
@@ -189,6 +231,10 @@ class _ModularQuery:
                 from .._h5msm05_topology import read_independent_topology
 
                 value = read_independent_topology(self.file)
+            elif name == "molecular_mechanics":
+                from molsysmt._private.h5msm_storage.mechanics import read_mechanics
+
+                value = read_mechanics(self.file)
             else:
                 from .._h5msm_chemical_states import read_independent_chemical_states
 
@@ -245,8 +291,14 @@ class _ModularQuery:
         return self._views[key]
 
     def has(self, attribute, include_none=False):
-        from molsysmt.form import molsysmt_MolSys
+        from molsysmt.form import molsysmt_MolecularMechanics, molsysmt_MolSys
 
+        if attribute in _MECHANICAL:
+            self._validate_axes()
+            mechanics = self.domain("molecular_mechanics")
+            return mechanics is not None and molsysmt_MolecularMechanics.has_attribute(
+                mechanics, attribute, include_none=include_none, skip_digestion=True
+            )
         if attribute in {"n_atoms", "atom_index"}:
             return self.n_atoms is not None
         if attribute in {"n_structures", "structure_index"}:
@@ -293,7 +345,10 @@ class _ModularQuery:
             indices = range(self.n_structures)
         states = self.domain("chemical_states")
         for link in (
-            read_associations(self.file, self.sizes, axes={"structure_state"}) or []
+            read_associations(
+                self.file, self.sizes, axes={"structure_state"}, layers=self.layers
+            )
+            or []
         ):
             if (
                 link["axis"] == "structure_state"
@@ -388,6 +443,29 @@ class _ModularQuery:
                 key: "all" for key in kwargs if key in {"indices", "structure_indices"}
             }
             return target(source, skip_digestion=True, **canonical)
+        from molsysmt.form import molsysmt_MolecularMechanics
+
+        if attribute in _MECHANICAL:
+            self._validate_axes()
+            mechanics = self.domain("molecular_mechanics")
+            if element == "atom":
+                selected = self._indices(indices, self.n_atoms, "indices")
+                if selected is None:
+                    return None
+                kwargs = {**kwargs, "indices": selected}
+            target_name = (
+                f"get_{attribute}_from_atom"
+                if element == "system"
+                and attribute in {"partial_charge", "atom_ff_type"}
+                else name
+            )
+            return (
+                None
+                if mechanics is None
+                else getattr(molsysmt_MolecularMechanics, target_name)(
+                    mechanics, skip_digestion=True, **kwargs
+                )
+            )
         source = self.static(attribute, element)
         return (
             None
