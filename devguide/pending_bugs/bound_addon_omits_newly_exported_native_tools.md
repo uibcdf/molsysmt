@@ -75,3 +75,24 @@ use the actual stored forcefield field and request positive insufficient work.
 No scientific criterion or production algorithm was changed to satisfy them.
 The corrected focused selection passes 122 cases. Three additional typed-axis
 and numeric-budget guards plus documentation receiving are being qualified.
+
+## Broad receiving and corrected namespace guards — 2026-11-09
+
+The 5,806-case broad selection reached its own 600-second time limit after
+4,039 complete setup/call/teardown passes. The original invocation is incomplete,
+not passing. The service journal reports timeout and a 2.4G peak; its final
+per-cgroup counters were not retained after service collection. Recovered source
+and Viewer hashes are unchanged. A separate collection-only manifest identifies
+all 5,806 nodes; collection is not execution.
+
+Whole files with any uncompleted case were resumed in two bounded batches:
+979 cases (978 passes/one failure) and 852 cases (843 passes/nine failures).
+Nine failures are stale strict namespace/count expectations in three earlier
+addon modules; the remaining new help check found no native write_layers example.
+Expected names and the reviewed count are updated explicitly, preserving exact
+set comparisons. A real executable mechanics-layer example is added to native
+help. No scientific formula, criterion or numerical assertion is changed.
+Two stale sentences in the already edited course module are corrected to retain
+ChemicalStates ownership and distinguish default 0.5 from experimental 0.6.
+The affected complete modules and documentation are being rerun. The original
+failures/time limit remain evidence; no single all-in-one passing run is claimed.

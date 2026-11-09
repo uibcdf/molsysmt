@@ -1,7 +1,9 @@
 """Receive native provider additions without adopting or editing their outputs."""
 
+import doctest
 import inspect
 from copy import deepcopy
+from pathlib import Path
 
 import h5py
 import molsysviewer as msv
@@ -40,6 +42,25 @@ def resolve(root, path):
     for name in path.split("."):
         root = getattr(root, name)
     return root
+
+
+@pytest.mark.parametrize("path", PATHS)
+def test_native_examples_in_bound_help(path):
+    with msv.new_view() as owner:
+        method = resolve(owner.addons.molsysmt, path)
+        test = doctest.DocTestParser().get_doctest(
+            inspect.getdoc(method), {}, path, path, 0
+        )
+        assert test.examples
+        assert doctest.DocTestRunner().run(test).failed == 0
+
+
+def test_documented_population_recipe():
+    root = Path(__file__).resolve().parents[2]
+    content = (root / "docs/content/user/tools/molsysviewer_tools.md").read_text()
+    section = content.split("## Comparing an ordered structure population\n", 1)[1]
+    code = section.split("```python\n", 1)[1].split("```", 1)[0]
+    exec(compile(code, "<documented population recipe>", "exec"), {})
 
 
 @pytest.fixture

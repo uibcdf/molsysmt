@@ -98,7 +98,7 @@ def test_native_signatures_digestion_help_and_explicit_namespace(peptide, name):
         "get_atom_name_correspondence",
     }
     assert set(dir(peptide.addons.molsysmt.chemical_states)) == set(
-        OLD_NAMES + NEW_NAMES
+        OLD_NAMES + NEW_NAMES + ("normalize_indexed_hydrogen_policy",)
     ) - {"get_sequence_alignment", "get_sequence_identity"}
     if name in {
         "get_atom_correspondences",

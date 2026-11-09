@@ -20,6 +20,8 @@ READERS = (
     "get_dihedral_angles",
     "get_rmsd",
     "get_least_rmsd",
+    "get_pairwise_rmsd",
+    "get_distance_clusters",
     "get_principal_axes",
     "get_least_squares_plane",
     "get_maximum_distances",

@@ -271,6 +271,31 @@ def write_layers(
     str or pathlib.Path
         Path of the written file.
 
+    Notes
+    -----
+    The default 0.5 schema rejects a supplied mechanics layer rather than
+    discarding it. Explicit 0.6 is experimental. Reading declared axis sizes
+    validates metadata cardinalities, not chemical identity or full payloads.
+    Storage does not parameterize or execute a mechanical model.
+
+    Examples
+    --------
+    >>> import tempfile
+    >>> from pathlib import Path
+    >>> import molsysmt as msm
+    >>> from molsysmt.native import MolecularMechanics
+    >>> with tempfile.TemporaryDirectory() as directory:
+    ...     path = Path(directory) / "mechanics.h5msm"
+    ...     _ = msm.h5msm.write_layers(path,
+    ...         molecular_mechanics=MolecularMechanics(forcefield="request"),
+    ...         mechanics_n_atoms=7, format_version="0.6")
+    ...     msm.h5msm.read_axis_sizes(path)
+    {('molecular_mechanics', None, 'atom'): 7}
+
+    .. admonition:: User guide
+
+       See :ref:`user-tools-form-h5msm-06` for experimental stored mechanics.
+
     .. versionadded:: 1.0.0
     """
     from molsysmt._private.h5msm_storage.versions import write_version
