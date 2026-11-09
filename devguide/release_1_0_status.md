@@ -1,5 +1,39 @@
 # MolSysMT 1.0 Execution Status
 
+
+## Current vector/angular source receiving — 2026-11-09 (#421)
+
+Three existing geometric-analysis intents are now source-qualified: directed
+vectors, explicit triplet angles and explicit quartet torsions. Native 6302af9d6
+passes 228 selected cases, including analytical signs/MIC/units and the public
+get_angles doctest. Identical product/docs/numeric-test bytes on 6a8552850 pass
+all twenty actual Jupyter/Mol*/popup checks, retaining all seventeen old checks.
+Fourteen fast gates and four inspected HTML pages pass. Eighteen executed course/
+tutorial code cells, metadata and outputs remain exact.
+
+The [receiving record](../devtools/data/molsysviewer_vector_angular_receiving_421_20261109.json)
+retains the three initial fixture failures and both incomplete 240-second GUI
+attempts. Measured CPU throttling motivated four CPU with the same 4 GiB cap;
+the expanded twenty-step scenario has a finite 300-second Node / 360-second outer
+budget. Original scientific/scene assertions and other scenario deadlines remain.
+Plain-Jupyter browser fingerprints are retained; no new fingerprints are admitted.
+Actual host/cgroup resource evidence is distinct from synthetic tiny-budget test
+warnings. No unsafe memory stress run is performed.
+
+The [canonical scorecard](../devtools/data/pre_1_0_progress_scorecard_20261107.json)
+now records **29/50** received intents; the weighted accepted milestone value is
+**72.4028% (approximately 72.4%)**. Only those three existing leaves receive
+credit; bug/test counts add none. Native angular eager storage is documented,
+with post-1.0 chunking tracked by #667. Contact intent/#666 and
+uibcdf/pyunitwizard#143 remain unresolved, with its prototype isolated.
+
+Next: continue remaining #421 analysis/chemistry/construction/refinement/session
+intents while resolving #666. Keep #256 independent client receiving/stable-root
+freeze, #524 installed floors, #615 causality, human/installed/platform and #334
+exact-candidate/publication exits explicit. Viewer e4dd58cf is the exact retained
+host here; this does not qualify a newer host or installed pair. No tag, package,
+Release, hosted matrix or final-candidate authority is added.
+
 ## New contact-boundary evidence and facade priority — 2026-11-09
 
 The #421 contact prototype exposes native #666: an inclusive 0.5 nm decision

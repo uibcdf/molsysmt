@@ -3774,3 +3774,22 @@ scenarios keep their prior deadlines, and resource/scientific/scene assertions
 remain unchanged. Per-step timings remain durable in the private receipt.
 General native angular chunking is now tracked post-1.0 in #667, rather than
 being hidden behind frontend paging or added as another release requirement.
+
+
+### Vector/angular receiving completed — 2026-11-09
+
+The [receiving record](../../devtools/data/molsysviewer_vector_angular_receiving_421_20261109.json)
+qualifies the three existing intents on native 6302af9d6 / graphical 6a8552850
+with identical product/docs/numeric-test inputs: 228 source cases, all twenty
+actual Jupyter checks, fourteen fast gates and four HTML pages. Both source and
+detached popup boundaries retain source indices, signed/nine-digit observations,
+unit-bearing native data, deliberate participant actions and unchanged molecular
+coordinates/chemistry. All seventeen old browser checks remain.
+
+The native/GUI failures and timeouts above remain historical outcomes. The final
+finite expanded-scenario budget completes at approximately 256 browser seconds;
+no old assertion is removed. Browser errors match plain-Jupyter fingerprints,
+not a zero-error environment claim. The canonical scorecard credits only vectors,
+angles and torsions: 29/50 accepted intents, weighted 72.4028%. No new scope,
+human/installed/candidate or scientific-profile acceptance is added. Contacts
+remain held by #666; general angular chunking #667 is post-1.0.
