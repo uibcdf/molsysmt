@@ -51,6 +51,7 @@ export function render({model,el}) {
       <h3 data-report-heading tabindex="-1"></h3><button data-change-inspection>Change inspection</button><p data-report-scope></p><p class="msm-hint" data-state-summary></p>
       <p data-inventory-status></p><p class="msm-hint" data-count-convention></p><p class="msm-hint" data-connectivity></p>
       <p class="msm-hint" data-assessment-summary hidden></p>
+      <details data-assessment-attribution hidden><summary>Scientific reference identifiers</summary><p class="msm-hint" data-assessment-references></p></details>
       <details data-fields-section open><summary>Stored information</summary><div class="msm-table-scroll"><table><thead><tr><th>Field</th><th>Coverage</th><th>Present / total</th></tr></thead><tbody data-fields></tbody></table></div><p class="msm-hint">Presence describes stored information, not independent chemical validation. Partial, missing, unsupported and conflicting values remain distinct in the details.</p></details>
       <details data-issues-section open hidden><summary>Inventory issues</summary><ul data-issue-counts></ul></details>
       <details data-details><summary>Inspect source indices and values</summary>
@@ -108,12 +109,13 @@ export function render({model,el}) {
       q('inspect').textContent=busy?'Working…':'Inspect without changing';
     }
     q('report').hidden=!report;
-    q('assessment-summary').hidden=!assessment;
+    q('assessment-summary').hidden=!assessment;q('assessment-attribution').hidden=!protonation||!report;
     if(report&&assessment){
       q('report-heading').textContent=q('heading').textContent+' report';
       q('report-scope').textContent=whole?`${report.group_count.toLocaleString()} ${protonation?'source groups':'groups with missing terminal atoms'} · whole system`:`${report.group_count.toLocaleString()} source groups · ${report.structure_index===null?'no coordinate structures':`structure ${report.structure_index}`}`;
       q('state-summary').textContent=parameters.task==='terminals'?'Inventory/name-based terminal check; no chemical-state selection.':`Chemical state: ${report.chemical_state_index===null?'unresolved':report.chemical_state_index}.`;
-      q('assessment-summary').textContent=protonation?`Native status: ${report.status}; pH ${report.pH}. ${report.removed_atoms} proposed H removals, not applied. ${report.assessed_groups} assessed groups; ${report.unassessed_groups} unassessed groups; ${report.unassessed_states} unassessed states; ${report.unassigned_atoms} unassigned atoms. Coverage complete: ${report.coverage_complete}. Reference data: ${report.attribution.join(', ')}${report.attribution_truncated?'…':''}.`:whole?'Only missing OXT names are returned; an empty result does not certify complete termini or unsupported groups.':`Native group coverage: ${report.counts.assessed} assessed, ${report.counts.incomplete} incomplete, ${report.counts.unassessed} unassessed. This is template comparison, not validation of all chemistry.`;
+      q('assessment-summary').textContent=protonation?`Native status: ${report.status}; pH ${report.pH}. ${report.removed_atoms} proposed H removals, not applied. ${report.assessed_groups} assessed groups; ${report.unassessed_groups} unassessed groups; ${report.unassessed_states} unassessed states; ${report.unassigned_atoms} unassigned atoms. Coverage complete: ${report.coverage_complete}.`:whole?'Only missing OXT names are returned; an empty result does not certify complete termini or unsupported groups.':`Native group coverage: ${report.counts.assessed} assessed, ${report.counts.incomplete} incomplete, ${report.counts.unassessed} unassessed. This is template comparison, not validation of all chemistry.`;
+      q('assessment-references').textContent=protonation?report.attribution.join(', ')+(report.attribution_truncated?'…':''):'';
       q('inventory-status').textContent='';q('count-convention').textContent='';q('connectivity').textContent='';q('fields-section').hidden=true;q('issues-section').hidden=true;
       list(q('unassessed'),report.unassessed_checks.map(label));
       q('provenance').textContent=`${report.method} · ${report.schema} · MolSysMT ${report.software.molsysmt} · molecular revision ${report.source_revision}. Full native arrays stay in Python; only 50 rows are sent per page. Reports expire on changed inputs/source or unmount; raw external writes are not observed. No report or executable decision is stored in sessions or H5MSM.`;

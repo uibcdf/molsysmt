@@ -135,6 +135,11 @@ try{
   if(expected.removal_rows.length)await widget.locator('[data-rows] tr').first().locator('td').first().filter({hasText:expected.removal_rows[0][0]}).waitFor();
   assert.deepEqual(await table(widget),expected.removal_rows);
   assert.equal(await widget.locator('[data-preparation-result]').isVisible(),false);
+  assert.equal(await widget.locator('[data-assessment-references]').isVisible(),false);
+  await widget.locator('[data-assessment-attribution] summary').click();
+  await widget.locator('[data-assessment-references]').filter({hasText:'dataset:molsysmt-amino-acid-catalogue:'}).waitFor();
+  assert.doesNotMatch(await widget.locator('[data-assessment-summary]').innerText(),/dataset:/);
+  await widget.locator('[data-assessment-attribution] summary').click();
   await page.screenshot({path:output+'/chemistry-protonation-assessment.png',fullPage:true});
  });
  await step('Python verifies every source coordinate chemical domain scene and revision is unchanged',async()=>{

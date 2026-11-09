@@ -3820,3 +3820,15 @@ page before the async empty result arrives. The complete attempt remains failed.
 The guard now waits for the new source-atom column before comparing the entire
 native removal table; no product, numeric assertion or deadline changes. Actual
 graphical receiving and final local gates remain due.
+
+
+### Chemistry graphical review — 2026-11-09
+
+The corrected clean 5d74273b2 completes all ten actual Jupyter/Mol*/popup checks;
+fourteen fast gates and incremental HTML pass. The native and numeric-test bytes
+are unchanged from the 347-case source. Screenshot review finds long native
+reference identifiers overwhelming the primary summary. Keep every bounded
+identifier in a separate collapsed scientific-reference disclosure, leaving
+scope/status/removal counts visible. This frontend-only presentation correction
+needs a new actual graphical run; native science, rows, data, assertions and
+deadlines remain unchanged. No human/installed or milestone acceptance yet.
