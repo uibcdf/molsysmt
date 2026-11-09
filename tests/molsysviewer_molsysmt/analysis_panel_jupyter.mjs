@@ -2,17 +2,19 @@
 import assert from 'node:assert/strict';
 import {openMolecularPanel,observeMolecularControllers} from './jupyter_panel_controls.mjs';
 import {createRequire} from 'node:module';
-import {readFile,writeFile} from 'node:fs/promises';
+import {readFile,writeFile,appendFile} from 'node:fs/promises';
 import {dirname,resolve} from 'node:path';
 const settings=process.env.MOLSYSVIEWER_JUPYTER_SETTINGS;
 const output=dirname(resolve(settings)),config=JSON.parse(await readFile(settings,'utf8'));
 const {chromium}=createRequire(config.viewer_root+'/molsysviewer/js/package.json')('playwright');
 let browser,page,stage='start';const checks=[],errors=[],baselineErrors=[];
-async function step(name,action){stage=name;console.log('STEP '+name);await action();checks.push(name);}
+const campaignStarted=performance.now();
+async function step(name,action){stage=name;await appendFile(output+'/step-timings.jsonl',JSON.stringify({stage,phase:'start',elapsed_ms:performance.now()-campaignStarted})+'\n');console.log('STEP '+name);await action();checks.push(name);await appendFile(output+'/step-timings.jsonl',JSON.stringify({stage,phase:'complete',elapsed_ms:performance.now()-campaignStarted})+'\n');}
 async function execute(cell,p=page){await p.getByText(/Isolated molecular tools receiving\s*\|\s*Idle/).waitFor();await cell.locator('.cm-content').click();await p.getByRole('button',{name:/Run this cell and advance/}).click();}
 const workspace=p=>openMolecularPanel(p,'analysis');
 async function populations(panel){await panel.locator('[data-first] [data-source]').selectOption('indices');await panel.locator('[data-first] [data-indices]').fill('0,2');await panel.locator('[data-second] [data-source]').selectOption('indices');await panel.locator('[data-second] [data-indices]').fill('3,5,7');}
 async function numericRows(panel){return panel.locator('[data-rows] tr').evaluateAll(rows=>rows.map(row=>[...row.querySelectorAll('td')].map(cell=>Number(cell.textContent))));}
+function displayed(actual,expected){assert.ok(actual===Number(expected.toPrecision(9)),`${actual} differs from the nine-significant-digit independent observation ${expected}`);}
 function close(actual,expected){assert.ok(Math.abs(actual-expected)<1e-8,`${actual} differs from independent coordinate reference ${expected}`);}
 async function chooseRow(panel,index=0){const radio=panel.locator(`[data-result-row="${index}"]`);await radio.focus();await panel.page().keyboard.press('Space');assert.equal(await radio.isChecked(),true);}
 async function configureDistance(p,{first='0,2',second='3,5,7',centers=false}={}){
@@ -166,7 +168,7 @@ try{
   await p.locator('[data-structures]').selectOption('indices');await p.locator('[data-structure-indices]').fill('0,2,0');
   await p.locator('[data-calculate]').click();await p.locator('[data-report-heading]').filter({hasText:'Vectors result'}).waitFor();
   const rows=await numericRows(p);assert.equal(rows.length,12);assert.deepEqual(rows.map(r=>r[0]),[0,0,0,0,2,2,2,2,0,0,0,0]);
-  for(let i=0;i<rows.length;i++)for(let axis=0;axis<3;axis++)close(rows[i][3+axis],geometryExpected.vectors[i][axis]);
+  for(let i=0;i<rows.length;i++)for(let axis=0;axis<3;axis++)displayed(rows[i][3+axis],geometryExpected.vectors[i][axis]);
   assert.match(await p.locator('[data-columns]').innerText(),/X \(nm\)[\s\S]*Y \(nm\)[\s\S]*Z \(nm\)/);
   assert.equal(await p.locator('[data-add-live-distance]').isVisible(),false);
   await page.screenshot({path:output+'/analysis-vector-components.png'});
@@ -177,9 +179,9 @@ try{
   await p.locator('[data-atom-tuples]').fill(JSON.stringify(geometryExpected.triplets));await p.locator('[data-angle-unit]').selectOption('degrees');
   await p.locator('[data-calculate]').click();await p.locator('[data-report-heading]').filter({hasText:'Angles result'}).waitFor();
   let rows=await numericRows(p);assert.deepEqual(rows.map(r=>r[0]),[0,0,2,2,0,0]);
-  for(let i=0;i<rows.length;i++){assert.deepEqual(rows[i].slice(1,4),geometryExpected.triplets[i%2]);close(rows[i][4],geometryExpected.angles_degrees[i]);}
+  for(let i=0;i<rows.length;i++){assert.deepEqual(rows[i].slice(1,4),geometryExpected.triplets[i%2]);displayed(rows[i][4],geometryExpected.angles_degrees[i]);}
   await p.locator('[data-angle-unit]').selectOption('radians');await p.locator('[data-calculate]').click();await p.locator('[data-report-heading]').filter({hasText:'Angles result'}).waitFor();rows=await numericRows(p);
-  for(let i=0;i<rows.length;i++)close(rows[i][4],geometryExpected.angles_degrees[i]*Math.PI/180);
+  for(let i=0;i<rows.length;i++)displayed(rows[i][4],geometryExpected.angles_degrees[i]*Math.PI/180);
   assert.equal(await p.locator('[data-add-live-distance]').isVisible(),false);
   await page.screenshot({path:output+'/analysis-triplet-angles.png'});
  });
@@ -190,7 +192,7 @@ try{
   const p=studio.locator('.msm-analysis');await p.locator('[data-task]').selectOption('torsions');await p.locator('[data-heading]').filter({hasText:'Torsions'}).waitFor();
   await p.locator('[data-atom-tuples]').fill(JSON.stringify(geometryExpected.quartets));await p.locator('[data-angle-unit]').selectOption('degrees');
   await p.locator('[data-calculate]').click();await p.locator('[data-report-heading]').filter({hasText:'Torsions result'}).waitFor();
-  const rows=await numericRows(p);for(let i=0;i<rows.length;i++){assert.deepEqual(rows[i].slice(1,5),geometryExpected.quartets[i%2]);close(rows[i][5],geometryExpected.torsions_degrees[i]);}
+  const rows=await numericRows(p);for(let i=0;i<rows.length;i++){assert.deepEqual(rows[i].slice(1,5),geometryExpected.quartets[i%2]);displayed(rows[i][5],geometryExpected.torsions_degrees[i]);}
   await chooseRow(p);await p.locator('[data-select-participants]').click();await p.locator('[data-status]').filter({hasText:'Selected 4 participant atoms'}).waitFor();
   await page.waitForFunction(()=>JSON.stringify(window.__controllers[1].currentActiveSelection.atom_indices.slice().sort((a,b)=>a-b))==='[0,2,4,5]');
   await p.locator('[data-focus-participants]').click();await p.locator('[data-status]').filter({hasText:'Focused participant atoms in visible structure 2'}).waitFor();

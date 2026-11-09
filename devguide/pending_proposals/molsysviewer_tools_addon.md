@@ -3748,3 +3748,17 @@ Native get_angles help now describes its already implemented active-unit return
 rather than incorrectly promising radians under a degree policy. The formula,
 API signature and defaults are unchanged. Course/tutorial code and outputs stay
 exact. Contacts remain held by #666 / uibcdf/pyunitwizard#143.
+
+
+The clean 6302af9d6 native selection passes 228 cases, including all three tasks,
+analytic MIC/sign controls and the updated get_angles doctest. Its first actual
+Jupyter attempt times out at the unchanged 240-second Node limit during the old
+Measure/popup workflow, before any of the three new tasks. The 2-CPU cgroup uses
+485 CPU seconds in 255 wall seconds and is throttled in 2,271/2,556 periods;
+peak memory is 2,351,464,448 bytes, host available RAM remains over 10 GiB, and
+there is no OOM or memory-pressure stop. This is incomplete graphical evidence.
+The retry records per-step timing and uses four CPU with the same 4 GiB cap and
+unchanged deadlines/scientific/old-workflow assertions. New angular presentation
+checks compare the documented nine significant digits against independent
+oracles, rather than an unrounded absolute tolerance inappropriate for that
+display precision. Higher-precision native numerical controls are unchanged.
