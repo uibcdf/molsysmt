@@ -1,6 +1,47 @@
 # Pre-1.0 robustness audit and action plan — 6 November 2026
 
 
+## Current chemistry assessment receiving — 2026-11-09 (#421, #256)
+
+Three additional read-only Inspect tasks now receive two existing Chemistry
+assessment intents: exact-template coverage of whole selected source groups,
+whole-system terminal OXT inspection and explicit-pH reference-rule protonation.
+The tasks apply no repair/removal and retain no executable decision. Native
+state/naming/terminal/fixed-pKa and unsupported/partial limits remain explicit.
+Reference identifiers are available in a separate collapsed scientific disclosure.
+
+Clean 0d7f5505b passes all **347** affected native/panel/hosted-inventory cases
+and public assessment doctests. Native/backend/numeric-test and guide/course
+bytes stay exact on dc8568446; that source receives all **10** actual Jupyter/
+Mol*/popup checks and **14** fast gates. The guide and course HTML are inspected;
+all twelve executed Module 12 code cells/metadata/outputs remain unchanged.
+The [receiving record](../devtools/data/molsysviewer_chemistry_assessment_receiving_421_20261109.json)
+preserves the launcher/fixture failures, the async empty-table failed attempt
+and both passing graphical attempts. The final graphical correction moves long
+reference IDs into a disclosure; it changes no science or deadline.
+
+The [scorecard](../devtools/data/pre_1_0_progress_scorecard_20261107.json) records
+**31/50** received graphical intents and **72.5164% (approximately 72.5%)** weighted
+completion. Only the two original leaves gain credit; three task names, test/
+defect counts and the independent client report add no extra bonus. Resource
+ceilings remain bounded to 5 CPU/6 GiB aggregate, with no own OOM/reserve stop.
+
+Separately, DockingMT's immutable 9b077fab source documents and authenticated
+reader receipts receive its original portable-reference prerequisite and bounded
+saved-pose E3 workflow on explicit H5MSM 0.6. See the [upstream receiving record](../devtools/data/docking_h5msm06_client_receiving_256_20261109.json).
+This is inspected independent-client evidence, not a local molecular replay or
+all P5/P6/installed acceptance. Literal F/farad observation is corrected in the
+consumer; its original weaker seals/failures remain. Default 0.5 and explicit
+experimental 0.6 remain unchanged.
+
+Next: remaining #421 PCA/sequence/property/interaction/mechanics, repairs,
+construction/refinement and complete sessions; broader #256 P5 plus final stable
+schema/default freeze; #666/provider143 scientific cutoff review; #524 floors,
+#615, human/installed/platform and #334 exact-candidate gates. Viewer e4dd58cf
+remains the exact retained host, not a newly qualified client artifact. #421
+and #256 stay open. No tag, package, Release or remote matrix is authorized.
+
+
 ## Current vector/angular source receiving — 2026-11-09 (#421)
 
 Three existing geometric-analysis intents are now source-qualified: directed

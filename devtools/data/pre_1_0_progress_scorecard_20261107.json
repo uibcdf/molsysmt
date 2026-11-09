@@ -9,8 +9,8 @@
   "gui_scope": "Tracking packages make the previously accepted workflow inventory explicit. They are user intents, not a GUI promise for every expert argument or a new scientific feature request. Native/expert APIs remain available and retain their own qualification.",
   "publication": "The existing pause remains. #640/#641/#642 and all other required correctness work retain owning acceptance. Exact candidate/platform/installed and final sign-off gates are not scored as passed by source tests.",
   "legacy_phase_exit_percent": 40,
-  "weighted_milestone_percent": 72.40280552780553,
-  "reported_approximate_percent": 72.4,
+  "weighted_milestone_percent": 72.51644189144189,
+  "reported_approximate_percent": 72.5,
   "phases": [
     {
       "id": "phase1",
@@ -439,16 +439,20 @@
                 {
                   "id": "readiness-assessment",
                   "requirement": "Receive general readiness/missing-chemistry assessments",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_chemistry_assessment_receiving_421_20261109.json"
+                  ],
+                  "review": "Native 0d7f5505b passes 347 affected cases/doctests. The identical native/backend/numeric-test bytes on dc8568446 retain full actual Jupyter/Mol*/popup receiving (10 checks), fourteen fast gates and unchanged rendered guide/course. Exact-template group coverage, whole-system terminal OXT and fixed-pKa reference-state assessment preserve partial/unassessed scope and never apply repairs/removals. Three tasks receive only these two existing leaves; there is no chemical-readiness certificate, human/installed or complete-family acceptance."
                 },
                 {
                   "id": "state-assessment",
                   "requirement": "Receive explicit protonation/chemical-state assessments",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_chemistry_assessment_receiving_421_20261109.json"
+                  ],
+                  "review": "Native 0d7f5505b passes 347 affected cases/doctests. The identical native/backend/numeric-test bytes on dc8568446 retain full actual Jupyter/Mol*/popup receiving (10 checks), fourteen fast gates and unchanged rendered guide/course. Exact-template group coverage, whole-system terminal OXT and fixed-pKa reference-state assessment preserve partial/unassessed scope and never apply repairs/removals. Three tasks receive only these two existing leaves; there is no chemical-readiness certificate, human/installed or complete-family acceptance."
                 }
               ]
             },
@@ -729,8 +733,8 @@
           ]
         }
       ],
-      "verified_fraction": 0.8008741258741259,
-      "credited_points": 20.021853146853147
+      "verified_fraction": 0.8054195804195803,
+      "credited_points": 20.135489510489506
     },
     {
       "id": "phase5",
@@ -923,7 +927,7 @@
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
-    "verified_source_intents": 29,
+    "verified_source_intents": 31,
     "total_intents": 50,
     "global_weight_points": 2.5,
     "meaning": "A separate count of accepted declared intents; not equal effort, scientific coverage or installed acceptance."
@@ -968,7 +972,8 @@
     "complete_board_issues": 593,
     "open_issues": 88,
     "open_prs": 0,
-    "weighted_milestone_change": 0
+    "weighted_milestone_change": 0,
+    "scope": "Historical #654 intake checkpoint, not the latest complete-board count."
   },
   "last_updated": "2026-11-09",
   "last_scientific_claim_disposition": {
@@ -982,7 +987,7 @@
     "weighted_milestone_change": 1.4285714285714306,
     "issues_closed": false
   },
-  "qualification_scope": "Full product source/Amber on 03c59caef9, developer/CI repairs on 12a6c6fc2, fourteen Jupyter guards on 68323539e, general-periodic receiving on 2f0eeb1c1, cell assignment on 7ba4f2ed5 and small-origin scopes on db16eec9b/25d9b8105/d2918aa6c remain separate. Fast gates/HTML on d2918aa6c are not a new full-suite, installed or final-candidate qualification. The bounded H5MSM Topology projection is received on 10d43b2a9 and publicly verified at ca96894ea without changing the earlier full-suite or GUI receiving scopes. Sequence-fit source receiving on 63fc27883 and public a28cb04fa accepts one existing graphical intent only; exact unchanged runtime reuse from 7bf2949b1 is recorded separately from the repaired 113-case and two-guard profiles. #604 provider source is received on b649d1052 with 200 affected checks and on adff859c4 with fourteen fast gates after a generated-view-only correction, publicly verified at 261967eaf. Earlier 2,599-case integrated receiving and the 32/128/256 synthetic pilot remain separate bounded evidence. No weight, graphical intent, frozen release gate or client E3 acceptance is added. Native composition #656/#658 is received on clean 35ad4bc59 (247 cases, fourteen fast gates, five inspected HTML pages) and verified public at a450529c3. This does not repeat full-suite/GUI/installed/candidate receiving or change phase weights.",
+  "qualification_scope": "Full product source/Amber on 03c59caef9, developer/CI repairs on 12a6c6fc2, fourteen Jupyter guards on 68323539e, general-periodic receiving on 2f0eeb1c1, cell assignment on 7ba4f2ed5 and small-origin scopes on db16eec9b/25d9b8105/d2918aa6c remain separate. Fast gates/HTML on d2918aa6c are not a new full-suite, installed or final-candidate qualification. The bounded H5MSM Topology projection is received on 10d43b2a9 and publicly verified at ca96894ea without changing the earlier full-suite or GUI receiving scopes. Sequence-fit source receiving on 63fc27883 and public a28cb04fa accepts one existing graphical intent only; exact unchanged runtime reuse from 7bf2949b1 is recorded separately from the repaired 113-case and two-guard profiles. #604 provider source is received on b649d1052 with 200 affected checks and on adff859c4 with fourteen fast gates after a generated-view-only correction, publicly verified at 261967eaf. Earlier 2,599-case integrated receiving and the 32/128/256 synthetic pilot remain separate bounded evidence. No weight, graphical intent, frozen release gate or client E3 acceptance is added. Native composition #656/#658 is received on clean 35ad4bc59 (247 cases, fourteen fast gates, five inspected HTML pages) and verified public at a450529c3. This does not repeat full-suite/GUI/installed/candidate receiving or change phase weights. Chemistry assessments retain unchanged native/backend/numeric-test receiving on 0d7f5505b (347 cases) and complete ten-check Jupyter/popup plus fourteen fast gates on dc8568446. This receives only two existing assessment leaves; inspected independent DockingMT 9b077fab reference/E3 receiving remains separately classified under #256 without broader P5/P6 or installed acceptance.",
   "last_periodic_receiving": {
     "source": "d2918aa6c2f9605383055d73e1e3d4164f810697",
     "public_checkpoint": "be11ef8f5c32008e4299e3b406062f8d587f323c",
@@ -1010,7 +1015,7 @@
   "h5msm_stable_format_target": {
     "owner_issue": "uibcdf/molsysmt#256",
     "milestone": "1.0.0",
-    "state": "experimental_public_0_6_source_qualified_consumer_and_stable_freeze_pending",
+    "state": "experimental_0_6_bounded_client_received_broader_and_stable_freeze_pending",
     "first_stable_format": "1.0",
     "coordinated_library_release": "1.0",
     "development_version": "0.6 may precede the stable freeze",
@@ -1138,5 +1143,21 @@
     "post_1_0_scalability_followup": "uibcdf/molsysmt#667",
     "guard": "tests/molsysviewer_molsysmt/test_vector_angular_analysis_panel.py",
     "human_installed_or_final_candidate_accepted": false
+  },
+  "last_chemistry_assessment_receiving": {
+    "source": "dc85684461ec04c7a9f90e2735bc7c21ef6a9eb6",
+    "receipt": "devtools/data/molsysviewer_chemistry_assessment_receiving_421_20261109.json",
+    "accepted_existing_intents": 2,
+    "implemented_inspection_tasks": 3,
+    "native_tests": 347,
+    "gui_checks": 10,
+    "fast_gates": 14,
+    "executed_course_cells_preserved": 12,
+    "scope": "Source/native/Jupyter only; no new scientific method, readiness certificate, human/installed/newer-host/platform or final-candidate acceptance."
+  },
+  "last_h5msm_client_receiving": {
+    "receipt": "devtools/data/docking_h5msm06_client_receiving_256_20261109.json",
+    "consumer_commit": "9b077fabf41e19ffdfb945bc7aa3fb6c53265e0f",
+    "scope": "Bounded independent reference/E3 receiving inspected; complete P5/P6/default/stable and installed/platform gates remain. No added milestone weight."
   }
 }

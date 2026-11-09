@@ -3833,3 +3833,61 @@ not a zero-error environment claim. The canonical scorecard credits only vectors
 angles and torsions: 29/50 accepted intents, weighted 72.4028%. No new scope,
 human/installed/candidate or scientific-profile acceptance is added. Contacts
 remain held by #666; general angular chunking #667 is post-1.0.
+
+
+### Chemistry assessment implementation — 2026-11-09
+
+Exact-template group coverage, whole-system missing-terminal OXT inspection and
+reference-rule protonation assessment now have private task implementations.
+They call the existing validated bound/native owners and preserve source/state,
+coverage, finite pH, reference identifiers and no-change/unassessed distinctions.
+No removal/repair is applied or executable decision retained. Initial directed
+receiving retains a launcher syntax failure and a 91-pass/five-failure selection:
+four fixture expectations omitted native in_place=True, and the unknown-group
+fixture actually lacked group membership. Correcting those fixtures, adding a
+clear membership prerequisite and using an explicitly declared unknown group
+passes all 96 selected cases. Expanded exact-source, actual Jupyter/popup and HTML
+receiving remains due; no new milestone credit or release authority is claimed.
+
+
+### Chemistry native receiving and graphical wait correction — 2026-11-09
+
+Clean 0d7f5505b passes all 347 affected native/panel/preparation/hosted-inventory
+cases, including public assessment doctests. All source and retained Viewer
+inputs stay unchanged. Its first graphical attempt reaches all three new tasks
+and both popup endpoints, but the removal-table assertion reads the previous
+page before the async empty result arrives. The complete attempt remains failed.
+The guard now waits for the new source-atom column before comparing the entire
+native removal table; no product, numeric assertion or deadline changes. Actual
+graphical receiving and final local gates remain due.
+
+
+### Chemistry graphical review — 2026-11-09
+
+The corrected clean 5d74273b2 completes all ten actual Jupyter/Mol*/popup checks;
+fourteen fast gates and incremental HTML pass. The native and numeric-test bytes
+are unchanged from the 347-case source. Screenshot review finds long native
+reference identifiers overwhelming the primary summary. Keep every bounded
+identifier in a separate collapsed scientific-reference disclosure, leaving
+scope/status/removal counts visible. This frontend-only presentation correction
+needs a new actual graphical run; native science, rows, data, assertions and
+deadlines remain unchanged. No human/installed or milestone acceptance yet.
+
+
+### Chemistry assessment receiving completed — 2026-11-09
+
+The [receiving record](../../devtools/data/molsysviewer_chemistry_assessment_receiving_421_20261109.json)
+qualifies native 0d7f5505b (347 affected tests/doctests), final graphical dc8568446
+(ten actual Jupyter/Mol*/popup checks, fourteen fast gates) and unchanged rendered
+guide/course bytes from 5d74273b2. Twelve executed Module 12 cells remain exact.
+Only the frontend reference disclosure and its browser assertion differ from the
+native-tested product; all backend/scientific/numeric-test inputs stay unchanged.
+Ruff lint/format pass repository-wide. Original failed attempts remain recorded.
+
+Accept only the two existing readiness/state-assessment leaves: 31/50 graphical
+intents and 72.51644189144189% weighted progress, approximately 72.5%. Three
+inspection task names are not three added milestone leaves. No generic readiness
+certificate, scientific stability, human/installed/newer-host/platform, whole-suite
+or final-candidate acceptance follows. The separate #256 consumer record receives
+only its bounded upstream reference/E3 prerequisite; wider P5/P6 stays open.
+#666/provider143, remaining original tasks and final gates remain due.

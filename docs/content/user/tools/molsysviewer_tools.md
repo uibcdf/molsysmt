@@ -5891,6 +5891,50 @@ This workflow has source receiving in Jupyter and both popup hosts (Viewer
 #304). Human visible Qt/Jupyter acceptance, owner integration and installed
 packages retain their separate qualification.
 
+## Assessing chemistry without preparing a system
+
+In **Molecular tools > Chemistry**, three further inspection tasks expose native
+preparation reports. **Inspect without changing** never repairs atoms, changes
+charges, removes hydrogens, selects a chemical state or creates a result system.
+
+- **Assess exact-template coverage** resolves the atom editor to complete source
+  groups. Choose the inspection structure and chemical state explicitly. The
+  native `build.get_residue_chemical_coverage` report distinguishes assessed,
+  incomplete and unassessed groups, missing/unexpected heavy-atom names,
+  connectivity, hydrogen inventory and reasons. Unknown group membership is a
+  prerequisite failure; use **Inspect stored chemistry** for ungrouped inputs.
+  An empty selection remains empty. Exact-template support is limited: a sequence
+  equivalent does not supply a chemical template, and absent templates remain
+  unassessed. Terminal, inter-group, valence and force-field checks retain their
+  explicitly unassessed scope.
+- **Inspect missing terminal atoms** runs the native
+  `build.get_missing_terminal_cappings` name check on the **whole system**.
+  The atom editor, visible structure and chemical-state draft do not select its
+  scope. It checks missing C-terminal OXT using native chain/group-ID and capping
+  conventions. It does not assess complete terminal chemistry or unsupported
+  groups; zero returned groups is not a readiness certificate. It does not place
+  OXT or add a capping group.
+- **Assess reference-rule protonation** uses `build.assess_protonation` with an
+  explicit dimensionless **Assessment pH** on the **whole current system** and
+  its reference chemical state. This is the existing fixed-pKa name-inventory
+  approximation, not environmental pKa prediction or a choice among states.
+  Inspect native group/naming/terminal/disulfide contexts, proposed H removals,
+  incomplete group/state coverage and unassigned atoms. No proposed removal is
+  applied; the executable decision is discarded. The report retains the native
+  reference identifiers and scientific limitations. A partial no-change result
+  remains partial; zero removals does not certify protonation.
+
+Only fifty detail rows cross to the browser per page, with source atom/group
+indices and bounded labels. Full native reports remain in Python; bounded pages
+are not a universal RAM guarantee. These tasks do not copy a coordinate trajectory
+merely to display a report; the exact-template comparison reads its chosen
+structure. Explicit primary-data inspection is permitted during a pending scene
+update, while coverage selections from the old scene are refused. Reports expire
+on changed inputs, source/revision/context or panel unmount. Raw external writes
+are not observed. Reports and executable decisions are not saved to sessions or
+H5MSM, and no scene geometry is added. Use the separate preparation tasks or the
+expert Python tools deliberately when a change is intended.
+
 ## Preparing independent systems through Molecular tools
 
 In **Molecular tools > Chemistry**, choose **Add missing heavy atoms** or **Add

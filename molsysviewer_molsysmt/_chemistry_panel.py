@@ -2,6 +2,7 @@
 
 from collections import Counter
 from dataclasses import dataclass
+from numbers import Real
 from secrets import token_urlsafe
 from weakref import ref
 
@@ -30,6 +31,7 @@ _METHODS = {
     "chemistry": "get_chemical_readiness",
     "hydrogens": "get_hydrogen_inventory",
 }
+_ASSESSMENTS = {"coverage", "terminals", "protonation"}
 _PAGE_SIZE = 50
 _TEXT_LIMIT = 200
 _BOND_FIELDS = {
@@ -46,9 +48,9 @@ def _parameters(value):
     if not isinstance(value, dict) or set(value) - set(_PARAMETERS):
         raise ValueError("The chemistry request contains unsupported fields.")
     result = dict(_PARAMETERS, **value)
-    if result["task"] not in (set(_METHODS) | PREPARATION_TASKS) or result[
-        "state_mode"
-    ] not in {
+    if result["task"] not in (
+        set(_METHODS) | PREPARATION_TASKS | _ASSESSMENTS
+    ) or result["state_mode"] not in {
         "reference",
         "structure",
         "index",
@@ -137,13 +139,15 @@ class _ChemistryPanel(_ChemistryPreparation, _MolecularTaskPanel):
         return (dict(self._draft), dict(self._parameters))
 
     def _calculate(self, target):
-        if self._parameters["task"] not in _METHODS:
+        if self._parameters["task"] not in (set(_METHODS) | _ASSESSMENTS):
             raise ValueError(
                 "Choose an inspection task before requesting a chemistry report."
             )
         status = self._owner.get_sync_status()
         if status["state"] not in {"synchronized", "pending", "sync_failed"}:
             raise ValueError("Finish molecular recovery before inspecting chemistry.")
+        if self._parameters["task"] in _ASSESSMENTS:
+            return self._calculate_assessment(target, status)
         if status["state"] != "synchronized" and self._draft["source"] in {
             "current",
             "saved",
@@ -187,6 +191,251 @@ class _ChemistryPanel(_ChemistryPreparation, _MolecularTaskPanel):
             data,
         )
 
+    def _calculate_assessment(self, target, status):
+        """Retain native reports; do not retain an executable preparation decision."""
+        import molsysmt as msm
+
+        task = self._parameters["task"]
+        whole = task in {"terminals", "protonation"}
+        frame = int(self._view.player.index)
+        atoms = None
+        if task == "coverage":
+            if status["state"] != "synchronized" and self._draft["source"] in {
+                "current",
+                "saved",
+                "region",
+            }:
+                raise ValueError(
+                    "Update the scene before using its selection or regions."
+                )
+            frame = (
+                frame
+                if self._draft["context"] == "current"
+                else self._draft["structure_index"]
+            )
+            count = int(target.structures.n_structures)
+            if not count and self._draft["context"] == "current":
+                frame = None
+            elif frame >= count:
+                raise ValueError(
+                    "The inspection structure index is outside this system."
+                )
+            atoms = self._selection(target, frame)
+            membership = self._owner.basic.get(
+                element="atom", selection=atoms, group_index=True
+            )
+            if any(
+                not isinstance(v, Real) or not np.isfinite(v) or v < 0 or int(v) != v
+                for v in membership
+            ):
+                raise ValueError(
+                    "Exact-template coverage requires known source group membership for every selected atom. Inspect stored chemistry for an ungrouped source."
+                )
+            groups = np.unique(np.asarray(membership, dtype=np.int64))
+            state = (
+                int(self._parameters["state_index"])
+                if self._parameters["state_mode"] == "index"
+                else self._parameters["state_mode"]
+            )
+            data = self._owner.build.get_residue_chemical_coverage(
+                selection=groups.tolist(),
+                structure_indices="all" if frame is None else [frame],
+                chemical_state=state,
+            )
+        elif task == "terminals":
+            data = self._owner.build.get_missing_terminal_cappings(
+                selection="all", engine="MolSysMT"
+            )
+        else:
+            try:
+                ph = float(self._parameters["pH"])
+            except ValueError as exc:
+                raise ValueError("Enter a finite dimensionless assessment pH.") from exc
+            if not np.isfinite(ph):
+                raise ValueError("Enter a finite dimensionless assessment pH.")
+            decision = self._owner.build.assess_protonation(pH=ph, engine="MolSysMT")
+            data = decision.to_dict()
+            # The inspection does not keep apply(), consume the decision, or
+            # serialize a process-local executable assessment in frontend state.
+        return _ChemistryReport(
+            token_urlsafe(18),
+            ref(target),
+            status["target_revision"],
+            int(self._view.player.index),
+            dict(self._draft),
+            dict(self._parameters),
+            {
+                "assessment": data,
+                "atom_indices": atoms,
+                "structure_index": None if whole else frame,
+                "software": {"molsysmt": str(msm.__version__)[:_TEXT_LIMIT]},
+            },
+        )
+
+    def _assessment_summary(self):
+        report = self._report
+        task, data = report.parameters["task"], report.data["assessment"]
+        result = dict(
+            id=report.token,
+            family="assessment",
+            task=task,
+            source_revision=report.revision,
+            software=report.data["software"],
+            structure_index=report.data["structure_index"],
+        )
+        if task == "coverage":
+            result.update(
+                schema=data["schema"],
+                method="molsysmt.build.get_residue_chemical_coverage",
+                counts=data["summary"],
+                group_count=len(data["groups"]),
+                chemical_state_index=data["chemical_readiness"]["chemical_state_index"],
+                unassessed_checks=data["unassessed_checks"],
+                datasets=[
+                    dict(id="coverage_groups", label="Exact-template group coverage")
+                ],
+            )
+        elif task == "terminals":
+            result.update(
+                schema="native group-index mapping",
+                method="molsysmt.build.get_missing_terminal_cappings",
+                group_count=len(data),
+                unassessed_checks=[
+                    "non_amino_acid_groups",
+                    "complete_terminal_chemistry",
+                    "protonation",
+                    "placement",
+                ],
+                datasets=[dict(id="terminal_groups", label="Missing terminal atoms")],
+            )
+        else:
+            coverage = data["coverage"]
+            result.update(
+                schema=data["schema"],
+                method="molsysmt.build.assess_protonation",
+                status=data["status"],
+                pH=data["parameters"]["pH"],
+                chemical_state_index=data["source"]["reference_chemical_state_index"],
+                group_count=data["source"]["n_groups"],
+                removed_atoms=len(data["removed_atom_indices"]),
+                assessed_groups=len(coverage["assessed_group_indices"]),
+                unassessed_groups=len(coverage["unassessed_group_indices"]),
+                unassessed_states=len(coverage["unassessed_chemical_state_indices"]),
+                unassigned_atoms=len(coverage["unassigned_atom_indices"]),
+                coverage_complete=coverage["complete"],
+                unassessed_checks=[
+                    "environmental_pka",
+                    "hydrogen_addition",
+                    "charge_assignment",
+                    "state_choice",
+                    "force_field_coverage",
+                    "docking_readiness",
+                ],
+                attribution=[
+                    _text(item["id"]) for item in data["attribution"]["items"][:50]
+                ],
+                attribution_truncated=len(data["attribution"]["items"]) > 50,
+                datasets=[
+                    dict(id="protonation_groups", label="Group assessment context"),
+                    dict(
+                        id="protonation_removals",
+                        label="Proposed H removals (not applied)",
+                    ),
+                ],
+            )
+        return result
+
+    def _assessment_page(self, key, start):
+        data = self._report.data["assessment"]
+        if key == "coverage_groups":
+            values = data["groups"]
+            columns = [
+                "Group index",
+                "Group name",
+                "Coverage",
+                "Heavy atoms",
+                "Missing heavy atom names",
+                "Unexpected heavy atom names",
+                "Connectivity",
+                "Hydrogens",
+                "Reasons",
+            ]
+
+            def row(i):
+                group = values[i]
+                heavy = group["heavy_atoms"]
+
+                def names(field):
+                    items = heavy.get(field)
+                    return "Unknown" if items is None else ", ".join(items) or "None"
+
+                return [
+                    group["group_index"],
+                    group["group_name"],
+                    group["status"],
+                    heavy["status"],
+                    names("missing_atom_names"),
+                    names("unexpected_atom_names"),
+                    group["connectivity"]["status"],
+                    group["hydrogens"]["status"],
+                    ", ".join(group["reason_codes"]),
+                ]
+        elif key == "terminal_groups":
+            # Keep one compact key axis; do not expand the full mapping into rows.
+            values = list(data)
+            columns = ["Group index", "Missing terminal atom names"]
+
+            def row(i):
+                return [values[i], ", ".join(data[values[i]])]
+        elif key == "protonation_groups":
+            values = data["group_contexts"]
+            columns = [
+                "Group index",
+                "Group name",
+                "Naming scheme",
+                "Coverage",
+                "Reason",
+                "N-terminal",
+                "C-terminal",
+                "Disulfide",
+            ]
+
+            def row(i):
+                return [
+                    values[i][k]
+                    for k in (
+                        "group_index",
+                        "group_name",
+                        "naming_scheme",
+                        "status",
+                        "reason",
+                        "is_n_terminal",
+                        "is_c_terminal",
+                        "is_disulfide",
+                    )
+                ]
+        else:
+            values = data["removed_atoms"]
+            columns = ["Source atom index", "Atom name", "Group index", "Group name"]
+
+            def row(i):
+                return values[i]
+
+        if start and start >= len(values):
+            raise ValueError("That report page is outside its source population.")
+        return dict(
+            dataset=key,
+            offset=start,
+            total=len(values),
+            page_size=_PAGE_SIZE,
+            columns=columns,
+            rows=[
+                [_text(v) for v in row(i)]
+                for i in range(start, min(len(values), start + _PAGE_SIZE))
+            ],
+            unit="",
+        )
+
     def _current_report(self, context):
         report = self._report
         if report is not None and (
@@ -198,11 +447,16 @@ class _ChemistryPanel(_ChemistryPreparation, _MolecularTaskPanel):
             or report.parameters != self._parameters
         ):
             self._release_task_data()
-        if self._report is not None and self._draft["source"] in {
-            "current",
-            "saved",
-            "region",
-        }:
+        if (
+            self._report is not None
+            and self._parameters["task"] not in {"terminals", "protonation"}
+            and self._draft["source"]
+            in {
+                "current",
+                "saved",
+                "region",
+            }
+        ):
             try:
                 current = self._owner._read(
                     lambda target: self._selection(
@@ -218,6 +472,8 @@ class _ChemistryPanel(_ChemistryPreparation, _MolecularTaskPanel):
         return self._report
 
     def _summary(self):
+        if self._report.parameters["task"] in _ASSESSMENTS:
+            return self._assessment_summary()
         report, data = self._report, self._report.data
         result = {
             "id": report.token,
@@ -279,6 +535,8 @@ class _ChemistryPanel(_ChemistryPreparation, _MolecularTaskPanel):
         start = self._offset if offset is None else offset
         if key not in choices:
             raise ValueError("Choose an existing report table.")
+        if self._report.parameters["task"] in _ASSESSMENTS:
+            return self._assessment_page(key, start)
         if key in data.get("fields", {}):
             field = data["fields"][key]
             total = len(field["indices"])

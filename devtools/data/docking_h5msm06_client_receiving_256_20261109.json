@@ -1,0 +1,109 @@
+{
+  "date": "2026-11-09",
+  "owner_issue": "uibcdf/molsysmt#256",
+  "consumer_publication": "9b077fabf41e19ffdfb945bc7aa3fb6c53265e0f",
+  "provider_source": "efbe67e1c6042078144bce1db24aa80bb565dbd2",
+  "evidence_kind": "Upstream source documents inspected; published reader receipt compressed/decoded bytes verified against immutable manifests. No molecular replay or full archive reauthentication in MolSysMT.",
+  "scope": "Bounded original reference persistence and saved three-P59-pose E3 workflow; broader P5 partial/layer/reorder/append/storage profiles, stable-root/default, source/native ABI differences, hosted/platform/installed and exact-candidate remain separately owned.",
+  "schema": "molsysmt.upstream_h5msm_client_receiving@1",
+  "documents": [
+    {
+      "url": "https://github.com/uibcdf/dockingmt/blob/9b077fabf41e19ffdfb945bc7aa3fb6c53265e0f/devguide/validation/e3_h5msm06_reference_receiving_2026-11-09.md",
+      "git_blob_sha": "a90ff7a7e1620a392d7eb34cd3030470e6075816",
+      "sha256": "2a1e19c81d374e4faee468a48cb6ce4c7fef9ca54bf36479f93cbf9ec4bf22d0",
+      "evidence": "inspected"
+    },
+    {
+      "url": "https://github.com/uibcdf/dockingmt/blob/9b077fabf41e19ffdfb945bc7aa3fb6c53265e0f/devguide/validation/e3_saved_pose_study_2026-11-09.md",
+      "git_blob_sha": "c170bccce46362560e62cbb24d244bbd5a3016ec",
+      "sha256": "e4f2e28905c30c3687dd0c3c3c1fb3ba8cf878200b70cf56ed242c9b25bb8a04",
+      "evidence": "inspected"
+    }
+  ],
+  "readers": [
+    {
+      "manifest_url": "https://github.com/uibcdf/dockingmt/blob/9b077fabf41e19ffdfb945bc7aa3fb6c53265e0f/devguide/validation/data/e3_h5msm06_reference_final_reader_2026-11-09/manifest.json",
+      "manifest_sha256": "f60c0dd34f1e8d8da0ed199fa7b685f3a3cbf8f1743eac6df775640612630935",
+      "receipt_url": "https://github.com/uibcdf/dockingmt/blob/9b077fabf41e19ffdfb945bc7aa3fb6c53265e0f/devguide/validation/data/e3_h5msm06_reference_final_reader_2026-11-09/reader/receipt.json.gz",
+      "compressed_sha256": "6c28ad0b82e78150fce89ba48b5225d6d74a6c679ddde82d989610b6ed021d38",
+      "decoded_sha256": "0e94f4d41cac8152270b1217e9ea13193bd9cf32f4caafe50c1f84e9107fc363",
+      "public_receipt": {
+        "stage": "reader",
+        "source_commit": "ae0db98560f66ac6be7a933fb053f6e1e9917d99",
+        "outcome": "PASS",
+        "qualification_complete": true,
+        "complete_profiles": [
+          "normal",
+          "pm_fs"
+        ],
+        "reference_accepted": true,
+        "e3_accepted": false,
+        "mechanical_adverse_controls_per_profile": 5,
+        "format": "0.6",
+        "quantity_records_verified": 0,
+        "setup_failures_preserved": 1,
+        "scientific_replays": 0,
+        "received_manifest_sha256": "ae734a2ecc51a61defbb29a584527ce0acc72df80bb995a23dd8e4faa24d4eda",
+        "members_verified": 261
+      },
+      "scope": "Only this published receipt and its manifest authenticated locally; full member reading was performed by the independent consumer, not replayed here."
+    },
+    {
+      "manifest_url": "https://github.com/uibcdf/dockingmt/blob/9b077fabf41e19ffdfb945bc7aa3fb6c53265e0f/devguide/validation/data/e3_saved_pose_study_reader_2026-11-09/manifest.json",
+      "manifest_sha256": "a37a12ef79ea5b783956efbc26e8e82560cfb8227dcae20e94c355e20732a25a",
+      "receipt_url": "https://github.com/uibcdf/dockingmt/blob/9b077fabf41e19ffdfb945bc7aa3fb6c53265e0f/devguide/validation/data/e3_saved_pose_study_reader_2026-11-09/reader/receipt.json.gz",
+      "compressed_sha256": "745708c8648d309797b8393c45f54baa9af83e98156f811e2109f0d24fef0d03",
+      "decoded_sha256": "05f11bd9ea09ebc4ec9c271d412aa00c1b226658c026b95bc93ddb51fe3ab3da",
+      "public_receipt": {
+        "stage": "reader",
+        "source_commit": "ae0db98560f66ac6be7a933fb053f6e1e9917d99",
+        "outcome": "PASS",
+        "qualification_complete": true,
+        "complete_profiles": [
+          "normal",
+          "pm_fs"
+        ],
+        "e3_bounded_accepted": true,
+        "scientific_replays": 0,
+        "quantity_fields_verified": 34,
+        "invalid_handshakes_refused": [
+          {
+            "name": "wrong-field",
+            "type": "RecordError"
+          },
+          {
+            "name": "wrong-dimension",
+            "type": "RecordError"
+          },
+          {
+            "name": "changed-value",
+            "type": "RecordError"
+          },
+          {
+            "name": "changed-unit",
+            "type": "RecordError"
+          }
+        ],
+        "preserved_failed_profiles": [
+          "01",
+          "02"
+        ],
+        "preserved_setup_failures": 1,
+        "pose_count": 3,
+        "new_native_searches": 0,
+        "cross_policy_atol_nm": 1e-12,
+        "public_or_general_scientific_acceptance": false,
+        "received_manifest_sha256": "0454c57f03f06d6860d6d9b34b28d3fb543efeaf53c4c2024250cac882e852f0",
+        "members_verified": 256
+      },
+      "scope": "Only this published receipt and its manifest authenticated locally; full member reading was performed by the independent consumer, not replayed here."
+    }
+  ],
+  "consumer_native_sha256": "5715bda28be19820e96c2b81e4734bf75e1a9f05dd660d9c7e2817bc6bcd79d3",
+  "notes": [
+    "The consumer native bytes differ from the local receiving backend; no ABI or cross-platform equivalence is inferred.",
+    "The final text-aware observer distinguishes literal F and farad. Zero actual quantity objects were in the reference mechanical observation; the prior 136 were weaker observer string interpretations.",
+    "Original weaker seals, setup and scientific failures remain immutable in the consumer records.",
+    "No extra milestone score, full P5/P6 closure, package/tag/release or hosted CI acceptance follows."
+  ]
+}
