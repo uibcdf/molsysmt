@@ -52,3 +52,28 @@ pip install --no-deps --editable .
 :class: note
 MolSysMT's high-performance analytical kernels (distances, RMSD, SASA, gyration radius, dihedrals) are precompiled in Rust and integrated directly into the binary extension module.
 :::
+
+(user-foundations-runtime-version)=
+## Inspecting the running version
+
+`msm.__version__` reports the build version recorded inside the imported
+package. For a package without that generated stamp, MolSysMT uses installation
+metadata only when it explicitly locates the imported package file. A source
+checkout with no matching build information reports `0+unknown`.
+
+```python
+import molsysmt as msm
+print(msm.__version__)
+print(msm.__file__)
+```
+
+An editable checkout can change after its build version was generated. For a
+reproducible source calculation, also record the commit, local changes and
+import origins. The version reported by `importlib.metadata.version("molsysmt")`
+describes a distribution found on Python's search path; it may belong to a
+different installation than the source you imported.
+
+Scientific results record the producer's version during calculation. Loading
+or saving an existing result preserves that recorded version, including an
+explicit unknown, rather than replacing it with your current installation's
+version.

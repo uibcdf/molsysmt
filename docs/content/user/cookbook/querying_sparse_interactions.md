@@ -295,6 +295,11 @@ and disulfide adapters capture their version during calculation; H5MSM preserves
 it even when saved or loaded by another version. `{}` means the producer
 version was not recorded, as in these manually constructed synthetic records.
 
+`{"molsysmt": "0+unknown"}` instead records an explicit unknown build version
+for the imported source. A version string labels a build; edited source also
+needs its own commit/change record. See
+{ref}`Inspecting the running version <user-foundations-runtime-version>`.
+
 Detector-produced analyses also retain a compact bibliography in
 `analysis.parameters["attribution"]`.
 

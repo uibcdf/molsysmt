@@ -27,8 +27,14 @@ def digest_method(method, caller=None):
     """
 
     pairwise_methods = {
-        "molsysmt.structure.get_pairwise_rmsd.get_pairwise_rmsd": {"positional", "symmetry_corrected"},
-        "molsysmt.structure.get_distance_clusters.get_distance_clusters": {"complete_linkage", "single_linkage"},
+        "molsysmt.structure.get_pairwise_rmsd.get_pairwise_rmsd": {
+            "positional",
+            "symmetry_corrected",
+        },
+        "molsysmt.structure.get_distance_clusters.get_distance_clusters": {
+            "complete_linkage",
+            "single_linkage",
+        },
     }
     if caller in pairwise_methods:
         if isinstance(method, str) and method in pairwise_methods[caller]:

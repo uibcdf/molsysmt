@@ -99,4 +99,3 @@ class CoordinatePopulation(Reducer):
             )
         self.metadata["execution"]["n_blocks"] = self.blocks
         return self
-

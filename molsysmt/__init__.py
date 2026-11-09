@@ -7,20 +7,9 @@ This must be a short description of the project
 # isort: off
 import importlib
 
-# versioningit
-from importlib.metadata import (
-    version as _version_fn,
-    PackageNotFoundError as _PackageNotFoundError,
-)
+from ._runtime_version import resolve_version as _resolve_runtime_version
 
-try:
-    __version__ = _version_fn("molsysmt")
-except _PackageNotFoundError:
-    # Package is not installed
-    try:
-        from ._version import __version__
-    except ImportError:
-        __version__ = "1.0.0+unknown"
+__version__ = _resolve_runtime_version(__file__)
 
 from smonitor.integrations import ensure_configured as _ensure_smonitor_configured
 from molsysmt._private.smonitor import PACKAGE_ROOT as _SMONITOR_PACKAGE_ROOT

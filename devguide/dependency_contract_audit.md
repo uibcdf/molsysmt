@@ -44,6 +44,44 @@ manifest are also inventoried. Main-branch smoke, weekly, benchmark, and docs
 workflows share one audited routine Viewer source SHA; exact release-candidate
 gates take the candidate SHA as an input instead.
 
+## Identifying imported MolSysMT builds
+
+`molsysmt.__version__` labels the imported package's build. The bootstrap first
+uses the generated `_version.py` inside that package, as configured in
+`pyproject.toml`. If that stamp is absent, distribution metadata is eligible
+only when its file inventory explicitly locates `molsysmt/__init__.py` at the
+actual imported file. Missing or unrelated records produce `0+unknown`, rather
+than borrowing another installation's version or guessing a release number.
+An invalid local stamp also produces `0+unknown`; an import error inside a
+broken generated module remains visible.
+
+Resolution runs at package import. Scientific producers reuse the cached
+`__version__`, including their detached Ackredit records. No Git process,
+network request, runtime build tool or per-calculation metadata lookup is
+introduced. Existing stored producer versions remain unchanged when a later
+installation reads, queries, remaps or saves the result. Unknown legacy
+producer metadata remains unknown.
+
+A build version is not an authenticated source fingerprint. An editable
+checkout may change after its stamp was generated. For source studies, record
+the actual import origins, commit, working-tree changes and relevant file
+hashes separately; retain exact artifact hashes for installed qualification.
+Installing or rebuilding the reviewed source refreshes its generated stamp.
+Do not rewrite historical observations to substitute the reader's version.
+
+`tests/test_runtime_version.py` exercises the actual bootstrap in isolated
+fresh processes with conflicting metadata and a forbidden subprocess launcher,
+and checks cached producer attribution on the complete scientific package.
+`tests/interactions/test_software_provenance.py` protects original producer
+versions across persistence. The isolation stubs are bootstrap controls, not
+installed-package or provider-policy qualification.
+
+The supported build-stamp mechanism is described in
+[versioningit's runtime-version documentation](https://versioningit.readthedocs.io/en/stable/runtime-version.html).
+Python documents the optional file inventory and `locate_file()` in
+[the distribution metadata API](https://docs.python.org/3/library/importlib.metadata.html).
+The origin-matching fallback above is MolSysMT's own bootstrap policy.
+
 ## Updating a dependency
 
 1. Decide whether it is a hard runtime requirement, a soft adapter/extra, or

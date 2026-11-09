@@ -232,6 +232,12 @@ not replace the producer version. Older results without this metadata expose
 `{}`, meaning unknown. When constructing an analysis from an external
 detector, you can declare its versions with `software={"detector_name": "1.2"}`.
 
+A MolSysMT source calculation can explicitly record `"0+unknown"` when the
+imported package has no matching build-version information. This differs from
+`{}`, which means no producer version was recorded. A build stamp can also
+predate edits to an editable checkout. Record exact source identity separately;
+see {ref}`Inspecting the running version <user-foundations-runtime-version>`.
+
 ## Inspecting execution provenance
 
 `parameters` contains scientific criteria. `execution_records` describes how each

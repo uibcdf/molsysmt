@@ -1,7 +1,7 @@
 ---
 summary: Source checkout calculations can report another installed MolSysMT version
 issue: uibcdf/molsysmt#657
-status: open
+status: active
 opened: 2026-11-08
 closed:
 severity: medium
@@ -67,3 +67,55 @@ and import origins independently of package version. The #604 receipt explicitly
 records the observed version mismatch. Do not call that version an exact source
 commit or infer installed-package qualification from the overlay. Runtime bootstrap
 repair is a separate owned task; no tag, metadata rewrite or publication is made.
+
+## Implemented resolution and receiving
+
+The root now prefers its package-local generated stamp, then metadata whose
+file inventory locates the actual imported initializer, otherwise `0+unknown`.
+It does not execute Git or add a runtime build dependency. A broken generated
+module's own import failure remains visible. The maintained contract is
+[Identifying imported MolSysMT builds](../dependency_contract_audit.md#identifying-imported-molsysmt-builds).
+This build label is not a fingerprint of mutable source: exact source commits,
+changes, import origins and file hashes remain separate receiving evidence.
+
+`tests/test_runtime_version.py` uses fresh-process controls around the actual
+initializer: foreign metadata, matching metadata with and without file records,
+generated versions taking precedence, absent/invalid stamps and broken stamp
+imports. A real clustering calculation checks cached producer/version credit
+even when the metadata lookup is changed independently. Existing interaction
+tests verify that reading and rewriting preserves original producer versions.
+Bootstrap stubs isolate version selection; they do not establish installed or
+cross-provider qualification.
+
+Private attempts under `.pytest_cache/external-reference-421/` retain commands,
+JUnit, logs, complete before/after source manifests and monitored resources:
+
+- `runtime-version-657-baseline`: six failures and three passes with the old
+  bootstrap, including a borrowed foreign version and the guessed fallback.
+- `runtime-version-657-directed`: nine passes after the correction.
+- `runtime-version-657-integrated`: collection failed because the expanded
+  test module omitted its `pytest` import; this is a test-fixture error, not a
+  numerical or producer regression. The original failed attempt is retained.
+- `runtime-version-657-integrated-fixed`: 172 passes, including 13 version
+  controls, existing provenance/H5MSM/Ackredit tests, diagnostics/unit-policy
+  checks and native Viewer integration-route controls. Peak cgroup memory was
+  403,202,048 bytes; host availability stayed above 16 GB decimal. The capped
+  process tree used one CPU, at most 2 GiB RAM and no swap; no resource stop,
+  source-input change or Viewer-export change occurred.
+
+The User Guide's installation, interaction result and cookbook pages explain
+explicit unknown versions and original producer preservation. Module 04 adds a
+linked source-identity note with every existing code cell/output unchanged.
+Final clean-source checks, public delivery and issue closure remain pending.
+
+No new public callable, scientific method, quantity, optional backend,
+dependency floor or schema is introduced. ArgDigest/DepDigest are not applicable
+to this private standard-library bootstrap. Existing SMonitor initialization,
+PyUnitWizard policy and producer Ackredit integration remain in their owning
+paths and retain their directed tests. This block does not qualify another
+installed artifact, interpreter/platform matrix, renderer or release candidate.
+
+The repository-wide Ruff format check initially found two earlier #604 formatting
+omissions in the method digester and pairwise helper. Formatting them preserves
+both ASTs exactly; all 4,564 Python files now satisfy the format check and Ruff
+lint passes. The affected geometry tests are included in final receiving.
