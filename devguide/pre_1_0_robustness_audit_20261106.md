@@ -1,5 +1,30 @@
 # Pre-1.0 robustness audit and action plan — 6 November 2026
 
+## Measured mechanics storage and nullable charges — 2026-11-08
+
+Clean `990474db0` receives #662's shared stored-charge correction and the bounded
+#256 storage tool: 1,869 affected cases without skips/failures/errors, fourteen
+fast gates and four inspected HTML pages. Existing warnings are retained and
+match the prior baseline. The eleven missing-value controls preserve detached
+float64 elementary-charge arrays, NaN for mixed missing entries, None for absent/
+all-missing columns, ordered/repeated/empty selections and unchanged native data.
+
+The three preregistered 62 × 5,000 / 10,000 × 1,000 / 100,000 × 100 synthetic
+workloads complete all six operations. The whole sequential campaign peaks near
+698 MiB; measured file sizes are 3.42 / 77.37 / 85.12 MiB. These are warm-cache,
+regular-data observations, not cold-disk/real-data compression or general memory
+guarantees. File mechanical queries still load the whole static mechanical domain;
+geometry queries avoid it. The User Guide includes the reusable command and
+complete downloadable data. See the [receiving record](../devtools/data/mechanics_storage_and_nullable_receiving_256_662_20261108.json)
+and [measurements](../devtools/data/h5msm_mechanics_storage_benchmark_256_20261108.json).
+
+DockingMT #79/#88 have the exact portable provider handoff. P5 independent client
+receiving and P6 final schema/default-writer/freeze stay open under #256. Default
+writing stays 0.5, with explicit experimental 0.6. #334 installed/platform and
+exact-candidate gates remain unaccepted. No native build, dependency, scientific
+model, release or remote CI dispatch. Original weighted milestone completion
+remains 72.4%; this extra storage/defect work adds no artificial milestone credit.
+
 **Role:** operational audit and correction-tracking packet.  
 **Owner:** [uibcdf/molsysmt#334](https://github.com/uibcdf/molsysmt/issues/334).  
 **Audit source:** `4a80c22941090257d8ef78df09c944831413ee31`.  

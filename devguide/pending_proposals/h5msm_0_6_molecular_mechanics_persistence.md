@@ -779,3 +779,24 @@ query the resident native object. This observation changes no codec/default.
 P5 independent client receiving and P6 final schema/default-writer/freeze plus
 exact source/artifact gates remain open. #662's broad regression qualification
 is separate from this successful benchmark and its 23 directed controls.
+
+
+### Source regression and storage handoff — 2026-11-08
+
+Clean `990474db05f09b853cc470d9e9f14e3b37d0af82` receives the #662 correction
+and storage tooling with 1,869 affected cases, fourteen fast gates and fresh
+HTML. The [record](../../devtools/data/mechanics_storage_and_nullable_receiving_256_662_20261108.json)
+retains original failures, all clean identities, resource counters, warning
+baselines and four inspected pages, including the exact downloadable benchmark
+JSON. Fourteen course code cells/execution counts/outputs remain unchanged.
+The [nullable-charge defect](../archive/resolved_bugs/nullable_stored_partial_charges_fail_public_numeric_queries.md)
+is resolved in source; the benchmark completes all three preregistered cases.
+The first final-record extractor inserted spaces before inline-code punctuation;
+normalizing those parser-introduced spaces confirms the actual rendered prose.
+No documentation or semantic check was relaxed, and no scientific rerun was needed.
+
+P5 still requires independent DockingMT #79/#88 receiving. P6 now has bounded
+storage evidence, but final schema/default-writer policy, old-format policy and
+stable H5MSM 1.0 freeze plus exact-candidate gates remain open. The default stays
+0.5; 0.6 is explicit and experimental. No package, minimum released version,
+tag, release, CI dispatch or installed-client acceptance is supplied.

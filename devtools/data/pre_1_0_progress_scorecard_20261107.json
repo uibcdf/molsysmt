@@ -1062,5 +1062,28 @@
     "weighted_milestone_change": 0,
     "public_checkpoint": "52df76db2e9e29cc4812493e1cf3ca984e9fd57f",
     "owner_response": "https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6732726967"
+  },
+  "last_mechanics_storage_and_nullable_receiving": {
+    "owner_issues": [
+      "uibcdf/molsysmt#256",
+      "uibcdf/molsysmt#662"
+    ],
+    "source": "990474db05f09b853cc470d9e9f14e3b37d0af82",
+    "state": "qualified_source_and_measured_synthetic_storage",
+    "affected_tests": 1869,
+    "fast_gates": 14,
+    "html_pages": 4,
+    "benchmark_cases": 3,
+    "benchmark_operations_per_case": 6,
+    "evidence": [
+      "devtools/data/mechanics_storage_and_nullable_receiving_256_662_20261108.json",
+      "devtools/data/h5msm_mechanics_storage_benchmark_256_20261108.json"
+    ],
+    "guard": "tests/form/molsysmt_MolecularMechanics/test_nullable_charge_queries.py",
+    "independent_client_received": false,
+    "stable_format_frozen": false,
+    "default_format": "0.5",
+    "explicit_experimental_format": "0.6",
+    "weighted_milestone_change": 0
   }
 }
