@@ -7,6 +7,17 @@
 
 ## Maintainer follow-up queue — 2026-11-08
 
+Clustering-unit defect **#659 is closed** and public at
+`61b072b46b1c8bb1cba84b3ed42ca1e23dc287d9` (14 verified changed/deleted paths,
+four human root files preserved). Clean `68350e0b2` passes 210 affected cases
+with published PyUnitWizard 0.28.1 and the same guards with the exact clean
+`f82b618` source used by DockingMT. Fourteen fast gates and five rendered pages
+pass; original failures, literal/adjacent cutoffs and unchanged source/provider
+hashes are retained in [receiving](../devtools/data/distance_clustering_unit_policy_receiving_659_20261108.json)
+and [delivery](../devtools/data/distance_clustering_unit_policy_delivery_659_20261108.json).
+The fix removes a presentation-unit round trip without adding fuzzy tolerance;
+DockingMT's complete rerun and #256 hold remain independent.
+
 Producer-version **#657 is closed** and public at `c35a342143a2de8205e74438f3787b07b9b7f5d3`
 (15 independently verified changed/deleted paths, four human root files preserved).
 Clean `bbb5eb7c7` passes 172 affected cases and fourteen fast gates; four rendered
@@ -30,13 +41,13 @@ receives its supported pairwise/clustering composition, with independent E3 and
 
 Accept no additional graphical intent or weight: **26/50**, all four fitting
 intents, **72.35035797535798% (approximately 72.4%)**. Separate source closures
-are now **56**. #421 remains partial. **Next finite review: #659**, DockingMT's
-newly reported inclusive clustering cutoff discrepancy under a nondefault length
-policy. The [intake](archive/resolved_bugs/inclusive_distance_clustering_cutoff_changes_under_a_nondefault_length_policy.md)
-explicitly awaits local reproduction; source #657 does not resolve that numerical
-boundary. Then audit existing supported lossless compositions under #256 before
-any storage proposal. Keep #654's unreproduced intake and the planned
-OpenMM/openmmtools comparison. Complete board: **591 issues / 89 open / no open PR**.
+are now **57**. #421 remains partial. **Next finite review: #256's existing
+public compositions**, without moving H5MSM 0.6 before 1.0. Initial inspection
+rules out parameter-only dictionaries as complete assignment transport; native
+object checkpoint/restoration needs explicit bounded receiving before any route
+is offered. No complete lossless storage route is newly qualified. Keep #654's
+unreproduced intake, remaining graphical requirements and the planned
+OpenMM/openmmtools comparison. Complete board: **591 issues / 88 open / no open PR**.
 Installed/platform/human/exact-candidate requirements and frozen scientific gates
 are unchanged.
 

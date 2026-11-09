@@ -20,7 +20,46 @@ bug reports and proposals define individual contracts. This ledger records only
 current execution state and evidence; it must not duplicate or redefine those
 contracts.
 
-## Current producer-version checkpoint — 2026-11-08
+## Current clustering-unit checkpoint — 2026-11-08
+
+**#659 is closed.** Public source `61b072b46b1c8bb1cba84b3ed42ca1e23dc287d9`
+independently matches **14 changed/deleted paths** and preserves the four human
+root files. Clean implementation `68350e0b2` passes **210 affected cases** with
+published PyUnitWizard 0.28.1 and the same 210 with the exact clean provider source
+used by DockingMT, `f82b618ea88c151a9b43009228126b1cf7fda65c`. These are two
+provider routes, not 420 unique tests or independent client E3 acceptance.
+
+The validated cutoff now reaches float64 nm directly, without the output-policy
+detour that moved `1.0` to `0.9999999999999999`. The inclusive comparison remains
+exact, including rejection one float64 step below the edge. No tolerance or
+algorithm is changed. Other cutoff consumers and returned-unit presentation
+retain their behavior. [Receiving](../devtools/data/distance_clustering_unit_policy_receiving_659_20261108.json)
+keeps the original probe, 25 failing baseline controls, the fixture error and all
+successful attempts. **14/14 fast gates**, repository-wide Ruff checks and five
+rendered pages pass; six baseline warnings and all existing notebook code/outputs
+are preserved. All 8,606 source, 2,463 Viewer-export and 596 source-provider hashes
+match. Final tests peak below 405 MB decimal; all runs retain over 14 GB decimal
+host availability with monitored caps and no resource stops.
+
+[Delivery](../devtools/data/distance_clustering_unit_policy_delivery_659_20261108.json)
+and the [DockingMT notice](https://github.com/uibcdf/dockingmt/issues/79#issuecomment-6729481584)
+request a complete independent rerun with original assertions. #421's
+[notice](https://github.com/uibcdf/molsysmt/issues/421#issuecomment-6729482316)
+keeps its acceptance separate. There are **57 audit-related source closures**,
+unchanged **26/50 graphical intents** and **72.35035797535798% (about 72.4%)**.
+Complete paginated board: **591 issues / 88 open / no open PR**.
+
+**Next: finish the bounded #256 public-composition review.** Inspection rules
+out the parameter-only dictionary as a complete assignment transport; native
+object restoration still needs explicit receiving before it can be offered for
+the consumer's exact prepared-state scope. No lossless route is newly qualified.
+H5MSM 0.5 rejection and the post-1.0 H5MSM 0.6 decision remain. The remaining
+graphical intents, #654 intake, #615/#567/#582, planned OpenMM/openmmtools study
+and installed/platform/human/exact-candidate requirements stay owned. No package,
+tag, Release, promotion or hosted CI was launched; skipped commits retain the
+normal full-matrix recovery requirement.
+
+## Producer-version checkpoint — 2026-11-08
 
 **#657 is closed.** Public source `c35a342143a2de8205e74438f3787b07b9b7f5d3`
 independently matches all **15 changed/deleted paths**, preserving four human

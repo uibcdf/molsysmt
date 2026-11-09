@@ -106,3 +106,31 @@ route is verified by this note. Keep the consumer hold unless one is qualified;
 new 0.6 storage/model design stays post-1.0. #604's separately completed pairwise/
 clustering tools and provider notice do not resolve this persistence question or
 accept complete client E3.
+
+## Initial public-route inspection — 2026-11-08
+
+**Inspected on source `68350e0b27249b8337c04779ba0a86196d861a18`:**
+
+- The current `MolSysDict` 0.2 encoder explicitly refuses nonempty mechanics,
+  as H5MSM 0.5 does. Neither is an existing complete mechanics transport.
+- The registered `MolecularMechanicsDict` route calls the native parameter
+  projection. Its public guide explicitly excludes complete named assignment
+  reports and does not promise JSON serialization of its arrays/quantities.
+  A parameter dictionary alone cannot satisfy the consumer's full-state request.
+- Current native copies and composition preserve native domains in memory;
+  that does not establish their disk representation. `file:trjpk` exposes only
+  the structures dictionary, rather than a molecular-system snapshot.
+- Native object restoration hooks exist, including ownership rebinding and
+  legacy migration. Their existence alone does not receive a prepared-system
+  pickle containing all current assignments, units, associations and history.
+  This remains a candidate for a bounded same-stack restoration assessment,
+  not a newly promised versioned file schema or a replacement for the client's
+  unchanged H5MSM gate.
+
+No new serialization experiment or complete-format absence claim is made by
+this inspection. The next finite review must distinguish a supported native
+object checkpoint from portable molecular interchange, inspect the relevant
+existing restoration guards, and qualify any proposed public composition on
+the consumer's required state before recommending it. Do not fabricate missing
+assignment reports or declare parameter-only transport lossless. New H5MSM 0.6
+schema/model design remains post-1.0 and does not block the initial release.
