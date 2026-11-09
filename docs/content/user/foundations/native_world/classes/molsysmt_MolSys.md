@@ -652,7 +652,9 @@ population on this shared atom axis without fitting. It retains repeated structu
 as distinct members and preserves original indices and caller keys. Symmetry maps
 must include identity and every inverse; directional sets reject. The separate
 {func}`molsysmt.structure.get_distance_clusters` consumes a physical symmetric
-matrix with an explicit inclusive cutoff and complete/single linkage. Selected
+matrix with an explicit inclusive cutoff and complete/single linkage. Its
+membership decisions use the supplied inputs converted directly to float64 nm;
+changing your output-unit policy only changes returned quantities. Selected
 coordinates and dense output are resident and bounded. See
 {ref}`Cookbook_ClusteringPoses` for preparation, units and interpretation limits.
 

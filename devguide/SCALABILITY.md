@@ -496,6 +496,11 @@ chemistry and total process RSS; shared-host process-tree caps remain necessary.
 
 Coordinates, chemical assignments and periodic images are not changed. Cutoffs
 compare computed float64 nm values inclusively, without hidden tolerance.
+Both supplied quantities reach that comparison unit directly; argument validation
+does not first convert the cutoff to the session's output units. Output policy
+controls returned quantities only. Caller conversions performed before the call
+can already have rounded the inputs; no bitwise equivalence across different
+conversion histories is promised.
 Single linkage can chain distant members. Empty/singleton and repeated structure
 populations retain typed shapes and original member positions. No numerical result
 asserts chemical identity, coordinate-frame authenticity or biological validity.

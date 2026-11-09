@@ -25,6 +25,13 @@ def digest_cutoff_distance(cutoff_distance, caller=None):
 
     if puw.is_quantity(cutoff_distance):
         if puw.check(cutoff_distance, dimensionality={"[L]": 1}):
+            if (
+                caller
+                == "molsysmt.structure.get_distance_clusters.get_distance_clusters"
+            ):
+                # Convert matrix and cutoff directly to the comparison unit.
+                # An output-policy round trip can shift an exact boundary.
+                return cutoff_distance
             return puw.standardize(cutoff_distance)
 
     raise ArgumentError(

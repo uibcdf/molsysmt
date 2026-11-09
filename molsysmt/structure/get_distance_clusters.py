@@ -75,6 +75,12 @@ def get_distance_clusters(
     Single linkage may chain distant members; reported diameters expose this.
     No metric/triangle inequality is required; no missing distance is repaired.
 
+    Matrix and cutoff are converted directly to float64 nm for comparison.
+    The caller's output-unit policy affects returned quantities, not membership.
+    Comparison is inclusive on the represented canonical values, without a
+    hidden tolerance. Earlier caller conversions or geometric arithmetic may
+    already have changed those floating-point values.
+
     The primitive algorithm uses quadratic numeric storage and cubic worst-case
     scans. Numeric RAM estimates exclude caller storage, Python objects and
     total process RSS. Empty input gives offsets [0]; duplicate members may merge
@@ -98,6 +104,10 @@ def get_distance_clusters(
     >>> msm.structure.get_distance_clusters(distances, '1 nm',
     ...     method='single_linkage')['cluster_indices'].tolist()
     [0, 0, 0]
+    >>> with msm.pyunitwizard.context(standard_units=['pm', 'fs']):
+    ...     clusters = msm.structure.get_distance_clusters(distances, '1 nm')
+    >>> clusters['cluster_indices'].tolist()
+    [0, 0, 1]
 
     .. admonition:: User guide
 
