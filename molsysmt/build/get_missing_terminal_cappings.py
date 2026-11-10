@@ -29,7 +29,7 @@ def get_missing_terminal_cappings(
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Group selection: a query string or 0-based group indices. Selection
         filters reported groups; it never creates a terminus at a selection edge.
-        The native engine inspects complete chains containing selected groups.
+        Both engines retain complete molecular context before filtering.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     engine : {'MolSysMT', 'PDBFixer'}, default='MolSysMT'
@@ -73,8 +73,11 @@ def get_missing_terminal_cappings(
     end. Ambiguous backbones contribute no endpoints and emit a catalog warning;
     this does not certify protonation, bond order or chemical completeness.
 
-    Selection filters the final report after full-chain terminal recognition;
-    an internal selected group is not reinterpreted as a chain terminus.
+    Selection filters the final report after full-chain terminal recognition.
+    PDBFixer also receives the complete source, with the requested syntax used
+    only to resolve the source group filter. Its independent recognition
+    algorithm is unchanged.
+    An internal selected group is not reinterpreted as a chain terminus.
     Non-amino-acid chains (water, ions, small molecules) are silently skipped.
     Unknown chain membership cannot establish a terminus. The native engine
     requires one known chain index per selected group when amino acids are
@@ -119,23 +122,23 @@ def get_missing_terminal_cappings(
     elif engine == "PDBFixer":
         from molsysmt.basic import convert, select
 
-        group_indices_in_selection = select(
-            molecular_system, element="group", selection=selection
+        selected_groups = set(
+            select(
+                molecular_system, element="group", selection=selection, syntax=syntax
+            )
         )
-
-        temp_molecular_system = convert(
-            molecular_system,
-            to_form="pdbfixer.PDBFixer",
-            selection=selection,
-            syntax=syntax,
-        )
+        if not selected_groups:
+            return output
+        source_groups = select(molecular_system, element="group", selection="all")
+        temp_molecular_system = convert(molecular_system, to_form="pdbfixer.PDBFixer")
 
         temp_molecular_system.findMissingResidues()
         temp_molecular_system.findMissingAtoms()
 
         for group, atoms in temp_molecular_system.missingTerminals.items():
-            original_group_index = group_indices_in_selection[group.index]
-            output[original_group_index] = atoms
+            original_group_index = int(source_groups[group.index])
+            if original_group_index in selected_groups:
+                output[original_group_index] = atoms
 
     else:
         raise NotImplementedError
