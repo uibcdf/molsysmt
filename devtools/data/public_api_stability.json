@@ -506,7 +506,8 @@
     "molsysmt/form/string_pdb_id/to_molsysmt_MolSys.py:to_molsysmt_MolSys": "Maintainer-authorized ordered resolution of uibcdf/molsysmt#304: add keyword-only get_missing_bonds to transmit the existing explicit-only reader policy before native CIF/BCIF reconstruction. Preserve all previous positional parameters and defaults. Guard: tests/form/mmcif_PdbxContainers_DataContainer/test_connectivity_policy.py.",
     "molsysmt/form/string_pdb_id/to_molsysmt_Topology.py:to_molsysmt_Topology": "Maintainer-authorized ordered resolution of uibcdf/molsysmt#304: add keyword-only get_missing_bonds to transmit the existing explicit-only reader policy before native CIF/BCIF reconstruction. Preserve all previous positional parameters and defaults. Guard: tests/form/mmcif_PdbxContainers_DataContainer/test_connectivity_policy.py.",
     "molsysmt/form/mmcif_PdbxContainers_DataContainer/to_molsysmt_MolSys.py:to_molsysmt_MolSys": "Maintainer-authorized ordered resolution of uibcdf/molsysmt#304: add keyword-only get_missing_bonds to transmit the existing explicit-only reader policy before native CIF/BCIF reconstruction. Preserve all previous positional parameters and defaults. Guard: tests/form/mmcif_PdbxContainers_DataContainer/test_connectivity_policy.py.",
-    "molsysmt/molecular_mechanics/get_forces.py:get_forces": "Maintainer-authorized native force support under uibcdf/molsysmt#572: add keyword-only structure_indices=None and platform=CPU while retaining every prior positional argument/default and the legacy no-structure-axis result for None. Explicit indices retain a structure axis; selection filters complete-model forces, and existing contexts remain read-only. Guard: tests/molecular_mechanics/get_forces/test_native_contract.py."
+    "molsysmt/molecular_mechanics/get_forces.py:get_forces": "Maintainer-authorized native force support under uibcdf/molsysmt#572: add keyword-only structure_indices=None and platform=CPU while retaining every prior positional argument/default and the legacy no-structure-axis result for None. Explicit indices retain a structure axis; selection filters complete-model forces, and existing contexts remain read-only. Guard: tests/molecular_mechanics/get_forces/test_native_contract.py.",
+    "molsysmt/build/get_missing_terminal_cappings.py:get_missing_terminal_cappings": "Add keyword-only skip_digestion=False while preserving original positional arguments; public validation and stored-backbone recognition receive #686 together. Guard: tests/chemical_states/test_get_peptide_termini.py."
   },
   "symbols": {
     "molsysmt.ArgumentChoiceError": {
@@ -2703,6 +2704,14 @@
       "owner": "structure",
       "documentation": "docs/content/user/tools/structure/get_distance_clusters.ipynb",
       "contract_tests": "tests/structure/test_pairwise_geometry.py"
+    },
+    "molsysmt.chemical_states.get_peptide_termini": {
+      "stability": "experimental",
+      "lifecycle": "active",
+      "owner": "chemical_states",
+      "documentation": "docs/content/user/tools/chemical_states/get_peptide_termini.md",
+      "contract_tests": "tests/chemical_states/test_get_peptide_termini.py",
+      "introduced": "1.0.0"
     }
   },
   "pre_1_0_namespace_moves": {

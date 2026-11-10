@@ -311,6 +311,10 @@ sections:
             file: docs/content/user/tools/chemical_states/get_covalent_blocks.ipynb
             agents_file: docs/content/user/tools/chemical_states/get_covalent_blocks.ipynb.AGENTS.md
             description: State-aware induced connectivity, explicit cuts, deterministic source-index blocks and empty selections.
+          - name: get_peptide_termini
+            file: docs/content/user/tools/chemical_states/get_peptide_termini.md
+            agents_file: docs/content/user/tools/chemical_states/get_peptide_termini.md.AGENTS.md
+            description: Observed stored-backbone endpoints, cap bonds, state scope, source indices and explicit ambiguity refusals.
           - name: normalize_indexed_hydrogen_policy
             file: docs/content/user/tools/chemical_states/normalize_indexed_hydrogen_policy.md
             agents_file: docs/content/user/tools/chemical_states/normalize_indexed_hydrogen_policy.md.AGENTS.md

@@ -41,7 +41,7 @@ def test_1brs_bounded_heavy_repair_and_shared_terminal_completion(barnase_barsta
         )
     r_pdb = msm.build.add_missing_terminal_cappings(barnase_barstar, engine="PDBFixer")
     assert msm.get(barnase_barstar, n_atoms=True) == 5151
-    assert msm.get(r_native, n_atoms=True) == 5156
+    assert msm.get(r_native, n_atoms=True) == 5155
     assert msm.get(r_pdb, n_atoms=True) == 5230
     assert msm.build.get_missing_heavy_atoms(r_native) == {
         i: names for i, names in missing_before.items() if i not in {282, 325, 385, 587}
@@ -53,7 +53,7 @@ def test_1brs_bounded_heavy_repair_and_shared_terminal_completion(barnase_barsta
 
 
 def test_parity_1brs_oxt_count(barnase_barstar):
-    """Both engines add exactly the same number of OXT atoms."""
+    """Native preserves unknown broken-chain endpoints; PDBFixer adds its declared OXT."""
     r_native = msm.build.add_missing_terminal_cappings(
         barnase_barstar, engine="MolSysMT"
     )
@@ -62,21 +62,26 @@ def test_parity_1brs_oxt_count(barnase_barstar):
         r_native, element="atom", selection='atom_name=="OXT"', n_atoms=True
     )
     oxt_p = msm.get(r_pdb, element="atom", selection='atom_name=="OXT"', n_atoms=True)
-    assert oxt_n == oxt_p
+    assert (
+        oxt_n
+        == msm.get(barnase_barstar, selection='atom_name=="OXT"', n_atoms=True)
+        == 5
+    )
+    assert oxt_p == 6
 
 
 def test_parity_1brs_group_412_has_oxt(barnase_barstar):
-    """Both engines add OXT to group 412 (the missing one)."""
+    """Native refuses the interrupted chain; PDBFixer retains its independent profile."""
     for eng in ("MolSysMT", "PDBFixer"):
         r = msm.build.add_missing_terminal_cappings(barnase_barstar, engine=eng)
         names_412 = msm.get(
             r, element="atom", selection="group_index==412", atom_name=True
         )
-        assert "OXT" in names_412, f"{eng}: OXT missing from group 412"
+        assert ("OXT" in names_412) == (eng == "PDBFixer")
 
 
 def test_parity_1brs_no_missing_terminal_after_fix(barnase_barstar):
-    """After native fix, get_missing_terminal_cappings returns empty dict."""
+    """An empty legacy dictionary retains a warning about unassessed chains."""
     r_native = msm.build.add_missing_terminal_cappings(
         barnase_barstar, engine="MolSysMT"
     )

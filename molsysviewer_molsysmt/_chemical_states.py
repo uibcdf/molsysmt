@@ -11,6 +11,7 @@ class _ChemicalStatesTools:
         "get_bondgraph",
         "get_covalent_blocks",
         "get_covalent_paths",
+        "get_peptide_termini",
         "get_dihedral_quartets",
         "get_rigid_fragments",
         "get_rotatable_bonds",
@@ -97,6 +98,31 @@ class _ChemicalStatesTools:
                 "syntax": syntax,
                 "chemical_state": chemical_state,
                 "structure_indices": structure_indices,
+                "skip_digestion": skip_digestion,
+            },
+        )
+
+    @_native_documentation("get_peptide_termini", module="chemical_states")
+    @signal(tags=["addon", "chemical_states"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_peptide_termini(
+        self,
+        selection="all",
+        syntax="MolSysMT",
+        *,
+        chemical_state="reference",
+        structure_indices="all",
+        on_ambiguous="raise",
+        skip_digestion=False,
+    ):
+        return self._call(
+            "get_peptide_termini",
+            {
+                "selection": selection,
+                "syntax": syntax,
+                "chemical_state": chemical_state,
+                "structure_indices": structure_indices,
+                "on_ambiguous": on_ambiguous,
                 "skip_digestion": skip_digestion,
             },
         )

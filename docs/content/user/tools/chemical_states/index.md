@@ -18,6 +18,7 @@ state-only graph operations do not create fake topology or coordinates.
 | [Get bondgraph](get_bondgraph.ipynb) | Querying stored induced connectivity and source atom indices. |
 | [Get covalent blocks](get_covalent_blocks.ipynb) | Partitioning the stored graph with explicit cuts. |
 | [Get covalent paths](get_covalent_paths.ipynb) | Finding walks matching an ordered atom pattern. |
+| [Get peptide termini](get_peptide_termini.md) | Recognizing observed free/capped backbone ends independently of inventory and ID order. |
 | [Get dihedral quartets](get_dihedral_quartets.ipynb) | Recognizing standard torsion-defining atom quartets. |
 | [Get rings](get_rings.ipynb) | Perceiving a sparse covalent cycle basis. |
 | [Get rotatable bonds](get_rotatable_bonds.md) | Classifying torsion candidates and explicit exclusion reasons. |
@@ -52,6 +53,7 @@ and {ref}`MolSysDict <user-foundations-native-world-classes-molsysmt-molsysdict>
 get_bondgraph
 get_covalent_blocks
 get_covalent_paths
+get_peptide_termini
 get_dihedral_quartets
 get_rings
 get_rotatable_bonds

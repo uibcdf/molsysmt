@@ -7,6 +7,7 @@ Tests cover both engine='MolSysMT' (native, default) and engine='PDBFixer'.
 import pytest
 
 import molsysmt as msm
+from molsysmt._private.smonitor import UnassessedPeptideBackboneWarning
 
 
 @pytest.fixture(scope="module")
@@ -20,10 +21,18 @@ def t4_lysozyme():
 
 
 def test_get_missing_terminal_cappings_native_barnase(barnase_barstar):
-    """MolSysMT engine finds OXT missing at group 412 (SER, chain 3 C-terminus)."""
-    result = msm.build.get_missing_terminal_cappings(barnase_barstar, engine="MolSysMT")
-    assert len(result) == 1
-    assert result[412] == ["OXT"]
+    """Native observed bonds leave the two interrupted Barstar chains unassessed."""
+    with pytest.warns(UnassessedPeptideBackboneWarning) as caught:
+        result = msm.build.get_missing_terminal_cappings(
+            barnase_barstar, engine="MolSysMT"
+        )
+    assert result == {}
+    assert len(caught) == 2
+    report = msm.chemical_states.get_peptide_termini(
+        barnase_barstar, on_ambiguous="report"
+    )
+    assert report["unassessed_chain_indices"].tolist() == [3, 4]
+    assert report["c_terminal_group_indices"].tolist() == [107, 217, 325, 587]
 
 
 def test_get_missing_terminal_cappings_pdbfixer_barnase(barnase_barstar):
@@ -49,7 +58,8 @@ def test_get_missing_terminal_cappings_pdbfixer_t4(t4_lysozyme):
 
 def test_get_missing_terminal_cappings_returns_dict(barnase_barstar):
     """Return value is always a dict."""
-    result = msm.build.get_missing_terminal_cappings(barnase_barstar)
+    with pytest.warns(UnassessedPeptideBackboneWarning):
+        result = msm.build.get_missing_terminal_cappings(barnase_barstar)
     assert isinstance(result, dict)
 
 
@@ -61,12 +71,16 @@ def test_get_missing_terminal_cappings_capped_peptide():
 
 
 def test_get_missing_terminal_cappings_engines_agree(barnase_barstar):
-    """MolSysMT and PDBFixer engines return the same group indices."""
-    native = msm.build.get_missing_terminal_cappings(barnase_barstar, engine="MolSysMT")
+    """Historical parity selector now guards explicit native/PDBFixer scope divergence."""
+    with pytest.warns(UnassessedPeptideBackboneWarning):
+        native = msm.build.get_missing_terminal_cappings(
+            barnase_barstar, engine="MolSysMT"
+        )
     pdbfixer = msm.build.get_missing_terminal_cappings(
         barnase_barstar, engine="PDBFixer"
     )
-    assert set(native.keys()) == set(pdbfixer.keys())
+    assert native == {}
+    assert pdbfixer == {412: ["OXT"]}
 
 
 def test_unknown_legacy_chain_cannot_establish_a_peptide_terminus():

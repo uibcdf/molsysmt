@@ -132,6 +132,12 @@ CATALOG = {
             "category": "data_quality",
             "level": "WARNING",
         },
+        "UnassessedPeptideBackboneWarning": {
+            "code": "MSM-WARN-BUILD-003",
+            "source": "molsysmt.warning.build.unassessed_peptide_backbone",
+            "category": "data_quality",
+            "level": "WARNING",
+        },
         "UnassessedResidueWarning": {
             "code": "MSM-WARN-BUILD-002",
             "source": "molsysmt.warning.build.unassessed_residue",
@@ -569,6 +575,17 @@ CODES = {
             "Not added by this call. The input carried them. reconcile_protonation "
             "removes them."
         ),
+    },
+    "MSM-WARN-BUILD-003": {
+        "title": "Peptide backbone left unassessed",
+        "user_message": "Chain {chain_index} has no assessed peptide endpoints: {reason}",
+        "user_hint": "No endpoints are inferred for this chain. Inspect get_peptide_termini with on_ambiguous='report'; an empty missing-atom dictionary does not certify complete chemistry. Docs: {doc_url}",
+        "dev_message": "Chain {chain_index} has no assessed peptide endpoints: {reason}",
+        "dev_hint": "Preserve partial coverage and do not infer endpoints from labels or inventory order.",
+        "qa_message": "Chain {chain_index} is unassessed: {reason}",
+        "qa_hint": "Assert the omitted chain and retained assessed endpoints independently.",
+        "agent_message": "Chain {chain_index} has no assessed peptide endpoints: {reason}",
+        "agent_hint": "Missing or branched backbone evidence is not a free terminus. Do not silently reconstruct it.",
     },
     "MSM-WARN-BUILD-002": {
         "title": "Modified residue left unassessed",

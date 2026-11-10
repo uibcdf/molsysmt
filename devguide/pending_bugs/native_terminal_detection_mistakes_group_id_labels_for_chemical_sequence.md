@@ -1,7 +1,7 @@
 ---
 summary: Native terminal detection mistakes group ID labels for chemical sequence.
 issue: uibcdf/molsysmt#686
-status: open
+status: active
 opened: 2026-11-09
 closed:
 severity: high
@@ -108,3 +108,13 @@ environment and published PyUnitWizard 0.28.1 overlay. No installation, native
 rebuild or source edit during the probe. One CPU, 2 GiB own-memory cap, no own
 swap and host availability monitoring; no own OOM or reserve stop. No claim of
 installed-package, other-platform or complete terminal-science qualification.
+
+## Implementation under receiving — 2026-11-10
+
+The public experimental `chemical_states.get_peptide_termini` now owns the shared observed-backbone rule. Terminal assessment, free N-side completion and explicit cap anchors delegate to it. Initial controls retain the original four label/cap/cycle failures. The first implementation exposed legacy two-column bond tables, an internal local-name shadow and fixture/converter keyword mistakes; these attempts remain recorded. Expanded state/form/group-permutation/H5MSM receiving and public documentation are still pending acceptance. No issue closure or milestone credit is claimed yet.
+
+## Incomplete real source and explicit partial mode — 2026-11-10
+
+The 1BRS source has one path in chains 0/1/2/5, but Barstar chains 3 and 4 each have two stored backbone fragments. Chain 3 has starts 326/389 and ends 388/412; chain 4 starts 413/475 and ends 474/498. Both jumps span source labels 63 to 66, and no ordered native chain declaration is stored. Relabelling those labels cannot supply missing chemical evidence. The old OXT-at-412 assertion used a sequence-label heuristic, not a stored-graph oracle.
+
+The public recognizer defaults to a strict error. Explicit `on_ambiguous="report"` retains unassessed chains with reasons and no invented endpoints; other chains remain assessed. The legacy dictionary and local adder use that explicit mode and emit catalog warning MSM-WARN-BUILD-003 for every omitted chain. The native 1BRS adder therefore repairs four supported heavy atoms (5151 to 5155) without placing uncertain OXT, while PDBFixer retains its independent 5230-atom/6-OXT profile. Tests retain those independent observations and assert partial coverage instead of assuming algorithm parity. This does not silently interpret gaps as free fragment ends or weaken the new strict recognizer.

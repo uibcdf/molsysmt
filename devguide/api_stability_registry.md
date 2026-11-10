@@ -11,7 +11,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 124 |
-| experimental | 176 |
+| experimental | 177 |
 | outside-contract | 9 |
 | deprecated lifecycle | 0 |
 
@@ -410,6 +410,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.chemical_states.get_covalent_blocks` | stable | active | pre-1.0 |
 | `molsysmt.chemical_states.get_covalent_paths` | stable | active | pre-1.0 |
 | `molsysmt.chemical_states.get_dihedral_quartets` | stable | active | pre-1.0 |
+| `molsysmt.chemical_states.get_peptide_termini` | experimental | active | 1.0.0 |
 | `molsysmt.chemical_states.get_rigid_fragments` | experimental | active | pre-1.0 |
 | `molsysmt.chemical_states.get_rings` | experimental | active | pre-1.0 |
 | `molsysmt.chemical_states.get_rotatable_bonds` | experimental | active | 1.0.0 |

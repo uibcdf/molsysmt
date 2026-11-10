@@ -314,3 +314,7 @@ through `msm.set`, materializing only the selected state before publication.
 Graph-editing methods still require explicit conversion to ChemicalStates.
 `contains` and `is_composed_of` accept `chemical_state` for supported state-local
 counts; they do not supply absent stable hierarchy.
+
+## Recognizing observed peptide endpoints
+
+With stable group/chain context, {func}`molsysmt.chemical_states.get_peptide_termini` reads a selected stored backbone graph. It uses bonds rather than ID labels or storage order, records cap attachments and refuses ambiguous paths. This observed-graph result does not certify complete chemistry or reconstruct missing links. See {ref}`Getting peptide termini <Tutorial_Get_peptide_termini>`.
