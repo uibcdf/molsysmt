@@ -1,5 +1,49 @@
 # MolSysMT 1.0 Execution Status
 
+## Combined graphical receiving and new issue intake — 2026-11-09
+
+The four reviewed PR heads (#678/#681/#682/#683) are ancestors of clean combined
+`528c460a9523a2c69aa8116c8e97c26fcfeca9c1`. Against exact Viewer
+`9b8662cfb198e6896751c30ee2c7c8780ac85f4c`, **5,857 addon/preflight cases**,
+**five actual Jupyter/AnyWidget/Mol* scenarios with 44 checks**, **107 scientific
+cases / 68 registered nodes**, **14/14 fast gates** and the HTML build pass.
+Five new rendered guide sections are inspected. The original combined run
+remains failed (5,856 pass / one obsolete fake-terminal expectation); correcting
+that expectation has a separate 63-case consumer receipt and the complete rerun.
+Native/addon/workflow/benchmark/user-doc bytes are unchanged between cohorts.
+See the [combined receipt](../devtools/data/molsysviewer_stacked_panels_receiving_678_681_682_683_20261110.json).
+
+Credit exactly **eight existing graphical intents**, **31 → 39/50**: PCA,
+refinement, five repair/assignment intents and sequence/connectivity reports.
+Original nested weights stay fixed: **73.7664% → 74.2101% (about 74.2%)**.
+The complete properties leaf still requires secondary structure; removing
+rule-defined hydrogens does not complete protonation reconciliation. Explicit
+color/plot adoption adds no artificial intent or score. This is source and
+automated graphical receiving, not complete scientific readiness, fresh combined
+Qt/human acceptance, installed qualification or an exact release candidate.
+
+The complete board refresh has 612 issues, 92 open, before filing our new #686;
+four PR heads are unchanged, with #681–#683 now explicitly draft. Public main
+`0c6f9c746` already delivers the four closed core defects #677/#679/#680/#684.
+The following intake and next work order extend the maintained plan without
+silently changing its six weights or release scope:
+
+| Order | Owner | Disposition / next acceptance |
+| --- | --- | --- |
+| 1 | #686 | Newly reproduced: changing only group ID labels moves the reported C terminus. Review chemical endpoint recognition, ambiguous/cyclic/capped cases and public addition consumers; add a scientific regression before optional enhancements. [Diagnosis](pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md). |
+| 2 | #582 and remaining #421 | Complete the effective engine-neutral mechanical recipe and original unreceived graphical intents; retain the partial properties/protonation distinctions. Receive native/scientific behavior and actual graphical workflows before credit. |
+| 3 | #666 / uibcdf/pyunitwizard#143 | Resolve the native cutoff/unit boundary before accepting the contact prototype; no GUI-specific tolerance workaround. |
+| 4 | #256, #524, #615, #334 | Continue independent H5MSM/stable-format review, actual dependency-floor/installed closure, diagnostic causality and final exact-candidate/platform gates. |
+| Backlog / bounded design | #685 | New PeptideMT request: explicit capped and stereochemically declared coordinate-free peptide references. Reuse the existing peptide/CCD template, assessment/application and CIP owners; do not infer missing experimental chemistry, equate L with S, or confuse primary carboxamide with N-methylamide. This proposal adds no automatic 1.0 blocker. |
+
+Resource caps measured about **4.51 GiB** for the four-worker addon run and
+**2.57 GiB** for the graphical run; host availability stayed above **7.5 GiB**,
+with no own OOM or reserve stop. Known plain-Jupyter debugger errors remain in
+the evidence and have the same fingerprints as the control. Contributor Qt and
+historical hosted CI keep their original identities. No new remote matrix,
+package, tag, Release or promotion is authorized. Combined public integration
+and verified PR closeout follow this received checkpoint.
+
 ## Incoming core defects received — 2026-11-09
 
 #677/#679/#680/#684 have source-qualified corrections: actual demo inventory,
