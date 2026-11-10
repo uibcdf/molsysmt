@@ -164,3 +164,35 @@ Neither that Qt result nor the passing browser follow-up closes #615. No warm-up
 restart, timeout increase, source/scene mismatch waiver or missing-canvas
 acceptance was introduced. The original causal/environmental disposition remains
 required, and receives no formal plan credit.
+
+## Joint pre-timeout capture disposition — 2026-11-10
+
+MolSysMT accepts the Analysis runner and kernel/server side of the bounded
+capture proposed in [uibcdf/molsysviewer#315](https://github.com/uibcdf/molsysviewer/issues/315)
+at Viewer `4f05a6c6ea3f7ca78929e9f2592360f0e6ae38fa`. Viewer owns the matching
+mount, scene and draw observations. The existing Python snapshot runs after
+the browser subprocess completes. The proposed capture must take place while
+the browser is still connected to the isolated server.
+
+For one targeted Analysis diagnostic when scheduled, arm the observations
+before Run on the original 1TCD initial cell. Retain the existing 30-second
+canvas wait, 15-second kernel stack timer, cold imports and lifecycle.
+MolSysMT records submission and actual cell start, import/load/display
+boundaries, completion or exception, and bounded `/api/sessions` samples at
+about 15 seconds and at the failing canvas wait before browser teardown. The
+browser verdict and original deadline are authoritative. Use the existing
+authenticated, read-only and size/time-bounded sampling contract. Mark a missing
+or unavailable sample explicitly.
+
+Correlate both sides with one local attempt label and a common Run anchor for
+monotonic elapsed observations. At the handoff record the first observed widget
+comm acknowledgement or bootstrap event. Viewer records mount, the connected
+canvas/controller, registration of the expected 3,983-atom scene and the first
+new native Mol* draw for that scene. Keep the private kernel traces and publish
+only sanitized, bounded metadata. Report the earliest missing transition only
+if the relevant observer was armed. Readiness failure before the cell belongs
+to the separate #705 scope.
+
+This is an agreed diagnostic disposition. A causal correction or an evidenced
+bounded environmental disposition is still required for closure. Implementation
+and an instrumented execution remain pending.

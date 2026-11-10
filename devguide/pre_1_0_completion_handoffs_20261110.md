@@ -91,41 +91,55 @@ It is not a production fix or a universal exact-arithmetic promise.
 
 **Owner:** uibcdf/molsysviewer#315, with the existing integration/publication
 owners. Consumer requirements remain uibcdf/molsysmt#250, #254, #524 and #615.
-**Deliverables now:**
 
-- Explicit feedback on the current storage/query/pagination/persistence and
-  native-domain contract, with any concrete remaining provider defect or
-  incompatibility. Keep scientific profiles and Qt experimental. Final-candidate
-  acceptance remains later work even after source agreement.
-- Identify the intended compatible public version and what remains before its
-  artifact can be frozen/qualified. A published source SHA is not an installed
-  version floor; do not request or invent one when no compatible artifact exists.
-- Help identify the failing stage for the original startup observation, including
-  the owning consumer reference and a bounded pre-failure capture prescription.
-  Preserve original failures and separate historical runtimes from current
-  receiving. A newer passing run alone is insufficient.
-- Review the planned first stable H5MSM 1.0 boundary. Current 0.5/explicit 0.6
-  routes and their evidence remain unchanged until the format freeze passes.
+**Source agreement received.** The review for [uibcdf/molsysviewer#315](https://github.com/uibcdf/molsysviewer/issues/315)
+is published at Viewer `4f05a6c6ea3f7ca78929e9f2592360f0e6ae38fa`. It uses
+Viewer source `25f482ae0f2145dd4a203287c82ce158beb78a5e` and the MolSysMT
+coordination record `af32a559cc6bac6d0e33ee249b3692319028add3`. Individual test
+results retain their recorded pairs. Viewer accepts the exercised #250 and
+#254 contracts. These include sparse observations with compound participants,
+occurrence indices scoped to an analysis revision, evaluated coverage, ordered
+nonconsecutive queries, the four atom-selection modes, typed bounded pages,
+periodic images, named results and declared maps. Page bounds apply to copies
+after query construction. The scene uses the explicit reference chemical state
+for its static covalent graph, including a nonzero reference, and rejects an
+ambiguous reference. No new provider change was requested for these exercised
+paths. Detector profiles, the inspection-page API and Qt remain experimental.
+Final-candidate acceptance under #250/#254/#334 is pending.
 
-**Forwardable request:**
+**Intended installed pair.** Plan for MolSysMT **1.0.0** and Viewer **0.25.0**
+under #334. The intended MolSysMT producer is the future clean release source
+containing the reviewed native domains, the redesigned tools addon and the
+qualified stable H5MSM reader, writer and migration routes. No producer SHA or
+build has been assigned. When authorized, use a fresh, higher unused Conda
+build number and preserve all four existing 1.0.0 build-0 files in staging.
+Agree exact sources, artifact identities, versions and capabilities before the
+sixteen installed cells. Cover real imports, addon discovery and lifecycle
+(including `MolSysView.closed`), native-domain/scientific workflows and session
+round trips. Receive the minimum and newer installed dependency routes in the
+declared scope. The published MolSysMT 0.23.0 / Viewer 0.24.0 pair retains its
+historical scope. Viewer 0.25.0 remains an intended version and #524 still needs
+a published compatible host floor and clean installed evidence.
 
-> MolSysMT main 5e7d65a665425fe6077f016dd95cbd65d424ee91 receives your exact
-> figure-context contribution 9dff314f8 against Viewer 5164f13b. Please return
-> explicit source-contract feedback for uibcdf/molsysmt#250 and uibcdf/molsysmt#254: sparse relations and
-> occurrences, compound roles, stable occurrence indices within an analysis,
-> evaluated-empty versus unevaluated coverage, nonconsecutive axis queries and
-> the four selection modes, bounded pages, units/producers/images, named
-> analyses, declared maps, remapping and edit invalidation/stale refusals.
-> Independent-file correspondence remains declared, not authenticated.
->
-> For uibcdf/molsysmt#524, identify the intended compatible public Viewer version and
-> the remaining artifact work; if none is published, say so explicitly. The
-> source pin does not satisfy clean minimum/newer installed receiving. Please
-> also review the proposed first stable H5MSM 1.0 boundary and help define a
-> discriminating pre-failure capture for uibcdf/molsysmt#615. Our real-server diagnostics
-> and later passing cases do not establish its original cause. Return exact
-> sources and evidenced scope; artifact names/builds/hashes follow only when
-> artifact preparation is resumed by the maintainer.
+**H5MSM 1.0 client cases.** Include the following cases in final receiving.
+
+1. Save a complete system with explicit reference chemistry and a named periodic
+   analysis, project onto nonconsecutive structures, reopen the session and edit
+   one selected structure. Verify maps, occurrence geometry, producer identity,
+   measure units and invalidation limited to the declared affected coverage.
+2. Reopen a partial file and verify domain absence and maps. Attach an
+   independent analysis using explicitly declared correspondence. Verify that
+   the read and session paths preserve the stored producer and measure units.
+
+The 0.5 and explicit 0.6 evidence retain their original version scope.
+These two Viewer workflows require the stable public reader, writer and
+migration paths. Mechanics visualization remains outside the receiving scope.
+
+**#615 ownership.** MolSysMT accepts the Analysis runner and matching notebook,
+kernel and server samples. Viewer owns the widget mount, scene registration and
+first new native draw observations. The [diagnostic disposition](pending_bugs/intermittent_jupyter_initial_canvas_timeout.md#joint-pre-timeout-capture-disposition--2026-11-10)
+defines the bounded capture and verdict. Candidate selection, new qualification
+runs and publication remain paused.
 
 The detailed current API and native-domain behavior are maintained in
 [Interactions](interactions_api.md), [native queries](native_queries.md),

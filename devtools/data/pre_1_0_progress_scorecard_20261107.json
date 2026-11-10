@@ -115,7 +115,7 @@
           "requirement": "Receive actual public Viewer floor and clean minimum/newer installed default workflows",
           "state": "pending",
           "evidence": [],
-          "review": "Source/API receiving is not the clean installed closure required by #524."
+          "review": "Viewer 0.25.0 and MolSysMT 1.0.0 are intended versions. #524 still requires a published compatible host and clean installed closure."
         }
       ],
       "verified_fraction": 0.6666666666666666,
@@ -225,7 +225,7 @@
           "requirement": "Resolve #615 causal stage or receive an evidenced bounded environment disposition",
           "state": "pending",
           "evidence": [],
-          "review": "Later passing startup/canvas runs do not establish repair."
+          "review": "MolSysMT owns pre-timeout kernel/server sampling and Viewer owns mount/scene/draw observations. The coordinated diagnostic and causal disposition are pending."
         },
         {
           "id": "navigation-authority",
@@ -806,7 +806,7 @@
           "requirement": "Agree #250/#254 surface stability and final-candidate/Viewer acceptance",
           "state": "pending",
           "evidence": [],
-          "review": ""
+          "review": "Viewer 4f05a6c6ea3f7ca78929e9f2592360f0e6ae38fa accepts the exercised Interactions and independent ChemicalStates source contracts. The composite milestone still requires final-candidate acceptance."
         },
         {
           "id": "473-475",
@@ -939,7 +939,7 @@
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
     "owner_verification": "Public ddd32ac1a independently matches 39 changed paths, preserves all four human files and atomically adopts the canonical qualified native extension; #701/#703/#704 are guarded/closed and #702 merged by ancestry. All scoped owner receiving remains separate from the failed original complete default session and paused final gates.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Receive contacts/provider143, original #615 causal/environmental disposition and incoming #705 preparation contribution. Await actual published Viewer/clean-installed #524 and explicit #250/#254 feedback; complete finite #256 P5/P6/stable-format and #334 exact-candidate gates under existing authority. Original weights/failures and publication pause remain.",
+    "scope": "Receive contacts/provider143, original #615 causal/environmental disposition and incoming #705 preparation contribution. Viewer accepts the exercised #250/#254 source contracts. Await actual published Viewer/clean-installed #524 and final #250/#254 acceptance, and complete finite #256 P5/P6/stable-format and #334 exact-candidate gates under existing authority. Original weights/failures and publication pause remain.",
     "active_related": [
       "uibcdf/molsysmt#666",
       "uibcdf/molsysmt#421",

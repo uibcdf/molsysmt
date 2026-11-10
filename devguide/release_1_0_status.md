@@ -1,5 +1,18 @@
 # MolSysMT 1.0 Execution Status
 
+## Viewer source agreement received — 2026-11-10
+
+Viewer `4f05a6c6ea3f7ca78929e9f2592360f0e6ae38fa` accepts the exercised source
+contracts for #250/#254 and supplies two bounded H5MSM 1.0 receiving cases.
+The [coordination packet](pre_1_0_completion_handoffs_20261110.md#molsysviewer-contract-feedback-startup-evidence-and-artifact-plan)
+records **MolSysMT 1.0.0 / Viewer 0.25.0** as the intended versions for planning.
+Exact sources and build identities are pending. #524 still requires a published
+compatible host and clean installed receiving. MolSysMT owns #615's pre-timeout
+kernel/server samples and Viewer owns the corresponding first-draw observations.
+#615 remains open. The original composite leaves stay uncredited at
+**76.2920%, 49/50** until their remaining acceptance criteria pass. Candidate
+work, new qualification runs and publication remain paused.
+
 ## Complete corrected-source suite received — 2026-11-10
 
 Frozen **5e7d65a66**, qualified native **4ffb82e4** and verified Viewer

@@ -1,5 +1,9 @@
 # Pre-1.0 robustness audit and action plan — 6 November 2026
 
+The [Viewer source agreement checkpoint](release_1_0_status.md#viewer-source-agreement-received--2026-11-10)
+receives #250/#254 source feedback and sets the remaining installed, format and
+diagnostic work. The composite milestones retain their final acceptance criteria.
+
 ## Complete corrected-source suite received — 2026-11-10
 
 Frozen **5e7d65a66**, qualified native **4ffb82e4** and verified Viewer
