@@ -107,19 +107,24 @@ ambiguous reference. No new provider change was requested for these exercised
 paths. Detector profiles, the inspection-page API and Qt remain experimental.
 Final-candidate acceptance under #250/#254/#334 is pending.
 
-**Intended installed pair.** Plan for MolSysMT **1.0.0** and Viewer **0.25.0**
-under #334. The intended MolSysMT producer is the future clean release source
-containing the reviewed native domains, the redesigned tools addon and the
-qualified stable H5MSM reader, writer and migration routes. No producer SHA or
-build has been assigned. When authorized, use a fresh, higher unused Conda
-build number and preserve all four existing 1.0.0 build-0 files in staging.
-Agree exact sources, artifact identities, versions and capabilities before the
-sixteen installed cells. Cover real imports, addon discovery and lifecycle
-(including `MolSysView.closed`), native-domain/scientific workflows and session
-round trips. Receive the minimum and newer installed dependency routes in the
-declared scope. The published MolSysMT 0.23.0 / Viewer 0.24.0 pair retains its
-historical scope. Viewer 0.25.0 remains an intended version and #524 still needs
-a published compatible host floor and clean installed evidence.
+**Coordinated release pair.** The maintainer confirmed the joint release of
+**MolSysMT 1.0.0 and MolSysViewer 1.0.0**, recorded by MolSysViewer in
+`f09757122a91dbbf32846738890a96623c2353e2` for uibcdf/molsysviewer#315. Qualify
+this exact pair in clean installations under #334 before joint publication.
+MolSysViewer 0.25.0 remains a possible earlier milestone. The published
+MolSysMT 0.23.0 / MolSysViewer 0.24.0 pair retains its historical scope. #524
+still requires a published compatible host floor and clean installed evidence.
+
+The intended MolSysMT producer is the future clean release source with the
+reviewed native domains, redesigned tools addon and qualified stable H5MSM
+reader, writer and migration routes. When candidate work resumes, agree exact
+producer commits, build strings and supported capabilities, then share
+filenames, channels and SHA-256 hashes before running the sixteen installed
+cells. Use a higher unused Conda build number for the new MolSysMT producer
+and preserve the four existing 1.0.0 build-0 files in staging. Cover real
+imports, addon discovery and lifecycle (including `MolSysView.closed`),
+native-domain/scientific workflows, session round trips and the applicable
+minimum and newer installed dependency routes.
 
 **H5MSM 1.0 client cases.** Include the following cases in final receiving.
 

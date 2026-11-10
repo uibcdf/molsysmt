@@ -5,8 +5,10 @@
 Viewer `4f05a6c6ea3f7ca78929e9f2592360f0e6ae38fa` accepts the exercised source
 contracts for #250/#254 and supplies two bounded H5MSM 1.0 receiving cases.
 The [coordination packet](pre_1_0_completion_handoffs_20261110.md#molsysviewer-contract-feedback-startup-evidence-and-artifact-plan)
-records **MolSysMT 1.0.0 / Viewer 0.25.0** as the intended versions for planning.
-Exact sources and build identities are pending. #524 still requires a published
+records the maintainer-confirmed joint release of **MolSysMT 1.0.0 and
+MolSysViewer 1.0.0**, with clean installed qualification of that pair before
+publication. MolSysViewer 0.25.0 is a possible earlier milestone. Exact sources,
+builds and artifact identities are pending. #524 still requires a published
 compatible host and clean installed receiving. MolSysMT owns #615's pre-timeout
 kernel/server samples and Viewer owns the corresponding first-draw observations.
 #615 remains open. The original composite leaves stay uncredited at

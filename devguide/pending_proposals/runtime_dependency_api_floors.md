@@ -669,11 +669,12 @@ Viewer floor and clean installed closure. Accepted plan progress remains 40%.
 
 ## Remaining scope and acceptance criteria
 
-The 2026-11-10 Viewer review for uibcdf/molsysviewer#315 identifies **0.25.0** as
-the intended host successor. The [pair scope and producer plan](../pre_1_0_completion_handoffs_20261110.md#molsysviewer-contract-feedback-startup-evidence-and-artifact-plan)
-records MolSysMT **1.0.0** as the intended counterpart. Both build identities
-and the actual published addon floor remain pending, along with clean installed
-minimum/newer receiving. Keep the older published pair in its tested scope.
+The [coordinated release plan](../pre_1_0_completion_handoffs_20261110.md#molsysviewer-contract-feedback-startup-evidence-and-artifact-plan)
+records **MolSysMT 1.0.0 and MolSysViewer 1.0.0** for final clean installed
+qualification. MolSysViewer 0.25.0 is a possible earlier milestone. The
+published addon floor still requires evidence from compatible published
+artifacts and clean minimum/newer installed receiving. Keep the older
+published pair in its tested scope.
 
 The latest local profiles pass 385/385 for Biopython minimum/newer, 86/86 for
 OpenFF minimum/newer and 146 for PyTraj acquisition/native/diagnostic/auditor
