@@ -2,7 +2,7 @@
   "schema_version": "molsysmt.pre1-progress@1",
   "date": "2026-11-07",
   "owner_issue": "uibcdf/molsysmt#334",
-  "qualified_source": "cdf6e878ffa53ef045ee3c9c568efd61cf9dcb61",
+  "qualified_source": "d36d25929b4bdd115be26585a36c0df7cd48a571",
   "measure": "Verified implementation/source-delivery milestones; approximate operational completion, not elapsed effort, scientific coverage, a readiness probability or publication authority.",
   "accounting_change": "The earlier all-or-nothing phase-exit indicator was 40%. The same six phase weights and full scope now receive explicit partial milestone credit. This is a catch-up remeasurement of delivered work, not a new 21-point implementation in this turn.",
   "method": "Within phases 3\u20136, each named requirement package has equal weight. Nested accepted GUI families have equal family weight, then equal declared intent/task weight within that family. Verified-source leaves score 1, pending leaves score 0; parents average children. Supplemental defect/test/issue counts add no bonus. Pending means not accepted by this audit, not absent code.",
@@ -931,10 +931,13 @@
       "uibcdf/molsysmt#686",
       "uibcdf/molsysmt#689",
       "uibcdf/molsysmt#690",
-      "uibcdf/molsysmt#688"
+      "uibcdf/molsysmt#688",
+      "uibcdf/molsysmt#701",
+      "uibcdf/molsysmt#703",
+      "uibcdf/molsysmt#704"
     ],
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
-    "owner_verification": "Public 76ed1c3a1 independently matches 39 changed/deleted paths and preserves four human files; #687/#691 are integrated/closed and #688/#690 closed. 5,923 affected cases, 116 scientific cases/74 nodes, fourteen gates, inspected HTML, thirteen actual-Jupyter checks and four representative native Qt checks pass on their recorded cohorts.",
+    "owner_verification": "Public ddd32ac1a independently matches 39 changed paths, preserves all four human files and atomically adopts the canonical qualified native extension; #701/#703/#704 are guarded/closed and #702 merged by ancestry. All scoped owner receiving remains separate from the failed original complete default session and paused final gates.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
     "scope": "Receive contacts/provider143 and causal/environmental #615 disposition; await actual published Viewer/clean-installed #524 and explicit #250/#254 contract feedback. Close only received current source records after public verification. Preserve #256 P5/P6, #334, original failures/weights and publication pause.",
     "active_related": [
@@ -1020,16 +1023,17 @@
     "complete_paginated": true,
     "date": "2026-11-10",
     "issues": 626,
-    "open_issues": 96,
-    "open_prs": [
-      {
-        "number": 702,
-        "title": "Retain native calculation context with adopted Viewer figures",
-        "head": "9dff314f896238d8d9968c3c86b9b901adf6e81a",
-        "draft": true
-      }
+    "open_issues": 93,
+    "open_prs": [],
+    "guarded_closed": [
+      701,
+      703,
+      704
     ],
-    "scope": "Pre-delivery checkpoint; #701/#703/#704 are source-resolved and #702 is locally received. Public issue/PR closeout is not yet claimed."
+    "directly_received_prs": [
+      702
+    ],
+    "evidence": "devtools/data/native_and_figure_owner_delivery_701_702_703_704_20261110.json"
   },
   "last_updated": "2026-11-10",
   "last_scientific_claim_disposition": {
@@ -1498,12 +1502,13 @@
     "source": "d36d25929b4bdd115be26585a36c0df7cd48a571",
     "pr_head": "9dff314f896238d8d9968c3c86b9b901adf6e81a",
     "viewer_source": "5164f13bb503625dbe65f3b657ab5260feadcb65",
-    "state": "source_received_public_delivery_next",
+    "state": "publicly_received_issues_closed",
     "evidence": "devtools/data/figure_context_owner_receiving_701_702_615_20261110.json",
     "addon_cases": 5959,
     "initial_browser_campaign": "one_pass_one_failed_missing_generated_harness",
     "analysis_followup_checks": 22,
     "qt_reported_steps": 4,
-    "original_progress_change": 0
+    "original_progress_change": 0,
+    "public_checkpoint": "ddd32ac1a8bfb32c2949218fd47d8aab4365e530"
   }
 }

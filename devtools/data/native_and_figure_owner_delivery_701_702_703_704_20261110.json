@@ -1,0 +1,344 @@
+{
+  "schema_version": "molsysmt.native_and_figure_owner_delivery@1",
+  "date": "2026-11-10",
+  "delivery": {
+    "date": "2026-11-10",
+    "qualified_source": "d36d25929b4bdd115be26585a36c0df7cd48a571",
+    "public_checkpoint": "ddd32ac1a8bfb32c2949218fd47d8aab4365e530",
+    "base": "a2850fdafa4c29fca80499f56c6c68cf0ce5dd2f",
+    "verified_paths": [
+      {
+        "path": ".github/workflows/benchmarks.yml",
+        "git_blob_sha": "f3d3de1f1914ee006407a47d1ec8f8690e2a6978"
+      },
+      {
+        "path": ".github/workflows/ci-full.yaml",
+        "git_blob_sha": "1aa886eb2c0db58b93e0aa46460edd6522d3bd4b"
+      },
+      {
+        "path": ".github/workflows/ci-smoke.yaml",
+        "git_blob_sha": "b6a9c69d3e8b7d6c9fc3735130b28573e2033e60"
+      },
+      {
+        "path": ".github/workflows/ci-weekly.yaml",
+        "git_blob_sha": "dc5d6bb9167b05806b9e20a63890aaad4c1e7de1"
+      },
+      {
+        "path": ".github/workflows/sphinx_docs_to_gh_pages.yaml",
+        "git_blob_sha": "9602b4378616dd574cc09424d0f2b4207e22520d"
+      },
+      {
+        "path": "devguide/SCALABILITY.md",
+        "git_blob_sha": "13babaac793704045e7dea27677bb332e8420f63"
+      },
+      {
+        "path": "devguide/archive/resolved_bugs/hosted_addon_smoke_omits_new_regression_modules.md",
+        "git_blob_sha": "195180951cdb3b309d202813e55c5899cdb12829"
+      },
+      {
+        "path": "devguide/archive/resolved_bugs/neighbor_admission_rejects_tiny_numerical_budgets_with_a_fixed_per_worker_allowa.md",
+        "git_blob_sha": "cf59d0d88d974e901a1bd657d57dce77f623dece"
+      },
+      {
+        "path": "devguide/archive/resolved_bugs/peptide_terminus_additions_leave_namespace_and_warning_roundtrip_controls_stale.md",
+        "git_blob_sha": "fbc2874493760cab6df1f9add16a151064dd230b"
+      },
+      {
+        "path": "devguide/molsysviewer_addon.md",
+        "git_blob_sha": "6cc9b52f08010faf72a8ef9995681309c26a5ba9"
+      },
+      {
+        "path": "devguide/molsysviewer_figure_context.md",
+        "git_blob_sha": "7abd24b61c4072b5f80eb340725aca8366460dc1"
+      },
+      {
+        "path": "devguide/pending_bugs/contact_cutoff_equality_changes_across_equivalent_length_units.md",
+        "git_blob_sha": "d86480378032d3e609c01921ebf9149bb67d0881"
+      },
+      {
+        "path": "devguide/pending_bugs/intermittent_jupyter_initial_canvas_timeout.md",
+        "git_blob_sha": "9193a3c74c0568b58ae75f6600cccd4f9af2219f"
+      },
+      {
+        "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+        "git_blob_sha": "5d27da0e852528b08b260b17e0504934e4913f54"
+      },
+      {
+        "path": "devguide/release_1_0_status.md",
+        "git_blob_sha": "7da138b7fd094ae9e7fcb66033011775be72cdb3"
+      },
+      {
+        "path": "devtools/data/figure_context_owner_receiving_701_702_615_20261110.json",
+        "git_blob_sha": "12088fa477da65db451ab61711d0c730d8fc0116"
+      },
+      {
+        "path": "devtools/data/numeric_neighbor_budget_receiving_703_704_20261110.json",
+        "git_blob_sha": "0006a40e36d6c1694dbcb5ad5788cf85f46d2818"
+      },
+      {
+        "path": "devtools/data/pre_1_0_progress_scorecard_20261107.json",
+        "git_blob_sha": "b7dd6d157f9a87a4654eb7d955122f487b1bbcb1"
+      },
+      {
+        "path": "devtools/data/unit_scale_boundary_reference_666_20261110.json",
+        "git_blob_sha": "ee929b2d2b25795761e0a423c5e5114f8c13b5f4"
+      },
+      {
+        "path": "devtools/data/viewer_figure_context_receiving_20261110.json",
+        "git_blob_sha": "3ecf66858f7fc387e8c41aa5edeb1949e4604f9b"
+      },
+      {
+        "path": "devtools/dependency_contract.toml",
+        "git_blob_sha": "8f70273cf03636a1eccb0bdf5eaede07c3a841da"
+      },
+      {
+        "path": "devtools/scripts/viewer_tools_contract.py",
+        "git_blob_sha": "aad654236026124dff4fd932a246bd521df5c689"
+      },
+      {
+        "path": "docs/content/user/tools/molsysviewer_tools.md",
+        "git_blob_sha": "65f71681ed7a888c678c261de01cd7e793e5332e"
+      },
+      {
+        "path": "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md",
+        "git_blob_sha": "4af536703cecd661a678d8b710eb4589f5d3da06"
+      },
+      {
+        "path": "molsysviewer_molsysmt/_analysis_panel.py",
+        "git_blob_sha": "19f495673414e83751f9d3f4af7289c986a3bb85"
+      },
+      {
+        "path": "molsysviewer_molsysmt/_analysis_properties.py",
+        "git_blob_sha": "9963acfe7b54a24935a02c48189c9c02173d6592"
+      },
+      {
+        "path": "molsysviewer_molsysmt/_analysis_visuals.py",
+        "git_blob_sha": "f2447354b736f856479b7fe992162ad1a38a99cc"
+      },
+      {
+        "path": "molsysviewer_molsysmt/_figure_observation.py",
+        "git_blob_sha": "8fb6ce7e7a982f6074e4f1a5d64edf41df5aca7f"
+      },
+      {
+        "path": "rust/src/neighbors.rs",
+        "git_blob_sha": "1e299db965471b005cf4119954b465c35cd175bd"
+      },
+      {
+        "path": "tests/_private/smonitor/test_xdist_warning_reconstruction.py",
+        "git_blob_sha": "61f593a90c81e1a193747f5fe69e976e696f6af3"
+      },
+      {
+        "path": "tests/chemical_states/test_namespace.py",
+        "git_blob_sha": "e7d23c9ce905cade64a79bd3cf8de874c02ed747"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/qt_receiving_guard.py",
+        "git_blob_sha": "8140f1b4421ceb336305c5d39a1cff115a7cafac"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/system_panel_jupyter.py",
+        "git_blob_sha": "265d88015b545e846b892c5abece3d2cb1905ab7"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/test_analysis_panel.py",
+        "git_blob_sha": "062d9f602e72551d967686bfb2e36e2123798729"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/test_figure_observations.py",
+        "git_blob_sha": "143fcaa9787800e75a160f008951efb1ebf59b42"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/test_jupyter_stage_diagnostics.py",
+        "git_blob_sha": "2f916196e08b69f8dff4ef7d2da61bf3e404f037"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/visual_adoption_jupyter.mjs",
+        "git_blob_sha": "8d431288c0d407fb3d9a330f63a0b0efc76ef15d"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/visual_adoption_qt.py",
+        "git_blob_sha": "03a5884536eecb4268639221b509d32b3b929acd"
+      },
+      {
+        "path": "tests/structure/get_neighbors/test_allocation_bounds.py",
+        "git_blob_sha": "da4e80adfb4e1a08e5ff40472e4a970d80b6e5f9"
+      }
+    ],
+    "protected_human_files": {
+      "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": "3b97cf0d5c813a1e3c2212ad118c7f6c32763d85af91cb800640209095fd53d6",
+      "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": "d564291bb01387663f178f5e041bc8d55d1022bfa71584ddd11f1dd9dba12d95",
+      "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": "a112aa640da192a121d1ccec3c5011c9652729abacf2a38c1b222632a55dcf20",
+      "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": "6b3f17a698bc7393ca3ecad31891d693b8a8169dfdd892dbae77f3ca91b25abe"
+    },
+    "human_bytes_unchanged": true,
+    "old_native_backend_sha256": "58653b1d477be36017d2bc721dafe6e85a508e2325fa3226ccf26c61d449d6e5",
+    "qualified_native_backend_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "received_pr_head": "9dff314f896238d8d9968c3c86b9b901adf6e81a",
+    "issues": [
+      "uibcdf/molsysmt#701",
+      "uibcdf/molsysmt#703",
+      "uibcdf/molsysmt#704"
+    ],
+    "scope": "Fast-forward source delivery and atomic qualified-development-extension replacement. Frozen original failed-suite owner retains its original backend. No candidate, artifact, package, tag, Release, promotion or hosted matrix launched."
+  },
+  "final_clean_receiving": {
+    "pre1-final-owner-703-702-fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 27.72100262902677,
+        "viewer_commit": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "ddd32ac1a8bfb32c2949218fd47d8aab4365e530",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2582,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "checked_floor_inputs": 0,
+        "changed_floor_inputs": [],
+        "changed_inputs": [],
+        "checked_inputs": 8818
+      },
+      "resources": {
+        "started_utc": "2026-11-10T20:29:52.458337+00:00",
+        "seconds": 37.032670692075044,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1782579200",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.53125,
+            2.82177734375,
+            4.7734375
+          ],
+          "cpu_utilization": 0.03772635814889336,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13586386944,
+        "cgroup_memory_peak_bytes": 430505984,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.02
+      },
+      "evidence_sha256": {
+        ".json": "3437b655e6157c32b86d10bd76a954668dc998d5c585b700a0b3dba07bbb5bb2",
+        "-bounded.json": "cd4bd78ed1ddc1d7a2216f9a41b1f61561b4766cfd00eb4ec835f0463bed0c6a",
+        ".log": "01f950e31f45ea2fa8719ec4a331f48b19061d83f890ccbdcbe983e8f3be55d2",
+        "-inputs-before.json": "7a661042e255bf2100f874caac62f5dcb247fd640f163be3db580cdf85664e62",
+        "-inputs-after.json": "7a661042e255bf2100f874caac62f5dcb247fd640f163be3db580cdf85664e62",
+        "-reference-driver.py": "baf4f0f1082d99fc5718bd242e046f3d469e9cdef4954e1e047a1f80377b689e",
+        "-resource-driver.py": "477f63e8f85dddda5f65e5669d274882cd415e2ccec098f358cb0cd0fe00a9b3"
+      }
+    },
+    "pre1-final-owner-703-702-scientific": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/execute_scientific_evidence.py",
+          "--receptor",
+          "llm",
+          "--require-clean",
+          "--certificate",
+          "<private-evidence>/pre1-final-owner-703-702-scientific-scientific.json"
+        ],
+        "exit_code": 0,
+        "seconds": 28.70580954803154,
+        "viewer_commit": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "ddd32ac1a8bfb32c2949218fd47d8aab4365e530",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2582,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "checked_floor_inputs": 0,
+        "changed_floor_inputs": [],
+        "changed_inputs": [],
+        "checked_inputs": 8818
+      },
+      "resources": {
+        "started_utc": "2026-11-10T20:29:52.458573+00:00",
+        "seconds": 38.037638548063114,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1782579200",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.53125,
+            2.82177734375,
+            4.7734375
+          ],
+          "cpu_utilization": 0.03819095477386936,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13586386944,
+        "cgroup_memory_peak_bytes": 546701312,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.02
+      },
+      "evidence_sha256": {
+        ".json": "dab514a2c5e8c29d8329c1bb5a958b554b0055051041019257472d2402ff2b19",
+        "-bounded.json": "d8e45fe8ddc708bf1c3081ed5ae3406100232795e38a195cc447210b1844b384",
+        ".log": "ccc2302ad96faa7c83cc7564875f7fb779362dbfce31a8cf827e0d5a1997e54c",
+        "-inputs-before.json": "7a661042e255bf2100f874caac62f5dcb247fd640f163be3db580cdf85664e62",
+        "-inputs-after.json": "7a661042e255bf2100f874caac62f5dcb247fd640f163be3db580cdf85664e62",
+        "-reference-driver.py": "baf4f0f1082d99fc5718bd242e046f3d469e9cdef4954e1e047a1f80377b689e",
+        "-resource-driver.py": "477f63e8f85dddda5f65e5669d274882cd415e2ccec098f358cb0cd0fe00a9b3"
+      }
+    }
+  },
+  "scientific_certificate_sha256": "64d9d71bc909f2208421db0db3aba913d9885c554e5bade3beb89e19324b8d4b",
+  "author_receipt": {
+    "path": "devtools/data/viewer_figure_context_receiving_20261110.json",
+    "sha256": "1d77ee0461e44046a66be4ffa6ca88c3b9490a295c76ef0410d5552dd3ecdf1f",
+    "meaning": "Preserved author split receiving and original failed smoke-inventory attempt; not added to owner counts."
+  },
+  "complete_paginated_board": {
+    "issues": 626,
+    "open_issues": 93,
+    "open_prs": [],
+    "snapshot_sha256": "050993131a953b098e78dd8eb73cd829082c3711e72956cbea68a2c59b2d7f1a",
+    "issue_closures_verified": [
+      701,
+      703,
+      704
+    ],
+    "received_pr": {
+      "number": 702,
+      "head": "9dff314f896238d8d9968c3c86b9b901adf6e81a",
+      "merged_by_ancestry": "d36d25929b4bdd115be26585a36c0df7cd48a571"
+    }
+  },
+  "provider_handoff": "https://github.com/uibcdf/pyunitwizard/issues/143#issuecomment-6778379247",
+  "pr_receiving_notice": "https://github.com/uibcdf/molsysmt/pull/702#issuecomment-6778556538",
+  "weighted_original_progress_percent": 76.29204129204129,
+  "original_graphical_intents": {
+    "accepted": 49,
+    "total": 50
+  },
+  "limits": [
+    "All committed changes are skipped-CI source checkpoints under explicit maintainer authority; required exact-candidate/installed/platform/publication gates remain unaccepted and paused.",
+    "The original complete default session remains failed. Targeted repaired receiving and supplemental issue closures do not add original milestone credit.",
+    "The four human edits and the original frozen full-suite backend remain unchanged. The qualified development extension was replaced atomically for fresh processes only.",
+    "No branch/tag relocation, candidate/artifact/version selection, publication, promotion or new hosted matrix occurred."
+  ]
+}

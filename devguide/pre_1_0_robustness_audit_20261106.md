@@ -29,8 +29,11 @@ Figures retain native methods, forwarded parameters/weights, ordered populations
 units and historical projections through the public PyUnitWizard quantity
 boundary. They do not authenticate source identity or recalculate science.
 #615's actual post-attempt session diagnostics are received; original causality
-remains unresolved. Public source verification/issue closeout follows these
-qualified bytes; the four unrelated human edits remain protected.
+remains unresolved. Public source checkpoint **ddd32ac1a** independently matches
+all **39 changed paths**; **#701/#703/#704 are closed** and **#702 is merged by
+ancestry**. The four human edits remain byte-exact. The complete board has
+**626 issues / 93 open and no open PRs**. See the
+[public delivery record](../devtools/data/native_and_figure_owner_delivery_701_702_703_704_20261110.json).
 
 **Current next actions:** receive #666 / PyUnitWizard #143's unit contract and
 remaining contact intent; obtain the causal or evidenced environmental
