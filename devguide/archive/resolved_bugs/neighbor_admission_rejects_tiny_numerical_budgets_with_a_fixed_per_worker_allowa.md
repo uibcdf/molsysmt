@@ -1,9 +1,9 @@
 ---
 summary: Neighbor admission rejects tiny numerical budgets with a fixed per-worker allowance.
 issue: uibcdf/molsysmt#703
-status: active
+status: resolved
 opened: 2026-11-10
-closed:
+closed: 2026-11-10
 severity: medium
 verification: reproduced
 area: [structure, performance, tests]
@@ -57,3 +57,23 @@ rows and worker count. Rust and public guards retain successful geometry and
 small-budget refusal. The canonical rebuilt extension and broader receiving
 are required before resolution; process RSS and worker stacks remain excluded
 from this explicitly numerical allowance.
+
+## Resolution — 2026-11-10
+
+Source **93b3a6ea6** and canonical Rust 1.97.1 release backend
+`4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345`
+pass **133 directed cases**, **1,782 affected cases**, all **88 Rust tests**,
+required library Clippy and **116 registered scientific cases / 74 nodes**.
+Selections overlap and are not summed. Numerical outputs, original budgets,
+refusal behavior, cutoff/MIC/order and complete warning/export assertions are
+retained. No owned OOM or host-reserve stop occurs.
+
+The [receiving record](../../../devtools/data/numeric_neighbor_budget_receiving_703_704_20261110.json)
+retains the original complete default session: **33,519 pass, five failures and
+two skips**. Its numerical-budget failures belong to #703; its three incomplete
+peptide-control failures belong to #704. Targeted receiving corrects those
+mechanisms; it does not turn that session green or replace a new full suite,
+installed/platform or candidate qualification. The exact namespace remains
+protected by `tests/chemical_states/test_namespace.py`; every catalog warning
+remains protected by `tests/_private/smonitor/test_xdist_warning_reconstruction.py`.
+No original plan credit, public scientific method or release authority changes.

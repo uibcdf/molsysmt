@@ -143,3 +143,24 @@ The installed server supplies `execution_state` and `connections` through its
 kernel model; this is test-harness diagnostic metadata, not a new MolSysMT API
 or public runtime dependency. The guard is
 `tests/molsysviewer_molsysmt/test_jupyter_stage_diagnostics.py`.
+
+## Actual session-endpoint receiving — 2026-11-10
+
+On clean d36d25929 / verified Viewer 5164f13b, the first split browser campaign
+passes visual adoption's six checks and fails Analysis after nine completed
+checks because the raw source export has no generated test-only harness. The
+launcher captures both attempts through the real server endpoint. A separately
+verified harness build changes no published Viewer source bytes; the deliberate
+Analysis follow-up passes all 22 checks with unchanged deadlines and assertions.
+All three bounded snapshots are available and report two post-attempt idle
+kernels with zero connections after browser retirement. That is valid diagnostic
+receiving, not a causal explanation for the original executing-cell timeout.
+
+The [owner receipt](../../devtools/data/figure_context_owner_receiving_701_702_615_20261110.json)
+retains the failed first campaign, exact generated-harness provenance, all three
+sanitized snapshots and the passing scoped follow-up. Actual native Wayland Qt
+receiving passes four reported steps with embedded stored-context checks.
+Neither that Qt result nor the passing browser follow-up closes #615. No warm-up,
+restart, timeout increase, source/scene mismatch waiver or missing-canvas
+acceptance was introduced. The original causal/environmental disposition remains
+required, and receives no formal plan credit.

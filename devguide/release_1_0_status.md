@@ -1,5 +1,46 @@
 # MolSysMT 1.0 Execution Status
 
+## Default-suite defects and retained figure context received — 2026-11-10
+
+The frozen 5f241cfa7 complete default suite is **failed**: **33,519 pass, five
+failures and two skips** in 33,526 cases. Its complete JUnit/native verdict and
+explicitly truncated receptor phase stream remain preserved. #703 corrects an
+unbacked 64-KiB-per-worker numerical admission allowance; #704 completes the
+peptide namespace/warning controls. Source 93b3a6ea6 with canonical rebuilt
+backend `4ffb82e4` passes **133 directed cases**, **1,782 affected cases**, all
+**88 Rust tests**, required library Clippy and **116 scientific cases / 74 nodes**.
+The [budget receipt](../devtools/data/numeric_neighbor_budget_receiving_703_704_20261110.json)
+keeps all baseline failures and the original budgets/refusals. These overlapping
+selections are not a replacement complete-default verdict.
+
+Clean **d36d25929** receives exact **#702 9dff314f8**, with Viewer **5164f13b**.
+**5,959 addon/caller/source-route cases** pass without omissions, and **#701**'s
+unchanged exact-inventory guard includes all modules in one hosted invocation.
+Fifteen fast gates, the HTML build and its inspected new section pass; six
+existing title-underline warnings remain. Visual adoption passes six Jupyter
+checks; initial Analysis fails after nine checks for a missing test-only
+harness. A verified isolated harness build then permits all **22 Analysis
+checks** to pass. The representative native Wayland Qt workflow passes **four
+reported steps**, including embedded literal context assertions. These are split
+receiving scopes with the failed attempt retained, not one invented green campaign.
+See the [owner receipt](../devtools/data/figure_context_owner_receiving_701_702_615_20261110.json).
+
+Figures retain native methods, forwarded parameters/weights, ordered populations,
+units and historical projections through the public PyUnitWizard quantity
+boundary. They do not authenticate source identity or recalculate science.
+#615's actual post-attempt session diagnostics are received; original causality
+remains unresolved. Public source verification/issue closeout follows these
+qualified bytes; the four unrelated human edits remain protected.
+
+**Current next actions:** receive #666 / PyUnitWizard #143's unit contract and
+remaining contact intent; obtain the causal or evidenced environmental
+disposition for #615; receive #524's actual published compatible Viewer floor
+and clean installed qualification, plus #250/#254's explicit contract feedback.
+A bounded 27-case scale reference was delivered to the provider; it is not a
+production fix. Original progress remains **76.2920%, 49/50**. #334 and final
+#256 P5/P6/exact-candidate gates remain unaccepted. Publication, candidate, tag,
+package, promotion and new hosted-matrix operations remain paused.
+
 ## Independent notebook gate received — 2026-11-10
 
 #700 is source-resolved on **47682e9d3**: one read-only validator now

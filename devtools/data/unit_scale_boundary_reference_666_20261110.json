@@ -1,0 +1,293 @@
+{
+  "schema_version": "molsysmt.unit_scale_boundary_reference@1",
+  "date": "2026-11-10",
+  "owner_issue": "uibcdf/molsysmt#666",
+  "provider_issue": "uibcdf/pyunitwizard#143",
+  "method": "Standard-library Fraction.from_float with exact declared SI length ratios; round once to the binary64 working value, then use the original inclusive comparison. No isclose or widened cutoff.",
+  "python": "3.14.7",
+  "float_mantissa_bits": 53,
+  "unit_definitions_in_meters": {
+    "nm": "1/1000000000",
+    "angstrom": "1/10000000000",
+    "pm": "1/1000000000000"
+  },
+  "cases": [
+    {
+      "working_unit": "nm",
+      "source_unit": "nm",
+      "case": "below",
+      "source_value_hex": "0x1.fffffffffffffp-2",
+      "converted_cutoff_hex": "0x1.fffffffffffffp-2",
+      "converted_distance_hex": "0x1.0000000000000p-1",
+      "analytic_contact": false,
+      "single_rounding_contact": false
+    },
+    {
+      "working_unit": "nm",
+      "source_unit": "nm",
+      "case": "equal",
+      "source_value_hex": "0x1.0000000000000p-1",
+      "converted_cutoff_hex": "0x1.0000000000000p-1",
+      "converted_distance_hex": "0x1.0000000000000p-1",
+      "analytic_contact": true,
+      "single_rounding_contact": true
+    },
+    {
+      "working_unit": "nm",
+      "source_unit": "nm",
+      "case": "above",
+      "source_value_hex": "0x1.0000000000001p-1",
+      "converted_cutoff_hex": "0x1.0000000000001p-1",
+      "converted_distance_hex": "0x1.0000000000000p-1",
+      "analytic_contact": true,
+      "single_rounding_contact": true
+    },
+    {
+      "working_unit": "nm",
+      "source_unit": "angstrom",
+      "case": "below",
+      "source_value_hex": "0x1.3ffffffffffffp+2",
+      "converted_cutoff_hex": "0x1.ffffffffffffep-2",
+      "converted_distance_hex": "0x1.0000000000000p-1",
+      "analytic_contact": false,
+      "single_rounding_contact": false
+    },
+    {
+      "working_unit": "nm",
+      "source_unit": "angstrom",
+      "case": "equal",
+      "source_value_hex": "0x1.4000000000000p+2",
+      "converted_cutoff_hex": "0x1.0000000000000p-1",
+      "converted_distance_hex": "0x1.0000000000000p-1",
+      "analytic_contact": true,
+      "single_rounding_contact": true
+    },
+    {
+      "working_unit": "nm",
+      "source_unit": "angstrom",
+      "case": "above",
+      "source_value_hex": "0x1.4000000000001p+2",
+      "converted_cutoff_hex": "0x1.0000000000001p-1",
+      "converted_distance_hex": "0x1.0000000000000p-1",
+      "analytic_contact": true,
+      "single_rounding_contact": true
+    },
+    {
+      "working_unit": "nm",
+      "source_unit": "pm",
+      "case": "below",
+      "source_value_hex": "0x1.f3fffffffffffp+8",
+      "converted_cutoff_hex": "0x1.fffffffffffffp-2",
+      "converted_distance_hex": "0x1.0000000000000p-1",
+      "analytic_contact": false,
+      "single_rounding_contact": false
+    },
+    {
+      "working_unit": "nm",
+      "source_unit": "pm",
+      "case": "equal",
+      "source_value_hex": "0x1.f400000000000p+8",
+      "converted_cutoff_hex": "0x1.0000000000000p-1",
+      "converted_distance_hex": "0x1.0000000000000p-1",
+      "analytic_contact": true,
+      "single_rounding_contact": true
+    },
+    {
+      "working_unit": "nm",
+      "source_unit": "pm",
+      "case": "above",
+      "source_value_hex": "0x1.f400000000001p+8",
+      "converted_cutoff_hex": "0x1.0000000000001p-1",
+      "converted_distance_hex": "0x1.0000000000000p-1",
+      "analytic_contact": true,
+      "single_rounding_contact": true
+    },
+    {
+      "working_unit": "angstrom",
+      "source_unit": "nm",
+      "case": "below",
+      "source_value_hex": "0x1.fffffffffffffp-2",
+      "converted_cutoff_hex": "0x1.3ffffffffffffp+2",
+      "converted_distance_hex": "0x1.4000000000000p+2",
+      "analytic_contact": false,
+      "single_rounding_contact": false
+    },
+    {
+      "working_unit": "angstrom",
+      "source_unit": "nm",
+      "case": "equal",
+      "source_value_hex": "0x1.0000000000000p-1",
+      "converted_cutoff_hex": "0x1.4000000000000p+2",
+      "converted_distance_hex": "0x1.4000000000000p+2",
+      "analytic_contact": true,
+      "single_rounding_contact": true
+    },
+    {
+      "working_unit": "angstrom",
+      "source_unit": "nm",
+      "case": "above",
+      "source_value_hex": "0x1.0000000000001p-1",
+      "converted_cutoff_hex": "0x1.4000000000001p+2",
+      "converted_distance_hex": "0x1.4000000000000p+2",
+      "analytic_contact": true,
+      "single_rounding_contact": true
+    },
+    {
+      "working_unit": "angstrom",
+      "source_unit": "angstrom",
+      "case": "below",
+      "source_value_hex": "0x1.3ffffffffffffp+2",
+      "converted_cutoff_hex": "0x1.3ffffffffffffp+2",
+      "converted_distance_hex": "0x1.4000000000000p+2",
+      "analytic_contact": false,
+      "single_rounding_contact": false
+    },
+    {
+      "working_unit": "angstrom",
+      "source_unit": "angstrom",
+      "case": "equal",
+      "source_value_hex": "0x1.4000000000000p+2",
+      "converted_cutoff_hex": "0x1.4000000000000p+2",
+      "converted_distance_hex": "0x1.4000000000000p+2",
+      "analytic_contact": true,
+      "single_rounding_contact": true
+    },
+    {
+      "working_unit": "angstrom",
+      "source_unit": "angstrom",
+      "case": "above",
+      "source_value_hex": "0x1.4000000000001p+2",
+      "converted_cutoff_hex": "0x1.4000000000001p+2",
+      "converted_distance_hex": "0x1.4000000000000p+2",
+      "analytic_contact": true,
+      "single_rounding_contact": true
+    },
+    {
+      "working_unit": "angstrom",
+      "source_unit": "pm",
+      "case": "below",
+      "source_value_hex": "0x1.f3fffffffffffp+8",
+      "converted_cutoff_hex": "0x1.3ffffffffffffp+2",
+      "converted_distance_hex": "0x1.4000000000000p+2",
+      "analytic_contact": false,
+      "single_rounding_contact": false
+    },
+    {
+      "working_unit": "angstrom",
+      "source_unit": "pm",
+      "case": "equal",
+      "source_value_hex": "0x1.f400000000000p+8",
+      "converted_cutoff_hex": "0x1.4000000000000p+2",
+      "converted_distance_hex": "0x1.4000000000000p+2",
+      "analytic_contact": true,
+      "single_rounding_contact": true
+    },
+    {
+      "working_unit": "angstrom",
+      "source_unit": "pm",
+      "case": "above",
+      "source_value_hex": "0x1.f400000000001p+8",
+      "converted_cutoff_hex": "0x1.4000000000001p+2",
+      "converted_distance_hex": "0x1.4000000000000p+2",
+      "analytic_contact": true,
+      "single_rounding_contact": true
+    },
+    {
+      "working_unit": "pm",
+      "source_unit": "nm",
+      "case": "below",
+      "source_value_hex": "0x1.fffffffffffffp-2",
+      "converted_cutoff_hex": "0x1.f3fffffffffffp+8",
+      "converted_distance_hex": "0x1.f400000000000p+8",
+      "analytic_contact": false,
+      "single_rounding_contact": false
+    },
+    {
+      "working_unit": "pm",
+      "source_unit": "nm",
+      "case": "equal",
+      "source_value_hex": "0x1.0000000000000p-1",
+      "converted_cutoff_hex": "0x1.f400000000000p+8",
+      "converted_distance_hex": "0x1.f400000000000p+8",
+      "analytic_contact": true,
+      "single_rounding_contact": true
+    },
+    {
+      "working_unit": "pm",
+      "source_unit": "nm",
+      "case": "above",
+      "source_value_hex": "0x1.0000000000001p-1",
+      "converted_cutoff_hex": "0x1.f400000000002p+8",
+      "converted_distance_hex": "0x1.f400000000000p+8",
+      "analytic_contact": true,
+      "single_rounding_contact": true
+    },
+    {
+      "working_unit": "pm",
+      "source_unit": "angstrom",
+      "case": "below",
+      "source_value_hex": "0x1.3ffffffffffffp+2",
+      "converted_cutoff_hex": "0x1.f3ffffffffffep+8",
+      "converted_distance_hex": "0x1.f400000000000p+8",
+      "analytic_contact": false,
+      "single_rounding_contact": false
+    },
+    {
+      "working_unit": "pm",
+      "source_unit": "angstrom",
+      "case": "equal",
+      "source_value_hex": "0x1.4000000000000p+2",
+      "converted_cutoff_hex": "0x1.f400000000000p+8",
+      "converted_distance_hex": "0x1.f400000000000p+8",
+      "analytic_contact": true,
+      "single_rounding_contact": true
+    },
+    {
+      "working_unit": "pm",
+      "source_unit": "angstrom",
+      "case": "above",
+      "source_value_hex": "0x1.4000000000001p+2",
+      "converted_cutoff_hex": "0x1.f400000000002p+8",
+      "converted_distance_hex": "0x1.f400000000000p+8",
+      "analytic_contact": true,
+      "single_rounding_contact": true
+    },
+    {
+      "working_unit": "pm",
+      "source_unit": "pm",
+      "case": "below",
+      "source_value_hex": "0x1.f3fffffffffffp+8",
+      "converted_cutoff_hex": "0x1.f3fffffffffffp+8",
+      "converted_distance_hex": "0x1.f400000000000p+8",
+      "analytic_contact": false,
+      "single_rounding_contact": false
+    },
+    {
+      "working_unit": "pm",
+      "source_unit": "pm",
+      "case": "equal",
+      "source_value_hex": "0x1.f400000000000p+8",
+      "converted_cutoff_hex": "0x1.f400000000000p+8",
+      "converted_distance_hex": "0x1.f400000000000p+8",
+      "analytic_contact": true,
+      "single_rounding_contact": true
+    },
+    {
+      "working_unit": "pm",
+      "source_unit": "pm",
+      "case": "above",
+      "source_value_hex": "0x1.f400000000001p+8",
+      "converted_cutoff_hex": "0x1.f400000000001p+8",
+      "converted_distance_hex": "0x1.f400000000000p+8",
+      "analytic_contact": true,
+      "single_rounding_contact": true
+    }
+  ],
+  "case_count": 27,
+  "limits": [
+    "A reference experiment over these declared fixture units, not a selected provider API or production conversion implementation.",
+    "No arbitrary custom-unit, array/backend, overflow/underflow or geometric-rounding invariance is established.",
+    "The provider must define authoritative exact scale access and its numerical/rounding guarantees; published 0.28.1 behavior and the original failing MolSysMT cases remain unchanged.",
+    "No scientific threshold, kernel, runtime dependency or formal plan credit changes."
+  ]
+}

@@ -936,7 +936,7 @@
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
     "owner_verification": "Public 76ed1c3a1 independently matches 39 changed/deleted paths and preserves four human files; #687/#691 are integrated/closed and #688/#690 closed. 5,923 affected cases, 116 scientific cases/74 nodes, fourteen gates, inspected HTML, thirteen actual-Jupyter checks and four representative native Qt checks pass on their recorded cohorts.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Continue assessed managed/independent protonation reconciliation and five original construction intents, #666/provider143 and causal/environmental disposition #615. Await actual published-host/clean-installed #524 and #250/#254 feedback. Keep #256 P5/P6 and #334 exact-candidate gates, original failures/weights and publication pause.",
+    "scope": "Receive contacts/provider143 and causal/environmental #615 disposition; await actual published Viewer/clean-installed #524 and explicit #250/#254 contract feedback. Close only received current source records after public verification. Preserve #256 P5/P6, #334, original failures/weights and publication pause.",
     "active_related": [
       "uibcdf/molsysmt#666",
       "uibcdf/molsysmt#421",
@@ -1019,19 +1019,17 @@
   "incoming_intake": {
     "complete_paginated": true,
     "date": "2026-11-10",
-    "issues": 623,
-    "open_issues": 94,
-    "open_prs": [],
-    "guarded_closed": [
-      695,
-      697,
-      698
+    "issues": 626,
+    "open_issues": 96,
+    "open_prs": [
+      {
+        "number": 702,
+        "title": "Retain native calculation context with adopted Viewer figures",
+        "head": "9dff314f896238d8d9968c3c86b9b901adf6e81a",
+        "draft": true
+      }
     ],
-    "directly_received_prs": [
-      696,
-      699
-    ],
-    "remaining_new_proposal": "uibcdf/molsysmt#700"
+    "scope": "Pre-delivery checkpoint; #701/#703/#704 are source-resolved and #702 is locally received. Public issue/PR closeout is not yet claimed."
   },
   "last_updated": "2026-11-10",
   "last_scientific_claim_disposition": {
@@ -1485,5 +1483,27 @@
     "scope": "Linux/Python 3.14 controlled-source and automated graphical receiving. Experimental science/profile, causal #615, clean installed/platform/human and release authority remain separate.",
     "public_checkpoint": "ae2b592ad23da18ea70ac764fba687776ca590b0",
     "delivery": "devtools/data/construction_native_owner_delivery_421_695_696_697_698_699_20261110.json"
+  },
+  "last_default_suite_diagnosis": {
+    "source": "5f241cfa77f0091dc7a54c0be1bdd2951efdefed",
+    "state": "failed_default_session_preserved_targeted_corrections_received",
+    "passed": 33519,
+    "failures": 5,
+    "skips": 2,
+    "evidence": "devtools/data/numeric_neighbor_budget_receiving_703_704_20261110.json",
+    "corrected_source": "93b3a6ea66b848476ecc94b89171a5f6e3230927",
+    "replacement_complete_default_verdict": "not_run"
+  },
+  "last_figure_context_owner_receiving": {
+    "source": "d36d25929b4bdd115be26585a36c0df7cd48a571",
+    "pr_head": "9dff314f896238d8d9968c3c86b9b901adf6e81a",
+    "viewer_source": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+    "state": "source_received_public_delivery_next",
+    "evidence": "devtools/data/figure_context_owner_receiving_701_702_615_20261110.json",
+    "addon_cases": 5959,
+    "initial_browser_campaign": "one_pass_one_failed_missing_generated_harness",
+    "analysis_followup_checks": 22,
+    "qt_reported_steps": 4,
+    "original_progress_change": 0
   }
 }

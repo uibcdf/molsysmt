@@ -26,12 +26,9 @@ that front matter -- edit the entries, not this list.
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
 - [`macos_py312_environment_download_failure.md`](macos_py312_environment_download_failure.md) — [#671](https://github.com/uibcdf/molsysmt/issues/671) — Track the macOS Python 3.12 Conda download failure separately from tests. *(medium, upstream)*
 
-### In progress (4)
+### In progress (1)
 
 - [`contact_cutoff_equality_changes_across_equivalent_length_units.md`](contact_cutoff_equality_changes_across_equivalent_length_units.md) — [#666](https://github.com/uibcdf/molsysmt/issues/666) — Contact cutoff equality changes across equivalent length units *(high, reproduced)*
-- [`hosted_addon_smoke_omits_new_regression_modules.md`](hosted_addon_smoke_omits_new_regression_modules.md) — [#701](https://github.com/uibcdf/molsysmt/issues/701) — Hosted addon smoke omits newly integrated regression modules. *(medium, inspected)*
-- [`neighbor_admission_rejects_tiny_numerical_budgets_with_a_fixed_per_worker_allowa.md`](neighbor_admission_rejects_tiny_numerical_budgets_with_a_fixed_per_worker_allowa.md) — [#703](https://github.com/uibcdf/molsysmt/issues/703) — Neighbor admission rejects tiny numerical budgets with a fixed per-worker allowance. *(medium, reproduced)*
-- [`peptide_terminus_additions_leave_namespace_and_warning_roundtrip_controls_stale.md`](peptide_terminus_additions_leave_namespace_and_warning_roundtrip_controls_stale.md) — [#704](https://github.com/uibcdf/molsysmt/issues/704) — Peptide-terminus additions leave namespace and warning-roundtrip controls stale. *(medium, reproduced)*
 
 ### Partially resolved (1)
 
