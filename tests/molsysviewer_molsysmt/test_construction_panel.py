@@ -208,10 +208,10 @@ def test_ion_counts_native_seed_and_full_report_survive_in_result(unit):
         }
         with puw.context(standard_units=[unit, "ps"]):
             packet = act(view, sent, "prepare", parameters=parameters)
+            expected = msm.build.add_ions(
+                view.molsys, n_cations=2, n_anions=1, random_seed=19, return_report=True
+            )
         child = check_result(view, packet)
-        expected = msm.build.add_ions(
-            view.molsys, n_cations=2, n_anions=1, random_seed=19, return_report=True
-        )
         assert msm.get(child.molsys, n_ions=True, n_waters=True) == [3, 265]
         np.testing.assert_array_equal(
             puw.get_value(child.molsys.structures.coordinates, to_unit="nm"),
