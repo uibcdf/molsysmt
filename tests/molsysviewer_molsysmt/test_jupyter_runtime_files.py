@@ -12,6 +12,53 @@ import pytest
 from tests.molsysviewer_molsysmt import system_panel_jupyter as launcher
 
 
+@pytest.mark.parametrize("value", ["nan", "inf", "-inf", "0", "-1", "301"])
+def test_server_preparation_budget_rejects_unbounded_or_nonpositive_values(value):
+    import argparse
+
+    with pytest.raises(argparse.ArgumentTypeError):
+        launcher._server_ready_seconds(value)
+
+
+@pytest.mark.parametrize("value", ["0.1", "20", "90", "300"])
+def test_server_preparation_budget_keeps_explicit_finite_seconds(value):
+    assert launcher._server_ready_seconds(value) == float(value)
+
+
+@pytest.mark.parametrize(
+    "option,value",
+    [
+        ("--cycles", "0"),
+        ("--cycles", "31"),
+        ("--active-seconds", "nan"),
+        ("--active-seconds", "inf"),
+        ("--active-seconds", "0"),
+        ("--active-seconds", "91"),
+    ],
+)
+def test_prolonged_cli_rejects_unbounded_work_before_creating_output(
+    tmp_path, monkeypatch, option, value
+):
+    output = tmp_path / "receiving"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "receiving",
+            "--viewer-root",
+            str(tmp_path),
+            "--output",
+            str(output),
+            option,
+            value,
+        ],
+    )
+    with pytest.raises(SystemExit) as caught:
+        launcher.main()
+    assert caught.value.code == 2
+    assert not output.exists()
+
+
 def test_fixture_preparation_failure_leaves_no_runtime_credentials(
     tmp_path, monkeypatch
 ):

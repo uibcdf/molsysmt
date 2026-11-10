@@ -10,6 +10,7 @@ This local receiving script is separate from human-visible Qt qualification.
 import argparse
 import importlib.metadata
 import json
+import math
 import os
 import secrets
 import socket
@@ -20,6 +21,16 @@ from contextlib import contextmanager
 from pathlib import Path
 from urllib.error import URLError
 from urllib.request import Request, urlopen
+
+
+def _server_ready_seconds(value):
+    """Validate an explicit server-preparation budget, separate from UI waits."""
+    seconds = float(value)
+    if not math.isfinite(seconds) or not 0 < seconds <= 300:
+        raise argparse.ArgumentTypeError(
+            "Server readiness must be in (0, 300] seconds."
+        )
+    return seconds
 
 
 def _notebook(cells):
@@ -134,6 +145,21 @@ def main():
     parser.add_argument("--provider-root", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument(
+        "--server-ready-timeout",
+        type=_server_ready_seconds,
+        default=20.0,
+        help="Server preparation only, in seconds (default: 20; maximum: 300).",
+    )
+    parser.add_argument(
+        "--cycles", type=int, default=30, help="Prolonged-session cycles, 1–30."
+    )
+    parser.add_argument(
+        "--active-seconds",
+        type=float,
+        default=10.0,
+        help="Observed active playback per prolonged cycle, 0.5–90 seconds.",
+    )
+    parser.add_argument(
         "--scenario",
         choices=(
             "system",
@@ -162,6 +188,7 @@ def main():
             "visual-adoption",
             "interaction-mechanics",
             "continuous-session",
+            "prolonged-session",
         ),
         default="system",
     )
@@ -172,6 +199,10 @@ def main():
         default=os.environ.get("PW_CHROMIUM_BIN", "/usr/bin/google-chrome"),
     )
     args = parser.parse_args()
+    if not 1 <= args.cycles <= 30:
+        parser.error("--cycles must be in [1, 30].")
+    if not math.isfinite(args.active_seconds) or not 0.5 <= args.active_seconds <= 90:
+        parser.error("--active-seconds must be finite and in [0.5, 90].")
     source = Path(__file__).resolve().parents[2]
     viewer = args.viewer_root.resolve()
     output = args.output.resolve()
@@ -206,6 +237,9 @@ def main():
         "MPLCONFIGDIR": str(output / "matplotlib"),
         "MOLSYSVIEWER_JUPYTER_SETTINGS": str(output / "settings.json"),
     }
+    if args.scenario == "prolonged-session":
+        env["MSV_LONG_CYCLES"] = str(args.cycles)
+        env["MSV_LONG_ACTIVE_SECONDS"] = str(args.active_seconds)
     with socket.socket() as sock:
         sock.bind(("127.0.0.1", 0))
         port = sock.getsockname()[1]
@@ -754,6 +788,10 @@ def main():
         from continuous_session_fixture import notebook_cells
 
         cells = notebook_cells(initial[: initial.index("view = msv.demo")], output)
+    if args.scenario == "prolonged-session":
+        from prolonged_session_fixture import notebook_cells
+
+        cells = notebook_cells(initial[: initial.index("view = msv.demo")], output)
     if args.scenario == "construction":
         from construction_fixture import notebook_cells
 
@@ -912,7 +950,8 @@ def main():
     )
     server = None
     startup = {
-        "scope": "Jupyter server readiness, before any browser or molecular cell"
+        "scope": "Jupyter server readiness, before any browser or molecular cell",
+        "budget_seconds": args.server_ready_timeout,
     }
     startup_path = output / "server-startup.json"
     server_command = [sys.executable, "-m", "jupyterlab", "--no-browser"]
@@ -943,7 +982,7 @@ def main():
                 startup.update(pid=server.pid, ready=False)
                 startup_path.write_text(json.dumps(startup, indent=2))
                 ready = False
-                for _ in range(40):
+                while time.monotonic() - startup_started < args.server_ready_timeout:
                     if server.poll() is not None:
                         startup.update(
                             elapsed_seconds=time.monotonic() - startup_started,
@@ -974,7 +1013,9 @@ def main():
                     [
                         args.node,
                         str(
-                            Path(__file__).with_name("construction_jupyter.mjs")
+                            Path(__file__).with_name("prolonged_session_jupyter.mjs")
+                            if args.scenario == "prolonged-session"
+                            else Path(__file__).with_name("construction_jupyter.mjs")
                             if args.scenario == "construction"
                             else Path(__file__).with_name(
                                 "continuous_session_jupyter.mjs"
@@ -1045,7 +1086,9 @@ def main():
                     ],
                     env=env,
                     check=True,
-                    timeout=360
+                    timeout=2400
+                    if args.scenario == "prolonged-session"
+                    else 360
                     if args.scenario == "continuous-session"
                     else 300
                     if args.scenario == "analysis"
