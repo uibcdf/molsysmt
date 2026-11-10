@@ -46,6 +46,12 @@ time, labels and existing analysis coverage remain unchanged. Constructors
 assemble and validate a complete new payload rather than temporarily editing
 an existing structure axis. See {ref}`Tutorial_Set`.
 
+Coordinate replacement follows the same shared-axis rule. Supplying one
+coordinate structure cannot silently replace a three-structure coordinate
+series while leaving its time, boxes or labels at length three. Rejections
+preserve geometry and named-analysis coverage; use coordinated extraction or
+append operations when changing the system's axes.
+
 Box vectors are rows of `B`: Cartesian positions and fractional positions obey
 `r = f @ B`. Membership in an origin-zero primary cell means `0 <= f < 1` on
 every fractional axis. A complete molecule can have its reference atom inside

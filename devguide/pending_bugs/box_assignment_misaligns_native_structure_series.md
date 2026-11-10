@@ -1,5 +1,5 @@
 ---
-summary: Full box assignment can silently misalign native structural series.
+summary: Full geometry assignment can silently misalign native structural series.
 issue: uibcdf/molsysmt#695
 status: active
 opened: 2026-11-10
@@ -13,7 +13,7 @@ blocked_by: []
 supersedes: []
 ---
 
-# Box assignment must preserve the shared structure axis
+# Geometry assignment must preserve the shared structure axis
 
 ## What / How / Why
 
@@ -25,6 +25,12 @@ and analysis-free MolSys too. The protected 18-case baseline has twelve failures
 and six passing existing analysis guards; it does not import Viewer. Coordinates
 are unchanged, but successful mutation leaves an unusable shared structure axis.
 
+Companion checks reproduce the same defect for full coordinate replacement.
+The standalone and analysis-free MolSys public, native-method and property paths
+accept one or four coordinate structures over three time/box entries. Twelve
+new protected cases fail before the shared correction; the six cases with named
+analyses already reject. Both geometry setters require this same invariant.
+
 ## Contract and implementation
 
 Keep the existing exact-cardinality contract: supply one matrix per addressed
@@ -34,7 +40,7 @@ require exact shapes in protected block replacement; full-axis edits must be
 consistent with that contract. No new broadcast policy is introduced during
 stabilization. None clears a full series; an empty selection is a no-op.
 
-The native geometry-publication owner validates the proposed box against all
+The native geometry-publication owner validates proposed coordinates or boxes against all
 stored structural series before publishing or invalidating named analyses,
 independent of owner/analysis presence. New Structures construction assembles
 its payload in a short explicit initialization scope, then performs the existing

@@ -259,9 +259,9 @@ class Structures(NativeQueries):
                 reason="Periodic boxes must have shape (n_structures, 3, 3).",
                 caller="molsysmt.native.Structures",
             )
-        if name == "box" and not self.__dict__.get("_initializing_geometry", False):
-            # Box replacement is an edit of a shared structure axis even when
-            # no MolSys owner or named interaction analyses are attached.
+        if not self.__dict__.get("_initializing_geometry", False):
+            # Both geometry series share axes with the other stored series,
+            # independently of a MolSys owner or attached interaction analyses.
             payload = self._frame_payload()
             payload[name] = candidate
             self._payload_dimensions(payload, caller="molsysmt.native.Structures")
@@ -1456,7 +1456,10 @@ class Structures(NativeQueries):
         -----
         Full selections initialize or replace the series. Partial writes to an
         existing series prepare affected blocks before publication; empty axes
-        do nothing. When attached to a MolSys, successful edits invalidate all
+        do nothing. Replacement must align with the structure and atom axes of
+        other stored series, including on standalone domains. A mismatch fails
+        before publishing coordinates or invalidating analyses. When attached
+        to a MolSys, successful edits invalidate all
         named analyses on the affected structures, including evaluated-empty
         coverage. Other structures and previously obtained snapshots survive.
         No detector runs automatically. Copies of this domain have no owner.

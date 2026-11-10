@@ -118,7 +118,8 @@ def test_signatures_namespace_digestion_and_native_help(peptide, name):
     assert set(NEW + OLD) <= set(dir(peptide.addons.molsysmt.structure))
     assert not hasattr(peptide.addons.molsysmt, name)
     if name == "get_secondary_structure":
-        assert "native callable has no declared skip_digestion" in inspect.getdoc(bound)
+        assert "skip_digestion : bool" in inspect.getdoc(bound)
+        assert "heavy_mode" in inspect.getdoc(bound)
 
 
 @pytest.mark.parametrize("unit", ["nm", "angstrom", "pm"])
@@ -182,10 +183,10 @@ def test_secondary_structure_preserves_mdtraj_codes_group_scope_and_structures(
     expected = md.compute_dssp(trajectory, simplified=simplified).astype("U2")
     if not isinstance(selection, str):
         # This native observable interprets numeric selections at group level.
-        groups = np.unique(selection)
+        groups = np.asarray(selection, dtype=np.int64)
         expected = expected[:, groups]
     state, before = peptide.export_state(), xyz(peptide).copy()
-    # This integration-only flag must never bypass native scientific digestion.
+    # These explicit indices already satisfy the native trusted-input contract.
     result = peptide.addons.molsysmt.structure.get_secondary_structure(
         selection=selection,
         structure_indices=SCOPE,

@@ -767,8 +767,8 @@ class _StructureTools:
         simplified=True,
         syntax="MolSysMT",
         engine="MDTraj",
-        *,
         skip_digestion=False,
+        *,
         heavy_mode="auto",
     ):
         return self._call(

@@ -66,6 +66,8 @@ def set(
     cardinalities fail before publishing the box or invalidating analyses,
     including for standalone Structures and analysis-free MolSys. None clears
     the full box series; partial initialization requires an existing series.
+    Full coordinate replacement likewise preserves the axes shared with other
+    stored structural series; it cannot silently resize only that series.
 
     Native MolecularMechanics atom assignments accept one-dimensional string
     atom_ff_type labels or explicit partial-charge vectors. Values follow the

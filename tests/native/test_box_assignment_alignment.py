@@ -1,4 +1,4 @@
-"""Prevent box edits from corrupting the shared native structure axis."""
+"""Prevent geometry edits from corrupting the shared native structure axis."""
 
 import numpy as np
 import pytest
@@ -161,3 +161,72 @@ def test_new_payload_construction_is_strict_and_its_scope_is_not_retained():
             box=puw.quantity(np.eye(3)[None], "nm"),
         )
     assert "_initializing_geometry" not in vars(failed)
+
+
+@pytest.mark.parametrize(
+    "domain,analyses", [("structures", False), ("molsys", False), ("molsys", True)]
+)
+@pytest.mark.parametrize("route", ["public", "native", "property"])
+@pytest.mark.parametrize("count", [1, 4])
+def test_misaligned_coordinates_reject_without_publishing_or_invalidating(
+    domain, analyses, route, count
+):
+    target, structures = system(domain, analyses=analyses)
+    original_xyz, original_box = structures._coordinates, structures._box
+    original_analysis = target.interactions["original"] if analyses else None
+    value = puw.quantity(np.ones((count, 2, 3)), "nm")
+    with pytest.raises(StructuralInconsistencyError):
+        if route == "public":
+            msm.set(target, coordinates=value)
+        elif route == "native":
+            structures.set_coordinates(value=value)
+        else:
+            structures.coordinates = value
+    assert structures._coordinates is original_xyz
+    assert structures._box is original_box and structures.n_structures == 3
+    np.testing.assert_array_equal(
+        puw.get_value(structures.time, to_unit="ps"), [1, 4, 9]
+    )
+    assert structures.structure_id.tolist() == ["C", "A", "C"]
+    if analyses:
+        assert target.interactions["original"] is original_analysis
+        np.testing.assert_array_equal(
+            original_analysis.evaluated_structure_indices, [0, 1, 2]
+        )
+
+
+@pytest.mark.parametrize("domain", ["structures", "molsys"])
+@pytest.mark.parametrize("selected", ["all", [2, 0]])
+@pytest.mark.parametrize("unit,scale", [("nm", 1), ("pm", 1000)])
+def test_aligned_coordinate_edits_preserve_other_series_and_snapshot(
+    domain, selected, unit, scale
+):
+    target, structures = system(domain, analyses=domain == "molsys")
+    previous = structures.copy(deep=False)
+    indices = list(range(3)) if isinstance(selected, str) else selected
+    values = np.full((len(indices), 2, 3), 4.0)
+    expected = puw.get_value(previous.coordinates, to_unit="nm").copy()
+    expected[indices] = values
+    box = structures._box
+    msm.set(
+        target,
+        structure_indices=selected,
+        coordinates=puw.quantity(values * scale, unit),
+    )
+    np.testing.assert_allclose(
+        puw.get_value(structures.coordinates, to_unit="nm"), expected,
+        rtol=0, atol=1e-14,
+    )
+    np.testing.assert_array_equal(
+        puw.get_value(previous.coordinates, to_unit="nm"),
+        np.arange(18, dtype=float).reshape(3, 2, 3),
+    )
+    assert structures._box is box and structures.n_structures == 3
+    np.testing.assert_array_equal(
+        puw.get_value(structures.time, to_unit="ps"), [1, 4, 9]
+    )
+    if domain == "molsys":
+        np.testing.assert_array_equal(
+            target.interactions["original"].evaluated_structure_indices,
+            [] if isinstance(selected, str) else [1],
+        )
