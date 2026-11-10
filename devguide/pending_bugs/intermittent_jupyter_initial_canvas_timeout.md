@@ -120,3 +120,26 @@ does not establish a product or timing cause. See the
 This is additional exact-source receiving, not a causal repair or closure of
 #615. The original executing-cell, later pre-execution, cold-server and final
 replacement observations remain distinct failed stages in their own receipts.
+
+## Post-attempt session diagnostics — 2026-11-10
+
+Inspection confirms that the original failed kernel trace is empty; it cannot
+identify the missing causal stage. The owned receiving launcher now queries the
+isolated server's read-only `/api/sessions` endpoint after the browser attempt
+and before shutdown. It records only bounded session roles, declared kernel
+execution state and connection counts. Tokens, paths, IDs, exception contents
+and molecular data are excluded. Unavailable evidence remains distinct from an
+empty session list. No request runs against an unready or exited server.
+
+Twenty focused lifecycle/diagnostic controls pass, including malformed/oversized
+responses, transport failures, failed diagnostic writes and credential/content
+exclusion. These observations cannot change the browser verdict, restart a
+kernel, warm imports or extend the existing readiness/canvas/browser deadlines.
+Actual-server receiving remains required before adopting the instrumentation.
+Even a passing instrumented run does not establish the cause or closure of #615.
+
+The endpoint follows the [Jupyter Server REST API](https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html).
+The installed server supplies `execution_state` and `connections` through its
+kernel model; this is test-harness diagnostic metadata, not a new MolSysMT API
+or public runtime dependency. The guard is
+`tests/molsysviewer_molsysmt/test_jupyter_stage_diagnostics.py`.
