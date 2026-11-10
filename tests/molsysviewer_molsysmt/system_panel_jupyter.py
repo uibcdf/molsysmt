@@ -16,6 +16,7 @@ import socket
 import subprocess
 import sys
 import time
+from contextlib import contextmanager
 from pathlib import Path
 from urllib.error import URLError
 from urllib.request import Request, urlopen
@@ -89,6 +90,42 @@ _periodic_control=float(np.max(np.abs(_periodic_result-_periodic_wrong_cell)))
 if _periodic_general:
     assert _periodic_control>0.1, 'General fixture must distinguish the previous/current transition cells'
 """
+
+
+@contextmanager
+def _runtime_files(records):
+    """Create exclusive private files and retire only the entries still owned."""
+    created = []
+    try:
+        for path, content in records:
+            with open(
+                path,
+                "x",
+                encoding="utf-8",
+                opener=lambda name, flags: os.open(name, flags, 0o600),
+            ) as stream:
+                created.append((path, os.fstat(stream.fileno())))
+                stream.write(content)
+        yield
+    finally:
+        failures = []
+        original = sys.exception()
+        for path, identity in reversed(created):
+            try:
+                current = path.stat(follow_symlinks=False)
+                if (current.st_dev, current.st_ino) == (
+                    identity.st_dev,
+                    identity.st_ino,
+                ):
+                    path.unlink()
+            except FileNotFoundError:
+                pass
+            except OSError as error:
+                failures.append(error)
+        if failures:
+            if original is not None:
+                failures.insert(0, original)
+            raise BaseExceptionGroup("Receiving runtime-file cleanup failed", failures)
 
 
 def main():
@@ -177,8 +214,6 @@ def main():
         "chromium": args.chromium,
         "scenario": args.scenario,
     }
-    (output / "settings.json").write_text(json.dumps(settings))
-    (output / "settings.json").chmod(0o600)
     (output / "data/kernels/receiving/kernel.json").write_text(
         json.dumps(
             {
@@ -196,7 +231,7 @@ def main():
         )
     )
     config = output / "config/jupyter_server_config.py"
-    config.write_text(
+    configuration = (
         "c = get_config()\n"
         f"c.IdentityProvider.token = {token!r}\n"
         "c.ServerApp.ip = '127.0.0.1'\n"
@@ -205,7 +240,6 @@ def main():
         "c.ServerApp.open_browser = False\n"
         f"c.ServerApp.root_dir = {str(output / 'notebooks')!r}\n"
     )
-    config.chmod(0o600)
     initial = (
         "from pathlib import Path\nimport molsysviewer as msv\nimport molsysmt as msm\n"
         f"assert Path(msm.__file__).resolve() == Path({str(source / 'molsysmt/__init__.py')!r})\n"
@@ -874,118 +908,131 @@ def main():
             "runpy.run_module('jupyterlab', run_name='__main__')",
         ]
         startup["diagnostic_trace_after_seconds"] = 15
-    try:
-        with (output / "server.log").open("w") as log:
-            startup_started = time.monotonic()
-            server = subprocess.Popen(
-                server_command,
-                env=env,
-                stdout=log,
-                stderr=log,
-            )
-            startup.update(pid=server.pid, ready=False)
-            startup_path.write_text(json.dumps(startup, indent=2))
-            ready = False
-            for _ in range(40):
-                if server.poll() is not None:
-                    startup.update(
-                        elapsed_seconds=time.monotonic() - startup_started,
-                        native_exit_observed=server.returncode,
-                    )
-                    startup_path.write_text(json.dumps(startup, indent=2))
-                    raise RuntimeError(
-                        "Isolated Jupyter exited; inspect the private server.log."
-                    )
+    with _runtime_files(
+        [(output / "settings.json", json.dumps(settings)), (config, configuration)]
+    ):
+        try:
+            with (output / "server.log").open("w") as log:
+                startup_started = time.monotonic()
+                server = subprocess.Popen(
+                    server_command,
+                    env=env,
+                    stdout=log,
+                    stderr=log,
+                )
+                startup.update(pid=server.pid, ready=False)
+                startup_path.write_text(json.dumps(startup, indent=2))
+                ready = False
+                for _ in range(40):
+                    if server.poll() is not None:
+                        startup.update(
+                            elapsed_seconds=time.monotonic() - startup_started,
+                            native_exit_observed=server.returncode,
+                        )
+                        startup_path.write_text(json.dumps(startup, indent=2))
+                        raise RuntimeError(
+                            "Isolated Jupyter exited; inspect the private server.log."
+                        )
+                    try:
+                        request = Request(
+                            f"http://127.0.0.1:{port}/api/status",
+                            headers={"Authorization": f"token {token}"},
+                        )
+                        with urlopen(request, timeout=1) as response:
+                            ready = response.status == 200
+                        if ready:
+                            break
+                    except (URLError, TimeoutError):
+                        time.sleep(0.5)
+                startup.update(
+                    ready=ready, elapsed_seconds=time.monotonic() - startup_started
+                )
+                startup_path.write_text(json.dumps(startup, indent=2))
+                if not ready:
+                    raise RuntimeError("Isolated Jupyter did not become ready.")
+                subprocess.run(
+                    [
+                        args.node,
+                        str(
+                            Path(__file__).with_name("visual_adoption_jupyter.mjs")
+                            if args.scenario == "visual-adoption"
+                            else Path(__file__).with_name("property_report_jupyter.mjs")
+                            if args.scenario == "properties"
+                            else Path(__file__).with_name(
+                                "chemistry_repair_jupyter.mjs"
+                            )
+                            if args.scenario == "chemistry-repair"
+                            else Path(__file__).with_name(
+                                "refinement_panel_jupyter.mjs"
+                            )
+                            if args.scenario == "refinement"
+                            else Path(__file__).with_name("analysis_panel_jupyter.mjs")
+                            if args.scenario == "analysis"
+                            else Path(__file__).with_name(
+                                "chemistry_pending_jupyter.mjs"
+                            )
+                            if args.scenario == "chemistry-pending"
+                            else Path(__file__).with_name(
+                                "chemistry_preparation_jupyter.mjs"
+                            )
+                            if args.scenario == "chemistry-preparation"
+                            else Path(__file__).with_name("chemistry_panel_jupyter.mjs")
+                            if args.scenario == "chemistry"
+                            else Path(__file__).with_name("cell_panel_jupyter.mjs")
+                            if args.scenario == "cell"
+                            else Path(__file__).with_name(
+                                "periodic_origins_jupyter.mjs"
+                            )
+                            if args.scenario == "periodic-origins"
+                            else Path(__file__).with_name("periodic_panel_jupyter.mjs")
+                            if args.scenario in {"periodic", "periodic-general"}
+                            else Path(__file__).with_name("fit_panel_jupyter.mjs")
+                            if args.scenario == "fit"
+                            else Path(__file__).with_name(
+                                "fit_external_panel_jupyter.mjs"
+                            )
+                            if args.scenario == "fit-external"
+                            else Path(__file__).with_name("sequence_panel_jupyter.mjs")
+                            if args.scenario == "sequence"
+                            else Path(__file__).with_name("center_error_jupyter.mjs")
+                            if args.scenario == "center-errors"
+                            else Path(__file__).with_name("axes_panel_jupyter.mjs")
+                            if args.scenario == "axes"
+                            else Path(__file__).with_name("rotate_panel_jupyter.mjs")
+                            if args.scenario == "rotate"
+                            else Path(__file__).with_name("center_panel_jupyter.mjs")
+                            if args.scenario == "center"
+                            else Path(__file__).with_name("geometry_panel_jupyter.mjs")
+                            if args.scenario == "geometry"
+                            else Path(__file__).with_name("result_panel_jupyter.mjs")
+                            if args.scenario == "results"
+                            else Path(__file__).with_suffix(".mjs")
+                        ),
+                    ],
+                    env=env,
+                    check=True,
+                    timeout=300 if args.scenario == "analysis" else 240,
+                )
+        finally:
+            if server is not None:
                 try:
-                    request = Request(
-                        f"http://127.0.0.1:{port}/api/status",
+                    shutdown = Request(
+                        f"http://127.0.0.1:{port}/api/shutdown",
+                        method="POST",
                         headers={"Authorization": f"token {token}"},
                     )
-                    with urlopen(request, timeout=1) as response:
-                        ready = response.status == 200
-                    if ready:
-                        break
-                except (URLError, TimeoutError):
-                    time.sleep(0.5)
-            startup.update(
-                ready=ready, elapsed_seconds=time.monotonic() - startup_started
-            )
-            startup_path.write_text(json.dumps(startup, indent=2))
-            if not ready:
-                raise RuntimeError("Isolated Jupyter did not become ready.")
-            subprocess.run(
-                [
-                    args.node,
-                    str(
-                        Path(__file__).with_name("visual_adoption_jupyter.mjs")
-                        if args.scenario == "visual-adoption"
-                        else Path(__file__).with_name("property_report_jupyter.mjs")
-                        if args.scenario == "properties"
-                        else Path(__file__).with_name("chemistry_repair_jupyter.mjs")
-                        if args.scenario == "chemistry-repair"
-                        else Path(__file__).with_name("refinement_panel_jupyter.mjs")
-                        if args.scenario == "refinement"
-                        else Path(__file__).with_name("analysis_panel_jupyter.mjs")
-                        if args.scenario == "analysis"
-                        else Path(__file__).with_name("chemistry_pending_jupyter.mjs")
-                        if args.scenario == "chemistry-pending"
-                        else Path(__file__).with_name(
-                            "chemistry_preparation_jupyter.mjs"
-                        )
-                        if args.scenario == "chemistry-preparation"
-                        else Path(__file__).with_name("chemistry_panel_jupyter.mjs")
-                        if args.scenario == "chemistry"
-                        else Path(__file__).with_name("cell_panel_jupyter.mjs")
-                        if args.scenario == "cell"
-                        else Path(__file__).with_name("periodic_origins_jupyter.mjs")
-                        if args.scenario == "periodic-origins"
-                        else Path(__file__).with_name("periodic_panel_jupyter.mjs")
-                        if args.scenario in {"periodic", "periodic-general"}
-                        else Path(__file__).with_name("fit_panel_jupyter.mjs")
-                        if args.scenario == "fit"
-                        else Path(__file__).with_name("fit_external_panel_jupyter.mjs")
-                        if args.scenario == "fit-external"
-                        else Path(__file__).with_name("sequence_panel_jupyter.mjs")
-                        if args.scenario == "sequence"
-                        else Path(__file__).with_name("center_error_jupyter.mjs")
-                        if args.scenario == "center-errors"
-                        else Path(__file__).with_name("axes_panel_jupyter.mjs")
-                        if args.scenario == "axes"
-                        else Path(__file__).with_name("rotate_panel_jupyter.mjs")
-                        if args.scenario == "rotate"
-                        else Path(__file__).with_name("center_panel_jupyter.mjs")
-                        if args.scenario == "center"
-                        else Path(__file__).with_name("geometry_panel_jupyter.mjs")
-                        if args.scenario == "geometry"
-                        else Path(__file__).with_name("result_panel_jupyter.mjs")
-                        if args.scenario == "results"
-                        else Path(__file__).with_suffix(".mjs")
-                    ),
-                ],
-                env=env,
-                check=True,
-                timeout=300 if args.scenario == "analysis" else 240,
-            )
-    finally:
-        if server is not None:
-            try:
-                shutdown = Request(
-                    f"http://127.0.0.1:{port}/api/shutdown",
-                    method="POST",
-                    headers={"Authorization": f"token {token}"},
-                )
-                with urlopen(shutdown, timeout=10):
-                    pass
-                server.wait(timeout=15)
-            except (URLError, TimeoutError, subprocess.TimeoutExpired):
-                server.terminate()
-                try:
-                    server.wait(timeout=5)
-                except subprocess.TimeoutExpired:
-                    server.kill()
-                    server.wait(timeout=5)
-        for credential in (output / "settings.json", config):
-            credential.unlink(missing_ok=True)
+                    with urlopen(shutdown, timeout=10):
+                        pass
+                    server.wait(timeout=15)
+                except (URLError, TimeoutError, subprocess.TimeoutExpired):
+                    server.terminate()
+                    try:
+                        server.wait(timeout=5)
+                    except subprocess.TimeoutExpired:
+                        server.kill()
+                        server.wait(timeout=5)
+            for credential in (output / "settings.json", config):
+                credential.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":
