@@ -18,6 +18,7 @@ from ._chemistry_preparation import (
     _ChemistryPreparation,
     validate_preparation_parameters,
 )
+from ._construction import CONSTRUCTION_DEFAULTS, validate_construction_parameters
 from ._panel_frontend import CSS
 from ._task_panel import _MolecularTaskPanel
 
@@ -26,6 +27,7 @@ _PARAMETERS = {
     "state_mode": "reference",
     "state_index": "0",
     **PREPARATION_DEFAULTS,
+    **CONSTRUCTION_DEFAULTS,
 }
 _METHODS = {
     "chemistry": "get_chemical_readiness",
@@ -67,6 +69,7 @@ def _parameters(value):
         if index < 0:
             raise ValueError("Enter a nonnegative chemical state index.")
     validate_preparation_parameters(result)
+    validate_construction_parameters(result)
     return result
 
 
@@ -653,6 +656,26 @@ class _ChemistryPanel(_ChemistryPreparation, _MolecularTaskPanel):
         context["can_inspect"] = context.get("has_system", False) and context[
             "state"
         ] in {"synchronized", "pending", "sync_failed"}
+        if (
+            self._parameters["task"] == "bioassembly"
+            and context.get("has_system")
+            and context["state"] in {"synchronized", "pending", "sync_failed"}
+        ):
+            import molsysmt as msm
+
+            assemblies = (
+                self._owner._read(lambda target: msm.get(target, bioassembly=True), {})
+                or {}
+            )
+            names = list(assemblies)
+            context.update(
+                assembly_names=[
+                    name
+                    for name in names[:200]
+                    if isinstance(name, str) and len(name) <= 200
+                ],
+                assemblies_truncated=len(names) > 200,
+            )
         stage, message = self._retained_diagnostic(context, stage, message)
         report = self._current_report(context)
         preparation = self._preparation_packet(context)

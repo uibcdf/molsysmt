@@ -768,3 +768,12 @@ and unsupported controls. Analysis mechanics retain a separate construction-
 structure inspection, never a claimed snapshot of their execution Context.
 Execution settings remain separate; no hidden preparation, native criterion
 workaround, persistent generic result store or published stability is inferred.
+
+Preserve the five explicit independent construction tasks in Chemistry. Peptide
+and water-cell inputs may start empty; deposited assemblies need an explicit
+name and retain ordered/repeated structures. Solvent/ions explicitly project
+one complete source structure, with declared requests, charge/model/seed/units
+and native placement criteria. Keep scientific logic native, input/result owners
+independent, review/Back/conditional scene-reset replacement and empty-to-loaded
+panel refresh. No hidden preparation, equilibration, trajectory loop, generic
+report store or universal RAM/cancellation/published-package claim is inferred.

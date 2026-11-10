@@ -1,0 +1,154 @@
+{
+  "schema": "molsysmt.viewer_construction_receiving@1",
+  "date": "2026-11-10",
+  "owner_issue": "uibcdf/molsysmt#421",
+  "consumer_issue": "uibcdf/molsysviewer#315",
+  "consumer_outcome": "D6.5",
+  "owner_parent": "30b2c8b50012d3a29ff97faeea36f20bd9649bce",
+  "owner_native_base": "6bd879bda202feee372b25a61734ee13ee7928ac",
+  "viewer_source": "b010ab76c2e15178e5ad987ad369cce02e40c921",
+  "viewer_runtime_source": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+  "native_backend_sha256": "58653b1d477be36017d2bc721dafe6e85a508e2325fa3226ccf26c61d449d6e5",
+  "source_sha256": {
+    ".github/workflows/benchmarks.yml": "aef64acf6427a6025531dcc3090189b618f1347596a21556b6a8d4e81dda038a",
+    ".github/workflows/ci-full.yaml": "5a2a47a053a6491165da0b2b2c35057527b536fd18b3c7dc111351f90c49409c",
+    ".github/workflows/ci-smoke.yaml": "9296f16e9cf4848130d5184065f51a2d92a23a77e725a7cb570c5c2d51849690",
+    ".github/workflows/ci-weekly.yaml": "5aefc7eabe2f6a0be0a718d90e79eeda7b48242822282db45a2b48efeb8aaa09",
+    ".github/workflows/sphinx_docs_to_gh_pages.yaml": "5895d533aaea1d7f6901ac014f49b109b2c81e0512a8386f2daabc5529008f04",
+    "devguide/molsysviewer_addon.md": "9571961ad3b65bc0c37723a36fadead57a6235f2121d7c524b3446dd1650a998",
+    "devtools/dependency_contract.toml": "998588e9366231582fbf1f0e2f9417f0d74fcfe344eb8b8cf1197fd0a96fae67",
+    "devtools/scripts/viewer_tools_contract.py": "419b9aec9d118dee646ceed8f302f85758f2c8bac7588d99dd9c7c2eb94b1fde",
+    "docs/content/user/tools/molsysviewer_tools.md": "6d9fe5d4222601ef08779aff0dd612c8220ceddce7d85fe0337537510ea6b4d8",
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": "660e65874d78158bd67b922dfd470f3f4c94705ba3e64e1eee9bae8865bbf6f1",
+    "molsysviewer_molsysmt/_chemistry_panel.py": "6b13d9671122be6e06eff473afe20e5f88a7318dfa44f45be396f7ecc016c9bb",
+    "molsysviewer_molsysmt/_chemistry_panel_frontend.py": "b411fc0af8c920c46ccedd3b347c35dc69d20d0bafec190878e1880251fab1e5",
+    "molsysviewer_molsysmt/_chemistry_preparation.py": "6ebfd5276c23b1feba05b550fa739530b70a30ce8b1842f2416e1c465744f350",
+    "molsysviewer_molsysmt/_construction.py": "95b67d49b85adba1e53e56a3e42d1b2605aaf28f246e89c0ceb6fef5c5d87c01",
+    "molsysviewer_molsysmt/_construction_frontend.py": "7b75fd24cb8c71508a3752bc18e30d5a36c552a11680ef45f3a75f1fc775c797",
+    "tests/molsysviewer_molsysmt/construction_fixture.py": "90c543f4afdc07bbdb9d640a934ee57635d88e475ab444280744768f0545810b",
+    "tests/molsysviewer_molsysmt/construction_jupyter.mjs": "a0fdee534792fa0cb880db281fd2dce1849741fe1ea26fc66df6e735bccf01cb",
+    "tests/molsysviewer_molsysmt/construction_qt.py": "2964780e322b488a2a7171057856c406ad20af12719b8071b87f617c3b57727e",
+    "tests/molsysviewer_molsysmt/jupyter_panel_controls.mjs": "390757952b41958c2d47963a37def9c6b7931161aee7403563c5151574455a05",
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "a9b0fd2781ebdd99925a9481f125be7d5b6868b8f2f43b71f5f7fcf41864e542",
+    "tests/molsysviewer_molsysmt/qt_receiving_guard.py": "4ceb31a1a3ec1d2b178f16f6a85b3bf542f35488ffc3f90cefaf0f4213fae3bf",
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "d299402234a3364ba89b6e40633476d7cf26228b167fe517a43eee8da207d131",
+    "tests/molsysviewer_molsysmt/test_construction_panel.py": "88f4b4a61af5d553e73e92c3a43816477c43d92ed893f02d47966d8a8a1e165a"
+  },
+  "receiving": {
+    "160-construction-fixtures": {
+      "native_exit": 0,
+      "seconds": 17.346601641969755,
+      "selected_inputs": 10820,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 626.0,
+      "cleanup": {
+        "tracked": 1,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null
+    },
+    "170-construction-scoped-widgets": {
+      "native_exit": 0,
+      "seconds": 99.12728535197675,
+      "selected_inputs": 10825,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 3505.7,
+      "cleanup": {
+        "tracked": 25,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null
+    },
+    "187-construction-quality": {
+      "native_exit": 0,
+      "seconds": 48.05096343415789,
+      "selected_inputs": 10840,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 673.2,
+      "cleanup": {
+        "tracked": 13,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null
+    },
+    "188-qt-disposal-final": {
+      "native_exit": 0,
+      "seconds": 60.09452283009887,
+      "selected_inputs": 10840,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 2240.2,
+      "cleanup": {
+        "tracked": 19,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null
+    },
+    "194-construction-contract-final": {
+      "native_exit": 0,
+      "seconds": 37.79112321394496,
+      "selected_inputs": 10840,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 644.5,
+      "cleanup": {
+        "tracked": 9,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null
+    },
+    "195-construction-source-callers": {
+      "native_exit": 0,
+      "seconds": 20.721891436958686,
+      "selected_inputs": 10841,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 223.0,
+      "cleanup": {
+        "tracked": 3,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null
+    }
+  },
+  "cases": {
+    "focused": 19,
+    "affected_final": 124,
+    "actual_jupyter_guards": 1,
+    "actual_jupyter_workflows": 6,
+    "actual_qt_guards": 1,
+    "actual_qt_checks": 6,
+    "scopes_overlap_do_not_sum": true,
+    "source_caller_guards": 116
+  },
+  "capabilities": [
+    "Five private Chemistry panel tasks delegate to public native build_peptide, make_water_box, make_bioassembly, solvate and add_ions.",
+    "Peptide and explicit unit-bearing water-cell construction work from an empty View.",
+    "Assemblies require a deposited named declaration; ordered and repeated structures are preserved.",
+    "Solvent and ions require exactly one explicit complete-system construction structure; charge/model/engine/seed/placement inputs remain native decisions.",
+    "Independent output preserves source data and supports a separate notebook/Qt window or reviewed replacement, including Back and stale-revision refusal.",
+    "Native raw ion reports remain retained with the result; bounded display is not a generic scientific store."
+  ],
+  "failures_preserved": [
+    "159: fixture assumptions corrected; unchanged production science.",
+    "161/162: real helper acquisition/wait defects corrected without weakening molecular assertions.",
+    "163: shared-CPU preflight refused before execution; no product receive.",
+    "164/165: unavailable native assembly setter independently reproduced and reported as #697; positive fixture uses public Structures constructor.",
+    "164/166: native Qt cleanup aborted, despite successful functional checks in 166. Viewer #351 is repaired in b010ab76 and the final actual-display guard passes complete disposal in 188.",
+    "167: first molecular adoption from an empty View left stale panel context; refresh now follows admitted synchronization states even if the previous context was empty.",
+    "168: multi-View receiving used notebook-global control selectors; receiving now scopes to the original real widget.",
+    "193: source caller update omitted the owning dependency contract; the existing guard rejected it. The contract and five active callers now consistently request b010ab76; historical candidate receipts are unchanged."
+  ],
+  "limits": [
+    "Scientific algorithms, naming, chemical prerequisites, physical models, seeds, errors and returned data remain owned by MolSysMT.",
+    "No minimization, equilibration, hidden preparation, charge reassignment, trajectory solvent loop or scientific backend fallback is inferred.",
+    "GUI receiving qualifies the recorded admitted native routes, including OpenMM seeded construction; it does not certify every optional backend/profile.",
+    "Raw molecular edits remain unobserved; managed revision checks do not authenticate arbitrary sources.",
+    "Owner review/integration, covering hosted, installed and postponed human qualification remain separate. Qt is experimental. No candidates, artifacts, tags or public releases are produced."
+  ],
+  "publication_authorized": false,
+  "human_files_preserved": 11
+}

@@ -2155,3 +2155,27 @@ The native box-axis defect found while receiving the periodic control is
 uibcdf/molsysmt#695; its native-only diagnostic is retained separately. The
 positive multi-structure fixture supplies one cell per structure explicitly.
 There is no consumer broadcast or setter correction.
+
+### Independent construction tasks — contribution source, 2026-11-10
+
+The private construction adapter supplies Chemistry tasks for explicit peptide
+and water-cell inputs, named deposited assemblies, solvation and whole-water
+ion replacement. It delegates public native calculations and retains independent
+results. Fresh inputs can start without a primary. Assembly structure order and
+repetitions are retained; solvent/ions explicitly project one complete source
+structure. Native model/charge/placement criteria, units and seeds remain explicit.
+
+The existing reviewed replacement lifecycle is reused, including deliberate first
+load into an empty View and managed source/result revision refusal. Empty-to-loaded
+sync events must request a fresh context even when cached system presence is false.
+The browser helper scopes controls to the intended widget when several independent
+results are displayed. Neither change narrows the expert API.
+
+The 19 focused native/lifetime cases and actual six-workflow Jupyter/both-popup
+receiving pass. Native Qt completes six functional checks; the Viewer-owned
+teardown finding uibcdf/molsysviewer#351 has a causal source correction and
+separate actual page/profile/window retirement receiving. Its source delivery
+and relevant integration checks remain separate from a fully qualified artifact.
+The unavailable native assembly setter is uibcdf/molsysmt#697; fixtures construct
+declared assembly metadata through the supported public Structures constructor.
+No setter or geometry workaround is implemented here.

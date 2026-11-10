@@ -117,3 +117,30 @@ def test_actual_qt_interaction_mechanics_and_separate_adoption(tmp_path):
     report = json.loads((tmp_path / "report.json").read_text())
     assert len(report["checks"]) == 5
     assert report["qt_platform"] not in ("offscreen", "minimal")
+
+
+def test_actual_qt_independent_construction_and_window(tmp_path):
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(Path(__file__).with_name("construction_qt.py")),
+            str(tmp_path),
+        ],
+        capture_output=True,
+        text=True,
+        timeout=240,
+        check=False,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    assert "Failed to restore OpenGL context" not in result.stderr
+    assert "OpenGL resources will not be destroyed" not in result.stderr
+    report = json.loads((tmp_path / "report.json").read_text())
+    assert len(report["checks"]) == 6
+    assert report["qt_platform"] not in ("offscreen", "minimal")
+
+    retirement = json.loads((tmp_path / "retirement.json").read_text())
+    assert retirement == {
+        "pages_and_profiles_destroyed": 6,
+        "result_windows_destroyed": 5,
+        "source_hidden": True,
+    }
