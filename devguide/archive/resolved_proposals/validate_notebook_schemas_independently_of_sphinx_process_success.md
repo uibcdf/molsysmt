@@ -1,13 +1,13 @@
 ---
 summary: Validate notebook schemas independently of Sphinx process success.
 issue: uibcdf/molsysmt#700
-status: active
+status: resolved
 opened: 2026-11-10
-closed:
+closed: 2026-11-10
 verification: reproduced
 area: [docs, tests]
-guard:
-normative:
+guard: devtools/tests/test_documentation_notebook_schema.py
+normative: devguide/notebook_compilation_and_visualization.md
 blocked_by: []
 supersedes: []
 ---
@@ -69,3 +69,9 @@ whose controlled Sphinx process always succeeds. The invalid input must stop
 before that process runs. A SHA-256-verified official nbformat 5.1.3 wheel probes
 the declared API floor without modifying the shared environment. No closure or
 additional formal plan credit is claimed until receiving and public delivery.
+
+## Resolution — 2026-11-10
+
+Implemented and contract-tested on clean `47682e9d3047bb78dc05fdbd13e107180af459b5`. The [receiving record](../../../devtools/data/notebook_schema_gate_receiving_700_20261110.json) preserves all attempts, actual source identities and bounded resources. The 1,041-case affected cohort passes; the verified minimum-provider API probe passes 521 overlapping cases. All 501 stored sources and fifteen fast gates pass, including real Makefile refusal before an always-successful Sphinx. The selected 5.1.3 distribution includes packaged schema 4.5 support; its historical dependency is supplied only in the bounded probe.
+
+No source notebook, scientific algorithm, runtime dependency or original plan weight changes. Public delivery and owning closeout follow independent blob verification. Installed/platform/release and outstanding #615/#666 scope remain separate.

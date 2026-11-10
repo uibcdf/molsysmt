@@ -1,5 +1,22 @@
 # MolSysMT 1.0 Execution Status
 
+## Independent notebook gate received — 2026-11-10
+
+#700 is source-resolved on **47682e9d3**: one read-only validator now
+protects the fast preflight, local documentation builds and publication workflow.
+All **501 stored notebooks** validate without repairs. **1,041 affected cases**,
+**521 overlapping minimum-provider API cases** and **15 fast gates** pass.
+Invalid sources stop an actual Makefile before an always-successful controlled
+Sphinx can run. The first resource-admission refusal and missing historical
+provider dependency remain recorded. See the [receipt](../devtools/data/notebook_schema_gate_receiving_700_20261110.json).
+
+This developer-only safeguard adds no original plan credit: **76.2920%, 49/50**.
+A bounded **three-worker / 6 GiB** complete default-suite run is in progress on
+unchanged scientific source **5f241cfa7**. It is not accepted before completion
+and does not replace installed/platform/exact-candidate gates. #615 causality,
+#666/PyUnitWizard #143, #524 actual published/installed closure and #250/#254
+feedback remain pending. Publication and new hosted-matrix operations stay paused.
+
 ## Public construction and native closeout verified — 2026-11-10
 
 Public main **ae2b592ad** independently matches all **78 changed paths**, with

@@ -1,0 +1,360 @@
+{
+  "schema_version": "molsysmt.notebook_schema_gate_receiving@1",
+  "date": "2026-11-10",
+  "owner_issue": "uibcdf/molsysmt#700",
+  "qualified_source": "47682e9d3047bb78dc05fdbd13e107180af459b5",
+  "runs": {
+    "received-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-notebook-schema-700-received-directed.xml",
+          "--receptor-events=<private-evidence>/pre1-notebook-schema-700-received-directed.events.jsonl",
+          "devtools/tests/test_documentation_notebook_schema.py",
+          "devtools/tests/test_documentation_workflow.py",
+          "devtools/tests/test_documentation_source_boundary.py",
+          "devtools/tests/test_runtime_provider_apis.py",
+          "devtools/tests/test_citation_release_tools.py",
+          "tests/documentation/test_notebook_schema.py",
+          "--basetemp=<private-evidence>/pre1-notebook-schema-700-received-directed"
+        ],
+        "exit_code": 0,
+        "seconds": 62.098969953134656,
+        "viewer_commit": "b010ab76c2e15178e5ad987ad369cce02e40c921",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "5f241cfa77f0091dc7a54c0be1bdd2951efdefed",
+        "starting_git_status": " M .github/workflows/sphinx_docs_to_gh_pages.yaml\n M devguide/notebook_compilation_and_visualization.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/validate_notebook_schemas_independently_of_sphinx_process_success.md\n M devguide/release_gate.md\n M devtools/conda-envs/docs_env.yaml\n M devtools/conda-envs/test_env.yaml\n M devtools/scripts/release_gate.py\n M devtools/tests/test_documentation_notebook_schema.py\n M devtools/tests/test_documentation_workflow.py\n M docs/Makefile\n M pyproject.toml\n?? devtools/scripts/validate_notebook_schemas.py\n",
+        "ending_git_status": " M .github/workflows/sphinx_docs_to_gh_pages.yaml\n M devguide/notebook_compilation_and_visualization.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/validate_notebook_schemas_independently_of_sphinx_process_success.md\n M devguide/release_gate.md\n M devtools/conda-envs/docs_env.yaml\n M devtools/conda-envs/test_env.yaml\n M devtools/scripts/release_gate.py\n M devtools/tests/test_documentation_notebook_schema.py\n M devtools/tests/test_documentation_workflow.py\n M docs/Makefile\n M pyproject.toml\n?? devtools/scripts/validate_notebook_schemas.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2573,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8806
+      },
+      "resources": {
+        "started_utc": "2026-11-10T19:09:53.274592+00:00",
+        "seconds": 72.0606515489053,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            4.68212890625,
+            4.26513671875,
+            3.18310546875
+          ],
+          "cpu_utilization": 0.24179707218576474,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 10020659200,
+        "cgroup_memory_peak_bytes": 411811840,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "4ffb4b5c93f9a6b13df4e11c36104f9abaecc9f3f8d4a24cb9b50195fcc50f9c",
+        "-bounded.json": "6522ef2e801b3087a94e524c3487a73aad0f6e34954675efc8f85e4cf9ad1e92",
+        ".xml": "225a24e56bde5420632ab6eb2ce07e2aca5fedb39cdda440ac009b57a45eeb5b",
+        ".log": "709839b12f41727f413b2329e8d6e5d39fdbe97c52515ed9331c673c3bdea190",
+        "-inputs-before.json": "189bfe0ebb2fcdf71b0a7967fd1c5c2284f4816a67225707f99c739b7044263b",
+        "-inputs-after.json": "189bfe0ebb2fcdf71b0a7967fd1c5c2284f4816a67225707f99c739b7044263b",
+        "-reference-driver.py": "f6e09f7f34c654da286f389c05e092347e98eb1dc32d983fa1caaf0967f12889",
+        "-resource-driver.py": "3d193f411c6fb768fb5dfc22716ce8a8d38a98b5a626aaf99ba69c80b7ee08ed"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1041",
+          "time": "58.792",
+          "timestamp": "2026-11-10T13:10:01.293168-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "floor-with-dependencies": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-notebook-schema-700-floor-with-dependencies.xml",
+          "--receptor-events=<private-evidence>/pre1-notebook-schema-700-floor-with-dependencies.events.jsonl",
+          "devtools/tests/test_documentation_notebook_schema.py",
+          "--basetemp=<private-evidence>/pre1-notebook-schema-700-floor-with-dependencies"
+        ],
+        "exit_code": 0,
+        "seconds": 42.66749517200515,
+        "viewer_commit": "b010ab76c2e15178e5ad987ad369cce02e40c921",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "47682e9d3047bb78dc05fdbd13e107180af459b5",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2573,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "checked_floor_inputs": 117,
+        "changed_floor_inputs": [],
+        "changed_inputs": [],
+        "checked_inputs": 8806
+      },
+      "resources": {
+        "started_utc": "2026-11-10T19:15:02.982616+00:00",
+        "seconds": 59.049958012998104,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            6.2568359375,
+            6.537109375,
+            4.54052734375
+          ],
+          "cpu_utilization": 0.23989898989898994,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 10325983232,
+        "cgroup_memory_peak_bytes": 223436800,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.54
+      },
+      "evidence_sha256": {
+        ".json": "51485c1da6e57147994774d97cf7d1a5650036e5bb1e84e4a9937e22240604f3",
+        "-bounded.json": "32b29b3baa3082f4ba4559e6b08fb53e286aed9c17865eb258e889f469f4e28f",
+        ".xml": "a6622b3194f837bc5630c6033b7dcf5e74cd41381599e128164f48d917a4983e",
+        ".log": "fdd802a65b1c26baa35b0c776b74b1d4ba6e27ee225bdd469678e7231ebfbd8a",
+        "-inputs-before.json": "189bfe0ebb2fcdf71b0a7967fd1c5c2284f4816a67225707f99c739b7044263b",
+        "-inputs-after.json": "189bfe0ebb2fcdf71b0a7967fd1c5c2284f4816a67225707f99c739b7044263b",
+        "-reference-driver.py": "5e5364b915130f141e37a185f325dbdccbd338faa0a0861a49907dd1891aa140",
+        "-resource-driver.py": "3d193f411c6fb768fb5dfc22716ce8a8d38a98b5a626aaf99ba69c80b7ee08ed"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "521",
+          "time": "39.855",
+          "timestamp": "2026-11-10T13:15:14.856012-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 31.37454229197465,
+        "viewer_commit": "b010ab76c2e15178e5ad987ad369cce02e40c921",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "47682e9d3047bb78dc05fdbd13e107180af459b5",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2573,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "checked_floor_inputs": 0,
+        "changed_floor_inputs": [],
+        "changed_inputs": [],
+        "checked_inputs": 8806
+      },
+      "resources": {
+        "started_utc": "2026-11-10T19:18:07.233538+00:00",
+        "seconds": 47.04037583200261,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            3.82568359375,
+            5.34521484375,
+            4.4306640625
+          ],
+          "cpu_utilization": 0.1810388300554715,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 9557917696,
+        "cgroup_memory_peak_bytes": 497623040,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "38f3f38eabac83108fdb72b5d2569b416e0cdd4846a86d86b1a156a5c2a77d9b",
+        "-bounded.json": "9c9870a690ebd82aabd5744236ee422fc368f92f95297934adb3531f2ccac738",
+        ".log": "66fcd898cd90538bcb9050dbda81fdd62e32d3a4548a9f7ed20e27023df5e165",
+        "-inputs-before.json": "189bfe0ebb2fcdf71b0a7967fd1c5c2284f4816a67225707f99c739b7044263b",
+        "-inputs-after.json": "189bfe0ebb2fcdf71b0a7967fd1c5c2284f4816a67225707f99c739b7044263b",
+        "-reference-driver.py": "5e5364b915130f141e37a185f325dbdccbd338faa0a0861a49907dd1891aa140",
+        "-resource-driver.py": "3d193f411c6fb768fb5dfc22716ce8a8d38a98b5a626aaf99ba69c80b7ee08ed"
+      }
+    }
+  },
+  "current_runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "molsysmt_version": "0+unknown",
+    "versions": {
+      "nbformat": "5.11.1",
+      "mdtraj": "1.11.1",
+      "ackredit": "0.12.1+2.ge233973",
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pandas": "2.3.3",
+      "pint": "0.25.3",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1"
+    },
+    "imports": {
+      "nbformat": "<development-environment>/lib/python3.14/site-packages/nbformat/__init__.py",
+      "pandas": "<development-environment>/lib/python3.14/site-packages/pandas/__init__.py",
+      "pint": "<development-environment>/lib/python3.14/site-packages/pint/__init__.py",
+      "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+      "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261110/viewer-b010ab76-source/molsysviewer/__init__.py",
+      "pyunitwizard": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+      "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+      "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+      "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+    }
+  },
+  "floor_runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "molsysmt_version": "0+unknown",
+    "versions": {
+      "nbformat": "5.1.3",
+      "mdtraj": "1.11.1",
+      "ackredit": "0.12.1+2.ge233973",
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pandas": "2.3.3",
+      "pint": "0.25.3",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1"
+    },
+    "imports": {
+      "nbformat": "<molsysmt-source>/.pytest_cache/nbformat-5.1.3/source/nbformat/__init__.py",
+      "pandas": "<development-environment>/lib/python3.14/site-packages/pandas/__init__.py",
+      "pint": "<development-environment>/lib/python3.14/site-packages/pint/__init__.py",
+      "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+      "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261110/viewer-b010ab76-source/molsysviewer/__init__.py",
+      "pyunitwizard": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+      "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+      "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+      "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+    }
+  },
+  "provider_floor": {
+    "provider": "nbformat",
+    "version": "5.1.3",
+    "file": "nbformat-5.1.3-py3-none-any.whl",
+    "sha256": "eb8447edd7127d043361bc17f2f5a807626bc8e878c7709a1c647abda28a9171",
+    "source": "https://pypi.org/pypi/nbformat/5.1.3/json",
+    "bytes": 178870,
+    "kind": "Verified unpacked API probe; not an environment installation",
+    "auxiliary": [
+      {
+        "provider": "ipython-genutils",
+        "version": "0.2.0",
+        "file": "ipython_genutils-0.2.0-py2.py3-none-any.whl",
+        "sha256": "72dd37233799e619666c9f639a9da83c34013a73e8bbc79a7a6348d93c61fab8",
+        "source": "https://pypi.org/pypi/ipython-genutils/0.2.0/json",
+        "bytes": 26343,
+        "reason": "Declared nbformat 5.1.3 dependency absent from the modern shared environment; unpacked only for its bounded API probe."
+      }
+    ]
+  },
+  "failed_or_deferred_attempts": [
+    {
+      "date_utc": "2026-11-10T19:08:17.741605+00:00",
+      "profile": "pre1-notebook-schema-700-directed",
+      "exit_code": 125,
+      "reason": "Shared-host memory/pressure admission refused before pytest started.",
+      "tests_started": false
+    },
+    {
+      "profile": "pre1-notebook-schema-700-floor-received",
+      "stage": "Runtime import preflight before pytest collection",
+      "process_exit_code": 1,
+      "reason": "The unpacked old provider requires ipython_genutils, absent from the modern development environment. Its verified declared dependency is supplied only in the second API-probe overlay. No shared environment is modified.",
+      "resources": {
+        "started_utc": "2026-11-10T19:12:42.518383+00:00",
+        "seconds": 5.0047110370360315,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "cgroup_memory_peak_bytes": 161951744,
+        "host_available_minimum_observed_bytes": 9015930880,
+        "stop_reason": null,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n"
+      },
+      "private_log_sha256": "f0cac1d687192140646ac137e055918532c0dc0fcd5a06bf877b84f618d8a283"
+    }
+  ],
+  "acceptance": [
+    "All 501 stored documentation sources pass strict declared-version schema validation without repair or source-byte changes.",
+    "The maintained developer CLI replaces duplicated schema checks. Fast release preflight, actual local Makefile builds and the documentation publication workflow receive the result independently of Sphinx exit status.",
+    "The actual Makefile refuses an invalid v4.4 cell id before an always-successful controlled Sphinx runs; a valid notebook reaches that same process.",
+    "Invalid outputs, missing/duplicate/invalid ids, unknown or missing versions, invalid JSON numbers, empty/missing inventories, provider repairs/failure and concurrent source-byte changes reject. Diagnostics do not dump embedded cells/outputs.",
+    "The 1041-case affected cohort passes. The exact official nbformat 5.1.3 API probe passes 521 cases with verified immutable provider/dependency files; these scopes overlap and are not summed.",
+    "All fifteen fast gates pass on the clean implementation source. Documentation/dev requirements and relevant Conda environments declare the developer provider explicitly; no required or optional scientific runtime dependency changes."
+  ],
+  "limits": [
+    "Linux/Python 3.14 development-source receiving only. Unpacked historical provider API probes do not qualify a clean installed environment, complete docs dependency floor, all platforms or a release candidate.",
+    "No notebook execution, conversion, upgrade, reserialization, automatic repair, API promotion or scientific-method change.",
+    "Source admission refusal and the first missing-dependency preflight remain unsuccessful attempts. Supplemental #700 adds no original milestone credit; #615/#666 and external/final gates remain open.",
+    "Publication, candidate/tag/package and new hosted-matrix operations remain paused."
+  ]
+}
