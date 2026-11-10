@@ -80,6 +80,13 @@ not a complete peak-memory proof; reducers and outputs may dominate memory use.
 
 ## Chunk contract
 
+The public `basic.Iterator` with native molecular-system output delegates each
+selected chunk to existing conversion. Native outputs are independently owned;
+geometry, other observations, state associations and named-analysis maps are
+assembled together. Attribute-only output avoids stable-domain conversion per
+chunk. Retaining all chunks can still materialize the trajectory. This native
+output contract is separate from the form-specific executor below.
+
 `ChunkedExecutor` obtains chunks from a form-specific `StructuresIterator` and
 builds dictionaries with these keys:
 
@@ -450,7 +457,8 @@ contract is provided by this experimental operation.
 
 `PDBQTFileHandler(path, storage_mode='indexed')` retains source-bound byte
 ranges and one parsed reference model. File-form StructuresIterator uses this
-mode automatically; the principal basic.Iterator is unchanged. Every model is
+mode automatically. Native molecular-system output from basic.Iterator uses
+selected conversion of complete chunks; the form iterator still owns parsing. Every model is
 validated before iteration. Working memory includes index/ID metadata, the
 reference/preamble, a current model and requested blocks. It does not retain
 every parsed model or a complete source text. Source changes reject queries.

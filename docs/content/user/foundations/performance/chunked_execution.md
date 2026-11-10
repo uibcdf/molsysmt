@@ -111,6 +111,16 @@ for chunk_index, coordinates in enumerate(iterator):
     print(f"Processing chunk {chunk_index} with shape {coordinates.shape}")
 ```
 
+Requesting coordinates or other attributes explicitly avoids converting stable
+domains for each chunk. With no explicit attributes, native `MolSys` and
+`Structures` outputs are independently owned selected conversions. Geometry,
+other observations, chemical-state associations and named-analysis maps follow
+the selected structure positions together, including a shorter final chunk.
+Keeping an earlier native chunk does not make it change when you advance;
+keeping every chunk can still materialize trajectory-sized data. Other output
+forms retain their existing reusable-container behavior. See
+{ref}`Tutorial_Iterator` for both output styles.
+
 ---
 
 ## Memory Pressure Monitoring

@@ -96,3 +96,11 @@ arrays, credentials or private settings enter that snapshot. Existing waits,
 source/scene comparisons and scientific assertions are unchanged. One deliberate
 instrumented follow-up may distinguish stages; even a passing follow-up does
 not establish the cause or repair of the original #615 observation.
+
+The single instrumented follow-up on clean e65dd49ed passes all three scenarios:
+20 browser checks. Properties captures one connected source controller with
+24 caffeine atoms after replacement, no output errors and structure index zero.
+The scope peaks at 2.22 GiB, retains at least 11.28 GiB host memory available,
+and has no pressure/OOM/reserve stop. No timeout, assertion or warm-up changed.
+This is receiving on those inputs, not a causal repair or closure of #615;
+the preceding one-pass/two-failure campaign remains failed.
