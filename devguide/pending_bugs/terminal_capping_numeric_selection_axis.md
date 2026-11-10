@@ -1,13 +1,13 @@
 ---
 summary: Clarify the numeric selection axis in native terminal-capping composition.
 issue: uibcdf/molsysmt#679
-status: open
+status: active
 opened: 2026-11-09
 closed:
 severity: medium
 verification: reproduced
 area: [build, selection, chemistry]
-guard:
+guard: tests/build/add_missing_terminal_cappings/test_selection_axis.py
 normative:
 blocked_by: []
 supersedes: []
@@ -39,3 +39,25 @@ scientific repair or a guessed atom map. Its independent result and reviewed
 scene replacement retain native ownership. The expert wrapper is unchanged.
 The original native reproduction, full traceback and before/after source hashes
 are retained privately with the consumer receiving packet.
+
+
+## Reproduction and implementation — 2026-11-09
+
+The owner guards reproduce integer-axis rejection, Boolean rejection, untyped
+invalid-input errors and empty-selection reconstruction. Resolve atom indices
+once on the source and project explicit group populations through local repair;
+atom insertion preserves that group axis while reordering atoms. Requested caps
+operate on selected covalent components, resolved after repair from those groups.
+Never transport the old atom positions through expansion. Native terminal
+assessment now inspects whole selected chains before filtering the report, so
+an internal selected group cannot become a spurious terminus. Unrelated unknown
+chain membership is outside the local context. Public assessment retains its
+group-index selection contract, now explicitly documented.
+
+Twenty-eight directed controls pass after an independent #684 component-versus-
+molecule defect is repaired. They include masks, syntax-independent numeric
+axes, a single internal atom, empty/invalid requests, two structures, alternate
+units, multiple components, atom reordering and an actual MDTraj form. Broader
+existing tests, public documentation and clean receiving remain due. Initial
+fixture assumptions about bound pandas table types and a nonexistent native
+get_n_structures convenience method are corrected; these are not provider bugs.

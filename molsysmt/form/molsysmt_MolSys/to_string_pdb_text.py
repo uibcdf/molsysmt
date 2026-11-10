@@ -160,6 +160,9 @@ def to_string_pdb_text(
     memberships. Atoms outside the selection do not impose this requirement.
     An assigned chain with an unknown label retains the writer's ``'A'`` label
     fallback; this does not assign atoms to a previously unknown chain.
+    Creator REMARK records use the imported package's cached version, including
+    an explicit unknown version. Long versions are continued without truncation
+    in records of at most 80 columns. A separate record retains creation time.
 
     .. versionadded:: 1.0.0
     """
@@ -238,9 +241,20 @@ def to_string_pdb_text(
         f"HEADER    {'MOLECULAR SYSTEM':<40}"
         f"{now.strftime('%d-%b-%y').upper():>9}   {'':<4}\n"
     )
+    import molsysmt as msm
+
+    # Read the version already cached by package bootstrap; scientific writing
+    # must never query Git or foreign distribution metadata for its producer.
+    remaining = msm.__version__
+    prefix = "REMARK   1 Created by MolSysMT version "
+    while remaining:
+        capacity = 80 - len(prefix)
+        lines.append(prefix + remaining[:capacity] + "\n")
+        remaining = remaining[capacity:]
+        prefix = "REMARK   1 Version continuation: "
     lines.append(
-        "REMARK   1 Created by MolSysMT version 1.0 on "
-        f"{now.strftime('%d-%b-%Y').upper()} at {now.strftime('%H:%M:%S')}\n"
+        f"REMARK   1 Created on {now.strftime('%d-%b-%Y').upper()} "
+        f"at {now.strftime('%H:%M:%S')}\n"
     )
     lines.extend(_bioassembly_lines(item))
 

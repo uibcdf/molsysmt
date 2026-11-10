@@ -699,7 +699,7 @@ def place_nme_group(C_pos, CA_pos, N_pos_last, template, n_structures):
 
 def rebuild_molsys_with_new_groups(
     native_molsys,
-    mol_group_ranges,
+    component_group_ranges,
     extra_groups_before,
     extra_groups_after,
 ):
@@ -711,8 +711,8 @@ def rebuild_molsys_with_new_groups(
     ----------
     native_molsys : object
         Argument native_molsys.
-    mol_group_ranges : object
-        Argument mol_group_ranges.
+    component_group_ranges : object
+        Argument component_group_ranges.
     extra_groups_before : object
         Argument extra_groups_before.
     extra_groups_after : object
@@ -753,8 +753,21 @@ def rebuild_molsys_with_new_groups(
         )
         group_to_mol[g] = mol_idx
 
-    first_group_of_mol = {m: fg for m, (fg, _) in mol_group_ranges.items()}
-    last_group_of_mol = {m: lg for m, (_, lg) in mol_group_ranges.items()}
+    before_by_group = {
+        component_group_ranges[component][0]: component
+        for component in extra_groups_before
+    }
+    after_by_group = {
+        component_group_ranges[component][1]: component
+        for component in extra_groups_after
+    }
+    if len(before_by_group) != len(extra_groups_before) or len(after_by_group) != len(
+        extra_groups_after
+    ):
+        raise StructuralInconsistencyError(
+            reason="Terminal capping requires an unambiguous endpoint group per covalent component.",
+            caller="molsysmt.build._native_placers.rebuild_molsys_with_new_groups",
+        )
 
     # Running lists for the new topology
     new_atom_rows = []  # list of dicts
@@ -804,23 +817,29 @@ def rebuild_molsys_with_new_groups(
     for g in range(topo.n_groups):
         mol_idx = group_to_mol.get(g, pd.NA)
 
-        # Insert ACE before the first group of this molecule
-        if mol_idx is not pd.NA and mol_idx in extra_groups_before:
-            if first_group_of_mol.get(mol_idx) == g:
-                cap_name, cap_atoms = extra_groups_before[mol_idx]
-                gmask = topo.atoms["group_index"] == g
-                first_row = topo.atoms[gmask].iloc[0]
-                chain_idx = first_row["chain_index"]
-                comp_idx = component_indices.loc[gmask].iloc[0]
-                _add_group_from_dict(
-                    cap_name,
-                    str(len(new_group_rows)),
-                    "terminal capping",
-                    cap_atoms,
-                    comp_idx,
-                    chain_idx,
-                    mol_idx,
+        # Cap keys describe covalent components. Stable molecule membership is
+        # inherited independently from the anchor group and may have other indices.
+        if g in before_by_group:
+            comp_idx = before_by_group[g]
+            cap_name, cap_atoms = extra_groups_before[comp_idx]
+            anchors = topo.atoms[
+                (topo.atoms["group_index"] == g) & component_indices.eq(comp_idx)
+            ]
+            if anchors.empty:
+                raise StructuralInconsistencyError(
+                    reason="A terminal cap's component has no atoms in its declared anchor group.",
+                    caller="molsysmt.build._native_placers.rebuild_molsys_with_new_groups",
                 )
+            chain_idx = anchors.iloc[0]["chain_index"]
+            _add_group_from_dict(
+                cap_name,
+                str(len(new_group_rows)),
+                "terminal capping",
+                cap_atoms,
+                comp_idx,
+                chain_idx,
+                mol_idx,
+            )
 
         # Add the original group
         orig_g_new = len(new_group_rows)
@@ -844,23 +863,27 @@ def rebuild_molsys_with_new_groups(
         new_group_to_old_group[orig_g_new] = g
         new_group_mol.append(mol_idx)
 
-        # Append NME after the last group of this molecule
-        if mol_idx is not pd.NA and mol_idx in extra_groups_after:
-            if last_group_of_mol.get(mol_idx) == g:
-                cap_name, cap_atoms = extra_groups_after[mol_idx]
-                gmask = topo.atoms["group_index"] == g
-                last_row = topo.atoms[gmask].iloc[-1]
-                chain_idx = last_row["chain_index"]
-                comp_idx = component_indices.loc[gmask].iloc[-1]
-                _add_group_from_dict(
-                    cap_name,
-                    str(len(new_group_rows)),
-                    "terminal capping",
-                    cap_atoms,
-                    comp_idx,
-                    chain_idx,
-                    mol_idx,
+        if g in after_by_group:
+            comp_idx = after_by_group[g]
+            cap_name, cap_atoms = extra_groups_after[comp_idx]
+            anchors = topo.atoms[
+                (topo.atoms["group_index"] == g) & component_indices.eq(comp_idx)
+            ]
+            if anchors.empty:
+                raise StructuralInconsistencyError(
+                    reason="A terminal cap's component has no atoms in its declared anchor group.",
+                    caller="molsysmt.build._native_placers.rebuild_molsys_with_new_groups",
                 )
+            chain_idx = anchors.iloc[-1]["chain_index"]
+            _add_group_from_dict(
+                cap_name,
+                str(len(new_group_rows)),
+                "terminal capping",
+                cap_atoms,
+                comp_idx,
+                chain_idx,
+                mol_idx,
+            )
 
     n_new_groups = len(new_group_rows)
 

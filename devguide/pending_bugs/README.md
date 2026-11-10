@@ -27,9 +27,13 @@ that front matter -- edit the entries, not this list.
 - [`macos_py312_environment_download_failure.md`](macos_py312_environment_download_failure.md) — [#671](https://github.com/uibcdf/molsysmt/issues/671) — Track the macOS Python 3.12 Conda download failure separately from tests. *(medium, upstream)*
 - [`terminal_capping_numeric_selection_axis.md`](terminal_capping_numeric_selection_axis.md) — [#679](https://github.com/uibcdf/molsysmt/issues/679) — Clarify the numeric selection axis in native terminal-capping composition. *(medium, reproduced)*
 
-### In progress (1)
+### In progress (5)
 
 - [`contact_cutoff_equality_changes_across_equivalent_length_units.md`](contact_cutoff_equality_changes_across_equivalent_length_units.md) — [#666](https://github.com/uibcdf/molsysmt/issues/666) — Contact cutoff equality changes across equivalent length units *(high, reproduced)*
+- [`native_terminal_caps_confuse_covalent_component_indices_with_stable_molecule_ind.md`](native_terminal_caps_confuse_covalent_component_indices_with_stable_molecule_ind.md) — [#684](https://github.com/uibcdf/molsysmt/issues/684) — Native terminal caps confuse covalent component indices with stable molecule indices *(medium, reproduced)*
+- [`terminal_capping_numeric_selection_axis.md`](terminal_capping_numeric_selection_axis.md) — [#679](https://github.com/uibcdf/molsysmt/issues/679) — Clarify the numeric selection axis in native terminal-capping composition. *(medium, reproduced)*
+- [`alanine_demo_catalog_atom_count_mismatch.md`](alanine_demo_catalog_atom_count_mismatch.md) — [#677](https://github.com/uibcdf/molsysmt/issues/677) — Alanine demo catalog atom counts contradict the public bundled inventory. *(low, reproduced)*
+- [`generated_pdb_provenance_hard_codes_molsysmt_version_1_0.md`](generated_pdb_provenance_hard_codes_molsysmt_version_1_0.md) — [#680](https://github.com/uibcdf/molsysmt/issues/680) — Generated PDB provenance hard-codes MolSysMT version 1.0 *(low, reproduced)*
 
 ### Partially resolved (1)
 

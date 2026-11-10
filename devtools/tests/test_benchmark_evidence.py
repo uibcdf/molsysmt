@@ -1,6 +1,7 @@
 """Exercise evidence publication without running molecular benchmarks."""
 
 import hashlib
+import importlib
 import importlib.util
 import json
 import os
@@ -11,6 +12,8 @@ from pathlib import Path
 
 import pytest
 import yaml
+
+from devtools.tests.benchmark_fixtures import session
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -132,13 +135,14 @@ def test_actual_workflow_pipeline_preserves_comparison_exit_and_raw_inputs(
     )
     comparer = tmp_path / "benchmarks/compare_runs.py"
     comparer.parent.mkdir()
-    shutil.copyfile(ROOT / "benchmarks/compare_runs.py", comparer)
+    for name in ["compare_runs.py", "comparability.py", "telemetry.py"]:
+        shutil.copyfile(ROOT / "benchmarks" / name, comparer.parent / name)
     evidence = tmp_path / ".pytest_cache/benchmark-evidence"
     evidence.mkdir(parents=True)
     reference = evidence / "reference_session.json"
     current = evidence / "current_session.json"
-    reference.write_text(json.dumps({"results": {"product": {"median_seconds": 1.0}}}))
-    current.write_text(json.dumps({"results": {"product": {"median_seconds": value}}}))
+    reference.write_text(json.dumps(session()))
+    current.write_text(json.dumps(session(value)))
     before = [hashlib.sha256(p.read_bytes()).hexdigest() for p in [reference, current]]
     result = subprocess.run(
         ["bash", "-c", script],
@@ -222,3 +226,88 @@ def test_performance_workflow_is_advisory_without_hiding_evidence_failures():
         script = next(step["run"] for step in job["steps"] if step.get("name") == name)
         assert "set -euo pipefail" in script
         assert "|| true" not in script
+
+
+def test_owned_reference_canonicalization_preserves_every_scientific_record(tmp_path):
+    from benchmarks.competitors.run_matrix import _canonicalize_owned_reference
+
+    payload = (
+        b"REMARK 350 BIOMOLECULE: 1\n"
+        b"CRYST1   10.000   10.000   10.000  90.00  90.00  90.00 P 1\n"
+        b"ATOM      1  CA  ALA A   1       0.500   0.500   0.500\n"
+        b"CONECT    1    2\nEND\n"
+    )
+    records = []
+    for number, clock in enumerate(
+        [b"01-JAN-2020 at 01:02:03", b"02-JAN-2020 at 12:34:56"]
+    ):
+        path = tmp_path / f"owned-{number}.pdb"
+        raw = (
+            b"HEADER    MOLECULAR SYSTEM                         DIFFERENT DATE\n"
+            + b"REMARK   1 Created by MolSysMT version test on "
+            + clock
+            + b"\n"
+            + payload
+        )
+        path.write_bytes(raw)
+        record = _canonicalize_owned_reference(path)
+        prepared = path.read_bytes()
+        assert (
+            prepared.splitlines(keepends=True)[2:] == raw.splitlines(keepends=True)[2:]
+        )
+        assert prepared.endswith(payload)
+        restored = prepared.splitlines(keepends=True)
+        for index, original in record["original_records"].items():
+            restored[int(index)] = original.encode("ascii")
+        assert b"".join(restored) == raw
+        assert record["raw_pdb_sha256"] == hashlib.sha256(raw).hexdigest()
+        assert record["prepared_pdb_sha256"] == hashlib.sha256(prepared).hexdigest()
+        records.append(record)
+    assert records[0]["prepared_pdb_sha256"] == records[1]["prepared_pdb_sha256"]
+
+
+def test_unknown_generated_provenance_is_refused_without_rewriting(tmp_path):
+    from benchmarks.competitors.run_matrix import _canonicalize_owned_reference
+
+    path = tmp_path / "unknown.pdb"
+    path.write_bytes(
+        b"REMARK Unknown writer with scientific source evidence\nATOM ...\n"
+    )
+    original = path.read_bytes()
+    with pytest.raises(RuntimeError, match="require review"):
+        _canonicalize_owned_reference(path)
+    assert path.read_bytes() == original
+
+
+def test_owned_writer_block_normalizes_long_versions_without_losing_science(
+    tmp_path, monkeypatch
+):
+    import molsysmt as msm
+    from benchmarks.competitors.run_matrix import _canonicalize_owned_reference
+
+    source = msm.convert(msm.systems["alanine dipeptide"]["alanine_dipeptide.h5msm"])
+    writer = importlib.import_module("molsysmt.form.molsysmt_MolSys.to_string_pdb_text")
+    prepared = []
+    try:
+        for n, version in enumerate(["0+unknown", "1.0.0rc1+" + "a" * 160]):
+            monkeypatch.setattr(msm, "__version__", version)
+            raw = writer.to_string_pdb_text(source).encode("ascii")
+            path = tmp_path / f"generated-{n}.pdb"
+            path.write_bytes(raw)
+            record = _canonicalize_owned_reference(path)
+            data = path.read_bytes()
+            unchanged = data.splitlines(keepends=True)[
+                record["prepared_provenance_record_count"] :
+            ]
+            restored = unchanged.copy()
+            for index, text in sorted(
+                record["original_records"].items(), key=lambda pair: int(pair[0])
+            ):
+                restored.insert(int(index), text.encode("ascii"))
+            assert b"".join(restored) == raw
+            assert record["raw_pdb_sha256"] == hashlib.sha256(raw).hexdigest()
+            assert data.endswith(b"".join(unchanged))
+            prepared.append(data)
+    finally:
+        monkeypatch.undo()
+    assert prepared[0] == prepared[1]

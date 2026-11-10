@@ -1,5 +1,70 @@
 # MolSysMT 1.0 Execution Status
 
+## Incoming review and execution block — 2026-11-09
+
+The complete board refresh retains 610 issues (94 open) and finds four open
+stacked PRs. #681–#683 are new since the previous checkpoint; #678 remains
+unreceived. Their claims are contributor evidence until combined-source review.
+The original plan and its weights stay unchanged; these PRs implement existing
+#421 task families, not newly added requirements.
+
+| Order | Owner | Work and acceptance |
+| --- | --- | --- |
+| 1 | #679 | Resolve terminal-capping selection once on the source atom axis; project explicit group/component populations through reconstruction. Cover numeric/expression/mask equivalence, partial populations, multiple structures/components and source preservation. |
+| 2 | #677 | Query the actual bundled alanine inventory, reconcile its catalog and manifest, and re-execute the generated catalog notebook without changing the dataset. |
+| 3 | #680 | Use actual cached producer version in format-safe PDB provenance; preserve scientific records and deterministic benchmark-owned preparation. |
+| 4 | PR #678 | Review existing PCA inspection/refinement, contributor analytic/engine controls and actual Jupyter/Qt evidence. Receive the compatible combined source before credit. |
+| 5 | PR #681 | Review chemical repair/assignment panels and explicit atom-to-group scope; #679 remains provider-owned. |
+| 6 | PR #682 | Review source-mapped property/report tasks, units, static versus structural semantics and bounded queries. |
+| 7 | PR #683 | Review deliberate report color/plot adoption, coverage/refusal/undo and source-structure navigation against its exact Viewer runtime. |
+
+After this block continue #582's effective engine-neutral recipe, remaining #421
+intents, #666/provider143, #524/#615, broader #256 and #334 final installed/platform
+requirements. Keep published failures and receipts, the source/installed boundary,
+the publication pause, resource supervision and [skip ci] source checkpoints.
+Accepted weighted progress remains 73.7664% and graphical intents 31/50 until
+original owning leaves have independently received evidence.
+
+## Comparability and incoming diagnostics received — 2026-11-09
+
+#567's full comparable-session contract is received: known runtime/provider/
+resource/unit identities, actual observables/inputs/precision, raw repetitions,
+typed advisory dispositions and reviewed reference renewal. Clean 3547b0977
+passes **172** benchmark controls, including two real **21-case** tiny campaigns.
+#673 repairs invalid comparative RMSD/PBC workloads and the mislabeled MDTraj
+route; #676 replaces inherited competitive workers with fresh factories and
+finite lifetimes. The original failures and historical baseline stay exact;
+no new reference or representative speed ranking is selected. See the
+[benchmark receiving record](../devtools/data/benchmark_comparability_receiving_567_673_676_20261109.json)
+and [maintained contract](benchmarking/comparable_sessions.md).
+
+Clean combined ecf05b066 passes **187** composition/axis/active-unit cases and
+**14/14** fast gates. #674 preserves an already loaded Pint registry rather than
+making an ineffective cache request; #675 distinguishes regenerated positional
+indices from lost structural observations. Real off-axis warnings/incompatible
+axes remain enforced. All previous fixture/launcher/source-mutation failures
+remain in the [diagnostics receiving record](../devtools/data/import_and_composition_receiving_674_675_20261109.json).
+These selections overlap existing coverage; they are not a full-suite count.
+Public main **af46ea3f3** is independently verified across all **42** changed/
+deleted paths; the four pre-existing human edits remain byte-exact. #567/#673/
+#674/#675/#676 are independently verified closed and board/queues agree. See the
+[public closeout record](../devtools/data/comparability_and_diagnostics_closeout_20261109.json).
+
+The original baseline-comparability leaf now gains **1.25 points**: weighted
+source milestones are **73.7664% (approximately 73.8%)**, with graphical intents
+unchanged at **31/50**. Supplemental repairs add no bonus. This is operational
+source progress, not publication readiness. Resource runs use 1 CPU/2 GiB each;
+recorded peaks stay below 0.8 GiB, no own OOM/reserve stop, and observed host
+availability stays above 11 GiB. No all-core or unlimited-worker execution.
+
+Next incoming owners are #677's catalog count and #679's terminal-capping numeric
+selection axis; PR #678 proposes existing PCA/refinement addon workflows and
+requires its own review and actual GUI receiving. #680 tracks the inspected PDB hard-coded producer version;
+uibcdf/pyunitwizard#144 owns the guide-cache example correction. Preserve
+#666/provider143, #582 effective recipes, remaining #421 intents, #524/#615,
+broader #256 and #334 installed/platform/exact-candidate requirements. Source
+checkpoints use [skip ci]; no new remote CI, tag, package or Release is launched.
+
 ## Source CI, mechanics and advisory performance receiving — 2026-11-09
 
 PR #668 is received with exact Viewer 346c3319 source. #669's controlled wheel

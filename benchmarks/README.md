@@ -61,7 +61,7 @@ choose a separate output explicitly:
 
 ```bash
 python benchmarks/competitors/run_matrix.py --output .pytest_cache/benchmarks/current_session.json
-python benchmarks/compare_runs.py --baseline benchmarks/baselines/competitor_matrix_session.json --current .pytest_cache/benchmarks/current_session.json --threshold 0.15
+python benchmarks/compare_runs.py --baseline benchmarks/baselines/competitor_matrix_session.json --current .pytest_cache/benchmarks/current_session.json --threshold 0.15 --report .pytest_cache/benchmarks/comparison.json
 ```
 
 The runner gives each campaign an owned temporary reference PDB and removes it
@@ -70,24 +70,24 @@ on completion or failure. It does not reuse or remove a pre-existing
 manual baseline-generation destination; baseline renewal remains a separate
 reviewed operation. A CI result must not replace its reference before comparison.
 
-The numeric comparer rejects empty or malformed sessions, missing reference
-measurements and nonfinite/nonpositive medians with a diagnostic failure. Valid
-numeric reports return zero, including slowdown warnings above the default
-15 percent advisory threshold. They do not establish compatible environments
-or scientifically equivalent workloads, so they cannot by themselves establish
-a product regression. That comparability contract remains under
-uibcdf/molsysmt#567. See the [performance observation policy](../devguide/benchmarking/performance_policy.md).
+The comparer requires [versioned comparable-session evidence](../devguide/benchmarking/comparable_sessions.md),
+including known runtime/provider/resource/unit identities, actual molecular
+inputs and observable/precision descriptions, and raw repeat samples agreeing
+with the median. Identical missing metadata is not compatibility. Complete
+compatible observations return zero, including advisory warnings above 15
+percent. Partial/invalid/historical/incompatible evidence remains unevaluable
+and returns a diagnostic failure; it never approves performance.
 
-Performance is advisory for both MolSysMT and direct third-party measurements:
-a scientifically correct implementation remains available even when slower.
-Confirm repeated comparable product inefficiency and open/update an improvement
-issue rather than restricting the tool. Differences at or below 15 percent
-generally do not need an efficiency issue; uncertainty and material resource
-impact still require scientific judgement. The performance workflow explicitly
-allows its job to fail without blocking implementation, while preserving native
-producer/comparison failure statuses and artifacts. Correctness tests remain
-mandatory in their owning workflows. Missing evidence is unevaluable, not a
-performance approval. No historical failed run or baseline is rewritten.
+Scientifically correct implementations stay available. Confirm representative,
+repeated comparable product inefficiency before opening/updating its improvement
+issue; direct external slowdowns alone do not identify a product defect. Native
+numeric equality is checked before timing. Competitive workers construct their
+objects through fresh spawn factories, with finite deadlines and bounded IPC
+lifecycle; startup/preparation stay outside timed samples. Legacy arbitrary
+closure/fork campaigns remain bounded but unqualified after arbitrary native
+parent preparation. Baseline renewal is separate and reviewed; September data
+and original failed campaigns stay unchanged. The performance workflow remains
+advisory, and correctness tests keep their own mandatory roles.
 
 The performance workflow is configured to retain reference/current JSON when produced, the
 source commit and producer/comparison logs for fourteen days, including after

@@ -118,6 +118,12 @@ detected.
 
 ## Conversion resolution
 
+Complementary inputs regenerate positional atom/structure indices. These are not
+scientific series copied from an off-axis reference and do not constitute lost
+observations. Real off-axis time, velocities or other structural observables
+still warn when no on-axis input can supply them. Incompatible trajectory counts
+remain errors; this distinction changes no coordinate or atom correspondence.
+
 ### CIF primary observations
 
 The shared mmCIF DataContainer converter supplies primary dimensionless occupancy

@@ -26,7 +26,65 @@ from benchmarks.competitors.test_loading import run_loading_benchmarks  # noqa: 
 from benchmarks.competitors.test_selections import (  # noqa: E402
     run_selection_benchmarks,
 )
-from benchmarks.harness import save_session_results  # noqa: E402
+from benchmarks.harness import _get_git_metadata, save_session_results  # noqa: E402
+from benchmarks.telemetry import (  # noqa: E402
+    comparison_context,
+    file_digest,
+    resource_observation,
+)
+
+
+def _canonicalize_owned_reference(path):
+    """Normalize the known leading writer block of a newly generated PDB."""
+    import hashlib
+
+    destination = Path(path)
+    raw = destination.read_bytes()
+    lines = raw.splitlines(keepends=True)
+    creator = b"REMARK   1 Created by MolSysMT version "
+    continuation = b"REMARK   1 Version continuation: "
+    created_on = b"REMARK   1 Created on "
+    if (
+        len(lines) < 2
+        or not lines[0].startswith(b"HEADER    MOLECULAR SYSTEM")
+        or not lines[1].startswith(creator)
+    ):
+        raise RuntimeError(
+            "The owned reference's generated provenance records require review."
+        )
+    end = 2
+    while end < len(lines) and lines[end].startswith(continuation):
+        end += 1
+    if end < len(lines) and lines[end].startswith(created_on):
+        end += 1
+    elif end > 2 or b" on " not in lines[1][len(creator) :]:
+        raise RuntimeError(
+            "The owned reference's generated provenance records require review."
+        )
+    # A new unrecognized writer field is reviewed, never treated as scientific
+    # data or silently discarded. Later scientific REMARK records stay exact.
+    if end < len(lines) and lines[end].startswith(b"REMARK   1 "):
+        raise RuntimeError(
+            "The owned reference's generated provenance records require review."
+        )
+    originals = {str(i): line.decode("ascii") for i, line in enumerate(lines[:end])}
+    prepared = (
+        b"HEADER    MOLSYSMT BENCHMARK REFERENCE\n"
+        b"REMARK   1 BENCHMARK REFERENCE; SEE SESSION PROVENANCE\n"
+        + b"".join(lines[end:])
+    )
+    destination.write_bytes(prepared)
+    return {
+        "normalization": "owned-generated-pdb-provenance@2",
+        "original_records": originals,
+        "prepared_provenance_record_count": 2,
+        "source_provenance_record_count": end,
+        "raw_pdb_sha256": hashlib.sha256(raw).hexdigest(),
+        "prepared_pdb_sha256": hashlib.sha256(prepared).hexdigest(),
+    }
+
+
+from molsysmt._pyunitwizard import STANDARD_UNITS  # noqa: E402
 
 
 def _prepare_reference(pdb_path):
@@ -77,6 +135,14 @@ def _prepare_reference(pdb_path):
     if not os.path.exists(pdb_path):
         print(f"Generating temporary reference PDB: {pdb_path}", flush=True)
         msm.convert(h5, to_form="file:pdb", output_filename=pdb_path)
+        provenance = _canonicalize_owned_reference(pdb_path)
+        provenance["source_h5_sha256"] = file_digest(h5)
+        provenance["producer_version"] = msm.__version__
+        return provenance
+    return {
+        "normalization": "existing-input-unchanged",
+        "prepared_pdb_sha256": file_digest(pdb_path),
+    }
 
 
 def main(argv=None):
@@ -97,15 +163,36 @@ def main(argv=None):
 
     # Give each campaign its own reference; never reuse or remove a caller file.
     results = []
-    with tempfile.TemporaryDirectory(prefix="molsysmt-benchmark-") as directory:
+    with (
+        tempfile.TemporaryDirectory(prefix="molsysmt-benchmark-") as directory,
+        msm.configure.context(
+            use_gpu=False,
+            parallel_mode=False,
+            num_threads=1,
+            precision="double",
+            heavy_mode="off",
+        ),
+        msm.pyunitwizard.context(
+            default_form="pint", default_parser="pint", standard_units=STANDARD_UNITS
+        ),
+    ):
         pdb_path = str(Path(directory) / "reference.pdb")
-        _prepare_reference(pdb_path)
+        reference_preparation = _prepare_reference(pdb_path)
+        observations = {"before": resource_observation()}
+        starting_context = comparison_context()
+        starting_source = _get_git_metadata()
         print("\n--- PHASE 1: Trajectory Loading Suite ---")
         run_loading_benchmarks(pdb_path, results)
         print("\n--- PHASE 2: Selection Language Suite ---")
         run_selection_benchmarks(pdb_path, results)
         print("\n--- PHASE 3: Coordinate Geometric Calculations Suite ---")
         run_geometry_benchmarks(pdb_path, results)
+        context = comparison_context()
+        observations["after"] = resource_observation()
+        if context != starting_context or _get_git_metadata() != starting_source:
+            raise RuntimeError(
+                "Benchmark source/execution context changed during measurement."
+            )
 
     # 3. Save JSON Session results
     out_file = args.output
@@ -114,6 +201,9 @@ def main(argv=None):
         session_name="competitive-performance-matrix",
         results=results,
         output_path=out_file,
+        comparison_context=context,
+        resource_observations=observations,
+        reference_preparation=reference_preparation,
     )
 
     # 4. Generate & Display Gorgeous ASCII Comparison Table
@@ -127,7 +217,7 @@ def main(argv=None):
     )
     print("=" * 86)
     print(
-        f" {'Operation Area':<28} | {'MolSysMT Public':<15} | {'MolSysMT JIT':<12} | {'MDTraj':<10} | {'MDAnalysis':<10}"
+        f" {'Operation Area':<28} | {'MolSysMT Public':<15} | {'MolSysMT Rust':<12} | {'MDTraj':<10} | {'MDAnalysis':<10}"
     )
     print("-" * 86)
 
@@ -211,7 +301,7 @@ def main(argv=None):
     )
     print("=" * 86)
     print(
-        f" {'Operation Area':<28} | {'MolSysMT Public':<15} | {'MolSysMT JIT':<12} | {'MDTraj':<10} | {'MDAnalysis':<10}"
+        f" {'Operation Area':<28} | {'MolSysMT Public':<15} | {'MolSysMT Rust':<12} | {'MDTraj':<10} | {'MDAnalysis':<10}"
     )
     print("-" * 86)
 
