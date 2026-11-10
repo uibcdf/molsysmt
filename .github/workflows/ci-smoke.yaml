@@ -96,7 +96,7 @@ jobs:
           set -euo pipefail
           python -m pip install --no-deps \
             -r devtools/controlled_sources.txt \
-            git+https://github.com/uibcdf/molsysviewer@b010ab76c2e15178e5ad987ad369cce02e40c921
+            git+https://github.com/uibcdf/molsysviewer@5164f13bb503625dbe65f3b657ab5260feadcb65
           python -m pip install --editable . --no-deps
 
       - name: Validate controlled dependency versions
@@ -269,6 +269,7 @@ jobs:
             tests/molsysviewer_molsysmt/test_periodic_panel.py \
             tests/molsysviewer_molsysmt/test_chemistry_panel.py \
             tests/molsysviewer_molsysmt/test_chemistry_assessments_panel.py \
+            tests/molsysviewer_molsysmt/test_assessed_protonation_panel.py \
             tests/molsysviewer_molsysmt/test_chemistry_preparation_panel.py \
             tests/molsysviewer_molsysmt/test_construction_panel.py \
             tests/molsysviewer_molsysmt/test_chemistry_repair_panel.py \
@@ -276,7 +277,9 @@ jobs:
             tests/molsysviewer_molsysmt/test_vector_angular_analysis_panel.py \
             tests/molsysviewer_molsysmt/test_pca_analysis_panel.py \
             tests/molsysviewer_molsysmt/test_property_analysis_panel.py \
+            tests/molsysviewer_molsysmt/test_secondary_structure_panel.py \
             tests/molsysviewer_molsysmt/test_analysis_visual_adoption.py \
+            tests/molsysviewer_molsysmt/test_figure_observations.py \
             tests/molsysviewer_molsysmt/test_mechanical_analysis_panel.py \
             tests/molsysviewer_molsysmt/test_physical_model_panel.py \
             tests/molsysviewer_molsysmt/test_interaction_analysis_panel.py \
@@ -284,6 +287,7 @@ jobs:
             tests/molsysviewer_molsysmt/test_scientific_session.py \
             tests/molsysviewer_molsysmt/test_continuous_session.py \
             tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py \
+            tests/molsysviewer_molsysmt/test_jupyter_stage_diagnostics.py \
             tests/molsysviewer_molsysmt/test_remove_tools.py \
             tests/molsysviewer_molsysmt/test_set_tools.py \
             tests/molsysviewer_molsysmt/test_conversion_tools.py \

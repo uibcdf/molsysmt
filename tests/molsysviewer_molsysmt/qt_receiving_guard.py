@@ -96,6 +96,8 @@ def test_actual_qt_scalar_colors_and_selected_structure_plot(tmp_path):
         check=False,
     )
     assert result.returncode == 0, result.stdout + result.stderr
+    assert "Failed to restore OpenGL context" not in result.stderr
+    assert "OpenGL resources will not be destroyed" not in result.stderr
     report = json.loads((tmp_path / "report.json").read_text())
     assert len(report["checks"]) == 4
     assert report["qt_platform"] not in ("offscreen", "minimal")

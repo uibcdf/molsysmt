@@ -1,6 +1,7 @@
 """Native geometric analysis, global result axes, bounded pages and lifetimes."""
 
 import json
+from functools import wraps
 
 import molsysviewer as msv
 import numpy as np
@@ -371,6 +372,7 @@ def test_plot_failure_and_retry_do_not_repeat_the_native_calculation(case, monke
     values = panel._report.values
     show = view.trajectory_plot.show
 
+    @wraps(show)
     def rejected(*args, **kwargs):
         raise RuntimeError("Injected plot failure before publication")
 

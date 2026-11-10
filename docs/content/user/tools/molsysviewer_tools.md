@@ -6552,3 +6552,16 @@ system into an empty view. Presented result views remain independent. These
 source workflows are received separately in actual Jupyter/both popups and
 native Qt; package availability, owner integration and human acceptance retain
 their separate records.
+
+### Keeping calculation details with plots
+
+When you add a compatible structure series to core Plots, open **Calculation
+details** in its card to read the stored native method, inputs, units and
+projection. Mass-weighted calculations retain the effective weights and their
+native mass source. Clearing the Analysis report keeps the figure and these
+details. They survive saving and structure extraction as historical context;
+they do not verify that a later molecular edit still matches or recalculate the
+series. Preserve the molecular/reference inputs and environment for reproduction.
+This experimental source feature requires a coordinated Viewer runtime with
+observation support. An older runtime explains why adoption is unavailable;
+you can still use the scientific report and expert API.

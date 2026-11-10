@@ -4,6 +4,8 @@ from secrets import token_urlsafe
 
 import numpy as np
 
+from ._figure_observation import plot_context, plot_support_limit
+
 _SCALAR_PROPERTIES = {"mass", "reference_charge", "hydrophobicity", "polarity", "sasa"}
 _SERIES_LAYOUTS = {
     "matrix",
@@ -59,7 +61,7 @@ class _VisualReportAdoption:
             return "This result has no compatible per-structure scalar series."
         if report.frames != list(range(int(self._view.player.n_structures))):
             return "A linked plot needs every loaded structure once, in index order. Choose All structures; missing or repeated observations are not filled or reordered."
-        return ""
+        return plot_support_limit(self._view)
 
     def _adopt_colors(self, report, position, options, request_id):
         from molsysmt import pyunitwizard as puw
@@ -168,8 +170,13 @@ class _VisualReportAdoption:
         if not isinstance(component, str) or component not in {"x", "y", "z"}:
             raise ValueError("Choose a Cartesian vector component.")
         task = report.parameters["task"]
+        projection = {"layout": report.layout}
         if report.layout == "property_structures":
             _, column = divmod(position, len(report.auxiliary["indices"]))
+            projection.update(
+                element=report.auxiliary["element"],
+                index=int(report.auxiliary["indices"][column]),
+            )
             values = np.asarray(report.values)[:, column]
             unit = report.unit
             label = f"SASA · {report.auxiliary['element']} {report.auxiliary['indices'][column]}"
@@ -180,8 +187,10 @@ class _VisualReportAdoption:
                 )
             )
             unit, label = "nm", task.title() + " distance in each structure"
+            projection["native_endpoint_output"] = report.auxiliary
         else:
             _, a, b, _ = self._row(position)
+            projection.update(first_position=int(a), second_position=int(b))
             native = (
                 report.native_values[:, a]
                 if report.layout in {"paired", "vector_paired", "tuples"}
@@ -208,6 +217,7 @@ class _VisualReportAdoption:
                 )
                 label = f"{task.title()} · {first} → {second}"
             if report.layout.startswith("vector"):
+                projection["component"] = component
                 values = values[:, {"x": 0, "y": 1, "z": 2}[component]]
                 label += " · " + component.upper()
         if values.shape != (len(report.frames),) or not np.all(np.isfinite(values)):
@@ -221,6 +231,7 @@ class _VisualReportAdoption:
             title=label,
             x_label="Structure index",
             y_label=f"Value ({unit})",
+            observations=[plot_context(report, unit, projection)],
         )
         self._publish(
             stage="scene",

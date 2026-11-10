@@ -24,7 +24,19 @@ async function colors(p,wanted){await p.waitForFunction(wanted=>{
  const refs=Array.from(c.state.globalReprs||[]);const r=refs.map(ref=>c.plugin.state.data.cells.get(ref)?.obj?.data?.repr).find(r=>r?.theme?.color?.color);
  if(!r)return false;return wanted.every((value,i)=>{const unit=s.units.find(u=>Array.from(u.elements).includes(i));return unit&&Number(r.theme.color.color({kind:'element-location',structure:s,unit,element:i},false))===value;});
  },wanted);}
-async function verifyPlot(p,expected){const card=p.locator('[data-molsysviewer-datacard^="molsysmt-report-"]').last();await card.waitFor();const svg=card.locator('svg:has(polyline)'),points=await svg.locator('polyline').evaluate(n=>n.getAttribute('points').split(/\s+/).map(s=>s.split(',').map(Number)));assert.equal(points.length,3);const low=expected.indexOf(Math.min(...expected)),high=expected.indexOf(Math.max(...expected));assert.notEqual(low,high);for(let i=0;i<3;i++)assert.ok(Math.abs((points[i][1]-points[low][1])/(points[high][1]-points[low][1])-(expected[i]-expected[low])/(expected[high]-expected[low]))<1e-6);return {card,svg,points};}
+async function verifyContext(card){
+ const details=card.locator('[data-molsysviewer-plot-context]'),summary=details.locator('summary');
+ await summary.focus();await summary.press('Enter');
+ const raw=details.locator('[data-molsysviewer-series-observation="0"]');await raw.waitFor();
+ const record=JSON.parse(await raw.innerText()),context=record.context;
+ assert.equal(context.schema,'molsysmt.figure_observation@1');assert.equal(context.method,'molsysmt.physchem.get_sasa');
+ assert.equal(context.units.displayed,'nm**2');assert.deepEqual(record.original_observation_rows,[0,1,2]);
+ const expanded=context.arguments.selection.runs.flatMap(([start,step,count])=>Array.from({length:count},(_,i)=>start+i*step));
+ assert.deepEqual(expanded,[20,10,6,20]);assert.equal(context.projection.index,20);
+ assert.equal(context.source.correspondence,'declared_not_authenticated');assert.equal(context.source.raw_edits_observed,false);
+ assert.ok(context.software.molsysmt);await summary.press('Enter');return context;
+}
+async function verifyPlot(p,expected){const card=p.locator('[data-molsysviewer-datacard^="molsysmt-report-"]').last();await card.waitFor();const svg=card.locator('svg:has(polyline)'),points=await svg.locator('polyline').evaluate(n=>n.getAttribute('points').split(/\s+/).map(s=>s.split(',').map(Number)));assert.equal(points.length,3);const low=expected.indexOf(Math.min(...expected)),high=expected.indexOf(Math.max(...expected));assert.notEqual(low,high);for(let i=0;i<3;i++)assert.ok(Math.abs((points[i][1]-points[low][1])/(points[high][1]-points[low][1])-(expected[i]-expected[low])/(expected[high]-expected[low]))<1e-6);await verifyContext(card);return {card,svg,points};}
 async function point(svg,xy){const position=await svg.evaluate((n,v)=>{const p=n.createSVGPoint();p.x=v[0];p.y=v[1];const s=p.matrixTransform(n.getScreenCTM()),b=n.getBoundingClientRect();return{x:s.x-b.left,y:s.y-b.top};},xy);await svg.click({position});}
 try{
  browser=await chromium.launch({headless:true,executablePath:config.chromium,args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
@@ -39,7 +51,7 @@ try{
  });
  let svg,points;
  await step('Plot one SASA output through every source structure without changing the color snapshot',async()=>{
-  const e=await prepare(page,'sasa','indices');await e.locator('[data-structures]').selectOption('all');await calculate(e);await e.locator('[data-result-row="0"]').check();await e.locator('[data-selected-plot-actions] summary').click();await e.locator('[data-add-result-plot]').click();await e.locator('[data-status]').filter({hasText:'selected observation'}).waitFor();({svg,points}=await verifyPlot(page,expected.sasa));assert.match(await svg.locator('..').innerText(),/nm\*\*2/);await e.locator('[data-clear]').click();await e.locator('[data-report]').waitFor({state:'hidden'});await colors(page,expected.whole_colors);
+  const e=await prepare(page,'sasa','indices');await e.locator('[data-structures]').selectOption('all');await calculate(e);await e.locator('[data-result-row="0"]').check();await e.locator('[data-selected-plot-actions] summary').click();await e.locator('[data-add-result-plot]').click();await e.locator('[data-status]').filter({hasText:'selected observation'}).waitFor();({svg,points}=await verifyPlot(page,expected.sasa));assert.match(await svg.locator('..').innerText(),/nm\*\*2/);await e.locator('[data-clear]').click();await e.locator('[data-report]').waitFor({state:'hidden'});await colors(page,expected.whole_colors);await verifyPlot(page,expected.sasa);
   const canvasOutput=page.locator('[data-molsysviewer-canvas-output]').first();await canvasOutput.getByRole('button',{name:'Show canvas controls',exact:true}).focus();await page.keyboard.press('Enter');await canvasOutput.getByTitle('Panel mode (N / W)',{exact:true}).click();await e.waitFor({state:'hidden'});await point(svg,points[1]);await page.waitForFunction(()=>window.__controllers[0].trajectory.getTrajectoryState().currentFrame===1);await colors(page,expected.whole_colors);
  });
  let canvas,studio;
@@ -48,7 +60,11 @@ try{
   const e=await prepare(canvas,'sasa','indices');await e.locator('[data-structures]').selectOption('all');await calculate(e);await e.locator('[data-result-row="0"]').check();await e.locator('[data-selected-plot-actions] summary').click();await e.locator('[data-add-result-plot]').click();await e.locator('[data-status]').filter({hasText:'selected observation'}).waitFor();await verifyPlot(canvas,expected.sasa);await verifyPlot(page,expected.sasa);
  });
  await step('Refuse incomplete Whole coloring in detached Studio without changing either canvas',async()=>{
-  const detached=canvas.waitForEvent('popup');await canvas.getByTitle('Popout panel to external window',{exact:true}).click();studio=await detached;record(studio);await studio.locator('#molsysviewer-loading').waitFor({state:'detached'});const e=await prepare(studio,'mass','indices');await calculate(e);await e.locator('[data-result-row="0"]').check();await e.locator('[data-color-actions] summary').click();await e.locator('[data-apply-report-colors]').click();await e.locator('[data-status]').filter({hasText:'does not cover every atom'}).waitFor();await colors(page,expected.whole_colors);await colors(canvas,expected.whole_colors);assert.equal(await e.locator('[data-report]').isVisible(),true);await studio.screenshot({path:output+'/visual-studio-popup.png'});await studio.close();await canvas.close();
+  const detached=canvas.waitForEvent('popup');await canvas.getByTitle('Popout panel to external window',{exact:true}).click();studio=await detached;record(studio);await studio.locator('#molsysviewer-loading').waitFor({state:'detached'});const e=await prepare(studio,'mass','indices');await calculate(e);await e.locator('[data-result-row="0"]').check();await e.locator('[data-color-actions] summary').click();await e.locator('[data-apply-report-colors]').click();await e.locator('[data-status]').filter({hasText:'does not cover every atom'}).waitFor();await colors(page,expected.whole_colors);await colors(canvas,expected.whole_colors);assert.equal(await e.locator('[data-report]').isVisible(),true);
+  const calculation=await prepare(studio,'sasa','indices');await calculation.locator('[data-structures]').selectOption('all');await calculate(calculation);
+  await calculation.locator('[data-result-row="0"]').check();await calculation.locator('[data-selected-plot-actions] summary').click();await calculation.locator('[data-add-result-plot]').click();await calculation.locator('[data-status]').filter({hasText:'selected observation'}).waitFor();
+  await calculation.locator('[data-clear]').click();await calculation.locator('[data-report]').waitFor({state:'hidden'});
+  await verifyPlot(page,expected.sasa);await verifyPlot(canvas,expected.sasa);await studio.screenshot({path:output+'/visual-studio-popup.png'});await studio.close();await canvas.close();
  });
 
  await step('Adopt atomic RMSF as an explicit length-color snapshot without an invented trajectory axis',async()=>{
