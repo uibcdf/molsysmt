@@ -945,3 +945,20 @@ in the routine source-route inventory and all existing workflow callers. It
 receives native/source atom correspondence under Viewer #347 and the corrected
 scene-contract guard #348. This changes no public package floor or candidate;
 owner adoption, consolidated hosted gates and installed artifacts remain distinct.
+
+
+### Observed secondary-structure report — 2026-11-10
+
+The properties family includes categorical MDTraj DSSP. The atom editor resolves
+complete output groups in first-encounter order; native assignment still uses
+the full backbone before projecting requested groups and repeated structures.
+Fifty-row pages carry explicit source structure/group indices and quoted codes,
+including a meaningful blank full-code loop and NA for absent backbone quartets.
+The report retains actual provider version and method provenance; independent
+DSSP accuracy is not inferred from backend parity. It neither predicts from
+sequence, repairs chemistry nor reconstructs periodic molecules. Deliberate
+participant selection/focus does not navigate; scalar colors/plots are refused.
+The [source receiving record](../devtools/data/secondary_structure_receiving_694_20261110.json)
+receives this original combined properties intent. Human, installed and final
+candidate gates remain separate. Native eager/chunked admission is not a
+universal process-RSS or wall-time bound.

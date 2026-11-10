@@ -1,9 +1,9 @@
 ---
 summary: Secondary-structure adapter loses requested group order and lacks explicit provider boundary.
 issue: uibcdf/molsysmt#694
-status: active
+status: resolved
 opened: 2026-11-10
-closed:
+closed: 2026-11-10
 severity: high
 verification: reproduced
 area: [structure, units]
@@ -90,3 +90,18 @@ retains its outer panel scope and cannot match inside details. The guard now
 locates the disclosure by its actual user-visible summary text, opens it with
 a click, and checks the visible provenance. Both failed attempts remain failed;
 Qt, native arrays and scientific results are unaffected.
+
+
+## Guarded resolution — 2026-11-10
+
+The [receiving record](../../../devtools/data/secondary_structure_receiving_694_20261110.json)
+identifies product 707ea24b2 and final browser-guard source a0a7d5470. It retains
+all failed attempts, exact input correspondence, bounded resources and scope.
+186 affected cases, 116 registered scientific cases / 74 nodes, fourteen local
+gates, the full lightweight tutorial and docstring pass. Six HTML pages and
+26 preserved old notebook code cells are checked. Seven actual Jupyter checks
+and seven representative native Qt checks pass, including categorical source
+correspondence and deliberate participant actions. The native contract guard
+fails on the original order/repetition/array/signature defects. No independent
+DSSP assignment validation, installed/final-candidate or human Qt acceptance is
+inferred. The original #421 properties intent can now receive its own weight.

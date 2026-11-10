@@ -1,5 +1,23 @@
 # Pre-1.0 robustness audit and action plan — 6 November 2026
 
+## Observed secondary structure received — 2026-11-10
+
+#694 is guarded and source-resolved. Product **707ea24b2** and final browser
+control **a0a7d5470** retain byte-identical scientific/provider/user-doc inputs.
+**186 affected cases**, **116 scientific cases / 74 nodes**, **14 fast gates**,
+the executed docstring/tutorial, six inspected HTML pages, **seven actual Jupyter
+checks and seven representative native Qt checks** pass. The receipt preserves
+two failed browser controls and earlier native/fixture attempts. DSSP accuracy
+remains a governed independent-validation gap; this does not promote its method.
+See the [receiving record](../devtools/data/secondary_structure_receiving_694_20261110.json).
+
+Credit exactly the original properties/secondary-structure intent: **43/50**,
+**76.0364% (about 76.0%)**. Supplemental #694 adds
+no bonus. Assessed protonation and five construction intents, contacts/provider143,
+#615, #524 clean-installed actual-host minimum, #250/#254 agreement and the final
+candidate/publication gates remain separate. No package/tag/Release or hosted
+matrix is launched. Continue the native assessed-decision GUI workflow next.
+
 ## Public combined closeout verified — 2026-11-10
 
 Public main **76ed1c3a1** independently matches all **39 changed/deleted paths**;
