@@ -1,9 +1,9 @@
 ---
 summary: Native neighbor cell grids can allocate gigabytes for two atoms and a small valid cutoff.
 issue: uibcdf/molsysmt#690
-status: active
+status: resolved
 opened: 2026-11-10
-closed:
+closed: 2026-11-10
 severity: critical
 verification: reproduced
 area: [structure, rust]
@@ -20,17 +20,17 @@ supersedes: []
 The reporter's protected two-atom query with coordinates [0,0,0]/[1,1,1] nm,
 disjoint source selections and threshold 0.001 nm attempts an 8,000,000,000-byte
 cell-head allocation. An independently imposed 2 GiB address-space limit and
-zero core-dump limit produce native abort -6. This is reported evidence, not a
-passing scientific test or an unconstrained reproduction by this agent.
+zero core-dump limit produce native abort -6. The independently repeated protected baseline confirms this reported failure;
+it is not an unconstrained allocation experiment.
 
 ## How
 
-Source inspection confirms `rust/src/neighbors.rs`: vacuum and periodic grids
+At the original source, inspection confirms `rust/src/neighbors.rs`: vacuum and periodic grids
 allocate a dense `head` vector from unchecked nx*ny*nz products, independently
 of occupied cells. All structure grids are retained before the query loop.
 Sparse CSR output does not bound this intermediate. The Python dispatch does
 not supply the configured numerical memory budget to the compiled kernel.
-The source is unchanged from the reported backend at public 1ba5d8af9.
+The original kernel matches the reported backend at public 1ba5d8af9.
 
 ## Why
 
@@ -40,7 +40,7 @@ would obscure a provider defect. Treat this as priority pre-1.0 correctness and
 resource integrity ahead of optional draft #687 work. Existing formal phase
 weights remain unchanged; no artificial repair bonus is introduced.
 
-## Implementation strategy under review
+## Accepted implementation
 
 Preserve the exact requested distance predicate and existing reduced-cell MIC.
 Bound cell-head cardinality by population and the negotiated working allowance;
@@ -74,7 +74,8 @@ reservation on the shared host. Keep #666's exact cutoff/unit boundary separate.
 
 2026-11-10 owner source review, reported compiled SHA-256
 2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525.
-No Rust rebuild or native reproduction has yet been executed for this issue.
+The initial diagnosis preceded the protected reproduction and canonical rebuild
+recorded below; neither is inferred from the earlier model/context receipt.
 The independently completed #582/#688/#689 receiving does not cover this defect.
 
 ## Protected reproduction and implementation — 2026-11-10
@@ -103,3 +104,39 @@ its periodic box check indexes row zero of an empty selected box series. The
 nonperiodic empty control passes. The check now admits the empty series without
 reading row zero; typed CSR offsets remain [0] and no native grid is needed.
 This is within the reported empty-scope receiving, without changing geometry.
+
+## Accepted source receiving — 2026-11-10
+
+Clean **573476e70a4607bd42d21e9c7a866388fc3c1e6c**, canonical offline Rust
+1.97.1 rebuild, backend SHA-256
+**58653b1d477be36017d2bc721dafe6e85a508e2325fa3226ccf26c61d449d6e5**:
+**954 affected cases**, **83 legacy/consumer cases**, **87 Rust tests**,
+**116 scientific cases / 74 nodes**, **14 fast gates**, the repository-required
+Clippy command and eight inspected rendered pages pass. Four notebooks retain
+all **37 executable cells**, outputs and execution metadata. The [receiving
+record](../../../devtools/data/native_neighbor_allocation_receiving_690_20261110.json)
+retains exact inputs, canonical build, original failed controls and resource
+observations. The public numerical-budget exception has an explicit root export.
+No scientific cutoff, MIC predicate, schema or dependency floor changes.
+
+The selected guard includes the protected original abort, independent lattice
+and Euclidean oracles, configured/observed budget refusals, sparse admission,
+empty/invalid scopes, source preservation and forced contact-map admission.
+This closes the native allocation failure, not every surrounding GUI or
+representation cost. The numerical estimate is not total RSS or reserved RAM.
+
+All three actual-Jupyter attempts remain **failed**: a two-CPU late-workflow
+deadline, a four-CPU server-startup deadline before a molecular cell, and a
+four-CPU PCA-popup deadline after numeric geometry checks. The complete UI
+workflow remains under #421; the distinct #615 uncertainty stays open. No
+assertion or deadline was relaxed. The supplemental `--all-targets` Clippy
+attempt also remains failed on nine inherited test-only statements; the actual
+required production-library command passes without suppression.
+
+The short same-host paired kernel pilot preserves exact indices/offsets and
+distances within 1e-13 nm, with median additional CPU cost about 8–21%.
+[#692](https://github.com/uibcdf/molsysmt/issues/692) owns advisory optimization;
+[#693](https://github.com/uibcdf/molsysmt/issues/693) owns separate Python
+compatibility-output accounting. Neither withdraws this correct allocation
+repair. Scale, complete GUI, installed/platform and final-candidate acceptance
+are not inferred. Formal weighted progress remains **75.6386%**.

@@ -51,7 +51,7 @@ requirements cannot be replaced by more source-only tests.
 can request gigabytes for two atoms. Allocation-safe reproduction, checked/bounded
 native search and numerical-budget/output receiving precede draft #687. This
 critical correctness/resource report adds no weight and is not covered by the
-completed model/context receipt. See the [owning diagnosis](../pending_bugs/native_neighbor_cell_grids_can_allocate_gigabytes_for_two_atoms_and_a_small_cutoff.md).
+completed model/context receipt. See the [owning diagnosis](../archive/resolved_bugs/native_neighbor_cell_grids_can_allocate_gigabytes_for_two_atoms_and_a_small_cutoff.md).
 
 1. Completed: public source/blob verification, #582/#689 guarded closure and
    exact-source notices to #688/#687. Their retained receipts define the scope.
@@ -4045,3 +4045,16 @@ graphical intent gains credit; #421 remains partial at 31/50 intents. The
 full installed/platform/final-candidate acceptance and remaining intent families
 stay due. Scientific profiles, units, images, sparse queries and provenance
 contracts are unchanged by this source-host update.
+
+## Native allocation and incoming session checkpoint — 2026-11-10
+
+#690's native allocation defect is source-resolved and independently received;
+its exact [receipt](../../devtools/data/native_neighbor_allocation_receiving_690_20261110.json)
+retains three failed complete-Jupyter attempts. They do not accept an entire
+workflow or establish #615 causality. #692/#693 own advisory performance and
+additional Python representation costs without artificial formal points.
+Review incoming #687 f35112090 and stacked #691 0fb92602a against exact Viewer
+b9f3be01. Receive their actual combined interaction/mechanics/continuous-session
+scopes after preserving the compiled native correction. #688's reporter-owned
+retirement handoff and removal of unconditional call-site cleanup need owner
+receiving. Existing original intent weights stay unchanged until accepted.

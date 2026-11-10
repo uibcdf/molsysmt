@@ -1,5 +1,38 @@
 # MolSysMT 1.0 Execution Status
 
+## Native allocation repair received; incoming session work — 2026-11-10
+
+#690 is source-resolved on clean **573476e70** with the canonical rebuilt
+backend. Population-bounded cell tables, checked/fallible sizing and shared
+observed-output admission replace allocation proportional to empty volume.
+The original protected two-atom abort now succeeds without changing the cutoff
+or MIC. **954 affected cases, 83 legacy/consumer cases, 87 Rust tests,
+116 scientific cases / 74 nodes, fourteen fast gates and required Clippy pass**.
+Eight rendered pages and 37 unchanged notebook code cells/outputs are inspected.
+See the [native receiving record](../devtools/data/native_neighbor_allocation_receiving_690_20261110.json)
+and [resolution](archive/resolved_bugs/native_neighbor_cell_grids_can_allocate_gigabytes_for_two_atoms_and_a_small_cutoff.md).
+
+All three actual-Jupyter attempts remain failed: two late-workflow deadlines
+and one cold server-startup deadline. Their completed numeric checks do not
+accept the entire workflow; #421 retains UI receiving and #615 remains causally
+unresolved. The supplemental all-targets Clippy failure is retained separately
+from the passing required command. Short paired kernel medians suggest about
+8–21% extra cost; #692 owns advisory optimization, while #693 owns additional
+Python compatibility-output accounting. Neither adds a new release blocker or
+changes scientific criteria. Resource caps preserve the shared-host reserve;
+no own OOM or reserve stop occurs in the correction receiving.
+
+The complete checkpoint finds **616 issues / 93 open** before our two bounded
+proposals, plus incoming draft **#691** stacked on updated **#687**. Review their
+exact 0fb92602a/f35112090 heads against raw-blob-verified Viewer b9f3be01,
+reconcile the native recipe and scoped launcher, then receive actual combined
+interaction/mechanics/continuous-session behavior. The reporter's #688 retirement
+handoff is now supplied in #691; its call-site cleanup correction still needs
+owner receiving before closure. Formal progress stays **75.6386% (75.6%)**,
+**39/50 graphical intents**, with no repair bonus. #524 actual installed floors,
+#250/#254 agreement, #256 P5/P6 and #334 exact-candidate gates remain separate.
+No hosted matrix, package, tag, Release or promotion is launched.
+
 ## Model and context closeout received — 2026-11-10
 
 Public main **1ba5d8af9** is independently verified across all **62 changed
@@ -37,7 +70,7 @@ requirements cannot be replaced by more source-only tests.
 can request gigabytes for two atoms. Allocation-safe reproduction, checked/bounded
 native search and numerical-budget/output receiving precede draft #687. This
 critical correctness/resource report adds no weight and is not covered by the
-completed model/context receipt. See the [owning diagnosis](pending_bugs/native_neighbor_cell_grids_can_allocate_gigabytes_for_two_atoms_and_a_small_cutoff.md).
+completed model/context receipt. See the [owning diagnosis](archive/resolved_bugs/native_neighbor_cell_grids_can_allocate_gigabytes_for_two_atoms_and_a_small_cutoff.md).
 
 1. Completed: public source/blob verification, #582/#689 guarded closure and
    exact-source notices to #688/#687. Their retained receipts define the scope.
