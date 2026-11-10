@@ -1,5 +1,22 @@
 # MolSysMT 1.0 Execution Status
 
+## New native integrity intake — 2026-11-10
+
+Complete paginated intake after #694 has 620 issues, 94 open issues and one new
+PR, #696 at 30b2c8b50. **#695 is prioritized as a native correctness defect**:
+full box replacement can silently misalign coordinate/time series without named
+analyses. Twelve protected native-only controls fail on public 68bd19103; six
+existing attached-analysis guards pass. The shared native publication fix now
+passes those eighteen controls. Complete cardinality/unit/selected-axis,
+constructor and affected-consumer receiving remains required before closure.
+See the [owning record](pending_bugs/box_assignment_misaligns_native_structure_series.md).
+
+Retain the existing one-box-per-addressed-structure contract; no implicit
+ensemble broadcast is introduced. New construction stages its complete payload;
+editing an existing object must not leave conflicting axes. Assessed protonation
+and #696 physical-model consumer receiving remain separate work. Supplemental
+#695 adds no original milestone weight. Publication remains paused.
+
 ## Observed secondary structure received — 2026-11-10
 
 #694 is guarded and source-resolved. Product **707ea24b2** and final browser

@@ -60,6 +60,12 @@ The dynamic payload of the system. It manages time-dependent geometric and physi
   energies, temperature, B-factors, occupancy, alternate locations, and
   bioassembly metadata where available.
 - **Centralized Logic:** `Structures` centralizes all low-level property access via methods (`get_coordinates`, `set_coordinates`, etc.).
+- **Box-edit alignment:** A full/selected box assignment supplies one cell per
+  addressed structure; a single cell is not implicitly broadcast. The native
+  publication boundary checks all stored structural series before mutation,
+  independently of owner/analysis presence. Invalid cardinality preserves
+  geometry and named-analysis coverage. Constructors stage a complete new
+  payload and validate it separately.
 
 ### 2.4 `molsysmt.ChemicalStates`
 The collection owns state-local bonds, atom assignments and components on a

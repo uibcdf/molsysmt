@@ -3633,7 +3633,9 @@ def set_box_to_system(item, structure_indices="all", value=None, skip_digestion=
     -----
     Selected structures become unevaluated in every named interaction analysis
     once geometry delegation starts, including when clearing a full box series.
-    Full assignment preserves the structure axis when analyses are attached.
+    Full assignment preserves alignment with every stored structural series,
+    including when no analyses are attached. Supply one box per addressed
+    structure; a single box is not broadcast across multiple structures.
 
     .. versionadded:: 1.0.0
     """

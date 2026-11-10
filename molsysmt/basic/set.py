@@ -60,6 +60,13 @@ def set(
 
     Notes
     -----
+    Native box assignment requires one matrix per addressed structure, with
+    shape (n_selected_structures, 3, 3) and explicit length units. A single
+    matrix is one structure, not an implicit broadcast. Incompatible full-axis
+    cardinalities fail before publishing the box or invalidating analyses,
+    including for standalone Structures and analysis-free MolSys. None clears
+    the full box series; partial initialization requires an existing series.
+
     Native MolecularMechanics atom assignments accept one-dimensional string
     atom_ff_type labels or explicit partial-charge vectors. Values follow the
     selected atom order. A subset requires an existing mechanical atom axis;
