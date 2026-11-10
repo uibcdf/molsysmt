@@ -10,7 +10,7 @@ MolSysMT provides a centralized configuration manager, **`molsysmt.configure`**,
 All global options are attributes of `molsysmt.configure`:
 
 ### 1. Memory Management & Heavy Execution
-- **`max_ram_usage`**: Maximum RAM threshold (default: 50% of detected physical system RAM) before switching from eager to chunked execution.
+- **`max_ram_usage`**: Numerical working allowance (default: 50% of detected physical system RAM) used by supported eager/heavy decisions, resident outputs and native cell-search admission. It is an estimate, not process RSS, an OS cap or a reservation on a shared host.
 - **`chunk_size`**: Default number of structures per chunk block (default: 100) during chunked execution.
 - **`heavy_mode`**: Execution path control (`'auto'`, `'force'`, or `'off'`).
 - **`memory_pressure_threshold`**: RSS memory pressure warning threshold (default: `0.80`).

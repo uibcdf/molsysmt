@@ -5,9 +5,9 @@ status: active
 opened: 2026-11-10
 closed:
 severity: critical
-verification: inspected
+verification: reproduced
 area: [structure, rust]
-guard:
+guard: tests/structure/get_neighbors/test_allocation_bounds.py
 normative:
 blocked_by: []
 supersedes: []
@@ -76,3 +76,30 @@ reservation on the shared host. Keep #666's exact cutoff/unit boundary separate.
 2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525.
 No Rust rebuild or native reproduction has yet been executed for this issue.
 The independently completed #582/#688/#689 receiving does not cover this defect.
+
+## Protected reproduction and implementation — 2026-11-10
+
+The owning reproduction confirms the exact requested 8,000,000,000-byte
+allocation and child exit -6 with a 2 GiB address-space ceiling/core dumps off;
+the whole bounded run peaks at about 242 MiB. The same protected query succeeds
+with the rebuilt backend. Five added Rust resource guards plus existing
+independent geometry pass (87 cases); 31 focused Python cases pass after an
+initial fixture assumes an unexported root exception. The existing catalog
+exception is now deliberately exposed publicly for callers, with a stability
+entry and ordinary budget/error guards; no private-module import is required.
+
+Cell heads are capped linearly and coarsened without changing the exact
+predicate. Sizing is checked; Vec reservations are fallible; controlled scratch
+and observed output charge share one atomic budget. Sparse queries are not
+rejected by quadratic worst-case output. The contact consumer reserves its
+Boolean map, defers allocation until native admission and fills using one
+occurrence-index vector. Final rebuilt/consumer/scientific/documentation and
+performance receiving remain pending; this is not source closure.
+
+## Empty periodic scope control — 2026-11-10
+
+The required empty-structure test exposes a separate public fast-path edge:
+its periodic box check indexes row zero of an empty selected box series. The
+nonperiodic empty control passes. The check now admits the empty series without
+reading row zero; typed CSR offsets remain [0] and no native grid is needed.
+This is within the reported empty-scope receiving, without changing geometry.

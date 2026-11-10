@@ -2726,6 +2726,13 @@
       "owner": "diagnostics",
       "documentation": "docs/content/user/tools/molecular_mechanics/get_model_recipe.md",
       "contract_tests": "tests/molecular_mechanics/test_model_recipe.py"
+    },
+    "molsysmt.MemoryBudgetExceededError": {
+      "stability": "outside-contract",
+      "introduced": "1.0.0",
+      "owner": "diagnostics",
+      "documentation": "docs/content/user/tools/structure/get_neighbors.ipynb",
+      "contract_tests": "tests/structure/get_neighbors/test_allocation_bounds.py"
     }
   },
   "pre_1_0_namespace_moves": {

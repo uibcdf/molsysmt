@@ -71,7 +71,7 @@ def _threshold_neighbors_via_cell_list(
             structure_indices=structure_indices,
             box=True,
         )
-        if box_q is not None and box_q[0] is not None:
+        if box_q is not None and len(box_q) and box_q[0] is not None:
             box = np.ascontiguousarray(
                 puw.get_value(box_q, to_unit=length_units), dtype=np.float64
             )
@@ -233,6 +233,9 @@ def get_neighbors(
     ------
     ArgumentConflictError
         If both ``threshold`` and ``n_neighbors`` are set, or neither is set.
+    MemoryBudgetExceededError
+        If cell-search working storage or actual CSR output exceeds the
+        configured numerical allowance, or its sizing cannot be represented.
     NotImplementedMethodError
         For output-type/index combinations not yet implemented.
     ArgumentError
@@ -241,6 +244,14 @@ def get_neighbors(
 
     Notes
     -----
+    Eligible positive-cutoff cell searches use population-bounded grids and
+    checked numerical working admission, including selected input blocks,
+    retained grids, controlled scratch and actual CSR output. Coarsening never
+    changes the cutoff or minimum-image criterion. The configured allowance
+    is not process RSS or a reservation; coordinate preparation, source domains
+    and dense fallbacks have separate costs. A refusal raises
+    ``molsysmt.MemoryBudgetExceededError`` without editing the source.
+
     Counts can be zero. Thresholds are finite nonnegative scalar lengths and
     include the boundary. Returned indices refer to local target positions;
     pair output can request atom or selection labels. Pair filters require
