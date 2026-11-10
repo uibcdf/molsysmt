@@ -120,6 +120,7 @@ _LAZY_ATTRIBUTES = {
         "NotImplementedIteratorError",
     ),
     "NotImplementedMethodError": ("._private.smonitor", "NotImplementedMethodError"),
+    "MemoryBudgetExceededError": ("._private.smonitor", "MemoryBudgetExceededError"),
     "UnsupportedMechanicalControlError": (
         "._private.smonitor",
         "UnsupportedMechanicalControlError",

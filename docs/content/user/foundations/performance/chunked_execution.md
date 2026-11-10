@@ -116,3 +116,32 @@ for chunk_index, coordinates in enumerate(iterator):
 ## Memory Pressure Monitoring
 
 MolSysMT integrates with **SMonitor** to track Real Resident Set Size (RSS) memory pressure during execution. If RAM consumption exceeds `molsysmt.configure.memory_pressure_threshold`, a `MemoryPressureWarning` is emitted, allowing workflows to adapt dynamically.
+
+## Sparse searches still need a budget
+
+The native positive-cutoff cell search bounds head tables by reference
+population (at most four heads per reference atom), coarsening cells when
+necessary. Coarser cells only broaden the candidate search: the requested
+inclusive distance criterion and reduced-cell minimum image remain unchanged.
+Empty spatial volume and smaller valid cutoffs do not create unbounded grids.
+
+The selected numeric input blocks, retained grids, row bookkeeping, controlled
+thread scratch and actual observed CSR entries have checked working estimates
+against `configure.max_ram_usage`. Output is charged after a query's actual
+neighbor count is known, rather than rejecting sparse queries by their maximum
+possible pairs. Packed/per-query output coexistence is included. A refusal
+raises public `msm.MemoryBudgetExceededError` (catalog MSM-ERR-HVY-003), without
+changing the source or scientific criterion. Checked size overflow and
+unsupported native allocation also fail before that allocation.
+
+This numerical allowance is not process RSS, an operating-system cap or a
+resource reservation. Native/source domains, unit/coordinate preparation and
+foreign-library allocations have their own costs. The eligible cell search
+still receives the selected structures eagerly; this does not make all neighbor
+queries streaming. Dense/fixed-count fallbacks retain their separate contracts.
+
+Boolean contact maps remain dense resident results. Their storage is reserved
+before native search; eligible search and filling share the remaining allowance.
+Using a sparse candidate search does not make a dense map sparse. See the
+{ref}`neighbor tutorial <Tutorial_Get_neighbors>` and
+{ref}`contact tutorial <Tutorial_Get_contacts>`.

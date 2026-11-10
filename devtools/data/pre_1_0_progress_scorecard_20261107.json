@@ -909,14 +909,14 @@
       "uibcdf/molsysmt#661",
       "uibcdf/molsysmt#582",
       "uibcdf/molsysmt#686",
-      "uibcdf/molsysmt#689"
+      "uibcdf/molsysmt#689",
+      "uibcdf/molsysmt#690"
     ],
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
     "owner_verification": "Public 1d033b656 independently matches 21 changed paths and preserves four human files. Clean b184e9d18 passes 1,229 affected cases without omissions, fourteen fast gates and three inspected HTML pages. #661 is closed. #256 remains open and public H5MSM writing remains 0.5; no client/installed/candidate acceptance is added.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Prioritize #690 native neighbor-grid allocation safety before draft #687; retain the requested scientific criterion, configured memory admission and protected reproduction. Receive draft PR #687 against exact corrected Viewer b9f3be01 and reconcile the new native recipe/refusal and launcher contracts. #688 source is received; original reporter-owned remnants need retirement confirmation. Continue remaining original #421 intents, #666/provider143, #615 causality, #524 actual installed floors, #250/#254 stability agreement, #256 P5/P6 and #334 exact-candidate requirements. Preserve original weights and the publication pause.",
+    "scope": "Receive #687/#691 combined interaction/mechanics/continuous-session source against exact verified Viewer b9f3be01 after native #690 allocation repair. Preserve all failed graphical attempts and #615 uncertainty. Receive the #688 call-site ownership fix and reporter retirement before closure. Continue #666/provider143, #524 installed floors, #250/#254 agreement, #256 P5/P6 and #334 exact-candidate gates without altering original weights or the publication pause.",
     "active_related": [
-      "uibcdf/molsysmt#690",
       "uibcdf/molsysmt#666",
       "uibcdf/molsysmt#421",
       "uibcdf/molsysmt#615",
@@ -1352,5 +1352,20 @@
       689
     ],
     "open_reporter_handoff": 688
+  },
+  "last_native_allocation_receiving": {
+    "source": "573476e70a4607bd42d21e9c7a866388fc3c1e6c",
+    "issue": "uibcdf/molsysmt#690",
+    "record": "devtools/data/native_neighbor_allocation_receiving_690_20261110.json",
+    "weighted_change": 0,
+    "graphical_credit": 0,
+    "supplemental_followups": [
+      "uibcdf/molsysmt#692",
+      "uibcdf/molsysmt#693"
+    ],
+    "incoming_pr_heads": {
+      "687": "f35112090b37975a1d417602c3c1a6beed16d5f6",
+      "691": "0fb92602ab3f9122372ce3f9900fbaf55437c507"
+    }
   }
 }

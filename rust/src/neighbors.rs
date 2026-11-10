@@ -12,14 +12,17 @@
 //! ground truth; on orthogonal boxes it stays bit-for-bit with Numba.
 
 use numpy::ndarray::ArrayView3;
-use numpy::{IntoPyArray, PyArray1, PyReadonlyArray3};
+use numpy::{IntoPyArray, PyArray1, PyReadonlyArray3, PyUntypedArrayMethods};
+use pyo3::exceptions::{PyMemoryError, PyValueError};
 use pyo3::prelude::*;
+use std::sync::atomic::{AtomicUsize, Ordering};
 
 use crate::mathlib::fast_floor;
 use crate::mathlib::inverse_matrix_3x3_full as inv3;
 use rayon::prelude::*;
 
 type Mat3 = [[f64; 3]; 3];
+const MAX_HEADS_PER_REFERENCE: usize = 4;
 
 #[cfg(test)]
 fn is_orthogonal(b: &Mat3) -> bool {
@@ -93,66 +96,201 @@ pub(crate) fn axis_cells(c: i64, n: i64) -> ([i64; 3], usize) {
     }
 }
 
-/// Emit the exact-size output for one query atom from reusable scratch buffers.
-/// `order` is scratch too, so the only allocations left are the two output vectors.
+type Buffers = (Vec<i64>, Vec<i64>, Vec<f64>);
+type KernelResult<T> = Result<T, String>;
+type Scratch = (Vec<i64>, Vec<f64>, Vec<usize>);
+
+fn checked_mul(a: usize, b: usize) -> KernelResult<usize> {
+    a.checked_mul(b)
+        .ok_or_else(|| "Neighbor working-size multiplication overflow".into())
+}
+
+fn checked_add(a: usize, b: usize) -> KernelResult<usize> {
+    a.checked_add(b)
+        .ok_or_else(|| "Neighbor working-size addition overflow".into())
+}
+
+fn reserved<T>(count: usize) -> KernelResult<Vec<T>> {
+    let mut out = Vec::new();
+    out.try_reserve_exact(count)
+        .map_err(|e| format!("Cannot reserve neighbor storage: {e}"))?;
+    Ok(out)
+}
+
+fn filled(count: usize, value: i64) -> KernelResult<Vec<i64>> {
+    let mut out = reserved(count)?;
+    out.resize(count, value);
+    Ok(out)
+}
+
+/// Coarsening increases cell widths, preserving the complete ±1 candidate stencil.
+/// Every head table is bounded by reference population, never empty spatial volume.
+fn bounded_dims(dims: (i64, i64, i64), limit: usize) -> (i64, i64, i64) {
+    let limit = limit.max(1).min(i64::MAX as usize) as i64;
+    let mut n = [
+        dims.0.clamp(1, limit),
+        dims.1.clamp(1, limit),
+        dims.2.clamp(1, limit),
+    ];
+    while n[0]
+        .checked_mul(n[1])
+        .and_then(|v| v.checked_mul(n[2]))
+        .is_none_or(|v| v > limit)
+    {
+        let axis = (0..3).max_by_key(|&i| n[i]).unwrap();
+        n[axis] = (n[axis] / 2).max(1);
+    }
+    (n[0], n[1], n[2])
+}
+
+struct WorkingBudget {
+    used: AtomicUsize,
+    limit: usize,
+}
+
+impl WorkingBudget {
+    fn new(baseline: usize, limit: usize) -> KernelResult<Self> {
+        if baseline > limit {
+            return Err(format!("Neighbor working estimate {baseline} bytes exceeds the {limit}-byte numerical budget"));
+        }
+        Ok(Self {
+            used: AtomicUsize::new(baseline),
+            limit,
+        })
+    }
+
+    fn charge_output(&self, entries: usize) -> KernelResult<()> {
+        // Both per-query vectors and the final packed CSR can coexist during flattening.
+        let bytes = checked_mul(entries, 32)?;
+        self.used.fetch_update(Ordering::Relaxed, Ordering::Relaxed, |used| {
+            used.checked_add(bytes).filter(|&total| total <= self.limit)
+        }).map_err(|used| format!("Neighbor CSR output needs {bytes} additional working bytes after {used}; numerical budget is {}", self.limit))?;
+        Ok(())
+    }
+}
+
+fn working_budget(
+    q: &ArrayView3<f64>,
+    r: &ArrayView3<f64>,
+    grid_size: usize,
+    periodic: bool,
+    limit: usize,
+) -> KernelResult<WorkingBudget> {
+    let ns = q.shape()[0];
+    let nr = r.shape()[1];
+    let rows = checked_mul(ns, q.shape()[1])?;
+    let heads = checked_mul(nr, MAX_HEADS_PER_REFERENCE)?.max(1);
+    let threads = rayon::current_num_threads();
+    let terms = [
+        checked_mul(q.len(), 8)?,
+        if q.as_ptr() == r.as_ptr() && q.shape() == r.shape() {
+            0
+        } else {
+            checked_mul(r.len(), 8)?
+        },
+        checked_mul(
+            ns,
+            checked_add(checked_mul(checked_add(heads, nr)?, 8)?, grid_size)?,
+        )?,
+        if periodic { checked_mul(ns, 72)? } else { 0 },
+        // Row descriptors, allocation bookkeeping, and packed offsets.
+        checked_mul(rows, 96)?,
+        checked_mul(checked_add(rows, 1)?, 8)?,
+        // Scratch lengths never exceed nr. Include bounded reallocation overlap
+        // and task bookkeeping; this is a numerical estimate, not process RSS.
+        checked_mul(threads, checked_add(checked_mul(nr, 64)?, 65536)?)?,
+    ];
+    let baseline = terms.into_iter().try_fold(0usize, checked_add)?;
+    WorkingBudget::new(baseline, limit)
+}
+
+fn empty_rows(rows: usize, limit: usize) -> KernelResult<Buffers> {
+    WorkingBudget::new(checked_mul(checked_add(rows, 1)?, 8)?, limit)?;
+    Ok((filled(checked_add(rows, 1)?, 0)?, Vec::new(), Vec::new()))
+}
+
+fn new_scratch(nr: usize) -> KernelResult<Scratch> {
+    let initial = nr.min(256);
+    Ok((reserved(initial)?, reserved(initial)?, reserved(initial)?))
+}
+
+fn push_candidate(
+    cand: &mut Vec<i64>,
+    csq: &mut Vec<f64>,
+    j: i64,
+    d2: f64,
+    nr: usize,
+) -> KernelResult<()> {
+    if cand.len() >= nr {
+        return Err("Neighbor gather exceeded the reference population".into());
+    }
+    if cand.len() == cand.capacity() {
+        let next = checked_mul(cand.capacity(), 2)?.max(1).min(nr);
+        cand.try_reserve_exact(next - cand.len())
+            .map_err(|e| format!("Cannot grow neighbor scratch: {e}"))?;
+    }
+    if csq.len() == csq.capacity() {
+        let next = checked_mul(csq.capacity(), 2)?.max(1).min(nr);
+        csq.try_reserve_exact(next - csq.len())
+            .map_err(|e| format!("Cannot grow neighbor scratch: {e}"))?;
+    }
+    cand.push(j);
+    csq.push(d2);
+    Ok(())
+}
+
 fn emit_from(
     cand: &[i64],
     csq: &[f64],
     sort: bool,
     order: &mut Vec<usize>,
-) -> (Vec<i64>, Vec<f64>) {
+) -> KernelResult<(Vec<i64>, Vec<f64>)> {
     let m = cand.len();
-    let mut idx = Vec::with_capacity(m);
-    let mut dist = Vec::with_capacity(m);
+    let mut idx = reserved(m)?;
+    let mut dist = reserved(m)?;
     if sort {
         order.clear();
+        order
+            .try_reserve_exact(m)
+            .map_err(|e| format!("Cannot reserve neighbor sorting workspace: {e}"))?;
         order.extend(0..m);
-        order.sort_by(|&a, &b| {
+        // The target-index tiebreak makes this a total order without stable-sort scratch.
+        order.sort_unstable_by(|&a, &b| {
             csq[a]
                 .partial_cmp(&csq[b])
                 .unwrap()
                 .then_with(|| cand[a].cmp(&cand[b]))
         });
-        for &p in order.iter() {
-            idx.push(cand[p]);
-            dist.push(csq[p].sqrt());
+        for &i in order.iter() {
+            idx.push(cand[i]);
+            dist.push(csq[i].sqrt());
         }
     } else {
-        for p in 0..m {
-            idx.push(cand[p]);
-            dist.push(csq[p].sqrt());
+        for i in 0..m {
+            idx.push(cand[i]);
+            dist.push(csq[i].sqrt());
         }
     }
-    (idx, dist)
+    Ok((idx, dist))
 }
 
-/// Per-thread scratch reused across query atoms (rayon `map_init`), so the gather
-/// loop stops reallocating. Purely structural: results are unchanged.
-type Scratch = (Vec<i64>, Vec<f64>, Vec<usize>);
-
-fn new_scratch() -> Scratch {
-    (
-        Vec::with_capacity(256),
-        Vec::with_capacity(256),
-        Vec::with_capacity(256),
-    )
-}
-
-/// Assemble a flat CSR from per-query (indices, distances), preserving work order.
-fn flatten(per_work: Vec<(Vec<i64>, Vec<f64>)>) -> (Vec<i64>, Vec<i64>, Vec<f64>) {
-    let mut offsets = vec![0i64; per_work.len() + 1];
+fn flatten(per_work: Vec<(Vec<i64>, Vec<f64>)>) -> KernelResult<Buffers> {
+    let mut offsets = reserved(checked_add(per_work.len(), 1)?)?;
+    offsets.push(0);
     let mut total = 0usize;
-    for (w, (idx, _)) in per_work.iter().enumerate() {
-        total += idx.len();
-        offsets[w + 1] = total as i64;
+    for (idx, _) in &per_work {
+        total = checked_add(total, idx.len())?;
+        offsets.push(
+            i64::try_from(total).map_err(|_| "Neighbor CSR offset exceeds int64".to_string())?,
+        );
     }
-    let mut indices = Vec::with_capacity(total);
-    let mut distances = Vec::with_capacity(total);
-    for (idx, dist) in per_work {
-        indices.extend(idx);
-        distances.extend(dist);
+    let mut indices = reserved(total)?;
+    let mut distances = reserved(total)?;
+    for (mut idx, mut dist) in per_work {
+        indices.append(&mut idx);
+        distances.append(&mut dist);
     }
-    (offsets, indices, distances)
+    Ok((offsets, indices, distances))
 }
 
 struct GridV {
@@ -179,7 +317,12 @@ impl GridV {
     }
 }
 
-fn build_grid_v(query: &ArrayView3<f64>, refc: &ArrayView3<f64>, s: usize, cutoff: f64) -> GridV {
+fn build_grid_v(
+    query: &ArrayView3<f64>,
+    refc: &ArrayView3<f64>,
+    s: usize,
+    cutoff: f64,
+) -> KernelResult<GridV> {
     let nq = query.shape()[1];
     let nr = refc.shape()[1];
     let (mut xmn, mut ymn, mut zmn) = (query[[s, 0, 0]], query[[s, 0, 1]], query[[s, 0, 2]]);
@@ -205,9 +348,14 @@ fn build_grid_v(query: &ArrayView3<f64>, refc: &ArrayView3<f64>, s: usize, cutof
     let lx = cutoff.max(xmx - xmn + 1e-5);
     let ly = cutoff.max(ymx - ymn + 1e-5);
     let lz = cutoff.max(zmx - zmn + 1e-5);
-    let nx = ((lx / cutoff) as i64).max(1);
-    let ny = ((ly / cutoff) as i64).max(1);
-    let nz = ((lz / cutoff) as i64).max(1);
+    let (nx, ny, nz) = bounded_dims(
+        (
+            ((lx / cutoff) as i64).max(1),
+            ((ly / cutoff) as i64).max(1),
+            ((lz / cutoff) as i64).max(1),
+        ),
+        checked_mul(nr, MAX_HEADS_PER_REFERENCE)?.max(1),
+    );
     let mut g = GridV {
         nx,
         ny,
@@ -218,8 +366,8 @@ fn build_grid_v(query: &ArrayView3<f64>, refc: &ArrayView3<f64>, s: usize, cutof
         cdx: lx / nx as f64,
         cdy: ly / ny as f64,
         cdz: lz / nz as f64,
-        head: vec![-1i64; (nx * ny * nz) as usize],
-        nxt: vec![-1i64; nr],
+        head: filled((nx * ny * nz) as usize, -1)?,
+        nxt: filled(nr, -1)?,
     };
     for a in 0..nr {
         let (cx, cy, cz) = g.cell(refc[[s, a, 0]], refc[[s, a, 1]], refc[[s, a, 2]]);
@@ -227,7 +375,7 @@ fn build_grid_v(query: &ArrayView3<f64>, refc: &ArrayView3<f64>, s: usize, cutof
         g.nxt[a] = g.head[c];
         g.head[c] = a as i64;
     }
-    g
+    Ok(g)
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -243,7 +391,7 @@ fn gather_v(
     cutoff_sq: f64,
     cand: &mut Vec<i64>,
     csq: &mut Vec<f64>,
-) {
+) -> KernelResult<()> {
     let (cx, cy, cz) = g.cell(qx, qy, qz);
     cand.clear();
     csq.clear();
@@ -260,8 +408,7 @@ fn gather_v(
                         let rz = refc[[s, ju, 2]] - qz;
                         let d2 = rx * rx + ry * ry + rz * rz;
                         if d2 <= cutoff_sq {
-                            cand.push(j);
-                            csq.push(d2);
+                            push_candidate(cand, csq, j, d2, refc.shape()[1])?;
                         }
                     }
                     j = g.nxt[ju];
@@ -269,6 +416,7 @@ fn gather_v(
             }
         }
     }
+    Ok(())
 }
 
 struct GridP {
@@ -303,14 +451,22 @@ impl GridP {
     }
 }
 
-fn build_grid_p(refc: &ArrayView3<f64>, boxes: &ArrayView3<f64>, s: usize, cutoff: f64) -> GridP {
+fn build_grid_p(
+    refc: &ArrayView3<f64>,
+    boxes: &ArrayView3<f64>,
+    s: usize,
+    cutoff: f64,
+) -> KernelResult<GridP> {
     let nr = refc.shape()[1];
     let b: Mat3 = [
         [boxes[[s, 0, 0]], boxes[[s, 0, 1]], boxes[[s, 0, 2]]],
         [boxes[[s, 1, 0]], boxes[[s, 1, 1]], boxes[[s, 1, 2]]],
         [boxes[[s, 2, 0]], boxes[[s, 2, 1]], boxes[[s, 2, 2]]],
     ];
-    let (nx, ny, nz) = grid_dims(&b, cutoff);
+    let (nx, ny, nz) = bounded_dims(
+        grid_dims(&b, cutoff),
+        checked_mul(nr, MAX_HEADS_PER_REFERENCE)?.max(1),
+    );
     let (ortho, wcell, winv) = crate::mic::prep_dist(&b);
     let mut g = GridP {
         nx,
@@ -320,8 +476,8 @@ fn build_grid_p(refc: &ArrayView3<f64>, boxes: &ArrayView3<f64>, s: usize, cutof
         ortho,
         wcell,
         winv,
-        head: vec![-1i64; (nx * ny * nz) as usize],
-        nxt: vec![-1i64; nr],
+        head: filled((nx * ny * nz) as usize, -1)?,
+        nxt: filled(nr, -1)?,
     };
     for a in 0..nr {
         let (cx, cy, cz) = g.cell(refc[[s, a, 0]], refc[[s, a, 1]], refc[[s, a, 2]]);
@@ -329,7 +485,7 @@ fn build_grid_p(refc: &ArrayView3<f64>, boxes: &ArrayView3<f64>, s: usize, cutof
         g.nxt[a] = g.head[c];
         g.head[c] = a as i64;
     }
-    g
+    Ok(g)
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -345,7 +501,7 @@ fn gather_p(
     cutoff_sq: f64,
     cand: &mut Vec<i64>,
     csq: &mut Vec<f64>,
-) {
+) -> KernelResult<()> {
     let (cx, cy, cz) = g.cell(qx, qy, qz);
     cand.clear();
     csq.clear();
@@ -370,8 +526,7 @@ fn gather_p(
                         let (wx, wy, wz) = mic_wrap(dx, dy, dz, &g.wcell, &g.winv, g.ortho);
                         let d2 = wx * wx + wy * wy + wz * wz;
                         if d2 <= cutoff_sq {
-                            cand.push(j);
-                            csq.push(d2);
+                            push_candidate(cand, csq, j, d2, refc.shape()[1])?;
                         }
                     }
                     j = g.nxt[ju];
@@ -379,6 +534,7 @@ fn gather_p(
             }
         }
     }
+    Ok(())
 }
 
 fn core_vacuum(
@@ -387,35 +543,57 @@ fn core_vacuum(
     cutoff: f64,
     excl: bool,
     sort: bool,
-) -> (Vec<i64>, Vec<i64>, Vec<f64>) {
+    memory_budget: usize,
+) -> KernelResult<Buffers> {
     let ns = query.shape()[0];
     let nq = query.shape()[1];
+    let nr = refc.shape()[1];
+    let rows = checked_mul(ns, nq)?;
+    if rows == 0 || nr == 0 {
+        return empty_rows(rows, memory_budget);
+    }
+    let budget = working_budget(
+        query,
+        refc,
+        std::mem::size_of::<GridV>(),
+        false,
+        memory_budget,
+    )?;
     let cutoff_sq = cutoff * cutoff;
-    let grids: Vec<GridV> = (0..ns)
-        .into_par_iter()
-        .map(|s| build_grid_v(query, refc, s, cutoff))
-        .collect();
-    let per_work: Vec<(Vec<i64>, Vec<f64>)> = (0..ns * nq)
-        .into_par_iter()
-        .map_init(new_scratch, |(cand, csq, order), w| {
-            let s = w / nq;
-            let iq = w % nq;
-            gather_v(
-                &grids[s],
-                refc,
-                s,
-                query[[s, iq, 0]],
-                query[[s, iq, 1]],
-                query[[s, iq, 2]],
-                iq,
-                excl,
-                cutoff_sq,
-                cand,
-                csq,
-            );
-            emit_from(cand, csq, sort, order)
-        })
-        .collect();
+    let mut grids = reserved(ns)?;
+    for s in 0..ns {
+        grids.push(build_grid_v(query, refc, s, cutoff)?);
+    }
+    let mut per_work = reserved(rows)?;
+    per_work.resize_with(rows, || (Vec::new(), Vec::new()));
+    per_work
+        .par_iter_mut()
+        .enumerate()
+        .map_init(
+            || new_scratch(nr),
+            |scratch, (w, output)| {
+                let (cand, csq, order) = scratch.as_mut().map_err(|error| error.clone())?;
+                let s = w / nq;
+                let iq = w % nq;
+                gather_v(
+                    &grids[s],
+                    refc,
+                    s,
+                    query[[s, iq, 0]],
+                    query[[s, iq, 1]],
+                    query[[s, iq, 2]],
+                    iq,
+                    excl,
+                    cutoff_sq,
+                    cand,
+                    csq,
+                )?;
+                budget.charge_output(cand.len())?;
+                *output = emit_from(cand, csq, sort, order)?;
+                Ok(())
+            },
+        )
+        .try_for_each(|out: KernelResult<()>| out)?;
     flatten(per_work)
 }
 
@@ -426,41 +604,63 @@ fn core_pbc(
     cutoff: f64,
     excl: bool,
     sort: bool,
-) -> (Vec<i64>, Vec<i64>, Vec<f64>) {
+    memory_budget: usize,
+) -> KernelResult<Buffers> {
     let ns = query.shape()[0];
     let nq = query.shape()[1];
+    let nr = refc.shape()[1];
+    let rows = checked_mul(ns, nq)?;
+    if rows == 0 || nr == 0 {
+        return empty_rows(rows, memory_budget);
+    }
+    let budget = working_budget(
+        query,
+        refc,
+        std::mem::size_of::<GridP>(),
+        true,
+        memory_budget,
+    )?;
     let cutoff_sq = cutoff * cutoff;
-    let grids: Vec<GridP> = (0..ns)
-        .into_par_iter()
-        .map(|s| build_grid_p(refc, boxes, s, cutoff))
-        .collect();
-    let per_work: Vec<(Vec<i64>, Vec<f64>)> = (0..ns * nq)
-        .into_par_iter()
-        .map_init(new_scratch, |(cand, csq, order), w| {
-            let s = w / nq;
-            let iq = w % nq;
-            gather_p(
-                &grids[s],
-                refc,
-                s,
-                query[[s, iq, 0]],
-                query[[s, iq, 1]],
-                query[[s, iq, 2]],
-                iq,
-                excl,
-                cutoff_sq,
-                cand,
-                csq,
-            );
-            emit_from(cand, csq, sort, order)
-        })
-        .collect();
+    let mut grids = reserved(ns)?;
+    for s in 0..ns {
+        grids.push(build_grid_p(refc, boxes, s, cutoff)?);
+    }
+    let mut per_work = reserved(rows)?;
+    per_work.resize_with(rows, || (Vec::new(), Vec::new()));
+    per_work
+        .par_iter_mut()
+        .enumerate()
+        .map_init(
+            || new_scratch(nr),
+            |scratch, (w, output)| {
+                let (cand, csq, order) = scratch.as_mut().map_err(|error| error.clone())?;
+                let s = w / nq;
+                let iq = w % nq;
+                gather_p(
+                    &grids[s],
+                    refc,
+                    s,
+                    query[[s, iq, 0]],
+                    query[[s, iq, 1]],
+                    query[[s, iq, 2]],
+                    iq,
+                    excl,
+                    cutoff_sq,
+                    cand,
+                    csq,
+                )?;
+                budget.charge_output(cand.len())?;
+                *output = emit_from(cand, csq, sort, order)?;
+                Ok(())
+            },
+        )
+        .try_for_each(|out: KernelResult<()>| out)?;
     flatten(per_work)
 }
 
 #[pyfunction]
-#[pyo3(signature = (query, ref_coords, box_matrices, cutoff, exclude_self, sort_by_distance, num_threads))]
-#[allow(clippy::too_many_arguments, clippy::type_complexity)] // Stable flat Python FFI.
+#[pyo3(signature = (query, ref_coords, box_matrices, cutoff, exclude_self, sort_by_distance, num_threads, *, memory_budget=1_073_741_824))]
+#[allow(clippy::too_many_arguments, clippy::type_complexity)]
 pub fn neighbor_list_csr_multi<'py>(
     py: Python<'py>,
     query: PyReadonlyArray3<'py, f64>,
@@ -470,33 +670,70 @@ pub fn neighbor_list_csr_multi<'py>(
     exclude_self: bool,
     sort_by_distance: bool,
     num_threads: usize,
-) -> (
+    memory_budget: usize,
+) -> PyResult<(
     Bound<'py, PyArray1<i64>>,
     Bound<'py, PyArray1<i64>>,
     Bound<'py, PyArray1<f64>>,
-) {
+)> {
     let q = query.as_array();
     let r = ref_coords.as_array();
-    let (offsets, indices, distances) = match &box_matrices {
+    if q.shape()[2] != 3 || r.shape()[2] != 3 || q.shape()[0] != r.shape()[0] {
+        return Err(PyValueError::new_err(
+            "Neighbor coordinates require matching structure axes and xyz columns",
+        ));
+    }
+    if !cutoff.is_finite() || cutoff <= 0.0 {
+        return Err(PyValueError::new_err(
+            "Native cell-search cutoff must be finite and positive",
+        ));
+    }
+    if q.iter().chain(r.iter()).any(|x| !x.is_finite()) {
+        return Err(PyValueError::new_err("Neighbor coordinates must be finite"));
+    }
+    if let Some(ref b) = box_matrices {
+        if b.shape() != [q.shape()[0], 3, 3] || b.as_array().iter().any(|x| !x.is_finite()) {
+            return Err(PyValueError::new_err(
+                "Neighbor boxes require finite structure-by-3-by-3 matrices",
+            ));
+        }
+    }
+    let result = match &box_matrices {
         None => py.detach(|| {
             crate::threads::install(num_threads, || {
-                core_vacuum(&q, &r, cutoff, exclude_self, sort_by_distance)
+                core_vacuum(
+                    &q,
+                    &r,
+                    cutoff,
+                    exclude_self,
+                    sort_by_distance,
+                    memory_budget,
+                )
             })
         }),
         Some(b) => {
             let bb = b.as_array();
             py.detach(|| {
                 crate::threads::install(num_threads, || {
-                    core_pbc(&q, &r, &bb, cutoff, exclude_self, sort_by_distance)
+                    core_pbc(
+                        &q,
+                        &r,
+                        &bb,
+                        cutoff,
+                        exclude_self,
+                        sort_by_distance,
+                        memory_budget,
+                    )
                 })
             })
         }
     };
-    (
+    let (offsets, indices, distances) = result.map_err(PyMemoryError::new_err)?;
+    Ok((
         offsets.into_pyarray(py),
         indices.into_pyarray(py),
         distances.into_pyarray(py),
-    )
+    ))
 }
 
 pub fn register(m: &Bound<'_, PyModule>) -> PyResult<()> {
@@ -512,9 +749,89 @@ mod tests {
     const TRIC: Mat3 = [[6.0, 0.0, 0.0], [1.2, 6.0, 0.0], [0.8, 0.6, 6.0]];
 
     #[test]
+    fn bounded_dimensions_handle_empty_volume_and_integer_overflow() {
+        for (dims, limit) in [
+            ((1000, 1000, 1000), 4),
+            ((i64::MAX, i64::MAX, i64::MAX), 1024),
+            ((1, 1, 1), 1),
+        ] {
+            let (x, y, z) = bounded_dims(dims, limit);
+            assert!(x >= 1 && y >= 1 && z >= 1);
+            assert!(x <= dims.0 && y <= dims.1 && z <= dims.2);
+            assert!((x * y * z) as usize <= limit);
+        }
+        assert!(checked_mul(usize::MAX, 2).is_err());
+        assert!(checked_add(usize::MAX, 1).is_err());
+    }
+
+    #[test]
+    fn sparse_vacuum_grid_heads_follow_population_not_empty_volume() {
+        use numpy::ndarray::Array3;
+        let q = Array3::zeros((1, 1, 3));
+        let r = Array3::from_shape_vec((1, 1, 3), vec![1.0, 1.0, 1.0]).unwrap();
+        // The regression remains safe even for an old dense implementation: 8 MiB.
+        let grid = build_grid_v(&q.view(), &r.view(), 0, 0.01).unwrap();
+        assert!(grid.head.len() <= 4);
+        assert!(grid.cdx >= 0.01 && grid.cdy >= 0.01 && grid.cdz >= 0.01);
+        let (off, idx, _) = crate::threads::install(1, || {
+            core_vacuum(&q.view(), &r.view(), 0.01, false, true, 1 << 20)
+        })
+        .unwrap();
+        assert_eq!(off, vec![0, 0]);
+        assert!(idx.is_empty());
+    }
+
+    #[test]
+    fn working_budget_charges_observed_output_not_quadratic_candidates() {
+        use numpy::ndarray::Array3;
+        let q = Array3::from_shape_fn(
+            (1, 300, 3),
+            |(_, a, k)| if k == 0 { a as f64 * 10.0 } else { 0.0 },
+        );
+        let r = q.mapv(|x| x + 1.0);
+        let sparse = crate::threads::install(1, || {
+            core_vacuum(&q.view(), &r.view(), 0.1, false, true, 1 << 18)
+        })
+        .unwrap();
+        assert_eq!(sparse.0.len(), 301);
+        assert!(sparse.1.is_empty());
+        let dense = Array3::zeros((1, 300, 3));
+        let failure = crate::threads::install(1, || {
+            core_vacuum(&dense.view(), &dense.view(), 0.1, true, true, 1 << 18)
+        })
+        .unwrap_err();
+        assert!(failure.contains("CSR output"), "{failure}");
+    }
+
+    #[test]
+    fn empty_reference_only_needs_typed_offsets() {
+        use numpy::ndarray::Array3;
+        let q = Array3::zeros((3, 2, 3));
+        let r = Array3::zeros((3, 0, 3));
+        let result = core_vacuum(&q.view(), &r.view(), 0.1, false, false, 56).unwrap();
+        assert_eq!(result.0, vec![0; 7]);
+        assert!(result.1.is_empty() && result.2.is_empty());
+        assert!(core_vacuum(&q.view(), &r.view(), 0.1, false, false, 55).is_err());
+    }
+
+    #[test]
+    fn shared_output_charge_is_atomic_under_parallel_admission() {
+        let budget = WorkingBudget::new(0, 1024).unwrap();
+        let accepted: usize = crate::threads::install(2, || {
+            (0..64usize)
+                .into_par_iter()
+                .map(|_| usize::from(budget.charge_output(1).is_ok()))
+                .sum()
+        });
+        assert_eq!(accepted, 32);
+        assert_eq!(budget.used.load(Ordering::Relaxed), 1024);
+    }
+
+    #[test]
     fn equal_distances_sort_by_local_target_index() {
         let mut order = Vec::new();
-        let (indices, distances) = emit_from(&[3, 1, 2], &[1.0, 1.0, 1.0], true, &mut order);
+        let (indices, distances) =
+            emit_from(&[3, 1, 2], &[1.0, 1.0, 1.0], true, &mut order).unwrap();
         assert_eq!(indices, vec![1, 2, 3]);
         assert_eq!(distances, vec![1.0, 1.0, 1.0]);
     }
@@ -647,7 +964,9 @@ mod tests {
                 .wrapping_add(1442695040888963407);
             (seed >> 11) as f64 / (1u64 << 53) as f64
         };
-        let cases: [(Mat3, f64); 4] = [
+        let cases: [(Mat3, f64); 6] = [
+            (ORTHO, 0.1),
+            (TRIC, 0.1),
             (ORTHO, 1.2),
             ([[6.0, 0.0, 0.0], [3.0, 6.0, 0.0], [3.0, 3.0, 6.0]], 1.2), // heavily skewed
             ([[8.0, 0.0, 0.0], [-2.5, 7.0, 0.0], [2.0, -3.0, 5.0]], 1.5),
@@ -681,7 +1000,9 @@ mod tests {
                 cutoff,
                 true,
                 false,
-            );
+                usize::MAX,
+            )
+            .unwrap();
             let mut got = std::collections::BTreeSet::new();
             for i in 0..n {
                 for p in off[i] as usize..off[i + 1] as usize {
@@ -730,7 +1051,7 @@ mod tests {
         let csq = vec![4.0, 1.0, 9.0];
         let mut order = Vec::new();
 
-        let (idx, dist) = emit_from(&cand, &csq, true, &mut order);
+        let (idx, dist) = emit_from(&cand, &csq, true, &mut order).unwrap();
         assert_eq!(idx, vec![3, 7, 9]);
         assert!(
             (dist[0] - 1.0).abs() < 1e-15
@@ -739,14 +1060,14 @@ mod tests {
             "distances are sqrt of csq, ascending"
         );
 
-        let (idx_u, _) = emit_from(&cand, &csq, false, &mut order);
+        let (idx_u, _) = emit_from(&cand, &csq, false, &mut order).unwrap();
         assert_eq!(idx_u, cand, "unsorted must keep the gather order");
     }
 
     #[test]
     fn emit_handles_an_empty_neighbour_set() {
         let mut order = Vec::new();
-        let (idx, dist) = emit_from(&[], &[], true, &mut order);
+        let (idx, dist) = emit_from(&[], &[], true, &mut order).unwrap();
         assert!(idx.is_empty() && dist.is_empty());
     }
 
@@ -757,7 +1078,7 @@ mod tests {
             (vec![], vec![]),
             (vec![7i64], vec![1.5]),
         ];
-        let (offsets, indices, distances) = flatten(per_work);
+        let (offsets, indices, distances) = flatten(per_work).unwrap();
         assert_eq!(offsets, vec![0, 2, 2, 3]);
         assert_eq!(indices, vec![1, 2, 7]);
         assert_eq!(distances.len(), 3);

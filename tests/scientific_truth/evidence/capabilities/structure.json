@@ -110,6 +110,12 @@
         "oracle": "Explicit two-by-two Cartesian distance matrix classified at an inclusive 3 nm cutoff.",
         "comparison": "exact",
         "tolerance": null
+      },
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/structure/test_neighbor_cell_bounds.py::test_sparse_small_cutoff_retains_known_pairs_and_periodic_images",
+        "oracle": "Five declared points: 0.0004/0.0006 nm close pairs and a 0.0007 nm image across a triclinic lattice row; exact hand-specified neighbor/contact tables at 0.001 nm.",
+        "tolerance": "float64_kernel_atol"
       }
     ],
     "gap": null
@@ -224,6 +230,12 @@
         "class": "analytic",
         "test": "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
         "oracle": "Four collinear points with independently ordered nearest-neighbor indices and distances.",
+        "tolerance": "float64_kernel_atol"
+      },
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/structure/test_neighbor_cell_bounds.py::test_sparse_small_cutoff_retains_known_pairs_and_periodic_images",
+        "oracle": "Five declared points: 0.0004/0.0006 nm close pairs and a 0.0007 nm image across a triclinic lattice row; exact hand-specified neighbor/contact tables at 0.001 nm.",
         "tolerance": "float64_kernel_atol"
       }
     ],

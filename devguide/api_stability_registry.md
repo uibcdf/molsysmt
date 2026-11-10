@@ -12,7 +12,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | --- | ---: |
 | stable | 124 |
 | experimental | 178 |
-| outside-contract | 10 |
+| outside-contract | 11 |
 | deprecated lifecycle | 0 |
 
 ## Symbols
@@ -38,6 +38,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.Iterator` | stable | active | pre-1.0 |
 | `molsysmt.IteratorError` | stable | active | pre-1.0 |
 | `molsysmt.LibraryNotFoundError` | stable | active | pre-1.0 |
+| `molsysmt.MemoryBudgetExceededError` | outside-contract | active | 1.0.0 |
 | `molsysmt.MolSysBuilder` | stable | active | pre-1.0 |
 | `molsysmt.MolSysDict` | stable | active | pre-1.0 |
 | `molsysmt.MolecularSystemNeededError` | stable | active | pre-1.0 |

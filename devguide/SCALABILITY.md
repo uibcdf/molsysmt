@@ -25,6 +25,35 @@ the required attributes in `_heavy_support`. Unsupported combinations must use
 the eager path or fail explicitly; they must not be described as generally
 out-of-core capable.
 
+## Population-bounded native neighbor search
+
+The native positive-cutoff cell search bounds head tables by reference
+population (at most four heads per reference atom), coarsening cells when
+necessary. Coarser cells only broaden the candidate search: the requested
+inclusive distance criterion and reduced-cell minimum image remain unchanged.
+Empty spatial volume and smaller valid cutoffs do not create unbounded grids.
+
+The selected numeric input blocks, retained grids, row bookkeeping, controlled
+thread scratch and actual observed CSR entries have checked working estimates
+against `configure.max_ram_usage`. Output is charged after a query's actual
+neighbor count is known, rather than rejecting sparse queries by their maximum
+possible pairs. Packed/per-query output coexistence is included. A refusal
+raises public `msm.MemoryBudgetExceededError` (catalog MSM-ERR-HVY-003), without
+changing the source or scientific criterion. Checked size overflow and
+unsupported native allocation also fail before that allocation.
+
+This numerical allowance is not process RSS, an operating-system cap or a
+resource reservation. Native/source domains, unit/coordinate preparation and
+foreign-library allocations have their own costs. The eligible cell search
+still receives the selected structures eagerly; this does not make all neighbor
+queries streaming. Dense/fixed-count fallbacks retain their separate contracts.
+
+The accelerated contact-map consumer reserves its resident Boolean output
+before negotiating the search allowance, then allocates the map only after
+CSR admission. Row-wise Boolean filling needs one occurrence-index vector; it
+does not expand every occurrence into separate structure/query arrays. The
+existing dense-map budget remains active, including pair-output requests.
+
 ## Decision policy
 
 Resident interaction results can be explicitly compacted after frame edits with

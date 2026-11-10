@@ -90,10 +90,20 @@ sections:
         agents_file: docs/content/user/foundations/performance/AGENTS.md
         index_file: docs/content/user/foundations/performance/index.md
         index_agents_file: docs/content/user/foundations/performance/index.AGENTS.md
+        pages:
+          - name: chunked_execution
+            file: docs/content/user/foundations/performance/chunked_execution.md
+            agents_file: docs/content/user/foundations/performance/chunked_execution.md.AGENTS.md
+            description: Eager/chunked limits, population-bounded sparse search, observed-output budgets and independent process/source memory costs.
       - name: governance
         agents_file: docs/content/user/foundations/governance/AGENTS.md
         index_file: docs/content/user/foundations/governance/index.md
         index_agents_file: docs/content/user/foundations/governance/index.AGENTS.md
+        pages:
+          - name: configuration_options
+            file: docs/content/user/foundations/governance/configuration_options.md
+            agents_file: docs/content/user/foundations/governance/configuration_options.md.AGENTS.md
+            description: Application controls, numerical working admission and separation from OS resource caps or reservations.
       - name: support
         agents_file: docs/content/user/foundations/support/AGENTS.md
         index_file: docs/content/user/foundations/support/index.md
@@ -349,6 +359,14 @@ sections:
         index_agents_file: docs/content/user/tools/structure/index.AGENTS.md
         status: in_progress
         pages:
+          - name: get_neighbors
+            file: docs/content/user/tools/structure/get_neighbors.ipynb
+            agents_file: docs/content/user/tools/structure/get_neighbors.ipynb.AGENTS.md
+            description: Native criteria, population-bounded grids, checked numerical working admission, actual CSR output and public memory refusal.
+          - name: get_contacts
+            file: docs/content/user/tools/structure/get_contacts.ipynb
+            agents_file: docs/content/user/tools/structure/get_contacts.ipynb.AGENTS.md
+            description: Exact contact criteria, resident Boolean map reservation, bounded native search and one-vector CSR filling.
           - name: least_rmsd_align
             file: docs/content/user/tools/structure/least_rmsd_align.ipynb
             agents_file: docs/content/user/tools/structure/least_rmsd_align.ipynb.AGENTS.md

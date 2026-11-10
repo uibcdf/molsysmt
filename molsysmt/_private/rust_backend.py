@@ -97,7 +97,8 @@ def get_vectors(coordinates1, coordinates2, boxes, pairs, details):
 
 # --------------------------------------------------------------------------- neighbour list
 # Dispatch of molsysmt.lib.structure.neighbor_list.neighbor_list_csr_multi (the hot
-# kernel behind get_contacts and get_neighbors). Bit-for-bit identical results.
+# kernel behind get_contacts and get_neighbors). Scientific criteria are shared;
+# cell storage and CSR intermediates negotiate the numerical memory budget.
 
 
 def neighbor_list_csr_multi(
@@ -108,21 +109,36 @@ def neighbor_list_csr_multi(
     exclude_self=True,
     sort_by_distance=False,
     backend=None,
+    *,
+    memory_budget=None,
+    caller="molsysmt.structure.get_neighbors",
 ):
     import numpy as np
 
     q = np.ascontiguousarray(query_coords, dtype=np.float64)
     r = q if ref_coords is None else np.ascontiguousarray(ref_coords, dtype=np.float64)
     b = None if box is None else np.ascontiguousarray(box, dtype=np.float64)
-    return _rust.neighbor_list_csr_multi(
-        q,
-        r,
-        b,
-        float(cutoff),
-        bool(exclude_self),
-        bool(sort_by_distance),
-        _num_threads(q, r),
-    )
+    from molsysmt import configure
+    from molsysmt._private.smonitor import MemoryBudgetExceededError
+
+    budget = int(configure.max_ram_usage if memory_budget is None else memory_budget)
+    try:
+        return _rust.neighbor_list_csr_multi(
+            q,
+            r,
+            b,
+            float(cutoff),
+            bool(exclude_self),
+            bool(sort_by_distance),
+            _num_threads(q, r),
+            memory_budget=budget,
+        )
+    except MemoryError as error:
+        raise MemoryBudgetExceededError(
+            reason=str(error),
+            available_bytes=budget,
+            caller=caller,
+        ) from error
 
 
 # --------------------------------------------------------------------------- SASA

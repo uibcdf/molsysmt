@@ -106,7 +106,8 @@ def get_contacts(
     ArgumentError
         If a threshold or endpoint population is invalid.
     MemoryBudgetExceededError
-        If the resident boolean map exceeds the configured numeric-output budget.
+        If the resident boolean map or eligible native cell-search working
+        estimate exceeds the configured numerical allowance.
     NotImplementedMethodError
         If output labels or representation are unsupported.
 
@@ -117,6 +118,10 @@ def get_contacts(
     retains only its strict upper triangle. Explicit endpoint structures retain
     all directed entries. Atom-index pair output uses resolved selections.
     The full boolean map remains resident, including when pairs are returned.
+    Eligible native search reserves the Boolean map before negotiating its
+    remaining allowance. Population-bounded grids preserve the exact cutoff;
+    map filling uses one occurrence-index vector and retains the native CSR
+    working guard. The allowance is not process RSS or an OS reservation.
     Coordinate preparation for accelerated dispatch has its own RAM cost;
     internal disk distance intermediates are consumed by structure and retired.
     This function has no molecular_system_2 argument. Actual GPU qualification
@@ -467,10 +472,6 @@ def get_contacts(
             num_structures = coords_val.shape[0]
             n_elements_1 = coords_val.shape[1]
             n_elements_2 = tmp_coords_2_val.shape[1]
-            contact_map = np.zeros(
-                (num_structures, n_elements_1, n_elements_2), dtype=bool
-            )
-
             # One parallel multi-structure neighbour search over the flattened
             # (structure, query-atom) space, then a vectorised fill of the map.
             from molsysmt._private.rust_backend import neighbor_list_csr_multi
@@ -483,12 +484,15 @@ def get_contacts(
                 cutoff=threshold_val,
                 exclude_self=is_self,
                 sort_by_distance=False,
+                memory_budget=int(config.max_ram_usage) - output_bytes,
+                caller=caller,
+            )
+            contact_map = np.zeros(
+                (num_structures, n_elements_1, n_elements_2), dtype=bool
             )
             counts = np.diff(offsets)
-            w_of_entry = np.repeat(np.arange(num_structures * n_elements_1), counts)
-            s_of_entry = w_of_entry // n_elements_1
-            iq_of_entry = w_of_entry % n_elements_1
-            contact_map[s_of_entry, iq_of_entry, indices] = True
+            row_of_entry = np.repeat(np.arange(num_structures * n_elements_1), counts)
+            contact_map.reshape(-1, n_elements_2)[row_of_entry, indices] = True
 
             if is_self:
                 contact_map[:, np.arange(n_elements_1), np.arange(n_elements_1)] = True

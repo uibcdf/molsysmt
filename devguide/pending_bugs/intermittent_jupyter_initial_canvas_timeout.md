@@ -58,3 +58,17 @@ The complete 545-issue inventory plus the newly opened #614 was reviewed for
 equivalent initialization observations. This report tracks uncertainty for
 #421 / PR #543 and uibcdf/molsysviewer#264; it is not a proven numerical failure
 or universal product defect. Human/installed and publication scopes stay separate.
+
+## Separate startup and late-workflow observations — 2026-11-10
+
+#690 receiving on clean 573476e70 / Viewer 9b8662cf retains three failed
+actual-Jupyter attempts. The four-CPU cold-server attempt reaches its unchanged
+20-second readiness limit before any canvas or molecular cell; the 15-second
+stack is importing JupyterLab extension code. A same-input repeat starts the
+server and advances through numeric geometry and PCA, then exhausts the
+unchanged 300-second browser deadline during PCA popups. The two-CPU attempt
+also reaches a later workflow deadline. Host pressure stays zero and no own OOM
+or reserve stop occurs. See the [native receipt](../../devtools/data/native_neighbor_allocation_receiving_690_20261110.json).
+These distinguish stages and preserve failures; they do not establish the cause
+or repair of this report's original first-canvas timeout. No warm-up, increased
+deadline or acceptance waiver is introduced; #615 remains open.
