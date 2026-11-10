@@ -189,8 +189,10 @@ def test_terminal_selected_scope_is_not_full_chain_proof():
     with msv.demo["181L"] as view:
         tools = view.addons.molsysmt.build
         assert tools.get_missing_terminal_cappings() == {161: ["OXT"]}
-        # Native logic uses the selected groups, not an inferred whole-chain scope.
-        assert tools.get_missing_terminal_cappings(selection=[0]) == {0: ["OXT"]}
+        # Full-chain context identifies the real terminus before report filtering.
+        # An empty local report does not certify the unselected C-terminal group.
+        assert tools.get_missing_terminal_cappings(selection=[0]) == {}
+        assert tools.get_missing_terminal_cappings(selection=[161]) == {161: ["OXT"]}
         assert tools.get_missing_terminal_cappings(selection=[]) == {}
 
 
