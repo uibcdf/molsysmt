@@ -984,3 +984,12 @@ hydrogen addition, stored-state choice, assignment or readiness certification.
 The earlier read-only inspection evidence remains historical; new native,
 Jupyter, representative Qt and documentation receiving are required before the
 original assessed-reconciliation intent receives credit.
+
+
+**First assessed-reconciliation receiving:** 329 affected/native/panel cases
+pass on clean 56b913274. The first new Jupyter attempt fails in its initial
+fixture: it referenced Structures at the package root, where it is not exported.
+The fixture now uses the supported molsysmt.native.Structures import and has a
+direct native-axis/deposited-H control. No product science, browser deadline or
+expected H population is changed. Earlier directed attempts retain their three
+failed test-oracle/transport cases; the corrected selection passes 109 cases.

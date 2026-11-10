@@ -5,13 +5,14 @@ def source_system():
     import numpy as np
 
     import molsysmt as msm
+    from molsysmt.native import Structures
 
     source = msm.convert(
         msm.systems["chicken villin HP35"]["1vii.pdb"], to_form="molsysmt.MolSys"
     )
     puw = msm.pyunitwizard
     xyz = puw.get_value(source.structures.coordinates, to_unit="nm")
-    source.structures = msm.Structures(
+    source.structures = Structures(
         coordinates=puw.quantity(
             np.repeat(xyz, 3, axis=0) + np.arange(3)[:, None, None], "nm"
         ),

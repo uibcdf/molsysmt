@@ -346,3 +346,17 @@ def test_presentation_publication_failure_keeps_source_and_no_partial_result(
     assert panel._protonation_decision is panel._report is panel._result is None
     assert not view.addons.manager.presentations.records()
     unchanged(view, before)
+
+
+def test_actual_graphical_fixture_has_declared_native_axes_and_known_h_inventory():
+    from tests.molsysviewer_molsysmt.protonation_panel_fixture import source_system
+
+    source, keep = source_system()
+    assert source.get_n_atoms() == 596 and source.structures.n_structures == 3
+    assert len(keep) == 590
+    np.testing.assert_array_equal(
+        msm.build.assess_protonation(source, pH=12).to_dict()["atom_map"][
+            "output_to_source_atom_indices"
+        ],
+        keep,
+    )

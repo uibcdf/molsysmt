@@ -21,7 +21,7 @@ try{
  await step('Inspect deposited villin hydrogens and exact whole-system assessment without modification',async()=>{
   await page.goto(`http://127.0.0.1:${config.port}/lab/workspaces/assessed-${Date.now()}/tree/system.ipynb?token=${config.token}`,{waitUntil:'domcontentloaded'});
   await page.locator('.jp-Cell').first().filter({hasText:'import molsysviewer as msv'}).waitFor();const no=page.getByRole('button',{name:'No',exact:true});if(await no.isVisible())await no.click();await execute(0);
-  await page.waitForFunction(()=>{const err=document.querySelector('.jp-OutputArea-error');if(err)throw new Error(err.textContent);return window.__controllers?.[0]?.getStructureData()?.elementCount===596;});
+  await page.waitForFunction(()=>{const err=document.querySelector('.jp-OutputArea-error, .jp-RenderedText[data-mime-type="application/vnd.jupyter.stderr"]');if(err)throw new Error(err.textContent);return window.__controllers?.[0]?.getStructureData()?.elementCount===596;});
   await openMolecularPanel(page,'chemistry');await panel().locator('[data-task]').selectOption('protonation');await panel().locator('[data-assessment-ph]').fill('12');await inspect();
   assert.match(await panel().locator('[data-assessment-summary]').innerText(),/6 proposed H removals, not applied/);
   assert.equal(await panel().locator('[data-protonation-confirm]').isVisible(),false);
