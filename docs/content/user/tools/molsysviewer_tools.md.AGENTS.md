@@ -751,3 +751,11 @@ explicit limits; hidden selection/state drafts never narrow them. No executable
 assessment is retained or applied. Keep unassessed/partial/no-change distinctions,
 native reference identifiers, source-index 50-row pages, pending-reader/expiry
 rules and absence of report/session/H5MSM persistence explicit.
+
+Preserve the received primary-bound get_model_recipe query: requested/default/
+inapplicable-default origins, inspected physical model/typed box rows, named
+unsupported-control refusal and unknown history for provided models. It can
+parameterize a System but creates no Context, device or integrator and changes
+no source/scene. Its first stored structure context is independent of the
+visible structure. Do not confuse this expert query with graphical #687
+acceptance or claim that a compact report reproduces arbitrary custom forces.

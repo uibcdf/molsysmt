@@ -1473,8 +1473,16 @@ equilibrium or physical stability. Converged coordinates can depend on model,
 platform and numerical execution settings. GPU and arbitrary-system preparation
 remain outside this bounded receiving.
 
-Five native mechanical tools are exposed; the native MolSys force reader
-remains unexposed under [#572](https://github.com/uibcdf/molsysmt/issues/572).
+Seven native mechanical tools are exposed, including the complete-model force
+reader and the read-only model-recipe query. Call
+`view.addons.molsysmt.molecular_mechanics.get_model_recipe()` to inspect
+requested/default origins, compiled settings, typed box rows and provenance.
+This can parameterize a System but creates no Context or integrator, chooses no
+device and changes no coordinates or scene. Unsupported stored controls refuse
+with named-field diagnostics. The supplied structure context defaults to the
+first stored structure, independently of the visible one. See the
+[model-recipe contract](molecular_mechanics/get_model_recipe.md) for inactive
+defaults and the unknown history of already parameterized models.
 The received [#559 repair](https://github.com/uibcdf/molsysmt/issues/559) resolves
 execution names in the engine. CPU and Reference now have bounded consumer
 energy, pair-energy and minimization checks against independent models.
@@ -1487,7 +1495,8 @@ Nonbonded energy includes the received #561 mixed-axis repair, with explicit
 selection and physical limits. This is separate from platform receiving and
 does not imply arbitrary periodic partition accuracy.
 
-Native references: {func}`molsysmt.molecular_mechanics.get_engine_forcefield`,
+Native references: {func}`molsysmt.molecular_mechanics.get_model_recipe`,
+{func}`molsysmt.molecular_mechanics.get_engine_forcefield`,
 {func}`molsysmt.molecular_mechanics.get_degrees_of_freedom`,
 {func}`molsysmt.molecular_mechanics.get_potential_energy`,
 {func}`molsysmt.molecular_mechanics.get_forces`,
