@@ -1,5 +1,6 @@
 """Calm read-only chemistry reports with bounded, explicit source-index pages."""
 
+from ._construction_frontend import CONSTRUCTION_JS
 from ._panel_widgets import RESULT_MARKUP, SELECTION_MARKUP, SHARED_JS
 
 ESM = (
@@ -7,8 +8,9 @@ ESM = (
     + r"""
 export function render({model,el}) {
   const abort=new AbortController(),options={signal:abort.signal};
+  __CONSTRUCTION_JS__
   const initial={source:'none',value:'',expression:'',indices:'',context:'current',structure_index:0};
-  const defaults={task:'chemistry',state_mode:'reference',state_index:'0',hydrogen_mode:'pH',engine:'MolSysMT',pH:'7.4',attribute_policy:'strict',title:'',inference_method:'supported_group_templates',bond_cutoff:'2 angstroms',n_cap:'none',c_cap:'none',keep_ids:'no',charge_method:'gasteiger_marsili',forcefield:'',water_model:'',expected_charge:''};
+  const defaults={...constructionDefaults,task:'chemistry',state_mode:'reference',state_index:'0',hydrogen_mode:'pH',engine:'MolSysMT',pH:'7.4',attribute_policy:'strict',title:'',inference_method:'supported_group_templates',bond_cutoff:'2 angstroms',n_cap:'none',c_cap:'none',keep_ids:'no',charge_method:'gasteiger_marsili',forcefield:'',water_model:'',expected_charge:''};
   let draft={...initial,...model.get('chemistry_selection')},parameters={...defaults,...model.get('chemistry_parameters')};
   let context={},report=null,page=null,busy=false,sequence=0,stamp=0,requestStamp=0,message='',pendingAction='';
   let result=null,replacement=null,canReplace=false,replacementSupported=false,destinations=[],alive=true,protonationReview=null,canApplyProtonation=false,canPrepareProtonation=false;
@@ -23,7 +25,7 @@ export function render({model,el}) {
     partial_charges:{title:'Assign partial charges',purpose:'Attach a complete atom-aligned charge assignment using the explicitly chosen model.',scope:'Whole system, exactly one prepared chemical state. Structure-associated state uses the visible frame. The expected total is a full-system declaration, never a selected-fragment charge.',limits:'Gasteiger–Marsili requires prepared chemistry and RDKit; force-field charges require the named model and OpenMM templates. No automatic chemical repair or full parameterization. Existing analyses retain snapshots; recalculate those depending on these parameters. Mechanical assignments are not stored by H5MSM 0.5.'},
   };
   el.innerHTML=`<section class="msm-system msm-chemistry" aria-label="Molecular chemistry tools">
-    <label>Chemistry task<select data-task aria-label="Chemistry task"><optgroup label="Inspect"><option value="chemistry">Inspect stored chemistry</option><option value="hydrogens">Hydrogen inventory</option><option value="coverage">Assess exact-template coverage</option><option value="terminals">Inspect missing terminal atoms</option><option value="protonation">Assess reference-rule protonation</option></optgroup><optgroup label="Prepare a separate system"><option value="heavy">Add missing heavy atoms</option><option value="add_hydrogens">Add missing hydrogens</option><option value="infer_bonds">Infer covalent bonds</option><option value="add_bonds">Add missing bonds</option><option value="terminal_cappings">Complete terminal atoms and caps</option><option value="remove_hydrogens">Remove reference-rule hydrogens</option><option value="autodock_types">Assign AutoDock atom types</option><option value="partial_charges">Assign partial charges</option></optgroup></select></label>
+    <label>Chemistry task<select data-task aria-label="Chemistry task"><optgroup label="Inspect"><option value="chemistry">Inspect stored chemistry</option><option value="hydrogens">Hydrogen inventory</option><option value="coverage">Assess exact-template coverage</option><option value="terminals">Inspect missing terminal atoms</option><option value="protonation">Assess reference-rule protonation</option></optgroup><optgroup label="Prepare a separate system"><option value="heavy">Add missing heavy atoms</option><option value="add_hydrogens">Add missing hydrogens</option><option value="infer_bonds">Infer covalent bonds</option><option value="add_bonds">Add missing bonds</option><option value="terminal_cappings">Complete terminal atoms and caps</option><option value="remove_hydrogens">Remove reference-rule hydrogens</option><option value="autodock_types">Assign AutoDock atom types</option><option value="partial_charges">Assign partial charges</option></optgroup><optgroup label="Construct a separate system"><option value="peptide">Build a peptide</option><option value="water_cell">Build a water cell</option><option value="bioassembly">Build a biological assembly</option><option value="solvate">Solvate a system</option><option value="ions">Add ions</option></optgroup></select></label>
     <h2 data-heading>Inspect stored chemistry</h2><p class="msm-context" data-context>Loading system information…</p>
     <p class="msm-hint" data-purpose></p>
     __SELECTION_EDITOR__
@@ -35,6 +37,7 @@ export function render({model,el}) {
     </details>
     <label data-assessment-ph-label hidden>Assessment pH<input data-assessment-ph aria-label="Assessment pH" inputmode="decimal" maxlength="64"></label>
     <div data-preparation hidden>
+      <div data-construction-fields hidden></div>
       <label data-hydrogen-mode-label>Hydrogen method<select data-hydrogen-mode aria-label="Hydrogen method"><option value="pH">Template-based pH approximation</option><option value="fixed_chemical_state">Prepared chemical state (RDKit)</option></select></label>
       <label data-engine-label>Engine<select data-engine aria-label="Preparation engine"><option value="MolSysMT">MolSysMT</option><option value="PDBFixer">PDBFixer (optional)</option><option value="OpenMM">OpenMM (optional)</option></select></label>
       <label data-ph-label>pH<input data-ph aria-label="Preparation pH" inputmode="decimal" maxlength="64"></label>
@@ -88,34 +91,49 @@ export function render({model,el}) {
   </section>`;
   const q=key=>el.querySelector(`[data-${key}]`);
   const whole=document.createElement('option');whole.value='all';whole.textContent='Whole system';q('source').options.add(whole,1);
+  for(const field of constructionFields){
+    const label=document.createElement('label');label.textContent=field.label;
+    const input=document.createElement(field.choices?'select':'input');input.dataset.construction=field.key;input.setAttribute('aria-label',field.label);
+    if(field.choices)for(const choice of field.choices){const option=document.createElement('option');option.value=Array.isArray(choice)?choice[0]:choice;option.textContent=Array.isArray(choice)?choice[1]:choice;input.append(option);}
+    else input.maxLength=['sequence','construction_indices'].includes(field.key)?4096:200;
+    label.append(input);q('construction-fields').append(label);
+    input.addEventListener(field.choices?'change':'input',()=>{parameters[field.key]=input.value;changed();},options);
+  }
   const renderSelection=selectionEditor(el,options,patch=>{Object.assign(draft,patch);changed();});
   const renderResult=resultCard(el,model,options,{result:()=>result,busy:()=>busy,request,update:(value,text)=>{busy=value;message=text;if(alive)render();}});
   function cell(tag,value){const node=document.createElement(tag);node.textContent=String(value);return node;}
   function tableRows(target,rows){target.replaceChildren(...rows.map(values=>{const tr=document.createElement('tr');tr.append(...values.map(x=>cell('td',x)));return tr;}));}
   function list(target,values){target.replaceChildren(...values.map(x=>cell('li',x)));}
   function render(){
-    const assessment=['coverage','terminals','protonation'].includes(parameters.task),whole=['terminals','protonation'].includes(parameters.task),protonation=parameters.task==='protonation',hydrogen=parameters.task==='hydrogens',heavy=parameters.task==='heavy',addH=parameters.task==='add_hydrogens',repair=repairs[parameters.task],prepare=heavy||addH||!!repair,selectedRepair=['infer_bonds','add_bonds','terminal_cappings'].includes(parameters.task),assignment=['autodock_types','partial_charges'].includes(parameters.task),fixed=addH&&parameters.hydrogen_mode==='fixed_chemical_state';renderSelection(draft,context);
+    const construction=constructions[parameters.task],fresh=['peptide','water_cell'].includes(parameters.task);
+    const assessment=['coverage','terminals','protonation'].includes(parameters.task),whole=['terminals','protonation'].includes(parameters.task),protonation=parameters.task==='protonation',hydrogen=parameters.task==='hydrogens',heavy=parameters.task==='heavy',addH=parameters.task==='add_hydrogens',repair=repairs[parameters.task],prepare=heavy||addH||!!repair||!!construction,selectedRepair=['infer_bonds','add_bonds','terminal_cappings'].includes(parameters.task),assignment=['autodock_types','partial_charges'].includes(parameters.task),fixed=addH&&parameters.hydrogen_mode==='fixed_chemical_state';renderSelection(draft,context);
     q('task').value=parameters.task;q('heading').textContent=heavy?'Add missing heavy atoms':addH?'Add missing hydrogens':hydrogen?'Hydrogen inventory':'Inspect stored chemistry';
     q('purpose').textContent=heavy?'Complete selected groups using the explicitly chosen native engine. Unassessed groups remain distinct from completed groups.':addH?'Add hydrogen atoms to a separate complete system, without removing existing hydrogens.':hydrogen?'Inspect indexed hydrogen neighbors and separately stored hydrogen counts, without adding or removing atoms.':'Inspect stored atom, bond and coordinate information without completing or repairing chemistry.';
     q('context').textContent=!context.has_system?'Load a system in Studio > Load first.':context.n_atoms!==undefined?`${context.n_atoms.toLocaleString()} atoms · ${context.n_structures} structures`:'Molecular data need explicit recovery.';
     q('state-mode').value=parameters.state_mode;q('state-index-label').hidden=parameters.state_mode!=='index';if(document.activeElement!==q('state-index'))q('state-index').value=parameters.state_index;
-    q('editor').hidden=addH||whole||(repair&&!selectedRepair);q('chemical-state').hidden=(prepare&&!fixed&&!assignment&&parameters.task!=='infer_bonds')||whole;q('assessment-ph-label').hidden=!protonation;if(document.activeElement!==q('assessment-ph'))q('assessment-ph').value=parameters.pH;
+    q('editor').hidden=!!construction||addH||whole||(repair&&!selectedRepair);q('chemical-state').hidden=!!construction||(prepare&&!fixed&&!assignment&&parameters.task!=='infer_bonds')||whole;q('assessment-ph-label').hidden=!protonation;if(document.activeElement!==q('assessment-ph'))q('assessment-ph').value=parameters.pH;
     q('scope').textContent=heavy?'The selection is evaluated in its chosen structure and reference state. The selected groups are completed across every source structure. Atom indices may change.':addH?'The complete system is prepared; no atom selection or visible-structure extraction is applied. This panel requires one source structure.':'The report uses the structure chosen in Selection context. One structure is inspected; other structures are not assessed.';
     q('preparation').hidden=!prepare||!!result;q('hydrogen-mode-label').hidden=!addH;q('hydrogen-mode').value=parameters.hydrogen_mode;
-    q('engine-label').hidden=fixed||!!repair;q('engine').value=parameters.engine;for(const option of q('engine').options)option.disabled=heavy&&option.value==='OpenMM';
-    q('ph-label').hidden=(!addH||fixed)&&!['terminal_cappings','remove_hydrogens'].includes(parameters.task);q('attribute-label').hidden=!!repair||(addH&&!fixed);q('attribute-policy').value=parameters.attribute_policy;
+    q('engine-label').hidden=!!construction||fixed||!!repair;q('engine').value=parameters.engine;for(const option of q('engine').options)option.disabled=heavy&&option.value==='OpenMM';
+    q('ph-label').hidden=!!construction||(!addH||fixed)&&!['terminal_cappings','remove_hydrogens'].includes(parameters.task);q('attribute-label').hidden=!!construction||!!repair||(addH&&!fixed);q('attribute-policy').value=parameters.attribute_policy;
     for(const [key,value] of [['ph',parameters.pH],['preparation-title',parameters.title]])if(document.activeElement!==q(key))q(key).value=value;
     q('preparation-limits').textContent=heavy?'Template placement is an estimate, not refinement. Unsupported gaps or conflicting chemistry may remain unassessed; inspect native diagnostics. PDBFixer requires the omission policy. New atoms have no inferred force-field parameters.':fixed?'Requires one isolated, fully prepared component and chemical state with explicit connectivity, charges and hydrogen inventory. RDKit places local hydrogens on the existing pose. No protonation choice, minimization or periodic reconstruction is performed.':'Uses fixed free-amino-acid pKa thresholds, not environment-dependent pKa prediction. Existing hydrogens are retained. The native legacy route may discard attributes; it does not provide the strict attribute policy. Review diagnostics and inspect the result.';
     if(repair){q('heading').textContent=repair.title;q('purpose').textContent=repair.purpose;q('scope').textContent=repair.scope;q('preparation-limits').textContent=repair.limits;}
     q('inference-method-label').hidden=parameters.task!=='infer_bonds';q('bond-cutoff-label').hidden=parameters.task!=='add_bonds';q('capping-fields').hidden=parameters.task!=='terminal_cappings';q('charge-fields').hidden=parameters.task!=='partial_charges';q('forcefield-label').hidden=parameters.charge_method!=='forcefield';q('water-model-label').hidden=parameters.charge_method!=='forcefield';
     for(const [key,name] of [['inference-method','inference_method'],['bond-cutoff','bond_cutoff'],['n-cap','n_cap'],['c-cap','c_cap'],['keep-ids','keep_ids'],['charge-method','charge_method'],['forcefield','forcefield'],['water-model','water_model'],['expected-charge','expected_charge']])if(document.activeElement!==q(key))q(key).value=parameters[name];
-    q('prepare').disabled=busy||!context.can_review||(selectedRepair&&draft.source==='none')||(heavy&&(draft.source==='none'||(parameters.engine==='PDBFixer'&&parameters.attribute_policy==='strict')))||(addH&&context.n_structures!==1);
+    const assemblyInput=el.querySelector('[data-construction="assembly_name"]');
+    const assemblyChoices=['',...(context.assembly_names||[])];
+    if(Array.from(assemblyInput.options,x=>x.value).join('\0')!==assemblyChoices.join('\0')){assemblyInput.replaceChildren(...assemblyChoices.map(value=>{const option=document.createElement('option');option.value=value;option.textContent=value||'Choose a deposited assembly';return option;}));}
+    q('construction-fields').hidden=!construction;
+    for(const field of constructionFields){const input=el.querySelector(`[data-construction="${field.key}"]`);input.parentElement.hidden=!field.tasks.includes(parameters.task)||(field.key==='construction_indices'&&parameters.construction_structures!=='indices');if(document.activeElement!==input)input.value=parameters[field.key];}
+    if(construction){q('heading').textContent=construction.title;q('purpose').textContent=construction.purpose;q('scope').textContent=construction.scope;q('preparation-limits').textContent=construction.limits;if(fresh)q('context').textContent=context.has_system?'Uses explicit new inputs; the loaded system stays unchanged.':'No system is required for this construction.';if(parameters.task==='bioassembly'&&!context.assembly_names?.length)q('preparation-limits').textContent='No named biological assembly is stored in this system. Load a source that declares assembly transformations; no biological identity is inferred.';}
+    q('prepare').disabled=busy||(fresh?context.state!=='synchronized':!context.can_review)||(selectedRepair&&draft.source==='none')||(heavy&&(draft.source==='none'||(parameters.engine==='PDBFixer'&&parameters.attribute_policy==='strict')))||(addH&&context.n_structures!==1);
     q('prepare').textContent=busy?'Preparing…':'Prepare separate system';
-    renderResult(result,context,destinations,busy||!context.can_review);q('preparation-result').hidden=!result;
+    renderResult(result,context,destinations,busy||context.state!=='synchronized');q('preparation-result').hidden=!result;
     if(result){
       const p=result.parameters;
-      const method=p.task?`${repairs[p.task].title} · ${p.method||p.engine||'MolSysMT'} · ${p.scope==='whole_system'?'whole system':p.selected_atoms+' selected atoms'}`:result.operation.endsWith('heavy_atoms')?`Heavy-atom completion · ${p.engine} · ${p.selected_groups} selected groups · all source structures`:p.mode==='fixed_chemical_state'?`Hydrogen completion · prepared chemical state ${p.chemical_state} · RDKit · structure 0`:`Hydrogen completion · pH ${p.pH} · ${p.engine} · whole system, structure 0`;
-      const extra=p.task?[
+      const method=constructions[p.task]?`${constructions[p.task].title} · ${p.engine||'MolSysMT'} · ${p.scope}`:p.task?`${repairs[p.task].title} · ${p.method||p.engine||'MolSysMT'} · ${p.scope==='whole_system'?'whole system':p.selected_atoms+' selected atoms'}`:result.operation.endsWith('heavy_atoms')?`Heavy-atom completion · ${p.engine} · ${p.selected_groups} selected groups · all source structures`:p.mode==='fixed_chemical_state'?`Hydrogen completion · prepared chemical state ${p.chemical_state} · RDKit · structure 0`:`Hydrogen completion · pH ${p.pH} · ${p.engine} · whole system, structure 0`;
+      const extra=constructions[p.task]?JSON.stringify(p):p.task?[
         p.chemical_state!==undefined?`Chemical state ${p.chemical_state}`:'',p.selection_structure!==undefined?`selection context structure ${p.selection_structure}`:'',
         p.pH!==undefined?`pH ${p.pH}`:'',p.N_terminal!==undefined?`N cap ${p.N_terminal||'none'}`:'',p.C_terminal!==undefined?`C cap ${p.C_terminal||'none'}`:'',
         p.max_bond_length?`bond distance ${p.max_bond_length}`:'',p.typing_scheme?`typing scheme ${p.typing_scheme}`:'',p.forcefield?`force field ${p.forcefield}`:'',p.water_model?`water model ${p.water_model}`:'',
@@ -221,19 +239,21 @@ export function render({model,el}) {
     // Busy-state requests have no host admission and therefore no reply.
     // Retire older responses and start a fresh read only in an admitted state.
     stamp++;sequence++;busy=false;report=null;page=null;replacement=null;protonationReview=null;canApplyProtonation=canPrepareProtonation=false;canReplace=false;context={...context,...status,can_inspect:!!context.has_system&&['synchronized','pending','sync_failed'].includes(status.state),can_review:!!context.has_system&&context.n_structures>0&&status.state==='synchronized'};
-    if(context.can_inspect)request('refresh');else render();
+    // A fresh construction may load the first system: cached presence is stale.
+    if(['synchronized','pending','sync_failed'].includes(status.state))request('refresh');else render();
   }
   model.on('msg:custom',onState);model.on('viewer:frame-changed',onContext);model.on('viewer:selection-changed',onContext);model.on('viewer:system-sync-changed',onSync);
   render();return()=>{alive=false;abort.abort();model.off('msg:custom',onState);model.off('viewer:frame-changed',onContext);model.off('viewer:selection-changed',onContext);model.off('viewer:system-sync-changed',onSync);report=null;page=null;result=null;replacement=null;el.replaceChildren();};
 }
 """
 )
+ESM = ESM.replace("__CONSTRUCTION_JS__", CONSTRUCTION_JS)
 ESM = ESM.replace("__SELECTION_EDITOR__", SELECTION_MARKUP)
 ESM = ESM.replace("__RESULT_CARD__", RESULT_MARKUP)
 
 CSS = r"""
 .msm-chemistry [data-report]{display:flex;flex-direction:column;gap:12px}
-.msm-chemistry [data-preparation],.msm-chemistry [data-preparation-result]{display:flex;flex-direction:column;gap:12px}
+.msm-chemistry [data-construction-fields],.msm-chemistry [data-preparation],.msm-chemistry [data-preparation-result]{display:flex;flex-direction:column;gap:12px}
 .msm-chemistry [data-replacement]{padding:12px;border:1px solid #596473;border-radius:7px}
 .msm-chemistry .msm-table-scroll{max-width:100%;overflow:auto;margin-top:8px}
 .msm-chemistry table{width:100%;border-collapse:collapse;font-size:12px;text-align:left}

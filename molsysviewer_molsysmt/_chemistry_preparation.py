@@ -6,6 +6,8 @@ from math import isfinite
 from secrets import token_urlsafe
 from weakref import ref
 
+from ._construction import CONSTRUCTION_TASKS, FRESH_TASKS, construct
+
 PREPARATION_DEFAULTS = {
     "hydrogen_mode": "pH",
     "engine": "MolSysMT",
@@ -30,7 +32,7 @@ REPAIR_TASKS = {
     "autodock_types",
     "partial_charges",
 }
-PREPARATION_TASKS = {"heavy", "add_hydrogens"} | REPAIR_TASKS
+PREPARATION_TASKS = {"heavy", "add_hydrogens"} | REPAIR_TASKS | CONSTRUCTION_TASKS
 
 
 def validate_preparation_parameters(parameters):
@@ -117,6 +119,10 @@ class _ChemistryPreparation:
             raise ValueError(
                 "Leave or close the current result before preparing another."
             )
+
+        if self._parameters["task"] in CONSTRUCTION_TASKS:
+            self._prepare_construction()
+            return
 
         def calculate(target):
             status = self._owner.get_sync_status()
@@ -261,6 +267,49 @@ class _ChemistryPreparation:
             )
 
         self._owner._read(calculate, {})
+
+    def _prepare_construction(self):
+        import molsysmt as msm
+
+        def calculate(target):
+            status = self._owner.get_sync_status()
+            if status["state"] != "synchronized":
+                raise ValueError("Update or recover the scene before construction.")
+            candidate, operation, science, title, frames = construct(self, target)
+            before = (
+                set(msm.get_attributes(target, include_none=False))
+                if target is not None
+                else set()
+            )
+            missing = sorted(
+                before - set(msm.get_attributes(candidate, include_none=False))
+            )
+            metadata = self._store_result(
+                candidate,
+                title=self._parameters["title"].strip() or title,
+                operation=operation,
+                structure_indices=frames,
+                revision=status["target_revision"],
+            )
+            metadata.update(
+                source_atoms=int(target.get_n_atoms()) if target is not None else 0,
+                parameters=science,
+                missing_attributes=missing[:200],
+                attributes_truncated=len(missing) > 200,
+                software={"molsysmt": str(msm.__version__)[:200]},
+            )
+            self._result = metadata
+            self._prepared_source = _PreparedSource(
+                ref(target) if target is not None else lambda: None,
+                status["target_revision"],
+            )
+
+        if self._parameters["task"] in FRESH_TASKS:
+            # Fresh explicit inputs do not implicitly bind or inspect a primary.
+            self._owner._view()
+            calculate(self._view.molsys)
+        else:
+            self._owner._read(calculate, {})
 
     def _prepare_repair(self, target, frame, total):
         """Keep scientific decisions in public native wrappers and outputs separate."""

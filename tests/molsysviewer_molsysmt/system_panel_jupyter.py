@@ -153,6 +153,7 @@ def main():
             "chemistry",
             "chemistry-pending",
             "chemistry-preparation",
+            "construction",
             "chemistry-repair",
             "assessed-protonation",
             "analysis",
@@ -753,6 +754,10 @@ def main():
         from continuous_session_fixture import notebook_cells
 
         cells = notebook_cells(initial[: initial.index("view = msv.demo")], output)
+    if args.scenario == "construction":
+        from construction_fixture import notebook_cells
+
+        cells = notebook_cells(initial[: initial.index("view = msv.demo")])
     if args.scenario == "interaction-mechanics":
         from interaction_mechanics_fixture import notebook_cells
 
@@ -969,7 +974,11 @@ def main():
                     [
                         args.node,
                         str(
-                            Path(__file__).with_name("continuous_session_jupyter.mjs")
+                            Path(__file__).with_name("construction_jupyter.mjs")
+                            if args.scenario == "construction"
+                            else Path(__file__).with_name(
+                                "continuous_session_jupyter.mjs"
+                            )
                             if args.scenario == "continuous-session"
                             else Path(__file__).with_name(
                                 "interaction_mechanics_jupyter.mjs"

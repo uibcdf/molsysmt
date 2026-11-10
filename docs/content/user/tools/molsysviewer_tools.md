@@ -6505,3 +6505,50 @@ display with explicit units. The expert
 `view.addons.molsysmt.molecular_mechanics.get_model_recipe(...)` route preserves
 the native signature and independent return. Source support does not qualify
 a published addon/Viewer pair or promote this experimental contract to stable.
+
+## Constructing independent molecular systems
+
+The contribution source adds five tasks under **Molecular tools > Chemistry**:
+**Build a peptide**, **Build a water cell**, **Build a biological assembly**,
+**Solvate a system** and **Add ions**. They use public MolSysMT calculations,
+without changing the expert API or editing the loaded system implicitly.
+
+Peptide and water-cell construction also work in an empty view. Enter the
+sequence, its one/three-letter form and naming convention explicitly. The native
+peptide builder supplies initial template geometry, not a minimized structure
+or a complete fixed chemical state. Water cells use three lengths and angles
+with explicit units; MolSysMT builds the row-vector cell and clips complete
+waters from its bundled SPC-MODEL reference at 300 K. The result has no assigned
+force field, guaranteed density or equilibration. Whole waters can cross a face.
+
+Biological assembly construction lists deposited assembly names. Choose one and
+its structures explicitly; order and repeated structure indices are preserved.
+The atom-selection editor does not narrow this whole-system operation. Without
+stored transformations there is no inferred assembly to construct.
+
+Solvation and ion placement copy all atoms at exactly one chosen source
+structure. **All structures** or several indices are refused for these tasks;
+there is no hidden trajectory loop or chemical completion. Solvation declares
+the selected water model and optional force-field override on that independent
+input. A blank force field retains the native stored/default request. Native
+engine/model prerequisites and incompatible controls remain native errors.
+Ion placement requires a finite periodic box and declared complete waters.
+Choose the whole-system charge source, optional expected integer charge,
+counts or explicit neutralization, ionic strength, species, seed, minimum
+placement distances and attempt limit. It does not infer a charge from an
+unrelated fragment selection or perform later minimization/equilibration.
+
+**Prepare separate system** retains an independent result with bounded method,
+parameter, unit and source-context display. Native reports/history remain with
+the molecular result rather than a generic scene analysis store. All operations
+materialize molecular data; bounded display does not promise bounded process
+RAM. Native warnings and unsupported prerequisites remain visible.
+
+Use **Show in notebook** or **Open in new window** to inspect a result. **Use in
+this view…** first reviews replacement; **Back** changes no molecular data.
+Replacement loads another copy and resets the scene; it is refused after a
+managed source/result revision change. It can deliberately load the first
+system into an empty view. Presented result views remain independent. These
+source workflows are received separately in actual Jupyter/both popups and
+native Qt; package availability, owner integration and human acceptance retain
+their separate records.

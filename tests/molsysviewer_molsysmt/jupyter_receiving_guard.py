@@ -619,3 +619,25 @@ def test_actual_jupyter_assessed_protonation_managed_and_independent(tmp_path):
     assert len(result["checks"]) == 6
     assert not (output / "settings.json").exists()
     assert not (output / "config/jupyter_server_config.py").exists()
+
+
+def test_actual_jupyter_independent_construction_and_popups(tmp_path):
+    viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
+    output = tmp_path / "jupyter-construction"
+    command = [
+        sys.executable,
+        str(Path(__file__).with_name("system_panel_jupyter.py")),
+        "--viewer-root",
+        str(viewer),
+        "--scenario",
+        "construction",
+        "--output",
+        str(output),
+    ]
+    if provider := os.environ.get("MOLSYSVIEWER_PROVIDER_ROOT"):
+        command.extend(["--provider-root", provider])
+    subprocess.run(command, check=True, timeout=360)
+    result = json.loads((output / "full-result.json").read_text())
+    assert len(result["checks"]) == 6
+    assert not (output / "settings.json").exists()
+    assert not (output / "config/jupyter_server_config.py").exists()
