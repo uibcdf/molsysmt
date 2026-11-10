@@ -41,6 +41,7 @@ witness=msv.demo['1TCD']
 assert witness.molsys.get_n_atoms()==3983
 _witness_xyz=puw.get_value(witness.molsys.structures.coordinates,to_unit='nm').copy()
 display(witness)
+(_long_output/'witness-expected.json').write_text(json.dumps({'viewer_id':witness.widget.runtime_viewer_id}))
 print('LONG_SETUP_READY')
 """
     )
@@ -72,7 +73,7 @@ _expected_analysis=long_analysis_snapshot(_analysis)
 _analysis_measurements={key:np.asarray(value).copy() for key,value in _analysis.measurements.items()}
 _analysis_units=dict(_analysis.measure_units)
 v.player.go_to_structure(4999)
-(_long_output/'cycle-expected.json').write_text(json.dumps({'cycle':_long_cycle,'atoms':62,'structure':4999,'positions':{'0':(_expected_xyz[4999,0]*10).tolist(),'10':(_expected_xyz[4999,10]*10).tolist()}}))
+(_long_output/'cycle-expected.json').write_text(json.dumps({'cycle':_long_cycle,'viewer_id':v.widget.runtime_viewer_id,'atoms':62,'structure':4999,'positions':{'0':(_expected_xyz[4999,0]*10).tolist(),'10':(_expected_xyz[4999,10]*10).tolist()}}))
 display(v)
 print(f'LONG_CREATED_{_long_cycle}')
 """
@@ -110,6 +111,7 @@ for _key,_value in _analysis_measurements.items():np.testing.assert_array_equal(
 assert _analysis.measure_units==_analysis_units
 assert v.trajectory_plot.records()[0]['series'][0]['observation']==_context
 display(v)
+(_long_output/'cycle-recovered.json').write_text(json.dumps({'viewer_id':v.widget.runtime_viewer_id,'structure':v.player.index}))
 print(f'LONG_RECOVERED_{_long_cycle}')
 """
     play = """
