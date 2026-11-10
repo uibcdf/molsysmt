@@ -1,0 +1,806 @@
+{
+  "schema_version": "molsysmt.benchmark_comparability_receiving@1",
+  "date": "2026-11-09",
+  "owner_issues": [
+    "uibcdf/molsysmt#567",
+    "uibcdf/molsysmt#673",
+    "uibcdf/molsysmt#676"
+  ],
+  "qualified_source": "3547b09774791b5a9fa1c37c1e3387590ca5b3f6",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "scope": "Bounded Linux/Python 3.14 source receiving with published PyUnitWizard 0.28.1; no installed, full-suite, final-candidate, authoritative baseline or efficiency ranking claim.",
+  "runs": {
+    "benchmark-567-semantics-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/benchmark-567-semantics-directed.xml",
+          "--receptor-events=<private-evidence>/benchmark-567-semantics-directed.events.jsonl",
+          "devtools/tests/test_benchmark_geometry_semantics.py"
+        ],
+        "exit_code": 1,
+        "seconds": 6.787661618087441,
+        "viewer_commit": "346c331901c418fddb6b45a31da4690eee794129",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "ca76d93b420435243f68167521ccb503ec8b2728",
+        "starting_git_status": "?? devtools/tests/test_benchmark_geometry_semantics.py\n",
+        "ending_git_status": "?? devtools/tests/test_benchmark_geometry_semantics.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2546,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8678
+      },
+      "resources": {
+        "started_utc": "2026-11-10T00:49:32.433693+00:00",
+        "seconds": 14.013058006996289,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.54638671875,
+            2.0068359375,
+            2.9091796875
+          ],
+          "cpu_utilization": 0.04279959718026183,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13914877952,
+        "cgroup_memory_peak_bytes": 305336320,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "c79dbaca958b991093acbceb0f057604e37d0d59e02a80e06c5afcca46b29465",
+        "-bounded.json": "c0fec998dbf2eb8168e06986280bb46fcb8a9fc69371f61024419af974b7ad9e",
+        ".xml": "cb4de02a3837fed1d83d1bf430d3fbd9205185b77a4b8101e619eabac2473a7e",
+        ".log": "fa4e71580e183544becf55e82584a812005f8f4a95935297f8a5818ed4f8945a",
+        "-inputs-before.json": "b86d7780b2c40a977cbc79cd14300035a369625601be5e632938896837eb4bf4",
+        "-inputs-after.json": "b86d7780b2c40a977cbc79cd14300035a369625601be5e632938896837eb4bf4",
+        "-reference-driver.py": "4c7579b285551260b76d9fcf59656a3d488bc2310bc6d984cf34a3f3cb8c9f13",
+        "-resource-driver.py": "5897e07c44b7afca0893ccbd3c8e841d4ececde3b145ea354b01ba14e098edf3",
+        ".events.jsonl": "ebff0c7fa6c45cf2a61813d98860dd18fe4c18d395f85d13bacc76c33d2575db",
+        "-viewer-inputs-before.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596",
+        "-viewer-inputs-after.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "2",
+          "skipped": "0",
+          "tests": "2",
+          "time": "4.226",
+          "timestamp": "2026-11-09T18:49:37.126979-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "devtools.tests.test_benchmark_geometry_semantics",
+          "name": "test_every_reported_rmsd_is_unaligned_and_preserves_a_rigid_translation",
+          "outcome": "failure"
+        },
+        {
+          "class": "devtools.tests.test_benchmark_geometry_semantics",
+          "name": "test_every_reported_distance_uses_no_periodic_images_and_the_full_pair_grid",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "benchmark-567-check-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/benchmark-567-check-directed.xml",
+          "--receptor-events=<private-evidence>/benchmark-567-check-directed.events.jsonl",
+          "devtools/tests/test_benchmark_comparability.py",
+          "devtools/tests/test_benchmark_comparison.py",
+          "devtools/tests/test_benchmark_evidence.py",
+          "devtools/tests/test_benchmark_reference.py",
+          "devtools/tests/test_benchmark_geometry_semantics.py",
+          "devtools/tests/test_execute_scientific_evidence.py"
+        ],
+        "exit_code": 1,
+        "seconds": 82.9370433120057,
+        "viewer_commit": "346c331901c418fddb6b45a31da4690eee794129",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "ca76d93b420435243f68167521ccb503ec8b2728",
+        "starting_git_status": " M .github/workflows/benchmarks.yml\n M benchmarks/compare_runs.py\n M benchmarks/competitors/run_matrix.py\n M benchmarks/competitors/test_geometry.py\n M benchmarks/competitors/test_loading.py\n M benchmarks/competitors/test_selections.py\n M benchmarks/harness.py\n M devtools/tests/test_benchmark_comparison.py\n M devtools/tests/test_benchmark_evidence.py\n?? benchmarks/comparability.py\n?? benchmarks/telemetry.py\n?? devguide/pending_bugs/competitive_geometry_timings_compare_different_rmsd_and_periodic_distance_observ.md\n?? devtools/tests/benchmark_fixtures.py\n?? devtools/tests/test_benchmark_comparability.py\n?? devtools/tests/test_benchmark_geometry_semantics.py\n",
+        "ending_git_status": " M .github/workflows/benchmarks.yml\n M benchmarks/compare_runs.py\n M benchmarks/competitors/run_matrix.py\n M benchmarks/competitors/test_geometry.py\n M benchmarks/competitors/test_loading.py\n M benchmarks/competitors/test_selections.py\n M benchmarks/harness.py\n M devtools/tests/test_benchmark_comparison.py\n M devtools/tests/test_benchmark_evidence.py\n?? benchmarks/comparability.py\n?? benchmarks/telemetry.py\n?? devguide/pending_bugs/competitive_geometry_timings_compare_different_rmsd_and_periodic_distance_observ.md\n?? devtools/tests/benchmark_fixtures.py\n?? devtools/tests/test_benchmark_comparability.py\n?? devtools/tests/test_benchmark_geometry_semantics.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2546,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8683
+      },
+      "resources": {
+        "started_utc": "2026-11-10T01:03:38.189259+00:00",
+        "seconds": 89.08470835303888,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            2.88037109375,
+            1.58935546875,
+            2.03955078125
+          ],
+          "cpu_utilization": 0.20030196275792655,
+          "swap_bytes_per_second": 12273.948930611217
+        },
+        "host_available_minimum_observed_bytes": 12245565440,
+        "cgroup_memory_peak_bytes": 382758912,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "4b19c74a9e350bb9c162932aeac2aebf2e60aa09e59ea6849974ac8981a89aeb",
+        "-bounded.json": "ddee58899056747910c32f93fedae6986a93e2929d294bc53b7283e572699d07",
+        ".xml": "d766283b2ee52b42eb1f72d1de7168d0c115e5b38013c4674ccfd1408e7886f9",
+        ".log": "95c5e424f1d70e58ecfe4caff7faca937fcc32d714ee1c7f56291982149682f8",
+        "-inputs-before.json": "157a66a86af7d04890d499764598fc8c8d9773fa9370da7098c3f1c408e1cef2",
+        "-inputs-after.json": "157a66a86af7d04890d499764598fc8c8d9773fa9370da7098c3f1c408e1cef2",
+        "-reference-driver.py": "c5af3c55c3494d8340dfaf8910153dc4604e75f4f10c191f7f15501da0d20d15",
+        "-resource-driver.py": "5897e07c44b7afca0893ccbd3c8e841d4ececde3b145ea354b01ba14e098edf3",
+        ".events.jsonl": "013c44cfc40f91863e0f5fb2c90d6cd8b5652907b0aca8379a90475d061f63e2",
+        "-viewer-inputs-before.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596",
+        "-viewer-inputs-after.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "2",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "144",
+          "time": "80.307",
+          "timestamp": "2026-11-09T19:03:43.180919-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "devtools.tests.test_benchmark_geometry_semantics",
+          "name": "test_every_reported_rmsd_is_unaligned_and_preserves_a_rigid_translation",
+          "outcome": "error"
+        },
+        {
+          "class": "devtools.tests.test_benchmark_geometry_semantics",
+          "name": "test_every_reported_distance_uses_no_periodic_images_and_the_full_pair_grid",
+          "outcome": "error"
+        }
+      ]
+    },
+    "benchmark-567-small-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/benchmark-567-small-directed.xml",
+          "--receptor-events=<private-evidence>/benchmark-567-small-directed.events.jsonl",
+          "devtools/tests/test_benchmark_comparability.py",
+          "devtools/tests/test_benchmark_comparison.py",
+          "devtools/tests/test_benchmark_geometry_semantics.py",
+          "devtools/tests/test_benchmark_evidence.py"
+        ],
+        "exit_code": 0,
+        "seconds": 13.396610243944451,
+        "viewer_commit": "346c331901c418fddb6b45a31da4690eee794129",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "ca76d93b420435243f68167521ccb503ec8b2728",
+        "starting_git_status": " M .github/workflows/benchmarks.yml\n M benchmarks/compare_runs.py\n M benchmarks/competitors/run_matrix.py\n M benchmarks/competitors/test_geometry.py\n M benchmarks/competitors/test_loading.py\n M benchmarks/competitors/test_selections.py\n M benchmarks/harness.py\n M devtools/tests/test_benchmark_comparison.py\n M devtools/tests/test_benchmark_evidence.py\n?? benchmarks/comparability.py\n?? benchmarks/telemetry.py\n?? devguide/pending_bugs/competitive_geometry_timings_compare_different_rmsd_and_periodic_distance_observ.md\n?? devtools/tests/benchmark_fixtures.py\n?? devtools/tests/test_benchmark_comparability.py\n?? devtools/tests/test_benchmark_geometry_semantics.py\n",
+        "ending_git_status": " M .github/workflows/benchmarks.yml\n M benchmarks/compare_runs.py\n M benchmarks/competitors/run_matrix.py\n M benchmarks/competitors/test_geometry.py\n M benchmarks/competitors/test_loading.py\n M benchmarks/competitors/test_selections.py\n M benchmarks/harness.py\n M devtools/tests/test_benchmark_comparison.py\n M devtools/tests/test_benchmark_evidence.py\n?? benchmarks/comparability.py\n?? benchmarks/telemetry.py\n?? devguide/pending_bugs/competitive_geometry_timings_compare_different_rmsd_and_periodic_distance_observ.md\n?? devtools/tests/benchmark_fixtures.py\n?? devtools/tests/test_benchmark_comparability.py\n?? devtools/tests/test_benchmark_geometry_semantics.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2546,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8683
+      },
+      "resources": {
+        "started_utc": "2026-11-10T01:14:02.822192+00:00",
+        "seconds": 20.02224371302873,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.044921875,
+            1.28076171875,
+            1.6640625
+          ],
+          "cpu_utilization": 0.13746223564954685,
+          "swap_bytes_per_second": 4090.932488574382
+        },
+        "host_available_minimum_observed_bytes": 14317555712,
+        "cgroup_memory_peak_bytes": 359751680,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "f031e4daa0d54acb1b6f24febcee61483b94f37c0d0e5a88adff6535570e7f56",
+        "-bounded.json": "76fd165064571079e4f49b58edf13c357311fca9dfb7e10913833f1cec01b3b7",
+        ".xml": "b791b5177334677d59a9571a97f1f78cf26882b728a5087ce2808b003934befc",
+        ".log": "a200af4989f5a540997a326e247d6d66dedc928df5437a452889d364b86b289e",
+        "-inputs-before.json": "8e0da297648a72fe718a57350decc5ed332d79163330bec0939dc36a59121ac0",
+        "-inputs-after.json": "8e0da297648a72fe718a57350decc5ed332d79163330bec0939dc36a59121ac0",
+        "-reference-driver.py": "95bd93e5a53a74add4a9fe94c8ccd2fdf1e020dcc7b4959a7fb06fda3fe6e2fd",
+        "-resource-driver.py": "5897e07c44b7afca0893ccbd3c8e841d4ececde3b145ea354b01ba14e098edf3",
+        ".events.jsonl": "5c4f4422fe893846f67c4891013514dda4c4688c04080ba679a77a858921b1a7",
+        "-viewer-inputs-before.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596",
+        "-viewer-inputs-after.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "123",
+          "time": "10.437",
+          "timestamp": "2026-11-09T19:14:07.247972-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "benchmark-567-tiny-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/benchmark-567-tiny-directed.xml",
+          "--receptor-events=<private-evidence>/benchmark-567-tiny-directed.events.jsonl",
+          "devtools/tests/test_benchmark_tiny_campaign.py",
+          "devtools/tests/test_benchmark_telemetry.py"
+        ],
+        "exit_code": 1,
+        "seconds": 4.567004475975409,
+        "viewer_commit": "346c331901c418fddb6b45a31da4690eee794129",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "ca76d93b420435243f68167521ccb503ec8b2728",
+        "starting_git_status": " M .github/workflows/benchmarks.yml\n M benchmarks/compare_runs.py\n M benchmarks/competitors/run_matrix.py\n M benchmarks/competitors/test_geometry.py\n M benchmarks/competitors/test_loading.py\n M benchmarks/competitors/test_selections.py\n M benchmarks/harness.py\n M devtools/tests/test_benchmark_comparison.py\n M devtools/tests/test_benchmark_evidence.py\n?? benchmarks/comparability.py\n?? benchmarks/telemetry.py\n?? devguide/pending_bugs/competitive_geometry_timings_compare_different_rmsd_and_periodic_distance_observ.md\n?? devtools/tests/benchmark_fixtures.py\n?? devtools/tests/test_benchmark_comparability.py\n?? devtools/tests/test_benchmark_geometry_semantics.py\n?? devtools/tests/test_benchmark_telemetry.py\n?? devtools/tests/test_benchmark_tiny_campaign.py\n",
+        "ending_git_status": " M .github/workflows/benchmarks.yml\n M benchmarks/compare_runs.py\n M benchmarks/competitors/run_matrix.py\n M benchmarks/competitors/test_geometry.py\n M benchmarks/competitors/test_loading.py\n M benchmarks/competitors/test_selections.py\n M benchmarks/harness.py\n M devtools/tests/test_benchmark_comparison.py\n M devtools/tests/test_benchmark_evidence.py\n?? benchmarks/comparability.py\n?? benchmarks/telemetry.py\n?? devguide/pending_bugs/competitive_geometry_timings_compare_different_rmsd_and_periodic_distance_observ.md\n?? devtools/tests/benchmark_fixtures.py\n?? devtools/tests/test_benchmark_comparability.py\n?? devtools/tests/test_benchmark_geometry_semantics.py\n?? devtools/tests/test_benchmark_telemetry.py\n?? devtools/tests/test_benchmark_tiny_campaign.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2546,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8685
+      },
+      "resources": {
+        "started_utc": "2026-11-10T01:18:19.567912+00:00",
+        "seconds": 11.010943276109174,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.95361328125,
+            1.30517578125,
+            1.55078125
+          ],
+          "cpu_utilization": 0.031626506024096335,
+          "swap_bytes_per_second": 12276.22103771578
+        },
+        "host_available_minimum_observed_bytes": 14274068480,
+        "cgroup_memory_peak_bytes": 361738240,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "65d5748db3dcba3fd8006a9a433bfb041c0b3aed595de3a4b6b673a2f780e600",
+        "-bounded.json": "a19465917b2aa2110ea67ea1aaf087de57efb3d5c89003f48a4a012c4a80ec59",
+        ".xml": "ce2c9816f07273c228faa7104be5d3ebb7c712d71f9329b9992dc3d7fe90388f",
+        ".log": "76b6c15e4b413cb6c1dfc438e768ad4cf5c32ee3cc075c9caf0ea959ab9a5dbb",
+        "-inputs-before.json": "f12314b87cdc717a6445ce91fb176a57196fc12c82fc46e290061d85ea3ca9bd",
+        "-inputs-after.json": "f12314b87cdc717a6445ce91fb176a57196fc12c82fc46e290061d85ea3ca9bd",
+        "-reference-driver.py": "5d7a3cfce891f35f70d322ac8f81ae535ea27ccd214d98e7460f795fd663b651",
+        "-resource-driver.py": "5897e07c44b7afca0893ccbd3c8e841d4ececde3b145ea354b01ba14e098edf3",
+        ".events.jsonl": "3a03b6a649965b647e6e172d2f8a83f22fc43f0a1b4983e7dad46d7a42a32cc2",
+        "-viewer-inputs-before.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596",
+        "-viewer-inputs-after.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "10",
+          "time": "2.242",
+          "timestamp": "2026-11-09T19:18:24.028761-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "devtools.tests.test_benchmark_tiny_campaign",
+          "name": "test_two_actual_tiny_campaigns_keep_scientific_and_context_evidence",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "benchmark-567-tiny-spawn-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/benchmark-567-tiny-spawn-directed.xml",
+          "--receptor-events=<private-evidence>/benchmark-567-tiny-spawn-directed.events.jsonl",
+          "devtools/tests/test_benchmark_tiny_campaign.py",
+          "devtools/tests/test_benchmark_telemetry.py"
+        ],
+        "exit_code": 0,
+        "seconds": 119.06210803799331,
+        "viewer_commit": "346c331901c418fddb6b45a31da4690eee794129",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "ca76d93b420435243f68167521ccb503ec8b2728",
+        "starting_git_status": " M .github/workflows/benchmarks.yml\n M benchmarks/compare_runs.py\n M benchmarks/competitors/run_matrix.py\n M benchmarks/competitors/test_geometry.py\n M benchmarks/competitors/test_loading.py\n M benchmarks/competitors/test_selections.py\n M benchmarks/harness.py\n M devtools/tests/test_benchmark_comparison.py\n M devtools/tests/test_benchmark_evidence.py\n?? benchmarks/comparability.py\n?? benchmarks/telemetry.py\n?? devguide/pending_bugs/benchmark_fork_workers_can_hang_after_scientific_preparation_and_scoped_configur.md\n?? devguide/pending_bugs/competitive_geometry_timings_compare_different_rmsd_and_periodic_distance_observ.md\n?? devtools/tests/benchmark_fixtures.py\n?? devtools/tests/test_benchmark_comparability.py\n?? devtools/tests/test_benchmark_geometry_semantics.py\n?? devtools/tests/test_benchmark_telemetry.py\n?? devtools/tests/test_benchmark_tiny_campaign.py\n",
+        "ending_git_status": " M .github/workflows/benchmarks.yml\n M benchmarks/compare_runs.py\n M benchmarks/competitors/run_matrix.py\n M benchmarks/competitors/test_geometry.py\n M benchmarks/competitors/test_loading.py\n M benchmarks/competitors/test_selections.py\n M benchmarks/harness.py\n M devtools/tests/test_benchmark_comparison.py\n M devtools/tests/test_benchmark_evidence.py\n?? benchmarks/comparability.py\n?? benchmarks/telemetry.py\n?? devguide/pending_bugs/benchmark_fork_workers_can_hang_after_scientific_preparation_and_scoped_configur.md\n?? devguide/pending_bugs/competitive_geometry_timings_compare_different_rmsd_and_periodic_distance_observ.md\n?? devtools/tests/benchmark_fixtures.py\n?? devtools/tests/test_benchmark_comparability.py\n?? devtools/tests/test_benchmark_geometry_semantics.py\n?? devtools/tests/test_benchmark_telemetry.py\n?? devtools/tests/test_benchmark_tiny_campaign.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2546,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8686
+      },
+      "resources": {
+        "started_utc": "2026-11-10T01:30:28.389050+00:00",
+        "seconds": 125.09842900000513,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.26904296875,
+            2.3330078125,
+            2.33837890625
+          ],
+          "cpu_utilization": 0.08651911468812878,
+          "swap_bytes_per_second": 4092.2051268489236
+        },
+        "host_available_minimum_observed_bytes": 14203445248,
+        "cgroup_memory_peak_bytes": 526594048,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "36873e6b7b7fae1cb8894e50c3a58f80b0f57331651b58be25f882858363c014",
+        "-bounded.json": "d4cc8c1a874c3178710d68327d9c71d1ab7bf418d72381eea7b5c488511a5ccb",
+        ".xml": "c70a721512e8827ac33c48a8d21edabd447364c02705c7a73560104327ccb3f2",
+        ".log": "0d248d27b861694b8a691343e4be5d2cdd58abb87c3686910dc99d4da3db9ff2",
+        "-inputs-before.json": "4a886473fa53cdb3608396cd8359f1795a3ad3818c484726db337adfff481838",
+        "-inputs-after.json": "4a886473fa53cdb3608396cd8359f1795a3ad3818c484726db337adfff481838",
+        "-reference-driver.py": "5d7a3cfce891f35f70d322ac8f81ae535ea27ccd214d98e7460f795fd663b651",
+        "-resource-driver.py": "5897e07c44b7afca0893ccbd3c8e841d4ececde3b145ea354b01ba14e098edf3",
+        ".events.jsonl": "e8edafeed1910ce187cd72456a0cc272a0c53af343486d6e6c3f582de2f7e58b",
+        "-viewer-inputs-before.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596",
+        "-viewer-inputs-after.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "10",
+          "time": "116.634",
+          "timestamp": "2026-11-09T19:30:32.859540-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "benchmark-567-lifecycle-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/benchmark-567-lifecycle-directed.xml",
+          "--receptor-events=<private-evidence>/benchmark-567-lifecycle-directed.events.jsonl",
+          "devtools/tests/test_benchmark_worker_lifecycle.py",
+          "--basetemp=<private-evidence>/benchmark-567-lifecycle-directed"
+        ],
+        "exit_code": 0,
+        "seconds": 2.623152232961729,
+        "viewer_commit": "346c331901c418fddb6b45a31da4690eee794129",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "ca76d93b420435243f68167521ccb503ec8b2728",
+        "starting_git_status": " M .github/workflows/benchmarks.yml\n M benchmarks/AGENTS.md\n M benchmarks/README.md\n M benchmarks/compare_runs.py\n M benchmarks/competitors/run_matrix.py\n M benchmarks/competitors/test_geometry.py\n M benchmarks/competitors/test_loading.py\n M benchmarks/competitors/test_selections.py\n M benchmarks/harness.py\n M devguide/benchmarking/README.md\n M devguide/benchmarking/performance_policy.md\n M devguide/pending_bugs/README.md\n M devtools/tests/test_benchmark_comparison.py\n M devtools/tests/test_benchmark_evidence.py\n?? benchmarks/comparability.py\n?? benchmarks/telemetry.py\n?? devguide/benchmarking/comparable_sessions.md\n?? devguide/pending_bugs/benchmark_fork_workers_can_hang_after_scientific_preparation_and_scoped_configur.md\n?? devguide/pending_bugs/competitive_geometry_timings_compare_different_rmsd_and_periodic_distance_observ.md\n?? devtools/tests/benchmark_fixtures.py\n?? devtools/tests/test_benchmark_comparability.py\n?? devtools/tests/test_benchmark_geometry_semantics.py\n?? devtools/tests/test_benchmark_telemetry.py\n?? devtools/tests/test_benchmark_tiny_campaign.py\n?? devtools/tests/test_benchmark_worker_lifecycle.py\n",
+        "ending_git_status": " M .github/workflows/benchmarks.yml\n M benchmarks/AGENTS.md\n M benchmarks/README.md\n M benchmarks/compare_runs.py\n M benchmarks/competitors/run_matrix.py\n M benchmarks/competitors/test_geometry.py\n M benchmarks/competitors/test_loading.py\n M benchmarks/competitors/test_selections.py\n M benchmarks/harness.py\n M devguide/benchmarking/README.md\n M devguide/benchmarking/performance_policy.md\n M devguide/pending_bugs/README.md\n M devtools/tests/test_benchmark_comparison.py\n M devtools/tests/test_benchmark_evidence.py\n?? benchmarks/comparability.py\n?? benchmarks/telemetry.py\n?? devguide/benchmarking/comparable_sessions.md\n?? devguide/pending_bugs/benchmark_fork_workers_can_hang_after_scientific_preparation_and_scoped_configur.md\n?? devguide/pending_bugs/competitive_geometry_timings_compare_different_rmsd_and_periodic_distance_observ.md\n?? devtools/tests/benchmark_fixtures.py\n?? devtools/tests/test_benchmark_comparability.py\n?? devtools/tests/test_benchmark_geometry_semantics.py\n?? devtools/tests/test_benchmark_telemetry.py\n?? devtools/tests/test_benchmark_tiny_campaign.py\n?? devtools/tests/test_benchmark_worker_lifecycle.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2546,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8688
+      },
+      "resources": {
+        "started_utc": "2026-11-10T01:39:32.789840+00:00",
+        "seconds": 9.013959320960566,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.6259765625,
+            1.189453125,
+            1.7744140625
+          ],
+          "cpu_utilization": 0.03167420814479638,
+          "swap_bytes_per_second": 4091.8467877103103
+        },
+        "host_available_minimum_observed_bytes": 14690136064,
+        "cgroup_memory_peak_bytes": 172929024,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "9d230dcce3bd146c8b924880e99f1164b2ec31157701996a7fd2c7d3f15f5345",
+        "-bounded.json": "16bdf05aa07a60ec3d8975dcbecbf5d0a441cde4949ecb4841bdce1eb7a89cb9",
+        ".xml": "90cf5ad750efe42be382bb47e3f7efc3e13082210b55688a5548414cca2a2684",
+        ".log": "63d6b5837875068be77278e50c397805868fbe21d26fbe5afdbbca09e3dde048",
+        "-inputs-before.json": "aa8322a894d72577a7a39ea791be2be27daaf895e27d2fcc46b71e705edcc7d5",
+        "-inputs-after.json": "aa8322a894d72577a7a39ea791be2be27daaf895e27d2fcc46b71e705edcc7d5",
+        "-reference-driver.py": "d6c6811ff5e70f7fac3dba327500294fd0a37075ff19757d7544ae7e0279e9c8",
+        "-resource-driver.py": "5897e07c44b7afca0893ccbd3c8e841d4ececde3b145ea354b01ba14e098edf3",
+        ".events.jsonl": "170cebafe89846367e2d75224314ba51765ba6b8057721ea3090c6f768411f46",
+        "-viewer-inputs-before.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596",
+        "-viewer-inputs-after.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "9",
+          "time": "0.673",
+          "timestamp": "2026-11-09T19:39:37.197605-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "benchmark-567-received": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/benchmark-567-received.xml",
+          "--receptor-events=<private-evidence>/benchmark-567-received.events.jsonl",
+          "devtools/tests/test_benchmark_worker_lifecycle.py",
+          "devtools/tests/test_benchmark_tiny_campaign.py",
+          "devtools/tests/test_benchmark_telemetry.py",
+          "devtools/tests/test_benchmark_comparability.py",
+          "devtools/tests/test_benchmark_comparison.py",
+          "devtools/tests/test_benchmark_evidence.py",
+          "devtools/tests/test_benchmark_reference.py",
+          "devtools/tests/test_benchmark_geometry_semantics.py",
+          "devtools/tests/test_execute_scientific_evidence.py",
+          "--basetemp=<private-evidence>/benchmark-567-received"
+        ],
+        "exit_code": 1,
+        "seconds": 245.48413463914767,
+        "viewer_commit": "346c331901c418fddb6b45a31da4690eee794129",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "3d6346a62e059a568ccd449b9f3843670b9ee48d",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2546,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8688
+      },
+      "resources": {
+        "started_utc": "2026-11-10T01:44:23.181901+00:00",
+        "seconds": 252.19724204414524,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.7177734375,
+            0.80224609375,
+            1.43603515625
+          ],
+          "cpu_utilization": 0.028169014084507005,
+          "swap_bytes_per_second": 8184.451258292699
+        },
+        "host_available_minimum_observed_bytes": 12753100800,
+        "cgroup_memory_peak_bytes": 532848640,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "e009182921cf61dfd51ffa150de7ea80879503d25aff1a740b7b463c432f9369",
+        "-bounded.json": "f318abbee9e553e5beb98dae515b4db231a9a53fe4f55864001fa01dc4339f61",
+        ".xml": "e302ffa495ed66f17bd4b97e585714a9a720dba4e6b0342446e56f7384e3a72e",
+        ".log": "c38e017d07935cbdc5d1d84da15f75391ba910041f090801d37880ad8ada433b",
+        "-inputs-before.json": "508b988caaf9bbc12aede3aaf1837be8c70861d70f330cd53e5095a77fab6465",
+        "-inputs-after.json": "508b988caaf9bbc12aede3aaf1837be8c70861d70f330cd53e5095a77fab6465",
+        "-reference-driver.py": "d6c6811ff5e70f7fac3dba327500294fd0a37075ff19757d7544ae7e0279e9c8",
+        "-resource-driver.py": "5897e07c44b7afca0893ccbd3c8e841d4ececde3b145ea354b01ba14e098edf3",
+        ".events.jsonl": "a76e35aed5cc8ac15c3d1411098c5c14805ee2545ad8fdbcd1bc9ca74c6d399f",
+        "-runtime.json": "91f2f318755962b5dfbf5170ea8e66be8c5c506c5b32346755927c910c89ee92",
+        "-viewer-inputs-before.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596",
+        "-viewer-inputs-after.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "170",
+          "time": "243.022",
+          "timestamp": "2026-11-09T19:44:28.606889-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "devtools.tests.test_benchmark_tiny_campaign",
+          "name": "test_two_actual_tiny_campaigns_keep_scientific_and_context_evidence",
+          "outcome": "failure"
+        }
+      ]
+    },
+    "benchmark-567-canonical-received": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/benchmark-567-canonical-received.xml",
+          "--receptor-events=<private-evidence>/benchmark-567-canonical-received.events.jsonl",
+          "devtools/tests/test_benchmark_worker_lifecycle.py",
+          "devtools/tests/test_benchmark_tiny_campaign.py",
+          "devtools/tests/test_benchmark_telemetry.py",
+          "devtools/tests/test_benchmark_comparability.py",
+          "devtools/tests/test_benchmark_comparison.py",
+          "devtools/tests/test_benchmark_evidence.py",
+          "devtools/tests/test_benchmark_reference.py",
+          "devtools/tests/test_benchmark_geometry_semantics.py",
+          "devtools/tests/test_execute_scientific_evidence.py",
+          "--basetemp=<private-evidence>/benchmark-567-canonical-received"
+        ],
+        "exit_code": 0,
+        "seconds": 257.6138641969301,
+        "viewer_commit": "346c331901c418fddb6b45a31da4690eee794129",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "3547b09774791b5a9fa1c37c1e3387590ca5b3f6",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2546,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8688
+      },
+      "resources": {
+        "started_utc": "2026-11-10T02:16:48.234679+00:00",
+        "seconds": 265.21578427101485,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.822265625,
+            1.66943359375,
+            1.48583984375
+          ],
+          "cpu_utilization": 0.10669350780070463,
+          "swap_bytes_per_second": 4092.095257720632
+        },
+        "host_available_minimum_observed_bytes": 12804259840,
+        "cgroup_memory_peak_bytes": 541040640,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "af611984630dfd6774ba1ae3365cae17e89e344989963a7a29d9ba3d01c737d1",
+        "-bounded.json": "ce2de107c4a8581c061dd5d047f892a88564b3b92c458cccdb34633758bbdb99",
+        ".xml": "9e8bb6e25868700e96189890fff567928b1dba8fc5ad6874740d348d3b53757f",
+        ".log": "6cbe0dae05e38a973ec76763478e8b29e9e5a9dcc37e13463f88833dc8e2a143",
+        "-inputs-before.json": "45bcaaeab4ba7bc19f536e5ab478b916b32b4c35ec419a6f6ed985531070ce9d",
+        "-inputs-after.json": "45bcaaeab4ba7bc19f536e5ab478b916b32b4c35ec419a6f6ed985531070ce9d",
+        "-reference-driver.py": "a4caec422d2b7eda1aa1a4fd75b920e1d436f68f1417b27ae523edc5871f4f2f",
+        "-resource-driver.py": "5897e07c44b7afca0893ccbd3c8e841d4ececde3b145ea354b01ba14e098edf3",
+        ".events.jsonl": "3372f6d5368d1fe09ffb67c9daf7ac89230f865fea3ecf73bfbe56be70db7a19",
+        "-runtime.json": "91f2f318755962b5dfbf5170ea8e66be8c5c506c5b32346755927c910c89ee92",
+        "-viewer-inputs-before.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596",
+        "-viewer-inputs-after.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "172",
+          "time": "254.877",
+          "timestamp": "2026-11-09T20:16:54.184856-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    }
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "molsysmt_version": "0+unknown",
+    "versions": {
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pandas": "2.3.3",
+      "pint": "0.25.3",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1"
+    },
+    "imports": {
+      "pandas": "<development-environment>/lib/python3.14/site-packages/pandas/__init__.py",
+      "pint": "<development-environment>/lib/python3.14/site-packages/pint/__init__.py",
+      "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+      "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261106/viewer-346c3319-source/molsysviewer/__init__.py",
+      "pyunitwizard": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+      "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+      "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+      "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+    }
+  },
+  "real_tiny_campaigns": {
+    "atom_count": 4,
+    "structure_count": 3,
+    "cases_per_campaign": 21,
+    "campaigns": 2,
+    "iterations_per_block": 1,
+    "blocks": 3,
+    "comparison_disposition": null,
+    "comparable": true,
+    "matched_paths": 21,
+    "artifacts": {
+      "first.json": "e9f76d32c918aa3984cabecb6eb81c2c0412921a1f5245001c053f9393a3026e",
+      "second.json": "817728be1cb6b4238c92f724c0fce194e3b22df97ab9cba09b961acbdd2752a0",
+      "comparison.json": "cb5b81cf28082cd9745126fc9302c1ba066eb3fc1004f945521f01fde239ddba"
+    },
+    "purpose": "End-to-end production/reading of scientific and comparison evidence, not representative timing ratios."
+  },
+  "incomplete_attempt": {
+    "profile": "benchmark-567-tiny-standards-directed",
+    "native_service_result": "timeout",
+    "outer_budget_seconds": 180,
+    "cpu_seconds": 7.309,
+    "native_displayed_peak": "291M",
+    "component_attribution": "Unassigned inherited runtime state; no provider/native-lock cause established.",
+    "missing": [
+      "final JUnit",
+      "source-after manifest",
+      "completed supervisor receipt"
+    ],
+    "partial_artifacts_sha256": {
+      "benchmark-567-tiny-standards-directed.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "benchmark-567-tiny-standards-directed.events.jsonl": "8a28014086e5892cfe5ab2ce444ae7eb899a5a52eabb0b4edfa47ce3f36c3d77",
+      "benchmark-567-tiny-standards-directed-viewer-inputs-before.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596",
+      "benchmark-567-tiny-standards-directed-bounded.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "benchmark-567-tiny-standards-directed-inputs-before.json": "cb4196fd9c27f2a9f290f165076643506607fc8c22820880ee35482f1ec98d82",
+      "benchmark-567-tiny-standards-directed-reference-driver.py": "5d7a3cfce891f35f70d322ac8f81ae535ea27ccd214d98e7460f795fd663b651",
+      "benchmark-567-tiny-standards-directed-resource-driver.py": "5897e07c44b7afca0893ccbd3c8e841d4ececde3b145ea354b01ba14e098edf3"
+    }
+  },
+  "preserved_failures": [
+    "Two independent geometry guards reproduce fitted versus raw RMSD and PBC versus nonperiodic distances. The native tools behave according to their options; the comparative workloads were wrong.",
+    "The first expanded selection has 142 passes/two new fixture list-encoding errors; the corrected selection passes 123.",
+    "The first tiny campaign has nine passes/one incomplete-standard-unit error in the new scoped benchmark policy. Reuse the complete shared unit catalog; this is not a provider defect.",
+    "The actual fork-based tiny campaign times out. Its incomplete evidence stays incomplete. Fresh importable factories and bounded IPC/deadlines receive 21 paths twice without native-object pickling.",
+    "The first clean full collection has 169 passes/one legitimate incompatibility rejection: newly generated temporary PDB clocks differ. Preserve that strict rejection. Only two known owned volatile records are now normalized; originals/raw hashes and all scientific bytes survive. Existing input files are untouched.",
+    "An initial systemd launch rejects an unsupported MemoryOOMGroup assignment before starting Python; the compatible OOMPolicy=kill route enforces memory.oom.group=1. This is not a test attempt."
+  ],
+  "acceptance": [
+    "172 clean-source cases pass; raw timing, context, workload, producer, invalid/partial evidence and atomic report controls remain mandatory.",
+    "All three geometric families validate values before timing, and the MDTraj distance label now calls MDTraj. Unit alternatives and deliberate wrong results are covered.",
+    "The maintainer advisory policy applies to product and third-party observations. Scientifically correct tools remain available; above-15-percent comparable repeated inefficiency is improvement-issue evidence.",
+    "Historical baseline and original hosted failures remain exact; complete compatibility metadata and reviewed renewal are operational. No new baseline is selected here."
+  ],
+  "limits": [
+    "Matching recorded metadata is not causal attribution or a shared-host resource reservation.",
+    "Observed sample-range separation is not a confidence interval.",
+    "Legacy arbitrary-closure/fork completion after arbitrary initialized native parents is not certified; only its finite lifetime/IPC controls are guarded.",
+    "The two new incoming diagnostics #674/#675 have separate source receiving. #680 is an inspected, pending PDB writer-version defect.",
+    "Remaining weighted requirements, provider #143, mechanics recipes, GUI intents, installed/platform and final-candidate gates remain owned."
+  ]
+}

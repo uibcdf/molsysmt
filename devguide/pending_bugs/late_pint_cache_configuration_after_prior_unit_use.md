@@ -45,3 +45,10 @@ All three import orders must pass with unchanged existing registry identity,
 requested cache setting, application policy/provenance and numeric conversion.
 The shared policy is still established on cold and previously used/no-policy
 imports. Broader composition and active-unit tests remain required.
+
+## Provider guide follow-up
+
+The copied consumer-guide example has the same absent-policy assumption.
+Canonical guidance correction is tracked in uibcdf/pyunitwizard#144; MolSysMT
+changes no synchronized guide copy or provider source. This follow-up does not
+block the bounded consumer fix supported by the published minimum.
