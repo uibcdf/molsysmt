@@ -1,5 +1,23 @@
 # MolSysMT 1.0 Execution Status
 
+## Public combined delivery verified — 2026-11-09
+
+Public main **c9bb16eab** contains the four reviewed PR heads; all **51** changed
+or deleted public tree paths are verified and the four human files stay byte-exact.
+**#678/#681/#682/#683 are closed** after integration: #678 is marked merged by
+ancestry, while the dependent drafts are explicitly closed as directly integrated.
+No branch was retargeted or deleted. The complete board now has **613 issues,
+93 open, and no open PRs**. #677/#679/#680/#684 remain verified closed.
+See the [public delivery record](../devtools/data/molsysviewer_stacked_panels_delivery_678_681_682_683_20261110.json).
+
+The received progress is **39/50 graphical intents** and **74.2101%** under the
+original weights. Next is **#686** chemical-terminal correctness, then the
+remaining #582/#421 source work and #666/provider143; #256, #524/#615 and #334
+retain their independent installed/platform/exact-candidate obligations.
+The new #685 proposal is recorded as bounded design/backlog. The source-only
+`[skip ci]` checkpoint does not waive future mandatory gates or authorize a
+package, tag, Release or promotion. Detailed receiving and prior failures follow.
+
 ## Combined graphical receiving and new issue intake — 2026-11-09
 
 The four reviewed PR heads (#678/#681/#682/#683) are ancestors of clean combined

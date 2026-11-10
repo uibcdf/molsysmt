@@ -1250,8 +1250,10 @@
     "fast_gates": 14,
     "weighted_milestone_change": 0.44361888111889414,
     "supplemental_bug_bonus": 0,
-    "state": "combined_source_qualified_public_integration_pending",
-    "scope": "Original weights and fifty intents unchanged; source/automated graphical receiving only."
+    "state": "publicly_delivered_and_reviewed_prs_closed",
+    "scope": "Original weights and fifty intents unchanged; source/automated graphical receiving only.",
+    "public_checkpoint": "c9bb16eab13bac7c0ea91607ef61a576c07ee82b",
+    "delivery": "devtools/data/molsysviewer_stacked_panels_delivery_678_681_682_683_20261110.json"
   },
   "last_incoming_review": {
     "date": "2026-11-09",
@@ -1277,6 +1279,10 @@
     "new_correctness_issue": {
       "issue": "uibcdf/molsysmt#686",
       "disposition": "Reproduced group-ID chemical-terminus error; prioritize before optional enhancements."
-    }
+    },
+    "latest_complete_board_issues": 613,
+    "latest_open_issues": 93,
+    "latest_open_prs": 0,
+    "board_checkpoint": "After public integration and exact-head PR closeout"
   }
 }
