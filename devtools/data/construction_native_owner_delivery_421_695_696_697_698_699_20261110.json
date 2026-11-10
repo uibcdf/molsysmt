@@ -1,0 +1,413 @@
+{
+  "date": "2026-11-10",
+  "qualified_source": "cdf6e878ffa53ef045ee3c9c568efd61cf9dcb61",
+  "public_checkpoint": "ae2b592ad23da18ea70ac764fba687776ca590b0",
+  "base": "68bd1910397cc457b3b8b30f23424fa271bdb124",
+  "verified_paths": [
+    {
+      "path": ".github/workflows/benchmarks.yml",
+      "git_blob_sha": "0be44b0307ad32baad08f090cd5a7e06d4a2d0fb"
+    },
+    {
+      "path": ".github/workflows/ci-full.yaml",
+      "git_blob_sha": "22cb32ff69edcc59bf9f78a7f623700879792fb0"
+    },
+    {
+      "path": ".github/workflows/ci-smoke.yaml",
+      "git_blob_sha": "75b3618b8822369f1e69936edccb044d51285bfb"
+    },
+    {
+      "path": ".github/workflows/ci-weekly.yaml",
+      "git_blob_sha": "30c4d85498f659e5fd93570e5825847818973a97"
+    },
+    {
+      "path": ".github/workflows/sphinx_docs_to_gh_pages.yaml",
+      "git_blob_sha": "36f04993d47ea5501d2854c8814609b4ccb03fa0"
+    },
+    {
+      "path": "devguide/CORE_SPECIFICATION.md",
+      "git_blob_sha": "9740c70e2a0043c3e2d44f3962aa931eb31afe06"
+    },
+    {
+      "path": "devguide/SCALABILITY.md",
+      "git_blob_sha": "864289476f15d6f5029889156e4b576215811e51"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/bioassembly_set_reaches_a_missing_form_setter.md",
+      "git_blob_sha": "ffe16ae365651002174d88a8d3fd80a9bf234032"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/box_assignment_misaligns_native_structure_series.md",
+      "git_blob_sha": "5b0ef79b3cbb8f3a37c55e4f211682eac5bc23e7"
+    },
+    {
+      "path": "devguide/archive/resolved_bugs/selected_composite_conversion_applies_trajectory_positions_to_a_reference_only_p.md",
+      "git_blob_sha": "89bcab49b8655c523c618005231217b72cef5d85"
+    },
+    {
+      "path": "devguide/molsysviewer_addon.md",
+      "git_blob_sha": "800dba9354c880c1170afee7b1228de79b704774"
+    },
+    {
+      "path": "devguide/molsysviewer_tools_gui_design.md",
+      "git_blob_sha": "1fc0f1d9f6f45d34461d6810236ca3ba5c3e8f0f"
+    },
+    {
+      "path": "devguide/pending_bugs/intermittent_jupyter_initial_canvas_timeout.md",
+      "git_blob_sha": "d310e16c7d9a45d21e1304442e09207b9a3eb682"
+    },
+    {
+      "path": "devguide/pending_proposals/README.md",
+      "git_blob_sha": "919531eebb8af7fc7ccf24e58fd276c1e4b7ca80"
+    },
+    {
+      "path": "devguide/pending_proposals/validate_notebook_schemas_independently_of_sphinx_process_success.md",
+      "git_blob_sha": "50dde06ce2541cfa4da00688f0212d07db6e07e1"
+    },
+    {
+      "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+      "git_blob_sha": "e1769ba9db7038642aaec2efde9a5e99d380d3a4"
+    },
+    {
+      "path": "devguide/release_1_0_status.md",
+      "git_blob_sha": "5884de9802d45e5a5d368feae87514c045e8836a"
+    },
+    {
+      "path": "devtools/data/assessed_protonation_panel_receiving_421_20261110.json",
+      "git_blob_sha": "c899cae131cc93171658b535ca3e5430b24306bf"
+    },
+    {
+      "path": "devtools/data/construction_native_owner_receiving_421_695_696_697_698_699_20261110.json",
+      "git_blob_sha": "7c2937bbe0c467a2a487a395619d031af705263c"
+    },
+    {
+      "path": "devtools/data/native_box_axis_owner_receiving_695_20261110.json",
+      "git_blob_sha": "c1830aed464105051610fd36634fc5f5cc7778b3"
+    },
+    {
+      "path": "devtools/data/native_box_axis_receiving_695_20261110.json",
+      "git_blob_sha": "b43cd16a7355605e47621da6570e4f39aa84cd89"
+    },
+    {
+      "path": "devtools/data/pre_1_0_progress_scorecard_20261107.json",
+      "git_blob_sha": "c93c2de96b1ee958e7dae90a0bb0c899ad40fb3a"
+    },
+    {
+      "path": "devtools/data/viewer_construction_receiving_20261110.json",
+      "git_blob_sha": "df2523b4572b8dde382c3d7385d321815e776b88"
+    },
+    {
+      "path": "devtools/dependency_contract.toml",
+      "git_blob_sha": "83bf42c4f115594451f53ade9c3a88ac8a9f4cc8"
+    },
+    {
+      "path": "devtools/scripts/viewer_tools_contract.py",
+      "git_blob_sha": "80c209e8fd4cb31d045d40c5d13cfe48147f9dcf"
+    },
+    {
+      "path": "docs/content/course/Common_Core/05_Combined_Forms.AGENTS.md",
+      "git_blob_sha": "254e0788c278f6d9929963082b9ed0c87c435cdd"
+    },
+    {
+      "path": "docs/content/course/Common_Core/05_Combined_Forms.ipynb",
+      "git_blob_sha": "d43092cdfc84c97c3b7beeb5b8ebdb332d01a251"
+    },
+    {
+      "path": "docs/content/course/Common_Core/06_Visualizing_Anything.ipynb",
+      "git_blob_sha": "22a6000bc5741f2b4c6dc320248c297eadf50a9b"
+    },
+    {
+      "path": "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb",
+      "git_blob_sha": "217078b056c65e31097b84750fd12db4ee548d7f"
+    },
+    {
+      "path": "docs/content/course/Common_Core/11_Iterating_Systems.ipynb",
+      "git_blob_sha": "8f091a9b4b500be1cd845b6cdc69ffbe22684dda"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/classes/molsysmt_Structures.md",
+      "git_blob_sha": "38d7fc175d7ae6428bc32b880a75dba53878e04f"
+    },
+    {
+      "path": "docs/content/user/foundations/performance/chunked_execution.md",
+      "git_blob_sha": "4222e34b2d812a33141fb689eec7221f041d8adb"
+    },
+    {
+      "path": "docs/content/user/tools/basic/convert.ipynb",
+      "git_blob_sha": "c6ed35f4ac7112145d3e7ae61273577c654b3b8d"
+    },
+    {
+      "path": "docs/content/user/tools/basic/iterator.ipynb",
+      "git_blob_sha": "829aa25101f38c749bfd8d24197c5e585f177fc5"
+    },
+    {
+      "path": "docs/content/user/tools/basic/set.ipynb",
+      "git_blob_sha": "25cd95b54dfdd6c00a10e14289c3b432ae7d61bd"
+    },
+    {
+      "path": "docs/content/user/tools/molsysviewer_tools.md",
+      "git_blob_sha": "e9de551daf61a025af21850c747f2cbc25f399bd"
+    },
+    {
+      "path": "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md",
+      "git_blob_sha": "dfdf1278ef162c89b8198ccc7eb240dd3a53d025"
+    },
+    {
+      "path": "docs/docs_manifest.yml",
+      "git_blob_sha": "d70f3ddb94ca077093ec47b5234ca9b1cdc78cb0"
+    },
+    {
+      "path": "molsysmt/_private/argdigest/argument/coordinates.py",
+      "git_blob_sha": "3268e2c446ebae5468d9a1ba28790a24e786b456"
+    },
+    {
+      "path": "molsysmt/_private/argdigest/argument/value.py",
+      "git_blob_sha": "4777904fea7f1fd109b3d2f1a9391d4a9d0c8637"
+    },
+    {
+      "path": "molsysmt/_private/terminal_atoms.py",
+      "git_blob_sha": "4198691c455246c1ceb7116602fa4a02f46375ea"
+    },
+    {
+      "path": "molsysmt/basic/convert.py",
+      "git_blob_sha": "8ea62d300ff1f525277d8aca3ddd577266a144d0"
+    },
+    {
+      "path": "molsysmt/basic/iterator.py",
+      "git_blob_sha": "be003fed422ff5b3185ebe63dcf311a3b55ebac6"
+    },
+    {
+      "path": "molsysmt/basic/set.py",
+      "git_blob_sha": "58f50d28621b489d105d119c83426c5901144797"
+    },
+    {
+      "path": "molsysmt/build/_native_placers.py",
+      "git_blob_sha": "3b110cf0b89b2b18b583c0cc0271da0bf4cb0867"
+    },
+    {
+      "path": "molsysmt/form/molsysmt_MolSys/set.py",
+      "git_blob_sha": "67c3a110298344975789933f3c09e01b94693ce0"
+    },
+    {
+      "path": "molsysmt/native/structures.py",
+      "git_blob_sha": "dc4af35105872733bb8f430790b66b4eb0f15d16"
+    },
+    {
+      "path": "molsysviewer_molsysmt/_analysis_mechanics.py",
+      "git_blob_sha": "fbd90667e68e5adf380d0069504bcb9c3db01c6f"
+    },
+    {
+      "path": "molsysviewer_molsysmt/_analysis_panel_frontend.py",
+      "git_blob_sha": "ce73ca03f32a254f0cdbe69dda0a3551851b5794"
+    },
+    {
+      "path": "molsysviewer_molsysmt/_chemical_edits.py",
+      "git_blob_sha": "a32a0f71bbb33dbe46e9ac5c821787ca7776f2fa"
+    },
+    {
+      "path": "molsysviewer_molsysmt/_chemistry_panel.py",
+      "git_blob_sha": "28371aae756c17dfb95ce3bd66ae12cec4182950"
+    },
+    {
+      "path": "molsysviewer_molsysmt/_chemistry_panel_frontend.py",
+      "git_blob_sha": "243aa6bdfa2776ef65f5b49a10532d75d07bc12c"
+    },
+    {
+      "path": "molsysviewer_molsysmt/_chemistry_preparation.py",
+      "git_blob_sha": "6cb3a11e59ef8bc2aebe61c9019bba2f7e9ed15a"
+    },
+    {
+      "path": "molsysviewer_molsysmt/_construction.py",
+      "git_blob_sha": "19b7debc32e1431adaa06c5d03c07a24f3492528"
+    },
+    {
+      "path": "molsysviewer_molsysmt/_construction_frontend.py",
+      "git_blob_sha": "bec65f15ac33bd1ec2260245fc149c940f592a57"
+    },
+    {
+      "path": "molsysviewer_molsysmt/_physical_model.py",
+      "git_blob_sha": "f51555b3bea6cfe93dbd830c9301726420b97195"
+    },
+    {
+      "path": "molsysviewer_molsysmt/_structure.py",
+      "git_blob_sha": "081df98c4c22747c467417b52c938fc9d7cf7ad6"
+    },
+    {
+      "path": "tests/basic/convert/mult_to_one/test_convert_mult_to_molsysmt_MolSys.py",
+      "git_blob_sha": "9c38db4a92ce7f590880de70f914afb8ccd4ebc3"
+    },
+    {
+      "path": "tests/basic/iterator/test_iterator.py",
+      "git_blob_sha": "9f45f12cdac655e9e2d4af3da2a9fe75a30c5874"
+    },
+    {
+      "path": "tests/basic/test_bioassembly_assignment_contract.py",
+      "git_blob_sha": "5f2f1826da36c51d5b75e6a325eabfe06414ab10"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/assessed_protonation_jupyter.mjs",
+      "git_blob_sha": "7b775c07b25808461e4560658d3d022b3884f567"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/assessed_protonation_qt.py",
+      "git_blob_sha": "84991d63b45ccbdc8325c3fd634b2be6cd93b70c"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/construction_fixture.py",
+      "git_blob_sha": "625b6029849327d87af0280e05d81c2f42eb6c38"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/construction_jupyter.mjs",
+      "git_blob_sha": "ae4ec6dae9a492b0db253d675e18dd9f165ea791"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/construction_qt.py",
+      "git_blob_sha": "bf3ce7379c77f945f52481925b7a5cb57e91e203"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/interaction_mechanics_jupyter.mjs",
+      "git_blob_sha": "56f83c05a70fff50b92ea6440802439dd04605e8"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/interaction_mechanics_qt.py",
+      "git_blob_sha": "377bfdcc1bfa73c46bd1644fe9ecea2b09a25e09"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/jupyter_panel_controls.mjs",
+      "git_blob_sha": "ecf1c4a0c2a44cdaa9ed84627b56693d023ea69b"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py",
+      "git_blob_sha": "6bb4345a90cf91963d791769015c489175676127"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/property_report_jupyter.mjs",
+      "git_blob_sha": "5cab4d01cc68b9a324f2edb1819c9916fb45bff2"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/protonation_panel_fixture.py",
+      "git_blob_sha": "e23aa561ef394e0c42d847e4a17022f5cfe4b34d"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/qt_receiving_guard.py",
+      "git_blob_sha": "203ea0e0c31c3a383707e8bed3c14e2c39f9c40f"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/system_panel_jupyter.py",
+      "git_blob_sha": "e3dcc898bbb6c2b9b3cec17d0d1b17a8c90f87cf"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/test_assessed_protonation_panel.py",
+      "git_blob_sha": "4ca73868da93245052f55a7e8f0a9cfcb1107000"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/test_construction_panel.py",
+      "git_blob_sha": "4e0cf46d817069e3c1a8168a4df4b5abd6bf942a"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/test_physical_model_panel.py",
+      "git_blob_sha": "f1a11f3ad7e6950739c67ee52d6049e80b3cd2d5"
+    },
+    {
+      "path": "tests/molsysviewer_molsysmt/test_structure_analysis_tools.py",
+      "git_blob_sha": "8e18d1d333ec64b342010007e25314d830f44333"
+    },
+    {
+      "path": "tests/native/test_box_assignment_alignment.py",
+      "git_blob_sha": "92d4ddf2b047f815857e6bcb0b72acd1f76b5eca"
+    }
+  ],
+  "protected_human_files": {
+    "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": "3b97cf0d5c813a1e3c2212ad118c7f6c32763d85af91cb800640209095fd53d6",
+    "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": "d564291bb01387663f178f5e041bc8d55d1022bfa71584ddd11f1dd9dba12d95",
+    "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": "a112aa640da192a121d1ccec3c5011c9652729abacf2a38c1b222632a55dcf20",
+    "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": "6b3f17a698bc7393ca3ecad31891d693b8a8169dfdd892dbae77f3ca91b25abe"
+  },
+  "human_bytes_unchanged": true,
+  "native_backend_sha256": "58653b1d477be36017d2bc721dafe6e85a508e2325fa3226ccf26c61d449d6e5",
+  "received_pr_sources": [
+    {
+      "number": 696,
+      "source": "30b2c8b50012d3a29ff97faeea36f20bd9649bce"
+    },
+    {
+      "number": 699,
+      "source": "400d484f85b461aeecd33918597291869be64e43"
+    }
+  ],
+  "scope": "Verified controlled-source/public delivery and guarded owning closures; no installed/platform/human/exact-candidate acceptance or publication authorization.",
+  "schema_version": "molsysmt.construction_native_owner_delivery@1",
+  "final_fast_gates": {
+    "execution": {
+      "command": [
+        "<development-environment>/bin/python",
+        "devtools/scripts/release_gate.py"
+      ],
+      "exit_code": 0,
+      "seconds": 24.312331815017387,
+      "viewer_commit": "b010ab76c2e15178e5ad987ad369cce02e40c921",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "source_commit": "ae2b592ad23da18ea70ac764fba687776ca590b0",
+      "starting_git_status": "",
+      "ending_git_status": "",
+      "viewer_changed_inputs": [],
+      "viewer_checked_inputs": 2573,
+      "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+      "changed_inputs": [],
+      "checked_inputs": 8804
+    },
+    "resources": {
+      "started_utc": "2026-11-10T18:16:41.460210+00:00",
+      "seconds": 32.027061271015555,
+      "limits": {
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "memory.oom.group": "1",
+        "cpu.max": "100000 100000",
+        "pids.max": "512"
+      },
+      "host_load": {
+        "cpu_count": 20,
+        "affinity_cpus": 20,
+        "load_average": [
+          1.36865234375,
+          4.4326171875,
+          4.59619140625
+        ],
+        "cpu_utilization": 0.02713567839195985,
+        "swap_bytes_per_second": 0.0
+      },
+      "host_available_minimum_observed_bytes": 14019125248,
+      "cgroup_memory_peak_bytes": 430374912,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "stop_reason": null,
+      "maximum_host_full_pressure_avg10": 0.0
+    },
+    "evidence_sha256": {
+      ".json": "6968bc458e0c7a20cf0820d42c2b46b5a7b3358b619181a1df56cbd56f3f9b9a",
+      "-bounded.json": "0edd33f7c2bad9e8cbac3e3860fd698e84c1b9fcebb441e4f26d110328aa5362",
+      ".log": "2233ee770b602f40f41e7acb673ef8bd65e9f4ced1158ab978a449c5bc3d711f",
+      "-inputs-before.json": "c6564298bf78d91be6a144d192d2cc5d7f98a1ef0d695cea97a26fe16379c4de",
+      "-inputs-after.json": "c6564298bf78d91be6a144d192d2cc5d7f98a1ef0d695cea97a26fe16379c4de",
+      "-reference-driver.py": "bc7406f15fc38a1c22b3a1465a65821a1084afcabcb770b3f1e0c2362932fc19",
+      "-resource-driver.py": "249ac2f3b72e595a85798ee8136f280947117fcb3cb9f8121771a8e71602fd1a"
+    }
+  },
+  "board": {
+    "complete_paginated": true,
+    "issues": 623,
+    "open_issues": 94,
+    "open_prs": [],
+    "local_queue_agreement": true
+  },
+  "issue_closeouts": {
+    "695": "CLOSED",
+    "697": "CLOSED",
+    "698": "CLOSED"
+  },
+  "pr_closeouts": {
+    "696": "Merged by ancestry on public main",
+    "699": "Closed as directly integrated; exact head is an ancestor of main and stacked base/head branches are unchanged"
+  }
+}

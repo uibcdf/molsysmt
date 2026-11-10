@@ -1031,3 +1031,12 @@ failure is erased by a later pass. #615 remains causally unresolved, #666 retain
 the unit-sensitive contact boundary, and installed/human/final candidate gates
 remain separate. This receives six existing intents, for 49/50; no supplemental
 native repair, PR or test adds an invented plan weight.
+
+
+**Public owner closeout — 2026-11-10:** main ae2b592ad is independently
+verified across all 78 changed paths. #696 is merged by ancestry and #699 is
+closed as directly integrated; #695/#697/#698 are guarded and closed. The
+[delivery record](../devtools/data/construction_native_owner_delivery_421_695_696_697_698_699_20261110.json)
+records source fidelity, final fast controls, preserved human edits and complete
+board agreement. Accepted inventory is 49/50; contact-boundary, #615 causal,
+client-contract, installed/human and exact-candidate work remain separate.

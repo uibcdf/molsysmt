@@ -1020,13 +1020,18 @@
     "complete_paginated": true,
     "date": "2026-11-10",
     "issues": 623,
-    "open_issues": 97,
-    "open_prs": [
+    "open_issues": 94,
+    "open_prs": [],
+    "guarded_closed": [
+      695,
+      697,
+      698
+    ],
+    "directly_received_prs": [
       696,
       699
     ],
-    "remaining_new_proposal": "uibcdf/molsysmt#700",
-    "note": "Pre-closeout inventory; a post-delivery complete refresh must record final issue/PR states."
+    "remaining_new_proposal": "uibcdf/molsysmt#700"
   },
   "last_updated": "2026-11-10",
   "last_scientific_claim_disposition": {
@@ -1475,8 +1480,10 @@
     "weighted_milestone_change": 0.255681818181813,
     "graphical_accepted": 49,
     "graphical_total": 50,
-    "state": "source_received_pending_public_delivery",
+    "state": "public_source_verified",
     "supplemental_bug_bonus": 0,
-    "scope": "Linux/Python 3.14 controlled-source and automated graphical receiving. Experimental science/profile, causal #615, clean installed/platform/human and release authority remain separate."
+    "scope": "Linux/Python 3.14 controlled-source and automated graphical receiving. Experimental science/profile, causal #615, clean installed/platform/human and release authority remain separate.",
+    "public_checkpoint": "ae2b592ad23da18ea70ac764fba687776ca590b0",
+    "delivery": "devtools/data/construction_native_owner_delivery_421_695_696_697_698_699_20261110.json"
   }
 }

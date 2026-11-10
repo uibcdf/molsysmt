@@ -1,5 +1,25 @@
 # MolSysMT 1.0 Execution Status
 
+## Public construction and native closeout verified — 2026-11-10
+
+Public main **ae2b592ad** independently matches all **78 changed paths**, with
+the four human-edited files preserved byte for byte. **#695/#697/#698 are guarded
+and closed**. #696 is merged by ancestry; stacked #699 is closed as directly
+integrated with its base/head branches preserved. The complete inventory has
+**623 issues, 94 open and no open PRs**, and the board agrees with local queues.
+Fourteen final fast gates pass on ae2b592ad with byte-identical qualified product,
+test, user-documentation, CI and tooling inputs. See the
+[public delivery record](../devtools/data/construction_native_owner_delivery_421_695_696_697_698_699_20261110.json).
+
+Accepted original progress is **76.2920% (about 76.3%)**, **49/50 graphical
+intents**; the contact intent stays pending under #666 / PyUnitWizard #143.
+#615 needs a causal correction or evidenced environmental disposition; passing
+new workflows does not supply it. #524 still needs an actual published compatible
+Viewer floor and clean installed closure; #250/#254 need explicit contract
+feedback. Final #256 P5/P6 and #334 exact-candidate/installed/platform/publication
+work remains unaccepted. This checkpoint publishes sources only and does not
+lift the candidate/package/tag/Release/new hosted-matrix pause.
+
 ## Construction, assessed decisions and native integrity received — 2026-11-10
 
 Exact PR **#696 30b2c8b50** and stacked **#699 400d484f8** are integrated with
