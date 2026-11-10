@@ -224,6 +224,32 @@ def test_ion_counts_native_seed_and_full_report_survive_in_result(unit):
             == expected["report"]["schema"]
         )
         assert "output_to_source_atom_indices" not in json.dumps(packet)
+        envelope = next(
+            row
+            for row in reversed(child.molsys.chemical_states.get_preparation_history())
+            if row["report"]["schema"] == expected["report"]["schema"]
+        )
+        assert envelope["index_scope"] == "operation"
+        assert envelope["output"]["n_atoms"] == child.molsys.get_n_atoms()
+        stored = envelope["report"]
+        for name in ("random", "requested", "added", "parameters", "software"):
+            assert stored[name] == expected["report"][name]
+        for name in (
+            "output_to_source_atom_indices",
+            "source_to_output_atom_indices",
+            "removed_atom_indices",
+        ):
+            np.testing.assert_array_equal(stored[name], expected["report"][name])
+        stored["output_to_source_atom_indices"][0] = -999
+        retained = next(
+            row["report"]
+            for row in reversed(child.molsys.chemical_states.get_preparation_history())
+            if row["report"]["schema"] == expected["report"]["schema"]
+        )
+        np.testing.assert_array_equal(
+            retained["output_to_source_atom_indices"],
+            expected["report"]["output_to_source_atom_indices"],
+        )
         unchanged(view, before)
         close_results(view)
 
