@@ -20,6 +20,7 @@ from tests.molsysviewer_molsysmt.test_build_assignment_tools import (
 
 NAMES = (
     "get_engine_forcefield",
+    "get_model_recipe",
     "get_degrees_of_freedom",
     "get_potential_energy",
     "get_forces",
@@ -124,14 +125,14 @@ def test_explicit_namespace_signatures_help_and_validation(name):
             assert f"{parameter.name} :" in text
         inputs = (
             {}
-            if name in {"get_potential_energy", "get_forces"}
+            if name in {"get_potential_energy", "get_forces", "get_model_recipe"}
             else {"forcefield": "AMBER14"}
         )
         for extra in (
             {"molecular_system": None},
             {"update_view": True},
             {"to_form": "molsysmt.MolSys"}
-            if name == "get_forces"
+            if name in {"get_forces", "get_model_recipe"}
             else {"structure_indices": [0]},
         ):
             with pytest.raises(UnknownArgumentError):
@@ -983,3 +984,20 @@ def test_force_read_preserves_all_native_domains_and_structural_observations(
             msm.get(scientific, **{attribute: True}),
         )
     unchanged(force_view, before)
+
+
+def test_model_recipe_reads_actual_parameters_without_scene_or_source_changes(
+    view, engine
+):
+    before = snapshot(view)
+    model_before = view.molsys.copy()
+    native = msm.molecular_mechanics.get_model_recipe(view.molsys)
+    result = view.addons.molsysmt.molecular_mechanics.get_model_recipe()
+    same(result, native)
+    unchanged(view, before)
+    assert view.molsys.chemical_states._inventory_equals(model_before.chemical_states)
+    np.testing.assert_array_equal(
+        msm.pyunitwizard.get_value(view.molsys.structures.coordinates, to_unit="nm"),
+        msm.pyunitwizard.get_value(model_before.structures.coordinates, to_unit="nm"),
+    )
+    assert result["effective"]["n_particles"] == msm.get(view.molsys, n_atoms=True)

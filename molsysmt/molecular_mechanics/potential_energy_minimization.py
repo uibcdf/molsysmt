@@ -24,6 +24,11 @@ def potential_energy_minimization(
     Native MolSys examples below make that ownership choice explicit.
 
 
+    Newly constructed models reject stored controls that the selected adapter
+    cannot apply. Inspect the supported physical recipe with
+    :func:`molsysmt.molecular_mechanics.get_model_recipe`. A supplied parameterized
+    engine model remains authoritative; its construction history is not inferred.
+
     Parameters
     ----------
     molecular_system : molecular system
@@ -123,8 +128,7 @@ def potential_energy_minimization(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt import convert, copy, get_form, has_attribute, set
-    from molsysmt.configure import default_attribute
+    from molsysmt import convert, copy, get_form, set
 
     if engine == "OpenMM":
         from openmm import LocalEnergyMinimizer
@@ -148,26 +152,9 @@ def potential_energy_minimization(
             context = calculation_system.context
 
         else:
-            extra_conversion_arguments = {}
+            from molsysmt._private.mechanical_model import context_defaults
 
-            possible_missing_attributes = [
-                "forcefield",
-                "water_model",
-                "implicit_solvent",
-                "constraints",
-                "non_bonded_method",
-                "switch_distance",
-                "dispersion_correction",
-                "ewald_error_tolerance",
-                "integrator",
-                "temperature",
-                "friction",
-                "time_step",
-            ]
-
-            for att in possible_missing_attributes:
-                if not has_attribute(molecular_system, att):
-                    extra_conversion_arguments[att] = default_attribute[att]
+            extra_conversion_arguments = context_defaults(molecular_system)
 
             context = convert(
                 calculation_system,

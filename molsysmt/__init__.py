@@ -120,6 +120,10 @@ _LAZY_ATTRIBUTES = {
         "NotImplementedIteratorError",
     ),
     "NotImplementedMethodError": ("._private.smonitor", "NotImplementedMethodError"),
+    "UnsupportedMechanicalControlError": (
+        "._private.smonitor",
+        "UnsupportedMechanicalControlError",
+    ),
     "NotSupportedFormError": ("._private.smonitor", "NotSupportedFormError"),
     "NotSupportedSyntaxError": ("._private.smonitor", "NotSupportedSyntaxError"),
     "NotWithThisFormError": ("._private.smonitor", "NotWithThisFormError"),

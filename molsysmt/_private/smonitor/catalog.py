@@ -302,6 +302,12 @@ CATALOG = {
             "category": "iterator",
             "level": "ERROR",
         },
+        "UnsupportedMechanicalControlError": {
+            "code": "MSM-ERR-MECH-001",
+            "source": "molsysmt.error.mechanical_model.unsupported_controls",
+            "category": "scientific_integrity",
+            "level": "ERROR",
+        },
         "NotImplementedMethodError": {
             "code": "MSM-ERR-METHOD-001",
             "source": "molsysmt.error.not_implemented_method",
@@ -372,6 +378,17 @@ CATALOG = {
 }
 
 CODES = {
+    "MSM-ERR-MECH-001": {
+        "title": "Unsupported mechanical overrides",
+        "user_message": "Unsupported mechanical overrides for {method}: {arguments}.",
+        "user_hint": "These settings were not applied. Remove the unsupported requests or supply an explicitly parameterized model. Inspect get_model_recipe for adapter scope. Docs: {doc_url}",
+        "dev_message": "Unsupported mechanical overrides for {method}: {arguments}.",
+        "dev_hint": "Reject stored controls before construction; do not silently omit them.",
+        "qa_message": "Unsupported mechanical overrides for {method}: {arguments}.",
+        "qa_hint": "Check actual refusal and unchanged model/coordinates before engine execution.",
+        "agent_message": "Unsupported mechanical overrides for {method}: {arguments}.",
+        "agent_hint": "No model using these overrides was constructed. Do not label stored values as effective.",
+    },
     "MSM-ERR-PLATFORM-001": {
         "title": "Execution platform unavailable",
         "user_message": "{engine} platform '{platform}' is not registered in this installation. Registered platforms: {available_platforms}.",

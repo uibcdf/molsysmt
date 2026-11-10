@@ -570,6 +570,10 @@ sections:
             description: Total/decomposed model energies with engine-owned platform names and construction-only platform selection.
             file: docs/content/user/tools/molecular_mechanics/get_potential_energy.ipynb
             agents_file: docs/content/user/tools/molecular_mechanics/get_potential_energy.ipynb.AGENTS.md
+          - name: get_model_recipe
+            description: Requested and effective physical settings, unsupported-control refusal, bounded structure context, typed periodic boxes, provenance and no execution context.
+            file: docs/content/user/tools/molecular_mechanics/get_model_recipe.md
+            agents_file: docs/content/user/tools/molecular_mechanics/get_model_recipe.md.AGENTS.md
           - name: get_forces
             description: Complete-model native and engine forces, legacy versus explicit structure axes, selected atom order, physical units, periodic boxes, bounded H5MSM reading, ownership and model limits.
             file: docs/content/user/tools/molecular_mechanics/get_forces.ipynb

@@ -18,32 +18,6 @@ from molsysmt._private.variables import is_all
 
 CALLER = "molsysmt.molecular_mechanics.get_forces"
 FORCE_UNIT = "kJ/(mol*nm)"
-_DEFAULTS = (
-    "forcefield",
-    "water_model",
-    "implicit_solvent",
-    "constraints",
-    "non_bonded_method",
-    "switch_distance",
-    "dispersion_correction",
-    "ewald_error_tolerance",
-    "integrator",
-    "temperature",
-    "friction",
-    "time_step",
-)
-_UNSUPPORTED_REQUESTS = (
-    "cutoff_distance",
-    "flexible_constraints",
-    "rigid_water",
-    "hydrogen_mass",
-    "salt_concentration",
-    "kappa",
-    "solute_dielectric",
-    "solvent_dielectric",
-    "partial_charge",
-    "atom_ff_type",
-)
 
 
 def _indices(value, size, argument, *, default_first=False):
@@ -176,27 +150,16 @@ def _check_reference_state(source, frames):
 
 
 def _construct(source, frames, platform, forms):
-    from molsysmt.basic import convert, has_attribute
-    from molsysmt.configure import default_attribute
+    from molsysmt.basic import convert
 
     parameterized = "openmm.System" in forms
     if not parameterized:
-        unsupported = [
-            name for name in _UNSUPPORTED_REQUESTS if has_attribute(source, name)
-        ]
-        if unsupported:
-            raise NotImplementedMethodError(
-                method="get_forces",
-                arguments=unsupported,
-                caller=CALLER,
-                message="The construction adapter cannot apply these stored mechanical overrides; supply an explicitly parameterized Context/Simulation.",
-            )
-    names = _DEFAULTS[8:] if parameterized else _DEFAULTS
-    missing = {
-        name: default_attribute[name]
-        for name in names
-        if not has_attribute(source, name)
-    }
+        from molsysmt._private.mechanical_model import reject_unsupported
+
+        reject_unsupported(source, caller=CALLER)
+    from molsysmt._private.mechanical_model import context_defaults
+
+    missing = context_defaults(source)
     return convert(
         source,
         to_form="openmm.Context",

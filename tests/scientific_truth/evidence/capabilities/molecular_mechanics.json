@@ -1,0 +1,27 @@
+{
+  "molsysmt.molecular_mechanics.get_model_recipe": {
+    "domain": "molecular_mechanics",
+    "status": "validated",
+    "claim": "Inspecting actual particle/constraint counts against independent NoCutoff engine construction and preserving a declared periodic triclinic box/cutoff. This narrow evidence does not certify arbitrary force expressions or other engines.",
+    "units": [
+      "nm"
+    ],
+    "periodic_behavior": "Declared System default periodic vectors retained as rows; no image search or coordinate modification.",
+    "contract_test_area": "tests/molecular_mechanics",
+    "scientific_evidence": [
+      {
+        "class": "external",
+        "test": "tests/scientific_truth/molecular_mechanics/test_model_recipe.py::test_recipe_constraints_match_independent_engine_construction",
+        "oracle": "Independently constructed OpenMM ForceField with explicit NoCutoff and HBonds/AllBonds/None controls; actual particle and constraint counts.",
+        "tolerance": "float64_kernel_atol"
+      },
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/molecular_mechanics/test_model_recipe.py::test_recipe_retains_a_known_triclinic_physical_box",
+        "oracle": "Declared row-vector triclinic cell and 0.7 nm cutoff, inspected without a Context.",
+        "tolerance": "float64_kernel_atol"
+      }
+    ],
+    "gap": null
+  }
+}

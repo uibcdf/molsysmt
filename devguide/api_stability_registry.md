@@ -11,8 +11,8 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | Classification | Symbols |
 | --- | ---: |
 | stable | 124 |
-| experimental | 177 |
-| outside-contract | 9 |
+| experimental | 178 |
+| outside-contract | 10 |
 | deprecated lifecycle | 0 |
 
 ## Symbols
@@ -53,6 +53,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.NotWithThisFormError` | stable | active | pre-1.0 |
 | `molsysmt.StructuralInconsistencyError` | stable | active | pre-1.0 |
 | `molsysmt.TopologyDict` | stable | active | pre-1.0 |
+| `molsysmt.UnsupportedMechanicalControlError` | outside-contract | active | 1.0.0 |
 | `molsysmt.add` | stable | active | pre-1.0 |
 | `molsysmt.append_structures` | stable | active | pre-1.0 |
 | `molsysmt.are_multiple_molecular_systems` | stable | active | pre-1.0 |
@@ -297,6 +298,7 @@ with the Python AST, so it does not import MolSysMT or optional dependencies.
 | `molsysmt.molecular_mechanics.get_degrees_of_freedom` | outside-contract | active | pre-1.0 |
 | `molsysmt.molecular_mechanics.get_engine_forcefield` | outside-contract | active | pre-1.0 |
 | `molsysmt.molecular_mechanics.get_forces` | outside-contract | active | pre-1.0 |
+| `molsysmt.molecular_mechanics.get_model_recipe` | experimental | active | 1.0.0 |
 | `molsysmt.molecular_mechanics.get_non_bonded_potential_energy` | outside-contract | active | pre-1.0 |
 | `molsysmt.molecular_mechanics.get_potential_energy` | outside-contract | active | pre-1.0 |
 | `molsysmt.molecular_mechanics.potential_energy_minimization` | outside-contract | active | pre-1.0 |

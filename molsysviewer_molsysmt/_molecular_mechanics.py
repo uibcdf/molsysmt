@@ -56,6 +56,19 @@ def _mechanical_documentation(name, *, bind_primary):
                 "preparation, visible-structure choice, scene/history change or "
                 "update_view control is introduced. Native errors propagate.\n"
             )
+        elif name == "get_model_recipe":
+            function.__doc__ += (
+                "Reads the complete current view.molsys through the serialized "
+                "molecular reader, including completed pending edits. Native "
+                "structure_indices=None uses the first stored structure for "
+                "physical construction context, independently of the visible "
+                "structure. This can parameterize a System but never creates "
+                "a Context, chooses a device, changes coordinates or updates "
+                "the scene/history. Requested/default/unsupported controls, "
+                "engine requirements, units and provenance remain native. "
+                "The detached report does not certify equilibration or exact "
+                "reconstruction of custom engine forces.\n"
+            )
         elif name == "get_forces":
             function.__doc__ += (
                 "Reads the complete current view.molsys through the serialized "
@@ -128,6 +141,7 @@ def _mechanical_documentation(name, *, bind_primary):
 class _MolecularMechanicsTools:
     _NAMES = (
         "get_engine_forcefield",
+        "get_model_recipe",
         "get_degrees_of_freedom",
         "get_forces",
         "get_potential_energy",
@@ -161,6 +175,26 @@ class _MolecularMechanicsTools:
             water_model=water_model,
             engine=engine,
             skip_digestion=skip_digestion,
+        )
+
+    @_mechanical_documentation("get_model_recipe", bind_primary=True)
+    @signal(tags=["addon", "molecular_mechanics", "read"])
+    @arg_digest(config="molsysviewer_molsysmt._argdigest")
+    def get_model_recipe(
+        self,
+        structure_indices=None,
+        engine="OpenMM",
+        skip_digestion=False,
+    ):
+        from molsysmt.molecular_mechanics import get_model_recipe
+
+        return self._owner._read(
+            get_model_recipe,
+            {
+                "structure_indices": structure_indices,
+                "engine": engine,
+                "skip_digestion": skip_digestion,
+            },
         )
 
     @_mechanical_documentation("get_degrees_of_freedom", bind_primary=True)

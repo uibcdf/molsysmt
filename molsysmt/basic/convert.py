@@ -84,6 +84,19 @@ def _convert_one_to_one(
             set(conversion_arguments) | set(kwargs) | {"item", "copy_if_all"}
         )
 
+        from molsysmt._private.mechanical_model import (
+            CONSTRUCTION_TARGETS,
+            PARAMETERIZED,
+            requested,
+        )
+
+        model_defaults = (
+            requested(
+                molecular_system, overrides=kwargs, caller="molsysmt.basic.convert"
+            )[0]
+            if to_form in CONSTRUCTION_TARGETS and from_form not in PARAMETERIZED
+            else {}
+        )
         stored_mechanics = False
         for missing_argument in missing_arguments:
             if attributes.get(missing_argument, {}).get(
@@ -99,7 +112,11 @@ def _convert_one_to_one(
                 )
                 stored_mechanics = True
             elif missing_argument in default_attribute:
-                kwargs[missing_argument] = default_attribute[missing_argument]
+                kwargs[missing_argument] = (
+                    model_defaults[missing_argument]["value"]
+                    if missing_argument in model_defaults
+                    else default_attribute[missing_argument]
+                )
 
         if stored_mechanics:
             # Stored settings are new inputs, not previously validated keywords.
@@ -1141,6 +1158,16 @@ def convert(
             else:
                 output.append(converted)
         return (output, reports) if return_report else output
+
+    from molsysmt._private.mechanical_model import (
+        CONSTRUCTION_TARGETS,
+        reject_unsupported,
+    )
+
+    if to_form in CONSTRUCTION_TARGETS:
+        reject_unsupported(
+            molecular_system, caller="molsysmt.basic.convert", overrides=kwargs
+        )
 
     report = None
     if strict or return_report:
