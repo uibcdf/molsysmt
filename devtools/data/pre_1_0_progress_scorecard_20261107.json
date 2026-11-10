@@ -2,15 +2,15 @@
   "schema_version": "molsysmt.pre1-progress@1",
   "date": "2026-11-07",
   "owner_issue": "uibcdf/molsysmt#334",
-  "qualified_source": "a28cb04fa7dafdc8853d3ccfe16f47077c0ecd98",
+  "qualified_source": "528c460a9523a2c69aa8116c8e97c26fcfeca9c1",
   "measure": "Verified implementation/source-delivery milestones; approximate operational completion, not elapsed effort, scientific coverage, a readiness probability or publication authority.",
   "accounting_change": "The earlier all-or-nothing phase-exit indicator was 40%. The same six phase weights and full scope now receive explicit partial milestone credit. This is a catch-up remeasurement of delivered work, not a new 21-point implementation in this turn.",
   "method": "Within phases 3\u20136, each named requirement package has equal weight. Nested accepted GUI families have equal family weight, then equal declared intent/task weight within that family. Verified-source leaves score 1, pending leaves score 0; parents average children. Supplemental defect/test/issue counts add no bonus. Pending means not accepted by this audit, not absent code.",
   "gui_scope": "Tracking packages make the previously accepted workflow inventory explicit. They are user intents, not a GUI promise for every expert argument or a new scientific feature request. Native/expert APIs remain available and retain their own qualification.",
   "publication": "The existing pause remains. #640/#641/#642 and all other required correctness work retain owning acceptance. Exact candidate/platform/installed and final sign-off gates are not scored as passed by source tests.",
   "legacy_phase_exit_percent": 40,
-  "weighted_milestone_percent": 73.76644189144189,
-  "reported_approximate_percent": 73.8,
+  "weighted_milestone_percent": 74.21006077256078,
+  "reported_approximate_percent": 74.2,
   "phases": [
     {
       "id": "phase1",
@@ -484,44 +484,54 @@
                 {
                   "id": "bond-repair",
                   "requirement": "Receive supported missing-bond repair",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_stacked_panels_receiving_678_681_682_683_20261110.json"
+                  ],
+                  "review": "Clean combined 528c460a9 against exact Viewer 9b8662cf passes 5857 addon/preflight cases, five actual Jupyter/Mol* scenarios with 44 checks, scientific 107/68, fourteen fast gates and inspected HTML. Includes all four reviewed PR heads and native corrections #677/#679/#680/#684. This credits the bounded existing intent; arbitrary-ID terminal defect #686, complete chemistry, effective mechanics #582, installed/platform/human and final-candidate acceptance remain separate."
                 },
                 {
                   "id": "terminal-completion",
                   "requirement": "Receive declared terminal completion",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_stacked_panels_receiving_678_681_682_683_20261110.json"
+                  ],
+                  "review": "Clean combined 528c460a9 against exact Viewer 9b8662cf passes 5857 addon/preflight cases, five actual Jupyter/Mol* scenarios with 44 checks, scientific 107/68, fourteen fast gates and inspected HTML. Includes all four reviewed PR heads and native corrections #677/#679/#680/#684. This credits the bounded existing intent; arbitrary-ID terminal defect #686, complete chemistry, effective mechanics #582, installed/platform/human and final-candidate acceptance remain separate."
                 },
                 {
                   "id": "capping",
                   "requirement": "Receive explicit terminal capping",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_stacked_panels_receiving_678_681_682_683_20261110.json"
+                  ],
+                  "review": "Clean combined 528c460a9 against exact Viewer 9b8662cf passes 5857 addon/preflight cases, five actual Jupyter/Mol* scenarios with 44 checks, scientific 107/68, fourteen fast gates and inspected HTML. Includes all four reviewed PR heads and native corrections #677/#679/#680/#684. This credits the bounded existing intent; arbitrary-ID terminal defect #686, complete chemistry, effective mechanics #582, installed/platform/human and final-candidate acceptance remain separate."
                 },
                 {
                   "id": "atom-typing",
                   "requirement": "Receive declared atom typing",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_stacked_panels_receiving_678_681_682_683_20261110.json"
+                  ],
+                  "review": "Clean combined 528c460a9 against exact Viewer 9b8662cf passes 5857 addon/preflight cases, five actual Jupyter/Mol* scenarios with 44 checks, scientific 107/68, fourteen fast gates and inspected HTML. Includes all four reviewed PR heads and native corrections #677/#679/#680/#684. This credits the bounded existing intent; arbitrary-ID terminal defect #686, complete chemistry, effective mechanics #582, installed/platform/human and final-candidate acceptance remain separate."
                 },
                 {
                   "id": "charge-assignment",
                   "requirement": "Receive declared charge assignment",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_stacked_panels_receiving_678_681_682_683_20261110.json"
+                  ],
+                  "review": "Clean combined 528c460a9 against exact Viewer 9b8662cf passes 5857 addon/preflight cases, five actual Jupyter/Mol* scenarios with 44 checks, scientific 107/68, fourteen fast gates and inspected HTML. Includes all four reviewed PR heads and native corrections #677/#679/#680/#684. This credits the bounded existing intent; arbitrary-ID terminal defect #686, complete chemistry, effective mechanics #582, installed/platform/human and final-candidate acceptance remain separate."
                 },
                 {
                   "id": "protonation-reconciliation",
                   "requirement": "Receive assessed managed/independent protonation reconciliation",
                   "state": "pending",
                   "evidence": [],
-                  "review": ""
+                  "review": "PR #681 receives independent rule-defined hydrogen removal. It does not implement complete protonation reconciliation; retain this original leaf as pending."
                 }
               ]
             },
@@ -569,9 +579,11 @@
             {
               "id": "refinement",
               "requirement": "Receive native model/engine-selected coordinate minimization",
-              "state": "pending",
-              "evidence": [],
-              "review": ""
+              "state": "verified_source",
+              "evidence": [
+                "devtools/data/molsysviewer_stacked_panels_receiving_678_681_682_683_20261110.json"
+              ],
+              "review": "Clean combined 528c460a9 against exact Viewer 9b8662cf passes 5857 addon/preflight cases, five actual Jupyter/Mol* scenarios with 44 checks, scientific 107/68, fourteen fast gates and inspected HTML. Includes all four reviewed PR heads and native corrections #677/#679/#680/#684. This credits the bounded existing intent; arbitrary-ID terminal defect #686, complete chemistry, effective mechanics #582, installed/platform/human and final-candidate acceptance remain separate."
             },
             {
               "id": "geometric-analysis",
@@ -686,9 +698,11 @@
                 {
                   "id": "pca",
                   "requirement": "Receive PCA and its native axis/degeneracy/memory contracts",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_stacked_panels_receiving_678_681_682_683_20261110.json"
+                  ],
+                  "review": "Clean combined 528c460a9 against exact Viewer 9b8662cf passes 5857 addon/preflight cases, five actual Jupyter/Mol* scenarios with 44 checks, scientific 107/68, fourteen fast gates and inspected HTML. Includes all four reviewed PR heads and native corrections #677/#679/#680/#684. This credits the bounded existing intent; arbitrary-ID terminal defect #686, complete chemistry, effective mechanics #582, installed/platform/human and final-candidate acceptance remain separate."
                 }
               ]
             },
@@ -701,14 +715,16 @@
                   "requirement": "Receive physicochemical/property and secondary-structure results",
                   "state": "pending",
                   "evidence": [],
-                  "review": ""
+                  "review": "PR #682 delivers nine source-mapped property/sequence/connectivity/ring tasks and actual Jupyter receiving. This original leaf also includes secondary structure, which is not delivered; retain pending rather than crediting a convenient subset."
                 },
                 {
                   "id": "sequence-connectivity",
                   "requirement": "Receive sequence/connectivity reports",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/molsysviewer_stacked_panels_receiving_678_681_682_683_20261110.json"
+                  ],
+                  "review": "Clean combined 528c460a9 against exact Viewer 9b8662cf passes 5857 addon/preflight cases, five actual Jupyter/Mol* scenarios with 44 checks, scientific 107/68, fourteen fast gates and inspected HTML. Includes all four reviewed PR heads and native corrections #677/#679/#680/#684. This credits the bounded existing intent; arbitrary-ID terminal defect #686, complete chemistry, effective mechanics #582, installed/platform/human and final-candidate acceptance remain separate."
                 },
                 {
                   "id": "interactions",
@@ -736,8 +752,8 @@
           ]
         }
       ],
-      "verified_fraction": 0.8554195804195803,
-      "credited_points": 21.385489510489506
+      "verified_fraction": 0.8731643356643357,
+      "credited_points": 21.829108391608393
     },
     {
       "id": "phase5",
@@ -892,12 +908,14 @@
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
     "owner_verification": "Public 1d033b656 independently matches 21 changed paths and preserves four human files. Clean b184e9d18 passes 1,229 affected cases without omissions, fourteen fast gates and three inspected HTML pages. #661 is closed. #256 remains open and public H5MSM writing remains 0.5; no client/installed/candidate acceptance is added.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Resolve native cutoff/unit contract #666 with uibcdf/pyunitwizard#143 while completing remaining #421 intents, including PCA, chemistry, construction/refinement, properties, interactions, mechanics and complete sessions. Preserve #256 P5 independent client receiving and P6 stable H5MSM 1.0/default-writer review, #524 actual public floors/installed closure, #615 causality and #334 exact-candidate/platform/publication gates. Angular chunking #667 remains post-1.0 rather than an added release exit.",
+    "scope": "Correct native chemical termini independently of group-ID labels (#686). Continue remaining #421 original graphical intents (construction, contacts, secondary structure, protonation reconciliation, interactions, mechanics and complete sessions), effective engine-neutral recipe #582, native cutoff #666/provider143, #256 P5/P6 stable H5MSM review, #524/#615 and #334 installed/platform/exact-candidate gates. New proposal #685 receives bounded design without adding a release gate; #667 remains post-1.0.",
     "active_related": [
+      "uibcdf/molsysmt#686",
       "uibcdf/molsysmt#666",
       "uibcdf/molsysmt#421",
       "uibcdf/molsysmt#615",
-      "uibcdf/molsysmt#256"
+      "uibcdf/molsysmt#256",
+      "uibcdf/molsysmt#582"
     ],
     "last_source_closeout_record": "devguide/archive/resolved_bugs/unsigned_h5msm_axis_maps_wrap_out_of_range_indices_to_unknown.md",
     "after_active_block": [
@@ -930,7 +948,7 @@
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
-    "verified_source_intents": 31,
+    "verified_source_intents": 39,
     "total_intents": 50,
     "global_weight_points": 2.5,
     "meaning": "A separate count of accepted declared intents; not equal effort, scientific coverage or installed acceptance."
@@ -1202,5 +1220,69 @@
       676
     ],
     "public_closeout": "devtools/data/comparability_and_diagnostics_closeout_20261109.json"
+  },
+  "last_stacked_graphical_receiving": {
+    "qualified_source": "528c460a9523a2c69aa8116c8e97c26fcfeca9c1",
+    "viewer_source": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+    "receipt": "devtools/data/molsysviewer_stacked_panels_receiving_678_681_682_683_20261110.json",
+    "reviewed_prs": [
+      678,
+      681,
+      682,
+      683
+    ],
+    "accepted_original_leaves": [
+      "phase4/graphical-inventory/chemistry-repair/atom-typing",
+      "phase4/graphical-inventory/chemistry-repair/bond-repair",
+      "phase4/graphical-inventory/chemistry-repair/capping",
+      "phase4/graphical-inventory/chemistry-repair/charge-assignment",
+      "phase4/graphical-inventory/chemistry-repair/terminal-completion",
+      "phase4/graphical-inventory/geometric-analysis/pca",
+      "phase4/graphical-inventory/other-analysis/sequence-connectivity",
+      "phase4/graphical-inventory/refinement"
+    ],
+    "accepted_existing_intents": 8,
+    "addon_preflight_cases": 5857,
+    "actual_jupyter_scenarios": 5,
+    "actual_jupyter_checks": 44,
+    "registered_scientific_cases": 107,
+    "registered_scientific_nodes": 68,
+    "fast_gates": 14,
+    "weighted_milestone_change": 0.44361888111889414,
+    "supplemental_bug_bonus": 0,
+    "state": "publicly_delivered_and_reviewed_prs_closed",
+    "scope": "Original weights and fifty intents unchanged; source/automated graphical receiving only.",
+    "public_checkpoint": "c9bb16eab13bac7c0ea91607ef61a576c07ee82b",
+    "delivery": "devtools/data/molsysviewer_stacked_panels_delivery_678_681_682_683_20261110.json"
+  },
+  "last_incoming_review": {
+    "date": "2026-11-09",
+    "complete_board_issues_before_own_686": 612,
+    "open_issues_before_own_686": 92,
+    "reviewed_prs": [
+      678,
+      681,
+      682,
+      683
+    ],
+    "closed_public_core_issues": [
+      677,
+      679,
+      680,
+      684
+    ],
+    "public_core_checkpoint": "0c6f9c746dbd10b02dfe8474a5af280b857ace0d",
+    "new_proposal": {
+      "issue": "uibcdf/molsysmt#685",
+      "disposition": "Bounded peptide reference design/backlog; no automatic pre-1.0 gate or new weight."
+    },
+    "new_correctness_issue": {
+      "issue": "uibcdf/molsysmt#686",
+      "disposition": "Reproduced group-ID chemical-terminus error; prioritize before optional enhancements."
+    },
+    "latest_complete_board_issues": 613,
+    "latest_open_issues": 93,
+    "latest_open_prs": 0,
+    "board_checkpoint": "After public integration and exact-head PR closeout"
   }
 }

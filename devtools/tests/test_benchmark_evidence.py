@@ -1,6 +1,7 @@
 """Exercise evidence publication without running molecular benchmarks."""
 
 import hashlib
+import importlib
 import importlib.util
 import json
 import os
@@ -276,3 +277,37 @@ def test_unknown_generated_provenance_is_refused_without_rewriting(tmp_path):
     with pytest.raises(RuntimeError, match="require review"):
         _canonicalize_owned_reference(path)
     assert path.read_bytes() == original
+
+
+def test_owned_writer_block_normalizes_long_versions_without_losing_science(
+    tmp_path, monkeypatch
+):
+    import molsysmt as msm
+    from benchmarks.competitors.run_matrix import _canonicalize_owned_reference
+
+    source = msm.convert(msm.systems["alanine dipeptide"]["alanine_dipeptide.h5msm"])
+    writer = importlib.import_module("molsysmt.form.molsysmt_MolSys.to_string_pdb_text")
+    prepared = []
+    try:
+        for n, version in enumerate(["0+unknown", "1.0.0rc1+" + "a" * 160]):
+            monkeypatch.setattr(msm, "__version__", version)
+            raw = writer.to_string_pdb_text(source).encode("ascii")
+            path = tmp_path / f"generated-{n}.pdb"
+            path.write_bytes(raw)
+            record = _canonicalize_owned_reference(path)
+            data = path.read_bytes()
+            unchanged = data.splitlines(keepends=True)[
+                record["prepared_provenance_record_count"] :
+            ]
+            restored = unchanged.copy()
+            for index, text in sorted(
+                record["original_records"].items(), key=lambda pair: int(pair[0])
+            ):
+                restored.insert(int(index), text.encode("ascii"))
+            assert b"".join(restored) == raw
+            assert record["raw_pdb_sha256"] == hashlib.sha256(raw).hexdigest()
+            assert data.endswith(b"".join(unchanged))
+            prepared.append(data)
+    finally:
+        monkeypatch.undo()
+    assert prepared[0] == prepared[1]

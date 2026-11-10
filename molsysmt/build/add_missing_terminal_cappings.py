@@ -35,7 +35,13 @@ def add_missing_terminal_cappings(
     keep_ids : object, default=False
         Argument keep_ids.
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection string or boolean/integer array specifying elements.
+        Source atom selection: a query string, 0-based atom indices, or a full
+        Boolean mask on the source atom axis. Numeric selections have this same
+        meaning for every syntax. Selecting any atom enables its whole group for
+        native local completion. Requested ACE/NME caps apply to the complete
+        peptide/protein covalent components touched by the selection; selecting
+        an internal group does not turn that group into a chemical terminus.
+        An empty selection returns an independent unchanged copy.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     engine : object, default='MolSysMT'
@@ -73,6 +79,13 @@ def add_missing_terminal_cappings(
     ``get_missing_heavy_atoms`` as well as ``get_missing_terminal_cappings``.
     PDBFixer can choose additional reconstructions, so whole-system atom counts
     need not match between engines.
+
+    Selection is resolved before atom insertion. Local heavy-atom completion,
+    missing OXT and terminal N-bound hydrogens are restricted to selected source
+    groups; terminal detection uses the complete system context. Explicit caps
+    operate on selected covalent components. Group indices remain stable during
+    local atom insertion, and component populations are resolved again from those
+    groups after repair. The source is not modified.
 
     Native atom expansion requires one selected chemical state. Existing atom
     assignments, state identity/provenance and observed coordinates survive.
@@ -120,7 +133,25 @@ def add_missing_terminal_cappings(
     .. versionadded:: 1.0.0
     """
 
-    from molsysmt.basic import get_form
+    import numpy as np
+
+    from molsysmt._private.smonitor import ArgumentError
+    from molsysmt.basic import copy, get_form, select
+
+    # Resolve the source atom population once, before any reconstruction changes
+    # atom positions. Numeric/Boolean selectors do not depend on query syntax.
+    if selection is None:
+        raise ArgumentError(
+            "selection", caller="molsysmt.build.add_missing_terminal_cappings"
+        )
+    if isinstance(selection, str):
+        source_atoms = select(molecular_system, selection=selection, syntax=syntax)
+    elif np.asarray(selection).dtype.kind == "b":
+        source_atoms = select(molecular_system, mask=selection)
+    else:
+        source_atoms = select(molecular_system, selection=selection)
+    if not source_atoms:
+        return copy(molecular_system)
 
     output_molecular_system = None
     form_in = get_form(molecular_system)
@@ -138,12 +169,7 @@ def add_missing_terminal_cappings(
             **conversion_extra_kwargs,
             skip_digestion=True,
         )
-        atom_indices_in_selection = select(
-            temp_molecular_system,
-            selection=selection,
-            syntax=syntax,
-            skip_digestion=True,
-        )
+        atom_indices_in_selection = source_atoms
         atom_indices_in_components = get(
             temp_molecular_system,
             element="component",
@@ -334,12 +360,19 @@ def add_missing_terminal_cappings(
         else:
             native_ms = molecular_system
 
+        # Atom insertion preserves the group axis while sorting the expanded
+        # atom table. Carry groups, never stale atom positions, through this stage.
+        selected_groups = np.unique(
+            native_ms.topology.atoms.loc[source_atoms, "group_index"].astype(int)
+        ).tolist()
+        group_selection = f"group_index in {selected_groups}"
+
         # --- Case A: complete missing atoms in native terminal residues ---
         # Step A1: add missing sidechain/backbone heavy atoms (OXT excluded there).
         native_ms = add_missing_heavy_atoms(
             native_ms,
-            selection=selection,
-            syntax=syntax,
+            selection=selected_groups,
+            syntax="MolSysMT",
             engine="MolSysMT",
         )
 
@@ -353,8 +386,8 @@ def add_missing_terminal_cappings(
         missing_oxt = (
             get_missing_terminal_cappings(
                 native_ms,
-                selection=selection,
-                syntax=syntax,
+                selection=selected_groups,
+                syntax="MolSysMT",
                 engine="MolSysMT",
             )
             if C_terminal is None
@@ -435,7 +468,7 @@ def add_missing_terminal_cappings(
                         if g_name in aa_names_set:
                             nterm_group_idx = g_idx
                             break
-                if nterm_group_idx is None:
+                if nterm_group_idx not in selected_groups:
                     continue
                 # If the first amino acid is not the first group in the chain,
                 # the N-terminus is already capped (e.g. by ACE). Skip.
@@ -509,7 +542,7 @@ def add_missing_terminal_cappings(
         # are an objective property of the system — no dependency on external metadata.
         # The selection evaluator resolves this local via @atom_indices_in_selection.
         atom_indices_in_selection = select(  # noqa: F841
-            native_ms, selection=selection, syntax=syntax, skip_digestion=True
+            native_ms, selection=group_selection, syntax="MolSysMT", skip_digestion=True
         )
         component_indices = get(
             native_ms,

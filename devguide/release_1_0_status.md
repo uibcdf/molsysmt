@@ -1,5 +1,117 @@
 # MolSysMT 1.0 Execution Status
 
+## Public combined delivery verified — 2026-11-09
+
+Public main **c9bb16eab** contains the four reviewed PR heads; all **51** changed
+or deleted public tree paths are verified and the four human files stay byte-exact.
+**#678/#681/#682/#683 are closed** after integration: #678 is marked merged by
+ancestry, while the dependent drafts are explicitly closed as directly integrated.
+No branch was retargeted or deleted. The complete board now has **613 issues,
+93 open, and no open PRs**. #677/#679/#680/#684 remain verified closed.
+See the [public delivery record](../devtools/data/molsysviewer_stacked_panels_delivery_678_681_682_683_20261110.json).
+
+The received progress is **39/50 graphical intents** and **74.2101%** under the
+original weights. Next is **#686** chemical-terminal correctness, then the
+remaining #582/#421 source work and #666/provider143; #256, #524/#615 and #334
+retain their independent installed/platform/exact-candidate obligations.
+The new #685 proposal is recorded as bounded design/backlog. The source-only
+`[skip ci]` checkpoint does not waive future mandatory gates or authorize a
+package, tag, Release or promotion. Detailed receiving and prior failures follow.
+
+## Combined graphical receiving and new issue intake — 2026-11-09
+
+The four reviewed PR heads (#678/#681/#682/#683) are ancestors of clean combined
+`528c460a9523a2c69aa8116c8e97c26fcfeca9c1`. Against exact Viewer
+`9b8662cfb198e6896751c30ee2c7c8780ac85f4c`, **5,857 addon/preflight cases**,
+**five actual Jupyter/AnyWidget/Mol* scenarios with 44 checks**, **107 scientific
+cases / 68 registered nodes**, **14/14 fast gates** and the HTML build pass.
+Five new rendered guide sections are inspected. The original combined run
+remains failed (5,856 pass / one obsolete fake-terminal expectation); correcting
+that expectation has a separate 63-case consumer receipt and the complete rerun.
+Native/addon/workflow/benchmark/user-doc bytes are unchanged between cohorts.
+See the [combined receipt](../devtools/data/molsysviewer_stacked_panels_receiving_678_681_682_683_20261110.json).
+
+Credit exactly **eight existing graphical intents**, **31 → 39/50**: PCA,
+refinement, five repair/assignment intents and sequence/connectivity reports.
+Original nested weights stay fixed: **73.7664% → 74.2101% (about 74.2%)**.
+The complete properties leaf still requires secondary structure; removing
+rule-defined hydrogens does not complete protonation reconciliation. Explicit
+color/plot adoption adds no artificial intent or score. This is source and
+automated graphical receiving, not complete scientific readiness, fresh combined
+Qt/human acceptance, installed qualification or an exact release candidate.
+
+The complete board refresh has 612 issues, 92 open, before filing our new #686;
+four PR heads are unchanged, with #681–#683 now explicitly draft. Public main
+`0c6f9c746` already delivers the four closed core defects #677/#679/#680/#684.
+The following intake and next work order extend the maintained plan without
+silently changing its six weights or release scope:
+
+| Order | Owner | Disposition / next acceptance |
+| --- | --- | --- |
+| 1 | #686 | Newly reproduced: changing only group ID labels moves the reported C terminus. Review chemical endpoint recognition, ambiguous/cyclic/capped cases and public addition consumers; add a scientific regression before optional enhancements. [Diagnosis](pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md). |
+| 2 | #582 and remaining #421 | Complete the effective engine-neutral mechanical recipe and original unreceived graphical intents; retain the partial properties/protonation distinctions. Receive native/scientific behavior and actual graphical workflows before credit. |
+| 3 | #666 / uibcdf/pyunitwizard#143 | Resolve the native cutoff/unit boundary before accepting the contact prototype; no GUI-specific tolerance workaround. |
+| 4 | #256, #524, #615, #334 | Continue independent H5MSM/stable-format review, actual dependency-floor/installed closure, diagnostic causality and final exact-candidate/platform gates. |
+| Backlog / bounded design | #685 | New PeptideMT request: explicit capped and stereochemically declared coordinate-free peptide references. Reuse the existing peptide/CCD template, assessment/application and CIP owners; do not infer missing experimental chemistry, equate L with S, or confuse primary carboxamide with N-methylamide. This proposal adds no automatic 1.0 blocker. |
+
+Resource caps measured about **4.51 GiB** for the four-worker addon run and
+**2.57 GiB** for the graphical run; host availability stayed above **7.5 GiB**,
+with no own OOM or reserve stop. Known plain-Jupyter debugger errors remain in
+the evidence and have the same fingerprints as the control. Contributor Qt and
+historical hosted CI keep their original identities. No new remote matrix,
+package, tag, Release or promotion is authorized. Combined public integration
+and verified PR closeout follow this received checkpoint.
+
+## Incoming core defects received — 2026-11-09
+
+#677/#679/#680/#684 have source-qualified corrections: actual demo inventory,
+source atom selection and full-chain terminal context, format-safe actual PDB
+producer version, and component-keyed cap insertion independent of stable molecules.
+Clean c643a728f passes **170** expanded native/reference/doctest cases, **16**
+benchmark/evidence controls including two actual 21-case campaigns, **14/14**
+fast gates and five inspected HTML pages. The dynamic catalog re-executes both
+original cells; other guide/course/cookbook code, outputs and metadata stay exact.
+See the [core receipt](../devtools/data/incoming_core_receiving_677_679_680_684_20261110.json).
+The former false-terminal expectation in the existing addon audit is corrected;
+its **63-case** module passes separately on byte-identical native code. Original
+combined-addon failure stays failed; the [consumer receipt](../devtools/data/terminal_audit_consumer_receiving_679_20261110.json)
+does not replace a rerun. Source publication/issue closure follow this checkpoint.
+
+The complete refresh added stacked PRs #681/#682/#683 under #678 to the existing
+#421 plan. Their isolated combined source is under review/testing against exact
+Viewer 9b8662cf. No contributor result is reassigned to the combined source, no
+GUI intent is credited yet, and core repairs add no artificial weighted bonus:
+progress remains **73.7664%**, graphical intents **31/50**. Continue their native,
+actual Jupyter and scientific receiving before integration; #582, #666/provider143,
+#524/#615, broader #256 and #334 installed/platform/final-candidate gates remain.
+All operations retain capped resources and the authorized [skip ci] source route;
+no new remote matrix, package, tag, Release or promotion is launched.
+
+## Incoming review and execution block — 2026-11-09
+
+The complete board refresh retains 610 issues (94 open) and finds four open
+stacked PRs. #681–#683 are new since the previous checkpoint; #678 remains
+unreceived. Their claims are contributor evidence until combined-source review.
+The original plan and its weights stay unchanged; these PRs implement existing
+#421 task families, not newly added requirements.
+
+| Order | Owner | Work and acceptance |
+| --- | --- | --- |
+| 1 | #679 | Resolve terminal-capping selection once on the source atom axis; project explicit group/component populations through reconstruction. Cover numeric/expression/mask equivalence, partial populations, multiple structures/components and source preservation. |
+| 2 | #677 | Query the actual bundled alanine inventory, reconcile its catalog and manifest, and re-execute the generated catalog notebook without changing the dataset. |
+| 3 | #680 | Use actual cached producer version in format-safe PDB provenance; preserve scientific records and deterministic benchmark-owned preparation. |
+| 4 | PR #678 | Review existing PCA inspection/refinement, contributor analytic/engine controls and actual Jupyter/Qt evidence. Receive the compatible combined source before credit. |
+| 5 | PR #681 | Review chemical repair/assignment panels and explicit atom-to-group scope; #679 remains provider-owned. |
+| 6 | PR #682 | Review source-mapped property/report tasks, units, static versus structural semantics and bounded queries. |
+| 7 | PR #683 | Review deliberate report color/plot adoption, coverage/refusal/undo and source-structure navigation against its exact Viewer runtime. |
+
+After this block continue #582's effective engine-neutral recipe, remaining #421
+intents, #666/provider143, #524/#615, broader #256 and #334 final installed/platform
+requirements. Keep published failures and receipts, the source/installed boundary,
+the publication pause, resource supervision and [skip ci] source checkpoints.
+Accepted weighted progress remains 73.7664% and graphical intents 31/50 until
+original owning leaves have independently received evidence.
+
 ## Comparability and incoming diagnostics received — 2026-11-09
 
 #567's full comparable-session contract is received: known runtime/provider/

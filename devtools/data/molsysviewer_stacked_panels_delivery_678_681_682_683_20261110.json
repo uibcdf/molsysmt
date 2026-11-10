@@ -1,0 +1,285 @@
+{
+  "schema_version": "molsysmt.stacked_panels_delivery@1",
+  "date": "2026-11-09",
+  "owner_issue": "uibcdf/molsysmt#421",
+  "public_delivery": {
+    "qualified_source": "528c460a9523a2c69aa8116c8e97c26fcfeca9c1",
+    "public_checkpoint": "c9bb16eab13bac7c0ea91607ef61a576c07ee82b",
+    "base": "0c6f9c746dbd10b02dfe8474a5af280b857ace0d",
+    "verified_paths": [
+      {
+        "path": ".github/workflows/ci-smoke.yaml",
+        "git_blob_sha": "0ad3669a56f7bdc0b52828aedb8fa151b264a357"
+      },
+      {
+        "path": "devguide/archive/README.md",
+        "git_blob_sha": "42fa97b326cf83a81b7a491d6616ffefcdd8d6c8"
+      },
+      {
+        "path": "devguide/archive/resolved_bugs/consumer_charge_binding_fixture_receiving.md",
+        "git_blob_sha": "637ce3530e081177d2f0c4c94dffdf4f80a86671"
+      },
+      {
+        "path": "devguide/archive/resolved_bugs/duplicate_charge_binding_fixture_intake.md",
+        "git_blob_sha": "3f6b06025d81b2a1467fa2713b3dc72cc17d3ac3"
+      },
+      {
+        "path": "devguide/molsysviewer_tools_gui_design.md",
+        "git_blob_sha": "b094b5c8f98e71ad13200aec493a76b2d452d36e"
+      },
+      {
+        "path": "devguide/pending_bugs/README.md",
+        "git_blob_sha": "9cb01da9b722f8358a0f1c52433a6a71fd03bc00"
+      },
+      {
+        "path": "devguide/pending_bugs/macos_py312_environment_download_failure.md",
+        "git_blob_sha": "e59f912a4047bd705185e26b3c2eebc8dcf80ab1"
+      },
+      {
+        "path": "devguide/pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md",
+        "git_blob_sha": "273544aa0e8834221a49d539e592f3fdae74229e"
+      },
+      {
+        "path": "devguide/pending_proposals/molsysviewer_tools_addon.md",
+        "git_blob_sha": "ac0228240022034b12418f842b07d2eaf42712bd"
+      },
+      {
+        "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+        "git_blob_sha": "005aa73a28faed3bfeefe42cd2fede857c2656d1"
+      },
+      {
+        "path": "devguide/release_1_0_status.md",
+        "git_blob_sha": "20c4792b05cd0001ca8a023a6727fc4a437f1016"
+      },
+      {
+        "path": "devtools/data/molsysviewer_chemical_repair_receiving_421_20261109.json",
+        "git_blob_sha": "fa3d84513fac5f22ff6d92a327d69a55d07f001c"
+      },
+      {
+        "path": "devtools/data/molsysviewer_pca_refinement_receiving_421_20261109.json",
+        "git_blob_sha": "d5ecab1accf0346300bb01ff8e127dad9294944a"
+      },
+      {
+        "path": "devtools/data/molsysviewer_property_reports_receiving_421_20261109.json",
+        "git_blob_sha": "86e512b3feddeaf2fd3dd873ccee4b17f6a9b27d"
+      },
+      {
+        "path": "devtools/data/molsysviewer_stacked_panels_receiving_678_681_682_683_20261110.json",
+        "git_blob_sha": "69303c0bd453316bbf6a8ae81c5681af50f5bb83"
+      },
+      {
+        "path": "devtools/data/molsysviewer_visual_adoption_receiving_421_20261109.json",
+        "git_blob_sha": "596584343d7456c7b97509042785262cbe653d54"
+      },
+      {
+        "path": "devtools/data/pre_1_0_progress_scorecard_20261107.json",
+        "git_blob_sha": "4b038b5840b87b53f12d07da379336ffa0bfac46"
+      },
+      {
+        "path": "devtools/scripts/viewer_tools_contract.py",
+        "git_blob_sha": "d8b550884369a5cfcd733001de64384f56032029"
+      },
+      {
+        "path": "docs/content/user/tools/molsysviewer_tools.md",
+        "git_blob_sha": "06ffa37aa79197d7d8894edf2f91bc5d671b887d"
+      },
+      {
+        "path": "docs/docs_manifest.yml",
+        "git_blob_sha": "8264a75b1f18d715c7b80f58bdfa6d97aaf1b13e"
+      },
+      {
+        "path": "molsysviewer_molsysmt/_analysis_panel.py",
+        "git_blob_sha": "7a4ee2e0a34b02134a0a5f7ff4a71a71722ebd24"
+      },
+      {
+        "path": "molsysviewer_molsysmt/_analysis_panel_frontend.py",
+        "git_blob_sha": "fadb35e8eadde1b3f666516030bd28b36e1b2da4"
+      },
+      {
+        "path": "molsysviewer_molsysmt/_analysis_properties.py",
+        "git_blob_sha": "cabca979d3acc13f3d672b0d967b9dab5b26f012"
+      },
+      {
+        "path": "molsysviewer_molsysmt/_analysis_visuals.py",
+        "git_blob_sha": "f55be9f95e3594d14dde3bc22ce560b6d07afb2d"
+      },
+      {
+        "path": "molsysviewer_molsysmt/_chemistry_panel_frontend.py",
+        "git_blob_sha": "5d5717b3b9c6501d7b74c608679dc7f2c71b322b"
+      },
+      {
+        "path": "molsysviewer_molsysmt/_chemistry_preparation.py",
+        "git_blob_sha": "40a78047290018a2849144e67e2b84923798d3f8"
+      },
+      {
+        "path": "molsysviewer_molsysmt/_geometry_panel.py",
+        "git_blob_sha": "8c6bd61ea0d90548b80b19ded5196b3be781a889"
+      },
+      {
+        "path": "molsysviewer_molsysmt/_geometry_panel_frontend.py",
+        "git_blob_sha": "d50c0839b2e80bdb84d2743c80e8865b9600f750"
+      },
+      {
+        "path": "molsysviewer_molsysmt/_panel_frontend.py",
+        "git_blob_sha": "81056410ae8371814bc40e55f33497313cbe3192"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs",
+        "git_blob_sha": "1489fd0b41acbd16b9e785be5abbea05e45b7283"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/chemistry_panel_qt.py",
+        "git_blob_sha": "0e25541899f9fca72802569433738fb406adebb2"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/chemistry_repair_fixture.py",
+        "git_blob_sha": "7fc0fa47447871029f0ab629927ec15f0339dffa"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/chemistry_repair_jupyter.mjs",
+        "git_blob_sha": "94fcbf4ebbf0cb09552937f34bbce3739e2a631a"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/geometry_panel_qt.py",
+        "git_blob_sha": "096dfe4fd54784759699e5848fefaae0e2f55452"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py",
+        "git_blob_sha": "35683ec92e6738f40ffe994ed6410a4135d5787b"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/native_panel_host.py",
+        "git_blob_sha": "d20106d1cb2177c7afcbd77cd4e822fdd6fbc4c9"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/property_report_fixture.py",
+        "git_blob_sha": "6bd182b8b0724d9c6c6da0a0b209edf496469179"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/property_report_jupyter.mjs",
+        "git_blob_sha": "08ca8113d44e7369627f6bc20ead4d40d49a7cf3"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/property_report_qt.py",
+        "git_blob_sha": "64ccf15b6d0da8b1151ff441a26a46b28cf49ed7"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/qt_receiving_guard.py",
+        "git_blob_sha": "3784322aab3c16f807ccffb14a853cadfbffed5c"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/refinement_panel_jupyter.mjs",
+        "git_blob_sha": "6af6254fcf25111a5ecaa3fd38700f8a09fca29d"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/refinement_panel_qt.py",
+        "git_blob_sha": "f5182ce44d8a0b9d0544aedc2fbb6186be3ed5a3"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/system_panel_jupyter.py",
+        "git_blob_sha": "18be1a80ebc1cc0a2560a51231d7e2242c21208b"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/test_analysis_visual_adoption.py",
+        "git_blob_sha": "d2179faa1da0c8c57d4c32c7c65f293816cb51f5"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/test_chemistry_repair_panel.py",
+        "git_blob_sha": "f22b27a7b094a496e7a31833c4fbc44a68d500f9"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/test_minimization_panel.py",
+        "git_blob_sha": "595d42caa30e248c64f9a5cba5fb53fd57d609d9"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/test_pca_analysis_panel.py",
+        "git_blob_sha": "971b4f1dc7d75cdb537698c0b8ad32fe8283f428"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/test_property_analysis_panel.py",
+        "git_blob_sha": "f8c648595726e2311b3becad59fa1408448955d7"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/visual_adoption_fixture.py",
+        "git_blob_sha": "578db1ecd7c22bd83108b24f78cab9707f7282cb"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/visual_adoption_jupyter.mjs",
+        "git_blob_sha": "b5126868dff0ec184d6c1922b2069e45ad56cd05"
+      },
+      {
+        "path": "tests/molsysviewer_molsysmt/visual_adoption_qt.py",
+        "git_blob_sha": "87089a7dbea57c9b84fc169089f522db4f86294d"
+      }
+    ],
+    "protected_human_files": {
+      "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": "3b97cf0d5c813a1e3c2212ad118c7f6c32763d85af91cb800640209095fd53d6",
+      "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": "d564291bb01387663f178f5e041bc8d55d1022bfa71584ddd11f1dd9dba12d95",
+      "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": "a112aa640da192a121d1ccec3c5011c9652729abacf2a38c1b222632a55dcf20",
+      "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": "6b3f17a698bc7393ca3ecad31891d693b8a8169dfdd892dbae77f3ca91b25abe"
+    },
+    "human_bytes_unchanged": true,
+    "scope": "Fast-forward source delivery only; no package, tag, Release or hosted matrix launched."
+  },
+  "prs": [
+    {
+      "number": 678,
+      "state": "closed",
+      "merged": true,
+      "head": "08f0afdb87f787eb1f0b6626f6763c2d9703e0d8",
+      "closed_at": "2026-11-10T05:52:04Z"
+    },
+    {
+      "number": 681,
+      "state": "closed",
+      "merged": false,
+      "head": "d320a0c5de831ebf2b1a41020d355393e0c61d6c",
+      "closed_at": "2026-11-10T05:52:42Z"
+    },
+    {
+      "number": 682,
+      "state": "closed",
+      "merged": false,
+      "head": "7a83c482ccb350b82503a5538d72df0319c6153c",
+      "closed_at": "2026-11-10T05:52:50Z"
+    },
+    {
+      "number": 683,
+      "state": "closed",
+      "merged": false,
+      "head": "5a397a00e2fd4e4287bf515cf927060a4ec6ca88",
+      "closed_at": "2026-11-10T05:52:57Z"
+    }
+  ],
+  "board": {
+    "complete_issues": 613,
+    "open_issues": 93,
+    "open_prs": [],
+    "closed_core_issues": [
+      677,
+      679,
+      680,
+      684
+    ],
+    "new_proposal": 685,
+    "new_correctness_issue": 686,
+    "inventory_sha256": "f2c453aaacceea5fdf4ac09859ce87a1ed923142426c283d3d1bee34611683af"
+  },
+  "receiving": "devtools/data/molsysviewer_stacked_panels_receiving_678_681_682_683_20261110.json",
+  "graphical_accepted": 39,
+  "graphical_total": 50,
+  "weighted_milestone_percent": 74.21006077256078,
+  "supplemental_bug_bonus": 0,
+  "next": [
+    "Correct native chemical-terminal recognition independently of group ID labels (#686).",
+    "Continue effective engine-neutral mechanical recipe #582 and remaining #421 original graphical intents.",
+    "Resolve native cutoff/unit boundary #666 with PyUnitWizard #143; retain contacts prototype as unaccepted.",
+    "Preserve #256 H5MSM stable/default review, #524/#615 and #334 installed/platform/exact-candidate qualification.",
+    "Review #685 peptide reference design as backlog without adding an automatic 1.0 gate."
+  ],
+  "limits": [
+    "PR #678 is marked merged by GitHub ancestry. The three stacked drafts are closed as directly integrated, without retargeting or deleting branches.",
+    "Historical original CI and contributor Qt evidence are not reassigned to the combined candidate. No new hosted matrix, installed/human/exact-candidate acceptance, tag, package, Release or promotion.",
+    "The source checkpoint deliberately uses [skip ci] under the maintainer instruction. Applicable future full/installed/platform/exact-candidate gates remain required."
+  ]
+}

@@ -276,9 +276,9 @@ systems.info = {
     "alanine dipeptide": {
         "title": "Alanine Dipeptide",
         "category": "Dipeptides & Small Peptides",
-        "summary": "Ace-Ala-NME capped dipeptide benchmark system containing 12 heavy/hydrogen atoms.",
+        "summary": "Ace-Ala-NME capped dipeptide benchmark system containing 22 atoms, including hydrogens.",
         "files": {
-            "alanine_dipeptide.h5msm": "Native MolSysMT HDF5 file containing full topology, 12 atoms, and coordinates."
+            "alanine_dipeptide.h5msm": "Native MolSysMT HDF5 file containing full topology, 22 atoms, and coordinates."
         },
     },
     "proline dipeptide": {
