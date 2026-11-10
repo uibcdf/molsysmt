@@ -2703,6 +2703,20 @@
       "owner": "structure",
       "documentation": "docs/content/user/tools/structure/get_distance_clusters.ipynb",
       "contract_tests": "tests/structure/test_pairwise_geometry.py"
+    },
+    "molsysmt.molecular_mechanics.get_model_recipe": {
+      "stability": "experimental",
+      "introduced": "1.0.0",
+      "owner": "molecular_mechanics",
+      "documentation": "docs/content/user/tools/molecular_mechanics/get_model_recipe.md",
+      "contract_tests": "tests/molecular_mechanics/test_model_recipe.py"
+    },
+    "molsysmt.UnsupportedMechanicalControlError": {
+      "stability": "outside-contract",
+      "introduced": "1.0.0",
+      "owner": "diagnostics",
+      "documentation": "docs/content/user/tools/molecular_mechanics/get_model_recipe.md",
+      "contract_tests": "tests/molecular_mechanics/test_model_recipe.py"
     }
   },
   "pre_1_0_namespace_moves": {

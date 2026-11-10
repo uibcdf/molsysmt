@@ -25,6 +25,11 @@ def get_forces(
     the public conversion route with stored model requests before configured
     defaults, without chemical preparation, integration or minimization.
 
+    Newly constructed models reject stored controls that the selected adapter
+    cannot apply. Inspect the supported physical recipe with
+    :func:`molsysmt.molecular_mechanics.get_model_recipe`. A supplied parameterized
+    engine model remains authoritative; its construction history is not inferred.
+
     Parameters
     ----------
     molecular_system : molecular system

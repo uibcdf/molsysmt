@@ -40,6 +40,7 @@ from .exceptions import (
     StructuralInconsistencyError,
     UnknownGroupInTableError,
     UnsupportedHeavyOperationError,
+    UnsupportedMechanicalControlError,
 )
 from .warnings import (
     BioassemblyIdentifierCollisionWarning,

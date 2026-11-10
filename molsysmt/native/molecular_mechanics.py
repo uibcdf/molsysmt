@@ -26,7 +26,10 @@ class MolecularMechanics:
     its resources or rejects unsupported combinations. Public conversion uses
     supported stored settings before defaults; explicit keywords, including
     ``implicit_solvent=None``, override stored choices without editing them.
-    Storing a request does not certify completed parameterization.
+    Storing a request does not certify completed parameterization. The current
+    construction adapter rejects unsupported nonempty tuning/per-atom requests
+    rather than dropping them. Use molecular_mechanics.get_model_recipe for
+    requested/default origins and inspected compiled settings.
     """
 
     def __repr__(self):

@@ -35,8 +35,9 @@ operation or requested external form. Adapters translate supported choices and
 refuse incompatible ones. Current conversion reads supported stored mechanics
 settings before fallback defaults. An explicit keyword wins, including
 `implicit_solvent=None` to override a stored model without editing this domain.
-An implicit model takes precedence over a water-model argument; clear it
-explicitly before requesting only explicit water.
+Construction rejects two nonempty explicitly requested solvent families. An
+implicit model suppresses a conflicting global water default, without changing
+the source. Clear a stored implicit model explicitly before requesting water.
 For constraints, store `'none'` to retain an explicit no-constraints request;
 an unset container field uses the operation's default. An explicit conversion
 keyword `constraints=None` requests no constraints for that call.
@@ -118,5 +119,8 @@ This legacy dictionary is not a generic constructor recipe. Individual OpenMM
 constructors accept different keyword sets, and returning a value does not prove
 that a physical model consumed it. Prefer the public conversion and evaluation
 tools with their documented capability/refusal contracts. The broader requested-
-versus-effective engine-neutral recipe review remains open under #582; no
-independent dielectric, screening or other tuning capability is added here.
+versus-effective contract is available through
+{func}`molsysmt.molecular_mechanics.get_model_recipe`. This separate query reads
+compiled settings without a Context, records origins and refuses unsupported
+requests. It does not add independent dielectric/screening tuning. Supplied
+parameterized models retain unknown construction provenance.

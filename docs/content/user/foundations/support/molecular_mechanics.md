@@ -55,7 +55,11 @@ the ACE surface term, solute/solvent dielectric constants 1/78.5 and zero salt
 screening, as supplied by OpenMM's standard XML definitions. The converter does
 not expose independent dielectric/screening/cutoff controls; storing such fields
 in the experimental mechanics container does not establish support for applying
-them. OBC construction admits no cutoff, a nonperiodic cutoff or a periodic
+them. Public model construction now refuses these nonempty unsupported requests
+with named-field diagnostics. The model-recipe query distinguishes requested
+controls/defaults from compiled settings, without constructing a Context.
+Per-atom mechanics overrides, rigid-water/flexible-constraint controls and
+hydrogen mass repartitioning also refuse until a supported adapter consumes them. OBC construction admits no cutoff, a nonperiodic cutoff or a periodic
 cutoff; it refuses PME, Ewald and LJPME. An absent OBC nonbonded setting uses
 no cutoff even when a cell is available.
 

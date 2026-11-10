@@ -12,4 +12,6 @@ Governs `docs/content/user/foundations/native_world/classes/molsysmt_MolecularMe
 Preserve the native import path, shared physical constraint-policy translation,
 AllBonds versus HBonds distinction, optional-engine validation and the legacy
 keyword dictionary's non-execution/constructor-specific limits. Do not present
-this bounded repair as completion of the engine-neutral recipe review #582.
+this bounded repair alone as completion of #582. The separately received public
+model-recipe query must explain requested/effective origins, unsupported stored
+requests and unknown provenance for provided parameterized models.
