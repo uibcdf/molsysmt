@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (36)
+### Open (35)
 
 - [`add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md`](add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md) — [#308](https://github.com/uibcdf/molsysmt/issues/308) — Add a native general ligand hydrogen engine for fixed chemical states *(inspected)*
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
@@ -51,7 +51,6 @@ Entries carrying front matter under
 - [`evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md`](evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md) — [#154](https://github.com/uibcdf/molsysmt/issues/154) — Evaluate single-assessment delegation for public molecular-system predicates *(measured)*
 - [`expand_and_validate_formal_charge_center_recognition.md`](expand_and_validate_formal_charge_center_recognition.md) — [#262](https://github.com/uibcdf/molsysmt/issues/262) — Expand and validate formal-charge center recognition *(inspected)*
 - [`explicit_small_molecule_standardization.md`](explicit_small_molecule_standardization.md) — [#366](https://github.com/uibcdf/molsysmt/issues/366) — Provide explicit small-molecule standardization with chemical-state and atom-identity evidence. *(inspected)*
-- [`expose_effective_engine_neutral_mechanics_recipes_and_unsupported_stored_control.md`](expose_effective_engine_neutral_mechanics_recipes_and_unsupported_stored_control.md) — [#582](https://github.com/uibcdf/molsysmt/issues/582) — Expose effective engine-neutral mechanics recipes and unsupported stored controls. *(inspected)*
 - [`fasta_handler_for_partial_sequence_systems.md`](fasta_handler_for_partial_sequence_systems.md) — [#519](https://github.com/uibcdf/molsysmt/issues/519) — Add a resource-owning FASTA handler for partial sequence systems. *(inspected)*
 - [`generate_3d_conformers_for_a_fixed_small_molecule_chemical_state.md`](generate_3d_conformers_for_a_fixed_small_molecule_chemical_state.md) — [#219](https://github.com/uibcdf/molsysmt/issues/219) — Generate 3D conformers for a fixed small-molecule chemical state *(inspected)*
 - [`integrate_propka_for_environment_dependent_pka_instead_of_reimplementing_it.md`](integrate_propka_for_environment_dependent_pka_instead_of_reimplementing_it.md) — [#177](https://github.com/uibcdf/molsysmt/issues/177) — Integrate PROPKA for environment-dependent pKa instead of reimplementing it. *(measured)*
@@ -89,7 +88,7 @@ Entries carrying front matter under
 - [`enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md`](enumerate_ligand_tautomers_and_stereoisomers_as_explicit_chemical_states.md) — [#229](https://github.com/uibcdf/molsysmt/issues/229) — Enumerate ligand tautomers and stereoisomers as explicit chemical states *(inspected)*
   Blocked by uibcdf/molsysmt#220.
 
-### Partially resolved (16)
+### Partially resolved (17)
 
 - [`add_pdbqt_file_and_string_forms_with_molsys_conversion.md`](add_pdbqt_file_and_string_forms_with_molsys_conversion.md) — [#214](https://github.com/uibcdf/molsysmt/issues/214) — Add PDBQT file and string forms with MolSys conversion *(reproduced)*
 - [`add_sdf_file_form_with_molsys_conversion.md`](add_sdf_file_form_with_molsys_conversion.md) — [#215](https://github.com/uibcdf/molsysmt/issues/215) — Add SDF file form with MolSys conversion *(reproduced)*
@@ -97,6 +96,7 @@ Entries carrying front matter under
 - [`compare_attributed_cation_pi_detectors_with_the_molsysmt_geometric_proposal.md`](compare_attributed_cation_pi_detectors_with_the_molsysmt_geometric_proposal.md) — [#271](https://github.com/uibcdf/molsysmt/issues/271) — Compare attributed cation-pi detectors with the MolSysMT geometric proposal *(measured)*
 - [`evaluate_aaindex_modlamp_and_peptides_for_additional_physicochemical_observables.md`](evaluate_aaindex_modlamp_and_peptides_for_additional_physicochemical_observables.md) — [#485](https://github.com/uibcdf/molsysmt/issues/485) — Evaluate AAindex, modlAMP and Peptides for additional physicochemical observables *(inspected)*
 - [`execute_every_declared_conversion_edge_in_the_test_suite_not_only_audit_it_stati.md`](execute_every_declared_conversion_edge_in_the_test_suite_not_only_audit_it_stati.md) — [#181](https://github.com/uibcdf/molsysmt/issues/181) — Execute every declared conversion edge in the test suite, not only audit it statically. *(measured)*
+- [`expose_effective_engine_neutral_mechanics_recipes_and_unsupported_stored_control.md`](expose_effective_engine_neutral_mechanics_recipes_and_unsupported_stored_control.md) — [#582](https://github.com/uibcdf/molsysmt/issues/582) — Expose effective engine-neutral mechanics recipes and unsupported stored controls. *(inspected)*
 - [`first_conversion_triggers_full_form_registry_loading.md`](first_conversion_triggers_full_form_registry_loading.md) — [#382](https://github.com/uibcdf/molsysmt/issues/382) — Avoid loading the complete form registry on first conversion. *(measured)*
 - [`fixed_state_hbond_site_directions.md`](fixed_state_hbond_site_directions.md) — [#375](https://github.com/uibcdf/molsysmt/issues/375) — Expose reusable fixed-state hydrogen-bond site directions through public geometry tools. *(measured)*
 - [`local_molecule_names_and_external_enrichment.md`](local_molecule_names_and_external_enrichment.md) — [#25](https://github.com/uibcdf/molsysmt/issues/25) — Separate supported local molecule labels from future database enrichment. *(inspected)*

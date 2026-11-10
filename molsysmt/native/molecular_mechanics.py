@@ -1,4 +1,5 @@
 import pandas as pd
+from depdigest import dep_digest
 
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
@@ -313,8 +314,50 @@ class MolecularMechanics:
 
         return forcefield
 
-    def get_openmm_System_parameters(self):
-        """Build the keyword dictionary for creating an OpenMM System."""
+    @arg_digest()
+    @dep_digest("openmm")
+    def get_openmm_System_parameters(self, *, skip_digestion=False):
+        """Translating stored options into legacy OpenMM constructor keywords.
+
+        Parameters
+        ----------
+        skip_digestion : bool, default=False
+            Skip argument digestion only for already validated inputs.
+
+        Returns
+        -------
+        dict
+            New keyword dictionary containing OpenMM constants and stored
+            settings. Constraint names use the same translation as public
+            conversion: None/'none', 'hbonds', 'all bonds' and 'h angles',
+            including space, underscore and hyphen spellings.
+
+        Raises
+        ------
+        ArgumentChoiceError
+            If the stored constraint policy is unsupported.
+        LibraryNotFoundError
+            If the optional OpenMM dependency is unavailable.
+
+        Notes
+        -----
+        This legacy engine-specific translation does not construct a model or
+        certify that every returned keyword is supported by every OpenMM
+        constructor. Stored fields remain unchanged. Public conversion and
+        force evaluation retain their own capability/refusal contracts; an
+        effective engine-neutral recipe is tracked separately under #582.
+
+        Examples
+        --------
+        >>> from molsysmt.native import MolecularMechanics
+        >>> from openmm import app
+        >>> settings = MolecularMechanics(
+        ...     non_bonded_method='no_cutoff', constraints='all_bonds')
+        >>> settings.get_openmm_System_parameters()['constraints'] is app.AllBonds
+        True
+
+        .. versionadded:: 1.0.0
+        """
 
         from openmm import app
 
@@ -345,17 +388,12 @@ class MolecularMechanics:
                 self.switch_distance, to_form="openmm.unit", to_unit="nm"
             )
 
-        if self.constraints is not None:
-            if self.constraints == "h_bonds":
-                parameters["constraints"] = app.HBonds
-            elif self.constraints == "all_bonds":
-                parameters["constraints"] = app.HBonds
-            elif self.constraints == "h_angles":
-                parameters["constraints"] = app.HAngles
-            else:
-                raise NotImplementedError()
-        else:
-            parameters["constraints"] = None
+        from molsysmt._private.engine_constraints import openmm_constraints
+
+        parameters["constraints"] = openmm_constraints(
+            self.constraints,
+            caller="molsysmt.native.MolecularMechanics.get_openmm_System_parameters",
+        )
 
         parameters["hydrogenMass"] = self.hydrogen_mass
         parameters["rigidWater"] = self.rigid_water

@@ -65,3 +65,23 @@ existing smoke command also receives the certificate regression module.
 Scoped local receiving and failed originals belong to the consumer's private
 packet under uibcdf/molsysviewer#315. The source fix does not authorize packages,
 tags, promotions, release claims or treating the incomplete matrix as passing.
+
+
+## Owner receiving — 2026-11-09
+
+The owner receives PR #668's full contribution at merge 3dfe27ab6, retaining its
+original authors/commits and failed CI evidence. The same 66-case source selection
+on new immutable Viewer 346c3319 first gives 65 passes/one #670 fixture failure;
+after the minimal schema declaration it passes all 66 on 3fe645437. The actual
+workflow-path/real-Git guards, path-with-spaces shell expansion, strict deliberate
+inside-checkout refusal, configuration contexts and provisional descriptor
+contracts all pass. No cleanliness allowlist, engine or scientific threshold
+changes. The owner retains the downloaded Linux JUnit ZIP and verified digest.
+
+The corrected hosted run 42689572908 has concluded failure, rather than the
+contribution's earlier pending snapshot: seven cells fail their full suite and
+macOS/Python 3.12 fails provisioning. Native logs and Linux JUnit independently
+identify #670 and #671. Neither reopens the original artifact-placement mechanism;
+original failures stay failed and a new exact-candidate matrix remains due.
+Owner clean-source scientific and broader regression receiving follow before
+this bug's bounded closeout. No new remote matrix is launched.
