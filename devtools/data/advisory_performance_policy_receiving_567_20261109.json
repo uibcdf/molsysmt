@@ -1,0 +1,270 @@
+{
+  "schema": "molsysmt.advisory_performance_policy_receiving@1",
+  "date": "2026-11-09",
+  "owner_issue": "uibcdf/molsysmt#567",
+  "qualified_source": "d1cf233628a3fece0d4429444c54cd07826d6364",
+  "accepted_policy": "Scientifically correct implementations remain available regardless of relative speed. Product and direct-third-party timing are advisory. Consistent comparable product inefficiency beyond the default 15 percent merits an improvement issue. Within that margin an efficiency issue is generally unnecessary. Numerical correctness remains mandatory.",
+  "normative": "devguide/benchmarking/performance_policy.md",
+  "runs": {
+    "pre1-669-582-policy": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-669-582-policy.xml",
+          "--receptor-events=<private-evidence>/pre1-669-582-policy.events.jsonl",
+          "devtools/tests/test_benchmark_comparison.py",
+          "devtools/tests/test_benchmark_evidence.py",
+          "devtools/tests/test_benchmark_reference.py",
+          "devtools/tests/test_execute_scientific_evidence.py",
+          "devtools/tests/test_smoke_addon_test_command.py",
+          "devtools/tests/test_native_viewer_integration.py"
+        ],
+        "exit_code": 0,
+        "seconds": 80.49704101798125,
+        "viewer_commit": "346c331901c418fddb6b45a31da4690eee794129",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "d1cf233628a3fece0d4429444c54cd07826d6364",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2546,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8676
+      },
+      "resources": {
+        "started_utc": "2026-11-10T00:33:38.153365+00:00",
+        "seconds": 88.07883748784661,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            5.62353515625,
+            7.1826171875,
+            5.06689453125
+          ],
+          "cpu_utilization": 0.11963654719838468,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12561375232,
+        "cgroup_memory_peak_bytes": 378441728,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "d72f823f07ca0d96cef003acc6e98ea7b014fcbe07569198f0c67e7d51af3f05",
+        "-bounded.json": "29e2ad494682b8a8e55b10b3ac52348f64e16844c57a801819c5e43b4cb14d8b",
+        ".xml": "21f6e7935af85977afa0ae78f158a294172ff6e07580050059c746e4965ccc24",
+        ".log": "c70a1ab1769b7be67afefb19b56d6823d451bc9077036c7eab85a38bea4ee3aa",
+        "-inputs-before.json": "b47e32fc6feaa0736c8cc28d977123934c8b054dcfccc5d2ef61d1dd807095c0",
+        "-inputs-after.json": "b47e32fc6feaa0736c8cc28d977123934c8b054dcfccc5d2ef61d1dd807095c0",
+        "-reference-driver.py": "86e42d6b7dfffacc69de7f24780648420d43e5e99b904002746675a57d4059ef",
+        "-resource-driver.py": "0048e417dcab2f841dff4ec8dbb8d7f9ea88f9be14ec4c211726d24a867ecea7",
+        ".events.jsonl": "aade3fc97273d64bfe6fda5cd8a9f5f69a0f81be9fda0e84b0c4a29116065c30",
+        "-runtime.json": "91f2f318755962b5dfbf5170ea8e66be8c5c506c5b32346755927c910c89ee92",
+        "-viewer-inputs-before.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596",
+        "-viewer-inputs-after.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "121",
+          "time": "78.244",
+          "timestamp": "2026-11-09T18:33:44.401912-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "pre1-669-582-fast-policy": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-669-582-fast-policy.xml",
+          "--receptor-events=<private-evidence>/pre1-669-582-fast-policy.events.jsonl",
+          "devtools/tests/test_benchmark_comparison.py",
+          "devtools/tests/test_benchmark_evidence.py",
+          "devtools/tests/test_benchmark_reference.py",
+          "devtools/tests/test_execute_scientific_evidence.py",
+          "devtools/tests/test_smoke_addon_test_command.py",
+          "devtools/tests/test_native_viewer_integration.py"
+        ],
+        "exit_code": 0,
+        "seconds": 79.58053069096059,
+        "viewer_commit": "346c331901c418fddb6b45a31da4690eee794129",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "d1cf233628a3fece0d4429444c54cd07826d6364",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2546,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8676
+      },
+      "resources": {
+        "started_utc": "2026-11-10T00:33:38.129273+00:00",
+        "seconds": 87.0771322848741,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            5.62353515625,
+            7.1826171875,
+            5.06689453125
+          ],
+          "cpu_utilization": 0.11957618567103934,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12561117184,
+        "cgroup_memory_peak_bytes": 378343424,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "8b319bfe6a0a25605dcadc33ea568f6c14734fdba1b54bb83014f0968b57378d",
+        "-bounded.json": "eea752f943185549d274457cdd5a4edeace165f5d6ed9b13ed5b9b838893b50c",
+        ".xml": "6f0786e2014f39f79b9965e0525bf4b5a75e37e1c11f7a32c33ac84ebe009cb2",
+        ".log": "73360e5cead2d09c3d86652b4253f9e4efb46b9655986ddcb732da59768b1c43",
+        "-inputs-before.json": "b47e32fc6feaa0736c8cc28d977123934c8b054dcfccc5d2ef61d1dd807095c0",
+        "-inputs-after.json": "b47e32fc6feaa0736c8cc28d977123934c8b054dcfccc5d2ef61d1dd807095c0",
+        "-reference-driver.py": "86e42d6b7dfffacc69de7f24780648420d43e5e99b904002746675a57d4059ef",
+        "-resource-driver.py": "0048e417dcab2f841dff4ec8dbb8d7f9ea88f9be14ec4c211726d24a867ecea7",
+        ".events.jsonl": "dbc4ac0d2241c533c5859219d7267d1016c803a808978ff61a2506aa46970f34",
+        "-runtime.json": "91f2f318755962b5dfbf5170ea8e66be8c5c506c5b32346755927c910c89ee92",
+        "-viewer-inputs-before.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596",
+        "-viewer-inputs-after.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "121",
+          "time": "77.324",
+          "timestamp": "2026-11-09T18:33:44.416703-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": []
+    },
+    "pre1-669-582-fast-advisory": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 21.232929863967,
+        "viewer_commit": "346c331901c418fddb6b45a31da4690eee794129",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "d1cf233628a3fece0d4429444c54cd07826d6364",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2546,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8676
+      },
+      "resources": {
+        "started_utc": "2026-11-10T00:35:10.699637+00:00",
+        "seconds": 28.025510024046525,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "256"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            3.33837890625,
+            5.9892578125,
+            4.8466796875
+          ],
+          "cpu_utilization": 0.029131089904570584,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14301052928,
+        "cgroup_memory_peak_bytes": 419332096,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "6da04a46e553bea86bfcbd8b6294a1b8b8f003c830189ed4914c6d43d84eacd8",
+        "-bounded.json": "78b04e6c7be722557cf22eee0a1d0d8aad6e3a350f8ad665b7b9fa72975ce731",
+        ".log": "d52435585699106707e81a20fa18e8a85cac7915d4fecaba774d343b12b640a1",
+        "-inputs-before.json": "b47e32fc6feaa0736c8cc28d977123934c8b054dcfccc5d2ef61d1dd807095c0",
+        "-inputs-after.json": "b47e32fc6feaa0736c8cc28d977123934c8b054dcfccc5d2ef61d1dd807095c0",
+        "-reference-driver.py": "86e42d6b7dfffacc69de7f24780648420d43e5e99b904002746675a57d4059ef",
+        "-resource-driver.py": "0048e417dcab2f841dff4ec8dbb8d7f9ea88f9be14ec4c211726d24a867ecea7",
+        "-runtime.json": "91f2f318755962b5dfbf5170ea8e66be8c5c506c5b32346755927c910c89ee92",
+        "-viewer-inputs-before.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596",
+        "-viewer-inputs-after.json": "ccfa9c032eb25f4c19563a6348aa3271617a669a95a8c959fd5117fa94e0a596"
+      }
+    }
+  },
+  "old_policy_observation": {
+    "scope": "Synthetic numeric input, not a timing campaign. Both product and external 20-percent slowdowns previously return 1.",
+    "sha256": "09239b8a19e2e5c8c65fb7d4dab253315373c98796b8876b0541dfea15c43cc6"
+  },
+  "baseline_preservation": {
+    "path": "benchmarks/baselines/competitor_matrix_session.json",
+    "sha256": "37cf33decd54134bd015d8ebe0f9510b0f67f6ac40718196a0b4660377f5977c",
+    "bytes_identical_to_previous_public_main": true
+  },
+  "accepted_scope": [
+    "121 affected comparer/evidence/reference/certificate/addon-inventory controls pass, including actual quoted shell pipelines and unchanged full reference coordinate equality.",
+    "Product and external slowdowns return an advisory warning without a failure exit; invalid or incomplete numeric evidence still returns a diagnostic failure and never prints performance PASS.",
+    "The performance job explicitly permits failure, while its producer/comparison pipelines retain native exit codes, original JSON and always-upload artifacts. This is not a required scientific gate and changes no scientific workflow.",
+    "The default 15 percent ratio and every historical baseline byte/failure are retained. No baseline renewal or fresh shared-host timing campaign is attempted.",
+    "All fourteen fast gates pass. Repository Ruff lint/format and devguide/index checks pass.",
+    "Scientific product, tests, docs, backend, controlled dependency and other CI-route bytes are identical to c37e42510; its qualified scientific/native/graphical evidence is reused only within those unchanged inputs."
+  ],
+  "retained_duplicate_attempt": {
+    "profile": "pre1-669-582-fast-policy",
+    "reason": "Temporary profile substring selected the policy suite again instead of the intended fast gate. Both 121-case runs are preserved as duplicate receiving, not 242 unique cases or gate coverage. The actual fast gate runs separately as fast-advisory."
+  },
+  "support_boundaries": "Development CLI/workflow/documentation only; no new scientific/public quantity, argument or dependency boundary requires runtime support-library changes.",
+  "remaining": [
+    "Full workload/environment comparability validation, repeat/dispersion interpretation and reviewed historical-reference renewal remain open under #567. This record closes only the owner policy/disposition work.",
+    "No verified attributed product inefficiency is established by the old direct-MDTraj delta, so no unsupported product-performance issue is invented.",
+    "An advisory job failure remains failed diagnostic evidence; no past hosted outcome is relabeled and no new hosted run is launched.",
+    "No source tag, release, artifact, API restriction or installed/platform acceptance. Weighted audit progress stays 72.51644189144189 percent and 31/50 intents."
+  ]
+}

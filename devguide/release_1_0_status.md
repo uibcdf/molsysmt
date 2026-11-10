@@ -28,6 +28,9 @@ under #567: keep correct tools available, investigate comparable repeated
 slowdowns above 15 percent in improvement issues, and keep invalid evidence
 unevaluable. Timing does not block implementation. Full workload/environment
 comparability and reviewed reference renewal stay pending.
+Clean d1cf23362 receives all **121** affected policy/evidence/preflight controls
+and fourteen fast gates; the [policy receiving record](../devtools/data/advisory_performance_policy_receiving_567_20261109.json)
+retains old/new behavior, raw diagnostic failures and unchanged reference bytes.
 
 Accepted weighted progress stays **72.5164% (approximately 72.5%)** and **31/50**
 existing graphical intents. Regression repairs, receiving a newer host and a

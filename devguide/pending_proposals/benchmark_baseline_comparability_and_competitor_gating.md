@@ -173,3 +173,18 @@ bytes remain unchanged. New workload/environment comparability metadata, its
 validation, repeated-measurement interpretation and reviewed baseline renewal
 remain outstanding; no attributed product slowdown is established by this
 policy change or the old direct-MDTraj observation.
+
+
+## Accepted advisory implementation receiving — 2026-11-09
+
+Clean d1cf23362 receives all 121 affected comparer/evidence/reference/certificate/
+addon preflight controls and all fourteen fast gates. The [policy receiving record](../../devtools/data/advisory_performance_policy_receiving_567_20261109.json)
+retains the synthetic old blocking policy, new warning assertions for product
+and external paths, invalid-data refusals, actual shell-pipeline failures and
+unchanged reference bytes. A temporary profile selected the same policy suite
+twice; both attempts remain distinct, without counting them as 242 unique tests
+or as fast-gate coverage. The actual fast gates run separately. Full repository
+Ruff and developer-guide/index validation pass. The scientific product, backend,
+public docs and numeric tests remain byte-identical to c37e42510. No timings are
+measured anew and no original failure is rewritten. Comparability and reference
+renewal remain open, so #567 stays partial.
