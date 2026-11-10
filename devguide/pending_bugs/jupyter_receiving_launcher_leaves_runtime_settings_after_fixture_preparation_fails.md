@@ -64,3 +64,18 @@ Keep the addressable filesystem guard, scoped create-only ownership and actual
 server/popup receiving. Publish the verified source and notify #688/#687 without
 claiming the latter integrated. Confirm the original reporter's private-remnant
 retirement without disclosing credentials, then close and archive this record.
+
+## Reporter-owned handoff — 2026-11-10
+
+The reporter has now verified completed owned-process cleanup and retired the
+unused settings/configuration from the original preparation failure and the
+subsequent controlled OOM/resource-stop campaigns (127, 130, 134 and 136).
+Only file names, sizes and pre-retirement SHA-256 are retained in the private
+evidence; no credentials are disclosed. Original diagnostic logs and outcomes
+remain preserved under uibcdf/molsysviewer#315. This is the requested reporter
+handoff; owner review, archival and administrative closure remain separate.
+The new continuous-session scenario reuses the native `_runtime_files` owner
+and its stronger foreign-replacement/partial-write/error-reporting guards,
+rather than retaining the independently proposed duplicate context. The legacy
+unconditional unlink after server shutdown is removed so that this call site
+retains the context's documented foreign-file identity protection.

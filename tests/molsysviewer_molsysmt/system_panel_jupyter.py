@@ -159,6 +159,7 @@ def main():
             "properties",
             "visual-adoption",
             "interaction-mechanics",
+            "continuous-session",
         ),
         default="system",
     )
@@ -747,6 +748,10 @@ def main():
     cells = [initial, final]
     if args.scenario == "refinement":
         cells = [initial, "refinement_source_unchanged()\n", final]
+    if args.scenario == "continuous-session":
+        from continuous_session_fixture import notebook_cells
+
+        cells = notebook_cells(initial[: initial.index("view = msv.demo")], output)
     if args.scenario == "interaction-mechanics":
         from interaction_mechanics_fixture import notebook_cells
 
@@ -959,7 +964,9 @@ def main():
                     [
                         args.node,
                         str(
-                            Path(__file__).with_name(
+                            Path(__file__).with_name("continuous_session_jupyter.mjs")
+                            if args.scenario == "continuous-session"
+                            else Path(__file__).with_name(
                                 "interaction_mechanics_jupyter.mjs"
                             )
                             if args.scenario == "interaction-mechanics"
@@ -1020,7 +1027,11 @@ def main():
                     ],
                     env=env,
                     check=True,
-                    timeout=300 if args.scenario == "analysis" else 240,
+                    timeout=360
+                    if args.scenario == "continuous-session"
+                    else 300
+                    if args.scenario == "analysis"
+                    else 240,
                 )
         finally:
             if server is not None:
@@ -1040,8 +1051,6 @@ def main():
                     except subprocess.TimeoutExpired:
                         server.kill()
                         server.wait(timeout=5)
-            for credential in (output / "settings.json", config):
-                credential.unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

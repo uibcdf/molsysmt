@@ -2093,3 +2093,46 @@ addon run returned 2,268 passes and 185 failures; fixture/ownership corrections
 remain under #255. The Viewer scene loader still accesses Topology.bonds and is
 reported with executable retry guards in uibcdf/molsysviewer#269. No installed
 pair or new minimum package version is qualified by this checkpoint.
+
+## Receiving a continuous scientific session
+
+The optional real-Jupyter profile
+`tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_continuous_scientific_session_and_recovery`
+receives one retained working session with actual kernels, widgets, native Mol*
+and both popup lifecycles. Select `MOLSYSVIEWER_JUPYTER_TEST=1`, the intended
+`MOLSYSVIEWER_ROOT` and the recorded support-provider route. The default unit
+suite does not qualify this profile when it is unselected.
+
+The session composes bundled TcTIM, caffeine and a peptide in a batch and
+progressively, distinguishes complementary inputs from independent sources,
+and checks exact source maps and first-box/time policy. It reviews/cancels and
+applies removal, receives an ordered subset and an independent copy, inspects
+chemistry and deliberately presents a separate heavy-atom preparation. It then
+checks deferred projection, explicit synchronization, a reference fit and
+nonconsecutive ensemble queries against independent numeric controls.
+
+Pentalanine [0,8,3] remains a genuine evaluated-empty Buch control. The test
+saves that native result before explicitly replacing the conformations with
+[0,8,2] for a known positive control under the unchanged default criterion.
+It never widens a cutoff to manufacture observations or reuses an analysis with
+different coordinates. Named science, visual hide/show/deletion, independent
+import correspondence and explicit scientific deletion retain separate checks.
+The continuous session includes native H5MSM and fresh-camera Viewer session
+save, close, recovery, further append and selective edit invalidation. Molecular
+inventory, chemistry, coordinates, cells/time, source maps, scene ownership and
+analysis coverage are compared, including independent result lifetimes.
+
+This receives representative source behavior, not every scientific domain,
+human observations, Qt parity, clean installed artifacts or a release. PDB-ID
+acquisition is exercised separately from the deterministic bundled session.
+The native cell-grid allocation defect in uibcdf/molsysmt#690 remains open for
+pre-1.0 owner review; the ordinary default-criterion controls do not qualify tiny
+cutoffs, wide sparse boxes or a universal memory bound. Source/platform and
+scientific qualifications retain their independently recorded scope.
+
+The Jupyter launcher creates restrictive, create-only runtime files after pure
+fixture preparation and retires only its own files after server shutdown.
+Native real-file guards cover preparation failure, success, partial setup/write,
+foreign replacements and cleanup-error reporting under #688.
+Abrupt process termination still requires the external execution owner's
+cleanup; a Python `finally` cannot guarantee cleanup after a whole-scope kill.

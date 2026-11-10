@@ -555,3 +555,45 @@ def test_actual_jupyter_interaction_mechanics_and_both_popups(tmp_path):
     assert len(result["checks"]) == 6
     assert not (output / "settings.json").exists()
     assert not (output / "config/jupyter_server_config.py").exists()
+
+
+def test_actual_continuous_scientific_session_and_recovery(tmp_path):
+    """One retained session combines molecular values, GUI actions and recovery."""
+    viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
+    output = tmp_path / "continuous-session"
+    command = [
+        sys.executable,
+        str(Path(__file__).with_name("system_panel_jupyter.py")),
+        "--viewer-root",
+        str(viewer),
+        "--scenario",
+        "continuous-session",
+        "--output",
+        str(output),
+    ]
+    if provider := os.environ.get("MOLSYSVIEWER_PROVIDER_ROOT"):
+        command.extend(["--provider-root", provider])
+    subprocess.run(command, check=True, timeout=420)
+    result = json.loads((output / "full-result.json").read_text())
+    assert len(result["checks"]) == 7
+    ledger = json.loads((output / "scientific-ledger.json").read_text())
+    assert [r["phase"] for r in ledger] == [
+        "composed",
+        "removed_and_copied",
+        "prepared_independent",
+        "transformed_and_fitted",
+        "ensemble_observed",
+        "native_empty_original_conformations",
+        "interactions",
+        "closed_and_recovered",
+        "continued_after_recovery",
+    ]
+    assert ledger[-1]["preserved_evaluated"] == [0]
+    assert ledger[-1]["source_ids_retained"] is True
+    assert ledger[0]["atoms"] - ledger[1]["removed"] == ledger[1]["retained"]
+    assert next(r for r in ledger if r["phase"] == "interactions")["occurrences"] > 0
+    for name in ("composed", "ensemble"):
+        assert (output / (name + ".msv")).is_file()
+        assert (output / (name + ".h5msm")).is_file()
+    assert not (output / "settings.json").exists()
+    assert not (output / "config/jupyter_server_config.py").exists()

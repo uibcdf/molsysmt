@@ -280,6 +280,8 @@ jobs:
             tests/molsysviewer_molsysmt/test_interaction_analysis_panel.py \
             tests/molsysviewer_molsysmt/test_minimization_panel.py \
             tests/molsysviewer_molsysmt/test_scientific_session.py \
+            tests/molsysviewer_molsysmt/test_continuous_session.py \
+            tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py \
             tests/molsysviewer_molsysmt/test_remove_tools.py \
             tests/molsysviewer_molsysmt/test_set_tools.py \
             tests/molsysviewer_molsysmt/test_conversion_tools.py \

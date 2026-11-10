@@ -1,0 +1,58 @@
+{
+  "schema": "molsysmt.small_cutoff_allocation_receiving@1",
+  "date": "2026-11-10",
+  "issue": "uibcdf/molsysmt#690",
+  "scientific_source": "b110ad6dda72b43ed6987fd439108341029fd11b",
+  "consumer_issue": "uibcdf/molsysviewer#315",
+  "status": "native resource defect reproduced; no correction or passing product test claimed",
+  "native_child_exit": -6,
+  "allocator_diagnostic": "memory allocation of 8000000000 bytes failed",
+  "control": {
+    "atoms": 2,
+    "query_atoms": 1,
+    "reference_atoms": 1,
+    "dense_empty": true,
+    "warm_cell_list_empty": true,
+    "cutoff_nm": 0.001,
+    "predicted_grid": [
+      1000,
+      1000,
+      1000
+    ],
+    "predicted_head_bytes": 8000000000,
+    "address_space_limit_bytes": 2147483648,
+    "core_dump_disabled": true
+  },
+  "input_coordinates_nm": [
+    [
+      [
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        1.0,
+        1.0
+      ]
+    ]
+  ],
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "source_sha256": {
+    "rust/src/neighbors.rs": "1f16db92ffab113fba8e7f6f3112efc3ad4afe80bad71ee753ca2f238dd716a7",
+    "molsysmt/structure/get_neighbors.py": "a70e8bdb725211fa2a64f48e44fb92cd5f26cb0eab5f9870a91035ec1eb8e1bb",
+    "molsysmt/_private/rust_backend.py": "f1af60b6ca4073168ad9d59b9a3ca915b2748faaed57db29e7699b0c950154b2",
+    "molsysmt/interactions/hbonds/get_buch_hbonds.py": "6c1ecc47c68fe15c5e0fe26eaef07113c040a8d9810f814d5ef72bf76d9549d0"
+  },
+  "diagnostic_command_cgroup_gib": 4,
+  "core_dump_disabled": true,
+  "viewer_imported_in_reproducer": false,
+  "dense_control_empty": true,
+  "ordinary_cell_control_empty": true,
+  "original_full_session_failures": [
+    "130-continuous-live",
+    "134-continuous-live"
+  ],
+  "original_failures_preserved": true,
+  "consumer_disposition": "Representative E1 uses the genuinely empty default-criterion structure; the native tiny-cutoff/wide-grid risk stays open for pre-1.0 review. No scientific workaround or native algorithm change."
+}
