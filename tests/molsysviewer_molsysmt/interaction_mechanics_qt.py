@@ -168,6 +168,21 @@ def main():
         checks.append(
             "Atomic force components preserve repeated structure order, units and the complete source environment"
         )
+        phase = "physical model"
+        host.fill("task", "model_recipe")
+        host.fill("structures", "current")
+        host.click("[data-review-model]")
+        host.wait(lambda: host.visible("[data-model-review]"))
+        model_rows = calc()
+        particle_row = next(
+            row for row in model_rows if row[1] == "Compiled: n_particles"
+        )
+        assert int(particle_row[2]) == 62
+        assert not host.visible("[data-mechanical-platform-label]")
+        same(view.molsys, before)
+        checks.append(
+            "Native compiled physical settings retain explicit source scope without selecting a device"
+        )
         host.web.grab().save(str(out / "interaction-mechanics.png"))
         (out / "report.json").write_text(
             json.dumps(

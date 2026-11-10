@@ -2137,3 +2137,21 @@ Native real-file guards cover preparation failure, success, partial setup/write,
 foreign replacements and cleanup-error reporting under #688.
 Abrupt process termination still requires the external execution owner's
 cleanup; a Python `finally` cannot guarantee cleanup after a whole-scope kill.
+
+### Native physical-model inspection in Analysis — 2026-11-10
+
+The private physical-model adapter delegates to experimental
+`molecular_mechanics.get_model_recipe`. The single-structure Physical model task
+shows native requested origins and compiled observations; other mechanical
+reports retain a separately labelled inspection for their construction
+structure. Cheap review still constructs no engine. Units, resources, box rows,
+provenance and refusal policy remain native; display metadata is bounded and
+raw recipes remain independent Python results. No execution Context snapshot or
+arbitrary-force reconstruction is inferred. Mechanical degree counting uses
+the native resolved requested values, including an inapplicable water default
+for a declared implicit model, without a consumer solvent resolver.
+
+The native box-axis defect found while receiving the periodic control is
+uibcdf/molsysmt#695; its native-only diagnostic is retained separately. The
+positive multi-structure fixture supplies one cell per structure explicitly.
+There is no consumer broadcast or setter correction.

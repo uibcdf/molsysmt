@@ -6413,3 +6413,37 @@ Core Interactions owns the visual set's style and visibility. Clear, unmount or
 removing a visual set keeps the named science; saving supported H5MSM preserves
 it. A replaced/deleted stored analysis cannot be silently reused by an old
 report. Raw external writes require explicit synchronization/invalidation.
+
+## Inspecting the physical model
+
+Choose **Molecular tools > Analysis > Mechanics > Physical model** to inspect
+one explicit structure without calculating energies or moving coordinates.
+**Review model** first lists stored requests and named execution defaults without
+building an engine. **Calculate** calls the experimental native
+`molecular_mechanics.get_model_recipe` tool. It may parameterize a System and
+allocate native engine memory, but creates no Context, selects no device and
+does not prepare chemistry, minimize or integrate. Missing chemistry or
+unsupported stored controls remain native errors.
+
+The paged report distinguishes requested settings and their origins from
+compiled particle/constraint counts, nonbonded settings, resource names and
+periodic box rows in nm. An implicit-solvent request can make an explicit-water
+global default inapplicable; the native recipe owns that decision. Temperature,
+friction and time step belong to execution settings rather than this physical
+recipe. Configured nonbonded properties need not be active for every method.
+
+Every Analysis energy, force and mechanical-count report also retains an
+independent native inspection under **Physical model details**, using its first
+requested construction structure. Forces may observe additional structures
+with their own boxes, as the native reader declares. This separate inspection
+uses the same requested model inputs; it is not a captured execution Context
+or a reconstruction of arbitrary custom-force parameters. Preserve an original
+parameterized model separately when exact engine reproduction requires it.
+
+Reports remain mounted, read-only results: Clear, changed source/input or unmount
+releases them. They are not attached to the MolSys or saved as generic H5MSM
+analyses. The full native recipe stays in Python; the browser uses a bounded
+display with explicit units. The expert
+`view.addons.molsysmt.molecular_mechanics.get_model_recipe(...)` route preserves
+the native signature and independent return. Source support does not qualify
+a published addon/Viewer pair or promote this experimental contract to stable.
