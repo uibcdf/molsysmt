@@ -9,8 +9,8 @@
   "gui_scope": "Tracking packages make the previously accepted workflow inventory explicit. They are user intents, not a GUI promise for every expert argument or a new scientific feature request. Native/expert APIs remain available and retain their own qualification.",
   "publication": "The existing pause remains. #640/#641/#642 and all other required correctness work retain owning acceptance. Exact candidate/platform/installed and final sign-off gates are not scored as passed by source tests.",
   "legacy_phase_exit_percent": 40,
-  "weighted_milestone_percent": 74.21006077256078,
-  "reported_approximate_percent": 74.2,
+  "weighted_milestone_percent": 75.6386322011322,
+  "reported_approximate_percent": 75.6,
   "phases": [
     {
       "id": "phase1",
@@ -814,9 +814,12 @@
         {
           "id": "582",
           "requirement": "Receive requested/effective engine-neutral mechanics claims",
-          "state": "pending",
-          "evidence": [],
-          "review": ""
+          "state": "verified_source",
+          "evidence": [
+            "devtools/data/model_and_context_receiving_582_688_689_20261110.json",
+            "devguide/archive/resolved_proposals/expose_effective_engine_neutral_mechanics_recipes_and_unsupported_stored_control.md"
+          ],
+          "review": "The effective physical-model/refusal contract is accepted on the explicitly identified source cohorts: 7171 affected cases, 114 registered scientific cases/73 nodes, fourteen final fast gates, ten inspected HTML pages and typed unit/source/H5MSM controls. API remains experimental. No arbitrary force reconstruction, new tuning/engine, GUI-intent, installed or candidate acceptance is inferred."
         },
         {
           "id": "334-ledger",
@@ -827,8 +830,8 @@
         }
       ],
       "review": "Only individually accepted requirement leaves receive credit. Other pending source/claim/candidate work remains explicit; pending does not assert absent code.",
-      "verified_fraction": 0.5714285714285714,
-      "credited_points": 5.7142857142857135
+      "verified_fraction": 0.7142857142857143,
+      "credited_points": 7.142857142857143
     },
     {
       "id": "phase6",
@@ -903,19 +906,22 @@
       "uibcdf/molsysmt#657",
       "uibcdf/molsysmt#659",
       "uibcdf/molsysmt#660",
-      "uibcdf/molsysmt#661"
+      "uibcdf/molsysmt#661",
+      "uibcdf/molsysmt#582",
+      "uibcdf/molsysmt#686",
+      "uibcdf/molsysmt#689"
     ],
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
     "owner_verification": "Public 1d033b656 independently matches 21 changed paths and preserves four human files. Clean b184e9d18 passes 1,229 affected cases without omissions, fourteen fast gates and three inspected HTML pages. #661 is closed. #256 remains open and public H5MSM writing remains 0.5; no client/installed/candidate acceptance is added.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Correct native chemical termini independently of group-ID labels (#686). Continue remaining #421 original graphical intents (construction, contacts, secondary structure, protonation reconciliation, interactions, mechanics and complete sessions), effective engine-neutral recipe #582, native cutoff #666/provider143, #256 P5/P6 stable H5MSM review, #524/#615 and #334 installed/platform/exact-candidate gates. New proposal #685 receives bounded design without adding a release gate; #667 remains post-1.0.",
+    "scope": "Prioritize #690 native neighbor-grid allocation safety before draft #687; retain the requested scientific criterion, configured memory admission and protected reproduction. Receive draft PR #687 against exact corrected Viewer b9f3be01 and reconcile the new native recipe/refusal and launcher contracts. #688 source is received; original reporter-owned remnants need retirement confirmation. Continue remaining original #421 intents, #666/provider143, #615 causality, #524 actual installed floors, #250/#254 stability agreement, #256 P5/P6 and #334 exact-candidate requirements. Preserve original weights and the publication pause.",
     "active_related": [
-      "uibcdf/molsysmt#686",
+      "uibcdf/molsysmt#690",
       "uibcdf/molsysmt#666",
       "uibcdf/molsysmt#421",
       "uibcdf/molsysmt#615",
       "uibcdf/molsysmt#256",
-      "uibcdf/molsysmt#582"
+      "uibcdf/molsysmt#688"
     ],
     "last_source_closeout_record": "devguide/archive/resolved_bugs/unsigned_h5msm_axis_maps_wrap_out_of_range_indices_to_unknown.md",
     "after_active_block": [
@@ -996,7 +1002,7 @@
     "weighted_milestone_change": 0,
     "scope": "Historical #654 intake checkpoint, not the latest complete-board count."
   },
-  "last_updated": "2026-11-09",
+  "last_updated": "2026-11-10",
   "last_scientific_claim_disposition": {
     "issues": [
       "uibcdf/molsysmt#473",
@@ -1256,33 +1262,95 @@
     "delivery": "devtools/data/molsysviewer_stacked_panels_delivery_678_681_682_683_20261110.json"
   },
   "last_incoming_review": {
-    "date": "2026-11-09",
-    "complete_board_issues_before_own_686": 612,
-    "open_issues_before_own_686": 92,
-    "reviewed_prs": [
-      678,
-      681,
-      682,
-      683
-    ],
-    "closed_public_core_issues": [
-      677,
-      679,
-      680,
-      684
-    ],
-    "public_core_checkpoint": "0c6f9c746dbd10b02dfe8474a5af280b857ace0d",
-    "new_proposal": {
-      "issue": "uibcdf/molsysmt#685",
-      "disposition": "Bounded peptide reference design/backlog; no automatic pre-1.0 gate or new weight."
-    },
-    "new_correctness_issue": {
-      "issue": "uibcdf/molsysmt#686",
-      "disposition": "Reproduced group-ID chemical-terminus error; prioritize before optional enhancements."
-    },
-    "latest_complete_board_issues": 613,
+    "date": "2026-11-10",
+    "latest_complete_board_issues": 616,
     "latest_open_issues": 93,
-    "latest_open_prs": 0,
-    "board_checkpoint": "After public integration and exact-head PR closeout"
+    "latest_open_prs": 1,
+    "board_checkpoint": "After independently verified public delivery and #582/#689 closure; #688 remains open for reporter-owned private-remnant confirmation.",
+    "incoming_pr": {
+      "number": 687,
+      "head": "a1539e351b91b3ffb9ed4837583ac8b402e0102b",
+      "state": "draft; review pending, not integrated",
+      "required_host": "b9f3be0127b1fd48220cf400471044bd0b65dbe3"
+    },
+    "new_reports": [
+      "uibcdf/molsysmt#688",
+      "uibcdf/molsysmt#689"
+    ],
+    "previous_checkpoint": {
+      "date": "2026-11-09",
+      "complete_board_issues_before_own_686": 612,
+      "open_issues_before_own_686": 92,
+      "reviewed_prs": [
+        678,
+        681,
+        682,
+        683
+      ],
+      "closed_public_core_issues": [
+        677,
+        679,
+        680,
+        684
+      ],
+      "public_core_checkpoint": "0c6f9c746dbd10b02dfe8474a5af280b857ace0d",
+      "new_proposal": {
+        "issue": "uibcdf/molsysmt#685",
+        "disposition": "Bounded peptide reference design/backlog; no automatic pre-1.0 gate or new weight."
+      },
+      "new_correctness_issue": {
+        "issue": "uibcdf/molsysmt#686",
+        "disposition": "Reproduced group-ID chemical-terminus error; prioritize before optional enhancements."
+      },
+      "latest_complete_board_issues": 613,
+      "latest_open_issues": 93,
+      "latest_open_prs": 0,
+      "board_checkpoint": "After public integration and exact-head PR closeout"
+    },
+    "new_priority_issue": {
+      "number": 690,
+      "severity": "critical",
+      "state": "source mechanism inspected; allocation-safe reproduction and correction pending",
+      "reason": "Dense cell grids can exhaust memory for two atoms; prioritize before draft #687."
+    }
+  },
+  "last_peptide_termini_receiving": {
+    "owner_issue": "uibcdf/molsysmt#686",
+    "qualified_source": "b59ce29d560da1617cd8193d6945baea793c67ab",
+    "receipt": "devtools/data/peptide_termini_receiving_686_20261110.json",
+    "affected_cases": 342,
+    "scientific_cases": 110,
+    "scientific_nodes": 71,
+    "fast_gates": 14,
+    "executed_tutorial_code_cells": 17,
+    "weighted_milestone_change": 0,
+    "state": "public_source_verified_issue_closed",
+    "public_checkpoint": "da45bb5696bb446e0f1ab509d3e2aae9756d0baf",
+    "delivery": "devtools/data/peptide_termini_delivery_686_20261110.json"
+  },
+  "last_model_context_receiving": {
+    "receipt": "devtools/data/model_and_context_receiving_582_688_689_20261110.json",
+    "numerical_source": "075cd4a408aa4c2be143af7372d21cc82f9b70c8",
+    "later_received_source": "25dac4728192c8866b6002b555cca838a56f86bb",
+    "combined_cases": 7171,
+    "registered_scientific_cases": 114,
+    "registered_scientific_nodes": 73,
+    "fast_gates": 14,
+    "html_pages": 10,
+    "filesystem_guards": 8,
+    "actual_jupyter_checks": 6,
+    "graphical_intent_change": 0,
+    "original_weighted_leaf": "phase5/582",
+    "weighted_points": 1.4285714285714164,
+    "state": "public_source_verified_582_689_closed_688_reporter_handoff_open",
+    "public_checkpoint": "1ba5d8af97f2de4d94ea0ff6b3f2564c5d7d4f29",
+    "delivery": "devtools/data/model_and_context_delivery_582_688_689_20261110.json",
+    "verified_remote_paths": 62,
+    "closed_issues": [
+      582,
+      686,
+      689
+    ],
+    "open_reporter_handoff": 688
   }
 }

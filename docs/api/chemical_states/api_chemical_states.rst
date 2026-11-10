@@ -12,6 +12,7 @@ API Chemical States
    get_bondgraph
    get_covalent_blocks
    get_covalent_paths
+   get_peptide_termini
    get_dihedral_quartets
    get_rigid_fragments
    get_rings

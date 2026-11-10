@@ -41,6 +41,11 @@ def get_non_bonded_potential_energy(
     using the configured engine's standard non-bonded force. A partitioned
     input requests one matrix entry per pair of sets, not per structure.
 
+    Newly constructed models reject stored controls that the selected adapter
+    cannot apply. Inspect the supported physical recipe with
+    :func:`molsysmt.molecular_mechanics.get_model_recipe`. A supplied parameterized
+    engine model remains authoritative; its construction history is not inferred.
+
     Parameters
     ----------
     molecular_system : molecular system
@@ -132,8 +137,7 @@ def get_non_bonded_potential_energy(
 
     from depdigest import check_dependency
 
-    from molsysmt import convert, copy, get_form, has_attribute, select
-    from molsysmt.configure import default_attribute
+    from molsysmt import convert, copy, get_form, select
 
     atom_indices = select(molecular_system, selection=selection, syntax=syntax)
     partitions_1, nested_1 = _normalize_atom_partitions(atom_indices, "selection")
@@ -177,26 +181,9 @@ def get_non_bonded_potential_energy(
             context = molecular_system.context
 
         else:
-            extra_conversion_arguments = {}
+            from molsysmt._private.mechanical_model import context_defaults
 
-            possible_missing_attributes = [
-                "forcefield",
-                "water_model",
-                "implicit_solvent",
-                "constraints",
-                "non_bonded_method",
-                "switch_distance",
-                "dispersion_correction",
-                "ewald_error_tolerance",
-                "integrator",
-                "temperature",
-                "friction",
-                "time_step",
-            ]
-
-            for att in possible_missing_attributes:
-                if not has_attribute(molecular_system, att):
-                    extra_conversion_arguments[att] = default_attribute[att]
+            extra_conversion_arguments = context_defaults(molecular_system)
 
             context = convert(
                 molecular_system,

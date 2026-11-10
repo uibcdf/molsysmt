@@ -40,6 +40,7 @@ from .exceptions import (
     StructuralInconsistencyError,
     UnknownGroupInTableError,
     UnsupportedHeavyOperationError,
+    UnsupportedMechanicalControlError,
 )
 from .warnings import (
     BioassemblyIdentifierCollisionWarning,
@@ -59,6 +60,7 @@ from .warnings import (
     SlowChunkIOWarning,
     StructuralAttributeDropWarning,
     StructuralAttributeOffAxisWarning,
+    UnassessedPeptideBackboneWarning,
     UnassessedResidueWarning,
     UnexpectedProtonationWarning,
     UnknownAtomNameWarning,
@@ -90,6 +92,7 @@ __all__ = [
     "PrecisionFallbackWarning",
     "StructuralAttributeDropWarning",
     "UnassessedResidueWarning",
+    "UnassessedPeptideBackboneWarning",
     "StructuralAttributeOffAxisWarning",
     "IncompatibleBoxWarning",
     "LegacyH5MSMWarning",

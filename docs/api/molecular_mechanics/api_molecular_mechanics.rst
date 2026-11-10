@@ -10,6 +10,7 @@ API Molecular Mechanics
    
    get_degrees_of_freedom
    get_engine_forcefield
+   get_model_recipe
    get_forces
    get_non_bonded_potential_energy
    get_potential_energy

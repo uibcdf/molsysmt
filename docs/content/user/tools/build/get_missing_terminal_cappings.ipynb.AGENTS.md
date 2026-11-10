@@ -20,9 +20,18 @@ The canonical variable representing the molecular system MUST be `molsys`.
    - Opening sentence introducing PDB structure `1BRS`.
 4. **Cell 4 (Code)**: `import molsysmt as msm`
 5. **Cells 5-9**:
-   - `molsys = msm.convert('1BRS', selection='molecule_type=="protein"')`
+   - `molsys = msm.convert(msm.systems["Barnase-Barstar"]["1brs.bcif.gz"], selection='molecule_type=="protein"')`
    - `missing_caps = msm.build.get_missing_terminal_cappings(molsys)`
    - `missing_caps`
    - `msm.select(molsys, selection='atom_name=="OXT"')`
 6. **Final Cell (Markdown)**:
    - Collapsible `{seealso}` dropdown listing related tools and Foundations in strict chronological order of first appearance, with explicit titles `{ref}`Title <AnchorLabel>``.
+
+## Scientific coverage correction under #686
+
+Use the frozen bundled 1BRS source instead of a network lookup. Preserve the public
+missing-OXT query and add the explicit peptide-termini coverage report after its
+dictionary display. The two interrupted chains stay unassessed, with a visible
+warning even though the legacy opening cell suppresses runtime warnings. Never
+restore group-ID sorting or claim that an empty partial dictionary proves complete
+chemistry. Re-execute the affected tutorial when its scientific output changes.

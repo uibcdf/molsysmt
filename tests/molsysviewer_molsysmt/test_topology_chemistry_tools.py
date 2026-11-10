@@ -14,6 +14,7 @@ from molsysmt._private.smonitor import StructuralInconsistencyError
 pytest.importorskip("molsysviewer.system_edits")
 
 NEW_NAMES = (
+    "get_peptide_termini",
     "get_rigid_fragments",
     "get_rotatable_bonds",
     "get_rings",
@@ -79,6 +80,19 @@ def chemistry():
         )
         view.interactions.attach(analysis, name="preserve", assume_aligned=True)
         yield view
+
+
+def test_peptide_endpoints_remain_native_read_only_results():
+    molsys = msm.build.build_peptide("AlaValPro", engine="MolSysMT")
+    with msv.new_view(molsys) as view:
+        state = view.export_state()
+        native = view.molsys
+        expected = msm.chemical_states.get_peptide_termini(native)
+        actual = view.addons.molsysmt.chemical_states.get_peptide_termini()
+        assert_native(actual, expected)
+        assert actual["c_terminal_group_indices"].tolist() == [2]
+        assert view.molsys is native
+        assert view.export_state() == state
 
 
 @pytest.mark.parametrize("name", NEW_NAMES)

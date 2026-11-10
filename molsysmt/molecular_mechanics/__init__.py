@@ -6,4 +6,5 @@ from .get_non_bonded_potential_energy import get_non_bonded_potential_energy
 from .get_forces import get_forces
 from .get_engine_forcefield import get_engine_forcefield
 from .get_degrees_of_freedom import get_degrees_of_freedom
+from .get_model_recipe import get_model_recipe
 # isort: on

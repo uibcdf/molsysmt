@@ -14,6 +14,81 @@ supersedes: []
 
 # Bound MolSysMT tools addon for MolSysViewer
 
+## Model and context closeout received — 2026-11-10
+
+Public main **1ba5d8af9** is independently verified across all **62 changed
+paths**, preserving the four human edits. **#582 and #689 are closed**; #686
+was closed earlier in this block. #688 and draft #687 have received the exact
+source and handoff notice. See the [public delivery record](../../devtools/data/model_and_context_delivery_582_688_689_20261110.json).
+
+#582's experimental physical-model recipe and shared unsupported-control
+refusal are accepted. #689 corrects PDBFixer terminal assessment: full molecular
+context precedes source-group filtering, including the requested query syntax.
+#688's scoped create-only runtime files pass filesystem and actual Jupyter/popup
+receiving; its original reporter must still confirm retirement of their own
+unused private remnants. Draft PR #687 is newly received for review, not merged.
+
+Clean numerical source 075cd4a40 passes **7,171 affected native/addon cases**
+without omissions. All **114 scientific cases / 73 nodes**, **14 final fast
+gates**, **10 inspected HTML pages** and **8 filesystem guards plus one actual
+six-check Jupyter workflow** pass on the recorded cohorts. Existing code cells,
+outputs and execution metadata in eleven affected notebooks remain exact.
+Product/registered-science bytes remain equal across the later launcher/docs
+cohort; original failed attempts and resource-pressure observations are retained
+in the [receiving record](../../devtools/data/model_and_context_receiving_582_688_689_20261110.json).
+
+Only the existing #582 leaf gains its original **1.428571 points**. Progress is
+**75.6386% (75.6%)**, with **39/50 graphical intents**. Bug repairs and another
+passing existing Jupyter scenario add no invented weight. A concrete route past
+80% is to receive #524's actual public-floor/clean-installed requirement
+(3.333333 points), then agree the #250/#254 surface/final-client requirement
+(1.428571 points): approximately **80.4005%**, if genuinely accepted. Those
+requirements cannot be replaced by more source-only tests.
+
+### Next work order
+
+**New priority #690:** source inspection confirms an empty-volume dense grid
+can request gigabytes for two atoms. Allocation-safe reproduction, checked/bounded
+native search and numerical-budget/output receiving precede draft #687. This
+critical correctness/resource report adds no weight and is not covered by the
+completed model/context receipt. See the [owning diagnosis](../pending_bugs/native_neighbor_cell_grids_can_allocate_gigabytes_for_two_atoms_and_a_small_cutoff.md).
+
+1. Completed: public source/blob verification, #582/#689 guarded closure and
+   exact-source notices to #688/#687. Their retained receipts define the scope.
+2. Review draft #687 against its exact corrected Viewer b9f3be01, reconcile the
+   native recipe/refusal owner and scoped launcher, then receive its combined
+   actual interaction/mechanics workflows before any original intent credit.
+3. Complete the original #421 construction/protonation/secondary-structure and
+   complete-session intents; keep #666/provider143's scientific cutoff boundary
+   and #615's causal or evidenced environment disposition explicit.
+4. Continue #524's actual installed floors, #250/#254 agreement, #256 P5/P6 stable
+   H5MSM review and #334's exact-source/installed/platform/final ledger gates.
+
+This authorized [skip ci] source checkpoint performs no new hosted matrix,
+package, tag, Release or promotion. Mandatory candidate gates and publication
+remain separate. Historical receipts below retain their original scope/date.
+
+## Native peptide endpoints received — 2026-11-10
+
+#686 is source-resolved: the shared public experimental
+`chemical_states.get_peptide_termini` follows stored named backbone bonds instead
+of IDs or inventory order. Strict/report modes distinguish ambiguous chains,
+cycles and real cap attachments. Native terminal assessment, local completion,
+cap anchors and the read-only addon facade reuse it. The 1BRS model has actual
+chain interruptions: its native adder now preserves uncertain OXT rather than
+choosing an endpoint by label; PDBFixer retains its independent profile.
+
+Clean source receiving passes **342 affected/consumer cases**, **110 scientific
+cases / 71 nodes**, **14 fast gates**, **six inspected HTML pages** and actual
+execution of both affected tutorials (**17 code cells**). Original failures and
+source-cohort identities remain in the [receipt](../../devtools/data/peptide_termini_receiving_686_20261110.json).
+No extra graphical intent or weighted bonus is added: progress stays **74.2101%**.
+Public main da45bb569 is independently verified across all 41 changed paths;
+#686 is closed. Human edits were preserved. See the [delivery record](../../devtools/data/peptide_termini_delivery_686_20261110.json).
+Continue #582's effective model/control contract; #666/provider143, remaining
+#421, #256, #524/#615 and #334 gates retain their scope and external dependencies.
+
+
 ## Public combined delivery verified — 2026-11-09
 
 Public main **c9bb16eab** contains the four reviewed PR heads; all **51** changed
@@ -63,7 +138,7 @@ silently changing its six weights or release scope:
 
 | Order | Owner | Disposition / next acceptance |
 | --- | --- | --- |
-| 1 | #686 | Newly reproduced: changing only group ID labels moves the reported C terminus. Review chemical endpoint recognition, ambiguous/cyclic/capped cases and public addition consumers; add a scientific regression before optional enhancements. [Diagnosis](../pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md). |
+| 1 | #686 | Newly reproduced: changing only group ID labels moves the reported C terminus. Review chemical endpoint recognition, ambiguous/cyclic/capped cases and public addition consumers; add a scientific regression before optional enhancements. [Diagnosis](../archive/resolved_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md). |
 | 2 | #582 and remaining #421 | Complete the effective engine-neutral mechanical recipe and original unreceived graphical intents; retain the partial properties/protonation distinctions. Receive native/scientific behavior and actual graphical workflows before credit. |
 | 3 | #666 / uibcdf/pyunitwizard#143 | Resolve the native cutoff/unit boundary before accepting the contact prototype; no GUI-specific tolerance workaround. |
 | 4 | #256, #524, #615, #334 | Continue independent H5MSM/stable-format review, actual dependency-floor/installed closure, diagnostic causality and final exact-candidate/platform gates. |

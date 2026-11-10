@@ -218,6 +218,12 @@ class NotImplementedMethodError(MolSysMTCatalogException):
         super().__init__(message=message, extra=extra)
 
 
+class UnsupportedMechanicalControlError(NotImplementedMethodError):
+    """Reporting mechanical overrides unsupported by a construction adapter."""
+
+    catalog_key = "UnsupportedMechanicalControlError"
+
+
 class NotSupportedFormError(MolSysMTCatalogException):
     catalog_key = "NotSupportedFormError"
 
@@ -384,6 +390,7 @@ __all__ = [
     "NotImplementedConversionError",
     "NotImplementedIteratorError",
     "NotImplementedMethodError",
+    "UnsupportedMechanicalControlError",
     "NotSupportedFormError",
     "NotSupportedSyntaxError",
     "NotWithThisFormError",

@@ -22,7 +22,9 @@
     "molsysmt.physchem.get_tpsa",
     "molsysmt.physchem.get_lipophilicity",
     "molsysmt.build.add_ions",
-    "molsysmt.structure.get_rotation_matrix_from_axis_angle"
+    "molsysmt.structure.get_rotation_matrix_from_axis_angle",
+    "molsysmt.chemical_states.get_peptide_termini",
+    "molsysmt.molecular_mechanics.get_model_recipe"
   ],
   "experimental_api_scopes": [
     "molsysmt.build",
@@ -38,6 +40,7 @@
     "molsysmt.interactions.halogen_bonds",
     "molsysmt.interactions.hydrophobic",
     "molsysmt.interactions.metal_coordination",
-    "molsysmt.interactions.water_bridges"
+    "molsysmt.interactions.water_bridges",
+    "molsysmt.molecular_mechanics"
   ]
 }

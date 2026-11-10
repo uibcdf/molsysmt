@@ -210,6 +210,18 @@ class UnexpectedProtonationWarning(UserMolSysMTWarning):
         super().__init__(message=message, extra=extra)
 
 
+class UnassessedPeptideBackboneWarning(UserMolSysMTWarning):
+    """Report a chain omitted from a partial legacy terminal assessment."""
+
+    catalog_key = "UnassessedPeptideBackboneWarning"
+
+    def __init__(self, message=None, *, chain_index=None, reason=None):
+        if message is not None:
+            super().__init__(message)
+            return
+        super().__init__(message, extra={"chain_index": chain_index, "reason": reason})
+
+
 class UnassessedResidueWarning(UserMolSysMTWarning):
     """A modified residue was left unchanged because repair was not supported."""
 
@@ -419,6 +431,7 @@ __all__ = [
     "StructuralAttributeDropWarning",
     "UnexpectedProtonationWarning",
     "UnassessedResidueWarning",
+    "UnassessedPeptideBackboneWarning",
     "StructuralAttributeOffAxisWarning",
     "IncompatibleBoxWarning",
     "BioassemblyIdentifierCollisionWarning",

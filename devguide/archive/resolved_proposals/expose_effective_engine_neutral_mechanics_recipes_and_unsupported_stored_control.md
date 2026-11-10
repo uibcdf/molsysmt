@@ -1,12 +1,12 @@
 ---
 summary: Expose effective engine-neutral mechanics recipes and unsupported stored controls.
 issue: uibcdf/molsysmt#582
-status: partial
+status: resolved
 opened: 2026-11-05
-closed:
-verification: inspected
+closed: 2026-11-10
+verification: reproduced
 area: [api, convert]
-guard:
+guard: tests/molecular_mechanics/test_model_recipe.py
 normative:
 blocked_by: []
 supersedes: []
@@ -121,3 +121,18 @@ Foundations/Toolbox/Cookbook/course HTML, without altering existing code cells,
 metadata or outputs. The course's one previously unexecuted code cell stays
 unexecuted. This receives the bounded legacy policy repair only; full effective
 recipe/unsupported stored-control semantics remain partial and open.
+
+## Resolution and acceptance — 2026-11-10
+
+The public experimental get_model_recipe separates requested/default/inapplicable-default physical controls from actual compiled particle/constraint counts, nonbonded settings and typed periodic box rows. Source structure indices, adapter/resources/versions and detached optional attribution survive inspection. Existing parameterized models retain unknown construction provenance; no Context, integrator, device, chemistry preparation or coordinate edit is introduced. Shared admission now refuses independent stored controls that construction cannot apply, including named dielectric/screening/cutoff/mass/rigidity and per-atom requests, instead of dropping them. Explicit competing solvent families refuse; an inapplicable global solvent default is recorded without editing application/source settings. Numerical tuning and arbitrary custom-force reproduction are not claimed.
+
+Clean combined numerical source 075cd4a40 passes 7,171 affected native/addon cases
+without skips or failures; all 114 registered scientific cases / 73 nodes pass.
+The later source adds separately received launcher controls and corrected
+documentation, with identical product and registered scientific bytes. Fourteen
+fast gates pass again, ten rendered HTML pages are inspected and all eleven
+affected existing notebooks retain their executable cells/outputs/metadata.
+The [receiving record](../../../devtools/data/model_and_context_receiving_582_688_689_20261110.json) retains original failing iterations, exact cohorts,
+resource measurements and the separate actual-Jupyter lifetime receiving.
+No installed/platform/human/final-candidate or new numerical-method claim is
+inferred. Public delivery and board closure follow this accepted checkpoint.

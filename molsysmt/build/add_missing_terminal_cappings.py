@@ -83,7 +83,10 @@ def add_missing_terminal_cappings(
     Selection is resolved before atom insertion. Local heavy-atom completion,
     missing OXT and terminal N-bound hydrogens are restricted to selected source
     groups; terminal detection uses the complete system context. Explicit caps
-    operate on selected covalent components. Group indices remain stable during
+    operate on selected covalent components. Ambiguous chain backbones contribute
+    no inferred ends and emit UnassessedPeptideBackboneWarning; local completion
+    of other assessed chains remains available. Explicit caps require a single
+    unambiguous linear backbone per selected component. Group indices remain stable during
     local atom insertion, and component populations are resolved again from those
     groups after repair. The source is not modified.
 
@@ -440,41 +443,23 @@ def add_missing_terminal_cappings(
                 h_bond_length,
                 place_hydrogens_on_parent,
             )
-            from molsysmt.element.group.amino_acid import group_names as _aa_group_names
 
-            aa_names_set = frozenset(_aa_group_names)
             topo_n = native_ms.topology
             coords_n = puw.get_value(native_ms.structures.coordinates, to_unit="nm")
             n_structures_n = coords_n.shape[0]
             new_atom_info_n = []
             new_bonds_info_n = []
 
-            # For each chain, find the first amino acid group.
-            chain_indices_n = sorted(
-                topo_n.atoms["chain_index"].dropna().astype(int).unique()
-            )
-            for chain_idx in chain_indices_n:
-                chain_mask = topo_n.atoms["chain_index"] == chain_idx
-                group_indices_in_chain = sorted(
-                    topo_n.atoms[chain_mask]["group_index"]
-                    .dropna()
-                    .astype(int)
-                    .unique()
-                )
-                nterm_group_idx = None
-                for g_idx in group_indices_in_chain:
-                    if g_idx < len(topo_n.groups):
-                        g_name = topo_n.groups.loc[g_idx, "group_name"]
-                        if g_name in aa_names_set:
-                            nterm_group_idx = g_idx
-                            break
-                if nterm_group_idx not in selected_groups:
-                    continue
-                # If the first amino acid is not the first group in the chain,
-                # the N-terminus is already capped (e.g. by ACE). Skip.
-                if nterm_group_idx != group_indices_in_chain[0]:
-                    continue
+            from molsysmt.chemical_states import get_peptide_termini
 
+            termini = get_peptide_termini(
+                native_ms, selection=group_selection, on_ambiguous="report"
+            )
+            if C_terminal is not None:
+                from molsysmt.chemical_states._peptide_termini import warn_unassessed
+
+                warn_unassessed(termini)
+            for nterm_group_idx in termini["n_terminal_group_indices"]:
                 gmask = topo_n.atoms["group_index"] == nterm_group_idx
                 grow = topo_n.atoms[gmask]
                 existing_names = frozenset(grow["atom_name"].tolist())
@@ -559,32 +544,48 @@ def add_missing_terminal_cappings(
             )
             return output_molecular_system
 
-        # For each component determine the first and last group index
+        from molsysmt._private.smonitor import StructuralInconsistencyError
+        from molsysmt.chemical_states import get_peptide_termini
+
+        # Component membership selects the population; stored backbone direction
+        # supplies its endpoints, independently of atom/group storage order.
+        termini = get_peptide_termini(
+            native_ms,
+            selection=f"component_index in {list(map(int, component_indices))}",
+        )
         mol_group_ranges = {}
+        cap_status = {}
         for comp_idx in component_indices:
-            comp_atom_idxs = get(
+            comp_atoms = get(
                 native_ms,
-                element="atom",
-                selection=f"component_index=={comp_idx}",
+                selection=f"component_index=={int(comp_idx)}",
                 atom_index=True,
-                skip_digestion=True,
             )
-            comp_group_idxs = sorted(
-                topo.atoms.loc[comp_atom_idxs, "group_index"]
-                .dropna()
-                .astype(int)
-                .unique()
-                .tolist()
+            comp_groups = frozenset(
+                topo.atoms.loc[comp_atoms, "group_index"].dropna().astype(int)
             )
-            if not comp_group_idxs:
-                continue
-            mol_group_ranges[int(comp_idx)] = (comp_group_idxs[0], comp_group_idxs[-1])
+            rows = [
+                row
+                for row in termini["chains"]
+                if comp_groups.intersection(row["group_indices"])
+            ]
+            if len(rows) != 1 or rows[0]["cyclic"]:
+                raise StructuralInconsistencyError(
+                    reason="Explicit capping requires one linear named peptide backbone per selected covalent component.",
+                    caller="molsysmt.build.add_missing_terminal_cappings",
+                )
+            row = rows[0]
+            mol_group_ranges[int(comp_idx)] = (
+                row["n_terminal_group_index"],
+                row["c_terminal_group_index"],
+            )
+            cap_status[int(comp_idx)] = (row["n_capped"], row["c_capped"])
 
         extra_groups_before = {}  # mol_idx -> (group_name, {atom_name: coords(n_s,3)})
         extra_groups_after = {}
 
         for mol_idx, (first_g, last_g) in mol_group_ranges.items():
-            if N_terminal is not None:
+            if N_terminal is not None and not cap_status[mol_idx][0]:
                 tmpl_ace = load_residue_template(N_terminal)
                 if tmpl_ace is not None:
                     # Get N, CA, C of the first residue
@@ -609,7 +610,7 @@ def add_missing_terminal_cappings(
                         )
                         extra_groups_before[mol_idx] = (N_terminal, ace_atoms)
 
-            if C_terminal is not None:
+            if C_terminal is not None and not cap_status[mol_idx][1]:
                 tmpl_nme = load_residue_template(C_terminal)
                 if tmpl_nme is not None:
                     # Get C, CA, N of the last residue

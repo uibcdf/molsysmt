@@ -132,6 +132,12 @@ CATALOG = {
             "category": "data_quality",
             "level": "WARNING",
         },
+        "UnassessedPeptideBackboneWarning": {
+            "code": "MSM-WARN-BUILD-003",
+            "source": "molsysmt.warning.build.unassessed_peptide_backbone",
+            "category": "data_quality",
+            "level": "WARNING",
+        },
         "UnassessedResidueWarning": {
             "code": "MSM-WARN-BUILD-002",
             "source": "molsysmt.warning.build.unassessed_residue",
@@ -296,6 +302,12 @@ CATALOG = {
             "category": "iterator",
             "level": "ERROR",
         },
+        "UnsupportedMechanicalControlError": {
+            "code": "MSM-ERR-MECH-001",
+            "source": "molsysmt.error.mechanical_model.unsupported_controls",
+            "category": "scientific_integrity",
+            "level": "ERROR",
+        },
         "NotImplementedMethodError": {
             "code": "MSM-ERR-METHOD-001",
             "source": "molsysmt.error.not_implemented_method",
@@ -366,6 +378,17 @@ CATALOG = {
 }
 
 CODES = {
+    "MSM-ERR-MECH-001": {
+        "title": "Unsupported mechanical overrides",
+        "user_message": "Unsupported mechanical overrides for {method}: {arguments}.",
+        "user_hint": "These settings were not applied. Remove the unsupported requests or supply an explicitly parameterized model. Inspect get_model_recipe for adapter scope. Docs: {doc_url}",
+        "dev_message": "Unsupported mechanical overrides for {method}: {arguments}.",
+        "dev_hint": "Reject stored controls before construction; do not silently omit them.",
+        "qa_message": "Unsupported mechanical overrides for {method}: {arguments}.",
+        "qa_hint": "Check actual refusal and unchanged model/coordinates before engine execution.",
+        "agent_message": "Unsupported mechanical overrides for {method}: {arguments}.",
+        "agent_hint": "No model using these overrides was constructed. Do not label stored values as effective.",
+    },
     "MSM-ERR-PLATFORM-001": {
         "title": "Execution platform unavailable",
         "user_message": "{engine} platform '{platform}' is not registered in this installation. Registered platforms: {available_platforms}.",
@@ -569,6 +592,17 @@ CODES = {
             "Not added by this call. The input carried them. reconcile_protonation "
             "removes them."
         ),
+    },
+    "MSM-WARN-BUILD-003": {
+        "title": "Peptide backbone left unassessed",
+        "user_message": "Chain {chain_index} has no assessed peptide endpoints: {reason}",
+        "user_hint": "No endpoints are inferred for this chain. Inspect get_peptide_termini with on_ambiguous='report'; an empty missing-atom dictionary does not certify complete chemistry. Docs: {doc_url}",
+        "dev_message": "Chain {chain_index} has no assessed peptide endpoints: {reason}",
+        "dev_hint": "Preserve partial coverage and do not infer endpoints from labels or inventory order.",
+        "qa_message": "Chain {chain_index} is unassessed: {reason}",
+        "qa_hint": "Assert the omitted chain and retained assessed endpoints independently.",
+        "agent_message": "Chain {chain_index} has no assessed peptide endpoints: {reason}",
+        "agent_hint": "Missing or branched backbone evidence is not a free terminus. Do not silently reconstruct it.",
     },
     "MSM-WARN-BUILD-002": {
         "title": "Modified residue left unassessed",
