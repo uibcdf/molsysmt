@@ -166,3 +166,93 @@ def test_iterator_accepts_structural_attributes_sharing_one_structure_axis():
 #        coordinates.append(aux_coordinates[0])
 #    coordinates = puw.utils.sequences.concatenate(coordinates, value_type='numpy.ndarray')
 #    assert coordinates.shape == (5, 294, 3)
+
+
+@pytest.mark.parametrize("output_form", ["molsysmt.MolSys", "molsysmt.Structures"])
+@pytest.mark.parametrize("unit,scale", [("nm", 1), ("pm", 1000)])
+def test_native_system_chunks_publish_the_complete_selected_axis(
+    output_form, unit, scale
+):
+    from molsysmt.native import Structures
+
+    values = np.arange(18, dtype=float).reshape(3, 2, 3)
+    source = Structures(
+        coordinates=puw.quantity(values * scale, unit),
+        time=puw.quantity([2, 5, 11], "ps"),
+        box=puw.quantity(np.repeat(np.eye(3)[None] * 4 * scale, 3, axis=0), unit),
+        structure_id=["C", "A", "C"],
+    )
+    source_xyz, source_box = source._coordinates, source._box
+    results, blocks = [], []
+    for block in msm.Iterator(
+        source, structure_indices=[2, 0, 2], chunk=2, output_form=output_form
+    ):
+        blocks.append(block)
+        domain = block.structures if output_form == "molsysmt.MolSys" else block
+        assert domain.n_structures in (1, 2)
+        results.append(
+            (
+                puw.get_value(domain.coordinates, to_unit="nm").copy(),
+                puw.get_value(domain.time, to_unit="ps").copy(),
+                domain.structure_id.copy(),
+                puw.get_value(domain.box, to_unit="nm").copy(),
+            )
+        )
+    assert blocks[0] is not blocks[1]
+    assert [len(result[0]) for result in results] == [2, 1]
+    np.testing.assert_allclose(
+        np.concatenate([r[0] for r in results]), values[[2, 0, 2]]
+    )
+    np.testing.assert_array_equal(np.concatenate([r[1] for r in results]), [11, 2, 11])
+    np.testing.assert_array_equal(
+        np.concatenate([r[2] for r in results]), ["C", "C", "C"]
+    )
+    np.testing.assert_allclose(
+        np.concatenate([r[3] for r in results]),
+        np.repeat(np.eye(3)[None] * 4, 3, axis=0),
+    )
+    assert source._coordinates is source_xyz and source._box is source_box
+    assert source.n_structures == 3
+
+
+def test_native_chunks_remap_state_links_coverage_and_other_observables():
+    from molsysmt.native import MolSys, Structures
+
+    source = MolSys(n_atoms=2)
+    source.structures = Structures(
+        coordinates=puw.quantity(np.arange(18).reshape(3, 2, 3), "nm"),
+        occupancy=np.arange(6).reshape(3, 2) / 10,
+        structure_id=["same", "middle", "same"],
+    )
+    source.chemical_states.append_state()
+    msm.set(source, structure_chemical_state_index=[0, 1, 0])
+    analysis = msm.Interactions.from_records(
+        [],
+        n_atoms=2,
+        n_structures=3,
+        evaluated_structure_indices=[0, 2],
+        method="synthetic.iterator-axis-correspondence",
+    )
+    source.interactions = {"empty": analysis}
+    first, last = list(msm.Iterator(source, structure_indices=[2, 1, 0], chunk=2))
+    assert first is not last and first.structures is not source.structures
+    assert msm.get(first, structure_chemical_state_index=True) == [0, 1]
+    assert msm.get(last, structure_chemical_state_index=True) == [0]
+    assert first.interactions["empty"].n_structures == 2
+    assert last.interactions["empty"].n_structures == 1
+    np.testing.assert_array_equal(
+        first.interactions["empty"].evaluated_structure_indices, [0]
+    )
+    np.testing.assert_array_equal(
+        last.interactions["empty"].evaluated_structure_indices, [0]
+    )
+    np.testing.assert_array_equal(
+        first.structures.occupancy, source.structures.occupancy[[2, 1]]
+    )
+    np.testing.assert_array_equal(
+        last.structures.occupancy, source.structures.occupancy[[0]]
+    )
+    assert (
+        source.interactions["empty"] is analysis and source.structures.n_structures == 3
+    )
+    assert msm.get(source, structure_chemical_state_index=True) == [0, 1, 0]

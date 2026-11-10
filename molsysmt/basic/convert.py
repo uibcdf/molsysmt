@@ -285,7 +285,7 @@ def _prune_structural_attributes_off_the_axis(
         molecular_system, from_forms, caller="molsysmt.convert"
     )
     if axis is None:
-        return
+        return {}
 
     dropped = set()
     for index, count in enumerate(counts):
@@ -317,6 +317,11 @@ def _prune_structural_attributes_off_the_axis(
             ),
             stacklevel=2,
         )
+    return {
+        index: count
+        for index, count in enumerate(counts)
+        if count is not None and count != axis
+    }
 
 
 def _convert_multiple_to_one(
@@ -386,7 +391,7 @@ def _convert_multiple_to_one(
     # attributes. Pruning them here, once, keeps the three provider searches below --
     # which all walk the items from last to first -- from choosing a reference
     # conformation over the trajectory just because it was listed later.
-    _prune_structural_attributes_off_the_axis(
+    off_axis_items = _prune_structural_attributes_off_the_axis(
         molecular_system, from_forms, from_attributes
     )
 
@@ -552,7 +557,13 @@ def _convert_multiple_to_one(
 
         input_arguments = set(inspect.signature(conversion_function).parameters)
         if "structure_indices" in input_arguments:
-            conversion_arguments["structure_indices"] = structure_indices
+            # A reference contributes inventory, not positions on the trajectory
+            # axis. Read its one representative, never trajectory indices.
+            conversion_arguments["structure_indices"] = (
+                ([0] if off_axis_items[basic_index] else "all")
+                if basic_index in off_axis_items
+                else structure_indices
+            )
         for element, element_index in _element_index.items():
             if _element_indices[element] in input_arguments:
                 if not is_all(selection):
@@ -567,6 +578,15 @@ def _convert_multiple_to_one(
                     conversion_arguments[_element_indices[element]] = "all"
                 break
         output = conversion_function(aux_dict["item"], **conversion_arguments, **kwargs)
+
+        if basic_index in off_axis_items:
+            from molsysmt.native import MolSys, Structures
+
+            domain = output.structures if isinstance(output, MolSys) else output
+            if isinstance(domain, Structures):
+                # Discard the off-axis reference series as one complete payload.
+                # On-axis contributors below supply the selected observations.
+                domain._assign_frame_payload({})
 
         for aux_attribute, aux_item_form in aux_dict["set_attributes"].items():
             aux_item = aux_item_form[0]

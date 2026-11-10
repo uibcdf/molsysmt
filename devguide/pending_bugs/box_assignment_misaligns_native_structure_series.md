@@ -58,3 +58,28 @@ this is distinct from resizing one series in a coordinate-bearing object.
 Run affected native/form/geometry/persistence consumers and the registered
 scientific cohort. The source-only correction does not qualify a new package,
 platform, GUI family or release. The supplemental repair adds no formal weight.
+
+## Rebuilder integration receiving — 2026-11-10
+
+The first corrected full cohort has 8,447 passes and five failures. Stricter
+coordinate publication exposes old staged mutations in native hydrogen placement,
+explicit terminal attachment and default native Iterator chunks. The two
+builders copied a domain, assigned its larger coordinates, and only afterwards
+removed atom observations their existing policy cannot carry. They now finish
+removing those observations before assigning the new coordinates; strict
+rejection, warnings, source preservation and scientific placement stay unchanged.
+
+Iterator previously described one multi-attribute set as atomic, although basic
+set is sequential. Native outputs now use existing selected conversion for each
+complete chunk,
+including chemical-state associations, other observables and named-analysis maps.
+They return independently owned native chunks; a final short chunk is assembled
+with all its structural series together. The non-native reuse route is unchanged.
+No initialization bypass is added to edits. The source remains unchanged, units and repeated structure positions
+are preserved, and owner association/analysis consistency checks still apply.
+
+The intermediate 217-case receiving exposes three retained association-length
+failures in a reusable-container attempt; that attempt is not accepted. A later
+363-case receiving exposes the separate selected-reference conversion defect
+tracked as #698. With the selected conversion correction, 535 affected builder,
+PDBQT, native chunk and composed-conversion controls pass without omissions.

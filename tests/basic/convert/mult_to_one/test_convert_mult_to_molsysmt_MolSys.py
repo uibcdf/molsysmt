@@ -57,3 +57,27 @@ def test_convert_single_state_topology_and_trajectory_reconciles_structure_assoc
         molsys._get_structure_chemical_state_indices(),
         np.zeros(20, dtype=np.int64),
     )
+
+
+def test_selected_trajectory_positions_never_index_the_reference_only_provider():
+    reference = systems["chicken villin HP35"][
+        "traj_chicken_villin_HP35_solvated.h5msm"
+    ]
+    trajectory = systems["chicken villin HP35"]["traj_chicken_villin_HP35_solvated.dcd"]
+    positions = [11, 2, 11]
+    expected = msm.pyunitwizard.get_value(
+        msm.get(trajectory, structure_indices=positions, coordinates=True), to_unit="nm"
+    )
+    for items in ([reference, trajectory], [trajectory, reference]):
+        output = msm.convert(
+            items, structure_indices=positions, to_form="molsysmt.MolSys"
+        )
+        assert output.structures.n_structures == 3
+        np.testing.assert_allclose(
+            msm.pyunitwizard.get_value(output.structures.coordinates, to_unit="nm"),
+            expected,
+        )
+        assert output.structures.time is None and output.structures.structure_id is None
+        np.testing.assert_array_equal(
+            output._get_structure_chemical_state_indices(), [0, 0, 0]
+        )

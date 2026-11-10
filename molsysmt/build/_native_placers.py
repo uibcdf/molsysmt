@@ -165,7 +165,6 @@ def carry_structures_through_atom_change(
     )
 
     new_structs = structs.copy()
-    new_structs.coordinates = puw.quantity(new_coordinates_nm, "nm")
 
     dropped = []
     for name in _ATOM_ALIGNED_ATTRIBUTES:
@@ -187,13 +186,15 @@ def carry_structures_through_atom_change(
             new_structs.alternate_location, old_to_new
         )
 
+    if dropped and attribute_policy == "strict":
+        raise StructuralInconsistencyError(
+            reason="Atom-domain expansion cannot retain attributes without new values: "
+            + ", ".join(dropped),
+            caller=caller,
+        )
+    # Finish preparing the independent domain before publishing its larger atom axis.
+    new_structs.coordinates = puw.quantity(new_coordinates_nm, "nm")
     if dropped:
-        if attribute_policy == "strict":
-            raise StructuralInconsistencyError(
-                reason="Atom-domain expansion cannot retain attributes without new values: "
-                + ", ".join(dropped),
-                caller=caller,
-            )
         warn(
             StructuralAttributeDropWarning(attributes=dropped, caller=caller),
             stacklevel=3,

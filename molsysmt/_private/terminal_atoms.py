@@ -184,12 +184,12 @@ def attach(source, records, coordinates, attribute_policy, caller):
         evidence=["explicit"] * n_new,
     )
     structures = source.structures.copy()
-    structures.coordinates = puw.quantity(
-        np.concatenate((original_values, positions), axis=1), "nm"
-    )
     for name in dropped:
         if name != "atoms_ff":
             setattr(structures, name, None)
+    structures.coordinates = puw.quantity(
+        np.concatenate((original_values, positions), axis=1), "nm"
+    )
     analyses = {}
     for name, result in source.interactions.items():
         invalidated = result.invalidate_structures(

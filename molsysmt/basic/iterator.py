@@ -44,6 +44,13 @@ class Iterator:
       `__iter__()` returns `self`, and `__next__()` returns the next item or raises `StopIteration`.
     - If no attributes are requested, the iterator returns a molecular system per iteration
       with updated structural attributes.
+    - Native MolSys and Structures outputs are independent selected chunks, assembled
+      through conversion with aligned state associations, observations and analysis maps.
+      Keeping an earlier chunk does not make it change on the next iteration. Native
+      conversion reads only the selected structure scope; retaining every chunk can
+      still materialize the full trajectory. Other output forms retain their existing
+      reusable-container behavior. Request coordinates/time explicitly for a
+      geometry-only loop that avoids converting stable domains per chunk.
 
     See Also
     --------
@@ -163,6 +170,7 @@ class Iterator:
         self._output_type = output_type
         self._output_form = output_form
         self._output_molecular_system = None
+        self._native_output_indices = None
 
         for ii, key in enumerate(kwargs.keys()):
             if kwargs[key]:
@@ -172,16 +180,15 @@ class Iterator:
 
         if not explicitly_requested:
             self.arguments = ["structure_id", "time", "coordinates", "box"]
-            # A single structure is enough here: the yielded system is a reusable container
-            # whose structural attributes are overwritten on every iteration. Converting the
-            # whole structure axis would materialize the very trajectory that iterating in
-            # chunks exists to avoid.
-            self._output_molecular_system = convert(
-                self.molecular_system,
-                selection=selection,
-                structure_indices=[0],
-                to_form=self._output_form,
-            )
+            # Non-native outputs keep their existing reusable container. Native
+            # chunks instead use selected conversion below, including associated domains.
+            if self._output_form not in {"molsysmt.MolSys", "molsysmt.Structures"}:
+                self._output_molecular_system = convert(
+                    self.molecular_system,
+                    selection=selection,
+                    structure_indices=[0],
+                    to_form=self._output_form,
+                )
 
         aux_items_forms = {}
         aux_items_arguments = {}
@@ -230,6 +237,29 @@ class Iterator:
             )
 
         self._output_dictionary = {ii: None for ii in self.arguments}
+
+        if not explicitly_requested and self._output_form in {
+            "molsysmt.MolSys",
+            "molsysmt.Structures",
+        }:
+            from molsysmt._private.indices import indices_iterator
+            from molsysmt._private.variables import is_all
+
+            from . import get
+
+            native_stop = self.stop
+            if native_stop is None and (
+                self.structure_indices is None or is_all(self.structure_indices)
+            ):
+                native_stop = get(self.molecular_system, n_structures=True)
+            self._native_output_indices = indices_iterator(
+                indices=self.structure_indices,
+                start=self.start,
+                stop=native_stop,
+                step=self.step,
+                chunk=self.chunk,
+            )
+            return
 
         if self._output_molecular_system is not None:
             # The placeholder conversion may have produced structural series the system
@@ -327,6 +357,28 @@ class Iterator:
             When no further items are available.
         """
 
+        if self._native_output_indices is not None:
+            from . import convert
+            from . import set as set_attributes
+
+            structure_indices = next(self._native_output_indices)
+            # Selected conversion already coordinates geometry, state associations,
+            # other observables and named-analysis remapping on the same axes.
+            output = convert(
+                self.molecular_system,
+                selection=self.indices,
+                structure_indices=structure_indices,
+                to_form=self._output_form,
+            )
+            absent = {
+                name: None
+                for name in ("structure_id", "time", "coordinates", "box")
+                if name not in self.arguments
+            }
+            if absent:
+                set_attributes(output, **absent)
+            return output
+
         for iterator in self._iterators:
             self._output_dictionary.update(iterator.__next__())
 
@@ -341,11 +393,5 @@ class Iterator:
         else:
             from . import set
 
-            # Every structural series is replaced in a single call, with the element level
-            # inferred per attribute. Setting them one level at a time would compare a chunk
-            # of n structures against the series still holding the previous chunk, and the
-            # structure axis of the reusable system would never be consistent. Only the
-            # series this molecular system provides are present: a coordinate-only form has
-            # no 'structure_id' or 'time' to set.
             set(self._output_molecular_system, **self._output_dictionary)
             return self._output_molecular_system
