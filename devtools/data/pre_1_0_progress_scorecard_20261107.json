@@ -920,16 +920,16 @@
       "uibcdf/molsysmt#688"
     ],
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
-    "owner_verification": "Public 1d033b656 independently matches 21 changed paths and preserves four human files. Clean b184e9d18 passes 1,229 affected cases without omissions, fourteen fast gates and three inspected HTML pages. #661 is closed. #256 remains open and public H5MSM writing remains 0.5; no client/installed/candidate acceptance is added.",
+    "owner_verification": "Public 76ed1c3a1 independently matches 39 changed/deleted paths and preserves four human files; #687/#691 are integrated/closed and #688/#690 closed. 5,923 affected cases, 116 scientific cases/74 nodes, fourteen gates, inspected HTML, thirteen actual-Jupyter checks and four representative native Qt checks pass on their recorded cohorts.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Publicly integrate the received #687/#691 cohort and source-close #688 after exact-tree verification. Then retain #666/provider143 contact-cutoff review and #615 causality, remaining construction/protonation/secondary-structure GUI intents, #524 actual published-host/installed floors, #250/#254 agreement, #256 P5/P6 and #334 exact-candidate gates. #692/#693 are bounded advisory follow-ups, with no new weight or release blocker. Preserve original weights, failed attempts and publication pause.",
+    "scope": "Continue #666/provider143 and #615, remaining original construction/protonation/secondary-structure intents. Await #524 actual published-host/clean installed floors and #250/#254 contract feedback requested in Viewer #315. Keep #256 P5/P6 and #334 exact-candidate gates. #692/#693 are bounded advisory follow-ups, with no new weight or automatic release blocker. Preserve failed attempts, original weights and publication pause.",
     "active_related": [
       "uibcdf/molsysmt#666",
       "uibcdf/molsysmt#421",
       "uibcdf/molsysmt#615",
       "uibcdf/molsysmt#256"
     ],
-    "last_source_closeout_record": "devguide/archive/resolved_bugs/unsigned_h5msm_axis_maps_wrap_out_of_range_indices_to_unknown.md",
+    "last_source_closeout_record": "devguide/archive/resolved_bugs/jupyter_receiving_launcher_leaves_runtime_settings_after_fixture_preparation_fails.md",
     "after_active_block": [
       "uibcdf/molsysmt#421"
     ],
@@ -966,15 +966,19 @@
     "meaning": "A separate count of accepted declared intents; not equal effort, scientific coverage or installed acceptance."
   },
   "last_graphical_delivery": {
-    "source": "63fc278832563c4e5f169eaaa1f8b608bba4372b",
-    "public_checkpoint": "a28cb04fa7dafdc8853d3ccfe16f47077c0ecd98",
-    "milestone": "phase4/graphical-inventory/fitting/sequence-fit",
-    "evidence": "devtools/data/molsysviewer_tools_sequence_alignment_receiving_421_20261108.json",
-    "delivery": "devtools/data/molsysviewer_tools_sequence_alignment_delivery_421_20261108.json",
-    "weighted_milestone_change": 0.056818181818186986,
-    "graphical_accepted": 26,
+    "qualified_source": "81b4fc86644994a24f7ee65fa7414beda0aa0c67",
+    "public_checkpoint": "76ed1c3a1db65f5f25e411f8777366eb957eb588",
+    "milestones": [
+      "phase4/graphical-inventory/other-analysis/interactions",
+      "phase4/graphical-inventory/other-analysis/mechanics",
+      "phase4/graphical-inventory/complete-session"
+    ],
+    "evidence": "devtools/data/combined_session_receiving_687_688_691_20261110.json",
+    "delivery": "devtools/data/combined_session_delivery_687_688_691_20261110.json",
+    "weighted_milestone_change": 0.3409090909090935,
+    "graphical_accepted": 42,
     "graphical_total": 50,
-    "audit_related_source_closures": 52
+    "scope": "Source and automated Jupyter/representative Qt; human, complete Qt-session, installed and release gates remain separate."
   },
   "last_owner_closeout": {
     "issues": [
@@ -1270,18 +1274,12 @@
   "last_incoming_review": {
     "date": "2026-11-10",
     "latest_complete_board_issues": 618,
-    "latest_open_issues": 94,
-    "latest_open_prs": 2,
-    "board_checkpoint": "After #690 closure and #692/#693 intake, before combined integration and #688 closure.",
-    "incoming_pr": {
-      "number": 687,
-      "head": "a1539e351b91b3ffb9ed4837583ac8b402e0102b",
-      "state": "draft; review pending, not integrated",
-      "required_host": "b9f3be0127b1fd48220cf400471044bd0b65dbe3"
-    },
+    "latest_open_issues": 93,
+    "latest_open_prs": 0,
+    "board_checkpoint": "After independently verified public combined delivery, #688/#690 and exact-head PR closeout.",
     "new_reports": [
-      "uibcdf/molsysmt#688",
-      "uibcdf/molsysmt#689"
+      "uibcdf/molsysmt#692",
+      "uibcdf/molsysmt#693"
     ],
     "previous_checkpoint": {
       "date": "2026-11-09",
@@ -1325,14 +1323,25 @@
       {
         "number": 687,
         "head": "f35112090b37975a1d417602c3c1a6beed16d5f6",
-        "state": "source received; public integration pending"
+        "state": "closed",
+        "merged": true,
+        "disposition": "merged by ancestry"
       },
       {
         "number": 691,
         "head": "0fb92602ab3f9122372ce3f9900fbaf55437c507",
-        "state": "source received; public integration pending"
+        "state": "closed",
+        "merged": false,
+        "disposition": "closed as directly integrated; stacked base unchanged"
       }
-    ]
+    ],
+    "earlier_incoming_pr": {
+      "number": 687,
+      "head": "a1539e351b91b3ffb9ed4837583ac8b402e0102b",
+      "state": "draft; review pending, not integrated",
+      "required_host": "b9f3be0127b1fd48220cf400471044bd0b65dbe3"
+    },
+    "new_report_disposition": "Bounded advisory performance and compatibility-output accounting proposals; no new automatic 1.0 blocker or weight."
   },
   "last_peptide_termini_receiving": {
     "owner_issue": "uibcdf/molsysmt#686",
@@ -1386,7 +1395,9 @@
     "incoming_pr_heads": {
       "687": "f35112090b37975a1d417602c3c1a6beed16d5f6",
       "691": "0fb92602ab3f9122372ce3f9900fbaf55437c507"
-    }
+    },
+    "public_checkpoint": "3bcd573da19619a1a3c0fd8456859618d8d11480",
+    "state": "publicly_delivered_and_guarded_issue_closed"
   },
   "last_combined_session_receiving": {
     "source": "81b4fc86644994a24f7ee65fa7414beda0aa0c67",
@@ -1404,7 +1415,9 @@
     "accepted_existing_intents": 3,
     "weighted_milestone_change": 0.3409090909090935,
     "supplemental_bug_bonus": 0,
-    "state": "source_received_pending_public_delivery",
-    "scope": "Bounded Linux/Python 3.14 source, automated real-Jupyter and representative native Qt receiving; no installed, full Qt continuous-session, human or exact-candidate qualification."
+    "state": "publicly_delivered_and_reviewed_prs_closed",
+    "scope": "Bounded Linux/Python 3.14 source, automated real-Jupyter and representative native Qt receiving; no installed, full Qt continuous-session, human or exact-candidate qualification.",
+    "public_checkpoint": "76ed1c3a1db65f5f25e411f8777366eb957eb588",
+    "delivery": "devtools/data/combined_session_delivery_687_688_691_20261110.json"
   }
 }

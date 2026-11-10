@@ -1,5 +1,26 @@
 # Pre-1.0 robustness audit and action plan — 6 November 2026
 
+## Public combined closeout verified — 2026-11-10
+
+Public main **76ed1c3a1** independently matches all **39 changed/deleted paths**;
+the four human files remain byte-exact. #687 is merged by ancestry, #691 is
+closed as directly integrated with its stacked parent unchanged, and **#688 and
+#690 are guarded and closed**. The complete board has **618 issues, 93 open,
+no open PRs** and agrees with the local queues. A bounded smoke on the actual
+main checkout confirms the corrected two-atom query and exact rebuilt backend.
+The final lifecycle source passes fourteen gates with unchanged product/tests/
+user-doc/CI/tooling bytes. See the [public delivery record](../devtools/data/combined_session_delivery_687_688_691_20261110.json).
+
+Accepted progress is **75.9795% (about 76.0%)**, **42/50 original graphical
+intents**. Only interaction reports, mechanical reports and complete session
+receive their original credit. Supplemental fixes add none. Viewer #315 has
+received the exact source/evidence and the two remaining coordination needs:
+#524's actual published minimum/clean installed closure and #250/#254 contract
+feedback. Receiving those original leaves would reach about **80.7414%**;
+they are still pending. Keep #666/provider143, #615, construction/protonation/
+secondary-structure intents, #256 P5/P6 and #334/exact-candidate gates explicit.
+Publication remains paused; no new hosted matrix or package/tag/Release occurs.
+
 ## Combined interaction, mechanics and session receiving — 2026-11-10
 
 Exact PR **#687 f35112090** and **#691 0fb92602a** are independently received on
