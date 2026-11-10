@@ -32,6 +32,14 @@ complete shared MolSysMT unit policy through scoped contexts. External float32
 inputs remain declared. Caller policies are restored. No second standard-unit
 catalog is maintained in the benchmark.
 
+A newly generated, benchmark-owned reference PDB has only its two volatile
+writer-provenance records normalized deterministically. The original records,
+raw/prepared hashes, input H5 hash and actual producer version remain in the
+session. All scientific records are byte-preserved. Existing input files are
+never normalized; an unfamiliar generated provenance layout requires review.
+This prevents a clock change alone from making otherwise equal workloads
+incomparable without relaxing scientific-input identity.
+
 ## Required evidence
 
 The session retains clean product commit/dirty-state information, its native

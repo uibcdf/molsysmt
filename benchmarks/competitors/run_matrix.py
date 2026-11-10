@@ -27,7 +27,49 @@ from benchmarks.competitors.test_selections import (  # noqa: E402
     run_selection_benchmarks,
 )
 from benchmarks.harness import _get_git_metadata, save_session_results  # noqa: E402
-from benchmarks.telemetry import comparison_context, resource_observation  # noqa: E402
+from benchmarks.telemetry import (  # noqa: E402
+    comparison_context,
+    file_digest,
+    resource_observation,
+)
+
+
+def _canonicalize_owned_reference(path):
+    """Replace only the two known volatile records in our newly generated PDB."""
+    import hashlib
+
+    destination = Path(path)
+    raw = destination.read_bytes()
+    lines = raw.splitlines(keepends=True)
+    headers = [
+        i
+        for i, line in enumerate(lines)
+        if line.startswith(b"HEADER    MOLECULAR SYSTEM")
+    ]
+    timestamps = [
+        i
+        for i, line in enumerate(lines)
+        if line.startswith(b"REMARK   1 Created by MolSysMT version ")
+    ]
+    if len(headers) != 1 or len(timestamps) != 1:
+        raise RuntimeError(
+            "The owned reference's generated provenance records require review."
+        )
+    originals = {
+        str(index): lines[index].decode("ascii") for index in [*headers, *timestamps]
+    }
+    lines[headers[0]] = b"HEADER    MOLSYSMT BENCHMARK REFERENCE\n"
+    lines[timestamps[0]] = b"REMARK   1 BENCHMARK REFERENCE; SEE SESSION PROVENANCE\n"
+    prepared = b"".join(lines)
+    destination.write_bytes(prepared)
+    return {
+        "normalization": "owned-generated-pdb-provenance@1",
+        "original_records": originals,
+        "raw_pdb_sha256": hashlib.sha256(raw).hexdigest(),
+        "prepared_pdb_sha256": hashlib.sha256(prepared).hexdigest(),
+    }
+
+
 from molsysmt._pyunitwizard import STANDARD_UNITS  # noqa: E402
 
 
@@ -79,6 +121,14 @@ def _prepare_reference(pdb_path):
     if not os.path.exists(pdb_path):
         print(f"Generating temporary reference PDB: {pdb_path}", flush=True)
         msm.convert(h5, to_form="file:pdb", output_filename=pdb_path)
+        provenance = _canonicalize_owned_reference(pdb_path)
+        provenance["source_h5_sha256"] = file_digest(h5)
+        provenance["producer_version"] = msm.__version__
+        return provenance
+    return {
+        "normalization": "existing-input-unchanged",
+        "prepared_pdb_sha256": file_digest(pdb_path),
+    }
 
 
 def main(argv=None):
@@ -113,7 +163,7 @@ def main(argv=None):
         ),
     ):
         pdb_path = str(Path(directory) / "reference.pdb")
-        _prepare_reference(pdb_path)
+        reference_preparation = _prepare_reference(pdb_path)
         observations = {"before": resource_observation()}
         starting_context = comparison_context()
         starting_source = _get_git_metadata()
@@ -139,6 +189,7 @@ def main(argv=None):
         output_path=out_file,
         comparison_context=context,
         resource_observations=observations,
+        reference_preparation=reference_preparation,
     )
 
     # 4. Generate & Display Gorgeous ASCII Comparison Table

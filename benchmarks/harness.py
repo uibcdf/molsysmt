@@ -309,6 +309,7 @@ def save_session_results(
     *,
     comparison_context=None,
     resource_observations=None,
+    reference_preparation=None,
 ) -> None:
     """Save a list of benchmark results to a structured JSON file.
 
@@ -324,6 +325,8 @@ def save_session_results(
         Captured runtime, hardware, provider, resource and policy identities.
     resource_observations : dict or None, default=None
         Before/after host observations, distinct from compatibility identities.
+    reference_preparation : dict or None, default=None
+        Original volatile provenance records and hashes of an owned generated PDB.
     """
     import molsysmt as msm
 
@@ -351,6 +354,8 @@ def save_session_results(
         output["comparison_context"] = comparison_context
     if resource_observations is not None:
         output["resource_observations"] = resource_observations
+    if reference_preparation is not None:
+        output["reference_preparation"] = reference_preparation
 
     # Ensure parent directories exist
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
