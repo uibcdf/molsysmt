@@ -11,14 +11,14 @@
   "owner_native_base": "6bd879bda202feee372b25a61734ee13ee7928ac",
   "native_backend_sha256": "58653b1d477be36017d2bc721dafe6e85a508e2325fa3226ccf26c61d449d6e5",
   "viewer_source_sha256": {
-    "molsysviewer/_private/figure_observation.py": "d23e8d16979f07a20ed874603d8679b11099bc8434e5e80136aa5977ae1c655c",
+    "molsysviewer/_private/figure_observation.py": "55e0f999dae33a00ea109b63d3fd2a538ce28c0fe86d9e3d27163232e1ccd6dc",
     "molsysviewer/_private/argdigest/argument/observations.py": "8c6be855b9069031974bb98824341e8f1d80bdb263dc02ae286b441968ffe948",
     "molsysviewer/_private/structure_correspondence.py": "3966a0a0a76e3a850a4af5682cc2f4c2a628204e21ea0c67d71585ff8c0fba20",
     "molsysviewer/trajectory_plot.py": "bcfb8977a55af4a1f41f36642339a3fb51119d7fa4a1ec097ccb9a5681cbf102",
     "molsysviewer/js/src/ui/trajectory-plot-overlay.ts": "6f330576e30fce61d8fe24fa6912127a2ad0567250a86885a7e8cd03ce5477f8",
     "molsysviewer/js/tests/e2e/trajectory-plot-authority-scenarios.ts": "a9029efdecb411b1219fc2d686f0db7a0766ac254a81dc58a222dfd65994d87c",
     "molsysviewer/js/tests/e2e/trajectory-plot-bridge.py": "a93c97c767c6ae1f08f07564a1b9378ec0db33a78f08b668a086be8e55d8891e",
-    "tests/test_figure_observations.py": "182800a5b1305961964d98bebad63bdf8c63dc741f138e853e2c65d2503577ac",
+    "tests/test_figure_observations.py": "c1fbeca114f289d2fb4a7bb8eb380134a3d1cbcc56f7734b78eb800f5a2d6f41",
     "devtools/public_api_contract_baseline.json": "864624f7448af1a900a798d98c818c9f05773ef3f4a9849dddc69a6713fb2bfe",
     "devtools/public_api_inventory_baseline.json": "cdca6dfef776d659d57a91a4eb8a1adb63f152b8f5fc936bb14de48328a85ebf"
   },
@@ -32,11 +32,19 @@
     "tests/molsysviewer_molsysmt/visual_adoption_jupyter.mjs": "d6b9d99b077582c0c996eec5708be58e8995530b36c859da0528bdd9e7c78b40",
     "tests/molsysviewer_molsysmt/visual_adoption_qt.py": "976098166aa8df9a009d03b1039e137bcfbf76b73097b112328c698dcc552940",
     "tests/molsysviewer_molsysmt/qt_receiving_guard.py": "8d2d0caa6d9fe876a987fa9dbbad22ec7cbbce609ac0ac445dc221825c6de30c",
-    ".github/workflows/ci-smoke.yaml": "88993c1955cb407478fff7a9b6b6c80742007bd44046aef68ecbbd399a44a2a1",
-    "tests/molsysviewer_molsysmt/test_analysis_panel.py": "c365d6c2958933bdea423ccd487116a9aa9589058f2d0e811c7534fbe69ab96e"
+    ".github/workflows/ci-smoke.yaml": "cc80eb4d4c3f4193bcb1641226e35d07b7a516976db283a2b908fd244af02abb",
+    "tests/molsysviewer_molsysmt/test_analysis_panel.py": "c365d6c2958933bdea423ccd487116a9aa9589058f2d0e811c7534fbe69ab96e",
+    ".github/workflows/ci-weekly.yaml": "8d57a2ec8a0572ee06deea3b073678f0a9be20e9030daad0a4f38725056e80a3",
+    ".github/workflows/ci-full.yaml": "19a795df3f02765f525ecab4e05b2ca1ad5f777c4a9f9c4c9e0859df18f79833",
+    ".github/workflows/benchmarks.yml": "9d215a6b9901b0dafd5275fe43cb5ec31c546a4c60f024c3024b84ba4cdb7c33",
+    ".github/workflows/sphinx_docs_to_gh_pages.yaml": "073cf8c5072f41605e30e54039355de7542d954965c52aee8d81c2a004a96886",
+    "devtools/dependency_contract.toml": "e3d8973a2f0b97ef858a66c7056fd245b69ece9d741e01d55a9271076d2e7943"
   },
   "receiving": {
     "build-204-figure-context-runtime": {
+      "source_base": "7f106c8c311d9d3bfe21a0ebce1c2b4db9d4415b",
+      "provider_source": "400d484f85b461aeecd33918597291869be64e43",
+      "provider_public_runtime_base": "6bd879bda202feee372b25a61734ee13ee7928ac",
       "native_exit": 0,
       "seconds": 50.05032592010684,
       "selected_inputs": 10845,
@@ -50,6 +58,9 @@
       "resource_stop": null
     },
     "205-figure-context-browser": {
+      "source_base": "7f106c8c311d9d3bfe21a0ebce1c2b4db9d4415b",
+      "provider_source": "400d484f85b461aeecd33918597291869be64e43",
+      "provider_public_runtime_base": "6bd879bda202feee372b25a61734ee13ee7928ac",
       "native_exit": 0,
       "seconds": 149.3671355759725,
       "selected_inputs": 10847,
@@ -63,6 +74,9 @@
       "resource_stop": null
     },
     "206-figure-context-live": {
+      "source_base": "7f106c8c311d9d3bfe21a0ebce1c2b4db9d4415b",
+      "provider_source": "400d484f85b461aeecd33918597291869be64e43",
+      "provider_public_runtime_base": "6bd879bda202feee372b25a61734ee13ee7928ac",
       "native_exit": 0,
       "seconds": 99.76546035916544,
       "selected_inputs": 10847,
@@ -76,6 +90,9 @@
       "resource_stop": null
     },
     "207-figure-context-native-qt": {
+      "source_base": "7f106c8c311d9d3bfe21a0ebce1c2b4db9d4415b",
+      "provider_source": "400d484f85b461aeecd33918597291869be64e43",
+      "provider_public_runtime_base": "6bd879bda202feee372b25a61734ee13ee7928ac",
       "native_exit": 0,
       "seconds": 17.22895596199669,
       "selected_inputs": 10847,
@@ -89,6 +106,9 @@
       "resource_stop": null
     },
     "209-figure-core-quality": {
+      "source_base": "7f106c8c311d9d3bfe21a0ebce1c2b4db9d4415b",
+      "provider_source": "400d484f85b461aeecd33918597291869be64e43",
+      "provider_public_runtime_base": "6bd879bda202feee372b25a61734ee13ee7928ac",
       "native_exit": 0,
       "seconds": 61.71034982614219,
       "selected_inputs": 10848,
@@ -102,6 +122,9 @@
       "resource_stop": null
     },
     "211-figure-owner-quality": {
+      "source_base": "7f106c8c311d9d3bfe21a0ebce1c2b4db9d4415b",
+      "provider_source": "400d484f85b461aeecd33918597291869be64e43",
+      "provider_public_runtime_base": "6bd879bda202feee372b25a61734ee13ee7928ac",
       "native_exit": 0,
       "seconds": 17.747282980009913,
       "selected_inputs": 10852,
@@ -115,6 +138,9 @@
       "resource_stop": null
     },
     "212-figure-legacy-capability": {
+      "source_base": "7f106c8c311d9d3bfe21a0ebce1c2b4db9d4415b",
+      "provider_source": "400d484f85b461aeecd33918597291869be64e43",
+      "provider_public_runtime_base": "6bd879bda202feee372b25a61734ee13ee7928ac",
       "native_exit": 0,
       "seconds": 6.503751617856324,
       "selected_inputs": 10852,
@@ -128,6 +154,9 @@
       "resource_stop": null
     },
     "215-api-keyword-recovery": {
+      "source_base": "7f106c8c311d9d3bfe21a0ebce1c2b4db9d4415b",
+      "provider_source": "400d484f85b461aeecd33918597291869be64e43",
+      "provider_public_runtime_base": "6bd879bda202feee372b25a61734ee13ee7928ac",
       "native_exit": 0,
       "seconds": 9.200600611045957,
       "selected_inputs": 10852,
@@ -141,6 +170,9 @@
       "resource_stop": null
     },
     "216-figure-api-closeout": {
+      "source_base": "7f106c8c311d9d3bfe21a0ebce1c2b4db9d4415b",
+      "provider_source": "400d484f85b461aeecd33918597291869be64e43",
+      "provider_public_runtime_base": "6bd879bda202feee372b25a61734ee13ee7928ac",
       "native_exit": 0,
       "seconds": 9.544411072973162,
       "selected_inputs": 10852,
@@ -154,6 +186,9 @@
       "resource_stop": null
     },
     "217-figure-quantity-records": {
+      "source_base": "7f106c8c311d9d3bfe21a0ebce1c2b4db9d4415b",
+      "provider_source": "400d484f85b461aeecd33918597291869be64e43",
+      "provider_public_runtime_base": "6bd879bda202feee372b25a61734ee13ee7928ac",
       "native_exit": 0,
       "seconds": 18.9697654300835,
       "selected_inputs": 10852,
@@ -167,6 +202,9 @@
       "resource_stop": null
     },
     "218-figure-owner-quantity-final": {
+      "source_base": "7f106c8c311d9d3bfe21a0ebce1c2b4db9d4415b",
+      "provider_source": "400d484f85b461aeecd33918597291869be64e43",
+      "provider_public_runtime_base": "6bd879bda202feee372b25a61734ee13ee7928ac",
       "native_exit": 0,
       "seconds": 12.490861525060609,
       "selected_inputs": 10852,
@@ -180,6 +218,9 @@
       "resource_stop": null
     },
     "219-figure-final-hosts": {
+      "source_base": "7f106c8c311d9d3bfe21a0ebce1c2b4db9d4415b",
+      "provider_source": "400d484f85b461aeecd33918597291869be64e43",
+      "provider_public_runtime_base": "6bd879bda202feee372b25a61734ee13ee7928ac",
       "native_exit": 0,
       "seconds": 92.12837198516354,
       "selected_inputs": 10853,
@@ -193,6 +234,9 @@
       "resource_stop": null
     },
     "222-figure-final-records": {
+      "source_base": "7f106c8c311d9d3bfe21a0ebce1c2b4db9d4415b",
+      "provider_source": "400d484f85b461aeecd33918597291869be64e43",
+      "provider_public_runtime_base": "6bd879bda202feee372b25a61734ee13ee7928ac",
       "native_exit": 0,
       "seconds": 11.911098604090512,
       "selected_inputs": 10853,
@@ -206,6 +250,9 @@
       "resource_stop": null
     },
     "223-figure-integrated-owner": {
+      "source_base": "46f7d11ac77d9b241668cae6e9f9aa8a7d0609ec",
+      "provider_source": "e5607d6d8474126f16f77b63c8310b5253cada54",
+      "provider_public_runtime_base": "5f241cfa77f0091dc7a54c0be1bdd2951efdefed",
       "native_exit": 1,
       "seconds": 24.949565478833392,
       "selected_inputs": 10872,
@@ -219,6 +266,9 @@
       "resource_stop": null
     },
     "224-figure-integrated-recovery": {
+      "source_base": "46f7d11ac77d9b241668cae6e9f9aa8a7d0609ec",
+      "provider_source": "e5607d6d8474126f16f77b63c8310b5253cada54",
+      "provider_public_runtime_base": "5f241cfa77f0091dc7a54c0be1bdd2951efdefed",
       "native_exit": 0,
       "seconds": 33.30479607102461,
       "selected_inputs": 10872,
@@ -232,6 +282,9 @@
       "resource_stop": "Shared resource margin requires releasing this execution"
     },
     "probe-225-figure-integrated-hosts": {
+      "source_base": "46f7d11ac77d9b241668cae6e9f9aa8a7d0609ec",
+      "provider_source": "e5607d6d8474126f16f77b63c8310b5253cada54",
+      "provider_public_runtime_base": "5f241cfa77f0091dc7a54c0be1bdd2951efdefed",
       "native_exit": 1,
       "seconds": 104.13763202889822,
       "selected_inputs": 10873,
@@ -245,6 +298,9 @@
       "resource_stop": null
     },
     "probe-226-figure-final-retry": {
+      "source_base": "46f7d11ac77d9b241668cae6e9f9aa8a7d0609ec",
+      "provider_source": "e5607d6d8474126f16f77b63c8310b5253cada54",
+      "provider_public_runtime_base": "5f241cfa77f0091dc7a54c0be1bdd2951efdefed",
       "native_exit": 0,
       "seconds": 169.55721279303543,
       "selected_inputs": 10874,
@@ -252,6 +308,134 @@
       "peak_owned_rss_mib": 2779.4,
       "cleanup": {
         "tracked": 36,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null
+    },
+    "probe-227-api-keyword-consumption": {
+      "source_base": "46f7d11ac77d9b241668cae6e9f9aa8a7d0609ec",
+      "provider_source": "e5607d6d8474126f16f77b63c8310b5253cada54",
+      "provider_public_runtime_base": "5f241cfa77f0091dc7a54c0be1bdd2951efdefed",
+      "native_exit": 1,
+      "seconds": 5.824618823127821,
+      "selected_inputs": 10874,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 163.2,
+      "cleanup": {
+        "tracked": 1,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null
+    },
+    "probe-228-api-keyword-recovery": {
+      "source_base": "46f7d11ac77d9b241668cae6e9f9aa8a7d0609ec",
+      "provider_source": "e5607d6d8474126f16f77b63c8310b5253cada54",
+      "provider_public_runtime_base": "5f241cfa77f0091dc7a54c0be1bdd2951efdefed",
+      "native_exit": 4,
+      "seconds": 4.2320555069018155,
+      "selected_inputs": 10874,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 91.2,
+      "cleanup": {
+        "tracked": 1,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null
+    },
+    "probe-229-api-keyword-recovery": {
+      "source_base": "46f7d11ac77d9b241668cae6e9f9aa8a7d0609ec",
+      "provider_source": "e5607d6d8474126f16f77b63c8310b5253cada54",
+      "provider_public_runtime_base": "5f241cfa77f0091dc7a54c0be1bdd2951efdefed",
+      "native_exit": 0,
+      "seconds": 15.399322306970134,
+      "selected_inputs": 10874,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 438.1,
+      "cleanup": {
+        "tracked": 1,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null
+    },
+    "probe-232-figure-streaming-limit": {
+      "source_base": "46f7d11ac77d9b241668cae6e9f9aa8a7d0609ec",
+      "provider_source": "b49937c1b3547bfe02c5680893f94e29d9fca941",
+      "provider_public_runtime_base": "5f241cfa77f0091dc7a54c0be1bdd2951efdefed",
+      "native_exit": 1,
+      "seconds": 8.514241290977225,
+      "selected_inputs": 10877,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 292.7,
+      "cleanup": {
+        "tracked": 2,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null
+    },
+    "probe-233-figure-streaming-recovery": {
+      "source_base": "46f7d11ac77d9b241668cae6e9f9aa8a7d0609ec",
+      "provider_source": "b49937c1b3547bfe02c5680893f94e29d9fca941",
+      "provider_public_runtime_base": "5f241cfa77f0091dc7a54c0be1bdd2951efdefed",
+      "native_exit": 0,
+      "seconds": 67.93987611099146,
+      "selected_inputs": 10877,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 562.0,
+      "cleanup": {
+        "tracked": 4,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null
+    },
+    "probe-234-final-governance": {
+      "source_base": "46f7d11ac77d9b241668cae6e9f9aa8a7d0609ec",
+      "provider_source": "b49937c1b3547bfe02c5680893f94e29d9fca941",
+      "provider_public_runtime_base": "5f241cfa77f0091dc7a54c0be1bdd2951efdefed",
+      "native_exit": 0,
+      "seconds": 19.104410224128515,
+      "selected_inputs": 10877,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 409.1,
+      "cleanup": {
+        "tracked": 6,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null
+    },
+    "probe-235-figure-producer-final": {
+      "source_base": "46f7d11ac77d9b241668cae6e9f9aa8a7d0609ec",
+      "provider_source": "b49937c1b3547bfe02c5680893f94e29d9fca941",
+      "provider_public_runtime_base": "5f241cfa77f0091dc7a54c0be1bdd2951efdefed",
+      "native_exit": 0,
+      "seconds": 20.38879314996302,
+      "selected_inputs": 10877,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 516.5,
+      "cleanup": {
+        "tracked": 11,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null
+    },
+    "probe-236-figure-final-source-routes": {
+      "source_base": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+      "provider_source": "b49937c1b3547bfe02c5680893f94e29d9fca941",
+      "provider_public_runtime_base": "5f241cfa77f0091dc7a54c0be1bdd2951efdefed",
+      "native_exit": 0,
+      "seconds": 21.09094239701517,
+      "selected_inputs": 10877,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 217.0,
+      "cleanup": {
+        "tracked": 3,
         "survivors": [],
         "errors": []
       },
@@ -278,7 +462,9 @@
     "rebased_affected_passed": 369,
     "rebased_affected_failed_then_corrected": 1,
     "corrected_single_failure_case": 1,
-    "rebased_actual_host_guards": 2
+    "rebased_actual_host_guards": 2,
+    "final_core_python_cases": 137,
+    "final_source_caller_cases": 116
   },
   "public_contract_review": {
     "declarations": 954,
@@ -295,8 +481,9 @@
     "classifier_followup": {
       "issue": "uibcdf/molsysviewer#352",
       "regression": "214: real binding preserved, classification incorrectly breaking",
-      "recovery": "215: 32 contract/digestion cases pass; optional keyword insertion and reordering are distinguished from positional/variadic/required incompatibility",
-      "baseline_changed_by_classifier_fix": false
+      "recovery": "215: 32 API-contract/inventory cases pass. 227 adds a failing **kwargs-consumption witness; 229 passes 25 contract/digester-caller cases after the conservative correction. All scopes are retained separately.",
+      "baseline_changed_by_classifier_fix": false,
+      "new_keyword_consumption_from_existing_kwargs": "breaking; optional positional-only additions have a separate positive binding control"
     }
   },
   "capabilities": [
@@ -342,16 +529,30 @@
     "core_semantics": "Opaque JSON; no scientific-source authentication or producer-schema mandate."
   },
   "private_custody": {
-    "number": 11,
-    "files_verified": 390,
-    "bytes_verified": 100841722,
-    "manifest_sha256": "7d8f73fd47b427d353b4d6b1f42b935f9040a216130af5e1a388ffdf18cf5794",
+    "number": 12,
+    "files_verified": 4088,
+    "bytes_verified": 64683737,
+    "manifest_sha256": "6cfae7c3dac46eb21e5d8587360f386c0ab3f7ce9bfca3511235130025b9949f",
     "original_diagnostics_retained": true,
     "unused_owned_credentials_hash_retired": true,
     "off_host_backup_claimed": false
   },
-  "viewer_source": "46f7d11ac77d9b241668cae6e9f9aa8a7d0609ec",
+  "viewer_source": "5164f13bb503625dbe65f3b657ab5260feadcb65",
   "owner_before_rebase": "400d484f85b461aeecd33918597291869be64e43",
   "owner_rebased_source": "e5607d6d8474126f16f77b63c8310b5253cada54",
-  "owner_integrated_construction_ancestry": true
+  "owner_integrated_construction_ancestry": true,
+  "initial_viewer_source": "46f7d11ac77d9b241668cae6e9f9aa8a7d0609ec",
+  "final_core_followup": "Viewer incrementally rejects oversized JSON before full expansion. 137 affected core cases and 42 final native producer/package cases pass. Earlier actual rendered scopes remain distinct; no redundant full platform run is claimed.",
+  "initial_viewer_input_sha256": {
+    "molsysviewer/_private/figure_observation.py": "d23e8d16979f07a20ed874603d8679b11099bc8434e5e80136aa5977ae1c655c",
+    "molsysviewer/_private/argdigest/argument/observations.py": "8c6be855b9069031974bb98824341e8f1d80bdb263dc02ae286b441968ffe948",
+    "molsysviewer/_private/structure_correspondence.py": "3966a0a0a76e3a850a4af5682cc2f4c2a628204e21ea0c67d71585ff8c0fba20",
+    "molsysviewer/trajectory_plot.py": "bcfb8977a55af4a1f41f36642339a3fb51119d7fa4a1ec097ccb9a5681cbf102",
+    "molsysviewer/js/src/ui/trajectory-plot-overlay.ts": "6f330576e30fce61d8fe24fa6912127a2ad0567250a86885a7e8cd03ce5477f8",
+    "molsysviewer/js/tests/e2e/trajectory-plot-authority-scenarios.ts": "a9029efdecb411b1219fc2d686f0db7a0766ac254a81dc58a222dfd65994d87c",
+    "molsysviewer/js/tests/e2e/trajectory-plot-bridge.py": "a93c97c767c6ae1f08f07564a1b9378ec0db33a78f08b668a086be8e55d8891e",
+    "tests/test_figure_observations.py": "182800a5b1305961964d98bebad63bdf8c63dc741f138e853e2c65d2503577ac",
+    "devtools/public_api_contract_baseline.json": "864624f7448af1a900a798d98c818c9f05773ef3f4a9849dddc69a6713fb2bfe",
+    "devtools/public_api_inventory_baseline.json": "cdca6dfef776d659d57a91a4eb8a1adb63f152b8f5fc936bb14de48328a85ebf"
+  }
 }
