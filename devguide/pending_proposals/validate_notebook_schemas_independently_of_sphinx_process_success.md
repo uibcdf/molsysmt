@@ -1,7 +1,7 @@
 ---
 summary: Validate notebook schemas independently of Sphinx process success.
 issue: uibcdf/molsysmt#700
-status: open
+status: active
 opened: 2026-11-10
 closed:
 verification: reproduced
@@ -51,3 +51,21 @@ and unchanged source bytes. Then receive the route in the documentation gate.
 The current corrected notebooks can be qualified through the recorded strict
 manual check; this automation proposal adds no release waiver or original plan
 weight. It is a bounded follow-up, not a reason to reopen the corrected cell.
+
+## Implementation and receiving — 2026-11-10
+
+The existing schema assertion is reused through one maintained developer CLI.
+Fast release preflight, local Makefile build targets and the documentation
+publication workflow call it before construction/publication. Read-only checks
+reject schema failures, unknown declared versions, missing/empty inventories,
+unexpected provider mutation or failure, and changed source bytes. Diagnostics
+name schema locations without dumping cells or embedded outputs. No scientific
+or public runtime dependency changes; docs/dev requirements and documentation/
+test environments explicitly declare nbformat >=5.1.3.
+
+Receiving must include every stored source, valid 4.4/4.5 controls, invalid
+cell IDs/outputs, unique IDs, source preservation, and an actual Makefile build
+whose controlled Sphinx process always succeeds. The invalid input must stop
+before that process runs. A SHA-256-verified official nbformat 5.1.3 wheel probes
+the declared API floor without modifying the shared environment. No closure or
+additional formal plan credit is claimed until receiving and public delivery.

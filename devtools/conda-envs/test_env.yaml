@@ -38,6 +38,8 @@ dependencies:
 - traitlets >=5
 - nglview>=3.0.4
 - pytest
+# The release preflight validates stored documentation schemas without Sphinx.
+- nbformat >=5.1.3
 - pytest-receptor=1.1.0
 - pytest-cov
 - codecov

@@ -50,6 +50,7 @@ It aggregates every cheap, deterministic gate into one PASS/FAIL verdict:
 | No top-level soft-dependency imports | `validate_dependencies.py` |
 | Developer-guide integrity | `validate_devguide.py` |
 | Four Paths course structure | `validate_course.py` |
+| Stored notebook schemas, declared versions and unchanged source | `validate_notebook_schemas.py` |
 | Demo assets / H5MSM fixtures | `validate_demo_assets.py` |
 | Resource manifests | `validate_resources.py` |
 | Citation and Zenodo metadata | `validate_citation.py` |

@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (38)
+### Open (37)
 
 - [`add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md`](add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md) — [#308](https://github.com/uibcdf/molsysmt/issues/308) — Add a native general ligand hydrogen engine for fixed chemical states *(inspected)*
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
@@ -76,13 +76,13 @@ Entries carrying front matter under
 - [`shared_reporting_vocabulary_across_molsyssuite.md`](shared_reporting_vocabulary_across_molsyssuite.md) — [#156](https://github.com/uibcdf/molsysmt/issues/156) — A reporting vocabulary every MolSysSuite tool can adopt unchanged. *(measured)*
 - [`standard_residue_side_chain_reconstruction.md`](standard_residue_side_chain_reconstruction.md) — [#327](https://github.com/uibcdf/molsysmt/issues/327) — Reconstruct ambiguous standard-residue side chains with explicit geometric evidence *(inspected)*
 - [`support_paired_rigid_and_flexible_receptor_pdbqt_forms.md`](support_paired_rigid_and_flexible_receptor_pdbqt_forms.md) — [#225](https://github.com/uibcdf/molsysmt/issues/225) — Support paired rigid and flexible receptor PDBQT forms *(inspected)*
-- [`validate_notebook_schemas_independently_of_sphinx_process_success.md`](validate_notebook_schemas_independently_of_sphinx_process_success.md) — [#700](https://github.com/uibcdf/molsysmt/issues/700) — Validate notebook schemas independently of Sphinx process success. *(reproduced)*
 
-### In progress (3)
+### In progress (4)
 
 - [`evaluate_lto_and_rattler_build_for_native_conda_latency.md`](evaluate_lto_and_rattler_build_for_native_conda_latency.md) — [#205](https://github.com/uibcdf/molsysmt/issues/205) — Evaluate LTO and Rattler Build for native Conda latency *(measured)*
 - [`freeze_1_0_scope_and_complete_bounded_stabilization.md`](freeze_1_0_scope_and_complete_bounded_stabilization.md) — [#334](https://github.com/uibcdf/molsysmt/issues/334) — Freeze 1.0 scope and complete bounded stabilization *(measured)*
 - [`h5msm_0_6_molecular_mechanics_persistence.md`](h5msm_0_6_molecular_mechanics_persistence.md) — [#256](https://github.com/uibcdf/molsysmt/issues/256) — Design H5MSM 0.6 persistence for MolecularMechanics *(measured)*
+- [`validate_notebook_schemas_independently_of_sphinx_process_success.md`](validate_notebook_schemas_independently_of_sphinx_process_success.md) — [#700](https://github.com/uibcdf/molsysmt/issues/700) — Validate notebook schemas independently of Sphinx process success. *(reproduced)*
 
 ### Blocked (2)
 
