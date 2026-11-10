@@ -48,7 +48,7 @@ try{
  let canvas,studio;
  await step('Inspect observed DSSP codes with exact group and repeated structure correspondence',async()=>{
   const e=await prepare(page,'secondary_structure');await e.locator('[data-first] [data-indices]').fill('0,20,10,6,20');await e.locator('[data-secondary-mode]').selectOption('full');await e.locator('[data-structures]').selectOption('indices');await e.locator('[data-structure-indices]').fill('2,0,2');await calculate(e);
-  const expectedRows=[2,0,2].flatMap((f,i)=>expected.ss_groups.map((g,j)=>[f,g,"'"+expected.dssp_full[i][j]+"'"]));assert.deepEqual(await rows(e),expectedRows);assert.ok(expected.dssp_full.flat().includes('NA'));assert.match(await e.locator('[data-provenance]').innerText(),/MDTraj/);assert.match(await e.locator('[data-periodicity]').innerText(),/not sequence prediction/);
+  const expectedRows=[2,0,2].flatMap((f,i)=>expected.ss_groups.map((g,j)=>[f,g,"'"+expected.dssp_full[i][j]+"'"]));assert.deepEqual(await rows(e),expectedRows);assert.ok(expected.dssp_full.flat().includes('NA'));const provenance=e.locator('details').filter({has:e.locator('[data-provenance]')});if(!await provenance.evaluate(node=>node.open))await provenance.locator('summary').click();assert.match(await e.locator('[data-provenance]').innerText(),/MDTraj/);assert.match(await e.locator('[data-periodicity]').innerText(),/not sequence prediction/);
   await e.locator('[data-result-row="0"]').check();await e.locator('[data-select-participants]').click();await e.locator('[data-status]').filter({hasText:'Selected'}).waitFor();assert.equal(await page.evaluate(()=>window.__controllers[0].trajectory.getTrajectoryState().currentFrame),0);
  });
  await step('Receive independent property reports in canvas and detached Studio popups',async()=>{

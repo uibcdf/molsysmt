@@ -73,3 +73,14 @@ parity, nm/pm policies, actual native/H5 chunking, eager foreign inputs, empty
 axes, invalid controls, configured admission, provider absence through the real
 DepDigest checker and real Ackredit criterion/version capture. The complete
 source, docstring/tutorial and graphical receiving follow on a clean cohort.
+
+
+## Clean receiving and first browser attempt — 2026-11-10
+
+Clean 707ea24b2 passes 186 affected cases, 116 registered scientific cases /
+74 nodes, fourteen fast gates, the one-process HTML build and the representative
+native Qt properties guard (seven checks). The first Jupyter workflow reaches
+the exact DSSP values/axes but fails while reading innerText from a closed
+provenance details element. The browser guard now opens that actual user control
+before asserting visible provider text. The failed attempt is retained; no
+deadline or scientific expectation is weakened.
