@@ -764,3 +764,12 @@ parameterize a System but creates no Context, device or integrator and changes
 no source/scene. Its first stored structure context is independent of the
 visible structure. Do not confuse this expert query with graphical #687
 acceptance or claim that a compact report reproduces arbitrary custom forces.
+
+Preserve explicit single-structure native physical-model inspection and its
+read-only paged GUI task. Keep lightweight requested/default review distinct
+from parameterization on Calculate. Native recipes own requested/inapplicable
+origins, actual compiled settings, typed row-vector boxes, resources, software
+and unsupported controls. Analysis mechanics retain a separate construction-
+structure inspection, never a claimed snapshot of their execution Context.
+Execution settings remain separate; no hidden preparation, native criterion
+workaround, persistent generic result store or published stability is inferred.

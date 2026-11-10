@@ -277,6 +277,7 @@ jobs:
             tests/molsysviewer_molsysmt/test_property_analysis_panel.py \
             tests/molsysviewer_molsysmt/test_analysis_visual_adoption.py \
             tests/molsysviewer_molsysmt/test_mechanical_analysis_panel.py \
+            tests/molsysviewer_molsysmt/test_physical_model_panel.py \
             tests/molsysviewer_molsysmt/test_interaction_analysis_panel.py \
             tests/molsysviewer_molsysmt/test_minimization_panel.py \
             tests/molsysviewer_molsysmt/test_scientific_session.py \

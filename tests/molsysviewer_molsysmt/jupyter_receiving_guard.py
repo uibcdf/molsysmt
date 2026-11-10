@@ -552,7 +552,7 @@ def test_actual_jupyter_interaction_mechanics_and_both_popups(tmp_path):
         command.extend(["--provider-root", provider])
     subprocess.run(command, check=True, timeout=420)
     result = json.loads((output / "full-result.json").read_text())
-    assert len(result["checks"]) == 6
+    assert len(result["checks"]) == 7
     assert not (output / "settings.json").exists()
     assert not (output / "config/jupyter_server_config.py").exists()
 

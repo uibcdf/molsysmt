@@ -42,6 +42,7 @@ TOOLS_FILES = frozenset(
         "molsysviewer_molsysmt/_analysis_mechanics.py",
         "molsysviewer_molsysmt/_analysis_interactions.py",
         "molsysviewer_molsysmt/_mechanical_review.py",
+        "molsysviewer_molsysmt/_physical_model.py",
         "molsysviewer_molsysmt/_analysis_panel_frontend.py",
         "molsysviewer_molsysmt/_element.py",
         "molsysviewer_molsysmt/_element_hierarchy.py",

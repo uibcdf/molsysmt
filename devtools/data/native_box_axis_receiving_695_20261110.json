@@ -1,0 +1,29 @@
+{
+  "viewer_imported": false,
+  "before_structures": 3,
+  "source_frames": [
+    0,
+    8,
+    3
+  ],
+  "requested_box_shape": [
+    3,
+    3
+  ],
+  "set_exception": null,
+  "validation_exception": {
+    "type": "StructuralInconsistencyError",
+    "message": "Structural inconsistency detected: Structural series 'time' has 3 entries while 'box' has 1.. Check the reported reason for incompatible geometry, dimensions or index correspondence. When comparing or merging systems, also verify the selected atoms, groups and structures. Docs: https://www.uibcdf.org/MolSysMT"
+  },
+  "stored_box_shape": [
+    1,
+    3,
+    3
+  ],
+  "coordinates_unchanged": true,
+  "schema": "molsysmt.box_axis_diagnostic@1",
+  "issue": "uibcdf/molsysmt#695",
+  "source": "6bd879bda202feee372b25a61734ee13ee7928ac",
+  "status": "native-only defect reproduced; no passing product or correction claim",
+  "consumer_issue": "uibcdf/molsysviewer#315"
+}

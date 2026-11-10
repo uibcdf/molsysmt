@@ -115,7 +115,7 @@ def test_actual_qt_interaction_mechanics_and_separate_adoption(tmp_path):
     )
     assert result.returncode == 0, result.stdout + result.stderr
     report = json.loads((tmp_path / "report.json").read_text())
-    assert len(report["checks"]) == 4
+    assert len(report["checks"]) == 5
     assert report["qt_platform"] not in ("offscreen", "minimal")
 
 

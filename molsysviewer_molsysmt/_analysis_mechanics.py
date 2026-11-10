@@ -7,9 +7,11 @@ from weakref import ref
 import numpy as np
 
 from ._mechanical_review import _mechanical_model
+from ._physical_model import inspect_physical_model
 from ._task_panel import _structures
 
 MECHANICAL_METHODS = {
+    "model_recipe": "get_model_recipe",
     "potential_energy": "get_potential_energy",
     "energy_terms": "get_potential_energy",
     "forces": "get_forces",
@@ -167,10 +169,22 @@ class _MechanicalReports:
         frames, atoms = review.frames, review.atoms
         metadata = dict(
             model=review.model,
-            platform=p["mechanical_platform"],
+            platform=None
+            if task in {"model_recipe", "mechanical_dof"}
+            else p["mechanical_platform"],
             engine="OpenMM",
         )
-        if task == "forces":
+        recipe, physical = inspect_physical_model(target, frames)
+        if _mechanical_model(target, purpose="mechanical analysis") != review.model:
+            raise ValueError("Model defaults changed during inspection; review again.")
+        metadata["physical_model"] = physical
+        metadata["native_physical_recipe"] = recipe
+        if task == "model_recipe":
+            native = recipe
+            values, unit = np.empty(0), ""
+            layout, total = "mechanical_recipe", len(physical["rows"])
+            metadata["notice"] = physical["notice"]
+        elif task == "forces":
             native = self._owner.molecular_mechanics.get_forces(
                 selection=atoms.tolist(),
                 structure_indices=frames,
@@ -203,7 +217,9 @@ class _MechanicalReports:
             projected = msm.extract(target, structure_indices=frames)
             reader = getattr(msm.molecular_mechanics, MECHANICAL_METHODS[task])
             if task == "mechanical_dof":
-                fields = {name: value for name, value, _, _ in review.model}
+                fields = {
+                    name: entry["value"] for name, entry in recipe["requested"].items()
+                }
                 native = reader(
                     projected,
                     forcefield=fields["forcefield"],
@@ -288,8 +304,13 @@ class _MechanicalReports:
             structure_count=len(r.frames),
             source_revision=r.revision,
             family="mechanical",
-            result_axis="atom" if r.layout == "mechanical_forces" else "term",
-            definition="Stored model requests and named native defaults, reviewed before calculation; broader effective-recipe work remains #582.",
+            result_axis="model"
+            if r.layout == "mechanical_recipe"
+            else "atom"
+            if r.layout == "mechanical_forces"
+            else "term",
+            definition="Requested settings are reviewed before calculation. The separate native physical inspection records compiled settings for the construction structure, without retaining an execution Context.",
+            physical_model=m["physical_model"],
             notice=m["notice"],
             engine=m["engine"],
             platform=m["platform"],
@@ -314,6 +335,19 @@ class _MechanicalReports:
 
     def _mechanical_page(self, offset, size):
         r, rows = self._report, []
+        if r.layout == "mechanical_recipe":
+            return dict(
+                offset=offset,
+                total=r.total,
+                page_size=size,
+                columns=["Structure index", "Model field", "Value", "Unit", "Source"],
+                rows=[
+                    [r.frames[0], *row]
+                    for row in r.auxiliary["physical_model"]["rows"][
+                        offset : offset + size
+                    ]
+                ],
+            )
         force = r.layout == "mechanical_forces"
         columns = (
             [
