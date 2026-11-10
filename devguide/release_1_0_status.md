@@ -1,5 +1,24 @@
 # MolSysMT 1.0 Execution Status
 
+## Native peptide endpoints received — 2026-11-10
+
+#686 is source-resolved: the shared public experimental
+`chemical_states.get_peptide_termini` follows stored named backbone bonds instead
+of IDs or inventory order. Strict/report modes distinguish ambiguous chains,
+cycles and real cap attachments. Native terminal assessment, local completion,
+cap anchors and the read-only addon facade reuse it. The 1BRS model has actual
+chain interruptions: its native adder now preserves uncertain OXT rather than
+choosing an endpoint by label; PDBFixer retains its independent profile.
+
+Clean source receiving passes **342 affected/consumer cases**, **110 scientific
+cases / 71 nodes**, **14 fast gates**, **six inspected HTML pages** and actual
+execution of both affected tutorials (**17 code cells**). Original failures and
+source-cohort identities remain in the [receipt](../devtools/data/peptide_termini_receiving_686_20261110.json).
+No extra graphical intent or weighted bonus is added: progress stays **74.2101%**.
+Public source delivery/issue closure follows this qualified checkpoint.
+Continue #582's effective model/control contract; #666/provider143, remaining
+#421, #256, #524/#615 and #334 gates retain their scope and external dependencies.
+
 ## Public combined delivery verified — 2026-11-09
 
 Public main **c9bb16eab** contains the four reviewed PR heads; all **51** changed
@@ -48,7 +67,7 @@ silently changing its six weights or release scope:
 
 | Order | Owner | Disposition / next acceptance |
 | --- | --- | --- |
-| 1 | #686 | Newly reproduced: changing only group ID labels moves the reported C terminus. Review chemical endpoint recognition, ambiguous/cyclic/capped cases and public addition consumers; add a scientific regression before optional enhancements. [Diagnosis](pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md). |
+| 1 | #686 | Source-resolved and received: shared chemical endpoint recognition replaces ID-label ordering; ambiguous chains remain explicitly unassessed. Public delivery/closure follows the qualified checkpoint. [Resolution](archive/resolved_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md). |
 | 2 | #582 and remaining #421 | Complete the effective engine-neutral mechanical recipe and original unreceived graphical intents; retain the partial properties/protonation distinctions. Receive native/scientific behavior and actual graphical workflows before credit. |
 | 3 | #666 / uibcdf/pyunitwizard#143 | Resolve the native cutoff/unit boundary before accepting the contact prototype; no GUI-specific tolerance workaround. |
 | 4 | #256, #524, #615, #334 | Continue independent H5MSM/stable-format review, actual dependency-floor/installed closure, diagnostic causality and final exact-candidate/platform gates. |

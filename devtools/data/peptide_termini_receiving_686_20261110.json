@@ -1,0 +1,1772 @@
+{
+  "schema_version": "molsysmt.peptide_termini_receiving@1",
+  "date": "2026-11-10",
+  "owner_issue": "uibcdf/molsysmt#686",
+  "qualified_source": "b59ce29d560da1617cd8193d6945baea793c67ab",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "scope": "Bounded Linux/Python 3.14 source receiving, not installed/other-platform/human/final-candidate qualification.",
+  "runs": {
+    "baseline-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-termini-686-baseline-directed.xml",
+          "--receptor-events=<private-evidence>/pre1-termini-686-baseline-directed.events.jsonl",
+          "tests/build/get_missing_terminal_cappings/test_label_independent_termini.py",
+          "--basetemp=<private-evidence>/pre1-termini-686-baseline-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 6.255163326160982,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": "?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n",
+        "ending_git_status": "?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8732
+      },
+      "resources": {
+        "started_utc": "2026-11-10T06:09:32.245113+00:00",
+        "seconds": 12.012461549136788,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.44775390625,
+            0.98828125,
+            1.53271484375
+          ],
+          "cpu_utilization": 0.02963335007533907,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14550323200,
+        "cgroup_memory_peak_bytes": 244822016,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "31673ad3b60de1d3d7412bcf46d64b0b19a1b48accd22d29a54aace35a050e6b",
+        "-bounded.json": "cdd9c70862a920f8ed4f9066970d7f8bcc8f592a990db3dcebde3a146ef1c9a0",
+        ".xml": "f492715922bd84e5dd9137b3fee01628049f6271e959087ce4e821522da7dcd5",
+        ".log": "a53dcb949211e8863c6215c67a0966e18203bd091c76b28224c0ef09b78f578c",
+        "-inputs-before.json": "5b7dd52932645641619a1201a752f9ff97052341e013f0585cedecdb3217a76b",
+        "-inputs-after.json": "5b7dd52932645641619a1201a752f9ff97052341e013f0585cedecdb3217a76b",
+        "-reference-driver.py": "61619f09e9f05b13ce18a7b52d2ec089aaca8b9ba367cc27527ea40b9d8319b4",
+        "-resource-driver.py": "daf47666f8a9ddd81c93ab0665ce4e3b1ba210106a2b08480bf5126a4b3b0a8f"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "4",
+          "skipped": "0",
+          "tests": "7",
+          "time": "3.801",
+          "timestamp": "2026-11-10T00:09:36.874807-06:00"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.build.get_missing_terminal_cappings.test_label_independent_termini",
+          "name": "test_oxt_assessment_ignores_group_id_labels[labels0]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.build.get_missing_terminal_cappings.test_label_independent_termini",
+          "name": "test_oxt_addition_follows_the_same_chemical_endpoint[labels0]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.build.get_missing_terminal_cappings.test_label_independent_termini",
+          "name": "test_capped_endpoint_does_not_depend_on_cap_labels",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.build.get_missing_terminal_cappings.test_label_independent_termini",
+          "name": "test_a_cyclic_backbone_has_no_free_carboxyl_terminus",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "small-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-termini-686-small-directed.xml",
+          "--receptor-events=<private-evidence>/pre1-termini-686-small-directed.events.jsonl",
+          "tests/chemical_states/test_get_peptide_termini.py",
+          "tests/build/get_missing_terminal_cappings/test_label_independent_termini.py",
+          "molsysmt/chemical_states/get_peptide_termini.py",
+          "--basetemp=<private-evidence>/pre1-termini-686-small-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 12.171532503096387,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": " M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "ending_git_status": " M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8735
+      },
+      "resources": {
+        "started_utc": "2026-11-10T06:16:14.113447+00:00",
+        "seconds": 18.01720982301049,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            2.31640625,
+            2.36962890625,
+            1.94287109375
+          ],
+          "cpu_utilization": 0.027596588058203753,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14551973888,
+        "cgroup_memory_peak_bytes": 286334976,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "a04def0a3f504a99742fcad1b7a5f9550631b1fd71484242b020081727e22cbf",
+        "-bounded.json": "b561d88589e113695d0f0fb0866b61558fa84ecb4c1eba76e47cb69979b28b02",
+        ".xml": "5c99854a52c1adee1d366f957b5b919e9a33ecc937e8ec0b0b0baff6fb93cf44",
+        ".log": "5917e9b7e20d6960b95251776de7a969dfbd0a44115063c7b41cee242f992d1f",
+        "-inputs-before.json": "eea229b52d1a33484cfb2fdb50c5e6e2588e2243120406a5ff7141ad2b512906",
+        "-inputs-after.json": "eea229b52d1a33484cfb2fdb50c5e6e2588e2243120406a5ff7141ad2b512906",
+        "-reference-driver.py": "a8082fd96761bee1a2714670d69a082a2127e08522ecfb4b2eaa08af77849fe8",
+        "-resource-driver.py": "daf47666f8a9ddd81c93ab0665ce4e3b1ba210106a2b08480bf5126a4b3b0a8f"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "4",
+          "skipped": "0",
+          "tests": "22",
+          "time": "9.521",
+          "timestamp": "2026-11-10T00:16:18.748020-06:00"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.chemical_states.test_get_peptide_termini",
+          "name": "test_a_cycle_has_no_free_ends_and_does_not_acquire_caps",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.chemical_states.test_get_peptide_termini",
+          "name": "test_supported_forms_retain_source_group_indices[molsysmt.MolSysDict]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.chemical_states.test_get_peptide_termini",
+          "name": "test_supported_forms_retain_source_group_indices[mdtraj.Trajectory]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.chemical_states.test_get_peptide_termini",
+          "name": "test_topology_alone_has_no_chemical_endpoint_authority",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "small-fixed-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-termini-686-small-fixed-directed.xml",
+          "--receptor-events=<private-evidence>/pre1-termini-686-small-fixed-directed.events.jsonl",
+          "tests/chemical_states/test_get_peptide_termini.py",
+          "tests/build/get_missing_terminal_cappings/test_label_independent_termini.py",
+          "molsysmt/chemical_states/get_peptide_termini.py",
+          "--basetemp=<private-evidence>/pre1-termini-686-small-fixed-directed"
+        ],
+        "exit_code": 0,
+        "seconds": 13.22737710014917,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": " M molsysmt/_private/argdigest/argument/_correspondence_axes.py\n M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "ending_git_status": " M molsysmt/_private/argdigest/argument/_correspondence_axes.py\n M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8735
+      },
+      "resources": {
+        "started_utc": "2026-11-10T06:18:02.715898+00:00",
+        "seconds": 19.017219349043444,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.83251953125,
+            1.86181640625,
+            1.8056640625
+          ],
+          "cpu_utilization": 0.030090270812437314,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14522793984,
+        "cgroup_memory_peak_bytes": 292175872,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "45553205fa87811bfeccc92cd87762f5ae5b19acf43b652d9506d2601d329113",
+        "-bounded.json": "22ecac4554c93a237e08a5ac0b4cd2206da68514f6c974190af6f42863dba235",
+        ".xml": "d7eff1084f5ca1abfd4de64dd4f109186f248a5ee10bd29912dcdcada5a3ef57",
+        ".log": "c38928f6f7e9de52c7889954a79c0019d233115fe328dec90ed208486da4a14b",
+        "-inputs-before.json": "ffe130e26c1ea399adaab916435f76e683cf40b3f659b7b53501a0323dbc713c",
+        "-inputs-after.json": "ffe130e26c1ea399adaab916435f76e683cf40b3f659b7b53501a0323dbc713c",
+        "-reference-driver.py": "a8082fd96761bee1a2714670d69a082a2127e08522ecfb4b2eaa08af77849fe8",
+        "-resource-driver.py": "daf47666f8a9ddd81c93ab0665ce4e3b1ba210106a2b08480bf5126a4b3b0a8f"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "22",
+          "time": "10.469",
+          "timestamp": "2026-11-10T00:18:07.348212-06:00"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "expanded-small-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-termini-686-expanded-small-directed.xml",
+          "--receptor-events=<private-evidence>/pre1-termini-686-expanded-small-directed.events.jsonl",
+          "tests/chemical_states/test_get_peptide_termini.py",
+          "tests/build/get_missing_terminal_cappings/test_label_independent_termini.py",
+          "molsysmt/chemical_states/get_peptide_termini.py",
+          "--basetemp=<private-evidence>/pre1-termini-686-expanded-small-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 16.455248238053173,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": " M molsysmt/_private/argdigest/argument/_correspondence_axes.py\n M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "ending_git_status": " M molsysmt/_private/argdigest/argument/_correspondence_axes.py\n M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8735
+      },
+      "resources": {
+        "started_utc": "2026-11-10T06:21:19.082876+00:00",
+        "seconds": 22.02226037811488,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.9150390625,
+            1.38623046875,
+            1.6220703125
+          ],
+          "cpu_utilization": 0.02713567839195985,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14524784640,
+        "cgroup_memory_peak_bytes": 315207680,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "1f44b6b10062b445460710f68d43de7c7b7e59adc1913711091ef143aa4d5e07",
+        "-bounded.json": "c4ef077fbd98da571a5c2b8d7660bc15dd7ed12d86ff102ad7e67bdfed17c808",
+        ".xml": "e5c4ae76d16663927b926da1cd8dea0c8b9f637ac1a5a5709399591d3057d9ab",
+        ".log": "18e3166becbdd40ad3812cd51dfea83e1f95ee5d5af6135956f9b7a536a1a32a",
+        "-inputs-before.json": "8505b53182bab0c7ed969e7634cb03e0b0db0a931ed0e1d343889b41bdc20a09",
+        "-inputs-after.json": "8505b53182bab0c7ed969e7634cb03e0b0db0a931ed0e1d343889b41bdc20a09",
+        "-reference-driver.py": "a8082fd96761bee1a2714670d69a082a2127e08522ecfb4b2eaa08af77849fe8",
+        "-resource-driver.py": "daf47666f8a9ddd81c93ab0665ce4e3b1ba210106a2b08480bf5126a4b3b0a8f"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "29",
+          "time": "13.622",
+          "timestamp": "2026-11-10T00:21:23.693577-06:00"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.chemical_states.test_get_peptide_termini",
+          "name": "test_group_inventory_order_does_not_define_direction_or_cap_anchors",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "partial-small-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-termini-686-partial-small-directed.xml",
+          "--receptor-events=<private-evidence>/pre1-termini-686-partial-small-directed.events.jsonl",
+          "tests/chemical_states/test_get_peptide_termini.py",
+          "tests/build/get_missing_terminal_cappings/test_label_independent_termini.py",
+          "molsysmt/chemical_states/get_peptide_termini.py",
+          "--basetemp=<private-evidence>/pre1-termini-686-partial-small-directed"
+        ],
+        "exit_code": 0,
+        "seconds": 22.173807760933414,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": " M devguide/api_stability_registry.md\n M devguide/pending_bugs/README.md\n M devguide/pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md\n M devtools/data/public_api_stability.json\n M docs/api/chemical_states/api_chemical_states.rst\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/build/add_missing_terminal_cappings.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb\n M docs/content/user/tools/chemical_states/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/_correspondence_axes.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/warnings.py\n M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n?? docs/api/chemical_states/autosummary/molsysmt.chemical_states.get_peptide_termini.rst\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/on_ambiguous.py\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "ending_git_status": " M devguide/api_stability_registry.md\n M devguide/pending_bugs/README.md\n M devguide/pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md\n M devtools/data/public_api_stability.json\n M docs/api/chemical_states/api_chemical_states.rst\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/build/add_missing_terminal_cappings.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb\n M docs/content/user/tools/chemical_states/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/_correspondence_axes.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/warnings.py\n M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n?? docs/api/chemical_states/autosummary/molsysmt.chemical_states.get_peptide_termini.rst\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/on_ambiguous.py\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8739
+      },
+      "resources": {
+        "started_utc": "2026-11-10T06:36:07.877326+00:00",
+        "seconds": 29.026936724083498,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            7.4208984375,
+            2.7412109375,
+            1.74462890625
+          ],
+          "cpu_utilization": 0.23903177004538578,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13271609344,
+        "cgroup_memory_peak_bytes": 315330560,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "066f7a941257a8ec153e22d18ab66b144af4422a754b9d9f1dcc55ebf6fbeeb6",
+        "-bounded.json": "9b19467e44d8f79b53102bbbd0955fdc9616c5650d3e688a8068d0ed9bd0117c",
+        ".xml": "1be6ba15f4cdd2cfa26cda8b62c2e3ed4960e6f399d2516d3503000b79cded6e",
+        ".log": "d9c6de6826228b9648a41743327b43237ed83e0770e7c2b929621f7b38d3e425",
+        "-inputs-before.json": "bf79f8a17b03ecba8d9eff40488d62c9686f886be8317b60a4ad3cf66812f843",
+        "-inputs-after.json": "bf79f8a17b03ecba8d9eff40488d62c9686f886be8317b60a4ad3cf66812f843",
+        "-reference-driver.py": "7bf234ca149aaa26701b14586a1ff06770c85ad4d89f7b398f72e6d52fc83f2c",
+        "-resource-driver.py": "eb83ddf5eb4e8e94636051b6e2f6f6b4cb421797427f20c6ec734e7dcfa04fa4"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "35",
+          "time": "18.319",
+          "timestamp": "2026-11-10T00:36:13.837845-06:00"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "wide-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n2",
+          "--junitxml=<private-evidence>/pre1-termini-686-wide-directed.xml",
+          "--receptor-events=<private-evidence>/pre1-termini-686-wide-directed.events.jsonl",
+          "tests/chemical_states/test_get_peptide_termini.py",
+          "tests/build/get_missing_terminal_cappings",
+          "tests/build/add_missing_terminal_cappings",
+          "tests/build/test_native_placers.py",
+          "tests/build/test_terminal_protonation_follows_ph.py",
+          "tests/build/test_structure_preparation_pipeline.py",
+          "tests/molsysviewer_molsysmt/test_build_audit_tools.py",
+          "tests/molsysviewer_molsysmt/test_chemistry_repair_panel.py",
+          "molsysmt/chemical_states/get_peptide_termini.py",
+          "molsysmt/build/get_missing_terminal_cappings.py",
+          "molsysmt/build/add_missing_terminal_cappings.py",
+          "--basetemp=<private-evidence>/pre1-termini-686-wide-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 49.68822847912088,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": " M devguide/api_stability_registry.md\n M devguide/pending_bugs/README.md\n M devguide/pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md\n M devtools/data/public_api_stability.json\n M docs/api/chemical_states/api_chemical_states.rst\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/build/add_missing_terminal_cappings.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb\n M docs/content/user/tools/chemical_states/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/_correspondence_axes.py\n M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n?? docs/api/chemical_states/autosummary/molsysmt.chemical_states.get_peptide_termini.rst\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md.AGENTS.md\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "ending_git_status": " M devguide/api_stability_registry.md\n M devguide/pending_bugs/README.md\n M devguide/pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md\n M devtools/data/public_api_stability.json\n M docs/api/chemical_states/api_chemical_states.rst\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/build/add_missing_terminal_cappings.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb\n M docs/content/user/tools/chemical_states/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/_correspondence_axes.py\n M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n?? docs/api/chemical_states/autosummary/molsysmt.chemical_states.get_peptide_termini.rst\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md.AGENTS.md\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8738
+      },
+      "resources": {
+        "started_utc": "2026-11-10T06:25:54.761160+00:00",
+        "seconds": 56.05593974306248,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.5029296875,
+            0.7998046875,
+            1.3056640625
+          ],
+          "cpu_utilization": 0.029145728643216073,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13730185216,
+        "cgroup_memory_peak_bytes": 1121374208,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "37776d4803538b1e19f92cc3c8a21353fb285ddffffd27d93571686f421fe61c",
+        "-bounded.json": "1a130bddf58a56c7a88f234fcf0701af178a17a95976a4368ce52042d96da714",
+        ".xml": "3680211a2a9f2cff5959ccdc937f635bd44c2396611bcdd26bdd3d2d3383ec7a",
+        ".log": "b251cdb7d3c66e6f5ee1667acde3739b0015e34a7692ca79a1ca29b7088b5321",
+        "-inputs-before.json": "4bc6b5936af913adaec48cac4feec6af3560a767b8e11083faa6238b1452031f",
+        "-inputs-after.json": "4bc6b5936af913adaec48cac4feec6af3560a767b8e11083faa6238b1452031f",
+        "-reference-driver.py": "5daac4729b7696310963d8f00515cacd31182b576f1e0dcfe981b78fb11f765e",
+        "-resource-driver.py": "eb83ddf5eb4e8e94636051b6e2f6f6b4cb421797427f20c6ec734e7dcfa04fa4"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "7",
+          "skipped": "0",
+          "tests": "240",
+          "time": "47.335",
+          "timestamp": "2026-11-10T00:25:59.398731-06:00"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.build.add_missing_terminal_cappings.test_add_missing_terminal_cappings_parity",
+          "name": "test_1brs_bounded_heavy_repair_and_shared_terminal_completion",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.build.add_missing_terminal_cappings.test_add_missing_terminal_cappings_parity",
+          "name": "test_parity_1brs_oxt_count",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.build.add_missing_terminal_cappings.test_add_missing_terminal_cappings_parity",
+          "name": "test_parity_1brs_group_412_has_oxt",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.build.add_missing_terminal_cappings.test_add_missing_terminal_cappings_parity",
+          "name": "test_parity_1brs_no_missing_terminal_after_fix",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.build.get_missing_terminal_cappings.test_get_missing_terminal_cappings",
+          "name": "test_get_missing_terminal_cappings_native_barnase",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.build.get_missing_terminal_cappings.test_get_missing_terminal_cappings",
+          "name": "test_get_missing_terminal_cappings_returns_dict",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.build.get_missing_terminal_cappings.test_get_missing_terminal_cappings",
+          "name": "test_get_missing_terminal_cappings_engines_agree",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "partial-wide-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n2",
+          "--junitxml=<private-evidence>/pre1-termini-686-partial-wide-directed.xml",
+          "--receptor-events=<private-evidence>/pre1-termini-686-partial-wide-directed.events.jsonl",
+          "tests/chemical_states/test_get_peptide_termini.py",
+          "tests/build/get_missing_terminal_cappings",
+          "tests/build/add_missing_terminal_cappings",
+          "tests/build/test_native_placers.py",
+          "tests/build/test_terminal_protonation_follows_ph.py",
+          "tests/build/test_structure_preparation_pipeline.py",
+          "tests/molsysviewer_molsysmt/test_build_audit_tools.py",
+          "tests/molsysviewer_molsysmt/test_chemistry_repair_panel.py",
+          "molsysmt/chemical_states/get_peptide_termini.py",
+          "molsysmt/build/get_missing_terminal_cappings.py",
+          "molsysmt/build/add_missing_terminal_cappings.py",
+          "--basetemp=<private-evidence>/pre1-termini-686-partial-wide-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 125.73487533186562,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": " M devguide/api_stability_registry.md\n M devguide/pending_bugs/README.md\n M devguide/pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md\n M devtools/data/public_api_stability.json\n M docs/api/chemical_states/api_chemical_states.rst\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/build/add_missing_terminal_cappings.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb\n M docs/content/user/tools/chemical_states/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/_correspondence_axes.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/warnings.py\n M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n?? docs/api/chemical_states/autosummary/molsysmt.chemical_states.get_peptide_termini.rst\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/on_ambiguous.py\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "ending_git_status": " M devguide/api_stability_registry.md\n M devguide/pending_bugs/README.md\n M devguide/pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md\n M devtools/data/public_api_stability.json\n M docs/api/chemical_states/api_chemical_states.rst\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/build/add_missing_terminal_cappings.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb\n M docs/content/user/tools/chemical_states/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/_correspondence_axes.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/warnings.py\n M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n?? docs/api/chemical_states/autosummary/molsysmt.chemical_states.get_peptide_termini.rst\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/on_ambiguous.py\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8739
+      },
+      "resources": {
+        "started_utc": "2026-11-10T06:37:47.540600+00:00",
+        "seconds": 133.10498217097484,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            7.74609375,
+            4.162109375,
+            2.3564453125
+          ],
+          "cpu_utilization": 0.41214859437751006,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 11859070976,
+        "cgroup_memory_peak_bytes": 1051570176,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "360cca7fd98b3e5fb2161bae964bf847a4388f09e4cb8bae3625b0d124bcf801",
+        "-bounded.json": "4edc00948e581faa1bbe62f139a27028d95342ba5244319e0eee895714a906a6",
+        ".xml": "7ff746f9fbfb309daf69840bd559180db9d12c6261e6f6018609f91e3674d0a4",
+        ".log": "6164a3197d6dda19bc64acf7d796f90a331f45ea4634aa92832e9cf7baff530e",
+        "-inputs-before.json": "345076cb37c947bb5efb635e128d37aee3e5090247e23ecffe99c86058181d5b",
+        "-inputs-after.json": "345076cb37c947bb5efb635e128d37aee3e5090247e23ecffe99c86058181d5b",
+        "-reference-driver.py": "7bf234ca149aaa26701b14586a1ff06770c85ad4d89f7b398f72e6d52fc83f2c",
+        "-resource-driver.py": "eb83ddf5eb4e8e94636051b6e2f6f6b4cb421797427f20c6ec734e7dcfa04fa4"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "6",
+          "skipped": "0",
+          "tests": "248",
+          "time": "123.020",
+          "timestamp": "2026-11-10T00:37:53.226604-06:00"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.build.get_missing_terminal_cappings.test_get_missing_terminal_cappings",
+          "name": "test_get_missing_terminal_cappings_engines_agree",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.build.add_missing_terminal_cappings.test_add_missing_terminal_cappings_parity",
+          "name": "test_1brs_bounded_heavy_repair_and_shared_terminal_completion",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.chemical_states.test_get_peptide_termini",
+          "name": "test_an_explicit_dative_backbone_edge_is_not_a_peptide_bond",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.build.get_missing_terminal_cappings.test_get_missing_terminal_cappings",
+          "name": "test_get_missing_terminal_cappings_native_barnase",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.build.add_missing_terminal_cappings.test_add_missing_terminal_cappings_parity",
+          "name": "test_parity_1brs_oxt_count",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.build.add_missing_terminal_cappings.test_add_missing_terminal_cappings_parity",
+          "name": "test_parity_1brs_group_412_has_oxt",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "final-wide-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n2",
+          "--junitxml=<private-evidence>/pre1-termini-686-final-wide-directed.xml",
+          "--receptor-events=<private-evidence>/pre1-termini-686-final-wide-directed.events.jsonl",
+          "tests/chemical_states/test_get_peptide_termini.py",
+          "tests/build/get_missing_terminal_cappings",
+          "tests/build/add_missing_terminal_cappings",
+          "tests/build/test_native_placers.py",
+          "tests/build/test_terminal_protonation_follows_ph.py",
+          "tests/build/test_structure_preparation_pipeline.py",
+          "tests/molsysviewer_molsysmt/test_build_audit_tools.py",
+          "tests/molsysviewer_molsysmt/test_chemistry_repair_panel.py",
+          "molsysmt/chemical_states/get_peptide_termini.py",
+          "molsysmt/build/get_missing_terminal_cappings.py",
+          "molsysmt/build/add_missing_terminal_cappings.py",
+          "--basetemp=<private-evidence>/pre1-termini-686-final-wide-directed"
+        ],
+        "exit_code": 0,
+        "seconds": 170.13831291999668,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": " M devguide/api_stability_registry.md\n M devguide/pending_bugs/README.md\n M devguide/pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md\n M devtools/data/public_api_stability.json\n M docs/api/chemical_states/api_chemical_states.rst\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/build/add_missing_terminal_cappings.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb.AGENTS.md\n M docs/content/user/tools/chemical_states/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/_correspondence_axes.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/warnings.py\n M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n M tests/build/add_missing_terminal_cappings/test_add_missing_terminal_cappings_parity.py\n M tests/build/get_missing_terminal_cappings/test_get_missing_terminal_cappings.py\n?? docs/api/chemical_states/autosummary/molsysmt.chemical_states.get_peptide_termini.rst\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/on_ambiguous.py\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "ending_git_status": " M devguide/api_stability_registry.md\n M devguide/pending_bugs/README.md\n M devguide/pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md\n M devtools/data/public_api_stability.json\n M docs/api/chemical_states/api_chemical_states.rst\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/build/add_missing_terminal_cappings.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb.AGENTS.md\n M docs/content/user/tools/chemical_states/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/_correspondence_axes.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/warnings.py\n M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n M tests/build/add_missing_terminal_cappings/test_add_missing_terminal_cappings_parity.py\n M tests/build/get_missing_terminal_cappings/test_get_missing_terminal_cappings.py\n?? docs/api/chemical_states/autosummary/molsysmt.chemical_states.get_peptide_termini.rst\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/on_ambiguous.py\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8739
+      },
+      "resources": {
+        "started_utc": "2026-11-10T06:53:25.221234+00:00",
+        "seconds": 177.13869725191034,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            7.07666015625,
+            7.03955078125,
+            5.82373046875
+          ],
+          "cpu_utilization": 0.13205645161290325,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12238352384,
+        "cgroup_memory_peak_bytes": 1052602368,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "408b096a007a60a43d0e3e28066a988d058877c58b6e83142f1618506def9165",
+        "-bounded.json": "f3a73d7d48bb7003538d3b6617b1f3ba4ca487823ef4479c050c4ecb6c6a661c",
+        ".xml": "342d4513c1042f667e03cca32facd538859d8ad8dc2dc36fa08a67a39b3dc693",
+        ".log": "91063f5c48f49081c77c670258766b9f87c45b4dcbc53cd24b7df26baf8e5bc3",
+        "-inputs-before.json": "5c792058288d4799c908df94bc54200fabe98a39946698473fc172973ad91f45",
+        "-inputs-after.json": "5c792058288d4799c908df94bc54200fabe98a39946698473fc172973ad91f45",
+        "-reference-driver.py": "8f30288361d8bf5b70d3479a72a8b03b8e3c76a8754e65c30eaff388a4a5b6b0",
+        "-resource-driver.py": "eb83ddf5eb4e8e94636051b6e2f6f6b4cb421797427f20c6ec734e7dcfa04fa4"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "248",
+          "time": "167.475",
+          "timestamp": "2026-11-10T00:53:30.383419-06:00"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "notebooks-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-temporary>/molsysmt-execute-686-notebooks.py"
+        ],
+        "exit_code": 0,
+        "seconds": 11.869969143997878,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": " M devguide/api_stability_registry.md\n M devguide/pending_bugs/README.md\n M devguide/pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md\n M devtools/data/public_api_stability.json\n M docs/api/chemical_states/api_chemical_states.rst\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/build/add_missing_terminal_cappings.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb.AGENTS.md\n M docs/content/user/tools/chemical_states/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/_correspondence_axes.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/warnings.py\n M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n M tests/build/add_missing_terminal_cappings/test_add_missing_terminal_cappings_parity.py\n M tests/build/get_missing_terminal_cappings/test_get_missing_terminal_cappings.py\n?? docs/api/chemical_states/autosummary/molsysmt.chemical_states.get_peptide_termini.rst\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/on_ambiguous.py\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "ending_git_status": " M devguide/api_stability_registry.md\n M devguide/pending_bugs/README.md\n M devguide/pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md\n M devtools/data/public_api_stability.json\n M docs/api/chemical_states/api_chemical_states.rst\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/build/add_missing_terminal_cappings.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb.AGENTS.md\n M docs/content/user/tools/chemical_states/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/_correspondence_axes.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/warnings.py\n M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n M tests/build/add_missing_terminal_cappings/test_add_missing_terminal_cappings_parity.py\n M tests/build/get_missing_terminal_cappings/test_get_missing_terminal_cappings.py\n?? docs/api/chemical_states/autosummary/molsysmt.chemical_states.get_peptide_termini.rst\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/on_ambiguous.py\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8739
+      },
+      "resources": {
+        "started_utc": "2026-11-10T06:50:48.699651+00:00",
+        "seconds": 19.016939094057307,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            6.70751953125,
+            7.095703125,
+            5.615234375
+          ],
+          "cpu_utilization": 0.2522613065326633,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12983984128,
+        "cgroup_memory_peak_bytes": 324370432,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "4fc7499769e218ac18e17dfa6536f9df4dfffc6cd3123bc305f26e309413e6e9",
+        "-bounded.json": "9bd22172d529ddbdeb983b5f078c0efc54f9d339b08cdee1ca380b64eb1516dc",
+        ".log": "3c2d3638b6e2dc457e9310d9b8f121a5ca4b175acb2a0f9d085f6bd84f0def54",
+        "-inputs-before.json": "e912dbbded8e572a4144522c38b5934f445e31f6e7260ee884df68284fca408d",
+        "-inputs-after.json": "e912dbbded8e572a4144522c38b5934f445e31f6e7260ee884df68284fca408d",
+        "-reference-driver.py": "8f30288361d8bf5b70d3479a72a8b03b8e3c76a8754e65c30eaff388a4a5b6b0",
+        "-resource-driver.py": "eb83ddf5eb4e8e94636051b6e2f6f6b4cb421797427f20c6ec734e7dcfa04fa4"
+      }
+    },
+    "barnase-probe-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-temporary>/molsysmt-probe-686-barnase.py"
+        ],
+        "exit_code": 1,
+        "seconds": 3.4184054690413177,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": " M devguide/api_stability_registry.md\n M devguide/pending_bugs/README.md\n M devguide/pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md\n M devtools/data/public_api_stability.json\n M docs/api/chemical_states/api_chemical_states.rst\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/build/add_missing_terminal_cappings.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb\n M docs/content/user/tools/chemical_states/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/_correspondence_axes.py\n M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n?? docs/api/chemical_states/autosummary/molsysmt.chemical_states.get_peptide_termini.rst\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md.AGENTS.md\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "ending_git_status": " M devguide/api_stability_registry.md\n M devguide/pending_bugs/README.md\n M devguide/pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md\n M devtools/data/public_api_stability.json\n M docs/api/chemical_states/api_chemical_states.rst\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/build/add_missing_terminal_cappings.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb\n M docs/content/user/tools/chemical_states/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/_correspondence_axes.py\n M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n?? docs/api/chemical_states/autosummary/molsysmt.chemical_states.get_peptide_termini.rst\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md.AGENTS.md\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8738
+      },
+      "resources": {
+        "started_utc": "2026-11-10T06:29:18.512294+00:00",
+        "seconds": 10.011139936977997,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.83349609375,
+            0.9560546875,
+            1.279296875
+          ],
+          "cpu_utilization": 0.026633165829145766,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14611861504,
+        "cgroup_memory_peak_bytes": 206114816,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "c0c08723fe09904ddfb06f408f06ad52438441b91e6beae94353b5cd708256f5",
+        "-bounded.json": "08afde9d39f5cfa320fc54b0d86bff095b4d5625a08277c53ac7582de05c55cd",
+        ".log": "a25d6f4c9e1a29afde01adfa992ae6401f27ba967e61e0f54cbd0b7ea57efd0a",
+        "-inputs-before.json": "4bc6b5936af913adaec48cac4feec6af3560a767b8e11083faa6238b1452031f",
+        "-inputs-after.json": "4bc6b5936af913adaec48cac4feec6af3560a767b8e11083faa6238b1452031f",
+        "-reference-driver.py": "7bf234ca149aaa26701b14586a1ff06770c85ad4d89f7b398f72e6d52fc83f2c",
+        "-resource-driver.py": "eb83ddf5eb4e8e94636051b6e2f6f6b4cb421797427f20c6ec734e7dcfa04fa4"
+      }
+    },
+    "barnase-probe-fixed-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "<private-temporary>/molsysmt-probe-686-barnase.py"
+        ],
+        "exit_code": 0,
+        "seconds": 3.931401836918667,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": " M devguide/api_stability_registry.md\n M devguide/pending_bugs/README.md\n M devguide/pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md\n M devtools/data/public_api_stability.json\n M docs/api/chemical_states/api_chemical_states.rst\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/build/add_missing_terminal_cappings.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb\n M docs/content/user/tools/chemical_states/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/_correspondence_axes.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/warnings.py\n M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n?? docs/api/chemical_states/autosummary/molsysmt.chemical_states.get_peptide_termini.rst\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/on_ambiguous.py\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "ending_git_status": " M devguide/api_stability_registry.md\n M devguide/pending_bugs/README.md\n M devguide/pending_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md\n M devtools/data/public_api_stability.json\n M docs/api/chemical_states/api_chemical_states.rst\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md\n M docs/content/user/tools/build/add_missing_terminal_cappings.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb\n M docs/content/user/tools/chemical_states/index.md\n M docs/docs_manifest.yml\n M molsysmt/_private/argdigest/argument/_correspondence_axes.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/warnings.py\n M molsysmt/build/add_missing_terminal_cappings.py\n M molsysmt/build/get_missing_terminal_cappings.py\n M molsysmt/chemical_states/__init__.py\n?? docs/api/chemical_states/autosummary/molsysmt.chemical_states.get_peptide_termini.rst\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md\n?? docs/content/user/tools/chemical_states/get_peptide_termini.md.AGENTS.md\n?? molsysmt/_private/argdigest/argument/on_ambiguous.py\n?? molsysmt/chemical_states/_peptide_termini.py\n?? molsysmt/chemical_states/get_peptide_termini.py\n?? tests/build/get_missing_terminal_cappings/test_label_independent_termini.py\n?? tests/chemical_states/test_get_peptide_termini.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8739
+      },
+      "resources": {
+        "started_utc": "2026-11-10T06:41:12.150430+00:00",
+        "seconds": 11.008431070949882,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            11.61474609375,
+            7.75341796875,
+            4.154296875
+          ],
+          "cpu_utilization": 0.42506265664160403,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12543348736,
+        "cgroup_memory_peak_bytes": 206848000,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "5181cf5f77fb42831052bbdb51b4ec385f9eca2a2d5deee307d38dc857159cda",
+        "-bounded.json": "d15e96aeccc03ae73b8d57f48b3ff3eea2cc1739c25c2fe11496fdfba3f788b9",
+        ".log": "b47f3fc1c90a37a1d201215935be2292165ac89ebf96c6abcba80394a0d4e8bb",
+        "-inputs-before.json": "345076cb37c947bb5efb635e128d37aee3e5090247e23ecffe99c86058181d5b",
+        "-inputs-after.json": "345076cb37c947bb5efb635e128d37aee3e5090247e23ecffe99c86058181d5b",
+        "-reference-driver.py": "7bf234ca149aaa26701b14586a1ff06770c85ad4d89f7b398f72e6d52fc83f2c",
+        "-resource-driver.py": "eb83ddf5eb4e8e94636051b6e2f6f6b4cb421797427f20c6ec734e7dcfa04fa4"
+      }
+    },
+    "received-wide": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n2",
+          "--junitxml=<private-evidence>/pre1-termini-686-received-wide.xml",
+          "--receptor-events=<private-evidence>/pre1-termini-686-received-wide.events.jsonl",
+          "tests/chemical_states/test_get_peptide_termini.py",
+          "tests/molsysviewer_molsysmt/test_topology_chemistry_tools.py",
+          "devtools/tests/test_native_viewer_integration.py",
+          "devtools/tests/test_molsysviewer_tools_api_inventory.py",
+          "devtools/tests/test_smoke_addon_test_command.py",
+          "tests/build/get_missing_terminal_cappings",
+          "tests/build/add_missing_terminal_cappings",
+          "tests/build/test_native_placers.py",
+          "tests/build/test_terminal_protonation_follows_ph.py",
+          "tests/build/test_structure_preparation_pipeline.py",
+          "tests/molsysviewer_molsysmt/test_build_audit_tools.py",
+          "tests/molsysviewer_molsysmt/test_chemistry_repair_panel.py",
+          "molsysmt/chemical_states/get_peptide_termini.py",
+          "molsysmt/build/get_missing_terminal_cappings.py",
+          "molsysmt/build/add_missing_terminal_cappings.py",
+          "--basetemp=<private-evidence>/pre1-termini-686-received-wide"
+        ],
+        "exit_code": 0,
+        "seconds": 99.82975103682838,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "68954e6aae9e82d2c567c1a3d9552a1b26096940",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8739
+      },
+      "resources": {
+        "started_utc": "2026-11-10T07:05:46.971549+00:00",
+        "seconds": 107.10022908309475,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.44921875,
+            4.28076171875,
+            5.09912109375
+          ],
+          "cpu_utilization": 0.027108433734939763,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13227151360,
+        "cgroup_memory_peak_bytes": 1322713088,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "b92261e7ec875d9d6dfb37d5c1b28b002c84bda0560eee98c8ab836247dcb8fd",
+        "-bounded.json": "598fb6f7575122ec7d4565a239cc7b975f53c1f8df9b7a068a4d7a7617c51492",
+        ".xml": "e64d5dae500642173bcc8c1058d12907693b65b4fa769a7cbddf74b0abae5e63",
+        ".log": "ced3b9e7437fa65041f95a1334374433494e1f24cf0c6bd8f2d1ee7ada7ba9b0",
+        "-inputs-before.json": "0085fba16034b2f3ab3c60e27fce37a49094553f289d0d9a92649892a89a7b19",
+        "-inputs-after.json": "0085fba16034b2f3ab3c60e27fce37a49094553f289d0d9a92649892a89a7b19",
+        "-reference-driver.py": "4a742dd06543f97a77a221d46cf96f74c524c2ad6ae288c85fef101289c3b066",
+        "-resource-driver.py": "eb83ddf5eb4e8e94636051b6e2f6f6b4cb421797427f20c6ec734e7dcfa04fa4"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "342",
+          "time": "97.354",
+          "timestamp": "2026-11-10T01:05:53.086958-06:00"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 1,
+        "seconds": 23.471439423039556,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "68954e6aae9e82d2c567c1a3d9552a1b26096940",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8739
+      },
+      "resources": {
+        "started_utc": "2026-11-10T07:05:50.736559+00:00",
+        "seconds": 31.025864231865853,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.57373046875,
+            4.25927734375,
+            5.08740234375
+          ],
+          "cpu_utilization": 0.10377833753148613,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13200674816,
+        "cgroup_memory_peak_bytes": 422268928,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "0c156a9a91febcce3a75e3ae0530b535be13869aef57717c1dcb53f00081e137",
+        "-bounded.json": "5a567052c25dcc709370f82a41031355ae23df941b5f9ecf02aba29849ac7735",
+        ".log": "e2e69c324a08a2a2f3fe19aa3a41d9ba07c6ad5e70a7dbb5e033f42b4ebbea7d",
+        "-inputs-before.json": "0085fba16034b2f3ab3c60e27fce37a49094553f289d0d9a92649892a89a7b19",
+        "-inputs-after.json": "0085fba16034b2f3ab3c60e27fce37a49094553f289d0d9a92649892a89a7b19",
+        "-reference-driver.py": "4a742dd06543f97a77a221d46cf96f74c524c2ad6ae288c85fef101289c3b066",
+        "-resource-driver.py": "eb83ddf5eb4e8e94636051b6e2f6f6b4cb421797427f20c6ec734e7dcfa04fa4"
+      }
+    },
+    "fast-fixed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 22.432389805093408,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "f8c516abb1132b3ce3b31cbf20e2cbdf4d78f986",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8740
+      },
+      "resources": {
+        "started_utc": "2026-11-10T07:20:00.124788+00:00",
+        "seconds": 30.02654314204119,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.74072265625,
+            1.4638671875,
+            2.92724609375
+          ],
+          "cpu_utilization": 0.027122049221496747,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13938503680,
+        "cgroup_memory_peak_bytes": 419028992,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "7f45647344b5f93de76902ebe05ec09707088725324b65e0836a2dd382298a18",
+        "-bounded.json": "93106e695c09def055b29782d5e8aa820c370db491cbdb18eb6cc3c655dcbdd7",
+        ".log": "c827ab9e1586901da7de2105436739c1f271c8f7cc44ce6cb42861a91d5ff597",
+        "-inputs-before.json": "b76014c30938ff73e116ea72b694df5564b98e40389894f5a33cdde1424fc4c9",
+        "-inputs-after.json": "b76014c30938ff73e116ea72b694df5564b98e40389894f5a33cdde1424fc4c9",
+        "-reference-driver.py": "4a742dd06543f97a77a221d46cf96f74c524c2ad6ae288c85fef101289c3b066",
+        "-resource-driver.py": "eb83ddf5eb4e8e94636051b6e2f6f6b4cb421797427f20c6ec734e7dcfa04fa4"
+      }
+    },
+    "scientific": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/execute_scientific_evidence.py",
+          "--receptor",
+          "llm",
+          "--require-clean",
+          "--certificate",
+          "<private-evidence>/pre1-termini-686-scientific-scientific.json"
+        ],
+        "exit_code": 1,
+        "seconds": 16.654658385086805,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "f8c516abb1132b3ce3b31cbf20e2cbdf4d78f986",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8740
+      },
+      "resources": {
+        "started_utc": "2026-11-10T07:19:15.372015+00:00",
+        "seconds": 24.02714778902009,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.57275390625,
+            1.54443359375,
+            3.025390625
+          ],
+          "cpu_utilization": 0.0603318250377074,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14309953536,
+        "cgroup_memory_peak_bytes": 487305216,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "74bd9ad1ee049bc9262f326f3d46177bebadb12a17dddbd8dd1ca55893ce4b4e",
+        "-bounded.json": "5b0bdd222aaed71abc20941a5ae25425808180284b3ef5be9d5b7ff7fda7d52f",
+        ".log": "061a73772914b56ca2b9e6117ed3d320d3117811d7c1139ffd9af183ed23d576",
+        "-inputs-before.json": "b76014c30938ff73e116ea72b694df5564b98e40389894f5a33cdde1424fc4c9",
+        "-inputs-after.json": "b76014c30938ff73e116ea72b694df5564b98e40389894f5a33cdde1424fc4c9",
+        "-reference-driver.py": "4a742dd06543f97a77a221d46cf96f74c524c2ad6ae288c85fef101289c3b066",
+        "-resource-driver.py": "eb83ddf5eb4e8e94636051b6e2f6f6b4cb421797427f20c6ec734e7dcfa04fa4"
+      }
+    },
+    "scientific-fixed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/execute_scientific_evidence.py",
+          "--receptor",
+          "llm",
+          "--require-clean",
+          "--certificate",
+          "<private-evidence>/pre1-termini-686-scientific-fixed-scientific.json"
+        ],
+        "exit_code": 0,
+        "seconds": 16.387049779994413,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b59ce29d560da1617cd8193d6945baea793c67ab",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8740
+      },
+      "resources": {
+        "started_utc": "2026-11-10T07:24:50.904391+00:00",
+        "seconds": 24.027928100898862,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.1328125,
+            1.68603515625,
+            2.6728515625
+          ],
+          "cpu_utilization": 0.029116465863453844,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14371917824,
+        "cgroup_memory_peak_bytes": 487612416,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "aa17991347e8d083fa9001510cf0ee8ad914de35f41b63ef6d475b195695c214",
+        "-bounded.json": "f66ee546f73e79a88e9c4f9c6f85642b3a50664b2defc57b7a24c931632e8c6a",
+        ".log": "e4ea4272789546aa6f0871b0ee69f7cd073226cf7f876deab1ee5bc5992211b6",
+        "-inputs-before.json": "73b8101919354fa10432485400604ad60106ca6359b2afc741d97f333443ed0e",
+        "-inputs-after.json": "73b8101919354fa10432485400604ad60106ca6359b2afc741d97f333443ed0e",
+        "-reference-driver.py": "4a742dd06543f97a77a221d46cf96f74c524c2ad6ae288c85fef101289c3b066",
+        "-resource-driver.py": "eb83ddf5eb4e8e94636051b6e2f6f6b4cb421797427f20c6ec734e7dcfa04fa4"
+      }
+    },
+    "html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/termini-686-html"
+        ],
+        "exit_code": 0,
+        "seconds": 157.60889541101642,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "f8c516abb1132b3ce3b31cbf20e2cbdf4d78f986",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8740
+      },
+      "resources": {
+        "started_utc": "2026-11-10T07:20:04.118776+00:00",
+        "seconds": 165.14317331602797,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.74072265625,
+            1.4638671875,
+            2.92724609375
+          ],
+          "cpu_utilization": 0.08785140562248994,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13416783872,
+        "cgroup_memory_peak_bytes": 1374130176,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "50457468f1b77b224b64fa117762e03a02dcc2710874b8641cdfb4de005e39f6",
+        "-bounded.json": "915580fb065f10cf1c595ce4f240b231733b1e6b611009b180790d8efd194211",
+        ".log": "ce063ee891fc7aef51560a97192d89859f48c588708d26e49a310e310f708880",
+        "-inputs-before.json": "b76014c30938ff73e116ea72b694df5564b98e40389894f5a33cdde1424fc4c9",
+        "-inputs-after.json": "b76014c30938ff73e116ea72b694df5564b98e40389894f5a33cdde1424fc4c9",
+        "-reference-driver.py": "4a742dd06543f97a77a221d46cf96f74c524c2ad6ae288c85fef101289c3b066",
+        "-resource-driver.py": "eb83ddf5eb4e8e94636051b6e2f6f6b4cb421797427f20c6ec734e7dcfa04fa4"
+      }
+    }
+  },
+  "receiving_cases": 342,
+  "registered_scientific_cases": 110,
+  "registered_scientific_nodes": 71,
+  "scientific_certificate": {
+    "schema_version": "molsysmt.scientific-evidence-execution@1",
+    "verdict": "pass",
+    "commit": "b59ce29d560da1617cd8193d6945baea793c67ab",
+    "tracked_source_dirty": false,
+    "source_before": {
+      "commit": "b59ce29d560da1617cd8193d6945baea793c67ab",
+      "tracked_source_dirty": false,
+      "untracked_source_paths": [],
+      "untracked_workflow_artifacts": []
+    },
+    "source_after": {
+      "commit": "b59ce29d560da1617cd8193d6945baea793c67ab",
+      "tracked_source_dirty": false,
+      "untracked_source_paths": [],
+      "untracked_workflow_artifacts": []
+    },
+    "source_correspondence": true,
+    "release_eligible": true,
+    "created_at": "2026-11-10T07:25:11.358588+00:00",
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "registered_nodes": 71,
+    "collected_cases": 110,
+    "passed": 110,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0,
+    "nodes": [
+      "tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance",
+      "tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images",
+      "tests/scientific_truth/chemical_states/test_peptide_termini.py::test_a_missing_declared_link_is_unknown_not_new_terminal_chemistry",
+      "tests/scientific_truth/chemical_states/test_peptide_termini.py::test_closing_the_declared_path_gives_no_free_endpoints",
+      "tests/scientific_truth/chemical_states/test_peptide_termini.py::test_declared_path_endpoints_are_not_inventory_or_id_order",
+      "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap",
+      "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+      "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_changing_cells_follow_the_previous_transition_basis",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_explicit_small_origin_keeps_the_requested_primary_cell",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_rotated_row_cell_wrapping_matches_explicit_images",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+      "tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids",
+      "tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution",
+      "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+      "tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form",
+      "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
+      "tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap",
+      "tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area",
+      "tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups",
+      "tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context",
+      "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
+      "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+      "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_constructed_matrix_drives_public_row_vector_rotation",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_extreme_finite_axis_still_produces_the_analytic_rotation",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_positive_body_diagonal_turn_cycles_cartesian_axes",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_signed_cartesian_quarter_turns_match_literal_matrices",
+      "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+      "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+      "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+      "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+      "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+      "tests/scientific_truth/structure/test_principal_component_analysis.py::test_weighted_pca_matches_closed_form_diagonal_covariance",
+      "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+    ]
+  },
+  "fast_gates": 14,
+  "html_inspection": [
+    {
+      "path": "content/user/tools/chemical_states/get_peptide_termini.html",
+      "sha256": "e46703dce5a0fc63d69225597293013bea7ca59b913117b4aa99bf9be63aaa67",
+      "excerpt": "gs() reuses this rule to report missing OXT at selected free C-side groups. Its legacy dictionary retains the assessed subset and emits UnassessedPeptideBackboneWarning ( MSM-WARN-BUILD-003 ) for every omitted chain; an empty dictionary under that warning does not establish complete terminal chemistry. Its numeric selection remains group indices , while the recognizer\u2019s and terminal adde"
+    },
+    {
+      "path": "content/user/tools/build/get_missing_terminal_cappings.html",
+      "sha256": "c7a38b493947e4e25f6f2310b46d7a64adbddab4681900c3358a37aa46d75228",
+      "excerpt": " , on_ambiguous = \"report\" ) termini [ \"unassessed_chain_indices\" ] . tolist () [3, 4] We can select terminal oxygen atoms ( OXT ) using molsysmt.basic.select() : msm . select ( molsys , selection = 'atom_name==\"OXT\"' ) [863, 1741, 2580, 3938, 4637] See also Related Tools & References Convert : Convert molecular systems between different forms with molsysmt.basic.convert() . Get missing "
+    },
+    {
+      "path": "content/user/tools/build/add_missing_terminal_cappings.html",
+      "sha256": "c468efad29eb554bad1f2cd8617c4fd99fcbcc783e07041460dcf907681b2edd",
+      "excerpt": "hains and then filters the report; a selection edge is not a chemical terminus. Recognize chemical ends from stored bonds. The experimental molsysmt.chemical_states.get_peptide_termini() follows named N-CA-C motifs and inter-group C-N links, independently of atom/group storage order or group ID labels. Complete chain context precedes endpoint filtering. Connected cycles have no free ends"
+    },
+    {
+      "path": "content/user/foundations/native_world/classes/molsysmt_ChemicalStates.html",
+      "sha256": "aef87b90d9fb9da68e2f42357c516b58726a8630fb69a1b70aa11f0d9df86e97",
+      "excerpt": "e for supported state-local counts; they do not supply absent stable hierarchy. Recognizing observed peptide endpoints # With stable group/chain context, molsysmt.chemical_states.get_peptide_termini() reads a selected stored backbone graph. It uses bonds rather than ID labels or storage order, records cap attachments and refuses ambiguous paths. This observed-graph result does not certif"
+    },
+    {
+      "path": "content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.html",
+      "sha256": "956d335bcadb684f9f10b3640ac9e3e7245bb9f75e8d464ad36ef4a3497983b0",
+      "excerpt": "hains and then filters the report; a selection edge is not a chemical terminus. Recognize chemical ends from stored bonds. The experimental molsysmt.chemical_states.get_peptide_termini() follows named N-CA-C motifs and inter-group C-N links, independently of atom/group storage order or group ID labels. Complete chain context precedes endpoint filtering. Connected cycles have no free ends"
+    },
+    {
+      "path": "content/user/cookbook/from_pdb_to_solvated_box.html",
+      "sha256": "16bf7b0e592de574c3db725c1910ae6ec6e8ca93ea6d16de31457e4afcd4360a",
+      "excerpt": "ion and cleanup; cleanup errors are raised. See tLEaP . Added in version 1.0.0. Recognize chemical ends from stored bonds. The experimental molsysmt.chemical_states.get_peptide_termini() follows named N-CA-C motifs and inter-group C-N links, independently of atom/group storage order or group ID labels. Complete chain context precedes endpoint filtering. Connected cycles have no free ends"
+    }
+  ],
+  "notebook_execution": [
+    {
+      "path": "docs/content/user/tools/build/get_missing_terminal_cappings.ipynb",
+      "executed_copy": "<private-evidence>/get_missing_terminal_cappings-686-executed.ipynb",
+      "private_complete_copy": "<private-evidence>/get_missing_terminal_cappings-686-private.ipynb",
+      "source_code_and_ids_preserved": true,
+      "code_cells": 7,
+      "execution_counts": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "sha256": "d5eefbd3550d15a5378aebf2f2cfe7da6c8fbda5ec1fbc5b79b5a434e5d414f0"
+    },
+    {
+      "path": "docs/content/user/tools/build/add_missing_terminal_cappings.ipynb",
+      "executed_copy": "<private-evidence>/add_missing_terminal_cappings-686-executed.ipynb",
+      "private_complete_copy": "<private-evidence>/add_missing_terminal_cappings-686-private.ipynb",
+      "source_code_and_ids_preserved": true,
+      "code_cells": 10,
+      "execution_counts": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "sha256": "e88486955fccf96e715d06c52a3bcbf5478b74046ba422b211f8c12306d78b73"
+    }
+  ],
+  "incomplete_barnase_graph_probe": [
+    {
+      "chain": 0,
+      "n_amino_acids": 108,
+      "n_links": 107,
+      "starts": [
+        0
+      ],
+      "ends": [
+        107
+      ],
+      "declared_order": false,
+      "endpoint_names": {
+        "0": "VAL",
+        "107": "ARG"
+      },
+      "endpoint_labels": {
+        "0": "3",
+        "107": "110"
+      }
+    },
+    {
+      "chain": 1,
+      "n_amino_acids": 110,
+      "n_links": 109,
+      "starts": [
+        108
+      ],
+      "ends": [
+        217
+      ],
+      "declared_order": false,
+      "endpoint_names": {
+        "108": "ALA",
+        "217": "ARG"
+      },
+      "endpoint_labels": {
+        "108": "1",
+        "217": "110"
+      }
+    },
+    {
+      "chain": 2,
+      "n_amino_acids": 108,
+      "n_links": 107,
+      "starts": [
+        218
+      ],
+      "ends": [
+        325
+      ],
+      "declared_order": false,
+      "endpoint_names": {
+        "218": "VAL",
+        "325": "ARG"
+      },
+      "endpoint_labels": {
+        "218": "3",
+        "325": "110"
+      }
+    },
+    {
+      "chain": 3,
+      "n_amino_acids": 87,
+      "n_links": 85,
+      "starts": [
+        326,
+        389
+      ],
+      "ends": [
+        388,
+        412
+      ],
+      "declared_order": false,
+      "endpoint_names": {
+        "326": "LYS",
+        "389": "GLY",
+        "388": "THR",
+        "412": "SER"
+      },
+      "endpoint_labels": {
+        "326": "1",
+        "389": "66",
+        "388": "63",
+        "412": "89"
+      }
+    },
+    {
+      "chain": 4,
+      "n_amino_acids": 86,
+      "n_links": 84,
+      "starts": [
+        413,
+        475
+      ],
+      "ends": [
+        474,
+        498
+      ],
+      "declared_order": false,
+      "endpoint_names": {
+        "413": "LYS",
+        "475": "GLY",
+        "474": "THR",
+        "498": "SER"
+      },
+      "endpoint_labels": {
+        "413": "2",
+        "475": "66",
+        "474": "63",
+        "498": "89"
+      }
+    },
+    {
+      "chain": 5,
+      "n_amino_acids": 89,
+      "n_links": 88,
+      "starts": [
+        499
+      ],
+      "ends": [
+        587
+      ],
+      "declared_order": false,
+      "endpoint_names": {
+        "499": "LYS",
+        "587": "SER"
+      },
+      "endpoint_labels": {
+        "499": "1",
+        "587": "89"
+      }
+    },
+    {
+      "chain": 6,
+      "n_amino_acids": 0,
+      "n_links": 0,
+      "starts": [],
+      "ends": [],
+      "declared_order": false,
+      "endpoint_names": {},
+      "endpoint_labels": {}
+    },
+    {
+      "chain": 7,
+      "n_amino_acids": 0,
+      "n_links": 0,
+      "starts": [],
+      "ends": [],
+      "declared_order": false,
+      "endpoint_names": {},
+      "endpoint_labels": {}
+    },
+    {
+      "chain": 8,
+      "n_amino_acids": 0,
+      "n_links": 0,
+      "starts": [],
+      "ends": [],
+      "declared_order": false,
+      "endpoint_names": {},
+      "endpoint_labels": {}
+    },
+    {
+      "chain": 9,
+      "n_amino_acids": 0,
+      "n_links": 0,
+      "starts": [],
+      "ends": [],
+      "declared_order": false,
+      "endpoint_names": {},
+      "endpoint_labels": {}
+    },
+    {
+      "chain": 10,
+      "n_amino_acids": 0,
+      "n_links": 0,
+      "starts": [],
+      "ends": [],
+      "declared_order": false,
+      "endpoint_names": {},
+      "endpoint_labels": {}
+    },
+    {
+      "chain": 11,
+      "n_amino_acids": 0,
+      "n_links": 0,
+      "starts": [],
+      "ends": [],
+      "declared_order": false,
+      "endpoint_names": {},
+      "endpoint_labels": {}
+    }
+  ],
+  "original_interrupted_attempt": {
+    "outcome": "Owner stopped the incomplete run after a repeated legacy bond-table column error; it is not a complete suite result.",
+    "observed_call_outcomes": {
+      "failed": 61,
+      "passed": 79
+    },
+    "events_sha256": "615442f1040c105d055641a6cbaece17ab21f6473d832bfbba40854ecf6e0595",
+    "partial_log_sha256": "aec94bf1490ffb6cc86fac27d2b5e63192fb89deb4ba42f02a807fc3a8ed5d92"
+  },
+  "acceptance": [
+    "The public experimental chemical_states.get_peptide_termini follows stored named N-CA-C and C-N graph relationships, preserving source indices under relabelling, atom/group permutations and explicit chemical-state selection.",
+    "Strict mode refuses ambiguous backbones; explicit report mode retains unassessed chains and their reasons without inventing fragment endpoints. Cycles have no free ends; real stored caps block their actual endpoints.",
+    "Native missing-OXT assessment, free N completion and explicit cap anchors reuse the shared rule. The legacy dictionary emits catalog MSM-WARN-BUILD-003 for every unassessed chain. Atom/group axes and component/stable-molecule distinctions remain tested.",
+    "Frozen 1BRS has actual interruptions in chains 3 and 4 (source label jump 63 to 66, no ordered native declaration). Native local repair adds four assessed heavy atoms (5151 to 5155) and preserves five OXT atoms; PDBFixer retains its independent 5230-atom/six-OXT profile. This documented scope difference replaces the unsupported parity assumption.",
+    "The Python addon exposes the native recognizer without changing the molecule or scene. Numeric/all H5MSM recognition avoids coordinate-series and interaction loads.",
+    "Two affected tutorials are actually re-executed (17 code cells plus separate private source/interpreter probes). The incomplete 1BRS coverage is visible despite the legacy warning-suppression opening cell. Foundations, Toolbox, Cookbook and course narrative/links are updated.",
+    "Three independent nine-node analytical graph oracles are registered; their narrowly declared claim does not certify chemical completeness, valence, protonation or geometry."
+  ],
+  "preserved_failures": [
+    "Original seven-case control: four failures, three passes reproduce label-based endpoint movement, misplaced OXT, a missed stored cap and a false cyclic endpoint.",
+    "First implementation assumed a bond_type column in legacy two-column bond tables; owner interrupted after repeated failures, retaining partial events/log. Missing columns now remain explicit untyped evidence.",
+    "Early controls exposed a local imported set shadow, unsupported copy_if_all conversion keyword, a MolSysDict fixture containing untransportable mechanics, an unexported root Structures fixture class and a dative fixture with contradictory component-join metadata. Corrected controls preserve actual form contracts.",
+    "Real 1BRS integration forced the explicit strict/report distinction and diagnosis of its stored chain interruptions; prior failing parity assumptions are retained rather than relabelled as green.",
+    "The first scientific fast gate failed on a stale generated matrix; the first metadata amendment lacked its explicit claimed-symbol scope. The declared narrow analytical claim and generated matrix are now received.",
+    "The first scientific execution passes 109/110: its new fixture removed a positional bond row rather than the intended atom pair. The corrected independent oracle locates the declared C-N pair and the complete 110-case rerun passes.",
+    "A first systemd launcher used an unavailable MemoryOOMGroup property; no calculation started. The supported OOMPolicy=kill route enforces the verified cgroup memory.oom.group=1.",
+    "The first private 1BRS diagnostic could not JSON-encode NumPy indices; its fixed distinct attempt retains the measured graph."
+  ],
+  "limits": [
+    "Observed named-backbone recognition is experimental. Untyped legacy edges remain admitted and reported; complete chemical state, stereochemistry, bond orders, force-field readiness and unknown missing links are not inferred.",
+    "An empty legacy dictionary under an unassessed-backbone warning does not certify complete terminal chemistry. Explicit capping requires one unambiguous linear backbone per selected covalent component.",
+    "The existing PDBFixer algorithm is independent. Its broader selection/context behavior is outside the native graph-recognition claim.",
+    "Original failures remain failures. Source cohorts are distinct: native/addon receiving 68954e6aa, generated metadata/HTML f8c516abb and final science b59ce29d560da1617cd8193d6945baea793c67ab; byte equality of native/addon/docs and existing affected tests is checked explicitly.",
+    "No native rebuild, dependency installation/floor/schema change, package/tag/Release/promotion, remote matrix or weighted-milestone bonus."
+  ],
+  "html_warnings": [
+    "api/build/autosummary/molsysmt.build.ProtonationAssessment.rst:2: WARNING: Title underline too short.",
+    "api/build/autosummary/molsysmt.build.add_ions.rst:2: WARNING: Title underline too short.",
+    "api/build/autosummary/molsysmt.build.assess_protonation.rst:2: WARNING: Title underline too short.",
+    "api/build/autosummary/molsysmt.build.reconcile_protonation.rst:2: WARNING: Title underline too short.",
+    "api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst:2: WARNING: Title underline too short.",
+    "api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst:2: WARNING: Title underline too short."
+  ]
+}

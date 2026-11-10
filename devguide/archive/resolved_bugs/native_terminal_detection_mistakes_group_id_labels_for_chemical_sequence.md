@@ -1,13 +1,13 @@
 ---
 summary: Native terminal detection mistakes group ID labels for chemical sequence.
 issue: uibcdf/molsysmt#686
-status: active
+status: resolved
 opened: 2026-11-09
-closed:
+closed: 2026-11-10
 severity: high
 verification: reproduced
 area: [build, chemistry]
-guard:
+guard: tests/chemical_states/test_get_peptide_termini.py
 normative:
 blocked_by: []
 supersedes: []
@@ -118,3 +118,7 @@ The public experimental `chemical_states.get_peptide_termini` now owns the share
 The 1BRS source has one path in chains 0/1/2/5, but Barstar chains 3 and 4 each have two stored backbone fragments. Chain 3 has starts 326/389 and ends 388/412; chain 4 starts 413/475 and ends 474/498. Both jumps span source labels 63 to 66, and no ordered native chain declaration is stored. Relabelling those labels cannot supply missing chemical evidence. The old OXT-at-412 assertion used a sequence-label heuristic, not a stored-graph oracle.
 
 The public recognizer defaults to a strict error. Explicit `on_ambiguous="report"` retains unassessed chains with reasons and no invented endpoints; other chains remain assessed. The legacy dictionary and local adder use that explicit mode and emit catalog warning MSM-WARN-BUILD-003 for every omitted chain. The native 1BRS adder therefore repairs four supported heavy atoms (5151 to 5155) without placing uncertain OXT, while PDBFixer retains its independent 5230-atom/6-OXT profile. Tests retain those independent observations and assert partial coverage instead of assuming algorithm parity. This does not silently interpret gaps as free fragment ends or weaken the new strict recognizer.
+
+## Resolution and receiving — 2026-11-10
+
+Native/addon source receiving on clean 68954e6aa passes 342 affected/route/inventory cases. Final clean b59ce29d5 passes 110 scientific cases over 71 registered nodes, including three newly declared analytical graph oracles; native/addon/docs and existing affected-test bytes match the earlier receiving exactly. Fourteen fast gates and six inspected HTML pages pass on f8c516abb, with identical product/docs bytes; six unchanged title-underline warnings remain. Both affected tutorial notebooks actually execute their seventeen code cells, plus private source/interpreter identity probes. Source warnings, failed iterations and the explicit 1BRS scope change remain in the [receiving record](../../../devtools/data/peptide_termini_receiving_686_20261110.json). This closes the label-dependent native endpoint defect, not completeness/protonation, general PDBFixer selection behavior or release qualification.

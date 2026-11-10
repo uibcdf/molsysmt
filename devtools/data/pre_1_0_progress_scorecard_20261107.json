@@ -910,7 +910,6 @@
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
     "scope": "Correct native chemical termini independently of group-ID labels (#686). Continue remaining #421 original graphical intents (construction, contacts, secondary structure, protonation reconciliation, interactions, mechanics and complete sessions), effective engine-neutral recipe #582, native cutoff #666/provider143, #256 P5/P6 stable H5MSM review, #524/#615 and #334 installed/platform/exact-candidate gates. New proposal #685 receives bounded design without adding a release gate; #667 remains post-1.0.",
     "active_related": [
-      "uibcdf/molsysmt#686",
       "uibcdf/molsysmt#666",
       "uibcdf/molsysmt#421",
       "uibcdf/molsysmt#615",
@@ -1284,5 +1283,17 @@
     "latest_open_issues": 93,
     "latest_open_prs": 0,
     "board_checkpoint": "After public integration and exact-head PR closeout"
+  },
+  "last_peptide_termini_receiving": {
+    "owner_issue": "uibcdf/molsysmt#686",
+    "qualified_source": "b59ce29d560da1617cd8193d6945baea793c67ab",
+    "receipt": "devtools/data/peptide_termini_receiving_686_20261110.json",
+    "affected_cases": 342,
+    "scientific_cases": 110,
+    "scientific_nodes": 71,
+    "fast_gates": 14,
+    "executed_tutorial_code_cells": 17,
+    "weighted_milestone_change": 0,
+    "state": "source_resolved_public_closeout_pending"
   }
 }
