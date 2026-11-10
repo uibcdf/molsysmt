@@ -1,0 +1,2008 @@
+{
+  "schema_version": "molsysmt.model_and_context_receiving@1",
+  "date": "2026-11-10",
+  "owners": [
+    "uibcdf/molsysmt#582",
+    "uibcdf/molsysmt#689",
+    "uibcdf/molsysmt#688"
+  ],
+  "numerical_source": "075cd4a408aa4c2be143af7372d21cc82f9b70c8",
+  "closeout_source": "25dac4728192c8866b6002b555cca838a56f86bb",
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "scope": "Bounded Linux/Python 3.14 source receiving; no new installed/platform/human/candidate/publication qualification.",
+  "runs": {
+    "recipe-baseline-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-baseline-directed.xml",
+          "--receptor-events=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-baseline-directed.events.jsonl",
+          "tests/molecular_mechanics/test_model_recipe.py::test_unused_native_model_control_is_refused",
+          "--basetemp=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-baseline-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 5.838969931937754,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": "?? tests/molecular_mechanics/test_model_recipe.py\n",
+        "ending_git_status": "?? tests/molecular_mechanics/test_model_recipe.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8732
+      },
+      "resources": {
+        "started_utc": "2026-11-10T06:52:05.550338+00:00",
+        "seconds": 15.0128576150164,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            7.7431640625,
+            7.203125,
+            5.767578125
+          ],
+          "cpu_utilization": 0.3564605329311211,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12732211200,
+        "cgroup_memory_peak_bytes": 289202176,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "1df8dbe55f4109a5c31a99c79f4dad541500a796a8d47762c9ce5267241a1e35",
+        "-bounded.json": "9ba96fb1cce4e48bc76cc319809057c3a95fb7f9b77d690fb61d2e2a84e51548",
+        ".xml": "1b9ebe0d12c3edebe3e5c05418a4a9f614084497fc281a322b82e7144b037062",
+        ".log": "e8112fe4da4b8dae0a9ff2f4903b79507bcf62dd06b9a81f168b2e089d789ddf",
+        "-inputs-before.json": "e47665d0f1eba58a10702f41f645acb41478d808baa99a458ff80a98d78c807e",
+        "-inputs-after.json": "e47665d0f1eba58a10702f41f645acb41478d808baa99a458ff80a98d78c807e",
+        "-reference-driver.py": "b944267516cd7d8ae35a6e85b47046969025bd1873bda966481e1a52a8c9524d",
+        "-resource-driver.py": "b44628534456bec67a9dfe9b3baac291376ec3e8de4b9b8d935c8cc0ce3df130"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "4",
+          "skipped": "0",
+          "tests": "4",
+          "time": "2.728",
+          "timestamp": "2026-11-10T00:52:12.326104-06:00"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.molecular_mechanics.test_model_recipe",
+          "name": "test_unused_native_model_control_is_refused[system]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.molecular_mechanics.test_model_recipe",
+          "name": "test_unused_native_model_control_is_refused[context]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.molecular_mechanics.test_model_recipe",
+          "name": "test_unused_native_model_control_is_refused[energy]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.molecular_mechanics.test_model_recipe",
+          "name": "test_unused_native_model_control_is_refused[forces]",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "recipe-small-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-small-directed.xml",
+          "--receptor-events=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-small-directed.events.jsonl",
+          "tests/molecular_mechanics/test_model_recipe.py",
+          "molsysmt/molecular_mechanics/get_model_recipe.py",
+          "--basetemp=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-small-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 5.289875084068626,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": " M molsysmt/_private/molecular_forces.py\n M molsysmt/basic/convert.py\n M molsysmt/molecular_mechanics/__init__.py\n?? molsysmt/_private/mechanical_model.py\n?? molsysmt/molecular_mechanics/get_model_recipe.py\n?? tests/molecular_mechanics/test_model_recipe.py\n",
+        "ending_git_status": " M molsysmt/_private/molecular_forces.py\n M molsysmt/basic/convert.py\n M molsysmt/molecular_mechanics/__init__.py\n?? molsysmt/_private/mechanical_model.py\n?? molsysmt/molecular_mechanics/get_model_recipe.py\n?? tests/molecular_mechanics/test_model_recipe.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8734
+      },
+      "resources": {
+        "started_utc": "2026-11-10T07:09:44.095823+00:00",
+        "seconds": 11.011810029158369,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.78369140625,
+            2.6064453125,
+            4.251953125
+          ],
+          "cpu_utilization": 0.029116465863453844,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14523936768,
+        "cgroup_memory_peak_bytes": 296697856,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "db6362a027311e82de778202a40a53fac32014f4ecb893ad1d586d47a9a58e78",
+        "-bounded.json": "1c5a999cc88215aaf4f7f8acbfd3008caf6dba55ac3fbdaad4ca133e75eb2a1d",
+        ".xml": "8ed2cb30b243427ac0379cd0e7c80ea72e7d06620a9a7bb93df8b4503f3b58da",
+        ".log": "7d3b6d140f677d741e2945d07075575b88f0a5ccf2801be46ce4df5ab0aa8b78",
+        "-inputs-before.json": "addb02ec0597b4c691ac74f8fe0ca52b98a87e0217378f62f47e5a608e46c3c5",
+        "-inputs-after.json": "addb02ec0597b4c691ac74f8fe0ca52b98a87e0217378f62f47e5a608e46c3c5",
+        "-reference-driver.py": "bbab6d4ba47022127700cef00a80c77d854e88a73c6abb4581f6a1c7d9d31c8e",
+        "-resource-driver.py": "b44628534456bec67a9dfe9b3baac291376ec3e8de4b9b8d935c8cc0ce3df130"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "6",
+          "skipped": "0",
+          "tests": "14",
+          "time": "2.778",
+          "timestamp": "2026-11-10T01:09:48.673038-06:00"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.molecular_mechanics.test_model_recipe",
+          "name": "test_unused_native_model_control_is_refused[system]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.molecular_mechanics.test_model_recipe",
+          "name": "test_unused_native_model_control_is_refused[context]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.molecular_mechanics.test_model_recipe",
+          "name": "test_unused_native_model_control_is_refused[energy]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.molecular_mechanics.test_model_recipe",
+          "name": "test_unused_native_model_control_is_refused[forces]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.molecular_mechanics.test_model_recipe",
+          "name": "test_recipe_structure_scope_is_one_valid_context[indices4]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.molecular_mechanics.test_model_recipe",
+          "name": "test_optional_attribution_failure_preserves_the_completed_recipe",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "recipe-small-fixed-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-small-fixed-directed.xml",
+          "--receptor-events=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-small-fixed-directed.events.jsonl",
+          "tests/molecular_mechanics/test_model_recipe.py",
+          "molsysmt/molecular_mechanics/get_model_recipe.py",
+          "--basetemp=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-small-fixed-directed"
+        ],
+        "exit_code": 0,
+        "seconds": 5.038160145981237,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": " M molsysmt/__init__.py\n M molsysmt/_private/molecular_forces.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/exceptions.py\n M molsysmt/basic/convert.py\n M molsysmt/molecular_mechanics/__init__.py\n?? molsysmt/_private/mechanical_model.py\n?? molsysmt/molecular_mechanics/get_model_recipe.py\n?? tests/molecular_mechanics/test_model_recipe.py\n",
+        "ending_git_status": " M molsysmt/__init__.py\n M molsysmt/_private/molecular_forces.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/exceptions.py\n M molsysmt/basic/convert.py\n M molsysmt/molecular_mechanics/__init__.py\n?? molsysmt/_private/mechanical_model.py\n?? molsysmt/molecular_mechanics/get_model_recipe.py\n?? tests/molecular_mechanics/test_model_recipe.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8734
+      },
+      "resources": {
+        "started_utc": "2026-11-10T07:16:00.647033+00:00",
+        "seconds": 11.011818414088339,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.32666015625,
+            2.36474609375,
+            3.583984375
+          ],
+          "cpu_utilization": 0.02815485168426346,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14493724672,
+        "cgroup_memory_peak_bytes": 290742272,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "0c60ef8f67fa282ebb540f51162e70698068e21172caaad81d54689ad23953d0",
+        "-bounded.json": "80659605fbaf5eba54faf67957c31c758885467c2087de3841f19b250ea5eb1a",
+        ".xml": "d6d59d2f81d44e5bad0a375759f4a664ba9a367827c5caeae8f3e6d067646278",
+        ".log": "5ff42544044459ee3267c70bbd007c12897121ebc1a33b2d6c23ccc3b0d8444b",
+        "-inputs-before.json": "d52212d73f6e7711f20b5691cec7c2a6dd72744684b9d30d95350138f490d740",
+        "-inputs-after.json": "d52212d73f6e7711f20b5691cec7c2a6dd72744684b9d30d95350138f490d740",
+        "-reference-driver.py": "bbab6d4ba47022127700cef00a80c77d854e88a73c6abb4581f6a1c7d9d31c8e",
+        "-resource-driver.py": "b44628534456bec67a9dfe9b3baac291376ec3e8de4b9b8d935c8cc0ce3df130"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "14",
+          "time": "2.558",
+          "timestamp": "2026-11-10T01:16:05.210182-06:00"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "recipe-expanded-small-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-expanded-small-directed.xml",
+          "--receptor-events=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-expanded-small-directed.events.jsonl",
+          "tests/molecular_mechanics/test_model_recipe.py",
+          "molsysmt/molecular_mechanics/get_model_recipe.py",
+          "--basetemp=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-expanded-small-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 6.212924274848774,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": " M molsysmt/__init__.py\n M molsysmt/_private/molecular_forces.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/exceptions.py\n M molsysmt/basic/convert.py\n M molsysmt/molecular_mechanics/__init__.py\n?? molsysmt/_private/mechanical_model.py\n?? molsysmt/molecular_mechanics/get_model_recipe.py\n?? tests/molecular_mechanics/test_model_recipe.py\n",
+        "ending_git_status": " M molsysmt/__init__.py\n M molsysmt/_private/molecular_forces.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/exceptions.py\n M molsysmt/basic/convert.py\n M molsysmt/molecular_mechanics/__init__.py\n?? molsysmt/_private/mechanical_model.py\n?? molsysmt/molecular_mechanics/get_model_recipe.py\n?? tests/molecular_mechanics/test_model_recipe.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8734
+      },
+      "resources": {
+        "started_utc": "2026-11-10T07:29:21.234639+00:00",
+        "seconds": 13.01413577189669,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.15869140625,
+            1.7412109375,
+            2.4677734375
+          ],
+          "cpu_utilization": 0.09351432880844646,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14244732928,
+        "cgroup_memory_peak_bytes": 274919424,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "b2808823ef5db0dd7424a95b05a4c02384310ff2b61bc033d284f313613dc0de",
+        "-bounded.json": "bdee94a39c17f7d930be37b63926428212e80c98429146c2b15b080b76b461c7",
+        ".xml": "5d762a55699d6993b9a1567fa82387b747af5e66ebf9a325624eb6be08ece7fb",
+        ".log": "2f5edec0ecde69ea8f5db5155ae7adfc810d1060660cc549d23c4301477c16d4",
+        "-inputs-before.json": "d33e88f2164cb989067045f0aa814c5caf24bd38289cb37c03bd35f975ff8b6c",
+        "-inputs-after.json": "d33e88f2164cb989067045f0aa814c5caf24bd38289cb37c03bd35f975ff8b6c",
+        "-reference-driver.py": "8ac0b071c65eb85e87f7e82fa29007432a3666acbe28ea0098d21014f8141159",
+        "-resource-driver.py": "b44628534456bec67a9dfe9b3baac291376ec3e8de4b9b8d935c8cc0ce3df130"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "2",
+          "skipped": "0",
+          "tests": "25",
+          "time": "3.517",
+          "timestamp": "2026-11-10T01:29:26.140460-06:00"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.molecular_mechanics.test_model_recipe",
+          "name": "test_recipe_reads_the_compiled_model_and_preserves_the_source",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.molecular_mechanics.test_model_recipe",
+          "name": "test_constructed_obc_recipe_retains_the_executed_scientific_reference",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "recipe-defaults-small-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-defaults-small-directed.xml",
+          "--receptor-events=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-defaults-small-directed.events.jsonl",
+          "tests/molecular_mechanics/test_model_recipe.py",
+          "molsysmt/molecular_mechanics/get_model_recipe.py",
+          "--basetemp=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-defaults-small-directed"
+        ],
+        "exit_code": 0,
+        "seconds": 5.804447897011414,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": " M molsysmt/__init__.py\n M molsysmt/_private/molecular_forces.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/exceptions.py\n M molsysmt/basic/convert.py\n M molsysmt/molecular_mechanics/__init__.py\n M molsysmt/molecular_mechanics/get_non_bonded_potential_energy.py\n M molsysmt/molecular_mechanics/get_potential_energy.py\n M molsysmt/molecular_mechanics/potential_energy_minimization.py\n?? molsysmt/_private/mechanical_model.py\n?? molsysmt/molecular_mechanics/get_model_recipe.py\n?? tests/molecular_mechanics/test_model_recipe.py\n",
+        "ending_git_status": " M molsysmt/__init__.py\n M molsysmt/_private/molecular_forces.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/exceptions.py\n M molsysmt/basic/convert.py\n M molsysmt/molecular_mechanics/__init__.py\n M molsysmt/molecular_mechanics/get_non_bonded_potential_energy.py\n M molsysmt/molecular_mechanics/get_potential_energy.py\n M molsysmt/molecular_mechanics/potential_energy_minimization.py\n?? molsysmt/_private/mechanical_model.py\n?? molsysmt/molecular_mechanics/get_model_recipe.py\n?? tests/molecular_mechanics/test_model_recipe.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8734
+      },
+      "resources": {
+        "started_utc": "2026-11-10T07:36:46.610926+00:00",
+        "seconds": 12.012193833012134,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1879048192",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.5888671875,
+            0.921875,
+            1.8056640625
+          ],
+          "cpu_utilization": 0.056783919597989896,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14479384576,
+        "cgroup_memory_peak_bytes": 296693760,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "3a5122dda4bd0aacf1e8ed8ec876fbff16a4c12bc792b93fed69eeffe9c7ef64",
+        "-bounded.json": "c915d18209d3bc8d2aca3e6905d6bc674deb499b3d9c2908a9a81b9f705640df",
+        ".xml": "6060f0fbacff179edd21c60780f7e4ee15cd1d9d63bad5fc88807a16e12f9d17",
+        ".log": "f732b7ba948aed03e722148a51aac2350a0e29874e252a4770778be0cee26e94",
+        "-inputs-before.json": "dfd2041fde603124a19d93ae8585e0ce3596eddfbdee136af4352ad814c63c45",
+        "-inputs-after.json": "dfd2041fde603124a19d93ae8585e0ce3596eddfbdee136af4352ad814c63c45",
+        "-reference-driver.py": "8ac0b071c65eb85e87f7e82fa29007432a3666acbe28ea0098d21014f8141159",
+        "-resource-driver.py": "b44628534456bec67a9dfe9b3baac291376ec3e8de4b9b8d935c8cc0ce3df130"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "25",
+          "time": "3.255",
+          "timestamp": "2026-11-10T01:36:51.276564-06:00"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "recipe-context-small-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-context-small-directed.xml",
+          "--receptor-events=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-context-small-directed.events.jsonl",
+          "tests/molecular_mechanics/test_model_recipe.py",
+          "molsysmt/molecular_mechanics/get_model_recipe.py",
+          "--basetemp=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-context-small-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 7.789148623123765,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": " M molsysmt/__init__.py\n M molsysmt/_private/molecular_forces.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/exceptions.py\n M molsysmt/basic/convert.py\n M molsysmt/molecular_mechanics/__init__.py\n M molsysmt/molecular_mechanics/get_non_bonded_potential_energy.py\n M molsysmt/molecular_mechanics/get_potential_energy.py\n M molsysmt/molecular_mechanics/potential_energy_minimization.py\n?? molsysmt/_private/mechanical_model.py\n?? molsysmt/molecular_mechanics/get_model_recipe.py\n?? tests/molecular_mechanics/test_model_recipe.py\n",
+        "ending_git_status": " M molsysmt/__init__.py\n M molsysmt/_private/molecular_forces.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/exceptions.py\n M molsysmt/basic/convert.py\n M molsysmt/molecular_mechanics/__init__.py\n M molsysmt/molecular_mechanics/get_non_bonded_potential_energy.py\n M molsysmt/molecular_mechanics/get_potential_energy.py\n M molsysmt/molecular_mechanics/potential_energy_minimization.py\n?? molsysmt/_private/mechanical_model.py\n?? molsysmt/molecular_mechanics/get_model_recipe.py\n?? tests/molecular_mechanics/test_model_recipe.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8734
+      },
+      "resources": {
+        "started_utc": "2026-11-10T07:52:58.415564+00:00",
+        "seconds": 14.013825935078785,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.6669921875,
+            1.13037109375,
+            1.31884765625
+          ],
+          "cpu_utilization": 0.03370221327967804,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14516723712,
+        "cgroup_memory_peak_bytes": 301015040,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "a42da92b09fc652010b67d74b47c448555b51dd97d45f6bdb52878acd3fc6de5",
+        "-bounded.json": "bd1da47eff66dd119bcf5f7330096df720d3118249905c8d4ffa7610ba1141f4",
+        ".xml": "13fc4b1367a1e1ec40b6e9e345d66db562f07b3183135636b7c709d05d6751b0",
+        ".log": "418ab6894c4829fa85be8554b538eb6471f26f1a3e504588e3260f8b87ba2243",
+        "-inputs-before.json": "9111a724631965dd8ee70a36f90940b6a35c2845a34862b85ebcaf0af86749d9",
+        "-inputs-after.json": "9111a724631965dd8ee70a36f90940b6a35c2845a34862b85ebcaf0af86749d9",
+        "-reference-driver.py": "8ac0b071c65eb85e87f7e82fa29007432a3666acbe28ea0098d21014f8141159",
+        "-resource-driver.py": "b44628534456bec67a9dfe9b3baac291376ec3e8de4b9b8d935c8cc0ce3df130"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "3",
+          "skipped": "0",
+          "tests": "32",
+          "time": "4.126",
+          "timestamp": "2026-11-10T01:53:04.179513-06:00"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.molecular_mechanics.test_model_recipe",
+          "name": "test_compiled_periodic_box_uses_rows_and_the_active_length_policy",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.molecular_mechanics.test_model_recipe",
+          "name": "test_modular_file_reads_only_the_requested_structure_and_no_analyses",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.molecular_mechanics.test_model_recipe",
+          "name": "test_stored_requests_are_redigested_at_the_engine_boundary",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "recipe-context-fixed-small-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-context-fixed-small-directed.xml",
+          "--receptor-events=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-context-fixed-small-directed.events.jsonl",
+          "tests/molecular_mechanics/test_model_recipe.py",
+          "molsysmt/molecular_mechanics/get_model_recipe.py",
+          "--basetemp=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-context-fixed-small-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 7.0250805099494755,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": " M molsysmt/__init__.py\n M molsysmt/_private/molecular_forces.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/exceptions.py\n M molsysmt/basic/convert.py\n M molsysmt/molecular_mechanics/__init__.py\n M molsysmt/molecular_mechanics/get_non_bonded_potential_energy.py\n M molsysmt/molecular_mechanics/get_potential_energy.py\n M molsysmt/molecular_mechanics/potential_energy_minimization.py\n M molsysviewer_molsysmt/_molecular_mechanics.py\n M tests/molsysviewer_molsysmt/test_molecular_mechanics_tools.py\n?? molsysmt/_private/mechanical_model.py\n?? molsysmt/molecular_mechanics/get_model_recipe.py\n?? tests/molecular_mechanics/test_model_recipe.py\n",
+        "ending_git_status": " M molsysmt/__init__.py\n M molsysmt/_private/molecular_forces.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/exceptions.py\n M molsysmt/basic/convert.py\n M molsysmt/molecular_mechanics/__init__.py\n M molsysmt/molecular_mechanics/get_non_bonded_potential_energy.py\n M molsysmt/molecular_mechanics/get_potential_energy.py\n M molsysmt/molecular_mechanics/potential_energy_minimization.py\n M molsysviewer_molsysmt/_molecular_mechanics.py\n M tests/molsysviewer_molsysmt/test_molecular_mechanics_tools.py\n?? molsysmt/_private/mechanical_model.py\n?? molsysmt/molecular_mechanics/get_model_recipe.py\n?? tests/molecular_mechanics/test_model_recipe.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8734
+      },
+      "resources": {
+        "started_utc": "2026-11-10T07:54:07.056786+00:00",
+        "seconds": 13.012127506081015,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.740234375,
+            1.06884765625,
+            1.2822265625
+          ],
+          "cpu_utilization": 0.029618473895582365,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14433292288,
+        "cgroup_memory_peak_bytes": 300867584,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "31371834d0d14f697384a5f136259b12412402268a412660c152d1d7821fb013",
+        "-bounded.json": "69ac8b6200f200c265e38111c857bf9dbc7aa67da8ee880138bc2dfd40c4811a",
+        ".xml": "98edc54df10bf86136d71efeb92b284b057f6989679cb6ff07cfbf24c7815236",
+        ".log": "3189ac0228b9dbad34283fad5bf1ffeee2abee9a006696f12d87664e1d9a0d13",
+        "-inputs-before.json": "34f4d12f4d28037dfe248c946ab5a4b7bd8c5694dbd10d644ed151b84156a551",
+        "-inputs-after.json": "34f4d12f4d28037dfe248c946ab5a4b7bd8c5694dbd10d644ed151b84156a551",
+        "-reference-driver.py": "8ac0b071c65eb85e87f7e82fa29007432a3666acbe28ea0098d21014f8141159",
+        "-resource-driver.py": "b44628534456bec67a9dfe9b3baac291376ec3e8de4b9b8d935c8cc0ce3df130"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "32",
+          "time": "4.451",
+          "timestamp": "2026-11-10T01:54:11.696423-06:00"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.molecular_mechanics.test_model_recipe",
+          "name": "test_modular_file_reads_only_the_requested_structure_and_no_analyses",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "recipe-native-addon-small-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-native-addon-small-directed.xml",
+          "--receptor-events=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-native-addon-small-directed.events.jsonl",
+          "tests/molecular_mechanics/test_model_recipe.py",
+          "molsysmt/molecular_mechanics/get_model_recipe.py",
+          "tests/molsysviewer_molsysmt/test_molecular_mechanics_tools.py",
+          "--basetemp=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-native-addon-small-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 82.13131355191581,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": " M devguide/api_stability_registry.md\n M devtools/data/public_api_stability.json\n M docs/api/molecular_mechanics/api_molecular_mechanics.rst\n M docs/content/course/Path_Alzheimer/42_Molecular_Mechanics.ipynb\n M docs/content/course/Path_Alzheimer/43_Energy_Minimization.ipynb\n M docs/content/course/Path_Antiviral/42_Molecular_Mechanics.ipynb\n M docs/content/course/Path_Antiviral/43_Energy_Minimization.ipynb\n M docs/content/course/Path_Biophysics/42_Molecular_Mechanics.ipynb\n M docs/content/course/Path_Biophysics/43_Energy_Minimization.ipynb\n M docs/content/course/Path_Enzyme/42_Molecular_Mechanics.ipynb\n M docs/content/course/Path_Enzyme/43_Energy_Minimization.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md.AGENTS.md\n M docs/content/user/foundations/support/molecular_mechanics.md\n M docs/content/user/tools/molecular_mechanics/AGENTS.md\n M docs/content/user/tools/molecular_mechanics/index.AGENTS.md\n M docs/content/user/tools/molecular_mechanics/index.md\n M docs/docs_manifest.yml\n M molsysmt/__init__.py\n M molsysmt/_private/molecular_forces.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/exceptions.py\n M molsysmt/basic/convert.py\n M molsysmt/molecular_mechanics/__init__.py\n M molsysmt/molecular_mechanics/get_forces.py\n M molsysmt/molecular_mechanics/get_non_bonded_potential_energy.py\n M molsysmt/molecular_mechanics/get_potential_energy.py\n M molsysmt/molecular_mechanics/potential_energy_minimization.py\n M molsysmt/native/molecular_mechanics.py\n M molsysviewer_molsysmt/_molecular_mechanics.py\n M tests/molsysviewer_molsysmt/test_molecular_mechanics_tools.py\n?? docs/api/molecular_mechanics/autosummary/molsysmt.molecular_mechanics.get_model_recipe.rst\n?? docs/content/user/tools/molecular_mechanics/get_model_recipe.md\n?? docs/content/user/tools/molecular_mechanics/get_model_recipe.md.AGENTS.md\n?? molsysmt/_private/mechanical_model.py\n?? molsysmt/molecular_mechanics/get_model_recipe.py\n?? tests/molecular_mechanics/test_model_recipe.py\n",
+        "ending_git_status": " M devguide/api_stability_registry.md\n M devtools/data/public_api_stability.json\n M docs/api/molecular_mechanics/api_molecular_mechanics.rst\n M docs/content/course/Path_Alzheimer/42_Molecular_Mechanics.ipynb\n M docs/content/course/Path_Alzheimer/43_Energy_Minimization.ipynb\n M docs/content/course/Path_Antiviral/42_Molecular_Mechanics.ipynb\n M docs/content/course/Path_Antiviral/43_Energy_Minimization.ipynb\n M docs/content/course/Path_Biophysics/42_Molecular_Mechanics.ipynb\n M docs/content/course/Path_Biophysics/43_Energy_Minimization.ipynb\n M docs/content/course/Path_Enzyme/42_Molecular_Mechanics.ipynb\n M docs/content/course/Path_Enzyme/43_Energy_Minimization.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md.AGENTS.md\n M docs/content/user/foundations/support/molecular_mechanics.md\n M docs/content/user/tools/molecular_mechanics/AGENTS.md\n M docs/content/user/tools/molecular_mechanics/index.AGENTS.md\n M docs/content/user/tools/molecular_mechanics/index.md\n M docs/docs_manifest.yml\n M molsysmt/__init__.py\n M molsysmt/_private/molecular_forces.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/exceptions.py\n M molsysmt/basic/convert.py\n M molsysmt/molecular_mechanics/__init__.py\n M molsysmt/molecular_mechanics/get_forces.py\n M molsysmt/molecular_mechanics/get_non_bonded_potential_energy.py\n M molsysmt/molecular_mechanics/get_potential_energy.py\n M molsysmt/molecular_mechanics/potential_energy_minimization.py\n M molsysmt/native/molecular_mechanics.py\n M molsysviewer_molsysmt/_molecular_mechanics.py\n M tests/molsysviewer_molsysmt/test_molecular_mechanics_tools.py\n?? docs/api/molecular_mechanics/autosummary/molsysmt.molecular_mechanics.get_model_recipe.rst\n?? docs/content/user/tools/molecular_mechanics/get_model_recipe.md\n?? docs/content/user/tools/molecular_mechanics/get_model_recipe.md.AGENTS.md\n?? molsysmt/_private/mechanical_model.py\n?? molsysmt/molecular_mechanics/get_model_recipe.py\n?? tests/molecular_mechanics/test_model_recipe.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8737
+      },
+      "resources": {
+        "started_utc": "2026-11-10T07:56:55.623072+00:00",
+        "seconds": 88.07863606279716,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.90283203125,
+            1.7666015625,
+            1.52734375
+          ],
+          "cpu_utilization": 0.02812656956303361,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14126657536,
+        "cgroup_memory_peak_bytes": 883109888,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "7986f80e5ef4ba7d4a0fa51d58f59f6e7ba0b26f9368d53cd5e17017aa73be6f",
+        "-bounded.json": "e94f6978ffa2b25d2c96bcdce9643dda0daba5a21222f6b027832b94496f4f91",
+        ".xml": "6c2c4aaee6b1c70b3a83dfaf50b307666bbb5dc12b34f89b74a08ec7445d98c1",
+        ".log": "978fdf878868deb0d324ae31019b2bb9e6fb0dda492b32270864afca7a9b8785",
+        "-inputs-before.json": "27dcb1d03300ad755f22f2ee5dbd1988939764c21e977eaafc5d38f10a418bf1",
+        "-inputs-after.json": "27dcb1d03300ad755f22f2ee5dbd1988939764c21e977eaafc5d38f10a418bf1",
+        "-reference-driver.py": "b38d14c07c9248123da9ac9b6dc6916c71b1d1c4bb83d735cefd51d16748d878",
+        "-resource-driver.py": "b44628534456bec67a9dfe9b3baac291376ec3e8de4b9b8d935c8cc0ce3df130"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "183",
+          "time": "72.605",
+          "timestamp": "2026-11-10T01:57:06.866567-06:00"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.molsysviewer_molsysmt.test_molecular_mechanics_tools",
+          "name": "test_model_recipe_reads_actual_parameters_without_scene_or_source_changes",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "recipe-broad-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-broad-directed.xml",
+          "--receptor-events=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-broad-directed.events.jsonl",
+          "tests/molecular_mechanics",
+          "tests/form/openmm_Topology",
+          "tests/native/test_molecular_mechanics_engine_constraints.py",
+          "tests/molsysviewer_molsysmt/test_minimization_panel.py",
+          "tests/molsysviewer_molsysmt/test_molecular_mechanics_tools.py",
+          "tests/scientific_truth/molecular_mechanics",
+          "--basetemp=<repository>/.pytest_cache/pre1-review-20261110/mechanics-recipe-582/.pytest_cache/external-reference-421/pre1-recipe-582-broad-directed"
+        ],
+        "exit_code": 0,
+        "seconds": 358.20090399100445,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b110ad6dda72b43ed6987fd439108341029fd11b",
+        "starting_git_status": " M devguide/api_stability_registry.md\n M devguide/scientific_evidence_matrix.md\n M devtools/data/public_api_stability.json\n M docs/api/molecular_mechanics/api_molecular_mechanics.rst\n M docs/content/course/Path_Alzheimer/42_Molecular_Mechanics.ipynb\n M docs/content/course/Path_Alzheimer/43_Energy_Minimization.ipynb\n M docs/content/course/Path_Antiviral/42_Molecular_Mechanics.ipynb\n M docs/content/course/Path_Antiviral/43_Energy_Minimization.ipynb\n M docs/content/course/Path_Biophysics/42_Molecular_Mechanics.ipynb\n M docs/content/course/Path_Biophysics/43_Energy_Minimization.ipynb\n M docs/content/course/Path_Enzyme/42_Molecular_Mechanics.ipynb\n M docs/content/course/Path_Enzyme/43_Energy_Minimization.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md.AGENTS.md\n M docs/content/user/foundations/support/molecular_mechanics.md\n M docs/content/user/tools/molecular_mechanics/AGENTS.md\n M docs/content/user/tools/molecular_mechanics/index.AGENTS.md\n M docs/content/user/tools/molecular_mechanics/index.md\n M docs/docs_manifest.yml\n M molsysmt/__init__.py\n M molsysmt/_private/molecular_forces.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/exceptions.py\n M molsysmt/basic/convert.py\n M molsysmt/molecular_mechanics/__init__.py\n M molsysmt/molecular_mechanics/get_forces.py\n M molsysmt/molecular_mechanics/get_non_bonded_potential_energy.py\n M molsysmt/molecular_mechanics/get_potential_energy.py\n M molsysmt/molecular_mechanics/potential_energy_minimization.py\n M molsysmt/native/molecular_mechanics.py\n M molsysviewer_molsysmt/_molecular_mechanics.py\n M tests/molsysviewer_molsysmt/test_molecular_mechanics_tools.py\n M tests/scientific_truth/evidence/registry.json\n?? docs/api/molecular_mechanics/autosummary/molsysmt.molecular_mechanics.get_model_recipe.rst\n?? docs/content/user/tools/molecular_mechanics/get_model_recipe.md\n?? docs/content/user/tools/molecular_mechanics/get_model_recipe.md.AGENTS.md\n?? molsysmt/_private/mechanical_model.py\n?? molsysmt/molecular_mechanics/get_model_recipe.py\n?? tests/molecular_mechanics/test_model_recipe.py\n?? tests/scientific_truth/evidence/capabilities/molecular_mechanics.json\n?? tests/scientific_truth/molecular_mechanics/test_model_recipe.py\n",
+        "ending_git_status": " M devguide/api_stability_registry.md\n M devguide/scientific_evidence_matrix.md\n M devtools/data/public_api_stability.json\n M docs/api/molecular_mechanics/api_molecular_mechanics.rst\n M docs/content/course/Path_Alzheimer/42_Molecular_Mechanics.ipynb\n M docs/content/course/Path_Alzheimer/43_Energy_Minimization.ipynb\n M docs/content/course/Path_Antiviral/42_Molecular_Mechanics.ipynb\n M docs/content/course/Path_Antiviral/43_Energy_Minimization.ipynb\n M docs/content/course/Path_Biophysics/42_Molecular_Mechanics.ipynb\n M docs/content/course/Path_Biophysics/43_Energy_Minimization.ipynb\n M docs/content/course/Path_Enzyme/42_Molecular_Mechanics.ipynb\n M docs/content/course/Path_Enzyme/43_Energy_Minimization.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md\n M docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md.AGENTS.md\n M docs/content/user/foundations/support/molecular_mechanics.md\n M docs/content/user/tools/molecular_mechanics/AGENTS.md\n M docs/content/user/tools/molecular_mechanics/index.AGENTS.md\n M docs/content/user/tools/molecular_mechanics/index.md\n M docs/docs_manifest.yml\n M molsysmt/__init__.py\n M molsysmt/_private/molecular_forces.py\n M molsysmt/_private/smonitor/__init__.py\n M molsysmt/_private/smonitor/catalog.py\n M molsysmt/_private/smonitor/exceptions.py\n M molsysmt/basic/convert.py\n M molsysmt/molecular_mechanics/__init__.py\n M molsysmt/molecular_mechanics/get_forces.py\n M molsysmt/molecular_mechanics/get_non_bonded_potential_energy.py\n M molsysmt/molecular_mechanics/get_potential_energy.py\n M molsysmt/molecular_mechanics/potential_energy_minimization.py\n M molsysmt/native/molecular_mechanics.py\n M molsysviewer_molsysmt/_molecular_mechanics.py\n M tests/molsysviewer_molsysmt/test_molecular_mechanics_tools.py\n M tests/scientific_truth/evidence/registry.json\n?? docs/api/molecular_mechanics/autosummary/molsysmt.molecular_mechanics.get_model_recipe.rst\n?? docs/content/user/tools/molecular_mechanics/get_model_recipe.md\n?? docs/content/user/tools/molecular_mechanics/get_model_recipe.md.AGENTS.md\n?? molsysmt/_private/mechanical_model.py\n?? molsysmt/molecular_mechanics/get_model_recipe.py\n?? tests/molecular_mechanics/test_model_recipe.py\n?? tests/scientific_truth/evidence/capabilities/molecular_mechanics.json\n?? tests/scientific_truth/molecular_mechanics/test_model_recipe.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8739
+      },
+      "resources": {
+        "started_utc": "2026-11-10T07:59:31.928576+00:00",
+        "seconds": 364.29313580389135,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.72607421875,
+            1.39990234375,
+            1.4296875
+          ],
+          "cpu_utilization": 0.029145728643216073,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12422524928,
+        "cgroup_memory_peak_bytes": 796983296,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 2.17
+      },
+      "evidence_sha256": {
+        ".json": "9eff8cf8a56203b9d19b6187ca7df008d87320bd8b9afba527661e5a4f645c0f",
+        "-bounded.json": "aec572223b5e32c460ee5e529457d3324aee8001caf581643d9e1a47c167d557",
+        ".xml": "b3909ce2925ca0345f3bfbe37ec891cf381c06cfe0117837c9cb709fb748c127",
+        ".log": "2e93fddc0e0d3f517aca7c1f36bdb6171b52758200be3971afdd05a389759f8a",
+        "-inputs-before.json": "d67b0abcde0eb7cb9d7816d023b2bfa22e0938a5b2b528f33ef334de97388f5e",
+        "-inputs-after.json": "d67b0abcde0eb7cb9d7816d023b2bfa22e0938a5b2b528f33ef334de97388f5e",
+        "-reference-driver.py": "a3cf82a7e6c6a3cb7d73d09674f4624943f512118ea886645b64b3ea5d565c95",
+        "-resource-driver.py": "b44628534456bec67a9dfe9b3baac291376ec3e8de4b9b8d935c8cc0ce3df130"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1444",
+          "time": "354.524",
+          "timestamp": "2026-11-10T01:59:36.583019-06:00"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "pdbfixer-baseline-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<repository>/.pytest_cache/pre1-review-20261110/pdbfixer-terminal-context/.pytest_cache/external-reference-421/pre1-pdb-terminal-context-baseline-directed.xml",
+          "--receptor-events=<repository>/.pytest_cache/pre1-review-20261110/pdbfixer-terminal-context/.pytest_cache/external-reference-421/pre1-pdb-terminal-context-baseline-directed.events.jsonl",
+          "tests/build/get_missing_terminal_cappings/test_pdbfixer_selection_context.py",
+          "--basetemp=<repository>/.pytest_cache/pre1-review-20261110/pdbfixer-terminal-context/.pytest_cache/external-reference-421/pre1-pdb-terminal-context-baseline-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 7.1113056091126055,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "c25c517a520bbd302626ce2a26b29de01897a430",
+        "starting_git_status": "?? tests/build/get_missing_terminal_cappings/test_pdbfixer_selection_context.py\n",
+        "ending_git_status": "?? tests/build/get_missing_terminal_cappings/test_pdbfixer_selection_context.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8743
+      },
+      "resources": {
+        "started_utc": "2026-11-10T08:00:51.674211+00:00",
+        "seconds": 14.013485540170223,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.3818359375,
+            1.4404296875,
+            1.4423828125
+          ],
+          "cpu_utilization": 0.08354302969300453,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14143234048,
+        "cgroup_memory_peak_bytes": 274874368,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.05
+      },
+      "evidence_sha256": {
+        ".json": "839492011b0ecdd8d4c20afda9e6e97dd9617467279ec1a0045346edd7001ba1",
+        "-bounded.json": "e1cf0125fd0f006da63afcb989a0113435c50066a5e52d30a5b8433b9f8d5d32",
+        ".xml": "7404420c935c953c4f11122fcf24eec00c434c6c11ae51537c3ccd379efcfbdc",
+        ".log": "6e44720b1125ae1c0e00f99d5b63f5894fad1ac55d23adbf7c23b3fb8e3a3598",
+        "-inputs-before.json": "95d06248e23e40ff5fe74f4c6884bdd3bdef3ddb09f7a84f80bc523f97732b34",
+        "-inputs-after.json": "95d06248e23e40ff5fe74f4c6884bdd3bdef3ddb09f7a84f80bc523f97732b34",
+        "-reference-driver.py": "76092513ca744dd1f6e85a7a2c3c2ed80eaf984ae5158ee33f902d99a3523d9c",
+        "-resource-driver.py": "0d32ffeaf7e0fcf2728c8e69ab835fb78a92e5198856b700a2b1ecd8dccf0801"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "3",
+          "skipped": "0",
+          "tests": "4",
+          "time": "4.535",
+          "timestamp": "2026-11-10T02:00:57.134766-06:00"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.build.get_missing_terminal_cappings.test_pdbfixer_selection_context",
+          "name": "test_selected_internal_group_is_not_made_a_pdbfixer_terminus[selection0-MolSysMT]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.build.get_missing_terminal_cappings.test_pdbfixer_selection_context",
+          "name": "test_selected_internal_group_is_not_made_a_pdbfixer_terminus[group_index==1-MolSysMT]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.build.get_missing_terminal_cappings.test_pdbfixer_selection_context",
+          "name": "test_selected_internal_group_is_not_made_a_pdbfixer_terminus[resid 1-MDTraj]",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "pdbfixer-fixed-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<repository>/.pytest_cache/pre1-review-20261110/pdbfixer-terminal-context/.pytest_cache/external-reference-421/pre1-pdb-terminal-context-fixed-directed.xml",
+          "--receptor-events=<repository>/.pytest_cache/pre1-review-20261110/pdbfixer-terminal-context/.pytest_cache/external-reference-421/pre1-pdb-terminal-context-fixed-directed.events.jsonl",
+          "tests/build/get_missing_terminal_cappings/test_pdbfixer_selection_context.py",
+          "--basetemp=<repository>/.pytest_cache/pre1-review-20261110/pdbfixer-terminal-context/.pytest_cache/external-reference-421/pre1-pdb-terminal-context-fixed-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 6.93405395001173,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "c25c517a520bbd302626ce2a26b29de01897a430",
+        "starting_git_status": " M molsysmt/build/get_missing_terminal_cappings.py\n?? devguide/pending_bugs/pdbfixer_terminal_assessment_turns_selected_internal_groups_into_artificial_chai.md\n?? tests/build/get_missing_terminal_cappings/test_pdbfixer_selection_context.py\n",
+        "ending_git_status": " M molsysmt/build/get_missing_terminal_cappings.py\n?? devguide/pending_bugs/pdbfixer_terminal_assessment_turns_selected_internal_groups_into_artificial_chai.md\n?? tests/build/get_missing_terminal_cappings/test_pdbfixer_selection_context.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8744
+      },
+      "resources": {
+        "started_utc": "2026-11-10T08:02:39.341290+00:00",
+        "seconds": 13.013176108011976,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.72900390625,
+            1.5595703125,
+            1.48388671875
+          ],
+          "cpu_utilization": 0.08555611474584801,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14132064256,
+        "cgroup_memory_peak_bytes": 261287936,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "175aa88315a3f4d99683de73329bed374bad74832d6c2d26198490eb8196611f",
+        "-bounded.json": "a88b0e00348b91dbda35f327c11a2272135a468d9e48ab19f421a8f1f9af4d48",
+        ".xml": "7877e4226738a70cf8323f6b6c9ec6dd95e09d2594384e943eafa17a02de6367",
+        ".log": "ab25b4f396832f1acbff09df0756febff0d37d3191b77424aab9ebf1cd658d55",
+        "-inputs-before.json": "484d9c023d834fc31011e908f96e55214823d2ccd7a52805119df1ad83225069",
+        "-inputs-after.json": "484d9c023d834fc31011e908f96e55214823d2ccd7a52805119df1ad83225069",
+        "-reference-driver.py": "76092513ca744dd1f6e85a7a2c3c2ed80eaf984ae5158ee33f902d99a3523d9c",
+        "-resource-driver.py": "0d32ffeaf7e0fcf2728c8e69ab835fb78a92e5198856b700a2b1ecd8dccf0801"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "6",
+          "time": "4.272",
+          "timestamp": "2026-11-10T02:02:44.214474-06:00"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.build.get_missing_terminal_cappings.test_pdbfixer_selection_context",
+          "name": "test_detection_does_not_modify_a_supplied_pdbfixer_instance",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "pdbfixer-wide-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<repository>/.pytest_cache/pre1-review-20261110/pdbfixer-terminal-context/.pytest_cache/external-reference-421/pre1-pdb-terminal-context-wide-directed.xml",
+          "--receptor-events=<repository>/.pytest_cache/pre1-review-20261110/pdbfixer-terminal-context/.pytest_cache/external-reference-421/pre1-pdb-terminal-context-wide-directed.events.jsonl",
+          "tests/build/get_missing_terminal_cappings",
+          "tests/build/add_missing_terminal_cappings",
+          "tests/chemical_states/test_get_peptide_termini.py",
+          "--basetemp=<repository>/.pytest_cache/pre1-review-20261110/pdbfixer-terminal-context/.pytest_cache/external-reference-421/pre1-pdb-terminal-context-wide-directed"
+        ],
+        "exit_code": 0,
+        "seconds": 154.92090534092858,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "c25c517a520bbd302626ce2a26b29de01897a430",
+        "starting_git_status": " M devguide/pending_bugs/README.md\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb\n M molsysmt/build/get_missing_terminal_cappings.py\n?? devguide/pending_bugs/pdbfixer_terminal_assessment_turns_selected_internal_groups_into_artificial_chai.md\n?? tests/build/get_missing_terminal_cappings/test_pdbfixer_selection_context.py\n",
+        "ending_git_status": " M devguide/pending_bugs/README.md\n M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/tools/build/get_missing_terminal_cappings.ipynb\n M molsysmt/build/get_missing_terminal_cappings.py\n?? devguide/pending_bugs/pdbfixer_terminal_assessment_turns_selected_internal_groups_into_artificial_chai.md\n?? tests/build/get_missing_terminal_cappings/test_pdbfixer_selection_context.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8744
+      },
+      "resources": {
+        "started_utc": "2026-11-10T08:04:10.941518+00:00",
+        "seconds": 161.13751422683708,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.7568359375,
+            1.5849609375,
+            1.49755859375
+          ],
+          "cpu_utilization": 0.08283132530120485,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12423483392,
+        "cgroup_memory_peak_bytes": 399466496,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 4.34
+      },
+      "evidence_sha256": {
+        ".json": "9ee5b01bf5949ce7bd9f96642c8430f28ecfa7eca8b7c102399a894554ede2b4",
+        "-bounded.json": "95fdbcacf89321b2c2cf848e22a6862abc62d5c3ac3d3dc7252d20dbfefd6021",
+        ".xml": "bae21d7257b82f2eebca326b591176aa3f356168a8b6c85f9d132b1b500e9265",
+        ".log": "74d1a4181cc0ed68f1154ef68d87292d1978bbc0e0c811b13d0c17cf9b193488",
+        "-inputs-before.json": "3fb9229e279150f5bea522871973f8c837b6da9218a02e5fea6e7960320a2e32",
+        "-inputs-after.json": "3fb9229e279150f5bea522871973f8c837b6da9218a02e5fea6e7960320a2e32",
+        "-reference-driver.py": "69f7995ef0053f2ed7c0c297fcdd5641c435abf6bce3b2919543ead21a22c06a",
+        "-resource-driver.py": "0d32ffeaf7e0fcf2728c8e69ab835fb78a92e5198856b700a2b1ecd8dccf0801"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "92",
+          "time": "151.516",
+          "timestamp": "2026-11-10T02:04:15.996489-06:00"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "runtime-baseline-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<repository>/.pytest_cache/pre1-review-20261110/jupyter-runtime-scope-688/.pytest_cache/external-reference-421/pre1-jupyter-runtime-688-baseline-directed.xml",
+          "--receptor-events=<repository>/.pytest_cache/pre1-review-20261110/jupyter-runtime-scope-688/.pytest_cache/external-reference-421/pre1-jupyter-runtime-688-baseline-directed.events.jsonl",
+          "tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py",
+          "--basetemp=<repository>/.pytest_cache/pre1-review-20261110/jupyter-runtime-scope-688/.pytest_cache/external-reference-421/pre1-jupyter-runtime-688-baseline-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 3.4122154319193214,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "075cd4a408aa4c2be143af7372d21cc82f9b70c8",
+        "starting_git_status": "?? tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py\n",
+        "ending_git_status": "?? tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8753
+      },
+      "resources": {
+        "started_utc": "2026-11-10T08:12:32.230773+00:00",
+        "seconds": 10.010136913973838,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            3.32470703125,
+            2.63818359375,
+            2.07470703125
+          ],
+          "cpu_utilization": 0.1568032372281234,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12442554368,
+        "cgroup_memory_peak_bytes": 153563136,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "abf787f0b5554c08f63d23816da6d4045595415c3a57451383b07f9f306e16ce",
+        "-bounded.json": "10df99bc8320d7cf9c5178fd146583a246dfdb0b82feafdd940f522f89eab5ee",
+        ".xml": "3cedbd9e3b3bc317395f15bea0f7f72e8a6fbf9b39a97fb89cc4f17dc76e3b3b",
+        ".log": "168fc1313d6336b0018520d66fab2b1972490bdc56e80c25ed5c24394f30266c",
+        "-inputs-before.json": "5b8092a69d85704abe37d440516c7cb730a2224628e1ea6a12306619bcbf3f0b",
+        "-inputs-after.json": "5b8092a69d85704abe37d440516c7cb730a2224628e1ea6a12306619bcbf3f0b",
+        "-reference-driver.py": "9b68ac5e10a650a398146b148cfc3bd98661ace8db4c7e93bf470b566ca7bfbe",
+        "-resource-driver.py": "7e8c3988dea40081ae183e4fbf9b935c11e600f90daa196805d51df398f4dfcb"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "1",
+          "time": "0.262",
+          "timestamp": "2026-11-10T02:12:37.516026-06:00"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.molsysviewer_molsysmt.test_jupyter_runtime_files",
+          "name": "test_fixture_preparation_failure_leaves_no_runtime_credentials",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "runtime-fixed-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<repository>/.pytest_cache/pre1-review-20261110/jupyter-runtime-scope-688/.pytest_cache/external-reference-421/pre1-jupyter-runtime-688-fixed-directed.xml",
+          "--receptor-events=<repository>/.pytest_cache/pre1-review-20261110/jupyter-runtime-scope-688/.pytest_cache/external-reference-421/pre1-jupyter-runtime-688-fixed-directed.events.jsonl",
+          "tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py",
+          "--basetemp=<repository>/.pytest_cache/pre1-review-20261110/jupyter-runtime-scope-688/.pytest_cache/external-reference-421/pre1-jupyter-runtime-688-fixed-directed"
+        ],
+        "exit_code": 0,
+        "seconds": 2.5554724920075387,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "075cd4a408aa4c2be143af7372d21cc82f9b70c8",
+        "starting_git_status": " M tests/molsysviewer_molsysmt/system_panel_jupyter.py\n?? tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py\n",
+        "ending_git_status": " M tests/molsysviewer_molsysmt/system_panel_jupyter.py\n?? tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8753
+      },
+      "resources": {
+        "started_utc": "2026-11-10T08:14:01.933814+00:00",
+        "seconds": 9.00801517511718,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            4.78369140625,
+            3.32470703125,
+            2.3740234375
+          ],
+          "cpu_utilization": 0.18168092601912433,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12425719808,
+        "cgroup_memory_peak_bytes": 152342528,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "765b674db4aa019e406b1899e0c072d6eb617a5f4ca9258de771e14d73ea4d54",
+        "-bounded.json": "977c0dad13c78b11ff774b4b999fb73319797348387e561ac5f7ca6650d75297",
+        ".xml": "9528de26b83ffa4ab17f8f8cc2b8a94fbbc2509ab21f78763c633097f22a3051",
+        ".log": "d9ede9130c58237f12c0fa5dccdda0d868bd8e15c592763f79e7d60a6495956f",
+        "-inputs-before.json": "4c6a6900daac1e9d9d22081e30e65039c6fd0770b4b3d160bed7ba9c43629399",
+        "-inputs-after.json": "4c6a6900daac1e9d9d22081e30e65039c6fd0770b4b3d160bed7ba9c43629399",
+        "-reference-driver.py": "9b68ac5e10a650a398146b148cfc3bd98661ace8db4c7e93bf470b566ca7bfbe",
+        "-resource-driver.py": "7e8c3988dea40081ae183e4fbf9b935c11e600f90daa196805d51df398f4dfcb"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "6",
+          "time": "0.222",
+          "timestamp": "2026-11-10T02:14:07.203464-06:00"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "runtime-received-gui-wide": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<repository>/.pytest_cache/pre1-review-20261110/jupyter-runtime-scope-688/.pytest_cache/external-reference-421/pre1-jupyter-runtime-688-received-gui-wide.xml",
+          "--receptor-events=<repository>/.pytest_cache/pre1-review-20261110/jupyter-runtime-scope-688/.pytest_cache/external-reference-421/pre1-jupyter-runtime-688-received-gui-wide.events.jsonl",
+          "tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_review_and_independent_popups",
+          "--basetemp=<repository>/.pytest_cache/pre1-review-20261110/jupyter-runtime-scope-688/.pytest_cache/external-reference-421/pre1-jupyter-runtime-688-received-gui-wide"
+        ],
+        "exit_code": 0,
+        "seconds": 175.45110455411486,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "e0bf27ca31c55c58b7fd92479eb8248e001044b4",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8753
+      },
+      "resources": {
+        "started_utc": "2026-11-10T08:15:49.446856+00:00",
+        "seconds": 198.87439372902736,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3670016000",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            6.97998046875,
+            4.62744140625,
+            2.94873046875
+          ],
+          "cpu_utilization": 0.12311557788944727,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 10826682368,
+        "cgroup_memory_peak_bytes": 2462265344,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "7c13da089f4eb2c4bfa0bd70ff765840c67eb751ef5264aec39a14c2c3095fc7",
+        "-bounded.json": "06809af3e6b4b9eb3593c59194448dd4feac5712e360d31176d54782e0f7b5c2",
+        ".xml": "b81876bc5d6a387fa2e3baad1b46c7c5198010a8badd43a86e4c8a35a3785f4d",
+        ".log": "dcb8943827aec411008ce41a033d650adc887dce1c64265e2122dd7774a3e120",
+        "-inputs-before.json": "e07fd0b7b4b5b44a11110ecdea18278e3638e8659d3af70f9d31522c1e1961a8",
+        "-inputs-after.json": "e07fd0b7b4b5b44a11110ecdea18278e3638e8659d3af70f9d31522c1e1961a8",
+        "-reference-driver.py": "dab43c05aa6f05b42241cc8810ae39226ce82d19f18922cfdaa812dcc556698a",
+        "-resource-driver.py": "5df6245c68a13ad151f7446fa799affcba06652256cb68589af2c430106a0c25"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "9",
+          "time": "172.379",
+          "timestamp": "2026-11-10T02:16:10.680800-06:00"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "combined-received-wide": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n2",
+          "--junitxml=<private-evidence>/pre1-recipe-582-combined-received-wide.xml",
+          "--receptor-events=<private-evidence>/pre1-recipe-582-combined-received-wide.events.jsonl",
+          "tests/molecular_mechanics",
+          "tests/form/openmm_Topology",
+          "tests/native/test_molecular_mechanics_engine_constraints.py",
+          "tests/molsysviewer_molsysmt",
+          "tests/scientific_truth/molecular_mechanics",
+          "tests/build/get_missing_terminal_cappings",
+          "tests/build/add_missing_terminal_cappings",
+          "tests/chemical_states/test_get_peptide_termini.py",
+          "--basetemp=<private-evidence>/pre1-recipe-582-combined-received-wide"
+        ],
+        "exit_code": 0,
+        "seconds": 1136.1661178739741,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "075cd4a408aa4c2be143af7372d21cc82f9b70c8",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8752
+      },
+      "resources": {
+        "started_utc": "2026-11-10T08:08:37.841680+00:00",
+        "seconds": 1171.9665031628683,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3670016000",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.0390625,
+            1.9189453125,
+            1.73388671875
+          ],
+          "cpu_utilization": 0.029145728643216073,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 6790131712,
+        "cgroup_memory_peak_bytes": 3344064512,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 12.69
+      },
+      "evidence_sha256": {
+        ".json": "3abafa950a7bf770e9ad5746347da75ccf0eac91d572d075c3f58565e041cd12",
+        "-bounded.json": "7401555c30109bf2a0987964828b0b699ac4ba7f5e0eae7c3ff636c4951b3ff3",
+        ".xml": "9a018d0837a876e32201294cabaf635c1bd8d5715081b7a2936ee70ee1c0cc4c",
+        ".log": "bbf1a670534e3bad0678538d1a06e797cefbca104a3775fbb67e47ffabc68631",
+        "-inputs-before.json": "95b08dab6e7b28e5b37057c09a2a1e36a833f9d9bff442e3adfc460ad3bd2f6a",
+        "-inputs-after.json": "95b08dab6e7b28e5b37057c09a2a1e36a833f9d9bff442e3adfc460ad3bd2f6a",
+        "-reference-driver.py": "b9f31c158343791ab7bcc0c1f72067a2765fbd6725ef3e84b9871f0cf5c8b77a",
+        "-resource-driver.py": "5dd1f7ba75980d2c53ca9f1df76a6ea6c71f0fcf81537387764e3df1b8fa7726"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "7171",
+          "time": "1131.982",
+          "timestamp": "2026-11-10T02:08:58.288795-06:00"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "combined-fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 25.310196219943464,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "075cd4a408aa4c2be143af7372d21cc82f9b70c8",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8752
+      },
+      "resources": {
+        "started_utc": "2026-11-10T08:08:41.326144+00:00",
+        "seconds": 44.04036386916414,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.03564453125,
+            1.9033203125,
+            1.7294921875
+          ],
+          "cpu_utilization": 0.035158211953792096,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13381693440,
+        "cgroup_memory_peak_bytes": 674365440,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "1ccb3945407849a20adf08347a677a65a469766f9f04a971097ede1feb0e75d0",
+        "-bounded.json": "22c33f3ae8338d4dfb0a48849abb91516c8b8403590730db8644ed25699e3bd9",
+        ".log": "350a5f9cc035ad965d9106223c36928fe11912b7ded732e10ee2f1ecb5b325c4",
+        "-inputs-before.json": "95b08dab6e7b28e5b37057c09a2a1e36a833f9d9bff442e3adfc460ad3bd2f6a",
+        "-inputs-after.json": "95b08dab6e7b28e5b37057c09a2a1e36a833f9d9bff442e3adfc460ad3bd2f6a",
+        "-reference-driver.py": "b9f31c158343791ab7bcc0c1f72067a2765fbd6725ef3e84b9871f0cf5c8b77a",
+        "-resource-driver.py": "5dd1f7ba75980d2c53ca9f1df76a6ea6c71f0fcf81537387764e3df1b8fa7726"
+      }
+    },
+    "combined-scientific": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/execute_scientific_evidence.py",
+          "--receptor",
+          "llm",
+          "--require-clean",
+          "--certificate",
+          "<private-evidence>/pre1-recipe-582-combined-scientific-scientific.json"
+        ],
+        "exit_code": 0,
+        "seconds": 21.65218884521164,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "075cd4a408aa4c2be143af7372d21cc82f9b70c8",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8752
+      },
+      "resources": {
+        "started_utc": "2026-11-10T08:10:09.938383+00:00",
+        "seconds": 30.02505515795201,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            2.94140625,
+            2.32080078125,
+            1.89794921875
+          ],
+          "cpu_utilization": 0.12776659959758552,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13359857664,
+        "cgroup_memory_peak_bytes": 498425856,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "3f2fc475888b8b73edc817a2d324974c1dc0c9677a8b41c6003ddb04f96bf183",
+        "-bounded.json": "f48ced039b5be7e63e3ba073e5a0e3e4ed112a2fcc91e9009774a76bcf64c53d",
+        ".log": "feceb6506688501d12c9be6342f4e5fc3dab502261d7d35d7dd5d5e9da7ea815",
+        "-inputs-before.json": "95b08dab6e7b28e5b37057c09a2a1e36a833f9d9bff442e3adfc460ad3bd2f6a",
+        "-inputs-after.json": "95b08dab6e7b28e5b37057c09a2a1e36a833f9d9bff442e3adfc460ad3bd2f6a",
+        "-reference-driver.py": "b9f31c158343791ab7bcc0c1f72067a2765fbd6725ef3e84b9871f0cf5c8b77a",
+        "-resource-driver.py": "5dd1f7ba75980d2c53ca9f1df76a6ea6c71f0fcf81537387764e3df1b8fa7726"
+      }
+    },
+    "combined-html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/recipe-582-html"
+        ],
+        "exit_code": 0,
+        "seconds": 182.31115831201896,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "075cd4a408aa4c2be143af7372d21cc82f9b70c8",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8752
+      },
+      "resources": {
+        "started_utc": "2026-11-10T08:11:38.298322+00:00",
+        "seconds": 211.26156240492128,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            2.72412109375,
+            2.39990234375,
+            1.9658203125
+          ],
+          "cpu_utilization": 0.1156359979889392,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 10674143232,
+        "cgroup_memory_peak_bytes": 1372631040,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "3fb3223e99d882b319374ff3275144bf2c9ac11ebc7190242546130bba650205",
+        "-bounded.json": "86bdc7e217edcb4f698f70cef0c793b40a99f252b5c54fd581bdc8b1f40cd3b7",
+        ".log": "50a63edc3025bf5a0d4220ed510f725e4f4d64d441ee86cc406507de4067cc00",
+        "-inputs-before.json": "95b08dab6e7b28e5b37057c09a2a1e36a833f9d9bff442e3adfc460ad3bd2f6a",
+        "-inputs-after.json": "95b08dab6e7b28e5b37057c09a2a1e36a833f9d9bff442e3adfc460ad3bd2f6a",
+        "-reference-driver.py": "b9f31c158343791ab7bcc0c1f72067a2765fbd6725ef3e84b9871f0cf5c8b77a",
+        "-resource-driver.py": "5dd1f7ba75980d2c53ca9f1df76a6ea6c71f0fcf81537387764e3df1b8fa7726"
+      }
+    },
+    "combined-final-fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 32.421068142866716,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "25dac4728192c8866b6002b555cca838a56f86bb",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8754
+      },
+      "resources": {
+        "started_utc": "2026-11-10T08:29:03.875467+00:00",
+        "seconds": 40.03399736620486,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.59130859375,
+            3.03076171875,
+            3.41064453125
+          ],
+          "cpu_utilization": 0.028140703517587906,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13962006528,
+        "cgroup_memory_peak_bytes": 423186432,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.06
+      },
+      "evidence_sha256": {
+        ".json": "23e6e9c71a6e6afa229adb09693dd4537f9b5338316057230742af518283c081",
+        "-bounded.json": "dd962358233c43f25fabfa800c3ee4f5a4a3aa12e466d60eba029f86fe17325d",
+        ".log": "a715d579eae3f85f2354ff0bbb0c84512b900635734636dbc10832316f4880df",
+        "-inputs-before.json": "c05a99bac78b792fe296b8362d43b207e7e7185a5bebe8ed40b28bb955af8ecb",
+        "-inputs-after.json": "c05a99bac78b792fe296b8362d43b207e7e7185a5bebe8ed40b28bb955af8ecb",
+        "-reference-driver.py": "b9f31c158343791ab7bcc0c1f72067a2765fbd6725ef3e84b9871f0cf5c8b77a",
+        "-resource-driver.py": "5dd1f7ba75980d2c53ca9f1df76a6ea6c71f0fcf81537387764e3df1b8fa7726"
+      }
+    },
+    "combined-final-html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/recipe-582-html"
+        ],
+        "exit_code": 0,
+        "seconds": 35.12998207495548,
+        "viewer_commit": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "25dac4728192c8866b6002b555cca838a56f86bb",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2553,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8754
+      },
+      "resources": {
+        "started_utc": "2026-11-10T08:29:07.142272+00:00",
+        "seconds": 43.04631876805797,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.5439453125,
+            2.99658203125,
+            3.3974609375
+          ],
+          "cpu_utilization": 0.08186840783525862,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13961875456,
+        "cgroup_memory_peak_bytes": 886005760,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.04
+      },
+      "evidence_sha256": {
+        ".json": "c86abc543a2f358b57d858975e6dec094b4502cd2edad6315ab9e4073e9de762",
+        "-bounded.json": "0ff1853eb06aa7af94fc00a0ed77a4dd6e81de5f4f01a6cb0e8c267e86369bca",
+        ".log": "8d89e528fc25e92a1a8d710fb8fecdfc3dd97fb7cc673821579f10de0776c4a5",
+        "-inputs-before.json": "c05a99bac78b792fe296b8362d43b207e7e7185a5bebe8ed40b28bb955af8ecb",
+        "-inputs-after.json": "c05a99bac78b792fe296b8362d43b207e7e7185a5bebe8ed40b28bb955af8ecb",
+        "-reference-driver.py": "b9f31c158343791ab7bcc0c1f72067a2765fbd6725ef3e84b9871f0cf5c8b77a",
+        "-resource-driver.py": "5dd1f7ba75980d2c53ca9f1df76a6ea6c71f0fcf81537387764e3df1b8fa7726"
+      }
+    }
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "molsysmt_version": "0+unknown",
+    "versions": {
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pandas": "2.3.3",
+      "pint": "0.25.3",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1"
+    },
+    "imports": {
+      "pandas": "<development-environment>/lib/python3.14/site-packages/pandas/__init__.py",
+      "pint": "<development-environment>/lib/python3.14/site-packages/pint/__init__.py",
+      "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+      "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261106/viewer-9b8662cf-source/molsysviewer/__init__.py",
+      "pyunitwizard": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+      "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+      "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+      "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+    }
+  },
+  "combined_cases": 7171,
+  "scientific_certificate": {
+    "schema_version": "molsysmt.scientific-evidence-execution@1",
+    "verdict": "pass",
+    "commit": "075cd4a408aa4c2be143af7372d21cc82f9b70c8",
+    "tracked_source_dirty": false,
+    "source_before": {
+      "commit": "075cd4a408aa4c2be143af7372d21cc82f9b70c8",
+      "tracked_source_dirty": false,
+      "untracked_source_paths": [],
+      "untracked_workflow_artifacts": []
+    },
+    "source_after": {
+      "commit": "075cd4a408aa4c2be143af7372d21cc82f9b70c8",
+      "tracked_source_dirty": false,
+      "untracked_source_paths": [],
+      "untracked_workflow_artifacts": []
+    },
+    "source_correspondence": true,
+    "release_eligible": true,
+    "created_at": "2026-11-10T08:10:36.098694+00:00",
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "registered_nodes": 73,
+    "collected_cases": 114,
+    "passed": 114,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0,
+    "nodes": [
+      "tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance",
+      "tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images",
+      "tests/scientific_truth/chemical_states/test_peptide_termini.py::test_a_missing_declared_link_is_unknown_not_new_terminal_chemistry",
+      "tests/scientific_truth/chemical_states/test_peptide_termini.py::test_closing_the_declared_path_gives_no_free_endpoints",
+      "tests/scientific_truth/chemical_states/test_peptide_termini.py::test_declared_path_endpoints_are_not_inventory_or_id_order",
+      "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap",
+      "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+      "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+      "tests/scientific_truth/molecular_mechanics/test_model_recipe.py::test_recipe_constraints_match_independent_engine_construction",
+      "tests/scientific_truth/molecular_mechanics/test_model_recipe.py::test_recipe_retains_a_known_triclinic_physical_box",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_changing_cells_follow_the_previous_transition_basis",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_explicit_small_origin_keeps_the_requested_primary_cell",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_rotated_row_cell_wrapping_matches_explicit_images",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+      "tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids",
+      "tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution",
+      "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+      "tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form",
+      "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
+      "tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap",
+      "tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area",
+      "tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups",
+      "tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context",
+      "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
+      "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+      "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_constructed_matrix_drives_public_row_vector_rotation",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_extreme_finite_axis_still_produces_the_analytic_rotation",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_positive_body_diagonal_turn_cycles_cartesian_axes",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_signed_cartesian_quarter_turns_match_literal_matrices",
+      "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+      "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+      "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+      "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+      "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+      "tests/scientific_truth/structure/test_principal_component_analysis.py::test_weighted_pca_matches_closed_form_diagonal_covariance",
+      "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+    ]
+  },
+  "registered_scientific_cases": 114,
+  "registered_scientific_nodes": 73,
+  "fast_gates": 14,
+  "html_inspection": [
+    {
+      "path": "content/user/tools/molecular_mechanics/get_model_recipe.html",
+      "sha256": "36069e725d7c8b46f8767df51bedd9f2561c7ec081ddf8c33db132a87d4b9871",
+      "excerpt": "flicting global default water model. That entry has origin='inapplicable_default' , value=None and an inactive_default recording the omitted default. Two nonempty solvent families explicitly requested in storage or conversion arguments are rejected. Neither the source nor application defaults are edited. Resource-name lookup retains its separate documented p"
+    },
+    {
+      "path": "content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.html",
+      "sha256": "a8b0160078894fccde001c59a27f4f33e19b2754afa39dc05e29c3d1d48893a9",
+      "excerpt": "tract is available through molsysmt.molecular_mechanics.get_model_recipe() . This separate query reads compiled settings without a Context, records origins and refuses unsupported requests. It does not add independent dielectric/screening tuning. Supplied parameterized models retain unknown construction provenance. previous StructuresDict next MolecularMecha"
+    },
+    {
+      "path": "content/user/foundations/support/molecular_mechanics.html",
+      "sha256": "84166570207d5f16b03ead779ef65d5630e75bd719613e4467d7206edb6ca52a",
+      "excerpt": "uction now refuses these nonempty unsupported requests with named-field diagnostics. The model-recipe query distinguishes requested controls/defaults from compiled settings, without constructing a Context. Per-atom mechanics overrides, rigid-water/flexible-constraint controls and hydrogen mass repartitioning also refuse until a supported adapter consumes the"
+    },
+    {
+      "path": "content/user/cookbook/from_pdb_to_solvated_box.html",
+      "sha256": "d1e19037797cf885c634c7aae6af1a306ff6d48834d629c0bbde906d59880450",
+      "excerpt": "ermini . Before an energy or minimization step, inspect the effective model recipe . Unsupported stored controls refuse; a completed preparation does not prove that every mechanics setting is consumed. Recipe inspection can parameterize a System without a Context or coordinate change. Loading Structure # We load the crystalline coordinates of the Villin Head"
+    },
+    {
+      "path": "content/course/Path_Biophysics/42_Molecular_Mechanics.html",
+      "sha256": "e3ccd811749c02202eb57fe2e5dd431f2563ff8ae1627366fd4fb0eb36d82b54",
+      "excerpt": "limits. Before constructing a mechanical model, inspect the effective model recipe . Stored unsupported tuning requests now refuse with named-field diagnostics; they are not silently applied. The recipe distinguishes physical controls from execution settings and does not prepare chemistry or change coordinates. import molsysmt as msm molsys = msm . convert ("
+    },
+    {
+      "path": "content/course/Path_Alzheimer/43_Energy_Minimization.html",
+      "sha256": "3787f18357ee13876984c38a76a31d94382bd329c2f7b2172327d303739ae732",
+      "excerpt": "tended. Before constructing a mechanical model, inspect the effective model recipe . Stored unsupported tuning requests now refuse with named-field diagnostics; they are not silently applied. The recipe distinguishes physical controls from execution settings and does not prepare chemistry or change coordinates. import molsysmt as msm from molsysmt import sys"
+    },
+    {
+      "path": "content/user/tools/build/get_missing_terminal_cappings.html",
+      "sha256": "fe5feda0f6fb665382e3c5465d042948226f9a4ebefa1d14c9343d720a39fef8",
+      "excerpt": "ot assign complete chemistry. See Getting peptide termini . PDBFixer terminal assessment also retains the complete source before filtering selected groups. Numeric inputs select source group indices; query strings use the supplied syntax. An internal selection never becomes an artificial chain end. Basic usage # Let\u2019s show how this function works using a pro"
+    },
+    {
+      "path": "content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.html",
+      "sha256": "9a3bdae8ba280b38eb772a570805295e13b98055c2464cf61d7880f81de2ab55",
+      "excerpt": "ot assign complete chemistry. See Getting peptide termini . PDBFixer terminal assessment also retains the complete source before filtering selected groups. Numeric inputs select source group indices; query strings use the supplied syntax. An internal selection never becomes an artificial chain end. 1. Auditing Anomalies # Let\u2019s begin by importing MolSysMT an"
+    },
+    {
+      "path": "content/user/tools/molsysviewer_tools.html",
+      "sha256": "32a4210bf4c039baa0896764590c1089e9dc8c0310107821726f50f28269a518",
+      "excerpt": "y-system preparation remain outside this bounded receiving. Seven native mechanical tools are exposed, including the complete-model force reader and the read-only model-recipe query. Call view.addons.molsysmt.molecular_mechanics.get_model_recipe() to inspect requested/default origins, compiled settings, typed box rows and provenance. This can parameterize a "
+    },
+    {
+      "path": "api/molecular_mechanics/autosummary/molsysmt.molecular_mechanics.get_model_recipe.html",
+      "sha256": "1bdf9c5567ef5b93727d165e6bf58841a577c7f921118f112c10d755996b3d0e",
+      "excerpt": "tivates a conflicting global explicit-water default (origin inapplicable_default), without editing that default or the source. Competing stored/explicit solvent families refuse. Legacy MolecularMechanics.formal_charge is not a force-field parameter; ChemicalStates formal charges remain chemistry. Nonbonded properties are configured engine values; a stored Ew"
+    }
+  ],
+  "notebook_executable_preservation": [
+    {
+      "path": "docs/content/course/Path_Enzyme/42_Molecular_Mechanics.ipynb",
+      "unchanged_executable_cells": 4,
+      "code_cells_sha256": "6422d314aec92332a8851e43b3cca787a993353158243d93a7104e1d9be12351"
+    },
+    {
+      "path": "docs/content/course/Path_Alzheimer/42_Molecular_Mechanics.ipynb",
+      "unchanged_executable_cells": 4,
+      "code_cells_sha256": "b008c5c12ed261d58d98b5ad617ca33582f5be85a1f4d337b3e9fd5d776c7eaf"
+    },
+    {
+      "path": "docs/content/course/Path_Antiviral/42_Molecular_Mechanics.ipynb",
+      "unchanged_executable_cells": 1,
+      "code_cells_sha256": "d26b221f91bd98effff06a0d4c25669f9c4365d0df290efb22c84f96f2b34dbf"
+    },
+    {
+      "path": "docs/content/course/Path_Biophysics/42_Molecular_Mechanics.ipynb",
+      "unchanged_executable_cells": 1,
+      "code_cells_sha256": "e4ddc5f7e4a67308982cb49adbcf1f6867de4cae650e3fcb9e1f4b7d4bc6654c"
+    },
+    {
+      "path": "docs/content/course/Path_Enzyme/43_Energy_Minimization.ipynb",
+      "unchanged_executable_cells": 3,
+      "code_cells_sha256": "84e020032fcf8cb7fd9b24f0f5a77f5634163e869417b87e49551e06945391a1"
+    },
+    {
+      "path": "docs/content/course/Path_Alzheimer/43_Energy_Minimization.ipynb",
+      "unchanged_executable_cells": 4,
+      "code_cells_sha256": "568a0f9322fb4a54ee967a6f44ea8ad75eb95cc11c3c125cb571e9614f0244e1"
+    },
+    {
+      "path": "docs/content/course/Path_Antiviral/43_Energy_Minimization.ipynb",
+      "unchanged_executable_cells": 1,
+      "code_cells_sha256": "ccb7fbac349bf7c1c7caedd44d1116125e87b7969969f6196ab290539b5a21f0"
+    },
+    {
+      "path": "docs/content/course/Path_Biophysics/43_Energy_Minimization.ipynb",
+      "unchanged_executable_cells": 1,
+      "code_cells_sha256": "8534e4c7c32a34d6e7081080ac8501ca4eaa84f84d8cee571fc5d3a3fc31f8ea"
+    },
+    {
+      "path": "docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb",
+      "unchanged_executable_cells": 8,
+      "code_cells_sha256": "ed8f28194aea206adde7f52b17650cdd32897b86cd7e240b3148ee575f83c13a"
+    },
+    {
+      "path": "docs/content/user/tools/build/get_missing_terminal_cappings.ipynb",
+      "unchanged_executable_cells": 7,
+      "code_cells_sha256": "e20127d0f2cd0acd75e0aa6622a74fd3da8baf1761bfd32a78766b91c8eb302d"
+    },
+    {
+      "path": "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+      "unchanged_executable_cells": 12,
+      "code_cells_sha256": "7a22765243ecd46f4632dee123f8f06ede8a07193c5e153d10d6c0effe2f526d"
+    }
+  ],
+  "actual_jupyter": {
+    "qualified_source": "e0bf27ca31c55c58b7fd92479eb8248e001044b4",
+    "checks": [
+      "Execute real notebook with source-pinned Python 3.14 kernel",
+      "Native review is 165 waters / 3818 retained; Back does not edit",
+      "Confirm traverses real widget comms, native edit and Mol* rendering",
+      "Empty ion selection and remount retain a bounded draft without a review",
+      "Canvas popup and Studio popup share the actual Jupyter authority",
+      "Kernel verifies actual inventory and exactly two managed edits"
+    ],
+    "final_atoms": 3817,
+    "managed_edits": 2,
+    "result_sha256": "8eec16cce29776c2b70470f7fff8e06c066cd69941c38bf18bbf2eb41cf36237",
+    "filesystem_cases": 8,
+    "source": "frozen Viewer 9b8662cf; actual kernel/source and both popups",
+    "credentials_retired": true
+  },
+  "synthetic_baseline_retirement": {
+    "hash_only_record_sha256": "ecb5f9a81e4a8b96209a069e55950f7e818cd9170bec09ef27824120850656f1",
+    "actual_original_reporter_remnants": "Not inspected or retired by this agent; reporter confirmation remains pending under #688."
+  },
+  "accepted_scope": [
+    "#582 adds an experimental engine-neutral physical-model query, with requested/default/inapplicable-default origins, actual compiled settings, typed box rows, resources, original-source indices and detached optional attribution. No Context or device is created by inspection.",
+    "Public construction and physical calculations refuse unconsumed native physical/per-atom requests with MSM-ERR-MECH-001, without altering chemistry, coordinates or stored defaults. Existing parameterized engine models remain authoritative with unknown construction provenance.",
+    "Energy/force/model comparisons, active unit policies, source preservation, explicit-state context and bounded modular H5MSM reads pass; independent count/constraint/box oracles are narrowly registered, not full engine equivalence.",
+    "#689 retains complete PDBFixer molecular context before filtering source group scope and honors the supplied syntax; original internal-selection failures and fixture correction remain recorded.",
+    "#688 prepares fixtures before private runtime files, creates them exclusively, retires only still-owned identities on normal/body/partial setup/write exit and reports cleanup failures. Eight filesystem guards and an actual six-check Jupyter/popup workflow pass."
+  ],
+  "preserved_failures": [
+    "Original #582 four-route control demonstrates three ignored dielectric requests and one force diagnostic lacking the field name. Original error/empty-axis/fixture-import and conflicting global-water-default iterations remain distinct failed runs.",
+    "The initial periodic-box implementation assumed one quantity instead of the provider list of quantity vectors; a trajectory fixture violated explicit structure-state replacement, and the negative constraint fixture expected the wrong catalog error. The corrected controls preserve actual contracts.",
+    "The first H5MSM read spy compared an integer array as a scalar Boolean; the fixed spy verifies the exact source structure row. The first addon assertion treated an assertion helper as a Boolean return; it is now invoked with its actual contract.",
+    "Original #689 baseline has three failures/one pass: two artificial termini and an omitted-syntax error. The first six-case attempt references an uninitialized PDBFixer attribute; the corrected guard verifies source attribute absence.",
+    "The #688 initial actual-entry guard fails before any server and retires only its synthetic remnants after recording hashes. It does not claim retirement of the original reporter files.",
+    "The first HTML inspection identifies a lost concurrent cookbook paragraph; the merge is corrected and final HTML is inspected again. The newly introduced API underline warning is corrected; six inherited warnings remain."
+  ],
+  "limits": [
+    "The physical-model report does not enumerate all custom force expressions/particle parameters or authenticate an original construction history. Configured nonbonded controls need not all be active for the selected method.",
+    "Actual default model box vectors are not the current live Context coordinates or a complete runtime state. No arbitrary-system preparation, new physical tuning, dynamics or additional engine is implemented.",
+    "#688 source is received, but administrative closure waits for the original reporter-owned unused-file retirement confirmation. PR #687 remains a separate incoming draft requiring exact-host and combined review.",
+    "The 7171-case and 114-case cohorts use 075cd4a408aa4c2be143af7372d21cc82f9b70c8; later differences are the separately received launcher/guards, one API heading, cookbook narrative and records. Product and registered scientific-test bytes are checked equal.",
+    "No additional graphical intent or repair bonus is credited. Only the existing #582 requirement leaf can gain its original 1.428571428571 points.",
+    "No dependencies/backend rebuild, hosted CI, package/tag/Release or promotion is performed. The installed, #615, stable-surface and exact-candidate requirements remain open."
+  ]
+}

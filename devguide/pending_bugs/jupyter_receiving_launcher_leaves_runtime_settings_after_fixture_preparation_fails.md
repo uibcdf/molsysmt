@@ -49,7 +49,7 @@ failure, normal/body exit, partial creation/write failure, preexisting files,
 foreign replacement and cleanup-error reporting. One actual Jupyter/Mol*
 workflow also passes six browser/kernel checks, including both independent
 popups, exactly two managed edits and credential retirement. Clean source
- e0bf27ca3 uses frozen Viewer 9b8662cf and the existing Python 3.14.7 environment;
+e0bf27ca3 uses frozen Viewer 9b8662cf and the existing Python 3.14.7 environment;
 no new package, platform, human or release qualification is inferred.
 
 The earlier six-case control passes before the two cleanup-error guards are

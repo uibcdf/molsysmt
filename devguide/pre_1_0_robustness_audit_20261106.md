@@ -1,5 +1,48 @@
 # Pre-1.0 robustness audit and action plan — 6 November 2026
 
+## Model and context closeout received — 2026-11-10
+
+#582's experimental physical-model recipe and shared unsupported-control
+refusal are accepted. #689 corrects PDBFixer terminal assessment: full molecular
+context precedes source-group filtering, including the requested query syntax.
+#688's scoped create-only runtime files pass filesystem and actual Jupyter/popup
+receiving; its original reporter must still confirm retirement of their own
+unused private remnants. Draft PR #687 is newly received for review, not merged.
+
+Clean numerical source 075cd4a40 passes **7,171 affected native/addon cases**
+without omissions. All **114 scientific cases / 73 nodes**, **14 final fast
+gates**, **10 inspected HTML pages** and **8 filesystem guards plus one actual
+six-check Jupyter workflow** pass on the recorded cohorts. Existing code cells,
+outputs and execution metadata in eleven affected notebooks remain exact.
+Product/registered-science bytes remain equal across the later launcher/docs
+cohort; original failed attempts and resource-pressure observations are retained
+in the [receiving record](../devtools/data/model_and_context_receiving_582_688_689_20261110.json).
+
+Only the existing #582 leaf gains its original **1.428571 points**. Progress is
+**75.6386% (75.6%)**, with **39/50 graphical intents**. Bug repairs and another
+passing existing Jupyter scenario add no invented weight. A concrete route past
+80% is to receive #524's actual public-floor/clean-installed requirement
+(3.333333 points), then agree the #250/#254 surface/final-client requirement
+(1.428571 points): approximately **80.4005%**, if genuinely accepted. Those
+requirements cannot be replaced by more source-only tests.
+
+### Next work order
+
+1. Publish and verify this source checkpoint; close #582/#689 with their guards
+   and notify #688/#687 of the exact source and remaining handoff.
+2. Review draft #687 against its exact corrected Viewer b9f3be01, reconcile the
+   native recipe/refusal owner and scoped launcher, then receive its combined
+   actual interaction/mechanics workflows before any original intent credit.
+3. Complete the original #421 construction/protonation/secondary-structure and
+   complete-session intents; keep #666/provider143's scientific cutoff boundary
+   and #615's causal or evidenced environment disposition explicit.
+4. Continue #524's actual installed floors, #250/#254 agreement, #256 P5/P6 stable
+   H5MSM review and #334's exact-source/installed/platform/final ledger gates.
+
+This authorized [skip ci] source checkpoint performs no new hosted matrix,
+package, tag, Release or promotion. Mandatory candidate gates and publication
+remain separate. Historical receipts below retain their original scope/date.
+
 ## Native peptide endpoints received — 2026-11-10
 
 #686 is source-resolved: the shared public experimental

@@ -1,13 +1,13 @@
 ---
 summary: PDBFixer terminal assessment turns selected internal groups into artificial chain ends
 issue: uibcdf/molsysmt#689
-status: active
+status: resolved
 opened: 2026-11-10
-closed:
+closed: 2026-11-10
 severity: high
 verification: reproduced
 area: [build, selection]
-guard:
+guard: tests/build/get_missing_terminal_cappings/test_pdbfixer_selection_context.py
 normative:
 blocked_by: []
 supersedes: []
@@ -82,3 +82,18 @@ recorded, and the corrected source-preservation guard checks attribute absence.
 Original three failures remain preserved. Combined-source, fast/documentation
 receiving and public closeout remain pending. Existing tutorial/course code
 cells and outputs are unchanged; narrative explains full-source PDBFixer scope.
+
+## Resolution and acceptance — 2026-11-10
+
+PDBFixer now receives the complete source before its independent terminal recognition; source group indices and the supplied query syntax filter the resulting report. Empty scopes avoid detector construction, internal selections never fabricate chemical ends, genuine termini retain their source group indices and supplied PDBFixer objects remain unchanged. The independent engine's scientific algorithm and the atom scope of terminal addition are unchanged.
+
+Clean combined numerical source 075cd4a40 passes 7,171 affected native/addon cases
+without skips or failures; all 114 registered scientific cases / 73 nodes pass.
+The later source adds separately received launcher controls and corrected
+documentation, with identical product and registered scientific bytes. Fourteen
+fast gates pass again, ten rendered HTML pages are inspected and all eleven
+affected existing notebooks retain their executable cells/outputs/metadata.
+The [receiving record](../../../devtools/data/model_and_context_receiving_582_688_689_20261110.json) retains original failing iterations, exact cohorts,
+resource measurements and the separate actual-Jupyter lifetime receiving.
+No installed/platform/human/final-candidate or new numerical-method claim is
+inferred. Public delivery and board closure follow this accepted checkpoint.
