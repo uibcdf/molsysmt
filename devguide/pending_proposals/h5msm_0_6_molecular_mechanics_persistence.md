@@ -888,3 +888,31 @@ layer/reorder/append/size profile, edit/stale binding or installed route. P6's
 stable schema/default-writer and #334 exact-candidate/publication gates remain
 open. Public default 0.5 and explicit experimental 0.6 stay unchanged. No extra
 scorecard weight, full H5MSM closure or release authority is added.
+
+### Finite P5 provider review and client packet — 2026-11-10
+
+The [completion packet](../pre_1_0_completion_handoffs_20261110.md#finite-p5-review-matrix)
+now maps the remaining boundaries to assertion-bearing guards instead of an
+unbounded request for more client testing. Source **ee4f72796** passes **156
+provider cases**: public whole/partial/layer routes, fresh readers, original
+producer versions and PDBQT parity, unit-policy preservation, selected/reordered
+axes, typed/nullable fields, unknown-evidence refusals and selective invalidation.
+Four new 0.5/0.6 topology/interaction append-refusal cases preserve byte-exact
+source files and independently readable layers. No product code or native
+binary changes from 5e7d65a66. See the [provider receipt](../../devtools/data/h5msm_p5_provider_receiving_256_20261110.json).
+
+Three already received public-writer outputs now form a [portable synthetic
+fixture packet](../../devtools/data/h5msm_p5_review_20261110/README.md), with
+SHA-256/sizes, explicit typed snapshots and original current-producer PDBQT
+exports. These are small storage witnesses, not production force fields. The
+proposed additional client profile is limited to projected/reordered readback,
+restored coordinate edit/invalidation and unknown-evidence transport/refusal
+under two unit policies. Existing DockingMT #79/#88/#96 acceptance stays closed;
+independent execution/acceptance of the new packet remains pending. No new
+docking/preparation, hidden append support or scientific search is requested.
+
+The complete source suite is separately running on frozen 5e7d65a66 and does
+not include the four later guards. Its verdict and original failed session are
+not replaced by this focused receiving. P5 independent acceptance and P6 final
+schema/default/stable-format/candidate decisions remain open, with no extra
+scorecard credit or publication authority.

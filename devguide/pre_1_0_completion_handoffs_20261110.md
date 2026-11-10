@@ -139,8 +139,9 @@ No new docking, preparation, scientific search or reopening is requested.
 > For uibcdf/molsysmt#256 P5/P6 and the proposed first stable H5MSM 1.0, please help
 > review the finite additional profile below: one projected/reordered prepared
 > round trip, one restored coordinate-edit/invalidation control, and one unknown
-> evidence transport/refusal control, under normal and pm/fs policies. We own
-> the exact fixture, expected maps/producers and refusal prescription. Confirm
+> evidence transport/refusal control, under normal and pm/fs policies. The linked
+> fixture packet supplies exact public-writer inputs, expected snapshots/PDBQT
+> and hashes; the matrix names the operations and refusal expectations. Confirm
 > what your existing evidence already covers and which remaining cases actually
 > concern your consumer; supported refusals count only for an explicitly
 > unsupported operation. Installed qualification stays later work. No new
@@ -156,8 +157,18 @@ completed acquisition and reported attention for these preserved states.
 
 ## Finite P5 review matrix
 
-These are reviewed provider assertions, not yet a new executed client campaign.
-The complete local session will determine the current source results. Reuse
+The [immutable synthetic fixture packet](../devtools/data/h5msm_p5_review_20261110/README.md)
+now supplies complete/projected/nonpolar-H-merged public 0.6 files, explicit
+typed expected snapshots and original PDBQT exports, with sizes/SHA-256. They
+come from the already executed public branch; no new preparation is required.
+The **156-case** provider receiving passes on ee4f72796, including four added
+0.5/0.6 topology/interaction append-refusal cases that verify byte-exact file
+nonmutation and preserved independently readable layers. Product source is
+unchanged from 5e7d65a66. This is distinct from the running complete session
+on 5e7d65a66 and from future independent client receiving.
+
+These are reviewed and scoped-received provider assertions, not a new executed
+client campaign. The complete local session retains its own source/verdict. Reuse
 the received DockingMT full-reference/E3 records for their original scopes;
 additional client work needs the exact prescription and team agreement first.
 
@@ -167,7 +178,7 @@ additional client work needs the exact prescription and team agreement first.
 | Fresh public reader and producer/edit ownership | `tests/form/file_h5msm/test_modular_mechanics.py::test_prepared_whole_file_in_a_fresh_reader_retains_provenance_and_edit_ownership` | Its public branch verifies both public read and convert, changed reader version, PDBQT parity, unit-policy preservation, selective analysis invalidation and absence of optional engines. Independent DockingMT receiving remains distinct. |
 | Selected/reordered native axes | `tests/form/file_h5msm/test_public_mechanics_v06.py::test_copy_and_selected_file_extraction_retain_root_version_and_mechanics`; `tests/form/file_h5msm/test_public_mechanics_v06.py::test_reordered_prepared_system_retains_correspondence_in_public_roundtrip` | Proposed additional client case: explicit atom permutation and nonconsecutive structures `[2, 0]`, original producer labels, expected correspondence, typed parameters and named-analysis coverage. Do not infer atom reordering from ordinary selection, which uses ascending unique indices. |
 | Stored unknown evidence versus usable assignments | `tests/native/test_unknown_mechanical_assignment_reports.py::test_unknown_reports_roundtrip_but_refuse_projection_and_scientific_export` | Proposed additional client adverse case: transport unknown reports without reinterpretation, then preserve source and refuse unsupported projection/export before output. Do not relabel loading as parameterization or repair. |
-| Supported append versus documented refusal | `tests/form/file_h5msm/test_public_mechanics_v06.py::test_public_append_preserves_mechanics_and_extends_state_assignments`; new refusal guard `tests/form/file_h5msm/test_public_mechanics_v06.py::test_unsupported_append_preserves_existing_file_and_independent_layers` (receiving pending) | Provider-owned append supports the documented topology-free/no-interactions composition and explicit state indices. Named-interaction file append is not promised. Confirm actual client use before requesting client execution or broadening support. |
+| Supported append versus documented refusal | `tests/form/file_h5msm/test_public_mechanics_v06.py::test_public_append_preserves_mechanics_and_extends_state_assignments`; new refusal guard `tests/form/file_h5msm/test_public_mechanics_v06.py::test_unsupported_append_preserves_existing_file_and_independent_layers` (four cases received) | Provider-owned append supports the documented topology-free/no-interactions composition and explicit state indices. Named-interaction file append is not promised. Confirm actual client use before requesting client execution or broadening support. |
 | Absent/present-empty and atomic publication | `tests/form/file_h5msm/test_modular_mechanics.py::test_explicitly_empty_mechanics_keeps_its_independent_presence`; `tests/form/file_h5msm/test_modular_mechanics.py::test_write_failure_after_partial_staging_publishes_nothing` | Keep independent layer presence distinct from native representability, and preserve existing caller files on normal failure. Crash durability remains outside the implemented atomic-visibility guarantee. |
 
 Use a tiny already prepared fixture; do not run another scientific preparation
