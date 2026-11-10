@@ -169,3 +169,33 @@ def test_cleanup_failure_is_reported_without_skipping_other_owned_files(
         )
     finally:
         original_unlink(second, missing_ok=True)
+
+
+def test_actual_launcher_preserves_foreign_replacements_after_startup_failure(
+    tmp_path, monkeypatch
+):
+    output = tmp_path / "receiving"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["receiving", "--viewer-root", str(tmp_path), "--output", str(output)],
+    )
+    paths = [output / "settings.json", output / "config/jupyter_server_config.py"]
+
+    def fail_startup(*args, **kwargs):
+        for path in paths:
+            assert path.is_file()
+            replacement = path.with_name(path.name + ".foreign")
+            replacement.write_text("foreign replacement")
+            replacement.replace(path)
+        raise RuntimeError("synthetic startup failure after replacement")
+
+    def node_version(command, **kwargs):
+        assert command == ["/usr/bin/node", "--version"]
+        return "synthetic-node-version"
+
+    monkeypatch.setattr(launcher.subprocess, "check_output", node_version)
+    monkeypatch.setattr(launcher.subprocess, "Popen", fail_startup)
+    with pytest.raises(RuntimeError, match="synthetic startup failure"):
+        launcher.main()
+    assert all(path.read_text() == "foreign replacement" for path in paths)
