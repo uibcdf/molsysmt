@@ -31,8 +31,9 @@ that front matter -- edit the entries, not this list.
 - [`contact_cutoff_equality_changes_across_equivalent_length_units.md`](contact_cutoff_equality_changes_across_equivalent_length_units.md) — [#666](https://github.com/uibcdf/molsysmt/issues/666) — Contact cutoff equality changes across equivalent length units *(high, reproduced)*
 - [`pdbfixer_terminal_assessment_turns_selected_internal_groups_into_artificial_chai.md`](pdbfixer_terminal_assessment_turns_selected_internal_groups_into_artificial_chai.md) — [#689](https://github.com/uibcdf/molsysmt/issues/689) — PDBFixer terminal assessment turns selected internal groups into artificial chain ends *(high, reproduced)*
 
-### Partially resolved (1)
+### Partially resolved (2)
 
+- [`jupyter_receiving_launcher_leaves_runtime_settings_after_fixture_preparation_fails.md`](jupyter_receiving_launcher_leaves_runtime_settings_after_fixture_preparation_fails.md) — [#688](https://github.com/uibcdf/molsysmt/issues/688) — Jupyter receiving launcher leaves runtime settings after fixture preparation fails. *(medium, reproduced)*
 - [`physchem_surface_area_unit_contract.md`](physchem_surface_area_unit_contract.md) — [#473](https://github.com/uibcdf/molsysmt/issues/473) — Verify the unit contract of Collantes surface-area descriptors. *(medium, inspected)*
 
 <!-- /generated -->
