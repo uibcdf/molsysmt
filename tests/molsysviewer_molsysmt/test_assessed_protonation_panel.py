@@ -144,6 +144,11 @@ def test_same_assessed_decision_all_structures_maps_units_and_no_reassessment(
         assert view.addons.molsysmt.get_sync_status()["target_revision"] == 1
         assert view.addons.molsysmt.get_sync_status()["state"] == "synchronized"
         assert view.whole.get(n_atoms=True) == 590
+        refreshed = act(view, sent, "refresh")
+        assert (
+            refreshed["stage"] == "applied"
+            and refreshed["message"] == result["message"]
+        )
 
 
 def test_back_foreign_review_and_replayed_decision_never_remove_atoms(case):

@@ -10,7 +10,7 @@ export function render({model,el}) {
   const initial={source:'none',value:'',expression:'',indices:'',context:'current',structure_index:0};
   const defaults={task:'chemistry',state_mode:'reference',state_index:'0',hydrogen_mode:'pH',engine:'MolSysMT',pH:'7.4',attribute_policy:'strict',title:'',inference_method:'supported_group_templates',bond_cutoff:'2 angstroms',n_cap:'none',c_cap:'none',keep_ids:'no',charge_method:'gasteiger_marsili',forcefield:'',water_model:'',expected_charge:''};
   let draft={...initial,...model.get('chemistry_selection')},parameters={...defaults,...model.get('chemistry_parameters')};
-  let context={},report=null,page=null,busy=false,sequence=0,stamp=0,requestStamp=0,message='';
+  let context={},report=null,page=null,busy=false,sequence=0,stamp=0,requestStamp=0,message='',pendingAction='';
   let result=null,replacement=null,canReplace=false,replacementSupported=false,destinations=[],alive=true,protonationReview=null,canApplyProtonation=false,canPrepareProtonation=false;
   const labels={atom_type:'Element',atom_id:'Atom ID',isotope:'Isotope',formal_charge:'Formal charge',atom_is_aromatic:'Atom aromaticity',n_unpaired_electrons:'Unpaired electrons',n_implicit_hydrogens:'Stored implicit H count',n_explicit_hydrogens:'Stored explicit H count',allows_implicit_hydrogens:'Implicit H permission',atom_stereochemistry:'Atom stereochemistry',bond_id:'Bond ID',bond_type:'Bond type',bond_order:'Bond order',bond_is_aromatic:'Bond aromaticity',bond_stereochemistry:'Bond stereochemistry',covalent_multiplicity:'Covalent multiplicity',coordinates:'Coordinates'};
   const label=name=>labels[name]||String(name).replaceAll('_',' ');
@@ -184,7 +184,7 @@ export function render({model,el}) {
     }
   }
   function changed(){stamp++;report=null;page=null;replacement=null;protonationReview=null;canApplyProtonation=canPrepareProtonation=false;message='';model.set('chemistry_selection',{...draft});model.set('chemistry_parameters',{...parameters});render();}
-  function request(action,extra={}){if(busy)return;busy=true;sequence++;requestStamp=stamp;render();model.send({type:'action',id:action,payload:{request_id:sequence,draft:{...draft},parameters:{...parameters},...extra}});}
+  function request(action,extra={}){if(busy)return;pendingAction=action;busy=true;sequence++;requestStamp=stamp;render();model.send({type:'action',id:action,payload:{request_id:sequence,draft:{...draft},parameters:{...parameters},...extra}});}
   q('task').addEventListener('change',()=>{parameters.task=q('task').value;changed();request('task');},options);
   q('state-mode').addEventListener('change',()=>{parameters.state_mode=q('state-mode').value;changed();},options);
   q('state-index').addEventListener('input',()=>{parameters.state_index=q('state-index').value;changed();},options);
@@ -206,12 +206,18 @@ export function render({model,el}) {
     if(msg?.type==='presentation_closed'&&result?.id===msg.id){result=null;replacement=null;if(!busy)request('refresh');else render();return;}
     if(msg?.type!=='state'||typeof msg.state?.request_id!=='number'||msg.state.request_id<sequence)return;
     if(requestStamp!==stamp){busy=false;request('refresh');return;}
-    const state=msg.state;busy=false;draft={...initial,...state.draft};parameters={...defaults,...state.parameters};context=state.context||{};report=state.report||null;page=state.page||null;result=state.result||null;replacement=state.replacement||null;canReplace=!!state.can_replace;replacementSupported=!!state.replacement_supported;destinations=state.destinations||[];protonationReview=state.protonation_review||null;canApplyProtonation=!!state.can_apply_protonation;canPrepareProtonation=!!state.can_prepare_protonation;message=state.message||'';render();
+    const state=msg.state;busy=false;pendingAction='';draft={...initial,...state.draft};parameters={...defaults,...state.parameters};context=state.context||{};report=state.report||null;page=state.page||null;result=state.result||null;replacement=state.replacement||null;canReplace=!!state.can_replace;replacementSupported=!!state.replacement_supported;destinations=state.destinations||[];protonationReview=state.protonation_review||null;canApplyProtonation=!!state.can_apply_protonation;canPrepareProtonation=!!state.can_prepare_protonation;message=state.message||'';render();
     if(report&&state.stage==='report')q('report-heading').focus();
     if(replacement)q('replacement-heading').focus();if(protonationReview)q('protonation-review-heading').focus();
   }
-  function onContext(){stamp++;report=null;page=null;protonationReview=null;canApplyProtonation=canPrepareProtonation=false;if(!busy&&context.can_inspect)request('refresh');else render();}
+  function onContext(){if(busy&&pendingAction==='protonation.apply'){report=null;page=null;protonationReview=null;canApplyProtonation=canPrepareProtonation=false;render();return;}stamp++;report=null;page=null;protonationReview=null;canApplyProtonation=canPrepareProtonation=false;if(!busy&&context.can_inspect)request('refresh');else render();}
   function onSync(status){
+    if(busy&&pendingAction==='protonation.apply'){
+      // Its coordinator notifications describe the request still in flight.
+      // Retire the consumed review, but keep its own completion/error response.
+      context={...context,...status,can_inspect:!!context.has_system&&['synchronized','pending','sync_failed'].includes(status.state),can_review:!!context.has_system&&context.n_structures>0&&status.state==='synchronized'};
+      report=null;page=null;protonationReview=null;canApplyProtonation=canPrepareProtonation=false;render();return;
+    }
     // Busy-state requests have no host admission and therefore no reply.
     // Retire older responses and start a fresh read only in an admitted state.
     stamp++;sequence++;busy=false;report=null;page=null;replacement=null;protonationReview=null;canApplyProtonation=canPrepareProtonation=false;canReplace=false;context={...context,...status,can_inspect:!!context.has_system&&['synchronized','pending','sync_failed'].includes(status.state),can_review:!!context.has_system&&context.n_structures>0&&status.state==='synchronized'};

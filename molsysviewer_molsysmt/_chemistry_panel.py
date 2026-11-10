@@ -131,6 +131,7 @@ class _ChemistryPanel(_ChemistryPreparation, _MolecularTaskPanel):
         self._release_task_data()
 
     def _release_task_data(self):
+        self._outcome = None
         self._report = None
         self._protonation_decision = self._protonation_review = None
         self._detail = ""
@@ -656,6 +657,18 @@ class _ChemistryPanel(_ChemistryPreparation, _MolecularTaskPanel):
         context["can_inspect"] = context.get("has_system", False) and context[
             "state"
         ] in {"synchronized", "pending", "sync_failed"}
+        if self._outcome is not None:
+            target, revision, draft, parameters, notice = self._outcome
+            if (
+                target() is not self._view.molsys
+                or revision != context.get("target_revision")
+                or draft != self._draft
+                or parameters != self._parameters
+                or context.get("state") != "synchronized"
+            ):
+                self._outcome = None
+            elif stage == "select" and not message:
+                stage, message = "applied", notice
         stage, message = self._retained_diagnostic(context, stage, message)
         report = self._current_report(context)
         preparation = self._preparation_packet(context)
@@ -812,6 +825,14 @@ class _ChemistryPanel(_ChemistryPreparation, _MolecularTaskPanel):
             # Success consumes the native decision once. A failed attempt is
             # retired too; projection retry belongs to the host, never reapply.
             self._release_task_data()
+        if stage == "applied":
+            self._outcome = (
+                ref(self._view.molsys),
+                self._owner.get_sync_status()["target_revision"],
+                dict(self._draft),
+                dict(self._parameters),
+                message,
+            )
         self._publish(stage=stage, message=message, request_id=request_id)
 
     def _perform_action(self, action_id, payload, request_id):

@@ -1001,3 +1001,12 @@ loaded. The notebook now captures its complete source scene explicitly after
 the real canvas/inspection is ready and before Back/preparation. Equality is
 still exact; coordinates, chemistry and original revisions remain independently
 checked from before display. No molecular or scene assertion is removed.
+
+The ready-scene Jupyter cohort verifies independent result data/presentation,
+then exposes a product frontend race: coordinator notifications retire the
+in-flight request ID and its subsequent refresh erases the completed apply
+notice. Native/Qt receiving remains green. The Chemistry frontend now preserves
+its own managed-assessment response across those notifications while retiring
+the consumed report/review. A source/revision/input-bound completion notice
+survives later refreshes; expiry still retires it. The actual browser guard
+continues to require the visible completion notice and exact native results.
