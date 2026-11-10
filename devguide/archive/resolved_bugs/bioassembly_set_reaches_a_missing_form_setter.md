@@ -1,9 +1,9 @@
 ---
 summary: Setting readable bioassembly metadata reaches a missing form setter.
 issue: uibcdf/molsysmt#697
-status: active
+status: resolved
 opened: 2026-11-10
-closed:
+closed: 2026-11-10
 severity: medium
 verification: reproduced
 area: [basic, set, native]
@@ -46,3 +46,11 @@ nm/pm equivalence, neighboring basic/form/native consumers, public docstrings,
 the relevant tutorial/course explanation, and offline governance gates.
 The original AttributeError baseline remains failed evidence. This supplemental
 repair adds no milestone weight and supplies no installed or release acceptance.
+
+## Resolution — 2026-11-10
+
+Basic set distinguishes readable attributes from callable editing routes. Unsupported bioassembly assignment raises NotWithThisFormError and preserves source data/coverage. Twenty-four refusal controls plus two supported constructor/getter unit controls protect the missing-setter failure.
+
+Qualified final source: `cdf6e878ffa53ef045ee3c9c568efd61cf9dcb61`. The [combined owner receipt](../../../devtools/data/construction_native_owner_receiving_421_695_696_697_698_699_20261110.json) preserves the original failing controls, failed intermediate integration attempts, source identities and bounded resources. The predecessor native cohort passes 8,813 cases. Final receiving retains 8,955 passes and one failed unit-context test oracle in the expanded 8,956-case cohort; the 415-case corrected focused cohort passes with byte-identical product source. All 116 registered scientific cases/74 nodes, 76 public/native doctest examples, strict seven-notebook validation, ten inspected HTML pages, twenty-six actual Jupyter checks and twenty-four representative native Qt checks pass on the explicitly recorded cohorts.
+
+This is guarded Linux/Python 3.14 source resolution, not clean installed, other-platform, human or exact-candidate acceptance. The supplemental fix adds no original milestone weight. Public delivery and owning issue closure use the repository closeout route after independent blob verification.

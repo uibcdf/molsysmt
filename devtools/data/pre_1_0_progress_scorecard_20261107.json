@@ -2,15 +2,15 @@
   "schema_version": "molsysmt.pre1-progress@1",
   "date": "2026-11-07",
   "owner_issue": "uibcdf/molsysmt#334",
-  "qualified_source": "a0a7d547095b29e8b231d1b49b085cc1039c03dd",
+  "qualified_source": "cdf6e878ffa53ef045ee3c9c568efd61cf9dcb61",
   "measure": "Verified implementation/source-delivery milestones; approximate operational completion, not elapsed effort, scientific coverage, a readiness probability or publication authority.",
   "accounting_change": "The earlier all-or-nothing phase-exit indicator was 40%. The same six phase weights and full scope now receive explicit partial milestone credit. This is a catch-up remeasurement of delivered work, not a new 21-point implementation in this turn.",
   "method": "Within phases 3\u20136, each named requirement package has equal weight. Nested accepted GUI families have equal family weight, then equal declared intent/task weight within that family. Verified-source leaves score 1, pending leaves score 0; parents average children. Supplemental defect/test/issue counts add no bonus. Pending means not accepted by this audit, not absent code.",
   "gui_scope": "Tracking packages make the previously accepted workflow inventory explicit. They are user intents, not a GUI promise for every expert argument or a new scientific feature request. Native/expert APIs remain available and retain their own qualification.",
   "publication": "The existing pause remains. #640/#641/#642 and all other required correctness work retain owning acceptance. Exact candidate/platform/installed and final sign-off gates are not scored as passed by source tests.",
   "legacy_phase_exit_percent": 40,
-  "weighted_milestone_percent": 76.03635947385948,
-  "reported_approximate_percent": 76.0,
+  "weighted_milestone_percent": 76.29204129204129,
+  "reported_approximate_percent": 76.3,
   "phases": [
     {
       "id": "phase1",
@@ -529,9 +529,11 @@
                 {
                   "id": "protonation-reconciliation",
                   "requirement": "Receive assessed managed/independent protonation reconciliation",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": "PR #681 receives independent rule-defined hydrogen removal. It does not implement complete protonation reconciliation; retain this original leaf as pending."
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/construction_native_owner_receiving_421_695_696_697_698_699_20261110.json"
+                  ],
+                  "review": "Final combined native/Python, actual Jupyter/representative Wayland Qt and documentation receiving is recorded on exact sources. Native criteria, full reports/maps, explicit managed/independent ownership and experimental/installed boundaries remain. Public source delivery must be independently verified before this checkpoint is reported as delivered."
                 }
               ]
             },
@@ -542,37 +544,47 @@
                 {
                   "id": "peptide",
                   "requirement": "Receive peptide construction",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/construction_native_owner_receiving_421_695_696_697_698_699_20261110.json"
+                  ],
+                  "review": "Final combined native/Python, actual Jupyter/representative Wayland Qt and documentation receiving is recorded on exact sources. Native criteria, full reports/maps, explicit managed/independent ownership and experimental/installed boundaries remain. Public source delivery must be independently verified before this checkpoint is reported as delivered."
                 },
                 {
                   "id": "water-cell",
                   "requirement": "Receive explicit water-cell construction",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/construction_native_owner_receiving_421_695_696_697_698_699_20261110.json"
+                  ],
+                  "review": "Final combined native/Python, actual Jupyter/representative Wayland Qt and documentation receiving is recorded on exact sources. Native criteria, full reports/maps, explicit managed/independent ownership and experimental/installed boundaries remain. Public source delivery must be independently verified before this checkpoint is reported as delivered."
                 },
                 {
                   "id": "assembly",
                   "requirement": "Receive declared biological assembly construction",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/construction_native_owner_receiving_421_695_696_697_698_699_20261110.json"
+                  ],
+                  "review": "Final combined native/Python, actual Jupyter/representative Wayland Qt and documentation receiving is recorded on exact sources. Native criteria, full reports/maps, explicit managed/independent ownership and experimental/installed boundaries remain. Public source delivery must be independently verified before this checkpoint is reported as delivered."
                 },
                 {
                   "id": "solvation",
                   "requirement": "Receive explicit model/engine-selected solvation",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/construction_native_owner_receiving_421_695_696_697_698_699_20261110.json"
+                  ],
+                  "review": "Final combined native/Python, actual Jupyter/representative Wayland Qt and documentation receiving is recorded on exact sources. Native criteria, full reports/maps, explicit managed/independent ownership and experimental/installed boundaries remain. Public source delivery must be independently verified before this checkpoint is reported as delivered."
                 },
                 {
                   "id": "ion-placement",
                   "requirement": "Receive explicit whole-water ion replacement",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/construction_native_owner_receiving_421_695_696_697_698_699_20261110.json"
+                  ],
+                  "review": "Final combined native/Python, actual Jupyter/representative Wayland Qt and documentation receiving is recorded on exact sources. Native criteria, full reports/maps, explicit managed/independent ownership and experimental/installed boundaries remain. Public source delivery must be independently verified before this checkpoint is reported as delivered."
                 }
               ]
             },
@@ -760,8 +772,8 @@
           ]
         }
       ],
-      "verified_fraction": 0.8890734265734265,
-      "credited_points": 22.226835664335663
+      "verified_fraction": 0.8993006993006993,
+      "credited_points": 22.482517482517483
     },
     {
       "id": "phase5",
@@ -962,7 +974,7 @@
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
-    "verified_source_intents": 43,
+    "verified_source_intents": 49,
     "total_intents": 50,
     "global_weight_points": 2.5,
     "meaning": "A separate count of accepted declared intents; not equal effort, scientific coverage or installed acceptance."
@@ -1005,14 +1017,16 @@
     "weighted_milestone_change": 0
   },
   "incoming_intake": {
-    "issues": [
-      "uibcdf/molsysmt#654"
+    "complete_paginated": true,
+    "date": "2026-11-10",
+    "issues": 623,
+    "open_issues": 97,
+    "open_prs": [
+      696,
+      699
     ],
-    "complete_board_issues": 593,
-    "open_issues": 88,
-    "open_prs": 0,
-    "weighted_milestone_change": 0,
-    "scope": "Historical #654 intake checkpoint, not the latest complete-board count."
+    "remaining_new_proposal": "uibcdf/molsysmt#700",
+    "note": "Pre-closeout inventory; a post-delivery complete refresh must record final issue/PR states."
   },
   "last_updated": "2026-11-10",
   "last_scientific_claim_disposition": {
@@ -1430,8 +1444,39 @@
     "weighted_milestone_change": 0.056818181818186986,
     "graphical_accepted": 43,
     "graphical_total": 50,
+    "state": "public_source_verified",
+    "supplemental_bug_bonus": 0,
+    "scope": "Source and automated real-Jupyter/representative Qt; independent DSSP validation, human, installed and release gates remain separate.",
+    "public_checkpoint": "68bd1910397cc457b3b8b30f23424fa271bdb124",
+    "public_verification": "All 25 public changed paths were independently verified; #694 is guarded and closed. This is a dated bookkeeping correction; no additional credit."
+  },
+  "last_construction_and_native_receiving": {
+    "qualified_source": "cdf6e878ffa53ef045ee3c9c568efd61cf9dcb61",
+    "received_prs": [
+      {
+        "number": 696,
+        "source": "30b2c8b50012d3a29ff97faeea36f20bd9649bce"
+      },
+      {
+        "number": 699,
+        "source": "400d484f85b461aeecd33918597291869be64e43"
+      }
+    ],
+    "viewer_source": "b010ab76c2e15178e5ad987ad369cce02e40c921",
+    "evidence": "devtools/data/construction_native_owner_receiving_421_695_696_697_698_699_20261110.json",
+    "original_leaves": [
+      "phase4/graphical-inventory/chemistry-repair/protonation-reconciliation",
+      "phase4/graphical-inventory/construction/assembly",
+      "phase4/graphical-inventory/construction/ion-placement",
+      "phase4/graphical-inventory/construction/peptide",
+      "phase4/graphical-inventory/construction/solvation",
+      "phase4/graphical-inventory/construction/water-cell"
+    ],
+    "weighted_milestone_change": 0.255681818181813,
+    "graphical_accepted": 49,
+    "graphical_total": 50,
     "state": "source_received_pending_public_delivery",
     "supplemental_bug_bonus": 0,
-    "scope": "Source and automated real-Jupyter/representative Qt; independent DSSP validation, human, installed and release gates remain separate."
+    "scope": "Linux/Python 3.14 controlled-source and automated graphical receiving. Experimental science/profile, causal #615, clean installed/platform/human and release authority remain separate."
   }
 }

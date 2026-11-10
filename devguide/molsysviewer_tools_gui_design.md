@@ -1010,3 +1010,24 @@ its own managed-assessment response across those notifications while retiring
 the consumed report/review. A source/revision/input-bound completion notice
 survives later refreshes; expiry still retires it. The actual browser guard
 continues to require the visible completion notice and exact native results.
+
+
+### Combined owner receiving of assessed decisions and construction — 2026-11-10
+
+The original protonation reconciliation and five construction intents are now
+received together on the exact sources in the
+[combined owner record](../devtools/data/construction_native_owner_receiving_421_695_696_697_698_699_20261110.json). Four actual Jupyter workflows pass
+26 checks and four representative native Wayland Qt workflows pass 24 checks,
+including reviewed managed/independent results and native Qt disposal. Complete
+native ion reports and atom maps remain in result preparation history; bounded
+frontend metadata is not the scientific record. The independent report control
+uses the same active unit context as the panel and retains exact equality.
+
+The 8,956-case expanded cohort retains its one incorrect unit-context test oracle
+and 8,955 passes. Corrected focused receiving passes 415 cases with unchanged
+product bytes; an earlier native cohort passes 8,813. Registered science,
+strict notebooks/doctests and rendered guides are separately recorded. No
+failure is erased by a later pass. #615 remains causally unresolved, #666 retains
+the unit-sensitive contact boundary, and installed/human/final candidate gates
+remain separate. This receives six existing intents, for 49/50; no supplemental
+native repair, PR or test adds an invented plan weight.

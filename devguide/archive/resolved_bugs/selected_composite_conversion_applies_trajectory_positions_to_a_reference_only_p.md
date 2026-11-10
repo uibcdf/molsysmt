@@ -1,9 +1,9 @@
 ---
 summary: Selected composite conversion applies trajectory positions to a reference-only provider.
 issue: uibcdf/molsysmt#698
-status: active
+status: resolved
 opened: 2026-11-10
-closed:
+closed: 2026-11-10
 severity: high
 verification: reproduced
 area: [convert, selection]
@@ -79,3 +79,11 @@ until the caller supplies explicit structure correspondence. This preserves
 the source instead of silently transporting or dropping scientific evidence.
 Both provider orders and one/repeated structure selections are guarded. The
 283-case association/composition receiving passes without omissions.
+
+## Resolution — 2026-11-10
+
+Selected composition no longer indexes an off-axis reference with trajectory positions. It retires reference observations and state links together and rejects named reference analyses without explicit correspondence, including coincident one-structure counts. Both provider orders, repeated/nonconsecutive structures and public Iterator callers are guarded.
+
+Qualified final source: `cdf6e878ffa53ef045ee3c9c568efd61cf9dcb61`. The [combined owner receipt](../../../devtools/data/construction_native_owner_receiving_421_695_696_697_698_699_20261110.json) preserves the original failing controls, failed intermediate integration attempts, source identities and bounded resources. The predecessor native cohort passes 8,813 cases. Final receiving retains 8,955 passes and one failed unit-context test oracle in the expanded 8,956-case cohort; the 415-case corrected focused cohort passes with byte-identical product source. All 116 registered scientific cases/74 nodes, 76 public/native doctest examples, strict seven-notebook validation, ten inspected HTML pages, twenty-six actual Jupyter checks and twenty-four representative native Qt checks pass on the explicitly recorded cohorts.
+
+This is guarded Linux/Python 3.14 source resolution, not clean installed, other-platform, human or exact-candidate acceptance. The supplemental fix adds no original milestone weight. Public delivery and owning issue closure use the repository closeout route after independent blob verification.

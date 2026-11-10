@@ -104,3 +104,19 @@ The scope peaks at 2.22 GiB, retains at least 11.28 GiB host memory available,
 and has no pressure/OOM/reserve stop. No timeout, assertion or warm-up changed.
 This is receiving on those inputs, not a causal repair or closure of #615;
 the preceding one-pass/two-failure campaign remains failed.
+
+
+## Combined construction receiving — 2026-11-10
+
+Clean cdf6e878f / raw-blob-verified Viewer b010ab76 passes four actual Jupyter
+workflows and 26 checks: construction, assessed protonation, properties and
+interaction/mechanics. Existing waits, source/scene comparisons and scientific
+criteria remain unchanged. The scope peaks at 2.50 GiB and retains at least
+9.04 GiB of host available memory; no own OOM or reserve stop occurs. Global
+full-memory pressure briefly peaks at 3.24 in the shared host; that observation
+does not establish a product or timing cause. See the
+[combined receiving record](../../devtools/data/construction_native_owner_receiving_421_695_696_697_698_699_20261110.json).
+
+This is additional exact-source receiving, not a causal repair or closure of
+#615. The original executing-cell, later pre-execution, cold-server and final
+replacement observations remain distinct failed stages in their own receipts.

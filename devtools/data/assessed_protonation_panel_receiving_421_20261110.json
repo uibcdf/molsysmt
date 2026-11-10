@@ -1071,5 +1071,13 @@
     "Initial test-oracle/transport and three Jupyter fixture/lifecycle attempts remain failed with their actual source identities. A source scene is captured after its actual initial canvas loads and before the compared operations; exact scene equality is retained.",
     "Only the original assessed-reconciliation GUI leaf may receive its existing weight after combined public delivery. No independent scientific certification, all-platform, human, installed or exact-candidate acceptance is inferred.",
     "No package, tag, Release, remote matrix or publication operation is authorized or executed."
+  ],
+  "corrections": [
+    {
+      "date": "2026-11-10",
+      "scope": "The earlier acceptance of inspected HTML",
+      "correction": "The earlier Sphinx process exited zero but emitted a NotebookValidationError for an id in a v4.4 markdown cell. That HTML build is not accepted. The invalid id is removed, original code cells/outputs remain identical, and the final combined source passes strict read-only declared-schema validation plus a new semantically inspected HTML build. Original run and acceptance text are preserved as history.",
+      "replacement_evidence": "devtools/data/construction_native_owner_receiving_421_695_696_697_698_699_20261110.json"
+    }
   ]
 }

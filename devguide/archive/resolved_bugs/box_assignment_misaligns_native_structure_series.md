@@ -1,9 +1,9 @@
 ---
 summary: Full geometry assignment can silently misalign native structural series.
 issue: uibcdf/molsysmt#695
-status: active
+status: resolved
 opened: 2026-11-10
-closed:
+closed: 2026-11-10
 severity: high
 verification: reproduced
 area: [native, set, pbc]
@@ -102,3 +102,11 @@ methods delegate to their existing argument digesters, retaining units, shapes
 and full-series None clearing. Invalid coordinate shape errors preserve the
 structural cause instead of an unbound local exception. No validator is bypassed
 and no topology or chemistry is inferred.
+
+## Resolution — 2026-11-10
+
+Native coordinate and box publication preserves all stored series and the declared owner atom domain before mutation/invalidation. Constructors remain strict; unknown first axes and None clearing remain usable. Full native/form, selected/repeated axes, rebuilt domains and independently owned Iterator chunks are guarded.
+
+Qualified final source: `cdf6e878ffa53ef045ee3c9c568efd61cf9dcb61`. The [combined owner receipt](../../../devtools/data/construction_native_owner_receiving_421_695_696_697_698_699_20261110.json) preserves the original failing controls, failed intermediate integration attempts, source identities and bounded resources. The predecessor native cohort passes 8,813 cases. Final receiving retains 8,955 passes and one failed unit-context test oracle in the expanded 8,956-case cohort; the 415-case corrected focused cohort passes with byte-identical product source. All 116 registered scientific cases/74 nodes, 76 public/native doctest examples, strict seven-notebook validation, ten inspected HTML pages, twenty-six actual Jupyter checks and twenty-four representative native Qt checks pass on the explicitly recorded cohorts.
+
+This is guarded Linux/Python 3.14 source resolution, not clean installed, other-platform, human or exact-candidate acceptance. The supplemental fix adds no original milestone weight. Public delivery and owning issue closure use the repository closeout route after independent blob verification.

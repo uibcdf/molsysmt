@@ -1,5 +1,50 @@
 # Pre-1.0 robustness audit and action plan — 6 November 2026
 
+## Construction, assessed decisions and native integrity received — 2026-11-10
+
+Exact PR **#696 30b2c8b50** and stacked **#699 400d484f8** are integrated with
+assessed protonation and the native #695/#697/#698 corrections on clean
+**cdf6e878f**, against raw-blob-verified Viewer **b010ab76**. The
+[combined owner receipt](../devtools/data/construction_native_owner_receiving_421_695_696_697_698_699_20261110.json) retains every earlier failed cohort.
+The expanded cohort has **8,955 passes and one failed test oracle** comparing
+reports from different active unit contexts. The corrected **415-case** receiving
+passes with byte-identical product source and exact report/map assertions.
+An earlier native cohort passes **8,813 cases**. These selections overlap and
+are not summed. **116 scientific cases / 74 nodes**, **76 public/native doctest
+examples**, strict validation of seven notebooks, ten inspected HTML pages,
+**four actual Jupyter workflows / 26 checks** and **four representative native
+Wayland Qt workflows / 24 checks** pass. Eighty-one existing code cells and
+outputs remain unchanged. Qt construction checks complete page/profile/window
+retirement with the provider's teardown correction.
+
+Shared native publication now validates all structural series and the declared
+atom domain before mutation/invalidation. Native builders and complete Iterator
+chunks preserve that boundary. Unavailable setters refuse through the existing
+typed diagnostic. Selected composed trajectories cannot import off-axis reference
+observations or state links merely because selected lengths happen to match;
+reference analyses require explicit correspondence. These are guarded source
+resolutions, with public delivery/issue closure next. Supplemental repairs earn
+no bonus. Proposal #700 retains the future notebook-schema gate improvement.
+
+Only six original intents receive credit: one inspected protonation decision
+for explicit managed/independent apply, and peptide, water-cell, assembly,
+solvation and ion construction. Native tools still own science, unit-bearing
+inputs, seeds, model/charge declarations and complete reports. Physical-model
+inspection distinguishes requests, compiled observations and actual execution.
+No hidden preparation, equilibration, trajectory solvent loop or new predictor
+is implied. **49/50 original intents; 76.2920% (about 76.3%)** with unchanged
+weights. This is source/automated receiving, not installed or release readiness.
+
+Next: independently verify public source delivery and close #695/#697/#698 and
+the reviewed PRs; receive **#666 / PyUnitWizard #143**'s exact cutoff-unit
+contract and the last contact intent; retain **#615**'s unresolved causal stage.
+Request **#524**'s actual published compatible Viewer minimum and clean
+minimum/newer installed closure, plus explicit **#250/#254** contract feedback.
+Those latter two original leaves would reach **81.0539%**, only if genuinely
+received. Source b010ab76 is not a published package floor. **#256 P5/P6 and
+#334** retain final agreement, qualification, failed-scope and publication work.
+Publication/candidate/tag/package/new hosted-matrix operations remain paused.
+
 ## New native integrity intake — 2026-11-10
 
 Complete paginated intake after #694 has 620 issues, 94 open issues and one new
@@ -9,7 +54,7 @@ analyses. Twelve protected native-only controls fail on public 68bd19103; six
 existing attached-analysis guards pass. The shared native publication fix now
 passes those eighteen controls. Complete cardinality/unit/selected-axis,
 constructor and affected-consumer receiving remains required before closure.
-See the [owning record](pending_bugs/box_assignment_misaligns_native_structure_series.md).
+See the [owning record](archive/resolved_bugs/box_assignment_misaligns_native_structure_series.md).
 
 Retain the existing one-box-per-addressed-structure contract; no implicit
 ensemble broadcast is introduced. New construction stages its complete payload;

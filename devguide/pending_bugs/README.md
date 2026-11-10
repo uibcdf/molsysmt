@@ -26,12 +26,9 @@ that front matter -- edit the entries, not this list.
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
 - [`macos_py312_environment_download_failure.md`](macos_py312_environment_download_failure.md) — [#671](https://github.com/uibcdf/molsysmt/issues/671) — Track the macOS Python 3.12 Conda download failure separately from tests. *(medium, upstream)*
 
-### In progress (4)
+### In progress (1)
 
-- [`box_assignment_misaligns_native_structure_series.md`](box_assignment_misaligns_native_structure_series.md) — [#695](https://github.com/uibcdf/molsysmt/issues/695) — Full geometry assignment can silently misalign native structural series. *(high, reproduced)*
 - [`contact_cutoff_equality_changes_across_equivalent_length_units.md`](contact_cutoff_equality_changes_across_equivalent_length_units.md) — [#666](https://github.com/uibcdf/molsysmt/issues/666) — Contact cutoff equality changes across equivalent length units *(high, reproduced)*
-- [`selected_composite_conversion_applies_trajectory_positions_to_a_reference_only_p.md`](selected_composite_conversion_applies_trajectory_positions_to_a_reference_only_p.md) — [#698](https://github.com/uibcdf/molsysmt/issues/698) — Selected composite conversion applies trajectory positions to a reference-only provider. *(high, reproduced)*
-- [`bioassembly_set_reaches_a_missing_form_setter.md`](bioassembly_set_reaches_a_missing_form_setter.md) — [#697](https://github.com/uibcdf/molsysmt/issues/697) — Setting readable bioassembly metadata reaches a missing form setter. *(medium, reproduced)*
 
 ### Partially resolved (1)
 
