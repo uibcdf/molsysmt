@@ -359,6 +359,10 @@ sections:
         index_agents_file: docs/content/user/tools/structure/index.AGENTS.md
         status: in_progress
         pages:
+          - name: get_secondary_structure
+            file: docs/content/user/tools/structure/get_secondary_structure.ipynb
+            agents_file: docs/content/user/tools/structure/get_secondary_structure.ipynb.AGENTS.md
+            description: Observed MDTraj DSSP, complete backbone context, ordered group/structure axes, explicit attribution, eager and registered chunked execution.
           - name: get_neighbors
             file: docs/content/user/tools/structure/get_neighbors.ipynb
             agents_file: docs/content/user/tools/structure/get_neighbors.ipynb.AGENTS.md
@@ -845,7 +849,7 @@ sections:
         agents_file: docs/content/user/cookbook/simulation_workflow.ipynb.AGENTS.md
       - name: big_data_trajectories
         file: docs/content/user/cookbook/big_data_trajectories.ipynb
-        description: Chunked processing and metadata-only native inspection without expanding numeric payloads.
+        description: Chunked processing, admitted resident categorical DSSP labels, and metadata-only native inspection without expanding numeric payloads.
         agents_file: docs/content/user/cookbook/big_data_trajectories.ipynb.AGENTS.md
         status: reviewed
       - name: from_pdb_to_solvated_box

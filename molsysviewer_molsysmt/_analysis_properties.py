@@ -8,6 +8,7 @@ import numpy as np
 from ._task_panel import _structures
 
 PROPERTY_METHODS = {
+    "secondary_structure": "molsysmt.structure.get_secondary_structure",
     "mass": "molsysmt.physchem.get_mass",
     "reference_charge": "molsysmt.physchem.get_charge",
     "hydrophobicity": "molsysmt.physchem.get_hydrophobicity",
@@ -37,6 +38,7 @@ HYDROPHOBICITY_SCALES = (
 )
 PROPERTY_DEFAULTS = {
     "property_element": "atom",
+    "secondary_mode": "simplified",
     "property_scale": "eisenberg",
     "polarity_scale": "grantham",
     "sasa_engine": "MolSysMT",
@@ -53,6 +55,7 @@ PROPERTY_DEFAULTS = {
 def validate_property_parameters(p):
     for key, choices in {
         "property_element": {"atom", "group"},
+        "secondary_mode": {"simplified", "full"},
         "property_scale": set(HYDROPHOBICITY_SCALES),
         "polarity_scale": {"grantham", "zimmerman"},
         "sasa_engine": {"MolSysMT", "MDTraj"},
@@ -102,7 +105,7 @@ class _PropertyReports:
                 int(self._view.player.index),
                 allow_repeated=True,
             )
-            if task in {"sasa", "bonds", "blocks", "rings"}
+            if task in {"sasa", "bonds", "blocks", "rings", "secondary_structure"}
             else []
         )
         metadata = {
@@ -117,6 +120,7 @@ class _PropertyReports:
             "columns": [],
         }
         group_level = task in {
+            "secondary_structure",
             "reference_charge",
             "hydrophobicity",
             "polarity",
@@ -209,6 +213,29 @@ class _PropertyReports:
                 definition="Shrake–Rupley / " + p["sasa_engine"],
                 columns=["Structure index", element.title() + " index", "Area (nm²)"],
                 notice="All source atoms, including solvent and atoms outside the output selection, occlude the surface. Native periodic screening excludes self-images; MDTraj periodic requests with a box are refused. No reconstruction is inferred.",
+            )
+        elif task == "secondary_structure":
+            native = self._owner.structure.get_secondary_structure(
+                selection=selection,
+                structure_indices=frames,
+                simplified=p["secondary_mode"] == "simplified",
+                engine="MDTraj",
+                heavy_mode="auto",
+            )
+            values = np.asarray(native, dtype="U2")
+            if values.shape != (len(frames), len(indices)):
+                raise ValueError(
+                    "Native DSSP labels do not match the source structure/group axes."
+                )
+            import mdtraj as md
+
+            layout, total = "property_categories", int(values.size)
+            metadata.update(
+                frames=frames,
+                definition="Kabsch–Sander DSSP / MDTraj / " + p["secondary_mode"],
+                software={"mdtraj": str(md.__version__)},
+                columns=["Structure index", "Group index", "DSSP code (quoted)"],
+                notice="Observed categorical assignments in full molecular backbone context, then selected groups. MDTraj's DSSP-2.2.0-based implementation uses stored coordinates without periodic reconstruction. NA means its required backbone quartet is unavailable; a quoted space is the full-code loop assignment. This is not sequence prediction or a reference propensity. No preparation, source edit, color or scalar plot is inferred.",
             )
         elif task == "sequence":
             from molsysmt.form.molsysmt_Topology.to_string_amino_acids_1 import (
@@ -318,7 +345,7 @@ class _PropertyReports:
         return dict(
             id=r.token,
             method=m["method"],
-            software={"molsysmt": r.software},
+            software={"molsysmt": r.software, **m.get("software", {})},
             rows=r.total,
             unit=r.unit,
             first_atoms=len(r.first),
@@ -342,7 +369,7 @@ class _PropertyReports:
 
     def _property_row(self, position):
         r = self._report
-        if r.layout == "property_structures":
+        if r.layout in {"property_structures", "property_categories"}:
             f, i = divmod(position, len(r.auxiliary["indices"]))
             return r.auxiliary["members"][i], r.frames[f]
         return r.auxiliary["members"][position], None
@@ -351,12 +378,14 @@ class _PropertyReports:
         r, m, rows = self._report, self._report.auxiliary, []
         for position in range(offset, min(r.total, offset + size)):
             task = r.parameters["task"]
-            if r.layout == "property_structures":
+            if r.layout in {"property_structures", "property_categories"}:
                 f, i = divmod(position, len(m["indices"]))
                 row = [
                     r.frames[f],
                     int(m["indices"][i]),
-                    self._property_number(r.values[f, i]),
+                    repr(str(r.values[f, i]))
+                    if r.layout == "property_categories"
+                    else self._property_number(r.values[f, i]),
                 ]
             elif r.layout == "property_members":
                 members = m["members"][position]

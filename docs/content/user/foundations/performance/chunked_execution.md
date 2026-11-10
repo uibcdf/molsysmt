@@ -145,3 +145,15 @@ before native search; eligible search and filling share the remaining allowance.
 Using a sparse candidate search does not make a dense map sparse. See the
 {ref}`neighbor tutorial <Tutorial_Get_neighbors>` and
 {ref}`contact tutorial <Tutorial_Get_contacts>`.
+
+
+## Observed secondary-structure assignments
+
+{func}`molsysmt.structure.get_secondary_structure` retains complete backbone
+context while selecting output groups. Its native/H5 heavy path uses the shared
+executor, with ordered/repeated source structures and an admitted resident U2
+label array. Eager foreign forms retain their public conversion route; force
+or large requests without a registered chunk contract are refused. This is
+MDTraj DSSP assignment, without implicit periodic reconstruction, and its normal
+float32 provider coordinates apply. Output/topology/foreign-runtime costs remain
+explicit; the numerical estimate is not total RSS or a resource reservation.

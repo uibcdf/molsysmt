@@ -769,6 +769,7 @@ class _StructureTools:
         engine="MDTraj",
         *,
         skip_digestion=False,
+        heavy_mode="auto",
     ):
         return self._call(
             "get_secondary_structure",
@@ -778,6 +779,8 @@ class _StructureTools:
                 "simplified": simplified,
                 "syntax": syntax,
                 "engine": engine,
+                "heavy_mode": heavy_mode,
+                "skip_digestion": skip_digestion,
             },
         )
 

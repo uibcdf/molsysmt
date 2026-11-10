@@ -26,9 +26,10 @@ that front matter -- edit the entries, not this list.
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
 - [`macos_py312_environment_download_failure.md`](macos_py312_environment_download_failure.md) — [#671](https://github.com/uibcdf/molsysmt/issues/671) — Track the macOS Python 3.12 Conda download failure separately from tests. *(medium, upstream)*
 
-### In progress (1)
+### In progress (2)
 
 - [`contact_cutoff_equality_changes_across_equivalent_length_units.md`](contact_cutoff_equality_changes_across_equivalent_length_units.md) — [#666](https://github.com/uibcdf/molsysmt/issues/666) — Contact cutoff equality changes across equivalent length units *(high, reproduced)*
+- [`secondary_structure_group_projection_and_provider_contract.md`](secondary_structure_group_projection_and_provider_contract.md) — [#694](https://github.com/uibcdf/molsysmt/issues/694) — Secondary-structure adapter loses requested group order and lacks explicit provider boundary. *(high, reproduced)*
 
 ### Partially resolved (1)
 

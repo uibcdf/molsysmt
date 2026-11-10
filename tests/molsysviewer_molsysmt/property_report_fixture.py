@@ -13,7 +13,8 @@ view=msv.new_view(seed.molsys,structure_indices=[0,8,3]);seed.close()
 _before=msm.copy(view.molsys)
 _atoms=[20,10,6,20]
 _groups=list(dict.fromkeys(map(int,msm.get(view.molsys,element='atom',selection=_atoms,group_index=True))))
-_expected={{'atoms':_atoms,'groups':_groups,'mass':msm.pyunitwizard.get_value(msm.physchem.get_mass(view.molsys,element='atom',selection=_atoms),to_unit='dalton').tolist(),'sasa':msm.pyunitwizard.get_value(msm.physchem.get_sasa(view.molsys,selection=_atoms,structure_indices=[2,0,2],pbc=False,use_gpu=False,parallel=False,num_threads=1),to_unit='nm**2').tolist(),'group_members':list(map(int,msm.get(view.molsys,element='group',selection=[_groups[0]],atom_index=True)[0]))}}
+_ss_groups=list(dict.fromkeys(map(int,msm.get(view.molsys,element='atom',selection=[0]+_atoms,group_index=True))))
+_expected={{'atoms':_atoms,'groups':_groups,'ss_groups':_ss_groups,'dssp_full':msm.structure.get_secondary_structure(view.molsys,selection=_ss_groups,structure_indices=[2,0,2],simplified=False).tolist(),'mass':msm.pyunitwizard.get_value(msm.physchem.get_mass(view.molsys,element='atom',selection=_atoms),to_unit='dalton').tolist(),'sasa':msm.pyunitwizard.get_value(msm.physchem.get_sasa(view.molsys,selection=_atoms,structure_indices=[2,0,2],pbc=False,use_gpu=False,parallel=False,num_threads=1),to_unit='nm**2').tolist(),'group_members':list(map(int,msm.get(view.molsys,element='group',selection=[_groups[0]],atom_index=True)[0]))}}
 Path({str(output / "property-expected.json")!r}).write_text(json.dumps(_expected))
 view
 """

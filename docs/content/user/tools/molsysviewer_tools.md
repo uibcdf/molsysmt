@@ -6413,3 +6413,23 @@ Core Interactions owns the visual set's style and visibility. Clear, unmount or
 removing a visual set keeps the named science; saving supported H5MSM preserves
 it. A replaced/deleted stored analysis cannot be silently reused by an old
 report. Raw external writes require explicit synchronization/invalidation.
+
+
+## Inspecting observed secondary structure in Analysis
+
+Choose **Properties and reports > Observed secondary structure (DSSP)** and
+explicit structures, including a nonconsecutive or repeated list. The atom
+editor defines complete output groups in first-encounter order; native DSSP
+still examines the full molecular backbone. Choose simplified H/E/C/NA or full
+eight-state codes. Rows retain source structure/group indices and quoted codes:
+`' '` is the full loop code, while `'NA'` retains MDTraj's missing-quartet meaning.
+
+The report records Kabsch–Sander DSSP, the actual MDTraj version and native
+scope. It neither predicts from sequence nor reads reference propensities,
+repairs atoms, reconstructs periodic molecules or changes coordinates. Optional
+MDTraj must be installed; there is no fallback assignment engine. Labels are
+categorical and do not enter the scalar color/trajectory-plot controls.
+Select/Focus deliberately acts on the complete source group in the visible
+structure without navigating. Clear and changed inputs/source retire the report.
+Native eager/chunked admission applies, while labels remain resident; paged
+inspection is not a universal memory/time or independent scientific guarantee.

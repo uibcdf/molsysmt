@@ -69,6 +69,37 @@ def main():
         checks.append(
             "Seven native property and molecular reports preserve source data"
         )
+        phase = "observed secondary structure"
+        host.fill("task", "secondary_structure")
+        host.fill("secondary-mode", "full")
+        host.fill("structures", "indices")
+        host.fill("structure-indices", "2,0,2")
+        rows = calculate("secondary_structure")
+        groups = list(
+            dict.fromkeys(
+                map(
+                    int,
+                    msm.get(
+                        view.molsys,
+                        element="atom",
+                        selection=[20, 10, 6, 20],
+                        group_index=True,
+                    ),
+                )
+            )
+        )
+        expected = msm.structure.get_secondary_structure(
+            view.molsys, selection=groups, structure_indices=[2, 0, 2], simplified=False
+        )
+        assert rows == [
+            [str(f), str(g), repr(str(expected[i, j]))]
+            for i, f in enumerate([2, 0, 2])
+            for j, g in enumerate(groups)
+        ]
+        same(view.molsys, before)
+        checks.append(
+            "Observed categorical DSSP retains group and repeated structure correspondence"
+        )
         phase = "source participants"
         rows = calculate("mass")
         expected = msm.pyunitwizard.get_value(

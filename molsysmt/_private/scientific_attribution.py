@@ -127,3 +127,38 @@ def attach_scientific_attribution(result, caller, references=()):
     )
     with _ackredit.scope(caller) as provider:
         _ackredit.credit(provider, items, caller, contextual=True)
+
+
+def credit_secondary_structure(version, caller, *, simplified):
+    """Record the executed DSSP criterion and provider, once after completion."""
+    from molsysmt import _ackredit
+    from molsysmt._private.scientific_citations import ARTICLES
+
+    items = []
+    for name, role in [
+        ("kabsch_sander_1983", "scientific_criterion"),
+        ("mdtraj", "reference_implementation"),
+    ]:
+        record = deepcopy(ARTICLES[name])
+        items.append(
+            dict(
+                id="doi:" + record["doi"],
+                type="article",
+                url="https://doi.org/" + record["doi"],
+                roles=[role],
+                **record,
+            )
+        )
+    items.append(executed_software_reference("mdtraj", version))
+    with _ackredit.scope(caller) as provider:
+        _ackredit.credit(
+            provider,
+            items,
+            caller,
+            contextual=True,
+            context={
+                "method": "kabsch_sander_1983",
+                "implementation": "MDTraj DSSP",
+                "simplified": simplified,
+            },
+        )

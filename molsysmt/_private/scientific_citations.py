@@ -6,6 +6,16 @@ what the source supplies. Declaration never records runtime use.
 """
 
 ARTICLES = {
+    # MDTraj compute_dssp's original method reference, inspected 2026-11-10.
+    "kabsch_sander_1983": dict(
+        doi="10.1002/bip.360221211",
+        title="Dictionary of protein secondary structure: pattern recognition of hydrogen-bonded and geometrical features",
+        authors=["Kabsch, W.", "Sander, C."],
+        year=1983,
+        journal="Biopolymers",
+        volume="22",
+        pages="2577-2637",
+    ),
     "westbrook_2015": dict(
         doi="10.1093/bioinformatics/btu789",
         title="The chemical component dictionary: complete descriptions of constituent molecules in experimentally determined 3D macromolecules in the Protein Data Bank",
@@ -263,6 +273,7 @@ ARTICLES = {
 # or author list. RDKit asks additionally for the version used; the producer
 # version is attached by the consumer, without resolving a moving release DOI.
 SOFTWARE = {
+    "mdtraj": dict(title="MDTraj", url="https://mdtraj.org"),
     "mmcif": dict(
         title="RCSB mmCIF Core Access Library", url="https://github.com/rcsb/py-mmcif"
     ),
