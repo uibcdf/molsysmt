@@ -69,12 +69,12 @@ It is not a production fix or a universal exact-arithmetic promise.
 
 **Forwardable request:**
 
-> Please review pyunitwizard#143 against MolSysMT source 5e7d65a66 and the
+> Please review uibcdf/pyunitwizard#143 against MolSysMT source 5e7d65a66 and the
 > published 27-case reference. Confirm an existing supported route or propose
 > a bounded provider-owned capability. State scalar/array, unit/backend and
 > representability limits, including strict adjacent-value controls. We will
 > receive the chosen route through native contacts under multiple policies,
-> CPU routes and PBC before accepting molsysmt#666 or the final contact GUI
+> CPU routes and PBC before accepting uibcdf/molsysmt#666 or the final contact GUI
 > intent. Please return the exact source/API and qualification; a source-only
 > result does not establish a new published dependency floor.
 
@@ -102,18 +102,18 @@ owners. Consumer requirements remain uibcdf/molsysmt#250, #254, #524 and #615.
 
 > MolSysMT main 5e7d65a665425fe6077f016dd95cbd65d424ee91 receives your exact
 > figure-context contribution 9dff314f8 against Viewer 5164f13b. Please return
-> explicit source-contract feedback for molsysmt#250/#254: sparse relations and
+> explicit source-contract feedback for uibcdf/molsysmt#250 and uibcdf/molsysmt#254: sparse relations and
 > occurrences, compound roles, stable occurrence indices within an analysis,
 > evaluated-empty versus unevaluated coverage, nonconsecutive axis queries and
 > the four selection modes, bounded pages, units/producers/images, named
 > analyses, declared maps, remapping and edit invalidation/stale refusals.
 > Independent-file correspondence remains declared, not authenticated.
 >
-> For molsysmt#524, identify the intended compatible public Viewer version and
+> For uibcdf/molsysmt#524, identify the intended compatible public Viewer version and
 > the remaining artifact work; if none is published, say so explicitly. The
 > source pin does not satisfy clean minimum/newer installed receiving. Please
 > also review the proposed first stable H5MSM 1.0 boundary and help define a
-> discriminating pre-failure capture for molsysmt#615. Our real-server diagnostics
+> discriminating pre-failure capture for uibcdf/molsysmt#615. Our real-server diagnostics
 > and later passing cases do not establish its original cause. Return exact
 > sources and evidenced scope; artifact names/builds/hashes follow only when
 > artifact preparation is resumed by the maintainer.
@@ -136,7 +136,7 @@ No new docking, preparation, scientific search or reopening is requested.
 **Forwardable request, after the remaining P5 prescription is bounded:**
 
 > We retain your published 9b077fab reference and three-pose E3 acceptance.
-> For molsysmt#256 P5/P6 and the proposed first stable H5MSM 1.0, please help
+> For uibcdf/molsysmt#256 P5/P6 and the proposed first stable H5MSM 1.0, please help
 > review the finite additional profile below: one projected/reordered prepared
 > round trip, one restored coordinate-edit/invalidation control, and one unknown
 > evidence transport/refusal control, under normal and pm/fs policies. We own
@@ -167,7 +167,7 @@ additional client work needs the exact prescription and team agreement first.
 | Fresh public reader and producer/edit ownership | `tests/form/file_h5msm/test_modular_mechanics.py::test_prepared_whole_file_in_a_fresh_reader_retains_provenance_and_edit_ownership` | Its public branch verifies both public read and convert, changed reader version, PDBQT parity, unit-policy preservation, selective analysis invalidation and absence of optional engines. Independent DockingMT receiving remains distinct. |
 | Selected/reordered native axes | `tests/form/file_h5msm/test_public_mechanics_v06.py::test_copy_and_selected_file_extraction_retain_root_version_and_mechanics`; `tests/form/file_h5msm/test_public_mechanics_v06.py::test_reordered_prepared_system_retains_correspondence_in_public_roundtrip` | Proposed additional client case: explicit atom permutation and nonconsecutive structures `[2, 0]`, original producer labels, expected correspondence, typed parameters and named-analysis coverage. Do not infer atom reordering from ordinary selection, which uses ascending unique indices. |
 | Stored unknown evidence versus usable assignments | `tests/native/test_unknown_mechanical_assignment_reports.py::test_unknown_reports_roundtrip_but_refuse_projection_and_scientific_export` | Proposed additional client adverse case: transport unknown reports without reinterpretation, then preserve source and refuse unsupported projection/export before output. Do not relabel loading as parameterization or repair. |
-| Supported append versus documented refusal | `tests/form/file_h5msm/test_public_mechanics_v06.py::test_public_append_preserves_mechanics_and_extends_state_assignments` | Provider-owned append supports the documented topology-free/no-interactions composition and explicit state indices. Named-interaction file append is not promised. Confirm actual client use before requesting client execution or broadening support. |
+| Supported append versus documented refusal | `tests/form/file_h5msm/test_public_mechanics_v06.py::test_public_append_preserves_mechanics_and_extends_state_assignments`; new refusal guard `tests/form/file_h5msm/test_public_mechanics_v06.py::test_unsupported_append_preserves_existing_file_and_independent_layers` (receiving pending) | Provider-owned append supports the documented topology-free/no-interactions composition and explicit state indices. Named-interaction file append is not promised. Confirm actual client use before requesting client execution or broadening support. |
 | Absent/present-empty and atomic publication | `tests/form/file_h5msm/test_modular_mechanics.py::test_explicitly_empty_mechanics_keeps_its_independent_presence`; `tests/form/file_h5msm/test_modular_mechanics.py::test_write_failure_after_partial_staging_publishes_nothing` | Keep independent layer presence distinct from native representability, and preserve existing caller files on normal failure. Crash durability remains outside the implemented atomic-visibility guarantee. |
 
 Use a tiny already prepared fixture; do not run another scientific preparation
