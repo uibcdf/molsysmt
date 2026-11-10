@@ -269,6 +269,7 @@ jobs:
             tests/molsysviewer_molsysmt/test_periodic_panel.py \
             tests/molsysviewer_molsysmt/test_chemistry_panel.py \
             tests/molsysviewer_molsysmt/test_chemistry_assessments_panel.py \
+            tests/molsysviewer_molsysmt/test_assessed_protonation_panel.py \
             tests/molsysviewer_molsysmt/test_chemistry_preparation_panel.py \
             tests/molsysviewer_molsysmt/test_construction_panel.py \
             tests/molsysviewer_molsysmt/test_chemistry_repair_panel.py \
@@ -276,6 +277,7 @@ jobs:
             tests/molsysviewer_molsysmt/test_vector_angular_analysis_panel.py \
             tests/molsysviewer_molsysmt/test_pca_analysis_panel.py \
             tests/molsysviewer_molsysmt/test_property_analysis_panel.py \
+            tests/molsysviewer_molsysmt/test_secondary_structure_panel.py \
             tests/molsysviewer_molsysmt/test_analysis_visual_adoption.py \
             tests/molsysviewer_molsysmt/test_figure_observations.py \
             tests/molsysviewer_molsysmt/test_mechanical_analysis_panel.py \
