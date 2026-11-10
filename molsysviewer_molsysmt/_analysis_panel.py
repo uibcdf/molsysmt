@@ -31,6 +31,7 @@ from ._analysis_properties import (
     validate_property_parameters,
 )
 from ._analysis_visuals import _VisualReportAdoption
+from ._figure_observation import capture_call, plot_context, plot_support_limit
 from ._panel_frontend import CSS
 from ._task_panel import _MolecularTaskPanel, _structures
 
@@ -159,6 +160,7 @@ class _AnalysisReport:
     software: str
     reference_frame: int | None = None
     component: int | None = None
+    calculation_context: dict | None = None
 
 
 def _uses_second(parameters):
@@ -309,6 +311,7 @@ class _AnalysisPanel(
             else None,
         }
         layout, offsets, auxiliary = "matrix", None, None
+        calculation_context = None
         if p["task"] == "neighbors":
             if paired:
                 raise ValueError(
@@ -371,15 +374,22 @@ class _AnalysisPanel(
             arguments["pairs"] = paired
             method = getattr(self._owner.structure, _METHODS[p["task"]])
             if p["task"] in {"distances", "vectors"}:
+                arguments["heavy_mode"] = "force"
+                if p["task"] == "distances":
+                    arguments["use_gpu"] = False
+            arguments, calculation_context = capture_call(
+                target, "molsysmt.structure." + _METHODS[p["task"]], arguments
+            )
+            if p["task"] in {"distances", "vectors"}:
                 # Explicit public native block mode bounds flat matrix work and
                 # returns its own disk handle when appropriate. Centers/pairs
                 # retain the native eager route; this is no universal RAM bound.
                 if p["task"] == "vectors":
-                    values = method(**arguments, heavy_mode="force")
+                    values = method(**arguments)
                     total = int(np.prod(values.shape[:-1]))
                     layout = "vector_paired" if paired else "vector_matrix"
                 else:
-                    values = method(**arguments, heavy_mode="force", use_gpu=False)
+                    values = method(**arguments)
                     total = int(np.prod(values.shape))
                     layout = "paired" if paired else "matrix"
             else:
@@ -411,6 +421,7 @@ class _AnalysisPanel(
             total,
             bool(p["pbc"] and msm.pbc.has_pbc(target)),
             str(msm.__version__)[:200],
+            calculation_context=calculation_context,
         )
 
     def _calculate_angular(self, target, status):
@@ -454,6 +465,9 @@ class _AnalysisPanel(
             "pbc": p["pbc"],
             "use_gpu": False,
         }
+        arguments, calculation_context = capture_call(
+            target, "molsysmt.structure." + _ANGULAR_METHODS[p["task"]], arguments
+        )
         values = getattr(self._owner.structure, _ANGULAR_METHODS[p["task"]])(
             **arguments
         )
@@ -485,6 +499,7 @@ class _AnalysisPanel(
             len(frames) * len(tuples),
             bool(p["pbc"] and msm.pbc.has_pbc(target)),
             str(msm.__version__)[:200],
+            calculation_context=calculation_context,
         )
 
     def _calculate_conformation(self, target, status, atoms):
@@ -534,6 +549,9 @@ class _AnalysisPanel(
             arguments.update(
                 weights="masses" if p["weighting"] == "masses" else None, use_gpu=False
             )
+        arguments, calculation_context = capture_call(
+            target, "molsysmt.structure." + _CONFORMATION_METHODS[p["task"]], arguments
+        )
         result = getattr(self._owner.structure, _CONFORMATION_METHODS[p["task"]])(
             **arguments
         )
@@ -565,6 +583,7 @@ class _AnalysisPanel(
             False,
             str(msm.__version__)[:200],
             reference_frame,
+            calculation_context=calculation_context,
         )
 
     def _current_report(self, context):
@@ -753,7 +772,7 @@ class _AnalysisPanel(
             return "This result is not indexed by one scalar per structure."
         if report.frames != list(range(int(self._view.player.n_structures))):
             return "A trajectory plot needs every loaded structure once, in index order. Choose All structures to calculate that scope."
-        return ""
+        return plot_support_limit(self._view)
 
     def _row(self, position):
         """Resolve native row axes once for tables and deliberate scene actions."""
@@ -958,6 +977,7 @@ class _AnalysisPanel(
                 title=titles[report.parameters["task"]],
                 x_label="Structure index",
                 y_label="Length (nm)",
+                observations=[plot_context(report, "nm", {"kind": "structure_scalar"})],
             )
             self._publish(
                 stage="scene",

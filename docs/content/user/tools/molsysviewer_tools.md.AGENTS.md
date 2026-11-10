@@ -782,3 +782,9 @@ and native placement criteria. Keep scientific logic native, input/result owners
 independent, review/Back/conditional scene-reset replacement and empty-to-loaded
 panel refresh. No hidden preparation, equilibration, trajectory loop, generic
 report store or universal RAM/cancellation/published-package claim is inferred.
+
+Preserve optional historical figure context, explicit native method/parameter/
+population/reference/weight/unit/projection ownership and detached persistence.
+Do not present declared managed revisions as authentication or arbitrary edit
+observation, and do not silently drop provenance on an older Viewer runtime.
+Keep native validation/normalization active when recording effective GUI masses.

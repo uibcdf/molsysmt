@@ -11,6 +11,7 @@ def main():
     import numpy as np
     from molsysviewer.colors import scalar_to_color_list
     from PySide6.QtCore import QCoreApplication, QEvent
+    from shiboken6 import isValid
 
     import molsysmt as msm
     from tests.molsysviewer_molsysmt.native_panel_host import NativePanelHost
@@ -24,6 +25,8 @@ def main():
     phase = "initialization"
     host = NativePanelHost(base, out, phase=lambda: phase)
     view, app, checks = host.view, host.app, []
+    native_page = host.web.page()
+    native_profile = native_page.profile()
     try:
         host.wait(lambda: host.bridge.ready)
         host.received(view)
@@ -91,8 +94,18 @@ def main():
         checks.append(
             "SASA source-indexed series has explicit area units in the real core card"
         )
+        context = record["series"][0]["observation"]
+        assert context["schema"] == "molsysmt.figure_observation@1"
+        host.click("[data-molsysviewer-plot-context] summary")
+        raw_context = "document.querySelector('[data-molsysviewer-series-observation]').textContent"
+        host.wait(lambda: host.evaluate(raw_context) is not None)
+        displayed = json.loads(host.evaluate(raw_context))
+        assert displayed["context"] == context
+        assert displayed["original_observation_rows"] == [0, 1, 2]
+        host.click("[data-molsysviewer-plot-context] summary")
         host.click("[data-clear]")
         host.wait(lambda: not host.visible("[data-report]"))
+        assert view.trajectory_plot.records()[0]["series"][0]["observation"] == context
         script = """(() => {const svg=document.querySelector('[data-molsysviewer-datacard^="molsysmt-report-"] svg:has(polyline)'),p=svg.querySelector('polyline').getAttribute('points').trim().split(/\\s+/)[1].split(',').map(Number),point=svg.createSVGPoint();point.x=p[0];point.y=p[1];const s=point.matrixTransform(svg.getScreenCTM());svg.dispatchEvent(new MouseEvent('click',{bubbles:true,clientX:s.x,clientY:s.y}));return true;})()"""
         assert host.evaluate(script)
         host.wait(lambda: view.player.index == 1)
@@ -124,8 +137,18 @@ def main():
         )
     finally:
         host.window.close()
-        QCoreApplication.sendPostedEvents(None, QEvent.Type.DeferredDelete)
-        app.processEvents()
+
+        def retired():
+            QCoreApplication.sendPostedEvents(None, QEvent.Type.DeferredDelete)
+            app.processEvents()
+            return (
+                not isValid(native_page)
+                and not isValid(native_profile)
+                and not host.window.isVisible()
+            )
+
+        host.wait(retired)
+        assert not app._molsysviewer_closing_hosts
 
 
 if __name__ == "__main__":

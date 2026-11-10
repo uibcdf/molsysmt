@@ -2179,3 +2179,15 @@ and relevant integration checks remain separate from a fully qualified artifact.
 The unavailable native assembly setter is uibcdf/molsysmt#697; fixtures construct
 declared assembly metadata through the supported public Structures constructor.
 No setter or geometry workaround is implemented here.
+
+## Historical scientific figures
+
+Analysis plot adoption retains a detached experimental native recipe with the
+core figure: method, defaults/arguments, exact ordered populations/reference,
+effective weights/mass source, units, versions and selected output projection.
+Clearing the mounted report leaves these historical details with the figure.
+See [the producer contract](molsysviewer_figure_context.md); core ownership is
+tracked by uibcdf/molsysviewer#349 and the boundary by uibcdf/molsyssuite#179.
+This is source support, not a published package or current-source authentication
+promise. Older core runtimes without observation support keep scientific
+reports available and report why graphical adoption needs a coordinated update.

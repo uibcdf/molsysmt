@@ -5,6 +5,7 @@ from weakref import ref
 
 import numpy as np
 
+from ._figure_observation import capture_call
 from ._task_panel import _structures
 
 PROPERTY_METHODS = {
@@ -138,6 +139,7 @@ class _PropertyReports:
             element = "atom"
         metadata.update(element=element, indices=indices, names=names, members=members)
         native, values, unit, layout = None, None, "", "property_values"
+        calculation_context = None
         selection = indices.tolist()
         if task in {"mass", "reference_charge", "hydrophobicity", "polarity"}:
             method, definition, unit = {
@@ -187,7 +189,7 @@ class _PropertyReports:
                 raise ValueError(
                     "Enter a positive finite probe radius and integer sampling count."
                 )
-            native = self._owner.physchem.get_sasa(
+            arguments = dict(
                 element=element,
                 selection=selection,
                 structure_indices=frames,
@@ -200,6 +202,10 @@ class _PropertyReports:
                 num_threads=1,
                 pbc=p["pbc"],
             )
+            arguments, calculation_context = capture_call(
+                target, "molsysmt.physchem.get_sasa", arguments
+            )
+            native = self._owner.physchem.get_sasa(**arguments)
             values = np.asarray(
                 msm.pyunitwizard.get_value(native, to_unit="nm**2"), dtype=float
             )
@@ -338,6 +344,7 @@ class _PropertyReports:
             total=total,
             periodic=bool(task == "sasa" and p["pbc"] and msm.pbc.has_pbc(target)),
             software=str(msm.__version__)[:200],
+            calculation_context=calculation_context,
         )
 
     def _property_summary(self):
