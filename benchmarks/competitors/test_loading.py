@@ -17,10 +17,15 @@ if repo_root not in sys.path:
 
 import molsysmt as msm  # noqa: E402
 from benchmarks.harness import BenchmarkHarness  # noqa: E402
+from benchmarks.telemetry import array_identity, file_digest, workload  # noqa: E402
 
 
 def run_loading_benchmarks(
-    pdb_path: str, output_results: list | None = None
+    pdb_path: str,
+    output_results: list | None = None,
+    *,
+    _prepare_only=False,
+    _input_paths=None,
 ) -> list[dict]:
     """Execute trajectory loading benchmarks comparing MolSysMT, MDTraj, and MDAnalysis.
 
@@ -42,6 +47,9 @@ def run_loading_benchmarks(
     h5_path = str(
         msm.systems["chicken villin HP35"]["traj_chicken_villin_HP35_solvated.h5"]
     )
+
+    if _input_paths is not None:
+        dcd_path, h5_path = _input_paths
 
     # 1. MolSysMT Eager Trajectory Loading
     harness_msm = BenchmarkHarness(
@@ -73,10 +81,86 @@ def run_loading_benchmarks(
     def load_mda():
         # Eager load coordinates in MDAnalysis by iterating or accessing coordinates to trigger disk load
         u = MDAnalysis.Universe(pdb_path, dcd_path)
-        coords = (
-            u.trajectory.timeseries()
-        )  # This triggers actual load of all coordinates
+        coords = u.trajectory.timeseries(order="fac")
         return coords
+
+    import numpy as np
+
+    reference = mdtraj.load_hdf5(h5_path).xyz.astype(np.float64)
+    paths = {"dcd": dcd_path, "h5": h5_path, "pdb": pdb_path}
+    for harness, function, provider, call, output in [
+        (
+            harness_msm,
+            load_msm,
+            "molsysmt",
+            "get(file:dcd,coordinates=True)",
+            "quantity",
+        ),
+        (
+            harness_mdtraj,
+            load_mdtraj,
+            "mdtraj",
+            "load(dcd,top=h5)",
+            "Trajectory including topology",
+        ),
+        (
+            harness_mda,
+            load_mda,
+            "MDAnalysis",
+            "Universe(pdb,dcd).trajectory.timeseries(order=fac)",
+            "ndarray",
+        ),
+    ]:
+        value = function()
+        if provider == "molsysmt":
+            value = msm.pyunitwizard.get_value(value, to_unit="nm")
+        elif provider == "mdtraj":
+            value = value.xyz
+        else:
+            value = value / 10
+        assert value.shape == reference.shape
+        np.testing.assert_allclose(value, reference, rtol=1e-6, atol=1e-6)
+        harness.workload = workload(
+            "read_all_coordinate_structures",
+            inputs={
+                "files": {key: file_digest(path) for key, path in paths.items()},
+                "n_atoms": reference.shape[1],
+                "n_structures": reference.shape[0],
+                "coordinates": array_identity(reference),
+            },
+            semantics={
+                "unit": "nm",
+                "pbc": False,
+                "structure_order": "all source structures",
+                "validation": "all coordinates equal independent H5 reference before timing",
+                "absolute_tolerance_nm": 1e-6,
+                "relative_tolerance": 1e-6,
+            },
+            route={
+                "provider": provider,
+                "call": call,
+                "input_dtype": str(value.dtype),
+                "output": output,
+            },
+            producer=__file__,
+        )
+
+    prepared = {}
+    for harness, function in [
+        (harness_msm, load_msm),
+        (harness_mdtraj, load_mdtraj),
+        (harness_mda, load_mda),
+    ]:
+        prepared[harness.name] = (function, harness.workload)
+        harness.factory = {
+            "module": __name__,
+            "function": "run_loading_benchmarks",
+            "args": [pdb_path],
+            "kwargs": {"_prepare_only": True, "_input_paths": [dcd_path, h5_path]},
+            "case": harness.name,
+        }
+    if _prepare_only:
+        return prepared
 
     results = []
 

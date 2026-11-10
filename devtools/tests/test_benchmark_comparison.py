@@ -5,6 +5,7 @@ import json
 import pytest
 
 from benchmarks.compare_runs import compare_baselines
+from devtools.tests.benchmark_fixtures import session
 
 
 def compare(tmp_path, baseline, current, **kwargs):
@@ -16,10 +17,6 @@ def compare(tmp_path, baseline, current, **kwargs):
     code = compare_baselines(str(before), str(after), **kwargs)
     assert [path.read_bytes() for path in (before, after)] == snapshots
     return code
-
-
-def session(value=1.0, name="product"):
-    return {"results": {name: {"median_seconds": value}}}
 
 
 @pytest.mark.parametrize("data", [{}, [], None, {"results": {}}, {"results": []}])
@@ -89,7 +86,7 @@ def test_product_and_third_party_slowdowns_warn_without_blocking(
     )
     output = capsys.readouterr().out
     assert "WARNING: TIMING DIFFERENCES" in output and name in output
-    assert "comparability is not established" in output
+    assert "Recorded context/workload compatible" in output
     assert "improvement issue" in output
 
 

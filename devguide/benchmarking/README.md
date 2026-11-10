@@ -56,10 +56,15 @@ unless the benchmark explicitly models end-user startup.
 
 ## Current implementation
 
+The [session comparability contract](comparable_sessions.md) describes the
+versioned competitive data, numerical prechecks, isolated case factories,
+advisory warnings, unevaluable historical data and reviewed reference renewal.
+
 The repository currently includes:
 
-- `benchmarks/harness.py`, which uses a forked subprocess, warm-up call, repeated
-  timings, and process high-water RSS;
+- `benchmarks/harness.py`, whose competitive route uses fresh spawn factories,
+  warm-up calls, raw repeat samples and process high-water RSS; arbitrary
+  closure/fork callbacks remain explicitly legacy and finitely bounded;
 - micro digestion/unit benchmarks;
 - macro kernel and trajectory benchmarks;
 - an exact-parity direct-gather versus `pandas.merge()` topology-expansion
@@ -77,14 +82,15 @@ Important limitations:
 
 - `fork` and `/proc` assumptions reduce portability;
 - high-water RSS is not allocation attribution;
-- the comparer uses a single median and fixed 15% cutoff without confidence or
-  runner calibration;
+- the comparer reports medians, raw sample ranges and an advisory 15% threshold;
+  these are not confidence estimates or runner calibration;
 - missing reference measurements fail diagnostically; new unreferenced paths
   remain unassessed;
 - stored competitor results are dated environment snapshots;
-- workload/environment comparability is not yet validated by the numeric
-  comparer. CI retains current/reference sessions separately and never renews
-  the tracked reference during comparison.
+- declared workload/environment compatibility is checked conservatively; it
+  does not establish equal shared-host contention or causal attribution. CI
+  retains current/reference sessions separately and never renews the tracked
+  reference during comparison.
 
 Until these limitations are addressed, timing observations are signals, not
 strong statistical evidence or attributed product regressions. See

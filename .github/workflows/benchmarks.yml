@@ -29,6 +29,12 @@ jobs:
     timeout-minutes: 20
     env:
       BENCHMARK_EVIDENCE_DIR: .pytest_cache/benchmark-evidence
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      RAYON_NUM_THREADS: "1"
+      OPENMM_CPU_THREADS: "1"
+      NUMEXPR_NUM_THREADS: "1"
     strategy:
       fail-fast: false
       matrix:
@@ -82,7 +88,16 @@ jobs:
 
       - name: Guard fresh-process reference preparation
         shell: bash -l {0}
-        run: python -m pytest --receptor=ci devtools/tests/test_benchmark_reference.py
+        run: >-
+          python -m pytest --receptor=ci
+          devtools/tests/test_benchmark_reference.py
+          devtools/tests/test_benchmark_comparability.py
+          devtools/tests/test_benchmark_comparison.py
+          devtools/tests/test_benchmark_evidence.py
+          devtools/tests/test_benchmark_geometry_semantics.py
+          devtools/tests/test_benchmark_telemetry.py
+          devtools/tests/test_benchmark_tiny_campaign.py
+          devtools/tests/test_benchmark_worker_lifecycle.py
 
       - name: Extract Reference Baseline
         id: reference
@@ -107,7 +122,7 @@ jobs:
         shell: bash -l {0}
         run: |
           set -euo pipefail
-          python benchmarks/compare_runs.py --baseline "${BENCHMARK_EVIDENCE_DIR}/reference_session.json" --current "${BENCHMARK_EVIDENCE_DIR}/current_session.json" --threshold 0.15 2>&1 | tee "${BENCHMARK_EVIDENCE_DIR}/comparison.log"
+          python benchmarks/compare_runs.py --baseline "${BENCHMARK_EVIDENCE_DIR}/reference_session.json" --current "${BENCHMARK_EVIDENCE_DIR}/current_session.json" --threshold 0.15 --report "${BENCHMARK_EVIDENCE_DIR}/comparison.json" 2>&1 | tee "${BENCHMARK_EVIDENCE_DIR}/comparison.log"
 
       - name: Retain benchmark evidence after success or failure
         if: always() && steps.reference.outcome == 'success'

@@ -7,15 +7,19 @@ measurements with structured JSON telemetry exports.
 from __future__ import annotations
 
 import gc
+import importlib
+import importlib.util
 import json
-import os
 import platform
+import queue as queue_module
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 from statistics import median, stdev
-from time import perf_counter
+from time import monotonic, perf_counter
 from typing import Any, Callable
+
+from benchmarks.telemetry import file_digest
 
 
 def _get_git_metadata() -> dict[str, str | bool | None]:
@@ -24,14 +28,14 @@ def _get_git_metadata() -> dict[str, str | bool | None]:
     repository = Path(__file__).resolve().parents[1]
     try:
         commit = subprocess.run(
-            ["git", "rev-parse", "HEAD"],
+            ["git", "-c", "core.fsmonitor=false", "rev-parse", "HEAD"],
             cwd=repository,
             check=True,
             capture_output=True,
             text=True,
         ).stdout.strip()
         status = subprocess.run(
-            ["git", "status", "--porcelain"],
+            ["git", "-c", "core.fsmonitor=false", "status", "--porcelain"],
             cwd=repository,
             check=True,
             capture_output=True,
@@ -61,9 +65,12 @@ def _get_peak_rss_mb() -> float:
         return 0.0
 
 
-def _subprocess_worker(warmup_func, timed_func, iterations, repeats, queue):
+def _subprocess_worker(
+    warmup_func, timed_func, iterations, repeats, queue, base_rss=None
+):
     # 1. Capture base memory before workload preparation.
-    base_rss = _get_peak_rss_mb()
+    if base_rss is None:
+        base_rss = _get_peak_rss_mb()
 
     # 2. Prepare imports, data, and any lazy runtime state outside timed loops.
     warmup_func()
@@ -88,10 +95,39 @@ def _subprocess_worker(warmup_func, timed_func, iterations, repeats, queue):
     queue.put((samples, base_rss, peak_rss))
 
 
-class BenchmarkHarness:
-    """Central runner for high-precision performance measurements in MolSysMT."""
+def _factory_worker(
+    factory, expected_workload, policy, units, iterations, repeats, queue
+):
+    """Prepare native objects inside a fresh interpreter, not through a fork."""
+    base_rss = _get_peak_rss_mb()
+    import molsysmt as msm
 
-    def __init__(self, name: str, iterations: int = 25, repeats: int = 5):
+    with msm.configure.context(**policy), msm.pyunitwizard.context(**units):
+        module = importlib.import_module(factory["module"])
+        cases = getattr(module, factory["function"])(
+            *factory["args"], **factory["kwargs"]
+        )
+        timed_func, actual_workload = cases[factory["case"]]
+        if actual_workload != expected_workload:
+            raise RuntimeError(
+                "Prepared worker input/observable differs from the declared workload."
+            )
+        _subprocess_worker(timed_func, timed_func, iterations, repeats, queue, base_rss)
+
+
+class BenchmarkHarness:
+    """Run isolated warm timing observations with explicit measurement evidence."""
+
+    def __init__(
+        self,
+        name: str,
+        iterations: int = 25,
+        repeats: int = 5,
+        *,
+        workload=None,
+        factory=None,
+        worker_timeout=120.0,
+    ):
         """Initializing the benchmark harness parameters.
 
         Parameters
@@ -101,11 +137,37 @@ class BenchmarkHarness:
         iterations : int, default=25
             Number of iterations per timing block.
         repeats : int, default=5
-            Number of independent repeat blocks.
+            Number of repeat blocks; these are not independent machine samples.
+        workload : dict or None, default=None
+            Description of actual prepared inputs, observable, units, precision
+            and provider. Missing descriptions remain unassessed by comparison.
+        factory : dict or None, default=None
+            Importable case-preparation descriptor for a fresh spawn worker.
+            Native objects are constructed there, never serialized from the parent.
+            Without it, the explicitly legacy closure/fork route remains bounded
+            but is unsuitable for inherited native runtimes or held locks.
+        worker_timeout : float, default=120.0
+            Finite wall-clock deadline in seconds for preparation and execution.
         """
         self.name = name
+        if any(
+            isinstance(value, bool) or not isinstance(value, int) or value <= 0
+            for value in (iterations, repeats)
+        ):
+            raise ValueError(
+                "Benchmark iterations and repeats must be positive integers."
+            )
         self.iterations = iterations
         self.repeats = repeats
+        self.workload = json.loads(json.dumps(workload, allow_nan=False))
+        self.factory = factory
+        if (
+            isinstance(worker_timeout, bool)
+            or not isinstance(worker_timeout, (int, float))
+            or not 0 < worker_timeout < float("inf")
+        ):
+            raise ValueError("Benchmark worker timeout must be finite and positive.")
+        self.worker_timeout = float(worker_timeout)
 
     def run(
         self, warmup_func: Callable[[], Any], timed_func: Callable[[], Any]
@@ -126,22 +188,78 @@ class BenchmarkHarness:
         """
         import multiprocessing
 
-        ctx = multiprocessing.get_context("fork")
+        import molsysmt as msm
+
+        method = "spawn" if self.factory is not None else "fork"
+        ctx = multiprocessing.get_context(method)
         queue = ctx.Queue()
-
-        p = ctx.Process(
-            target=_subprocess_worker,
-            args=(warmup_func, timed_func, self.iterations, self.repeats, queue),
-        )
-        p.start()
-        p.join()
-
-        if p.exitcode != 0:
-            raise RuntimeError(
-                f"Benchmark worker process for {self.name} failed with exit code {p.exitcode}"
+        if self.factory is None:
+            target = _subprocess_worker
+            arguments = (warmup_func, timed_func, self.iterations, self.repeats, queue)
+        else:
+            target = _factory_worker
+            policy = {
+                name: getattr(msm.configure, name)
+                for name in (
+                    "parallel_mode",
+                    "num_threads",
+                    "gpu_mode",
+                    "precision",
+                    "heavy_mode",
+                )
+            }
+            report = msm.pyunitwizard.configure.report()
+            units = {
+                name: report[name]
+                for name in ("default_form", "default_parser", "standard_units")
+            }
+            arguments = (
+                self.factory,
+                self.workload,
+                policy,
+                units,
+                self.iterations,
+                self.repeats,
+                queue,
             )
-
-        samples, base_rss, peak_rss = queue.get()
+        p = ctx.Process(target=target, args=arguments)
+        deadline = monotonic() + self.worker_timeout
+        try:
+            p.start()
+            # Drain IPC before joining: a full feeder pipe must not deadlock join.
+            while True:
+                remaining = deadline - monotonic()
+                if remaining <= 0:
+                    raise RuntimeError(f"Benchmark worker {self.name} timed out.")
+                try:
+                    samples, base_rss, peak_rss = queue.get(
+                        timeout=min(0.25, remaining)
+                    )
+                    break
+                except queue_module.Empty:
+                    if not p.is_alive():
+                        raise RuntimeError(
+                            f"Benchmark worker {self.name} failed with exit code {p.exitcode} before returning evidence."
+                        ) from None
+            p.join(timeout=max(0, deadline - monotonic()))
+            if p.is_alive():
+                raise RuntimeError(
+                    f"Benchmark worker {self.name} timed out after returning evidence."
+                )
+            if p.exitcode != 0:
+                raise RuntimeError(
+                    f"Benchmark worker {self.name} failed with exit code {p.exitcode}."
+                )
+        finally:
+            if p.is_alive():
+                p.terminate()
+                p.join(timeout=2)
+                if p.is_alive():
+                    p.kill()
+                    p.join()
+            if p.pid is not None:
+                p.close()
+            queue.close()
 
         # Calculate statistics
         med_val = median(samples)
@@ -163,6 +281,17 @@ class BenchmarkHarness:
             "delta_rss_mb": max(0.0, peak_rss - base_rss),
             "repeats": self.repeats,
             "iterations": self.iterations,
+            "samples_seconds": samples,
+            "worker_timeout_seconds": self.worker_timeout,
+            "measurement": {
+                "harness_sha256": file_digest(__file__),
+                "statistic": "median of per-call block means",
+                "timer": "time.perf_counter",
+                "process": "spawn_factory" if self.factory is not None else "fork",
+                "warmup_calls": 1,
+                "gc_during_timing": False,
+            },
+            "workload": self.workload,
             "timestamp_utc": datetime.now(timezone.utc).isoformat(),
             "environment": {
                 "python_version": platform.python_version(),
@@ -174,7 +303,12 @@ class BenchmarkHarness:
 
 
 def save_session_results(
-    session_name: str, results: list[dict[str, Any]], output_path: str
+    session_name: str,
+    results: list[dict[str, Any]],
+    output_path: str,
+    *,
+    comparison_context=None,
+    resource_observations=None,
 ) -> None:
     """Save a list of benchmark results to a structured JSON file.
 
@@ -185,10 +319,18 @@ def save_session_results(
     results : list[dict[str, Any]]
         List of result dictionaries returned by BenchmarkHarness.
     output_path : str
-        Absolute path where the JSON file will be written.
+        Path where the JSON file will be written.
+    comparison_context : dict or None, default=None
+        Captured runtime, hardware, provider, resource and policy identities.
+    resource_observations : dict or None, default=None
+        Before/after host observations, distinct from compatibility identities.
     """
     import molsysmt as msm
 
+    names = [entry["name"] for entry in results]
+    if not names or len(names) != len(set(names)):
+        raise ValueError("Benchmark sessions require nonempty, unique case names.")
+    backend = importlib.util.find_spec("molsysmt._rust")
     output = {
         "session_name": session_name,
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
@@ -198,13 +340,20 @@ def save_session_results(
             "python": platform.python_version(),
             "machine": platform.machine(),
             "molsysmt_version": msm.__version__,
+            "native_backend_sha256": None
+            if backend is None
+            else file_digest(backend.origin),
             **_get_git_metadata(),
         },
         "results": {r["name"]: r for r in results},
     }
+    if comparison_context is not None:
+        output["comparison_context"] = comparison_context
+    if resource_observations is not None:
+        output["resource_observations"] = resource_observations
 
     # Ensure parent directories exist
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
 
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, sort_keys=True)

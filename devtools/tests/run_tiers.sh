@@ -97,6 +97,12 @@ run_smoke() {
     tests/attribute \
     tests/basic/get/test_piped_attributes.py::test_piped_get_requests_bonds_only_for_graph_attributes \
     tests/basic/get/test_piped_attributes.py::test_foreign_selection_requests_bonds_only_for_graph_membership \
+    devtools/tests/test_benchmark_comparability.py \
+    devtools/tests/test_benchmark_comparison.py \
+    devtools/tests/test_benchmark_evidence.py \
+    devtools/tests/test_benchmark_geometry_semantics.py \
+    devtools/tests/test_benchmark_telemetry.py \
+    devtools/tests/test_benchmark_worker_lifecycle.py \
     devtools/tests/test_validate_rust_wheel.py \
     devtools/tests/test_devguide_workflow.py \
     tests/form/molsysmt_ChemicalStatesDict/test_roundtrip.py::test_decoding_keeps_declared_object_columns_with_string_inference \

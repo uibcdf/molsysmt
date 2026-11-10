@@ -13,3 +13,9 @@ follow [the accepted advisory policy](../devguide/benchmarking/performance_polic
   failures, baselines and artifacts. Advisory status is not a scientific pass.
 - Keep numerical-correctness and data-integrity assertions mandatory in their
   owning tests. Never remove them to make a timing campaign successful.
+
+- Require the [comparable-session contract](../devguide/benchmarking/comparable_sessions.md)
+  for new comparative evidence. Check actual scientific equality before timing.
+  Use importable preparation factories for native competitive cases, retain raw
+  repetitions and failure artifacts, and never fork initialized native objects
+  or held configuration contexts as the supported competitive execution route.

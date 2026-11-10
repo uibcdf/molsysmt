@@ -17,10 +17,11 @@ if repo_root not in sys.path:
 
 import molsysmt as msm  # noqa: E402
 from benchmarks.harness import BenchmarkHarness  # noqa: E402
+from benchmarks.telemetry import file_digest, workload  # noqa: E402
 
 
 def run_selection_benchmarks(
-    pdb_path: str, output_results: list | None = None
+    pdb_path: str, output_results: list | None = None, *, _prepare_only=False
 ) -> list[dict]:
     """Execute selection benchmarks comparing MolSysMT, MDTraj, and MDAnalysis.
 
@@ -96,6 +97,79 @@ def run_selection_benchmarks(
 
     def select_mda_complex():
         return mda_structure.select_atoms(mda_query_complex)
+
+    import numpy as np
+
+    prepared = {}
+    for operation, query, routes in [
+        (
+            "select_alpha_carbons",
+            msm_query_simple,
+            [
+                (h_msm_simple, select_msm_simple, "molsysmt", msm_query_simple),
+                (h_mdt_simple, select_mdt_simple, "mdtraj", mdt_query_simple),
+                (h_mda_simple, select_mda_simple, "MDAnalysis", mda_query_simple),
+            ],
+        ),
+        (
+            "select_alpha_beta_carbons_in_declared_groups",
+            msm_query_complex,
+            [
+                (h_msm_complex, select_msm_complex, "molsysmt", msm_query_complex),
+                (h_mdt_complex, select_mdt_complex, "mdtraj", mdt_query_complex),
+                (h_mda_complex, select_mda_complex, "MDAnalysis", mda_query_complex),
+            ],
+        ),
+    ]:
+        expected = msm.select(structure, query)
+        for harness, function, provider, expression in routes:
+            observed = function()
+            if provider == "MDAnalysis":
+                observed = observed.indices
+            np.testing.assert_array_equal(observed, expected)
+            harness.workload = workload(
+                operation,
+                inputs={
+                    "files": {"pdb": file_digest(pdb_path)},
+                    "n_atoms": mdt_structure.n_atoms,
+                    "n_structures": mdt_structure.n_frames,
+                    "expected_source_indices": list(map(int, expected)),
+                },
+                semantics={
+                    "unit": "source atom index",
+                    "pbc": False,
+                    "expression": expression,
+                    "validation": "equal ordered source indices before timing",
+                },
+                route={
+                    "provider": provider,
+                    "call": "select",
+                    "input_dtype": "topology labels",
+                    "output": "AtomGroup"
+                    if provider == "MDAnalysis"
+                    else "integer indices",
+                },
+                producer=__file__,
+            )
+
+    for harness, function in [
+        (h_msm_simple, select_msm_simple),
+        (h_mdt_simple, select_mdt_simple),
+        (h_mda_simple, select_mda_simple),
+        (h_msm_complex, select_msm_complex),
+        (h_mdt_complex, select_mdt_complex),
+        (h_mda_complex, select_mda_complex),
+    ]:
+        prepared[harness.name] = (function, harness.workload)
+        harness.factory = {
+            "module": __name__,
+            "function": "run_selection_benchmarks",
+            "args": [pdb_path],
+            "kwargs": {"_prepare_only": True},
+            "case": harness.name,
+        }
+    if _prepare_only:
+        return prepared
 
     results = []
 

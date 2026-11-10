@@ -188,3 +188,31 @@ Ruff and developer-guide/index validation pass. The scientific product, backend,
 public docs and numeric tests remain byte-identical to c37e42510. No timings are
 measured anew and no original failure is rewritten. Comparability and reference
 renewal remain open, so #567 stays partial.
+
+
+## Complete contract implementation under receiving — 2026-11-09
+
+The [comparable-session contract](../benchmarking/comparable_sessions.md) now
+defines and implements known runtime/provider/hardware/resource/unit identities,
+actual input/observable/precision descriptors, raw repetitions and matched timing
+protocols. Product revisions may change; changed environments or workloads cannot
+masquerade as regressions. Structured partial/unevaluable reports retain native
+diagnostic failures while the timing job stays advisory. Provider initializer
+origins/hashes and retained package/build records prevent version labels alone
+from certifying an imported source. This is declared correspondence, not
+authentication or a statistical/causal guarantee. The original reference remains
+unchanged and explicitly historical; renewal is a separately reviewed action.
+
+Numerical prechecks expose independent #673 (fitted/unfitted RMSD, PBC mismatch,
+and a SciPy call labelled MDTraj). Complete tiny production exposes #676's
+inherited-worker hang. Both corrections retain original controls and failures,
+use full shared unit standards, and prepare competitive cases in fresh
+interpreters without serializing native objects. Dirty directed receiving now
+passes 123 comparison/observable controls, ten actual tiny-campaign/runtime
+controls and nine worker lifecycle controls; overlap is not unique coverage.
+A complete clean-source collection and fast gates remain due before closure.
+
+New incoming #674 (late Pint-cache setup) and #675 (regenerated-index composition
+warning) are independent consumer reports; reproduce them after this finite
+receiving block. Neither demonstrates new molecular data loss. No package,
+release, historical-baseline renewal or remote workflow is launched here.

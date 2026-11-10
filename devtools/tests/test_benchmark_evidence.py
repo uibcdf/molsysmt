@@ -12,6 +12,8 @@ from pathlib import Path
 import pytest
 import yaml
 
+from devtools.tests.benchmark_fixtures import session
+
 ROOT = Path(__file__).resolve().parents[2]
 
 
@@ -132,13 +134,14 @@ def test_actual_workflow_pipeline_preserves_comparison_exit_and_raw_inputs(
     )
     comparer = tmp_path / "benchmarks/compare_runs.py"
     comparer.parent.mkdir()
-    shutil.copyfile(ROOT / "benchmarks/compare_runs.py", comparer)
+    for name in ["compare_runs.py", "comparability.py", "telemetry.py"]:
+        shutil.copyfile(ROOT / "benchmarks" / name, comparer.parent / name)
     evidence = tmp_path / ".pytest_cache/benchmark-evidence"
     evidence.mkdir(parents=True)
     reference = evidence / "reference_session.json"
     current = evidence / "current_session.json"
-    reference.write_text(json.dumps({"results": {"product": {"median_seconds": 1.0}}}))
-    current.write_text(json.dumps({"results": {"product": {"median_seconds": value}}}))
+    reference.write_text(json.dumps(session()))
+    current.write_text(json.dumps(session(value)))
     before = [hashlib.sha256(p.read_bytes()).hexdigest() for p in [reference, current]]
     result = subprocess.run(
         ["bash", "-c", script],

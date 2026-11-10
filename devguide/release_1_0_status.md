@@ -1,5 +1,25 @@
 # MolSysMT 1.0 Execution Status
 
+## Active comparability and incoming diagnostics block — 2026-11-09
+
+#567 now has versioned execution/workload/raw-sample compatibility, typed advisory
+dispositions and a reviewed renewal procedure. Historical references stay exact
+and unevaluable. Its numerical prechecks reproduce #673's mixed RMSD/PBC
+benchmarks; actual tiny production reproduces #676's inherited-worker hang.
+The corrected competitive route uses fresh factories and finite IPC/worker
+lifecycle, without copying native objects or changing molecular algorithms.
+Directed selections pass 123 comparison/geometry controls, ten complete tiny
+producer/reader/runtime controls and nine worker-lifecycle controls. Clean-source
+receiving and closeout remain in progress; no new milestone credit is claimed
+yet. See [the session contract](benchmarking/comparable_sessions.md).
+
+Next independent incoming reports are #674's ineffective late Pint cache setter
+and #675's off-axis regenerated-index warning. Both require public reproduction;
+no numerical conversion failure/data loss is established by those reports.
+#666/provider143 remains open without a provider answer. #582, remaining #421
+intents, #524/#615, broader #256 and #334 exact-candidate/installed gates remain.
+Publication/remote-CI pause and explicit [skip ci] source checkpoints continue.
+
 ## Source CI, mechanics and advisory performance receiving — 2026-11-09
 
 PR #668 is received with exact Viewer 346c3319 source. #669's controlled wheel
