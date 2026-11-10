@@ -1,6 +1,6 @@
 /** Native properties and source-indexed reports through actual Jupyter and both popups. */
 import assert from 'node:assert/strict';
-import {openMolecularPanel,observeMolecularControllers} from './jupyter_panel_controls.mjs';
+import {openMolecularPanel,observeMolecularControllers,molecularReceivingSnapshot} from './jupyter_panel_controls.mjs';
 import {createRequire} from 'node:module';
 import {readFile,writeFile} from 'node:fs/promises';
 import {dirname,resolve} from 'node:path';
@@ -62,6 +62,6 @@ try{
   await execute(2);await page.getByText('JUPYTER_PROPERTIES_NATIVE_OK',{exact:true}).waitFor();assert.equal(await page.locator('.jp-OutputArea-error').count(),0);await page.screenshot({path:output+'/property-native-final.png',fullPage:true});
  });
  const fingerprint=e=>e.error+'|'+(e.stack?.split('\n')[1]||'');assert.ok(errors.every(error=>baselineErrors.some(b=>fingerprint(error)===fingerprint(b))),'A new page error appeared beyond the plain Jupyter control');
- const receipt={checks,errors,baseline_errors:baselineErrors,scope:'Actual Jupyter/AnyWidget/Mol* native properties, source maps, paging, participant actions, ten native tasks including categorical DSSP and both popups. No human or installed qualification.'};await writeFile(output+'/full-result.json',JSON.stringify(receipt,null,2));console.log(JSON.stringify(receipt,null,2));
-}catch(error){await writeFile(output+'/full-failure.json',JSON.stringify({stage,error:String(error),checks,errors},null,2));if(browser)for(const [i,p] of browser.contexts().flatMap(c=>c.pages()).entries()){await writeFile(output+'/window-'+i+'-failure-dom.txt',await p.locator('body').innerText());await p.screenshot({path:output+'/window-'+i+'-failure.png',fullPage:true});}console.error(error);process.exitCode=1;}
+ const receipt={checks,errors,baseline_errors:baselineErrors,receiving_state:await molecularReceivingSnapshot(page),scope:'Actual Jupyter/AnyWidget/Mol* native properties, source maps, paging, participant actions, ten native tasks including categorical DSSP and both popups. No human or installed qualification.'};await writeFile(output+'/full-result.json',JSON.stringify(receipt,null,2));console.log(JSON.stringify(receipt,null,2));
+}catch(error){await writeFile(output+'/full-failure.json',JSON.stringify({stage,error:String(error),checks,errors,receiving_state:page?await molecularReceivingSnapshot(page).catch(()=>({unavailable:true})):null},null,2));if(browser)for(const [i,p] of browser.contexts().flatMap(c=>c.pages()).entries()){await writeFile(output+'/window-'+i+'-failure-dom.txt',await p.locator('body').innerText());await p.screenshot({path:output+'/window-'+i+'-failure.png',fullPage:true});}console.error(error);process.exitCode=1;}
 finally{if(browser)await browser.close();}

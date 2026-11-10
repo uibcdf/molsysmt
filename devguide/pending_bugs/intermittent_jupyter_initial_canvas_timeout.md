@@ -72,3 +72,27 @@ or reserve stop occurs. See the [native receipt](../../devtools/data/native_neig
 These distinguish stages and preserve failures; they do not establish the cause
 or repair of this report's original first-canvas timeout. No warm-up, increased
 deadline or acceptance waiver is introduced; #615 remains open.
+
+## Distinct pre-execution and replacement waits — 2026-11-10
+
+The final 0d8b8c9ac / frozen Viewer b9f3be01 Jupyter campaign has one passing
+assessed-protonation scenario and two failed scenarios. Properties completes
+six checks, including categorical DSSP and both popups. Its same-View caffeine
+replacement prints 24 native atoms, but the observed original controller does
+not report 24 within the existing 30-second wait. This is after initialization;
+a stale observer or host replacement race remains a hypothesis. It is not
+evidence of incorrect native ring results.
+
+Interaction/mechanics instead stops before the initial Python cell executes:
+the kernel label stays Unknown rather than Idle. There is no initial-cell
+trace file or molecular calculation at this stage. This differs from the
+original executing-cell timeout. The scope peaks at 1.82 GiB under a 4 GiB cap,
+keeps at least 9.33 GiB host memory available and has no OOM/reserve stop.
+
+Retain both failures and their private artifacts. Bounded browser diagnostics
+now capture kernel status, output-error count and each observed controller's
+connected canvas, atom count, structure index and selection size. No molecular
+arrays, credentials or private settings enter that snapshot. Existing waits,
+source/scene comparisons and scientific assertions are unchanged. One deliberate
+instrumented follow-up may distinguish stages; even a passing follow-up does
+not establish the cause or repair of the original #615 observation.

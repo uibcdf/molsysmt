@@ -38,3 +38,25 @@ export async function openMolecularPanel(page,panel){
   // Geometry reuses System styling and identifies itself with this heading.
   await page.locator(panel==='geometry'?'[data-geometry-heading]':`.msm-${panel}`).waitFor();
 }
+
+/** Observe bounded receiving state without changing runtime messages or waits. */
+export async function molecularReceivingSnapshot(page) {
+  return page.evaluate(() => ({
+    kernel_status: document.querySelector('.jp-StatusBar')?.textContent?.slice(-240) ?? null,
+    output_error_count: document.querySelectorAll('.jp-OutputArea-error').length,
+    canvas_output_count: document.querySelectorAll('[data-molsysviewer-canvas-output]').length,
+    controllers: (window.__controllers ?? []).slice(0, 32).map((controller, index) => {
+      try {
+        return {
+          index,
+          canvas_connected: controller.canvasHost?.isConnected ?? null,
+          atom_count: controller.getStructureData()?.elementCount ?? null,
+          structure_index: controller.trajectory?.getTrajectoryState()?.currentFrame ?? null,
+          selected_atom_count: controller.currentActiveSelection?.atom_indices?.length ?? null,
+        };
+      } catch (error) {
+        return {index, observation_error: String(error).slice(0, 240)};
+      }
+    }),
+  }));
+}

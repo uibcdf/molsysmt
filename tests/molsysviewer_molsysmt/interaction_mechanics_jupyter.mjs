@@ -1,6 +1,6 @@
 /** Native sparse interaction and reviewed mechanical reports through real hosts. */
 import assert from 'node:assert/strict';
-import {openMolecularPanel,observeMolecularControllers} from './jupyter_panel_controls.mjs';
+import {openMolecularPanel,observeMolecularControllers,molecularReceivingSnapshot} from './jupyter_panel_controls.mjs';
 import {createRequire} from 'node:module';
 import {readFile,writeFile} from 'node:fs/promises';
 import {dirname,resolve} from 'node:path';
@@ -43,6 +43,6 @@ try{
   const detached=canvas.waitForEvent('popup');await canvas.getByTitle('Popout panel to external window',{exact:true}).click();const studio=await detached;record(studio);await studio.locator('#molsysviewer-loading').waitFor({state:'detached'});await inspect(studio);await studio.screenshot({path:output+'/physical-model-studio.png'});await studio.close();await canvas.close();
  });
  await step('Verify source preservation and clean report retirement in Python',async()=>{await execute(10);await page.getByText('INTERACTION_MECHANICS_SOURCE_OK',{exact:true}).waitFor();assert.equal(await page.locator('.jp-OutputArea-error').count(),0);await page.screenshot({path:output+'/interaction-mechanics-final.png',fullPage:true});});
- const fp=e=>e.error+'|'+(e.stack?.split('\n')[1]||'');assert.ok(errors.every(e=>baselineErrors.some(b=>fp(e)===fp(b))));const receipt={checks,errors,baseline_errors:baselineErrors,scope:'Actual Jupyter, both popups, nine sparse detector tasks and reviewed mechanical values; source receiving, not installed or human acceptance.'};await writeFile(output+'/full-result.json',JSON.stringify(receipt,null,2));console.log(JSON.stringify(receipt,null,2));
-}catch(error){await writeFile(output+'/full-failure.json',JSON.stringify({stage,error:String(error),checks,errors},null,2));if(browser)for(const [i,p] of browser.contexts().flatMap(c=>c.pages()).entries()){await writeFile(output+'/window-'+i+'-failure-dom.txt',await p.locator('body').innerText());await p.screenshot({path:output+'/window-'+i+'-failure.png',fullPage:true});}console.error(error);process.exitCode=1;}
+ const fp=e=>e.error+'|'+(e.stack?.split('\n')[1]||'');assert.ok(errors.every(e=>baselineErrors.some(b=>fp(e)===fp(b))));const receipt={checks,errors,baseline_errors:baselineErrors,receiving_state:await molecularReceivingSnapshot(page),scope:'Actual Jupyter, both popups, nine sparse detector tasks and reviewed mechanical values; source receiving, not installed or human acceptance.'};await writeFile(output+'/full-result.json',JSON.stringify(receipt,null,2));console.log(JSON.stringify(receipt,null,2));
+}catch(error){await writeFile(output+'/full-failure.json',JSON.stringify({stage,error:String(error),checks,errors,receiving_state:page?await molecularReceivingSnapshot(page).catch(()=>({unavailable:true})):null},null,2));if(browser)for(const [i,p] of browser.contexts().flatMap(c=>c.pages()).entries()){await writeFile(output+'/window-'+i+'-failure-dom.txt',await p.locator('body').innerText());await p.screenshot({path:output+'/window-'+i+'-failure.png',fullPage:true});}console.error(error);process.exitCode=1;}
 finally{if(browser)await browser.close();}
