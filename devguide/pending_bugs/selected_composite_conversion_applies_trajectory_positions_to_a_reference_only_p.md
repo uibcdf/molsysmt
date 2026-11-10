@@ -58,3 +58,9 @@ After the correction, all 535 affected builder/iterator/PDBQT/composite-conversi
 cases pass without omissions. The broader clean source, registered science,
 documentation and receiving gates remain separate until their results are
 recorded. Supplemental #698 adds no original milestone weight or release authority.
+
+Module 05 also incorrectly described the first provider as query precedence.
+Its explanation and paired content contract now match the maintained eligible-
+provider rule: among on-axis providers carrying a value, the last wins. A direct
+query regression protects both orders, without allowing a reference to replace
+its trajectory. Existing executed course cells and outputs remain unchanged.

@@ -19,7 +19,7 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 * Must include a `:::{hint}` dropdown box for `{func}`molsysmt.basic.is_a_molecular_system``.
 
 ### 2. Section 2: Attribute Precedence & `msm.where_is_attribute()`
-* Must explain MolSysMT's precedence rule (the first item in the list providing a given attribute takes precedence).
+* Must explain eligible-provider query precedence: structural providers must span the combined axis; among eligible providers carrying a value, the last one wins. An off-axis reference never overrides a trajectory. Preserve selected trajectory order and repetitions when explaining consolidation.
 * Must demonstrate how to query the exact source of attributes (`atom_name`, `coordinates`) using `msm.where_is_attribute()`.
 * Must include a `:::{hint}` dropdown box for `{func}`molsysmt.basic.where_is_attribute``.
 

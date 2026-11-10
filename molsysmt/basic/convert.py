@@ -948,6 +948,10 @@ def convert(
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
     - Explicit structure indices are validated before a conversion adapter is called.
+    - In a reference-plus-trajectory composition, structure indices address the
+      trajectory axis. The off-axis reference contributes inventory, not
+      broadcast observations; its own representative is never indexed using
+      the requested trajectory positions.
     - For declared mechanical arguments, explicit conversion keywords take
       precedence over supported stored source settings, then library defaults.
       Explicit None remains an override, for example to disable a stored

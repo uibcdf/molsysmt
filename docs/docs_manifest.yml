@@ -94,7 +94,7 @@ sections:
           - name: chunked_execution
             file: docs/content/user/foundations/performance/chunked_execution.md
             agents_file: docs/content/user/foundations/performance/chunked_execution.md.AGENTS.md
-            description: Eager/chunked limits, population-bounded sparse search, observed-output budgets and independent process/source memory costs.
+            description: Eager/chunked limits, independently owned native chunks with aligned domain maps, population-bounded sparse search, output budgets and process/source memory costs.
       - name: governance
         agents_file: docs/content/user/foundations/governance/AGENTS.md
         index_file: docs/content/user/foundations/governance/index.md

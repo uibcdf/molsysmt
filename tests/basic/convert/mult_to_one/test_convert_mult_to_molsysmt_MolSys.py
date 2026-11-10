@@ -81,3 +81,18 @@ def test_selected_trajectory_positions_never_index_the_reference_only_provider()
         np.testing.assert_array_equal(
             output._get_structure_chemical_state_indices(), [0, 0, 0]
         )
+
+
+def test_query_precedence_uses_the_last_eligible_on_axis_provider():
+    from molsysmt.native import Structures
+
+    puw = msm.pyunitwizard
+    first = Structures(coordinates=puw.quantity(np.ones((2, 1, 3)), "nm"))
+    second = Structures(coordinates=puw.quantity(np.full((2, 1, 3), 4.0), "nm"))
+    for providers, expected in (([first, second], 4.0), ([second, first], 1.0)):
+        owner, form = msm.where_is_attribute(providers, "coordinates")
+        assert owner is providers[-1] and form == "molsysmt.Structures"
+        np.testing.assert_array_equal(
+            puw.get_value(msm.get(providers, coordinates=True), to_unit="nm"),
+            np.full((2, 1, 3), expected),
+        )
