@@ -42,6 +42,12 @@ raises public `msm.MemoryBudgetExceededError` (catalog MSM-ERR-HVY-003), without
 changing the source or scientific criterion. Checked size overflow and
 unsupported native allocation also fail before that allocation.
 
+Scratch admission follows the bounded numeric buffers and their actual
+descriptors for at most one active context per query row or worker, whichever
+is smaller. It does not add a fixed worker-stack allowance. A small workload
+can therefore fit a small numerical budget while an insufficient input/output
+budget still rejects; this is independent of operating-system resource caps.
+
 This numerical allowance is not process RSS, an operating-system cap or a
 resource reservation. Native/source domains, unit/coordinate preparation and
 foreign-library allocations have their own costs. The eligible cell search

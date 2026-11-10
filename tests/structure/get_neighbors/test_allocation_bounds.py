@@ -195,6 +195,44 @@ def test_budget_refusal_names_the_configured_numerical_limit(monkeypatch):
         msm.structure.get_neighbors(source, threshold="0.001 nm", pbc=False)
 
 
+@pytest.mark.parametrize("periodic", [False, True])
+@pytest.mark.parametrize("threads", [1, 4])
+@pytest.mark.parametrize("budget", [64, 1536])
+def test_tiny_query_budgets_follow_numeric_storage_not_a_worker_stack(
+    periodic, threads, budget
+):
+    coordinates = np.array([[[0.1, 0, 0], [1.9 if periodic else 0.3, 0, 0]]])
+    source = Structures(
+        coordinates=msm.pyunitwizard.quantity(coordinates, "nm"),
+        box=msm.pyunitwizard.quantity(2 * np.eye(3)[None], "nm") if periodic else None,
+    )
+    with msm.configure.context(max_ram_usage=budget):
+        if budget == 64:
+            with pytest.raises(msm.MemoryBudgetExceededError):
+                msm.structure.get_neighbors(
+                    source,
+                    selection=[0],
+                    selection_2=[1],
+                    threshold="0.4 nm",
+                    pbc=periodic,
+                    output_type="csr",
+                    num_threads=threads,
+                )
+            return
+        offsets, indices, distances = msm.structure.get_neighbors(
+            source,
+            selection=[0],
+            selection_2=[1],
+            threshold="0.4 nm",
+            pbc=periodic,
+            output_type="csr",
+            num_threads=threads,
+        )
+    np.testing.assert_array_equal(offsets, [0, 1])
+    np.testing.assert_array_equal(indices, [0])
+    np.testing.assert_allclose(distances, [0.2], rtol=0, atol=1e-14)
+
+
 def test_resident_output_is_charged_from_actual_hits(monkeypatch):
     monkeypatch.setattr(msm.configure, "max_ram_usage", 1 << 18)
     sparse = Structures(
