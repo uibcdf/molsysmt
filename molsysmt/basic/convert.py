@@ -277,7 +277,10 @@ def _prune_structural_attributes_off_the_axis(
         off_axis = {
             attribute
             for attribute in from_attributes[index]
-            if is_structural_attribute(attribute) and not attribute.startswith("n_")
+            if is_structural_attribute(attribute)
+            and not attribute.startswith("n_")
+            # Positional indices are regenerated below, not copied observations.
+            and attribute not in {"atom_index", "structure_index"}
         }
         from_attributes[index] -= off_axis
         dropped |= off_axis

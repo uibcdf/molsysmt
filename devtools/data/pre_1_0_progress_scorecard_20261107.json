@@ -9,8 +9,8 @@
   "gui_scope": "Tracking packages make the previously accepted workflow inventory explicit. They are user intents, not a GUI promise for every expert argument or a new scientific feature request. Native/expert APIs remain available and retain their own qualification.",
   "publication": "The existing pause remains. #640/#641/#642 and all other required correctness work retain owning acceptance. Exact candidate/platform/installed and final sign-off gates are not scored as passed by source tests.",
   "legacy_phase_exit_percent": 40,
-  "weighted_milestone_percent": 72.51644189144189,
-  "reported_approximate_percent": 72.5,
+  "weighted_milestone_percent": 73.76644189144189,
+  "reported_approximate_percent": 73.8,
   "phases": [
     {
       "id": "phase1",
@@ -253,9 +253,12 @@
             {
               "id": "baseline-comparability",
               "requirement": "Complete #567 benchmark comparability review",
-              "state": "pending",
-              "evidence": [],
-              "review": ""
+              "state": "verified_source",
+              "evidence": [
+                "devtools/data/benchmark_comparability_receiving_567_673_676_20261109.json",
+                "devguide/benchmarking/comparable_sessions.md"
+              ],
+              "review": "Accepted advisory policy, complete compatible-session metadata/validation, preserved failures and reviewed renewal are source-qualified. Two real 21-case tiny campaigns and 172 controls pass. The historical reference is retained/unevaluable; no new ranking, installed or final-candidate qualification is inferred."
             }
           ]
         },
@@ -733,8 +736,8 @@
           ]
         }
       ],
-      "verified_fraction": 0.8054195804195803,
-      "credited_points": 20.135489510489506
+      "verified_fraction": 0.8554195804195803,
+      "credited_points": 21.385489510489506
     },
     {
       "id": "phase5",
@@ -1177,5 +1180,27 @@
     "weighted_milestone_change": 0,
     "new_graphical_intent_credit": 0,
     "scope": "Source receiving and bounded repairs; no full installed/platform/final-candidate acceptance."
+  },
+  "last_comparability_receiving": {
+    "source": "ecf05b0664dfe843d71ba34fa2713d3e1ea41845",
+    "benchmark_source": "3547b09774791b5a9fa1c37c1e3387590ca5b3f6",
+    "receipts": [
+      "devtools/data/benchmark_comparability_receiving_567_673_676_20261109.json",
+      "devtools/data/import_and_composition_receiving_674_675_20261109.json"
+    ],
+    "credited_original_leaf": "phase4/gate-performance-semantics/baseline-comparability",
+    "credited_points": 1.25,
+    "supplemental_bug_bonus": 0,
+    "graphical_intents_unchanged": "31/50",
+    "scope": "Source-qualified contract; final source delivery/issue closeout must be independently verified. No baseline renewal, speed ranking, installed or final-candidate acceptance.",
+    "public_checkpoint": "af46ea3f31afb9f77455b9910af3537a9cd267ae",
+    "closed_issues": [
+      567,
+      673,
+      674,
+      675,
+      676
+    ],
+    "public_closeout": "devtools/data/comparability_and_diagnostics_closeout_20261109.json"
   }
 }

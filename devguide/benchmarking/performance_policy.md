@@ -37,13 +37,14 @@ comparison, silently drop slow paths, rerun until green or infer comparability
 from matching benchmark names alone. Baseline renewal is a separate reviewed
 operation with its own execution context and justification.
 
-The current numeric comparer rejects invalid sessions and retains nonzero
-native diagnostic status. Valid numeric reports, including slowdown warnings,
-return zero. It does not yet validate full workload/environment comparability;
-its observations alone are insufficient for an attributed improvement issue.
-That remaining implementation and the historical reference's suitability stay
-tracked by #567. No historical failed run becomes a passing result under this
-new policy.
+The comparer enforces the [declared session contract](comparable_sessions.md):
+known compatible runtime/provider/resource/unit identities, actual workload and
+measurement descriptors, and raw repetitions agreeing with their summaries.
+Invalid, historical or incompatible evidence remains diagnostically unevaluable.
+Complete comparable observations, including slowdown warnings, return zero;
+partial or unevaluable evidence returns one. Compatibility is necessary evidence,
+not causal attribution or a statistical confidence claim. No historical failed
+run becomes a passing result under this policy.
 
 The performance workflow is explicitly advisory: its job permits failure while
 retaining native producer/comparison status, logs and available session artifacts.

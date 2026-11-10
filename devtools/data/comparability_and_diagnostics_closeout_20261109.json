@@ -1,0 +1,212 @@
+{
+  "schema_version": "molsysmt.comparability_closeout@1",
+  "date": "2026-11-09",
+  "delivery": {
+    "qualified_source": "ecf05b0664dfe843d71ba34fa2713d3e1ea41845",
+    "public_checkpoint": "af46ea3f31afb9f77455b9910af3537a9cd267ae",
+    "base": "ca76d93b420435243f68167521ccb503ec8b2728",
+    "verified_paths": [
+      {
+        "path": ".github/workflows/benchmarks.yml",
+        "git_blob_sha": "40d05bad0ad33d61ab6119115fc4b614c19fd8ed"
+      },
+      {
+        "path": ".github/workflows/ci-smoke.yaml",
+        "git_blob_sha": "77f1b2dfaf1a15ced94156ee51bb2a2c45254baf"
+      },
+      {
+        "path": "benchmarks/AGENTS.md",
+        "git_blob_sha": "3f5d1c8b8e13ad7c4e24b2025b70eb0bcdc2655c"
+      },
+      {
+        "path": "benchmarks/README.md",
+        "git_blob_sha": "4357d8a758d2220e2ad680c5bc8d95f028c619f8"
+      },
+      {
+        "path": "benchmarks/comparability.py",
+        "git_blob_sha": "4bbec7c68b40caa64099e95c73d619a428f2b03e"
+      },
+      {
+        "path": "benchmarks/compare_runs.py",
+        "git_blob_sha": "58ff0c2069aa28940bc779657912a954e681bcc7"
+      },
+      {
+        "path": "benchmarks/competitors/run_matrix.py",
+        "git_blob_sha": "59b9be65f590f1054bb89f364981d1ba5a927787"
+      },
+      {
+        "path": "benchmarks/competitors/test_geometry.py",
+        "git_blob_sha": "b181b754eb4a3066fe20e8b0f56ff615a5234931"
+      },
+      {
+        "path": "benchmarks/competitors/test_loading.py",
+        "git_blob_sha": "dff5b2e0558e6fa714b157c68371fe915694e20f"
+      },
+      {
+        "path": "benchmarks/competitors/test_selections.py",
+        "git_blob_sha": "998a12ec717bb1c7088e5ae6a5603827a4e82d4a"
+      },
+      {
+        "path": "benchmarks/harness.py",
+        "git_blob_sha": "e552750377b328a3742d1786f5bd089d0e7b4a44"
+      },
+      {
+        "path": "benchmarks/telemetry.py",
+        "git_blob_sha": "15393ce4e06e5850a8732a43c8b019c01304b89d"
+      },
+      {
+        "path": "devguide/archive/resolved_bugs/benchmark_fork_workers_can_hang_after_scientific_preparation_and_scoped_configur.md",
+        "git_blob_sha": "e9277ff6dae4ed69bf4008480450fd665d571a63"
+      },
+      {
+        "path": "devguide/archive/resolved_bugs/competitive_geometry_timings_compare_different_rmsd_and_periodic_distance_observ.md",
+        "git_blob_sha": "e8b50c88293afbbda15023b67d98cc6fa1077db1"
+      },
+      {
+        "path": "devguide/archive/resolved_bugs/late_pint_cache_configuration_after_prior_unit_use.md",
+        "git_blob_sha": "bae7f60b4033cf13c050a9854ac20bf781d18bfc"
+      },
+      {
+        "path": "devguide/archive/resolved_bugs/regenerated_indices_are_reported_as_lost_structural_series.md",
+        "git_blob_sha": "78cc8072bcee1b7312339651cbb2923ff57b7d6e"
+      },
+      {
+        "path": "devguide/archive/resolved_proposals/benchmark_baseline_comparability_and_competitor_gating.md",
+        "git_blob_sha": "43812b9e56b3aecdc2edd7ac3498e246e632b02a"
+      },
+      {
+        "path": "devguide/benchmarking/README.md",
+        "git_blob_sha": "da187aba03b10e8fc80437a2f95957fd1478fc58"
+      },
+      {
+        "path": "devguide/benchmarking/comparable_sessions.md",
+        "git_blob_sha": "4369bc4dba6a8331734b1c4e4bc8c7f1e81f2bf3"
+      },
+      {
+        "path": "devguide/benchmarking/performance_policy.md",
+        "git_blob_sha": "05128b6deb0549b0074dee701914fc807587f95c"
+      },
+      {
+        "path": "devguide/forms_and_conversions.md",
+        "git_blob_sha": "a64c1af7d1183ef34df0f2b977487c6fc446ab8d"
+      },
+      {
+        "path": "devguide/pending_bugs/README.md",
+        "git_blob_sha": "4a9b4edadc3c50ae2d2aee00104097cce1799b1c"
+      },
+      {
+        "path": "devguide/pending_bugs/generated_pdb_provenance_hard_codes_molsysmt_version_1_0.md",
+        "git_blob_sha": "ae60dd32270885c33484b8eda70b0b591e632008"
+      },
+      {
+        "path": "devguide/pending_proposals/README.md",
+        "git_blob_sha": "6c04c0c6eb3a51115a53c67a15f266d8389a4bae"
+      },
+      {
+        "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+        "git_blob_sha": "788fe9799bc7a7a81755a2d5ac3d2c62473ab42f"
+      },
+      {
+        "path": "devguide/release_1_0_status.md",
+        "git_blob_sha": "22b391b4ede882925ade587d5e9da041fa35ba14"
+      },
+      {
+        "path": "devtools/data/benchmark_comparability_receiving_567_673_676_20261109.json",
+        "git_blob_sha": "cfaa7fa6bf38a866cb1b8c205e0b914982a36192"
+      },
+      {
+        "path": "devtools/data/import_and_composition_receiving_674_675_20261109.json",
+        "git_blob_sha": "ac38dd464ddc8c433662e7d7156f45458282431d"
+      },
+      {
+        "path": "devtools/data/pre_1_0_progress_scorecard_20261107.json",
+        "git_blob_sha": "402eb121b112e39904afc7963e87402aa6e617aa"
+      },
+      {
+        "path": "devtools/tests/benchmark_fixtures.py",
+        "git_blob_sha": "72276415906f437a701b4c7ea98ac5b767fffc1f"
+      },
+      {
+        "path": "devtools/tests/run_tiers.sh",
+        "git_blob_sha": "bf20a261511863df6ebc9394703e2f9ee8d19cd7"
+      },
+      {
+        "path": "devtools/tests/test_benchmark_comparability.py",
+        "git_blob_sha": "3cc05c9caae930fd8bdcdd473d168d5dfc8f648d"
+      },
+      {
+        "path": "devtools/tests/test_benchmark_comparison.py",
+        "git_blob_sha": "517330533ba5fb7f1e416a1738d480b72dac0b58"
+      },
+      {
+        "path": "devtools/tests/test_benchmark_evidence.py",
+        "git_blob_sha": "69eada78c7c12f67c49a5ffa6a63b53f464fe593"
+      },
+      {
+        "path": "devtools/tests/test_benchmark_geometry_semantics.py",
+        "git_blob_sha": "cf6cdd2d819a643ac6f40082f9077b9e7bc7693f"
+      },
+      {
+        "path": "devtools/tests/test_benchmark_telemetry.py",
+        "git_blob_sha": "e6f6a889df3bb593b40204b3a310e50f77c11633"
+      },
+      {
+        "path": "devtools/tests/test_benchmark_tiny_campaign.py",
+        "git_blob_sha": "5e74f75e1651b8bee6b0ff244bd388d18f38ea3e"
+      },
+      {
+        "path": "devtools/tests/test_benchmark_worker_lifecycle.py",
+        "git_blob_sha": "8ff6615e7b678983c8a3d516225e1fb32e22727c"
+      },
+      {
+        "path": "molsysmt/_pyunitwizard.py",
+        "git_blob_sha": "3c04810e2ae02ae57841a001a42ef0a16e7b6677"
+      },
+      {
+        "path": "molsysmt/basic/convert.py",
+        "git_blob_sha": "025d9bace62c1dca591854a1b02fab41ebda4010"
+      },
+      {
+        "path": "tests/basic/convert/mult_to_one/test_regenerated_index_diagnostics.py",
+        "git_blob_sha": "890ab6f7a173da6644ecb3de42149d278186abc3"
+      },
+      {
+        "path": "tests/test_unit_policy_bootstrap.py",
+        "git_blob_sha": "58b9d26cd163b2ea80ea8ce8a66690bcf74e79b6"
+      }
+    ],
+    "human_bytes_unchanged": true,
+    "scope": "Fast-forward source delivery only; no package, tag, Release or hosted matrix launched."
+  },
+  "board_inventory": {
+    "issues": 610,
+    "open": 94,
+    "closed_verified": {
+      "567": "CLOSED",
+      "673": "CLOSED",
+      "674": "CLOSED",
+      "675": "CLOSED",
+      "676": "CLOSED"
+    },
+    "full_normalized_snapshot_sha256": "6d7059d6f20f278aa39e6999596897db55da5bde75964e393843e2fe59a01a4d"
+  },
+  "new_intake": {
+    "issues": [
+      677,
+      679,
+      680
+    ],
+    "pull_requests": [
+      678
+    ]
+  },
+  "progress": {
+    "before": 72.51644189144189,
+    "after": 73.76644189144189,
+    "credited_original_requirement": "phase4/gate-performance-semantics/baseline-comparability",
+    "points": 1.25,
+    "supplemental_bonus": 0,
+    "graphical_intents": "31/50"
+  },
+  "scope": "Public source delivery and issue-state verification only. All new commits use skip ci under the authorized deferred-CI route; the nightly backlog and exact-candidate/installed requirements remain. No release/tag, artifact promotion or remote CI was launched."
+}

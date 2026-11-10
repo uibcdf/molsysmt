@@ -34,7 +34,10 @@ if not puw.configure.has_active_policy():
     # because writing to a user's filesystem is not something importing a units
     # library should do uninvited; the suite opts in on its users' behalf, and
     # a folder that cannot be written simply falls back to no cache.
-    puw.configure.set_pint_registry_cache(True)
+    # An absent policy does not mean the backend is unused. Preserve a registry
+    # already built by the application; a late cache request cannot affect it.
+    if "pint" not in puw.configure.report()["loaded_libraries"]:
+        puw.configure.set_pint_registry_cache(True)
 
     puw.configure.set_default_form("pint")
     puw.configure.set_default_parser("pint")
