@@ -108,3 +108,16 @@ The effective engine-neutral recipe and comprehensive stored-control disposition
 remain pending. Do not infer that the whole legacy dictionary is accepted by each
 OpenMM constructor. Actual pair equality, public conversion and existing energy/
 force/unit/source controls must pass before accepting this repair.
+
+
+## Independent receiving — 2026-11-09
+
+The [receiving record](../../devtools/data/pre1_ci_and_mechanics_receiving_669_670_582_20261109.json)
+records clean c37e42510 passing all 251 affected mechanics/projection/force
+controls and public legacy-helper doctests. Actual engine constraint-pair
+identity distinguishes AllBonds from HBonds; 107 registered scientific cases
+also pass without skips. All changed public guidance is reflected in inspected
+Foundations/Toolbox/Cookbook/course HTML, without altering existing code cells,
+metadata or outputs. The course's one previously unexecuted code cell stays
+unexecuted. This receives the bounded legacy policy repair only; full effective
+recipe/unsupported stored-control semantics remain partial and open.

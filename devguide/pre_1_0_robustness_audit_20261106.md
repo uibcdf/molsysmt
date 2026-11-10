@@ -1,5 +1,40 @@
 # Pre-1.0 robustness audit and action plan — 6 November 2026
 
+## Source CI, mechanics and advisory performance receiving — 2026-11-09
+
+PR #668 is received with exact Viewer 346c3319 source. #669's controlled wheel
+now stays outside the scientific checkout, with real Git and path-with-spaces
+controls; #670's projection fixture declares its supported schema while strict
+production validation remains unchanged. The observed legacy AllBonds/HBonds
+translation in #582 is corrected through a shared private engine adapter.
+The broader effective engine-neutral recipe contract stays partial.
+
+Clean c37e42510 passes **5,711** addon/preflight cases, **251** affected mechanics/
+projection/force controls and **107/107** registered scientific cases with strict
+clean-source correspondence. These overlapping selections are not one full
+suite. All fourteen fast gates and repository Ruff checks pass. Actual Jupyter
+receives ten Chemistry and twenty Analysis checks on the new frozen host;
+missing local tooling/harness attempts remain recorded. Four rendered guidance
+pages are inspected; existing notebook code/metadata/outputs stay exact.
+See the [receiving record](../devtools/data/pre1_ci_and_mechanics_receiving_669_670_582_20261109.json).
+
+The original hosted run remains failed: Linux/Python 3.14 contains one fixture
+failure among 32,901 cases, while macOS/Python 3.12 fails public download before
+tests (#671). Source repair does not qualify that matrix or installed artifacts.
+#672 is an administrative duplicate of #670, not another defect fixed.
+
+The maintainer accepts [advisory efficiency observations](benchmarking/performance_policy.md)
+under #567: keep correct tools available, investigate comparable repeated
+slowdowns above 15 percent in improvement issues, and keep invalid evidence
+unevaluable. Timing does not block implementation. Full workload/environment
+comparability and reviewed reference renewal stay pending.
+
+Accepted weighted progress stays **72.5164% (approximately 72.5%)** and **31/50**
+existing graphical intents. Regression repairs, receiving a newer host and a
+benchmark-policy decision add no artificial milestone credit. Continue #421's
+remaining intents, #666/provider143, #524 installed floors, #615, broader #256/
+#582 and #334 exact-candidate work. Source pushes use the authorized deferred-CI
+route; no new hosted matrix, package, tag, Release or promotion is authorized.
 
 ## Current chemistry assessment receiving — 2026-11-09 (#421, #256)
 

@@ -1,9 +1,9 @@
 ---
 summary: Declare the supported schema in the atom-name projection charge fixture.
 issue: uibcdf/molsysmt#670
-status: active
+status: resolved
 opened: 2026-11-09
-closed:
+closed: 2026-11-09
 severity: medium
 verification: reproduced
 area: [tests, ci]
@@ -63,3 +63,25 @@ independent projection, and refuse the renamed output specifically for changed
 bound chemistry. Receive the full projection/native unknown-report controls,
 including future/empty/missing-index evidence refusals, without changing their
 expected outcomes or production schema validation.
+
+
+## Resolution — 2026-11-09
+
+Clean source c37e42510 / immutable Viewer 346c3319 passes all 5,711 addon and
+selected preflight cases, 251 affected mechanics/projection/force controls and
+all 107 registered scientific cases (68 nodes, no skips). The strict clean
+scientific certificate records source correspondence; it is not release
+authorization. Fourteen fast gates pass. Original native refusal/assertion
+semantics are preserved, including malformed report rejection and deliberate
+inside-checkout artifact refusal.
+
+Actual Jupyter receives all ten Chemistry and twenty Analysis checks on the
+new host. Missing local Playwright/harness preparation attempts are retained;
+the existing tools and generated harness resolve those setup failures without
+source/assertion/deadline changes. Original hosted failures stay failed. #671
+provisioning and the required exact-candidate full matrix remain pending.
+
+See the [bounded receiving record](../../../devtools/data/pre1_ci_and_mechanics_receiving_669_670_582_20261109.json)
+for exact source/backend identities, input hashes, failed originals, execution
+scopes, resource limits, notebook preservation and limitations. The front-matter
+guard protects the actual original mechanism rather than a weaker output shape.

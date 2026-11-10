@@ -1,9 +1,9 @@
 ---
 summary: Keep controlled Viewer artifacts outside the scientific source checkout.
 issue: uibcdf/molsysmt#669
-status: partial
+status: resolved
 opened: 2026-11-09
-closed:
+closed: 2026-11-09
 severity: medium
 verification: reproduced
 area: [ci, provenance, viewer]
@@ -15,8 +15,10 @@ supersedes: []
 
 # Controlled wheel dirties the scientific checkout
 
-**Status:** correction prepared in PR #668; owner review and corrected hosted
-receiving remain required. No source-cleanliness rule is relaxed.
+**Status:** source correction independently received and integrated by the
+owner. The corrected artifact mechanism is closed; the original failed matrix
+and next exact-candidate hosted receiving remain separate requirements. No
+source-cleanliness rule is relaxed.
 
 ## What
 
@@ -85,3 +87,25 @@ identify #670 and #671. Neither reopens the original artifact-placement mechanis
 original failures stay failed and a new exact-candidate matrix remains due.
 Owner clean-source scientific and broader regression receiving follow before
 this bug's bounded closeout. No new remote matrix is launched.
+
+
+## Resolution — 2026-11-09
+
+Clean source c37e42510 / immutable Viewer 346c3319 passes all 5,711 addon and
+selected preflight cases, 251 affected mechanics/projection/force controls and
+all 107 registered scientific cases (68 nodes, no skips). The strict clean
+scientific certificate records source correspondence; it is not release
+authorization. Fourteen fast gates pass. Original native refusal/assertion
+semantics are preserved, including malformed report rejection and deliberate
+inside-checkout artifact refusal.
+
+Actual Jupyter receives all ten Chemistry and twenty Analysis checks on the
+new host. Missing local Playwright/harness preparation attempts are retained;
+the existing tools and generated harness resolve those setup failures without
+source/assertion/deadline changes. Original hosted failures stay failed. #671
+provisioning and the required exact-candidate full matrix remain pending.
+
+See the [bounded receiving record](../../../devtools/data/pre1_ci_and_mechanics_receiving_669_670_582_20261109.json)
+for exact source/backend identities, input hashes, failed originals, execution
+scopes, resource limits, notebook preservation and limitations. The front-matter
+guard protects the actual original mechanism rather than a weaker output shape.

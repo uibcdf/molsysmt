@@ -26,14 +26,12 @@ that front matter -- edit the entries, not this list.
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
 - [`macos_py312_environment_download_failure.md`](macos_py312_environment_download_failure.md) — [#671](https://github.com/uibcdf/molsysmt/issues/671) — Track the macOS Python 3.12 Conda download failure separately from tests. *(medium, upstream)*
 
-### In progress (2)
+### In progress (1)
 
 - [`contact_cutoff_equality_changes_across_equivalent_length_units.md`](contact_cutoff_equality_changes_across_equivalent_length_units.md) — [#666](https://github.com/uibcdf/molsysmt/issues/666) — Contact cutoff equality changes across equivalent length units *(high, reproduced)*
-- [`declared_charge_binding_fixture_omits_assignment_schema.md`](declared_charge_binding_fixture_omits_assignment_schema.md) — [#670](https://github.com/uibcdf/molsysmt/issues/670) — Declare the supported schema in the atom-name projection charge fixture. *(medium, reproduced)*
 
-### Partially resolved (2)
+### Partially resolved (1)
 
-- [`controlled_viewer_wheel_in_source_checkout.md`](controlled_viewer_wheel_in_source_checkout.md) — [#669](https://github.com/uibcdf/molsysmt/issues/669) — Keep controlled Viewer artifacts outside the scientific source checkout. *(medium, reproduced)*
 - [`physchem_surface_area_unit_contract.md`](physchem_surface_area_unit_contract.md) — [#473](https://github.com/uibcdf/molsysmt/issues/473) — Verify the unit contract of Collantes surface-area descriptors. *(medium, inspected)*
 
 <!-- /generated -->

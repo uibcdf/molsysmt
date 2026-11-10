@@ -7,7 +7,7 @@ closed:
 verification: measured
 area: [ci, performance]
 guard: devtools/tests/test_benchmark_comparison.py
-normative:
+normative: devguide/benchmarking/performance_policy.md
 blocked_by: []
 supersedes: []
 ---
@@ -16,7 +16,8 @@ supersedes: []
 
 **Reported:** 2026-11-04, with explicit maintainer authorization, while receiving
 PR #543 under uibcdf/molsysviewer#264.
-**Status:** partial implementation; open proposal for the owning team's benchmark/CI contract decision.
+**Status:** partial implementation. The maintainer has accepted advisory timing
+for both product and third-party observations; full comparability remains open.
 
 ## What
 
@@ -150,3 +151,25 @@ third-party blocking scope, failed medians and reference bytes are unchanged.
 No timing matrix or reviewed baseline renewal is performed. Compatibility
 metadata and the explicit owner product/control-role decision remain open;
 this is partial work and does not complete #567's audit milestone.
+
+
+## Maintainer decision — 2026-11-09
+
+Diego rejects restricting a scientifically correct implementation because it
+is slower than a third party. This also makes own-version timing observations
+advisory: consistent comparable inefficiency above the default 15 percent
+threshold is a reason for an improvement issue, not scientific API withdrawal
+or implementation rejection. Differences within that margin generally require
+no efficiency issue. Numerical correctness and data-integrity controls retain
+their mandatory roles.
+
+The [accepted policy](../benchmarking/performance_policy.md) records this
+disposition. The comparer now warns rather than returns a regression failure
+for valid slower timings. Malformed/incomplete records still fail diagnostically
+and never claim performance approval; the performance job is explicitly advisory,
+retaining those native failures and original artifacts. Product and external
+paths both receive this policy. Existing historical failed runs and reference
+bytes remain unchanged. New workload/environment comparability metadata, its
+validation, repeated-measurement interpretation and reviewed baseline renewal
+remain outstanding; no attributed product slowdown is established by this
+policy change or the old direct-MDTraj observation.

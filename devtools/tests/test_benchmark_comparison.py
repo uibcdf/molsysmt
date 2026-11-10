@@ -1,4 +1,4 @@
-"""Require timing evidence without waiving any existing numeric regressions."""
+"""Keep timing warnings advisory and malformed evidence visibly unevaluable."""
 
 import json
 
@@ -63,23 +63,34 @@ def test_invalid_threshold_cannot_pass(tmp_path, threshold):
 
 
 @pytest.mark.parametrize(
-    "current,expected", [(0.7, 0), (1.0, 0), (1.1, 0), (1.15, 0), (1.16, 1)]
+    "current,warns",
+    [(0.7, False), (1.0, False), (1.1, False), (1.15, False), (1.16, True)],
 )
-def test_real_improvements_and_regressions_keep_the_same_threshold(
-    tmp_path, current, expected
+def test_real_improvements_and_regressions_keep_the_advisory_threshold(
+    tmp_path, capsys, current, warns
 ):
-    assert compare(tmp_path, session(), session(current)) == expected
+    assert compare(tmp_path, session(), session(current)) == 0
+    output = capsys.readouterr().out
+    assert ("WARNING: TIMING DIFFERENCES" in output) is warns
+    assert "PASS:" not in output
 
 
-def test_third_party_regression_remains_blocking_pending_owner_decision(tmp_path):
+@pytest.mark.parametrize("name", ["product", "competitor_center_mdtraj"])
+def test_product_and_third_party_slowdowns_warn_without_blocking(
+    tmp_path, capsys, name
+):
     assert (
         compare(
             tmp_path,
-            session(name="competitor_center_mdtraj"),
-            session(1.3211, name="competitor_center_mdtraj"),
+            session(name=name),
+            session(1.3211, name=name),
         )
-        == 1
+        == 0
     )
+    output = capsys.readouterr().out
+    assert "WARNING: TIMING DIFFERENCES" in output and name in output
+    assert "comparability is not established" in output
+    assert "improvement issue" in output
 
 
 def test_invalid_json_fails_without_overwriting_the_reference(tmp_path):

@@ -1159,5 +1159,23 @@
     "receipt": "devtools/data/docking_h5msm06_client_receiving_256_20261109.json",
     "consumer_commit": "9b077fabf41e19ffdfb945bc7aa3fb6c53265e0f",
     "scope": "Bounded independent reference/E3 receiving inspected; complete P5/P6/default/stable and installed/platform gates remain. No added milestone weight."
+  },
+  "last_ci_and_mechanics_receiving": {
+    "source": "c37e42510bb44e92acca6bebdcab22e5721c1ae0",
+    "viewer_source": "346c331901c418fddb6b45a31da4690eee794129",
+    "receipt": "devtools/data/pre1_ci_and_mechanics_receiving_669_670_582_20261109.json",
+    "bounded_source_repairs": [
+      "uibcdf/molsysmt#669",
+      "uibcdf/molsysmt#670"
+    ],
+    "administrative_duplicate": "uibcdf/molsysmt#672",
+    "partial_contracts": [
+      "uibcdf/molsysmt#582",
+      "uibcdf/molsysmt#567"
+    ],
+    "pending_hosted_provisioning": "uibcdf/molsysmt#671",
+    "weighted_milestone_change": 0,
+    "new_graphical_intent_credit": 0,
+    "scope": "Source receiving and bounded repairs; no full installed/platform/final-candidate acceptance."
   }
 }

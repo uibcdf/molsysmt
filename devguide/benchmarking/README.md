@@ -66,7 +66,12 @@ The repository currently includes:
   benchmark for 100,000 atoms;
 - competitor loading, geometry, and selection scripts;
 - JSON snapshots under `benchmarks/baselines/`;
-- `benchmarks/compare_runs.py` and a GitHub Actions regression job.
+- `benchmarks/compare_runs.py` and an advisory GitHub Actions performance job.
+
+The [performance observation policy](performance_policy.md) keeps scientifically
+correct implementations available regardless of relative timing. Comparable,
+consistent inefficiency above the default 15 percent threshold is improvement
+issue evidence, not grounds for rejecting an implementation.
 
 Important limitations:
 
@@ -74,13 +79,16 @@ Important limitations:
 - high-water RSS is not allocation attribution;
 - the comparer uses a single median and fixed 15% cutoff without confidence or
   runner calibration;
-- missing/new benchmark keys do not fail the comparison;
+- missing reference measurements fail diagnostically; new unreferenced paths
+  remain unassessed;
 - stored competitor results are dated environment snapshots;
-- the CI job overwrites a tracked baseline path during its current run.
+- workload/environment comparability is not yet validated by the numeric
+  comparer. CI retains current/reference sessions separately and never renews
+  the tracked reference during comparison.
 
-Until these limitations are addressed, the regression job is a useful signal,
-not strong statistical evidence. See
-`pending_proposals/benchmark_regression_gate_reliability.md`.
+Until these limitations are addressed, timing observations are signals, not
+strong statistical evidence or attributed product regressions. See
+[the remaining comparability work](../pending_proposals/benchmark_baseline_comparability_and_competitor_gating.md).
 
 ## Reporting rule
 

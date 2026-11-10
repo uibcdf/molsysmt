@@ -121,7 +121,7 @@ def test_directory_output_is_rejected_before_any_campaign(runner, tmp_path):
     assert baseline.read_bytes() == b"ORIGINAL_BASELINE"
 
 
-@pytest.mark.parametrize("value,expected", [(0.9, 0), (1.2, 1)])
+@pytest.mark.parametrize("value,expected", [(0.9, 0), (1.2, 0)])
 def test_actual_workflow_pipeline_preserves_comparison_exit_and_raw_inputs(
     tmp_path, value, expected
 ):
@@ -210,3 +210,15 @@ def test_manual_default_retains_the_existing_baseline_destination(runner):
     )
     assert original.read_bytes() == b"CALLER_OWNED_REFERENCE"
     assert seen and all(not path.exists() for path in seen)
+
+
+def test_performance_workflow_is_advisory_without_hiding_evidence_failures():
+    workflow = yaml.safe_load((ROOT / ".github/workflows/benchmarks.yml").read_text())
+    job = workflow["jobs"]["benchmark"]
+    assert job["continue-on-error"] is True
+    assert "advisory" in workflow["name"].lower()
+    # Native failures remain visible and artifacts are retained; no `|| true`.
+    for name in ["Run Current Benchmarks", "Audit Performance Regressions"]:
+        script = next(step["run"] for step in job["steps"] if step.get("name") == name)
+        assert "set -euo pipefail" in script
+        assert "|| true" not in script

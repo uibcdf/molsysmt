@@ -3891,3 +3891,18 @@ certificate, scientific stability, human/installed/newer-host/platform, whole-su
 or final-candidate acceptance follows. The separate #256 consumer record receives
 only its bounded upstream reference/E3 prerequisite; wider P5/P6 stays open.
 #666/provider143, remaining original tasks and final gates remain due.
+
+
+## New pinned-host owner receiving — 2026-11-09
+
+PR #668 is integrated while keeping its original failed full-CI evidence.
+The [receiving packet](../../devtools/data/pre1_ci_and_mechanics_receiving_669_670_582_20261109.json)
+receives exact frozen Viewer 346c3319 on clean c37e42510: 5,711 addon/preflight
+cases, all ten Chemistry and twenty Analysis Jupyter checks, all 107 registered
+scientific cases and fourteen fast gates. The original setup failures and
+#669/#670/#671 separation remain explicit. Contributed Qt receiving is an
+optional harness, not a locally accepted Qt or human run. No new original
+graphical intent gains credit; #421 remains partial at 31/50 intents. The
+full installed/platform/final-candidate acceptance and remaining intent families
+stay due. Scientific profiles, units, images, sparse queries and provenance
+contracts are unchanged by this source-host update.
