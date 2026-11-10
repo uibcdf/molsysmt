@@ -1,0 +1,266 @@
+{
+  "schema": "molsysmt.complete_default_source_receiving@1",
+  "date": "2026-11-10",
+  "owner_issue": "uibcdf/molsysmt#334",
+  "qualified_source": "5e7d65a665425fe6077f016dd95cbd65d424ee91",
+  "native_backend_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "viewer_source": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+  "receiving": {
+    "execution": {
+      "command": [
+        "<development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n3",
+        "--junitxml=<private-evidence>/pre1-completion-default-20261110-full-default-six-gib-three-cpus.xml",
+        "--receptor-events=<private-evidence>/pre1-completion-default-20261110-full-default-six-gib-three-cpus.events.jsonl",
+        "--basetemp=<private-evidence>/pre1-completion-default-20261110-full-default-six-gib-three-cpus"
+      ],
+      "exit_code": 0,
+      "seconds": 2488.176717469003,
+      "viewer_commit": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "source_commit": "5e7d65a665425fe6077f016dd95cbd65d424ee91",
+      "starting_git_status": "",
+      "ending_git_status": "",
+      "viewer_changed_inputs": [],
+      "viewer_checked_inputs": 2582,
+      "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+      "changed_inputs": [],
+      "checked_inputs": 8819
+    },
+    "resources": {
+      "started_utc": "2026-11-10T20:51:39.910583+00:00",
+      "seconds": 2499.0482083838433,
+      "limits": {
+        "memory.max": "6442450944",
+        "memory.high": "5976883200",
+        "memory.swap.max": "0",
+        "memory.oom.group": "1",
+        "cpu.max": "300000 100000",
+        "pids.max": "512"
+      },
+      "host_load": {
+        "cpu_count": 20,
+        "affinity_cpus": 20,
+        "load_average": [
+          1.12158203125,
+          0.7744140625,
+          1.70751953125
+        ],
+        "cpu_utilization": 0.028169014084507005,
+        "swap_bytes_per_second": 0.0
+      },
+      "host_available_minimum_observed_bytes": 6919839744,
+      "cgroup_memory_peak_bytes": 5977391104,
+      "memory_events": "low 0\nhigh 516\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "stop_reason": null,
+      "maximum_host_full_pressure_avg10": 6.97
+    },
+    "evidence_sha256": {
+      ".json": "879c109067355dbfc3d37ddb2d997a689966ef2788cd65269ab94bc5aa5ec9db",
+      "-bounded.json": "74d4c91f7232f0f44d30bdd4e3205d81f22241df10249c8472077c2a7a163211",
+      ".xml": "9a50c3c5f3e2b6e7e01967f3384c040f430a792ae977897c26371e1f0896e459",
+      ".log": "e379e824c638bad62980f2c10e2a31ac4e5435606d1530eaae929926a80fed66",
+      "-inputs-before.json": "ee50e1a96376d177d147ff9eb784fda99dee69c1ea3141a92a00e64ecab67f30",
+      "-inputs-after.json": "ee50e1a96376d177d147ff9eb784fda99dee69c1ea3141a92a00e64ecab67f30",
+      "-reference-driver.py": "878593c9370a874076436a023b9215843462a3bbefc21bce99abb4dcdcd509d3",
+      "-resource-driver.py": "6a7e3ac2fb7dbff7df7e8820b6082c53c310d6b7d717ff6dc95417913396ca65"
+    },
+    "junit_suites": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "2",
+        "tests": "33551",
+        "time": "2480.943",
+        "timestamp": "2026-11-10T14:51:45.751018-06:00",
+        "hostname": "nauta"
+      }
+    ],
+    "nonpassing_cases": [
+      {
+        "class": "tests.form.string_smiles.test_is_form",
+        "name": "test_is_form_cco_without_rdkit",
+        "outcome": "skipped"
+      },
+      {
+        "class": "tests.form.test_cupy_ndarray",
+        "name": "test_cupy_ndarray_form_detection_and_conversion",
+        "outcome": "skipped"
+      }
+    ],
+    "version_controls": [
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_source_overlay_does_not_borrow_another_installation_version",
+        "time": "0.095"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_embedded_package_version_precedes_foreign_distribution",
+        "time": "0.089"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_embedded_package_version_precedes_matching_metadata",
+        "time": "0.095"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_owned_legacy_distribution_can_supply_a_missing_build_stamp",
+        "time": "0.108"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_unrecorded_metadata_does_not_prove_package_ownership",
+        "time": "0.096"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_no_build_or_installation_metadata_is_explicitly_unknown",
+        "time": "0.096"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_embedded_version_works_without_distribution_metadata",
+        "time": "0.093"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_broken_embedded_module_is_not_silently_relabelled",
+        "time": "0.448"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_invalid_embedded_versions_are_explicitly_unknown[17]",
+        "time": "0.093"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_invalid_embedded_versions_are_explicitly_unknown[False]",
+        "time": "0.092"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_invalid_embedded_versions_are_explicitly_unknown[]",
+        "time": "0.098"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_invalid_embedded_versions_are_explicitly_unknown[   ]",
+        "time": "0.095"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_scientific_results_use_the_cached_imported_package_version",
+        "time": "0.008"
+      }
+    ]
+  },
+  "receptor_final": {
+    "artifact_policy": {
+      "dropped_records": 33653,
+      "max_bytes": 52428800,
+      "truncated": true
+    },
+    "complete": true,
+    "counts": {
+      "collected": 33551,
+      "deselected": 0,
+      "errors": 0,
+      "executed": 33551,
+      "failed": 0,
+      "not_executed": 0,
+      "passed": 33549,
+      "reruns": 0,
+      "skipped": 2,
+      "subtests": {},
+      "warnings": 6711,
+      "xfailed": 0,
+      "xpassed": 0
+    },
+    "duration": 2481.4523404059,
+    "exitstatus": 0,
+    "extensions": {
+      "dropped": 6006,
+      "incomplete": true,
+      "recorded": 11721
+    },
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "858b2c4936285ad8dbc09e6323c934c76f3936cd9164219a5297d8558757e9f0",
+      "records": 89775
+    },
+    "invalid_selections": [],
+    "note": "",
+    "outcome": "PASS",
+    "root_causes": 0,
+    "run_id": "0d2063115c8e4b548321b575831ac7ef",
+    "schema": "pytest-receptor.events@1",
+    "stop_reason": "",
+    "type": "session_finish"
+  },
+  "receptor_stream_sha256": "e739b48d8a264138149b925d038589da3f89d1fb8ca8d7e60b1811207b88d002",
+  "previous_failed_session": {
+    "source": "5f241cfa77f0091dc7a54c0be1bdd2951efdefed",
+    "evidence": "devtools/data/numeric_neighbor_budget_receiving_703_704_20261110.json",
+    "outcome": "failed; retained unchanged",
+    "correction_checks": [
+      {
+        "class": "tests._private.smonitor.test_xdist_warning_reconstruction",
+        "name": "test_every_catalog_warning_class_has_a_sample",
+        "outcome": "failure",
+        "previous_outcome": "failure",
+        "current_outcome": "passed"
+      },
+      {
+        "class": "tests._private.smonitor.test_xdist_warning_reconstruction",
+        "name": "test_catalog_warnings_are_not_re_rendered[UnassessedPeptideBackboneWarning]",
+        "outcome": "failure",
+        "previous_outcome": "failure",
+        "current_outcome": "passed"
+      },
+      {
+        "class": "tests.chemical_states.test_namespace",
+        "name": "test_canonical_graph_namespace_has_no_topology_facade",
+        "outcome": "failure",
+        "previous_outcome": "failure",
+        "current_outcome": "passed"
+      },
+      {
+        "class": "tests.interactions.ionic.test_chunked_ionic",
+        "name": "test_auto_coordinate_working_estimate_selects_small_blocks",
+        "outcome": "failure",
+        "previous_outcome": "failure",
+        "current_outcome": "passed"
+      },
+      {
+        "class": "tests.interactions.ionic.test_chunked_ionic",
+        "name": "test_result_budget_failure_does_not_return_partial_coverage",
+        "outcome": "failure",
+        "previous_outcome": "failure",
+        "current_outcome": "passed"
+      }
+    ]
+  },
+  "later_coverage": {
+    "source": "ee4f727960ddb7f86b2c9c8e28e7f842fbe1bdfc",
+    "evidence": "devtools/data/h5msm_p5_provider_receiving_256_20261110.json",
+    "cases": 156,
+    "new_append_refusal_cases": 4,
+    "meaning": "Separate overlapping provider cohort; four later guards are not part of this complete session. No invented aggregate count."
+  },
+  "resource_interpretation": "Three workers, 6 GiB cap, no swap, finite deadline and reserve watchdog. Peak 5,977,391,104 bytes; at least 6,919,839,744 host bytes available. Retain 516 soft memory.high events and global pressure peaks/warnings; no max/OOM/kill or reserve stop. Availability was monitored, not reserved.",
+  "scope": "Complete local Linux/Python 3.14 default pytest selection including configured basic doctests; source receiving only.",
+  "limits": [
+    "The old failed session remains failed. This is a new independently completed session on corrected source with unchanged owned/Viewer inputs.",
+    "Two explicit skips: missing CuPy and a negative form-recognition case inapplicable with RDKit installed. Registered zero-skip scientific evidence retains its separate certificate.",
+    "The receptor has a valid final verdict/integrity and explicit bounded phase/extension truncation; dropped details are not silently reconstructed. Native exit and complete JUnit remain authority.",
+    "No current other-platform/Python, clean-installed pair, final-candidate, graphical/human or stable-format acceptance is inferred.",
+    "Source/API receipts do not certify whole shared-environment dependency closure or authenticate installed artifacts.",
+    "Original plan stays 76.29204129204129 percent, 49/50 original GUI intents. External handoffs, #615 disposition, stable H5MSM 1.0 and final gates remain due; publication pause unchanged."
+  ]
+}

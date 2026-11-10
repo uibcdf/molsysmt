@@ -1,5 +1,39 @@
 # MolSysMT 1.0 Execution Status
 
+## Complete corrected-source suite received — 2026-11-10
+
+Frozen **5e7d65a66**, qualified native **4ffb82e4** and verified Viewer
+**5164f13b** complete the default Linux/Python 3.14 suite: **33,549 pass, two
+explicit skips, zero failures/errors** in **33,551 cases**. All five cases from
+the earlier failed session now pass; the original session remains failed.
+The receptor's valid final summary retains explicit bounded detail truncation;
+complete JUnit and native exit zero remain authority. See the [complete-source
+receipt](../devtools/data/complete_default_source_receiving_334_20261110.json).
+
+Three workers stayed below the 6-GiB cap (peak about 5.57 GiB); host available
+memory stayed above about **6.44 GiB**. Soft memory.high events and global
+pressure warnings remain recorded; no own OOM, hard-limit or reserve stop
+occurred. The two skips are missing CuPy and an RDKit-dependent negative form
+case, not omitted registered scientific evidence. No installed/platform or
+exact-candidate qualification is inferred from this local source result.
+
+The separate **156-case P5** provider cohort includes four later append-refusal
+guards, outside that frozen complete session. Its three synthetic fixture sets
+and expected typed/PDBQT outputs are public on **1ce072ae7**. Existing DockingMT
+acceptance remains closed; independent receiving of the additional finite
+profile remains pending under #256. The [coordination packet](pre_1_0_completion_handoffs_20261110.md)
+supplies precise PyUnitWizard/Viewer requests, the bounded client profile and
+the P6 stable-format implementation order.
+
+New incoming **#705** is [triaged as a bounded server-preparation proposal](pending_proposals/explicit_bounded_jupyter_server_readiness_budget.md),
+with an incoming contribution expected from Viewer. Keep default preparation
+and explicitly selected scale budgets distinct from scientific/frontend
+deadlines and original #615 causality. The complete intake has **627 issues,
+94 open and no open PRs**. Original progress remains **76.2920%, 49/50**.
+#666/provider143, #615 disposition, #524 actual public/installed closure,
+#250/#254 agreement, #256 P5/P6 and #334 final gates stay explicit. Publication,
+candidate/tag/package/promotion and new hosted matrices remain paused.
+
 ## Completion handoffs and local full receiving — 2026-11-10
 
 The maintainer requests advancing the original plan to completion and will

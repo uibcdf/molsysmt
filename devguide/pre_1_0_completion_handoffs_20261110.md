@@ -13,10 +13,14 @@ and [release ledger](release_1_0_status.md) retain current evidence and history.
 1. **Repeat the complete local default suite on the corrected source.** The
    immutable owner uses source 5e7d65a66, verified Viewer 5164f13b, published
    PyUnitWizard 0.28.1 and the qualified Linux native extension 4ffb82e4.
-   Run three pytest workers under a monitored 6-GiB/three-CPU scope, no swap,
+   The completed receiving used three pytest workers under a monitored
+   6-GiB/three-CPU scope, no swap,
    a finite deadline and the shared-host reserve watchdog. Preserve source
    snapshots, native exit status, JUnit and the receptor's explicit truncation
-   status. The earlier 33,526-case session remains failed even if this new
+   status. The [new receipt](../devtools/data/complete_default_source_receiving_334_20261110.json)
+   records 33,549 passes/two justified skips, with all five earlier failures
+   now passing. This is a separate session; the later four P5 guards remain
+   in their own 156-case cohort. The earlier 33,526-case session remains failed even if this new
    session passes. Local Linux/Python 3.14 receiving does not replace the
    mandatory platform/installed/exact-candidate gates.
 2. **Maintain a discriminating #615 investigation.** Separate the original
@@ -41,7 +45,12 @@ and [release ledger](release_1_0_status.md) retain current evidence and history.
    measurements before promoting a stable format. A header edit is not schema
    qualification. Experimental scientific profiles need not become stable merely
    because their stored representation does.
-5. **Reconcile the final source/claim ledger.** Keep container/query/persistence
+5. **Receive incoming #705 without conflating startup stages.** The
+   [bounded readiness proposal](pending_proposals/explicit_bounded_jupyter_server_readiness_budget.md)
+   is inspected; the Viewer team is preparing its contribution. Preserve the
+   default 20 seconds and finite selected profile, authenticated readiness,
+   elapsed/budget records and cleanup. It does not close original #615.
+6. **Reconcile the final source/claim ledger.** Keep container/query/persistence
    guarantees separate from detector science, engine support and human/installed
    receiving. Close only the accepted owning scopes, retain original failures
    and select exact candidate work only after the relevant agreements.
@@ -164,7 +173,7 @@ come from the already executed public branch; no new preparation is required.
 The **156-case** provider receiving passes on ee4f72796, including four added
 0.5/0.6 topology/interaction append-refusal cases that verify byte-exact file
 nonmutation and preserved independently readable layers. Product source is
-unchanged from 5e7d65a66. This is distinct from the running complete session
+unchanged from 5e7d65a66. This is distinct from the completed default session
 on 5e7d65a66 and from future independent client receiving.
 
 These are reviewed and scoped-received provider assertions, not a new executed
@@ -188,6 +197,24 @@ evidence. A coordinate edit must exercise the existing selective invalidation
 contract rather than claim every assignment depends on geometry. Both policies
 read the same immutable source, and each fresh reader records its actual
 imports/software. Exact candidate artifacts need their own later qualification.
+
+## P6 implementation order after the bounded client review
+
+This is a preparation checklist, not an implemented 1.0 schema or a new public
+API. The accepted first-stable target is already H5MSM 1.0; it need not be
+decided again merely because its qualification is incomplete.
+
+| Step | Concrete work and required control |
+| --- | --- |
+| Freeze represented meaning | Review the existing root/layer field catalog, independent axes/associations, units/dtypes, missing/empty semantics and unknown-evidence behavior. Identify actual wire changes before assigning versions. Keep experimental scientific-model claims separate from stable transport guarantees. |
+| Introduce the stable root | Reuse the owning modular codecs and version-dispatch helpers. Receive actual 1.0 reads/writes, partial domains and unknown-version rejection; no header-only relabeling of existing files. No duplicated codec or placeholder public handler is needed. |
+| Reconcile default writers | Make public conversion, `h5msm.write`, `write_layers` and applicable form routes agree on the newest qualified default. Retain explicit older routes only within their represented capabilities; nonempty mechanics must never disappear through an old target. Update the public API stability review for intentional default changes. |
+| Preserve migration intent | Version-specific helpers retain their named destination. Public source-preserving conversion can provide the latest-format route after its qualification. Reconcile warnings and their recommended command with the actual latest stable writer; experimental 0.6 alone does not deprecate 0.5. Do not silently rewrite an input file or producer label. |
+| Synchronize executable guidance | Update API docstrings/doctests, Foundations/Toolbox/Cookbook/course and the schema/benchmark guidance. Re-execute changed examples and validate stored notebooks without repair. Retain historical fixture/root identities and benchmarks with their original scope. |
+| Receive the final pair | Record client feedback, final exact sources and artifacts, complete the mandatory gates and preserve failed attempts. Stable-format/container acceptance does not certify every detector or force field. The exact candidate remains a separate owner decision. |
+
+The next implementation change should follow this order rather than advancing
+the root/default first and discovering omitted public paths afterward.
 
 ## Exact-candidate and publication boundary
 
