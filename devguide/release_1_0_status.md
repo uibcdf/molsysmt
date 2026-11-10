@@ -1,5 +1,19 @@
 # MolSysMT 1.0 Execution Status
 
+## Completion handoffs and local full receiving — 2026-11-10
+
+The maintainer requests advancing the original plan to completion and will
+coordinate external owners. The [operational handoff packet](pre_1_0_completion_handoffs_20261110.md)
+separates local work from exact PyUnitWizard/Viewer requests and a bounded
+remaining H5MSM/DockingMT scope. Existing DockingMT #79/#88/#96 acceptance stays
+closed; no new initial client-integration gate is introduced.
+
+A new complete local default suite is running on frozen **5e7d65a66**, with
+three workers, a monitored **6-GiB/three-CPU** limit, no swap and host-reserve
+controls. It has no accepted verdict yet. The earlier failed suite remains
+failed. Original progress remains **76.2920%, 49/50**; all final agreement,
+format, installed/platform/candidate/publication obligations stay explicit.
+
 ## Default-suite defects and retained figure context received — 2026-11-10
 
 The frozen 5f241cfa7 complete default suite is **failed**: **33,519 pass, five

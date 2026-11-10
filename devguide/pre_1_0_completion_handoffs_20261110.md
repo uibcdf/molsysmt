@@ -1,0 +1,196 @@
+# Completing the accepted pre-1.0 plan
+
+**Role:** operational coordination packet under uibcdf/molsysmt#334.
+**Basis:** public source `5e7d65a665425fe6077f016dd95cbd65d424ee91`,
+2026-11-10. This packet refines execution order; it does not add features,
+change original weights, accept missing evidence or authorize publication.
+The [scorecard](../devtools/data/pre_1_0_progress_scorecard_20261107.json) owns
+original milestone accounting. The [audit](pre_1_0_robustness_audit_20261106.md)
+and [release ledger](release_1_0_status.md) retain current evidence and history.
+
+## Work that MolSysMT can advance now
+
+1. **Repeat the complete local default suite on the corrected source.** The
+   immutable owner uses source 5e7d65a66, verified Viewer 5164f13b, published
+   PyUnitWizard 0.28.1 and the qualified Linux native extension 4ffb82e4.
+   Run three pytest workers under a monitored 6-GiB/three-CPU scope, no swap,
+   a finite deadline and the shared-host reserve watchdog. Preserve source
+   snapshots, native exit status, JUnit and the receptor's explicit truncation
+   status. The earlier 33,526-case session remains failed even if this new
+   session passes. Local Linux/Python 3.14 receiving does not replace the
+   mandatory platform/installed/exact-candidate gates.
+2. **Maintain a discriminating #615 investigation.** Separate the original
+   executing-cell timeout from later pre-execution, server-startup, replacement,
+   deadline and missing-harness observations. The real-server session diagnostic
+   is received. An idle kernel after browser retirement does not explain its
+   earlier state. Request evidence captured before the failing stage; do not
+   repeat a passing workflow without a new question, warm imports, restart a
+   live kernel or extend a deadline. A causal correction or an evidenced bounded
+   environmental disposition remains required.
+3. **Bound the remaining #256 P5 profile.** Map provider coverage and the
+   independently received DockingMT reference/E3 evidence to the remaining
+   partial-domain/layer, selected/reordered/appended structure, typed data,
+   original-producer and edit/stale-binding obligations. Name the smallest
+   missing consumer scenarios, exact fixtures and expected results before asking
+   for another client campaign. Keep provider and independent client evidence
+   distinct. Existing #79/#88/#96 acceptance is not reopened.
+4. **Prepare the P6 stable-format decision.** The accepted target is H5MSM 1.0
+   alongside MolSysMT 1.0. Current default writing remains 0.5; explicit 0.6 is
+   experimental. Reconcile the final root/layer schemas, migration and warning
+   policy, default writer, public operations, docs/doctests/course and storage
+   measurements before promoting a stable format. A header edit is not schema
+   qualification. Experimental scientific profiles need not become stable merely
+   because their stored representation does.
+5. **Reconcile the final source/claim ledger.** Keep container/query/persistence
+   guarantees separate from detector science, engine support and human/installed
+   receiving. Close only the accepted owning scopes, retain original failures
+   and select exact candidate work only after the relevant agreements.
+
+The format obligations remain owned by [#256's plan](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md).
+Dependency closure remains owned by [#524](pending_proposals/runtime_dependency_api_floors.md),
+and the uncertain startup stage by [#615](pending_bugs/intermittent_jupyter_initial_canvas_timeout.md).
+
+## External handoffs for maintainer coordination
+
+### PyUnitWizard: explicit boundary-safe conversion review
+
+**Owner:** uibcdf/pyunitwizard#143; consumer uibcdf/molsysmt#666.
+**Deliverable:** identify a suitable supported conversion/comparison route, or
+propose the smallest explicit provider capability with declared guarantees and
+limits. An implementation/release is needed only if that review demonstrates
+that the current supported API cannot satisfy the agreed requirement.
+
+The reported finite example is two points 0.5 nm apart: inclusive contacts differ
+for 0.5 nm, 5 angstrom and 500 pm after existing normalization. A public
+[27-case reference](../devtools/data/unit_scale_boundary_reference_666_20261110.json)
+uses exact declared SI scales and a single final binary64 rounding. It retains
+strict predecessor negatives, without isclose or widening the scientific cutoff.
+It is not a production fix or a universal exact-arithmetic promise.
+
+**Forwardable request:**
+
+> Please review pyunitwizard#143 against MolSysMT source 5e7d65a66 and the
+> published 27-case reference. Confirm an existing supported route or propose
+> a bounded provider-owned capability. State scalar/array, unit/backend and
+> representability limits, including strict adjacent-value controls. We will
+> receive the chosen route through native contacts under multiple policies,
+> CPU routes and PBC before accepting molsysmt#666 or the final contact GUI
+> intent. Please return the exact source/API and qualification; a source-only
+> result does not establish a new published dependency floor.
+
+### MolSysViewer: contract feedback, startup evidence and artifact plan
+
+**Owner:** uibcdf/molsysviewer#315, with the existing integration/publication
+owners. Consumer requirements remain uibcdf/molsysmt#250, #254, #524 and #615.
+**Deliverables now:**
+
+- Explicit feedback on the current storage/query/pagination/persistence and
+  native-domain contract, with any concrete remaining provider defect or
+  incompatibility. Keep scientific profiles and Qt experimental. Final-candidate
+  acceptance remains later work even after source agreement.
+- Identify the intended compatible public version and what remains before its
+  artifact can be frozen/qualified. A published source SHA is not an installed
+  version floor; do not request or invent one when no compatible artifact exists.
+- Help identify the failing stage for the original startup observation, including
+  the owning consumer reference and a bounded pre-failure capture prescription.
+  Preserve original failures and separate historical runtimes from current
+  receiving. A newer passing run alone is insufficient.
+- Review the planned first stable H5MSM 1.0 boundary. Current 0.5/explicit 0.6
+  routes and their evidence remain unchanged until the format freeze passes.
+
+**Forwardable request:**
+
+> MolSysMT main 5e7d65a665425fe6077f016dd95cbd65d424ee91 receives your exact
+> figure-context contribution 9dff314f8 against Viewer 5164f13b. Please return
+> explicit source-contract feedback for molsysmt#250/#254: sparse relations and
+> occurrences, compound roles, stable occurrence indices within an analysis,
+> evaluated-empty versus unevaluated coverage, nonconsecutive axis queries and
+> the four selection modes, bounded pages, units/producers/images, named
+> analyses, declared maps, remapping and edit invalidation/stale refusals.
+> Independent-file correspondence remains declared, not authenticated.
+>
+> For molsysmt#524, identify the intended compatible public Viewer version and
+> the remaining artifact work; if none is published, say so explicitly. The
+> source pin does not satisfy clean minimum/newer installed receiving. Please
+> also review the proposed first stable H5MSM 1.0 boundary and help define a
+> discriminating pre-failure capture for molsysmt#615. Our real-server diagnostics
+> and later passing cases do not establish its original cause. Return exact
+> sources and evidenced scope; artifact names/builds/hashes follow only when
+> artifact preparation is resumed by the maintainer.
+
+The detailed current API and native-domain behavior are maintained in
+[Interactions](interactions_api.md), [native queries](native_queries.md),
+[the core specification](CORE_SPECIFICATION.md) and [H5MSM](h5msm_format.md).
+The public owner [delivery record](../devtools/data/native_and_figure_owner_delivery_701_702_703_704_20261110.json)
+retains receiving scopes and the original unsuccessful attempts.
+
+### DockingMT: agree only the remaining stable-format client scope
+
+**Owner:** uibcdf/molsysmt#256 with the DockingMT team.
+The immutable DockingMT publication 9b077fab and its independently received
+reference/E3 records remain accepted for their bounded scopes. Issues
+uibcdf/dockingmt#79, #88 and #96 are closed. The provider receipt is
+[retained here](../devtools/data/docking_h5msm06_client_receiving_256_20261109.json).
+No new docking, preparation, scientific search or reopening is requested.
+
+**Forwardable request, after the remaining P5 prescription is bounded:**
+
+> We retain your published 9b077fab reference and three-pose E3 acceptance.
+> For molsysmt#256 P5/P6 and the proposed first stable H5MSM 1.0, please help
+> review the finite additional profile below: one projected/reordered prepared
+> round trip, one restored coordinate-edit/invalidation control, and one unknown
+> evidence transport/refusal control, under normal and pm/fs policies. We own
+> the exact fixture, expected maps/producers and refusal prescription. Confirm
+> what your existing evidence already covers and which remaining cases actually
+> concern your consumer; supported refusals count only for an explicitly
+> unsupported operation. Installed qualification stays later work. No new
+> docking, preparation or repeat of completed E3 calculations is requested.
+
+The local DockingMT clone was 181 commits behind its fetched upstream during
+this checkpoint and was not updated or used as current consumer evidence.
+MolSysMT's four human edits and Viewer's fourteen dirty paths were preserved;
+PyUnitWizard's inspected clone was clean. Published immutable sources, not
+unreviewed local changes, remain the receiving inputs. The first suite-status
+invocation had a usage error; the corrected positional-workspace invocation
+completed acquisition and reported attention for these preserved states.
+
+## Finite P5 review matrix
+
+These are reviewed provider assertions, not yet a new executed client campaign.
+The complete local session will determine the current source results. Reuse
+the received DockingMT full-reference/E3 records for their original scopes;
+additional client work needs the exact prescription and team agreement first.
+
+| Boundary | Existing assertion-bearing provider guard | Remaining review |
+| --- | --- | --- |
+| Partial domains and typed mechanics | `tests/form/file_h5msm/test_public_mechanics_v06.py::test_explicit_native_public_roundtrip_preserves_domains_and_original_reports`; `tests/form/file_h5msm/test_mechanics_layer.py::test_nullable_mechanical_columns_keep_values_dtypes_and_missing_policy` | Complete/absent domains, original reports and exact stored units/dtypes; client need not pretend it can use a topology-free system. |
+| Fresh public reader and producer/edit ownership | `tests/form/file_h5msm/test_modular_mechanics.py::test_prepared_whole_file_in_a_fresh_reader_retains_provenance_and_edit_ownership` | Its public branch verifies both public read and convert, changed reader version, PDBQT parity, unit-policy preservation, selective analysis invalidation and absence of optional engines. Independent DockingMT receiving remains distinct. |
+| Selected/reordered native axes | `tests/form/file_h5msm/test_public_mechanics_v06.py::test_copy_and_selected_file_extraction_retain_root_version_and_mechanics`; `tests/form/file_h5msm/test_public_mechanics_v06.py::test_reordered_prepared_system_retains_correspondence_in_public_roundtrip` | Proposed additional client case: explicit atom permutation and nonconsecutive structures `[2, 0]`, original producer labels, expected correspondence, typed parameters and named-analysis coverage. Do not infer atom reordering from ordinary selection, which uses ascending unique indices. |
+| Stored unknown evidence versus usable assignments | `tests/native/test_unknown_mechanical_assignment_reports.py::test_unknown_reports_roundtrip_but_refuse_projection_and_scientific_export` | Proposed additional client adverse case: transport unknown reports without reinterpretation, then preserve source and refuse unsupported projection/export before output. Do not relabel loading as parameterization or repair. |
+| Supported append versus documented refusal | `tests/form/file_h5msm/test_public_mechanics_v06.py::test_public_append_preserves_mechanics_and_extends_state_assignments` | Provider-owned append supports the documented topology-free/no-interactions composition and explicit state indices. Named-interaction file append is not promised. Confirm actual client use before requesting client execution or broadening support. |
+| Absent/present-empty and atomic publication | `tests/form/file_h5msm/test_modular_mechanics.py::test_explicitly_empty_mechanics_keeps_its_independent_presence`; `tests/form/file_h5msm/test_modular_mechanics.py::test_write_failure_after_partial_staging_publishes_nothing` | Keep independent layer presence distinct from native representability, and preserve existing caller files on normal failure. Crash durability remains outside the implemented atomic-visibility guarantee. |
+
+Use a tiny already prepared fixture; do not run another scientific preparation
+or docking search. Preserve the source file and current-producer control bytes,
+quantities, table dtypes, string labels, state/structure/atom maps and original
+evidence. A coordinate edit must exercise the existing selective invalidation
+contract rather than claim every assignment depends on geometry. Both policies
+read the same immutable source, and each fresh reader records its actual
+imports/software. Exact candidate artifacts need their own later qualification.
+
+## Exact-candidate and publication boundary
+
+After the outstanding scientific/container/source and format decisions pass,
+agree exact compatible sources, versions, builds and qualification scope.
+Then follow [the release gate](release_gate.md): eight source OS/Python cells,
+applicable native wheels and sixteen installed-pair cells, actual dependency
+closure/imports, documentation, client/session behavior, failed-attempt accounting,
+final authorization and public-artifact/Zenodo verification. Preserve immutable
+older artifacts and tags. The existing candidate/package/tag/Release/promotion/
+new hosted-matrix pause remains; ordinary local source development continues.
+
+No new blocker is currently assigned to ArgDigest, DepDigest, SMonitor or
+Ackredit by this packet. Their received boundaries and existing owned follow-ups
+remain in force. Other client libraries do not become additional initial 1.0
+integration gates through this coordination document. A successful local suite,
+new issue count or completed handoff earns no extra original milestone credit.
