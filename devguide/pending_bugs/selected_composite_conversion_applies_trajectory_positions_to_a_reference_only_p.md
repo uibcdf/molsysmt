@@ -7,7 +7,7 @@ closed:
 severity: high
 verification: reproduced
 area: [convert, selection]
-guard: tests/basic/convert/mult_to_one/test_convert_mult_to_molsysmt_MolSys.py::test_selected_trajectory_positions_never_index_the_reference_only_provider
+guard: tests/basic/convert/mult_to_one/test_convert_mult_to_molsysmt_MolSys.py
 normative:
 blocked_by: []
 supersedes: []
@@ -64,3 +64,18 @@ Its explanation and paired content contract now match the maintained eligible-
 provider rule: among on-axis providers carrying a value, the last wins. A direct
 query regression protects both orders, without allowing a reference to replace
 its trajectory. Existing executed course cells and outputs remain unchanged.
+
+## Matching counts are not correspondence
+
+A private closeout probe on 14f6420e9 also reproduces a subtler error: a selected
+one-structure trajectory chunk retains the off-axis reference's explicit
+state link, or its evaluated-empty named analysis. Length-only reconciliation
+does not detect that the observations belong to a different structure.
+
+The shared converter now retires the reference association with its geometry.
+Multiple chemical states acquire unknown trajectory links, including a selected
+count of one. Off-axis reference analyses reject through StructuralInconsistencyError
+until the caller supplies explicit structure correspondence. This preserves
+the source instead of silently transporting or dropping scientific evidence.
+Both provider orders and one/repeated structure selections are guarded. The
+283-case association/composition receiving passes without omissions.

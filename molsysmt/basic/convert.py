@@ -583,10 +583,34 @@ def _convert_multiple_to_one(
             from molsysmt.native import MolSys, Structures
 
             domain = output.structures if isinstance(output, MolSys) else output
+            if isinstance(output, MolSys) and output.interactions:
+                from molsysmt._private.smonitor import StructuralInconsistencyError
+
+                raise StructuralInconsistencyError(
+                    reason=(
+                        "Off-axis reference interaction analyses need an explicit "
+                        "structure mapping; detach them or supply aligned domains "
+                        "before conversion."
+                    ),
+                    caller="molsysmt.convert",
+                )
             if isinstance(domain, Structures):
                 # Discard the off-axis reference series as one complete payload.
                 # On-axis contributors below supply the selected observations.
                 domain._assign_frame_payload({})
+                if isinstance(output, MolSys):
+                    states = output.chemical_states
+                    if states is not None and states.n_chemical_states > 1:
+                        import pandas as pd
+
+                        # Stage an empty association on the retired reference axis.
+                        # Final reconciliation supplies unknowns on the new axis,
+                        # even when its selected cardinality happens to be one.
+                        output._structure_chemical_state_indices = pd.array(
+                            [], dtype="Int64"
+                        )
+                    else:
+                        output._structure_chemical_state_indices = None
 
         for aux_attribute, aux_item_form in aux_dict["set_attributes"].items():
             aux_item = aux_item_form[0]
@@ -952,6 +976,9 @@ def convert(
       trajectory axis. The off-axis reference contributes inventory, not
       broadcast observations; its own representative is never indexed using
       the requested trajectory positions.
+      Multiple chemical states acquire unknown trajectory associations. Named
+      analyses on that reference require an explicit structure mapping and
+      otherwise reject; matching selected counts do not establish correspondence.
     - For declared mechanical arguments, explicit conversion keywords take
       precedence over supported stored source settings, then library defaults.
       Explicit None remains an override, for example to disable a stored

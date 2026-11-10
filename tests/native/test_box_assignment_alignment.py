@@ -214,8 +214,10 @@ def test_aligned_coordinate_edits_preserve_other_series_and_snapshot(
         coordinates=puw.quantity(values * scale, unit),
     )
     np.testing.assert_allclose(
-        puw.get_value(structures.coordinates, to_unit="nm"), expected,
-        rtol=0, atol=1e-14,
+        puw.get_value(structures.coordinates, to_unit="nm"),
+        expected,
+        rtol=0,
+        atol=1e-14,
     )
     np.testing.assert_array_equal(
         puw.get_value(previous.coordinates, to_unit="nm"),
@@ -230,3 +232,116 @@ def test_aligned_coordinate_edits_preserve_other_series_and_snapshot(
             target.interactions["original"].evaluated_structure_indices,
             [] if isinstance(selected, str) else [1],
         )
+
+
+@pytest.mark.parametrize("route", ["public", "native", "property"])
+@pytest.mark.parametrize("domains", ["geometry", "topology", "chemical"])
+def test_attached_coordinates_cannot_resize_the_owner_atom_domain(route, domains):
+    from molsysmt.native import ChemicalStates
+
+    structures = Structures(coordinates=puw.quantity(np.zeros((3, 2, 3)), "nm"))
+    if domains == "topology":
+        target = MolSys(n_atoms=2)
+        target.structures = structures
+    elif domains == "chemical":
+        target = MolSys._from_partial_domains(
+            chemical_states=ChemicalStates(n_atoms=2), structures=structures
+        )
+    else:
+        target = MolSys._from_partial_domains(structures=structures)
+    original = structures._coordinates
+    value = puw.quantity(np.ones((3, 3, 3)), "nm")
+    with pytest.raises(StructuralInconsistencyError):
+        if route == "public":
+            msm.set(target, coordinates=value)
+        elif route == "native":
+            structures.set_coordinates(value=value)
+        else:
+            structures.coordinates = value
+    assert structures._coordinates is original
+    assert target.get_n_atoms() == structures.n_atoms == 2
+    assert target.structures is structures and structures.n_structures == 3
+
+
+@pytest.mark.parametrize("route", ["public", "native", "property"])
+def test_time_only_owner_can_define_and_clear_its_first_coordinate_axis(route):
+    structures = Structures(time=puw.quantity([1, 4, 9], "ps"))
+    target = MolSys._from_partial_domains(structures=structures)
+    assert target.get_n_atoms() is None
+    for value in (puw.quantity(np.ones((3, 2, 3)), "nm"), None):
+        if route == "public":
+            msm.set(target, coordinates=value)
+        elif route == "native":
+            structures.set_coordinates(value=value)
+        else:
+            structures.coordinates = value
+        assert structures.n_structures == 3
+        assert target.get_n_atoms() == (None if value is None else 2)
+        assert target.topology is None and target.chemical_states is None
+        np.testing.assert_array_equal(
+            puw.get_value(structures.time, to_unit="ps"), [1, 4, 9]
+        )
+
+
+@pytest.mark.parametrize("route", ["public", "native", "property"])
+def test_clearing_coordinates_retains_inventory_and_invalidates_old_coverage(route):
+    target = MolSys(n_atoms=2)
+    target.structures = Structures(
+        coordinates=puw.quantity(np.zeros((3, 2, 3)), "nm"),
+        time=puw.quantity([1, 4, 9], "ps"),
+    )
+    old = msm.Interactions.from_records(
+        [],
+        n_atoms=2,
+        n_structures=3,
+        evaluated_structure_indices=[0, 1, 2],
+        method="synthetic.coordinate-clearing",
+    )
+    target.interactions = {"old": old}
+    if route == "public":
+        msm.set(target, coordinates=None)
+    elif route == "native":
+        target.structures.set_coordinates(value=None)
+    else:
+        target.structures.coordinates = None
+    assert target.get_n_atoms() == 2 and target.structures.n_structures == 3
+    assert target.structures.coordinates is None
+    np.testing.assert_array_equal(
+        target.interactions["old"].evaluated_structure_indices, []
+    )
+    np.testing.assert_array_equal(old.evaluated_structure_indices, [0, 1, 2])
+
+
+def test_native_box_clear_keeps_series_alignment_and_retires_coverage():
+    target, structures = system("molsys", analyses=True)
+    old = target.interactions["original"]
+    structures.set_box(value=None)
+    assert structures.box is None and structures.n_structures == 3
+    np.testing.assert_array_equal(
+        target.interactions["original"].evaluated_structure_indices, []
+    )
+    np.testing.assert_array_equal(old.evaluated_structure_indices, [0, 1, 2])
+
+
+@pytest.mark.parametrize("field", ["coordinates", "box"])
+def test_native_geometry_value_uses_its_typed_argument_contract(field):
+    from molsysmt._private.smonitor import ArgumentError
+
+    _, structures = system("structures")
+    before = structures._coordinates, structures._box
+    values = np.zeros((3, 2 if field == "coordinates" else 3, 3))
+    with pytest.raises(ArgumentError):
+        getattr(structures, "set_" + field)(value=puw.quantity(values, "K"))
+    assert structures._coordinates is before[0] and structures._box is before[1]
+
+
+def test_native_coordinate_shape_refusal_retains_the_structural_cause():
+    from molsysmt._private.smonitor import ArgumentError
+
+    _, structures = system("structures")
+    original = structures._coordinates
+    with pytest.raises(ArgumentError) as caught:
+        structures.set_coordinates(value=puw.quantity(np.zeros((3, 2, 4)), "nm"))
+    assert isinstance(caught.value.__cause__, StructuralInconsistencyError)
+    assert "shape" in str(caught.value.__cause__).lower()
+    assert structures._coordinates is original

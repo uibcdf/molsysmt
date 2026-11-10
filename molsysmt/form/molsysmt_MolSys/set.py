@@ -1577,27 +1577,27 @@ def set_coordinates_to_atom(
 
     Notes
     -----
-    Selected structures become unevaluated in every named interaction analysis
-    once geometry delegation starts. Previous result views remain unchanged.
-    Empty atom/frame selections leave attached results intact.
+    Coordinate edits preserve an existing atom domain. A first series can
+    define a previously undeclared atom axis; None clears the full series.
+    Native publication validates geometry before invalidation. Selected
+    structures become unevaluated in named analyses; old result views survive.
+    Empty atom/structure selections leave attached results intact.
 
     .. versionadded:: 1.0.0
     """
     from molsysmt.form.molsysmt_Structures.set import set_coordinates_to_atom as aux_set
-    from molsysmt.form.molsysmt_Topology.get_topological_attributes import (
-        get_n_atoms_from_system as get_n_atoms_from_system,
-    )
 
-    if is_all(indices):
+    if value is not None and is_all(indices):
         n_atoms = item._get_n_atoms()
-        if n_atoms != value.shape[1]:
+        if n_atoms is not None and n_atoms != value.shape[1]:
             raise StructuralInconsistencyError(
                 "Coordinates mismatch with number of atoms",
                 caller="molsysmt.form.molsysmt_MolSys.set",
             )
 
     if (
-        item.interactions
+        value is not None
+        and item.interactions
         and is_all(indices)
         and is_all(structure_indices)
         and value.shape[0] != item.structures.n_structures

@@ -96,3 +96,63 @@ def test_query_precedence_uses_the_last_eligible_on_axis_provider():
             puw.get_value(msm.get(providers, coordinates=True), to_unit="nm"),
             np.full((2, 1, 3), expected),
         )
+
+
+def test_off_axis_state_links_are_unknown_even_when_selected_counts_match():
+    import pandas as pd
+
+    from molsysmt.native import MolSys, Structures
+
+    puw = msm.pyunitwizard
+    reference = MolSys(n_atoms=2)
+    reference.structures = Structures(
+        coordinates=puw.quantity(np.zeros((1, 2, 3)), "nm")
+    )
+    reference.chemical_states.append_state()
+    msm.set(reference, structure_chemical_state_index=[0])
+    trajectory = Structures(coordinates=puw.quantity(np.ones((3, 2, 3)), "nm"))
+    for providers in ([reference, trajectory], [trajectory, reference]):
+        for positions in ([2], [2, 0, 2]):
+            output = msm.convert(providers, structure_indices=positions)
+            assert output.chemical_states.n_chemical_states == 2
+            links = output._get_structure_chemical_state_indices()
+            assert len(links) == len(positions) and pd.isna(links).all()
+            np.testing.assert_array_equal(
+                puw.get_value(output.structures.coordinates, to_unit="nm"),
+                np.ones((len(positions), 2, 3)),
+            )
+    assert reference.structures.n_structures == 1
+    np.testing.assert_array_equal(
+        reference._get_structure_chemical_state_indices(), [0]
+    )
+
+
+def test_off_axis_analyses_require_explicit_structure_correspondence():
+    import pytest
+
+    from molsysmt._private.smonitor import StructuralInconsistencyError
+    from molsysmt.native import MolSys, Structures
+
+    puw = msm.pyunitwizard
+    reference = MolSys(n_atoms=2)
+    reference.structures = Structures(
+        coordinates=puw.quantity(np.zeros((1, 2, 3)), "nm")
+    )
+    analysis = msm.Interactions.from_records(
+        [],
+        n_atoms=2,
+        n_structures=1,
+        evaluated_structure_indices=[0],
+        method="synthetic.off-axis-reference",
+    )
+    reference.interactions = {"reference": analysis}
+    trajectory = Structures(coordinates=puw.quantity(np.ones((3, 2, 3)), "nm"))
+    for providers in ([reference, trajectory], [trajectory, reference]):
+        for positions in ([2], [2, 0, 2]):
+            with pytest.raises(
+                StructuralInconsistencyError, match="reference interaction analyses"
+            ):
+                msm.convert(providers, structure_indices=positions)
+    assert reference.interactions["reference"] is analysis
+    np.testing.assert_array_equal(analysis.evaluated_structure_indices, [0])
+    assert reference.structures.n_structures == 1

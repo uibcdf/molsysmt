@@ -3,6 +3,7 @@ import numpy as np
 from molsysmt import pyunitwizard as puw
 from molsysmt._private.smonitor import (
     ArgumentError,
+    StructuralInconsistencyError,
 )
 
 functions_where_boolean = (
@@ -37,8 +38,6 @@ def digest_coordinates(coordinates, caller=None):
 
             # Validation of dimensionality
             if not puw.check(unit, dimensionality={"[L]": 1}):
-                from molsysmt._private.smonitor import StructuralInconsistencyError
-
                 raise StructuralInconsistencyError("Incompatible units for coordinates")
 
         shape = value.shape

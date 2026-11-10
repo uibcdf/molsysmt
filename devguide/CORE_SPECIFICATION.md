@@ -67,6 +67,9 @@ The dynamic payload of the system. It manages time-dependent geometric and physi
   geometry and named-analysis coverage. Constructors stage a complete new
   payload and validate it separately. Coordinate replacement also preserves
   the structure and atom axes shared with other stored series.
+  An attached coordinate edit also preserves the MolSys atom domain. A first
+  series may define an undeclared atom axis. Full None clearing retains the
+  other declared series/inventory, and typed native methods validate units.
 
 ### 2.4 `molsysmt.ChemicalStates`
 The collection owns state-local bonds, atom assignments and components on a

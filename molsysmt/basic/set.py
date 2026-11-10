@@ -93,6 +93,9 @@ def set(
     the full box series; partial initialization requires an existing series.
     Full coordinate replacement likewise preserves the axes shared with other
     stored structural series; it cannot silently resize only that series.
+    Attached coordinate edits also preserve the MolSys atom domain. A first
+    coordinate series can define a previously undeclared atom axis; None clears
+    the complete series while preserving other declared domains and series.
 
     Native MolecularMechanics atom assignments accept one-dimensional string
     atom_ff_type labels or explicit partial-charge vectors. Values follow the

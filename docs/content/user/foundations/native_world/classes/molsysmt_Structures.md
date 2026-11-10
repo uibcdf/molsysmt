@@ -52,6 +52,13 @@ series while leaving its time, boxes or labels at length three. Rejections
 preserve geometry and named-analysis coverage; use coordinated extraction or
 append operations when changing the system's axes.
 
+Attached coordinate edits preserve the `MolSys` atom domain even without named
+analyses. A first coordinate series can define an undeclared atom axis on a
+time-only system; this creates no topology or chemical states. The native
+coordinate and box methods use their typed ArgDigest contracts, including
+physical units. `None` clears a full series; other declared series and inventory
+remain. Invalid writes preserve geometry and analysis coverage.
+
 Reading metadata does not imply that a form has an editing route. Named
 `bioassembly` operations can be supplied explicitly to the `Structures`
 constructor and retrieved with `msm.get(..., bioassembly=True)`. They describe

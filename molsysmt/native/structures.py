@@ -270,6 +270,16 @@ class Structures(NativeQueries):
         if owner is None:
             setattr(self, "_" + name, candidate)
             return
+        if name == "coordinates" and candidate is not None:
+            expected_atoms = owner._get_n_atoms()
+            if expected_atoms is not None and candidate.shape[1] != expected_atoms:
+                raise StructuralInconsistencyError(
+                    reason=(
+                        "Coordinate edits must preserve the owning MolSys atom domain; "
+                        "use coordinated atom-domain operations to resize it."
+                    ),
+                    caller="molsysmt.native.Structures",
+                )
         # Builders may populate a fresh domain in stages. Once analyses exist,
         # geometry edits must preserve their declared axes and series alignment.
         if getattr(owner, "_interactions", {}):
@@ -1440,10 +1450,10 @@ class Structures(NativeQueries):
             Atom indices to update. Repetitions use the last supplied value.
         structure_indices : str or array-like of int, default='all'
             Structure indices to update. Repetitions use the last supplied value.
-        value : quantity, default=None
+        value : quantity or None, default=None
             Length-valued coordinates with shape (n_selected_structures,
-            n_selected_atoms, 3). Stored values use nm. An explicit quantity is
-            required; assign coordinates=None to clear the complete series.
+            n_selected_atoms, 3). Stored values use nm. None clears the complete
+            series; partial clearing is unavailable.
         skip_digestion : bool, default=False
             Skip argument digestion only for inputs already satisfying this contract.
 
@@ -1458,8 +1468,10 @@ class Structures(NativeQueries):
         existing series prepare affected blocks before publication; empty axes
         do nothing. Replacement must align with the structure and atom axes of
         other stored series, including on standalone domains. A mismatch fails
-        before publishing coordinates or invalidating analyses. When attached
-        to a MolSys, successful edits invalidate all
+        before publishing coordinates or invalidating analyses. An attached
+        domain cannot resize its MolSys atom domain. Its first coordinate series
+        may define a previously undeclared atom axis. When attached to a MolSys,
+        successful edits invalidate all
         named analyses on the affected structures, including evaluated-empty
         coverage. Other structures and previously obtained snapshots survive.
         No detector runs automatically. Copies of this domain have no owner.
@@ -1703,10 +1715,10 @@ class Structures(NativeQueries):
         structure_indices : int, list, tuple, or numpy.ndarray, default='all'
             Structure indices (0-based) to update. Use 'all' to initialize a
             missing box series; a partial update requires an existing series.
-        value : quantity, default=None
+        value : quantity or None, default=None
             Box matrices with shape (n_selected_structures, 3, 3), carrying
-            length units. An explicit quantity is required. Internal storage
-            uses nm; assign box=None to clear the complete series.
+            length units. Internal storage uses nm. None clears the complete
+            series; partial clearing is unavailable.
         skip_digestion : bool, default=False
             Whether to skip MolSysMT's internal argument digestion mechanism.
 

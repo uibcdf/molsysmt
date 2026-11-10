@@ -83,3 +83,22 @@ failures in a reusable-container attempt; that attempt is not accepted. A later
 363-case receiving exposes the separate selected-reference conversion defect
 tracked as #698. With the selected conversion correction, 535 affected builder,
 PDBQT, native chunk and composed-conversion controls pass without omissions.
+
+## Attached atom domains and typed values
+
+Nine additional controls expose six native-method/property paths that resize an
+attached coordinate atom axis despite a declared MolSys domain; the three public
+set paths already reject. The shared native owner now checks that declaration
+before publishing. Geometry-only, topology-bearing and chemistry-bearing owners
+are covered without relying on analyses. All 547 affected rebuilder/iterator/
+conversion cases pass after this guard.
+
+Positive clearing/initialization controls also retain four original failures:
+public first-axis initialization rejects an undeclared atom count, public None
+clearing raises AttributeError, and native value digestion rejects None for two
+coordinate operations. The public form now distinguishes undeclared from known
+atom counts and handles None before shape checks. Typed native coordinate/box
+methods delegate to their existing argument digesters, retaining units, shapes
+and full-series None clearing. Invalid coordinate shape errors preserve the
+structural cause instead of an unbound local exception. No validator is bypassed
+and no topology or chemistry is inferred.

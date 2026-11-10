@@ -12,6 +12,16 @@ def digest_value(value, caller=None):
     if caller is None:
         raise ArgumentError("value", value=value, caller=caller, message=None)
 
+    if caller == "molsysmt.native.structures.set_coordinates":
+        from .coordinates import digest_coordinates
+
+        return digest_coordinates(value, caller=caller)
+
+    if caller == "molsysmt.native.structures.set_box":
+        from .box import digest_box
+
+        return digest_box(value, caller=caller)
+
     if caller == "molsysmt.native.structures.set_occupancy":
         from .occupancy import digest_occupancy
 
