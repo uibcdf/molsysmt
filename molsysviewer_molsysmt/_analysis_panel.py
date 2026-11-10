@@ -11,10 +11,17 @@ from molsysviewer import AddonPanelWidget
 
 from ._analysis_panel_frontend import CSS as ANALYSIS_CSS
 from ._analysis_panel_frontend import ESM
+from ._analysis_properties import (
+    PROPERTY_DEFAULTS,
+    PROPERTY_METHODS,
+    _PropertyReports,
+    validate_property_parameters,
+)
 from ._panel_frontend import CSS
 from ._task_panel import _MolecularTaskPanel, _structures
 
 _DEFAULTS = {
+    **PROPERTY_DEFAULTS,
     "task": "distances",
     "relation": "between",
     "pairing": "cartesian",
@@ -51,6 +58,7 @@ _METHODS = {
     **_CONFORMATION_METHODS,
     **_ANGULAR_METHODS,
     "pca": "principal_component_analysis",
+    **{key: value.rsplit(".", 1)[1] for key, value in PROPERTY_METHODS.items()},
 }
 _PAGE_SIZE = 50
 _SCENE_ACTIONS = {
@@ -101,6 +109,7 @@ def _parameters(value):
             raise ValueError("Enter bounded structure and neighborhood parameters.")
     if not isinstance(result["pbc"], bool):
         raise ValueError("Periodic distances must be explicitly enabled or disabled.")
+    validate_property_parameters(result)
     return result
 
 
@@ -131,6 +140,8 @@ class _AnalysisReport:
 
 
 def _uses_second(parameters):
+    if parameters["task"] in PROPERTY_METHODS:
+        return False
     if parameters["task"] in _ANGULAR_METHODS or parameters["task"] == "pca":
         return False
     if parameters["task"] in _CONFORMATION_METHODS:
@@ -141,7 +152,8 @@ def _uses_second(parameters):
     return parameters["relation"] == "between"
 
 
-class _AnalysisPanel(_MolecularTaskPanel):
+class _AnalysisPanel(_PropertyReports, _MolecularTaskPanel):
+    _report_type = _AnalysisReport
     _esm = ESM
     _css = CSS + ANALYSIS_CSS
     _state_key = "analysis_selection"
@@ -216,6 +228,8 @@ class _AnalysisPanel(_MolecularTaskPanel):
         if p["task"] in _ANGULAR_METHODS:
             return self._calculate_angular(target, status)
         first = self._population(target, self._draft, status)
+        if p["task"] in PROPERTY_METHODS:
+            return self._calculate_property(target, status, first)
         if p["task"] == "pca":
             return self._calculate_pca(target, status, first)
         if p["task"] in _CONFORMATION_METHODS:
@@ -511,7 +525,13 @@ class _AnalysisPanel(_MolecularTaskPanel):
         if report is None:
             return None
         depends_on_visible = (
-            report.parameters["structures"] == "current"
+            (
+                report.parameters["structures"] == "current"
+                and (
+                    report.parameters["task"] not in PROPERTY_METHODS
+                    or report.parameters["task"] in {"sasa", "bonds", "blocks", "rings"}
+                )
+            )
             or (
                 report.parameters["task"] not in _ANGULAR_METHODS
                 and report.first_draft["context"] == "current"
@@ -629,6 +649,8 @@ class _AnalysisPanel(_MolecularTaskPanel):
 
     def _summary(self):
         r = self._report
+        if r.parameters["task"] in PROPERTY_METHODS:
+            return self._property_summary()
         pca = r.parameters["task"] == "pca"
         conformation = r.parameters["task"] in _CONFORMATION_METHODS or pca
         angular = r.parameters["task"] in _ANGULAR_METHODS
@@ -715,6 +737,7 @@ class _AnalysisPanel(_MolecularTaskPanel):
     @staticmethod
     def _live_distance_limit(report):
         if report.parameters["task"] in {
+            *PROPERTY_METHODS,
             *_CONFORMATION_METHODS,
             "pca",
             *_ANGULAR_METHODS,
@@ -738,6 +761,8 @@ class _AnalysisPanel(_MolecularTaskPanel):
         r = self._report
         if offset and offset >= r.total:
             raise ValueError("That analysis page is outside its result population.")
+        if r.parameters["task"] in PROPERTY_METHODS:
+            return self._property_page(offset, _PAGE_SIZE)
         if r.parameters["task"] == "pca":
             stop = min(r.total, offset + _PAGE_SIZE)
             if r.component is None:
@@ -891,7 +916,10 @@ class _AnalysisPanel(_MolecularTaskPanel):
             < min(report.total, self._offset + _PAGE_SIZE)
         ):
             raise ValueError("Choose a result row on the current page.")
-        if report.parameters["task"] == "pca":
+        if report.parameters["task"] in PROPERTY_METHODS:
+            first, observation_structure = self._property_row(position)
+            second = []
+        elif report.parameters["task"] == "pca":
             first = (
                 report.first.tolist()
                 if report.component is None

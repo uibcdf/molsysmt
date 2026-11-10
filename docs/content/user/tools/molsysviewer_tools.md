@@ -6246,3 +6246,40 @@ uses an explicit group expression after resolving source atoms through the
 public hierarchy, avoiding the numeric-axis ambiguity tracked in MolSysMT #679.
 No atom identity map is guessed from counts or names. Native copying may
 materialize the complete trajectory; browser form size is not a RAM guarantee.
+
+### Inspecting properties and molecular reports
+
+In **Analysis**, choose **Properties and reports**, then choose a task. Switching
+families does not calculate anything. Choose the atoms defining the output and
+press **Calculate**. Mass and SASA can report atoms or complete groups; the other
+group reports include each group touched by your atoms once, in first-encounter
+order. Atom indices and group indices remain distinct.
+
+| Task | Meaning and output |
+| --- | --- |
+| Standard mass | IUPAC 2021 physical masses, displayed in dalton. |
+| Reference group charge | Fixed amino-acid reference values at pH 7, in elementary charge. This does not read stored formal/partial charges or predict protonation. |
+| Hydrophobicity / polarity | Explicit named amino-acid reference scales, dimensionless. Unsupported groups retain their native diagnostic rather than disappearing. |
+| SASA | Shrake–Rupley areas in nm², with an explicit probe, sampling count, provider, periodic choice and structure scope. All source atoms, including solvent, occlude the surface even when only selected outputs are requested. |
+| Amino-acid sequence projection | One native projection per source group, with omitted non-amino-acid groups identified. Read stored naming declarations or provide a matching convention. This neither concatenates separate molecules nor corrects names. |
+| Stored bonds / connected blocks | The selected induced graph in an explicit chemical state. Missing bonds are not inferred; connected blocks are not stable molecular identities. |
+| Ring membership | Experimental minimum cycle basis from declared covalent chemistry. This is neither all cycles nor aromaticity. Missing chemistry, partial rings and cyclic blocks exceeding 256 atoms are refused. |
+
+Static tables and sequence projections have no per-structure evaluation axis.
+SASA retains ordered and repeated structure requests. Graph tasks use the
+structure scope to resolve selections and chemical states, rather than inventing
+one geometry observation per structure. Periodic native SASA excludes an atom's
+own periodic images; MDTraj with a box and periodic screening enabled refuses
+the request. No wrapping, reconstruction, preparation or provider fallback is
+implicit. SASA requests one CPU worker; the expert Python API retains the full
+native execution controls.
+
+Reports send up to 50 rows per page. Native calculation, coordinate access and
+retained memberships can still require substantial time and memory. Membership
+text can be shortened in the table; **Select participants** and **Focus
+participants** use the complete source atoms of that row in the visible
+structure. They do not navigate to a calculated structure. Clear, changed inputs,
+source changes and panel retirement release the report. These reports do not
+create live distances, color the scene or introduce generic H5MSM result storage.
+The corresponding expert functions remain available under
+`view.addons.molsysmt.physchem`, `.chemical_states`, and the native form converters.

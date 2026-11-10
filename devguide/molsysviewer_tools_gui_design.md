@@ -854,3 +854,33 @@ result remains alive after presentation or adoption. Original unit/fixture/GUI
 failures stay in the receiving record, including the two-widget test-selector
 correction; this does not infer a product failure. Human/installed and covering
 hosted qualification remain separate from local native and Jupyter receiving.
+
+### Property and molecular-report source receiving — 2026-11-09
+
+D6.8 uses the existing Analysis panel, with explicit Structure / Properties and
+reports family buttons. Families select available tasks without automatic
+calculation. Private orchestration delegates the received public physchem,
+chemical_states and Topology form tools; the expert mirror is unchanged.
+
+The nine tasks are standard mass, pH-7 reference group charge, named hydrophobicity
+and polarity tables, SASA, indexed sequence projection, stored bonds, connected
+blocks and ring membership. Atom-population to complete-group mapping uses the
+public source axes and retains first-encounter group order. Static tables and
+sequence projections have no evaluated structure axis. SASA retains ordered,
+repeated structures and explicit nm² conversion, including under a pm policy;
+all source atoms occlude, and explicit CPU single-worker execution does not
+change the application's configuration. Graph structure requests resolve native
+state/selection context, not per-frame geometry occurrences. Ring completeness,
+full-source perception, minimum-cycle-basis and native block-size/prerequisite
+limits remain explicit. Legacy pentalanine can supply stored bonds while lacking
+the chemical columns needed for ring perception; this is a refusal control, not
+implicit preparation or an evaluated-empty ring result.
+
+The mounted report retains native precision/membership privately, transports at
+most fifty rows, and uses complete participants for deliberate Select/Focus.
+Static inputs ignore hidden structure drafts; expired, off-page and incompatible
+scene actions refuse. No generic result schema, detector, scientific algorithm,
+engine fallback or implicit visual adoption is introduced. Actual Jupyter and
+both popups and representative native Qt have separate receiving guards;
+source delivery does not establish owner integration, installed qualification,
+postponed human acceptance or scientific stability promotion.

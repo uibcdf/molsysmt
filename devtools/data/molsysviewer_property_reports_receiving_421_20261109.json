@@ -1,0 +1,159 @@
+{
+  "schema": "molsysmt.viewer_property_reports_receiving@1",
+  "date": "2026-11-09",
+  "owner_issue": "uibcdf/molsysmt#421",
+  "consumer_issue": "uibcdf/molsysviewer#315",
+  "status": "source receiving; owner review, combined hosted and installed/human acceptance pending",
+  "source_parent": "d320a0c5de831ebf2b1a41020d355393e0c61d6c",
+  "scientific_runtime_base": "ca76d93b420435243f68167521ccb503ec8b2728",
+  "viewer_source": "c7d2a095c5448643def043c74165d9f1a43e9398",
+  "native_backend_rebuilt": false,
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "source_sha256": {
+    ".github/workflows/ci-smoke.yaml": "463f5d912f607436c44960fad3f0551b0c5816d8c78c6e6359c91a4a496c939e",
+    "devguide/molsysviewer_tools_gui_design.md": "45d47bdb4fee6f0fe69e480ac8da8dfc67e8fbbabe2d51e72c508c4e16195398",
+    "devtools/scripts/viewer_tools_contract.py": "e8580fbf8ba909370f44fecd5c06974d56f6935ed88e0dab4ec506db94bab24b",
+    "docs/content/user/tools/molsysviewer_tools.md": "5087a6691d2e1f4807f99d86ea321912d2a2a44366f1cf3b65cc539a22463f95",
+    "docs/docs_manifest.yml": "be0567c767e7bcc84dc3e6ebcc712756ff558203d25a3d5048fc00fa1e7a7f7d",
+    "molsysviewer_molsysmt/_analysis_panel.py": "344cf0d29bf0f17ce4a06676a2b9d6b635f6af7e78e4ed799194194b39f6326f",
+    "molsysviewer_molsysmt/_analysis_panel_frontend.py": "3db492cabb5199f081736c06f99e72272fe8e70023e70ec3ed450c95f7854f07",
+    "molsysviewer_molsysmt/_analysis_properties.py": "2a0bc859e83a60ecfdcb0fb8d226e48c8df1e6644d5fb0c8c1d3d96f939d76dd",
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "f6f4220b91d7361f7d7e08bc7bee1aa91fce0f5a5c8aaaaf59f873a2f71032b7",
+    "tests/molsysviewer_molsysmt/property_report_fixture.py": "5fbfdcf4bb4503f196443607489e9aadd3dd353994d2ec6c7efffbc40bccafbf",
+    "tests/molsysviewer_molsysmt/property_report_jupyter.mjs": "3f772ee564070696530bd2b2659b0c95aa4102b3fcba316f44d6f70326af71db",
+    "tests/molsysviewer_molsysmt/property_report_qt.py": "537cb05bc55d2d9e4fbd9dd9ccdab9622e858ebddc002db0215e916cfbae074d",
+    "tests/molsysviewer_molsysmt/qt_receiving_guard.py": "3bb4dc3af4ebffad29bea079ee28d29a30556c7fa2453dd558fc7a1b5d1bb524",
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "fd23e55870f01cc6d2820bbde2635c9d42d84c3ae81e5340c8250a2d35f2cf39",
+    "tests/molsysviewer_molsysmt/test_property_analysis_panel.py": "7a2635ee5da4894f5bc46d48de8b35276e997a65a1a9c4d448a75a01bde1609a"
+  },
+  "tasks": [
+    "mass",
+    "reference_charge",
+    "hydrophobicity",
+    "polarity",
+    "sasa",
+    "sequence",
+    "bonds",
+    "blocks",
+    "rings"
+  ],
+  "expert_api_unchanged": true,
+  "scientific_algorithms_unchanged": true,
+  "receiving": [
+    {
+      "campaign": "properties-native-60",
+      "scope": "33 native property/source/unit/lifetime/syntax checks",
+      "native_exit": 0,
+      "seconds": 14.835049720015377,
+      "selected_inputs": 10715,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 566.7,
+      "cleanup": {
+        "tracked": 2,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "invocation_sha256": "f586de27dac34492b05d506936e18b382c444fc2dc768616431e2ead9034ee13"
+    },
+    {
+      "campaign": "properties-jupyter-62",
+      "scope": "Actual Jupyter/AnyWidget/Mol* six scenarios and both popups",
+      "native_exit": 0,
+      "seconds": 49.107273501111194,
+      "selected_inputs": 10718,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 2914.7,
+      "cleanup": {
+        "tracked": 25,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "invocation_sha256": "4919652400c939167aa0dad765dc598fcae0962993012125e15f8baa8546b2e3"
+    },
+    {
+      "campaign": "properties-native-qt-63",
+      "scope": "Native Qt/WebEngine six representative scenarios",
+      "native_exit": 0,
+      "seconds": 19.01401027198881,
+      "selected_inputs": 10718,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 1618.7,
+      "cleanup": {
+        "tracked": 5,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "invocation_sha256": "c154bb4b9d3a822d918097ad21607ab75406d15e1260e4db3184be706bcfda01"
+    },
+    {
+      "campaign": "properties-analysis-integration-64",
+      "scope": "276 existing/new Analysis and three addon preflight cases",
+      "native_exit": 0,
+      "seconds": 61.74311927286908,
+      "selected_inputs": 10718,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 690.9,
+      "cleanup": {
+        "tracked": 3,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "invocation_sha256": "7e1bac91cbeba58d5f55eb4454c0fe6f095cbeb7f8d69388ed7838c496c6909e"
+    },
+    {
+      "campaign": "properties-quality-65",
+      "scope": "Ruff lint/format, dependency inventory, devguide/index/course and diff",
+      "native_exit": 0,
+      "seconds": 4.606289805145934,
+      "selected_inputs": 10718,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 37.4,
+      "cleanup": {
+        "tracked": 6,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "invocation_sha256": "79976cbda373edd86d4bc5c9e4fa2a1ecf837bc7012ca91c3c0ecb206c89549e"
+    }
+  ],
+  "resource_limits": {
+    "logical_cpus": 8,
+    "ram_gib": 6,
+    "swap_gib": 0,
+    "minimum_globally_available_gib": 2,
+    "own_intensive_jobs": 1
+  },
+  "preserved_failures": [
+    {
+      "campaign": "properties-native-58",
+      "reason": "Fixture provided an incomplete dimension policy and included unparameterized ACE in scale lookup; rounded browser comparisons incorrectly assumed more than nine significant digits. Native precision checks retained."
+    },
+    {
+      "campaign": "properties-native-59",
+      "reason": "Test expected an ndarray from a public reader whose admitted result is a list. Source mapping itself agreed."
+    },
+    {
+      "campaign": "properties-jupyter-61",
+      "reason": "Test expected rings from legacy pentalanine despite missing bond chemistry columns. Receiving now asserts that native refusal and separately checks known caffeine rings; no implicit preparation."
+    },
+    {
+      "command_scope": "local lint invocation",
+      "reason": "An explicit shell wildcard passed an mjs file to Ruff as Python; syntax diagnostics were command misuse, not product failures. Subsequent full Python Ruff and native Node syntax checks pass."
+    }
+  ],
+  "not_claimed": [
+    "clean installed-artifact or solver qualification",
+    "new-source full hosted matrix",
+    "owner integration",
+    "postponed human acceptance",
+    "generic H5MSM result serialization",
+    "unconditional stability for native experimental chemistry",
+    "release or package publication"
+  ],
+  "human_files_preserved": 11
+}
