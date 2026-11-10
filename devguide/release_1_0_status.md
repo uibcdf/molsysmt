@@ -1,5 +1,43 @@
 # MolSysMT 1.0 Execution Status
 
+## Combined interaction, mechanics and session receiving — 2026-11-10
+
+Exact PR **#687 f35112090** and **#691 0fb92602a** are independently received on
+clean **81b4fc866**, including the public #690 native correction, against raw-blob-
+verified Viewer **b9f3be01**. **5,923 affected cases pass without omissions**,
+plus **116 scientific cases / 74 nodes**, **14 fast gates**, the inspected HTML
+build, **two actual Jupyter workflows / 13 browser checks** and a representative
+**native Qt workflow / four checks**. Nine continuous scientific phases compare
+composition/source maps, independent results, real ensembles, named analysis
+versus visuals, H5MSM/session recovery and subsequent selective invalidation.
+The original empty ensemble stays empty; the positive control uses a deliberate
+same-View Replace with different declared structures and unchanged criteria.
+See the [combined receipt](../devtools/data/combined_session_receiving_687_688_691_20261110.json).
+
+#688 is source-resolved: the shared private-file context remains the owner,
+the conflicting outer unlink is removed, and nine filesystem cases include
+an actual-entrypoint foreign-replacement regression. The original reporter
+confirms private hash-only retirement; no private credential contents are read.
+Original failed native/graphical/fixture/administrative attempts remain failed.
+Passing new-host workflows do not establish #615 causality or accept the earlier
+old-host complete Analysis deadline failures.
+
+Credit exactly **three original intents**, **39 → 42/50**: interaction reports,
+mechanical reports and complete session. Original weights remain fixed:
+**75.6386% → 75.9795% (about 76.0%)**. #688/#690 add no repair bonus.
+This is source and automated graphical receiving. Interactions/profiles/pages
+remain experimental; graphical mechanics currently reviews requested/default
+inputs, with compiled physical-recipe adoption retained as separate consumer
+work. Full-session Qt, human, clean installed and exact-candidate gates remain.
+
+Next: verify public combined delivery and close the reviewed PRs/#688. Then
+continue #666/provider143, remaining original construction/protonation/secondary-
+structure intents and #615, while requesting #524's actual published Viewer
+floor/clean installed evidence and #250/#254 agreement. Those two original leaves
+would add 4.7619 points and reach about **80.7414%** if genuinely received;
+more source-only tests cannot replace them. #256 P5/P6 and #334 retain their
+own scope. No hosted matrix, package, tag, Release or promotion is launched.
+
 ## Native allocation repair received; incoming session work — 2026-11-10
 
 #690 is source-resolved on clean **573476e70** with the canonical rebuilt

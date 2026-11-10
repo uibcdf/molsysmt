@@ -4058,3 +4058,18 @@ b9f3be01. Receive their actual combined interaction/mechanics/continuous-session
 scopes after preserving the compiled native correction. #688's reporter-owned
 retirement handoff and removal of unconditional call-site cleanup need owner
 receiving. Existing original intent weights stay unchanged until accepted.
+
+## Combined source acceptance — 2026-11-10
+
+#687/#691 are received on clean 81b4fc866 with exact Viewer b9f3be01 and
+qualified #690 backend. The [combined receipt](../../devtools/data/combined_session_receiving_687_688_691_20261110.json)
+records 5,923 affected passes, 116 scientific cases / 74 nodes, fourteen fast
+gates, inspected HTML, thirteen actual-Jupyter checks across two workflows and
+four representative Qt checks. Nine scientific phases receive native/scene
+save, recovery and continuation. The stronger #688 call-site lifecycle is guarded
+and its reporter handoff received. Credit exactly interaction reports, mechanical
+reports and complete session: 42/50 original intents and 75.9795% weighted progress.
+No new weight, installed/human/full-Qt-session or release acceptance is added.
+Retain contact #666/provider143, construction, protonation reconciliation,
+secondary structure and #615. Graphical compiled physical-recipe adoption stays
+separate from the received requested/default review and native #582 expert query.

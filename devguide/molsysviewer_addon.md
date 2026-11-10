@@ -2125,10 +2125,11 @@ analysis coverage are compared, including independent result lifetimes.
 This receives representative source behavior, not every scientific domain,
 human observations, Qt parity, clean installed artifacts or a release. PDB-ID
 acquisition is exercised separately from the deterministic bundled session.
-The native cell-grid allocation defect in uibcdf/molsysmt#690 remains open for
-pre-1.0 owner review; the ordinary default-criterion controls do not qualify tiny
-cutoffs, wide sparse boxes or a universal memory bound. Source/platform and
-scientific qualifications retain their independently recorded scope.
+The native cell-grid allocation defect in uibcdf/molsysmt#690 is source-resolved
+and independently received in 3bcd573da. Its numerical working estimate is not
+a universal RSS or source/compatibility-output bound. This session also receives
+the corrected native backend, without replacing its dedicated allocation/geometry
+guards. Source/platform and scientific qualifications retain their recorded scope.
 
 The Jupyter launcher creates restrictive, create-only runtime files after pure
 fixture preparation and retires only its own files after server shutdown.

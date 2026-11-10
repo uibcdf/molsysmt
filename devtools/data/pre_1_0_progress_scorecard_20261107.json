@@ -2,15 +2,15 @@
   "schema_version": "molsysmt.pre1-progress@1",
   "date": "2026-11-07",
   "owner_issue": "uibcdf/molsysmt#334",
-  "qualified_source": "528c460a9523a2c69aa8116c8e97c26fcfeca9c1",
+  "qualified_source": "81b4fc86644994a24f7ee65fa7414beda0aa0c67",
   "measure": "Verified implementation/source-delivery milestones; approximate operational completion, not elapsed effort, scientific coverage, a readiness probability or publication authority.",
   "accounting_change": "The earlier all-or-nothing phase-exit indicator was 40%. The same six phase weights and full scope now receive explicit partial milestone credit. This is a catch-up remeasurement of delivered work, not a new 21-point implementation in this turn.",
   "method": "Within phases 3\u20136, each named requirement package has equal weight. Nested accepted GUI families have equal family weight, then equal declared intent/task weight within that family. Verified-source leaves score 1, pending leaves score 0; parents average children. Supplemental defect/test/issue counts add no bonus. Pending means not accepted by this audit, not absent code.",
   "gui_scope": "Tracking packages make the previously accepted workflow inventory explicit. They are user intents, not a GUI promise for every expert argument or a new scientific feature request. Native/expert APIs remain available and retain their own qualification.",
   "publication": "The existing pause remains. #640/#641/#642 and all other required correctness work retain owning acceptance. Exact candidate/platform/installed and final sign-off gates are not scored as passed by source tests.",
   "legacy_phase_exit_percent": 40,
-  "weighted_milestone_percent": 75.6386322011322,
-  "reported_approximate_percent": 75.6,
+  "weighted_milestone_percent": 75.97954129204129,
+  "reported_approximate_percent": 76.0,
   "phases": [
     {
       "id": "phase1",
@@ -729,31 +729,37 @@
                 {
                   "id": "interactions",
                   "requirement": "Receive qualified interaction workflows through their core owner without a duplicate store",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/combined_session_receiving_687_688_691_20261110.json"
+                  ],
+                  "review": "Clean 81b4fc866 receives exact contributor heads and Viewer b9f3be01 with 5,923 affected cases, two actual Jupyter workflows/13 checks, nine continuous-session scientific phases and representative Qt/four checks. This is source/automated graphical receiving, not installed, full-session Qt, human or final-candidate qualification. Mechanical graphical review retains requested/default scope; native compiled recipe remains its separate expert contract."
                 },
                 {
                   "id": "mechanics",
                   "requirement": "Receive declared mechanical quantities and provenance",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/combined_session_receiving_687_688_691_20261110.json"
+                  ],
+                  "review": "Clean 81b4fc866 receives exact contributor heads and Viewer b9f3be01 with 5,923 affected cases, two actual Jupyter workflows/13 checks, nine continuous-session scientific phases and representative Qt/four checks. This is source/automated graphical receiving, not installed, full-session Qt, human or final-candidate qualification. Mechanical graphical review retains requested/default scope; native compiled recipe remains its separate expert contract."
                 }
               ]
             },
             {
               "id": "complete-session",
               "requirement": "Receive actual complete molecular/analysis/scene save, recover and continue session",
-              "state": "pending",
-              "evidence": [],
-              "review": ""
+              "state": "verified_source",
+              "evidence": [
+                "devtools/data/combined_session_receiving_687_688_691_20261110.json"
+              ],
+              "review": "Clean 81b4fc866 receives exact contributor heads and Viewer b9f3be01 with 5,923 affected cases, two actual Jupyter workflows/13 checks, nine continuous-session scientific phases and representative Qt/four checks. This is source/automated graphical receiving, not installed, full-session Qt, human or final-candidate qualification. Mechanical graphical review retains requested/default scope; native compiled recipe remains its separate expert contract."
             }
           ]
         }
       ],
-      "verified_fraction": 0.8731643356643357,
-      "credited_points": 21.829108391608393
+      "verified_fraction": 0.8868006993006994,
+      "credited_points": 22.170017482517483
     },
     {
       "id": "phase5",
@@ -910,18 +916,18 @@
       "uibcdf/molsysmt#582",
       "uibcdf/molsysmt#686",
       "uibcdf/molsysmt#689",
-      "uibcdf/molsysmt#690"
+      "uibcdf/molsysmt#690",
+      "uibcdf/molsysmt#688"
     ],
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
     "owner_verification": "Public 1d033b656 independently matches 21 changed paths and preserves four human files. Clean b184e9d18 passes 1,229 affected cases without omissions, fourteen fast gates and three inspected HTML pages. #661 is closed. #256 remains open and public H5MSM writing remains 0.5; no client/installed/candidate acceptance is added.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Receive #687/#691 combined interaction/mechanics/continuous-session source against exact verified Viewer b9f3be01 after native #690 allocation repair. Preserve all failed graphical attempts and #615 uncertainty. Receive the #688 call-site ownership fix and reporter retirement before closure. Continue #666/provider143, #524 installed floors, #250/#254 agreement, #256 P5/P6 and #334 exact-candidate gates without altering original weights or the publication pause.",
+    "scope": "Publicly integrate the received #687/#691 cohort and source-close #688 after exact-tree verification. Then retain #666/provider143 contact-cutoff review and #615 causality, remaining construction/protonation/secondary-structure GUI intents, #524 actual published-host/installed floors, #250/#254 agreement, #256 P5/P6 and #334 exact-candidate gates. #692/#693 are bounded advisory follow-ups, with no new weight or release blocker. Preserve original weights, failed attempts and publication pause.",
     "active_related": [
       "uibcdf/molsysmt#666",
       "uibcdf/molsysmt#421",
       "uibcdf/molsysmt#615",
-      "uibcdf/molsysmt#256",
-      "uibcdf/molsysmt#688"
+      "uibcdf/molsysmt#256"
     ],
     "last_source_closeout_record": "devguide/archive/resolved_bugs/unsigned_h5msm_axis_maps_wrap_out_of_range_indices_to_unknown.md",
     "after_active_block": [
@@ -954,7 +960,7 @@
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
-    "verified_source_intents": 39,
+    "verified_source_intents": 42,
     "total_intents": 50,
     "global_weight_points": 2.5,
     "meaning": "A separate count of accepted declared intents; not equal effort, scientific coverage or installed acceptance."
@@ -1263,10 +1269,10 @@
   },
   "last_incoming_review": {
     "date": "2026-11-10",
-    "latest_complete_board_issues": 616,
-    "latest_open_issues": 93,
-    "latest_open_prs": 1,
-    "board_checkpoint": "After independently verified public delivery and #582/#689 closure; #688 remains open for reporter-owned private-remnant confirmation.",
+    "latest_complete_board_issues": 618,
+    "latest_open_issues": 94,
+    "latest_open_prs": 2,
+    "board_checkpoint": "After #690 closure and #692/#693 intake, before combined integration and #688 closure.",
     "incoming_pr": {
       "number": 687,
       "head": "a1539e351b91b3ffb9ed4837583ac8b402e0102b",
@@ -1309,10 +1315,24 @@
     },
     "new_priority_issue": {
       "number": 690,
-      "severity": "critical",
-      "state": "source mechanism inspected; allocation-safe reproduction and correction pending",
-      "reason": "Dense cell grids can exhaust memory for two atoms; prioritize before draft #687."
-    }
+      "state": "closed after verified public delivery 3bcd573da",
+      "supplemental_followups": [
+        692,
+        693
+      ]
+    },
+    "incoming_prs": [
+      {
+        "number": 687,
+        "head": "f35112090b37975a1d417602c3c1a6beed16d5f6",
+        "state": "source received; public integration pending"
+      },
+      {
+        "number": 691,
+        "head": "0fb92602ab3f9122372ce3f9900fbaf55437c507",
+        "state": "source received; public integration pending"
+      }
+    ]
   },
   "last_peptide_termini_receiving": {
     "owner_issue": "uibcdf/molsysmt#686",
@@ -1367,5 +1387,24 @@
       "687": "f35112090b37975a1d417602c3c1a6beed16d5f6",
       "691": "0fb92602ab3f9122372ce3f9900fbaf55437c507"
     }
+  },
+  "last_combined_session_receiving": {
+    "source": "81b4fc86644994a24f7ee65fa7414beda0aa0c67",
+    "viewer_source": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+    "reviewed_prs": {
+      "687": "f35112090b37975a1d417602c3c1a6beed16d5f6",
+      "691": "0fb92602ab3f9122372ce3f9900fbaf55437c507"
+    },
+    "record": "devtools/data/combined_session_receiving_687_688_691_20261110.json",
+    "accepted_original_leaves": [
+      "phase4/graphical-inventory/other-analysis/interactions",
+      "phase4/graphical-inventory/other-analysis/mechanics",
+      "phase4/graphical-inventory/complete-session"
+    ],
+    "accepted_existing_intents": 3,
+    "weighted_milestone_change": 0.3409090909090935,
+    "supplemental_bug_bonus": 0,
+    "state": "source_received_pending_public_delivery",
+    "scope": "Bounded Linux/Python 3.14 source, automated real-Jupyter and representative native Qt receiving; no installed, full Qt continuous-session, human or exact-candidate qualification."
   }
 }

@@ -1,0 +1,952 @@
+{
+  "schema_version": "molsysmt.combined_session_receiving@1",
+  "date": "2026-11-10",
+  "source": "81b4fc86644994a24f7ee65fa7414beda0aa0c67",
+  "owner_issues": [
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#688"
+  ],
+  "reviewed_prs": {
+    "687": "f35112090b37975a1d417602c3c1a6beed16d5f6",
+    "691": "0fb92602ab3f9122372ce3f9900fbaf55437c507"
+  },
+  "viewer_source": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+  "scope": "Bounded Linux/Python 3.14 source, automated real-Jupyter and representative native Qt receiving; no installed, full Qt continuous-session, human or exact-candidate qualification.",
+  "native_backend_sha256": "58653b1d477be36017d2bc721dafe6e85a508e2325fa3226ccf26c61d449d6e5",
+  "native_product_and_scientific_inputs_equal": "3bcd573da19619a1a3c0fd8456859618d8d11480",
+  "viewer_acquisition": {
+    "verified_raw_blobs": 2560,
+    "snapshot_sha256": "631ad753d33b9b4ed6961eb1c82a9d8fe6dab7d035be3981a23d68526a7ba6d4",
+    "method": "Raw Git blob export; every blob rehashed independently; the dirty sibling worktree is neither used nor changed. Existing JS package and lock files match the source; no provider package or JS build is substituted."
+  },
+  "runs": {
+    "received-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-combined-687-691-received-directed.xml",
+          "--receptor-events=<private-evidence>/pre1-combined-687-691-received-directed.events.jsonl",
+          "tests/molsysviewer_molsysmt/test_interaction_analysis_panel.py",
+          "tests/molsysviewer_molsysmt/test_mechanical_analysis_panel.py",
+          "tests/molsysviewer_molsysmt/test_continuous_session.py",
+          "tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py",
+          "devtools/tests/test_molsysviewer_tools_api_inventory.py",
+          "--basetemp=<private-evidence>/pre1-combined-687-691-received-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 30.39725681883283,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "24a0a3e4a5bdfe3a8e0e1446a4dbcd08cddddb54",
+        "starting_git_status": " M tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py\n",
+        "ending_git_status": " M tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8775
+      },
+      "resources": {
+        "started_utc": "2026-11-10T10:01:17.547091+00:00",
+        "seconds": 36.03282886999659,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.44482421875,
+            1.57421875,
+            1.9892578125
+          ],
+          "cpu_utilization": 0.019607843137254943,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14261927936,
+        "cgroup_memory_peak_bytes": 547971072,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "e6d7b1f110a846e94df498e08e5091bce12aa8cecc66c059421d547a224a07de",
+        "-bounded.json": "401904bb4ccd337eede13ebbb531b5996afc00dc5e0b4d74b14aebd753bc4031",
+        ".xml": "1693d83b6d4fceff9cb51924a4d8f811056924f6d876a8a01cca0efc41f8df65",
+        ".log": "d547c8e54a32c613611b7b41ea557f1c1daf509af98fb8a296c60dd45c7038f1",
+        "-inputs-before.json": "161b9d480e17f27400d9b5b3d7c9c37fe0c30675c1387ffe84ba725d5b29e36f",
+        "-inputs-after.json": "161b9d480e17f27400d9b5b3d7c9c37fe0c30675c1387ffe84ba725d5b29e36f",
+        "-reference-driver.py": "231913cccdf31b38c73f42f5210d0bbd18cec31851eee0b40160787271cce32f",
+        "-resource-driver.py": "970e84a405917d2f17aea6378efebcd63bea32665fd2f85dfa62f78b13d60925"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "81",
+          "time": "27.172",
+          "timestamp": "2026-11-10T04:01:22.139941-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.molsysviewer_molsysmt.test_jupyter_runtime_files",
+          "name": "test_actual_launcher_preserves_foreign_replacements_after_startup_failure",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "broad-wide": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n2",
+          "--junitxml=<private-evidence>/pre1-combined-687-691-broad-wide.xml",
+          "--receptor-events=<private-evidence>/pre1-combined-687-691-broad-wide.events.jsonl",
+          "tests/molsysviewer_molsysmt",
+          "devtools/tests/test_molsysviewer_tools_api_inventory.py",
+          "devtools/tests/test_runtime_provider_apis.py",
+          "tests/structure/get_neighbors/test_allocation_bounds.py",
+          "tests/scientific_truth/structure/test_neighbor_cell_bounds.py",
+          "--basetemp=<private-evidence>/pre1-combined-687-691-broad-wide"
+        ],
+        "exit_code": 0,
+        "seconds": 894.5151447691023,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "81b4fc86644994a24f7ee65fa7414beda0aa0c67",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8775
+      },
+      "resources": {
+        "started_utc": "2026-11-10T10:03:16.173727+00:00",
+        "seconds": 901.7376647291239,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3670016000",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.4931640625,
+            1.28759765625,
+            1.8388671875
+          ],
+          "cpu_utilization": 0.07696177062374243,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 10380697600,
+        "cgroup_memory_peak_bytes": 3221897216,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 1.74
+      },
+      "evidence_sha256": {
+        ".json": "15d37844080a01833505f192f28de102daabb4ae69385f1a5fb489db1e7eda69",
+        "-bounded.json": "e08fa3ef59c2a986bd3ffad0ff6d43f4cfd3e5ca6bae18427ab0c3592787414c",
+        ".xml": "3b2cb19cb6344b1a2ea97eafa65559d63f45b4ef56c0cace13865938f33b75ea",
+        ".log": "8e79e812641a4cdb2042f1926718ec97d0ab564c1eb258aa009775c018e40f97",
+        "-inputs-before.json": "490c1a8183682a4aa7afc0e8e3ad865d0109bfe1fa3825b6345bff4b8861e848",
+        "-inputs-after.json": "490c1a8183682a4aa7afc0e8e3ad865d0109bfe1fa3825b6345bff4b8861e848",
+        "-reference-driver.py": "231913cccdf31b38c73f42f5210d0bbd18cec31851eee0b40160787271cce32f",
+        "-resource-driver.py": "970e84a405917d2f17aea6378efebcd63bea32665fd2f85dfa62f78b13d60925"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "5923",
+          "time": "891.331",
+          "timestamp": "2026-11-10T04:03:22.291262-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "scientific": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/execute_scientific_evidence.py",
+          "--receptor",
+          "llm",
+          "--require-clean",
+          "--certificate",
+          "<private-evidence>/pre1-combined-687-691-scientific-scientific.json"
+        ],
+        "exit_code": 0,
+        "seconds": 23.224932465003803,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "81b4fc86644994a24f7ee65fa7414beda0aa0c67",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8775
+      },
+      "resources": {
+        "started_utc": "2026-11-10T10:03:19.460905+00:00",
+        "seconds": 31.02887948602438,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.45361328125,
+            1.26611328125,
+            1.82861328125
+          ],
+          "cpu_utilization": 0.08136614766449024,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13335678976,
+        "cgroup_memory_peak_bytes": 481431552,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "5e5eea9da833e80daf6e112a94ed05785b4851e718cf518386acee660d04ad0a",
+        "-bounded.json": "0449a3856760aad76f7191c8517f20999f6bae9981f677aa1b2526d62588b009",
+        ".log": "c571a928b28f07ad86cec25a10f5953e385ba9d5bd7db2627874ec582dbcf224",
+        "-inputs-before.json": "490c1a8183682a4aa7afc0e8e3ad865d0109bfe1fa3825b6345bff4b8861e848",
+        "-inputs-after.json": "490c1a8183682a4aa7afc0e8e3ad865d0109bfe1fa3825b6345bff4b8861e848",
+        "-reference-driver.py": "231913cccdf31b38c73f42f5210d0bbd18cec31851eee0b40160787271cce32f",
+        "-resource-driver.py": "970e84a405917d2f17aea6378efebcd63bea32665fd2f85dfa62f78b13d60925"
+      }
+    },
+    "html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/combined-687-691-html"
+        ],
+        "exit_code": 0,
+        "seconds": 172.14284882694483,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "81b4fc86644994a24f7ee65fa7414beda0aa0c67",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8775
+      },
+      "resources": {
+        "started_utc": "2026-11-10T10:05:01.804614+00:00",
+        "seconds": 180.1662123070564,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            2.2109375,
+            1.71337890625,
+            1.93505859375
+          ],
+          "cpu_utilization": 0.12368024132730016,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12139642880,
+        "cgroup_memory_peak_bytes": 1402896384,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 1.74
+      },
+      "evidence_sha256": {
+        ".json": "3a4d3bd16281cfdebf8664db86fdf904fd465d4f68404dc1d016df9941436df5",
+        "-bounded.json": "c5e11276fd38c2ea8736232ded883bae73f536259be429b261ca1ee75d007793",
+        ".log": "14f2debccc07579c92c42d2e06adc1374a72cef3dd52ee6271cb648cae6e6977",
+        "-inputs-before.json": "490c1a8183682a4aa7afc0e8e3ad865d0109bfe1fa3825b6345bff4b8861e848",
+        "-inputs-after.json": "490c1a8183682a4aa7afc0e8e3ad865d0109bfe1fa3825b6345bff4b8861e848",
+        "-reference-driver.py": "231913cccdf31b38c73f42f5210d0bbd18cec31851eee0b40160787271cce32f",
+        "-resource-driver.py": "970e84a405917d2f17aea6378efebcd63bea32665fd2f85dfa62f78b13d60925"
+      }
+    },
+    "gui-six-cpus-wide": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-combined-687-691-gui-six-cpus-wide.xml",
+          "--receptor-events=<private-evidence>/pre1-combined-687-691-gui-six-cpus-wide.events.jsonl",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_interaction_mechanics_and_both_popups",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_continuous_scientific_session_and_recovery",
+          "--basetemp=<private-evidence>/pre1-combined-687-691-gui-six-cpus-wide"
+        ],
+        "exit_code": 0,
+        "seconds": 243.91777678811923,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "81b4fc86644994a24f7ee65fa7414beda0aa0c67",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8775
+      },
+      "resources": {
+        "started_utc": "2026-11-10T10:08:30.266335+00:00",
+        "seconds": 252.42259796406142,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3670016000",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "600000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            3.02587890625,
+            2.51171875,
+            2.22265625
+          ],
+          "cpu_utilization": 0.12323943661971826,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 10380697600,
+        "cgroup_memory_peak_bytes": 2563219456,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "e9c9c6a9ec54f2bb41b705b24868ff0d1240eada60a378578a9773c1103987ab",
+        "-bounded.json": "e8b2efad631f6f062d7a3ad4d99d8cdf18701c95ab7eefe95f4a3765c889148d",
+        ".xml": "3e2d1d142863efa8d147a460ff65e239cd4534f0e33297f513d9c5ee7150cb90",
+        ".log": "16eb8926b397f99d6b45567aa35915f00bfc3df289adf1a29a5f27b65007b3c9",
+        "-inputs-before.json": "490c1a8183682a4aa7afc0e8e3ad865d0109bfe1fa3825b6345bff4b8861e848",
+        "-inputs-after.json": "490c1a8183682a4aa7afc0e8e3ad865d0109bfe1fa3825b6345bff4b8861e848",
+        "-reference-driver.py": "231913cccdf31b38c73f42f5210d0bbd18cec31851eee0b40160787271cce32f",
+        "-resource-driver.py": "60a108c6d45c93769bdf2fdf9fc0d0132791217a8036d0e0ffbf3e7204953e99"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "2",
+          "time": "241.602",
+          "timestamp": "2026-11-10T04:08:37.503093-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 31.34793598507531,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "81b4fc86644994a24f7ee65fa7414beda0aa0c67",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8775
+      },
+      "resources": {
+        "started_utc": "2026-11-10T10:13:43.916619+00:00",
+        "seconds": 39.033240707125515,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            2.6943359375,
+            3.04541015625,
+            2.5810546875
+          ],
+          "cpu_utilization": 0.12468577174459528,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12264239104,
+        "cgroup_memory_peak_bytes": 475205632,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "023ba6f8de2f8c139ec34c45b9181140152e3a6621a7085e67179aaca63a870c",
+        "-bounded.json": "a6221db29578f2eaf9a0fbbf6911497494cddecb403d4bc3f057d3aee1119c4b",
+        ".log": "171a510596fad7346650555c8870b012c287a928056707c5e3c01b0f6a709c85",
+        "-inputs-before.json": "490c1a8183682a4aa7afc0e8e3ad865d0109bfe1fa3825b6345bff4b8861e848",
+        "-inputs-after.json": "490c1a8183682a4aa7afc0e8e3ad865d0109bfe1fa3825b6345bff4b8861e848",
+        "-reference-driver.py": "231913cccdf31b38c73f42f5210d0bbd18cec31851eee0b40160787271cce32f",
+        "-resource-driver.py": "60a108c6d45c93769bdf2fdf9fc0d0132791217a8036d0e0ffbf3e7204953e99"
+      }
+    },
+    "qt-wide": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-combined-687-691-qt-wide.xml",
+          "--receptor-events=<private-evidence>/pre1-combined-687-691-qt-wide.events.jsonl",
+          "tests/molsysviewer_molsysmt/qt_receiving_guard.py::test_actual_qt_interaction_mechanics_and_separate_adoption",
+          "--basetemp=<private-evidence>/pre1-combined-687-691-qt-wide"
+        ],
+        "exit_code": 0,
+        "seconds": 69.12729477183893,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "81b4fc86644994a24f7ee65fa7414beda0aa0c67",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8775
+      },
+      "resources": {
+        "started_utc": "2026-11-10T10:14:44.203927+00:00",
+        "seconds": 77.07985764904879,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3670016000",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            2.63916015625,
+            2.984375,
+            2.59228515625
+          ],
+          "cpu_utilization": 0.12323943661971826,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 11126665216,
+        "cgroup_memory_peak_bytes": 1855799296,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.18
+      },
+      "evidence_sha256": {
+        ".json": "ee72ca61db7bd8c23235b0eedc28c4963cced3cc329ff7b56f5bbdf1d199dd2e",
+        "-bounded.json": "082626317d93869bb7f74f11f077c4b6e0bbfa5001ab224b98e4cfc7542fdb0c",
+        ".xml": "e9335a43b6e8d8c95df56f5447c215d0c35cba9c2738249d4a20771cd05e6d9e",
+        ".log": "cb3e7abfc8b563cfbaa9623a59a51a48c54fe0b4d2ee33d015ccaa959793b8f0",
+        "-inputs-before.json": "490c1a8183682a4aa7afc0e8e3ad865d0109bfe1fa3825b6345bff4b8861e848",
+        "-inputs-after.json": "490c1a8183682a4aa7afc0e8e3ad865d0109bfe1fa3825b6345bff4b8861e848",
+        "-reference-driver.py": "bd7b40d3fe3950a7539f3a74e01c1eb494e7e44a24d9eeb24833511f83606827",
+        "-resource-driver.py": "60a108c6d45c93769bdf2fdf9fc0d0132791217a8036d0e0ffbf3e7204953e99"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "66.745",
+          "timestamp": "2026-11-10T04:14:50.665348-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    }
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "molsysmt_version": "0+unknown",
+    "versions": {
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pandas": "2.3.3",
+      "pint": "0.25.3",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1"
+    },
+    "imports": {
+      "pandas": "<development-environment>/lib/python3.14/site-packages/pandas/__init__.py",
+      "pint": "<development-environment>/lib/python3.14/site-packages/pint/__init__.py",
+      "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+      "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261110/viewer-b9f3be01-source/molsysviewer/__init__.py",
+      "pyunitwizard": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+      "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+      "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+      "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+    }
+  },
+  "actual_jupyter": [
+    {
+      "scenario": "continuous-session",
+      "checks": [
+        "Compose bundled TcTIM caffeine and peptide with exact source maps and explicit pairing",
+        "Review and cancel removal then remove water and ions through native GUI selection",
+        "Inspect chemistry and deliberately present a separate explicit heavy-atom preparation",
+        "Read independent ensemble geometry and native properties with error and retry",
+        "Inspect named science and visual lifetimes through canvas and detached Studio popups",
+        "Close recover and compare complete molecular scene and named-analysis bindings",
+        "Continue after recovery with append refusal preservation and selective coverage invalidation"
+      ],
+      "full_result_sha256": "b5825a5d312d1968a00877fbf82428f07eedb68e43e99e6e903e180178d8128a",
+      "scientific_ledger": [
+        {
+          "phase": "composed",
+          "atoms": 4069
+        },
+        {
+          "phase": "removed_and_copied",
+          "removed": 165,
+          "retained": 3904
+        },
+        {
+          "phase": "prepared_independent"
+        },
+        {
+          "phase": "transformed_and_fitted"
+        },
+        {
+          "phase": "ensemble_observed"
+        },
+        {
+          "phase": "native_empty_original_conformations",
+          "occurrences": 0
+        },
+        {
+          "phase": "interactions",
+          "occurrences": 1
+        },
+        {
+          "phase": "closed_and_recovered"
+        },
+        {
+          "phase": "continued_after_recovery",
+          "preserved_evaluated": [
+            0
+          ],
+          "source_ids_retained": true
+        }
+      ],
+      "scientific_ledger_sha256": "be5da11a57e4f71ed045841f8235d1798ea128475685e008bf1ac45f6b351dc6"
+    },
+    {
+      "scenario": "jupyter-interaction-mechanics",
+      "checks": [
+        "Inspect native sparse hydrogen bonds with explicit coverage and no automatic storage",
+        "Store science and separately add its visual set in the canvas popup",
+        "Receive the other eight detector families through actual task controls and native source indices",
+        "Require model review and read explicit complete-model energy without preparing the source",
+        "Inspect repeated-structure atomic forces and refuse an implicit energy trajectory",
+        "Verify source preservation and clean report retirement in Python"
+      ],
+      "full_result_sha256": "f893e8f5deb4be8a7ac3050c9970cee42f23cd154307d7790b2c49e04623c234"
+    }
+  ],
+  "representative_qt": {
+    "checks": [
+      "All nine native interaction task controls retain sparse source indices and source data",
+      "Hydrogen-bond science is stored separately from explicit core visualization and report retirement",
+      "Model review precedes complete-model energy and changed execution settings expire it",
+      "Atomic force components preserve repeated structure order, units and the complete source environment"
+    ],
+    "qt_platform": "wayland",
+    "report_sha256": "c5ab044993b9d86c87755143ba2615e76a7573bdb8654439b27f29b19a24dd5b",
+    "scope": "The explicitly selected interaction/mechanics route; not full continuous-session Qt or human acceptance."
+  },
+  "scientific_certificate": {
+    "schema_version": "molsysmt.scientific-evidence-execution@1",
+    "verdict": "pass",
+    "commit": "81b4fc86644994a24f7ee65fa7414beda0aa0c67",
+    "tracked_source_dirty": false,
+    "source_before": {
+      "commit": "81b4fc86644994a24f7ee65fa7414beda0aa0c67",
+      "tracked_source_dirty": false,
+      "untracked_source_paths": [],
+      "untracked_workflow_artifacts": []
+    },
+    "source_after": {
+      "commit": "81b4fc86644994a24f7ee65fa7414beda0aa0c67",
+      "tracked_source_dirty": false,
+      "untracked_source_paths": [],
+      "untracked_workflow_artifacts": []
+    },
+    "source_correspondence": true,
+    "release_eligible": true,
+    "created_at": "2026-11-10T10:03:46.985432+00:00",
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "registered_nodes": 74,
+    "collected_cases": 116,
+    "passed": 116,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0,
+    "nodes": [
+      "tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance",
+      "tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images",
+      "tests/scientific_truth/chemical_states/test_peptide_termini.py::test_a_missing_declared_link_is_unknown_not_new_terminal_chemistry",
+      "tests/scientific_truth/chemical_states/test_peptide_termini.py::test_closing_the_declared_path_gives_no_free_endpoints",
+      "tests/scientific_truth/chemical_states/test_peptide_termini.py::test_declared_path_endpoints_are_not_inventory_or_id_order",
+      "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap",
+      "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+      "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+      "tests/scientific_truth/molecular_mechanics/test_model_recipe.py::test_recipe_constraints_match_independent_engine_construction",
+      "tests/scientific_truth/molecular_mechanics/test_model_recipe.py::test_recipe_retains_a_known_triclinic_physical_box",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_changing_cells_follow_the_previous_transition_basis",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_explicit_small_origin_keeps_the_requested_primary_cell",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_rotated_row_cell_wrapping_matches_explicit_images",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+      "tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids",
+      "tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution",
+      "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+      "tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form",
+      "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
+      "tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap",
+      "tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area",
+      "tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups",
+      "tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context",
+      "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
+      "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+      "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_constructed_matrix_drives_public_row_vector_rotation",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_extreme_finite_axis_still_produces_the_analytic_rotation",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_positive_body_diagonal_turn_cycles_cartesian_axes",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_signed_cartesian_quarter_turns_match_literal_matrices",
+      "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+      "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance",
+      "tests/scientific_truth/structure/test_neighbor_cell_bounds.py::test_sparse_small_cutoff_retains_known_pairs_and_periodic_images",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+      "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+      "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+      "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+      "tests/scientific_truth/structure/test_principal_component_analysis.py::test_weighted_pca_matches_closed_form_diagonal_covariance",
+      "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+    ]
+  },
+  "html_inspection": {
+    "source": "81b4fc86644994a24f7ee65fa7414beda0aa0c67",
+    "page": "content/user/tools/molsysviewer_tools.html",
+    "sha256": "c571403e49dd5cb6644e617bbe5314045d554a785a31b7134569fdc6573ea698",
+    "verified_phrases": [
+      "Calculating interactions before storing or displaying them",
+      "native quantities/precision",
+      "does not construct an engine",
+      "one explicitly selected structure",
+      "experimental",
+      "explicitly",
+      "Molecular tools"
+    ],
+    "manual_review": [
+      "Mechanical requested/default review is separate from experimental compiled model recipe; whole-model single-structure energy/count and selected atomic forces have explicit units and limits.",
+      "Nine interaction families retain experimental native semantics, explicit scientific named storage and separate visual adoption."
+    ],
+    "notebook_preservation": "No notebook differs from public native checkpoint 3bcd573da; no source code/output/metadata change is introduced by these UI task additions.",
+    "build_scope": "Single-process Sphinx; notebook execution disabled; six inherited underline warnings retained.",
+    "other_source_review": {
+      "document": "devguide/molsysviewer_addon.md",
+      "review": "The new continuous-session section documents evaluated-empty/positive controls, native/scene ownership, saved recovery and explicit qualification exclusions."
+    }
+  },
+  "launcher_regression": {
+    "expected_regression_detected": true,
+    "baseline_source": "3bcd573da19619a1a3c0fd8456859618d8d11480",
+    "failure_type": "FileNotFoundError",
+    "meaning": "The original outer finally deletes both foreign replacements after synthetic startup failure; the shared context alone cannot prevent that call-site deletion.",
+    "method": "Direct invocation of the exact new pytest assertion function with its launcher global bound to the unmodified published baseline, and native pytest MonkeyPatch. No server/browser starts.",
+    "initial_test_fixture": "The first added guard also intercepted the unrelated node-version subprocess; the corrected guard stubs only that version query before replacing server Popen.",
+    "first_sandbox_attempt": "Socket allocation was denied before token/runtime setup; retained separately, not a product failure."
+  },
+  "administrative_attempts": {
+    "first_directed_attempt": "No pytest gate started: private evidence directory was absent before driver archival.",
+    "fix": "Create the private evidence directory before writing bounded driver snapshots.",
+    "native_closeout_first_attempt": "No final fast gate started: the Git commit was refused by the filesystem sandbox, leaving the source dirty. The reviewed commit succeeded through the authorized Git metadata route; a distinct final-closeout-fast attempt passes all fourteen gates.",
+    "scope": "Launcher/administrative failures are preserved separately from product test failures; no attempt is relabeled passing."
+  },
+  "native_public_delivery": {
+    "qualified_source": "573476e70a4607bd42d21e9c7a866388fc3c1e6c",
+    "public_checkpoint": "3bcd573da19619a1a3c0fd8456859618d8d11480",
+    "base": "df654b087e0256587bc5239181b271c0227a3da6",
+    "verified_paths": [
+      {
+        "path": "devguide/SCALABILITY.md",
+        "git_blob_sha": "0625abcae1a6b6c37433566f6fe9484d4815bcee"
+      },
+      {
+        "path": "devguide/api_stability_registry.md",
+        "git_blob_sha": "3774a87ce967dee7ab5fc82e78a381155d07985d"
+      },
+      {
+        "path": "devguide/archive/resolved_bugs/native_neighbor_cell_grids_can_allocate_gigabytes_for_two_atoms_and_a_small_cutoff.md",
+        "git_blob_sha": "697a8055b22a6e6dbd5bb25e8b06f157602d20f6"
+      },
+      {
+        "path": "devguide/pending_bugs/README.md",
+        "git_blob_sha": "1724c08a6e53cf4f1ef8f2db56b173782311b65a"
+      },
+      {
+        "path": "devguide/pending_bugs/intermittent_jupyter_initial_canvas_timeout.md",
+        "git_blob_sha": "4e4c5f0b1299d13aac5a8bdc40ea4076e1ef41fa"
+      },
+      {
+        "path": "devguide/pending_bugs/native_neighbor_cell_grids_can_allocate_gigabytes_for_two_atoms_and_a_small_cutoff.md",
+        "deleted": true
+      },
+      {
+        "path": "devguide/pending_proposals/README.md",
+        "git_blob_sha": "9d9cc728356b95c4a9f9844180ebb7a86f797941"
+      },
+      {
+        "path": "devguide/pending_proposals/molsysviewer_tools_addon.md",
+        "git_blob_sha": "92ad67cf69002f6bdb9b0327dc5110280e18a4ba"
+      },
+      {
+        "path": "devguide/pending_proposals/neighbor_allocation_safety_performance_followup.md",
+        "git_blob_sha": "cda4323c96cf69d0167a40e148d1f14812fd7275"
+      },
+      {
+        "path": "devguide/pending_proposals/neighbor_python_compatibility_output_memory.md",
+        "git_blob_sha": "44e75ca7bc2a25d38d7eae551b8b20a8d2775131"
+      },
+      {
+        "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+        "git_blob_sha": "57233ac9b3ea3bfc381056edb6e55088b2ea6b0b"
+      },
+      {
+        "path": "devguide/release_1_0_status.md",
+        "git_blob_sha": "5e32c1dfa7ba0fa08fca9501518859f2394f6993"
+      },
+      {
+        "path": "devguide/scientific_evidence_matrix.md",
+        "git_blob_sha": "976f8d4c208201ec20fca32d74d654e8dc8d1afe"
+      },
+      {
+        "path": "devtools/data/native_neighbor_allocation_receiving_690_20261110.json",
+        "git_blob_sha": "4cbcc7084126cc96d7bcd882d53ffd1ce7f5298e"
+      },
+      {
+        "path": "devtools/data/pre_1_0_progress_scorecard_20261107.json",
+        "git_blob_sha": "c18acefc1a344237a7202c53709991ea85588a17"
+      },
+      {
+        "path": "devtools/data/public_api_stability.json",
+        "git_blob_sha": "88fc00cc0e059e2e56e9b339b022ca22bc50a30c"
+      },
+      {
+        "path": "docs/content/course/Common_Core/16_Structural_Operations.ipynb",
+        "git_blob_sha": "9016d5cb7d0f1903fe5e1ed9d8654e0e5d56ab2c"
+      },
+      {
+        "path": "docs/content/user/cookbook/big_data_trajectories.ipynb",
+        "git_blob_sha": "030be6024b3fd8a66f17b61f5500543317a00c4f"
+      },
+      {
+        "path": "docs/content/user/foundations/governance/configuration_options.md",
+        "git_blob_sha": "46ee78332922c95129edcf9f4d342e56c40d46c8"
+      },
+      {
+        "path": "docs/content/user/foundations/performance/chunked_execution.md",
+        "git_blob_sha": "942967abf4966718f1b04b920e0d1e7fde3da471"
+      },
+      {
+        "path": "docs/content/user/tools/structure/get_contacts.ipynb",
+        "git_blob_sha": "0b54176744361ea6f2535d034666f6b2f8b38394"
+      },
+      {
+        "path": "docs/content/user/tools/structure/get_neighbors.ipynb",
+        "git_blob_sha": "b71c93747f9d71aed9bd0cc8e4e58fd7263ca4ad"
+      },
+      {
+        "path": "docs/docs_manifest.yml",
+        "git_blob_sha": "a6bf0a06dd48d01dd37b9d620ccb9cdcf884933f"
+      },
+      {
+        "path": "molsysmt/__init__.py",
+        "git_blob_sha": "cc50ca14f0e68bf5ad13bac8c9b9b46b82ee7841"
+      },
+      {
+        "path": "molsysmt/_private/rust_backend.py",
+        "git_blob_sha": "b430d0e6e48115950db5a46f8b36472040f7eabc"
+      },
+      {
+        "path": "molsysmt/structure/get_contacts.py",
+        "git_blob_sha": "67f495bcc2bab95f8e9ac6026ee11664ae9fef1a"
+      },
+      {
+        "path": "molsysmt/structure/get_neighbors.py",
+        "git_blob_sha": "3961c1aa78f2d1f80eb6547572ea017ebdde601f"
+      },
+      {
+        "path": "rust/src/neighbors.rs",
+        "git_blob_sha": "6f4915b27dd517525ce4618312ce461fc1d86b3b"
+      },
+      {
+        "path": "tests/interactions/hbonds/test_neighbor_allocation_bounds.py",
+        "git_blob_sha": "21ad2886d9637d3d629df1cd73ca8244f99b717d"
+      },
+      {
+        "path": "tests/scientific_truth/evidence/capabilities/structure.json",
+        "git_blob_sha": "343e786af6ad4e60c40b11b60633e5cd2540f02c"
+      },
+      {
+        "path": "tests/scientific_truth/structure/test_neighbor_cell_bounds.py",
+        "git_blob_sha": "dc11b91d17655cf0db25c2bf17b180afc9b11691"
+      },
+      {
+        "path": "tests/structure/get_neighbors/test_allocation_bounds.py",
+        "git_blob_sha": "0405b1b7956cc0a455601a9a33684d8284160f40"
+      }
+    ],
+    "protected_human_files": {
+      "docs/api/build/autosummary/molsysmt.build.merge_nonpolar_hydrogens.rst": "3b97cf0d5c813a1e3c2212ad118c7f6c32763d85af91cb800640209095fd53d6",
+      "docs/api/interactions/autosummary/molsysmt.interactions.ionic.get_ionic_interactions.rst": "d564291bb01387663f178f5e041bc8d55d1022bfa71584ddd11f1dd9dba12d95",
+      "docs/api/physchem/autosummary/molsysmt.physchem.get_charge_centers.rst": "a112aa640da192a121d1ccec3c5011c9652729abacf2a38c1b222632a55dcf20",
+      "docs/api/physchem/autosummary/molsysmt.physchem.normalize_aromatic_bond_orders.rst": "6b3f17a698bc7393ca3ecad31891d693b8a8169dfdd892dbae77f3ca91b25abe"
+    },
+    "human_bytes_unchanged": true,
+    "native_backend_sha256": "58653b1d477be36017d2bc721dafe6e85a508e2325fa3226ccf26c61d449d6e5",
+    "scope": "Fast-forward source delivery plus atomic replacement of the qualified local development backend; no package, tag, Release or hosted matrix launched."
+  },
+  "acceptance": [
+    "The exact two contributor heads are ancestors of the clean owner cohort, reconciled with the published native allocation correction. All core provider/Rust/scientific bytes equal public 3bcd573da.",
+    "5,923 full affected addon/inventory/runtime/native-allocation cases pass without omissions. This includes nine filesystem guards and the new actual-startup-entrypoint foreign-replacement control. The original 80-pass/one-fail added-fixture attempt remains failed.",
+    "116 registered scientific cases across 74 nodes and fourteen local fast gates pass; the single-process HTML build retains six inherited title warnings. The changed UI contract is manually inspected and no notebook differs from public 3bcd573da.",
+    "Two actual Jupyter guards pass thirteen browser workflows, including both popup lifecycles. Nine continuous scientific ledger phases verify exact composition maps, source preservation, independent preparation/results, real ensemble queries, native named science versus visuals, H5MSM/session close/recovery, subsequent append and selective coverage invalidation.",
+    "The original default-criterion ensemble remains an evaluated-empty scientific control. A deliberate same-View Replace selects a distinct known-positive population with unchanged criteria; no cutoff is widened and stale analyses are not reused.",
+    "The selected native Qt interaction/mechanics guard passes four checks on a real display platform. This is representative automated receiving, not full-session Qt parity or human acceptance.",
+    "The stronger #688 shared context remains its sole owner. Removing the outer unconditional unlink is independently guarded at actual startup failure; the reporter confirms private hash-only retirement in #691. No credential contents or original private artifacts are acquired by the owner."
+  ],
+  "limits": [
+    "Mechanical GUI review displays stored requests/defaults and their source, not a full compiled physical recipe. Native experimental get_model_recipe and shared unsupported-control admission retain #582 ownership; graphical adoption of physical observations remains consumer work.",
+    "Interactions/container/pagination/scientific profiles remain experimental. Per-occurrence provenance, units, roles, compound participants, periodic images, explicit evaluated-empty coverage and source-axis correspondence are retained; no independent identity authentication is implied.",
+    "All three old-host #690 graphical failures retain their original failed source identity. Passing new-host workflows do not establish #615 causality or retrospectively accept the earlier full analysis workflow.",
+    "This accepts exactly three original intents (interaction reports, mechanical reports and complete session). It does not accept contact cutoff #666/provider143, construction, protonation reconciliation, secondary structure, public installed floors #524, final #250/#254/#256/#334 or a release. No new weight or repair bonus is introduced.",
+    "The copied backend is the qualified local source-development artifact from #690, not a distribution package. No new hosted matrix, package, tag, Release or promotion is launched."
+  ]
+}

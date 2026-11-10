@@ -1,9 +1,9 @@
 ---
 summary: Jupyter receiving launcher leaves runtime settings after fixture preparation fails.
 issue: uibcdf/molsysmt#688
-status: partial
+status: resolved
 opened: 2026-11-10
-closed:
+closed: 2026-11-10
 severity: medium
 verification: reproduced
 area: [tests]
@@ -79,3 +79,29 @@ and its stronger foreign-replacement/partial-write/error-reporting guards,
 rather than retaining the independently proposed duplicate context. The legacy
 unconditional unlink after server shutdown is removed so that this call site
 retains the context's documented foreign-file identity protection.
+
+## Owner combined acceptance — 2026-11-10
+
+Clean **81b4fc86644994a24f7ee65fa7414beda0aa0c67** receives the reporter's
+handoff and removes the old call site's unconditional unlink. The addressable
+guard now has **nine cases**. Its added actual-entrypoint test replaces both
+owned files before a synthetic startup failure and requires preservation of
+those foreign identities. Direct invocation against the unchanged published
+3bcd573da launcher fails by deleting them; the corrected entrypoint passes.
+The first added fixture intercepted the unrelated Node version subprocess and
+fails independently (80 pass / one fail); it is corrected to stub only that
+version query, preserving the original failed attempt.
+
+The complete affected addon/inventory/native-boundary collection passes
+**5,923 cases without omissions**, with **116 scientific cases / 74 nodes**,
+fourteen fast gates and the inspected HTML build. Two actual Jupyter workflows
+pass **13 browser checks**, including both popup boundaries, native scientific
+session close/recovery/continuation, and retirement of both owned runtime files.
+A representative native Qt workflow passes four checks. The reporter confirms
+retirement of their own unused private remnants in #691; this owner neither
+reads nor removes those private files. See the [combined receiving record](../../../devtools/data/combined_session_receiving_687_688_691_20261110.json).
+
+This closes development-launcher lifetime/ownership, not abrupt-scope cleanup,
+all Qt sessions, human/installed/platform or release acceptance. #615 remains
+causally unresolved, and the old-host graphical failures under #690 remain
+failed on their actual source cohorts.
