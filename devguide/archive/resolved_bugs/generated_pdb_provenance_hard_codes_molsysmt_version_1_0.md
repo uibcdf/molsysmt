@@ -1,9 +1,9 @@
 ---
 summary: Generated PDB provenance hard-codes MolSysMT version 1.0
 issue: uibcdf/molsysmt#680
-status: active
+status: resolved
 opened: 2026-11-09
-closed:
+closed: 2026-11-09
 severity: low
 verification: reproduced
 area: [form, diagnostics]
@@ -66,3 +66,16 @@ with two deterministic records. Its @2 metadata records both source/prepared
 record counts, allowing exact reconstruction even with long continuation lines.
 Scientific records and existing caller files remain untouched. Broader native
 writer tests and actual tiny benchmark production remain due before closure.
+
+
+## Resolution — 2026-11-09
+
+The writer reads the imported cached version, including unknown and long versions, without a runtime metadata/Git query. <=80-column continuation records retain the exact version and separate creation time; scientific records stay exact. Reversible @2 benchmark-owned normalization retains all originals. Two complete 21-path tiny campaigns and all sixteen selected benchmark/evidence guards pass.
+
+Clean c643a728f receives 170 expanded placement/repair/writer/doctest controls,
+sixteen tiny benchmark/evidence controls, fourteen fast gates and five inspected
+HTML pages. Failures remain distinct, including corrected fixture assumptions.
+The [core receipt](../../../devtools/data/incoming_core_receiving_677_679_680_684_20261110.json)
+and [consumer receipt](../../../devtools/data/terminal_audit_consumer_receiving_679_20261110.json)
+retain exact source identities and limits. This adds no weighted milestone bonus
+and does not qualify installed/platform/final-candidate or addon GUI behavior.

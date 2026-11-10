@@ -1,5 +1,30 @@
 # MolSysMT 1.0 Execution Status
 
+## Incoming core defects received — 2026-11-09
+
+#677/#679/#680/#684 have source-qualified corrections: actual demo inventory,
+source atom selection and full-chain terminal context, format-safe actual PDB
+producer version, and component-keyed cap insertion independent of stable molecules.
+Clean c643a728f passes **170** expanded native/reference/doctest cases, **16**
+benchmark/evidence controls including two actual 21-case campaigns, **14/14**
+fast gates and five inspected HTML pages. The dynamic catalog re-executes both
+original cells; other guide/course/cookbook code, outputs and metadata stay exact.
+See the [core receipt](../devtools/data/incoming_core_receiving_677_679_680_684_20261110.json).
+The former false-terminal expectation in the existing addon audit is corrected;
+its **63-case** module passes separately on byte-identical native code. Original
+combined-addon failure stays failed; the [consumer receipt](../devtools/data/terminal_audit_consumer_receiving_679_20261110.json)
+does not replace a rerun. Source publication/issue closure follow this checkpoint.
+
+The complete refresh added stacked PRs #681/#682/#683 under #678 to the existing
+#421 plan. Their isolated combined source is under review/testing against exact
+Viewer 9b8662cf. No contributor result is reassigned to the combined source, no
+GUI intent is credited yet, and core repairs add no artificial weighted bonus:
+progress remains **73.7664%**, graphical intents **31/50**. Continue their native,
+actual Jupyter and scientific receiving before integration; #582, #666/provider143,
+#524/#615, broader #256 and #334 installed/platform/final-candidate gates remain.
+All operations retain capped resources and the authorized [skip ci] source route;
+no new remote matrix, package, tag, Release or promotion is launched.
+
 ## Incoming review and execution block — 2026-11-09
 
 The complete board refresh retains 610 issues (94 open) and finds four open

@@ -1,9 +1,9 @@
 ---
 summary: Clarify the numeric selection axis in native terminal-capping composition.
 issue: uibcdf/molsysmt#679
-status: active
+status: resolved
 opened: 2026-11-09
-closed:
+closed: 2026-11-09
 severity: medium
 verification: reproduced
 area: [build, selection, chemistry]
@@ -61,3 +61,16 @@ units, multiple components, atom reordering and an actual MDTraj form. Broader
 existing tests, public documentation and clean receiving remain due. Initial
 fixture assumptions about bound pandas table types and a nonexistent native
 get_n_structures convenience method are corrected; these are not provider bugs.
+
+
+## Resolution — 2026-11-09
+
+Public addition resolves source atoms once and carries explicit groups through atom sorting, then resolves selected covalent components. Empty selection copies without reconstruction, invalid inputs preserve source, local completion is group-scoped and explicit ACE/NME is component-scoped. The public group assessment uses full selected-chain context before filtering. Numeric/expression/mask, two structures, alternate units, multiple components and real MDTraj forms pass. The existing addon audit expectation is corrected and its whole 63-case module passes on unchanged native code.
+
+Clean c643a728f receives 170 expanded placement/repair/writer/doctest controls,
+sixteen tiny benchmark/evidence controls, fourteen fast gates and five inspected
+HTML pages. Failures remain distinct, including corrected fixture assumptions.
+The [core receipt](../../../devtools/data/incoming_core_receiving_677_679_680_684_20261110.json)
+and [consumer receipt](../../../devtools/data/terminal_audit_consumer_receiving_679_20261110.json)
+retain exact source identities and limits. This adds no weighted milestone bonus
+and does not qualify installed/platform/final-candidate or addon GUI behavior.
