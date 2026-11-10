@@ -35,36 +35,50 @@ from benchmarks.telemetry import (  # noqa: E402
 
 
 def _canonicalize_owned_reference(path):
-    """Replace only the two known volatile records in our newly generated PDB."""
+    """Normalize the known leading writer block of a newly generated PDB."""
     import hashlib
 
     destination = Path(path)
     raw = destination.read_bytes()
     lines = raw.splitlines(keepends=True)
-    headers = [
-        i
-        for i, line in enumerate(lines)
-        if line.startswith(b"HEADER    MOLECULAR SYSTEM")
-    ]
-    timestamps = [
-        i
-        for i, line in enumerate(lines)
-        if line.startswith(b"REMARK   1 Created by MolSysMT version ")
-    ]
-    if len(headers) != 1 or len(timestamps) != 1:
+    creator = b"REMARK   1 Created by MolSysMT version "
+    continuation = b"REMARK   1 Version continuation: "
+    created_on = b"REMARK   1 Created on "
+    if (
+        len(lines) < 2
+        or not lines[0].startswith(b"HEADER    MOLECULAR SYSTEM")
+        or not lines[1].startswith(creator)
+    ):
         raise RuntimeError(
             "The owned reference's generated provenance records require review."
         )
-    originals = {
-        str(index): lines[index].decode("ascii") for index in [*headers, *timestamps]
-    }
-    lines[headers[0]] = b"HEADER    MOLSYSMT BENCHMARK REFERENCE\n"
-    lines[timestamps[0]] = b"REMARK   1 BENCHMARK REFERENCE; SEE SESSION PROVENANCE\n"
-    prepared = b"".join(lines)
+    end = 2
+    while end < len(lines) and lines[end].startswith(continuation):
+        end += 1
+    if end < len(lines) and lines[end].startswith(created_on):
+        end += 1
+    elif end > 2 or b" on " not in lines[1][len(creator) :]:
+        raise RuntimeError(
+            "The owned reference's generated provenance records require review."
+        )
+    # A new unrecognized writer field is reviewed, never treated as scientific
+    # data or silently discarded. Later scientific REMARK records stay exact.
+    if end < len(lines) and lines[end].startswith(b"REMARK   1 "):
+        raise RuntimeError(
+            "The owned reference's generated provenance records require review."
+        )
+    originals = {str(i): line.decode("ascii") for i, line in enumerate(lines[:end])}
+    prepared = (
+        b"HEADER    MOLSYSMT BENCHMARK REFERENCE\n"
+        b"REMARK   1 BENCHMARK REFERENCE; SEE SESSION PROVENANCE\n"
+        + b"".join(lines[end:])
+    )
     destination.write_bytes(prepared)
     return {
-        "normalization": "owned-generated-pdb-provenance@1",
+        "normalization": "owned-generated-pdb-provenance@2",
         "original_records": originals,
+        "prepared_provenance_record_count": 2,
+        "source_provenance_record_count": end,
         "raw_pdb_sha256": hashlib.sha256(raw).hexdigest(),
         "prepared_pdb_sha256": hashlib.sha256(prepared).hexdigest(),
     }

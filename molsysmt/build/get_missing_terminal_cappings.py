@@ -19,7 +19,9 @@ def get_missing_terminal_cappings(
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
     selection : str, list, tuple, or numpy.ndarray, default='all'
-        Selection string or boolean/integer array specifying elements.
+        Group selection: a query string or 0-based group indices. Selection
+        filters reported groups; it never creates a terminus at a selection edge.
+        The native engine inspects complete chains containing selected groups.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
     engine : object, default='MolSysMT'
@@ -49,6 +51,8 @@ def get_missing_terminal_cappings(
     where group indices are not stored in chain-sequence order (e.g. multi-model
     assemblies).
 
+    Selection filters the final report after full-chain terminal recognition;
+    an internal selected group is not reinterpreted as a chain terminus.
     Non-amino-acid chains (water, ions, small molecules) are silently skipped.
     Unknown chain membership cannot establish a terminus. The native engine
     requires one known chain index per selected group when amino acids are
@@ -107,6 +111,23 @@ def get_missing_terminal_cappings(
                 caller="molsysmt.build.get_missing_terminal_cappings",
             )
 
+        selected_groups = set(group_indices)
+        # Selection limits the report, not the chemical context. Restrict the
+        # full-context query to selected known chains, so unrelated unknown
+        # chain membership does not invalidate a local assessment.
+        context_selection = f"chain_index in {sorted(set(chain_index_per_group))}"
+        group_indices = select(
+            molecular_system, element="group", selection=context_selection
+        )
+        chain_index_per_group, group_id_per_group, group_name_per_group = get(
+            molecular_system,
+            element="group",
+            selection=group_indices,
+            chain_index=True,
+            group_id=True,
+            group_name=True,
+        )
+
         # Collect amino-acid groups per chain: {chain_idx: [(group_id_int, group_idx), ...]}
         chain_aa_groups: dict = {}
         for group_idx, chain_idx, group_id, group_name in zip(
@@ -143,6 +164,8 @@ def get_missing_terminal_cappings(
             # Sort by group sequence number; take the last (C-terminal) residue.
             aa_list.sort(key=lambda x: x[0])
             last_aa_gid, c_term_group_idx = aa_list[-1]
+            if c_term_group_idx not in selected_groups:
+                continue
 
             # If the very last group in the chain (by group_id) is NOT an amino
             # acid (e.g. NME, ACE capping group), OXT is not expected.

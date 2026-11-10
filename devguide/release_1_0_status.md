@@ -1,5 +1,30 @@
 # MolSysMT 1.0 Execution Status
 
+## Incoming review and execution block — 2026-11-09
+
+The complete board refresh retains 610 issues (94 open) and finds four open
+stacked PRs. #681–#683 are new since the previous checkpoint; #678 remains
+unreceived. Their claims are contributor evidence until combined-source review.
+The original plan and its weights stay unchanged; these PRs implement existing
+#421 task families, not newly added requirements.
+
+| Order | Owner | Work and acceptance |
+| --- | --- | --- |
+| 1 | #679 | Resolve terminal-capping selection once on the source atom axis; project explicit group/component populations through reconstruction. Cover numeric/expression/mask equivalence, partial populations, multiple structures/components and source preservation. |
+| 2 | #677 | Query the actual bundled alanine inventory, reconcile its catalog and manifest, and re-execute the generated catalog notebook without changing the dataset. |
+| 3 | #680 | Use actual cached producer version in format-safe PDB provenance; preserve scientific records and deterministic benchmark-owned preparation. |
+| 4 | PR #678 | Review existing PCA inspection/refinement, contributor analytic/engine controls and actual Jupyter/Qt evidence. Receive the compatible combined source before credit. |
+| 5 | PR #681 | Review chemical repair/assignment panels and explicit atom-to-group scope; #679 remains provider-owned. |
+| 6 | PR #682 | Review source-mapped property/report tasks, units, static versus structural semantics and bounded queries. |
+| 7 | PR #683 | Review deliberate report color/plot adoption, coverage/refusal/undo and source-structure navigation against its exact Viewer runtime. |
+
+After this block continue #582's effective engine-neutral recipe, remaining #421
+intents, #666/provider143, #524/#615, broader #256 and #334 final installed/platform
+requirements. Keep published failures and receipts, the source/installed boundary,
+the publication pause, resource supervision and [skip ci] source checkpoints.
+Accepted weighted progress remains 73.7664% and graphical intents 31/50 until
+original owning leaves have independently received evidence.
+
 ## Comparability and incoming diagnostics received — 2026-11-09
 
 #567's full comparable-session contract is received: known runtime/provider/
