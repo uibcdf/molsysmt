@@ -22,7 +22,8 @@
     "molsysmt.physchem.get_tpsa",
     "molsysmt.physchem.get_lipophilicity",
     "molsysmt.build.add_ions",
-    "molsysmt.structure.get_rotation_matrix_from_axis_angle"
+    "molsysmt.structure.get_rotation_matrix_from_axis_angle",
+    "molsysmt.chemical_states.get_peptide_termini"
   ],
   "experimental_api_scopes": [
     "molsysmt.build",
