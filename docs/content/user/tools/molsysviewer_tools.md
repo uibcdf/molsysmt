@@ -6210,3 +6210,39 @@ equilibrium or a stable complex; constrained force components need not vanish.
 CPU/Reference checks do not qualify a GPU device. The expert Python method,
 independent default and native output types are unchanged. See
 {func}`molsysmt.molecular_mechanics.potential_energy_minimization`.
+
+## Repairing chemistry and assigning explicit models
+
+**Molecular tools > Chemistry** also offers these source-qualified tasks under
+**Prepare a separate system**. Each calls its public native `build` function;
+the expert Python paths and their full parameters remain unchanged.
+
+| Task | Explicit decisions and limits |
+| --- | --- |
+| Infer covalent bonds | Choose supported-group templates with exact H names or the explicit H-alias alternative. Both endpoints must be selected; one selected structure supplies peptide geometry, while every source structure is retained. Unsupported groups and policies remain excluded; no arbitrary ligand, water, metal or disulfide distance fallback or bond-order assignment is added. |
+| Add missing bonds | Choose a length-bearing cutoff and selection context. This is the separate native legacy template/distance heuristic, not the bounded inference profile. It does not certify complete chemistry. |
+| Complete terminal atoms and caps | Select atoms identifying the source groups/components, choose N/C caps, pH and native ID policy. Native completion can also repair missing heavy atoms and the opposite uncapped terminus. It retains all source structures but may change indices or omit attributes; inspect native diagnostics and the result summary. |
+| Remove reference-rule hydrogens | Uses the whole system and explicit pH/reference-name rules. It does not add H, predict environmental pKa or certify unassessed groups/states. Inspect **Assess reference-rule protonation** first when deposited H atoms may be evidence. |
+| Assign AutoDock atom types | Explicit experimental AutoDock4 chemical-environment profile, requiring one nonempty prepared state, complete graph/H inventory and RDKit. It assigns labels without adding H or calculating charges. |
+| Assign partial charges | Choose Gasteiger–Marsili/RDKit or a named force-field/OpenMM model, with optional water templates and integer whole-system charge declaration in elementary charge. Empty charge uses complete native formal charges. Exactly one prepared state is required; a charge assignment is not full parameterization. |
+
+For assignments, the atom editor is hidden and ignored: the complete system is
+the target. A structure-associated chemical state uses the visible frame;
+coordinates and every source structure are retained. Native model/prerequisite
+errors remain errors, without preparation or engine fallback. Report provenance
+states the applied method, model/state, scope and physical parameters explicitly.
+Native chemistry/history and bound assignment reports stay with the independent
+molecular result; bounded display metadata does not persist an arbitrary result.
+Mechanical assignments remain experimental and are **not saved by H5MSM 0.5**.
+Existing analyses retain snapshots after mechanics assignment; recalculate any
+analysis depending on those parameters.
+
+**Prepare separate system** leaves the primary data/scene unchanged. Present,
+keep or close that result independently, or choose **Use in this view…** and
+review the complete scene reset. **Back** changes nothing. Confirmation checks
+both source and result revisions before loading a separate copy; the presented
+result remains independent. Scene Undo is not molecular Undo. The capping task
+uses an explicit group expression after resolving source atoms through the
+public hierarchy, avoiding the numeric-axis ambiguity tracked in MolSysMT #679.
+No atom identity map is guessed from counts or names. Native copying may
+materialize the complete trajectory; browser form size is not a RAM guarantee.

@@ -470,3 +470,25 @@ def test_actual_jupyter_refinement_review_and_both_popup_boundaries(tmp_path):
     assert len(result["checks"]) == 4
     assert not (output / "settings.json").exists()
     assert not (output / "config/jupyter_server_config.py").exists()
+
+
+def test_actual_jupyter_chemistry_repairs_and_assignments(tmp_path):
+    viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
+    output = tmp_path / "jupyter-chemistry-repair"
+    command = [
+        sys.executable,
+        str(Path(__file__).with_name("system_panel_jupyter.py")),
+        "--viewer-root",
+        str(viewer),
+        "--scenario",
+        "chemistry-repair",
+        "--output",
+        str(output),
+    ]
+    if provider := os.environ.get("MOLSYSVIEWER_PROVIDER_ROOT"):
+        command.extend(["--provider-root", provider])
+    subprocess.run(command, check=True, timeout=300)
+    result = json.loads((output / "full-result.json").read_text())
+    assert len(result["checks"]) == 6
+    assert not (output / "settings.json").exists()
+    assert not (output / "config/jupyter_server_config.py").exists()

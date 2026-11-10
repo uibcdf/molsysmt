@@ -116,6 +116,7 @@ def main():
             "chemistry",
             "chemistry-pending",
             "chemistry-preparation",
+            "chemistry-repair",
             "analysis",
             "refinement",
         ),
@@ -709,6 +710,10 @@ def main():
     cells = [initial, final]
     if args.scenario == "refinement":
         cells = [initial, "refinement_source_unchanged()\n", final]
+    if args.scenario == "chemistry-repair":
+        from chemistry_repair_fixture import notebook_cells
+
+        cells = notebook_cells(initial[: initial.index("view = msv.demo")])
     if args.scenario == "periodic-origins":
         cells = [initial, origins_middle, final]
     if args.scenario == "cell":
@@ -902,7 +907,9 @@ def main():
                 [
                     args.node,
                     str(
-                        Path(__file__).with_name("refinement_panel_jupyter.mjs")
+                        Path(__file__).with_name("chemistry_repair_jupyter.mjs")
+                        if args.scenario == "chemistry-repair"
+                        else Path(__file__).with_name("refinement_panel_jupyter.mjs")
                         if args.scenario == "refinement"
                         else Path(__file__).with_name("analysis_panel_jupyter.mjs")
                         if args.scenario == "analysis"

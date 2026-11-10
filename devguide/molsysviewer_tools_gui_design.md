@@ -829,3 +829,28 @@ controls refuse under #582; no effective-engine-neutral recipe or generic
 scientific-result persistence is claimed. Python expert signatures/defaults
 are unchanged. Actual host, owner integration, human and installed acceptance
 retain their distinct evidence scopes.
+
+## Explicit chemical repair and assignment source contract — 2026-11-09
+
+Chemistry extends independent preparation with bounded template/alias covalent
+inference, legacy cutoff bond addition, terminal completion/named capping,
+reference-rule H removal, explicit AutoDock4 typing and explicit Gasteiger or
+force-field charge assignment. Each delegates the existing expert/native method;
+no new scientific algorithm, implicit preparation or public precooked API is
+introduced. Methods/states, whole versus selected-group/component scope, pH,
+length/charge units, optional providers and unsupported chemistry remain visible.
+
+Whole-system assignments and H removal ignore hidden atom/context drafts.
+Selected repairs resolve source atom populations once. Capping supplies an
+explicit source-group expression because the native composition changes numeric
+selection meaning between group/atom calls (#679); it does not guess identity.
+Native reports and mechanical assignments remain with independently owned results,
+while bounded scalar provenance crosses the widget boundary. H5MSM 0.5 does not
+persist mechanics, and dependent analysis snapshots are not recertified.
+
+The existing single-use reviewed scene-reset replacement checks source/result
+identities and revisions; Back and errors preserve the primary. A separate
+result remains alive after presentation or adoption. Original unit/fixture/GUI
+failures stay in the receiving record, including the two-widget test-selector
+correction; this does not infer a product failure. Human/installed and covering
+hosted qualification remain separate from local native and Jupyter receiving.

@@ -1,0 +1,151 @@
+{
+  "schema": "molsysmt.consumer_receiving@1",
+  "date": "2026-11-09",
+  "issue": "uibcdf/molsysmt#421",
+  "consumer_issues": [
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysviewer#315"
+  ],
+  "source_base": "08f0afdb87f787eb1f0b6626f6763c2d9703e0d8",
+  "native_public_base": "ca76d93b420435243f68167521ccb503ec8b2728",
+  "branch": "review/viewer-chemistry-repair-20261109",
+  "depends_on_pr": "https://github.com/uibcdf/molsysmt/pull/678",
+  "viewer_source": "e743a68a",
+  "native_rebuilt": false,
+  "native_binary_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "original_outcome": "D6.4 source implementation and receiving; final acceptance remains separate",
+  "source_sha256": {
+    "molsysviewer_molsysmt/_chemistry_preparation.py": "95adfb7bc48132f1b84cecfa198342be087b8458ef37f5ab5f648463df2e331d",
+    "molsysviewer_molsysmt/_chemistry_panel_frontend.py": "4d5a1b0636d795d423e95f2eadd1efc00fd6e3d292b20ec9ed1be148bc1e43c2",
+    "tests/molsysviewer_molsysmt/test_chemistry_repair_panel.py": "f79e329ba14251d6f5812476b44dd0bf4e6b37c52d1a521e26159cc47a21cd34",
+    "tests/molsysviewer_molsysmt/chemistry_repair_jupyter.mjs": "edafec5c7da47ab7a0cb0cdca183d40b56289fd8b52974d5b2700f0b037875bb",
+    "tests/molsysviewer_molsysmt/chemistry_repair_fixture.py": "738ab00fd5a7d5b6dde3fe45957ca3dc6e1cc5cbef7cea1af4763e5d73ae8570",
+    "tests/molsysviewer_molsysmt/chemistry_panel_qt.py": "49d0c87a0aeaf436cdbc6b353aecb702110659ffe6a540d431da4835fa274c64",
+    "tests/molsysviewer_molsysmt/native_panel_host.py": "18824479bcdcf05ed367254da0304280ef2cb980ae5a135a7cdde86092dd4d74",
+    "tests/molsysviewer_molsysmt/refinement_panel_qt.py": "0de5596814a093a6ce57bf49e1ed592e5d27d01edc40aba47f1e3487d6fcf196"
+  },
+  "scope": "Six explicit Chemistry repair/assignment tasks, independent native outputs, existing reviewed scene-reset replacement; expert API unchanged and no scientific algorithm implemented in consumer. Native expected errors, units, model/state/scope and persistence limits remain explicit.",
+  "receiving": {
+    "chemistry-repair-fixed-38": {
+      "native_exit": 0,
+      "seconds": 42.50094577111304,
+      "selected_inputs": 10703,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 584.4,
+      "cleanup": {
+        "tracked": 1,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "original_sha256": "58e04df499abd55bb4fb697f9e00cd596035f37c34ee089ef0976ebef8c2a4a0"
+    },
+    "native-capping-selection-40": {
+      "native_exit": 0,
+      "seconds": 5.1621262058615685,
+      "selected_inputs": 10706,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 255.7,
+      "cleanup": {
+        "tracked": 1,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "original_sha256": "82c499c09116060299fda2b08c22bb8bc4d96ba97ba31a9257c081c7a0f16212"
+    },
+    "chemistry-repair-jupyter-41": {
+      "native_exit": 0,
+      "seconds": 51.54009551904164,
+      "selected_inputs": 10706,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 3117.3,
+      "cleanup": {
+        "tracked": 25,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "original_sha256": "151026cc29180311dd77313b1055aa8635b8f3fc1ebca52f9596f708bbed2ded"
+    },
+    "chemistry-covering-42": {
+      "native_exit": 0,
+      "seconds": 113.87187133915722,
+      "selected_inputs": 10707,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 1293.8,
+      "cleanup": {
+        "tracked": 2,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "original_sha256": "48b85836406c803fd225906f8e7be8b866b7ce958678479dfe175f80b6fba5d1"
+    },
+    "chemistry-final-boundary-43": {
+      "native_exit": 0,
+      "seconds": 31.702129380078986,
+      "selected_inputs": 10707,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 569.8,
+      "cleanup": {
+        "tracked": 1,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "original_sha256": "3b8aca286770a918ffc927647f93b02d84b9ece1cf66fa4b49018ef163c7d45f"
+    },
+    "chemistry-owner-quality-44": {
+      "native_exit": 0,
+      "seconds": 4.9478184140753,
+      "selected_inputs": 10707,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 37.4,
+      "cleanup": {
+        "tracked": 7,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "original_sha256": "e96270f1994e0edbd250f7ad2d85ce933d2aabf145f3a2dac2ee14c95e0db65e"
+    },
+    "chemistry-refinement-native-46": {
+      "native_exit": 0,
+      "seconds": 34.97470200411044,
+      "selected_inputs": 10709,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 2043.6,
+      "cleanup": {
+        "tracked": 13,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "original_sha256": "90f90b9cd058b15e6c41a993e524e40ac25329f9c68488bdeac9d0075e49dc51"
+    }
+  },
+  "cases": {
+    "chemistry_covering": 380,
+    "final_changed_parameter_boundary": 63,
+    "real_jupyter_steps": 6,
+    "native_qt_chemistry_steps": 6,
+    "unchanged_refinement_steps_after_shared_test_control_extraction": 6
+  },
+  "iterations_retained": {
+    "37": "Five failures: two new-test object-array numeric comparison errors and three native mixed-axis capping selection errors; named group expressions receive the composed native selection unambiguously. New test not yet included in tracked-input inventory; this was a diagnostic iteration, not final qualification.",
+    "39": "Actual notebook already has two viewers after independent presentation; test-global addon selector becomes ambiguous. Reuse the already-open source panel; no product or scientific assertion changed.",
+    "45": "Chemistry Qt passes, refinement helper refactor exposes a test navigation race: filling a task before Geometry mounts can address retiring System controls. Explicitly wait for mounted Geometry and its actual task heading; all original numeric/ownership assertions retained.",
+    "static": "Unused local diagnostic bindings removed without changing test behavior.",
+    "native_capping": "Independent native controls reported in #679; source is unchanged. GUI uses the public named group hierarchy, expert wrapper unchanged."
+  },
+  "warnings": "Retained native legacy-H5/attribute-drop/box-mismatch and setuptools observations are not described as globally warning-free. Plain Jupyter controls separately match the existing debugger-session page error; no introduced page-error fingerprint is accepted.",
+  "resource_limits": {
+    "logical_cpus": 8,
+    "memory_gib": 6,
+    "swap_gib": 0,
+    "minimum_global_available_gib": 2,
+    "one_own_intensive_job": true
+  },
+  "remaining": "Owner review/integration, applicable covering hosted/installed evidence and postponed human observations. No candidate freeze, tag, package, Release, promotion or either 1.0 publication."
+}

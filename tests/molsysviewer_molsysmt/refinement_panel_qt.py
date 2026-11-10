@@ -4,7 +4,6 @@
 def main():
     import json
     import sys
-    import time
     from pathlib import Path
 
     # This child is executed as a file, so select its owning test package
@@ -44,113 +43,24 @@ def main():
     )
 
     _, _, expected, _ = direct_openmm_minimum(base, openmm)
-    runtime = qt.create_standalone_qt0_window(
-        base,
-        output_filename=str(out / "shell.html"),
-        discover_addons=True,
-        apply_project_config=False,
-    )
-    app, window, web = runtime["app"], runtime["window"], runtime["webview"]
-    view, bridge = web._molsysviewer_view, web._molsysviewer_qt_bridge
+    from tests.molsysviewer_molsysmt.native_panel_host import NativePanelHost
+
     checks = []
     phase = "initialization"
-    window.show()
-
-    def wait(predicate, timeout=30):
-        until = time.monotonic() + timeout
-        while time.monotonic() < until:
-            app.processEvents()
-            if predicate():
-                return
-            time.sleep(0.01)
-        raise AssertionError(
-            f"{phase}: timed out; bridge failures={bridge.failed_deliveries}"
-        )
-
-    def evaluate(script, target=web):
-        answer = []
-        target.page().runJavaScript("JSON.stringify(" + script + ")", answer.append)
-        wait(lambda: bool(answer))
-        return (
-            json.loads(answer[0])
-            if isinstance(answer[0], str) and answer[0]
-            else answer[0]
-        )
-
-    def idle(target_bridge=bridge):
-        wait(
-            lambda: (
-                target_bridge.ready
-                and not target_bridge.queue
-                and target_bridge.inflight is None
-            )
-        )
-
-    def click(selector):
-        wait(
-            lambda: evaluate(
-                f"(() => {{const e=document.querySelector({json.dumps(selector)});return !!e&&!e.disabled&&e.getClientRects().length>0;}})()"
-            )
-        )
-        assert evaluate(
-            f"(() => {{const e=document.querySelector({json.dumps(selector)});if(!e)return false;e.click();return true;}})()"
-        ), selector
-
-    def fill(key, value):
-        selector = ".msm-system [data-" + key + "]"
-        wait(
-            lambda: evaluate(
-                f"(() => {{const e=document.querySelector({json.dumps(selector)});return !!e&&!e.disabled&&e.getClientRects().length>0;}})()"
-            )
-        )
-        assert evaluate(
-            f'(() => {{const e=document.querySelector({json.dumps(selector)});if(!e)return false;e.value={json.dumps(value)};e.dispatchEvent(new Event("input",{{bubbles:true}}));e.dispatchEvent(new Event("change",{{bubbles:true}}));return true;}})()'
-        ), key
-
-    def visible(selector):
-        return evaluate(
-            f"(() => {{const e=document.querySelector({json.dumps(selector)});return !!e&&e.getClientRects().length>0;}})()"
-        )
-
-    positions = "(() => {const s=window.__molsysviewerDocsController?.getStructureData();if(!s)return null;const result=[];for(const u of s.units)for(const a of u.elements)result[a]=Array.from(u.conformation.position(a,[0,0,0]));return result;})()"
-
-    def received(target, target_web=web, target_bridge=bridge):
-        idle(target_bridge)
-        wait(
-            lambda: (
-                (raw := evaluate(positions, target_web)) is not None
-                and np.allclose(
-                    np.asarray(raw),
-                    puw.get_value(
-                        target.molsys.structures.coordinates, to_unit="angstrom"
-                    )[0],
-                    atol=1e-4,
-                    rtol=0,
-                )
-            )
-        )
+    host = NativePanelHost(base, out, phase=lambda: phase)
+    app, window, web = host.app, host.window, host.web
+    view, bridge = host.view, host.bridge
+    wait, evaluate = host.wait, host.evaluate
+    click, fill, visible, received = host.click, host.fill, host.visible, host.received
 
     try:
         wait(lambda: bridge.ready)
         received(view)
-        click('[title="Panel mode (N / W)"]')
-        wait(
-            lambda: evaluate(
-                '!!document.querySelector("[data-molsysviewer-addon-workspace-tab=\\"molsysmt\\"]")'
-            )
-        )
-        if not visible('[data-molsysviewer-addon-workspace-tab="molsysmt"]'):
-            click(
-                '[data-molsysviewer-panel-stack-option="addons"], [data-molsysviewer-panel-stack-current="addons"]'
-            )
-        click('[data-molsysviewer-addon-workspace-tab="molsysmt"]')
-        click('[data-molsysviewer-addon-panel-tab="geometry"]')
+        host.open_panel("geometry")
         fill("task", "minimize")
         wait(
-            lambda: (
-                not evaluate(
-                    "document.querySelector('.msm-system [data-task]').disabled"
-                )
+            lambda: evaluate(
+                "(() => {const e=document.querySelector('[data-geometry-heading]');const task=document.querySelector('.msm-system [data-task]');return e?.textContent.includes('Minimize potential energy')&&!!task&&!task.disabled;})()"
             )
         )
         fill("effect", "result")

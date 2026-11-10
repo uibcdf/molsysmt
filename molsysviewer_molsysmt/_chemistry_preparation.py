@@ -12,12 +12,36 @@ PREPARATION_DEFAULTS = {
     "pH": "7.4",
     "attribute_policy": "strict",
     "title": "",
+    "inference_method": "supported_group_templates",
+    "bond_cutoff": "2 angstroms",
+    "n_cap": "none",
+    "c_cap": "none",
+    "keep_ids": "no",
+    "charge_method": "gasteiger_marsili",
+    "forcefield": "",
+    "water_model": "",
+    "expected_charge": "",
 }
-PREPARATION_TASKS = {"heavy", "add_hydrogens"}
+REPAIR_TASKS = {
+    "infer_bonds",
+    "add_bonds",
+    "terminal_cappings",
+    "remove_hydrogens",
+    "autodock_types",
+    "partial_charges",
+}
+PREPARATION_TASKS = {"heavy", "add_hydrogens"} | REPAIR_TASKS
 
 
 def validate_preparation_parameters(parameters):
-    for key, limit in {"pH": 64, "title": 200}.items():
+    for key, limit in {
+        "pH": 64,
+        "title": 200,
+        "bond_cutoff": 128,
+        "forcefield": 200,
+        "water_model": 200,
+        "expected_charge": 64,
+    }.items():
         if not isinstance(parameters[key], str) or len(parameters[key]) > limit:
             raise ValueError("Enter bounded preparation parameters and a result title.")
     if (
@@ -28,6 +52,19 @@ def validate_preparation_parameters(parameters):
         raise ValueError(
             "Choose a supported preparation mode, engine and attribute policy."
         )
+
+    for key, choices in {
+        "inference_method": {
+            "supported_group_templates",
+            "supported_group_templates_with_hydrogen_aliases",
+        },
+        "n_cap": {"none", "ACE"},
+        "c_cap": {"none", "NME", "NHE", "NH2"},
+        "keep_ids": {"yes", "no"},
+        "charge_method": {"gasteiger_marsili", "forcefield"},
+    }.items():
+        if not isinstance(parameters[key], str) or parameters[key] not in choices:
+            raise ValueError("Choose a supported explicit repair or assignment method.")
 
 
 @dataclass(frozen=True)
@@ -87,13 +124,24 @@ class _ChemistryPreparation:
                 raise ValueError("Update the scene before preparing a separate system.")
             parameters = self._parameters
             total = int(target.structures.n_structures)
-            if not total:
-                raise ValueError("Preparation requires molecular coordinates.")
+            if not total and parameters["task"] not in {
+                "infer_bonds",
+                "autodock_types",
+                "partial_charges",
+                "remove_hydrogens",
+            }:
+                raise ValueError("This preparation requires molecular coordinates.")
             frame = (
                 int(self._view.player.index)
                 if self._draft["context"] == "current"
                 else self._draft["structure_index"]
             )
+            if parameters["task"] in {
+                "autodock_types",
+                "partial_charges",
+                "remove_hydrogens",
+            }:
+                frame = int(self._view.player.index) if total else 0
             before = set(msm.basic.get_attributes(target, include_none=False))
             if parameters["task"] == "heavy":
                 if frame >= total:
@@ -137,7 +185,7 @@ class _ChemistryPreparation:
                     "attribute_policy": parameters["attribute_policy"],
                 }
                 title = "Heavy-atom completion"
-            else:
+            elif parameters["task"] == "add_hydrogens":
                 # Native fixed-state preparation requires an isolated structure;
                 # legacy engines are also only qualified here on one structure.
                 # Never silently select the visible structure or extract atoms.
@@ -184,6 +232,10 @@ class _ChemistryPreparation:
                         added_hydrogens=int(output["report"]["n_added_hydrogens"]),
                     )
                 title = "Hydrogen completion"
+            else:
+                candidate, operation, scientific, title = self._prepare_repair(
+                    target, frame, total
+                )
             missing = sorted(
                 before - set(msm.basic.get_attributes(candidate, include_none=False))
             )
@@ -209,6 +261,149 @@ class _ChemistryPreparation:
             )
 
         self._owner._read(calculate, {})
+
+    def _prepare_repair(self, target, frame, total):
+        """Keep scientific decisions in public native wrappers and outputs separate."""
+        p, task = self._parameters, self._parameters["task"]
+        if frame < 0 or (total and frame >= total):
+            raise ValueError("The selection structure index is outside this system.")
+        state = int(p["state_index"]) if p["state_mode"] == "index" else p["state_mode"]
+        methods = {
+            "infer_bonds": ("infer_covalent_bonds", "Infer covalent bonds"),
+            "add_bonds": ("add_missing_bonds", "Add missing bonds"),
+            "terminal_cappings": (
+                "add_missing_terminal_cappings",
+                "Complete terminal atoms and caps",
+            ),
+            "remove_hydrogens": (
+                "reconcile_protonation",
+                "Remove reference-rule hydrogens",
+            ),
+            "autodock_types": (
+                "assign_autodock_atom_types",
+                "Assign AutoDock atom types",
+            ),
+            "partial_charges": ("assign_partial_charges", "Assign partial charges"),
+        }
+        name, title = methods[task]
+        arguments, science = (
+            {},
+            {
+                "task": task,
+                "scope": "whole_system",
+                "all_source_structures_retained": True,
+            },
+        )
+        if task in {"infer_bonds", "add_bonds", "terminal_cappings"}:
+            atoms = self._selection(target, frame)
+            if not atoms.size:
+                raise ValueError("Choose a nonempty population for this repair.")
+            arguments["selection"] = atoms.tolist()
+            science.update(
+                scope="selected_atoms",
+                selected_atoms=int(atoms.size),
+                selection_structure=frame,
+            )
+        if task == "infer_bonds":
+            arguments.update(
+                structure_indices=[frame] if total else "all",
+                chemical_state=state,
+                method=p["inference_method"],
+                return_report=True,
+            )
+        elif task == "add_bonds":
+            arguments.update(
+                max_bond_length=p["bond_cutoff"],
+                structure_index=frame,
+                engine="MolSysMT",
+                in_place=False,
+            )
+        elif task == "terminal_cappings":
+            from molsysmt import basic
+
+            groups = sorted(
+                {
+                    int(i)
+                    for i in basic.get(
+                        target,
+                        element="atom",
+                        selection=atoms.tolist(),
+                        group_index=True,
+                    )
+                }
+            )
+            # The native composition evaluates the same expression at group and
+            # atom levels. A named hierarchy expression is unambiguous at both;
+            # a flat integer list would change meaning between those levels.
+            arguments["selection"] = "group_index in " + str(groups)
+            science.update(
+                scope="selected_groups_and_native_components",
+                selected_groups=len(groups),
+            )
+            arguments.update(
+                N_terminal=None if p["n_cap"] == "none" else p["n_cap"],
+                C_terminal=None if p["c_cap"] == "none" else p["c_cap"],
+                pH=self._finite_ph(),
+                keep_ids=p["keep_ids"] == "yes",
+                engine="MolSysMT",
+            )
+        elif task == "remove_hydrogens":
+            arguments.update(pH=self._finite_ph(), engine="MolSysMT", in_place=False)
+        else:
+            arguments.update(
+                structure_indices=[frame] if total else "all",
+                chemical_state=state,
+                return_report=True,
+            )
+            if task == "autodock_types":
+                arguments.update(
+                    typing_scheme="autodock4", method="chemical_environment"
+                )
+            else:
+                method = p["charge_method"]
+                charge = p["expected_charge"].strip()
+                try:
+                    expected = int(charge) if charge else None
+                except ValueError as exc:
+                    raise ValueError(
+                        "Declare the expected whole-system charge as an integer in elementary charge, or leave it empty."
+                    ) from exc
+                ff = p["forcefield"].strip() if method == "forcefield" else None
+                if method == "forcefield" and not ff:
+                    raise ValueError("Name the force field for this charge model.")
+                arguments.update(
+                    method=method,
+                    forcefield=ff,
+                    water_model=(p["water_model"].strip() or None)
+                    if method == "forcefield"
+                    else None,
+                    expected_total_charge=expected,
+                )
+        output = getattr(self._owner.build, name)(**arguments)
+        if arguments.get("return_report"):
+            candidate = output["molecular_system"]
+            science["report_schema"] = str(output["report"]["schema"])[:200]
+        else:
+            candidate = output
+        science.update(
+            {
+                key: value
+                for key, value in arguments.items()
+                if key not in {"selection", "return_report"}
+            }
+        )
+        # Native reports/history and bound assignments remain owned by the result;
+        # the widget receives bounded scalar provenance, never entire atom arrays.
+        return candidate, "molsysmt.build." + name, science, title
+
+    def _finite_ph(self):
+        try:
+            value = float(self._parameters["pH"])
+        except ValueError as exc:
+            raise ValueError("Enter a finite numerical pH.") from exc
+        if not isfinite(value):
+            raise ValueError("Enter a finite numerical pH.")
+        return value
 
     def _review_prepared_replacement(self):
         if not self._preparation_packet(self._context())["can_replace"]:
