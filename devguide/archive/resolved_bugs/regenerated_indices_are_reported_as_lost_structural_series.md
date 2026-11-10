@@ -1,9 +1,9 @@
 ---
 summary: Complementary native composition reports regenerated positional indices as lost observations.
 issue: uibcdf/molsysmt#675
-status: active
+status: resolved
 opened: 2026-11-09
-closed:
+closed: 2026-11-09
 severity: low
 verification: reproduced
 area: [basic, convert, diagnostics]
@@ -45,3 +45,17 @@ values/units and unchanged source objects. Keep the single-reference/trajectory
 and incompatible-axis controls. An early fixture wrongly assumed a reorder for
 the documented ascending native-pair extraction and queried atom_index at the
 system level; those fixture failures are retained and are not provider defects.
+
+
+## Resolution — 2026-11-09
+
+Real complementary public composition in both input orders passes without
+regenerated-index loss noise; names/counts/positions/coordinates remain exact.
+The negative control still warns for genuinely missing off-axis time, and the
+existing incompatible-trajectory refusal remains. Clean combined ecf05b066
+receives all 187 selected composition/axis/unit cases and fourteen fast gates.
+All 102 existing selected warnings remain: 99 legacy H5MSM and three genuine
+off-axis diagnostics. No warning category is filtered and no scientific source
+loss is claimed or repaired.
+
+Receiving record: [import_and_composition_receiving_674_675_20261109.json](../../../devtools/data/import_and_composition_receiving_674_675_20261109.json).

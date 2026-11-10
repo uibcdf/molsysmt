@@ -1,9 +1,9 @@
 ---
 summary: Benchmark fork workers can hang after scientific preparation and scoped configuration.
 issue: uibcdf/molsysmt#676
-status: active
+status: resolved
 opened: 2026-11-09
-closed:
+closed: 2026-11-09
 severity: medium
 verification: reproduced
 area: [performance, tests]
@@ -57,3 +57,18 @@ controls pass in 116.68 seconds, measured service peak about 502 MiB, host
 available memory stays above 13 GiB. These observations qualify evidence transport,
 not a performance ranking. All earlier numerical/unit/timeout attempts remain.
 Full clean-source receiving and the explicit worker-lifecycle guards are due.
+
+
+## Resolution — 2026-11-09
+
+Fresh factory-based competitive workers, verified preparation and finite IPC/
+lifetime cleanup pass the full clean 172-case benchmark collection, including
+two real 21-path campaigns. Lock inheritance, large pipe payloads, worker
+exceptions and finite deadlines have explicit controls. The old fork timeout
+retains its native 180-second disposition and missing final records. Exact
+inherited component attribution remains unassigned; no third-party defect is
+asserted. Legacy arbitrary-closure fork is bounded, not generally certified.
+The measured service peak is about 516 MiB and the host minimum exceeds 11 GiB;
+these tiny evidence-transport runs support no representative speed claim.
+
+Receiving record: [benchmark_comparability_receiving_567_673_676_20261109.json](../../../devtools/data/benchmark_comparability_receiving_567_673_676_20261109.json).

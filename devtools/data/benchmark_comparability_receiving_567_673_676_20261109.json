@@ -750,7 +750,7 @@
     "campaigns": 2,
     "iterations_per_block": 1,
     "blocks": 3,
-    "comparison_disposition": null,
+    "comparison_disposition": "warning",
     "comparable": true,
     "matched_paths": 21,
     "artifacts": {

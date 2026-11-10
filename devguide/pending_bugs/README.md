@@ -27,13 +27,9 @@ that front matter -- edit the entries, not this list.
 - [`macos_py312_environment_download_failure.md`](macos_py312_environment_download_failure.md) — [#671](https://github.com/uibcdf/molsysmt/issues/671) — Track the macOS Python 3.12 Conda download failure separately from tests. *(medium, upstream)*
 - [`generated_pdb_provenance_hard_codes_molsysmt_version_1_0.md`](generated_pdb_provenance_hard_codes_molsysmt_version_1_0.md) — [#680](https://github.com/uibcdf/molsysmt/issues/680) — Generated PDB provenance hard-codes MolSysMT version 1.0 *(low, inspected)*
 
-### In progress (5)
+### In progress (1)
 
 - [`contact_cutoff_equality_changes_across_equivalent_length_units.md`](contact_cutoff_equality_changes_across_equivalent_length_units.md) — [#666](https://github.com/uibcdf/molsysmt/issues/666) — Contact cutoff equality changes across equivalent length units *(high, reproduced)*
-- [`benchmark_fork_workers_can_hang_after_scientific_preparation_and_scoped_configur.md`](benchmark_fork_workers_can_hang_after_scientific_preparation_and_scoped_configur.md) — [#676](https://github.com/uibcdf/molsysmt/issues/676) — Benchmark fork workers can hang after scientific preparation and scoped configuration. *(medium, reproduced)*
-- [`competitive_geometry_timings_compare_different_rmsd_and_periodic_distance_observ.md`](competitive_geometry_timings_compare_different_rmsd_and_periodic_distance_observ.md) — [#673](https://github.com/uibcdf/molsysmt/issues/673) — Competitive geometry timings compare different RMSD and periodic-distance observables. *(medium, reproduced)*
-- [`late_pint_cache_configuration_after_prior_unit_use.md`](late_pint_cache_configuration_after_prior_unit_use.md) — [#674](https://github.com/uibcdf/molsysmt/issues/674) — MolSysMT requests Pint registry caching after the registry is already loaded. *(low, reproduced)*
-- [`regenerated_indices_are_reported_as_lost_structural_series.md`](regenerated_indices_are_reported_as_lost_structural_series.md) — [#675](https://github.com/uibcdf/molsysmt/issues/675) — Complementary native composition reports regenerated positional indices as lost observations. *(low, reproduced)*
 
 ### Partially resolved (1)
 

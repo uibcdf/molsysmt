@@ -1,24 +1,41 @@
 # Pre-1.0 robustness audit and action plan — 6 November 2026
 
-## Active comparability and incoming diagnostics block — 2026-11-09
+## Comparability and incoming diagnostics received — 2026-11-09
 
-#567 now has versioned execution/workload/raw-sample compatibility, typed advisory
-dispositions and a reviewed renewal procedure. Historical references stay exact
-and unevaluable. Its numerical prechecks reproduce #673's mixed RMSD/PBC
-benchmarks; actual tiny production reproduces #676's inherited-worker hang.
-The corrected competitive route uses fresh factories and finite IPC/worker
-lifecycle, without copying native objects or changing molecular algorithms.
-Directed selections pass 123 comparison/geometry controls, ten complete tiny
-producer/reader/runtime controls and nine worker-lifecycle controls. Clean-source
-receiving and closeout remain in progress; no new milestone credit is claimed
-yet. See [the session contract](benchmarking/comparable_sessions.md).
+#567's full comparable-session contract is received: known runtime/provider/
+resource/unit identities, actual observables/inputs/precision, raw repetitions,
+typed advisory dispositions and reviewed reference renewal. Clean 3547b0977
+passes **172** benchmark controls, including two real **21-case** tiny campaigns.
+#673 repairs invalid comparative RMSD/PBC workloads and the mislabeled MDTraj
+route; #676 replaces inherited competitive workers with fresh factories and
+finite lifetimes. The original failures and historical baseline stay exact;
+no new reference or representative speed ranking is selected. See the
+[benchmark receiving record](../devtools/data/benchmark_comparability_receiving_567_673_676_20261109.json)
+and [maintained contract](benchmarking/comparable_sessions.md).
 
-Next independent incoming reports are #674's ineffective late Pint cache setter
-and #675's off-axis regenerated-index warning. Both require public reproduction;
-no numerical conversion failure/data loss is established by those reports.
-#666/provider143 remains open without a provider answer. #582, remaining #421
-intents, #524/#615, broader #256 and #334 exact-candidate/installed gates remain.
-Publication/remote-CI pause and explicit [skip ci] source checkpoints continue.
+Clean combined ecf05b066 passes **187** composition/axis/active-unit cases and
+**14/14** fast gates. #674 preserves an already loaded Pint registry rather than
+making an ineffective cache request; #675 distinguishes regenerated positional
+indices from lost structural observations. Real off-axis warnings/incompatible
+axes remain enforced. All previous fixture/launcher/source-mutation failures
+remain in the [diagnostics receiving record](../devtools/data/import_and_composition_receiving_674_675_20261109.json).
+These selections overlap existing coverage; they are not a full-suite count.
+Source delivery and public closure are being completed at this checkpoint.
+
+The original baseline-comparability leaf now gains **1.25 points**: weighted
+source milestones are **73.7664% (approximately 73.8%)**, with graphical intents
+unchanged at **31/50**. Supplemental repairs add no bonus. This is operational
+source progress, not publication readiness. Resource runs use 1 CPU/2 GiB each;
+recorded peaks stay below 0.8 GiB, no own OOM/reserve stop, and observed host
+availability stays above 11 GiB. No all-core or unlimited-worker execution.
+
+Next incoming owners are #677's catalog count and #679's terminal-capping numeric
+selection axis; PR #678 proposes existing PCA/refinement addon workflows and
+requires its own review and actual GUI receiving. #680 tracks the inspected PDB hard-coded producer version;
+uibcdf/pyunitwizard#144 owns the guide-cache example correction. Preserve
+#666/provider143, #582 effective recipes, remaining #421 intents, #524/#615,
+broader #256 and #334 installed/platform/exact-candidate requirements. Source
+checkpoints use [skip ci]; no new remote CI, tag, package or Release is launched.
 
 ## Source CI, mechanics and advisory performance receiving — 2026-11-09
 

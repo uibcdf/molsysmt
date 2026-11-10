@@ -1,13 +1,13 @@
 ---
 summary: Define comparable performance baselines and third-party gate semantics.
 issue: uibcdf/molsysmt#567
-status: partial
+status: resolved
 opened: 2026-11-04
-closed:
+closed: 2026-11-09
 verification: measured
 area: [ci, performance]
 guard: devtools/tests/test_benchmark_comparison.py
-normative: devguide/benchmarking/performance_policy.md
+normative: devguide/benchmarking/comparable_sessions.md
 blocked_by: []
 supersedes: []
 ---
@@ -16,8 +16,8 @@ supersedes: []
 
 **Reported:** 2026-11-04, with explicit maintainer authorization, while receiving
 PR #543 under uibcdf/molsysviewer#264.
-**Status:** partial implementation. The maintainer has accepted advisory timing
-for both product and third-party observations; full comparability remains open.
+**Status:** resolved after complete compatible-session receiving; historical
+observations below retain their original dates and dispositions.
 
 ## What
 
@@ -126,7 +126,7 @@ closed by the malformed-data correction.
 
 `e21cd13419ccedcc7ebebd7aef1bb1e7c585f34a` passes 45 semantic cases
 and fourteen fast gates on clean source. The
-[receipt](../../devtools/data/benchmark_data_receiving_567_20261108.json)
+[receipt](../../../devtools/data/benchmark_data_receiving_567_20261108.json)
 retains the original three false-success controls, source/input hashes and
 bounded receiving. The guard rejects empty, absent, malformed and nonfinite
 numeric evidence while preserving real regression detection and the original
@@ -143,7 +143,7 @@ the reference and is configured to retain the raw JSON, source identity and
 native-status-preserving logs after failures. Actual hosted upload remains
 unexecuted; a local YAML/shell guard is not an upload certificate.
 
-The [receiving record](../../devtools/data/benchmark_evidence_receiving_567_20261108.json)
+The [receiving record](../../../devtools/data/benchmark_evidence_receiving_567_20261108.json)
 retains all prototype failures, the real original reference-file control,
 59 passing benchmark cases and the separate #653 selector correction. Clean
 joint receiving passes 104 cases. The original default 15 percent, matched
@@ -163,7 +163,7 @@ or implementation rejection. Differences within that margin generally require
 no efficiency issue. Numerical correctness and data-integrity controls retain
 their mandatory roles.
 
-The [accepted policy](../benchmarking/performance_policy.md) records this
+The [accepted policy](../../benchmarking/performance_policy.md) records this
 disposition. The comparer now warns rather than returns a regression failure
 for valid slower timings. Malformed/incomplete records still fail diagnostically
 and never claim performance approval; the performance job is explicitly advisory,
@@ -178,7 +178,7 @@ policy change or the old direct-MDTraj observation.
 ## Accepted advisory implementation receiving — 2026-11-09
 
 Clean d1cf23362 receives all 121 affected comparer/evidence/reference/certificate/
-addon preflight controls and all fourteen fast gates. The [policy receiving record](../../devtools/data/advisory_performance_policy_receiving_567_20261109.json)
+addon preflight controls and all fourteen fast gates. The [policy receiving record](../../../devtools/data/advisory_performance_policy_receiving_567_20261109.json)
 retains the synthetic old blocking policy, new warning assertions for product
 and external paths, invalid-data refusals, actual shell-pipeline failures and
 unchanged reference bytes. A temporary profile selected the same policy suite
@@ -192,7 +192,7 @@ renewal remain open, so #567 stays partial.
 
 ## Complete contract implementation under receiving — 2026-11-09
 
-The [comparable-session contract](../benchmarking/comparable_sessions.md) now
+The [comparable-session contract](../../benchmarking/comparable_sessions.md) now
 defines and implements known runtime/provider/hardware/resource/unit identities,
 actual input/observable/precision descriptors, raw repetitions and matched timing
 protocols. Product revisions may change; changed environments or workloads cannot
@@ -216,3 +216,26 @@ New incoming #674 (late Pint-cache setup) and #675 (regenerated-index compositio
 warning) are independent consumer reports; reproduce them after this finite
 receiving block. Neither demonstrates new molecular data loss. No package,
 release, historical-baseline renewal or remote workflow is launched here.
+
+
+## Resolution — 2026-11-09
+
+The maintainer's advisory policy and full compatible-session contract are
+implemented and received. Clean 3547b0977 passes all 172 benchmark/evidence
+controls, including two actual 21-path campaigns. The raw sessions compare as
+complete after only owned generated PDB provenance records are made deterministic;
+original records and raw/prepared digests survive. Caller inputs/scientific rows
+remain unchanged. Clean combined ecf05b066 also passes all fourteen fast gates.
+
+Known runtime/provider/resource/unit facts, actual workload/precision, raw samples
+and matching measurement protocols are mandatory. Structured partial/unevaluable
+reports cannot approve missing evidence. Above-threshold observations remain
+advisory for both product and external controls. The reviewed renewal procedure
+is operational; the original historical reference is retained and unevaluable,
+not silently replaced. No authoritative timing ranking or new baseline is claimed.
+
+The original weighted baseline-comparability leaf now receives source credit.
+Other bug closures add no bonus; installed/platform/final-candidate requirements
+remain separate. The narrower #673/#676 guards and their failed attempts survive.
+
+Receiving record: [benchmark_comparability_receiving_567_673_676_20261109.json](../../../devtools/data/benchmark_comparability_receiving_567_673_676_20261109.json).

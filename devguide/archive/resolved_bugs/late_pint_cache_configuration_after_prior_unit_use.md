@@ -1,9 +1,9 @@
 ---
 summary: MolSysMT requests Pint registry caching after the registry is already loaded.
 issue: uibcdf/molsysmt#674
-status: active
+status: resolved
 opened: 2026-11-09
-closed:
+closed: 2026-11-09
 severity: low
 verification: reproduced
 area: [units, deps]
@@ -52,3 +52,17 @@ The copied consumer-guide example has the same absent-policy assumption.
 Canonical guidance correction is tracked in uibcdf/pyunitwizard#144; MolSysMT
 changes no synchronized guide copy or provider source. This follow-up does not
 block the bounded consumer fix supported by the published minimum.
+
+
+## Resolution — 2026-11-09
+
+The three fresh-process import orders pass on the published PyUnitWizard
+0.28.1 floor. The actual existing registry/cache and application unit policy
+remain intact, and absent policies still receive shared standards/fast tracks.
+Clean combined ecf05b066 receives 187 existing composition/axis/unit cases and
+fourteen fast gates, with strict before/after source correspondence. Earlier
+fixture/launcher failures and the source-mutated attempt remain distinct.
+Canonical example correction is handed to uibcdf/pyunitwizard#144; no provider
+source, synchronized guide, floor or scientific algorithm changes.
+
+Receiving record: [import_and_composition_receiving_674_675_20261109.json](../../../devtools/data/import_and_composition_receiving_674_675_20261109.json).

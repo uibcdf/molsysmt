@@ -94,7 +94,7 @@ Important limitations:
 
 Until these limitations are addressed, timing observations are signals, not
 strong statistical evidence or attributed product regressions. See
-[the remaining comparability work](../pending_proposals/benchmark_baseline_comparability_and_competitor_gating.md).
+[the remaining comparability work](../archive/resolved_proposals/benchmark_baseline_comparability_and_competitor_gating.md).
 
 ## Reporting rule
 

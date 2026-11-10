@@ -1,9 +1,9 @@
 ---
 summary: Competitive geometry timings compare different RMSD and periodic-distance observables.
 issue: uibcdf/molsysmt#673
-status: active
+status: resolved
 opened: 2026-11-09
-closed:
+closed: 2026-11-09
 severity: medium
 verification: reproduced
 area: [performance, tests]
@@ -48,3 +48,16 @@ Retain the original rigid-translation, local-deformation, periodic-boundary and
 full pair-grid assertions. Incorrect scientific results must stop the benchmark
 before timing. No native molecular function, detector criterion, algorithm or
 citation claim changes. No historical competitor ratio is reclassified as valid.
+
+
+## Resolution — 2026-11-09
+
+Explicit unaligned RMSD and nonperiodic full-pair distances now evaluate the
+same observable before timing, and the MDTraj distance route actually invokes
+MDTraj. Independent translation/deformation/PBC cases and deliberate incorrect
+third-party results retain mandatory assertions. Both nm and angstrom policies
+are covered. All 172 benchmark controls pass on clean 3547b0977; all fourteen
+fast gates pass on combined ecf05b066. No native scientific algorithm is changed
+and no historical ratio becomes valid retroactively.
+
+Receiving record: [benchmark_comparability_receiving_567_673_676_20261109.json](../../../devtools/data/benchmark_comparability_receiving_567_673_676_20261109.json).
