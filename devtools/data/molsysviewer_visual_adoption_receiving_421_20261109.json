@@ -1,0 +1,145 @@
+{
+  "schema": "molsysmt.viewer_visual_adoption_receiving@1",
+  "date": "2026-11-09",
+  "owner_issue": "uibcdf/molsysmt#421",
+  "consumer_issue": "uibcdf/molsysviewer#315",
+  "status": "source receiving; owner review and combined hosted/installed/human acceptance pending",
+  "source_parent": "7a83c482ccb350b82503a5538d72df0319c6153c",
+  "scientific_runtime_base": "ca76d93b420435243f68167521ccb503ec8b2728",
+  "viewer_source": "9b8662cfb198e6896751c30ee2c7c8780ac85f4c",
+  "source_sha256": {
+    ".github/workflows/ci-smoke.yaml": "15091224fb198433e33dcf577415100c0c1eae55f247710affd353d279570746",
+    "devguide/molsysviewer_tools_gui_design.md": "690adc8098ad76be46cd3d8ca63d6b4cd045ad22b66d6ea42c2176e19de8757f",
+    "devtools/scripts/viewer_tools_contract.py": "7698bffccc367278cf11b7259615c7b47fe338e74f0e9d2150b4e14458588999",
+    "docs/content/user/tools/molsysviewer_tools.md": "8931d3539fff968c4f48a7e5205bbed4997eccc8d124659bd3b87da119f7c480",
+    "docs/docs_manifest.yml": "c4e034dc2fa9bbe5c1899f23ecb0e15dcb158f86679295425881d64ce2e352b1",
+    "molsysviewer_molsysmt/_analysis_panel.py": "7fc5723d7e5d9a03527836672ba28ce9e4f377195c2cc2c48d6df4a109403f3f",
+    "molsysviewer_molsysmt/_analysis_panel_frontend.py": "274ceb5d678aaa9127a8becb8e664e4d8b8fdd647bde240605c9edb39bcb86f2",
+    "molsysviewer_molsysmt/_analysis_visuals.py": "f4c310d3d2f3bfa728ed812e491bfa07c948c887aa33a025b706edee81fbf6f7",
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "5c6657245a024b5a883a4ca9258605b264be22860e1acb44a6cf75aaf80b9ca4",
+    "tests/molsysviewer_molsysmt/qt_receiving_guard.py": "c0c397f00373c6dad7c7c86eb29be6c901466dc238c7fb333ae572897dcb26f2",
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "4dc1408d15033fe8335c0a3a7124edab8509a9efdc53d84d5af693e58f928b71",
+    "tests/molsysviewer_molsysmt/test_analysis_visual_adoption.py": "e4ae6fb6ff24b474910e52e47c97a3426800c5c897266bdb153dc46353a97bb5",
+    "tests/molsysviewer_molsysmt/visual_adoption_fixture.py": "02df7ae9a7bca9dd0eaaabe4dbb124d3309484df860944e4434ca2a3105be8d8",
+    "tests/molsysviewer_molsysmt/visual_adoption_jupyter.mjs": "8464a0e06a94ec2079c96c5a6a0443aee1d92e1834c128273e6d5c7fa9c67682",
+    "tests/molsysviewer_molsysmt/visual_adoption_qt.py": "315af42839e0930b8d806922c5af502237accae7c6f24f30b51c83456771238b"
+  },
+  "scientific_algorithms_unchanged": true,
+  "expert_api_unchanged": true,
+  "core_renderer_and_schemas_unchanged": true,
+  "native_backend_rebuilt": false,
+  "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+  "capabilities": [
+    "Explicit source-mapped scalar-property and RMSF snapshots on existing Whole/region destinations",
+    "Physical range units, destination coverage, finite-value refusal, unrelated layer preservation and core Undo/Redo/state persistence",
+    "Canonical complete-structure plots for a source pair, extrema, explicit vector component, ordered angle/torsion tuple or SASA element",
+    "No invented PCA projections, vector magnitude, atom aggregation, missing-value repair, frame sorting or deduplication",
+    "Independent report versus core color/plot lifetime"
+  ],
+  "receiving": [
+    {
+      "campaign": "visual-adoption-integration-71",
+      "scope": "312 covering Analysis/visual/source/unit/axis/three-package-preflight cases",
+      "native_exit": 0,
+      "seconds": 72.2507790478412,
+      "selected_inputs": 10724,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 654.5,
+      "cleanup": {
+        "tracked": 4,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "invocation_sha256": "e713c6f61dafd6163375f618e5cc1024562844b06ff58bca23fe31bd44325b9a"
+    },
+    {
+      "campaign": "visual-adoption-final-74",
+      "scope": "Actual Jupyter six scenarios: real Molstar representation themes, native/NumPy scalar references, actual SVG point navigation, both popups, refusal/recovery and source preservation",
+      "native_exit": 0,
+      "seconds": 52.76659774384461,
+      "selected_inputs": 10724,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 2905.3,
+      "cleanup": {
+        "tracked": 26,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "invocation_sha256": "dcd32eea75d677fadf3562dc896a2f9c642f281024229b9db39ffafbe503b572"
+    },
+    {
+      "campaign": "visual-adoption-native-qt-70",
+      "scope": "Native Qt four scenarios: real Molstar theme, core plot, DOM point navigation and source preservation",
+      "native_exit": 0,
+      "seconds": 17.195433023152873,
+      "selected_inputs": 10724,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 1638.9,
+      "cleanup": {
+        "tracked": 5,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "invocation_sha256": "2006420ce403813d74c21e7a1ff1723579af5277466a5662517e4cb4ba9195e8"
+    },
+    {
+      "campaign": "visual-adoption-quality-75",
+      "scope": "Full Ruff lint/format, dependency inventory, devguide/index/course and diff",
+      "native_exit": 0,
+      "seconds": 4.507459823042154,
+      "selected_inputs": 10724,
+      "inputs_unchanged": true,
+      "peak_owned_rss_mib": 37.2,
+      "cleanup": {
+        "tracked": 6,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "invocation_sha256": "3fcddc512b316880ea184d8cdb279dac68d96a5a84fc0533a9e536282c684da1"
+    }
+  ],
+  "failures_preserved": [
+    {
+      "campaign": "visual-adoption-final-hosts-72",
+      "result": "Jupyter failed; Qt passed",
+      "reason": "Driver treated an existing empty-valued HTML open attribute as false and closed a panel it needed. Product unchanged."
+    },
+    {
+      "campaign": "visual-adoption-rmsf-final-73",
+      "result": "Jupyter failed; both new independent RMSF unit controls passed",
+      "reason": "The reference used native RMSF default selection, which excludes hydrogens, while the GUI deliberately requested all atoms. Reference now explicitly requires all 62 source atoms and independent NumPy fluctuations; no product or criterion relaxation."
+    }
+  ],
+  "resource_limits": {
+    "logical_cpus": 8,
+    "ram_gib": 6,
+    "swap_gib": 0,
+    "minimum_globally_available_gib": 2,
+    "own_intensive_jobs": 1
+  },
+  "not_claimed": [
+    "new-source full hosted matrix",
+    "owner integration",
+    "clean installed or solver qualification",
+    "postponed human acceptance",
+    "generic figure/result storage or new renderer",
+    "automatic per-structure color recalculation",
+    "release or package publication"
+  ],
+  "earlier_qt_all_current_addon_runtime_files_unchanged": 46,
+  "additional_independent_unit_controls": {
+    "campaign": "visual-adoption-rmsf-final-73",
+    "passed_cases": [
+      "test_rmsf_colors_retain_length_units_and_independent_fluctuation_values[nm]",
+      "test_rmsf_colors_retain_length_units_and_independent_fluctuation_values[pm]"
+    ],
+    "aggregate_exit": 1,
+    "aggregate_not_green": true,
+    "scope": "Independent NumPy fluctuations and actual color destinations under nm/pm policies. These two cases passed within the failed Jupyter aggregate; the corrected Jupyter guard separately passes in 74."
+  },
+  "human_files_preserved": 11
+}

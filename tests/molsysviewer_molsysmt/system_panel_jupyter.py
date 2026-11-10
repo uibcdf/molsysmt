@@ -120,6 +120,7 @@ def main():
             "analysis",
             "refinement",
             "properties",
+            "visual-adoption",
         ),
         default="system",
     )
@@ -711,6 +712,10 @@ def main():
     cells = [initial, final]
     if args.scenario == "refinement":
         cells = [initial, "refinement_source_unchanged()\n", final]
+    if args.scenario == "visual-adoption":
+        from visual_adoption_fixture import notebook_cells
+
+        cells = notebook_cells(initial[: initial.index("view = msv.demo")], output)
     if args.scenario == "properties":
         from property_report_fixture import notebook_cells
 
@@ -912,7 +917,9 @@ def main():
                 [
                     args.node,
                     str(
-                        Path(__file__).with_name("property_report_jupyter.mjs")
+                        Path(__file__).with_name("visual_adoption_jupyter.mjs")
+                        if args.scenario == "visual-adoption"
+                        else Path(__file__).with_name("property_report_jupyter.mjs")
                         if args.scenario == "properties"
                         else Path(__file__).with_name("chemistry_repair_jupyter.mjs")
                         if args.scenario == "chemistry-repair"

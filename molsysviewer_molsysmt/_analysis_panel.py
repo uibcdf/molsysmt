@@ -17,6 +17,7 @@ from ._analysis_properties import (
     _PropertyReports,
     validate_property_parameters,
 )
+from ._analysis_visuals import _VisualReportAdoption
 from ._panel_frontend import CSS
 from ._task_panel import _MolecularTaskPanel, _structures
 
@@ -66,6 +67,8 @@ _SCENE_ACTIONS = {
     "focus_participants",
     "add_live_distance",
     "add_structure_plot",
+    "apply_report_colors",
+    "add_result_plot",
 }
 
 
@@ -152,7 +155,7 @@ def _uses_second(parameters):
     return parameters["relation"] == "between"
 
 
-class _AnalysisPanel(_PropertyReports, _MolecularTaskPanel):
+class _AnalysisPanel(_VisualReportAdoption, _PropertyReports, _MolecularTaskPanel):
     _report_type = _AnalysisReport
     _esm = ESM
     _css = CSS + ANALYSIS_CSS
@@ -916,6 +919,16 @@ class _AnalysisPanel(_PropertyReports, _MolecularTaskPanel):
             < min(report.total, self._offset + _PAGE_SIZE)
         ):
             raise ValueError("Choose a result row on the current page.")
+        if action_id == "apply_report_colors":
+            self._adopt_colors(
+                report, position, payload.get("visual_options", {}), request_id
+            )
+            return
+        if action_id == "add_result_plot":
+            self._adopt_result_plot(
+                report, position, payload.get("plot_component", "x"), request_id
+            )
+            return
         if report.parameters["task"] in PROPERTY_METHODS:
             first, observation_structure = self._property_row(position)
             second = []
@@ -1015,7 +1028,13 @@ class _AnalysisPanel(_PropertyReports, _MolecularTaskPanel):
                 "context": context,
                 "stage": stage,
                 "message": message,
-                "report": self._summary() if report else None,
+                "report": {
+                    **self._summary(),
+                    "color_unavailable": self._color_limit(report),
+                    "selected_plot_unavailable": self._result_plot_limit(report),
+                }
+                if report
+                else None,
                 "page": self._page(self._offset) if report else None,
                 "scene_action": scene_action,
             }
@@ -1031,6 +1050,8 @@ class _AnalysisPanel(_PropertyReports, _MolecularTaskPanel):
             "offset",
             "row_index",
             "component",
+            "visual_options",
+            "plot_component",
         }:
             raise ValueError("The analysis request contains unsupported fields.")
         draft = self._normalize_draft(payload.get("draft", self._draft))

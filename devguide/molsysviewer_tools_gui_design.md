@@ -884,3 +884,28 @@ engine fallback or implicit visual adoption is introduced. Actual Jupyter and
 both popups and representative native Qt have separate receiving guards;
 source delivery does not establish owner integration, installed qualification,
 postponed human acceptance or scientific stability promotion.
+
+### Qualified visual adoption source scope — 2026-11-09
+
+D6.10 maps received reports through existing public core owners. Scalar property
+and RMSF color adoption resolves complete source memberships, checks destination
+coverage and finite values, and converts physical bounds with the displayed
+unit. Whole or an existing covered region receives one public color setter,
+retaining unrelated layers and one core Undo/Redo operation. It creates no new
+region or partial intermediate object. SASA explicitly uses the selected row's
+structure observation; colors are fixed snapshots, not a new calculation clock.
+
+Additional linked plots take one source pair, ordered tuple, output element or
+explicit vector component through the canonical complete structure axis.
+Native extrema remain extrema of each structure, not a frozen participant pair.
+No sorting, deduplication, missing-value repair, tuple aggregation, vector norm
+or PCA trajectory projection is inferred. Native full precision and explicit
+length/angle/area units reach the existing core plot. Existing conformation
+plots remain unchanged. Reports expire independently; Clear retains core-owned
+colors/plots and the established scene/persistence/selection rules apply.
+
+The expert scientific mirror, renderer, universal result storage and unadopted
+B3.6/B4 contracts are unchanged. Native source-map/unit/rejection/history/state
+controls, actual Jupyter/Mol* representation-theme/plot-point receiving through
+both popups and representative native Qt have separate scopes. Hosted, installed,
+owner-review and postponed human acceptance remain distinct.

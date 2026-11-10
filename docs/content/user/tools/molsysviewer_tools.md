@@ -6279,7 +6279,41 @@ retained memberships can still require substantial time and memory. Membership
 text can be shortened in the table; **Select participants** and **Focus
 participants** use the complete source atoms of that row in the visible
 structure. They do not navigate to a calculated structure. Clear, changed inputs,
-source changes and panel retirement release the report. These reports do not
+source changes and panel retirement release the report. Calculation does not itself
 create live distances, color the scene or introduce generic H5MSM result storage.
 The corresponding expert functions remain available under
 `view.addons.molsysmt.physchem`, `.chemical_states`, and the native form converters.
+
+### Adopting compatible colors and structure plots
+
+Calculation leaves the scene unchanged. For scalar properties or atomic RMSF,
+choose a result row and open **Color from this result**. Select Whole or an
+existing region, a palette and automatic or explicit bounds. Physical bounds
+use the report's displayed unit. Every destination atom must have a finite
+mapped value; unreported atoms and undefined values are not filled. Group
+values apply to their actual constituent atoms. The destination can be a
+covered subset of the reported population.
+
+For SASA, the chosen row identifies the calculated structure; its complete
+output population supplies the colors. This is a **fixed color snapshot**, not
+a calculation that follows the trajectory. Apply it again deliberately for a
+different observation. Clear retains the colors. Existing core color controls,
+scene Undo/Redo and scene persistence own the adopted layer; other color layers
+are not replaced.
+
+Open **Plot an observation across structures** for a compatible distance,
+minimum/maximum, vector component, ordered angle/torsion tuple or SASA output.
+Choose a row to identify the pair, tuple or output element. Minimum/maximum
+plots retain each structure's native extreme, whose participant pair can change.
+Vector plots require an explicit Cartesian component; no magnitude is inferred.
+A linked plot requires every loaded structure exactly once in index order and
+finite values throughout. Repeated, missing and undefined observations are
+refused rather than sorted, collapsed, interpolated or filled.
+
+The plot retains full native numerical precision with explicit axis units.
+Clicking a point navigates its source structure through core Plots. Clear
+releases the mounted report while keeping the independent plot and colors.
+A static property, sequence, connectivity result or PCA component number does
+not become a trajectory axis. Existing conformation-series plots retain their
+separate **Add trajectory plot** action. No generic result container or new
+rendering backend is introduced.
