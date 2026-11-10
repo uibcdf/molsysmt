@@ -1,0 +1,87 @@
+{
+  "schema_version": "molsysmt.terminal_audit_consumer_receiving@1",
+  "date": "2026-11-09",
+  "issue": "uibcdf/molsysmt#679",
+  "execution": {
+    "execution": {
+      "command": [
+        "<development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<private-evidence>/pre1-intake-677-679-680-consumer.xml",
+        "--receptor-events=<private-evidence>/pre1-intake-677-679-680-consumer.events.jsonl",
+        "tests/molsysviewer_molsysmt/test_build_audit_tools.py",
+        "--basetemp=<private-evidence>/pre1-intake-677-679-680-consumer"
+      ],
+      "exit_code": 0,
+      "seconds": 18.908362738089636,
+      "viewer_commit": "346c331901c418fddb6b45a31da4690eee794129",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "source_commit": "38fd1533c0c49270267175a3190c863ae440033f",
+      "starting_git_status": "",
+      "ending_git_status": "",
+      "viewer_changed_inputs": [],
+      "viewer_checked_inputs": 2546,
+      "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+      "changed_inputs": [],
+      "checked_inputs": 8703
+    },
+    "resources": {
+      "started_utc": "2026-11-10T05:07:51.146587+00:00",
+      "seconds": 27.02182644419372,
+      "limits": {
+        "memory.max": "2147483648",
+        "memory.high": "1879048192",
+        "memory.swap.max": "0",
+        "memory.oom.group": "1",
+        "cpu.max": "100000 100000",
+        "pids.max": "512"
+      },
+      "host_load": {
+        "cpu_count": 20,
+        "affinity_cpus": 20,
+        "load_average": [
+          5.6845703125,
+          3.9833984375,
+          2.44140625
+        ],
+        "cpu_utilization": 0.23239436619718312,
+        "swap_bytes_per_second": 4091.6590767699727
+      },
+      "host_available_minimum_observed_bytes": 11082645504,
+      "cgroup_memory_peak_bytes": 430252032,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "stop_reason": null,
+      "maximum_host_full_pressure_avg10": 0.0
+    },
+    "evidence_sha256": {
+      ".json": "6f9761d1df93884a7ea1215c69a1f518faf16c5ca56a7cd1796df39a74a84197",
+      "-bounded.json": "1de95a4ee56b5dc5fee567abdc516e229b9bbf0f0bf955936e95e2f48b36471d",
+      ".xml": "2bd900fb9e054000ddffc9f07b0b9ffc2e781652266d0225d0484484b7a4520b",
+      ".log": "492237cde257920b659c1490e446e7ebe7dd7b7e942fe74809d36be09464915b",
+      "-inputs-before.json": "f61db90a4fe522c19a100364457f7d542aa376bcf98b2802766183945e0a8ec5",
+      "-inputs-after.json": "f61db90a4fe522c19a100364457f7d542aa376bcf98b2802766183945e0a8ec5",
+      "-reference-driver.py": "76dff31027bb6c574e1586f77ad239a9e67506329b52bfb5fd2e520adda0b038",
+      "-resource-driver.py": "4ab07eb667ed5e2739e635f5886a96a4629d2d747d10e1c35ee683da4a1e6c68"
+    },
+    "junit_suites": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "63",
+        "time": "15.428",
+        "timestamp": "2026-11-09T23:07:57.727543-06:00",
+        "hostname": "nauta"
+      }
+    ],
+    "nonpassing_cases": []
+  },
+  "scope": "63 existing addon audit cases on the fixed native source; no GUI, installed or full-suite claim.",
+  "native_code_equivalent_to": "c643a728f4e43128eaae243ba9b7f02febc4abc0",
+  "test_update": "The prior consumer test deliberately expected OXT on internal group 0. It now requires no false terminal and separately checks real group 161, preserving the intent that a local empty report cannot certify whole-chain completeness.",
+  "combined_attempt": "The initial combined #683 addon collection still retains that failure. It must receive the corrected test separately and rerun before aggregate success is claimed."
+}

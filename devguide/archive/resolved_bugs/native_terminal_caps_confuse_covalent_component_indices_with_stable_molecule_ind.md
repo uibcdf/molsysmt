@@ -1,9 +1,9 @@
 ---
 summary: Native terminal caps confuse covalent component indices with stable molecule indices
 issue: uibcdf/molsysmt#684
-status: active
+status: resolved
 opened: 2026-11-09
-closed:
+closed: 2026-11-09
 severity: medium
 verification: reproduced
 area: [build, selection]
@@ -47,3 +47,16 @@ selected peptide even after atom reordering or component renumbering; verify
 preservation and two stable molecules. Existing placement/domain tests must
 still pass. This does not expand the scientific placement model to arbitrary
 branched/cyclic chemistry or certify a force-field-ready chemical state.
+
+
+## Resolution — 2026-11-09
+
+Component endpoint groups locate cap insertion independently of stable molecule indices. The former 92-atom result becomes the expected 104 for both real source forms. Native stable molecule membership remains two; external MDTraj retains its own connected-molecule interpretation. Ambiguous repeated endpoint groups refuse before publication; no new placement science or force-field-ready state is claimed.
+
+Clean c643a728f receives 170 expanded placement/repair/writer/doctest controls,
+sixteen tiny benchmark/evidence controls, fourteen fast gates and five inspected
+HTML pages. Failures remain distinct, including corrected fixture assumptions.
+The [core receipt](../../../devtools/data/incoming_core_receiving_677_679_680_684_20261110.json)
+and [consumer receipt](../../../devtools/data/terminal_audit_consumer_receiving_679_20261110.json)
+retain exact source identities and limits. This adds no weighted milestone bonus
+and does not qualify installed/platform/final-candidate or addon GUI behavior.
