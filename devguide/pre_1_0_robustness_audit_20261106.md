@@ -20,7 +20,10 @@ indices from lost structural observations. Real off-axis warnings/incompatible
 axes remain enforced. All previous fixture/launcher/source-mutation failures
 remain in the [diagnostics receiving record](../devtools/data/import_and_composition_receiving_674_675_20261109.json).
 These selections overlap existing coverage; they are not a full-suite count.
-Source delivery and public closure are being completed at this checkpoint.
+Public main **af46ea3f3** is independently verified across all **42** changed/
+deleted paths; the four pre-existing human edits remain byte-exact. #567/#673/
+#674/#675/#676 are independently verified closed and board/queues agree. See the
+[public closeout record](../devtools/data/comparability_and_diagnostics_closeout_20261109.json).
 
 The original baseline-comparability leaf now gains **1.25 points**: weighted
 source milestones are **73.7664% (approximately 73.8%)**, with graphical intents

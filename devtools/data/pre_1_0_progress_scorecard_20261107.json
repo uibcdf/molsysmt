@@ -1192,6 +1192,15 @@
     "credited_points": 1.25,
     "supplemental_bug_bonus": 0,
     "graphical_intents_unchanged": "31/50",
-    "scope": "Source-qualified contract; final source delivery/issue closeout must be independently verified. No baseline renewal, speed ranking, installed or final-candidate acceptance."
+    "scope": "Source-qualified contract; final source delivery/issue closeout must be independently verified. No baseline renewal, speed ranking, installed or final-candidate acceptance.",
+    "public_checkpoint": "af46ea3f31afb9f77455b9910af3537a9cd267ae",
+    "closed_issues": [
+      567,
+      673,
+      674,
+      675,
+      676
+    ],
+    "public_closeout": "devtools/data/comparability_and_diagnostics_closeout_20261109.json"
   }
 }
