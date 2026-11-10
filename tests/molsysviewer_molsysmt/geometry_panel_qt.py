@@ -69,12 +69,22 @@ def main():
         )
 
     def click(selector):
+        wait(
+            lambda: evaluate(
+                f"(() => {{const e=document.querySelector({json.dumps(selector)});return !!e&&!e.disabled&&e.getClientRects().length>0;}})()"
+            )
+        )
         assert evaluate(
             f"(() => {{const e=document.querySelector({json.dumps(selector)});if(!e)return false;e.click();return true;}})()"
         ), selector
 
     def fill(key, value):
         selector = ".msm-system [data-" + key + "]"
+        wait(
+            lambda: evaluate(
+                f"(() => {{const e=document.querySelector({json.dumps(selector)});return !!e&&!e.disabled&&e.getClientRects().length>0;}})()"
+            )
+        )
         assert evaluate(
             f'(() => {{const e=document.querySelector({json.dumps(selector)});if(!e)return false;e.value={json.dumps(value)};e.dispatchEvent(new Event("input",{{bubbles:true}}));e.dispatchEvent(new Event("change",{{bubbles:true}}));return true;}})()'
         ), key
@@ -268,6 +278,94 @@ def main():
             checks.append(
                 task + ": result close releases ownership without closing source"
             )
+        phase = "PCA"
+        before = puw.get_value(view.molsys.structures.coordinates, to_unit="nm").copy()
+        click('[data-molsysviewer-addon-panel-tab="analysis"]')
+        wait(lambda: visible(".msm-analysis [data-calculate]"))
+        fill("task", "pca")
+        wait(
+            lambda: (
+                not evaluate(
+                    "document.querySelector('.msm-analysis [data-task]').disabled"
+                )
+            )
+        )
+        fill("source", "indices")
+        fill("indices", "4,0,4")
+        fill("structures", "indices")
+        fill("structure-indices", "2,0,2")
+        fill("pca-weighting", "custom")
+        fill("pca-weights", "[1,2,3]")
+        click(".msm-analysis [data-calculate]")
+        wait(lambda: visible(".msm-analysis [data-report]"))
+        flat = before[[2, 0, 2]][:, [4, 0, 4]].transpose(0, 2, 1).reshape(3, 9)
+        centered = (flat - flat.mean(axis=0)) * np.sqrt(np.tile([1, 2, 3], 3))
+        covariance = centered.T @ centered / 3
+        rows = evaluate(
+            "Array.from(document.querySelectorAll('.msm-analysis [data-rows] tr'),r=>Array.from(r.querySelectorAll('td'),x=>x.textContent))"
+        )
+        np.testing.assert_allclose(
+            [float(row[1]) for row in rows],
+            np.linalg.eigvalsh(covariance)[::-1],
+            atol=1e-10,
+        )
+        receive()
+        checks.append(
+            "PCA: explicit weighted eigenvalues match independent population covariance"
+        )
+        fill("pca-component", "1")
+        click(".msm-analysis [data-show-component]")
+        wait(
+            lambda: (
+                "Coefficient"
+                in (
+                    evaluate(
+                        "document.querySelector('.msm-analysis [data-columns]')?.textContent"
+                    )
+                    or ""
+                )
+            )
+        )
+        rows = evaluate(
+            "Array.from(document.querySelectorAll('.msm-analysis [data-rows] tr'),r=>Array.from(r.querySelectorAll('td'),x=>x.textContent))"
+        )
+        vector = np.array([float(row[4]) for row in rows])
+        np.testing.assert_allclose(
+            covariance @ vector, vector * np.linalg.eigvalsh(covariance)[-1], atol=1e-9
+        )
+        np.testing.assert_allclose(vector @ vector, 1, atol=1e-8)
+        assert [row[1] for row in rows] == ["X"] * 3 + ["Y"] * 3 + ["Z"] * 3
+        checks.append(
+            "PCA: dimensionless coefficient axes match the native Cartesian feature order"
+        )
+        click('.msm-analysis [data-rows] input[data-result-row="0"]')
+        click(".msm-analysis [data-select-participants]")
+        wait(lambda: tuple(view.active_selection.atom_indices) == (4,))
+        click(".msm-analysis [data-focus-participants]")
+        wait(
+            lambda: (
+                "Focused"
+                in (
+                    evaluate(
+                        "document.querySelector('.msm-analysis [data-status]')?.textContent"
+                    )
+                    or ""
+                )
+            )
+        )
+        np.testing.assert_array_equal(
+            puw.get_value(view.molsys.structures.coordinates, to_unit="nm"), before
+        )
+        receive()
+        checks.append(
+            "PCA: deliberate participant selection/focus preserves native and rendered coordinates"
+        )
+        click(".msm-analysis [data-clear]")
+        wait(lambda: not visible(".msm-analysis [data-report]"))
+        assert not view.trajectory_plot.records()
+        checks.append(
+            "PCA: Clear releases the mounted result without creating a trajectory projection"
+        )
         web.grab().save(str(out / "geometry.png"))
         (out / "report.json").write_text(
             json.dumps(
@@ -275,7 +373,7 @@ def main():
                     "checks": checks,
                     "provider_file": msm.__file__,
                     "qt_platform": app.platformName(),
-                    "scope": "Actual native Qt window/WebEngine and shared Geometry UI, review/cancel, selected structures, received native updates and independent result windows. Representative host transport coverage, not an installed package or human visual acceptance.",
+                    "scope": "Actual native Qt window/WebEngine, shared Geometry UI and native Analysis/PCA. Review/cancel, selected structures, received updates, independent result windows, covariance/coefficients and participant ownership. Representative host receiving, not an installed package or human visual acceptance.",
                 },
                 indent=2,
             )

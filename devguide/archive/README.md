@@ -27,3 +27,5 @@ tests, and the maintained normative documents for present-day decisions.
 - [consumer_openmm_solvation_explicit_counts.md](resolved_bugs/consumer_openmm_solvation_explicit_counts.md) retains the original consumer reproduction and receiving of the native repair.
 
 - [consumer_openmm_solvation_source_ids.md](resolved_bugs/consumer_openmm_solvation_source_ids.md) retains the original consumer reproduction and receiving of the native repair.
+
+- [consumer_charge_binding_fixture_receiving.md](resolved_bugs/consumer_charge_binding_fixture_receiving.md) retains consumer #670 reproduction, seven-cell triage and the independently integrated owner correction.

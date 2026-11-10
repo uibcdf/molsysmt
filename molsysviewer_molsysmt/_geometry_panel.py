@@ -19,6 +19,7 @@ from ._task_panel import _MolecularTaskPanel, _structures
 
 _PARAMETERS = {
     "task": "translate",
+    "minimization_platform": "CPU",
     "cell_a": "3",
     "cell_b": "3",
     "cell_c": "3",
@@ -68,6 +69,7 @@ _PARAMETERS = {
     "title": "",
 }
 _COMPLETED = {
+    "minimize": "Local minimization applied. The view is up to date.",
     "cell": "Periodic cell assigned. The view is up to date.",
     "axes": "Principal-axis alignment applied. The view is up to date.",
     "translate": "Translation applied. The view is up to date.",
@@ -80,6 +82,7 @@ _COMPLETED = {
 }
 
 _OPERATIONS = {
+    "minimize": ("molecular_mechanics", "potential_energy_minimization"),
     "cell": ("basic", "set"),
     "axes": ("structure", "align_principal_axes"),
     "translate": ("structure", "translate"),
@@ -100,6 +103,7 @@ def _operation(parameters):
 
 
 _RESULT_TITLES = {
+    "minimize": "Locally minimized system",
     "cell": "System with assigned periodic cell",
     "axes": "Principal-axis aligned system",
     "translate": "Translated system",
@@ -111,6 +115,7 @@ _RESULT_TITLES = {
     "unwrap": "Unwrapped trajectory",
 }
 _EFFECT_LABELS = {
+    "minimize": "Locally minimized",
     "cell": "Cell assigned to",
     "axes": "Aligned",
     "translate": "Translated",
@@ -142,6 +147,8 @@ def _parameters(value):
         raise ValueError(
             "Choose supported principal-axis, weighting and target options."
         )
+    if result["minimization_platform"] not in {"CPU", "Reference"}:
+        raise ValueError("Choose the explicit CPU or Reference OpenMM platform.")
     if result["angle_unit"] not in {"degree", "radian"} or result[
         "rotation_center_kind"
     ] not in {"geometric", "origin", "point"}:
@@ -201,6 +208,83 @@ def _parameters(value):
         if not isinstance(result[key], str) or len(result[key]) > limit:
             raise ValueError("Coordinate fields contain invalid or overlong text.")
     return result
+
+
+def _minimization_model(target):
+    """Expose the native model resolution without constructing an engine context."""
+    import molsysmt as msm
+    from molsysmt import pyunitwizard as puw
+    from molsysmt.configure import default_attribute
+
+    # Native #582 owns these independently stored controls. The GUI must not
+    # imply that displaying an ignored input makes it an effective setting.
+    unsupported = [
+        name
+        for name in (
+            "solute_dielectric",
+            "solvent_dielectric",
+            "kappa",
+            "salt_concentration",
+            "cutoff_distance",
+        )
+        if msm.basic.has_attribute(target, name)
+    ]
+    if unsupported:
+        raise ValueError(
+            "This native minimization adapter cannot independently apply stored "
+            + ", ".join(unsupported)
+            + ". Resolve the model explicitly before minimization (MolSysMT #582)."
+        )
+    units = {
+        "switch_distance": "nm",
+        "temperature": "K",
+        "friction": "1/ps",
+        "time_step": "ps",
+    }
+    fields = (
+        "forcefield",
+        "water_model",
+        "implicit_solvent",
+        "constraints",
+        "non_bonded_method",
+        "switch_distance",
+        "dispersion_correction",
+        "ewald_error_tolerance",
+        "integrator",
+        "temperature",
+        "friction",
+        "time_step",
+    )
+    result = []
+    for name in fields:
+        stored = msm.basic.has_attribute(target, name)
+        value = (
+            msm.basic.get(target, **{name: True}) if stored else default_attribute[name]
+        )
+        unit = units.get(name, "")
+        if unit and value is not None:
+            if not puw.is_quantity(value):
+                value = puw.quantity(value)
+            value = float(puw.get_value(value, to_unit=unit))
+            if not np.isfinite(value):
+                raise ValueError("Mechanical model parameters must be finite.")
+        elif isinstance(value, (list, tuple)):
+            if (
+                any(not isinstance(item, str) or len(item) > 200 for item in value)
+                or len(value) > 100
+            ):
+                raise ValueError(
+                    "Use the Python API for this extended model definition."
+                )
+            value = tuple(value)
+        elif isinstance(value, np.generic):
+            value = value.item()
+        elif not isinstance(value, (str, bool, float, int, type(None))):
+            raise ValueError("Use the Python API for this model definition.")
+        if isinstance(value, str) and len(value) > 200:
+            raise ValueError("Use the Python API for this extended model definition.")
+        result.append((name, value, unit, "stored" if stored else "native_default"))
+    return tuple(result)
 
 
 def _cell_box(parameters):
@@ -438,6 +522,7 @@ class _GeometryReferences:
     file: tuple = ()
     cell: object = field(default=None, compare=False)
     topology: object = field(default=None, compare=False)
+    mechanical_model: tuple = ()
 
 
 @dataclass(frozen=True)
@@ -509,6 +594,10 @@ class _GeometryPanel(_MolecularTaskPanel):
             review = self._review
             packet["review"] = {
                 "token": review.token,
+                "mechanical_model": [
+                    {"name": name, "value": value, "unit": unit, "source": source}
+                    for name, value, unit, source in review.references.mechanical_model
+                ],
                 "n_atoms": int(review.indices.size),
                 "n_center_atoms": len(review.references.center),
                 "n_target_atoms": len(review.references.target),
@@ -535,17 +624,25 @@ class _GeometryPanel(_MolecularTaskPanel):
             raise ValueError("Load coordinates before transforming a molecular system.")
         total = int(target.structures.n_structures)
         cell_task = self._parameters["task"] == "cell"
+        minimize_task = self._parameters["task"] == "minimize"
+        if minimize_task and total != 1:
+            raise ValueError(
+                "Extract one structure explicitly before local minimization. No visible-structure extraction is inferred."
+            )
         sequence_task = self._parameters["task"] == "sequence"
         frame = (
             int(self._view.player.index)
-            if cell_task or sequence_task or self._draft["context"] == "current"
+            if cell_task
+            or minimize_task
+            or sequence_task
+            or self._draft["context"] == "current"
             else self._draft["structure_index"]
         )
         if frame >= total:
             raise ValueError("The selection structure index is outside this system.")
         atoms = (
             np.arange(int(target.get_n_atoms()), dtype=np.int64)
-            if cell_task
+            if cell_task or minimize_task
             else np.asarray(
                 _fit_population(
                     target,
@@ -564,12 +661,16 @@ class _GeometryPanel(_MolecularTaskPanel):
             or np.any(atoms >= int(target.get_n_atoms()))
         ):
             raise ValueError("The selection contains atom indices outside this system.")
-        frames = _structures(
-            self._parameters["structures"],
-            self._parameters["indices"],
-            total,
-            int(self._view.player.index),
-            allow_repeated=self._parameters["task"] in {"fit", "sequence"},
+        frames = (
+            [0]
+            if minimize_task
+            else _structures(
+                self._parameters["structures"],
+                self._parameters["indices"],
+                total,
+                int(self._view.player.index),
+                allow_repeated=self._parameters["task"] in {"fit", "sequence"},
+            )
         )
         if self._parameters["task"] in {"fit", "sequence"}:
             # Coordinate editing applies once per physical structure, in the
@@ -597,7 +698,11 @@ class _GeometryPanel(_MolecularTaskPanel):
             return tuple(int(i) for i in np.unique(indices))
 
         references = _GeometryReferences()
-        if cell_task:
+        if minimize_task:
+            references = _GeometryReferences(
+                mechanical_model=_minimization_model(target)
+            )
+        elif cell_task:
             if (
                 target.structures.box is None
                 and self._parameters["structures"] != "all"
@@ -762,6 +867,14 @@ class _GeometryPanel(_MolecularTaskPanel):
             raise ValueError(
                 "The selected atoms or structures changed. Review the coordinate change again."
             )
+        if review.parameters["task"] == "minimize":
+            return {
+                "method": "L-BFGS",
+                "platform": review.parameters["minimization_platform"],
+                "engine": "OpenMM",
+                "in_place": True,
+                "verbose": False,
+            }
         if review.parameters["task"] == "cell":
             from molsysmt import pyunitwizard as puw
 
@@ -938,6 +1051,17 @@ class _GeometryPanel(_MolecularTaskPanel):
                     structure_indices=list(range(review.structures)),
                     revision=review.revision,
                 )
+                if review.parameters["task"] == "minimize":
+                    result["scientific_parameters"] = {
+                        "engine": "OpenMM",
+                        "method": "L-BFGS",
+                        "platform": review.parameters["minimization_platform"],
+                        "stopping_settings": "OpenMM LocalEnergyMinimizer defaults",
+                        "model": [
+                            dict(name=name, value=value, unit=unit, source=source)
+                            for name, value, unit, source in review.references.mechanical_model
+                        ],
+                    }
                 result["effect_label"] = _EFFECT_LABELS[review.parameters["task"]]
                 result["affected_structures"] = list(review.frames[:200])
                 result["affected_truncated"] = len(review.frames) > 200

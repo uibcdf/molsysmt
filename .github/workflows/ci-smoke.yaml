@@ -266,6 +266,8 @@ jobs:
             tests/molsysviewer_molsysmt/test_chemistry_preparation_panel.py \
             tests/molsysviewer_molsysmt/test_analysis_panel.py \
             tests/molsysviewer_molsysmt/test_vector_angular_analysis_panel.py \
+            tests/molsysviewer_molsysmt/test_pca_analysis_panel.py \
+            tests/molsysviewer_molsysmt/test_minimization_panel.py \
             tests/molsysviewer_molsysmt/test_scientific_session.py \
             tests/molsysviewer_molsysmt/test_remove_tools.py \
             tests/molsysviewer_molsysmt/test_set_tools.py \

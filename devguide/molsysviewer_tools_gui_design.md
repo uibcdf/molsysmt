@@ -3,6 +3,15 @@
 **Role:** proposed GUI design under uibcdf/molsysmt#421 and
 uibcdf/molsysviewer#264, delivered through PR #543.
 **Date:** 2026-11-05. **Input:** addon c0149a2d6, native owner 8486ea59c.
+**PCA/refinement source receiving — 2026-11-09:** the
+[receiving packet](../devtools/data/molsysviewer_pca_refinement_receiving_421_20261109.json)
+records 563 covering panel/native/preflight passes, actual Jupyter/PCA and
+reviewed minimization through both popups, plus native Qt covariance and
+independent/current refinement windows. Method, units, source axes, ownership,
+model limitations and result lifetimes remain explicit. These are experimental
+source tasks; owner integration, changed-source hosted, installed and postponed
+human acceptance are separate. Contact-unit work #666 remains unreceived.
+
 **Principal-axis implementation — 2026-11-07:** the next owner slice adds
 Align principal axes through the existing native operation and managed edit/
 result routes. The GUI distinguishes moving/reference populations, moment
@@ -790,3 +799,33 @@ HTML is inspected; twelve executed code cells remain exact. The
 retains original failures and the empty-page wait/reference-disclosure corrections.
 This receives two original assessment intents, not scientific-method, full-family,
 human/installed/newer-host or release acceptance. No repair/removal is applied.
+
+
+## PCA and coordinate refinement source contracts — 2026-11-09
+
+Analysis/PCA delegates the existing public native tool once and retains its
+row eigenvectors and squared-length eigenvalues. Ordered/repeated atom and
+structure occurrences, dimensionless explicit factors, population covariance,
+XYZ feature blocks, signs/degenerate bases and eager dense-matrix costs remain
+visible. Fifty-row mode/coefficient pages share the source-index participant
+boundary. Component switching rotates a result token while reusing native
+arrays; no trajectory projections, structure-axis plot or displacement is
+invented. Clear, input/source changes and unmount release the report. This is
+an additional structural-observable slice, not completion of the accepted
+contacts family or an installed/human certificate.
+
+Geometry/Minimize potential energy delegates the qualified native L-BFGS route
+through the existing retained-axis edit or independent-result adapter. It
+admits one whole source structure, requires explicit extraction otherwise,
+keeps hidden selection/scope drafts inert and reviews CPU/Reference platform,
+method and every stored/default native model-resolution input before execution.
+Review neither copies coordinates nor creates an engine Context. It rechecks
+source revision, scope and model at confirmation; stale or reused tokens refuse.
+The result card retains bounded model/method metadata for its mounted lifetime.
+The native optimizer's stopping defaults, absence of preparation/fallback,
+fixed box, source/native domain ownership, coverage invalidation and
+synchronization-only recovery remain explicit. Unsupported independently stored
+controls refuse under #582; no effective-engine-neutral recipe or generic
+scientific-result persistence is claimed. Python expert signatures/defaults
+are unchanged. Actual host, owner integration, human and installed acceptance
+retain their distinct evidence scopes.

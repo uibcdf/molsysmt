@@ -199,6 +199,46 @@ try{
   assert.equal(await page.evaluate(()=>window.__controllers[1].trajectory.getTrajectoryState().currentFrame),2);
   await studio.screenshot({path:output+'/analysis-signed-torsions.png'});await studio.close();await canvas.close();
  });
+ let pcaExpected;
+ async function pcaPanel(target){
+  const p=await configureDistance(target,{first:'4,0,2,4',second:'5,2'});
+  await p.locator('[data-task]').selectOption('pca');await p.locator('[data-heading]').filter({hasText:'Principal component analysis'}).waitFor();
+  await p.locator('[data-structures]').selectOption('indices');await p.locator('[data-structure-indices]').fill('2,0,2');
+  await p.locator('[data-pca-weighting]').selectOption('custom');await p.locator('[data-pca-weights]').fill(JSON.stringify(pcaExpected.weights));
+  await p.locator('[data-calculate]').click();await p.locator('[data-report-heading]').filter({hasText:'Principal component analysis'}).waitFor();
+  const rows=await numericRows(p);assert.equal(rows.length,12);rows.forEach((row,i)=>{assert.equal(row[0],i+1);close(row[1],pcaExpected.values[i]);});
+  assert.ok((await p.locator('[data-columns]').innerText()).includes('Eigenvalue (nm²)'));
+  assert.equal(await p.locator('[data-add-structure-plot]').isDisabled(),true);return p;
+ }
+ async function coefficients(p){
+  await p.locator('[data-pca-component]').fill('1');await p.locator('[data-show-component]').click();
+  await p.locator('[data-columns]').filter({hasText:'Coefficient (dimensionless)'}).waitFor();
+  const rows=await p.locator('[data-rows] tr').evaluateAll(rows=>rows.map(row=>[...row.querySelectorAll('td')].map(cell=>cell.textContent)));
+  assert.equal(rows.length,12);
+  const vector=rows.map((r,i)=>{assert.deepEqual(r.slice(0,4),['1','XYZ'[Math.floor(i/4)],String(i%4),String(pcaExpected.atoms[i%4])]);return Number(r[4]);});
+  close(vector.reduce((sum,v)=>sum+v*v,0),1);
+  pcaExpected.covariance.forEach((row,i)=>close(row.reduce((sum,v,j)=>sum+v*vector[j],0),pcaExpected.values[0]*vector[i]));
+ }
+ await step('Inspect weighted PCA eigenvalues and source-indexed coefficients without a trajectory projection',async()=>{
+  pcaExpected=JSON.parse(await readFile(output+'/pca-expected.json','utf8'));
+  const p=await pcaPanel(page);await coefficients(p);
+  await p.locator('[data-show-spectrum]').click();await p.locator('[data-columns]').filter({hasText:'Eigenvalue (nm²)'}).waitFor();
+  await p.locator('summary').filter({hasText:'Method, source and result lifetime'}).click();
+  assert.match(await p.locator('[data-lifetime]').innerText(),/signs and bases|signs.*not unique/i);
+  await page.screenshot({path:output+'/analysis-pca-spectrum.png'});
+ });
+ await step('Inspect PCA through both popups and deliberately select coefficient participants without moving coordinates',async()=>{
+  const source=page.locator('[data-molsysviewer-canvas-output]').last();await source.getByRole('button',{name:'Show canvas controls',exact:true}).focus();await page.keyboard.press('Enter');
+  const opened=page.waitForEvent('popup');await source.getByTitle('Open popup',{exact:true}).click();const canvas=await opened;record(canvas);await canvas.locator('#molsysviewer-loading').waitFor({state:'hidden'});
+  await pcaPanel(canvas);
+  const detached=canvas.waitForEvent('popup');await canvas.getByTitle('Popout panel to external window',{exact:true}).click();const studio=await detached;record(studio);await studio.locator('#molsysviewer-loading').waitFor({state:'detached'});
+  const p=await pcaPanel(studio);await coefficients(p);await p.getByRole('radio',{name:'Select result row 4',exact:true}).check();
+  await p.locator('[data-select-participants]').click();await p.locator('[data-status]').filter({hasText:'Selected 1 participant atoms'}).waitFor();
+  await page.waitForFunction(()=>JSON.stringify(window.__controllers[1].currentActiveSelection.atom_indices)==='[4]');
+  await p.locator('[data-focus-participants]').click();await p.locator('[data-status]').filter({hasText:'Focused participant atoms in visible structure 2'}).waitFor();
+  assert.equal(await page.evaluate(()=>window.__controllers[1].trajectory.getTrajectoryState().currentFrame),2);
+  await studio.screenshot({path:output+'/analysis-pca-popup-coefficients.png'});await studio.close();await canvas.close();
+ });
  await step('Python verifies retained native data separate plots and deliberate structure navigation',async()=>{
   await execute(page.locator('.jp-NotebookPanel:visible .jp-Cell').nth(6));await page.getByText('JUPYTER_CONFORMATION_SCENE_OK 2',{exact:true}).waitFor();assert.equal(await page.locator('.jp-OutputArea-error').count(),0);
  });

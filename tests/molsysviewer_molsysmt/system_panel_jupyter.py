@@ -117,6 +117,7 @@ def main():
             "chemistry-pending",
             "chemistry-preparation",
             "analysis",
+            "refinement",
         ),
         default="system",
     )
@@ -656,6 +657,39 @@ def main():
             "assert not view.addons.manager.presentations.records()\n"
             "print('JUPYTER_ANALYSIS_UNCHANGED',view.molsys.get_n_atoms())\n"
         )
+    if args.scenario == "refinement":
+        initial = initial[: initial.index("view = msv.demo")] + (
+            "import numpy as np\nimport openmm\nimport json\n"
+            "from tests.molsysviewer_molsysmt.test_minimization_tools import direct_openmm_minimum\n"
+            "seed=msv.demo['pentalanine']\n"
+            "molsys=msm.extract(seed.molsys,structure_indices=[0]);seed.close()\n"
+            "msm.set(molsys,forcefield='AMBER14',water_model='TIP3P',constraints='hbonds',non_bonded_method='no cutoff')\n"
+            "view=msv.new_view(molsys)\n"
+            "source_coordinates=msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm').copy()\n"
+            "source_chemistry=msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict()\n"
+            "view.regions.add(selection=[0,1,2],tag='source-region')\n"
+            "view.shapes.add_sphere(atom_indices=[0],tag='source-marker')\n"
+            "_before_energy,_expected_energy,_expected_minimum,_expected_force=direct_openmm_minimum(view.molsys,openmm)\n"
+            f"Path({str(output / 'refinement-expected.json')!r}).write_text(json.dumps({{'coordinates_angstrom':(_expected_minimum*10).tolist()}}))\n"
+            "def refinement_source_unchanged():\n"
+            "    np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm'),source_coordinates)\n"
+            "    assert view.addons.molsysmt.get_sync_status()['target_revision']==0\n"
+            "    print('REFINEMENT_SOURCE_UNCHANGED')\n"
+            "view\n"
+        )
+        final = (
+            "np.testing.assert_allclose(msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm')[0],_expected_minimum,atol=3e-5)\n"
+            "assert view.addons.molsysmt.get_sync_status()['target_revision']==1\n"
+            "assert list(view.regions.keys())==['source-region']\n"
+            "assert 'source-marker' in view.shapes.tags()\n"
+            "np.testing.assert_equal(msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict(),source_chemistry)\n"
+            "records=view.addons.manager.presentations.records();assert len(records)==1\n"
+            "child=view.addons.manager.presentations.get(records[0]['id'])\n"
+            "assert child.molsys is not view.molsys\n"
+            "np.testing.assert_allclose(msm.pyunitwizard.get_value(child.molsys.structures.coordinates,to_unit='nm')[0],_expected_minimum,atol=3e-5)\n"
+            "assert msm.pyunitwizard.get_value(msm.molecular_mechanics.get_potential_energy(view.molsys),to_unit='kJ/mol')<_before_energy\n"
+            "print('JUPYTER_REFINEMENT_NATIVE_OK')\n"
+        )
     # Keep a native stack if initialization stalls. The shell event closes the
     # diagnostic after the actual display hook, without warming that hook first.
     initial = (
@@ -673,6 +707,8 @@ def main():
         + initial
     )
     cells = [initial, final]
+    if args.scenario == "refinement":
+        cells = [initial, "refinement_source_unchanged()\n", final]
     if args.scenario == "periodic-origins":
         cells = [initial, origins_middle, final]
     if args.scenario == "cell":
@@ -758,6 +794,11 @@ def main():
                 "_geometry_torsions=np.stack([_torsion_reference(_geometry_xyz[:,t]) for t in _geometry_quartets],axis=1)\n"
                 "_geometry_expected={'structures':_geometry_frames,'vectors':_geometry_vectors.reshape(-1,3).tolist(),'triplets':_geometry_triplets,'quartets':_geometry_quartets,'angles_degrees':np.rad2deg(_geometry_angles).ravel().tolist(),'torsions_degrees':np.rad2deg(_geometry_torsions).ravel().tolist()}\n"
                 f"Path({str(output / 'geometry-expected.json')!r}).write_text(json.dumps(_geometry_expected))\n"
+                "_pca_atoms=[4,0,2,4]\n_pca_weights=[1.,2.,3.,0.]\n"
+                "_pca_flat=_ensemble_xyz[[2,0,2]][:,_pca_atoms].transpose(0,2,1).reshape(3,-1)\n"
+                "_pca_centered=(_pca_flat-_pca_flat.mean(axis=0))*np.sqrt(np.tile(_pca_weights,3))\n"
+                "_pca_covariance=_pca_centered.T@_pca_centered/3\n"
+                f"Path({str(output / 'pca-expected.json')!r}).write_text(json.dumps({{'atoms':_pca_atoms,'weights':_pca_weights,'covariance':_pca_covariance.tolist(),'values':np.linalg.eigvalsh(_pca_covariance)[::-1].tolist()}}))\n"
                 "_conformation_callbacks=[]\nview.on_frame_change(_conformation_callbacks.append)\n"
                 "print('JUPYTER_CONFORMATION_ORACLES_OK',3)\n",
                 "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.get_coordinates(),to_unit='nm'),_ensemble_xyz)\n"
@@ -772,6 +813,12 @@ def main():
                 "np.testing.assert_allclose(_plot_values['Radius of gyration'],_conformation_rg)\n"
                 "np.testing.assert_allclose(_plot_values['RMSD without superposition'],_conformation_rmsd,atol=1e-12)\n"
                 "assert all(_plot['n_frames']==3 and _plot['x_label']=='Structure index' and _plot['y_label']=='Length (nm)' for _plot in _plots)\n"
+                "_pca_reports=[entry[2]._report for entry in view._active_panel_widgets.values() if entry[1]=='analysis' and entry[2]._report is not None and entry[2]._report.parameters['task']=='pca']\n"
+                "assert _pca_reports, 'No retained primary PCA report'\n"
+                "for _pca_report in _pca_reports:\n"
+                "    _vectors=_pca_report.auxiliary\n"
+                "    _values=msm.pyunitwizard.get_value(_pca_report.values,to_unit='nm**2')\n"
+                "    np.testing.assert_allclose(_vectors.T@np.diag(_values)@_vectors,_pca_covariance,atol=1e-12)\n"
                 "print('JUPYTER_CONFORMATION_SCENE_OK',len(_plots))\n",
             ]
         )
@@ -855,7 +902,9 @@ def main():
                 [
                     args.node,
                     str(
-                        Path(__file__).with_name("analysis_panel_jupyter.mjs")
+                        Path(__file__).with_name("refinement_panel_jupyter.mjs")
+                        if args.scenario == "refinement"
+                        else Path(__file__).with_name("analysis_panel_jupyter.mjs")
                         if args.scenario == "analysis"
                         else Path(__file__).with_name("chemistry_pending_jupyter.mjs")
                         if args.scenario == "chemistry-pending"

@@ -51,6 +51,8 @@ def test_actual_jupyter_analysis_distance_family(tmp_path):
         "Inspect directed vector components and repeated source structures against coordinates",
         "Inspect ordered atom-triplet angles with explicit angular display units",
         "Inspect signed quartet torsions and deliberate participant actions without navigating",
+        "Inspect weighted PCA eigenvalues and source-indexed coefficients without a trajectory projection",
+        "Inspect PCA through both popups and deliberately select coefficient participants without moving coordinates",
         "Python verifies retained native data separate plots and deliberate structure navigation",
     ]
     assert not (output / "settings.json").exists()
@@ -444,5 +446,27 @@ def test_actual_jupyter_geometry_sequence_alignment(tmp_path, length_standard):
     subprocess.run(command, check=True, timeout=300)
     result = json.loads((output / "full-result.json").read_text())
     assert len(result["checks"]) == 8
+    assert not (output / "settings.json").exists()
+    assert not (output / "config/jupyter_server_config.py").exists()
+
+
+def test_actual_jupyter_refinement_review_and_both_popup_boundaries(tmp_path):
+    viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
+    output = tmp_path / "jupyter-refinement"
+    command = [
+        sys.executable,
+        str(Path(__file__).with_name("system_panel_jupyter.py")),
+        "--viewer-root",
+        str(viewer),
+        "--scenario",
+        "refinement",
+        "--output",
+        str(output),
+    ]
+    if provider := os.environ.get("MOLSYSVIEWER_PROVIDER_ROOT"):
+        command.extend(["--provider-root", provider])
+    subprocess.run(command, check=True, timeout=300)
+    result = json.loads((output / "full-result.json").read_text())
+    assert len(result["checks"]) == 4
     assert not (output / "settings.json").exists()
     assert not (output / "config/jupyter_server_config.py").exists()

@@ -1,7 +1,7 @@
 """Native molecular analyses with bounded pages and explicit source axes."""
 
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from math import isfinite
 from secrets import token_urlsafe
 from weakref import ref
@@ -32,6 +32,8 @@ _DEFAULTS = {
     "weighting": "uniform",
     "atom_tuples": "",
     "angle_unit": "degrees",
+    "pca_weighting": "uniform",
+    "pca_weights": "",
 }
 _ANGULAR_METHODS = {"angles": "get_angles", "torsions": "get_dihedral_angles"}
 _CONFORMATION_METHODS = {
@@ -48,6 +50,7 @@ _METHODS = {
     "neighbors": "get_neighbors",
     **_CONFORMATION_METHODS,
     **_ANGULAR_METHODS,
+    "pca": "principal_component_analysis",
 }
 _PAGE_SIZE = 50
 _SCENE_ACTIONS = {
@@ -74,14 +77,26 @@ def _parameters(value):
         "reference_population": {"same", "second"},
         "weighting": {"uniform", "masses"},
         "angle_unit": {"degrees", "radians"},
+        "pca_weighting": {"uniform", "custom"},
     }.items():
         if not isinstance(result[key], str) or result[key] not in choices:
             raise ValueError(
                 "Choose supported analysis, population and structure options."
             )
-    for key in ("indices", "cutoff", "count", "reference_structure", "atom_tuples"):
+    for key in (
+        "indices",
+        "cutoff",
+        "count",
+        "reference_structure",
+        "atom_tuples",
+        "pca_weights",
+    ):
         if not isinstance(result[key], str) or len(result[key]) > (
-            16384 if key == "atom_tuples" else 4096 if key == "indices" else 64
+            16384
+            if key in {"atom_tuples", "pca_weights"}
+            else 4096
+            if key == "indices"
+            else 64
         ):
             raise ValueError("Enter bounded structure and neighborhood parameters.")
     if not isinstance(result["pbc"], bool):
@@ -112,10 +127,11 @@ class _AnalysisReport:
     periodic: bool
     software: str
     reference_frame: int | None = None
+    component: int | None = None
 
 
 def _uses_second(parameters):
-    if parameters["task"] in _ANGULAR_METHODS:
+    if parameters["task"] in _ANGULAR_METHODS or parameters["task"] == "pca":
         return False
     if parameters["task"] in _CONFORMATION_METHODS:
         return (
@@ -130,7 +146,7 @@ class _AnalysisPanel(_MolecularTaskPanel):
     _css = CSS + ANALYSIS_CSS
     _state_key = "analysis_selection"
     _allow_all = True
-    read_only_actions = ("calculate", "refresh", "task", "page", "clear")
+    read_only_actions = ("calculate", "refresh", "task", "page", "clear", "component")
 
     def __init__(self, view=None, **kwargs):
         if not hasattr(AddonPanelWidget, "read_only_actions"):
@@ -200,6 +216,8 @@ class _AnalysisPanel(_MolecularTaskPanel):
         if p["task"] in _ANGULAR_METHODS:
             return self._calculate_angular(target, status)
         first = self._population(target, self._draft, status)
+        if p["task"] == "pca":
+            return self._calculate_pca(target, status, first)
         if p["task"] in _CONFORMATION_METHODS:
             return self._calculate_conformation(target, status, first)
         between = p["relation"] == "between"
@@ -543,9 +561,76 @@ class _AnalysisPanel(_MolecularTaskPanel):
                     return None
         return report
 
+    def _calculate_pca(self, target, status, atoms):
+        import molsysmt as msm
+
+        p = self._parameters
+        frames = _structures(
+            p["structures"],
+            p["indices"],
+            int(target.structures.n_structures),
+            int(self._view.player.index),
+            allow_repeated=True,
+        )
+        weights = None
+        if p["pca_weighting"] == "custom":
+            try:
+                weights = json.loads(p["pca_weights"])
+            except (ValueError, RecursionError) as exc:
+                raise ValueError(
+                    "Enter a JSON list of dimensionless atom weights in selection order."
+                ) from exc
+            if not isinstance(weights, list):
+                raise ValueError(
+                    "Enter a JSON list of dimensionless atom weights in selection order."
+                )
+        # Native PCA owns flattening, population covariance, weighting and
+        # eigendecomposition. It does not return trajectory projections.
+        native = self._owner.structure.principal_component_analysis(
+            selection=atoms.tolist(),
+            structure_indices=frames,
+            weights=weights,
+            engine="MolSysMT",
+            use_gpu=False,
+        )
+        vectors, values = native
+        count = 3 * len(atoms)
+        raw = np.asarray(msm.pyunitwizard.get_value(values))
+        if (
+            vectors.shape != (count, count)
+            or raw.shape != (count,)
+            or not np.all(np.isfinite(raw))
+        ):
+            raise ValueError(
+                "Native PCA does not match the declared atom-feature axes."
+            )
+        return _AnalysisReport(
+            token=token_urlsafe(18),
+            target=ref(target),
+            revision=status["target_revision"],
+            visible_frame=int(self._view.player.index),
+            first_draft=dict(self._draft),
+            second_draft=dict(self._second),
+            parameters=dict(p),
+            frames=frames,
+            first=atoms,
+            second=np.empty(0, dtype=np.int64),
+            selections=(False, False),
+            values=values,
+            native_values=native,
+            unit=msm.pyunitwizard.get_unit(values),
+            auxiliary=vectors,
+            offsets=None,
+            layout="pca_modes",
+            total=count,
+            periodic=False,
+            software=str(msm.__version__)[:200],
+        )
+
     def _summary(self):
         r = self._report
-        conformation = r.parameters["task"] in _CONFORMATION_METHODS
+        pca = r.parameters["task"] == "pca"
+        conformation = r.parameters["task"] in _CONFORMATION_METHODS or pca
         angular = r.parameters["task"] in _ANGULAR_METHODS
         vector = r.parameters["task"] == "vectors"
         return {
@@ -553,7 +638,7 @@ class _AnalysisPanel(_MolecularTaskPanel):
             "method": "molsysmt.structure." + _METHODS[r.parameters["task"]],
             "software": {"molsysmt": r.software},
             "rows": r.total,
-            "unit": r.parameters["angle_unit"] if angular else "nm",
+            "unit": "nm**2" if pca else r.parameters["angle_unit"] if angular else "nm",
             "first_atoms": len(r.first),
             "second_atoms": len(r.second),
             "structure_indices": r.frames[:200],
@@ -564,14 +649,18 @@ class _AnalysisPanel(_MolecularTaskPanel):
             "requested_pbc": r.parameters["pbc"] if not conformation else False,
             "disk_backed": callable(getattr(r.native_values, "cleanup", None)),
             "live_distance_unavailable": self._live_distance_limit(r),
-            "family": "conformation"
+            "family": "pca"
+            if pca
+            else "conformation"
             if conformation
             else "angular"
             if angular
             else "vector"
             if vector
             else "distance",
-            "result_axis": "atom"
+            "result_axis": ("mode" if r.component is None else "feature")
+            if pca
+            else "atom"
             if r.layout == "atom_values"
             else "structure"
             if conformation
@@ -581,6 +670,7 @@ class _AnalysisPanel(_MolecularTaskPanel):
             "tuple_count": len(r.auxiliary) if angular else None,
             "reference_structure_index": r.reference_frame,
             "plot_unavailable": self._plot_limit(r),
+            "pca_component": r.component,
         }
 
     def _plot_limit(self, report):
@@ -626,6 +716,7 @@ class _AnalysisPanel(_MolecularTaskPanel):
     def _live_distance_limit(report):
         if report.parameters["task"] in {
             *_CONFORMATION_METHODS,
+            "pca",
             *_ANGULAR_METHODS,
             "vectors",
         }:
@@ -647,6 +738,42 @@ class _AnalysisPanel(_MolecularTaskPanel):
         r = self._report
         if offset and offset >= r.total:
             raise ValueError("That analysis page is outside its result population.")
+        if r.parameters["task"] == "pca":
+            stop = min(r.total, offset + _PAGE_SIZE)
+            if r.component is None:
+                values = msm.pyunitwizard.get_value(
+                    r.values[offset:stop], to_unit="nm**2"
+                )
+                columns = ["Component (1-based)", "Eigenvalue (nm²)"]
+                rows = [
+                    [i + 1, format(float(value), ".9g")]
+                    for i, value in zip(range(offset, stop), values, strict=True)
+                ]
+            else:
+                columns = [
+                    "Component (1-based)",
+                    "Cartesian axis",
+                    "Population position",
+                    "Atom index",
+                    "Coefficient (dimensionless)",
+                ]
+                rows = [
+                    [
+                        r.component + 1,
+                        "XYZ"[i // len(r.first)],
+                        i % len(r.first),
+                        int(r.first[i % len(r.first)]),
+                        format(float(r.auxiliary[r.component, i]), ".9g"),
+                    ]
+                    for i in range(offset, stop)
+                ]
+            return {
+                "offset": offset,
+                "total": r.total,
+                "page_size": _PAGE_SIZE,
+                "columns": columns,
+                "rows": rows,
+            }
         if r.layout in {"atom_values", "structure_values"}:
             stop = min(r.total, offset + _PAGE_SIZE)
             values = msm.pyunitwizard.get_value(
@@ -764,7 +891,14 @@ class _AnalysisPanel(_MolecularTaskPanel):
             < min(report.total, self._offset + _PAGE_SIZE)
         ):
             raise ValueError("Choose a result row on the current page.")
-        if report.layout == "tuples":
+        if report.parameters["task"] == "pca":
+            first = (
+                report.first.tolist()
+                if report.component is None
+                else [int(report.first[position % len(report.first)])]
+            )
+            second, observation_structure = [], None
+        elif report.layout == "tuples":
             f, a, _, _ = self._row(position)
             first, second = report.auxiliary[a].tolist(), []
             observation_structure = report.frames[f]
@@ -868,6 +1002,7 @@ class _AnalysisPanel(_MolecularTaskPanel):
             "report_id",
             "offset",
             "row_index",
+            "component",
         }:
             raise ValueError("The analysis request contains unsupported fields.")
         draft = self._normalize_draft(payload.get("draft", self._draft))
@@ -898,6 +1033,32 @@ class _AnalysisPanel(_MolecularTaskPanel):
                 request_id=request_id,
             )
             return
+        elif action_id == "component":
+            report = self._current_report(self._context())
+            if (
+                report is None
+                or report.parameters["task"] != "pca"
+                or payload.get("report_id") != report.token
+            ):
+                raise ValueError(
+                    "That PCA report has expired. Calculate it again for the current inputs."
+                )
+            component = payload.get("component")
+            if component is not None and (
+                isinstance(component, bool)
+                or not isinstance(component, int)
+                or not 0 <= component < report.total
+            ):
+                raise ValueError("Choose an existing PCA component.")
+            # Reuse the native arrays; expire row actions from the previous view
+            # rather than repeating science when inspecting another component.
+            self._report = replace(
+                report,
+                token=token_urlsafe(18),
+                component=component,
+                layout="pca_modes" if component is None else "pca_loadings",
+            )
+            self._offset = 0
         elif action_id == "clear":
             self._release_task_data()
         elif action_id == "page":

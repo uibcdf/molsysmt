@@ -6128,3 +6128,85 @@ participant actions. Native calculation and metadata can still need substantial
 memory; bounded browser pages are not a universal RAM guarantee or a general
 scientific-result store. Human, installed and full-platform acceptance remain
 separate from source receiving.
+
+
+## Inspecting principal components through Molecular tools
+
+Choose **Molecular tools > Analysis > Principal component analysis** for a
+native Cartesian population-covariance calculation. Choose the atom population
+and current, all or ordered structure indices. Repeated structures contribute
+repeated observations; repeated atoms keep separate population positions.
+There is no implicit alignment or periodic reconstruction. Perform the intended
+coordinate preparation explicitly in Geometry first.
+
+Choose **Uniform factors** or supply a JSON list of dimensionless factors in
+selected-atom order. Native PCA scales every coordinate feature by the square
+root of its atom factor; it does not normalize the factors. Named mass weighting
+is not offered by this native method. With one structure, covariance is zero.
+The complete expert function and its ordinary return remain available under
+`view.addons.molsysmt.structure.principal_component_analysis`.
+
+The first table lists component numbers, starting at one, and descending
+eigenvalues in **nm²**. **Inspect coefficients** displays one component as
+fifty-row pages of dimensionless Cartesian coefficients, including each source
+atom index and its position in the selected population. Native features contain
+all selected X coordinates, then Y, then Z. Switching component reuses the same
+native result rather than recalculating it. Signs are arbitrary; a degenerate
+eigenspace does not have a unique basis.
+
+Selecting an eigenvalue row uses the analyzed atom population; selecting a
+coefficient row uses its source atom. **Select participants** and **Focus
+participants** are deliberate actions in the visible structure. They neither
+navigate to a component number nor displace coordinates. The native function
+does not return trajectory projections, so this report cannot create a core
+trajectory plot. Eigenvalue/feature axes must not be labelled as structure axes.
+
+Native PCA constructs dense 3N × 3N matrices and computes the full spectrum.
+Choose a small atom selection deliberately; fifty-row browser pages do not
+bound its calculation memory or provide cancellation. Python keeps the full
+native precision and quantities. Changed inputs/source or unmount expire the
+report; Clear releases it. No generic PCA result is persisted in H5MSM or the
+scene. Source, human and installed-package qualification remain separate.
+
+## Refining coordinates through Geometry
+
+Choose **Molecular tools > Geometry > Minimize potential energy** for the
+qualified native OpenMM L-BFGS route. It processes **all atoms of one explicitly
+loaded structure**. An ensemble must be extracted explicitly first. Hidden atom
+and structure-selection drafts do not narrow minimization to the visible frame
+or a subsystem. This changes molecular coordinates, independently of the camera.
+
+Choose the **CPU** or **Reference** platform and **Current system** or
+**Independent result**. **Review local minimization** lists the native
+model-resolution inputs: force field, water and implicit-solvent models,
+constraints, nonbonded settings and context/integrator parameters. Each row
+identifies a stored value or a MolSysMT default. Physical values have explicit
+units. Review does not construct an engine Context, optimize or copy a trajectory;
+**Back** leaves molecular data unchanged. Confirmation revalidates the source,
+revision and model before running the native operation.
+
+The current native adapter does not independently consume stored dielectric,
+kappa, salt-concentration or cutoff-distance controls. Their presence is
+refused explicitly rather than being presented as effective tuning; the broader
+effective-recipe work remains under MolSysMT #582. The displayed inputs are not
+an engine-neutral force-parameter certificate. Chemistry, force-field templates
+and their compatibility must already be appropriate. No missing atoms,
+hydrogens, protonation, solvent, periodic reconstruction or engine fallback are
+prepared implicitly.
+
+**Create minimized result** preserves the source and creates an independently
+owned whole-system result. The mounted result card retains its method, platform
+and reviewed model inputs; it can be shown in the notebook or its own window.
+This panel metadata is not a generic persisted scientific result. **Apply local
+minimization** publishes one managed coordinate edit on the current primary,
+retaining its axes, chemistry and box. Affected scientific coverage follows the
+native edit. Scene Undo is not molecular Undo. If only visual synchronization
+fails, update the view without rerunning minimization.
+
+OpenMM's native default stopping settings apply: this function exposes neither
+a tolerance nor an iteration-count option. There is no general cancellation or
+RAM bound. A local optimization is not a guarantee of a global minimum,
+equilibrium or a stable complex; constrained force components need not vanish.
+CPU/Reference checks do not qualify a GPU device. The expert Python method,
+independent default and native output types are unchanged. See
+{func}`molsysmt.molecular_mechanics.potential_energy_minimization`.

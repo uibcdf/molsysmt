@@ -357,7 +357,12 @@ def test_template_sensitive_charge_binding_is_not_recertified_after_rename():
     # A declared fixture binding tests the stale-name mechanism; this is not a
     # claimed execution of a force-field charge calculation.
     source.molecular_mechanics.partial_charge_assignment = bind_assignment(
-        source, {"method": "forcefield", "chemical_state_index": 0}
+        source,
+        {
+            "schema": "molsysmt.partial_charge_assignment@1",
+            "method": "forcefield",
+            "chemical_state_index": 0,
+        },
     )
     validate_assignment(source)
     output = project(source)

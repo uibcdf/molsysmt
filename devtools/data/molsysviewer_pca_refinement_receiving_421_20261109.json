@@ -1,0 +1,467 @@
+{
+  "schema": "molsysmt.molsysviewer_tools_receiving@1",
+  "date": "2026-11-09",
+  "owner_issue": "uibcdf/molsysmt#421",
+  "consumer_issues": [
+    "uibcdf/molsysviewer#264",
+    "uibcdf/molsysviewer#315"
+  ],
+  "contribution_pr": null,
+  "status": "New experimental source tasks and CI fixture correction; owner integration, changed-source hosted, human and installed acceptance remain separate.",
+  "source": {
+    "owner_public_base": "ecf9a70e649123f764505dcea33debaa2e4a9946",
+    "owner_review_merge": "1e259f8d8a822bc3d29c17d5b2a15587547a1016",
+    "viewer_runtime": "346c331901c418fddb6b45a31da4690eee794129",
+    "viewer_working_base": "d612c4fad2b49cb3648d5515f40b901eb8cc32a1",
+    "viewer_runtime_sha256": "67929ee09262b57cfab1a3e09372986c681da34bbde0d88449c961160f5317ee",
+    "native_backend_sha256": "2f1f69f6e0539bd31ee419ec3b7a4deaab20f09045ce3e6504369c9130438525",
+    "native_rebuilt": false,
+    "runtime_and_guard_sha256": {
+      "molsysviewer_molsysmt/_analysis_panel.py": "94c25cb56227c7f6027e4d09b2c9146bc8ec7b602b9321d35f31dd2485ab5800",
+      "molsysviewer_molsysmt/_analysis_panel_frontend.py": "546f8749aa406c05bafd707a06786b135f29cdca581381ae7a46b37b9239cb29",
+      "molsysviewer_molsysmt/_geometry_panel.py": "8a4be34c653a1cfd58b26e36c8a15048d5b745746f471526b0fb799b432c6d53",
+      "molsysviewer_molsysmt/_geometry_panel_frontend.py": "03b68ebc27094d7a07889020004e2af5273a9f5d6b455ffdf4f5fe0df52417fc",
+      "tests/molsysviewer_molsysmt/test_pca_analysis_panel.py": "235b6d847146fac831e7908a4bf4ed0d44de079b6f621d50806160216e56573b",
+      "tests/molsysviewer_molsysmt/test_minimization_panel.py": "5d25c6f94e8f14ffa3a7f6c4d77203fb3f74d9bfb98bf0621f8daecf4b905cf3",
+      "tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs": "901338c3bfbbe0cfbe171ff59a825890ca69bbf315addc3facab0b76de40001b",
+      "tests/molsysviewer_molsysmt/refinement_panel_jupyter.mjs": "67d2c13464a7102bee49bc791e87a2f70176108b0b7b2d1269b703424aa233c3",
+      "tests/molsysviewer_molsysmt/refinement_panel_qt.py": "ec6bbdbaf90cef322c1326bbcaf48a57cc03822747990d9bd0a2c90fa8aa1800",
+      "tests/molsysviewer_molsysmt/geometry_panel_qt.py": "d6178bdf4704902930e57a06b18af6fd5be81026d1a8ad7a8bf8a478695ac9f6",
+      "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "0099fa3cc570be91871004baf241c5afc5ebaba57092a3491d4110eca7a9e1b6",
+      "tests/build/test_project_atom_names.py": "cce6859ddefb16d08f4f1b6d34172c9527a70faec6cf0c0a120e93d12cee1848",
+      "molsysviewer_molsysmt/_panel_frontend.py": "2994e7b9e8588a0d25c5c4c8df5617a259d2519c801872c43abc38e7de29d306"
+    }
+  },
+  "runtime_scope": {
+    "pca": "One native weighted population-covariance calculation; row eigenvectors, squared-length eigenvalues, explicit repeated source axes and source-index coefficient pages. No invented trajectory projections or automatic scene effect.",
+    "refinement": "Explicit whole single-structure native OpenMM L-BFGS; CPU/Reference, stored/default native model inputs reviewed and revalidated, current/independent effects through received adapters. Independently unconsumed model controls refused under #582. No hidden preparation or stopping-control invention.",
+    "expert_api": "No public wrapper signature/default/output changes.",
+    "host_receiving": "PCA: 22 actual-Jupyter scenario checks and 24 native Qt checks, including prior geometry receiving. Refinement: four actual-Jupyter checks through both popups and six native Qt/window checks. These automated source observations are not postponed human acceptance."
+  },
+  "passing_scopes": {
+    "covering": "563 tests passed, zero failures/errors/skips; 491 legacy H5MSM warnings and four intentional native 4 KiB-budget warning controls. Includes every new panel case, affected prior analysis/geometry/native minimization and three mandatory addon route/inventory preflights.",
+    "pca_unit": "24 focal cases; independent NumPy weighted population covariance/eigenvector invariants under nm/angstrom/pm, repeats, zero covariance, paging, tokens, ownership and expiry.",
+    "refinement_unit": "15 focal cases; independent OpenMM coordinates/energy on CPU/Reference, nondefault length/energy policies, review/no-op/staleness, current/independent ownership and native rejection.",
+    "qt_scope": "The PCA node passes inside native-pca-refinement-16 whose overall result fails solely on the new minimization child test-package import. Refinement passes separately in refinement-qt-18 after that fixture correction. They are not presented as one globally passing two-node execution.",
+    "quality": "Ruff repository check/format (4598 files), dependency contract, devguide schema/links/index, course and diff checks pass.",
+    "final_visual_polish": "After the 563-case cohort, only model-table CSS and human-readable setting/unit labels changed. The full four-check refinement Jupyter/both-popup scenario passes again on final visual bytes; original complete input manifests retain each cohort. No numerical algorithm, backend or expert API changed."
+  },
+  "original_failures": {
+    "pca": "Unpublished implementation initially reversed the report constructor native/scalar fields. Later unpublished tests used a nonexistent tags method, asserted a panel error despite correct host pre-handler rejection, and read innerText from a folded details section. Originals retained.",
+    "qt_pca": "The native UI driver originally clicked disabled controls during acknowledgement/refresh. Its final helper waits for actual visible enabled controls, preserving scientific assertions and deadlines.",
+    "refinement": "Initial tests supplied an incomplete application unit policy and assumed mutable analysis-object identity, an edit identifier for pre-execute rejection, or setter acceptance of invalid metadata. Jupyter fixtures initially omitted json, used a nonexistent/hidden prompt selector and compared dict_keys with list; the native Qt child initially selected the wrong owning tests package. Native traces and every original outcome remain retained. No provider defect is inferred from those fixture mistakes."
+  },
+  "hosted_triage": {
+    "full_run": 42689572908,
+    "state": "failure",
+    "seven_full_test_cells": "Original native logs each report exactly one failure in the strict-schema atom-name projection fixture: Linux 32731 passed/168 skipped, macOS 32730 passed/169 skipped; 40 deselected. Exact JUnit of Linux 3.14 independently inspected.",
+    "fixture_issue": "uibcdf/molsysmt#670",
+    "fixture_fix": "Declare molsysmt.partial_charge_assignment@1 in the fixture, without weakening native schema/binding validation or changing science; 36 affected module cases pass. Independently integrated by owner 3fe645437; #670 is closed.",
+    "unexecuted_cell": "macOS Python 3.12 provisioning failed on external Conda download throughput/timeouts, before tests or certificate; secondary cleanup ENOENT is not its root cause.",
+    "provisioning_issue": "uibcdf/molsysmt#671",
+    "other_old_gates": {
+      "smoke": 42689572464,
+      "performance": 42689572350,
+      "state": "success on original 89a649c1 inputs, not on this new source"
+    },
+    "no_redundant_dispatch": true
+  },
+  "additional_host_control": {
+    "capture_owner": "uibcdf/molsysviewer#319",
+    "raw_background_driver": "Raw Chromium DevTools sessions observe genuine visible/hidden/visible transitions and paused/resumed requestAnimationFrame, unlike the prior focus-emulated Playwright probe. No molecular capture or Qt minimization acceptance is inferred from this infrastructure control.",
+    "a5_still_partial": true
+  },
+  "campaigns": [
+    {
+      "native_exit": 1,
+      "seconds": 5.593861046945676,
+      "inputs_unchanged": true,
+      "selected_inputs": 10675,
+      "peak_owned_rss_mib": 224.9,
+      "cleanup": {
+        "tracked": 1,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "assignment-fixture-red-01",
+      "invocation_sha256": "a282a33c64422a8c641dd30669584c89dbdacd2ce973e30f2a2d9c2eaa94d305",
+      "inputs_sha256": "5fe31520fb11dcccdb92422a7c53846475e7f30167a70beaf43245a71d1a398d"
+    },
+    {
+      "native_exit": 0,
+      "seconds": 10.65227682609111,
+      "inputs_unchanged": true,
+      "selected_inputs": 10677,
+      "peak_owned_rss_mib": 408.1,
+      "cleanup": {
+        "tracked": 1,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "assignment-fixture-fixed-02",
+      "invocation_sha256": "0deb739341918a002cfd588b097a0f0b8f2feefbda713f02d410cdbf025ca306",
+      "inputs_sha256": "f83280bbbd861f23f58bc6a72b11502836a1c7df94013829b90803de1dc9c8fe"
+    },
+    {
+      "native_exit": 1,
+      "seconds": 18.698032208019868,
+      "inputs_unchanged": true,
+      "selected_inputs": 10678,
+      "peak_owned_rss_mib": 597.3,
+      "cleanup": {
+        "tracked": 2,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "pca-panel-first-03",
+      "invocation_sha256": "48d00a2a13f9fc2fba9b05abd938d556d8a84b51cb6b64e574c440d3b605846c",
+      "inputs_sha256": "79f597e9422dbe70c635004c15c59369f7fd85b5a8055c12068b4ba60f8db942"
+    },
+    {
+      "native_exit": 1,
+      "seconds": 14.663725947029889,
+      "inputs_unchanged": true,
+      "selected_inputs": 10678,
+      "peak_owned_rss_mib": 569.7,
+      "cleanup": {
+        "tracked": 2,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "pca-panel-fixed-04",
+      "invocation_sha256": "fe90ac871e710f0d88d3218546b5a85f4b8c7d82b8a9209175996adb04abf1ea",
+      "inputs_sha256": "80e255bd4fe5297cd09efe4aa86daa4e8d4d0735f70818781c307d0cc91cee18"
+    },
+    {
+      "native_exit": 1,
+      "seconds": 91.38283480401151,
+      "inputs_unchanged": true,
+      "selected_inputs": 10678,
+      "peak_owned_rss_mib": 770.4,
+      "cleanup": {
+        "tracked": 3,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "pca-analysis-covering-05",
+      "invocation_sha256": "b39173e0634b831eb5c870234cc8635541cd13bfb7cbe84fa0c1f65af1a4149f",
+      "inputs_sha256": "bcb80d73eab5729830ed653cbaebc2ecb1c8639fc69dc78701aa17ca6ebbaa7e"
+    },
+    {
+      "native_exit": 0,
+      "seconds": 16.261822583153844,
+      "inputs_unchanged": true,
+      "selected_inputs": 10678,
+      "peak_owned_rss_mib": 569.6,
+      "cleanup": {
+        "tracked": 2,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "pca-panel-final-06",
+      "invocation_sha256": "abc1b3aec8283f6fd58915fd996328e32ec2795e64fd5f02f613f58fb3465be8",
+      "inputs_sha256": "e55e1a285b1cd5c133dfc5c5c20212d838dcc6b0a3723fe9bc93aca49682d7b7"
+    },
+    {
+      "native_exit": 1,
+      "seconds": 130.40356206917204,
+      "inputs_unchanged": true,
+      "selected_inputs": 10678,
+      "peak_owned_rss_mib": 3511.6,
+      "cleanup": {
+        "tracked": 25,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "analysis-pca-jupyter-07",
+      "invocation_sha256": "b380c172f84f33ea60cf8e2c1656696f34f2a3061a09494a1ad3d45fcba41856",
+      "inputs_sha256": "583cbdd9d6b2cdd9da5f4bd13526a7f4c5c46cfcc0204ae54f10c1d857cf1537"
+    },
+    {
+      "native_exit": 0,
+      "seconds": 148.47949259588495,
+      "inputs_unchanged": true,
+      "selected_inputs": 10678,
+      "peak_owned_rss_mib": 3465.2,
+      "cleanup": {
+        "tracked": 25,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "analysis-pca-jupyter-08",
+      "invocation_sha256": "12b46ca872fb2ff21a961da6c1e0c9d3a74aa9c1d3b7cbdef7330315ff370d44",
+      "inputs_sha256": "56e6255f147dc28b76483da5049a36aec035af97ef305fd0f689833d786e86fe"
+    },
+    {
+      "native_exit": 1,
+      "seconds": 88.55820742785,
+      "inputs_unchanged": true,
+      "selected_inputs": 10678,
+      "peak_owned_rss_mib": 2381.3,
+      "cleanup": {
+        "tracked": 10,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "geometry-pca-qt-09",
+      "invocation_sha256": "8194747e12431e215d403545bee0fd687468f721ad9e7443e6cd8dd75d3fae72",
+      "inputs_sha256": "56e6255f147dc28b76483da5049a36aec035af97ef305fd0f689833d786e86fe"
+    },
+    {
+      "native_exit": 1,
+      "seconds": 13.408383121015504,
+      "inputs_unchanged": true,
+      "selected_inputs": 10679,
+      "peak_owned_rss_mib": 585.6,
+      "cleanup": {
+        "tracked": 1,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "minimization-panel-first-10",
+      "invocation_sha256": "1daa5b48c3a56bc9ca83d34c84e9bc3eee6a95fa2aff783436d48955c502f7ab",
+      "inputs_sha256": "0c12f34ff631fde9f94d576f3bf59f26f2b12bb7756633516a3aa167c19040cf"
+    },
+    {
+      "native_exit": 0,
+      "seconds": 14.667153583141044,
+      "inputs_unchanged": true,
+      "selected_inputs": 10679,
+      "peak_owned_rss_mib": 605.8,
+      "cleanup": {
+        "tracked": 1,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "minimization-panel-fixed-11",
+      "invocation_sha256": "425301d9b84c79b1ea170946377a478b18db46569f1c8672e23e8b79a57876ed",
+      "inputs_sha256": "871c5674b0cb45cd8b705e09e54ffd3afee22bec92bd779f50a0c23c0bcb9185"
+    },
+    {
+      "native_exit": 1,
+      "seconds": 72.1667225761339,
+      "inputs_unchanged": true,
+      "selected_inputs": 10679,
+      "peak_owned_rss_mib": 2372.0,
+      "cleanup": {
+        "tracked": 10,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "geometry-pca-qt-12",
+      "invocation_sha256": "780fb2fa4adf045f6191553d9882325952ef1e4dac97f4e35a00e437bbe6385e",
+      "inputs_sha256": "871c5674b0cb45cd8b705e09e54ffd3afee22bec92bd779f50a0c23c0bcb9185"
+    },
+    {
+      "native_exit": 1,
+      "seconds": 142.25261909794062,
+      "inputs_unchanged": true,
+      "selected_inputs": 10680,
+      "peak_owned_rss_mib": 2327.4,
+      "cleanup": {
+        "tracked": 26,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "refinement-jupyter-13",
+      "invocation_sha256": "4ee413cd8a238271e84849bbd224ddee2a1a8fadc71d3f62fafbefcc5c73f246",
+      "inputs_sha256": "ae180d3a3ded777a37ad66c3cf8205e299546d8d7a6af648519fb215a07af1a4"
+    },
+    {
+      "native_exit": 1,
+      "seconds": 24.705910049844533,
+      "inputs_unchanged": true,
+      "selected_inputs": 10681,
+      "peak_owned_rss_mib": 1942.0,
+      "cleanup": {
+        "tracked": 24,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "refinement-jupyter-14",
+      "invocation_sha256": "8b9766f74c2df96abdceecb2c84d40bfc458e9284ebb08de398a5ff18d40a7f6",
+      "inputs_sha256": "54cca91cdb567b82bca1aeecf6e76b241bcaab4f0595a9514f51c90ded140ade"
+    },
+    {
+      "native_exit": 1,
+      "seconds": 80.22097252309322,
+      "inputs_unchanged": true,
+      "selected_inputs": 10681,
+      "peak_owned_rss_mib": 3308.1,
+      "cleanup": {
+        "tracked": 26,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "refinement-jupyter-15",
+      "invocation_sha256": "7f42babf4cd37a028e5716d8cdd58db24446164542f74ab2627cda59abd44949",
+      "inputs_sha256": "5d2c44cf495f423c3b88a2abe9977518c55a96744628baf12f72908a41bab582"
+    },
+    {
+      "native_exit": 1,
+      "seconds": 48.73516807705164,
+      "inputs_unchanged": true,
+      "selected_inputs": 10681,
+      "peak_owned_rss_mib": 2344.4,
+      "cleanup": {
+        "tracked": 11,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "native-pca-refinement-16",
+      "invocation_sha256": "ffff27184891b09fce41dc7c54dd6a5da189b5e912361e1ac62e925cd95b36b9",
+      "inputs_sha256": "8d753dffcc326f97992f52057b66af64de0f35f8e1f21cdf94079d424cbacb7b"
+    },
+    {
+      "native_exit": 1,
+      "seconds": 54.29041342996061,
+      "inputs_unchanged": true,
+      "selected_inputs": 10681,
+      "peak_owned_rss_mib": 1873.9,
+      "cleanup": {
+        "tracked": 25,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "refinement-jupyter-17",
+      "invocation_sha256": "7de143fe5e55ade681b451a005235b33193e6bbe521d6c931194c1c54444db70",
+      "inputs_sha256": "7004c7549c7a587c03b48b625fd1ba2e49231be8da0d3cb5446d2f1b7ef2cc23"
+    },
+    {
+      "native_exit": 0,
+      "seconds": 20.58562958193943,
+      "inputs_unchanged": true,
+      "selected_inputs": 10681,
+      "peak_owned_rss_mib": 2043.4,
+      "cleanup": {
+        "tracked": 6,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "refinement-qt-18",
+      "invocation_sha256": "9e6570b3c46272109622aaa90ac898093c2a7a9357c1971b0be6fccdabdda3fd",
+      "inputs_sha256": "4c9b26813fa89cde092f20647a997f979a910cee72a14e03d0e840f45aef93e9"
+    },
+    {
+      "native_exit": 0,
+      "seconds": 48.7048325589858,
+      "inputs_unchanged": true,
+      "selected_inputs": 10681,
+      "peak_owned_rss_mib": 3114.7,
+      "cleanup": {
+        "tracked": 24,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "refinement-jupyter-19",
+      "invocation_sha256": "9514104755999a7601f5c9597f8d856b7c4d4af0400bd654ce305058cabe8c64",
+      "inputs_sha256": "4c9b26813fa89cde092f20647a997f979a910cee72a14e03d0e840f45aef93e9"
+    },
+    {
+      "native_exit": 0,
+      "seconds": 148.5737987861503,
+      "inputs_unchanged": true,
+      "selected_inputs": 10681,
+      "peak_owned_rss_mib": 882.4,
+      "cleanup": {
+        "tracked": 3,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "covering-panels-preflight-20",
+      "invocation_sha256": "71f13d3f176d3e23e0f0a7bf0c902c8cc8c3f244cefb2be1f00efa8fdfe7b4a7",
+      "inputs_sha256": "4c9b26813fa89cde092f20647a997f979a910cee72a14e03d0e840f45aef93e9"
+    },
+    {
+      "native_exit": 0,
+      "seconds": 5.929307637969032,
+      "inputs_unchanged": true,
+      "selected_inputs": 10682,
+      "peak_owned_rss_mib": 1213.2,
+      "cleanup": {
+        "tracked": 16,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "raw-background-driver-21",
+      "invocation_sha256": "4ee58da48c77dff261688844cc84a1ca15d0f8ed3b571c590d21ecc8685475d0",
+      "inputs_sha256": "be16c472a4ec466f4b8a854f11a674e5775d6f1484fdc213bdcfe4b050f281c6"
+    },
+    {
+      "native_exit": 0,
+      "seconds": 4.537624057149515,
+      "inputs_unchanged": true,
+      "selected_inputs": 10683,
+      "peak_owned_rss_mib": 36.5,
+      "cleanup": {
+        "tracked": 6,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "quality-owner-22",
+      "invocation_sha256": "357468193cd921df39926949bf5ef8e1f632b134b1213aedda9ddaaf96dfb094",
+      "inputs_sha256": "c53a4c35e5e506a5fa900ebe0f885221cd6fbf308eae875f7988360aa0570872"
+    },
+    {
+      "native_exit": 0,
+      "seconds": 50.37108445283957,
+      "inputs_unchanged": true,
+      "selected_inputs": 10684,
+      "peak_owned_rss_mib": 3136.6,
+      "cleanup": {
+        "tracked": 26,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "refinement-ui-final-24",
+      "invocation_sha256": "2b33c7b49df1b023a6297ea3d1a68d5f9a41a74202216006c2fc12ac48760099",
+      "inputs_sha256": "8ad74abb1dbf9f7fa7173dbbba4da1235d6cfc8d0daf0372fc97bcbbc3e72767"
+    }
+  ],
+  "resources": {
+    "logical_cpus": 8,
+    "ram_gib": 6,
+    "swap_gib": 0,
+    "minimum_globally_available_gib": 2,
+    "blas_rayon_openmm_threads": 1,
+    "concurrency": "One own intensive job at a time. Every campaign keeps selected inputs unchanged and closes all tracked owned processes; no resource stop."
+  },
+  "remaining": [
+    "Owner review/integration and one changed-source hosted checkpoint; old full matrix remains failed.",
+    "Accepted structural-observable family still includes contacts, pending #666/PyUnitWizard #143; PCA is not whole-family credit.",
+    "Chemistry repairs/assignments, construction, property/report, interaction/mechanical and qualified visual-adoption families remain.",
+    "Native #582 effective-model recipe and #615 unexplained initialization retain separate scope.",
+    "Continuous session/scale, A5, Movie #320, broad docs, postponed human and separately authorized installed/artifact acceptance remain.",
+    "No tag, package, Release, promotion or either 1.0 publication."
+  ],
+  "contribution_branch": "review/viewer-pca-refinement-20261109",
+  "prior_pr668_owner_integration": {
+    "merge_commit": "3dfe27ab6ba86512fdff53015ae60821ed803ed0",
+    "fixture_correction": "3fe645437",
+    "latest_base_to_receive": "ca76d93b420435243f68167521ccb503ec8b2728",
+    "scope": "Occurred after initial PCA/refinement receiving; original cohorts retain ecf9/1e259 inputs. Reconcile incoming owner changes before new contribution and do not reopen the merged PR."
+  }
+}
