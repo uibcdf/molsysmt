@@ -78,5 +78,39 @@
       }
     ],
     "gap": null
+  },
+  "molsysmt.chemical_states.get_peptide_termini": {
+    "domain": "chemical_states",
+    "status": "validated",
+    "claim": "Endpoints, cycles and explicit ambiguity in an admitted stored named N-CA-C backbone graph, independently of inventory and ID order; no chemical completeness, valence or protonation certificate.",
+    "units": [
+      "indices"
+    ],
+    "periodic_behavior": "No geometric or periodic bond inference.",
+    "contract_test_area": "tests/chemical_states/test_get_peptide_termini.py",
+    "scientific_evidence": [
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/chemical_states/test_peptide_termini.py::test_declared_path_endpoints_are_not_inventory_or_id_order",
+        "oracle": "Explicit nine-node path in group order 1-2-0, relabelled without changing any edge.",
+        "comparison": "exact",
+        "tolerance": null
+      },
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/chemical_states/test_peptide_termini.py::test_closing_the_declared_path_gives_no_free_endpoints",
+        "oracle": "One closing edge produces a directed three-group cycle without free ends.",
+        "comparison": "exact",
+        "tolerance": null
+      },
+      {
+        "class": "analytic",
+        "test": "tests/scientific_truth/chemical_states/test_peptide_termini.py::test_a_missing_declared_link_is_unknown_not_new_terminal_chemistry",
+        "oracle": "One removed edge produces two fragments in one declared chain; no fragment endpoint is certified.",
+        "comparison": "exact",
+        "tolerance": null
+      }
+    ],
+    "gap": null
   }
 }
