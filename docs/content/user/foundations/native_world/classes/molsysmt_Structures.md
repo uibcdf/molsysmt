@@ -52,6 +52,13 @@ series while leaving its time, boxes or labels at length three. Rejections
 preserve geometry and named-analysis coverage; use coordinated extraction or
 append operations when changing the system's axes.
 
+Reading metadata does not imply that a form has an editing route. Named
+`bioassembly` operations can be supplied explicitly to the `Structures`
+constructor and retrieved with `msm.get(..., bioassembly=True)`. They describe
+system-level chain operations rather than one value per structure. Currently
+`msm.set(..., bioassembly=...)` raises `NotWithThisFormError` without changing
+the source, including for `None` and empty mappings.
+
 Box vectors are rows of `B`: Cartesian positions and fractional positions obey
 `r = f @ B`. Membership in an origin-zero primary cell means `0 <= f < 1` on
 every fractional axis. A complete molecule can have its reference atom inside

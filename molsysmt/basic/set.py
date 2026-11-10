@@ -5,6 +5,20 @@ from molsysmt._private.chemical_state import resolve_chemical_state
 from molsysmt._private.variables import is_all
 
 
+def _attribute_setter(module, attribute, element, form):
+    """Resolve an editing route independently of read capability."""
+    setter = getattr(module, f"set_{attribute}_to_{element}", None)
+    if not callable(setter):
+        from molsysmt._private.smonitor import NotWithThisFormError
+
+        raise NotWithThisFormError(
+            caller="molsysmt.set",
+            requested_attribute=attribute,
+            message=f"Form {form!r} has no editing route for {attribute!r} on {element!r}.",
+        )
+    return setter
+
+
 @signal(tags=["api", "set"])
 @arg_digest()
 @resolve_chemical_state
@@ -53,6 +67,9 @@ def set(
     ------
     NotSupportedFormError
         If the molecular system is provided in an unsupported form.
+    NotWithThisFormError
+        If a supplied domain has no editing route for the requested attribute
+        and element, even when that attribute is readable.
     ArgumentError
         If the input arguments do not meet the expected requirements, including
         an out-of-range structure index for a structural attribute.
@@ -60,6 +77,14 @@ def set(
 
     Notes
     -----
+    A readable attribute is not necessarily editable. If the selected form has
+    no setter for an attribute and element, NotWithThisFormError is raised
+    before calling an editing route. Native bioassembly metadata is currently
+    supplied through the Structures constructor, not through this function;
+    None and empty mappings do not create a missing editing capability. It is
+    system-level metadata, not a per-structure series. Attribute assignments in
+    a multi-attribute call remain sequential rather than one transaction.
+
     Native box assignment requires one matrix per addressed structure, with
     shape (n_selected_structures, 3, 3) and explicit length units. A single
     matrix is one structure, not an implicit broadcast. Incompatible full-axis
@@ -267,8 +292,8 @@ def set(
                     message=f"No supplied domain can store {in_attribute!r}.",
                 )
             in_value = value_of_in_attribute[in_attribute]
-            set_function = getattr(
-                _dict_modules[form], f"set_{in_attribute}_to_{element}"
+            set_function = _attribute_setter(
+                _dict_modules[form], in_attribute, element, form
             )
             if form == "molsysmt.MolecularMechanics" and "indices" in dict_indices:
                 dict_indices["atom_indices"] = dict_indices.pop("indices")
@@ -308,8 +333,8 @@ def set(
                     message=f"No supplied domain can store {in_attribute!r}.",
                 )
             in_value = value_of_in_attribute[in_attribute]
-            set_function = getattr(
-                _dict_modules[form], f"set_{in_attribute}_to_{element}"
+            set_function = _attribute_setter(
+                _dict_modules[form], in_attribute, element, form
             )
             if form == "molsysmt.MolecularMechanics" and "indices" in dict_indices:
                 dict_indices["atom_indices"] = dict_indices.pop("indices")
