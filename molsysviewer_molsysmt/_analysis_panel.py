@@ -9,6 +9,19 @@ from weakref import ref
 import numpy as np
 from molsysviewer import AddonPanelWidget
 
+from ._analysis_interactions import (
+    INTERACTION_DEFAULTS,
+    INTERACTION_METHODS,
+    _InteractionReports,
+    validate_interaction_parameters,
+)
+from ._analysis_mechanics import (
+    MECHANICAL_DEFAULTS,
+    MECHANICAL_METHODS,
+    WHOLE_MECHANICAL_TASKS,
+    _MechanicalReports,
+    validate_mechanical_parameters,
+)
 from ._analysis_panel_frontend import CSS as ANALYSIS_CSS
 from ._analysis_panel_frontend import ESM
 from ._analysis_properties import (
@@ -23,6 +36,8 @@ from ._task_panel import _MolecularTaskPanel, _structures
 
 _DEFAULTS = {
     **PROPERTY_DEFAULTS,
+    **MECHANICAL_DEFAULTS,
+    **INTERACTION_DEFAULTS,
     "task": "distances",
     "relation": "between",
     "pairing": "cartesian",
@@ -60,6 +75,8 @@ _METHODS = {
     **_ANGULAR_METHODS,
     "pca": "principal_component_analysis",
     **{key: value.rsplit(".", 1)[1] for key, value in PROPERTY_METHODS.items()},
+    **MECHANICAL_METHODS,
+    **{key: value[1] for key, value in INTERACTION_METHODS.items()},
 }
 _PAGE_SIZE = 50
 _SCENE_ACTIONS = {
@@ -113,6 +130,8 @@ def _parameters(value):
     if not isinstance(result["pbc"], bool):
         raise ValueError("Periodic distances must be explicitly enabled or disabled.")
     validate_property_parameters(result)
+    validate_mechanical_parameters(result)
+    validate_interaction_parameters(result)
     return result
 
 
@@ -143,7 +162,12 @@ class _AnalysisReport:
 
 
 def _uses_second(parameters):
-    if parameters["task"] in PROPERTY_METHODS:
+    if parameters["task"] in INTERACTION_METHODS:
+        return parameters["interaction_mode"] == "between"
+    if (
+        parameters["task"] in PROPERTY_METHODS
+        or parameters["task"] in MECHANICAL_METHODS
+    ):
         return False
     if parameters["task"] in _ANGULAR_METHODS or parameters["task"] == "pca":
         return False
@@ -155,13 +179,27 @@ def _uses_second(parameters):
     return parameters["relation"] == "between"
 
 
-class _AnalysisPanel(_VisualReportAdoption, _PropertyReports, _MolecularTaskPanel):
+class _AnalysisPanel(
+    _InteractionReports,
+    _MechanicalReports,
+    _VisualReportAdoption,
+    _PropertyReports,
+    _MolecularTaskPanel,
+):
     _report_type = _AnalysisReport
     _esm = ESM
     _css = CSS + ANALYSIS_CSS
     _state_key = "analysis_selection"
     _allow_all = True
-    read_only_actions = ("calculate", "refresh", "task", "page", "clear", "component")
+    read_only_actions = (
+        "calculate",
+        "refresh",
+        "task",
+        "page",
+        "clear",
+        "component",
+        "review_model",
+    )
 
     def __init__(self, view=None, **kwargs):
         if not hasattr(AddonPanelWidget, "read_only_actions"):
@@ -173,6 +211,7 @@ class _AnalysisPanel(_VisualReportAdoption, _PropertyReports, _MolecularTaskPane
         self._second = self._normalize_draft({})
         self._report = None
         self._offset = 0
+        self._mechanics_review = None
 
     def _restore_inputs(self):
         try:
@@ -186,6 +225,7 @@ class _AnalysisPanel(_VisualReportAdoption, _PropertyReports, _MolecularTaskPane
         self._release_task_data()
 
     def _release_task_data(self):
+        self._mechanics_review = None
         if self._report is not None:
             cleanup = getattr(self._report.native_values, "cleanup", None)
             if callable(cleanup):
@@ -219,7 +259,7 @@ class _AnalysisPanel(_VisualReportAdoption, _PropertyReports, _MolecularTaskPane
             raise ValueError("Choose a nonempty atom population for this analysis.")
         return atoms
 
-    def _calculate(self, target):
+    def _calculate(self, target, *, mechanical_review=None):
         import molsysmt as msm
 
         status = self._owner.get_sync_status()
@@ -228,9 +268,13 @@ class _AnalysisPanel(_VisualReportAdoption, _PropertyReports, _MolecularTaskPane
                 "Finish molecular recovery before calculating an analysis."
             )
         p = self._parameters
+        if p["task"] in MECHANICAL_METHODS:
+            return self._calculate_mechanical(target, status, mechanical_review)
         if p["task"] in _ANGULAR_METHODS:
             return self._calculate_angular(target, status)
         first = self._population(target, self._draft, status)
+        if p["task"] in INTERACTION_METHODS:
+            return self._calculate_interactions(target, status, first)
         if p["task"] in PROPERTY_METHODS:
             return self._calculate_property(target, status, first)
         if p["task"] == "pca":
@@ -537,6 +581,7 @@ class _AnalysisPanel(_VisualReportAdoption, _PropertyReports, _MolecularTaskPane
             )
             or (
                 report.parameters["task"] not in _ANGULAR_METHODS
+                and report.parameters["task"] not in WHOLE_MECHANICAL_TASKS
                 and report.first_draft["context"] == "current"
             )
             or (
@@ -561,6 +606,7 @@ class _AnalysisPanel(_VisualReportAdoption, _PropertyReports, _MolecularTaskPane
             *(
                 []
                 if report.parameters["task"] in _ANGULAR_METHODS
+                or report.parameters["task"] in WHOLE_MECHANICAL_TASKS
                 else [(report.first_draft, report.first)]
             ),
             *(
@@ -652,6 +698,10 @@ class _AnalysisPanel(_VisualReportAdoption, _PropertyReports, _MolecularTaskPane
 
     def _summary(self):
         r = self._report
+        if r.parameters["task"] in INTERACTION_METHODS:
+            return self._interaction_summary()
+        if r.parameters["task"] in MECHANICAL_METHODS:
+            return self._mechanical_summary()
         if r.parameters["task"] in PROPERTY_METHODS:
             return self._property_summary()
         pca = r.parameters["task"] == "pca"
@@ -741,6 +791,8 @@ class _AnalysisPanel(_VisualReportAdoption, _PropertyReports, _MolecularTaskPane
     def _live_distance_limit(report):
         if report.parameters["task"] in {
             *PROPERTY_METHODS,
+            *MECHANICAL_METHODS,
+            *INTERACTION_METHODS,
             *_CONFORMATION_METHODS,
             "pca",
             *_ANGULAR_METHODS,
@@ -764,6 +816,10 @@ class _AnalysisPanel(_VisualReportAdoption, _PropertyReports, _MolecularTaskPane
         r = self._report
         if offset and offset >= r.total:
             raise ValueError("That analysis page is outside its result population.")
+        if r.parameters["task"] in INTERACTION_METHODS:
+            return self._interaction_page(offset, _PAGE_SIZE)
+        if r.parameters["task"] in MECHANICAL_METHODS:
+            return self._mechanical_page(offset, _PAGE_SIZE)
         if r.parameters["task"] in PROPERTY_METHODS:
             return self._property_page(offset, _PAGE_SIZE)
         if r.parameters["task"] == "pca":
@@ -929,7 +985,13 @@ class _AnalysisPanel(_VisualReportAdoption, _PropertyReports, _MolecularTaskPane
                 report, position, payload.get("plot_component", "x"), request_id
             )
             return
-        if report.parameters["task"] in PROPERTY_METHODS:
+        if report.parameters["task"] in INTERACTION_METHODS:
+            first, observation_structure = self._interaction_row(position)
+            second = []
+        elif report.parameters["task"] in MECHANICAL_METHODS:
+            first, observation_structure = self._mechanical_row(position)
+            second = []
+        elif report.parameters["task"] in PROPERTY_METHODS:
             first, observation_structure = self._property_row(position)
             second = []
         elif report.parameters["task"] == "pca":
@@ -1037,6 +1099,7 @@ class _AnalysisPanel(_VisualReportAdoption, _PropertyReports, _MolecularTaskPane
                 else None,
                 "page": self._page(self._offset) if report else None,
                 "scene_action": scene_action,
+                "mechanical_review": self._mechanical_review_summary(context),
             }
         )
 
@@ -1052,6 +1115,8 @@ class _AnalysisPanel(_VisualReportAdoption, _PropertyReports, _MolecularTaskPane
             "component",
             "visual_options",
             "plot_component",
+            "review_token",
+            "analysis_name",
         }:
             raise ValueError("The analysis request contains unsupported fields.")
         draft = self._normalize_draft(payload.get("draft", self._draft))
@@ -1067,15 +1132,36 @@ class _AnalysisPanel(_VisualReportAdoption, _PropertyReports, _MolecularTaskPane
                 "analysis_parameters": dict(parameters),
             }
         )
+        if action_id in {"store_interactions", "add_interaction_set"}:
+            self._adopt_interactions(action_id, payload, request_id)
+            return
         if action_id in _SCENE_ACTIONS:
             self._scene_action(action_id, payload, request_id)
             return
         if action_id in {"refresh", "task"}:
             if action_id == "task":
                 self._release_task_data()
-        elif action_id == "calculate":
+        elif action_id == "review_model":
             self._release_task_data()
-            self._report = self._owner._read(self._calculate, {})
+            self._mechanics_review = self._owner._read(
+                self._prepare_mechanical_review, {}
+            )
+            self._publish(
+                stage="review_model",
+                message="Review the stored requests and native defaults. Calculation remains separate and does not change molecular data.",
+                request_id=request_id,
+            )
+            return
+        elif action_id == "calculate":
+            review = (
+                self._take_mechanical_review(payload)
+                if parameters["task"] in MECHANICAL_METHODS
+                else None
+            )
+            self._release_task_data()
+            self._report = self._owner._read(
+                lambda target: self._calculate(target, mechanical_review=review), {}
+            )
             self._publish(
                 stage="report",
                 message="Calculation completed. Molecular data and the scene are unchanged.",

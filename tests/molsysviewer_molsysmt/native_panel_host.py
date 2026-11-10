@@ -81,7 +81,7 @@ class NativePanelHost:
 
         from molsysmt import pyunitwizard as puw
 
-        positions = "(() => {const s=window.__molsysviewerDocsController?.getStructureData();if(!s)return null;const result=[];for(const u of s.units)for(const a of u.elements)result[a]=Array.from(u.conformation.position(a,[0,0,0]));return result;})()"
+        positions = "(() => {const s=window.__molsysviewerDocsController?.getStructureData();if(!s)return null;const result=[];for(const u of s.units)for(const a of u.elements){const source=u.model.sourceData.kind==='mol-viewer:molsysmt'?u.model.atomicHierarchy.atomSourceIndex.value(a):a;result[source]=Array.from(u.conformation.position(a,[0,0,0]));}return result;})()"
         self.idle(target_bridge)
         expected = puw.get_value(
             target.molsys.structures.coordinates, to_unit="angstrom"

@@ -534,3 +534,24 @@ def test_actual_jupyter_visual_adoption_and_both_popups(tmp_path):
     assert len(result["checks"]) == 6
     assert not (output / "settings.json").exists()
     assert not (output / "config/jupyter_server_config.py").exists()
+
+
+def test_actual_jupyter_interaction_mechanics_and_both_popups(tmp_path):
+    output = tmp_path / "jupyter-interaction-mechanics"
+    command = [
+        sys.executable,
+        str(Path(__file__).with_name("system_panel_jupyter.py")),
+        "--viewer-root",
+        os.environ["MOLSYSVIEWER_ROOT"],
+        "--scenario",
+        "interaction-mechanics",
+        "--output",
+        str(output),
+    ]
+    if provider := os.environ.get("MOLSYSVIEWER_PROVIDER_ROOT"):
+        command.extend(["--provider-root", provider])
+    subprocess.run(command, check=True, timeout=420)
+    result = json.loads((output / "full-result.json").read_text())
+    assert len(result["checks"]) == 6
+    assert not (output / "settings.json").exists()
+    assert not (output / "config/jupyter_server_config.py").exists()

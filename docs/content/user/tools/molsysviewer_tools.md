@@ -6317,3 +6317,87 @@ A static property, sequence, connectivity result or PCA component number does
 not become a trajectory axis. Existing conformation-series plots retain their
 separate **Add trajectory plot** action. No generic result container or new
 rendering backend is introduced.
+
+## Reviewing mechanical observations in Analysis
+
+The source-qualified **Mechanics** family offers complete-model potential
+energy, native force-class energy terms, atomic forces and mechanical degrees
+of freedom. Choose the requested structures and use **Review model** before
+**Calculate**. Review shows stored requests and named native defaults; it does
+not construct an engine or certify a complete engine-neutral effective recipe.
+Changed inputs, source data or model defaults require a new review. Independent
+stored dielectric, salt and cutoff controls that this route cannot apply are
+refused explicitly; broader model work remains MolSysMT #582.
+
+Energy and model counts use the whole system at one explicitly selected
+structure. The native readers have no trajectory argument; the panel extracts
+that one structure independently, without evaluating structure zero implicitly
+or hiding a loop. Energy is displayed in kJ/mol. Decomposition retains native
+force-class terms, not embedded atom/group contributions. Mechanical degrees
+of freedom mean `3 × engine particles − engine constraints`, without inferred
+center-of-mass, thermal or virtual-site corrections.
+
+Atomic forces use the complete molecular environment; selecting atoms filters
+the returned values. Choose Cartesian components or native magnitude, in
+kJ/(mol·nm). Requested atom and structure order, including repetitions, remains
+explicit. Reference is the conservative execution default; CPU is an explicit
+alternative. Model-count construction has no execution-platform selector.
+These received routes do not qualify a GPU device, select a fallback engine,
+assign parameters, prepare chemistry, minimize or integrate coordinates.
+
+The mounted result retains native quantities/precision and reports its engine,
+version and reviewed model. Browser inspection is paged; native engine memory
+and time are not universally bounded. Select/Focus deliberately uses the actual
+source participants in the visible structure. Clear or changed inputs releases
+the report. No force arrow, trajectory aggregation or generic H5MSM mechanical
+result is inferred. The expert Python methods and defaults remain unchanged.
+
+## Calculating interactions before storing or displaying them
+
+The source-qualified **Interactions** family in Molecular tools > Analysis
+receives nine native families: hydrogen bonds, disulfide candidates, ionic and
+hydrophobic contacts, halogen bonds, metal coordination, π–π, cation–π and water
+bridges. Native detection, `Interactions` and its bounded-page contract remain
+experimental. This does not promote scientific stability or qualify a published
+addon/Viewer pair.
+
+Choose one population, interactions involving atoms outside it, or two explicit
+populations. Disulfide candidates retain their native single-population scope
+and are geometric candidates, not newly declared covalent bonds. Other families
+expose their chemical-state context and an explicit connectivity-completeness
+assumption. Missing chemistry is refused; no bonds, hydrogens or assignments are
+prepared automatically. Periodic requests distinguish a stored box from native
+nonperiodic behavior without one.
+
+Blank overrides request the selected native method/profile defaults where
+defined. Ionic contacts require an explicit length-bearing distance threshold.
+The custom π–π criterion requires all four distance, angle, offset and planarity
+thresholds. Hydrogen bonds expose Baker–Hubbard, Wernet–Nilsson and the native
+donor–acceptor distance/angle method; water bridges expose their H-bond method
+and one/two-water order. Optional named profiles and explicit overrides retain
+native validation. Inspect resolved parameters, method, units, evidence and
+scope in **Method, source and result lifetime**. No universal cutoff or chemical
+recognition rule is invented by the addon.
+
+Calculation produces an independent sparse result. At most 50 occurrences and
+10,000 participant atoms are copied per inspection page; an oversized page
+fails explicitly. Coordinate preparation, native detection, query indexes and
+metadata have separate costs. Auto heavy mode and the visible native match/
+cyclic-block bounds do not establish a universal RAM or runtime guarantee.
+
+Rows preserve structure and occurrence indices, participant roles/compound
+membership, native measurements/units, evidence and periodic images. Long fields
+are marked previews; Select/Focus uses complete participants. Evaluated-empty
+structures remain distinct from unevaluated structures. Occurrence indices are
+references within this analysis version, not identities promised through future
+remapping or replacement. Periodic images shift whole participants with box
+vectors as rows; they do not unwrap an internally split ring.
+
+Use **Store named analysis** deliberately, then **Add visual set** separately.
+Storage declares correspondence to the unchanged source used for this managed
+calculation; matching counts or source labels alone do not authenticate an
+independently imported analysis. Name conflicts preserve the existing analysis.
+Core Interactions owns the visual set's style and visibility. Clear, unmount or
+removing a visual set keeps the named science; saving supported H5MSM preserves
+it. A replaced/deleted stored analysis cannot be silently reused by an old
+report. Raw external writes require explicit synchronization/invalidation.

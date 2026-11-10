@@ -909,3 +909,33 @@ B3.6/B4 contracts are unchanged. Native source-map/unit/rejection/history/state
 controls, actual Jupyter/Mol* representation-theme/plot-point receiving through
 both popups and representative native Qt have separate scopes. Hosted, installed,
 owner-review and postponed human acceptance remain distinct.
+
+### Native interactions and reviewed mechanical reports — 2026-11-10
+
+D6.9 extends the existing Analysis family navigation, retaining all four top-level
+addon panels and the unchanged expert mirror. Private orchestration calls native
+scientific tools; it introduces neither a detector nor a new generic result store.
+Mechanics uses the shared private model-request review from coordinate refinement,
+with a single-use source/revision/input token and rechecks native defaults before
+calculation. Unsupported independent controls remain refused under #582. Complete
+energy/native terms and model counts require one explicit structure, whereas
+atomic force output retains the native atom/structure axes and full environment.
+OpenMM/Reference and explicit CPU are received without implicit model preparation,
+engine fallback, dynamics or thermodynamic interpretation of 3N−constraints.
+
+All nine interaction families retain native experimental methods/profiles,
+prerequisites, search scope, compound roles, units, evidence, images and coverage.
+The public sparse page contract bounds occurrence/participant copies only; no
+trajectory-wide dictionary, dense pair matrix or universal RAM promise is added.
+Store named analysis and Add visual set are separate actions through the existing
+core owner. Managed source identity/revision permits the alignment declaration;
+source_id is not authentication. Clear/unmount expires the mounted report while
+explicitly stored science/visual objects retain their own lifecycle. Stored-name
+conflicts and stale/replaced analyses refuse without overriding science.
+
+Live receiving uncovered Viewer #347: Molstar's model/group sorting must not alter
+source atom identities. The native coordinate observer now applies Molstar's
+source map; an additional strict selection assertion reproduces the host defect
+independently. Viewer owns its repair and core regressions. These test-helper
+corrections do not alone qualify the host. Source delivery, owner review, complete
+hosted/installed qualification and postponed human observations remain separate.
