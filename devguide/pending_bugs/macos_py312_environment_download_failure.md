@@ -6,7 +6,7 @@ opened: 2026-11-09
 closed:
 severity: medium
 verification: upstream
-area: [ci, dependencies, macos]
+area: [ci, deps]
 guard:
 normative:
 blocked_by: []
