@@ -1,0 +1,758 @@
+{
+  "schema_version": "molsysmt.native_box_axis_owner_receiving@1",
+  "date": "2026-11-10",
+  "owner_issue": "uibcdf/molsysmt#695",
+  "source": "b8a17d712cc8337e2dfde3c5e583fd52d31b5855",
+  "native_backend_sha256": "58653b1d477be36017d2bc721dafe6e85a508e2325fa3226ccf26c61d449d6e5",
+  "runs": {
+    "baseline-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-box-695-baseline-directed.xml",
+          "--receptor-events=<private-evidence>/pre1-box-695-baseline-directed.events.jsonl",
+          "tests/native/test_box_assignment_alignment.py",
+          "--basetemp=<private-evidence>/pre1-box-695-baseline-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 7.79535194998607,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "68bd1910397cc457b3b8b30f23424fa271bdb124",
+        "starting_git_status": "?? tests/native/test_box_assignment_alignment.py\n",
+        "ending_git_status": "?? tests/native/test_box_assignment_alignment.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8782
+      },
+      "resources": {
+        "started_utc": "2026-11-10T15:29:33.292059+00:00",
+        "seconds": 15.015440366929397,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            2.26025390625,
+            2.060546875,
+            2.08984375
+          ],
+          "cpu_utilization": 0.07881526104417669,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14422200320,
+        "cgroup_memory_peak_bytes": 236347392,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "7d6bc3b32d8796fde51b072aec4b770ea6e822e79d087a18bb7bf6f1047e5b84",
+        "-bounded.json": "e68d26d82ad298957b612fa5f961b66db588723bf252ed463d25775cddc9a05c",
+        ".xml": "5063e27c526970c0bd3345c538ed470000c2d3595a4e140868289e589db769d1",
+        ".log": "b17fccfc634c6b728c171c49525a96c5c1b9792e61c4a2b988155f7ec23a91d1",
+        "-inputs-before.json": "c5ef606c5382d6db228143edeba35358fb937ee19cc4cae5e026dc9abff5f201",
+        "-inputs-after.json": "c5ef606c5382d6db228143edeba35358fb937ee19cc4cae5e026dc9abff5f201",
+        "-reference-driver.py": "b8480b9c720d0b8db548a6144375ebe0f0fa77fbf32542bd7922f18f2645e0de",
+        "-resource-driver.py": "5695e1176ddf9737ea2989eb5407049aabad10bcc3a8cf5856aa86d32a85dfd5"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "12",
+          "skipped": "0",
+          "tests": "18",
+          "time": "0.983",
+          "timestamp": "2026-11-10T09:29:43.226614-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.native.test_box_assignment_alignment",
+          "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[False-public-structures-False]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.native.test_box_assignment_alignment",
+          "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[False-public-molsys-False]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.native.test_box_assignment_alignment",
+          "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[False-native-structures-False]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.native.test_box_assignment_alignment",
+          "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[False-native-molsys-False]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.native.test_box_assignment_alignment",
+          "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[False-property-structures-False]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.native.test_box_assignment_alignment",
+          "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[False-property-molsys-False]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.native.test_box_assignment_alignment",
+          "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[True-public-structures-False]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.native.test_box_assignment_alignment",
+          "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[True-public-molsys-False]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.native.test_box_assignment_alignment",
+          "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[True-native-structures-False]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.native.test_box_assignment_alignment",
+          "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[True-native-molsys-False]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.native.test_box_assignment_alignment",
+          "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[True-property-structures-False]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.native.test_box_assignment_alignment",
+          "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[True-property-molsys-False]",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "fixed-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-box-695-fixed-directed.xml",
+          "--receptor-events=<private-evidence>/pre1-box-695-fixed-directed.events.jsonl",
+          "tests/native/test_box_assignment_alignment.py",
+          "--basetemp=<private-evidence>/pre1-box-695-fixed-directed"
+        ],
+        "exit_code": 0,
+        "seconds": 3.168645706027746,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "68bd1910397cc457b3b8b30f23424fa271bdb124",
+        "starting_git_status": " M devguide/pending_bugs/README.md\n M molsysmt/form/molsysmt_MolSys/set.py\n M molsysmt/native/structures.py\n?? devguide/pending_bugs/box_assignment_misaligns_native_structure_series.md\n?? tests/native/test_box_assignment_alignment.py\n",
+        "ending_git_status": " M devguide/pending_bugs/README.md\n M molsysmt/form/molsysmt_MolSys/set.py\n M molsysmt/native/structures.py\n?? devguide/pending_bugs/box_assignment_misaligns_native_structure_series.md\n?? tests/native/test_box_assignment_alignment.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8783
+      },
+      "resources": {
+        "started_utc": "2026-11-10T15:32:10.662846+00:00",
+        "seconds": 9.007896538125351,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            3.71630859375,
+            2.4482421875,
+            2.2041015625
+          ],
+          "cpu_utilization": 0.07927747114902162,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13026488320,
+        "cgroup_memory_peak_bytes": 196923392,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "7934b58f7f87521ab6926c34688d86273280ec1db4c3a7dfe19ffa1ac8d72d84",
+        "-bounded.json": "b60d06c3e691253bd43bec3ad866c0edec7e4ea504e41231a6a5142a9e2708f3",
+        ".xml": "8630214f2c43fa35651ae9389a83583b42899f6cd109ea20bac6837dd79b45c8",
+        ".log": "3f0a7afa55a60b07902b70637dd2d001a4766600d38adf9763e1c67179fe01f7",
+        "-inputs-before.json": "110222fab15e43fcfe56441778e09c4161244ce92ba3664e701fe57239914108",
+        "-inputs-after.json": "110222fab15e43fcfe56441778e09c4161244ce92ba3664e701fe57239914108",
+        "-reference-driver.py": "b8480b9c720d0b8db548a6144375ebe0f0fa77fbf32542bd7922f18f2645e0de",
+        "-resource-driver.py": "5695e1176ddf9737ea2989eb5407049aabad10bcc3a8cf5856aa86d32a85dfd5"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "18",
+          "time": "0.897",
+          "timestamp": "2026-11-10T09:32:15.455390-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "broad-wide": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n2",
+          "--junitxml=<private-evidence>/pre1-box-695-broad-wide.xml",
+          "--receptor-events=<private-evidence>/pre1-box-695-broad-wide.events.jsonl",
+          "tests/native",
+          "tests/basic/test_set_contracts.py",
+          "tests/form/molsysmt_MolSys",
+          "tests/form/molsysmt_Structures",
+          "tests/interactions/test_frame_validity.py",
+          "tests/interactions/test_public_molsys_h5msm_workflow.py",
+          "--basetemp=<private-evidence>/pre1-box-695-broad-wide"
+        ],
+        "exit_code": 0,
+        "seconds": 117.05974081181921,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b8a17d712cc8337e2dfde3c5e583fd52d31b5855",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8783
+      },
+      "resources": {
+        "started_utc": "2026-11-10T15:37:22.496321+00:00",
+        "seconds": 130.12566380784847,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3774873600",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            4.59228515625,
+            3.2333984375,
+            2.5078125
+          ],
+          "cpu_utilization": 0.0351935646053293,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12770500608,
+        "cgroup_memory_peak_bytes": 1131335680,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.62
+      },
+      "evidence_sha256": {
+        ".json": "da21fc5e5ed137069cc16c0e0ec6900113e18818b8957e2c7f1dc7cac3da2db6",
+        "-bounded.json": "838efc4ff41240743389fee5922cadb76ab4b5430dd60f33ba2250197486ce07",
+        ".xml": "955f2e18b4fbcd967e1389f931bbaa8559b745076481706b7b99c6927e3c3335",
+        ".log": "6e23f360a69bd862681806f142373245260eebd9628d77ccfcc126bfee9bbfaf",
+        "-inputs-before.json": "c0ffcd5f38fe63a99fd6da1928374dfc31a8980eed5dbd549a35948ab89a0f28",
+        "-inputs-after.json": "c0ffcd5f38fe63a99fd6da1928374dfc31a8980eed5dbd549a35948ab89a0f28",
+        "-reference-driver.py": "65dae11e572661db1f71b2f38f7215804cdb48c6ead0712f80c8098f93231ef6",
+        "-resource-driver.py": "5695e1176ddf9737ea2989eb5407049aabad10bcc3a8cf5856aa86d32a85dfd5"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "2481",
+          "time": "113.997",
+          "timestamp": "2026-11-10T09:37:34.368719-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "scientific": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/execute_scientific_evidence.py",
+          "--receptor",
+          "llm",
+          "--require-clean",
+          "--certificate",
+          "<private-evidence>/pre1-box-695-scientific-scientific.json"
+        ],
+        "exit_code": 0,
+        "seconds": 24.234139405190945,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b8a17d712cc8337e2dfde3c5e583fd52d31b5855",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8783
+      },
+      "resources": {
+        "started_utc": "2026-11-10T15:39:56.984127+00:00",
+        "seconds": 32.030952882021666,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            3.3349609375,
+            3.330078125,
+            2.666015625
+          ],
+          "cpu_utilization": 0.0868473895582329,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13017169920,
+        "cgroup_memory_peak_bytes": 484884480,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "f25a16931074463eb9bf682c03e7925051d8a55053ae5f0fd19d079b84a5a8da",
+        "-bounded.json": "2d86d4276eea9900d0b2de798b1c2d74c4f811dd74651efd261bc3d3fb48722c",
+        ".log": "9288528583cb6a782083ab404a19e474549df3fc0aa16f7bc29c4d4cdec3a50d",
+        "-inputs-before.json": "c0ffcd5f38fe63a99fd6da1928374dfc31a8980eed5dbd549a35948ab89a0f28",
+        "-inputs-after.json": "c0ffcd5f38fe63a99fd6da1928374dfc31a8980eed5dbd549a35948ab89a0f28",
+        "-reference-driver.py": "65dae11e572661db1f71b2f38f7215804cdb48c6ead0712f80c8098f93231ef6",
+        "-resource-driver.py": "5695e1176ddf9737ea2989eb5407049aabad10bcc3a8cf5856aa86d32a85dfd5"
+      }
+    }
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "molsysmt_version": "0+unknown",
+    "versions": {
+      "mdtraj": "1.11.1",
+      "ackredit": "0.12.1+2.ge233973",
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pandas": "2.3.3",
+      "pint": "0.25.3",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1"
+    },
+    "imports": {
+      "pandas": "<development-environment>/lib/python3.14/site-packages/pandas/__init__.py",
+      "pint": "<development-environment>/lib/python3.14/site-packages/pint/__init__.py",
+      "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+      "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261110/viewer-b9f3be01-source/molsysviewer/__init__.py",
+      "pyunitwizard": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+      "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+      "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+      "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+    }
+  },
+  "scientific_certificate": {
+    "schema_version": "molsysmt.scientific-evidence-execution@1",
+    "verdict": "pass",
+    "commit": "b8a17d712cc8337e2dfde3c5e583fd52d31b5855",
+    "tracked_source_dirty": false,
+    "source_before": {
+      "commit": "b8a17d712cc8337e2dfde3c5e583fd52d31b5855",
+      "tracked_source_dirty": false,
+      "untracked_source_paths": [],
+      "untracked_workflow_artifacts": []
+    },
+    "source_after": {
+      "commit": "b8a17d712cc8337e2dfde3c5e583fd52d31b5855",
+      "tracked_source_dirty": false,
+      "untracked_source_paths": [],
+      "untracked_workflow_artifacts": []
+    },
+    "source_correspondence": true,
+    "release_eligible": true,
+    "created_at": "2026-11-10T15:40:25.775494+00:00",
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "registered_nodes": 74,
+    "collected_cases": 116,
+    "passed": 116,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0,
+    "nodes": [
+      "tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance",
+      "tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images",
+      "tests/scientific_truth/chemical_states/test_peptide_termini.py::test_a_missing_declared_link_is_unknown_not_new_terminal_chemistry",
+      "tests/scientific_truth/chemical_states/test_peptide_termini.py::test_closing_the_declared_path_gives_no_free_endpoints",
+      "tests/scientific_truth/chemical_states/test_peptide_termini.py::test_declared_path_endpoints_are_not_inventory_or_id_order",
+      "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap",
+      "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+      "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+      "tests/scientific_truth/molecular_mechanics/test_model_recipe.py::test_recipe_constraints_match_independent_engine_construction",
+      "tests/scientific_truth/molecular_mechanics/test_model_recipe.py::test_recipe_retains_a_known_triclinic_physical_box",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_changing_cells_follow_the_previous_transition_basis",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_explicit_small_origin_keeps_the_requested_primary_cell",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_rotated_row_cell_wrapping_matches_explicit_images",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+      "tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids",
+      "tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution",
+      "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+      "tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form",
+      "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
+      "tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap",
+      "tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area",
+      "tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups",
+      "tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context",
+      "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
+      "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+      "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_constructed_matrix_drives_public_row_vector_rotation",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_extreme_finite_axis_still_produces_the_analytic_rotation",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_positive_body_diagonal_turn_cycles_cartesian_axes",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_signed_cartesian_quarter_turns_match_literal_matrices",
+      "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+      "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance",
+      "tests/scientific_truth/structure/test_neighbor_cell_bounds.py::test_sparse_small_cutoff_retains_known_pairs_and_periodic_images",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+      "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+      "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+      "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+      "tests/scientific_truth/structure/test_principal_component_analysis.py::test_weighted_pca_matches_closed_form_diagonal_covariance",
+      "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+    ]
+  },
+  "direct_semantic_guards": [
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[False-public-structures-False]",
+      "time": "0.014"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[False-public-molsys-False]",
+      "time": "0.023"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[False-public-molsys-True]",
+      "time": "0.007"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[False-native-structures-False]",
+      "time": "0.005"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[False-native-molsys-False]",
+      "time": "0.004"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[False-native-molsys-True]",
+      "time": "0.005"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[False-property-structures-False]",
+      "time": "0.004"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[False-property-molsys-False]",
+      "time": "0.004"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[False-property-molsys-True]",
+      "time": "0.005"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[True-public-structures-False]",
+      "time": "0.007"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[True-public-molsys-False]",
+      "time": "0.020"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[True-public-molsys-True]",
+      "time": "0.008"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[True-native-structures-False]",
+      "time": "0.005"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[True-native-molsys-False]",
+      "time": "0.005"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[True-native-molsys-True]",
+      "time": "0.006"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[True-property-structures-False]",
+      "time": "0.004"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[True-property-molsys-False]",
+      "time": "0.005"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_misaligned_box_edit_rejects_before_publication_and_coverage_change[True-property-molsys-True]",
+      "time": "0.005"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[False-nm-1-all-structures-False]",
+      "time": "0.006"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[False-nm-1-all-molsys-False]",
+      "time": "0.006"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[False-nm-1-all-molsys-True]",
+      "time": "0.008"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[False-nm-1-selected1-structures-False]",
+      "time": "0.007"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[False-nm-1-selected1-molsys-False]",
+      "time": "0.024"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[False-nm-1-selected1-molsys-True]",
+      "time": "0.009"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[False-pm-1000-all-structures-False]",
+      "time": "0.007"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[False-pm-1000-all-molsys-False]",
+      "time": "0.006"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[False-pm-1000-all-molsys-True]",
+      "time": "0.009"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[False-pm-1000-selected1-structures-False]",
+      "time": "0.007"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[False-pm-1000-selected1-molsys-False]",
+      "time": "0.007"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[False-pm-1000-selected1-molsys-True]",
+      "time": "0.008"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[True-nm-1-all-structures-False]",
+      "time": "0.007"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[True-nm-1-all-molsys-False]",
+      "time": "0.022"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[True-nm-1-all-molsys-True]",
+      "time": "0.009"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[True-nm-1-selected1-structures-False]",
+      "time": "0.007"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[True-nm-1-selected1-molsys-False]",
+      "time": "0.008"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[True-nm-1-selected1-molsys-True]",
+      "time": "0.009"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[True-pm-1000-all-structures-False]",
+      "time": "0.006"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[True-pm-1000-all-molsys-False]",
+      "time": "0.007"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[True-pm-1000-all-molsys-True]",
+      "time": "0.009"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[True-pm-1000-selected1-structures-False]",
+      "time": "0.007"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[True-pm-1000-selected1-molsys-False]",
+      "time": "0.007"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_explicit_box_population_retains_metadata_units_and_untouched_scope[True-pm-1000-selected1-molsys-True]",
+      "time": "0.022"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_invalid_full_cardinality_refuses_with_or_without_initial_box[0]",
+      "time": "0.008"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_invalid_full_cardinality_refuses_with_or_without_initial_box[2]",
+      "time": "0.010"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_invalid_full_cardinality_refuses_with_or_without_initial_box[4]",
+      "time": "0.013"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_full_clearing_and_empty_selected_noop_keep_axes_and_native_snapshots",
+      "time": "0.006"
+    },
+    {
+      "classname": "tests.native.test_box_assignment_alignment",
+      "name": "test_new_payload_construction_is_strict_and_its_scope_is_not_retained",
+      "time": "0.007"
+    }
+  ],
+  "acceptance": [
+    "The native box-publication owner validates shared structural dimensions independently of owner/analysis presence, before publication or invalidation. Twelve formerly failing standalone/analysis-free public/native/property controls now reject atomically; the six existing named-analysis controls are retained.",
+    "Retain the declared exact-cardinality contract: one cell per addressed structure, without implicit broadcasting. Valid whole/nonconsecutive updates preserve source time/coordinate/label axes under nm and pm policies and ordinary/trusted delegation. None clearing, empty-selection no-op and historical snapshot/analysis scope are tested.",
+    "Fresh Structures payload construction has an explicit transient initialization scope and retains complete final alignment validation. The scope is removed even after failure; existing edits have no persistent construction bypass.",
+    "47 direct semantic controls are included in 2,481 affected native/form/set/analysis/persistence cases. All pass without skips. The clean source also passes 116 registered scientific cases across 74 nodes.",
+    "No Rust, detector, provider floor, schema or scientific criterion is changed. The existing ArgDigest, PyUnitWizard conversion and SMonitor structural exception boundaries remain the owners."
+  ],
+  "limits": [
+    "This is one-attribute prepublication integrity, not a rollback promise for an arbitrary multi-key msm.set transaction or unsynchronized raw external writes.",
+    "A single cell is not auto-expanded; callers wanting uniform cells explicitly supply one per addressed structure. New box-only construction can define its sole axis, unlike conflicting coordinate/time series.",
+    "Source controls do not qualify a package, other platforms, a GUI family or a release. The supplemental correction receives no additional milestone weight. Full combined HTML/fast/client receiving follows separately."
+  ]
+}

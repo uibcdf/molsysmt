@@ -1,0 +1,1075 @@
+{
+  "schema_version": "molsysmt.assessed_protonation_panel_receiving@1",
+  "date": "2026-11-10",
+  "owner_issue": "uibcdf/molsysmt#421",
+  "source": "139de97933af1a2fce1a472bb0603e7aa7a3bdd5",
+  "viewer_source": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+  "native_backend_sha256": "58653b1d477be36017d2bc721dafe6e85a508e2325fa3226ccf26c61d449d6e5",
+  "runs": {
+    "initial-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-protonation-421-initial-directed.xml",
+          "--receptor-events=<private-evidence>/pre1-protonation-421-initial-directed.events.jsonl",
+          "tests/molsysviewer_molsysmt/test_assessed_protonation_panel.py",
+          "tests/molsysviewer_molsysmt/test_chemistry_assessments_panel.py",
+          "tests/molsysviewer_molsysmt/test_protonation_tools.py",
+          "--basetemp=<private-evidence>/pre1-protonation-421-initial-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 45.6592703119386,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "707ea24b2f2294b4cbfe309ccea9d48719a9a377",
+        "starting_git_status": " M molsysviewer_molsysmt/_chemical_edits.py\n M molsysviewer_molsysmt/_chemistry_panel.py\n M molsysviewer_molsysmt/_chemistry_panel_frontend.py\n?? tests/molsysviewer_molsysmt/test_assessed_protonation_panel.py\n",
+        "ending_git_status": " M molsysviewer_molsysmt/_chemical_edits.py\n M molsysviewer_molsysmt/_chemistry_panel.py\n M molsysviewer_molsysmt/_chemistry_panel_frontend.py\n?? tests/molsysviewer_molsysmt/test_assessed_protonation_panel.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8781
+      },
+      "resources": {
+        "started_utc": "2026-11-10T15:11:18.262269+00:00",
+        "seconds": 52.04862100700848,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            2.50732421875,
+            2.50537109375,
+            2.1103515625
+          ],
+          "cpu_utilization": 0.030684104627766606,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 14254977024,
+        "cgroup_memory_peak_bytes": 396873728,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "7bebd847f523efa9700c9929bfec3fe566e4a14bbbe25dff2326f4b58ad6731c",
+        "-bounded.json": "f0d12646bfbe90b6d6fb6bd826e6340c94154897e434d0e16c3be19e88cb7d51",
+        ".xml": "819bd436a92cc1ebd4079660e9fe3101cf316224cc1374c71fb130097b1d9f99",
+        ".log": "2e2afd361038194dc5f1961e0a2d0970d205f7d0e6969b212505497d3779e00e",
+        "-inputs-before.json": "5d32c3601b0efda9648af93a08552b11bfd1af258bf178a2e13eee96bed4f7ce",
+        "-inputs-after.json": "5d32c3601b0efda9648af93a08552b11bfd1af258bf178a2e13eee96bed4f7ce",
+        "-reference-driver.py": "ef5d96b6df8719c4ecf8be4e84af7928952a777791e0dcfeb2d1ff65b1ee67a4",
+        "-resource-driver.py": "89510fb93cb33e66c778c09be9f5a6f0e38770d1ea952cf466921bbe3974a2ef"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "3",
+          "skipped": "0",
+          "tests": "109",
+          "time": "42.539",
+          "timestamp": "2026-11-10T09:11:23.124795-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.molsysviewer_molsysmt.test_assessed_protonation_panel",
+          "name": "test_raw_inventory_change_refuses_stale_native_decision_atomically[protonation.apply]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.molsysviewer_molsysmt.test_assessed_protonation_panel",
+          "name": "test_noop_consumes_once_without_revisions_history_or_domain_publication",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.molsysviewer_molsysmt.test_assessed_protonation_panel",
+          "name": "test_projection_retry_cannot_repeat_the_consumed_assessed_science",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "control-fixed-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-protonation-421-control-fixed-directed.xml",
+          "--receptor-events=<private-evidence>/pre1-protonation-421-control-fixed-directed.events.jsonl",
+          "tests/molsysviewer_molsysmt/test_assessed_protonation_panel.py",
+          "tests/molsysviewer_molsysmt/test_chemistry_assessments_panel.py",
+          "tests/molsysviewer_molsysmt/test_protonation_tools.py",
+          "--basetemp=<private-evidence>/pre1-protonation-421-control-fixed-directed"
+        ],
+        "exit_code": 0,
+        "seconds": 45.80462423409335,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "707ea24b2f2294b4cbfe309ccea9d48719a9a377",
+        "starting_git_status": " M molsysviewer_molsysmt/_chemical_edits.py\n M molsysviewer_molsysmt/_chemistry_panel.py\n M molsysviewer_molsysmt/_chemistry_panel_frontend.py\n?? tests/molsysviewer_molsysmt/test_assessed_protonation_panel.py\n",
+        "ending_git_status": " M molsysviewer_molsysmt/_chemical_edits.py\n M molsysviewer_molsysmt/_chemistry_panel.py\n M molsysviewer_molsysmt/_chemistry_panel_frontend.py\n?? tests/molsysviewer_molsysmt/test_assessed_protonation_panel.py\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8781
+      },
+      "resources": {
+        "started_utc": "2026-11-10T15:13:18.046803+00:00",
+        "seconds": 52.08717151917517,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            4.08984375,
+            2.9609375,
+            2.3115234375
+          ],
+          "cpu_utilization": 0.07901358832410665,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12845723648,
+        "cgroup_memory_peak_bytes": 394100736,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "93e82459ff7435152d982abbd16b422e290a8dbd63c79c4c56725c0134d30e9c",
+        "-bounded.json": "a05801ada8b4119f4f0b3ba6e024b5bff8044e6412b4d7874efbed34d3255ba7",
+        ".xml": "5cd0ff2bf4b2a874377f9d17776ab0604f7e63fccd574e616b730580828a16aa",
+        ".log": "a53fd63498a544ac41a01617d8556f836f2ed3d32438a4db927690b24ac5a0aa",
+        "-inputs-before.json": "f654d3841550182cfe4ce33f2690152450b64841c983ddcf95d3e858c1cd5fab",
+        "-inputs-after.json": "f654d3841550182cfe4ce33f2690152450b64841c983ddcf95d3e858c1cd5fab",
+        "-reference-driver.py": "ef5d96b6df8719c4ecf8be4e84af7928952a777791e0dcfeb2d1ff65b1ee67a4",
+        "-resource-driver.py": "89510fb93cb33e66c778c09be9f5a6f0e38770d1ea952cf466921bbe3974a2ef"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "109",
+          "time": "42.564",
+          "timestamp": "2026-11-10T09:13:22.795109-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "broad-wide": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n2",
+          "--junitxml=<private-evidence>/pre1-protonation-421-broad-wide.xml",
+          "--receptor-events=<private-evidence>/pre1-protonation-421-broad-wide.events.jsonl",
+          "tests/molsysviewer_molsysmt/test_assessed_protonation_panel.py",
+          "tests/molsysviewer_molsysmt/test_protonation_tools.py",
+          "tests/molsysviewer_molsysmt/test_chemistry_assessments_panel.py",
+          "tests/molsysviewer_molsysmt/test_chemistry_panel.py",
+          "tests/molsysviewer_molsysmt/test_chemistry_preparation_panel.py",
+          "tests/molsysviewer_molsysmt/test_chemistry_repair_panel.py",
+          "tests/molsysviewer_molsysmt/test_system_panel.py",
+          "tests/molsysviewer_molsysmt/test_scientific_session.py",
+          "tests/build/test_protonation_assessment.py",
+          "tests/build/test_reconcile_protonation.py",
+          "devtools/tests/test_molsysviewer_tools_api_inventory.py",
+          "--basetemp=<private-evidence>/pre1-protonation-421-broad-wide"
+        ],
+        "exit_code": 0,
+        "seconds": 68.23943095491268,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "56b913274891098fde455dd06a3776e715af4e95",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8785
+      },
+      "resources": {
+        "started_utc": "2026-11-10T15:24:18.032729+00:00",
+        "seconds": 75.07110960409045,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3774873600",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.1455078125,
+            1.80615234375,
+            2.05078125
+          ],
+          "cpu_utilization": 0.02713567839195985,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12583063552,
+        "cgroup_memory_peak_bytes": 1144233984,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "54ec5944a01f47265c0ecc09123b9283a999e8fc13380ba2e821dbfa816625a2",
+        "-bounded.json": "7139520b87aac713de8d47bdbe07ab4c6fca95f51397e0c6e1d82c0eb3574b97",
+        ".xml": "4be2c7c77eddea3dc650be9c6da7826d9c7811aa539b95c2d83d99e321096fe4",
+        ".log": "c26ceaf822b492a840d68e8338b59b153dcc61948035b3ba9d590befb8e1c852",
+        "-inputs-before.json": "16b552ca64d138eebe05e295d5147561c9e4e88ba800dd71fb9699642c6c7fff",
+        "-inputs-after.json": "16b552ca64d138eebe05e295d5147561c9e4e88ba800dd71fb9699642c6c7fff",
+        "-reference-driver.py": "657119dd8fd4621545b4c4b97fb30a01583ebc9a55272919f78a84f4c6e4c72c",
+        "-resource-driver.py": "89510fb93cb33e66c778c09be9f5a6f0e38770d1ea952cf466921bbe3974a2ef"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "329",
+          "time": "65.984",
+          "timestamp": "2026-11-10T09:24:23.922962-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "gui-six-wide": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-protonation-421-gui-six-wide.xml",
+          "--receptor-events=<private-evidence>/pre1-protonation-421-gui-six-wide.events.jsonl",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_assessed_protonation_managed_and_independent",
+          "--basetemp=<private-evidence>/pre1-protonation-421-gui-six-wide"
+        ],
+        "exit_code": 1,
+        "seconds": 53.63045508391224,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "56b913274891098fde455dd06a3776e715af4e95",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8785
+      },
+      "resources": {
+        "started_utc": "2026-11-10T15:24:22.013016+00:00",
+        "seconds": 61.0587274429854,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3774873600",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "600000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.21435546875,
+            1.8095703125,
+            2.05029296875
+          ],
+          "cpu_utilization": 0.0793571069814164,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12585377792,
+        "cgroup_memory_peak_bytes": 1028481024,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "b6a7749fe3f9fdf337fed155f1ccab8cfd66266eb7ca7dec927003d2422210e4",
+        "-bounded.json": "d6671865772ab38897aea1b4eee68e1692d63d8e0b7e6f65d9573376200f9374",
+        ".xml": "fb2cdbc475565096b435ccbec3ec9d49da316198f9cb37aa9017785f1a860cbd",
+        ".log": "90180ce4aaf849c1d055d49b090f7c207eaf973af9fdbcb0ade8254d06344e5b",
+        "-inputs-before.json": "16b552ca64d138eebe05e295d5147561c9e4e88ba800dd71fb9699642c6c7fff",
+        "-inputs-after.json": "16b552ca64d138eebe05e295d5147561c9e4e88ba800dd71fb9699642c6c7fff",
+        "-reference-driver.py": "657119dd8fd4621545b4c4b97fb30a01583ebc9a55272919f78a84f4c6e4c72c",
+        "-resource-driver.py": "89510fb93cb33e66c778c09be9f5a6f0e38770d1ea952cf466921bbe3974a2ef"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "1",
+          "time": "51.357",
+          "timestamp": "2026-11-10T09:24:28.150669-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.molsysviewer_molsysmt.jupyter_receiving_guard",
+          "name": "test_actual_jupyter_assessed_protonation_managed_and_independent",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "native-fixture-gui-six-wide": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-protonation-421-native-fixture-gui-six-wide.xml",
+          "--receptor-events=<private-evidence>/pre1-protonation-421-native-fixture-gui-six-wide.events.jsonl",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_assessed_protonation_managed_and_independent",
+          "--basetemp=<private-evidence>/pre1-protonation-421-native-fixture-gui-six-wide"
+        ],
+        "exit_code": 1,
+        "seconds": 85.63965798984282,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b46f754fcb283ee943dd8672955238028f50bf92",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8785
+      },
+      "resources": {
+        "started_utc": "2026-11-10T15:27:59.491228+00:00",
+        "seconds": 95.14617423899472,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3774873600",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "600000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.951171875,
+            1.68896484375,
+            1.978515625
+          ],
+          "cpu_utilization": 0.029131089904570584,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 11936821248,
+        "cgroup_memory_peak_bytes": 1679802368,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "7bd35560ae22890c85ff60daa5e9c2b2f7a0b2c554a9b84df9a3b85cf93bf7c6",
+        "-bounded.json": "97d22bc61ab13714be5d3007e75b0ac3a2363c6e2d22a50bf828f7d278683519",
+        ".xml": "07caa840ba04a3f8020a3aa3b6756d67b2cbe92b1f6133f25c51e64071ab28e8",
+        ".log": "66e156616c244c0fc6357cc081b82bae2348bad61318353af0c2543775fe7f11",
+        "-inputs-before.json": "4973a60638873e221d3ec89dfdc565643ede0e5215d2c330416b338f6511fe29",
+        "-inputs-after.json": "4973a60638873e221d3ec89dfdc565643ede0e5215d2c330416b338f6511fe29",
+        "-reference-driver.py": "657119dd8fd4621545b4c4b97fb30a01583ebc9a55272919f78a84f4c6e4c72c",
+        "-resource-driver.py": "89510fb93cb33e66c778c09be9f5a6f0e38770d1ea952cf466921bbe3974a2ef"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "1",
+          "time": "83.428",
+          "timestamp": "2026-11-10T09:28:07.374951-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.molsysviewer_molsysmt.jupyter_receiving_guard",
+          "name": "test_actual_jupyter_assessed_protonation_managed_and_independent",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "qt-four-cpus-wide": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-protonation-421-qt-four-cpus-wide.xml",
+          "--receptor-events=<private-evidence>/pre1-protonation-421-qt-four-cpus-wide.events.jsonl",
+          "tests/molsysviewer_molsysmt/qt_receiving_guard.py::test_actual_qt_assessed_protonation_managed_and_independent",
+          "--basetemp=<private-evidence>/pre1-protonation-421-qt-four-cpus-wide"
+        ],
+        "exit_code": 0,
+        "seconds": 53.728715237928554,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "b46f754fcb283ee943dd8672955238028f50bf92",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8785
+      },
+      "resources": {
+        "started_utc": "2026-11-10T15:28:03.095927+00:00",
+        "seconds": 61.060547900851816,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3774873600",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "400000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.03564453125,
+            1.6943359375,
+            1.97900390625
+          ],
+          "cpu_utilization": 0.0512562814070352,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 11938836480,
+        "cgroup_memory_peak_bytes": 1359200256,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "f975270d9a2c22e9594b823b0707320ba290260c5052bb153e34d6d79539bd43",
+        "-bounded.json": "a15cc2d0180577756a20222126bac290b6476e539cdf5be6f55b7eb159a137e0",
+        ".xml": "899b9bc7aa18b9ec84de20a5581c810cc8ead95f7c4c5677f618cd7f7f5e515f",
+        ".log": "68e131a95d11f1855a05997bcd6d143dfbc7b619500274d9a6cab65fe570f343",
+        "-inputs-before.json": "4973a60638873e221d3ec89dfdc565643ede0e5215d2c330416b338f6511fe29",
+        "-inputs-after.json": "4973a60638873e221d3ec89dfdc565643ede0e5215d2c330416b338f6511fe29",
+        "-reference-driver.py": "657119dd8fd4621545b4c4b97fb30a01583ebc9a55272919f78a84f4c6e4c72c",
+        "-resource-driver.py": "89510fb93cb33e66c778c09be9f5a6f0e38770d1ea952cf466921bbe3974a2ef"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "51.463",
+          "timestamp": "2026-11-10T09:28:09.070126-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "ready-scene-gui-six-wide": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-protonation-421-ready-scene-gui-six-wide.xml",
+          "--receptor-events=<private-evidence>/pre1-protonation-421-ready-scene-gui-six-wide.events.jsonl",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_assessed_protonation_managed_and_independent",
+          "--basetemp=<private-evidence>/pre1-protonation-421-ready-scene-gui-six-wide"
+        ],
+        "exit_code": 1,
+        "seconds": 86.59897574782372,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "75ad9e4b3c92c80ef3c2513cedceb9ba1288b768",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8785
+      },
+      "resources": {
+        "started_utc": "2026-11-10T15:30:55.048222+00:00",
+        "seconds": 94.10625097504817,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3774873600",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "600000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.9033203125,
+            1.92578125,
+            2.0361328125
+          ],
+          "cpu_utilization": 0.03159478435305918,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13028839424,
+        "cgroup_memory_peak_bytes": 1554583552,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "4453c71f1cafd3e34190924549eaf7b02276e6ffefc4f7f70d1fc1c8a8f52888",
+        "-bounded.json": "263d618a0066a70e05812ba5ae47460340cde98f5220c91ad243ac814687cbf6",
+        ".xml": "668fe9c19e9be49aa598cdc2897c3ecccc02d1a6306149c40008e6d19433b6b6",
+        ".log": "01750dd7af28b1914a4a75818e82bbf071e38a2d3ed9eec7b8f0c1a7e735547c",
+        "-inputs-before.json": "ad1d05e4638275f7e63a5411032da86d7cebc99ca178b1992cd57cc464331550",
+        "-inputs-after.json": "ad1d05e4638275f7e63a5411032da86d7cebc99ca178b1992cd57cc464331550",
+        "-reference-driver.py": "657119dd8fd4621545b4c4b97fb30a01583ebc9a55272919f78a84f4c6e4c72c",
+        "-resource-driver.py": "89510fb93cb33e66c778c09be9f5a6f0e38770d1ea952cf466921bbe3974a2ef"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "1",
+          "skipped": "0",
+          "tests": "1",
+          "time": "84.567",
+          "timestamp": "2026-11-10T09:31:00.759229-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.molsysviewer_molsysmt.jupyter_receiving_guard",
+          "name": "test_actual_jupyter_assessed_protonation_managed_and_independent",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "completion-notice-gui-six-wide": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-protonation-421-completion-notice-gui-six-wide.xml",
+          "--receptor-events=<private-evidence>/pre1-protonation-421-completion-notice-gui-six-wide.events.jsonl",
+          "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_assessed_protonation_managed_and_independent",
+          "--basetemp=<private-evidence>/pre1-protonation-421-completion-notice-gui-six-wide"
+        ],
+        "exit_code": 0,
+        "seconds": 69.69262282596901,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "139de97933af1a2fce1a472bb0603e7aa7a3bdd5",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8785
+      },
+      "resources": {
+        "started_utc": "2026-11-10T15:35:10.354876+00:00",
+        "seconds": 87.123569060117,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3774873600",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "600000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.0859375,
+            1.7783203125,
+            1.9794921875
+          ],
+          "cpu_utilization": 0.02963335007533907,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 11831365632,
+        "cgroup_memory_peak_bytes": 1700970496,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.18
+      },
+      "evidence_sha256": {
+        ".json": "e438ac6d9a9104d196683ea074f6b42a374b01948f8eda697256d137dc151bff",
+        "-bounded.json": "3ccedb49420001163dac835e69050f597340321d1819c4e468b311be3c22e9b4",
+        ".xml": "5e7eb9a852048d40a0ca538ae8d408857ee408d94b511160ee27d5d64b29872d",
+        ".log": "69740fee460c811ab0d78f8bd891fc03ae91c5c56a63e39df5d1f310674e49c4",
+        "-inputs-before.json": "b9a6153eedbcad04673bba33875c9af72d8b87384af18cf64f7da5c6fa18ca03",
+        "-inputs-after.json": "b9a6153eedbcad04673bba33875c9af72d8b87384af18cf64f7da5c6fa18ca03",
+        "-reference-driver.py": "657119dd8fd4621545b4c4b97fb30a01583ebc9a55272919f78a84f4c6e4c72c",
+        "-resource-driver.py": "89510fb93cb33e66c778c09be9f5a6f0e38770d1ea952cf466921bbe3974a2ef"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "67.203",
+          "timestamp": "2026-11-10T09:35:26.423322-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "completion-notice-broad-wide": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n2",
+          "--junitxml=<private-evidence>/pre1-protonation-421-completion-notice-broad-wide.xml",
+          "--receptor-events=<private-evidence>/pre1-protonation-421-completion-notice-broad-wide.events.jsonl",
+          "tests/molsysviewer_molsysmt/test_assessed_protonation_panel.py",
+          "tests/molsysviewer_molsysmt/test_protonation_tools.py",
+          "tests/molsysviewer_molsysmt/test_chemistry_assessments_panel.py",
+          "tests/molsysviewer_molsysmt/test_chemistry_panel.py",
+          "tests/molsysviewer_molsysmt/test_chemistry_preparation_panel.py",
+          "tests/molsysviewer_molsysmt/test_chemistry_repair_panel.py",
+          "tests/molsysviewer_molsysmt/test_system_panel.py",
+          "tests/molsysviewer_molsysmt/test_scientific_session.py",
+          "tests/build/test_protonation_assessment.py",
+          "tests/build/test_reconcile_protonation.py",
+          "devtools/tests/test_molsysviewer_tools_api_inventory.py",
+          "--basetemp=<private-evidence>/pre1-protonation-421-completion-notice-broad-wide"
+        ],
+        "exit_code": 0,
+        "seconds": 76.72940575005487,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "139de97933af1a2fce1a472bb0603e7aa7a3bdd5",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8785
+      },
+      "resources": {
+        "started_utc": "2026-11-10T15:35:13.776863+00:00",
+        "seconds": 90.08510812185705,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3774873600",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.0859375,
+            1.7783203125,
+            1.9794921875
+          ],
+          "cpu_utilization": 0.040723981900452455,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 11826982912,
+        "cgroup_memory_peak_bytes": 1174855680,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.18
+      },
+      "evidence_sha256": {
+        ".json": "c4f38ca048634d35b61d13316122f48ba4bd0c5811aa04ace0f4f08c9ffb791c",
+        "-bounded.json": "8a6fa734338f111fddd98d8261a2ae31d155d00f07da1bb526054e6821a4ed58",
+        ".xml": "5cfd842762dc04a68a27422167cc7c39ead620077744a3dfcf380f856285045d",
+        ".log": "25f1552d46d69970b6aeaf6c691f65afd81b5bab4a1a5067325fbc8e42b3e775",
+        "-inputs-before.json": "b9a6153eedbcad04673bba33875c9af72d8b87384af18cf64f7da5c6fa18ca03",
+        "-inputs-after.json": "b9a6153eedbcad04673bba33875c9af72d8b87384af18cf64f7da5c6fa18ca03",
+        "-reference-driver.py": "657119dd8fd4621545b4c4b97fb30a01583ebc9a55272919f78a84f4c6e4c72c",
+        "-resource-driver.py": "89510fb93cb33e66c778c09be9f5a6f0e38770d1ea952cf466921bbe3974a2ef"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "330",
+          "time": "74.259",
+          "timestamp": "2026-11-10T09:35:26.440881-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "html": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "sphinx",
+          "-q",
+          "-j",
+          "1",
+          "-b",
+          "html",
+          "-D",
+          "nb_execution_mode=off",
+          "-D",
+          "autosummary_generate=0",
+          "docs",
+          "<private-evidence>/protonation-421-html"
+        ],
+        "exit_code": 0,
+        "seconds": 180.29813912697136,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "139de97933af1a2fce1a472bb0603e7aa7a3bdd5",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8785
+      },
+      "resources": {
+        "started_utc": "2026-11-10T15:37:26.311948+00:00",
+        "seconds": 189.17731873411685,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            4.38427734375,
+            3.212890625,
+            2.5048828125
+          ],
+          "cpu_utilization": 0.058379466532460955,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12771151872,
+        "cgroup_memory_peak_bytes": 1393881088,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.62
+      },
+      "evidence_sha256": {
+        ".json": "abf68e09a4945a309fbd6b0f670c3277826eca87ca9175c2daa9db4fb3b55bf6",
+        "-bounded.json": "423bd4491bb9b2cfe914a9cf6421922f4fe889fee8fcde31e43699874c318e18",
+        ".log": "4a49f63b96ae7311fda88a1b5b64f9aadc07be8e364df69d43cd16b3d748e1ff",
+        "-inputs-before.json": "b9a6153eedbcad04673bba33875c9af72d8b87384af18cf64f7da5c6fa18ca03",
+        "-inputs-after.json": "b9a6153eedbcad04673bba33875c9af72d8b87384af18cf64f7da5c6fa18ca03",
+        "-reference-driver.py": "657119dd8fd4621545b4c4b97fb30a01583ebc9a55272919f78a84f4c6e4c72c",
+        "-resource-driver.py": "89510fb93cb33e66c778c09be9f5a6f0e38770d1ea952cf466921bbe3974a2ef"
+      }
+    },
+    "fast": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "exit_code": 0,
+        "seconds": 27.022675652988255,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "139de97933af1a2fce1a472bb0603e7aa7a3bdd5",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8785
+      },
+      "resources": {
+        "started_utc": "2026-11-10T15:39:14.653707+00:00",
+        "seconds": 35.030062856851146,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            3.81982421875,
+            3.37255859375,
+            2.64453125
+          ],
+          "cpu_utilization": 0.18008048289738432,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12767313920,
+        "cgroup_memory_peak_bytes": 429064192,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "78b5dec6b6152d2b9c3e0910e295b229165b74b2aba2eb5edc0e309f7e74ce58",
+        "-bounded.json": "9d0d54aca83e7065b49c8c3cddb87268a943d9e16c48ff8eec750f25fed039bb",
+        ".log": "18ef5983f75441142e99276ddec3a90e5d7593b4c097b7d05081a4d729d43b48",
+        "-inputs-before.json": "b9a6153eedbcad04673bba33875c9af72d8b87384af18cf64f7da5c6fa18ca03",
+        "-inputs-after.json": "b9a6153eedbcad04673bba33875c9af72d8b87384af18cf64f7da5c6fa18ca03",
+        "-reference-driver.py": "657119dd8fd4621545b4c4b97fb30a01583ebc9a55272919f78a84f4c6e4c72c",
+        "-resource-driver.py": "89510fb93cb33e66c778c09be9f5a6f0e38770d1ea952cf466921bbe3974a2ef"
+      }
+    },
+    "completion-notice-qt-four-cpus-wide": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<private-evidence>/pre1-protonation-421-completion-notice-qt-four-cpus-wide.xml",
+          "--receptor-events=<private-evidence>/pre1-protonation-421-completion-notice-qt-four-cpus-wide.events.jsonl",
+          "tests/molsysviewer_molsysmt/qt_receiving_guard.py::test_actual_qt_assessed_protonation_managed_and_independent",
+          "--basetemp=<private-evidence>/pre1-protonation-421-completion-notice-qt-four-cpus-wide"
+        ],
+        "exit_code": 0,
+        "seconds": 43.430174554931,
+        "viewer_commit": "b9f3be0127b1fd48220cf400471044bd0b65dbe3",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "139de97933af1a2fce1a472bb0603e7aa7a3bdd5",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2560,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "changed_inputs": [],
+        "checked_inputs": 8785
+      },
+      "resources": {
+        "started_utc": "2026-11-10T15:40:00.607698+00:00",
+        "seconds": 51.04788723192178,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3774873600",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "400000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            3.22802734375,
+            3.3076171875,
+            2.662109375
+          ],
+          "cpu_utilization": 0.13508064516129037,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13001236480,
+        "cgroup_memory_peak_bytes": 1457934336,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "9661071393c0fc31bd2f62775cff75bfca32bb634ffa9be8e988aa868a04524a",
+        "-bounded.json": "f0b13e86f8738c3d59661f399168d63f1ed0e5389a024824fed9742324e3776d",
+        ".xml": "8cab041112e3f6cee341bf5a7d18e4c428f35ad50db05fd3542347ee4c135a6d",
+        ".log": "c65a1e54706afc263a9784aef30bb569999a9c10add023e8651ba92fc7623b06",
+        "-inputs-before.json": "b9a6153eedbcad04673bba33875c9af72d8b87384af18cf64f7da5c6fa18ca03",
+        "-inputs-after.json": "b9a6153eedbcad04673bba33875c9af72d8b87384af18cf64f7da5c6fa18ca03",
+        "-reference-driver.py": "657119dd8fd4621545b4c4b97fb30a01583ebc9a55272919f78a84f4c6e4c72c",
+        "-resource-driver.py": "89510fb93cb33e66c778c09be9f5a6f0e38770d1ea952cf466921bbe3974a2ef"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1",
+          "time": "41.117",
+          "timestamp": "2026-11-10T09:40:06.891016-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    }
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "molsysmt_version": "0+unknown",
+    "versions": {
+      "mdtraj": "1.11.1",
+      "ackredit": "0.12.1+2.ge233973",
+      "numpy": "2.4.6",
+      "h5py": "3.16.0",
+      "pandas": "2.3.3",
+      "pint": "0.25.3",
+      "pytest": "9.1.1",
+      "pytest-xdist": "3.8.0",
+      "pytest-receptor": "1.2.1",
+      "argdigest": "0.16.0+1.g6dabaf7",
+      "depdigest": "0.15.1+3.ga27172b",
+      "smonitor": "0.21.0+1.gd6b2394",
+      "pyunitwizard": "0.28.1"
+    },
+    "imports": {
+      "pandas": "<development-environment>/lib/python3.14/site-packages/pandas/__init__.py",
+      "pint": "<development-environment>/lib/python3.14/site-packages/pint/__init__.py",
+      "molsysmt": "<molsysmt-source>/molsysmt/__init__.py",
+      "molsysviewer": "<repository>/.pytest_cache/pre1-review-20261110/viewer-b9f3be01-source/molsysviewer/__init__.py",
+      "pyunitwizard": "<published-pyunitwizard-0.28.1>/pyunitwizard/__init__.py",
+      "argdigest": "<development-checkouts>/argdigest/argdigest/__init__.py",
+      "depdigest": "<development-checkouts>/depdigest/depdigest/__init__.py",
+      "smonitor": "<development-checkouts>/smonitor/smonitor/__init__.py"
+    }
+  },
+  "actual_jupyter": {
+    "checks": [
+      "Inspect deposited villin hydrogens and exact whole-system assessment without modification",
+      "Review and cancel the assessed managed edit before preparing its independent result",
+      "Present the independently owned native reconciliation without adopting it",
+      "Apply a newly inspected decision once through the managed atom map and scene coordinator",
+      "Consume an assessed no-op without another molecular revision or fabricated chemistry",
+      "Verify exact coordinates all structure axes named observations and independent lifetime in Python"
+    ],
+    "qt_platform": null,
+    "report_sha256": "bc01dc92e53ce1187f8270dcf172529bddda9a99e1e76da560f917e2174fa3a2"
+  },
+  "representative_native_qt": {
+    "checks": [
+      "The native assessed decision preserves the source before explicit action",
+      "Back cancels and independent assessed apply keeps source data and scene",
+      "The separate native result renders in its independently owned Qt window",
+      "Managed apply projects every structure through the inspected native atom map",
+      "A consumed assessed no-op adds no molecular revision",
+      "Named observations and repeated structure labels remain mapped with independent lifetime"
+    ],
+    "qt_platform": "wayland",
+    "report_sha256": "406c546c7ddc8e93b6a2ebb8095cb23b5f0bc97ceaf9fab281ee2a8ab3edc5c9"
+  },
+  "html_inspection": {
+    "html": [
+      {
+        "page": "content/user/tools/molsysviewer_tools.html",
+        "checks": {
+          "Applying an inspected protonation decision": true,
+          "Prepare separate system from this assessment": true,
+          "Update view": true,
+          "single": true
+        },
+        "sha256": "394b07c909e7850fc9a716184f4c608493f0fb408878bd0b781e78e369175a12"
+      },
+      {
+        "page": "content/course/Common_Core/06_Visualizing_Anything.html",
+        "checks": {
+          "Applying an inspected chemical decision": true,
+          "all structures": true,
+          "pKa": true
+        },
+        "sha256": "18dddc39849874c2adb30811b342a4113e185dfd6f7f08381029cc556d50a818"
+      }
+    ],
+    "preserved_course_code_cells": 5
+  },
+  "acceptance": [
+    "Retain one already inspected native ProtonationAssessment privately for explicit independent preparation or reviewed managed apply. No scientific reassessment, new chemistry, executable frontend/session/H5MSM token or competing store.",
+    "Reuse the native single-use, source fingerprint, all-structure projection and atomic map protocol. Explicit Back changes nothing; no-op adds no molecular revision. Source/input/revision changes, Clear, failed attempts and unmount retire the decision.",
+    "330 affected native/panel/preparation/map/session cases pass. Actual Jupyter and native Qt each receive six checks, including deposited-villin H inventory, repeated structure-ID labels, named-observation remap, independent presentation, reviewed managed apply and no-op under pm policy.",
+    "Stale raw inventory changes reject atomically. Completed science followed by projection failure retires the panel decision and permits only host view synchronization; the independent guard verifies no repeated assessment/removal.",
+    "A real-browser notification race is corrected without weakening its visible-completion assertion. Own coordinator notifications retain the in-flight response; a source/revision/input-bound success notice survives later refresh and expires appropriately.",
+    "Fourteen fast gates, inspected guide/course HTML and five preserved old course code cells pass. ArgDigest/SMonitor remain at the public action/native boundary; this adds no engine, dependency floor or scientific method."
+  ],
+  "limits": [
+    "Fixed-pKa/name-inventory H removal is not environmental pKa, H addition, state choice, charge assignment or chemical/docking readiness. Unassessed groups/states remain explicit.",
+    "Initial test-oracle/transport and three Jupyter fixture/lifecycle attempts remain failed with their actual source identities. A source scene is captured after its actual initial canvas loads and before the compared operations; exact scene equality is retained.",
+    "Only the original assessed-reconciliation GUI leaf may receive its existing weight after combined public delivery. No independent scientific certification, all-platform, human, installed or exact-candidate acceptance is inferred.",
+    "No package, tag, Release, remote matrix or publication operation is authorized or executed."
+  ]
+}
