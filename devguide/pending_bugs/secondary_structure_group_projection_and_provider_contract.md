@@ -84,3 +84,9 @@ the exact DSSP values/axes but fails while reading innerText from a closed
 provenance details element. The browser guard now opens that actual user control
 before asserting visible provider text. The failed attempt is retained; no
 deadline or scientific expectation is weakened.
+
+The second browser attempt fails because the new nested Playwright has-locator
+retains its outer panel scope and cannot match inside details. The guard now
+locates the disclosure by its actual user-visible summary text, opens it with
+a click, and checks the visible provenance. Both failed attempts remain failed;
+Qt, native arrays and scientific results are unaffected.
