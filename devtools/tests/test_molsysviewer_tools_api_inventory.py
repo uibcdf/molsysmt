@@ -130,7 +130,9 @@ def test_inventory_records_real_complete_and_missing_public_routes():
         rows["molecular_mechanics.get_non_bonded_potential_energy"]["input_kind"]
         == "primary"
     )
-    assert inventory["modules"]["molecular_mechanics"]["exposed_paths"] == 6
+    assert rows["molecular_mechanics.get_model_recipe"]["exposed"]
+    assert rows["molecular_mechanics.get_model_recipe"]["input_kind"] == "primary"
+    assert inventory["modules"]["molecular_mechanics"]["exposed_paths"] == 7
     assert rows["molecular_mechanics.get_potential_energy"]["exposed"]
     assert rows["molecular_mechanics.get_potential_energy"]["input_kind"] == "primary"
     assert rows["molecular_mechanics.potential_energy_minimization"]["exposed"]

@@ -6336,7 +6336,10 @@ of freedom. Choose the requested structures and use **Review model** before
 not construct an engine or certify a complete engine-neutral effective recipe.
 Changed inputs, source data or model defaults require a new review. Independent
 stored dielectric, salt and cutoff controls that this route cannot apply are
-refused explicitly; broader model work remains MolSysMT #582.
+refused explicitly. Native MolSysMT #582 now supplies the experimental expert
+`molecular_mechanics.get_model_recipe` query. Adopting its compiled physical
+observations in the graphical review remains separate consumer work; the
+current graphical review displays requested/default inputs only.
 
 Energy and model counts use the whole system at one explicitly selected
 structure. The native readers have no trajectory argument; the panel extracts
