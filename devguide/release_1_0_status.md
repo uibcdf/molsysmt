@@ -15,7 +15,8 @@ cases / 71 nodes**, **14 fast gates**, **six inspected HTML pages** and actual
 execution of both affected tutorials (**17 code cells**). Original failures and
 source-cohort identities remain in the [receipt](../devtools/data/peptide_termini_receiving_686_20261110.json).
 No extra graphical intent or weighted bonus is added: progress stays **74.2101%**.
-Public source delivery/issue closure follows this qualified checkpoint.
+Public main da45bb569 is independently verified across all 41 changed paths;
+#686 is closed. Human edits were preserved. See the [delivery record](../devtools/data/peptide_termini_delivery_686_20261110.json).
 Continue #582's effective model/control contract; #666/provider143, remaining
 #421, #256, #524/#615 and #334 gates retain their scope and external dependencies.
 
@@ -67,7 +68,7 @@ silently changing its six weights or release scope:
 
 | Order | Owner | Disposition / next acceptance |
 | --- | --- | --- |
-| 1 | #686 | Source-resolved and received: shared chemical endpoint recognition replaces ID-label ordering; ambiguous chains remain explicitly unassessed. Public delivery/closure follows the qualified checkpoint. [Resolution](archive/resolved_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md). |
+| 1 | #686 | Source-resolved and received: shared chemical endpoint recognition replaces ID-label ordering; ambiguous chains remain explicitly unassessed. Public main da45bb569 is verified and #686 is closed. [Resolution](archive/resolved_bugs/native_terminal_detection_mistakes_group_id_labels_for_chemical_sequence.md). |
 | 2 | #582 and remaining #421 | Complete the effective engine-neutral mechanical recipe and original unreceived graphical intents; retain the partial properties/protonation distinctions. Receive native/scientific behavior and actual graphical workflows before credit. |
 | 3 | #666 / uibcdf/pyunitwizard#143 | Resolve the native cutoff/unit boundary before accepting the contact prototype; no GUI-specific tolerance workaround. |
 | 4 | #256, #524, #615, #334 | Continue independent H5MSM/stable-format review, actual dependency-floor/installed closure, diagnostic causality and final exact-candidate/platform gates. |

@@ -15,7 +15,8 @@ cases / 71 nodes**, **14 fast gates**, **six inspected HTML pages** and actual
 execution of both affected tutorials (**17 code cells**). Original failures and
 source-cohort identities remain in the [receipt](../devtools/data/peptide_termini_receiving_686_20261110.json).
 No extra graphical intent or weighted bonus is added: progress stays **74.2101%**.
-Public source delivery/issue closure follows this qualified checkpoint.
+Public main da45bb569 is independently verified across all 41 changed paths;
+#686 is closed. Human edits were preserved. See the [delivery record](../devtools/data/peptide_termini_delivery_686_20261110.json).
 Continue #582's effective model/control contract; #666/provider143, remaining
 #421, #256, #524/#615 and #334 gates retain their scope and external dependencies.
 
