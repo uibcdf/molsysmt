@@ -24,7 +24,7 @@ try{
   await page.waitForFunction(()=>{const err=document.querySelector('.jp-OutputArea-error, .jp-RenderedText[data-mime-type="application/vnd.jupyter.stderr"]');if(err)throw new Error(err.textContent);return window.__controllers?.[0]?.getStructureData()?.elementCount===596;});
   await openMolecularPanel(page,'chemistry');await panel().locator('[data-task]').selectOption('protonation');await panel().locator('[data-assessment-ph]').fill('12');await inspect();
   assert.match(await panel().locator('[data-assessment-summary]').innerText(),/6 proposed H removals, not applied/);
-  assert.equal(await panel().locator('[data-protonation-confirm]').isVisible(),false);
+  assert.equal(await panel().locator('[data-protonation-confirm]').isVisible(),false);await execute(1);await page.getByText('ASSESSED_SOURCE_SCENE_READY',{exact:true}).waitFor();
  });
  await step('Review and cancel the assessed managed edit before preparing its independent result',async()=>{
   await panel().locator('[data-protonation-review]').click();await panel().locator('[data-protonation-confirm]').waitFor();
@@ -32,7 +32,7 @@ try{
   await panel().locator('[data-protonation-back]').click();await panel().locator('[data-protonation-confirm]').waitFor({state:'hidden'});
   await panel().locator('[data-protonation-prepare]').click();await panel().locator('[data-preparation-result]').waitFor();
   assert.equal(await panel().locator('[data-report]').isVisible(),false);
-  await execute(1);await page.getByText('ASSESSED_INDEPENDENT_OK 590',{exact:true}).waitFor();
+  await execute(2);await page.getByText('ASSESSED_INDEPENDENT_OK 590',{exact:true}).waitFor();
  });
  await step('Present the independently owned native reconciliation without adopting it',async()=>{
   await panel().locator('[data-show-notebook]').click();await page.waitForFunction(()=>window.__controllers?.some(c=>c.getStructureData()?.elementCount===590));
@@ -43,7 +43,7 @@ try{
   await panel().locator('[data-protonation-apply]').click();await panel().locator('[data-status]').filter({hasText:/completed.*synchronized/}).waitFor();
   await page.waitForFunction(()=>window.__controllers[0].getStructureData()?.elementCount===590);
   assert.equal(await panel().locator('[data-report]').isVisible(),false);
-  await execute(2);await page.getByText('ASSESSED_MANAGED_OK 590',{exact:true}).waitFor();
+  await execute(3);await page.getByText('ASSESSED_MANAGED_OK 590',{exact:true}).waitFor();
  });
  await step('Consume an assessed no-op without another molecular revision or fabricated chemistry',async()=>{
   await inspect();assert.match(await panel().locator('[data-assessment-summary]').innerText(),/0 proposed H removals/);
@@ -51,7 +51,7 @@ try{
   await panel().locator('[data-status]').filter({hasText:/completed.*synchronized/}).waitFor();assert.equal(await panel().locator('[data-report]').isVisible(),false);
  });
  await step('Verify exact coordinates all structure axes named observations and independent lifetime in Python',async()=>{
-  await execute(3);await page.getByText('JUPYTER_ASSESSED_PROTONATION_OK 590',{exact:true}).waitFor();assert.equal(await page.locator('.jp-OutputArea-error').count(),0);
+  await execute(4);await page.getByText('JUPYTER_ASSESSED_PROTONATION_OK 590',{exact:true}).waitFor();assert.equal(await page.locator('.jp-OutputArea-error').count(),0);
  });
  const fingerprint=e=>e.error+'|'+(e.stack?.split('\n')[1]||'');assert.ok(errors.every(e=>baselineErrors.some(b=>fingerprint(e)===fingerprint(b))),'New browser error beyond plain Jupyter');
  const result={checks,errors,baseline_errors:baselineErrors,scope:'Actual Linux/Jupyter/Mol*/AnyWidget assessed native decision, Back, separate result, managed map and no-op, all structures and named analysis projection under pm policy. Not environmental pKa, human, installed or release qualification.'};

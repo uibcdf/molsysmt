@@ -993,3 +993,11 @@ The fixture now uses the supported molsysmt.native.Structures import and has a
 direct native-axis/deposited-H control. No product science, browser deadline or
 expected H population is changed. Earlier directed attempts retain their three
 failed test-oracle/transport cases; the corrected selection passes 109 cases.
+
+The corrected-import cohort passes the representative real Qt guard (six
+checks). Its Jupyter attempt passes assessment, Back and independent preparation
+but rejects a scene equality baseline captured before the initial canvas had
+loaded. The notebook now captures its complete source scene explicitly after
+the real canvas/inspection is ready and before Back/preparation. Equality is
+still exact; coordinates, chemistry and original revisions remain independently
+checked from before display. No molecular or scene assertion is removed.

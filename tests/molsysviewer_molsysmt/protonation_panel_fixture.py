@@ -69,6 +69,9 @@ _expected=msm.extract(_before,selection=_keep)
 view
 """
     )
+    capture = """_scene=view.export_state()
+print('ASSESSED_SOURCE_SCENE_READY')
+"""
     independent = """same(view.molsys,_before)
 assert view.export_state()==_scene
 assert view.addons.molsysmt.get_sync_status()['target_revision']==0
@@ -98,4 +101,4 @@ assert dict(msm.pyunitwizard.configure.get_standard_units())==_policy
 _unit_context.__exit__(None,None,None)
 print('JUPYTER_ASSESSED_PROTONATION_OK',590)
 """
-    return [initial, independent, managed, final]
+    return [initial, capture, independent, managed, final]
