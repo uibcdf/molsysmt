@@ -914,8 +914,9 @@
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
     "owner_verification": "Public 1d033b656 independently matches 21 changed paths and preserves four human files. Clean b184e9d18 passes 1,229 affected cases without omissions, fourteen fast gates and three inspected HTML pages. #661 is closed. #256 remains open and public H5MSM writing remains 0.5; no client/installed/candidate acceptance is added.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Receive draft PR #687 against exact corrected Viewer b9f3be01 and reconcile the new native recipe/refusal and launcher contracts. #688 source is received; original reporter-owned remnants need retirement confirmation. Continue remaining original #421 intents, #666/provider143, #615 causality, #524 actual installed floors, #250/#254 stability agreement, #256 P5/P6 and #334 exact-candidate requirements. Preserve original weights and the publication pause.",
+    "scope": "Prioritize #690 native neighbor-grid allocation safety before draft #687; retain the requested scientific criterion, configured memory admission and protected reproduction. Receive draft PR #687 against exact corrected Viewer b9f3be01 and reconcile the new native recipe/refusal and launcher contracts. #688 source is received; original reporter-owned remnants need retirement confirmation. Continue remaining original #421 intents, #666/provider143, #615 causality, #524 actual installed floors, #250/#254 stability agreement, #256 P5/P6 and #334 exact-candidate requirements. Preserve original weights and the publication pause.",
     "active_related": [
+      "uibcdf/molsysmt#690",
       "uibcdf/molsysmt#666",
       "uibcdf/molsysmt#421",
       "uibcdf/molsysmt#615",
@@ -1262,10 +1263,10 @@
   },
   "last_incoming_review": {
     "date": "2026-11-10",
-    "latest_complete_board_issues": 615,
-    "latest_open_issues": 94,
+    "latest_complete_board_issues": 616,
+    "latest_open_issues": 93,
     "latest_open_prs": 1,
-    "board_checkpoint": "Complete paginated mid-block snapshot, before closing #582/#689; #686 already closed.",
+    "board_checkpoint": "After independently verified public delivery and #582/#689 closure; #688 remains open for reporter-owned private-remnant confirmation.",
     "incoming_pr": {
       "number": 687,
       "head": "a1539e351b91b3ffb9ed4837583ac8b402e0102b",
@@ -1305,6 +1306,12 @@
       "latest_open_issues": 93,
       "latest_open_prs": 0,
       "board_checkpoint": "After public integration and exact-head PR closeout"
+    },
+    "new_priority_issue": {
+      "number": 690,
+      "severity": "critical",
+      "state": "source mechanism inspected; allocation-safe reproduction and correction pending",
+      "reason": "Dense cell grids can exhaust memory for two atoms; prioritize before draft #687."
     }
   },
   "last_peptide_termini_receiving": {
@@ -1335,6 +1342,15 @@
     "graphical_intent_change": 0,
     "original_weighted_leaf": "phase5/582",
     "weighted_points": 1.4285714285714164,
-    "state": "source_accepted_public_closeout_pending"
+    "state": "public_source_verified_582_689_closed_688_reporter_handoff_open",
+    "public_checkpoint": "1ba5d8af97f2de4d94ea0ff6b3f2564c5d7d4f29",
+    "delivery": "devtools/data/model_and_context_delivery_582_688_689_20261110.json",
+    "verified_remote_paths": 62,
+    "closed_issues": [
+      582,
+      686,
+      689
+    ],
+    "open_reporter_handoff": 688
   }
 }

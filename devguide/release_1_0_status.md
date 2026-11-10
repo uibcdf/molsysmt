@@ -2,6 +2,11 @@
 
 ## Model and context closeout received — 2026-11-10
 
+Public main **1ba5d8af9** is independently verified across all **62 changed
+paths**, preserving the four human edits. **#582 and #689 are closed**; #686
+was closed earlier in this block. #688 and draft #687 have received the exact
+source and handoff notice. See the [public delivery record](../devtools/data/model_and_context_delivery_582_688_689_20261110.json).
+
 #582's experimental physical-model recipe and shared unsupported-control
 refusal are accepted. #689 corrects PDBFixer terminal assessment: full molecular
 context precedes source-group filtering, including the requested query syntax.
@@ -28,8 +33,14 @@ requirements cannot be replaced by more source-only tests.
 
 ### Next work order
 
-1. Publish and verify this source checkpoint; close #582/#689 with their guards
-   and notify #688/#687 of the exact source and remaining handoff.
+**New priority #690:** source inspection confirms an empty-volume dense grid
+can request gigabytes for two atoms. Allocation-safe reproduction, checked/bounded
+native search and numerical-budget/output receiving precede draft #687. This
+critical correctness/resource report adds no weight and is not covered by the
+completed model/context receipt. See the [owning diagnosis](pending_bugs/native_neighbor_cell_grids_can_allocate_gigabytes_for_two_atoms_and_a_small_cutoff.md).
+
+1. Completed: public source/blob verification, #582/#689 guarded closure and
+   exact-source notices to #688/#687. Their retained receipts define the scope.
 2. Review draft #687 against its exact corrected Viewer b9f3be01, reconcile the
    native recipe/refusal owner and scoped launcher, then receive its combined
    actual interaction/mechanics workflows before any original intent credit.
