@@ -141,30 +141,11 @@ def to_openmm_System(
     elif non_bonded_method == "PME":
         non_bonded_method = app.PME
 
-    policies = {
-        "none": None,
-        "noconstraints": None,
-        "hbonds": app.HBonds,
-        "allbonds": app.AllBonds,
-        "hangles": app.HAngles,
-    }
-    if isinstance(constraints, str):
-        key = constraints.lower().replace(" ", "").replace("_", "").replace("-", "")
-        if key not in policies:
-            raise ArgumentChoiceError(
-                "constraints",
-                constraints,
-                [None, "hbonds", "all bonds", "h angles"],
-                caller="molsysmt.form.openmm_Topology.to_openmm_System",
-            )
-        constraints = policies[key]
-    elif constraints not in policies.values():
-        raise ArgumentChoiceError(
-            "constraints",
-            constraints,
-            [None, "hbonds", "all bonds", "h angles"],
-            caller="molsysmt.form.openmm_Topology.to_openmm_System",
-        )
+    from molsysmt._private.engine_constraints import openmm_constraints
+
+    constraints = openmm_constraints(
+        constraints, caller="molsysmt.form.openmm_Topology.to_openmm_System"
+    )
 
     engine_forcefield = app.ForceField(*resources)
     system = engine_forcefield.createSystem(

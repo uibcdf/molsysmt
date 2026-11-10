@@ -1,7 +1,7 @@
 ---
 summary: Expose effective engine-neutral mechanics recipes and unsupported stored controls.
 issue: uibcdf/molsysmt#582
-status: open
+status: partial
 opened: 2026-11-05
 closed:
 verification: inspected
@@ -85,3 +85,39 @@ The current `get_forces` construction route already refuses unsupported stored
 overrides; that bounded protection does not certify every legacy method. The
 wider engine-neutral recipe contract and its source/energy validation remain
 pending.
+
+
+## Bounded legacy constraint correction — 2026-11-09
+
+The original native-only guard confirms all_bonds incorrectly selects HBonds,
+including different actual engine constraint pairs; accepted public spellings and
+unknown-policy diagnostics also diverge. The first fixture attempt used an
+unexported root class and is retained as an import failure; the corrected native
+import gives ten failures/three passes before the production change.
+
+A shared private engine-boundary translator now owns the policy used by both
+legacy native keywords and public OpenMM topology conversion. All bonds is not
+hydrogen-only bonds; None, names and existing converter engine constants preserve
+their meanings. Private translation has no ArgDigest; the public legacy method
+uses ArgDigest/skip_digestion and lazy DepDigest admission. It returns new engine
+keywords without execution or source changes. This adds no new scientific method,
+tuning field, hardware assumption, citation or competing native parameter store.
+
+This is only the observed legacy constraint correction, not the complete proposal.
+The effective engine-neutral recipe and comprehensive stored-control disposition
+remain pending. Do not infer that the whole legacy dictionary is accepted by each
+OpenMM constructor. Actual pair equality, public conversion and existing energy/
+force/unit/source controls must pass before accepting this repair.
+
+
+## Independent receiving — 2026-11-09
+
+The [receiving record](../../devtools/data/pre1_ci_and_mechanics_receiving_669_670_582_20261109.json)
+records clean c37e42510 passing all 251 affected mechanics/projection/force
+controls and public legacy-helper doctests. Actual engine constraint-pair
+identity distinguishes AllBonds from HBonds; 107 registered scientific cases
+also pass without skips. All changed public guidance is reflected in inspected
+Foundations/Toolbox/Cookbook/course HTML, without altering existing code cells,
+metadata or outputs. The course's one previously unexecuted code cell stays
+unexecuted. This receives the bounded legacy policy repair only; full effective
+recipe/unsupported stored-control semantics remain partial and open.

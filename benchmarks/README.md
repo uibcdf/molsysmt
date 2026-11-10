@@ -71,10 +71,23 @@ manual baseline-generation destination; baseline renewal remains a separate
 reviewed operation. A CI result must not replace its reference before comparison.
 
 The numeric comparer rejects empty or malformed sessions, missing reference
-measurements and nonfinite/nonpositive medians. Its default 15 percent threshold
-and matched third-party blocking roles remain unchanged. It does not establish
-compatible environments or scientifically equivalent workloads; that contract
-and the product/control-role decision remain under uibcdf/molsysmt#567.
+measurements and nonfinite/nonpositive medians with a diagnostic failure. Valid
+numeric reports return zero, including slowdown warnings above the default
+15 percent advisory threshold. They do not establish compatible environments
+or scientifically equivalent workloads, so they cannot by themselves establish
+a product regression. That comparability contract remains under
+uibcdf/molsysmt#567. See the [performance observation policy](../devguide/benchmarking/performance_policy.md).
+
+Performance is advisory for both MolSysMT and direct third-party measurements:
+a scientifically correct implementation remains available even when slower.
+Confirm repeated comparable product inefficiency and open/update an improvement
+issue rather than restricting the tool. Differences at or below 15 percent
+generally do not need an efficiency issue; uncertainty and material resource
+impact still require scientific judgement. The performance workflow explicitly
+allows its job to fail without blocking implementation, while preserving native
+producer/comparison failure statuses and artifacts. Correctness tests remain
+mandatory in their owning workflows. Missing evidence is unevaluable, not a
+performance approval. No historical failed run or baseline is rewritten.
 
 The performance workflow is configured to retain reference/current JSON when produced, the
 source commit and producer/comparison logs for fourteen days, including after

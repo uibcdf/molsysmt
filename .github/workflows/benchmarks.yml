@@ -1,4 +1,4 @@
-name: Performance Regression Audit
+name: Advisory Performance Observations
 
 on:
   pull_request:
@@ -16,7 +16,9 @@ on:
 
 jobs:
   benchmark:
-    name: Regression Audit — ${{ matrix.cfg.os }}, Python ${{ matrix.cfg.python-version }}
+    name: Performance observations — ${{ matrix.cfg.os }}, Python ${{ matrix.cfg.python-version }}
+    # #567: preserve native diagnostic failures without making timing an API gate.
+    continue-on-error: true
     if: >
       !(
         (github.event_name == 'pull_request' && contains(github.event.pull_request.title, '[skip ci]'))

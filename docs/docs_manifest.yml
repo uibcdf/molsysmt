@@ -80,7 +80,7 @@ sections:
           - name: molecular_mechanics
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md.AGENTS.md
-            description: Engine-neutral physical requests, separate solute/solvent choices, stored-setting precedence and explicit limits on executed recipe tuning and persistence.
+            description: Engine-neutral physical requests, separate solute/solvent choices, stored-setting precedence and explicit limits on executed recipe tuning and persistence; native-only legacy constraint translation shares AllBonds/HBonds semantics with public conversion.
       - name: language
         description: Directional selection syntax, explicit index validation and element-level query masks.
         agents_file: docs/content/user/foundations/language/AGENTS.md

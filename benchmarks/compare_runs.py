@@ -1,7 +1,8 @@
 """Benchmark Regression Comparer.
 
 This command-line script compares a current benchmarking JSON output against a reference baseline JSON.
-It enforces the 15% performance regression threshold, exiting with a non-zero code if the threshold is violated.
+Timing differences are advisory: a slow scientifically correct implementation
+remains available. Invalid evidence retains a nonzero diagnostic exit code.
 """
 
 from __future__ import annotations
@@ -51,20 +52,23 @@ def compare_baselines(
     current_path : str
         Path to the current run JSON.
     threshold : float, default=0.15
-        Timing regression limit (0.15 represents a 15% slow-down limit).
+        Advisory relative slowdown threshold; 0.15 represents 15 percent.
 
     Returns
     -------
     int
-        Exit code (0 if passes validation, 1 if regressions are detected).
+        Diagnostic exit code: 0 for a numeric report, including slowdown warnings;
+        1 for invalid or incomplete evidence. Neither restricts a public tool.
 
     Notes
     -----
     Empty/malformed data, missing reference measurements and invalid medians
     or thresholds fail before numerical comparison. This does not establish
     environment/workload comparability; that separate #567 review remains open.
-    Existing matched third-party measurements retain their blocking role and
-    the default threshold remains 15 percent.
+    The default advisory threshold remains 15 percent for product and third-party
+    timings. A numeric observation alone neither attributes a product regression
+    nor validates comparability. Confirmed, comparable product slowdowns should
+    be tracked in an improvement issue, without restricting a correct tool.
     """
     try:
         with open(baseline_path, "r", encoding="utf-8") as f:
@@ -107,7 +111,7 @@ def compare_baselines(
     print(" MOLSYSMT PERFORMANCE REGRESSION AUDIT")
     print(f" Reference Baseline: {baseline_path}")
     print(f" Current Run:        {current_path}")
-    print(f" Allowed Threshold:  {threshold * 100:.1f}%")
+    print(f" Advisory Threshold: {threshold * 100:.1f}%")
     print("======================================================================")
 
     for name, curr_entry in curr_results.items():
@@ -148,15 +152,22 @@ def compare_baselines(
         print("  (None)")
 
     if regressions:
-        print("\n❌ PERFORMANCE REGRESSION VIOLATIONS DETECTED!")
-        print("The following hot paths degraded beyond the permitted threshold:")
+        print("\nWARNING: TIMING DIFFERENCES EXCEED THE ADVISORY THRESHOLD.")
+        print(
+            "The following recorded timings are slower; comparability is not established:"
+        )
         for reg in regressions:
-            print(f"  🔴 {reg}")
+            print(f"  ⚠️ {reg}")
+        print("Review equivalent workloads, environment and repeated measurements.")
+        print(
+            "Track confirmed product inefficiency in an improvement issue; do not restrict a correct tool."
+        )
         print("======================================================================")
-        return 1
+        return 0
 
     print("\n======================================================================")
-    print("  PASS: Matched recorded timings meet the numeric threshold.")
+    print("  OBSERVATION: Matched recorded timings meet the advisory threshold.")
+    print("  This does not establish workload/environment comparability.")
     print("  New paths without a reference remain unassessed.")
     print("======================================================================")
     return 0
@@ -164,7 +175,7 @@ def compare_baselines(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Enforce benchmarking regression limits."
+        description="Report advisory timing differences without restricting correct tools."
     )
     parser.add_argument(
         "--baseline", required=True, help="Path to reference baseline JSON"
@@ -176,7 +187,7 @@ if __name__ == "__main__":
         "--threshold",
         type=float,
         default=0.15,
-        help="Regression ratio threshold (e.g. 0.15)",
+        help="Advisory slowdown ratio threshold (e.g. 0.15)",
     )
     args = parser.parse_args()
 

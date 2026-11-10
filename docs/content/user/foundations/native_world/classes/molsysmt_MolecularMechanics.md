@@ -9,7 +9,7 @@ It remains experimental; H5MSM 0.5 does not persist a nonempty mechanics domain.
 
 ## Overview and Role
 
-As a user, `molsysmt.MolecularMechanics` is the object holding physical mechanics parameters required for energy evaluations, molecular dynamics simulations, or electrostatics calculations.
+As a user, `molsysmt.native.MolecularMechanics` is the object holding physical mechanics parameters required for energy evaluations, molecular dynamics simulations, or electrostatics calculations.
 
 ---
 
@@ -101,3 +101,22 @@ independent. This does not add mechanics persistence to H5MSM 0.5.
 
 Use {func}`molsysmt.basic.convert` for conversion and the
 {doc}`form tools reference </api/form/api_form>` for form discovery and capabilities.
+
+
+## Legacy Translation
+
+`molsys.molecular_mechanics.get_openmm_System_parameters()` returns an
+engine-specific keyword dictionary; it does not execute a model. The native
+class can also be imported from `molsysmt.native`. Constraint translation is
+shared with the public OpenMM conversion: `None`/`none`, `hbonds`, `all bonds`
+and `h angles` accept underscores, spaces and hyphens. In particular,
+`all_bonds` selects **all bonds**, rather than only bonds involving hydrogen.
+Unknown policies are rejected. The method supports the standard keyword-only
+`skip_digestion` validation control and diagnoses an unavailable optional engine.
+
+This legacy dictionary is not a generic constructor recipe. Individual OpenMM
+constructors accept different keyword sets, and returning a value does not prove
+that a physical model consumed it. Prefer the public conversion and evaluation
+tools with their documented capability/refusal contracts. The broader requested-
+versus-effective engine-neutral recipe review remains open under #582; no
+independent dielectric, screening or other tuning capability is added here.

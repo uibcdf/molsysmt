@@ -7,7 +7,7 @@ closed:
 verification: measured
 area: [ci, performance]
 guard: devtools/tests/test_benchmark_comparison.py
-normative:
+normative: devguide/benchmarking/performance_policy.md
 blocked_by: []
 supersedes: []
 ---
@@ -16,7 +16,8 @@ supersedes: []
 
 **Reported:** 2026-11-04, with explicit maintainer authorization, while receiving
 PR #543 under uibcdf/molsysviewer#264.
-**Status:** partial implementation; open proposal for the owning team's benchmark/CI contract decision.
+**Status:** partial implementation. The maintainer has accepted advisory timing
+for both product and third-party observations; full comparability remains open.
 
 ## What
 
@@ -150,3 +151,40 @@ third-party blocking scope, failed medians and reference bytes are unchanged.
 No timing matrix or reviewed baseline renewal is performed. Compatibility
 metadata and the explicit owner product/control-role decision remain open;
 this is partial work and does not complete #567's audit milestone.
+
+
+## Maintainer decision — 2026-11-09
+
+Diego rejects restricting a scientifically correct implementation because it
+is slower than a third party. This also makes own-version timing observations
+advisory: consistent comparable inefficiency above the default 15 percent
+threshold is a reason for an improvement issue, not scientific API withdrawal
+or implementation rejection. Differences within that margin generally require
+no efficiency issue. Numerical correctness and data-integrity controls retain
+their mandatory roles.
+
+The [accepted policy](../benchmarking/performance_policy.md) records this
+disposition. The comparer now warns rather than returns a regression failure
+for valid slower timings. Malformed/incomplete records still fail diagnostically
+and never claim performance approval; the performance job is explicitly advisory,
+retaining those native failures and original artifacts. Product and external
+paths both receive this policy. Existing historical failed runs and reference
+bytes remain unchanged. New workload/environment comparability metadata, its
+validation, repeated-measurement interpretation and reviewed baseline renewal
+remain outstanding; no attributed product slowdown is established by this
+policy change or the old direct-MDTraj observation.
+
+
+## Accepted advisory implementation receiving — 2026-11-09
+
+Clean d1cf23362 receives all 121 affected comparer/evidence/reference/certificate/
+addon preflight controls and all fourteen fast gates. The [policy receiving record](../../devtools/data/advisory_performance_policy_receiving_567_20261109.json)
+retains the synthetic old blocking policy, new warning assertions for product
+and external paths, invalid-data refusals, actual shell-pipeline failures and
+unchanged reference bytes. A temporary profile selected the same policy suite
+twice; both attempts remain distinct, without counting them as 242 unique tests
+or as fast-gate coverage. The actual fast gates run separately. Full repository
+Ruff and developer-guide/index validation pass. The scientific product, backend,
+public docs and numeric tests remain byte-identical to c37e42510. No timings are
+measured anew and no original failure is rewritten. Comparability and reference
+renewal remain open, so #567 stays partial.

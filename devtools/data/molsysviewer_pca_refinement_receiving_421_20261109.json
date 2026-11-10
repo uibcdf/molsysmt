@@ -463,5 +463,7 @@
     "fixture_correction": "3fe645437",
     "latest_base_to_receive": "ca76d93b420435243f68167521ccb503ec8b2728",
     "scope": "Occurred after initial PCA/refinement receiving; original cohorts retain ecf9/1e259 inputs. Reconcile incoming owner changes before new contribution and do not reopen the merged PR."
-  }
+  },
+  "reconciled_public_owner_source": "ca76d93b420435243f68167521ccb503ec8b2728",
+  "reconciliation_pending_receiving": "Shared native constraint translation, owner #670 correction and #671 canonical report retained. Initial feature cohorts keep their earlier source scope; qualify the new combined tree separately."
 }

@@ -1,9 +1,9 @@
 ---
 summary: Keep controlled Viewer artifacts outside the scientific source checkout.
 issue: uibcdf/molsysmt#669
-status: partial
+status: resolved
 opened: 2026-11-09
-closed:
+closed: 2026-11-09
 severity: medium
 verification: reproduced
 area: [ci, provenance, viewer]
@@ -15,8 +15,10 @@ supersedes: []
 
 # Controlled wheel dirties the scientific checkout
 
-**Status:** correction prepared in PR #668; owner review and corrected hosted
-receiving remain required. No source-cleanliness rule is relaxed.
+**Status:** source correction independently received and integrated by the
+owner. The corrected artifact mechanism is closed; the original failed matrix
+and next exact-candidate hosted receiving remain separate requirements. No
+source-cleanliness rule is relaxed.
 
 ## What
 
@@ -65,3 +67,45 @@ existing smoke command also receives the certificate regression module.
 Scoped local receiving and failed originals belong to the consumer's private
 packet under uibcdf/molsysviewer#315. The source fix does not authorize packages,
 tags, promotions, release claims or treating the incomplete matrix as passing.
+
+
+## Owner receiving — 2026-11-09
+
+The owner receives PR #668's full contribution at merge 3dfe27ab6, retaining its
+original authors/commits and failed CI evidence. The same 66-case source selection
+on new immutable Viewer 346c3319 first gives 65 passes/one #670 fixture failure;
+after the minimal schema declaration it passes all 66 on 3fe645437. The actual
+workflow-path/real-Git guards, path-with-spaces shell expansion, strict deliberate
+inside-checkout refusal, configuration contexts and provisional descriptor
+contracts all pass. No cleanliness allowlist, engine or scientific threshold
+changes. The owner retains the downloaded Linux JUnit ZIP and verified digest.
+
+The corrected hosted run 42689572908 has concluded failure, rather than the
+contribution's earlier pending snapshot: seven cells fail their full suite and
+macOS/Python 3.12 fails provisioning. Native logs and Linux JUnit independently
+identify #670 and #671. Neither reopens the original artifact-placement mechanism;
+original failures stay failed and a new exact-candidate matrix remains due.
+Owner clean-source scientific and broader regression receiving follow before
+this bug's bounded closeout. No new remote matrix is launched.
+
+
+## Resolution — 2026-11-09
+
+Clean source c37e42510 / immutable Viewer 346c3319 passes all 5,711 addon and
+selected preflight cases, 251 affected mechanics/projection/force controls and
+all 107 registered scientific cases (68 nodes, no skips). The strict clean
+scientific certificate records source correspondence; it is not release
+authorization. Fourteen fast gates pass. Original native refusal/assertion
+semantics are preserved, including malformed report rejection and deliberate
+inside-checkout artifact refusal.
+
+Actual Jupyter receives all ten Chemistry and twenty Analysis checks on the
+new host. Missing local Playwright/harness preparation attempts are retained;
+the existing tools and generated harness resolve those setup failures without
+source/assertion/deadline changes. Original hosted failures stay failed. #671
+provisioning and the required exact-candidate full matrix remain pending.
+
+See the [bounded receiving record](../../../devtools/data/pre1_ci_and_mechanics_receiving_669_670_582_20261109.json)
+for exact source/backend identities, input hashes, failed originals, execution
+scopes, resource limits, notebook preservation and limitations. The front-matter
+guard protects the actual original mechanism rather than a weaker output shape.

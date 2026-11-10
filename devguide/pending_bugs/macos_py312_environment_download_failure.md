@@ -1,28 +1,59 @@
 ---
-summary: Receive the failed macOS Python 3.12 full-matrix environment.
+summary: Track the macOS Python 3.12 Conda download failure separately from tests.
 issue: uibcdf/molsysmt#671
 status: open
 opened: 2026-11-09
 closed:
 severity: medium
 verification: upstream
-area: [ci, environment]
+area: [ci, deps]
 guard:
 normative:
 blocked_by: []
 supersedes: []
 ---
 
-Full run 42689572908 fails before import/science/tests on macOS Python 3.12.
-Native setup logs show libmamba download error 28 for AmberTools/statsmodels:
-less than 30 bytes/s for sixty seconds. Cleanup subsequently reports ENOENT for
-the absent micromamba-shell path. The original includes no scientific
-certificate or JUnit for this cell. This is observed provisioning failure,
-not a numerical/test-timeout diagnosis or an upstream setup-action claim.
+# macOS provisioning failed before scientific execution
 
-Retain the original complete GH Run Receptor capture under
-uibcdf/molsysviewer#315. Recover through the next agreed corrected-source
-matrix, separately from #670's fixture correction; investigate repeated download
-failure if observed. Do not omit science, convert the cell to a passing skip,
-raise scientific deadlines or dispatch duplicate matrices. No workflow change
-is currently justified by the one observed network failure.
+## What
+
+The macOS/Python 3.12 job 129405812011 of run 42689572908 fails in Setup conda
+env before imports, scientific evidence and full pytest. This cell has no
+scientific certificate or JUnit. It cannot count as a pass, scientific skip,
+numerical failure or rendering test.
+
+## How
+
+The owner independently inspected GH Run Receptor and native failed-step logs.
+libmamba reports download error 28 for AmberTools 26.0 and statsmodels 0.15.0:
+less than 30 bytes/sec transferred over 60 seconds. The process exits 1.
+The later missing micromamba-shell cleanup error is secondary. A reason for
+the slow transfer is not established; no upstream software defect is inferred.
+
+## Why
+
+The required platform/minor remains unexecuted. Preserve this failure separately
+from #670's schema-fixture failure in the other full-suite cells and #669's
+corrected source-artifact placement. The prior run's queued macOS/Python 3.14
+cancellation is another distinct unexecuted attempt, not this download failure.
+
+## Follow-up and acceptance
+
+Receive macOS/Python 3.12 provisioning and all mandatory scientific/full-suite
+steps at the next deliberately agreed corrected-source matrix checkpoint. Do
+not launch duplicate matrices from both teams, omit AmberTools/science, relax
+source integrity or raise scientific deadlines to label recovery. Investigate
+recurrence with original metadata/logs. No local source fix or closure is
+claimed for a one-off transfer failure; the pending external execution remains
+owned here and in #334.
+
+
+## Consolidated consumer intake — 2026-11-09
+
+Viewer #315 independently retained the full original GH Run Receptor capture
+and a complete seven-page/600-issue inventory before opening #671. Its
+consumer report is coalesced here under the owner's canonical path; no second
+queue entry or issue is created. Both original preparations remain in the
+consumer's preserved source patch. The seven actual test-stage failures have
+since been individually confirmed to name #670's same fixture; that does not
+execute or recover this missing macOS cell.
