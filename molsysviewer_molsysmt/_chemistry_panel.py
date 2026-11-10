@@ -117,6 +117,7 @@ class _ChemistryPanel(_ChemistryPreparation, _MolecularTaskPanel):
         super().__init__(view=view, **kwargs)
         self._parameters = dict(_PARAMETERS)
         self._report = None
+        self._protonation_decision = self._protonation_review = None
         self._detail = ""
         self._offset = 0
         self._prepared_source = None
@@ -131,6 +132,7 @@ class _ChemistryPanel(_ChemistryPreparation, _MolecularTaskPanel):
 
     def _release_task_data(self):
         self._report = None
+        self._protonation_decision = self._protonation_review = None
         self._detail = ""
         self._offset = 0
         self._adoption = None
@@ -192,7 +194,7 @@ class _ChemistryPanel(_ChemistryPreparation, _MolecularTaskPanel):
         )
 
     def _calculate_assessment(self, target, status):
-        """Retain native reports; do not retain an executable preparation decision."""
+        """Keep detached reports and a private source-bound protonation decision."""
         import molsysmt as msm
 
         task = self._parameters["task"]
@@ -255,8 +257,9 @@ class _ChemistryPanel(_ChemistryPreparation, _MolecularTaskPanel):
                 raise ValueError("Enter a finite dimensionless assessment pH.")
             decision = self._owner.build.assess_protonation(pH=ph, engine="MolSysMT")
             data = decision.to_dict()
-            # The inspection does not keep apply(), consume the decision, or
-            # serialize a process-local executable assessment in frontend state.
+            # A source-bound decision stays private to this mounted panel.
+            # Frontend state receives only detached bounded report data.
+            self._protonation_decision = decision
         return _ChemistryReport(
             token_urlsafe(18),
             ref(target),
@@ -671,8 +674,145 @@ class _ChemistryPanel(_ChemistryPreparation, _MolecularTaskPanel):
                     self._view.addons.manager.presentations.destinations
                 ),
                 **preparation,
+                **self._protonation_packet(context, report),
             }
         )
+
+    def _protonation_packet(self, context, report):
+        ready = bool(
+            report is not None
+            and report.parameters["task"] == "protonation"
+            and self._protonation_decision is not None
+            and context.get("state") == "synchronized"
+        )
+        if not ready:
+            self._protonation_review = None
+        return {
+            "can_apply_protonation": ready,
+            "can_prepare_protonation": ready and self._result is None,
+            "protonation_review": self._protonation_review,
+        }
+
+    def _protonation_action(self, action, payload, request_id):
+        from ._chemical_edits import _prepare_assessed_protonation
+        from ._chemistry_preparation import _PreparedSource
+
+        context = self._context()
+        report = self._current_report(context)
+        if (
+            report is None
+            or report.parameters["task"] != "protonation"
+            or payload.get("report_id") != report.token
+            or self._protonation_decision is None
+            or context.get("state") != "synchronized"
+        ):
+            raise ValueError(
+                "This assessment is unavailable or expired. Synchronize and inspect again."
+            )
+        if action == "protonation.review":
+            self._protonation_review = token_urlsafe(18)
+            self._publish(
+                stage="assessment_review",
+                message="Review the assessed H removal.",
+                request_id=request_id,
+            )
+            return
+        if action == "protonation.back":
+            self._protonation_review = None
+            self._publish(
+                message="H removal cancelled. Molecular data are unchanged.",
+                request_id=request_id,
+            )
+            return
+        if action not in {"protonation.apply", "protonation.prepare"}:
+            raise ValueError("Unsupported assessed-protonation action.")
+        if action == "protonation.apply" and (
+            self._protonation_review is None
+            or payload.get("token") != self._protonation_review
+        ):
+            self._protonation_review = None
+            raise ValueError("Review the current assessment before applying H removal.")
+        if action == "protonation.prepare" and self._result is not None:
+            raise ValueError(
+                "Leave or close the current result before preparing another."
+            )
+        decision = self._protonation_decision
+        self._protonation_review = None
+
+        def check_source(target):
+            status = self._owner.get_sync_status()
+            if (
+                target is not report.target()
+                or status["target_revision"] != report.revision
+            ):
+                raise ValueError("The assessed source changed. Inspect it again.")
+
+        try:
+            if action == "protonation.apply":
+
+                def plan(target):
+                    check_source(target)
+                    return _prepare_assessed_protonation(target, decision)
+
+                self._view.addons.manager.system_edits.execute(
+                    plan,
+                    name="molsysmt.build.ProtonationAssessment.apply",
+                    update_view=True,
+                )
+                self._invalidate_peers()
+                message = "Assessed H removal completed. The current molecular system and view are synchronized."
+                stage = "applied"
+            else:
+
+                def prepare(target):
+                    import molsysmt as msm
+
+                    check_source(target)
+                    before = set(msm.basic.get_attributes(target, include_none=False))
+                    candidate = decision.apply(target, in_place=False)
+                    metadata = self._store_result(
+                        candidate,
+                        title="Assessed protonation reconciliation",
+                        operation="molsysmt.build.ProtonationAssessment.apply",
+                        structure_indices=list(
+                            range(int(target.structures.n_structures))
+                        ),
+                        revision=report.revision,
+                    )
+                    missing = sorted(
+                        before
+                        - set(msm.basic.get_attributes(candidate, include_none=False))
+                    )
+                    metadata.update(
+                        source_atoms=int(target.get_n_atoms()),
+                        parameters={
+                            "task": "remove_hydrogens",
+                            "engine": "MolSysMT",
+                            "scope": "whole_system",
+                            "pH": report.data["assessment"]["parameters"]["pH"],
+                            "report_schema": report.data["assessment"]["schema"],
+                            "assessed_decision": True,
+                            "removed_atoms": len(
+                                report.data["assessment"]["removed_atom_indices"]
+                            ),
+                        },
+                        missing_attributes=missing[:200],
+                        attributes_truncated=len(missing) > 200,
+                        software=report.data["software"],
+                    )
+                    self._result = metadata
+                    self._prepared_source = _PreparedSource(
+                        ref(target), report.revision
+                    )
+
+                self._owner._read(prepare, {})
+                message = "The assessed decision produced a separate system. The source and scene are unchanged."
+                stage = "prepared"
+        finally:
+            # Success consumes the native decision once. A failed attempt is
+            # retired too; projection retry belongs to the host, never reapply.
+            self._release_task_data()
+        self._publish(stage=stage, message=message, request_id=request_id)
 
     def _perform_action(self, action_id, payload, request_id):
         if set(payload) - {
@@ -694,6 +834,9 @@ class _ChemistryPanel(_ChemistryPreparation, _MolecularTaskPanel):
         self.set_state(
             {self._state_key: dict(draft), "chemistry_parameters": dict(parameters)}
         )
+        if action_id.startswith("protonation."):
+            self._protonation_action(action_id, payload, request_id)
+            return
         if action_id == "prepare" or action_id.startswith(("replacement.", "result.")):
             self._preparation_action(action_id, payload, request_id)
             return

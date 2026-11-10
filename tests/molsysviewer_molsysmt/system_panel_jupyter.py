@@ -154,6 +154,7 @@ def main():
             "chemistry-pending",
             "chemistry-preparation",
             "chemistry-repair",
+            "assessed-protonation",
             "analysis",
             "refinement",
             "properties",
@@ -764,6 +765,10 @@ def main():
         from property_report_fixture import notebook_cells
 
         cells = notebook_cells(initial[: initial.index("view = msv.demo")], output)
+    if args.scenario == "assessed-protonation":
+        from protonation_panel_fixture import notebook_cells
+
+        cells = notebook_cells(initial[: initial.index("view = msv.demo")], output)
     if args.scenario == "chemistry-repair":
         from chemistry_repair_fixture import notebook_cells
 
@@ -972,6 +977,10 @@ def main():
                             if args.scenario == "interaction-mechanics"
                             else Path(__file__).with_name("visual_adoption_jupyter.mjs")
                             if args.scenario == "visual-adoption"
+                            else Path(__file__).with_name(
+                                "assessed_protonation_jupyter.mjs"
+                            )
+                            if args.scenario == "assessed-protonation"
                             else Path(__file__).with_name("property_report_jupyter.mjs")
                             if args.scenario == "properties"
                             else Path(__file__).with_name(

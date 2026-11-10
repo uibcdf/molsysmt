@@ -117,3 +117,21 @@ def test_actual_qt_interaction_mechanics_and_separate_adoption(tmp_path):
     report = json.loads((tmp_path / "report.json").read_text())
     assert len(report["checks"]) == 4
     assert report["qt_platform"] not in ("offscreen", "minimal")
+
+
+def test_actual_qt_assessed_protonation_managed_and_independent(tmp_path):
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(Path(__file__).with_name("assessed_protonation_qt.py")),
+            str(tmp_path),
+        ],
+        capture_output=True,
+        text=True,
+        timeout=180,
+        check=False,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
+    report = json.loads((tmp_path / "report.json").read_text())
+    assert len(report["checks"]) == 6
+    assert report["qt_platform"] not in ("offscreen", "minimal")

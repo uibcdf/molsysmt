@@ -962,3 +962,25 @@ The [source receiving record](../devtools/data/secondary_structure_receiving_694
 receives this original combined properties intent. Human, installed and final
 candidate gates remain separate. Native eager/chunked admission is not a
 universal process-RSS or wall-time bound.
+
+
+### Assessed protonation reconciliation — implementation 2026-11-10
+
+The Chemistry panel extends the earlier read-only assessment, retaining one
+native process-local decision privately until an explicit independent preparation
+or reviewed managed apply. Full detached report arrays remain in Python; only
+bounded counts/source rows and review state cross the frontend. Public native
+assessment/apply owns criteria, single consumption, source fingerprint and atomic
+subset publication. The managed path shares the existing native-map receiver,
+without reassessment or duplicate chemistry. The host owns scene correspondence
+and projection-only retry after completed science. A no-op consumes once without
+publishing native domains, changing revision or invalidating analyses. A failed
+attempt retires the panel decision; Back retains it. Inputs, source/revision,
+Clear and unmount retire it. Independent results reuse presentation/replacement
+owners and preserve the original source. No executable decision is persisted.
+
+This is bounded reference-rule H removal, not environmental-pKa prediction,
+hydrogen addition, stored-state choice, assignment or readiness certification.
+The earlier read-only inspection evidence remains historical; new native,
+Jupyter, representative Qt and documentation receiving are required before the
+original assessed-reconciliation intent receives credit.

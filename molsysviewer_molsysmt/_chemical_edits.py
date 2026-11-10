@@ -82,21 +82,29 @@ def _run_add_missing_bonds(owner, parameters, update_view):
 
 def _prepare_reconcile_protonation(target, parameters):
     """Receive one public native decision and its explicit correspondence."""
-    import numpy as np
-
     from molsysmt import build
-    from molsysmt.native import MolSys
 
-    if not isinstance(target, MolSys):
-        raise TypeError(
-            "Managed protonation reconciliation requires the bound native MolSys."
-        )
     assessment = build.assess_protonation(
         target,
         pH=parameters["pH"],
         engine=parameters["engine"],
         skip_digestion=parameters["skip_digestion"],
     )
+    return _prepare_assessed_protonation(
+        target, assessment, skip_digestion=parameters["skip_digestion"]
+    )
+
+
+def _prepare_assessed_protonation(target, assessment, *, skip_digestion=False):
+    """Receive one already reviewed native decision without reassessing it."""
+    import numpy as np
+
+    from molsysmt.native import MolSys
+
+    if not isinstance(target, MolSys):
+        raise TypeError(
+            "Managed protonation reconciliation requires the bound native MolSys."
+        )
     report = assessment.to_dict()
     if report.get("schema") != "molsysmt.protonation_assessment@1":
         raise ValueError("Unsupported native protonation-assessment report.")
@@ -129,7 +137,7 @@ def _prepare_reconcile_protonation(target, parameters):
     changed = len(keep) != count or not np.array_equal(keep, np.arange(count))
     return {
         "run": lambda: assessment.apply(
-            target, in_place=True, skip_digestion=parameters["skip_digestion"]
+            target, in_place=True, skip_digestion=skip_digestion
         ),
         "changed": bool(changed),
         "atom_index_map": {int(old): new for new, old in enumerate(keep)}

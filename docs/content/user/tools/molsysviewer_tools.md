@@ -6433,3 +6433,40 @@ Select/Focus deliberately acts on the complete source group in the visible
 structure without navigating. Clear and changed inputs/source retire the report.
 Native eager/chunked admission applies, while labels remain resident; paged
 inspection is not a universal memory/time or independent scientific guarantee.
+
+
+## Applying an inspected protonation decision through Chemistry
+
+Choose **Assess reference-rule protonation**, enter a finite pH and inspect its
+coverage, group context and proposed source H indices. Inspection changes
+nothing. The mounted panel privately retains this same native
+`ProtonationAssessment`; neither an executable decision nor an apply authority
+is saved in browser state, a session or H5MSM.
+
+**Prepare separate system from this assessment** consumes that decision once
+and creates an independent complete system. The source and its scene are kept.
+The normal result card controls presentation, closing and reviewed replacement.
+Close or leave a previous result before preparing another.
+
+**Apply assessed H removal here…** opens an explicit review. **Back** changes
+nothing. **Apply assessed H removal** consumes the inspected decision once on
+the current system and updates its scene through the managed molecular-edit
+coordinator. All source structures, including repeated structure IDs, retain
+the native positional atom map. Selections and regions are remapped; named
+analyses lose observations involving removed participants without recalculation.
+Surviving observations retain their historical evaluated scope. A true no-op
+consumes the decision without another molecular revision or scene edit.
+
+Input/source/revision changes, Clear and unmount expire the private decision.
+Managed actions require a synchronized source. Native source/chemistry checks
+also reject a stale decision after raw external changes; raw writes are not
+otherwise observed automatically. If science succeeds but scene projection
+fails, use **Update view** to retry projection; do not repeat H removal. A failed
+apply attempt retires the panel decision so you must inspect again if needed.
+
+This remains the existing fixed-pKa/name-inventory approximation, with explicit
+named-state rules and unassessed groups/states. It removes only listed H atoms;
+it does not add H, choose a chemical state, assign charges, predict environmental
+pKa or certify chemical/docking readiness. Coordinate edits do not silently run
+another protonation assessment. Python-native assessment/apply remains available
+for deliberate expert workflows and deferred scene synchronization.

@@ -747,8 +747,13 @@ Preserve the read-only exact-template, missing-terminal and reference-rule
 protonation inspections. Coverage expands selected atoms to complete source
 groups, preserves explicit state/structure and refuses unknown membership.
 Terminal OXT inspection and fixed-pKa protonation use the whole system with
-explicit limits; hidden selection/state drafts never narrow them. No executable
-assessment is retained or applied. Keep unassessed/partial/no-change distinctions,
+explicit limits; hidden selection/state drafts never narrow them. Inspection
+changes nothing. The mounted panel may retain one source-bound native assessment
+privately for explicit independent preparation or reviewed managed apply; never
+serialize an executable decision or repeat the assessment at apply time. Keep
+single consumption, native atomic maps over every structure, source/revision/input
+expiry, Back, true no-op and projection-only recovery explicit. Unmount and failed
+apply attempts retire the private decision. Keep unassessed/partial/no-change distinctions,
 native reference identifiers, source-index 50-row pages, pending-reader/expiry
 rules and absence of report/session/H5MSM persistence explicit.
 

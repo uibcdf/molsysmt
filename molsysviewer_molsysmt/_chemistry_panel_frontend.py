@@ -11,7 +11,7 @@ export function render({model,el}) {
   const defaults={task:'chemistry',state_mode:'reference',state_index:'0',hydrogen_mode:'pH',engine:'MolSysMT',pH:'7.4',attribute_policy:'strict',title:'',inference_method:'supported_group_templates',bond_cutoff:'2 angstroms',n_cap:'none',c_cap:'none',keep_ids:'no',charge_method:'gasteiger_marsili',forcefield:'',water_model:'',expected_charge:''};
   let draft={...initial,...model.get('chemistry_selection')},parameters={...defaults,...model.get('chemistry_parameters')};
   let context={},report=null,page=null,busy=false,sequence=0,stamp=0,requestStamp=0,message='';
-  let result=null,replacement=null,canReplace=false,replacementSupported=false,destinations=[],alive=true;
+  let result=null,replacement=null,canReplace=false,replacementSupported=false,destinations=[],alive=true,protonationReview=null,canApplyProtonation=false,canPrepareProtonation=false;
   const labels={atom_type:'Element',atom_id:'Atom ID',isotope:'Isotope',formal_charge:'Formal charge',atom_is_aromatic:'Atom aromaticity',n_unpaired_electrons:'Unpaired electrons',n_implicit_hydrogens:'Stored implicit H count',n_explicit_hydrogens:'Stored explicit H count',allows_implicit_hydrogens:'Implicit H permission',atom_stereochemistry:'Atom stereochemistry',bond_id:'Bond ID',bond_type:'Bond type',bond_order:'Bond order',bond_is_aromatic:'Bond aromaticity',bond_stereochemistry:'Bond stereochemistry',covalent_multiplicity:'Covalent multiplicity',coordinates:'Coordinates'};
   const label=name=>labels[name]||String(name).replaceAll('_',' ');
   const repairs={
@@ -63,6 +63,16 @@ export function render({model,el}) {
       <h3 data-report-heading tabindex="-1"></h3><button data-change-inspection>Change inspection</button><p data-report-scope></p><p class="msm-hint" data-state-summary></p>
       <p data-inventory-status></p><p class="msm-hint" data-count-convention></p><p class="msm-hint" data-connectivity></p>
       <p class="msm-hint" data-assessment-summary hidden></p>
+      <section data-protonation-actions hidden>
+        <p class="msm-hint">Apply this same inspected decision once. Only the listed hydrogen atoms are removed, across every source structure. Unsupported groups stay unassessed. This adds no hydrogens, charges or environmental pKa prediction.</p>
+        <button data-protonation-prepare>Prepare separate system from this assessment</button>
+        <button data-protonation-review>Apply assessed H removal here…</button>
+        <section data-protonation-confirm hidden>
+          <h4 data-protonation-review-heading tabindex="-1">Apply assessed H removal to the current system?</h4>
+          <p>The listed source atoms will be removed from all structures. The native atom map remaps selections, regions and named analyses; observations involving removed atoms are removed without recalculation. The native operation is performed once. If projection fails, retry only Update view.</p>
+          <button data-protonation-apply>Apply assessed H removal</button><button data-protonation-back>Back</button>
+        </section>
+      </section>
       <details data-assessment-attribution hidden><summary>Scientific reference identifiers</summary><p class="msm-hint" data-assessment-references></p></details>
       <details data-fields-section open><summary>Stored information</summary><div class="msm-table-scroll"><table><thead><tr><th>Field</th><th>Coverage</th><th>Present / total</th></tr></thead><tbody data-fields></tbody></table></div><p class="msm-hint">Presence describes stored information, not independent chemical validation. Partial, missing, unsupported and conflicting values remain distinct in the details.</p></details>
       <details data-issues-section open hidden><summary>Inventory issues</summary><ul data-issue-counts></ul></details>
@@ -126,11 +136,17 @@ export function render({model,el}) {
     if(assessment){
       const titles={coverage:'Assess exact-template coverage',terminals:'Inspect missing terminal atoms',protonation:'Assess reference-rule protonation'};
       q('heading').textContent=titles[parameters.task];
-      q('purpose').textContent=protonation?'Inspect the existing fixed-pKa name-inventory decision. This is an approximation, not environment-dependent pKa prediction or a chemical-state choice. No proposed hydrogen removal is applied.':whole?'Inspect the native whole-system C-terminal OXT name check. Native chain/group-ID and capping conventions apply. This is not a complete terminal-chemistry assessment.':'Compare the whole groups containing selected atoms against exact supported native templates. Missing, unexpected, ambiguous and unsupported chemistry remain distinct.';
+      q('purpose').textContent=protonation?'Inspect the existing fixed-pKa name-inventory decision. This is an approximation, not environment-dependent pKa prediction or a chemical-state choice. Inspection changes nothing. The explicit actions apply this same decision once to the current system or to a separate result.':whole?'Inspect the native whole-system C-terminal OXT name check. Stored backbone connectivity and capping evidence define native chain ends; ambiguous chemistry remains unassessed. This is not a complete terminal-chemistry assessment.':'Compare the whole groups containing selected atoms against exact supported native templates. Missing, unexpected, ambiguous and unsupported chemistry remain distinct.';
       q('scope').textContent=whole?'Whole current molecular system, independent of the atom editor and visible structure. No coordinates or scene are changed.': 'Each selected atom contributes its complete source group. One chosen structure and chemical state are assessed. Group indices refer to the source, not a renumbered selection.';
       q('inspect').textContent=busy?'Working…':'Inspect without changing';
     }
     q('report').hidden=!report;
+    q('protonation-actions').hidden=!protonation||!report;
+    q('protonation-prepare').disabled=busy||!canPrepareProtonation;
+    q('protonation-review').disabled=busy||!canApplyProtonation;
+    q('protonation-confirm').hidden=!protonationReview||!report;
+    q('protonation-apply').disabled=busy||!canApplyProtonation;
+    q('protonation-back').disabled=busy;
     q('assessment-summary').hidden=!assessment;q('assessment-attribution').hidden=!protonation||!report;
     if(report&&assessment){
       q('report-heading').textContent=q('heading').textContent+' report';
@@ -167,7 +183,7 @@ export function render({model,el}) {
       }
     }
   }
-  function changed(){stamp++;report=null;page=null;replacement=null;message='';model.set('chemistry_selection',{...draft});model.set('chemistry_parameters',{...parameters});render();}
+  function changed(){stamp++;report=null;page=null;replacement=null;protonationReview=null;canApplyProtonation=canPrepareProtonation=false;message='';model.set('chemistry_selection',{...draft});model.set('chemistry_parameters',{...parameters});render();}
   function request(action,extra={}){if(busy)return;busy=true;sequence++;requestStamp=stamp;render();model.send({type:'action',id:action,payload:{request_id:sequence,draft:{...draft},parameters:{...parameters},...extra}});}
   q('task').addEventListener('change',()=>{parameters.task=q('task').value;changed();request('task');},options);
   q('state-mode').addEventListener('change',()=>{parameters.state_mode=q('state-mode').value;changed();},options);
@@ -178,6 +194,7 @@ export function render({model,el}) {
   q('prepare').addEventListener('click',()=>request('prepare'),options);
   q('replace-review').addEventListener('click',()=>request('replacement.review'),options);
   q('replace-apply').addEventListener('click',()=>request('replacement.apply',{token:replacement?.token}),options);
+  for(const [key,action] of [['protonation-review','protonation.review'],['protonation-back','protonation.back'],['protonation-prepare','protonation.prepare'],['protonation-apply','protonation.apply']])q(key).addEventListener('click',()=>request(action,{report_id:report?.id,token:protonationReview}),options);
   q('replace-back').addEventListener('click',()=>request('replacement.back'),options);
   q('change-inspection').addEventListener('click',()=>q('source').focus(),options);
   for(const [key,action] of [['inspect','inspect'],['refresh','refresh'],['clear','clear']])q(key).addEventListener('click',()=>request(action),options);
@@ -189,15 +206,15 @@ export function render({model,el}) {
     if(msg?.type==='presentation_closed'&&result?.id===msg.id){result=null;replacement=null;if(!busy)request('refresh');else render();return;}
     if(msg?.type!=='state'||typeof msg.state?.request_id!=='number'||msg.state.request_id<sequence)return;
     if(requestStamp!==stamp){busy=false;request('refresh');return;}
-    const state=msg.state;busy=false;draft={...initial,...state.draft};parameters={...defaults,...state.parameters};context=state.context||{};report=state.report||null;page=state.page||null;result=state.result||null;replacement=state.replacement||null;canReplace=!!state.can_replace;replacementSupported=!!state.replacement_supported;destinations=state.destinations||[];message=state.message||'';render();
+    const state=msg.state;busy=false;draft={...initial,...state.draft};parameters={...defaults,...state.parameters};context=state.context||{};report=state.report||null;page=state.page||null;result=state.result||null;replacement=state.replacement||null;canReplace=!!state.can_replace;replacementSupported=!!state.replacement_supported;destinations=state.destinations||[];protonationReview=state.protonation_review||null;canApplyProtonation=!!state.can_apply_protonation;canPrepareProtonation=!!state.can_prepare_protonation;message=state.message||'';render();
     if(report&&state.stage==='report')q('report-heading').focus();
-    if(replacement)q('replacement-heading').focus();
+    if(replacement)q('replacement-heading').focus();if(protonationReview)q('protonation-review-heading').focus();
   }
-  function onContext(){stamp++;report=null;page=null;if(!busy&&context.can_inspect)request('refresh');else render();}
+  function onContext(){stamp++;report=null;page=null;protonationReview=null;canApplyProtonation=canPrepareProtonation=false;if(!busy&&context.can_inspect)request('refresh');else render();}
   function onSync(status){
     // Busy-state requests have no host admission and therefore no reply.
     // Retire older responses and start a fresh read only in an admitted state.
-    stamp++;sequence++;busy=false;report=null;page=null;replacement=null;canReplace=false;context={...context,...status,can_inspect:!!context.has_system&&['synchronized','pending','sync_failed'].includes(status.state),can_review:!!context.has_system&&context.n_structures>0&&status.state==='synchronized'};
+    stamp++;sequence++;busy=false;report=null;page=null;replacement=null;protonationReview=null;canApplyProtonation=canPrepareProtonation=false;canReplace=false;context={...context,...status,can_inspect:!!context.has_system&&['synchronized','pending','sync_failed'].includes(status.state),can_review:!!context.has_system&&context.n_structures>0&&status.state==='synchronized'};
     if(context.can_inspect)request('refresh');else render();
   }
   model.on('msg:custom',onState);model.on('viewer:frame-changed',onContext);model.on('viewer:selection-changed',onContext);model.on('viewer:system-sync-changed',onSync);
