@@ -939,3 +939,9 @@ source map; an additional strict selection assertion reproduces the host defect
 independently. Viewer owns its repair and core regressions. These test-helper
 corrections do not alone qualify the host. Source delivery, owner review, complete
 hosted/installed qualification and postponed human observations remain separate.
+
+The D6.9 contribution proposes Viewer source `b9f3be0127b1fd48220cf400471044bd0b65dbe3`
+in the routine source-route inventory and all existing workflow callers. It
+receives native/source atom correspondence under Viewer #347 and the corrected
+scene-contract guard #348. This changes no public package floor or candidate;
+owner adoption, consolidated hosted gates and installed artifacts remain distinct.
