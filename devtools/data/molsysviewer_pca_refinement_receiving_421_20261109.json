@@ -9,7 +9,7 @@
   "contribution_pr": null,
   "status": "New experimental source tasks and CI fixture correction; owner integration, changed-source hosted, human and installed acceptance remain separate.",
   "source": {
-    "owner_public_base": "ecf9a70e649123f764505dcea33debaa2e4a9946",
+    "owner_public_base": "ca76d93b420435243f68167521ccb503ec8b2728",
     "owner_review_merge": "1e259f8d8a822bc3d29c17d5b2a15587547a1016",
     "viewer_runtime": "346c331901c418fddb6b45a31da4690eee794129",
     "viewer_working_base": "d612c4fad2b49cb3648d5515f40b901eb8cc32a1",
@@ -30,7 +30,9 @@
       "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "0099fa3cc570be91871004baf241c5afc5ebaba57092a3491d4110eca7a9e1b6",
       "tests/build/test_project_atom_names.py": "cce6859ddefb16d08f4f1b6d34172c9527a70faec6cf0c0a120e93d12cee1848",
       "molsysviewer_molsysmt/_panel_frontend.py": "2994e7b9e8588a0d25c5c4c8df5617a259d2519c801872c43abc38e7de29d306"
-    }
+    },
+    "initial_feature_owner_base": "ecf9a70e649123f764505dcea33debaa2e4a9946",
+    "qualified_owner_commit": "1e3bbb59d69e63202e333968c41d386d6a9a3bef"
   },
   "runtime_scope": {
     "pca": "One native weighted population-covariance calculation; row eigenvectors, squared-length eigenvalues, explicit repeated source axes and source-index coefficient pages. No invented trajectory projections or automatic scene effect.",
@@ -42,9 +44,10 @@
     "covering": "563 tests passed, zero failures/errors/skips; 491 legacy H5MSM warnings and four intentional native 4 KiB-budget warning controls. Includes every new panel case, affected prior analysis/geometry/native minimization and three mandatory addon route/inventory preflights.",
     "pca_unit": "24 focal cases; independent NumPy weighted population covariance/eigenvector invariants under nm/angstrom/pm, repeats, zero covariance, paging, tokens, ownership and expiry.",
     "refinement_unit": "15 focal cases; independent OpenMM coordinates/energy on CPU/Reference, nondefault length/energy policies, review/no-op/staleness, current/independent ownership and native rejection.",
-    "qt_scope": "The PCA node passes inside native-pca-refinement-16 whose overall result fails solely on the new minimization child test-package import. Refinement passes separately in refinement-qt-18 after that fixture correction. They are not presented as one globally passing two-node execution.",
+    "qt_scope": "The PCA node passes inside native-pca-refinement-16 whose overall result fails solely on the new minimization child test-package import. Refinement passes separately in refinement-qt-18 after that fixture correction. They are not presented as one globally passing two-node execution. The final reconciled-hosts-29 campaign subsequently passes both Qt nodes plus both Jupyter nodes globally on the new clean combined source; no original failure is erased.",
     "quality": "Ruff repository check/format (4598 files), dependency contract, devguide schema/links/index, course and diff checks pass.",
-    "final_visual_polish": "After the 563-case cohort, only model-table CSS and human-readable setting/unit labels changed. The full four-check refinement Jupyter/both-popup scenario passes again on final visual bytes; original complete input manifests retain each cohort. No numerical algorithm, backend or expert API changed."
+    "final_visual_polish": "After the 563-case cohort, only model-table CSS and human-readable setting/unit labels changed. The full four-check refinement Jupyter/both-popup scenario passes again on final visual bytes; original complete input manifests retain each cohort. No numerical algorithm, backend or expert API changed.",
+    "reconciled_combination": "On clean qualified_owner_commit after ca76d93b: 608 affected native/panel/source-integrity/preflight cases pass; clean 107/107 scientific cases over 68 registered nodes, no omissions; all four actual Jupyter/Qt guards pass in one frozen-input campaign, 229.46 s, peak owned RSS 3906.7 MiB, 63 owned processes closed. Earlier cohorts retain their recorded sources."
   },
   "original_failures": {
     "pca": "Unpublished implementation initially reversed the report constructor native/scalar fields. Later unpublished tests used a nonexistent tags method, asserted a panel error despite correct host pre-handler rejection, and read innerText from a folded details section. Originals retained.",
@@ -439,6 +442,54 @@
       "name": "refinement-ui-final-24",
       "invocation_sha256": "2b33c7b49df1b023a6297ea3d1a68d5f9a41a74202216006c2fc12ac48760099",
       "inputs_sha256": "8ad74abb1dbf9f7fa7173dbbba4da1235d6cfc8d0daf0372fc97bcbbc3e72767"
+    },
+    {
+      "native_exit": 0,
+      "seconds": 164.00360541185364,
+      "inputs_unchanged": true,
+      "selected_inputs": 10692,
+      "peak_owned_rss_mib": 915.5,
+      "cleanup": {
+        "tracked": 28,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "owner-reconciled-covering-26",
+      "invocation_sha256": "6d94868034b695682f51ed884d225dd924b340eb1e079fe09c1a1ffbeee4a26d",
+      "inputs_sha256": "24e76da143c193580224c30219444f2f85261d1485d43fe9dab53047e5a89625"
+    },
+    {
+      "native_exit": 0,
+      "seconds": 17.68825266114436,
+      "inputs_unchanged": true,
+      "selected_inputs": 10692,
+      "peak_owned_rss_mib": 781.7,
+      "cleanup": {
+        "tracked": 6,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "clean-owner-certificate-27",
+      "invocation_sha256": "b4bd75eec1d654fc6c42cbc7a10211880c173af4560abae24e9758c17e26b3b1",
+      "inputs_sha256": "24e76da143c193580224c30219444f2f85261d1485d43fe9dab53047e5a89625"
+    },
+    {
+      "native_exit": 0,
+      "seconds": 229.45796985691413,
+      "inputs_unchanged": true,
+      "selected_inputs": 10694,
+      "peak_owned_rss_mib": 3906.7,
+      "cleanup": {
+        "tracked": 63,
+        "survivors": [],
+        "errors": []
+      },
+      "resource_stop": null,
+      "name": "reconciled-hosts-29",
+      "invocation_sha256": "1ebe3fbe635a79ef06797723c15adad9f604cecde444f7ae36fdca0595f58269",
+      "inputs_sha256": "0838f1bf714d28eca690e826598cce93fe1cca504c856d70f56270db2e05b5a6"
     }
   ],
   "resources": {
@@ -450,7 +501,7 @@
     "concurrency": "One own intensive job at a time. Every campaign keeps selected inputs unchanged and closes all tracked owned processes; no resource stop."
   },
   "remaining": [
-    "Owner review/integration and one changed-source hosted checkpoint; old full matrix remains failed.",
+    "New PCA/refinement contribution owner review/integration and changed-source hosted receiving remain. PR #668 itself is owner-merged; the original full matrix stays failed and #671 stays open.",
     "Accepted structural-observable family still includes contacts, pending #666/PyUnitWizard #143; PCA is not whole-family credit.",
     "Chemistry repairs/assignments, construction, property/report, interaction/mechanical and qualified visual-adoption families remain.",
     "Native #582 effective-model recipe and #615 unexplained initialization retain separate scope.",
@@ -464,6 +515,5 @@
     "latest_base_to_receive": "ca76d93b420435243f68167521ccb503ec8b2728",
     "scope": "Occurred after initial PCA/refinement receiving; original cohorts retain ecf9/1e259 inputs. Reconcile incoming owner changes before new contribution and do not reopen the merged PR."
   },
-  "reconciled_public_owner_source": "ca76d93b420435243f68167521ccb503ec8b2728",
-  "reconciliation_pending_receiving": "Shared native constraint translation, owner #670 correction and #671 canonical report retained. Initial feature cohorts keep their earlier source scope; qualify the new combined tree separately."
+  "reconciled_public_owner_source": "ca76d93b420435243f68167521ccb503ec8b2728"
 }
