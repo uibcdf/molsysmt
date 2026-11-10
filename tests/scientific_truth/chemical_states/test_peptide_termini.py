@@ -45,7 +45,13 @@ def test_closing_the_declared_path_gives_no_free_endpoints():
 
 def test_a_missing_declared_link_is_unknown_not_new_terminal_chemistry():
     molsys = _path()
-    molsys.chemical_states.remove_bonds([6])
+    bonds = molsys.chemical_states.get_bonds()
+    link = next(
+        i
+        for i, row in bonds.iterrows()
+        if {int(row["atom1_index"]), int(row["atom2_index"])} == {5, 6}
+    )
+    molsys.chemical_states.remove_bonds([int(link)])
     with pytest.raises(msm.StructuralInconsistencyError, match="Disconnected"):
         msm.chemical_states.get_peptide_termini(molsys)
     report = msm.chemical_states.get_peptide_termini(molsys, on_ambiguous="report")
