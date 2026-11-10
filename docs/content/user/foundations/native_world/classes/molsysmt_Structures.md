@@ -37,7 +37,14 @@ A missing periodic box series can be initialized with
 `msm.set(molsys, box=...)` or `molsys.structures.set_box(value=...)` using the full
 structure axis. Partial box updates require an existing series; they do not
 invent periodic boxes for unspecified structures. Box quantities carry length
-units and are stored internally in nm. See {ref}`Tutorial_Set`.
+units and are stored internally in nm. Supply one matrix per addressed
+structure: a single cell represents one structure and is not broadcast across
+several structures. Repeat constant cells explicitly. A full or selected box
+edit must preserve alignment with all stored series, even without a MolSys owner
+or analyses. Incompatible cardinalities fail before publication; coordinates,
+time, labels and existing analysis coverage remain unchanged. Constructors
+assemble and validate a complete new payload rather than temporarily editing
+an existing structure axis. See {ref}`Tutorial_Set`.
 
 Box vectors are rows of `B`: Cartesian positions and fractional positions obey
 `r = f @ B`. Membership in an origin-zero primary cell means `0 <= f < 1` on

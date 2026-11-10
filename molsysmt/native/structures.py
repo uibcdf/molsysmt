@@ -259,6 +259,12 @@ class Structures(NativeQueries):
                 reason="Periodic boxes must have shape (n_structures, 3, 3).",
                 caller="molsysmt.native.Structures",
             )
+        if name == "box" and not self.__dict__.get("_initializing_geometry", False):
+            # Box replacement is an edit of a shared structure axis even when
+            # no MolSys owner or named interaction analyses are attached.
+            payload = self._frame_payload()
+            payload[name] = candidate
+            self._payload_dimensions(payload, caller="molsysmt.native.Structures")
         owner_ref = getattr(self, "_molsys_owner_ref", None)
         owner = None if owner_ref is None else owner_ref()
         if owner is None:
@@ -477,19 +483,25 @@ class Structures(NativeQueries):
         self.id_step = id_step
         self.constant_box = constant_box
 
-        self.structure_id = structure_id
-        self.time = time
-        self.coordinates = coordinates
-        self.velocities = velocities
-        self.box = box
-        self.b_factor = b_factor
-        self.alternate_location = alternate_location
-        self.bioassembly = bioassembly
-        self.temperature = temperature
-        self.potential_energy = potential_energy
-        self.kinetic_energy = kinetic_energy
-        self.occupancy = occupancy
-        self._validate_alignment()
+        # Construction assembles one new payload; geometry edits of an already
+        # constructed object validate before publishing a replacement.
+        self._initializing_geometry = True
+        try:
+            self.structure_id = structure_id
+            self.time = time
+            self.coordinates = coordinates
+            self.velocities = velocities
+            self.box = box
+            self.b_factor = b_factor
+            self.alternate_location = alternate_location
+            self.bioassembly = bioassembly
+            self.temperature = temperature
+            self.potential_energy = potential_energy
+            self.kinetic_energy = kinetic_energy
+            self.occupancy = occupancy
+            self._validate_alignment()
+        finally:
+            self.__dict__.pop("_initializing_geometry", None)
 
     def _frame_payload(self):
         """Returning raw frame-aligned storage without unit wrappers."""
@@ -1703,10 +1715,16 @@ class Structures(NativeQueries):
         Raises
         ------
         StructuralInconsistencyError
-            If a partial update is requested before a box series exists.
+            If a partial update is requested before a box series exists, or
+            replacement boxes disagree with another stored structure series.
 
         Notes
         -----
+        Supply one matrix per addressed structure. A single matrix represents
+        one structure and is not broadcast across several structures. Repeating
+        a constant cell must be explicit. Initialization of a new box-only
+        payload is distinct from editing an existing aligned structure series.
+
         When attached to a MolSys, successful box edits or clearing the full
         series invalidate all named analyses on the affected structures.
         Untouched structures and earlier snapshots survive. Invalid writes

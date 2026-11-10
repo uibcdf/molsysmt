@@ -52,7 +52,7 @@ sections:
           - name: structures
             file: docs/content/user/foundations/native_world/classes/molsysmt_Structures.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Structures.md.AGENTS.md
-            description: Aligned structural series, retained deposited model labels, row-vector periodic cells, canonical units, independent copies, protected geometry and selected edit ownership in MolSys.
+            description: Aligned structural series, exact box-edit cardinality independent of owner/analyses, retained deposited model labels, row-vector periodic cells, canonical units, independent copies and protected geometry.
           - name: molsysbuilder
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSysBuilder.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolSysBuilder.md.AGENTS.md
@@ -168,7 +168,7 @@ sections:
           - name: set
             file: docs/content/user/tools/basic/set.ipynb
             agents_file: docs/content/user/tools/basic/set.ipynb.AGENTS.md
-            description: Attribute, coordinate and mechanics assignment, with nullable chemistry, partial component declarations, exact labels and per-attribute staged publication.
+            description: Attribute, coordinate and mechanics assignment, with nullable chemistry, partial component declarations, exact labels, aligned box edits and per-attribute staged publication.
           - name: copy
             file: docs/content/user/tools/basic/copy.ipynb
             agents_file: docs/content/user/tools/basic/copy.ipynb.AGENTS.md
