@@ -251,10 +251,10 @@ def test_unrepresented_native_extensions_are_refused_before_publication(
     assert not list(tmp_path.iterdir())
 
 
-def test_current_public_05_defaults_and_refusals_are_unchanged(tmp_path):
+def test_explicit_public_05_writing_retains_refusals(tmp_path):
     source = _system("complete")
     old = tmp_path / "public05.h5msm"
-    msm.h5msm.write(source, old)
+    msm.h5msm.write(source, old, format_version="0.5")
     assert modular.read_molsys_file(old).get_n_atoms() == 2
     assert modular.read_modular_file(old, layers="molecular_mechanics") == {
         "molecular_mechanics": None
@@ -263,7 +263,7 @@ def test_current_public_05_defaults_and_refusals_are_unchanged(tmp_path):
         assert file.attrs["version"] == "0.5"
     source.molecular_mechanics.forcefield = "request"
     with pytest.raises(ValueError, match="molecular mechanics"):
-        msm.h5msm.write(source, tmp_path / "public_refused.h5msm")
+        msm.h5msm.write(source, tmp_path / "public_refused.h5msm", format_version="0.5")
     development = tmp_path / "private06.h5msm"
     modular.write_molsys_file(development, source)
     assert msm.h5msm.read(development).molecular_mechanics.forcefield == "request"

@@ -48,7 +48,9 @@ def test_public_h5msm_round_trip_uses_layer_four_without_root_bump(
     topology = topology_with_schemes(atoms=atoms)
     source = MolSys._from_partial_domains(topology=topology) if enclosing else topology
     filename = str(tmp_path / "naming.h5msm")
-    msm.convert(source, to_form="file:h5msm", output_filename=filename)
+    msm.convert(
+        source, to_form="file:h5msm", output_filename=filename, format_version="0.5"
+    )
     with h5py.File(filename, "r") as file:
         assert file.attrs["version"] == "0.5"
         assert file["topology"].attrs["schema_version"] == 4
@@ -112,7 +114,9 @@ def test_dictionary_invalid_metadata_fails_instead_of_becoming_unknown(damage):
 def test_h5msm_rejects_invalid_naming_payload(tmp_path, damage):
     filename = str(tmp_path / "bad_naming.h5msm")
     msm.h5msm.write(
-        MolSys._from_partial_domains(topology=topology_with_schemes()), filename
+        MolSys._from_partial_domains(topology=topology_with_schemes()),
+        filename,
+        format_version="0.5",
     )
     with h5py.File(filename, "r+") as file:
         declared = file["topology/group_naming_schemes"]
@@ -152,7 +156,7 @@ def test_layer_four_preserves_independent_membership_relations(
     if chain_groups:
         topology.set_chain_groups([[2, 0, 1]])
     filename = str(tmp_path / "relations.h5msm")
-    msm.h5msm.write_layers(filename, topology=topology)
+    msm.h5msm.write_layers(filename, topology=topology, format_version="0.5")
     restored = msm.h5msm.read_layers(filename, layers=["topology"])["topology"]
     assert restored.group_naming_schemes == ("amber", None, "ccd")
     assert restored.get(element="atom", molecule_index=True) == [0, 0, 0, 0]
@@ -178,7 +182,7 @@ def test_sequence_registry_extension_round_trips_and_old_h5msm_registry_reads(tm
     source = topology_with_schemes(atoms=False)
     source.set_group_naming_schemes("sequence", group_indices=1)
     filename = str(tmp_path / "sequence.h5msm")
-    msm.h5msm.write_layers(filename, topology=source)
+    msm.h5msm.write_layers(filename, topology=source, format_version="0.5")
     restored = msm.h5msm.read_layers(filename, layers=["topology"])["topology"]
     assert restored.group_naming_schemes == ("amber", "sequence", "ccd")
     with h5py.File(filename, "r+") as file:
@@ -206,7 +210,9 @@ def test_old_schema_retains_unknown_and_new_dictionary_can_be_extracted(tmp_path
         == (None,) * 3
     )
     filename = str(tmp_path / "unknown.h5msm")
-    msm.h5msm.write(MolSys._from_partial_domains(topology=source), filename)
+    msm.h5msm.write(
+        MolSys._from_partial_domains(topology=source), filename, format_version="0.5"
+    )
     with h5py.File(filename, "r") as file:
         assert file["topology"].attrs["schema_version"] == 1
     assert (

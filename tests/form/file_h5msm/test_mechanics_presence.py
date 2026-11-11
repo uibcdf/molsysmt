@@ -68,10 +68,14 @@ def test_report_only_mechanics_is_refused_before_transport(
             ValueError, match="[Mm]olecular[Mm]echanics|molecular mechanics"
         ):
             if route == "direct":
-                msm.h5msm.write(source, path)
+                msm.h5msm.write(source, path, format_version="0.5")
             elif route == "converted":
                 msm.convert(
-                    source, to_form="file:h5msm", output_filename=path, strict=strict
+                    source,
+                    to_form="file:h5msm",
+                    output_filename=path,
+                    strict=strict,
+                    format_version="0.5",
                 )
             else:
                 msm.convert(source, to_form="molsysmt.MolSysDict", strict=strict)
@@ -83,14 +87,16 @@ def test_report_only_mechanics_is_refused_before_transport(
 def test_refused_mechanics_never_replaces_existing_file(tmp_path, route):
     source = _system("complete")
     path = tmp_path / "existing.h5msm"
-    msm.h5msm.write(source, path)
+    msm.h5msm.write(source, path, format_version="0.5")
     original = path.read_bytes()
     source.molecular_mechanics.partial_charge_assignment = {}
     with pytest.raises(ValueError, match="molecular mechanics"):
         if route == "direct":
-            msm.h5msm.write(source, path)
+            msm.h5msm.write(source, path, format_version="0.5")
         else:
-            msm.convert(source, to_form="file:h5msm", output_filename=path)
+            msm.convert(
+                source, to_form="file:h5msm", output_filename=path, format_version="0.5"
+            )
     assert path.read_bytes() == original
 
 
@@ -117,7 +123,7 @@ def test_unprojected_mechanics_storage_cannot_masquerade_as_absent(tmp_path, sto
         source.molecular_mechanics.unrepresented = None
     path = tmp_path / "refused.h5msm"
     with pytest.raises(ValueError, match="molecular mechanics"):
-        msm.h5msm.write(source, path)
+        msm.h5msm.write(source, path, format_version="0.5")
     with pytest.raises(ValueError, match="MolecularMechanics"):
         msm.convert(source, to_form="molsysmt.MolSysDict")
     assert not path.exists()
@@ -129,7 +135,7 @@ def test_absent_mechanics_keeps_supported_transport_working(tmp_path, mechanics)
     if mechanics == "none":
         source.molecular_mechanics = None
     path = tmp_path / "supported.h5msm"
-    msm.h5msm.write(source, path)
+    msm.h5msm.write(source, path, format_version="0.5")
     with h5py.File(path, "r") as file:
         assert file.attrs["version"] == "0.5"
         assert "molecular_mechanics" not in file

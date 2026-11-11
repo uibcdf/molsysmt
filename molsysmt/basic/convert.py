@@ -1022,15 +1022,17 @@ def convert(
       adapter limitation.
     - Ordinary conversions do not construct a preflight report. This keeps the
       reporting layer opt-in when neither `strict` nor `return_report` is used.
-    - Converting to ``file:h5msm`` writes H5MSM 0.5 by default. Explicit
-      ``format_version="0.6"`` or ``format_version="1.0"`` preserves stored
-      mechanics without recalculating or rebinding assignments. With a single
+    - Converting to ``file:h5msm`` writes H5MSM 1.0 by default and preserves
+      stored mechanics without recalculating or rebinding assignments.
+      Explicit ``format_version="0.5"`` selects the mechanics-free schema;
+      ``format_version="0.6"`` selects the experimental schema. With a single
       modular source file, all atoms and structures, and ordinary conversion
       options, writing 1.0 re-encodes independent layers directly. It retains
       absent and present-empty layers, axis links, and the original 0.5/0.6
       root metadata. Use a new destination. This migration loads the stored
       layers into memory. Legacy 0.3 and 0.4 files remain readable and can be
-      migrated with :func:`molsysmt.h5msm.migrate_to_05`.
+      converted to a new H5MSM path. Version-specific migration helpers keep
+      their named 0.5 destination.
     - Modular H5MSM writing uses field-specific stored dtypes. Structural
       floating series use float64; typed chemistry/mechanics payloads retain
       their declared encodings. Explicit ``int_precision`` or
@@ -1162,6 +1164,7 @@ def convert(
         maybe_read_modular_h5msm,
         validate_h5msm_handler_target,
     )
+    from molsysmt._private.h5msm_storage.versions import DEFAULT_WRITE_VERSION
 
     from . import get_form
 
@@ -1196,7 +1199,7 @@ def convert(
     # A whole-file rewrite can preserve independent layers and their maps even
     # when no single native MolSys can represent the stored composition.
     independent_h5msm_write = (
-        kwargs.get("format_version") == "1.0"
+        kwargs.get("format_version", DEFAULT_WRITE_VERSION) == "1.0"
         and not isinstance(to_form, (list, tuple))
         and (to_form == "file:h5msm" or has_h5msm_path(to_form))
         and not isinstance(molecular_system, (list, tuple))

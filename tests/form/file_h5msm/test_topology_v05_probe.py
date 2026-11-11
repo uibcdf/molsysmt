@@ -98,7 +98,7 @@ def test_atom_molecules_are_stored_without_chemical_states(tmp_path, chain_group
     if chain_groups:
         topology.set_chain_groups([[0]])
     filename = str(tmp_path / "stable_molecules.h5msm")
-    msm.h5msm.write_layers(filename, topology=topology)
+    msm.h5msm.write_layers(filename, topology=topology, format_version="0.5")
     with h5py.File(filename, "r") as file:
         assert file.attrs["version"] == "0.5"
         assert set(file) == {"topology"}
@@ -144,7 +144,7 @@ def test_topology_projection_never_reads_chemical_states(tmp_path, monkeypatch):
     source = MolSys(n_atoms=3, n_molecules=2)
     source.topology.set_atom_molecules([1, None, 0])
     filename = str(tmp_path / "projected.h5msm")
-    msm.h5msm.write(source, filename)
+    msm.h5msm.write(source, filename, format_version="0.5")
 
     def forbidden(*args, **kwargs):
         raise AssertionError("Topology projection must not read chemical states")
@@ -161,7 +161,7 @@ def test_legacy_group_free_membership_is_migrated_only_on_joint_load(tmp_path):
     source.chemical_states.add_bonds([[0, 1]])
     source.topology.set_atom_molecules([0, 0, 1])
     filename = str(tmp_path / "legacy_topology_layer.h5msm")
-    msm.h5msm.write(source, filename)
+    msm.h5msm.write(source, filename, format_version="0.5")
     # Reproduce the old layer, which encoded group-free ownership only through
     # the associated reference state's component partition.
     with h5py.File(filename, "r+") as file:
@@ -190,7 +190,7 @@ def test_unknown_molecules_are_not_reconstructed_as_legacy_components(
         source.topology.set_atom_molecules(None)
     assert source.topology._atom_molecule_membership is None
     filename = str(tmp_path / "unknown_ownership.h5msm")
-    msm.h5msm.write(source, filename)
+    msm.h5msm.write(source, filename, format_version="0.5")
     restored = msm.h5msm.read(filename)
     assert restored.topology.get(element="atom", molecule_index=True) == [None] * 3
 
@@ -203,7 +203,10 @@ def test_legacy_equal_axis_lengths_do_not_establish_molecule_correspondence(tmp_
     source.topology.set_atom_molecules([0, 0, 1])
     filename = str(tmp_path / "independent_axes.h5msm")
     msm.h5msm.write_layers(
-        filename, topology=source.topology, chemical_states=source.chemical_states
+        filename,
+        topology=source.topology,
+        chemical_states=source.chemical_states,
+        format_version="0.5",
     )
     with h5py.File(filename, "r+") as file:
         del file["topology/atom_molecules"]
@@ -250,6 +253,7 @@ def test_default_topology_conversion_reads_no_other_layer_payload(
                 "indices": "identity",
             }
         ],
+        format_version="0.5",
     )
     raw = source.read_bytes()
     original = h5py.Dataset.__getitem__
@@ -281,7 +285,7 @@ def _static_conversion_file(tmp_path):
 
     source = build_minimal_molsys(n_structures=5)
     path = tmp_path / "static-conversion.h5msm"
-    msm.h5msm.write(source, path)
+    msm.h5msm.write(source, path, format_version="0.5")
     return path, source
 
 
@@ -327,6 +331,7 @@ def test_static_topology_conversion_does_not_invent_a_missing_domain(
         structures=Structures(
             coordinates=msm.pyunitwizard.quantity(np.zeros((2, 3, 3)), "nm")
         ),
+        format_version="0.5",
     )
     _guard_unrequested_payload(monkeypatch)
     with pytest.raises(ValueError, match="no topology domain to convert"):
@@ -360,7 +365,7 @@ def test_static_topology_conversion_preserves_atom_free_group_inventory(tmp_path
 
     topology = topology_with_schemes(atoms=False)
     path = tmp_path / "group-inventory.h5msm"
-    msm.h5msm.write_layers(path, topology=topology)
+    msm.h5msm.write_layers(path, topology=topology, format_version="0.5")
     result = msm.convert(str(path), to_form="molsysmt.Topology")
     assert result.n_atoms == 0 and result.n_groups == 3
     assert result.group_naming_schemes == topology.group_naming_schemes

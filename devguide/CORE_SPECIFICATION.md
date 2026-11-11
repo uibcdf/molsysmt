@@ -33,7 +33,8 @@ molsysmt/
 ## 2. Independent Native Domains
 `MolSys` coordinates independently optional `Topology`, `ChemicalStates`,
 `Structures` and named `Interactions` domains. `MolecularMechanics` remains an
-experimental in-memory domain without H5MSM 0.5 persistence.
+experimental domain with typed H5MSM 1.0 persistence. Explicit 0.5 output
+retains its mechanics-free contract.
 
 ### 2.1 `molsysmt.native.MolSys`
 The top-level orchestrator synchronizes the domains actually supplied.
@@ -157,7 +158,7 @@ represented groups using their types and chain membership:
 
 ## 5. Persistence & Observability
 - **H5MSM:** The canonical high-performance file format for MolSysMT systems.
-  New files use modular root version 0.5 defined in
+  New files use modular root version 1.0 defined in
   [h5msm_format.md](h5msm_format.md). Versions 0.3/0.4 remain deprecated readable
   inputs with explicit migration. Topology layers 1/2 remain readable; layer 3
   carries optional stable group-free molecule membership.

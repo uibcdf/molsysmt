@@ -41,8 +41,8 @@ def read(filename, skip_digestion=False):
 
     Notes
     -----
-    Reading 0.3 or 0.4 emits a warning with the migration helper. Writing uses
-    0.5; legacy files remain readable without changing them. An H5MSM 0.5
+    Reading 0.3 or 0.4 emits a warning with a source-preserving conversion.
+    Writing uses 1.0. An H5MSM 0.5
     file containing named interactions can be read as a partial MolSys even
     without topology, chemical states, or structures. Topology, chemical states
     and named analyses can also coexist without Structures when their shared
@@ -84,10 +84,10 @@ def write(
     skip_digestion : bool, default=False
         Whether to skip argument validation for a trusted internal call.
 
-    format_version : str, default='0.5'
-        Output schema. '0.5' is the mechanics-free default. '0.6' selects the
-        experimental modular schema and '1.0' selects the new modular schema.
-        Both explicit versions can store molecular mechanics.
+    format_version : str, default='1.0'
+        Output schema. '1.0' stores the independent native domains, including
+        molecular mechanics. '0.5' selects the mechanics-free schema and
+        '0.6' selects the experimental modular schema.
 
     Returns
     -------
@@ -264,9 +264,9 @@ def write_layers(
     mechanics_n_atoms : int or none, default=None
         Explicit atom count of the mechanical layer, required when it is supplied.
         Equal counts do not declare correspondence with another domain.
-    format_version : str, default='0.5'
-        Output schema. '0.6' selects the experimental mechanics root and '1.0'
-        selects the new modular root.
+    format_version : str, default='1.0'
+        Output schema. '1.0' is the default modular root. '0.5' selects the
+        mechanics-free root and '0.6' selects the experimental mechanics root.
     interactions : dict, default=None
         Named sparse interaction analyses.
     associations : list of dict, default=None
@@ -284,8 +284,7 @@ def write_layers(
 
     Notes
     -----
-    The default 0.5 schema rejects a supplied mechanics layer rather than
-    discarding it. Select 0.6 or 1.0 explicitly for stored mechanics. Reading declared axis sizes
+    An explicit 0.5 target rejects a supplied mechanics layer. Reading declared axis sizes
     validates metadata cardinalities, not chemical identity or full payloads.
     Storage does not parameterize or execute a mechanical model.
 

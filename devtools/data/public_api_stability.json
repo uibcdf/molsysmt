@@ -1331,15 +1331,15 @@
       "stability": "experimental",
       "introduced": "1.0.0",
       "owner": "h5msm",
-      "documentation": "docs/content/user/tools/form/file/h5msm_05.md",
-      "contract_tests": "tests/form/file_h5msm/test_public_h5msm_v05.py"
+      "documentation": "docs/content/user/tools/form/file/h5msm_10.md",
+      "contract_tests": "tests/form/file_h5msm/test_public_mechanics_v06.py"
     },
     "molsysmt.h5msm.write_layers": {
       "stability": "experimental",
       "introduced": "1.0.0",
       "owner": "h5msm",
-      "documentation": "docs/content/user/tools/form/file/h5msm_05.md",
-      "contract_tests": "tests/form/file_h5msm/test_public_h5msm_v05.py"
+      "documentation": "docs/content/user/tools/form/file/h5msm_10.md",
+      "contract_tests": "tests/form/file_h5msm/test_public_mechanics_v06.py"
     },
     "molsysmt.info": {
       "stability": "stable",

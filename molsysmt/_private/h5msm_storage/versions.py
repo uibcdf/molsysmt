@@ -1,6 +1,6 @@
 """Selecting explicitly implemented H5MSM roots without guessing migrations."""
 
-DEFAULT_WRITE_VERSION = "0.5"
+DEFAULT_WRITE_VERSION = "1.0"
 MECHANICS_VERSIONS = frozenset({"0.6", "1.0"})
 MODULAR_VERSIONS = MECHANICS_VERSIONS | {"0.5"}
 

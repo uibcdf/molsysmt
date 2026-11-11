@@ -8,8 +8,9 @@ H5MSM 0.5 stores `Topology`, `ChemicalStates`, `Structures`, and named
 absent when the file is read. Associations record when two layers share atom or
 structure indices; equal axis lengths alone do not imply that they correspond.
 
-`msm.convert(..., to_form="file:h5msm")` writes 0.5 by default, including
-selected atoms and structures. It accepts complete or partial native `MolSys`,
+`msm.convert(..., to_form="file:h5msm", format_version="0.5")` writes 0.5,
+including selected atoms and structures. Ordinary writing uses
+{ref}`H5MSM 1.0 <user-tools-form-h5msm-10>`. It accepts complete or partial native `MolSys`,
 `Structures`, and `ChemicalStates` objects. Attached named `Interactions`
 analyses are stored with a `MolSys`. `msm.convert` and `msm.h5msm.read` read 0.5;
 `msm.h5msm.read` also accepts 0.3 and 0.4 and warns with a migration
@@ -28,8 +29,7 @@ are explicitly linked in the file.
 
 Experimental 0.6 adds stored mechanics only when explicitly requested with
 `format_version="0.6"`; see {ref}`user-tools-form-h5msm-06`. This does not extend
-0.5 or change the default. The legacy warnings and 0.5 migration helpers keep
-their existing meanings.
+0.5. The named 0.5 migration helpers retain their schema-specific destination.
 
 ## Querying selected data
 
@@ -157,7 +157,7 @@ molsys = MolSys(n_atoms=2)
 molsys.structures = Structures(
     coordinates=msm.pyunitwizard.quantity(np.zeros((2, 2, 3)), "nm")
 )
-msm.h5msm.write(molsys, "example.h5msm")
+msm.h5msm.write(molsys, "example.h5msm", format_version="0.5")
 restored = msm.h5msm.read("example.h5msm")
 assert restored.structures.n_structures == 2
 ```
@@ -165,7 +165,8 @@ assert restored.structures.n_structures == 2
 The general conversion route writes the same schema:
 
 ```python
-msm.convert(molsys, to_form="file:h5msm", output_filename="converted.h5msm")
+msm.convert(molsys, to_form="file:h5msm", output_filename="converted.h5msm",
+            format_version="0.5")
 assert msm.convert("converted.h5msm").structures.n_structures == 2
 ```
 
@@ -178,8 +179,8 @@ input conversions retain their own copy rules. Public 0.5 subset conversion stil
 loads resident data before extracting the requested subset. The whole-Topology
 projection above avoids unrelated domains; it does not provide lazy coordinates.
 
-`msm.h5msm.write` creates a new file and rejects domain data that the current
-0.5 codec cannot encode. Coordinates are stored in nanometers and time in
+`msm.h5msm.write(..., format_version="0.5")` creates a new file and rejects
+domain data that the 0.5 codec cannot encode. Coordinates are stored in nanometers and time in
 picoseconds. `msm.h5msm.read` reconstructs a native `MolSys` when the file's
 declared index links are representable by that object.
 Biological assemblies use typed chain-index and rotation arrays with translations
@@ -190,10 +191,9 @@ retain either their integer or string type. H5MSM 0.5 has no
 parameter values, present-empty reports/tables and unsupported mechanics
 extensions. A default empty native mechanics object or `None` remains accepted.
 Writing a system with stored mechanics raises an error before creating the file.
-A separate mechanics layer is being designed toward a first stable H5MSM 1.0
-coordinated with MolSysMT 1.0; an intermediate 0.6 development schema may precede
-it. This is future work, not a capability of the current writer. Later library
-and format versions will evolve independently.
+The default {ref}`H5MSM 1.0 <user-tools-form-h5msm-10>` writer stores the
+mechanical domain using its independent typed layer. Library and format versions
+evolve independently.
 The structures-only reader rejects atom subsets when a stored biological
 assembly is present, because its chain indices cannot be remapped without a
 topology. `msm.convert` likewise rejects writing an atom subset that retains
@@ -218,7 +218,7 @@ molsys.structures = Structures(
 )
 molsys.chemical_states.append_state()
 msm.set(molsys, structure_chemical_state_index=[0])
-msm.convert(molsys, to_form="two_states.h5msm")
+msm.convert(molsys, to_form="two_states.h5msm", format_version="0.5")
 restored = msm.convert("two_states.h5msm")
 assert restored.structures.n_structures == 1
 assert restored.chemical_states.n_chemical_states == 2

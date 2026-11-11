@@ -1,11 +1,15 @@
 (cookbook-migrating-h5msm)=
 # Migrating an H5MSM file
 
-*Moving a legacy molecular system into the modular H5MSM 0.5 schema.*
+*Moving a molecular system into the current modular H5MSM schema.*
 
-This recipe keeps a 0.3 or 0.4 source file and writes a separate 0.5 file. The
-helper validates that the native system reconstructed from the source can be encoded
-without dropping an unsupported field.
+Ordinary `msm.convert(source, to_form=destination)` writes H5MSM 1.0 to a new
+destination. See {ref}`cookbook-migrating-h5msm-10` for complete modular-file
+migration with independent layers and axis links.
+
+The version-specific recipe below keeps a 0.3 or 0.4 source file and writes a
+separate 0.5 file. The named helper validates that the reconstructed system can
+be encoded in 0.5.
 
 ## Translating the file
 
@@ -57,7 +61,7 @@ are not loaded. Full conversion remains a resident operation. See
 
 ## Choosing stored precision
 
-Modular H5MSM 0.5/0.6 uses field-specific stored types. Structural floating
+Modular H5MSM 0.5/0.6/1.0 uses field-specific stored types. Structural floating
 series use float64; chemistry, topology, maps and mechanical payloads follow
 their declared encodings. The legacy global `float_precision` and `int_precision`
 conversion options are unsupported, including explicit `'single'` or `'double'`.
@@ -149,7 +153,8 @@ as a native `MolSys` before selecting atoms:
 molsys = msm.h5msm.read("topology_chemistry_05.h5msm")
 subset = msm.extract(molsys, selection=[0])
 assert subset.structures is None
-msm.convert(subset, to_form="file:h5msm", output_filename="selected_05.h5msm")
+msm.convert(subset, to_form="file:h5msm", output_filename="selected_05.h5msm",
+            format_version="0.5")
 ```
 
 The output retains the selected chemistry without fabricating coordinates.
@@ -167,7 +172,8 @@ molsys = msm.convert(
     selection=[0, 1], structure_indices=[2, 0],
 )
 assert msm.get(molsys, n_atoms=True, n_structures=True) == [2, 2]
-msm.convert(molsys, to_form="file:h5msm", output_filename="consolidated_05.h5msm")
+msm.convert(molsys, to_form="file:h5msm", output_filename="consolidated_05.h5msm",
+            format_version="0.5")
 ```
 
 Compose full domains first: selecting each partial file independently can ask
@@ -189,7 +195,7 @@ import molsysmt as msm
 
 molsys = msm.convert(msm.systems["chicken villin HP35"]["1vii.bcif.gz"])
 occupancy = msm.get(molsys, element="atom", occupancy=True)
-msm.convert(molsys, to_form="observations.h5msm")
+msm.convert(molsys, to_form="observations.h5msm", format_version="0.5")
 restored = msm.convert("observations.h5msm")
 np.testing.assert_allclose(
     msm.get(restored, element="atom", occupancy=True), occupancy, equal_nan=True
@@ -309,7 +315,7 @@ See {ref}`Tutorial_Get_surface_area`.
 
 ## Trying the experimental mechanical snapshot
 
-Keep the default 0.5 migration above for that schema. To explicitly upgrade a
+Keep the named 0.5 migration helper above for that schema. To explicitly upgrade a
 readable 0.3/0.4/0.5 source to experimental 0.6, use a separate destination:
 
 ```python
@@ -321,21 +327,21 @@ molsys = msm.h5msm.read("experimental_06.h5msm")
 The source file is unchanged. Its legacy unit validation/warning still applies;
 no mechanical assignments are invented. For a prepared resident `molsys`, the
 same explicit output option preserves its supported mechanical values/reports.
-An ordinary 0.5 write still rejects them. Whole conversion is resident; this is
+An explicit 0.5 write still rejects them. Whole conversion is resident; this is
 not a streaming migration or scientific validation. See
 {ref}`user-tools-form-h5msm-06` for schema, query and memory limits.
 
 (cookbook-migrating-h5msm-10)=
 ## Migrating a modular file to H5MSM 1.0
 
-Use the explicit version and a new destination to migrate a 0.5 or 0.6 file
-in full:
+Use a new destination to migrate a 0.5 or 0.6 file in full. The current
+default writes 1.0:
 
 ```python
 import molsysmt as msm
 
 msm.convert("source_06.h5msm", to_form="file:h5msm",
-            output_filename="migrated_10.h5msm", format_version="1.0")
+            output_filename="migrated_10.h5msm")
 layers = msm.h5msm.read_layers("migrated_10.h5msm")
 ```
 
@@ -346,4 +352,5 @@ records the old root metadata in `migration_source` and keeps original
 scientific producer data in the layers. The source stays unchanged and the
 destination must be absent. Whole-file migration is a resident operation.
 Selection, source naming overrides, and conversion reports use the usual native
-conversion route. The default for new writes remains 0.5 while 1.0 is qualified.
+conversion route. Explicit `format_version="1.0"` selects the same output
+schema as the current default.

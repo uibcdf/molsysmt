@@ -20,7 +20,7 @@ def test_public_05_read_write_and_layer_selection(tmp_path):
         coordinates=msm.pyunitwizard.quantity(np.zeros((2, 2, 3)), "nm")
     )
     filename = str(tmp_path / "public05.h5msm")
-    assert msm.h5msm.write(source, filename) == filename
+    assert msm.h5msm.write(source, filename, format_version="0.5") == filename
     restored = msm.h5msm.read(filename)
     assert restored.chemical_states._molsys_owner_ref() is restored
     assert len(restored.chemical_states.get_bonds()) == 1
@@ -45,7 +45,7 @@ def test_public_05_reads_a_structures_only_file_as_molsys(
         else Structures(time=msm.pyunitwizard.quantity([0.0, 1.0], "ps"))
     )
     filename = str(tmp_path / "structures_only.h5msm")
-    msm.h5msm.write_layers(filename, structures=source)
+    msm.h5msm.write_layers(filename, structures=source, format_version="0.5")
 
     with h5py.File(filename, "r") as file:
         assert set(file) == {"structures"}
@@ -92,9 +92,14 @@ def test_public_05_writers_reject_mechanics_without_creating_a_file(
     converted = tmp_path / "mechanics_convert.h5msm"
 
     with pytest.raises(ValueError, match="molecular mechanics"):
-        msm.h5msm.write(source, str(direct))
+        msm.h5msm.write(source, str(direct), format_version="0.5")
     with pytest.raises(ValueError, match="molecular mechanics"):
-        msm.convert(source, to_form="file:h5msm", output_filename=converted)
+        msm.convert(
+            source,
+            to_form="file:h5msm",
+            output_filename=converted,
+            format_version="0.5",
+        )
     assert not direct.exists()
     assert not converted.exists()
     if mechanics_field == "partial_charge":
@@ -112,9 +117,9 @@ def test_public_convert_writes_05_and_roundtrips_native_queries(tmp_path):
     )
     filename = tmp_path / "converted.h5msm"
 
-    assert msm.convert(source, to_form="file:h5msm", output_filename=filename) == str(
-        filename
-    )
+    assert msm.convert(
+        source, to_form="file:h5msm", output_filename=filename, format_version="0.5"
+    ) == str(filename)
     with h5py.File(filename, "r") as file:
         assert file.attrs["version"] == "0.5"
     assert msm.get(filename, n_atoms=True) == 2
@@ -135,6 +140,7 @@ def test_public_convert_structures_subset_writes_05(tmp_path):
         to_form=filename,
         selection=[1, 3],
         structure_indices=[2, 0, 2],
+        format_version="0.5",
     )
     with h5py.File(filename, "r") as file:
         assert file.attrs["version"] == "0.5"
@@ -154,7 +160,9 @@ def test_public_convert_preserves_pdb_alternate_locations_in_05(tmp_path):
         get_missing_bonds=False,
     )
     filename = tmp_path / "pdb_alternates.h5msm"
-    msm.convert(source, to_form="file:h5msm", output_filename=filename)
+    msm.convert(
+        source, to_form="file:h5msm", output_filename=filename, format_version="0.5"
+    )
     restored = msm.convert(filename, to_form="molsysmt.MolSys")
 
     assert restored.topology.n_atoms == 2
@@ -181,7 +189,9 @@ def test_public_queries_resolve_a_nonreference_state_in_05(tmp_path):
         "formal_charge", [1, -1], state_index=1
     )
     filename = tmp_path / "states.h5msm"
-    msm.convert(source, to_form="file:h5msm", output_filename=filename)
+    msm.convert(
+        source, to_form="file:h5msm", output_filename=filename, format_version="0.5"
+    )
 
     assert msm.get(filename, element="atom", chemical_state=1, formal_charge=True) == [
         1,
@@ -193,7 +203,9 @@ def test_public_convert_writes_a_state_only_05_file(tmp_path):
     states = ChemicalStates(n_atoms=2)
     filename = tmp_path / "states_only.h5msm"
 
-    msm.convert(states, to_form="file:h5msm", output_filename=filename)
+    msm.convert(
+        states, to_form="file:h5msm", output_filename=filename, format_version="0.5"
+    )
     with h5py.File(filename, "r") as file:
         assert file.attrs["version"] == "0.5"
         assert set(file) == {"chemical_states"}
@@ -217,7 +229,9 @@ def test_public_convert_preserves_attached_interactions(tmp_path):
     }
     filename = tmp_path / "with_interactions.h5msm"
 
-    msm.convert(source, to_form="file:h5msm", output_filename=filename)
+    msm.convert(
+        source, to_form="file:h5msm", output_filename=filename, format_version="0.5"
+    )
     restored = msm.convert(filename)
     assert restored.interactions["candidate"].n_interactions == 0
     assert restored.interactions["candidate"].evaluated_structure_indices.tolist() == [
@@ -234,7 +248,9 @@ def test_public_05_layers_support_interaction_only_payload(tmp_path):
         method="candidate",
     )
     filename = str(tmp_path / "interaction_only.h5msm")
-    msm.h5msm.write_layers(filename, interactions={"candidate": interactions})
+    msm.h5msm.write_layers(
+        filename, interactions={"candidate": interactions}, format_version="0.5"
+    )
     payload = msm.h5msm.read_layers(filename, layers="interactions")
     assert payload["interactions"]["candidate"].n_interactions == 0
     assert payload["interactions"]["candidate"].n_structures == 2
@@ -255,11 +271,11 @@ def test_public_05_layers_support_interaction_only_payload(tmp_path):
         ].evaluated_structure_indices.tolist() == [0, 1, 2]
         roundtrip = tmp_path / "interaction_only_molsys.h5msm"
         if not roundtrip.exists():
-            msm.h5msm.write(restored, str(roundtrip))
+            msm.h5msm.write(restored, str(roundtrip), format_version="0.5")
         assert msm.h5msm.read(str(roundtrip)).interactions["candidate"].n_atoms == 3
 
     empty_filename = str(tmp_path / "present_empty_interactions.h5msm")
-    msm.h5msm.write_layers(empty_filename, interactions={})
+    msm.h5msm.write_layers(empty_filename, interactions={}, format_version="0.5")
     assert (
         msm.h5msm.read_layers(empty_filename, layers="interactions")["interactions"]
         == {}
@@ -287,7 +303,9 @@ def test_interaction_only_molsys_extracts_nonconsecutive_frames_and_atoms(tmp_pa
         method="candidate",
     )
     filename = str(tmp_path / "observed_interaction_only.h5msm")
-    msm.h5msm.write_layers(filename, interactions={"hbonds": analysis})
+    msm.h5msm.write_layers(
+        filename, interactions={"hbonds": analysis}, format_version="0.5"
+    )
     restored = msm.h5msm.read(filename)
     selected = restored.extract(atom_indices=[2, 0, 1], structure_indices=[3, 0, 3])
     result = selected.interactions["hbonds"]
@@ -332,6 +350,7 @@ def test_interaction_only_identity_links_are_representable(tmp_path):
         filename,
         interactions={"first": analysis, "second": analysis},
         associations=links,
+        format_version="0.5",
     )
     restored = msm.h5msm.read(filename)
     assert set(restored.interactions) == {"first", "second"}
@@ -349,9 +368,9 @@ def test_public_04_to_05_migration_keeps_source_unchanged(tmp_path):
     from molsysmt.form.molsysmt_MolSys.to_file_h5msm import to_file_h5msm
 
     to_file_h5msm(source, output_filename=legacy)
-    with pytest.warns(LegacyH5MSMWarning, match="migrate_to_05"):
+    with pytest.warns(LegacyH5MSMWarning, match="molsysmt.convert"):
         assert msm.h5msm.read(legacy).get_n_atoms() == 2
-    with pytest.warns(LegacyH5MSMWarning, match="migrate_to_05"):
+    with pytest.warns(LegacyH5MSMWarning, match="molsysmt.convert"):
         msm.h5msm.migrate_to_05(legacy, modern)
     with h5py.File(legacy, "r") as file:
         assert file.attrs["version"] == "0.4"
@@ -362,12 +381,12 @@ def test_public_04_to_05_migration_keeps_source_unchanged(tmp_path):
 
 def test_public_03_reader_warns_and_migrates_with_the_same_helper(tmp_path):
     legacy = Path(__file__).parent / "data" / "alanine_dipeptide_v03.h5msm"
-    with pytest.warns(LegacyH5MSMWarning, match="migrate_to_05"):
+    with pytest.warns(LegacyH5MSMWarning, match="molsysmt.convert"):
         observed = msm.h5msm.read(str(legacy))
     assert observed.get_n_atoms() == 22
 
     modern = str(tmp_path / "migrated03.h5msm")
-    with pytest.warns(LegacyH5MSMWarning, match="migrate_to_05"):
+    with pytest.warns(LegacyH5MSMWarning, match="molsysmt.convert"):
         msm.h5msm.migrate_to_05(str(legacy), modern)
     with h5py.File(modern, "r") as file:
         assert file.attrs["migrated_from_version"] == "0.3"
@@ -394,5 +413,5 @@ def test_public_layer_writer_rejects_unencoded_fields_before_creating_file(tmp_p
     with pytest.raises(
         ValueError, match="Alternate-location coordinates must carry units"
     ):
-        msm.h5msm.write_layers(filename, structures=structures)
+        msm.h5msm.write_layers(filename, structures=structures, format_version="0.5")
     assert not (tmp_path / "unsupported.h5msm").exists()

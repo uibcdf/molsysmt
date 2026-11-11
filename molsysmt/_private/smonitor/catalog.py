@@ -495,12 +495,12 @@ CODES = {
     "MSM-WARN-H5MSM-001": {
         "title": "Legacy H5MSM version",
         "user_message": "H5MSM {version} is deprecated; reading remains supported.",
-        "user_hint": "Convert a copy to H5MSM 0.5 with molsysmt.h5msm.migrate_to_05(source, output). Docs: {doc_url}",
+        "user_hint": "Convert a copy to H5MSM 1.0 with molsysmt.convert(source, to_form=output). Use a new .h5msm output path. Docs: {doc_url}",
         "dev_message": "Legacy H5MSM {version} was read.",
-        "dev_hint": "Use molsysmt.h5msm.migrate_to_05 for a versioned copy.",
+        "dev_hint": "Use molsysmt.convert(source, to_form=output) for a source-preserving H5MSM 1.0 copy.",
         "qa_message": "Legacy H5MSM {version} read path exercised.",
-        "qa_hint": "Verify source preservation and 0.5 migration coverage.",
-        "agent_message": "H5MSM {version} was read; migrate_to_05 produces the current schema.",
+        "qa_hint": "Verify source preservation, the actual 1.0 output root and explicit 0.5 migration helpers.",
+        "agent_message": "H5MSM {version} was read; convert(source, to_form=output) writes H5MSM 1.0 by default.",
         "agent_hint": "Keep the source and output paths distinct.",
     },
     "MSM-WARN-STRUCT-001": {

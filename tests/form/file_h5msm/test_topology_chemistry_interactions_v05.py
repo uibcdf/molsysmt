@@ -133,9 +133,11 @@ def test_public_no_structures_roundtrip_preserves_named_analyses(
     source = _system()
     filename = str(tmp_path / "no_structures.h5msm")
     if writer == "write":
-        msm.h5msm.write(source, filename)
+        msm.h5msm.write(source, filename, format_version="0.5")
     else:
-        msm.convert(source, to_form="file:h5msm", output_filename=filename)
+        msm.convert(
+            source, to_form="file:h5msm", output_filename=filename, format_version="0.5"
+        )
     with h5py.File(filename, "r") as file:
         assert file.attrs["version"] == "0.5"
         assert set(file) == {
@@ -214,7 +216,7 @@ def test_multiple_analyses_keep_empty_coverage_scope_and_original_versions(
     source.interactions = {"review": source.interactions["review"], "empty": empty}
     filename = str(tmp_path / "multiple.h5msm")
     with msm.pyunitwizard.context(standard_units=["pm", "fs"]):
-        msm.h5msm.write(source, filename)
+        msm.h5msm.write(source, filename, format_version="0.5")
         restored = msm.convert(filename, to_form="molsysmt.MolSys")
     assert restored.structures is None
     assert msm.get(restored, n_structures=True) == 6
@@ -247,7 +249,9 @@ def test_named_zero_occurrences_and_zero_structure_axis_are_preserved(
     )
     source.interactions = {"empty": empty}
     filename = str(tmp_path / "empty.h5msm")
-    msm.convert(source, to_form="file:h5msm", output_filename=filename)
+    msm.convert(
+        source, to_form="file:h5msm", output_filename=filename, format_version="0.5"
+    )
     restored = msm.h5msm.read(filename)
     assert restored.structures is None
     assert msm.get(restored, n_structures=True) == n_structures
@@ -258,7 +262,7 @@ def test_selected_public_roundtrip_keeps_parallel_observations_and_images(tmp_pa
     source = _system()
     original = source.interactions["review"]
     filename = str(tmp_path / "source.h5msm")
-    msm.h5msm.write(source, filename)
+    msm.h5msm.write(source, filename, format_version="0.5")
     output = str(tmp_path / "subset.h5msm")
     msm.convert(
         filename,
@@ -266,6 +270,7 @@ def test_selected_public_roundtrip_keeps_parallel_observations_and_images(tmp_pa
         output_filename=output,
         selection=[2, 0, 1],
         structure_indices=[4, 1, 0, 4],
+        format_version="0.5",
     )
     observed = msm.convert(output, to_form="molsysmt.MolSys")
     expected = source.extract(atom_indices=[2, 0, 1], structure_indices=[4, 1, 0, 4])
@@ -293,7 +298,7 @@ def test_invalidated_observations_stay_unevaluated_after_no_coordinate_roundtrip
     current = original.invalidate_structures([4])
     source.interactions = {"review": current}
     filename = str(tmp_path / "invalidated.h5msm")
-    msm.h5msm.write(source, filename)
+    msm.h5msm.write(source, filename, format_version="0.5")
     restored = msm.h5msm.read(filename)
     assert restored.structures is None
     _assert_analysis_equal(current, restored.interactions["review"])
@@ -318,6 +323,7 @@ def test_reader_accepts_a_different_identity_tree_between_analysis_frames(tmp_pa
         chemical_states=source.chemical_states,
         interactions=analyses,
         associations=links,
+        format_version="0.5",
     )
     observed = msm.h5msm.read(filename)
     assert observed.structures is None
@@ -357,6 +363,7 @@ def test_reader_rejects_undeclared_or_nonidentity_shared_axes(tmp_path, defect):
         chemical_states=source.chemical_states,
         interactions=analyses,
         associations=links,
+        format_version="0.5",
     )
     assert set(
         msm.h5msm.read_layers(filename, layers="interactions")["interactions"]
@@ -376,6 +383,7 @@ def test_reader_preserves_present_empty_layer_distinction(tmp_path):
         chemical_states=source.chemical_states,
         interactions={},
         associations=_atom_links([]),
+        format_version="0.5",
     )
     assert msm.h5msm.read_layers(filename, layers="interactions")["interactions"] == {}
     with pytest.raises(ValueError, match="present-empty interaction layer"):
@@ -389,5 +397,5 @@ def test_no_coordinate_writer_still_rejects_nonempty_mechanics_before_creating_f
     source.molecular_mechanics.forcefield = "declared-experimental-forcefield"
     filename = str(tmp_path / "mechanics.h5msm")
     with pytest.raises(ValueError, match="molecular mechanics"):
-        msm.h5msm.write(source, filename)
+        msm.h5msm.write(source, filename, format_version="0.5")
     assert not (tmp_path / "mechanics.h5msm").exists()

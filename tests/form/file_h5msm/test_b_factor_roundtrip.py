@@ -11,7 +11,7 @@ def test_file_h5msm_preserves_b_factor_roundtrip(tmp_path, tctim_bcif_molsys):
         tctim_bcif_molsys, to_form="file:h5msm", output_filename=str(output_path)
     )
     with h5py.File(output_path, "r") as file:
-        assert file.attrs["version"] == "0.5"
+        assert file.attrs["version"] == "1.0"
 
     b_factor_from_file = msm.get(str(output_path), element="atom", b_factor=True)
     b_factor_from_molsys = msm.get(tctim_bcif_molsys, element="atom", b_factor=True)

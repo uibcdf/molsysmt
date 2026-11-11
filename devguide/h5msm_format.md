@@ -3,12 +3,12 @@
 **Status:** normative for writers and readers implemented by MolSysMT.
 
 H5MSM is the versioned native persistence format for complete or partial
-molecular systems. Public conversion and h5msm writers emit version 0.5. Readers support versions
-0.3, 0.4, 0.5 and experimental 0.6, with deprecation warnings for 0.3/0.4.
-Writing 0.6 requires explicit `format_version="0.6"`; the default remains 0.5. Unknown versions
+molecular systems. Public conversion and h5msm writers emit version 1.0. Readers support versions
+0.3, 0.4, 0.5, experimental 0.6 and 1.0, with deprecation warnings for 0.3/0.4.
+Writing 0.5 or 0.6 requires an explicit `format_version`. Unknown versions
 are rejected explicitly. The legacy codec details below describe 0.3/0.4; the
 public modular layout is documented in
-[H5MSM 0.5](../docs/content/user/tools/form/file/h5msm_05.md).
+[H5MSM 1.0](../docs/content/user/tools/form/file/h5msm_10.md).
 
 ## Version identities
 
@@ -21,7 +21,7 @@ the same major. Changing a version attribute is not a schema migration.
 
 The maintainer's accepted target on 2026-11-08 is to qualify and publish the first
 stable **H5MSM 1.0 alongside MolSysMT 1.0**. Development source supports explicit
-1.0 reading and writing. Default writing stays on 0.5. The bounded mechanics and
+1.0 reading and default writing. The bounded mechanics and
 whole-format qualification work remains in
 [the #256 plan](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#revised-implementation-plan--2026-11-08).
 Format stability concerns the stored contract, not certification of every

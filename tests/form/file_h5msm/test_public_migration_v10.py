@@ -13,8 +13,9 @@ from tests.form.file_h5msm.test_public_mechanics_v06 import _mechanical
 
 
 @pytest.mark.parametrize("source_version", ["0.5", "0.6"])
+@pytest.mark.parametrize("explicit_version", [False, True])
 def test_migrate_independent_layers_without_composing_a_molsys(
-    tmp_path, source_version
+    tmp_path, source_version, explicit_version
 ):
     source = tmp_path / "source.h5msm"
     target = tmp_path / "target.h5msm"
@@ -57,7 +58,8 @@ def test_migrate_independent_layers_without_composing_a_molsys(
         original_metadata = dict(file.attrs)
     original = source.read_bytes()
 
-    assert msm.convert(source, to_form=target, format_version="1.0") == target
+    output_options = {"format_version": "1.0"} if explicit_version else {}
+    assert msm.convert(source, to_form=target, **output_options) == target
     assert source.read_bytes() == original
     with h5py.File(target, "r") as file:
         assert file.attrs["version"] == "1.0"

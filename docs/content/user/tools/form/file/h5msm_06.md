@@ -5,11 +5,10 @@
 
 H5MSM 0.6 adds an optional `molecular_mechanics` layer to the independently
 owned domains of {ref}`H5MSM 0.5 <user-tools-form-h5msm-05>`. Request it explicitly
-with `format_version="0.6"`; ordinary writing still uses 0.5. The development
-schema and its public routes are experimental. The development 1.0 reader and
-writer use the same domain codecs. Choose `format_version="1.0"` to exercise
-the new root and use {ref}`cookbook-migrating-h5msm-10` for whole-file migration.
-Whole-format and consumer qualification remain pending.
+with `format_version="0.6"`. Ordinary writing now uses
+{ref}`H5MSM 1.0 <user-tools-form-h5msm-10>`, which shares these domain codecs.
+The 0.6 schema remains an explicitly selected experimental intermediate.
+Use {ref}`cookbook-migrating-h5msm-10` for whole-file migration.
 
 ## Writing and recovering a system
 
@@ -115,7 +114,7 @@ preserves a 0.6 source's version while using native atom/state/analysis remappin
 Native atom selection uses ascending unique source indices; structure selection
 retains order and repetitions. Subset conversion can load complete source domains.
 Use `msm.convert(..., format_version="0.6")` for explicit file conversion; its
-default remains 0.5 and refuses stored mechanics rather than dropping it.
+default writes 1.0 and preserves the stored mechanical domain.
 
 Complementary partial `MolSys` objects/files can supply one stored mechanical
 domain with matching atom rows, including reports without parameters. Repeated

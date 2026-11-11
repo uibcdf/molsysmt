@@ -1,6 +1,7 @@
 """Receive mechanics-capable H5MSM schemas through supported public boundaries."""
 
 from pathlib import Path
+from zipfile import ZipFile
 
 import h5py
 import numpy as np
@@ -75,10 +76,10 @@ def test_explicit_native_public_roundtrip_preserves_domains_and_original_reports
     assert converted.molecular_mechanics.forcefield == "unresolved_model_request"
 
 
-def test_05_default_refuses_mechanics_and_preserves_default_layer_keys(tmp_path):
+def test_explicit_05_refuses_mechanics_and_preserves_its_layer_keys(tmp_path):
     source = _system("complete")
     path = tmp_path / "default.h5msm"
-    msm.h5msm.write(source, path)
+    msm.h5msm.write(source, path, format_version="0.5")
     with h5py.File(path, "r") as file:
         assert file.attrs["version"] == "0.5"
     assert set(msm.h5msm.read_layers(path)) == {
@@ -92,8 +93,98 @@ def test_05_default_refuses_mechanics_and_preserves_default_layer_keys(tmp_path)
         "molecular_mechanics": None
     }
     with pytest.raises(ValueError, match="molecular mechanics"):
-        msm.h5msm.write(_mechanical(), tmp_path / "refused.h5msm")
+        msm.h5msm.write(_mechanical(), tmp_path / "refused.h5msm", format_version="0.5")
     assert not (tmp_path / "refused.h5msm").exists()
+
+
+@pytest.mark.parametrize("route", ["write", "convert", "layers"])
+def test_default_writers_persist_mechanics_in_10(tmp_path, route):
+    source = _mechanical()
+    path = tmp_path / "default.h5msm"
+    if route == "write":
+        msm.h5msm.write(source, path)
+    elif route == "convert":
+        msm.convert(source, to_form=path)
+    else:
+        msm.h5msm.write_layers(
+            path,
+            molecular_mechanics=source.molecular_mechanics,
+            mechanics_n_atoms=source.get_n_atoms(),
+        )
+    with h5py.File(path, "r") as file:
+        assert file.attrs["version"] == "1.0"
+    restored = msm.h5msm.read_layers(path)["molecular_mechanics"]
+    assert restored.forcefield == source.molecular_mechanics.forcefield
+    np.testing.assert_array_equal(
+        restored.partial_charge, source.molecular_mechanics.partial_charge
+    )
+
+
+def test_default_molsysviewer_session_preserves_mechanics_and_named_analysis(tmp_path):
+    import molsysviewer as msv
+
+    with msv.demo["pentalanine"] as seed:
+        with msv.new_view(seed.molsys, structure_indices=[0, 8, 3]) as view:
+            molsys = view.molsys
+            mechanics = molsys.molecular_mechanics
+            mechanics.forcefield = "unresolved_model_request"
+            mechanics.partial_charge = np.linspace(-0.25, 0.25, molsys.get_n_atoms())
+            mechanics.cutoff_distance = msm.pyunitwizard.quantity(12.0, "angstrom")
+            molsys.interactions = {
+                "synthetic": msm.Interactions.from_records(
+                    [
+                        {
+                            "structure_index": 0,
+                            "interaction_type": "synthetic",
+                            "participants": [
+                                {"role": "first", "atom_indices": [0]},
+                                {"role": "second", "atom_indices": [1]},
+                            ],
+                            "measurements": {"distance": 0.5},
+                        }
+                    ],
+                    n_atoms=molsys.get_n_atoms(),
+                    n_structures=3,
+                    evaluated_structure_indices=[0, 1],
+                    method="session_storage_guard",
+                    measure_units={"distance": "nm"},
+                )
+            }
+            view.regions.add(selection="atom_name=='CA'", tag="alpha-carbons")
+            expected = molsys.interactions["synthetic"].query().to_dict()
+            session = tmp_path / "default.msv"
+            view.save_session(session)
+            with ZipFile(session) as archive:
+                embedded = tmp_path / "embedded.h5msm"
+                embedded.write_bytes(archive.read("structure.h5msm"))
+            with h5py.File(embedded, "r") as file:
+                assert file.attrs["version"] == "1.0"
+            with msv.load_session(session) as restored:
+                observed = restored.molsys.molecular_mechanics
+                assert observed.forcefield == mechanics.forcefield
+                np.testing.assert_array_equal(
+                    observed.partial_charge, mechanics.partial_charge
+                )
+                assert (
+                    str(msm.pyunitwizard.get_unit(observed.cutoff_distance))
+                    == "angstrom"
+                )
+                assert (
+                    msm.pyunitwizard.get_value(observed.cutoff_distance, to_unit="nm")
+                    == 1.2
+                )
+                np.testing.assert_equal(
+                    restored.molsys.interactions["synthetic"].query().to_dict(),
+                    expected,
+                )
+                np.testing.assert_array_equal(
+                    msm.pyunitwizard.get_value(
+                        restored.get_coordinates(), to_unit="nm"
+                    ),
+                    msm.pyunitwizard.get_value(view.get_coordinates(), to_unit="nm"),
+                )
+                assert "alpha-carbons" in restored.regions.tags()
+                restored.save_session(tmp_path / "resaved.msv")
 
 
 @pytest.mark.parametrize("version", ["1.1", "0.4", 0.6, True, ["0.6"]])
@@ -200,6 +291,26 @@ def test_mechanical_queries_do_not_materialize_coordinates_or_other_domains(
     np.testing.assert_array_equal(
         msm.get(path, element="atom", partial_charge=True), [0.25, -0.25]
     )
+
+
+@pytest.mark.parametrize("version", ["0.5", "0.6", "1.0"])
+@pytest.mark.parametrize("to_form", [None, "file:h5msm"])
+def test_file_subset_preserves_each_source_schema(tmp_path, version, to_form):
+    source = _system("complete")
+    path = tmp_path / "source.h5msm"
+    msm.h5msm.write(source, path, format_version=version)
+    original = path.read_bytes()
+    subset = msm.extract(
+        path,
+        selection=[1],
+        structure_indices=[0],
+        output_filename=tmp_path / "subset.h5msm",
+        to_form=to_form,
+    )
+    with h5py.File(subset, "r") as file:
+        assert file.attrs["version"] == version
+    assert msm.h5msm.read(subset).get(n_atoms=True, n_structures=True) == [1, 1]
+    assert path.read_bytes() == original
 
 
 @pytest.mark.parametrize("version", ["0.6", "1.0"])

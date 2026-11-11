@@ -9,7 +9,9 @@
 
 The `h5msm` file format provides an efficient, portable, and versioned binary persistence format built on top of HDF5 (`h5py`). It is designed to store complex molecular topologies, chemical states, 3D coordinate structure series, and sparse interaction analyses in a single file with explicit precision and unit definitions. Nonempty molecular mechanics is outside schema 0.5.
 
-Public conversion writes **Schema 0.5**. Legacy **Schema 0.3/0.4** files remain
+Public conversion writes **Schema 1.0**, including stored molecular mechanics.
+See {ref}`user-tools-form-h5msm-10` for current writing and migration.
+Legacy **Schema 0.3/0.4** files remain
 readable with a deprecation warning. The layout below describes the legacy
 format; see {doc}`the modular 0.5 schema <../../../tools/form/file/h5msm_05>`.
 
@@ -17,15 +19,14 @@ format; see {doc}`the modular 0.5 schema <../../../tools/form/file/h5msm_05>`.
 
 Experimental **Schema 0.6** is available by explicit `format_version="0.6"`
 in conversion or `msm.h5msm.write`; it preserves the bounded mechanical domain
-and original assignment reports. The default stays 0.5. Reading stored mechanics
+and original assignment reports. Reading stored mechanics
 does not calculate or certify assignments. See {ref}`user-tools-form-h5msm-06`
 for public layer queries, metadata cardinalities, source-preserving extraction
 and the limitations of resident assembly. The legacy handler does not support
 modular roots.
 
-Explicit `format_version="1.0"` is also available in development for writing a
-new modular file and testing migration. It stores the same independent domains
-as 0.6, including mechanics. To migrate a complete modular file while retaining
+The 1.0 default stores the independent domains represented by 0.6, including
+mechanics. To migrate a complete modular file while retaining
 independent layers and axis links, see {ref}`cookbook-migrating-h5msm-10`.
 
 ## HDF5 Layout and Dataset Schema
