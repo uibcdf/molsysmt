@@ -1031,7 +1031,7 @@
     "new_proposal": {
       "number": 705,
       "status": "source-inspected; expected Viewer contribution not received",
-      "record": "devguide/pending_proposals/explicit_bounded_jupyter_server_readiness_budget.md"
+      "record": "devguide/archive/resolved_proposals/explicit_bounded_jupyter_server_readiness_budget.md"
     }
   },
   "last_updated": "2026-11-10",

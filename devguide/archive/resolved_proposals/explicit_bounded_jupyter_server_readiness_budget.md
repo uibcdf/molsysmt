@@ -1,12 +1,12 @@
 ---
 summary: Make real-Jupyter server-readiness budgets explicit and bounded.
 issue: uibcdf/molsysmt#705
-status: open
+status: resolved
 opened: 2026-11-10
-closed:
-verification: inspected
+closed: 2026-11-10
+verification: measured
 area: [tests, jupyter]
-guard:
+guard: tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py::test_launcher_readiness_obeys_deadline_and_retires_owned_files
 normative:
 blocked_by: []
 supersedes: []
@@ -44,14 +44,14 @@ the explicitly selected scale profile. Changing a preparation profile does
 not turn the earlier failed attempt green or establish #615 causality. No
 scientific assertion, browser/cell timeout or missing-canvas acceptance may
 be silently relaxed. The initial-canvas report remains separately owned by
-[the #615 investigation](../pending_bugs/intermittent_jupyter_initial_canvas_timeout.md).
+[the #615 investigation](../../pending_bugs/intermittent_jupyter_initial_canvas_timeout.md).
 
 ## Plan disposition
 
 Add #705 to the existing pre-1.0 intake under #334 and #421, with no extra
 original milestone weight. Receive the incoming contribution when supplied;
 retain the complete local 5e7d65a66 session as evidence of its own unchanged
-source. The [completion handoffs](../pre_1_0_completion_handoffs_20261110.md)
+source. The [completion handoffs](../../pre_1_0_completion_handoffs_20261110.md)
 keep provider requests and publication/installed/human boundaries separate.
 
 ## MolSysMT review of draft #706 — 2026-11-10
@@ -90,3 +90,32 @@ remain partial evidence. Retired-controller observations remain owned by
 uibcdf/molsysviewer#356. A separately reviewable readiness change can close
 #705 after its own tests and receiving. The extended campaign and #615 keep
 their own acceptance conditions. Draft #706 stays open for revision.
+
+## Revised #706 reviewed — 2026-11-10
+
+The revised, open PR head `af1e735232e21f4324234ff9ef11daf9a920a8ff`
+uses one monotonic deadline, clamps requests and retry sleeps, and checks the
+clock and server process before admitting an authenticated 200 response. It
+rejects playback profiles whose requested active time meets or exceeds the
+2,400-second process limit before creating the output. Exact test sources pass
+all **44** runtime-file, deadline and stage-diagnostic cases with pytest-receptor.
+The prolonged browser script passes `node --check`. This review verifies the
+two deadline corrections in the test harness. The PR remains open for integration.
+The reported 15-cycle campaign remains partial and #615 remains independent.
+
+## Integrated and verified — 2026-11-10
+
+MolSysMT independently starts two actual local Jupyter servers with the exact
+PR launcher. The authenticated endpoint reaches readiness in **3.02 s** in
+both the default 20 s profile and the explicit 90 s profile. A bounded dispatch
+control confirms browser dispatch and the launcher's private runtime files
+are retired. The control stops at dispatch. The sequential one-CPU, 1-GiB scope
+peaks at 163,659,776 bytes with zero limit and OOM events.
+
+The exact PR is integrated by ancestry in `257451d8bfd075d05ccdc0d2b06cd38374e92a89`.
+The merged tree passes **80** launcher, stage-diagnostic and addon preflight
+cases. This selection includes the 44 focused runtime-file and diagnostic cases.
+The guard checks the real launcher boundary with synthetic timing, including
+accepted in-budget responses, refusal of late responses and cleanup. #705 is
+resolved. The longer browser campaign and #615's first-canvas investigation
+retain separate acceptance criteria.

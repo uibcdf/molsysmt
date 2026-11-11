@@ -29,7 +29,7 @@ profile remains pending under #256. The [coordination packet](pre_1_0_completion
 supplies precise PyUnitWizard/Viewer requests, the bounded client profile and
 the P6 stable-format implementation order.
 
-New incoming **#705** is [triaged as a bounded server-preparation proposal](pending_proposals/explicit_bounded_jupyter_server_readiness_budget.md),
+New incoming **#705** is [triaged as a bounded server-preparation proposal](archive/resolved_proposals/explicit_bounded_jupyter_server_readiness_budget.md),
 with an incoming contribution expected from Viewer. Keep default preparation
 and explicitly selected scale budgets distinct from scientific/frontend
 deadlines and original #615 causality. The complete intake has **627 issues,

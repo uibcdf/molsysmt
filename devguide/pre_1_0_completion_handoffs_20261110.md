@@ -35,19 +35,16 @@ and [release ledger](release_1_0_status.md) retain current evidence and history.
    bounded consumer controls. Admit the isolated provider source/native pair
    below before running them. Keep provider and independent client evidence
    distinct and retain existing #79/#88/#96 acceptance.
-4. **Prepare the P6 stable-format decision.** The accepted target is H5MSM 1.0
-   alongside MolSysMT 1.0. Current default writing remains 0.5; explicit 0.6 is
-   experimental. Reconcile the final root/layer schemas, migration and warning
-   policy, default writer, public operations, docs/doctests/course and storage
-   measurements before promoting a stable format. A header edit is not schema
-   qualification. Experimental scientific profiles need not become stable merely
-   because their stored representation does.
-5. **Review the #705 revision without conflating startup stages.** The
-   [bounded readiness proposal](pending_proposals/explicit_bounded_jupyter_server_readiness_budget.md)
-   records two reproduced deadline defects in draft #706. Review the corrected
-   readiness deadline and the prolonged profile independently. Preserve the
-   default 20 seconds, authenticated readiness, elapsed/budget records and
-   cleanup. #615 requires its separate pre-timeout capture.
+4. **Qualify the explicit P6 source route.** H5MSM 1.0 reading, writing and
+   whole-file modular migration are implemented. The default remains 0.5 and
+   0.6 remains experimental. Review independent consumer results and finalize
+   the default and migration warning policy before the stable-format freeze.
+   Qualify the format separately from experimental scientific profiles.
+5. **Use bounded Jupyter startup diagnostics.** The
+   [resolved #705 record](archive/resolved_proposals/explicit_bounded_jupyter_server_readiness_budget.md)
+   retains the two original deadline defects, 44 passing focused cases and
+   two actual startup controls on the integrated #706. #615 requires its
+   separate pre-timeout capture.
 6. **Reconcile the final source/claim ledger.** Keep container/query/persistence
    guarantees separate from detector science, engine support and human/installed
    receiving. Close only the accepted owning scopes, retain original failures
@@ -213,9 +210,9 @@ imports/software. Exact candidate artifacts need their own later qualification.
 
 ## P6 implementation order after the bounded client review
 
-This is a preparation checklist, not an implemented 1.0 schema or a new public
-API. The accepted first-stable target is already H5MSM 1.0; it need not be
-decided again merely because its qualification is incomplete.
+This checklist describes the stages before the H5MSM 1.0 format freeze. Explicit
+1.0 reading, writing and modular migration are implemented in development source.
+The current default and coordinated release gates retain their previous scope.
 
 The [P6 wire catalog and public-route audit](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#p6-wire-catalog-and-public-route-audit--2026-11-10)
 identifies the existing codecs, independent-layer migration, version dispatch,

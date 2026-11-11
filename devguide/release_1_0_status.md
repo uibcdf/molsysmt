@@ -1,5 +1,26 @@
 # MolSysMT 1.0 Execution Status
 
+## Explicit H5MSM 1.0 source support — 2026-11-10
+
+The development source implements 1.0 reads, explicit writes and modular
+migration through `convert`. Independent layers, present-empty domains,
+typed values, associations and original evidence survive full-file migration.
+The [validation record](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#explicit-10-source-route--2026-11-10)
+retains 1,238 passing H5MSM/persistence/doctest cases and six passing migrations
+of the immutable DockingMT fixtures under both unit policies. Default writes
+remain 0.5. Client acceptance and the stable-format/default freeze are pending.
+
+Revised #706 passes 44 local deadline, runtime-file and diagnostic cases on
+exact head `af1e73523`. The independent default and explicit-budget Jupyter
+startup controls pass and the PR is integrated in `257451d8`. The prolonged
+actual-browser campaign and #615 remain separate. See the
+[resolved #705 record](archive/resolved_proposals/explicit_bounded_jupyter_server_readiness_budget.md#integrated-and-verified--2026-11-10).
+PyUnitWizard `238ed11` passes **135 local contact-boundary controls** on the
+exact provider source export. The [#666 record](pending_bugs/contact_cutoff_equality_changes_across_equivalent_length_units.md#pyunitwizard-source-correction-received--2026-11-10)
+keeps publication of the compatible provider and graphical receiving pending.
+Formal progress remains **76.2920%, 49/50**. Candidate qualification and
+publication remain paused.
+
 ## DockingMT scope and two PR #706 deadline defects — 2026-11-10
 
 DockingMT #73 confirms the [three additional P5 controls](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#dockingmt-scope-accepted-for-independent-receiving--2026-11-10).
@@ -10,7 +31,7 @@ identifies the stable-root dispatch, default, preservation and migration work.
 Nine existing H5MSM checks pass. Current 0.5/0.6 routes retain their scope.
 
 Exact draft #706 passes 25 CLI/runtime-file cases and browser syntax. Two
-[additional launcher controls](pending_proposals/explicit_bounded_jupyter_server_readiness_budget.md#molsysmt-review-of-draft-706--2026-11-10)
+[additional launcher controls](archive/resolved_proposals/explicit_bounded_jupyter_server_readiness_budget.md#molsysmt-review-of-draft-706--2026-11-10)
 reproduce late readiness admission and an impossible maximum playback profile.
 Review remains open for revision and #615 is separate. The formal score is
 **76.2920%, 49/50**. Final-candidate work and publication remain paused.
@@ -55,7 +76,7 @@ profile remains pending under #256. The [coordination packet](pre_1_0_completion
 supplies precise PyUnitWizard/Viewer requests, the bounded client profile and
 the P6 stable-format implementation order.
 
-New incoming **#705** is [triaged as a bounded server-preparation proposal](pending_proposals/explicit_bounded_jupyter_server_readiness_budget.md),
+New incoming **#705** is [triaged as a bounded server-preparation proposal](archive/resolved_proposals/explicit_bounded_jupyter_server_readiness_budget.md),
 with an incoming contribution expected from Viewer. Keep default preparation
 and explicitly selected scale budgets distinct from scientific/frontend
 deadlines and original #615 causality. The complete intake has **627 issues,

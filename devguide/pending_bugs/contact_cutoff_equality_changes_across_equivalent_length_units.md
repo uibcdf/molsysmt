@@ -108,3 +108,29 @@ The bounded reference and its exclusions were handed to the provider in
 The question is whether a supported explicit conversion route already exists
 or a provider-owned capability is warranted; no API, floor or release decision
 is inferred from delivering the proposal.
+
+## PyUnitWizard source correction received — 2026-11-10
+
+The provider corrected the usual `convert` and `get_value` path in local
+commit `238ed119f703acf89e2426d31970797a9340f14d`. Its exact-scale arithmetic
+applies to verified standard Pint definitions of nm, angstrom and pm and
+the supported input types. The provider keeps Pint behavior for foreign or
+redefined scales, active contexts and unsupported types. Adjacent source values
+can coincide after rounding in other destination representations.
+
+An isolated export of that exact provider commit passed **135** MolSysMT-side
+cases. The 27 scalar and array checks match the published destination bits.
+The 108 public `get_contacts` cases cover all three working policies and
+source units, each predecessor/equality/successor, both CPU routes and
+vacuum or an orthogonal box crossed by the pair. All strict predecessor
+controls remain negative. The native backend SHA-256 is
+`4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345`.
+MolSysMT inputs are from the working tree at `078e322fc` with unrelated
+H5MSM source changes. The run asserts the imported PyUnitWizard path is the
+export and uses the existing inclusive contact predicate. The shared installed
+environment was not changed.
+
+This receives the bounded provider source fix. A compatible published provider
+and applicable broader endpoint/representation checks remain pending. The final
+contact intent needs independent graphical receiving. No dependency floor,
+milestone credit, package or release decision follows from this source run.
