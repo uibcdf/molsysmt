@@ -56,14 +56,28 @@ def neighbor_object_arrays(offsets, indices, distances, units, shape, budget, ca
 
 def _contact_blocks(matrix, *, paired, strict_upper):
     """Yield row-major positions using bounded slabs, including non-C layouts."""
-    for start in range(0, matrix.size, _BLOCK_ENTRIES):
-        # flat slicing copies only this slab even when a provider returns F order.
-        positions = np.flatnonzero(matrix.flat[start : start + _BLOCK_ENTRIES])
-        positions += start
-        if paired:
+    if paired:
+        flat = matrix.reshape(-1) if matrix.flags.c_contiguous else matrix.flat
+        for start in range(0, matrix.size, _BLOCK_ENTRIES):
+            positions = np.flatnonzero(flat[start : start + _BLOCK_ENTRIES])
+            positions += start
             yield positions
-        else:
-            rows, columns = np.divmod(positions, matrix.shape[1])
+        return
+    if matrix.shape[1] == 0:
+        return
+    rows_per_block = max(1, _BLOCK_ENTRIES // matrix.shape[1])
+    for first_row in range(0, matrix.shape[0], rows_per_block):
+        # Multiple column blocks occur only for a single row, preserving order.
+        first_column = first_row + 1 if strict_upper else 0
+        for column in range(first_column, matrix.shape[1], _BLOCK_ENTRIES):
+            rows, columns = np.nonzero(
+                matrix[
+                    first_row : first_row + rows_per_block,
+                    column : column + _BLOCK_ENTRIES,
+                ]
+            )
+            rows += first_row
+            columns += column
             if strict_upper:
                 selected = rows < columns
                 rows, columns = rows[selected], columns[selected]
@@ -105,9 +119,14 @@ def contact_pairs(
     require_output_budget(fixed_bytes, budget, caller)
     n_items = 0
     for matrix in contact_map:
-        for block in _contact_blocks(matrix, paired=paired, strict_upper=strict_upper):
-            n_items += len(block) if paired else len(block[0])
-            require_output_budget(fixed_bytes + n_items * item_bytes, budget, caller)
+        if strict_upper and not paired:
+            n_items += sum(
+                np.count_nonzero(matrix[row, row + 1 :])
+                for row in range(min(matrix.shape))
+            )
+        else:
+            n_items += np.count_nonzero(matrix)
+        require_output_budget(fixed_bytes + n_items * item_bytes, budget, caller)
 
     query = (
         np.asarray(atom_indices, dtype=np.int64) if output_indices == "atom" else None

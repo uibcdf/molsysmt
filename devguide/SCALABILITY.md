@@ -60,6 +60,15 @@ CSR admission. Row-wise Boolean filling needs one occurrence-index vector; it
 does not expand every occurrence into separate structure/query arrays. The
 existing dense-map budget remains active, including pair-output requests.
 
+Pair-list projection counts the requested entries before boxing any output.
+Unpaired indices are then extracted from two-dimensional Boolean views with
+at most 16,384 entries per block, without a whole-map flattening or triangle
+copy. Row-major ordering is preserved for wide rows and noncontiguous layouts.
+The existing conservative Python-output estimate and preflight refusals remain
+in force; this is representation work, not a change to contact geometry or an
+out-of-core contact-map API. The mechanism guards are in
+`tests/structure/get_neighbors/test_compatibility_output_memory.py`.
+
 ## Decision policy
 
 Resident interaction results can be explicitly compacted after frame edits with

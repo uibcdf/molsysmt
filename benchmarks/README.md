@@ -5,6 +5,16 @@ hot MolSysMT coordinate paths.
 
 Current baseline scripts:
 
+- `contact_pair_projection.py`: compares current bounded Python pair-list
+  packing with a reviewed immutable helper from Git. Eight deterministic
+  Boolean-map cases cover dense/sparse, mapped, rectangular and noncontiguous
+  inputs. It verifies exact index results, alternates timing order, retains
+  raw repetitions and context, and measures additional traced allocation.
+  No coordinate search, molecular geometry, cold-start or RSS speedup is
+  measured. Run under an OS resource limit with six explicit thread caps:
+  `python benchmarks/contact_pair_projection.py --output .pytest_cache/contact-projection.json`.
+  The baseline option executes repository code from that reviewed commit;
+  choose a fresh output so earlier evidence is preserved.
 - `../devtools/scripts/benchmark_native_copy.py`: measures production resident
   `MolSys` copying, controlled edits/invalidation, selected/full coordinate reads,
   iteration, Rust distance consumption and public H5MSM 0.5 write/load in isolated

@@ -1,6 +1,7 @@
 """Public output admission must include the requested Python representation."""
 
 import gc
+import tracemalloc
 
 import numpy as np
 import pytest
@@ -143,3 +144,124 @@ def test_invalid_count_precedes_memory_admission(monkeypatch):
     monkeypatch.setattr(msm.configure, "max_ram_usage", 1000)
     with pytest.raises(msm.ArgumentError):
         msm.structure.get_neighbors(source, n_neighbors=10**9, pbc=False)
+
+
+@pytest.mark.parametrize("layout", ["C", "F", "reversed"])
+@pytest.mark.parametrize("shape", [(181, 193), (2, 17017), (0, 3), (3, 0)])
+@pytest.mark.parametrize("strict_upper", [False, True])
+def test_contact_slabs_preserve_row_order_for_layouts_and_wide_rows(
+    layout, shape, strict_upper
+):
+    from molsysmt.structure._compatibility_output import _contact_blocks
+
+    rows, columns = np.indices(shape)
+    matrix = ((13 * rows + 17 * columns) % 101) == 0
+    if layout == "F":
+        matrix = np.asfortranarray(matrix)
+    elif layout == "reversed":
+        matrix = matrix[::-1, ::-1]
+    actual = []
+    for left, right in _contact_blocks(matrix, paired=False, strict_upper=strict_upper):
+        actual.extend(zip(left.tolist(), right.tolist()))
+    expected = [
+        (i, j)
+        for i in range(shape[0])
+        for j in range(shape[1])
+        if matrix[i, j] and (not strict_upper or i < j)
+    ]
+    assert actual == expected
+
+
+@pytest.mark.parametrize("layout", ["C", "F", "reversed"])
+def test_empty_contact_projection_never_copies_the_whole_map(layout):
+    from molsysmt.structure._compatibility_output import contact_pairs
+
+    matrix = np.zeros(
+        (1, 2048, 2048), dtype=bool, order=layout if layout != "reversed" else "C"
+    )
+    if layout == "reversed":
+        matrix = matrix[:, ::-1, ::-1]
+    # Input is 4 MiB. A whole-map flattening copy must fail this peak check;
+    # bounded slabs and row counting need much less temporary storage.
+    gc.collect()
+    tracemalloc.start()
+    try:
+        output = contact_pairs(
+            matrix,
+            paired=False,
+            strict_upper=True,
+            atom_indices=[],
+            atom_indices_2=None,
+            output_indices="selection",
+            sorted_pairs=False,
+            budget=8 * 1024**2,
+            caller="contact projection memory regression",
+        )
+        _, peak = tracemalloc.get_traced_memory()
+    finally:
+        tracemalloc.stop()
+    assert output == [[]]
+    assert peak < 1024**2
+
+
+def test_all_structure_pair_outputs_are_admitted_before_boxing(monkeypatch):
+    from molsysmt.structure._compatibility_output import contact_pairs
+
+    matrix = np.ones((2, 128, 128), dtype=bool)
+
+    def unexpected_packing(*args, **kwargs):
+        pytest.fail("An over-budget result must be refused before pair packing.")
+
+    monkeypatch.setattr(np, "empty", unexpected_packing)
+    with pytest.raises(
+        msm.MemoryBudgetExceededError, match="Python compatibility output"
+    ):
+        contact_pairs(
+            matrix,
+            paired=False,
+            strict_upper=True,
+            atom_indices=[],
+            atom_indices_2=None,
+            output_indices="selection",
+            sorted_pairs=False,
+            budget=3_000_000,
+            caller="contact projection admission regression",
+        )
+
+
+@pytest.mark.parametrize("layout", ["C", "F", "reversed"])
+@pytest.mark.parametrize("labels", ["selection", "atom"])
+@pytest.mark.parametrize("sorted_pairs", [False, True])
+def test_paired_projection_crosses_blocks_with_noncontiguous_inputs(
+    layout, labels, sorted_pairs
+):
+    from molsysmt.structure._compatibility_output import contact_pairs
+
+    n = 40000
+    matrix = np.arange(2 * n).reshape(2, n) % 17 == 0
+    if layout == "F":
+        matrix = np.asfortranarray(matrix)
+    elif layout == "reversed":
+        matrix = matrix[:, ::-1]
+    query = np.arange(n - 1, -1, -1, dtype=np.int64) + 1000
+    target = np.arange(n, dtype=np.int64) * 3
+    expected = []
+    for structure in range(2):
+        entries = [
+            [int(query[i]), int(target[i])] if labels == "atom" else i
+            for i in range(n)
+            if matrix[structure, i]
+        ]
+        expected.append(sorted(entries) if sorted_pairs else entries)
+    output = contact_pairs(
+        matrix,
+        paired=True,
+        strict_upper=False,
+        atom_indices=query,
+        atom_indices_2=target,
+        output_indices=labels,
+        sorted_pairs=sorted_pairs,
+        budget=8 * 1024**2,
+        caller="paired contact projection regression",
+    )
+    assert output == expected
