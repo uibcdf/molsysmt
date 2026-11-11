@@ -85,7 +85,7 @@ def test_original_producer_and_typed_maps_survive_roundtrip(
             msm.h5msm.write_layers(path, chemical_states=result.chemical_states)
             restored = msm.h5msm.read_layers(path)["chemical_states"]
         with h5py.File(path) as file:
-            assert file.attrs["version"] == "0.5"
+            assert file.attrs["version"] == "1.0"
             assert file["chemical_states"].attrs["schema_version"] == 2
             assert (
                 file["chemical_states/0/preparation_history/manifest"].compression

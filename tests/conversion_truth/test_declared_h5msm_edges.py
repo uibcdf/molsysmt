@@ -90,7 +90,7 @@ def test_declared_h5msm_edge_executes_directly_and_publicly(
                 else msm.convert(item, to_form=target, **kwargs)
             )
             _check_and_close(
-                result, target, item, "0.4" if route == "direct" else "0.5"
+                result, target, item, "0.4" if route == "direct" else "1.0"
             )
             if isinstance(item, H5MSMFileHandler):
                 assert item.file.id.valid
@@ -146,7 +146,7 @@ def test_public_modular_roundtrip_preserves_present_domains(
         }[layers]
         msm.h5msm.write_layers(filename, **{layers: payload})
     with h5py.File(filename, "r") as file:
-        assert file.attrs["version"] == "0.5"
+        assert file.attrs["version"] == "1.0"
     restored = msm.convert(filename, to_form="molsysmt.MolSys")
     assert (restored.topology is not None) == (layers in {"complete", "topology"})
     assert (restored.structures is not None) == (layers in {"complete", "structures"})
@@ -240,4 +240,4 @@ def test_modular_handler_rejection_does_not_materialize_domains(
         with pytest.raises(FormatError, match="supports only H5MSM 0.3 and 0.4"):
             operation(filename)
     with h5py.File(filename, "r") as file:
-        assert file.attrs["version"] == "0.5"
+        assert file.attrs["version"] == "1.0"

@@ -168,7 +168,7 @@ def make_lifecycle_analyses():
 
 
 def create_files(output_directory):
-    """Write and verify one complete and one interaction-only H5MSM file."""
+    """Write and verify the explicit H5MSM 0.5 consumer-review profile."""
 
     output_directory = Path(output_directory)
     output_directory.mkdir(parents=True, exist_ok=True)
@@ -191,8 +191,10 @@ def create_files(output_directory):
     )
     system.interactions = analyses
 
-    msm.h5msm.write(system, str(full_file))
-    msm.h5msm.write_layers(str(analysis_file), interactions=analyses)
+    msm.h5msm.write(system, str(full_file), format_version="0.5")
+    msm.h5msm.write_layers(
+        str(analysis_file), interactions=analyses, format_version="0.5"
+    )
     for path in (full_file, analysis_file):
         loaded = msm.h5msm.read(str(path))
         assert set(loaded.interactions) == set(analyses)

@@ -146,17 +146,29 @@ def test_file_state_resolution_and_no_structural_materialization(tmp_path, monke
         _calculate(source, chemical_state="structure", heavy_mode="force")
 
 
-def test_file_rejects_nonidentity_atom_association_before_geometry(tmp_path):
+@pytest.mark.parametrize("version", ["0.5", "0.6", "1.0"])
+def test_file_rejects_nonidentity_atom_association_before_geometry(
+    tmp_path, monkeypatch, version
+):
     import h5py
 
+    from molsysmt._private.h5msm_storage import modular
+    from molsysmt.form import _h5msm05_modular
+
     source = str(tmp_path / "mapping.h5msm")
-    msm.convert(_ions(), to_form=source)
+    msm.convert(_ions(), to_form=source, format_version=version)
     with h5py.File(source, "r+") as file:
         for link in file["associations"].values():
             if link.attrs["source"] == "structures" and link.attrs["axis"] == "atom":
                 link.attrs["mapping"] = "explicit"
                 link.create_dataset("indices", data=[2, 1, 0])
-    with pytest.raises(ValueError, match="identity atom-axis"):
+
+    def forbidden(*args, **kwargs):
+        pytest.fail("Invalid axis correspondence must reject before coordinates load.")
+
+    monkeypatch.setattr(modular, "read_independent_structures", forbidden)
+    monkeypatch.setattr(_h5msm05_modular, "read_independent_structures", forbidden)
+    with pytest.raises(ValueError, match="identity (atom-axis|associations)"):
         _calculate(source, heavy_mode="force")
 
 

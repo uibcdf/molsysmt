@@ -111,7 +111,7 @@ def test_declared_trajectory_edge_executes_directly_and_publicly(
             if target == "file:h5msm":
                 with h5py.File(result, "r") as file:
                     assert file.attrs["version"] == (
-                        "0.5" if route == "public" else "0.4"
+                        "1.0" if route == "public" else "0.4"
                     )
             elif target in {"file:dcd", "file:xtc"} and source_form.startswith("file:"):
                 assert Path(result).read_bytes() == Path(item).read_bytes()

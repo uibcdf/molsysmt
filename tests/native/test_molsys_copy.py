@@ -343,7 +343,12 @@ def test_copied_system_h5msm_and_pickle_keep_one_chemical_authority(source, tmp_
     duplicate = source.copy(deep=False)
     duplicate.molecular_mechanics = MolecularMechanics()
     path = tmp_path / "copied.h5msm"
-    msm.convert(duplicate, to_form=path)
+    with pytest.raises(ValueError, match="extension payload"):
+        msm.convert(duplicate, to_form=path)
+    assert not path.exists()
+    transport = duplicate.copy(deep=False)
+    del transport.notes
+    msm.convert(transport, to_form=path)
     for restored in (
         msm.convert(path, to_form="molsysmt.MolSys"),
         pickle.loads(pickle.dumps(duplicate)),

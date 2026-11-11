@@ -588,8 +588,10 @@ def test_application_units_preserve_physical_magnitudes(mode, unit):
 def test_automatic_disk_distance_intermediates_are_retired(name, monkeypatch):
     from molsysmt._private.execution import PersistentResultHandle
 
-    xyz = np.tile(XYZ, (30, 1, 1))
-    source = molecular(xyz)
+    xyz = np.tile(XYZ, (120, 5, 1))
+    xyz[:, :, 0] += np.repeat(10 * np.arange(5), XYZ.shape[1])
+    source = MolSys(n_atoms=xyz.shape[1])
+    source.structures = Structures(coordinates=puw.quantity(xyz, "nm"))
     retired = []
     cleanup = PersistentResultHandle.cleanup
 
@@ -598,12 +600,19 @@ def test_automatic_disk_distance_intermediates_are_retired(name, monkeypatch):
         return cleanup(handle)
 
     monkeypatch.setattr(PersistentResultHandle, "cleanup", retire)
-    options = dict(selection=[4, 0, 2], selection_2=[1, 3], pbc=False)
+    targets = list(range(6, xyz.shape[1]))
+    options = dict(selection=[4, 0, 2], selection_2=targets, pbc=False)
     if name == "get_neighbors":
         options["n_neighbors"] = 1
-    expected = distances(xyz[:, [4, 0, 2]], xyz[:, [1, 3]])
+    expected = distances(xyz[:, [4, 0, 2]], xyz[:, targets])
+    # The resident nearest-neighbor result and one-row scratch fit, while
+    # the first endpoint's coordinate footprint selects automatic streaming.
+    # The Cartesian distance intermediate also exceeds the numerical budget.
+    budget = 28 * 1024
+    assert int(xyz[:, [4, 0, 2]].nbytes * 1.2) > budget
+    assert expected.nbytes > budget
     with msm.configure.context(
-        max_ram_usage=4096, chunk_memory_fraction=None, chunk_size=2
+        max_ram_usage=budget, chunk_memory_fraction=None, chunk_size=2
     ):
         result = getattr(msm.structure, name)(source, **options)
     assert retired and all(not path.exists() for path in retired)
