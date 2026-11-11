@@ -245,6 +245,7 @@ def main():
             "chemistry-repair",
             "assessed-protonation",
             "analysis",
+            "contacts",
             "refinement",
             "properties",
             "visual-adoption",
@@ -802,6 +803,35 @@ def main():
             "assert not view.addons.manager.presentations.records()\n"
             "print('JUPYTER_ANALYSIS_UNCHANGED',view.molsys.get_n_atoms())\n"
         )
+    if args.scenario == "contacts":
+        initial = initial[: initial.index("view = msv.demo")] + (
+            "import numpy as np\n"
+            "with msv.demo['pentalanine'] as seed:\n"
+            "    system = msm.extract(seed.molsys, structure_indices=[0])\n"
+            "puw = msm.pyunitwizard\n"
+            f"_policy = puw.context(standard_units=[{args.length_standard!r}, 'ps', 'radians'])\n"
+            "_policy.__enter__()\n"
+            "source_coordinates = puw.get_value(system.structures.coordinates, to_unit='nm').copy()\n"
+            "source_coordinates[0, :3] = [[0, 0, 0], [0.5, 0, 0], [1, 0, 0]]\n"
+            "system.structures.coordinates = puw.quantity(source_coordinates, 'nm')\n"
+            "view = msv.new_view(system)\n"
+            "np.testing.assert_array_equal(puw.get_value(view.get_coordinates(), to_unit='nm')[0, :3], source_coordinates[0, :3])\n"
+            "source_coordinates = puw.get_value(view.get_coordinates(), to_unit='nm').copy()\n"
+            "source_chemistry = msm.convert(view.molsys.chemical_states, to_form='molsysmt.ChemicalStatesDict').to_dict()\n"
+            "source_policy = dict(puw.configure.get_standard_units())\n"
+            "view\n"
+        )
+        final = (
+            "np.testing.assert_array_equal(puw.get_value(view.get_coordinates(), to_unit='nm'), source_coordinates)\n"
+            "np.testing.assert_equal(msm.convert(view.molsys.chemical_states, to_form='molsysmt.ChemicalStatesDict').to_dict(), source_chemistry)\n"
+            "current_scene = view.export_state()\n"
+            "changed_scene_keys = {key for key in current_scene.keys() | source_scene.keys() if current_scene.get(key) != source_scene.get(key)}\n"
+            "assert not changed_scene_keys, changed_scene_keys\n"
+            "assert dict(puw.configure.get_standard_units()) == source_policy\n"
+            "assert view.addons.molsysmt.get_sync_status()['target_revision'] == 0\n"
+            "_policy.__exit__(None, None, None)\n"
+            "print('JUPYTER_CONTACTS_UNCHANGED', view.molsys.get_n_atoms())\n"
+        )
     if args.scenario == "refinement":
         initial = initial[: initial.index("view = msv.demo")] + (
             "import numpy as np\nimport openmm\nimport json\n"
@@ -852,6 +882,11 @@ def main():
         + initial
     )
     cells = [initial, final]
+    if args.scenario == "contacts":
+        cells.insert(
+            1,
+            "source_scene = view.export_state()\nprint('JUPYTER_CONTACTS_BASELINE')\n",
+        )
     if args.scenario == "refinement":
         cells = [initial, "refinement_source_unchanged()\n", final]
     if args.scenario == "continuous-session":
@@ -1124,6 +1159,8 @@ def main():
                             if args.scenario == "refinement"
                             else Path(__file__).with_name("analysis_panel_jupyter.mjs")
                             if args.scenario == "analysis"
+                            else Path(__file__).with_name("contacts_panel_jupyter.mjs")
+                            if args.scenario == "contacts"
                             else Path(__file__).with_name(
                                 "chemistry_pending_jupyter.mjs"
                             )

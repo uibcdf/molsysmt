@@ -6010,9 +6010,10 @@ equilibrated structure.
 ## Calculating distances and neighborhoods through Molecular tools
 
 In **Molecular tools > Analysis**, choose **Distances**, **Minimum distance**,
-**Maximum distance** or **Neighbor search**. These experimental source tasks
-reuse the corresponding `view.addons.molsysmt.structure` tools. Calculating a
-result changes neither molecular data nor the scene.
+**Maximum distance**, **Neighbor search** or **Geometric contact map**. These
+experimental source tasks reuse the corresponding
+`view.addons.molsysmt.structure` tools. Calculating a result changes neither
+molecular data nor the scene.
 
 Choose two populations, or switch to **Within one population**. Each population
 has its own atom selector and selection context. The fixed selected atoms are
@@ -6040,6 +6041,15 @@ native self matches are excluded; explicitly supplying two overlapping
 populations can include zero-distance matches. Results are directed and retain
 native distance/tie ordering. A successfully evaluated scope with no neighbors
 shows an empty result, rather than missing data or a failed calculation.
+
+**Geometric contact map** compares each requested pair with an inclusive cutoff.
+Enter the cutoff in nm, Å or pm. The Boolean table keeps both passing and
+failing pairs, so an evaluated scope with zero contacts still has rows. It uses
+the same atom or center endpoints, Cartesian or corresponding pairs, and
+structure scope as **Distances**. Select or focus the endpoints from a row.
+The panel retains the native Boolean map in memory and sends at most 50 rows
+per page. The map is a report of a geometric criterion, separate from the named
+chemical analyses in **Interactions**.
 
 Periodic minimum-image distances are an explicit option. If no stored box is
 available, the report states that native nonperiodic distances were used.

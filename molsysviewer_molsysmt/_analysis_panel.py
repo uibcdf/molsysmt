@@ -72,6 +72,7 @@ _METHODS = {
     "minimum": "get_minimum_distances",
     "maximum": "get_maximum_distances",
     "neighbors": "get_neighbors",
+    "contacts": "get_contacts",
     **_CONFORMATION_METHODS,
     **_ANGULAR_METHODS,
     "pca": "principal_component_analysis",
@@ -179,6 +180,19 @@ def _uses_second(parameters):
             and parameters["reference_population"] == "second"
         )
     return parameters["relation"] == "between"
+
+
+def _cutoff(parameters):
+    """Parse the panel's explicit finite nonnegative length magnitude."""
+    try:
+        cutoff = float(parameters["cutoff"])
+    except ValueError as exc:
+        raise ValueError(
+            "Enter a finite, nonnegative cutoff with its length unit."
+        ) from exc
+    if not isfinite(cutoff) or cutoff < 0:
+        raise ValueError("Enter a finite, nonnegative cutoff with its length unit.")
+    return cutoff
 
 
 class _AnalysisPanel(
@@ -312,22 +326,25 @@ class _AnalysisPanel(
         }
         layout, offsets, auxiliary = "matrix", None, None
         calculation_context = None
-        if p["task"] == "neighbors":
+        if p["task"] == "contacts":
+            arguments.pop("engine")
+            values = self._owner.structure.get_contacts(
+                **arguments,
+                threshold=msm.pyunitwizard.quantity(_cutoff(p), p["cutoff_unit"]),
+                pairs=paired,
+                output_type="numpy.ndarray",
+                use_gpu=False,
+            )
+            total = int(values.size)
+            auxiliary = int(np.count_nonzero(values))
+            layout = "paired" if paired else "matrix"
+        elif p["task"] == "neighbors":
             if paired:
                 raise ValueError(
                     "Neighbor search uses populations, not corresponding pairs."
                 )
             if p["neighbor_mode"] == "cutoff":
-                try:
-                    cutoff = float(p["cutoff"])
-                except ValueError as exc:
-                    raise ValueError(
-                        "Enter a finite, nonnegative cutoff with its length unit."
-                    ) from exc
-                if not isfinite(cutoff) or cutoff < 0:
-                    raise ValueError(
-                        "Enter a finite, nonnegative cutoff with its length unit."
-                    )
+                cutoff = _cutoff(p)
                 arguments["threshold"] = msm.pyunitwizard.quantity(
                     cutoff, p["cutoff_unit"]
                 )
@@ -397,8 +414,12 @@ class _AnalysisPanel(
                 total = len(frames)
                 layout = "extrema_paired" if paired else "extrema"
         raw, unit = (
-            msm.pyunitwizard.get_value(values),
-            msm.pyunitwizard.get_unit(values),
+            (values, None)
+            if p["task"] == "contacts"
+            else (
+                msm.pyunitwizard.get_value(values),
+                msm.pyunitwizard.get_unit(values),
+            )
         )
         return _AnalysisReport(
             token_urlsafe(18),
@@ -727,12 +748,19 @@ class _AnalysisPanel(
         conformation = r.parameters["task"] in _CONFORMATION_METHODS or pca
         angular = r.parameters["task"] in _ANGULAR_METHODS
         vector = r.parameters["task"] == "vectors"
-        return {
+        contacts = r.parameters["task"] == "contacts"
+        summary = {
             "id": r.token,
             "method": "molsysmt.structure." + _METHODS[r.parameters["task"]],
             "software": {"molsysmt": r.software},
             "rows": r.total,
-            "unit": "nm**2" if pca else r.parameters["angle_unit"] if angular else "nm",
+            "unit": None
+            if contacts
+            else "nm**2"
+            if pca
+            else r.parameters["angle_unit"]
+            if angular
+            else "nm",
             "first_atoms": len(r.first),
             "second_atoms": len(r.second),
             "structure_indices": r.frames[:200],
@@ -743,7 +771,9 @@ class _AnalysisPanel(
             "requested_pbc": r.parameters["pbc"] if not conformation else False,
             "disk_backed": callable(getattr(r.native_values, "cleanup", None)),
             "live_distance_unavailable": self._live_distance_limit(r),
-            "family": "pca"
+            "family": "contact"
+            if contacts
+            else "pca"
             if pca
             else "conformation"
             if conformation
@@ -766,6 +796,17 @@ class _AnalysisPanel(
             "plot_unavailable": self._plot_limit(r),
             "pca_component": r.component,
         }
+        if contacts:
+            summary.update(
+                contacts=r.auxiliary,
+                evaluated_pairs=r.total,
+                threshold={
+                    "value": _cutoff(r.parameters),
+                    "unit": r.parameters["cutoff_unit"],
+                    "comparison": "<=",
+                },
+            )
+        return summary
 
     def _plot_limit(self, report):
         if report.layout != "structure_values":
@@ -808,6 +849,8 @@ class _AnalysisPanel(
 
     @staticmethod
     def _live_distance_limit(report):
+        if report.parameters["task"] == "contacts":
+            return "A contact row records a Boolean cutoff result. Live distance creation requires a distance observation."
         if report.parameters["task"] in {
             *PROPERTY_METHODS,
             *MECHANICAL_METHODS,
@@ -907,17 +950,22 @@ class _AnalysisPanel(
                 second = "Center B" if r.selections[1] else int(r.second[b])
                 rows.append([r.frames[f], first, second])
             samples.append(value)
-        converted = msm.pyunitwizard.get_value(
-            msm.pyunitwizard.quantity(np.asarray(samples, dtype=float), r.unit),
-            to_unit=r.parameters["angle_unit"] if r.layout == "tuples" else "nm",
-        )
-        for row, value in zip(rows, converted, strict=True):
-            for component in np.asarray(value).reshape(-1):
-                row.append(
-                    format(float(component), ".9g")
-                    if np.isfinite(component)
-                    else "undefined"
-                )
+        contacts = r.parameters["task"] == "contacts"
+        if contacts:
+            for row, value in zip(rows, samples, strict=True):
+                row.append(bool(value))
+        else:
+            converted = msm.pyunitwizard.get_value(
+                msm.pyunitwizard.quantity(np.asarray(samples, dtype=float), r.unit),
+                to_unit=r.parameters["angle_unit"] if r.layout == "tuples" else "nm",
+            )
+            for row, value in zip(rows, converted, strict=True):
+                for component in np.asarray(value).reshape(-1):
+                    row.append(
+                        format(float(component), ".9g")
+                        if np.isfinite(component)
+                        else "undefined"
+                    )
         return {
             "offset": offset,
             "total": r.total,
@@ -936,7 +984,11 @@ class _AnalysisPanel(
                     *(
                         ["X (nm)", "Y (nm)", "Z (nm)"]
                         if r.parameters["task"] == "vectors"
-                        else ["Distance (nm)"]
+                        else [
+                            "Contact (distance <= cutoff)"
+                            if contacts
+                            else "Distance (nm)"
+                        ]
                     ),
                 ]
             ),
