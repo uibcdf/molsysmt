@@ -197,6 +197,14 @@ def _new_msmfile(
 ):
     """Create a new h5msm file on disk and initialize datasets."""
 
+    if format_version is None:
+        format_version = h5msm_version
+    if format_version not in supported_h5msm_versions:
+        raise FormatError(
+            reason=f"Cannot create unsupported H5MSM version {format_version!r}.",
+            caller="molsysmt.native.H5MSMFileHandler",
+        )
+
     if compression == "lzf":
         compression_opts = None
 
@@ -212,13 +220,6 @@ def _new_msmfile(
 
     file = h5py.File(filename, "w")
 
-    if format_version is None:
-        format_version = h5msm_version
-    if format_version not in supported_h5msm_versions:
-        raise FormatError(
-            reason=f"Cannot create unsupported H5MSM version {format_version!r}.",
-            caller="molsysmt.native.H5MSMFileHandler",
-        )
     file.attrs["version"] = format_version
     file.attrs["type"] = "h5msm"
     file.attrs["creator"] = creator
