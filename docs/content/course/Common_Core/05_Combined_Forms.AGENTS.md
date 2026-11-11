@@ -30,3 +30,6 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 ### 4. Section 4: Consolidating Multi-Forms into a Single Form (`msm.convert()`)
 * Must demonstrate converting a multi-form system list `[topology_file, trajectory_file]` into a single unified native object (e.g. `msm.convert(composite_system, to_form='molsysmt.MolSys')`).
 * Must explain that consolidation merges separate topology and trajectory inputs into a single in-memory native structure or disk container.
+
+
+Preserve structural validation versus scientific correspondence: recognized forms and compatible counts do not authenticate source identity or atom order. List composition does not infer a missing atom map.

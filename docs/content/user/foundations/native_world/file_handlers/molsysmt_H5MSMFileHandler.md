@@ -1,34 +1,45 @@
 (user-foundations-native-world-file-handlers-molsysmt-h5msmfilehandler)=
 # H5MSMFileHandler
 
-`molsysmt.native.H5MSMFileHandler` is the native binary HDF5 I/O handler class in MolSysMT responsible for reading, writing, and streaming `.h5msm` binary files.
+`molsysmt.native.H5MSMFileHandler` owns an open HDF5 handle for legacy H5MSM
+0.3/0.4 files. Its registered form name is `molsysmt.H5MSMFileHandler`.
 
 ---
 
 ## Overview and Handler Role
 
-`H5MSMFileHandler` manages disk handles for MolSysMT's native `.h5msm` binary format. It encapsulates `h5py.File` handles, manages compression filters (Gzip/LZF), enforces schema versioning (Schema 0.4 and 0.3), and powers chunked trajectory iterators.
+The handler opens legacy files for supported queries and structure iteration,
+or creates a legacy 0.4 file when explicitly requested with `io_mode="w"`.
+Reading emits the legacy deprecation warning. Always close the handle, preferably
+with a context manager.
 
-This handler supports **only 0.3 and 0.4**, not modular H5MSM 0.5 or experimental 0.6. Both its
-constructor and `msm.convert(path, to_form="molsysmt.H5MSMFileHandler")` reject
-either modular version with `FormatError`. For these versions, use `msm.convert(path)` or
-`msm.h5msm.read(path)` to obtain a resident `MolSys`, or
-`msm.h5msm.read_layers(path, layers=["structures"])` to load selected domains.
-These operations materialize data; they do not return a file-backed handler.
-See {ref}`user-tools-form-h5msm-05`.
+The handler rejects modular **0.5, 0.6 and 1.0** roots with `FormatError`.
+Public `msm.convert` and `msm.h5msm.write` default to 1.0; their output cannot be
+opened with this legacy class. Use `msm.h5msm.read(path)` or
+`msm.convert(path, to_form="molsysmt.MolSys")` for resident assembly, and
+`msm.h5msm.read_layers(path, layers=["structures"])` for a resident selected layer.
+These operations do not return a modular file-backed handler. See
+{ref}`user-tools-form-h5msm-10` for the supported public interfaces and limits.
+
+Unsupported creation versions reject before opening or truncating a destination.
+A valid legacy `io_mode="w"` remains an explicit replacement operation; this is
+not a general crash-transactional writer.
 
 ---
 
 ## Class Attributes and Parsed Records
 
-Inside `H5MSMFileHandler`, state and binary datasets are exposed via property interfaces:
+The class exposes `file` and `format_version`. Topology and structural HDF5
+groups are accessed through `file`; there are no `handler.topology` or
+`handler.structures` properties.
 
-| Attribute / Property | Data Type | Description |
+| Attribute or expression | Data type | Meaning |
 | :--- | :--- | :--- |
-| **`file`** | `h5py.File` | Active HDF5 file handle opened in read (`"r"`) or write (`"w"`) mode. |
-| **`format_version`** | String (`"0.4"`) | Schema specification version read from root file attributes. |
-| **`topology`** | HDF5 Group (`/topology`) | HDF5 group containing `atoms`, `groups`, `bonds`, `chains`, and `chemical_states`. |
-| **`structures`** | HDF5 Group (`/structures`) | HDF5 group containing coordinate matrices `(n_structures, n_atoms, 3)` and box vectors. |
+| `handler.file` | `h5py.File` | Owned legacy file handle; valid only while open. |
+| `handler.format_version` | str | Decoded legacy root version, `"0.3"` or `"0.4"`. |
+| `handler.file["topology"]` | `h5py.Group` | Legacy inventory and represented chemical-state data. |
+| `handler.file["structures"]` | `h5py.Group` | Legacy coordinate, box, time and observable datasets. |
+| `handler.file["structures/coordinates"].shape` | tuple | Stored `(n_structures, n_atoms, 3)` shape, read as metadata. |
 
 ---
 
@@ -38,16 +49,35 @@ Inside `H5MSMFileHandler`, state and binary datasets are exposed via property in
 import molsysmt as msm
 from molsysmt.native import H5MSMFileHandler
 
-# 1. Open a legacy 0.3/0.4 file handler in context manager mode
-with H5MSMFileHandler("trajectory.h5msm", io_mode="r") as handler:
-    # 2. Access raw HDF5 dataset shapes without loading to RAM
-    coords_shape = handler.file["/structures/coordinates"].shape
+legacy_path = msm.systems["pentalanine"]["traj_pentalanine.h5msm"]
+with H5MSMFileHandler(legacy_path, io_mode="r") as handler:
+    coords_shape = handler.file["structures/coordinates"].shape
     version = handler.format_version
+    # Public queries apply the active PyUnitWizard output policy.
+    coordinates = msm.get(
+        handler, selection=[0, 1], structure_indices=[0], coordinates=True
+    )
+    assert coordinates.shape == (1, 2, 3)
+    assert coords_shape[1:] == (62, 3)
 ```
+
+The legacy adapter supports its declared coordinate/box iteration routes.
+Iteration allocates each requested chunk; a small chunk does not bound every
+HDF5 cache or downstream result. The
+{ref}`form tutorial <Tutorial_Form_molsysmt_H5MSMFileHandler>` distinguishes
+working access routes from exported but unimplemented operations.
 
 ---
 
 ## Performance and I/O Invariants
 
-- **Context Manager Support**: Fully supports python context protocol (`with H5MSMFileHandler(...) as handler:`).
-- **Zero-Copy Dataset Views**: Enables direct dataset slicing from HDF5 disk blocks without loading full trajectories into RAM.
+- **Resource lifetime:** closing the handler invalidates its HDF5 dataset/group
+  handles. Context exit closes only the handle owned by that context.
+- **Metadata and slices:** shape/dtype inspection does not load a coordinate
+  series. Raw `dataset[...]` reads materialize NumPy arrays; they are not
+  zero-copy views of on-disk data and do not apply PyUnitWizard conversion.
+- **Copy boundary:** independent copying of a live handler is unavailable and
+  raises `NotImplementedMethodError`. Finish a writer first, then use
+  `msm.copy(filename)` for byte-preserving file copying, or convert to resident
+  `MolSys` before copying. The supported file-path route retains the stored
+  version and its documented process-owned or explicit destination lifetime.

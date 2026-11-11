@@ -93,6 +93,14 @@ sections:
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md.AGENTS.md
             description: Engine-neutral model requests versus executed assignments, default 1.0 persistence, explicit 0.5 refusal and shared native/public constraint translation.
+          - name: h5msm_format
+            file: docs/content/user/foundations/native_world/files/file_h5msm.md
+            agents_file: docs/content/user/foundations/native_world/files/file_h5msm.md.AGENTS.md
+            description: Default modular 1.0 versus legacy column groups, explicit stored units, resident layers and self-contained selected-system persistence.
+          - name: legacy_h5msm_handler
+            file: docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md
+            agents_file: docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md.AGENTS.md
+            description: Legacy 0.3/0.4 resource ownership, real properties, pre-open schema rejection, allocating slices and unavailable live-handler copy.
       - name: language
         description: Directional selection syntax, explicit index validation and element-level query masks.
         agents_file: docs/content/user/foundations/language/AGENTS.md
@@ -697,6 +705,10 @@ sections:
             file: docs/content/user/tools/form/file/file_fasta.ipynb
             agents_file: docs/content/user/tools/form/file/file_fasta.ipynb.AGENTS.md
             description: Source-preserving FASTA records, alphabetic chain IDs and native group hierarchy queries, extraction and persistence without atomic realization.
+          - name: legacy_h5msm_handler
+            file: docs/content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.ipynb
+            agents_file: docs/content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.ipynb.AGENTS.md
+            description: Legacy-only form declarations, actual getter/iterator support, unavailable exported operations, five registered conversion routes and resident modular alternatives.
           - name: pdbqt_file_handler
             file: docs/content/user/tools/form/class/molsysmt/pdbqt_file_handler.md
             agents_file: docs/content/user/tools/form/class/molsysmt/pdbqt_file_handler.md.AGENTS.md

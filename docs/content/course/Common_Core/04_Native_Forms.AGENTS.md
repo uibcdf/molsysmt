@@ -69,3 +69,6 @@ Preserve the single-path H5MSM 0.5 whole-Topology projection with default
 selection/context options: resident
 stable inventory only, no unrelated domain payloads, explicit contextual-route
 and requested-layer validation limits. Do not imply a constant-memory load.
+
+
+Retain legacy-handler creation preflight, explicit valid write replacement, unavailable live-handle copy and file-path/resident alternatives. Do not equate a registered handler form with a complete editing or snapshot API.

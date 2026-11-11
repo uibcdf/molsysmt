@@ -15,3 +15,6 @@ Governs `docs/content/user/foundations/native_world/files/file_h5msm.md`.
 Preserve the default single-path H5MSM 0.5 whole-Topology projection: resident
 stable inventory only, no unrelated domain payloads, explicit contextual-route
 and requested-layer validation limits. Do not imply a constant-memory load.
+
+
+Keep the legacy column-group layout distinct from default modular 1.0, negotiated stored units distinct from public quantity policy, and the self-contained selected-system persistence example. Do not describe column groups as compound tables or promise universal metadata preservation.

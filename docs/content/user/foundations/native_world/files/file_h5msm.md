@@ -1,7 +1,7 @@
 (user-foundations-native-world-files-file-h5msm)=
 # h5msm
 
-`h5msm` is MolSysMT's native binary HDF5 storage format (`.h5msm`) engineered for rapid I/O, trajectory chunking, compressed persistence, and complete metadata preservation.
+`h5msm` is MolSysMT's versioned native HDF5 storage format (`.h5msm`) for represented molecular domains, structural arrays and sparse analyses. Preservation depends on the selected schema and its supported fields.
 
 ---
 
@@ -31,40 +31,54 @@ independent layers and axis links, see {ref}`cookbook-migrating-h5msm-10`.
 
 ## HDF5 Layout and Dataset Schema
 
-An `.h5msm` file organizes data into hierarchical HDF5 groups and dataset arrays:
+The table below describes representative **legacy 0.4** paths, not the default
+1.0 layout. Inventory and bonds are groups of column datasets, not compound
+HDF5 tables. Optional chemical-state extensions retain their own versioned
+payloads. See {ref}`user-tools-form-h5msm-10` for the modular layout.
 
-| Group / Dataset Path | Data Type | Physical Units | Description |
+| Legacy path | HDF5 object | Units | Meaning |
 | :--- | :--- | :--- | :--- |
-| **`/`** (Root Attributes) | String / Attributes | N/A | File header attributes: `version` (`"0.4"`), `creator` (`"MolSysMT"`), `date`, and default unit definitions. |
-| **`/topology/atoms`** | HDF5 Dataset / Compound | N/A | Atom inventory table containing `atom_id`, `atom_name`, `atom_type`, `isotope`, `group_index`, `chain_index`. |
-| **`/topology/groups`** | HDF5 Dataset / Compound | N/A | Residue and group table containing `group_id`, `group_name`, `group_type`, `molecule_index`. |
-| **`/topology/bonds`** | HDF5 Dataset / Compound | N/A | Bond table containing `atom1_index`, `atom2_index`, `bond_order`, `bond_type`, `is_aromatic`. |
-| **`/topology/chemical_states`** | HDF5 Group | N/A | Chemical state subgroups containing state-local components, formal charges, and atom chemistry. |
-| **`/structures/coordinates`** | HDF5 3D Dataset | `nanometer` (`nm`) | 3D Cartesian atomic coordinates array with shape `(n_structures, n_atoms, 3)`. |
-| **`/structures/box`** | HDF5 3D Dataset | `nanometer` (`nm`) | Unit cell box vectors array with shape `(n_structures, 3, 3)`. |
-| **`/structures/time`** | HDF5 1D Dataset | `picosecond` (`ps`) | Simulation timestamps vector with shape `(n_structures,)`. |
+| `/` attributes | Header metadata | Explicit unit declarations | Includes `type`, `version`, `creator`, `creation_time` and `modification_time`. |
+| `/topology/atoms` | Group of column datasets | Dimensionless labels/indices | Atom IDs, names, types, optional isotopes and group/chain membership. |
+| `/topology/groups` | Group of column datasets | Dimensionless labels/indices | Group IDs, names, types and molecule membership. |
+| `/topology/bonds` | Group of column datasets | Dimensionless | Legacy compatibility columns such as `atom1_index`, `atom2_index`, `order` and `type`. |
+| `/topology/chemical_states` | Optional versioned group | Declared per field | Stored chemical states, assignments and state-local components. |
+| `/structures/coordinates` | Dataset | Declared length unit | Cartesian coordinates, `(n_structures, n_atoms, 3)`. |
+| `/structures/box` | Dataset | Declared length unit | Row-vector box bases, `(n_structures, 3, 3)`. |
+| `/structures/time` | Dataset | Declared time unit | Structure-aligned times, `(n_structures,)`. |
+
+Legacy storage units may differ from nm/ps. Supported public reads convert
+quantities to your active PyUnitWizard policy after validating stored metadata;
+raw HDF5 indexing returns numbers in the stored unit.
 
 ---
 
 ## Read, Write, and Streaming Operations
 
-MolSysMT provides seamless conversion and streaming handlers for `.h5msm` files:
+Use the public writers and resident readers for the default 1.0 schema:
 
 ```python
 import molsysmt as msm
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-# 1. Save a native molecular system to an h5msm file
+molsys = msm.convert(
+    msm.systems["pentalanine"]["traj_pentalanine.h5msm"],
+    to_form="molsysmt.MolSys", structure_indices=[0, 1],
+)
+
+# 1. Save the selected native molecular system to H5MSM 1.0
 with TemporaryDirectory() as tmpdir:
     h5_file = Path(tmpdir) / "trajectory.h5msm"
-    msm.convert(system, to_form="file:h5msm", output_filename=h5_file)
+    msm.convert(molsys, to_form="file:h5msm", output_filename=h5_file)
 
     # 2. Read topology or structures back from disk
-    restored_sys = msm.convert(h5_file, to_form="molsysmt.MolSys")
+    restored = msm.convert(h5_file, to_form="molsysmt.MolSys")
+    assert restored.structures.coordinates.shape == molsys.structures.coordinates.shape
 
     # 3. Load only the requested domain; this is still a resident layer load.
-    structures = msm.h5msm.read_layers(h5_file, layers=["structures"])
+    layers = msm.h5msm.read_layers(h5_file, layers=["structures"])
+    assert layers["structures"].coordinates.shape[0] == 2
 ```
 
 ---
