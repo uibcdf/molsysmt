@@ -1,5 +1,27 @@
 # MolSysMT 1.0 Execution Status
 
+## First-canvas diagnostic integration received — 2026-11-11
+
+The reviewed #707/#615 test-harness integration passes **52 Python controls**,
+six Node controls on both tested local Node executables and one cold actual
+Jupyter initial-canvas guard. The [receipt](../devtools/data/initial_canvas_diagnostic_receiving_615_20261111.json)
+retains both failed setup attempts separately: missing Playwright resolution
+and Chromium's Unix-socket path limit. Neither is the historical #615 failure.
+The corrected private setup preserves original waits and source assertions.
+
+Browser and kernel metadata share an attempt label; actual observed click and
+arming anchors are explicit. The original 3,983-atom cell and first native draw
+are observed, with about 1.35 GiB scope peak and 12.83 GiB minimum observed host
+available memory. Journal I/O failures no longer interrupt the new instrumented work.
+Default Analysis/contact/property notebook programs retain identical source.
+The small cross-clock discrepancy remains visible rather than normalized away.
+
+#707's diagnostic scope is delivered; **#615 remains active** for a causal or
+owned environmental disposition of the original timeout. The library/addon
+runtime is unchanged. The original plan remains **76.3095%, 50/50 source graphical
+intents**; stable H5MSM default client receiving and installed/candidate/publication
+qualification retain their separate owners and pause.
+
 ## Bounded contact-list projection accelerated — 2026-11-11
 
 The [#692 Python increment](pending_proposals/neighbor_allocation_safety_performance_followup.md#paired-committed-source-receiving)

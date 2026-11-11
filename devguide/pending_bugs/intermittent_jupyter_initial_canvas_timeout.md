@@ -219,8 +219,8 @@ first checkpoint as not reached.
 sandboxed attempt passes 36 and reports eight socket-permission failures.
 Two cold Jupyter and Chromium runs against Viewer `5164f13b` and native
 `4ffb82e4` reach the 3,983-atom scene. In the final opt-in run, the native
-scene registers 8.05 seconds after Run and the first native draw occurs at
-12.83 seconds. The canvas belongs to the initial cell. The run captures both
+scene registers 8.05 seconds after observer arming and the first native draw
+occurs at 12.83 seconds on that clock. The canvas belongs to the initial cell. The run captures both
 kernel and browser milestones and reaches the canvas before the live-session
 checkpoint. The original intermittent failure has yet to recur with the
 diagnostics armed. #615 remains open.
@@ -229,7 +229,7 @@ diagnostics armed. #615 remains open.
 
 The owner increment incorporates PR #707 source
 `cdcb8ed7c682a384a8f65b1f38d6b46cead23b1c` and the local branch's paired
-kernel/live-session capture, with independent review before main delivery.
+kernel/live-session capture, with new source review and executable controls before main delivery.
 The native library and addon runtime are unchanged. The existing full Analysis
 workflow remains the default; `--initial-canvas-only` is an explicit,
 Analysis-only receiving mode. It adds no warm scientific imports or larger
@@ -265,3 +265,55 @@ work or starts a server. Initial probe import-path failures are not receiving
 passes. The opt-in source has a new explicit actual-Jupyter guard in
 `jupyter_receiving_guard.py`; receive it on the committed integration next.
 Existing readiness, canvas and browser verdicts remain separate.
+
+### Exact-source actual Jupyter receiving
+
+The [bounded receipt](../../devtools/data/initial_canvas_diagnostic_receiving_615_20261111.json)
+records source `7ccb00b93` with all 2,581 published MolSysViewer `5164f13b`
+files verified against the earlier Git-object manifest. The generated test
+harness is identified separately. The first actual attempt fails before browser
+startup because the frozen export has no Playwright resolution. The corrected
+dependency attempt fails at Chromium ProcessSingleton creation: the long
+workspace TMPDIR exceeds the Unix-socket path allowance. Neither starts the
+molecular cell or reproduces the historical #615 stage. Both failures, JUnit
+identities and owned resource records remain retained.
+
+Existing Playwright 1.57.0 is then linked into the private source export without
+an install, sibling edit or runtime-bundle rewrite. A short owned TMPDIR on the
+workspace filesystem avoids that specific socket failure. The final cold
+Jupyter/Chromium diagnostic **passes its one explicit guard**, with the original
+30-second canvas wait and 15-second kernel timer. It sees the original cell's
+3,983-atom scene, nine kernel-stage records and an eligible new native draw at
+14.30 seconds after the browser's observed click. The halfway live-session
+checkpoint is explicitly not reached: the canvas wait ended earlier. The
+separate controlled Node test covers two authenticated reads while its test
+server remains busy; it does not fabricate a real original-timeout recurrence.
+
+Browser stage intervals use one monotonic clock. The first kernel epoch is
+about 53 ms earlier than the observed browser click epoch in this record.
+Retain that discrepancy without clamping: clock mapping or event dispatch is
+not resolved here. Cross-process epochs are correlation evidence, not precise
+causal ordering. Kernel-local monotonic durations retain their own meaning.
+
+The two-CPU scope peaks at about 1.35 GiB under a 4-GiB/no-swap cap. The reserve
+watchdog observes at least 12.83 GiB host memory available and no own OOM or
+reserve stop; this is not an exclusive reservation or a global resource claim.
+Temporary settings and configuration files are retired. Published receipt
+metadata excludes auth tokens, kernel/session identifiers, private notebook
+paths, stack contents and molecular payloads. Private raw artifacts remain in
+`.pytest_cache/pre1-review-20261111/initial-canvas-615/` with hashes retained.
+
+The six Node controls pass on both Node 24.21.0 and the actual runner's Node
+22.22.1. The initial short source-review probes with missing script import paths
+and the raw-source-versus-ready-harness path mistake are not qualification
+passes; corrected default-program comparison and ready-export verification
+succeed. The scientific runtime and addon API remain unchanged.
+
+The reviewed #707 diagnostic contribution is received for main incorporation.
+**#615 stays active:** no causal correction or evidenced disposition of the
+original executing-cell timeout has been established. This is one initial-canvas
+receiving case, not the complete default Analysis, installed-pair or Qt gate.
+
+Earlier 8.05/12.83-second observations are arming-relative, not a verified
+exact click-relative latency. The wording above is corrected accordingly;
+the original captured values remain unchanged.

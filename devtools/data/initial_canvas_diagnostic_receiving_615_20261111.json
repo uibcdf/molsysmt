@@ -1,0 +1,240 @@
+{
+  "schema": "molsysmt.initial-canvas-receiving@1",
+  "date": "2026-11-11",
+  "provider_commit": "7ccb00b93e1e658318ebc7057e137eafa9f70191",
+  "source_sha256": {
+    "tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs": "b5e109a91e56ef3cb99307970ef6b0561d682b1702dc2f05227964384886303f",
+    "tests/molsysviewer_molsysmt/jupyter_initial_canvas_trace.mjs": "0f4d307e26b0484cdfca470fd9b828e601d55c4c6c7b587fc0fbd7c55fdc480f",
+    "tests/molsysviewer_molsysmt/jupyter_panel_controls.mjs": "01acb74ed0101c36d41a06bd9e6c86af3752f4f2b615691b0574b5595679079f",
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "b3815d84f8bedae20d8b56b37b2e5185bd33c1f3c1383a799cdf078b0ce5d741",
+    "tests/molsysviewer_molsysmt/initial_canvas_trace.test.mjs": "0800e196d441f1b89920ba9270ecaec962ed9a42888878b2607bb86d783785e4",
+    "tests/molsysviewer_molsysmt/test_jupyter_stage_diagnostics.py": "95c75d5983026450c6d95231bc685e450128008513952eea925887b174ddd82c",
+    "tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py": "a78d58480453dfab08b083056591d642e77744315353dca7a815d0a50c87fcb8",
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "b0212fa4870402c2c82cae2b29ef09b92bc920611f8cc06b18f742529ab8f849"
+  },
+  "reviewed_pr": {
+    "number": 707,
+    "commit": "cdcb8ed7c682a384a8f65b1f38d6b46cead23b1c"
+  },
+  "owner_branch_commit": "8060ba0eb0490534e936c1c49339ebdfd18501af",
+  "viewer": {
+    "commit": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+    "published_files_verified": 2581,
+    "snapshot_sha256": "b104d038256f32fbc5bca055edf8558ab9aafe36eb77a28e538ed71807b55a43",
+    "harness_record_sha256": "2680c9b80efdb8332ec70b84a89fb0bf11fd7b790faa72440730a28cb2c0a183",
+    "automation": {
+      "playwright_version": "1.57.0",
+      "playwright_package_sha256": "07726a5a20b29123d85311af7d11b7de6bf00ddd03121d3c9061995043ebd261",
+      "entrypoint_sha256": "4e98f65f0a9d9bcab8cffc0c5cfdd87fd3f5b0be74fc494ff166a466b204cd44",
+      "scope": "Existing installed automation dependency linked into an owned frozen source export; no install, sibling edit or runtime-bundle rewrite.",
+      "identities_unchanged_after_run": true
+    },
+    "published_files_unchanged_after_run": true
+  },
+  "runtime": {
+    "python": "3.14.7",
+    "node_browser": "22.22.1",
+    "node_controls": [
+      "22.22.1",
+      "24.21.0"
+    ],
+    "chromium": "Google Chrome 157.0.8103.38",
+    "pyunitwizard": "0.29.2 public overlay",
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+  },
+  "controls": {
+    "python": {
+      "cases": 52,
+      "failures": 0
+    },
+    "generated_journal_before_correction": {
+      "cases": 7,
+      "failures": 4
+    },
+    "node_cases": 6,
+    "node22_exit": 0,
+    "node24_exit": 0,
+    "default_notebook_program_parity": {
+      "baseline_commit": "00bec294108cd5858e00fdeb63c747c1414ad76b",
+      "normalization": "Only the owned output-directory prefix differs; no scientific program text is removed or rewritten.",
+      "observations": [
+        {
+          "scenario": "analysis",
+          "cells": 7,
+          "normalized_program_sha256": "f2174b123791cbaf4cd1300b2a408752672be80bfec8a0461c8398500848de7e",
+          "equal": true
+        },
+        {
+          "scenario": "contacts",
+          "cells": 3,
+          "normalized_program_sha256": "44c3df32eb93dc96de952fab3501a9ae3a8facb9ed7207e04392612df99857d9",
+          "equal": true
+        },
+        {
+          "scenario": "properties",
+          "cells": 3,
+          "normalized_program_sha256": "a32b96c1022cd1675674dedec566ab7a4c4600586d8a6b2d8de488a239c21c98",
+          "equal": true
+        }
+      ]
+    },
+    "artifact_sha256": {
+      "python-controls.xml": "109662a3e7c612633fc11105498afcdf18cc09bec5e2fe554188517bd2d46eb5",
+      "timeline-before.xml": "ff8aeda6687294303cfbea2c7129844d92e78a7ed6e7ea5727b7554e34994a40",
+      "node-controls.log": "6df9ae3195936885be698fbfe204b0eb607b03f47f9dc2cb33b0ff9b8b00c415",
+      "node22-controls.log": "dc9a25ede2cd572b3b2d30a7522d906a70d001e17a285645045f44194d778874",
+      "default-programs.json": "d6a7acac1c9520e1185f4c87e57bca083ad8b2598ea6b535dde9184f8822bd37"
+    }
+  },
+  "attempts": [
+    {
+      "scope": "setup before browser/cell",
+      "outcome": "failed",
+      "reason": "Playwright absent from frozen export dependency resolution",
+      "junit": {
+        "cases": 1,
+        "failures": 1
+      },
+      "junit_sha256": "ca5ee660c4307e74d21268215adff1aa16e07bef75a1302f6f4cb87d4c34f7ad"
+    },
+    {
+      "scope": "browser launch before molecular cell",
+      "outcome": "failed",
+      "reason": "Chromium ProcessSingleton Unix socket path exceeded the supported length under the long workspace TMPDIR",
+      "junit": {
+        "cases": 1,
+        "failures": 1
+      },
+      "junit_sha256": "98c11093a72c6d0d15c8aff9762ac6a4791b371c96aa8f4c1e447a597b5581b4"
+    },
+    {
+      "scope": "opt-in initial Analysis canvas diagnostic; not the complete Analysis workflow",
+      "outcome": "passed",
+      "junit": {
+        "cases": 1,
+        "failures": 0
+      },
+      "junit_sha256": "043cb2395c6e9bd55a6e7e207e5a02f91591a58831a24d78b660573f6e5621cc",
+      "full_result_sha256": "0ffddec405ccd0b0eaaeb6e1851a666c29e6ad4642a6a2d96879545ed0bd621c",
+      "attempt_label_sha256": "06b6dfe2e535894091cacb1572d8987512b9abfa3cdde8cf4b744fd3c1fdf447",
+      "capture": {
+        "outcome": "canvas_visible",
+        "capture": "available",
+        "belongs_to_initial_cell": true,
+        "observed_atoms": 3983,
+        "expected_atoms": 3983,
+        "observer_errors": 0,
+        "canvas": {
+          "connected": true,
+          "x": 378,
+          "y": 554.0625,
+          "width": 1008,
+          "height": 480
+        },
+        "marks_since_observer_arm_ms": {
+          "run_clicked": 999.5999999046326,
+          "runtime_available": 9002.099999904633,
+          "widget_mount_started": 9005.5,
+          "controller_ready": 10076.699999809265,
+          "canvas_connected": 10076.699999809265,
+          "draw_observer_armed": 10076.799999952316,
+          "scene_registered": 10408.099999904633,
+          "first_native_draw": 15301
+        },
+        "marks_since_observed_click_ms": {
+          "run_clicked": 0.0,
+          "runtime_available": 8002.5,
+          "widget_mount_started": 8005.900000095367,
+          "controller_ready": 9077.099999904633,
+          "canvas_connected": 9077.099999904633,
+          "draw_observer_armed": 9077.200000047684,
+          "scene_registered": 9408.5,
+          "first_native_draw": 14301.400000095367
+        }
+      },
+      "kernel_rows": [
+        {
+          "stage": "cell_started",
+          "elapsed_since_cell_start_ms": 1.0868560057133436,
+          "epoch_offset_from_observed_click_ms": -52.51953125
+        },
+        {
+          "stage": "viewer_import_started",
+          "elapsed_since_cell_start_ms": 38.349642883986235,
+          "epoch_offset_from_observed_click_ms": -15.257080078125
+        },
+        {
+          "stage": "viewer_imported",
+          "elapsed_since_cell_start_ms": 1294.1830749623477,
+          "epoch_offset_from_observed_click_ms": 1240.576904296875
+        },
+        {
+          "stage": "molsysmt_import_started",
+          "elapsed_since_cell_start_ms": 1294.2933088634163,
+          "epoch_offset_from_observed_click_ms": 1240.6875
+        },
+        {
+          "stage": "molsysmt_imported",
+          "elapsed_since_cell_start_ms": 1299.2017338983715,
+          "epoch_offset_from_observed_click_ms": 1245.595703125
+        },
+        {
+          "stage": "demo_load_started",
+          "elapsed_since_cell_start_ms": 1299.7475359588861,
+          "epoch_offset_from_observed_click_ms": 1246.1416015625
+        },
+        {
+          "stage": "demo_loaded",
+          "elapsed_since_cell_start_ms": 6006.754592992365,
+          "epoch_offset_from_observed_click_ms": 5953.1484375
+        },
+        {
+          "stage": "display_expression",
+          "elapsed_since_cell_start_ms": 6064.999463967979,
+          "epoch_offset_from_observed_click_ms": 6011.393310546875
+        },
+        {
+          "stage": "cell_completed",
+          "elapsed_since_cell_start_ms": 6085.712093859911,
+          "epoch_offset_from_observed_click_ms": 6032.10595703125
+        }
+      ],
+      "live_session_samples": [
+        {
+          "stage": "while_waiting",
+          "available": false,
+          "reason": "checkpoint_not_reached"
+        }
+      ],
+      "credentials_retired": true,
+      "private_artifact_sha256": {
+        "initial-canvas.json": "68e784013b9e09a4e83cc7269de9aad3df35a987ad9a57eaae478f3858cf6c1c",
+        "initial-canvas-kernel.jsonl": "a190ed4b76f3253cdaa648b154be12e40464c2ed0f678ad0265b9c7f51063a3f",
+        "initial-canvas-sessions.json": "4db66c56b6f770c3952f53a0f299cc25634d7a3f4b75f39d049f6fc67159aac2",
+        "kernel-session-state.json": "2f5085ef7c4a36e157aa2a5d1b332935b4cac2c7999b62b2e7a650e3bbefd01a"
+      }
+    }
+  ],
+  "resource_summary": {
+    "cpu_quota_percent": 200,
+    "memory_high_bytes": 3221225472,
+    "memory_max_bytes": 4294967296,
+    "scope_swap_max_bytes": 0,
+    "reserve_bytes": 6979321856,
+    "minimum_host_available_observed_bytes": 13772898304,
+    "peak_scope_bytes": 1444859904,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "watchdog_outcome": "completed",
+    "exit_code": 0,
+    "resource_record_sha256": "3e2c59ab23b90c903630b9e69550d8416d0bb415b84bf097bf9ac213a0e595cc"
+  },
+  "clock_scope": "Browser intervals share one monotonic clock. Kernel intervals use the kernel clock. The first kernel epoch precedes the observed click epoch by about 53 ms in this run; preserve this discrepancy without clamping or claiming synchronized cross-process causality. The dispatch/clock-mapping cause is not established.",
+  "privacy": "Raw private browser/server/stack artifacts are retained locally. Public metadata excludes tokens, session/kernel identifiers, private notebook paths and molecular payloads. Attempt identity is represented by a digest.",
+  "limits": "This qualifies capture and diagnostics only. The original intermittent executing-cell timeout did not recur. No causal correction/environmental disposition for #615, installed-pair acceptance, default full-Analysis rerun, human Qt qualification or release authority is implied.",
+  "reproduce": {
+    "python_controls": "python -m pytest --receptor=llm tests/molsysviewer_molsysmt/test_jupyter_stage_diagnostics.py tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py",
+    "node_controls": "INITIAL_CANVAS_TEST_PYTHON=<qualified-python> node --test --test-concurrency=1 tests/molsysviewer_molsysmt/initial_canvas_trace.test.mjs",
+    "actual_case": "MOLSYSVIEWER_ROOT=<verified-host> MOLSYSVIEWER_PROVIDER_ROOT=<public-PyUnitWizard-overlay> python -m pytest --receptor=llm tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_initial_canvas_diagnostics",
+    "setup": "Existing Playwright is required by the frozen host export; link only automation dependencies. Use a short owned TMPDIR for Chromium Unix sockets, fresh private artifacts and the recorded OS caps/reserve watchdog."
+  }
+}
