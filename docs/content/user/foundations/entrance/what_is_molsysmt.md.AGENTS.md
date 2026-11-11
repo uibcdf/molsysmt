@@ -11,6 +11,9 @@ This micro-governance contract governs [`docs/content/user/foundations/entrance/
 
 2. **Mandatory MyST Section Anchor**:
    - `(user-foundations-entrance-what-is-molsysmt)=`
+   - Preserve the historical `universal-interoperability-zero-loss-bridges`
+     section anchor while keeping the displayed title and text faithful to
+     the bounded conversion-fidelity contract.
 
 3. **Core Messaging Pillars**:
    - **Multi-library Friction**: Explain reusable conversion, index and unit

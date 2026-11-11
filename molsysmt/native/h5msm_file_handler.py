@@ -131,7 +131,8 @@ class H5MSMFileHandler:
         -----
         Pure Topology writes only its inventory. It cannot supply the chemical
         collection required by the complete H5MSM 0.4 MolSys reader. The public
-        conversion route writes optional domains using H5MSM 0.5 instead.
+        conversion route writes optional domains using modular H5MSM 1.0 by
+        default. This handler retains its legacy format contract.
         """
 
         from molsysmt._private.variables import is_all

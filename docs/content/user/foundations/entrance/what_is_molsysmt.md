@@ -29,6 +29,7 @@ tiers rather than assuming every operation works on every representation.
 
 ## Core Architectural Pillars
 
+(universal-interoperability-zero-loss-bridges)=
 ### 1. Interoperability and Conversion Fidelity
 MolSysMT connects supported files, database identifiers and third-party objects.
 Inspect a conversion's declared profile and optional report to understand what
