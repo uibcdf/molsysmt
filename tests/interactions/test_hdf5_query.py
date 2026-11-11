@@ -61,6 +61,64 @@ def _result():
     )
 
 
+@pytest.mark.parametrize("version", [None, "0.5", "0.6", "1.0"])
+def test_named_query_accepts_implemented_roots_without_loading_other_layers(
+    tmp_path, monkeypatch, version
+):
+    from molsysmt.native import MolecularMechanics, Structures
+
+    result = _result()
+    filename = tmp_path / "modular.h5msm"
+    options = {} if version is None else {"format_version": version}
+    layers = {
+        "structures": Structures(
+            coordinates=msm.pyunitwizard.quantity(np.zeros((6, 9, 3)), "nm")
+        ),
+        "interactions": {"mixed": result},
+    }
+    if version != "0.5":
+        layers.update(
+            molecular_mechanics=MolecularMechanics(forcefield="unresolved"),
+            mechanics_n_atoms=9,
+        )
+    msm.h5msm.write_layers(filename, **layers, **options)
+    with h5py.File(filename, "r") as file:
+        assert file.attrs["version"] == (version or "1.0")
+    read = h5py.Dataset.__getitem__
+
+    def selected_only(dataset, key):
+        assert not dataset.name.startswith(("/structures/", "/molecular_mechanics/"))
+        return read(dataset, key)
+
+    monkeypatch.setattr(h5py.Dataset, "__getitem__", selected_only)
+    _assert_matches_memory(filename, result, [4, 1, 0, 4, 3])
+    _assert_matches_memory(filename, result, [2, 4], atom_indices=[3, 0])
+
+
+@pytest.mark.parametrize("version", [None, "0.4", "1.1", 1])
+def test_named_query_rejects_unknown_root_and_closes_file(
+    tmp_path, monkeypatch, version
+):
+    filename = tmp_path / "unsupported.h5msm"
+    msm.h5msm.write_layers(filename, interactions={"mixed": _result()})
+    with h5py.File(filename, "r+") as file:
+        del file.attrs["version"]
+        if version is not None:
+            file.attrs["version"] = version
+    open_file = h5py.File
+    opened = []
+
+    def observe(*args, **kwargs):
+        file = open_file(*args, **kwargs)
+        opened.append(file)
+        return file
+
+    monkeypatch.setattr(h5py, "File", observe)
+    with pytest.raises(ValueError, match="root"):
+        HDF5InteractionsReader(filename, "mixed")
+    assert len(opened) == 1 and not opened[0].id.valid
+
+
 def _assert_matches_memory(filename, result, frames, **filters):
     observed = query_named_interactions_file(filename, "mixed", frames, **filters)
     expected = result.query(structure_indices=frames, **filters).to_dict()

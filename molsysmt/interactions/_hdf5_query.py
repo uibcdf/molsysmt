@@ -340,7 +340,7 @@ def query_named_interactions_file(
     mode="involving_selection",
     interaction_types=None,
 ):
-    """Query one named analysis in an H5MSM 0.5 file by requested frames."""
+    """Query one named analysis in a supported modular H5MSM file."""
     with HDF5InteractionsReader(filename, analysis_name) as reader:
         return reader.query(
             structure_indices,
@@ -351,7 +351,7 @@ def query_named_interactions_file(
 
 
 class HDF5InteractionsReader:
-    """Hold one named H5MSM 0.5 analysis open for repeated selective queries."""
+    """Hold one named modular H5MSM analysis open for selective queries."""
 
     def __init__(self, filename, analysis_name):
         import h5py
@@ -362,11 +362,9 @@ class HDF5InteractionsReader:
         self.group = None
         self._cache = None
         try:
-            if (
-                self.file.attrs.get("type") != "h5msm"
-                or self.file.attrs.get("version") != "0.5"
-            ):
-                raise ValueError("Expected an H5MSM 0.5 file.")
+            from molsysmt._private.h5msm_storage.modular import _header
+
+            _header(self.file)
             if "interactions" not in self.file:
                 raise KeyError("The file has no interaction analyses.")
             collection = self.file["interactions"]

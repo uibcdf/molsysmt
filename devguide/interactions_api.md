@@ -1121,7 +1121,11 @@ H5MSM 0.5 has an optional interaction layer. Public `molsysmt.h5msm.write`
 and `read` preserve named analyses attached to `MolSys`; `write_layers` and
 `read_layers` also handle interaction-only files. The public readers currently
 materialize each selected analysis. An indexed selective HDF5 reader exists
-internally, but it is not yet a supported public file-backed query API.
+internally, but it is not yet a supported public file-backed query API. That
+private reader validates implemented modular roots 0.5, 0.6 and 1.0 through the
+central H5MSM header validator before checking the named-analysis codec. It
+does not infer support for unknown future root or collection versions and does
+not materialize unrelated molecular layers to query one analysis.
 The native/H5MSM parity workflow is guarded by
 `tests/interactions/test_public_molsys_h5msm_workflow.py`. No generic contact
 classifier is implied by these family methods. Client
