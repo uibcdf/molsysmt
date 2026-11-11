@@ -23,6 +23,7 @@ API Build
    editable
    get_disulfide_bonds
    get_covalent_bond_candidates
+   infer_covalent_bonds
    get_peptide_bond_candidates
    get_missing_bonds
    get_missing_heavy_atoms

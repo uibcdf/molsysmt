@@ -11,3 +11,5 @@ API Terminal Capping
    get_bonded_atom_pairs
    get_group_db
    is_terminal_capping
+   is_n_terminal_capping
+   is_c_terminal_capping
