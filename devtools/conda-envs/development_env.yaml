@@ -12,7 +12,7 @@ dependencies:
 - argdigest >=0.14.0
 - depdigest >=0.15.1
 - smonitor >=0.16.0
-- pyunitwizard >=0.28.1
+- pyunitwizard >=0.29.2
 - pandas >=2.2.2
 - jinja2 >=3.1.2
 - molsysviewer

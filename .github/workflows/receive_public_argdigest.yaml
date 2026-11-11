@@ -38,7 +38,7 @@ jobs:
               - mkl<2026.2
           create-args: >-
             python=3.14 argdigest=0.17.1 smonitor=0.21.0 depdigest=0.15.1
-            pyunitwizard>=0.28.1 molsysviewer ackredit>=0.9.0 setuptools-rust>=1.10
+            pyunitwizard>=0.29.2 molsysviewer ackredit>=0.9.0 setuptools-rust>=1.10
             setuptools>=77.0.3 versioningit>=3 pytest pytest-xdist pytest-receptor=1.1.0
             pyyaml packaging pint scipy openmm>=8.2.0 mdtraj>=1.11.0 pyparsing!=3.3.3
             mdanalysis>=2.8.0 rdkit>=2024.3.4 parmed>=4.3.1 biopython>=1.80 ipywidgets anywidget beartype
