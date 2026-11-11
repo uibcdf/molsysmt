@@ -1,0 +1,72 @@
+{
+  "schema": "molsysmt.h5msm_p5_review_fixtures@1",
+  "date": "2026-11-10",
+  "owner_issue": "uibcdf/molsysmt#256",
+  "generator_source": "ee4f727960ddb7f86b2c9c8e28e7f842fbe1bdfc",
+  "unchanged_product_source": "5e7d65a665425fe6077f016dd95cbd65d424ee91",
+  "generator_guard": "tests/form/file_h5msm/test_modular_mechanics.py::test_prepared_whole_file_in_a_fresh_reader_retains_provenance_and_edit_ownership",
+  "receiving_profile": "pre1-completion-p5-20261110-directed",
+  "provider_cases": 156,
+  "native_backend_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "root_version": "0.6",
+  "fixtures": [
+    {
+      "scope": "complete",
+      "files": {
+        "complete.h5msm": {
+          "sha256": "188d077fcc036218e7ca1e873ff257d368dfa2b81b3965b70b714692de665ff5",
+          "bytes": 256349
+        },
+        "complete-expected.json": {
+          "sha256": "7a0debca774c15a04a24043e2d1a7191f7b7639bb3a80fcedac9d88689b7b7e8",
+          "bytes": 26627
+        },
+        "complete-pdbqt.json": {
+          "sha256": "8f630d72a3a7fb6dc48645d210dfe6ec33325f1336b225f431251a52ac30f459",
+          "bytes": 4734
+        }
+      }
+    },
+    {
+      "scope": "merged",
+      "files": {
+        "merged.h5msm": {
+          "sha256": "55d33285b688021eb72749b8fe60f76f6dbeb0f7c7ec6f922688e83e4563ca5f",
+          "bytes": 288602
+        },
+        "merged-expected.json": {
+          "sha256": "c5c88382467301037a2d45e2749b262efc2b8acacb1c73d68f5fa6359c97416e",
+          "bytes": 31138
+        },
+        "merged-pdbqt.json": {
+          "sha256": "4ec8cab7018c3237075f4dfdf8b80d8f3d62e2b71d981b4770566a3cd0aec0a5",
+          "bytes": 4731
+        }
+      }
+    },
+    {
+      "scope": "projected",
+      "files": {
+        "projected.h5msm": {
+          "sha256": "7440d9d237d9fa57672ce6fd2afedba3f73096c31419dd99ee1d4d2132c86160",
+          "bytes": 254328
+        },
+        "projected-expected.json": {
+          "sha256": "25e30f44b8910b21aaec746fbccfcefa75ef444b829d13374659bdfa2a248f48",
+          "bytes": 24713
+        },
+        "projected-pdbqt.json": {
+          "sha256": "31b2c4d6d3487b2bd335b46c978966b591f9c6a1a89e9864145d3f34e492d52c",
+          "bytes": 4014
+        }
+      }
+    }
+  ],
+  "meaning": "Small synthetic storage/ownership controls from already executed public-writer tests. Supplemented test assignments are not a validated production force field or a new molecular experiment.",
+  "limits": [
+    "Provider receiving only; independent client execution has not occurred for this packet.",
+    "Expected snapshots are explicit test-oracle JSON, not a new MolSysSuite transport or unit schema.",
+    "Complete, atom-projected and nonpolar-hydrogen-merged fixtures retain their original stored producer labels; no reading-time relabeling.",
+    "Experimental 0.6, not the planned stable 1.0 freeze, installed pair or release acceptance."
+  ]
+}

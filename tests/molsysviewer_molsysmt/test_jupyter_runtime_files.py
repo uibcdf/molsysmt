@@ -299,6 +299,9 @@ def test_launcher_readiness_obeys_deadline_and_retires_owned_files(
     def urlopen(request, timeout):
         nonlocal now
         assert request.get_header("Authorization").startswith("token ")
+        if request.full_url.endswith("/api/sessions"):
+            yield SimpleNamespace(read=lambda _: b"[]")
+            return
         if request.full_url.endswith("/api/shutdown"):
             assert request.get_method() == "POST"
             yield SimpleNamespace(status=200)

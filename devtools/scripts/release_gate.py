@@ -44,6 +44,7 @@ VALIDATORS = [
     ("validate_dependencies.py", "No top-level soft-dependency imports"),
     ("validate_devguide.py", "Developer-guide integrity"),
     ("validate_course.py", "Four Paths course structure"),
+    ("validate_notebook_schemas.py", "Stored notebook schemas (no repairs)"),
     ("validate_demo_assets.py", "Demo assets / H5MSM fixtures"),
     ("validate_resources.py", "Resource manifests"),
     ("validate_citation.py", "Citation and Zenodo metadata"),

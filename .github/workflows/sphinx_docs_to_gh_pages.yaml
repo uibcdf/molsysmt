@@ -91,6 +91,10 @@ jobs:
           pwd
           python -c 'import molsysmt; print("Version of the package: {}".format(molsysmt.__version__))'
 
+      - name: Validate stored notebook schemas
+        shell: bash -l {0}
+        run: python devtools/scripts/validate_notebook_schemas.py
+
       - name: Running the Sphinx to gh-pages Action
         uses: uibcdf/action-sphinx-docs-to-gh-pages@v3.0.0
         with:

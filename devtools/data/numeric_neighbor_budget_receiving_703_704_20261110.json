@@ -1,0 +1,843 @@
+{
+  "schema_version": "molsysmt.numeric_neighbor_budget_receiving@1",
+  "date": "2026-11-10",
+  "owner_issues": [
+    "uibcdf/molsysmt#703",
+    "uibcdf/molsysmt#704"
+  ],
+  "qualified_source": "93b3a6ea66b848476ecc94b89171a5f6e3230927",
+  "full_default_failure": {
+    "execution": {
+      "command": [
+        "<development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n3",
+        "--junitxml=<private-evidence>/pre1-native-closure-20261110-full-default-six-gib-three-cpus.xml",
+        "--receptor-events=<private-evidence>/pre1-native-closure-20261110-full-default-six-gib-three-cpus.events.jsonl",
+        "--basetemp=<private-evidence>/pre1-native-closure-20261110-full-default-six-gib-three-cpus"
+      ],
+      "exit_code": 1,
+      "seconds": 2461.113744928036,
+      "viewer_commit": "b010ab76c2e15178e5ad987ad369cce02e40c921",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "source_commit": "5f241cfa77f0091dc7a54c0be1bdd2951efdefed",
+      "starting_git_status": "",
+      "ending_git_status": "",
+      "viewer_changed_inputs": [],
+      "viewer_checked_inputs": 2573,
+      "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+      "changed_inputs": [],
+      "checked_inputs": 8805
+    },
+    "resources": {
+      "started_utc": "2026-11-10T18:56:36.278043+00:00",
+      "seconds": 2479.9885916828644,
+      "limits": {
+        "memory.max": "6442450944",
+        "memory.high": "5905580032",
+        "memory.swap.max": "0",
+        "memory.oom.group": "1",
+        "cpu.max": "300000 100000",
+        "pids.max": "512"
+      },
+      "host_load": {
+        "cpu_count": 20,
+        "affinity_cpus": 20,
+        "load_average": [
+          2.12646484375,
+          2.177734375,
+          1.74755859375
+        ],
+        "cpu_utilization": 0.027596588058203753,
+        "swap_bytes_per_second": 0.0
+      },
+      "host_available_minimum_observed_bytes": 8494817280,
+      "cgroup_memory_peak_bytes": 5918953472,
+      "memory_events": "low 0\nhigh 1684\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "stop_reason": null,
+      "maximum_host_full_pressure_avg10": 11.21
+    },
+    "evidence_sha256": {
+      ".json": "e865c774681513050d2a3585be9e1c06b88bb614aa15e0622777ccadaa866044",
+      "-bounded.json": "793415f4a56416c79445ea36a32505ac01d798287a085df3a5a8ddaf1fe8eea3",
+      ".xml": "c452979eb39c179eb9743c7cd9db868148d82ed4924b1116368528aee97ced11",
+      ".log": "8601d633b8838387bad2fc9e716cfb561cddfed6d02b9429b7d86d283efd8512",
+      "-inputs-before.json": "daa63e2ed97414e6d12dbb65324e5aa56cf12e4695f084a9cc817c4e371d185a",
+      "-inputs-after.json": "daa63e2ed97414e6d12dbb65324e5aa56cf12e4695f084a9cc817c4e371d185a",
+      "-reference-driver.py": "bf3b0084ab4291ee643c70f48d9493daab9a8d237b76e3584bbf60a00a19b7e4",
+      "-resource-driver.py": "7e16f259283c771b3ace4114652bd9b1c35693719d59d90fd48e1f5ef0063481"
+    },
+    "junit_suites": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "5",
+        "skipped": "2",
+        "tests": "33526",
+        "time": "2455.027",
+        "timestamp": "2026-11-10T12:56:41.944449-06:00",
+        "hostname": "nauta"
+      }
+    ],
+    "nonpassing_cases": [
+      {
+        "class": "tests._private.smonitor.test_xdist_warning_reconstruction",
+        "name": "test_every_catalog_warning_class_has_a_sample",
+        "outcome": "failure"
+      },
+      {
+        "class": "tests._private.smonitor.test_xdist_warning_reconstruction",
+        "name": "test_catalog_warnings_are_not_re_rendered[UnassessedPeptideBackboneWarning]",
+        "outcome": "failure"
+      },
+      {
+        "class": "tests.chemical_states.test_namespace",
+        "name": "test_canonical_graph_namespace_has_no_topology_facade",
+        "outcome": "failure"
+      },
+      {
+        "class": "tests.interactions.ionic.test_chunked_ionic",
+        "name": "test_auto_coordinate_working_estimate_selects_small_blocks",
+        "outcome": "failure"
+      },
+      {
+        "class": "tests.interactions.ionic.test_chunked_ionic",
+        "name": "test_result_budget_failure_does_not_return_partial_coverage",
+        "outcome": "failure"
+      },
+      {
+        "class": "tests.form.string_smiles.test_is_form",
+        "name": "test_is_form_cco_without_rdkit",
+        "outcome": "skipped"
+      },
+      {
+        "class": "tests.form.test_cupy_ndarray",
+        "name": "test_cupy_ndarray_form_detection_and_conversion",
+        "outcome": "skipped"
+      }
+    ],
+    "version_controls": [
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_source_overlay_does_not_borrow_another_installation_version",
+        "time": "0.275"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_embedded_package_version_precedes_foreign_distribution",
+        "time": "0.091"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_embedded_package_version_precedes_matching_metadata",
+        "time": "0.094"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_owned_legacy_distribution_can_supply_a_missing_build_stamp",
+        "time": "0.123"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_unrecorded_metadata_does_not_prove_package_ownership",
+        "time": "0.100"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_no_build_or_installation_metadata_is_explicitly_unknown",
+        "time": "0.100"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_embedded_version_works_without_distribution_metadata",
+        "time": "0.094"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_broken_embedded_module_is_not_silently_relabelled",
+        "time": "0.123"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_invalid_embedded_versions_are_explicitly_unknown[17]",
+        "time": "0.094"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_invalid_embedded_versions_are_explicitly_unknown[False]",
+        "time": "0.103"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_invalid_embedded_versions_are_explicitly_unknown[]",
+        "time": "0.100"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_invalid_embedded_versions_are_explicitly_unknown[   ]",
+        "time": "0.094"
+      },
+      {
+        "classname": "tests.test_runtime_version",
+        "name": "test_scientific_results_use_the_cached_imported_package_version",
+        "time": "0.008"
+      }
+    ],
+    "receptor_final": {
+      "artifact_policy": {
+        "dropped_records": 33099,
+        "max_bytes": 52428800,
+        "truncated": true
+      },
+      "complete": true,
+      "counts": {
+        "collected": 33526,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 33526,
+        "failed": 5,
+        "not_executed": 0,
+        "passed": 33519,
+        "reruns": 0,
+        "skipped": 2,
+        "subtests": {},
+        "warnings": 6700,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "duration": 2455.4356408859603,
+      "exitstatus": 1,
+      "extensions": {
+        "dropped": 5974,
+        "incomplete": true,
+        "recorded": 11743
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "digest": "56428019caf56a86b4faaa9cd892181e3c87bad241c71822b660b92fae3bcc25",
+        "records": 90238
+      },
+      "invalid_selections": [],
+      "note": "",
+      "outcome": "FAIL",
+      "root_causes": 5,
+      "run_id": "59907072a3d046b8b3e5bca812fa287f",
+      "schema": "pytest-receptor.events@1",
+      "stop_reason": "",
+      "type": "session_finish"
+    },
+    "artifact_interpretation": "Valid final summary and integrity, with explicit bounded phase/extension truncation; native exit and complete JUnit retain the five failures and two skips."
+  },
+  "targeted_receiving": {
+    "pre1-full-closeout-703-704-baseline-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<molsysmt-source>/.pytest_cache/external-reference-421/pre1-full-closeout-703-704-baseline-directed.xml",
+          "--receptor-events=<molsysmt-source>/.pytest_cache/external-reference-421/pre1-full-closeout-703-704-baseline-directed.events.jsonl",
+          "tests/structure/get_neighbors/test_allocation_bounds.py::test_tiny_query_budgets_follow_numeric_storage_not_a_worker_stack",
+          "tests/interactions/ionic/test_chunked_ionic.py::test_auto_coordinate_working_estimate_selects_small_blocks",
+          "tests/interactions/ionic/test_chunked_ionic.py::test_result_budget_failure_does_not_return_partial_coverage",
+          "--basetemp=<molsysmt-source>/.pytest_cache/external-reference-421/pre1-full-closeout-703-704-baseline-directed"
+        ],
+        "exit_code": 1,
+        "seconds": 4.547821230022237,
+        "viewer_commit": "b010ab76c2e15178e5ad987ad369cce02e40c921",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "736ca5fb1838951d58aedb27a1242282407f104b",
+        "starting_git_status": " M devguide/pending_bugs/README.md\n M tests/structure/get_neighbors/test_allocation_bounds.py\n?? devguide/pending_bugs/neighbor_admission_rejects_tiny_numerical_budgets_with_a_fixed_per_worker_allowa.md\n?? devguide/pending_bugs/peptide_terminus_additions_leave_namespace_and_warning_roundtrip_controls_stale.md\n",
+        "ending_git_status": " M devguide/pending_bugs/README.md\n M tests/structure/get_neighbors/test_allocation_bounds.py\n?? devguide/pending_bugs/neighbor_admission_rejects_tiny_numerical_budgets_with_a_fixed_per_worker_allowa.md\n?? devguide/pending_bugs/peptide_terminus_additions_leave_namespace_and_warning_roundtrip_controls_stale.md\n",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2573,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "checked_floor_inputs": 0,
+        "changed_floor_inputs": [],
+        "changed_inputs": [],
+        "checked_inputs": 8810
+      },
+      "resources": {
+        "started_utc": "2026-11-10T19:49:17.026784+00:00",
+        "seconds": 11.011701653013006,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.50439453125,
+            1.47802734375,
+            2.6865234375
+          ],
+          "cpu_utilization": 0.08597285067873306,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13163008000,
+        "cgroup_memory_peak_bytes": 208683008,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "01dca4f7389b31435836a02ca356cce97d64bcc9e68cd034d94e4183df4a7143",
+        "-bounded.json": "48a7a90cbe2f8e03e657ddbaeaa98afa226049abad5fd12e797047ca052699b0",
+        ".xml": "0e558a0d702264d1d77930a7868fc0750924e57a4338f69143a34764ec8dfabe",
+        ".log": "1830463d23114e63abbb9200d8ce1a56cc08d0a5f7065322eefe6cca99cfca41",
+        "-inputs-before.json": "f76747951a3305e31e15969f497df4c2b023883b665115ed1e444e276220f487",
+        "-inputs-after.json": "f76747951a3305e31e15969f497df4c2b023883b665115ed1e444e276220f487",
+        "-reference-driver.py": "f05f32de954a713ceaa6cdeebfa1d9fad6471a7e7b63986caaf436276a7dc803",
+        "-resource-driver.py": "0ff2052f4f92bf48664d8089d13cef7a7671441566a569c8d13a6b4b09c0e355"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "6",
+          "skipped": "0",
+          "tests": "10",
+          "time": "1.820",
+          "timestamp": "2026-11-10T13:49:22.141918-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [
+        {
+          "class": "tests.structure.get_neighbors.test_allocation_bounds",
+          "name": "test_tiny_query_budgets_follow_numeric_storage_not_a_worker_stack[1536-1-False]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.get_neighbors.test_allocation_bounds",
+          "name": "test_tiny_query_budgets_follow_numeric_storage_not_a_worker_stack[1536-1-True]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.get_neighbors.test_allocation_bounds",
+          "name": "test_tiny_query_budgets_follow_numeric_storage_not_a_worker_stack[1536-4-False]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.structure.get_neighbors.test_allocation_bounds",
+          "name": "test_tiny_query_budgets_follow_numeric_storage_not_a_worker_stack[1536-4-True]",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.interactions.ionic.test_chunked_ionic",
+          "name": "test_auto_coordinate_working_estimate_selects_small_blocks",
+          "outcome": "failure"
+        },
+        {
+          "class": "tests.interactions.ionic.test_chunked_ionic",
+          "name": "test_result_budget_failure_does_not_return_partial_coverage",
+          "outcome": "failure"
+        }
+      ],
+      "version_controls": []
+    },
+    "pre1-full-closeout-703-704-received-directed": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--junitxml=<molsysmt-source>/.pytest_cache/external-reference-421/pre1-full-closeout-703-704-received-directed.xml",
+          "--receptor-events=<molsysmt-source>/.pytest_cache/external-reference-421/pre1-full-closeout-703-704-received-directed.events.jsonl",
+          "tests/structure/get_neighbors/test_allocation_bounds.py",
+          "tests/interactions/ionic/test_chunked_ionic.py",
+          "tests/_private/smonitor/test_xdist_warning_reconstruction.py",
+          "tests/chemical_states/test_namespace.py",
+          "tests/chemical_states/test_get_peptide_termini.py",
+          "tests/molsysviewer_molsysmt/test_jupyter_stage_diagnostics.py",
+          "tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py",
+          "--basetemp=<molsysmt-source>/.pytest_cache/external-reference-421/pre1-full-closeout-703-704-received-directed"
+        ],
+        "exit_code": 0,
+        "seconds": 26.793401696020737,
+        "viewer_commit": "b010ab76c2e15178e5ad987ad369cce02e40c921",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "93b3a6ea66b848476ecc94b89171a5f6e3230927",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2573,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "checked_floor_inputs": 0,
+        "changed_floor_inputs": [],
+        "changed_inputs": [],
+        "checked_inputs": 8810
+      },
+      "resources": {
+        "started_utc": "2026-11-10T19:57:45.501365+00:00",
+        "seconds": 33.02829742897302,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            2.37158203125,
+            2.1923828125,
+            2.5302734375
+          ],
+          "cpu_utilization": 0.0382293762575453,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13514522624,
+        "cgroup_memory_peak_bytes": 356188160,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.18
+      },
+      "evidence_sha256": {
+        ".json": "25f459efa4b097ec889d5fdfb170f9ea9a4c7d588d3af76681dc9b6d919bdb88",
+        "-bounded.json": "6de3d6f046d1f4876d0fa7dde9ef151d9a7534e04d2944439cc02d25fe46b369",
+        ".xml": "3da71ad5692be135bd4f6e9e7be8cfd6bbf728305f32c0a53de65ab3158ea972",
+        ".log": "5b825de3ff70b63ed0a8223534570e1bbea122e2ec432bbcd92b1f04a9e83653",
+        "-inputs-before.json": "ec9fc53039487a4c3a71606b92091d9e76f7b371432a83bece4518949b81f885",
+        "-inputs-after.json": "ec9fc53039487a4c3a71606b92091d9e76f7b371432a83bece4518949b81f885",
+        "-reference-driver.py": "d17b7af1555def8ac4108d301a87a60d415d4ef4548b4cc7ecf992fa515be55e",
+        "-resource-driver.py": "0ff2052f4f92bf48664d8089d13cef7a7671441566a569c8d13a6b4b09c0e355"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "133",
+          "time": "23.661",
+          "timestamp": "2026-11-10T13:57:50.261612-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    },
+    "pre1-full-closeout-703-704-build-wide": {
+      "execution": {
+        "command": [
+          "cargo",
+          "build",
+          "--offline",
+          "--locked",
+          "--release",
+          "--manifest-path",
+          "rust/Cargo.toml",
+          "-j",
+          "2"
+        ],
+        "exit_code": 0,
+        "seconds": 182.43187771295197,
+        "viewer_commit": "b010ab76c2e15178e5ad987ad369cce02e40c921",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "93b3a6ea66b848476ecc94b89171a5f6e3230927",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2573,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "checked_floor_inputs": 0,
+        "changed_floor_inputs": [],
+        "changed_inputs": [],
+        "checked_inputs": 8810
+      },
+      "resources": {
+        "started_utc": "2026-11-10T19:51:32.517790+00:00",
+        "seconds": 193.16494938288815,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.69775390625,
+            1.6904296875,
+            2.6083984375
+          ],
+          "cpu_utilization": 0.02462311557788943,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 13409759232,
+        "cgroup_memory_peak_bytes": 1916030976,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "a9014c64d4d56da351f25325ed12934892b93642891c20b977449bf988a7dfa9",
+        "-bounded.json": "33a0faa12485a45be9e2dce1fb51f3224c2029cde45900224ecb0f47796b1949",
+        ".log": "d538c24b5d7681f5a89b77ed85b3ac066dfae7d03ce4a62a2e018ced3bd391ce",
+        "-inputs-before.json": "aa6fe6984174b6dfbb116a6e838c825c5e2c08f935c043f0eb85369deb08355a",
+        "-inputs-after.json": "aa6fe6984174b6dfbb116a6e838c825c5e2c08f935c043f0eb85369deb08355a",
+        "-reference-driver.py": "d17b7af1555def8ac4108d301a87a60d415d4ef4548b4cc7ecf992fa515be55e",
+        "-resource-driver.py": "0ff2052f4f92bf48664d8089d13cef7a7671441566a569c8d13a6b4b09c0e355"
+      }
+    },
+    "pre1-full-closeout-703-704-rust-wide": {
+      "execution": {
+        "command": [
+          "cargo",
+          "test",
+          "--offline",
+          "--locked",
+          "--manifest-path",
+          "rust/Cargo.toml",
+          "--no-default-features",
+          "-j",
+          "2",
+          "--",
+          "--test-threads=2"
+        ],
+        "exit_code": 0,
+        "seconds": 118.03093547490425,
+        "viewer_commit": "b010ab76c2e15178e5ad987ad369cce02e40c921",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "93b3a6ea66b848476ecc94b89171a5f6e3230927",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2573,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "checked_floor_inputs": 0,
+        "changed_floor_inputs": [],
+        "changed_inputs": [],
+        "checked_inputs": 8810
+      },
+      "resources": {
+        "started_utc": "2026-11-10T19:57:49.497300+00:00",
+        "seconds": 127.181793123018,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3758096384",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            2.26171875,
+            2.17236328125,
+            2.52197265625
+          ],
+          "cpu_utilization": 0.07742584213172443,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12805054464,
+        "cgroup_memory_peak_bytes": 1918717952,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.18
+      },
+      "evidence_sha256": {
+        ".json": "abb65e06937cdacd62dd02993d2cae9c61bf4c97ede6829cc393aa2d5a4592b0",
+        "-bounded.json": "818cf0984df7c610938fb04e0d4f3c7893eb07b680cd6ab59bb6ed48a5c91a9b",
+        ".log": "3f3781fe2afd9d2030f3dd039d8c71ec694fe1c7fbd0fcb39ea09c79981c63b0",
+        "-inputs-before.json": "ec9fc53039487a4c3a71606b92091d9e76f7b371432a83bece4518949b81f885",
+        "-inputs-after.json": "ec9fc53039487a4c3a71606b92091d9e76f7b371432a83bece4518949b81f885",
+        "-reference-driver.py": "d17b7af1555def8ac4108d301a87a60d415d4ef4548b4cc7ecf992fa515be55e",
+        "-resource-driver.py": "0ff2052f4f92bf48664d8089d13cef7a7671441566a569c8d13a6b4b09c0e355"
+      }
+    },
+    "pre1-full-closeout-703-704-clippy-required": {
+      "execution": {
+        "command": [
+          "cargo",
+          "clippy",
+          "--offline",
+          "--locked",
+          "--manifest-path",
+          "rust/Cargo.toml",
+          "--no-default-features",
+          "-j",
+          "2",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "exit_code": 0,
+        "seconds": 128.83525634603575,
+        "viewer_commit": "b010ab76c2e15178e5ad987ad369cce02e40c921",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "93b3a6ea66b848476ecc94b89171a5f6e3230927",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2573,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "checked_floor_inputs": 0,
+        "changed_floor_inputs": [],
+        "changed_inputs": [],
+        "checked_inputs": 8810
+      },
+      "resources": {
+        "started_utc": "2026-11-10T20:04:53.646746+00:00",
+        "seconds": 138.22506771888584,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1782579200",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            1.3076171875,
+            1.48974609375,
+            2.12451171875
+          ],
+          "cpu_utilization": 0.08597285067873306,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12321013760,
+        "cgroup_memory_peak_bytes": 1274527744,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 2.47
+      },
+      "evidence_sha256": {
+        ".json": "74f19b39cc7e791ab23b9d8be503d7656d8ae6900de5b1bd3721771b112f109b",
+        "-bounded.json": "45eed78e556895c3530af3e84529ed6b96e9de8511f6dd54b849fb76d61cbfad",
+        ".log": "8dcb4a989e61bd42c0efdab537b64c9dafb499b4b29c0b4f50e57c6dcbf5346a",
+        "-inputs-before.json": "ec9fc53039487a4c3a71606b92091d9e76f7b371432a83bece4518949b81f885",
+        "-inputs-after.json": "ec9fc53039487a4c3a71606b92091d9e76f7b371432a83bece4518949b81f885",
+        "-reference-driver.py": "d17b7af1555def8ac4108d301a87a60d415d4ef4548b4cc7ecf992fa515be55e",
+        "-resource-driver.py": "0ff2052f4f92bf48664d8089d13cef7a7671441566a569c8d13a6b4b09c0e355"
+      }
+    },
+    "pre1-full-closeout-703-704-scientific": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/execute_scientific_evidence.py",
+          "--receptor",
+          "llm",
+          "--require-clean",
+          "--certificate",
+          "<molsysmt-source>/.pytest_cache/external-reference-421/pre1-full-closeout-703-704-scientific-scientific.json"
+        ],
+        "exit_code": 0,
+        "seconds": 28.829269968904555,
+        "viewer_commit": "b010ab76c2e15178e5ad987ad369cce02e40c921",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "93b3a6ea66b848476ecc94b89171a5f6e3230927",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2573,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "checked_floor_inputs": 0,
+        "changed_floor_inputs": [],
+        "changed_inputs": [],
+        "checked_inputs": 8810
+      },
+      "resources": {
+        "started_utc": "2026-11-10T20:05:57.726574+00:00",
+        "seconds": 39.03704139008187,
+        "limits": {
+          "memory.max": "2147483648",
+          "memory.high": "1782579200",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "100000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            2.58349609375,
+            1.8154296875,
+            2.1962890625
+          ],
+          "cpu_utilization": 0.17546505781799904,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12151390208,
+        "cgroup_memory_peak_bytes": 497213440,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 0.0
+      },
+      "evidence_sha256": {
+        ".json": "a35d21b058a9decaaff4b013c6d378f26a292da9f6b9730e7a0213f68d78cd56",
+        "-bounded.json": "0fad1f7c9c2f349a12ad6a35aa45387ca34f7c78d669e7b7d701f149059989b1",
+        ".log": "ab7b1512b6665fd7d6491fb4d83b11bb09d0468cc90e8aae7a7a99482762f151",
+        "-inputs-before.json": "ec9fc53039487a4c3a71606b92091d9e76f7b371432a83bece4518949b81f885",
+        "-inputs-after.json": "ec9fc53039487a4c3a71606b92091d9e76f7b371432a83bece4518949b81f885",
+        "-reference-driver.py": "d17b7af1555def8ac4108d301a87a60d415d4ef4548b4cc7ecf992fa515be55e",
+        "-resource-driver.py": "0ff2052f4f92bf48664d8089d13cef7a7671441566a569c8d13a6b4b09c0e355"
+      }
+    },
+    "pre1-budget-703-affected-broad-wide": {
+      "execution": {
+        "command": [
+          "<development-environment>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n2",
+          "--junitxml=<molsysmt-source>/.pytest_cache/external-reference-421/pre1-budget-703-affected-broad-wide.xml",
+          "--receptor-events=<molsysmt-source>/.pytest_cache/external-reference-421/pre1-budget-703-affected-broad-wide.events.jsonl",
+          "tests/interactions",
+          "tests/hbonds",
+          "tests/structure/get_neighbors",
+          "tests/structure/get_contacts",
+          "tests/structure/get_minimum_distances",
+          "tests/structure/get_maximum_distances",
+          "tests/scientific_truth/structure/test_neighbor_cell_bounds.py",
+          "tests/_private/smonitor/test_xdist_warning_reconstruction.py",
+          "tests/chemical_states/test_namespace.py",
+          "tests/chemical_states/test_get_peptide_termini.py",
+          "--basetemp=<molsysmt-source>/.pytest_cache/external-reference-421/pre1-budget-703-affected-broad-wide"
+        ],
+        "exit_code": 0,
+        "seconds": 212.11107348510996,
+        "viewer_commit": "b010ab76c2e15178e5ad987ad369cce02e40c921",
+        "scope": "local source; not installed package or human Qt acceptance",
+        "source_commit": "93b3a6ea66b848476ecc94b89171a5f6e3230927",
+        "starting_git_status": "",
+        "ending_git_status": "",
+        "viewer_changed_inputs": [],
+        "viewer_checked_inputs": 2573,
+        "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+        "checked_floor_inputs": 0,
+        "changed_floor_inputs": [],
+        "changed_inputs": [],
+        "checked_inputs": 8810
+      },
+      "resources": {
+        "started_utc": "2026-11-10T20:04:35.618029+00:00",
+        "seconds": 221.2031995889265,
+        "limits": {
+          "memory.max": "4294967296",
+          "memory.high": "3670016000",
+          "memory.swap.max": "0",
+          "memory.oom.group": "1",
+          "cpu.max": "200000 100000",
+          "pids.max": "512"
+        },
+        "host_load": {
+          "cpu_count": 20,
+          "affinity_cpus": 20,
+          "load_average": [
+            0.56005859375,
+            1.3818359375,
+            2.1064453125
+          ],
+          "cpu_utilization": 0.031155778894472408,
+          "swap_bytes_per_second": 0.0
+        },
+        "host_available_minimum_observed_bytes": 12151287808,
+        "cgroup_memory_peak_bytes": 1178599424,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "stop_reason": null,
+        "maximum_host_full_pressure_avg10": 2.47
+      },
+      "evidence_sha256": {
+        ".json": "4126b866bf69f0020fc3119ee05014a4b79614ad5ca12820fd71eb72bddc359c",
+        "-bounded.json": "0077697f66feae9218664ca885f1e4c09b9685f9877a5cb2993b5d06e374738d",
+        ".xml": "ceab6f4684f318377f4123a113f36865b26bcf73f6d7dd2a06ff71abf7033309",
+        ".log": "fcc126aaa50b2b1342f4e78395248f53f77177758a16d85c05a430746108ac65",
+        "-inputs-before.json": "ec9fc53039487a4c3a71606b92091d9e76f7b371432a83bece4518949b81f885",
+        "-inputs-after.json": "ec9fc53039487a4c3a71606b92091d9e76f7b371432a83bece4518949b81f885",
+        "-reference-driver.py": "39c785a090e8c639cacd2d1ae37431bbd558c5e5d16236c677586b3f6c881ef2",
+        "-resource-driver.py": "8349eb7cea5465d1fac940acff8fb6a0fbd0c6f25c7afacd214a877d015bc188"
+      },
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "1782",
+          "time": "209.846",
+          "timestamp": "2026-11-10T14:04:43.177275-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "nonpassing_cases": [],
+      "version_controls": []
+    }
+  },
+  "build": {
+    "source": "93b3a6ea66b848476ecc94b89171a5f6e3230927",
+    "old_backend_sha256": "58653b1d477be36017d2bc721dafe6e85a508e2325fa3226ccf26c61d449d6e5",
+    "new_backend_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "rust_version": "rustc 1.97.1 (8bab26f4f 2026-07-14)",
+    "release_profile_overrides": false,
+    "tracked_rust_inputs": {
+      "rust-toolchain.toml": "8e390d6a0838315f972690f46ef8bae8b7ecc9ee6c1ed70140ef852869c2482e",
+      "rust/.gitignore": "63fc2c8384d250f25bcab75a7ac7fe1017fe52f7dce6b39f7b3c8aac8bb58b77",
+      "rust/Cargo.lock": "9dcd71e4171834ca0471bbd0640842085eeef9c37103eb5d7a6342f03d1ed3cc",
+      "rust/Cargo.toml": "57c6513fb0350337b306942a806e2b84b47883bf788aaeebb7cc646ccca90b9c",
+      "rust/README.md": "5140ee5345c777f8d229eebd5ee020a64bbd5e716ec5d74b5a2096236c241c5f",
+      "rust/src/angles.rs": "7d5293e8885cc35fd00821f1f0c6c00bb81945b9c25d3bc394e12c76cf1d2500",
+      "rust/src/axes.rs": "4605194b07c559213e904c2e248e3c596683a921990f242ef118f5e833d5a505",
+      "rust/src/dihedral_ops.rs": "eacdff8410e5df113ed060d3c65c3daec2c53e433b17516d58e279ae6a28d3ea",
+      "rust/src/dihedrals.rs": "7c602ba7ff9ab1fb93fb51bc0092bb12320fc52144368f3e76ac8206c2ff3089",
+      "rust/src/distances.rs": "c093ed877ddd27c907a91087921dd7ed5efcecafe3274c1eb3131d892595faa2",
+      "rust/src/geometry.rs": "6e1f23b41fe7df771fb3ec60a627d238c86ba02b6ae62a9d141c23b09fa68403",
+      "rust/src/lib.rs": "8a4c3a540cffc643d583e5d12b3f44e3224d2c927e772c9aafbdb1dc044a76cc",
+      "rust/src/mathlib.rs": "57cf2719d7e65d44e3fb17d2bc759c7f8b22cd8d8d4d8ac689c947484e2b213e",
+      "rust/src/mic.rs": "c0a704bbbba998837e7bd49f3d83a6a24a8a364258f92de666541f5d22f624c1",
+      "rust/src/neighbors.rs": "6ecf9d0b3ffc99d01008080cc8176db076d1d0e6d9686ea8086af34f6ee8573e",
+      "rust/src/pbc.rs": "8a27c34269d1feac4514f2114f9f50f5a6cb2f4ffa23cbe99e6f3194e2f8d677",
+      "rust/src/pca.rs": "6bc1f301245851e7458b420b0d692c41d15d5ae57456d191433a639133b38da6",
+      "rust/src/planes.rs": "74ca0ad7eeb8569379cc8c7d7e89474fab7b3850c6a362940872abde7e9cd1fd",
+      "rust/src/rmsd.rs": "6aada84f62ff1a4578c781d924dd8efc090252e47d20e9a79e9d962b9704fb54",
+      "rust/src/sasa.rs": "65d15bc51acfea41ad0ce567702d0ead23fa2a50768ee9718af5ac5f88ff4175",
+      "rust/src/series.rs": "0748086071b77af7130f2520c208f6870f2c76dbd6aa97ff4e4444bd989e780e",
+      "rust/src/symmetric.rs": "b4cdf00ed30244af4eb32f80241b531c8f110c35646a82f4b495d5d1a0c17f8b",
+      "rust/src/threads.rs": "58e47b6e0dea20ec5ef65f5cae23cd68b6e61429e7ba5b809d3794601809ded0",
+      "rust/src/topology.rs": "c83ec1fc4f55d1cc378225cadc5ec6a27a4e47dba8c3dc5aba7b8401e336def1",
+      "rust/src/vectors.rs": "b25eaf970431dcef436afbfb0190790b97a2a1a935bc008eaae1ae43f430685f"
+    },
+    "artifact_bytes": 5876576,
+    "scope": "Atomic replacement in the isolated owner only; public development checkout and immutable release artifacts unchanged."
+  },
+  "acceptance": [
+    "Replace an unbacked 64-KiB-per-worker allowance with actual Scratch descriptors and bounded active query contexts.",
+    "Keep original numeric budgets, exact inclusive cutoff/MIC, ordering, checked/fallible allocation and observed-output refusal.",
+    "The ten-case old-backend baseline has six failures and four passing insufficient-budget refusals. New release backend passes the complete 133-case directed selection and the 1,782-case affected cohort.",
+    "All 88 Rust cases, required library Clippy, and 116 registered scientific cases for 74 nodes pass.",
+    "Complete peptide namespace/warning samples retain exact export equality and warning discovery/reconstruction, including xdist/pickle/deepcopy."
+  ],
+  "limits": [
+    "No replacement complete-default session, installed/platform matrix or exact-candidate acceptance is claimed by targeted receiving.",
+    "The 33,526-case session remains failed: 33,519 pass, five failures, two skips.",
+    "Numerical working budget is not total process RSS, worker-stack accounting, a memory reservation or a hardware guarantee.",
+    "Shared pressure warnings, original failures and unchanged source snapshots are retained. No owned OOM, swap use or reserve stop occurs.",
+    "Formal original plan stays 76.29204129204129 percent with 49/50 original GUI intents; publication and new hosted matrices remain paused."
+  ]
+}

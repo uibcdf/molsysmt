@@ -1,0 +1,130 @@
+{
+  "schema": "molsysmt.h5msm_p5_provider_receiving@1",
+  "date": "2026-11-10",
+  "owner_issue": "uibcdf/molsysmt#256",
+  "qualified_source": "ee4f727960ddb7f86b2c9c8e28e7f842fbe1bdfc",
+  "unchanged_product_source": "5e7d65a665425fe6077f016dd95cbd65d424ee91",
+  "receiving": {
+    "execution": {
+      "command": [
+        "<development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<private-evidence>/pre1-completion-p5-20261110-directed.xml",
+        "--receptor-events=<private-evidence>/pre1-completion-p5-20261110-directed.events.jsonl",
+        "tests/form/file_h5msm/test_public_mechanics_v06.py",
+        "tests/form/file_h5msm/test_modular_mechanics.py",
+        "tests/form/file_h5msm/test_mechanics_layer.py",
+        "tests/native/test_unknown_mechanical_assignment_reports.py",
+        "tests/native/test_prepared_system_checkpoint.py",
+        "--basetemp=<private-evidence>/pre1-completion-p5-20261110-directed"
+      ],
+      "exit_code": 0,
+      "seconds": 99.79482407798059,
+      "viewer_commit": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+      "scope": "local source; not installed package or human Qt acceptance",
+      "source_commit": "ee4f727960ddb7f86b2c9c8e28e7f842fbe1bdfc",
+      "starting_git_status": "",
+      "ending_git_status": "",
+      "viewer_changed_inputs": [],
+      "viewer_checked_inputs": 2582,
+      "viewer_input_kind": "Independently verified raw blob export, not a Git worktree.",
+      "checked_floor_inputs": 0,
+      "changed_floor_inputs": [],
+      "changed_inputs": [],
+      "checked_inputs": 8820
+    },
+    "resources": {
+      "started_utc": "2026-11-10T21:09:33.823042+00:00",
+      "seconds": 152.1477809320204,
+      "limits": {
+        "memory.max": "2147483648",
+        "memory.high": "1782579200",
+        "memory.swap.max": "0",
+        "memory.oom.group": "1",
+        "cpu.max": "100000 100000",
+        "pids.max": "512"
+      },
+      "host_load": {
+        "cpu_count": 20,
+        "affinity_cpus": 20,
+        "load_average": [
+          4.9052734375,
+          3.9384765625,
+          3.197265625
+        ],
+        "cpu_utilization": 0.18021201413427557,
+        "swap_bytes_per_second": 0.0
+      },
+      "host_available_minimum_observed_bytes": 10091089920,
+      "cgroup_memory_peak_bytes": 1063559168,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "stop_reason": null,
+      "maximum_host_full_pressure_avg10": 0.18
+    },
+    "evidence_sha256": {
+      ".json": "c5cd0326feeb6248cb1a38cdeabbac3896f1db5c62a5b0f55e00b4fbe74e6e88",
+      "-bounded.json": "54b993d900047e0ea38246b87f657ecfc586a473f4ae7f7eee7ff4fa83b43c05",
+      ".xml": "de808e7d5094354978d0ad53ae61ce7b5d667a1c77eed0324cfb9918e654a12a",
+      ".log": "c983c3a957f702f6ea41054c20ca0981c9728f2e27139cfa841baadbeaeec586",
+      "-inputs-before.json": "b946f02873b103d642f854167b3f34e7be3ba1b7ff234fe067b3eed95f847b20",
+      "-inputs-after.json": "b946f02873b103d642f854167b3f34e7be3ba1b7ff234fe067b3eed95f847b20",
+      "-reference-driver.py": "f025ffee4533e252fea414e6c7830f1ada97226b3442539d938a62bba2b815bb",
+      "-resource-driver.py": "f088a03a31eadc27a42f1bb5b3300cf9b1a00124cae3bf00a99bd285e6de8f7a"
+    },
+    "junit_suites": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "156",
+        "time": "87.409",
+        "timestamp": "2026-11-10T15:10:22.768822-06:00",
+        "hostname": "nauta"
+      }
+    ],
+    "nonpassing_cases": [],
+    "version_controls": []
+  },
+  "new_cases": [
+    {
+      "classname": "tests.form.file_h5msm.test_public_mechanics_v06",
+      "name": "test_unsupported_append_preserves_existing_file_and_independent_layers[topology-0.5]",
+      "time": "0.092"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_public_mechanics_v06",
+      "name": "test_unsupported_append_preserves_existing_file_and_independent_layers[topology-0.6]",
+      "time": "0.103"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_public_mechanics_v06",
+      "name": "test_unsupported_append_preserves_existing_file_and_independent_layers[interactions-0.5]",
+      "time": "0.029"
+    },
+    {
+      "classname": "tests.form.file_h5msm.test_public_mechanics_v06",
+      "name": "test_unsupported_append_preserves_existing_file_and_independent_layers[interactions-0.6]",
+      "time": "0.037"
+    }
+  ],
+  "fixture_manifest_sha256": "8987b47ba43ad53219edc2f79a97130dff84d7eae3be75811c7bed725e494c52",
+  "fixture_packet": "devtools/data/h5msm_p5_review_20261110/manifest.json",
+  "guards": [
+    "tests/form/file_h5msm/test_public_mechanics_v06.py",
+    "tests/form/file_h5msm/test_modular_mechanics.py",
+    "tests/form/file_h5msm/test_mechanics_layer.py",
+    "tests/native/test_unknown_mechanical_assignment_reports.py",
+    "tests/native/test_prepared_system_checkpoint.py"
+  ],
+  "independent_client_status": "Existing DockingMT 9b077fab bounded reference/E3 receipt retained; this new finite packet has not yet been independently client-received.",
+  "limits": [
+    "No library algorithm, schema, default writer, native binary or dependency changes.",
+    "The concurrently running complete suite remains frozen on 5e7d65a66 and excludes the four new guards; its verdict is separate.",
+    "No extra original plan credit, #256 closeout, H5MSM 1.0 promotion, installed/platform/candidate or publication acceptance.",
+    "Fixtures are public-test synthetic storage controls, not validated production force fields."
+  ]
+}

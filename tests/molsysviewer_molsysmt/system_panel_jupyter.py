@@ -35,6 +35,66 @@ def _server_ready_seconds(value):
     return seconds
 
 
+def _session_snapshot(port, token):
+    """Read bounded kernel state without retaining tokens, paths or kernel IDs."""
+    request = Request(
+        f"http://127.0.0.1:{port}/api/sessions",
+        headers={"Authorization": f"token {token}"},
+    )
+    try:
+        with urlopen(request, timeout=2) as response:
+            raw = response.read(65537)
+        if len(raw) > 65536:
+            return {"available": False, "reason": "response_too_large"}
+        models = json.loads(raw)
+    except Exception as error:
+        return {"available": False, "reason": type(error).__name__}
+    if not isinstance(models, list):
+        return {"available": False, "reason": "invalid_session_list"}
+
+    sessions = []
+    for model in models[:16]:
+        if not isinstance(model, dict) or not isinstance(model.get("kernel"), dict):
+            sessions.append({"role": "unknown", "execution_state": "unknown"})
+            continue
+        role = {"system.ipynb": "molecular", "plain.ipynb": "plain_control"}.get(
+            model.get("path") if isinstance(model.get("path"), str) else "", "other"
+        )
+        kernel = model["kernel"]
+        state = kernel.get("execution_state")
+        if state not in ("idle", "busy", "starting", "restarting", "dead"):
+            state = "unknown"
+        connections = kernel.get("connections")
+        if type(connections) is not int or not 0 <= connections <= 100000:
+            connections = None
+        sessions.append(
+            {"role": role, "execution_state": state, "connections": connections}
+        )
+    return {
+        "available": True,
+        "session_count": len(models),
+        "truncated": len(models) > 16,
+        "sessions": sessions,
+    }
+
+
+def _record_session_snapshot(output, port, token, *, completed, ready):
+    """Keep post-attempt diagnostics separate from the browser's verdict."""
+    snapshot = (
+        _session_snapshot(port, token)
+        if ready
+        else {"available": False, "reason": "server_not_ready_or_exited"}
+    )
+    snapshot["browser_completed"] = completed
+    snapshot["scope"] = "Post-attempt observation; no causal or liveness inference."
+    try:
+        (output / "kernel-session-state.json").write_text(
+            json.dumps(snapshot, indent=2), encoding="utf-8"
+        )
+    except OSError:
+        print("Jupyter session diagnostics could not be stored.", file=sys.stderr)
+
+
 def _notebook(cells):
     return {
         "nbformat": 4,
@@ -959,6 +1019,7 @@ def main():
         )
     )
     server = None
+    browser_completed = False
     startup = {
         "scope": "Jupyter server readiness, before any browser or molecular cell",
         "budget_seconds": args.server_ready_timeout,
@@ -1114,24 +1175,33 @@ def main():
                     if args.scenario == "analysis"
                     else 240,
                 )
+                browser_completed = True
         finally:
-            if server is not None and server.poll() is None:
-                try:
-                    shutdown = Request(
-                        f"http://127.0.0.1:{port}/api/shutdown",
-                        method="POST",
-                        headers={"Authorization": f"token {token}"},
-                    )
-                    with urlopen(shutdown, timeout=10):
-                        pass
-                    server.wait(timeout=15)
-                except (URLError, TimeoutError, subprocess.TimeoutExpired):
-                    server.terminate()
+            if server is not None:
+                _record_session_snapshot(
+                    output,
+                    port,
+                    token,
+                    completed=browser_completed,
+                    ready=startup.get("ready", False) and server.poll() is None,
+                )
+                if server.poll() is None:
                     try:
-                        server.wait(timeout=5)
-                    except subprocess.TimeoutExpired:
-                        server.kill()
-                        server.wait(timeout=5)
+                        shutdown = Request(
+                            f"http://127.0.0.1:{port}/api/shutdown",
+                            method="POST",
+                            headers={"Authorization": f"token {token}"},
+                        )
+                        with urlopen(shutdown, timeout=10):
+                            pass
+                        server.wait(timeout=15)
+                    except (URLError, TimeoutError, subprocess.TimeoutExpired):
+                        server.terminate()
+                        try:
+                            server.wait(timeout=5)
+                        except subprocess.TimeoutExpired:
+                            server.kill()
+                            server.wait(timeout=5)
 
 
 if __name__ == "__main__":

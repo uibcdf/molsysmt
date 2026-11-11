@@ -50,6 +50,7 @@ Entries carrying front matter under
 - [`evaluate_a_native_aminoacidsequence_value_object.md`](evaluate_a_native_aminoacidsequence_value_object.md) — [#242](https://github.com/uibcdf/molsysmt/issues/242) — Evaluate a native AminoAcidSequence value object *(inspected)*
 - [`evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md`](evaluate_single_assessment_delegation_for_public_molecular_system_predicates.md) — [#154](https://github.com/uibcdf/molsysmt/issues/154) — Evaluate single-assessment delegation for public molecular-system predicates *(measured)*
 - [`expand_and_validate_formal_charge_center_recognition.md`](expand_and_validate_formal_charge_center_recognition.md) — [#262](https://github.com/uibcdf/molsysmt/issues/262) — Expand and validate formal-charge center recognition *(inspected)*
+- [`explicit_bounded_jupyter_server_readiness_budget.md`](explicit_bounded_jupyter_server_readiness_budget.md) — [#705](https://github.com/uibcdf/molsysmt/issues/705) — Make real-Jupyter server-readiness budgets explicit and bounded. *(inspected)*
 - [`explicit_small_molecule_standardization.md`](explicit_small_molecule_standardization.md) — [#366](https://github.com/uibcdf/molsysmt/issues/366) — Provide explicit small-molecule standardization with chemical-state and atom-identity evidence. *(inspected)*
 - [`fasta_handler_for_partial_sequence_systems.md`](fasta_handler_for_partial_sequence_systems.md) — [#519](https://github.com/uibcdf/molsysmt/issues/519) — Add a resource-owning FASTA handler for partial sequence systems. *(inspected)*
 - [`generate_3d_conformers_for_a_fixed_small_molecule_chemical_state.md`](generate_3d_conformers_for_a_fixed_small_molecule_chemical_state.md) — [#219](https://github.com/uibcdf/molsysmt/issues/219) — Generate 3D conformers for a fixed small-molecule chemical state *(inspected)*
@@ -76,7 +77,6 @@ Entries carrying front matter under
 - [`shared_reporting_vocabulary_across_molsyssuite.md`](shared_reporting_vocabulary_across_molsyssuite.md) — [#156](https://github.com/uibcdf/molsysmt/issues/156) — A reporting vocabulary every MolSysSuite tool can adopt unchanged. *(measured)*
 - [`standard_residue_side_chain_reconstruction.md`](standard_residue_side_chain_reconstruction.md) — [#327](https://github.com/uibcdf/molsysmt/issues/327) — Reconstruct ambiguous standard-residue side chains with explicit geometric evidence *(inspected)*
 - [`support_paired_rigid_and_flexible_receptor_pdbqt_forms.md`](support_paired_rigid_and_flexible_receptor_pdbqt_forms.md) — [#225](https://github.com/uibcdf/molsysmt/issues/225) — Support paired rigid and flexible receptor PDBQT forms *(inspected)*
-- [`validate_notebook_schemas_independently_of_sphinx_process_success.md`](validate_notebook_schemas_independently_of_sphinx_process_success.md) — [#700](https://github.com/uibcdf/molsysmt/issues/700) — Validate notebook schemas independently of Sphinx process success. *(reproduced)*
 
 ### In progress (3)
 

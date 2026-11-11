@@ -86,3 +86,25 @@ f82b618 and is not the runtime substitution. Owned processes use one CPU, 2 GiB,
 no swap and host-reserve monitoring; exact process/resource counters and source
 hashes remain in the receiving record. Deliberate tiny-budget test warnings are
 separate from host memory pressure.
+
+## Exact-scale reference exploration — 2026-11-10
+
+A [27-case independent reference](../../devtools/data/unit_scale_boundary_reference_666_20261110.json)
+uses standard-library Fraction.from_float, declared exact SI length ratios,
+one final binary64 rounding and the unchanged inclusive comparator. Working
+policies nm, angstrom and pm each receive all three source units and the
+immediate predecessor, exact equality and successor. All nine strict-below
+controls remain negative, and all eighteen equal/above controls remain positive.
+
+This is a deliberately narrow reference experiment, not a selected public API,
+production correction or proof for arbitrary units, geometry, affine conversions,
+backends, arrays or overflow. It suggests a useful provider discussion under
+uibcdf/pyunitwizard#143 without redefining thresholds through isclose or
+per-detector conversion clones. The accepted native failure and contact intent
+remain open, with no graphical or formal-progress credit.
+
+The bounded reference and its exclusions were handed to the provider in
+[uibcdf/pyunitwizard#143](https://github.com/uibcdf/pyunitwizard/issues/143#issuecomment-6778379247).
+The question is whether a supported explicit conversion route already exists
+or a provider-owned capability is warranted; no API, floor or release decision
+is inferred from delivering the proposal.

@@ -180,7 +180,7 @@ fn working_budget(
     let nr = r.shape()[1];
     let rows = checked_mul(ns, q.shape()[1])?;
     let heads = checked_mul(nr, MAX_HEADS_PER_REFERENCE)?.max(1);
-    let threads = rayon::current_num_threads();
+    let active_workers = rayon::current_num_threads().min(rows);
     let terms = [
         checked_mul(q.len(), 8)?,
         if q.as_ptr() == r.as_ptr() && q.shape() == r.shape() {
@@ -196,9 +196,13 @@ fn working_budget(
         // Row descriptors, allocation bookkeeping, and packed offsets.
         checked_mul(rows, 96)?,
         checked_mul(checked_add(rows, 1)?, 8)?,
-        // Scratch lengths never exceed nr. Include bounded reallocation overlap
-        // and task bookkeeping; this is a numerical estimate, not process RSS.
-        checked_mul(threads, checked_add(checked_mul(nr, 64)?, 65536)?)?,
+        // Scratch lengths never exceed nr. Account for descriptor storage and
+        // bounded reallocation overlap, not an arbitrary worker-stack allowance.
+        // Pool stacks and process RSS remain outside this numerical estimate.
+        checked_mul(
+            active_workers,
+            checked_add(checked_mul(nr, 64)?, std::mem::size_of::<Scratch>())?,
+        )?,
     ];
     let baseline = terms.into_iter().try_fold(0usize, checked_add)?;
     WorkingBudget::new(baseline, limit)
@@ -812,6 +816,26 @@ mod tests {
         assert_eq!(result.0, vec![0; 7]);
         assert!(result.1.is_empty() && result.2.is_empty());
         assert!(core_vacuum(&q.view(), &r.view(), 0.1, false, false, 55).is_err());
+    }
+
+    #[test]
+    fn tiny_query_admission_follows_numeric_storage_instead_of_pool_stacks() {
+        use numpy::ndarray::Array3;
+        let q = Array3::zeros((1, 1, 3));
+        let r = Array3::from_shape_vec((1, 1, 3), vec![0.2, 0.0, 0.0]).unwrap();
+        for threads in [1, 4] {
+            let admitted = crate::threads::install(threads, || {
+                core_vacuum(&q.view(), &r.view(), 0.4, false, true, 1536)
+            })
+            .unwrap();
+            assert_eq!(admitted.0, vec![0, 1]);
+            assert_eq!(admitted.1, vec![0]);
+            assert_eq!(admitted.2, vec![0.2]);
+            assert!(crate::threads::install(threads, || {
+                core_vacuum(&q.view(), &r.view(), 0.4, false, true, 64)
+            })
+            .is_err());
+        }
     }
 
     #[test]

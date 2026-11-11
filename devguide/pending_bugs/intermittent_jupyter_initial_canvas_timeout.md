@@ -120,3 +120,79 @@ does not establish a product or timing cause. See the
 This is additional exact-source receiving, not a causal repair or closure of
 #615. The original executing-cell, later pre-execution, cold-server and final
 replacement observations remain distinct failed stages in their own receipts.
+
+## Post-attempt session diagnostics — 2026-11-10
+
+Inspection confirms that the original failed kernel trace is empty; it cannot
+identify the missing causal stage. The owned receiving launcher now queries the
+isolated server's read-only `/api/sessions` endpoint after the browser attempt
+and before shutdown. It records only bounded session roles, declared kernel
+execution state and connection counts. Tokens, paths, IDs, exception contents
+and molecular data are excluded. Unavailable evidence remains distinct from an
+empty session list. No request runs against an unready or exited server.
+
+Twenty focused lifecycle/diagnostic controls pass, including malformed/oversized
+responses, transport failures, failed diagnostic writes and credential/content
+exclusion. These observations cannot change the browser verdict, restart a
+kernel, warm imports or extend the existing readiness/canvas/browser deadlines.
+Actual-server receiving remains required before adopting the instrumentation.
+Even a passing instrumented run does not establish the cause or closure of #615.
+
+The endpoint follows the [Jupyter Server REST API](https://jupyter-server.readthedocs.io/en/latest/developers/rest-api.html).
+The installed server supplies `execution_state` and `connections` through its
+kernel model; this is test-harness diagnostic metadata, not a new MolSysMT API
+or public runtime dependency. The guard is
+`tests/molsysviewer_molsysmt/test_jupyter_stage_diagnostics.py`.
+
+## Actual session-endpoint receiving — 2026-11-10
+
+On clean d36d25929 / verified Viewer 5164f13b, the first split browser campaign
+passes visual adoption's six checks and fails Analysis after nine completed
+checks because the raw source export has no generated test-only harness. The
+launcher captures both attempts through the real server endpoint. A separately
+verified harness build changes no published Viewer source bytes; the deliberate
+Analysis follow-up passes all 22 checks with unchanged deadlines and assertions.
+All three bounded snapshots are available and report two post-attempt idle
+kernels with zero connections after browser retirement. That is valid diagnostic
+receiving, not a causal explanation for the original executing-cell timeout.
+
+The [owner receipt](../../devtools/data/figure_context_owner_receiving_701_702_615_20261110.json)
+retains the failed first campaign, exact generated-harness provenance, all three
+sanitized snapshots and the passing scoped follow-up. Actual native Wayland Qt
+receiving passes four reported steps with embedded stored-context checks.
+Neither that Qt result nor the passing browser follow-up closes #615. No warm-up,
+restart, timeout increase, source/scene mismatch waiver or missing-canvas
+acceptance was introduced. The original causal/environmental disposition remains
+required, and receives no formal plan credit.
+
+## Joint pre-timeout capture disposition — 2026-11-10
+
+MolSysMT accepts the Analysis runner and kernel/server side of the bounded
+capture proposed in [uibcdf/molsysviewer#315](https://github.com/uibcdf/molsysviewer/issues/315)
+at Viewer `4f05a6c6ea3f7ca78929e9f2592360f0e6ae38fa`. Viewer owns the matching
+mount, scene and draw observations. The existing Python snapshot runs after
+the browser subprocess completes. The proposed capture must take place while
+the browser is still connected to the isolated server.
+
+For one targeted Analysis diagnostic when scheduled, arm the observations
+before Run on the original 1TCD initial cell. Retain the existing 30-second
+canvas wait, 15-second kernel stack timer, cold imports and lifecycle.
+MolSysMT records submission and actual cell start, import/load/display
+boundaries, completion or exception, and bounded `/api/sessions` samples at
+about 15 seconds and at the failing canvas wait before browser teardown. The
+browser verdict and original deadline are authoritative. Use the existing
+authenticated, read-only and size/time-bounded sampling contract. Mark a missing
+or unavailable sample explicitly.
+
+Correlate both sides with one local attempt label and a common Run anchor for
+monotonic elapsed observations. At the handoff record the first observed widget
+comm acknowledgement or bootstrap event. Viewer records mount, the connected
+canvas/controller, registration of the expected 3,983-atom scene and the first
+new native Mol* draw for that scene. Keep the private kernel traces and publish
+only sanitized, bounded metadata. Report the earliest missing transition only
+if the relevant observer was armed. Readiness failure before the cell belongs
+to the separate #705 scope.
+
+This is an agreed diagnostic disposition. A causal correction or an evidenced
+bounded environmental disposition is still required for closure. Implementation
+and an instrumented execution remain pending.

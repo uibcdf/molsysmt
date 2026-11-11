@@ -1,5 +1,144 @@
 # MolSysMT 1.0 Execution Status
 
+## DockingMT scope and two PR #706 deadline defects — 2026-11-10
+
+DockingMT #73 confirms the [three additional P5 controls](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#dockingmt-scope-accepted-for-independent-receiving--2026-11-10).
+The exact source/native reference is recorded. The client will run the three
+controls after admitting its isolated provider composition. The
+[P6 audit](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#p6-wire-catalog-and-public-route-audit--2026-11-10)
+identifies the stable-root dispatch, default, preservation and migration work.
+Nine existing H5MSM checks pass. Current 0.5/0.6 routes retain their scope.
+
+Exact draft #706 passes 25 CLI/runtime-file cases and browser syntax. Two
+[additional launcher controls](pending_proposals/explicit_bounded_jupyter_server_readiness_budget.md#molsysmt-review-of-draft-706--2026-11-10)
+reproduce late readiness admission and an impossible maximum playback profile.
+Review remains open for revision and #615 is separate. The formal score is
+**76.2920%, 49/50**. Final-candidate work and publication remain paused.
+
+## Viewer source agreement received — 2026-11-10
+
+Viewer `4f05a6c6ea3f7ca78929e9f2592360f0e6ae38fa` accepts the exercised source
+contracts for #250/#254 and supplies two bounded H5MSM 1.0 receiving cases.
+The [coordination packet](pre_1_0_completion_handoffs_20261110.md#molsysviewer-contract-feedback-startup-evidence-and-artifact-plan)
+records the maintainer-confirmed joint release of **MolSysMT 1.0.0 and
+MolSysViewer 1.0.0**, with clean installed qualification of that pair before
+publication. MolSysViewer 0.25.0 is a possible earlier milestone. Exact sources,
+builds and artifact identities are pending. #524 still requires a published
+compatible host and clean installed receiving. MolSysMT owns #615's pre-timeout
+kernel/server samples and Viewer owns the corresponding first-draw observations.
+#615 remains open. The original composite leaves stay uncredited at
+**76.2920%, 49/50** until their remaining acceptance criteria pass. Candidate
+work, new qualification runs and publication remain paused.
+
+## Complete corrected-source suite received — 2026-11-10
+
+Frozen **5e7d65a66**, qualified native **4ffb82e4** and verified Viewer
+**5164f13b** complete the default Linux/Python 3.14 suite: **33,549 pass, two
+explicit skips, zero failures/errors** in **33,551 cases**. All five cases from
+the earlier failed session now pass; the original session remains failed.
+The receptor's valid final summary retains explicit bounded detail truncation;
+complete JUnit and native exit zero remain authority. See the [complete-source
+receipt](../devtools/data/complete_default_source_receiving_334_20261110.json).
+
+Three workers stayed below the 6-GiB cap (peak about 5.57 GiB); host available
+memory stayed above about **6.44 GiB**. Soft memory.high events and global
+pressure warnings remain recorded; no own OOM, hard-limit or reserve stop
+occurred. The two skips are missing CuPy and an RDKit-dependent negative form
+case, not omitted registered scientific evidence. No installed/platform or
+exact-candidate qualification is inferred from this local source result.
+
+The separate **156-case P5** provider cohort includes four later append-refusal
+guards, outside that frozen complete session. Its three synthetic fixture sets
+and expected typed/PDBQT outputs are public on **1ce072ae7**. Existing DockingMT
+acceptance remains closed; independent receiving of the additional finite
+profile remains pending under #256. The [coordination packet](pre_1_0_completion_handoffs_20261110.md)
+supplies precise PyUnitWizard/Viewer requests, the bounded client profile and
+the P6 stable-format implementation order.
+
+New incoming **#705** is [triaged as a bounded server-preparation proposal](pending_proposals/explicit_bounded_jupyter_server_readiness_budget.md),
+with an incoming contribution expected from Viewer. Keep default preparation
+and explicitly selected scale budgets distinct from scientific/frontend
+deadlines and original #615 causality. The complete intake has **627 issues,
+94 open and no open PRs**. Original progress remains **76.2920%, 49/50**.
+#666/provider143, #615 disposition, #524 actual public/installed closure,
+#250/#254 agreement, #256 P5/P6 and #334 final gates stay explicit. Publication,
+candidate/tag/package/promotion and new hosted matrices remain paused.
+
+## Completion handoffs and local full receiving — 2026-11-10
+
+The maintainer requests advancing the original plan to completion and will
+coordinate external owners. The [operational handoff packet](pre_1_0_completion_handoffs_20261110.md)
+separates local work from exact PyUnitWizard/Viewer requests and a bounded
+remaining H5MSM/DockingMT scope. Existing DockingMT #79/#88/#96 acceptance stays
+closed; no new initial client-integration gate is introduced.
+
+A new complete local default suite is running on frozen **5e7d65a66**, with
+three workers, a monitored **6-GiB/three-CPU** limit, no swap and host-reserve
+controls. It has no accepted verdict yet. The earlier failed suite remains
+failed. Original progress remains **76.2920%, 49/50**; all final agreement,
+format, installed/platform/candidate/publication obligations stay explicit.
+
+## Default-suite defects and retained figure context received — 2026-11-10
+
+The frozen 5f241cfa7 complete default suite is **failed**: **33,519 pass, five
+failures and two skips** in 33,526 cases. Its complete JUnit/native verdict and
+explicitly truncated receptor phase stream remain preserved. #703 corrects an
+unbacked 64-KiB-per-worker numerical admission allowance; #704 completes the
+peptide namespace/warning controls. Source 93b3a6ea6 with canonical rebuilt
+backend `4ffb82e4` passes **133 directed cases**, **1,782 affected cases**, all
+**88 Rust tests**, required library Clippy and **116 scientific cases / 74 nodes**.
+The [budget receipt](../devtools/data/numeric_neighbor_budget_receiving_703_704_20261110.json)
+keeps all baseline failures and the original budgets/refusals. These overlapping
+selections are not a replacement complete-default verdict.
+
+Clean **d36d25929** receives exact **#702 9dff314f8**, with Viewer **5164f13b**.
+**5,959 addon/caller/source-route cases** pass without omissions, and **#701**'s
+unchanged exact-inventory guard includes all modules in one hosted invocation.
+Fifteen fast gates, the HTML build and its inspected new section pass; six
+existing title-underline warnings remain. Visual adoption passes six Jupyter
+checks; initial Analysis fails after nine checks for a missing test-only
+harness. A verified isolated harness build then permits all **22 Analysis
+checks** to pass. The representative native Wayland Qt workflow passes **four
+reported steps**, including embedded literal context assertions. These are split
+receiving scopes with the failed attempt retained, not one invented green campaign.
+See the [owner receipt](../devtools/data/figure_context_owner_receiving_701_702_615_20261110.json).
+
+Figures retain native methods, forwarded parameters/weights, ordered populations,
+units and historical projections through the public PyUnitWizard quantity
+boundary. They do not authenticate source identity or recalculate science.
+#615's actual post-attempt session diagnostics are received; original causality
+remains unresolved. Public source checkpoint **ddd32ac1a** independently matches
+all **39 changed paths**; **#701/#703/#704 are closed** and **#702 is merged by
+ancestry**. The four human edits remain byte-exact. The complete board has
+**626 issues / 93 open and no open PRs**. See the
+[public delivery record](../devtools/data/native_and_figure_owner_delivery_701_702_703_704_20261110.json).
+
+**Current next actions:** receive #666 / PyUnitWizard #143's unit contract and
+remaining contact intent; obtain the causal or evidenced environmental
+disposition for #615; receive #524's actual published compatible Viewer floor
+and clean installed qualification, plus #250/#254's explicit contract feedback.
+A bounded 27-case scale reference was delivered to the provider; it is not a
+production fix. Original progress remains **76.2920%, 49/50**. #334 and final
+#256 P5/P6/exact-candidate gates remain unaccepted. Publication, candidate, tag,
+package, promotion and new hosted-matrix operations remain paused.
+
+## Independent notebook gate received — 2026-11-10
+
+#700 is source-resolved on **47682e9d3**: one read-only validator now
+protects the fast preflight, local documentation builds and publication workflow.
+All **501 stored notebooks** validate without repairs. **1,041 affected cases**,
+**521 overlapping minimum-provider API cases** and **15 fast gates** pass.
+Invalid sources stop an actual Makefile before an always-successful controlled
+Sphinx can run. The first resource-admission refusal and missing historical
+provider dependency remain recorded. See the [receipt](../devtools/data/notebook_schema_gate_receiving_700_20261110.json).
+
+This developer-only safeguard adds no original plan credit: **76.2920%, 49/50**.
+A bounded **three-worker / 6 GiB** complete default-suite run is in progress on
+unchanged scientific source **5f241cfa7**. It is not accepted before completion
+and does not replace installed/platform/exact-candidate gates. #615 causality,
+#666/PyUnitWizard #143, #524 actual published/installed closure and #250/#254
+feedback remain pending. Publication and new hosted-matrix operations stay paused.
+
 ## Public construction and native closeout verified — 2026-11-10
 
 Public main **ae2b592ad** independently matches all **78 changed paths**, with

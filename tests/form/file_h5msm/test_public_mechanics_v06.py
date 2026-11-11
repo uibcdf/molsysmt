@@ -279,6 +279,70 @@ def test_public_append_preserves_mechanics_and_extends_state_assignments(tmp_pat
     assert restored.get(structure_chemical_state_index=True) == [0, 0]
 
 
+@pytest.mark.parametrize("version", ["0.5", "0.6"])
+@pytest.mark.parametrize("excluded_layer", ["topology", "interactions"])
+def test_unsupported_append_preserves_existing_file_and_independent_layers(
+    tmp_path, version, excluded_layer
+):
+    source = Structures(
+        coordinates=msm.pyunitwizard.quantity(np.zeros((1, 2, 3)), "nm")
+    )
+    layers = {"structures": source}
+    if excluded_layer == "topology":
+        layers["topology"] = Topology(n_atoms=2)
+    else:
+        layers["interactions"] = {
+            "probe": msm.Interactions.from_records(
+                [
+                    {
+                        "structure_index": 0,
+                        "interaction_type": "synthetic",
+                        "participants": [
+                            {"role": "first", "atom_indices": [0]},
+                            {"role": "second", "atom_indices": [1]},
+                        ],
+                    }
+                ],
+                n_atoms=2,
+                n_structures=1,
+                evaluated_structure_indices=[0],
+                method="synthetic_storage_control",
+            )
+        }
+    if version == "0.6":
+        layers.update(
+            molecular_mechanics=MolecularMechanics(forcefield="stored_request"),
+            mechanics_n_atoms=2,
+        )
+    path = tmp_path / "unsupported-append.h5msm"
+    msm.h5msm.write_layers(path, format_version=version, **layers)
+    original = path.read_bytes()
+    incoming = Structures(
+        coordinates=msm.pyunitwizard.quantity(np.ones((1, 2, 3)), "nm")
+    )
+
+    with pytest.raises(ValueError, match="topology-free file without interactions"):
+        msm.h5msm.append_structures(path, incoming)
+
+    assert path.read_bytes() == original
+    restored = msm.h5msm.read_layers(path, layers=["structures", excluded_layer])
+    assert restored["structures"].n_structures == 1
+    np.testing.assert_array_equal(
+        msm.pyunitwizard.get_value(restored["structures"].coordinates, to_unit="nm"),
+        np.zeros((1, 2, 3)),
+    )
+    if excluded_layer == "topology":
+        assert restored["topology"].n_atoms == 2
+    else:
+        assert restored["interactions"]["probe"].n_interactions == 1
+        assert restored["interactions"][
+            "probe"
+        ].evaluated_structure_indices.tolist() == [0]
+    if version == "0.6":
+        mechanics = msm.h5msm.read_layers(path, layers="molecular_mechanics")
+        assert mechanics["molecular_mechanics"].forcefield == "stored_request"
+
+
 def test_legacy_handler_refuses_new_modular_root_without_loading_it(tmp_path):
     from molsysmt.native import H5MSMFileHandler
 

@@ -2191,3 +2191,17 @@ tracked by uibcdf/molsysviewer#349 and the boundary by uibcdf/molsyssuite#179.
 This is source support, not a published package or current-source authentication
 promise. Older core runtimes without observation support keep scientific
 reports available and report why graphical adoption needs a coordinated update.
+
+### Preparing the real Analysis receiving harness
+
+The explicit real-Jupyter Analysis guard requires the test-only
+`molsysviewer/js/tests/e2e/harness.bundle.js` from the exact selected Viewer
+source. It is a generated receiving prerequisite, not a published scientific
+runtime dependency. Use that source's `build:harness` command with its existing
+lock-matched JavaScript tooling, record the generated SHA-256 and keep raw
+source hashes unchanged. An independently verified raw Git export alone does
+not contain this ignored build output. Keep concurrent receiving inputs frozen;
+prepare another isolated export when a harness is missing from an active one.
+A missing harness is a failed receiving setup, not a passing numerical test or
+a demonstrated cause of an unrelated startup timeout. Preserve that attempt
+before a scoped follow-up; keep all original timeouts and scientific assertions.

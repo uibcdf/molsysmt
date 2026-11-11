@@ -10,6 +10,7 @@ def test_canonical_graph_namespace_has_no_topology_facade():
         "get_covalent_blocks",
         "get_covalent_paths",
         "get_dihedral_quartets",
+        "get_peptide_termini",
         "get_rigid_fragments",
         "get_rings",
         "get_rotatable_bonds",

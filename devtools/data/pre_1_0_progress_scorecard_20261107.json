@@ -2,7 +2,7 @@
   "schema_version": "molsysmt.pre1-progress@1",
   "date": "2026-11-07",
   "owner_issue": "uibcdf/molsysmt#334",
-  "qualified_source": "cdf6e878ffa53ef045ee3c9c568efd61cf9dcb61",
+  "qualified_source": "5e7d65a665425fe6077f016dd95cbd65d424ee91",
   "measure": "Verified implementation/source-delivery milestones; approximate operational completion, not elapsed effort, scientific coverage, a readiness probability or publication authority.",
   "accounting_change": "The earlier all-or-nothing phase-exit indicator was 40%. The same six phase weights and full scope now receive explicit partial milestone credit. This is a catch-up remeasurement of delivered work, not a new 21-point implementation in this turn.",
   "method": "Within phases 3\u20136, each named requirement package has equal weight. Nested accepted GUI families have equal family weight, then equal declared intent/task weight within that family. Verified-source leaves score 1, pending leaves score 0; parents average children. Supplemental defect/test/issue counts add no bonus. Pending means not accepted by this audit, not absent code.",
@@ -115,7 +115,7 @@
           "requirement": "Receive actual public Viewer floor and clean minimum/newer installed default workflows",
           "state": "pending",
           "evidence": [],
-          "review": "Source/API receiving is not the clean installed closure required by #524."
+          "review": "Qualify MolSysMT 1.0.0 and MolSysViewer 1.0.0 before their joint release. MolSysViewer 0.25.0 is a possible earlier milestone. #524 still requires a published compatible host and clean installed closure."
         }
       ],
       "verified_fraction": 0.6666666666666666,
@@ -225,7 +225,7 @@
           "requirement": "Resolve #615 causal stage or receive an evidenced bounded environment disposition",
           "state": "pending",
           "evidence": [],
-          "review": "Later passing startup/canvas runs do not establish repair."
+          "review": "MolSysMT owns pre-timeout kernel/server sampling and Viewer owns mount/scene/draw observations. The coordinated diagnostic and causal disposition are pending."
         },
         {
           "id": "navigation-authority",
@@ -806,7 +806,7 @@
           "requirement": "Agree #250/#254 surface stability and final-candidate/Viewer acceptance",
           "state": "pending",
           "evidence": [],
-          "review": ""
+          "review": "Viewer 4f05a6c6ea3f7ca78929e9f2592360f0e6ae38fa accepts the exercised Interactions and independent ChemicalStates source contracts. The composite milestone still requires final-candidate acceptance."
         },
         {
           "id": "473-475",
@@ -931,12 +931,15 @@
       "uibcdf/molsysmt#686",
       "uibcdf/molsysmt#689",
       "uibcdf/molsysmt#690",
-      "uibcdf/molsysmt#688"
+      "uibcdf/molsysmt#688",
+      "uibcdf/molsysmt#701",
+      "uibcdf/molsysmt#703",
+      "uibcdf/molsysmt#704"
     ],
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
-    "owner_verification": "Public 76ed1c3a1 independently matches 39 changed/deleted paths and preserves four human files; #687/#691 are integrated/closed and #688/#690 closed. 5,923 affected cases, 116 scientific cases/74 nodes, fourteen gates, inspected HTML, thirteen actual-Jupyter checks and four representative native Qt checks pass on their recorded cohorts.",
+    "owner_verification": "Public ddd32ac1a independently matches 39 changed paths, preserves all four human files and atomically adopts the canonical qualified native extension; #701/#703/#704 are guarded/closed and #702 merged by ancestry. All scoped owner receiving remains separate from the failed original complete default session and paused final gates.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Continue assessed managed/independent protonation reconciliation and five original construction intents, #666/provider143 and causal/environmental disposition #615. Await actual published-host/clean-installed #524 and #250/#254 feedback. Keep #256 P5/P6 and #334 exact-candidate gates, original failures/weights and publication pause.",
+    "scope": "Receive contacts/provider143, original #615 causal/environmental disposition and incoming #705 preparation contribution. Viewer accepts the exercised #250/#254 source contracts. Await actual published Viewer/clean-installed #524 and final #250/#254 acceptance, and complete finite #256 P5/P6/stable-format and #334 exact-candidate gates under existing authority. Original weights/failures and publication pause remain.",
     "active_related": [
       "uibcdf/molsysmt#666",
       "uibcdf/molsysmt#421",
@@ -1010,28 +1013,26 @@
     "audit_related_source_closures": 51
   },
   "last_source_qualification_attempt": {
-    "issue": "uibcdf/molsysmt#612",
-    "source": "03c59caef9823bbca186aa4213626ddc5eb890f3",
-    "state": "complete_default_cpu_and_activated_amber_source_received_and_publicly_closed",
-    "evidence": "devtools/data/full_source_receiving_612_20261108.json",
+    "issue": "uibcdf/molsysmt#334",
+    "source": "5e7d65a665425fe6077f016dd95cbd65d424ee91",
+    "state": "complete_corrected_default_cpu_source_received_with_two_explicit_skips",
+    "evidence": "devtools/data/complete_default_source_receiving_334_20261110.json",
+    "passed": 33549,
+    "skipped": 2,
+    "failed": 0,
     "weighted_milestone_change": 0
   },
   "incoming_intake": {
     "complete_paginated": true,
     "date": "2026-11-10",
-    "issues": 623,
+    "issues": 627,
     "open_issues": 94,
     "open_prs": [],
-    "guarded_closed": [
-      695,
-      697,
-      698
-    ],
-    "directly_received_prs": [
-      696,
-      699
-    ],
-    "remaining_new_proposal": "uibcdf/molsysmt#700"
+    "new_proposal": {
+      "number": 705,
+      "status": "source-inspected; expected Viewer contribution not received",
+      "record": "devguide/pending_proposals/explicit_bounded_jupyter_server_readiness_budget.md"
+    }
   },
   "last_updated": "2026-11-10",
   "last_scientific_claim_disposition": {
@@ -1485,5 +1486,49 @@
     "scope": "Linux/Python 3.14 controlled-source and automated graphical receiving. Experimental science/profile, causal #615, clean installed/platform/human and release authority remain separate.",
     "public_checkpoint": "ae2b592ad23da18ea70ac764fba687776ca590b0",
     "delivery": "devtools/data/construction_native_owner_delivery_421_695_696_697_698_699_20261110.json"
+  },
+  "last_default_suite_diagnosis": {
+    "source": "5f241cfa77f0091dc7a54c0be1bdd2951efdefed",
+    "state": "failed_default_session_preserved_targeted_corrections_received",
+    "passed": 33519,
+    "failures": 5,
+    "skips": 2,
+    "evidence": "devtools/data/numeric_neighbor_budget_receiving_703_704_20261110.json",
+    "corrected_source": "93b3a6ea66b848476ecc94b89171a5f6e3230927",
+    "replacement_complete_default_verdict": "not_run",
+    "corrected_default_session_evidence": "devtools/data/complete_default_source_receiving_334_20261110.json"
+  },
+  "last_figure_context_owner_receiving": {
+    "source": "d36d25929b4bdd115be26585a36c0df7cd48a571",
+    "pr_head": "9dff314f896238d8d9968c3c86b9b901adf6e81a",
+    "viewer_source": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+    "state": "publicly_received_issues_closed",
+    "evidence": "devtools/data/figure_context_owner_receiving_701_702_615_20261110.json",
+    "addon_cases": 5959,
+    "initial_browser_campaign": "one_pass_one_failed_missing_generated_harness",
+    "analysis_followup_checks": 22,
+    "qt_reported_steps": 4,
+    "original_progress_change": 0,
+    "public_checkpoint": "ddd32ac1a8bfb32c2949218fd47d8aab4365e530"
+  },
+  "last_h5msm_p5_provider_receiving": {
+    "source": "ee4f727960ddb7f86b2c9c8e28e7f842fbe1bdfc",
+    "public_source": "1ce072ae7d8489831ad28d222b60a3c29616e0c6",
+    "provider_cases": 156,
+    "new_guards": 4,
+    "evidence": "devtools/data/h5msm_p5_provider_receiving_256_20261110.json",
+    "fixtures": "devtools/data/h5msm_p5_review_20261110/manifest.json",
+    "independent_new_client_acceptance": "pending",
+    "original_progress_change": 0
+  },
+  "last_completion_handoff": {
+    "operational_packet": "devguide/pre_1_0_completion_handoffs_20261110.md",
+    "owners": [
+      "uibcdf/pyunitwizard#143",
+      "uibcdf/molsysviewer#315",
+      "uibcdf/molsysmt#256"
+    ],
+    "provider_fixture_notice": "https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6779668471",
+    "scope": "Precise external deliverables and finite local P5/P6 work; no new client-integration gate or publication authority."
   }
 }
