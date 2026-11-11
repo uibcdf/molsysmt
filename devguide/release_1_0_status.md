@@ -1,5 +1,25 @@
 # MolSysMT 1.0 Execution Status
 
+## Bounded contact-list projection accelerated — 2026-11-11
+
+The [#692 Python increment](pending_proposals/neighbor_allocation_safety_performance_followup.md#paired-committed-source-receiving)
+counts output before extracting indices and packs bounded 2-D Boolean views.
+All-structure admission, source ordering, mapped indices and existing numerical
+budgets are preserved. **223 geometry cases/doctests pass**, including 40 new
+layout, wide-row, allocation and paired-output guards.
+
+The [two interleaved source campaigns](../devtools/data/contact_projection_692_20261111.json)
+record all raw samples. The dense 512-atom case uses about 27–28% less packing
+time and the sparse case about 70% less; all eight measured examples have lower
+medians and additional traced peaks. These are private representation timings,
+not geometry/search, RSS, installed or universal performance claims. The shared
+host and four unrelated human RST edits remain explicit in the receipt.
+
+#692 stays partial for the independent native-kernel evaluation. No new release
+gate or source-science requirement follows. The original plan remains
+**76.3095%, 50/50 source graphical intents**; H5MSM default/freeze client receiving,
+#615 and installed/candidate/publication controls remain due.
+
 ## Unsupported native terminal-cap requests refused — 2026-11-11
 
 PeptideMT's new [#685 receiving comment](https://github.com/uibcdf/molsysmt/issues/685#issuecomment-6788187086)

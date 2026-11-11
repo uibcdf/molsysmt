@@ -12,7 +12,7 @@ Current baseline scripts:
   raw repetitions and context, and measures additional traced allocation.
   No coordinate search, molecular geometry, cold-start or RSS speedup is
   measured. Run under an OS resource limit with six explicit thread caps:
-  `python benchmarks/contact_pair_projection.py --output .pytest_cache/contact-projection.json`.
+  `python -m benchmarks.contact_pair_projection --output .pytest_cache/contact-projection.json`.
   The baseline option executes repository code from that reviewed commit;
   choose a fresh output so earlier evidence is preserved.
 - `../devtools/scripts/benchmark_native_copy.py`: measures production resident
