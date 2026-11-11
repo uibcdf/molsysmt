@@ -1,5 +1,37 @@
 # MolSysMT 1.0 Execution Status
 
+## Resume from here
+
+**Reviewed 2026-11-11 against source `7b7cbc2f10f74870b9556f6e483c53c8293053f2`.**
+This is the current work order under #334. Dated entries below retain their
+original scope; the [historical resume route](#historical-resume-route--2026-10-10)
+does not select today's candidate or authorize new execution.
+
+The agreed release pair is **MolSysMT 1.0.0 / MolSysViewer 1.0.0**. No
+replacement producer commits, builds, filenames or hashes are frozen. Preserve
+the existing staged 1.0.0 build-0 files and earlier public-pair evidence;
+neither qualifies a changed candidate. MolSysViewer 0.25.0 remains a possible
+earlier milestone. **New candidate construction, hosted qualification, tags,
+promotions and publication remain paused pending the agreed resumption.**
+
+| Next work | Current evidence and remaining boundary |
+| --- | --- |
+| Finish #256 default-specific client receiving, then the stable-format decision | Development writers default to H5MSM 1.0; source restoration, migration and bounded mechanics are contract-tested. Both clients received explicit 1.0 cases; the changed default still needs independent client receiving. Format freeze and installed acceptance remain pending. |
+| Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
+| Preserve #250/#254 source agreement and experimental boundaries | MolSysViewer accepts the exercised sparse/native contracts. Detector profiles, inspection pages and Qt retain their experimental limits. Final-candidate agreement is still due. |
+| Agree the exact clean pair and qualification scope with MolSysViewer | Select new producer commits and unused builds; share immutable files, channels and SHA-256 values when authorized. #524 still needs a published compatible host floor and clean minimum/newer installed workflows. |
+| Qualify and make the publication decision | Run the mandatory exact-source, native, scientific, documentation and sixteen-cell installed gates at the agreed checkpoint. Preserve failed attempts and inspect terminal results. Publication and archival require final authorization after qualification. |
+
+The [completion packet](pre_1_0_completion_handoffs_20261110.md) owns detailed
+client requests; the [release gate](release_gate.md) owns required checks.
+The [source-claim review](release_claims_review_20261111.md) reconciles maintained
+public statements and navigation, without certifying new science or artifacts.
+The [original scorecard](../devtools/data/pre_1_0_progress_scorecard_20261107.json)
+keeps unchanged weights and outstanding acceptance; fifty graphical intents
+have source receiving, separate from human/installed/platform qualification.
+The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
+The dated percentages below remain historical, not the current score.
+
 ## First-canvas diagnostic integration received — 2026-11-11
 
 The reviewed #707/#615 test-harness integration passes **52 Python controls**,
@@ -5466,7 +5498,11 @@ General adapter-delivery debt (uibcdf/molsysmt#139), documentation build debt
 (uibcdf/molsysmt#144), and older reports requiring fresh reproduction stay
 open; this closure does not certify them or establish release readiness.
 
-## Resume from here
+## Historical resume route — 2026-10-10
+
+**Historical checkpoint:** use the [current resume entry](#resume-from-here)
+for today's target and work order. The former sequence and immutable identities
+below are retained as evidence, not current candidate selection.
 
 Release advancement is paused by the maintainer decision relayed above. The
 sequence below describes retained evidence and the former release route; do

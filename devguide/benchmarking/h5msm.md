@@ -2,9 +2,13 @@
 
 **Role:** operational benchmark guide. The executable case compares a private
 H5MSM 0.5 selective reader with the public `molsysmt.h5msm.write_layers` and
-`read_layers` path. It uses interaction-only files. The public `file:h5msm`
-conversion route also reads and writes H5MSM 0.5, but this case does not
-benchmark that route or a complete molecular-system file.
+`read_layers` path. It uses interaction-only files. In current development
+source the public writer defaults to 1.0, while the private fixture retains
+its 0.5 root. Record that distinction with benchmark source identities; old
+receipts retain their original writer/version scope. The public `file:h5msm`
+conversion route also defaults to 1.0, but this case does not benchmark that
+route or a complete molecular-system file. This review does not rerun or
+update historical timing measurements.
 
 ## Run the interaction case
 

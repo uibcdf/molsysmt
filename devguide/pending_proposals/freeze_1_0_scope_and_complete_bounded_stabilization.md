@@ -16,6 +16,17 @@ supersedes: []
 
 **Accepted:** 2026-10-05, following the maintainer's request to stop capability expansion and preserve deferred work in issues.
 
+## Current-state and public-claim reconciliation — 2026-11-11
+
+The [dated source review](../release_claims_review_20261111.md) completes the
+original phase-5 ledger/claim work package. It corrects stale native writer,
+mechanical-persistence and periodic-cell claims, distinguishes bound-addon
+defaults, and places one current work order at the
+[resume entry](../release_1_0_status.md#resume-from-here). Historical candidate
+identities and receipts are retained. The source-level milestone does not close
+this issue: #256 format/default receiving, #615 disposition, #524 installed
+closure, #250/#254 final acceptance and all phase-6 gates remain pending.
+
 ## Robustness audit follow-up — 2026-11-06
 
 The maintainer requests a separate durable

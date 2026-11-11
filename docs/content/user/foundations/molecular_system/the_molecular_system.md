@@ -77,23 +77,25 @@ Defines force field parameters and mechanical attributes required for energy eva
 ### 4. Chemical State Layer
 Defines state-dependent chemical variations, including covalent bonds, bond orders, component membership, protonation states, tautomeric forms, and stereochemical assignments (`R`/`S`, `E`/`Z`). A native `MolSys` exposes the collection as `molsys.chemical_states`; `Topology` does not expose a `chemical_states` property. Each state uses the collection's atom-index domain, aligned with topology when it is present. A standalone `ChemicalStates` collection specifies that domain by atom count alone. Associations between structures and states belong to `MolSys`.
 
-An experimental partial `MolSys` may contain any combination of topology,
-chemical states, and structures, or only named interaction analyses. Each
+An experimental partial `MolSys` may combine independently optional topology,
+chemical states, structures, molecular mechanics and named interaction analyses.
+An interactions-only system is valid. Each
 analysis declares atom and structure index domains even when both topology and
 structures are absent. `MolSys.extract` can use explicit atom and structure
 index lists for such a system; when a domain is undeclared, extraction on that
 axis raises an error. `msm.get` reports data from the domains
 present, while `msm.has_attribute` reports attributes of an absent domain as
 unavailable. A topology without chemical states does not claim zero bonds:
-its chemistry is unavailable. Public `msm.convert` writes H5MSM 0.5 when
-`to_form="file:h5msm"`; legacy file-form operations remain available for
-H5MSM 0.3 and 0.4. The explicit `msm.h5msm.write` and
-`msm.h5msm.read` functions use the modular 0.5 schema and preserve supported
-partial native systems. The {doc}`H5MSM 0.5 guide
-<../../tools/form/file/h5msm_05>` describes the versioned API and its current
-limits. Experimental 0.6 additionally preserves the bounded mechanical
-domain when explicitly requested; the default stays 0.5. See
-{ref}`user-tools-form-h5msm-06` for that opt-in contract.
+its chemistry is unavailable. In development source, public `msm.convert`
+and `msm.h5msm.write` default to H5MSM 1.0. Its modular schema preserves
+supported partial systems, declared domain associations and original producer
+records, including the bounded experimental mechanical domain. Reading stored
+assignments does not certify a force-field parameterization. The
+{ref}`H5MSM 1.0 guide <user-tools-form-h5msm-10>` distinguishes implemented
+source support from the pending stable-format freeze and installed qualification.
+Readers also support older implemented versions. Explicit 0.5 output excludes
+stored mechanics; explicit experimental 0.6 preserves its bounded mechanical
+profile. See {ref}`user-tools-form-h5msm-06` for that version's limits.
 
 ---
 

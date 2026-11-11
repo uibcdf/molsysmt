@@ -4,6 +4,22 @@ The [Viewer source agreement checkpoint](release_1_0_status.md#viewer-source-agr
 receives #250/#254 source feedback and sets the remaining installed, format and
 diagnostic work. The composite milestones retain their final acceptance criteria.
 
+## Current-state claim reconciliation — 2026-11-11
+
+The [source review](release_claims_review_20261111.md) completes the original
+`phase5/334-ledger` work package: maintained claims now distinguish native
+H5MSM 1.0 defaults, explicit older roots, bounded mechanics and addon defaults;
+the ledger has one current resume entry with historical evidence retained.
+The original weights and scope are unchanged. Source milestone credit becomes
+**77.7381% (approximately 78%)**, with **50/50 graphical intents received at
+source level**. This is completion of an explicit documentation/contract
+requirement, not new algorithmic or installed qualification.
+
+Phase 5 still needs #250/#254 final-candidate acceptance. Default-specific
+H5MSM client receiving/format freeze, #615, #524 and the phase-6 exact pair,
+artifact, matrix and publication decisions remain pending. The dated entries
+below preserve their original verdicts and percentages.
+
 ## Complete corrected-source suite received — 2026-11-10
 
 Frozen **5e7d65a66**, qualified native **4ffb82e4** and verified Viewer

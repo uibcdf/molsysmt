@@ -1,0 +1,298 @@
+{
+  "schema": "molsysmt.release_claims_receiving@1",
+  "date": "2026-11-11",
+  "owner_issue": "uibcdf/molsysmt#334",
+  "source_basis": "7b7cbc2f10f74870b9556f6e483c53c8293053f2",
+  "delta_kind": "Documentation, executed Cookbook compatibility example and original scorecard; no runtime or native source change.",
+  "original_milestone": "phase5/334-ledger",
+  "acceptance_record": "devguide/release_claims_review_20261111.md",
+  "claims_delta": {
+    "README.md": {
+      "before_sha256": "fec2a5f301f1f639365cb87ac0392400b3d02f39efd26952fffe0c00eb1ef6eb",
+      "after_sha256": "050002c4b7196ed9eb02e948c1ffb52a0fa2201ba8161749191fff42718d292d"
+    },
+    "devguide/INTERFACES.md": {
+      "before_sha256": "8dada0a45f9b5d454e93cb1d9ea4cc21b03512cd4f1301180187c5e3eda7fbcb",
+      "after_sha256": "1fdf7789ff7c718fa9eb3cf055155b096f56cabe6f49162254e36e7b8861c5bd"
+    },
+    "devguide/README.md": {
+      "before_sha256": "9c109d54e999a2cbee504a1e0d534bb58ef683609cb1a78c500aa659d7ed6ae9",
+      "after_sha256": "c79462a035fb3a7589dd9ade566dff3c68f9fdb30346b05c5d9e594d12acdb86"
+    },
+    "devguide/benchmarking/h5msm.md": {
+      "before_sha256": "1d43b9d156de12df727184bb95b05454dd6ae9d0f627f676a631c574d44a825f",
+      "after_sha256": "9e11b40145869e8a61da19a9dea334f2ca3242c9e9b6e45321066d0d7631e844"
+    },
+    "devguide/forms_and_conversions.md": {
+      "before_sha256": "da8cb911530d8ce1d582ed98515f2ffc2ea65aace8364c573480437630f8e6b1",
+      "after_sha256": "ef625fa32990dfa17c9ac573a3b2c8545f3b9c46b275b574b6eb442e4a8bb01d"
+    },
+    "devguide/pending_proposals/freeze_1_0_scope_and_complete_bounded_stabilization.md": {
+      "before_sha256": "412ee7a2f9d10ac81af6d9c0915263c8d2a00b4dc084a4463427eb25d52295a0",
+      "after_sha256": "44685562b4d3e23eb49ba849ccabd8562ad0a1cf1e93c29f1bc5cd6646595a08"
+    },
+    "devguide/pending_proposals/release_1_0_execution_plan.md": {
+      "before_sha256": "b2dd5e08faad58593a4db27afa6368ed67851a491edbec026fb0878fac380d27",
+      "after_sha256": "3d5a539385e5c6c7e166f74790fa4e8825c16dfc27e39f149c3479bd01d279d7"
+    },
+    "devguide/pre_1_0_robustness_audit_20261106.md": {
+      "before_sha256": "77d2c3acd0fc061701ab372731821b56f581f856c7b3d5c071026bc316b280f6",
+      "after_sha256": "4e9f6a50d6653346f7fc3545af1584bbd6305b294fabf5470a26dd93810f24ed"
+    },
+    "devguide/release_1_0_scope.md": {
+      "before_sha256": "7a1327945b59d97f8432708ec132cfa30947e7a2a06663ba2e509e7f9410cf82",
+      "after_sha256": "f8f24d5277786187419ab76984aac7552603f95dff4a604e8cadb44d60bfe04d"
+    },
+    "devguide/release_1_0_status.md": {
+      "before_sha256": "112d713122781d14dfe5bd1fac3068927b548b88b5eb79090efbec8d525cd3af",
+      "after_sha256": "698c45d043d4ce0816bd9fe5e15c7206b59ff33751f67120df0b0d1356de4f62"
+    },
+    "docs/content/user/cookbook/big_data_trajectories.ipynb": {
+      "before_sha256": "4e0c7baa3ba8c74de4ebb6df864ed28a4dd70a2f81e72524211992486eeed12e",
+      "after_sha256": "c1d4fb07eb83f9274bfd27d7e71f28c860eed088a439ae0f45d3019b8431452e"
+    },
+    "docs/content/user/cookbook/saving_hydrophobic_interactions.ipynb": {
+      "before_sha256": "f83dfde5ac76f2d3873e90d9eeb614840b2201f29303a136c7b75a2de1f5f8a0",
+      "after_sha256": "5baf4a9f4ae0f54eea354ed8301b9d450c4f231440e60fcb767eef7034de4368"
+    },
+    "docs/content/user/foundations/molecular_system/the_molecular_system.md": {
+      "before_sha256": "e7262d32971450e30504a9ec287f38547b1393f6805e23049d32281d4bb8c2f3",
+      "after_sha256": "5dd976f3488974c04aa7629960e1fecceea47da1731191ff1b2fc3f9c01e1037"
+    },
+    "docs/content/user/tools/molsysviewer_tools.md": {
+      "before_sha256": "15ba4ad3ac619dcdbf285ddc028628a8e1b54c2abc0e25da13594f95aa34eeb8",
+      "after_sha256": "66bd847a94ce4d24e16911052aeee1af7b820ac46956cd41f9e5af570d1b8118"
+    }
+  },
+  "runtime": {
+    "python": "3.14.7",
+    "pyunitwizard": "0.29.2 published artifact unpacked into a test overlay",
+    "pyunitwizard_artifact_sha256": "bb28b9420760b557025163e11c934e096c7b98200cac720100a2db924e9ee617",
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "scope": "Current development environment; not clean installed or exact release candidate."
+  },
+  "verification": {
+    "directed_contracts": {
+      "junit_suites": [
+        {
+          "name": "pytest",
+          "errors": "0",
+          "failures": "0",
+          "skipped": "0",
+          "tests": "196",
+          "time": "19.763",
+          "timestamp": "2026-11-11T12:09:52.201861-06:00",
+          "hostname": "nauta"
+        }
+      ],
+      "pytest_exit": 0,
+      "selected_nodes": [
+        "tests.build.test_readme_native_preparation",
+        "tests.documentation.test_readme_structure_analysis",
+        "tests.form.file_h5msm.test_public_mechanics_v06",
+        "tests.form.file_h5msm.test_public_migration_v10",
+        "tests.pbc.test_small_periodic_origins",
+        "tests.scientific_truth.pbc.test_wrapping"
+      ],
+      "receptor_summary": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 196,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 196,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 196,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 8,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 19.819765446009114,
+        "exitstatus": 0,
+        "extensions": {
+          "dropped": 1663,
+          "incomplete": true,
+          "recorded": 139
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "33ebc295c5ddf01b1120542ff2930c7cce980ba6499b4a3da4f75451f69940df",
+          "records": 736
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "PASS",
+        "root_causes": 0,
+        "run_id": "0023ef38c43b4dbd85b9d82138ebbfe2",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "junit_sha256": "aedd74feb5a60a8f10ffc1e87367443be183ce0ca4968139d0d70162e5adf5af",
+      "events_sha256": "51ffb9a7c5c17de54c47d5b57b1401a073229c10bdb46fc18e1a13e8b090d00b",
+      "resource_record_sha256": "9942523e1363fc2cd2f6f97533abdaf8ee0dadcc394cbe1c16b8598842ecc5e5",
+      "resource_limits": {
+        "cpus": 2,
+        "memory_max_gib": 3,
+        "memory_high_gib": 2,
+        "swap_max_bytes": 0
+      },
+      "maximum_child_rss_kib": 409152
+    },
+    "notebooks": {
+      "docs/content/user/cookbook/big_data_trajectories.ipynb": {
+        "executed_code_cells": 9,
+        "code_sha256": "a97ef2f5ff9c14732060cd60ba4f99fd34db8cdf9939acc1e67e1794e230c3bc"
+      },
+      "docs/content/user/cookbook/saving_hydrophobic_interactions.ipynb": {
+        "executed_code_cells": 5,
+        "code_sha256": "c96a1cdb90526561b50468608d43d7b1d994d63a4c0b4f6ecf49ab13a0e3d79a"
+      }
+    },
+    "html": {
+      "status": 0,
+      "warning_count": 0,
+      "pages": [
+        "content/user/foundations/molecular_system/the_molecular_system.md",
+        "content/user/cookbook/big_data_trajectories.ipynb",
+        "content/user/cookbook/saving_hydrophobic_interactions.ipynb",
+        "content/user/tools/molsysviewer_tools.md",
+        "content/user/tools/form/file/h5msm_10.md"
+      ],
+      "typed_config_overrides": {
+        "autosummary_generate": false,
+        "nb_execution_mode": "off"
+      },
+      "scope": "Selected HTML pages using the existing documentation environment; no API RST generation or notebook execution.",
+      "inspected": [
+        {
+          "source": "content/user/foundations/molecular_system/the_molecular_system.md",
+          "html_sha256": "24805a635d6b505cb204f85eeb3b0ed9431b02dafe6a48249feff3757a3b5119",
+          "reviewed_text_excerpt": " chemistry is unavailable. In development source, public msm.convert and msm.h5msm.write default to H5MSM 1.0. Its modular schema preserves supported partial systems, declared domain associations and original producer records, including the bounded experimental mechanical domain. Reading stored assignments does not certify a force-field parameterization. The H5MSM 1.0 guide distinguishes implemented source support from the pending stable-format freeze and installed qualification. Readers also su"
+        },
+        {
+          "source": "content/user/cookbook/big_data_trajectories.ipynb",
+          "html_sha256": "3ed5ffdbb29982d42408ed4203346548d05b2bea8c2512a37f66aca9bc904ab3",
+          "reviewed_text_excerpt": " budget. This lightweight recipe uses a bundled pentalanine ensemble. Public conversion defaults to H5MSM 1.0 in development source; legacy bundled files remain readable with a deprecation warning. The format freeze and installed qualification remain separate. Added in version 1.0.0. Native cutoff search now bounds empty-cell storage by reference population and checks retained grids, thread scratch and actual CSR output against the numerical working allowance. It keeps the requested cutoff and m"
+        },
+        {
+          "source": "content/user/cookbook/saving_hydrophobic_interactions.ipynb",
+          "html_sha256": "24f8da04424b2d40835e1d5f6c68e16c374ddb7f1ff17737d983f97d7807b71f",
+          "reviewed_text_excerpt": "elation and occurrence identities, declared scope, producer versions and detached bibliography. See H5MSM 1.0 for the default schema and its qualification limits. from pathlib import Path from tempfile import TemporaryDirectory with TemporaryDirectory () as directory : path = str ( Path ( directory ) / 'interface.h5msm' ) msm . convert ( molsys , to_form = path , format_version = '0.5' ) loaded = msm . convert ( path , to_form = 'molsysmt.MolSys' ) restored = loaded . interactions [ 'fragment_in"
+        },
+        {
+          "source": "content/user/tools/molsysviewer_tools.md",
+          "html_sha256": "042fd94b57a14262d05fec2abe0f0fd7033cf590d2c310fb087f89dcc6cca88a",
+          "reviewed_text_excerpt": "0 in development source. Pass format_version=\"1.0\" to a bound writer when you need that schema; see H5MSM 1.0 for its qualification and persistence limits. tools.h5msm.write(output_filename, *, format_version=\"0.5\") writes the current primary, including pending native edits, through the serialized reader. It does not synchronize the scene. All other H5MSM utilities keep filenames and domain objects explicit and work before loading a system while the view is open. Paths refer to the Python proces"
+        },
+        {
+          "source": "content/user/tools/form/file/h5msm_10.md",
+          "html_sha256": "64db88ac24922e949bf9c82a3d4704f043387e3a45e3dd53e20f761c8ee046ef",
+          "reviewed_text_excerpt": "H5MSM 1.0 # Saving native molecular domains with explicit axes, units and provenance. H5MSM 1.0 is the default output of msm.convert , msm.h5msm.write and msm.h5msm.write_layers in the current development source. It stores optional Topology, ChemicalStates, Structures, named Interactions and MolecularMechanics domains. A file can contain a complete system or independent layers with their declared "
+        }
+      ],
+      "historical_resume_body_retained_verbatim": true
+    },
+    "fast_gates": {
+      "passed": 15,
+      "total": 15,
+      "exit": 0,
+      "scope": "Existing local fast aggregate; not heavy scientific execution or a hosted/installed campaign."
+    },
+    "board_sync": {
+      "exit": 0,
+      "result": "Board agrees with the queues.",
+      "acquisition": "Owning script complete paginated board check."
+    },
+    "notebook_ruff": {
+      "exit": 0,
+      "rules": [
+        "F821",
+        "F822",
+        "F823"
+      ]
+    },
+    "historical_resume_body_retained_verbatim": true,
+    "one_current_resume_entry": true,
+    "notebooks_resources": {
+      "maximum_child_rss_kib": 375292,
+      "resource_record_sha256": "b6b03f140903a859052b20257ec1fd96ffc1ad7fd774da5c0df664cf8a364cb0",
+      "cgroup_cpus": 1,
+      "cgroup_memory_max_gib": 2,
+      "cgroup_swap_max_bytes": 0,
+      "scope": "Maximum child RSS from GNU time, not total cgroup peak or minimum host reserve."
+    },
+    "sphinx_resources": {
+      "maximum_child_rss_kib": 440424,
+      "resource_record_sha256": "30f8bb44a7df918db06153e14220b8f93f05f2100f0b291dde590ae3d3301d42",
+      "cgroup_cpus": 1,
+      "cgroup_memory_max_gib": 3,
+      "cgroup_swap_max_bytes": 0,
+      "scope": "Maximum child RSS from GNU time, not total cgroup peak or minimum host reserve."
+    },
+    "fast-gates_resources": {
+      "maximum_child_rss_kib": 438036,
+      "resource_record_sha256": "ae01b1d252349c1d286825b07b48107f7bbc56cf114ea603da237c9bbffb8e24",
+      "cgroup_cpus": 1,
+      "cgroup_memory_max_gib": 2,
+      "cgroup_swap_max_bytes": 0,
+      "scope": "Maximum child RSS from GNU time, not total cgroup peak or minimum host reserve."
+    },
+    "accounting_review": {
+      "changed_state_leaves": [
+        "phase5/334-ledger"
+      ],
+      "original_leaf_count": 84,
+      "pending_original_leaves": [
+        "phase3/actual-installed-defaults",
+        "phase4/initial-canvas",
+        "phase5/250-254",
+        "phase6/agree-pair",
+        "phase6/freeze-qualify",
+        "phase6/artifacts-clients",
+        "phase6/failed-gate-disposition",
+        "phase6/authorize-publish-archive"
+      ],
+      "weights_and_leaf_inventory_unchanged": true
+    }
+  },
+  "accounting": {
+    "previous_percent": 76.30952380952381,
+    "current_percent": 77.73809523809524,
+    "added_original_leaf": "phase5/334-ledger",
+    "weights_changed": false,
+    "new_graphical_intents": 0,
+    "supplemental_bonus": 0
+  },
+  "preservation": {
+    "four_preexisting_human_rst_edits": "verified unchanged by the existing SHA-256 guard",
+    "historical_candidate_identities": "Former resume route retained under a dated heading; no refs, packages, failures or receipts rewritten.",
+    "scientific_and_stability_registries": "unchanged",
+    "publication": "paused"
+  },
+  "remaining": [
+    "H5MSM 1.0 default-specific independent client receiving and stable-format decision under #256",
+    "Causal or evidenced bounded environmental #615 disposition",
+    "Published compatible MolSysViewer floor and clean minimum/newer installed workflows under #524",
+    "Final-candidate #250/#254 acceptance",
+    "Phase 6 exact pair, required candidate/artifact matrices, failure disposition and authorized publication/archival"
+  ],
+  "incoming_checkpoint": {
+    "open_issues": 89,
+    "open_prs": 0,
+    "issue_pages": 1,
+    "pr_pages": 1,
+    "issue_inventory_sha256": "07024b48c3e325d3a76f89a84005c2b09b4fb1e10bbbcf24e2c51861fe94cc86",
+    "pr_inventory_sha256": "cf1cbb66a638b4860a516671fb74850e6ccf787fe6c4c8d29e9c04efe880bd05",
+    "new_correctness_report_since_initial_review": false
+  }
+}

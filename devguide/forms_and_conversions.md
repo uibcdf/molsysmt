@@ -1074,24 +1074,29 @@ One native presence helper inspects stored references without copying or scannin
 per-atom values; the parameter projection cannot prove absence. The parameter-only
 MolecularMechanicsDict omits complete named reports. Native pickle does not
 replace a client's explicitly required H5MSM round trip or accept its entire
-workflow. The maintainer authorizes a bounded H5MSM 0.6 model/schema implementation before
-1.0 under uibcdf/molsysmt#256. Experimental 0.6 is now explicitly selectable
-through `format_version="0.6"`; default 0.5 writing and the parameter-only
-dictionary contract are unchanged. See the
+workflow. Public H5MSM writers now default to 1.0 and preserve the supported
+experimental mechanical domain. Versions 0.5 and experimental 0.6 remain
+explicitly selectable through `format_version`; the parameter-only dictionary
+contract is unchanged. Stable-format freeze and installed-candidate receiving
+remain under uibcdf/molsysmt#256 and #334. See the
 [checkpoint guide](../docs/content/user/foundations/native_world/classes/molsysmt_MolSysDict.md#native-checkpoints).
 
-## Experimental public H5MSM 0.6 operations
+## Public modular H5MSM operations
 
-`h5msm.write`, `write_layers` and general `convert` require explicit
-`format_version="0.6"` for mechanics persistence; default output remains 0.5.
-General reads support both modular roots, while the legacy handler still refuses
-both. `read_axis_sizes` reads independent metadata endpoints without payload
-arrays. The [public contract](../docs/content/user/tools/form/file/h5msm_06.md)
-and [format owner](h5msm_format.md#experimental-version-0-6) define the schema,
-identity, presence, query and publication limits.
+`h5msm.write`, `write_layers` and general `convert` default to 1.0, including
+supported mechanics persistence. General reads support modular roots 0.5, 0.6
+and 1.0; the legacy handler retains its separate 0.3/0.4 scope.
+`read_axis_sizes` reads independent metadata endpoints without payload arrays.
+The [1.0 public contract](../docs/content/user/tools/form/file/h5msm_10.md)
+and [format owner](h5msm_format.md) define schema, identity, presence, query and
+publication limits. Explicit 0.5 excludes stored mechanics; the
+[explicit experimental 0.6 contract](../docs/content/user/tools/form/file/h5msm_06.md)
+retains its version-specific limits.
 
-File extraction preserves a 0.6 source version; explicit conversion retains its
-0.5 default and refuses unsupported stored mechanics. Copies preserve bytes.
+File extraction preserves the source version; copies preserve bytes. Public
+file-to-file conversion defaults to 1.0, preserving supported independent layers,
+maps and scientific producers while recording source root metadata separately.
+An explicitly requested older target refuses unsupported stored mechanics.
 Topology-free, interaction-free append can retain a compatible mechanics layer
 and extend an explicit structure/state map after validation. Other modifications
 use resident editing and new output. Known assignments retain projection rules;

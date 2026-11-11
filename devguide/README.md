@@ -36,8 +36,8 @@ For a new session focused on the path to 1.0, first read the
 [frozen 1.0 scope](release_1_0_scope.md),
 [current execution status](release_1_0_status.md#resume-from-here),
 and the [exact-commit release gate](release_gate.md). The execution ledger
-owns the selected pre-1.0 pair, staging handoff receipt and remaining
-qualification sequence. Then consult the active issue and proposal for the
+owns the current coordinated target, immutable historical staging receipts and
+remaining qualification sequence. Then consult the active issue and proposal for the
 chosen work item. The [Python 3.14 paired-support checkpoint](python_3_14_checkpoint.md)
 retains the earlier published-pair and development baseline; it does not select
 the active candidate or replace its gates.

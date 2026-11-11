@@ -99,8 +99,11 @@ macOS support is currently limited to Apple Silicon (arm64). Intel-based macOS
 reconsidered if there is demonstrated user demand.
 
 Several integrations are optional — `openmm`, `mdtraj`, `MDAnalysis`, `parmed`,
-`pytraj`, `rdkit`, `nglview`, `pdbfixer`, `biopython` — and are used when present.
-MolSysMT loads only what your workflow actually touches.
+`pytraj`, `rdkit`, `nglview`, `pdbfixer`, `biopython` — and are loaded when a
+requested operation needs them.
+
+This README describes the development source. Published packages may precede
+these capabilities; consult the documentation and release notes for your version.
 
 ### From source
 
@@ -142,7 +145,7 @@ molsys = msm.convert('raw_structure.pdb', to_form='molsysmt.MolSys',
 missing_heavy = msm.build.get_missing_heavy_atoms(molsys)
 missing_caps  = msm.build.get_missing_terminal_cappings(molsys)
 
-# Repair — no external dependencies required
+# Repair within supported native templates
 molsys = msm.build.add_missing_heavy_atoms(molsys, engine='MolSysMT')
 molsys = msm.build.add_missing_terminal_cappings(molsys, engine='MolSysMT')
 molsys = msm.build.add_missing_hydrogens(molsys, pH=7.4, engine='MolSysMT')
@@ -166,8 +169,9 @@ phi      = msm.structure.get_dihedral_angles(molsys, dihedral_quartets=quartets)
 ss = msm.structure.get_secondary_structure(molsys)
 ```
 
-Results carry physical units. The kernels behind them are compiled and shipped
-with the package, avoiding a just-in-time compilation step.
+Geometric quantities carry physical units; atom-index quartets and categorical
+assignments retain their own types. Native CPU geometry kernels are compiled
+and shipped with the package, avoiding a just-in-time compilation step.
 
 ### Interoperability
 
@@ -194,17 +198,18 @@ view  # inline in Jupyter
 
 ## What is inside
 
-- **Three operations, not an API per format.** `get`, `set` and `convert` behave
-  the same way on every supported form. There are no form-specific accessors to
-  memorise.
-- **One selection language.** The same `selection='molecule_type=="protein"'`
-  works on a PDB file, an MDTraj Trajectory, an OpenMM Topology or a native
-  `MolSys`.
-- **A native molecular model.** `MolSys`, `Topology`, `Structures` and
-  `MolSysBuilder` hold topology and structures, preserving element identifiers.
-  The experimental `molsysmt.ChemicalStates` and `molsysmt.Interactions` domains
-  store chemical assignments and named interaction analyses. Molecular mechanics
-  remains a minimal experimental domain.
+- **A common access and conversion API.** `get`, `set` and `convert` use shared
+  conventions across forms. Each form declares the attributes and routes it
+  supports; unavailable data and unsupported conversions remain explicit.
+- **One selection language.** Expressions such as
+  `selection='molecule_type=="protein"'` apply across forms that provide the
+  required attributes.
+- **A native molecular model.** `MolSys` combines independently optional native
+  domains. `Topology` owns stable atoms and grouping, `Structures` owns geometry,
+  and `ChemicalStates` owns chemical assignments, bonds and state-local
+  components. One `Interactions` object represents a sparse analysis;
+  `MolSys.interactions` stores analyses by name. Molecular mechanics remains
+  a minimal experimental domain.
 - **Experimental native structure preparation.** `msm.build` supplies missing
   heavy atoms, terminal cappings, hydrogen placement, solvation and ions for its
   supported templates and profiles. Select `engine='MolSysMT'` explicitly to
@@ -216,9 +221,13 @@ view  # inline in Jupyter
 - **Experimental analysis.** `msm.structure.get_rmsf`, `msm.physchem.get_sasa`,
   `msm.structure.get_secondary_structure` and the `msm.interactions` detectors
   offer analysis methods under the experimental API contract.
-- **A native storage format.** H5MSM 0.5 stores topology, structures, chemical
-  states and named interaction analyses as independently optional domains.
-  Nonempty molecular-mechanics data is rejected until a later format supports it.
+- **A native storage format.** Development writers default to H5MSM 1.0,
+  preserving independently optional topology, structures, chemical states,
+  named interaction analyses and the supported experimental molecular-mechanics
+  data, with declared axis maps and producer records. Explicit 0.5 output
+  excludes stored mechanics; explicit 0.6 remains experimental. The
+  [format contract](devguide/h5msm_format.md) distinguishes source support from
+  the pending stable-format freeze and installed-candidate qualification.
 - **Visualisation** in notebooks through MolSysViewer, with optional NGLView
   interoperability.
 - **No heavy mandatory dependencies.** MDTraj, MDAnalysis, OpenMM and RDKit are

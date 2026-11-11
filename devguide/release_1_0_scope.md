@@ -10,7 +10,15 @@ bounded stabilization queue below. This decision does not certify that source,
 authorize a tag or release, or replace the [exact-candidate release gate](release_gate.md).
 The [execution ledger](release_1_0_status.md) records completion and evidence.
 
-## Pre-1.0 version checkpoint
+## Current coordinated target — 2026-11-11
+
+The agreed release target is **MolSysMT 1.0.0 / MolSysViewer 1.0.0**. Exact
+replacement producer commits, builds and artifact identities remain to be
+agreed and qualified. The existing publication pause remains in force. The
+[current ledger entry](release_1_0_status.md#resume-from-here) owns the work
+order; the dated checkpoint below retains its original historical scope.
+
+## Historical pre-1.0 checkpoint — 2026-10-06
 
 On 2026-10-06 the maintainer selects **MolSysMT 0.23.0 / MolSysViewer 0.24.0**
 as the next pre-1.0 version checkpoint. Prepare and qualify their packages
@@ -41,6 +49,26 @@ in an owned post-1.0 issue. A measured performance defect that prevents an
 accepted workflow may be promoted with evidence; an opportunity to be faster
 alone does not expand the release queue. Public experimental APIs remain
 experimental unless a separately justified stability decision changes the registry.
+
+## Mechanical persistence and stable-format admission — 2026-11-08
+
+The maintainer promotes bounded mechanical persistence to pre-1.0 under #256
+and selects H5MSM 1.0 as the first stable-format target alongside MolSysMT 1.0.
+This supersedes the earlier post-1.0 mechanical-persistence schedule. Format
+and library versions continue to evolve independently; a later library major
+does not automatically require another format major.
+
+Development source now reads and writes 1.0, and public writers default to it.
+The admitted domain covers implemented typed mechanical parameters, assignment
+reports and declared associations, including conservative unknown-report
+transport and refusal of unsupported scientific use. It does not certify
+stored assignments, expand force-field physics or stabilize the entire
+MolecularMechanics API. Explicit 0.5 remains mechanics-free; explicit 0.6 is
+experimental. The [format contract](h5msm_format.md) and
+[#256 implementation/acceptance record](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#revised-implementation-plan--2026-11-08)
+own exact schema and limits. Stable-format freeze, default-specific client
+receiving and exact installed-pair qualification remain pending. This admission
+does not authorize a package, tag, promotion or publication.
 
 ## Group-name scheme admission — 2026-11-04
 
@@ -171,9 +199,10 @@ does not change frozen artifacts or authorize publication.
   ownership. The #255 source cutover is complete and integrated into main:
   Topology has no chemical facade. New installed candidates still require their
   own qualification; historical artifact receipts do not certify this source.
-- Public writers emit H5MSM 0.5. Preserve supported domain associations, named
+- Public writers emit H5MSM 1.0. Preserve supported domain associations, named
   analyses, original producers, quantity records and preparation history. Read
-  legacy 0.3/0.4 with the documented warning and migration route. Structures-only
+  legacy 0.3/0.4 with the documented warning and migration route, as well as
+  modular 0.5 and experimental 0.6. Structures-only
   files must load as partial `MolSys` and support explicit index extraction.
   Unsupported compositions must fail before silently losing information.
 - The implemented sparse `Interactions` contract includes roles and compound
@@ -196,8 +225,10 @@ does not change frozen artifacts or authorize publication.
 - Preserve optional lazy Ackredit attribution in the interaction pilot, original
   bibliography and producer versions. Portable-provider migration and whole-library
   instrumentation remain #292/#27; provider absence must not lose completed science.
-- `MolecularMechanics` remains minimal and experimental. Its persistence stays
-  outside H5MSM 0.5 and is rejected when nonempty, pending #256/H5MSM 0.6.
+- `MolecularMechanics` remains minimal and experimental. Supported stored data
+  survives H5MSM 1.0 and explicit experimental 0.6; explicit 0.5 refuses stored
+  mechanics. Persistence does not certify parameterization or an effective
+  simulation recipe.
 
 The symbol stability registry and owning normative documents define exact
 signatures and semantics. This scope decision does not redefine their methods.
@@ -252,10 +283,14 @@ and the five new issues. Future reports use the same admission rule.
 | Accepted delivery/documentation debt | #139, #144 | Maintain truthful supported tiers, existing ratchets and documentation integrity. Broader lower-tier remediation and global Sphinx cleanup remain visible; newly broken included workflows are not accepted debt. |
 | Attribution expansion | #27, #292 | Keep the pilot intact; review portable provider compatibility/publication and wider instrumentation separately. |
 | Scientific interaction extensions and comparison | #262, #271, #337, #338 | Extend formal-charge motifs, compare cation-pi definitions, study metal-specific coordination and assess longer water paths. No automatic implementation or improved-accuracy claim. |
-| Mechanical persistence evolution | #256 | Design H5MSM 0.6 mechanics after 1.0. #255 native/functional separation has moved to the explicit pre-1.0 planning admission above. |
 | Manuscript/evidence presentation expansion | #190, #191 | Define manuscript claims and extend the experimental claimed-evidence view before the relevant publication. Current software claims must already be truthful under S4. |
 | Individual interaction editing | #335 | Add/remove individual observations and optionally prune unused definitions with explicit occurrence/relation-handle semantics, immutable snapshots and bounded costs. Structure replacement/invalidation/compaction are already implemented. |
 | Streaming and resumable H5MSM | #336 | Direct detector-to-file accumulation, append with topology/named analyses, transactional visibility and crash recovery. Existing numeric-window export and narrowly supported topology-free append remain available. |
+
+The original deferred #256 mechanical-persistence entry is superseded by the
+explicit pre-1.0 admission above, not resolved by deferral. Its remaining format
+acceptance stays in the pre-1.0 work order. The #255 native/functional separation
+likewise follows its explicit admission and delivered source cutover.
 
 At the scope-freeze checkpoint, the public board uses `1.0.0` for S1/S2/S4/S5 owner issues and #334, and
 `Post-1.0` for the extension/debt issues above. The associated proposal/bug

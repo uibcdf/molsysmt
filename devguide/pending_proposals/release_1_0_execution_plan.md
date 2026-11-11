@@ -20,7 +20,18 @@ The plan deliberately separates:
 - expensive work that can continue after 1.0;
 - independent investigations that must not destabilize the release candidate.
 
-## Selected pre-1.0 checkpoint — 2026-10-06
+## Current coordination — 2026-11-11
+
+The agreed final pair is **MolSysMT 1.0.0 / MolSysViewer 1.0.0**; exact
+replacement sources, builds and artifact identities are not yet frozen.
+MolSysViewer 0.25.0 remains a possible earlier milestone. Use the
+[current resume entry](../release_1_0_status.md#resume-from-here) and
+[completion handoffs](../pre_1_0_completion_handoffs_20261110.md) for the finite
+remaining work. The publication pause includes new candidate construction and
+qualification campaigns until their scope is agreed. The following dated
+checkpoint and its authorization apply to their original artifacts only.
+
+## Historical pre-1.0 checkpoint — 2026-10-06
 
 The maintainer selects **MolSysMT 0.23.0 / MolSysViewer 0.24.0** before deciding
 on 1.0.0. Candidate staging is authorized; public publication still requires

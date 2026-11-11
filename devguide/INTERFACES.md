@@ -44,33 +44,31 @@ Canonical structural conventions are:
 
 ## Periodic box origin
 
-**The box vectors describe shape and size. The cell they span starts at the origin,
-and coordinates live in `[0, L)`.**
+**Box vectors describe shape and size; they do not encode an absolute origin
+or require every atom to lie inside one primary cell.**
 
-Molecules are kept whole, so a few atoms sit just outside the cell where one crosses
-a face. That is the correct picture, not a defect: on a solvated 1VII the three
-solvation engines leave between 0.9 % and 1.7 % of atoms outside, and MDTraj's
-`image_molecules` produces the same signature on the same system.
+`msm.pbc.wrap_to_pbc` defaults to a zero origin and supports an explicit
+`box_origin` or `box_center`. With row-vector box matrix `B` and origin `o`, the
+primary cell is described by `r = o + f @ B`, with fractional coordinates
+`0 <= f[i] < 1`, subject to floating-point face conventions. Independent
+Cartesian intervals `[0, L)` describe only the axis-aligned orthogonal case,
+not a rotated or skew cell.
 
-The convention is not arbitrary. It is what `msm.pbc.wrap_to_pbc` already assumed,
-and it is what the ecosystem does: OpenMM's `enforcePeriodicBox` returns a system in
-`[0, L]`, and MDTraj's `image_molecules` moves one centred on the origin into `[0, L]`.
-NAMD is the exception that proves the point by parameterising `cellOrigin` explicitly.
+Atom-wise wrapping (`compact=False`) and component-wise wrapping have different
+contracts. The latter reconstructs each covalently connected component using
+minimum images, then places its center in the cell. Individual atoms can remain
+outside it while the component stays whole. Atom-wise wrapping can split bonded
+geometry across faces. An origin change translates absolute placement; it does
+not change relative vectors used by minimum-image geometry.
 
-There is no computational argument either way. The minimum-image kernels operate on
-displacement vectors, which are invariant under the choice of origin — see
-`mic_vector_ortho` in `rust/src/mic.rs` — and wrapping costs one `floor` or one
-`round` per axis whichever convention is chosen. The reason to pick this one is
-interoperability: exporting to the majority of forms then needs no translation, and a
-translation on every export is a place for defects to live.
-
-Anything that builds a box must land in this convention, and the requirement is on
-the result rather than on the route. `msm.build.solvate` reaches it through three
-engines that do not agree by themselves: the native one centres the solute before
-adding water, while OpenMM's `Modeller` and PDBFixer return a system centred on the
-origin, which is a corner of the cell. Left unnormalised that put 86 % of atoms
-outside the box, and the notebook that tried to correct it with an atom-wise wrap
-stretched 93 bonds of the solute to 6.8 nm.
+Builders and adapters must preserve their documented periodic placement and
+whole-component guarantees. They must not infer an origin from box vectors or
+silently substitute atom-wise wrapping for component reconstruction. The
+[wrapping implementation and docstring](../molsysmt/pbc/wrap_to_pbc.py) define
+the explicit options; [periodic scalability](SCALABILITY.md) records supported
+execution limits. Historical cross-provider percentages and examples from this
+section are retained in the source history; they are not universal geometry or
+current benchmark guarantees.
 
 ## Scalar types in returned values
 

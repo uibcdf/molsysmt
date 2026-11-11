@@ -9,8 +9,8 @@
   "gui_scope": "Tracking packages make the previously accepted workflow inventory explicit. They are user intents, not a GUI promise for every expert argument or a new scientific feature request. Native/expert APIs remain available and retain their own qualification.",
   "publication": "The existing pause remains. #640/#641/#642 and all other required correctness work retain owning acceptance. Exact candidate/platform/installed and final sign-off gates are not scored as passed by source tests.",
   "legacy_phase_exit_percent": 40,
-  "weighted_milestone_percent": 76.30952380952381,
-  "reported_approximate_percent": 76.3,
+  "weighted_milestone_percent": 77.73809523809524,
+  "reported_approximate_percent": 77.7,
   "phases": [
     {
       "id": "phase1",
@@ -847,14 +847,17 @@
         {
           "id": "334-ledger",
           "requirement": "Complete #334 final current-state/claim reconciliation",
-          "state": "pending",
-          "evidence": [],
-          "review": ""
+          "state": "verified_source",
+          "evidence": [
+            "devguide/release_claims_review_20261111.md",
+            "devtools/data/release_claims_receiving_334_20261111.json"
+          ],
+          "review": "Maintained claims and the single current resume entry are reconciled against source 7b7cbc2f1 and its documentation delta. Native/default and bound-addon/explicit roots, experimental science, immutable historical producers and the paused exact-pair gates are distinct. This completes only the original source-level ledger requirement; #334 and final-candidate acceptance remain open."
         }
       ],
       "review": "Only individually accepted requirement leaves receive credit. Other pending source/claim/candidate work remains explicit; pending does not assert absent code.",
-      "verified_fraction": 0.7142857142857143,
-      "credited_points": 7.142857142857143
+      "verified_fraction": 0.8571428571428571,
+      "credited_points": 8.571428571428571
     },
     {
       "id": "phase6",
@@ -1037,7 +1040,7 @@
       "record": "devguide/archive/resolved_proposals/explicit_bounded_jupyter_server_readiness_budget.md"
     }
   },
-  "last_updated": "2026-11-10",
+  "last_updated": "2026-11-11",
   "last_scientific_claim_disposition": {
     "issues": [
       "uibcdf/molsysmt#473",
@@ -1561,5 +1564,19 @@
     "passed": 1277,
     "stable_format_frozen": false,
     "weighted_milestone_change": 0
+  },
+  "last_current_claim_review": {
+    "source_basis": "7b7cbc2f10f74870b9556f6e483c53c8293053f2",
+    "state": "source_claim_reconciliation",
+    "owner_issue": "uibcdf/molsysmt#334",
+    "original_leaf": "phase5/334-ledger",
+    "evidence": [
+      "devguide/release_claims_review_20261111.md",
+      "devtools/data/release_claims_receiving_334_20261111.json"
+    ],
+    "previous_percent": 76.30952380952381,
+    "credited_points": 1.4285714285714306,
+    "current_percent": 77.73809523809524,
+    "scope": "Current source claims and work navigation only. Weights, science classifications, fifty GUI intents, candidate and installed/publication requirements unchanged."
   }
 }

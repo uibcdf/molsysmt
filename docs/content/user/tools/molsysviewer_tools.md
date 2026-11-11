@@ -4986,6 +4986,12 @@ or every scientific method/input population.
 
 ## Working with molecular files explicitly
 
+The bound addon writers below retain their explicit 0.5 defaults. They differ
+from the native public `msm.h5msm` writers and `msm.convert`, which default to
+1.0 in development source. Pass `format_version="1.0"` to a bound writer when
+you need that schema; see {ref}`user-tools-form-h5msm-10` for its qualification
+and persistence limits.
+
 `tools.h5msm.write(output_filename, *, format_version="0.5")` writes the current primary, including pending
 native edits, through the serialized reader. It does not synchronize the scene.
 All other H5MSM utilities keep filenames and domain objects explicit and work
