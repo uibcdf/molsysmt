@@ -86,6 +86,13 @@ def parse_format33(file):
     ----------
     file : object
         Argument file.
+
+    Notes
+    -----
+    REMARK records without an integer number retain their complete text as
+    opaque comments with remarkNum=None. Numbered comments retain the PDB
+    message field. Structured declarations such as REMARK 350 assemblies are
+    validated separately by the normalized content reader.
     """
 
     from .pdb_atomic_coordinate_entry import (
@@ -554,30 +561,25 @@ def parse_format33(file):
 
         ### REMARKS
         elif record == "REMARK":
-            pdb.title.remarks = []
-            mark_id = -1
+            if pdb.title.remarks is None:
+                pdb.title.remarks = []
+            remark = None
 
-            while record == "REMARK":
-                if not line[7:10].isspace():
-                    if int(line[7:10]) != mark_id:
-                        remark = RemarkRecord()
-                        pdb.title.remarks.append(remark)
-                        remark.remarkNum = int(line[7:10])
-                        mark_id = int(line[7:10])
-                        remark.message = ""
-                else:
-                    if mark_id == -1:
-                        remark = RemarkRecord()
-                        pdb.title.remarks.append(remark)
-                        remark.remarkNum = 1
-                        mark_id += 1
-                        remark.message = ""
-
-                remark.message += line[11:79].strip() + "\n"
-
-                counter += 1
+            while counter < n_lines and lines[counter][:6] == "REMARK":
                 line = lines[counter]
-                record = line[0:6]
+                message = line[11:79].strip()
+                try:
+                    number = int(line[7:10])
+                except ValueError:
+                    number = None
+                    message = line[6:].strip()
+                if remark is None or remark.remarkNum != number:
+                    remark = RemarkRecord()
+                    remark.remarkNum = number
+                    remark.message = ""
+                    pdb.title.remarks.append(remark)
+                remark.message += message + "\n"
+                counter += 1
 
         ##### Primary Structure Section
 

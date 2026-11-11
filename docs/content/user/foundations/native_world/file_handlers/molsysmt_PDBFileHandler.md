@@ -9,6 +9,15 @@
 
 `PDBFileHandler` provides low-level file stream management and record-level parsing for PDB files (compliant with wwPDB format version 3.3). It acts as the internal I/O engine when converting `.pdb` files to native containers (`molsysmt.Topology`, `molsysmt.Structures`) or streaming multi-model structures via `msm.Iterator`.
 
+Unnumbered or nonnumeric `REMARK` records are retained as opaque comments.
+In `handler.entry.title.remarks`, their `remarkNum` is `None` and `message`
+contains the full trimmed payload, including text beyond column 80. Numbered
+comments retain their PDB number and message field. This allows coordinate
+reading from GHECOM exports without deleting their comments. Recognized
+structured declarations, including `REMARK 350` assemblies, retain their
+independent validation. Comment tolerance does not interpret provider-specific
+metadata or guarantee its preservation after conversion to another form.
+
 ---
 
 ## Class Attributes and Parsed Records

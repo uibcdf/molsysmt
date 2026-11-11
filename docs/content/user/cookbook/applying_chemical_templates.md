@@ -112,6 +112,15 @@ and reject missing/mixed state associations. See {ref}`Tutorial_Get_covalent_blo
 (cookbook-pdb-connectivity-policy)=
 ## Choosing PDB connectivity
 
+Coordinate reading also accepts opaque, unnumbered `REMARK` comments such as
+GHECOM's `COMMAND` and `COMMENT` records. You can query
+`msm.get("observed.pdb", coordinates=True)` without stripping those records.
+Their full trimmed payload remains accessible in the native PDB handler;
+it is not interpreted as chemistry. Provider-specific occupancy values are
+not automatically radius measurements. See
+{ref}`user-foundations-native-world-file-handlers-molsysmt-pdbfilehandler`
+for comment retention and the separate validation of structured declarations.
+
 Gzip PDB archives use the same connectivity policy through the experimental
 `file:pdb.gz` input adapter. For example,
 `msm.convert("observed.pdb.gz", to_form="molsysmt.MolSys", get_missing_bonds=False)`

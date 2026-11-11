@@ -1,0 +1,13 @@
+HEADER    /fast_data/home/liliana/repos@uibcdf/topo08-NOV-26   assigned  0XXX   1
+REMARK    DATE Nov 8,2026 10:21:0
+REMARK  COMMAND /fast_data/home/liliana/repos@uibcdf/topomt/.cache/third-party-expansion/tools/ghecom-src-20260817/bin/ghecom P -ipdb /fast_data/home/liliana/repos@uibcdf/topomt/docs/content/benchlab/synthetic/regular_tetrahedron/artifacts/radius_audit_v1/original_readers/ghecom-original/input.pdb -opdbin /fast_data/home/liliana/repos@uibcdf/topomt/docs/content/benchlab/synthetic/regular_tetrahedron/artifacts/radius_audit_v1/original_readers/ghecom-original/results/assigned.pdb -opocpdb /fast_data/home/liliana/repos@uibcdf/topomt/docs/content/benchlab/synthetic/regular_tetrahedron/artifacts/radius_audit_v1/original_readers/ghecom-original/results/pockets.pdb
+REMARK  COMMENT INPUT_RECEPTOR_PDB_FILE:/fast_data/home/liliana/repos@uibcdf/topomt/docs/content/benchlab/synthetic/
+REMARK  COMMENT NATOM_OF_RECEPTOR:4
+REMARK    Occupancy [55-60] : Radius of the atom
+MODEL        0
+ATOM      1 C    DUM A   1       1.874   1.874   1.874  1.87  0.00
+ATOM      2 C    DUM A   2       1.874  -1.874  -1.874  1.87  0.00
+ATOM      3 C    DUM A   3      -1.874   1.874  -1.874  1.87  0.00
+ATOM      4 C    DUM A   4      -1.874  -1.874   1.874  1.87  0.00
+TER
+ENDMDL
