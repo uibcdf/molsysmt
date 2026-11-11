@@ -916,3 +916,94 @@ not include the four later guards. Its verdict and original failed session are
 not replaced by this focused receiving. P5 independent acceptance and P6 final
 schema/default/stable-format/candidate decisions remain open, with no extra
 scorecard credit or publication authority.
+
+### DockingMT scope accepted for independent receiving — 2026-11-10
+
+DockingMT [e90c0446](https://github.com/uibcdf/dockingmt/issues/73#issuecomment-6782682019)
+confirms all three additional controls are relevant. The bounded plan is an
+explicit atom permutation with structures `[2, 0]`, a restored coordinate edit
+with selective interaction invalidation, and unknown-assignment report transport
+with projection and PDBQT export refusals. Execute each applicable case in a
+fresh process under the normal and pm/fs policies on the same immutable inputs.
+Use the existing native guard for a representative charge and atom-type report
+in an adverse copy. The three valid packet files do not contain unknown reports.
+Original reference and E3 evidence at `9b077fab` remains accepted. DockingMT
+#79/#88/#96 remain closed. The three additional controls have yet to run.
+
+The exact provider reference is `ee4f727960ddb7f86b2c9c8e28e7f842fbe1bdfc`,
+whose product source matches `5e7d65a665425fe6077f016dd95cbd65d424ee91`, with
+Linux ABI3 `_rust.abi3.so` SHA-256
+`4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345`.
+Use the [fixture manifest](../../devtools/data/h5msm_p5_review_20261110/manifest.json)
+for individual file identities. This is a source/native reference, not a
+published package coordinate. In an isolated consumer composition, record the
+actual imported source, extension path and digest before reading the fixtures.
+A separately built or different digest needs its own provider/consumer
+receiving. Preserve the existing frozen DockingMT installed cohort and its
+older provider binary. The three new checks do not repeat preparation or docking.
+
+### P6 wire catalog and public-route audit — 2026-11-10
+
+Inspected source `4e43a6557cf9ac70d3504cab35dd72281e911fe1` and the existing
+[format contract](../h5msm_format.md). The proposed stable root should keep
+the represented domains and their existing codecs unless an identified wire
+change needs a new layer revision. The root identifier, exact admitted layer
+revisions, current producer version and original stored evidence have separate
+meanings. Freeze them explicitly when introducing `version="1.0"`.
+
+| Domain or metadata | Observed 0.6 representation and stable freeze work |
+| --- | --- |
+| Root | `type`, `version`, `creator`, `creator_version`, `created_at` are required text fields. The root enumerates allowed groups. Preserve strict root dispatch, and decide the explicit encoding and validation of migration provenance before making a new writer. |
+| `topology` | Schemas 1–4 encode typed nullable inventory tables, optional packed chain membership, direct atom-to-molecule assignments and naming declarations. Keep string IDs and positions distinct. Freeze the allowed revision/field combinations. |
+| `chemical_states` | Schemas 1 and 2 separate chemistry and its optional preparation history from stable topology. Preserve the declared reference, absent/unknown/known-empty chemistry, and assignment history. |
+| `structures` | Schema 1 declares atom and structure counts, positions/boxes in nm, velocities in nm/ps, time in ps, B factors in nm², occupancy, temperature in K and energies in kJ/mol. IDs retain their declared numeric/text encoding. Preserve optional bioassembly and alternate-location records, missing fields and bounded structural I/O. |
+| `interactions` | Collection schema 1 contains named sparse results. Result readers accept schemas 1 and 2 and current writers emit 2 with execution provenance. Preserve coverage, occurrence identities within the stored analysis, compound roles, maps, units, producers and periodic images. A present-empty collection is meaningful at the independent-layer boundary. Standalone `Interactions.save/load` uses its own HDF5 format. |
+| `molecular_mechanics` | Schema 1 stores explicit atom count, settings, typed/null-aware per-atom tables and original detached reports using the typed metadata codec. Preserve independent presence and unknown evidence without interpreting it as a usable assignment. |
+| `associations` | Schema 1 links declared atom, structure and state axes, including explicit state maps. Equal sizes alone do not establish correspondence. Independent layers and whole-system composition have different representability requirements. |
+
+Four route boundaries govern the implementation:
+
+1. **Version admission.** Public writers and `basic.convert` share write
+   validation but each currently supplies its own 0.5 default. `read` retains
+   legacy 0.3/0.4 dispatch and modular reads use their validated roots. The
+   low-level modular header and several mechanics/association dispatches
+   explicitly recognize 0.6. A version-list-only change would leave query
+   association handling, mechanics-only conversion, force input and append
+   behavior incomplete. Introduce shared private root policy and exercise
+   `read`, `read_layers`, `read_axis_sizes`, conversion, projected `get` and
+   bounded `Iterator` through their public entry points before changing the
+   ordinary writer default.
+2. **Preserving and mutating operations.** Byte-copy keeps the stored version.
+   Subset extraction's file adapter writes the same modular root, while
+   `basic.extract(to_form=...)` has a specific 0.6 override to avoid a 0.5
+   downgrade. Test both routes when adding 1.0. Append stays on the existing
+   root and retains the topology/named-interaction refusals and explicit
+   state-index requirement. The legacy `H5MSMFileHandler` and its OpenMM
+   reporter use the 0.3/0.4 contract. The default for new public modular output
+   must not silently switch these internal legacy producers.
+3. **Lossless migration.** `migrate_04_to_05` and `migrate_to_05` keep their
+   named 0.5 destination. They refuse ambiguous legacy zero-atom scaffolds.
+   For a latest-format migration, use the independent modular layer/axis
+   boundary when a source file has unbound domains or present-empty layers.
+   Routing every source through `MolSys` would reject these inputs or lose
+   represented presence. Validate and re-encode before publishing a new file,
+   with explicit decisions for the original root producer and migration
+   metadata. Retain original detector/assignment evidence and refuse lossy or
+   ambiguous inputs before writing. Reconcile the legacy warning's recommended
+   command after the actual latest migration path works.
+4. **Acceptance before default switch.** Start with explicit 1.0 reads/writes
+   and failure/nonmutation checks. Cover legacy migration, 0.5/0.6 upgrades,
+   independent and whole composition, incompatible versions, missing/empty,
+   named results, units and state/atom/structure mappings. Then align `write`,
+   `write_layers`, `convert` and applicable adapters, and execute the docs and
+   client cases. MolSysViewer sessions follow the provider writer default, so
+   confirm old-session reads and the embedded root of new sessions alongside
+   DockingMT's finite controls. Keep current 0.5 default, explicit 0.6 and
+   exact-candidate qualification separate during this review.
+
+Nine directed existing cases pass with pytest-receptor on the audited source
+and Linux ABI3 digest `4ffb82e4…`. They cover both legacy migration routes,
+mechanics-only reading and queries, bounded structural query/iteration,
+version-preserving copy/extraction and four append refusals. These results
+establish the pre-change baseline for the audited paths. Stable-root coding,
+end-to-end migration and independent client checks remain pending.

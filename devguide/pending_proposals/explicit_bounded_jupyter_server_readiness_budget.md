@@ -53,3 +53,40 @@ original milestone weight. Receive the incoming contribution when supplied;
 retain the complete local 5e7d65a66 session as evidence of its own unchanged
 source. The [completion handoffs](../pre_1_0_completion_handoffs_20261110.md)
 keep provider requests and publication/installed/human boundaries separate.
+
+## MolSysMT review of draft #706 — 2026-11-10
+
+Reviewed exact head `66273e4d3ad722726336055b4bf38dc76761e35e` against its
+declared base `9dff314f896238d8d9968c3c86b9b901adf6e81a`, already an ancestor
+of MolSysMT main. The [draft](https://github.com/uibcdf/molsysmt/pull/706)
+adds the #705 CLI and an opt-in prolonged-session harness. Its 25 focused
+runtime-file/CLI cases pass from the exact test sources with pytest-receptor.
+The first sandboxed attempt had 23 passes and two denied local-socket calls.
+The permitted local repeat passes all 25. The browser script parses with
+`node --check`. These checks do not start Jupyter or a browser campaign.
+
+Two additional deterministic launcher controls expose unresolved behavior:
+
+1. A simulated authenticated 200 response arrives at 0.2 s with a 0.1 s
+   preparation budget. The recorded startup has `ready=true` and the browser
+   launches. The loop checks time before the request, passes a fixed 1 s
+   transport timeout, can sleep a further 0.5 s and accepts success without a
+   post-response deadline check. Clamp the probe and sleep to remaining time,
+   and refuse an otherwise valid response once the deadline is reached. Test
+   in-budget and late 200 responses, timeout and early exit at the launcher
+   boundary, with no late browser launch and owned-file retirement.
+2. `--cycles 30 --active-seconds 90` passes CLI validation, but playback alone
+   requires at least 2,700 s. The launcher gives the entire browser process
+   2,400 s, including startup, edits, windows, session round trips and cleanup.
+   Require a coherent finite process deadline for the selected profile or
+   reject an impossible combination before output creation.
+
+Each adverse control reaches the production launcher with a fake monotonic
+clock and server/browser boundary. The initial reviewer double omitted the
+node-version call and is superseded by the corrected reproducer. No actual
+browser run or resource load is needed to demonstrate either condition. The
+PR's reported fifteen completed cycles and shared-pressure stop at cycle 16
+remain partial evidence. Retired-controller observations remain owned by
+uibcdf/molsysviewer#356. A separately reviewable readiness change can close
+#705 after its own tests and receiving. The extended campaign and #615 keep
+their own acceptance conditions. Draft #706 stays open for revision.

@@ -31,13 +31,10 @@ and [release ledger](release_1_0_status.md) retain current evidence and history.
    repeat a passing workflow without a new question, warm imports, restart a
    live kernel or extend a deadline. A causal correction or an evidenced bounded
    environmental disposition remains required.
-3. **Bound the remaining #256 P5 profile.** Map provider coverage and the
-   independently received DockingMT reference/E3 evidence to the remaining
-   partial-domain/layer, selected/reordered/appended structure, typed data,
-   original-producer and edit/stale-binding obligations. Name the smallest
-   missing consumer scenarios, exact fixtures and expected results before asking
-   for another client campaign. Keep provider and independent client evidence
-   distinct. Existing #79/#88/#96 acceptance is not reopened.
+3. **Receive the remaining #256 P5 profile.** DockingMT agrees to the three
+   bounded consumer controls. Admit the isolated provider source/native pair
+   below before running them. Keep provider and independent client evidence
+   distinct and retain existing #79/#88/#96 acceptance.
 4. **Prepare the P6 stable-format decision.** The accepted target is H5MSM 1.0
    alongside MolSysMT 1.0. Current default writing remains 0.5; explicit 0.6 is
    experimental. Reconcile the final root/layer schemas, migration and warning
@@ -45,11 +42,12 @@ and [release ledger](release_1_0_status.md) retain current evidence and history.
    measurements before promoting a stable format. A header edit is not schema
    qualification. Experimental scientific profiles need not become stable merely
    because their stored representation does.
-5. **Receive incoming #705 without conflating startup stages.** The
+5. **Review the #705 revision without conflating startup stages.** The
    [bounded readiness proposal](pending_proposals/explicit_bounded_jupyter_server_readiness_budget.md)
-   is inspected; the Viewer team is preparing its contribution. Preserve the
-   default 20 seconds and finite selected profile, authenticated readiness,
-   elapsed/budget records and cleanup. It does not close original #615.
+   records two reproduced deadline defects in draft #706. Review the corrected
+   readiness deadline and the prolonged profile independently. Preserve the
+   default 20 seconds, authenticated readiness, elapsed/budget records and
+   cleanup. #615 requires its separate pre-timeout capture.
 6. **Reconcile the final source/claim ledger.** Keep container/query/persistence
    guarantees separate from detector science, engine support and human/installed
    receiving. Close only the accepted owning scopes, retain original failures
@@ -161,19 +159,15 @@ uibcdf/dockingmt#79, #88 and #96 are closed. The provider receipt is
 [retained here](../devtools/data/docking_h5msm06_client_receiving_256_20261109.json).
 No new docking, preparation, scientific search or reopening is requested.
 
-**Forwardable request, after the remaining P5 prescription is bounded:**
-
-> We retain your published 9b077fab reference and three-pose E3 acceptance.
-> For uibcdf/molsysmt#256 P5/P6 and the proposed first stable H5MSM 1.0, please help
-> review the finite additional profile below: one projected/reordered prepared
-> round trip, one restored coordinate-edit/invalidation control, and one unknown
-> evidence transport/refusal control, under normal and pm/fs policies. The linked
-> fixture packet supplies exact public-writer inputs, expected snapshots/PDBQT
-> and hashes; the matrix names the operations and refusal expectations. Confirm
-> what your existing evidence already covers and which remaining cases actually
-> concern your consumer; supported refusals count only for an explicitly
-> unsupported operation. Installed qualification stays later work. No new
-> docking, preparation or repeat of completed E3 calculations is requested.
+DockingMT [#73](https://github.com/uibcdf/dockingmt/issues/73#issuecomment-6782682019)
+accepts all three proposed controls for independent receiving: an explicit
+permutation and structures `[2, 0]`, a restored coordinate edit with selective
+invalidation, and unknown-report transport with projection/export refusal.
+The [composition and execution record](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#dockingmt-scope-accepted-for-independent-receiving--2026-11-10)
+identifies the exact source and Linux ABI3 binary by digest. Register the actual
+imports and native digest in an isolated consumer composition before executing
+the same immutable fixtures under normal and pm/fs policies. The existing
+installed cohort retains its original provider. The three cases have yet to run.
 
 The local DockingMT clone was 181 commits behind its fetched upstream during
 this checkpoint and was not updated or used as current consumer evidence.
@@ -222,6 +216,10 @@ imports/software. Exact candidate artifacts need their own later qualification.
 This is a preparation checklist, not an implemented 1.0 schema or a new public
 API. The accepted first-stable target is already H5MSM 1.0; it need not be
 decided again merely because its qualification is incomplete.
+
+The [P6 wire catalog and public-route audit](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#p6-wire-catalog-and-public-route-audit--2026-11-10)
+identifies the existing codecs, independent-layer migration, version dispatch,
+source-root preservation and explicit stable-root acceptance sequence.
 
 | Step | Concrete work and required control |
 | --- | --- |

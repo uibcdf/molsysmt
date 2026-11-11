@@ -1,5 +1,20 @@
 # MolSysMT 1.0 Execution Status
 
+## DockingMT scope and two PR #706 deadline defects — 2026-11-10
+
+DockingMT #73 confirms the [three additional P5 controls](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#dockingmt-scope-accepted-for-independent-receiving--2026-11-10).
+The exact source/native reference is recorded. The client will run the three
+controls after admitting its isolated provider composition. The
+[P6 audit](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#p6-wire-catalog-and-public-route-audit--2026-11-10)
+identifies the stable-root dispatch, default, preservation and migration work.
+Nine existing H5MSM checks pass. Current 0.5/0.6 routes retain their scope.
+
+Exact draft #706 passes 25 CLI/runtime-file cases and browser syntax. Two
+[additional launcher controls](pending_proposals/explicit_bounded_jupyter_server_readiness_budget.md#molsysmt-review-of-draft-706--2026-11-10)
+reproduce late readiness admission and an impossible maximum playback profile.
+Review remains open for revision and #615 is separate. The formal score is
+**76.2920%, 49/50**. Final-candidate work and publication remain paused.
+
 ## Viewer source agreement received — 2026-11-10
 
 Viewer `4f05a6c6ea3f7ca78929e9f2592360f0e6ae38fa` accepts the exercised source
