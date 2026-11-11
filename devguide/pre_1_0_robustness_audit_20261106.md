@@ -4,6 +4,77 @@ The [Viewer source agreement checkpoint](release_1_0_status.md#viewer-source-agr
 receives #250/#254 source feedback and sets the remaining installed, format and
 diagnostic work. The composite milestones retain their final acceptance criteria.
 
+## Pre-1.0 polishing queue — 2026-11-11
+
+**Owner:** uibcdf/molsysmt#334. **Role:** supplemental operational queue under
+the [maintainer's polishing admission](release_1_0_scope.md#pre-10-polishing-admission--2026-11-11).
+The maintainer chooses to wait for the final MolSysMT 1.0.0 / MolSysViewer
+1.0.0 pair and requests attending worthwhile findings and pertinent issues
+before publication. The intermediate 0.24.0 / 0.25.0 milestone is deferred.
+
+### Review coverage and order
+
+1. **Correctness and data integrity:** numerical and scientific meaning,
+   quantities under non-default policies, selections/maps, chemical-state and
+   interaction validity, partial systems, persistence and explicit loss/refusal.
+2. **Public use and robustness:** argument validation, optional dependencies,
+   diagnostics, empty/degenerate inputs, resource bounds and supported workflows.
+   Use ArgDigest, DepDigest, SMonitor and PyUnitWizard at their actual owning
+   boundaries; preserve optional Ackredit attribution where applicable.
+3. **Documentation and examples:** reconcile API/docstrings, User Guide,
+   Cookbook and course against current code. Check installation instructions,
+   native-domain ownership, defaults, units, scientific limits, terminology,
+   links and executable examples. A warning-free build alone does not establish
+   scientific or instructional accuracy.
+4. **Efficiency and maintainability:** take bounded, justified improvements
+   with relevant measurements and unchanged scientific behavior. Under #567,
+   slower correct implementations remain available; measured efficiency debt
+   receives an owned warning/follow-up rather than an automatic release veto.
+5. **Issue and PR intake:** acquire the complete inventory at meaningful phase
+   checkpoints and before final source selection. Review new correctness and
+   data-integrity reports first, including findings currently labelled
+   post-1.0. Resolve or explicitly disposition pertinent reports; a label or
+   issue age alone does not decide priority.
+
+### Initial work packages
+
+| Item / owner | Observed state | Next action and closure evidence |
+| --- | --- | --- |
+| P1 — strict API documentation, #334 | The complete HTML build on clean `aee7aa65d` fails on six short RST title underlines. Four preexisting API-file edits are explicitly authorized for inclusion by the maintainer; four additional underline corrections are prepared. | Review the eight-file delta, retain the failed build and obtain a separate complete corrected HTML result. Preserve the approved preexisting edits. |
+| P2 — version-specific mechanics persistence tests, #334 / #256 | The interrupted default suite exposes three tests that assume the former 0.5 default. Prepared tests explicitly request 0.5 for its mechanics refusal and add 18 round-trip cases for default 1.0, explicit 1.0 and explicit 0.6 under two quantity policies. Final focused receiving passes 98 cases. | Preserve the interrupted session and earlier draft-test failure. Verify the intended refusal and actual stored/restored assignments, then complete a new default suite on corrected clean source. The focused cohort alone does not complete that gate. |
+| P3 — semantic documentation review, #334 | A targeted source scan identifies stale Python-version guidance and contradictory default-version text in Common Core 04. Broader semantic review remains open. | Correct verified findings and paired documentation contracts, exercise affected examples, inspect rendered pages and record the reviewed scope. Continue through native ownership, units, scientific interpretation and supported workflow guidance; do not claim a whole-library semantic audit from a text search. |
+| P4 — incoming and remaining issues/PRs, owning issue / #334 | The acquired open inventory at this checkpoint contains 89 issues and no PRs. It is a dated observation, not a continuously current count. | Refresh at phase checkpoints; inspect each new report and revisit relevant existing reports. Record pre-1.0 work, deferral with reason/revisit trigger, or closure with a relevant guard. Ask sibling owners for missing capabilities through their existing issues. |
+| P5 — client and final-candidate boundaries, #256 / #250 / #254 / #524 / #615 / #334 | Independent default-specific MolSysViewer receiving has been reported; its immutable receipt still needs owner review. The final pair is not frozen; #615's original uncertainty and installed-package evidence remain open. | Verify the client receipt and record its actual source scope. Keep final source agreement, stable-format decision, published dependency floor, installed matrix and publication decisions distinct from local polish. |
+
+### Adding and closing findings
+
+For each discovered item, record the observed behavior or misleading claim,
+impact, owning issue, scope/priority, proposed action, status and exit evidence.
+Reuse an existing issue for the same theme; a distinct substantial defect gets
+its own owning issue/report. The detailed report remains the evidence owner;
+this queue links it rather than duplicating an independent status register.
+Small related corrections may be grouped in their work package.
+
+Admit worthwhile bounded corrections and improvements that can be reviewed and
+verified before 1.0. If a change alters a public/scientific contract, complete
+its documentation, attribution, units and consumer-impact work as applicable.
+For a large new capability or redesign, state alternatives and impact before
+implementation. Deferred work records why, who owns it and when to reconsider.
+
+Close a correction only with the implementation/documentation change and a
+relevant regression or other appropriate check. Review scientific meaning as
+well as output shape; retain failing and interrupted attempts. Select checks by
+the actual affected scope, avoid redundant broad runs without a new reason and
+monitor shared resources during expensive validation.
+
+**Accounting and release boundary:** the original score remains **77.7381%**
+with unchanged weights and **50/50 source graphical intents**. Supplemental
+polishing does not earn invented percentage credit or replace an outstanding
+candidate/installed milestone. The user has not authorized an intermediate
+release or lifted the candidate-construction, hosted-qualification, tag,
+promotion or publication pause. Reconcile admitted findings before selecting
+the final clean source; complete mandatory exact-candidate gates afterward.
+
 ## Current-state claim reconciliation — 2026-11-11
 
 The [source review](release_claims_review_20261111.md) completes the original

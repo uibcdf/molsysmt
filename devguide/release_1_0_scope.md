@@ -18,6 +18,35 @@ agreed and qualified. The existing publication pause remains in force. The
 [current ledger entry](release_1_0_status.md#resume-from-here) owns the work
 order; the dated checkpoint below retains its original historical scope.
 
+On 2026-11-11 the maintainer chooses to wait for that final pair rather than
+prepare an intermediate MolSysMT 0.24.0 / MolSysViewer 0.25.0 milestone. Use
+the interval for the pre-1.0 polishing review below. This does not authorize
+candidate construction, hosted qualification or publication.
+
+## Pre-1.0 polishing admission — 2026-11-11
+
+The maintainer explicitly requests incorporating worthwhile polishing and
+corrections, and attending issues that merit resolution before 1.0. This
+supplements the stabilization queue: review code, scientific meaning, data
+integrity, public contracts, documentation and usable workflows as work
+advances. An existing post-1.0 label does not exempt a finding from review.
+
+Prioritize incorrect results, silent losses, unsafe resource use, misleading
+scientific claims and failed supported workflows. Also admit bounded
+improvements to clarity, examples, diagnostics and maintainability when their
+benefit justifies the change and they can be verified before release. Preserve
+experimental limits and attribution; a useful polish opportunity does not by
+itself establish a new scientific validation claim. Larger changes still need
+an explicit scope and impact review before implementation.
+
+The [polishing queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11)
+records each admitted item, its owner, evidence, next action and closure
+condition. Review incoming issues and PRs at meaningful phase checkpoints and
+record a reason and revisit condition for deferred work. The original
+scorecard's weights and acceptance criteria remain unchanged: additional fixes
+are visible work, not automatic milestone credit. Final source, installed-pair,
+platform and publication requirements retain their own evidence and authority.
+
 ## Historical pre-1.0 checkpoint — 2026-10-06
 
 On 2026-10-06 the maintainer selects **MolSysMT 0.23.0 / MolSysViewer 0.24.0**

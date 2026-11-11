@@ -24,7 +24,11 @@ The plan deliberately separates:
 
 The agreed final pair is **MolSysMT 1.0.0 / MolSysViewer 1.0.0**; exact
 replacement sources, builds and artifact identities are not yet frozen.
-MolSysViewer 0.25.0 remains a possible earlier milestone. Use the
+On 2026-11-11 the maintainer chooses to wait for that final pair, deferring
+an intermediate MolSysMT 0.24.0 / MolSysViewer 0.25.0 milestone. Continue the
+[admitted polishing review](../release_1_0_scope.md#pre-10-polishing-admission--2026-11-11)
+and its [tracked queue](../pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11)
+while the final pair is prepared. Use the
 [current resume entry](../release_1_0_status.md#resume-from-here) and
 [completion handoffs](../pre_1_0_completion_handoffs_20261110.md) for the finite
 remaining work. The publication pause includes new candidate construction and

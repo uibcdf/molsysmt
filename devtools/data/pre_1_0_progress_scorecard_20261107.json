@@ -115,7 +115,7 @@
           "requirement": "Receive actual public Viewer floor and clean minimum/newer installed default workflows",
           "state": "pending",
           "evidence": [],
-          "review": "Qualify MolSysMT 1.0.0 and MolSysViewer 1.0.0 before their joint release. MolSysViewer 0.25.0 is a possible earlier milestone. #524 still requires a published compatible host and clean installed closure."
+          "review": "Qualify MolSysMT 1.0.0 and MolSysViewer 1.0.0 before their joint release. On 2026-11-11 the maintainer defers the intermediate MolSysMT 0.24.0 / MolSysViewer 0.25.0 milestone and requests worthwhile pre-1.0 polishing while waiting for the final pair. #524 still requires a published compatible host and clean installed closure; this pending state and the original accounting are unchanged."
         }
       ],
       "verified_fraction": 0.6666666666666666,

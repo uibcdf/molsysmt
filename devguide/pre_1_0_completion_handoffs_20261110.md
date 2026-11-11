@@ -110,7 +110,10 @@ Final-candidate acceptance under #250/#254/#334 is pending.
 **MolSysMT 1.0.0 and MolSysViewer 1.0.0**, recorded by MolSysViewer in
 `f09757122a91dbbf32846738890a96623c2353e2` for uibcdf/molsysviewer#315. Qualify
 this exact pair in clean installations under #334 before joint publication.
-MolSysViewer 0.25.0 remains a possible earlier milestone. The published
+On 2026-11-11 the maintainer chooses to wait for the final pair, deferring
+an intermediate MolSysMT 0.24.0 / MolSysViewer 0.25.0 milestone. Continue the
+[pre-1.0 polishing queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11)
+in the meantime. The published
 MolSysMT 0.23.0 / MolSysViewer 0.24.0 pair retains its historical scope. #524
 still requires a published compatible host floor and clean installed evidence.
 
