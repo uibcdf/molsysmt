@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (37)
+### Open (36)
 
 - [`add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md`](add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md) — [#308](https://github.com/uibcdf/molsysmt/issues/308) — Add a native general ligand hydrogen engine for fixed chemical states *(inspected)*
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
@@ -56,7 +56,6 @@ Entries carrying front matter under
 - [`integrate_propka_for_environment_dependent_pka_instead_of_reimplementing_it.md`](integrate_propka_for_environment_dependent_pka_instead_of_reimplementing_it.md) — [#177](https://github.com/uibcdf/molsysmt/issues/177) — Integrate PROPKA for environment-dependent pKa instead of reimplementing it. *(measured)*
 - [`molecular_identity_and_scaffold_overlap_annotations.md`](molecular_identity_and_scaffold_overlap_annotations.md) — [#447](https://github.com/uibcdf/molsysmt/issues/447) — Provide reusable molecular identity and scaffold overlap annotations for leakage audits. *(measured)*
 - [`neighbor_allocation_safety_performance_followup.md`](neighbor_allocation_safety_performance_followup.md) — [#692](https://github.com/uibcdf/molsysmt/issues/692) — Profile allocation-safe neighbor search overhead without weakening resource guards. *(measured)*
-- [`neighbor_python_compatibility_output_memory.md`](neighbor_python_compatibility_output_memory.md) — [#693](https://github.com/uibcdf/molsysmt/issues/693) — Account for compatibility-output memory beyond native neighbor CSR admission. *(inspected)*
 - [`paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md`](paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md) — [#191](https://github.com/uibcdf/molsysmt/issues/191) — paper/main.tex is an unfilled template and the manuscript argument is unrecorded. *(inspected)*
 - [`post_1_0_chemically_specific_metal_coordination.md`](post_1_0_chemically_specific_metal_coordination.md) — [#337](https://github.com/uibcdf/molsysmt/issues/337) — Post-1.0 chemically specific metal coordination *(inspected)*
 - [`post_1_0_individual_interaction_editing.md`](post_1_0_individual_interaction_editing.md) — [#335](https://github.com/uibcdf/molsysmt/issues/335) — Post-1.0 individual interaction editing *(inspected)*

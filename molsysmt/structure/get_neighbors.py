@@ -32,9 +32,15 @@ def _threshold_neighbors_via_cell_list(
     ``None`` when the cell list cannot serve the request (non-positive cutoff), so
     the caller can fall back to the distance-matrix path.
     """
+    from molsysmt import configure
     from molsysmt._private.rust_backend import neighbor_list_csr_multi
     from molsysmt.basic import get
 
+    from ._compatibility_output import (
+        neighbor_object_arrays,
+        neighbor_object_bytes,
+        require_output_budget,
+    )
     from .get_distances import _validate_boxes, _validate_coordinate_pair
 
     q = get(
@@ -77,6 +83,13 @@ def _threshold_neighbors_via_cell_list(
             )
 
     _validate_coordinate_pair(q_val, r_val)
+    budget = int(configure.max_ram_usage)
+    row_bytes = (
+        neighbor_object_bytes(q_val.shape[0] * q_val.shape[1])
+        if output_type != "csr"
+        else 0
+    )
+    require_output_budget(row_bytes, budget, "molsysmt.structure.get_neighbors")
     if box is not None:
         _validate_boxes(box, len(q_val))
     if (
@@ -94,24 +107,25 @@ def _threshold_neighbors_via_cell_list(
             cutoff=threshold_val,
             exclude_self=same_set,
             sort_by_distance=True,
+            memory_budget=budget - row_bytes,
         )
 
     if output_type == "csr":
-        return offsets, indices, distances * length_units
+        return (
+            offsets,
+            indices,
+            puw.quantity(distances, length_units, form=puw.get_form(length_units)),
+        )
 
-    nstructures = q_val.shape[0]
-    nelements_1 = q_val.shape[1]
-    neighs = np.empty((nstructures, nelements_1), dtype=object)
-    dists = np.empty((nstructures, nelements_1), dtype=object)
-    for s in range(nstructures):
-        row = s * nelements_1
-        for ii in range(nelements_1):
-            w = row + ii
-            neighs[s, ii] = indices[offsets[w] : offsets[w + 1]]
-            dists[s, ii] = distances[offsets[w] : offsets[w + 1]]
-
-    dists = dists * length_units
-    return neighs, dists
+    return neighbor_object_arrays(
+        offsets,
+        indices,
+        distances,
+        length_units,
+        q_val.shape[:2],
+        budget,
+        "molsysmt.structure.get_neighbors",
+    )
 
 
 @signal(tags=["api", "structure"])
@@ -234,8 +248,8 @@ def get_neighbors(
     ArgumentConflictError
         If both ``threshold`` and ``n_neighbors`` are set, or neither is set.
     MemoryBudgetExceededError
-        If cell-search working storage or actual CSR output exceeds the
-        configured numerical allowance, or its sizing cannot be represented.
+        If search, requested Python/numeric output or packing estimates exceed
+        the configured allowance, or their sizing cannot be represented.
     NotImplementedMethodError
         For output-type/index combinations not yet implemented.
     ArgumentError
@@ -251,6 +265,15 @@ def get_neighbors(
     is not process RSS or a reservation; coordinate preparation, source domains
     and dense fallbacks have separate costs. A refusal raises
     ``molsysmt.MemoryBudgetExceededError`` without editing the source.
+
+    Default threshold outputs reserve row-view headers and object slots before
+    native admission. Their unit wrapper retains CSR-backed distance views
+    through PyUnitWizard without multiplying/copying each row. CSR output avoids
+    row objects. Dense/fixed-count fallbacks separately admit returned storage
+    and row-sort workspace; legacy pair-label projection allows conservative
+    scalar-quantity headroom. These estimates exclude Python allocator arenas,
+    provider initialization and unrelated resident input domains. For large
+    inputs, use eligible CSR output or smaller Iterator/selection blocks.
 
     Counts can be zero. Thresholds are finite nonnegative scalar lengths and
     include the boundary. Returned indices refer to local target positions;
@@ -412,9 +435,15 @@ def get_neighbors(
     length_units = puw.get_unit(all_dists)
     all_dists = puw.get_value(all_dists)
 
+    from molsysmt import configure
     from molsysmt._private.execution.persistent_result import PersistentResultHandle
 
+    from ._compatibility_output import neighbor_object_bytes, require_output_budget
+
     try:
+        budget = int(configure.max_ram_usage)
+        n_rows = nstructures * nelements_1
+        n_occurrences = 0
         excluded = int(same_set)
         if self_labels is not None:
             _, counts = np.unique(self_labels, return_counts=True)
@@ -426,6 +455,15 @@ def get_neighbors(
                 caller=caller,
                 message="The requested count exceeds the available target population.",
             )
+        output_bytes = (
+            n_rows * n_neighbors * 16 + 4096
+            if n_neighbors is not None
+            else neighbor_object_bytes(n_rows)
+        )
+        # Dense distances have their separate execution/storage policy. Reserve
+        # returned arrays and conservative per-row sorting workspace here.
+        row_scratch = 4096 + 80 * nelements_2
+        require_output_budget(output_bytes + row_scratch, budget, caller)
         if n_neighbors is not None:
             neighs = np.empty((nstructures, nelements_1, n_neighbors), dtype=int)
             dists = np.empty((nstructures, nelements_1, n_neighbors), dtype=float)
@@ -458,6 +496,11 @@ def get_neighbors(
                     candidates = np.concatenate((closer, ties))
                 order = np.lexsort((candidates, row[candidates]))
                 selected = candidates[order]
+                if n_neighbors is None:
+                    n_occurrences += len(selected)
+                    require_output_budget(
+                        output_bytes + row_scratch + 16 * n_occurrences, budget, caller
+                    )
                 neighs[structure, query] = selected
                 dists[structure, query] = row[selected]
         dists = puw.quantity(dists, length_units)
@@ -473,6 +516,13 @@ def get_neighbors(
         else:
             raise NotImplementedMethodError(caller="molsysmt.structure.get_neighbors")
     elif output_type == "pairs":
+        # This legacy route creates scalar quantities before concatenating them.
+        # The Pint receiving measure is ~240 bytes/occurrence after warm-up;
+        # allow 1 KiB for scalar/backend objects, lists and sorting temporaries.
+        total = sum(len(row) for structure in neighs for row in structure)
+        require_output_budget(
+            output_bytes + 16 * n_occurrences + 4096 + 1024 * total, budget, caller
+        )
         with_output_indices = False
         if output_indices is not None:
             with_output_indices = True

@@ -157,6 +157,21 @@ Using a sparse candidate search does not make a dense map sparse. See the
 {ref}`contact tutorial <Tutorial_Get_contacts>`.
 
 
+## Compatibility output
+
+Neighbor/contact output also needs memory beyond the numerical search. Default
+threshold neighbor arrays retain a view header and object slot for each row of
+indices and distances. These costs are admitted before native search, and the
+PyUnitWizard constructor retains distance views without per-row multiplication
+copies. Eligible `get_neighbors(..., output_type='csr')` avoids those row objects.
+
+Contact pair output still requires a dense Boolean map. Its actual pair count,
+Python lists/integers, label arrays and bounded packing slabs are admitted before
+boxing; conversion avoids whole-map triangular and pair-array intermediates.
+These estimates remain separate from allocator arenas, runtime initialization,
+source domains and RSS. Use smaller Iterator/selection blocks for a refused
+representation. Dense-distance fallbacks have their own execution policy.
+
 ## Observed secondary-structure assignments
 
 {func}`molsysmt.structure.get_secondary_structure` retains complete backbone

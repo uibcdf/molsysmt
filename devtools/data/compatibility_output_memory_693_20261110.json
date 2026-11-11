@@ -1,0 +1,341 @@
+{
+  "python": "3.14.7",
+  "numpy": "2.4.6",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "scope": "tracemalloc of isolated Python projection; inputs allocated before tracing; not RSS or a search benchmark",
+  "timing_policy": "two warmups; median of five untraced projection-only samples; GC collected before timing; result retirement excluded",
+  "source_sha256": {
+    "molsysmt/structure/_compatibility_output.py": "54387fe8a34f62d0ab477bb8868f27fbca50d908aa6359676551b48a6c09f229",
+    "molsysmt/structure/get_neighbors.py": "37f52622f78580a5b6a8e7dca806ffa2a3edc76a923d6fcbc9b30de1aab40af5",
+    "molsysmt/structure/get_contacts.py": "2a33e3eb87cfd1b0a63d1a157e10f767d548a42714f0fdc291a75fdc067974ea"
+  },
+  "samples": [
+    {
+      "kind": "neighbor_object_projection",
+      "mode": "legacy",
+      "rows": 1000,
+      "occurrences": 3000,
+      "csr_payload_bytes": 56008,
+      "distance_rows_share_csr": false,
+      "additional_traced_current": 267056,
+      "additional_traced_peak": 388499,
+      "untraced_projection_median_seconds": 0.0028992691077291965,
+      "untraced_projection_samples_seconds": [
+        0.0026424031239002943,
+        0.002833559876307845,
+        0.0029438429046422243,
+        0.0028992691077291965,
+        0.0032781269401311874
+      ]
+    },
+    {
+      "kind": "neighbor_object_projection",
+      "mode": "current",
+      "rows": 1000,
+      "occurrences": 3000,
+      "csr_payload_bytes": 56008,
+      "distance_rows_share_csr": true,
+      "additional_traced_current": 241912,
+      "additional_traced_peak": 242176,
+      "untraced_projection_median_seconds": 0.0014124969020485878,
+      "untraced_projection_samples_seconds": [
+        0.0015704440884292126,
+        0.0014124969020485878,
+        0.0013401499018073082,
+        0.001383685041218996,
+        0.001586840022355318
+      ]
+    },
+    {
+      "kind": "neighbor_object_projection",
+      "mode": "legacy",
+      "rows": 10000,
+      "occurrences": 30000,
+      "csr_payload_bytes": 560008,
+      "distance_rows_share_csr": false,
+      "additional_traced_current": 2643056,
+      "additional_traced_peak": 3844499,
+      "untraced_projection_median_seconds": 0.02725438610650599,
+      "untraced_projection_samples_seconds": [
+        0.027396983932703733,
+        0.027926892042160034,
+        0.025488262996077538,
+        0.02713754214346409,
+        0.02725438610650599
+      ]
+    },
+    {
+      "kind": "neighbor_object_projection",
+      "mode": "current",
+      "rows": 10000,
+      "occurrences": 30000,
+      "csr_payload_bytes": 560008,
+      "distance_rows_share_csr": true,
+      "additional_traced_current": 2401912,
+      "additional_traced_peak": 2402176,
+      "untraced_projection_median_seconds": 0.013599205994978547,
+      "untraced_projection_samples_seconds": [
+        0.013676529983058572,
+        0.013815375976264477,
+        0.013172070030122995,
+        0.012767030159011483,
+        0.013599205994978547
+      ]
+    },
+    {
+      "kind": "neighbor_object_projection",
+      "mode": "legacy",
+      "rows": 50000,
+      "occurrences": 150000,
+      "csr_payload_bytes": 2800008,
+      "distance_rows_share_csr": false,
+      "additional_traced_current": 13203056,
+      "additional_traced_peak": 19204499,
+      "untraced_projection_median_seconds": 0.13880013092420995,
+      "untraced_projection_samples_seconds": [
+        0.13880013092420995,
+        0.1860483270138502,
+        0.13796480209566653,
+        0.13840688299387693,
+        0.1475340600591153
+      ]
+    },
+    {
+      "kind": "neighbor_object_projection",
+      "mode": "current",
+      "rows": 50000,
+      "occurrences": 150000,
+      "csr_payload_bytes": 2800008,
+      "distance_rows_share_csr": true,
+      "additional_traced_current": 12001912,
+      "additional_traced_peak": 12002176,
+      "untraced_projection_median_seconds": 0.06890653213486075,
+      "untraced_projection_samples_seconds": [
+        0.07305095996707678,
+        0.06693894905038178,
+        0.06515285302884877,
+        0.06890653213486075,
+        0.07065436709672213
+      ]
+    },
+    {
+      "kind": "dense_self_contact_pairs",
+      "mode": "legacy",
+      "mapped": false,
+      "atoms": 16,
+      "pairs": 120,
+      "map_bytes": 256,
+      "additional_traced_current": 10424,
+      "additional_traced_peak": 14584,
+      "untraced_projection_median_seconds": 0.00010584690608084202,
+      "untraced_projection_samples_seconds": [
+        0.00010146596468985081,
+        0.00010584690608084202,
+        0.00010983902029693127,
+        0.00010165409184992313,
+        0.0001210139598697424
+      ]
+    },
+    {
+      "kind": "dense_self_contact_pairs",
+      "mode": "current",
+      "mapped": false,
+      "atoms": 16,
+      "pairs": 120,
+      "map_bytes": 256,
+      "additional_traced_current": 10856,
+      "additional_traced_peak": 19224,
+      "untraced_projection_median_seconds": 0.0001565080601722002,
+      "untraced_projection_samples_seconds": [
+        0.00018020602874457836,
+        0.0001474670134484768,
+        0.00018830690532922745,
+        0.0001511170994490385,
+        0.0001565080601722002
+      ]
+    },
+    {
+      "kind": "dense_self_contact_pairs",
+      "mode": "legacy",
+      "mapped": true,
+      "atoms": 16,
+      "pairs": 120,
+      "map_bytes": 256,
+      "additional_traced_current": 22528,
+      "additional_traced_peak": 29712,
+      "untraced_projection_median_seconds": 0.00017130491323769093,
+      "untraced_projection_samples_seconds": [
+        0.00017130491323769093,
+        0.00017255684360861778,
+        0.00017451192252337933,
+        0.0001624920405447483,
+        0.00016227015294134617
+      ]
+    },
+    {
+      "kind": "dense_self_contact_pairs",
+      "mode": "current",
+      "mapped": true,
+      "atoms": 16,
+      "pairs": 120,
+      "map_bytes": 256,
+      "additional_traced_current": 18472,
+      "additional_traced_peak": 28952,
+      "untraced_projection_median_seconds": 0.00018516508862376213,
+      "untraced_projection_samples_seconds": [
+        0.0002240899484604597,
+        0.00018516508862376213,
+        0.00019361497834324837,
+        0.00016797613352537155,
+        0.00016261683776974678
+      ]
+    },
+    {
+      "kind": "dense_self_contact_pairs",
+      "mode": "legacy",
+      "mapped": false,
+      "atoms": 128,
+      "pairs": 8128,
+      "map_bytes": 16384,
+      "additional_traced_current": 651064,
+      "additional_traced_peak": 911480,
+      "untraced_projection_median_seconds": 0.0010112770833075047,
+      "untraced_projection_samples_seconds": [
+        0.0010747290216386318,
+        0.0010112770833075047,
+        0.00103192706592381,
+        0.0009674439206719398,
+        0.0009071170352399349
+      ]
+    },
+    {
+      "kind": "dense_self_contact_pairs",
+      "mode": "current",
+      "mapped": false,
+      "atoms": 128,
+      "pairs": 8128,
+      "map_bytes": 16384,
+      "additional_traced_current": 651528,
+      "additional_traced_peak": 1125368,
+      "untraced_projection_median_seconds": 0.001870450098067522,
+      "untraced_projection_samples_seconds": [
+        0.0018418910913169384,
+        0.001799670048058033,
+        0.001870450098067522,
+        0.001977242063730955,
+        0.0019425139762461185
+      ]
+    },
+    {
+      "kind": "dense_self_contact_pairs",
+      "mode": "legacy",
+      "mapped": true,
+      "atoms": 128,
+      "pairs": 8128,
+      "map_bytes": 16384,
+      "additional_traced_current": 1175680,
+      "additional_traced_peak": 1951632,
+      "untraced_projection_median_seconds": 0.004905781010165811,
+      "untraced_projection_samples_seconds": [
+        0.004905781010165811,
+        0.005251471186056733,
+        0.00477687013335526,
+        0.0050954490434378386,
+        0.004729758016765118
+      ]
+    },
+    {
+      "kind": "dense_self_contact_pairs",
+      "mode": "current",
+      "mapped": true,
+      "atoms": 128,
+      "pairs": 8128,
+      "map_bytes": 16384,
+      "additional_traced_current": 1171688,
+      "additional_traced_peak": 1775768,
+      "untraced_projection_median_seconds": 0.001960908994078636,
+      "untraced_projection_samples_seconds": [
+        0.0021757029462605715,
+        0.0019323381129652262,
+        0.001960908994078636,
+        0.001843215897679329,
+        0.0020363149233162403
+      ]
+    },
+    {
+      "kind": "dense_self_contact_pairs",
+      "mode": "legacy",
+      "mapped": false,
+      "atoms": 512,
+      "pairs": 130816,
+      "map_bytes": 262144,
+      "additional_traced_current": 14635864,
+      "additional_traced_peak": 18822296,
+      "untraced_projection_median_seconds": 0.021669131005182862,
+      "untraced_projection_samples_seconds": [
+        0.021669131005182862,
+        0.021748758852481842,
+        0.02123343199491501,
+        0.021702551981434226,
+        0.020759424893185496
+      ]
+    },
+    {
+      "kind": "dense_self_contact_pairs",
+      "mode": "current",
+      "mapped": false,
+      "atoms": 512,
+      "pairs": 130816,
+      "map_bytes": 262144,
+      "additional_traced_current": 14693992,
+      "additional_traced_peak": 15102776,
+      "untraced_projection_median_seconds": 0.036653274204581976,
+      "untraced_projection_samples_seconds": [
+        0.03912163688801229,
+        0.0368124230299145,
+        0.036653274204581976,
+        0.036077497061342,
+        0.03630216792225838
+      ]
+    },
+    {
+      "kind": "dense_self_contact_pairs",
+      "mode": "legacy",
+      "mapped": true,
+      "atoms": 512,
+      "pairs": 130816,
+      "map_bytes": 262144,
+      "additional_traced_current": 18845952,
+      "additional_traced_peak": 35566512,
+      "untraced_projection_median_seconds": 0.09889738215133548,
+      "untraced_projection_samples_seconds": [
+        0.09889738215133548,
+        0.09772499091923237,
+        0.13396175508387387,
+        0.09733311599120498,
+        0.09964446001686156
+      ]
+    },
+    {
+      "kind": "dense_self_contact_pairs",
+      "mode": "current",
+      "mapped": true,
+      "atoms": 512,
+      "pairs": 130816,
+      "map_bytes": 262144,
+      "additional_traced_current": 18896520,
+      "additional_traced_peak": 19329816,
+      "untraced_projection_median_seconds": 0.03846529102884233,
+      "untraced_projection_samples_seconds": [
+        0.03940278594382107,
+        0.03912912821397185,
+        0.03846529102884233,
+        0.03837426798418164,
+        0.03844261611811817
+      ]
+    }
+  ],
+  "pyunitwizard": "0.29.2",
+  "pint": "0.25.3",
+  "quantity_form": "pint"
+}

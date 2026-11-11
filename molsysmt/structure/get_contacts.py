@@ -106,8 +106,8 @@ def get_contacts(
     ArgumentError
         If a threshold or endpoint population is invalid.
     MemoryBudgetExceededError
-        If the resident boolean map or eligible native cell-search working
-        estimate exceeds the configured numerical allowance.
+        If the resident Boolean map, native search or requested boxed-pair
+        projection estimate exceeds the configured numerical allowance.
     NotImplementedMethodError
         If output labels or representation are unsupported.
 
@@ -122,6 +122,14 @@ def get_contacts(
     remaining allowance. Population-bounded grids preserve the exact cutoff;
     map filling uses one occurrence-index vector and retains the native CSR
     working guard. The allowance is not process RSS or an OS reservation.
+    Pair conversion counts the actual output and admits list/integer payloads,
+    selected labels and bounded packing slabs before boxing. It does not create
+    whole-map triangular or nonzero/column-stack temporaries. Pair ordering,
+    index semantics and empty results are preserved. Sorted pairs are ordered
+    before publication. Allocator arenas, provider initialization and unrelated
+    input domains remain outside this representation estimate. Select smaller
+    structure/atom blocks when a requested representation is refused; eligible
+    get_neighbors CSR queries avoid boxed output and dense contact storage.
     Coordinate preparation for accelerated dispatch has its own RAM cost;
     internal disk distance intermediates are consumed by structure and retired.
     This function has no molecular_system_2 argument. Actual GPU qualification
@@ -496,6 +504,7 @@ def get_contacts(
 
             if is_self:
                 contact_map[:, np.arange(n_elements_1), np.arange(n_elements_1)] = True
+            del offsets, indices, _, counts, row_of_entry
         else:
             all_dists = get_distances(
                 molecular_system=molecular_system,
@@ -535,57 +544,18 @@ def get_contacts(
         output = contact_map
 
     elif output_type in ["pairs", "sorted pairs"]:
-        output = []
-        n_contact_maps = contact_map.shape[0]
+        from ._compatibility_output import contact_pairs
 
-        if pairs:
-            if output_indices == "selection":
-                for ii in range(n_contact_maps):
-                    aux_pairs = np.nonzero(contact_map[ii, :])[0]
-                    output.append(aux_pairs.tolist())
-            elif output_indices == "atom":
-                for ii in range(n_contact_maps):
-                    aux_pairs = np.nonzero(contact_map[ii, :])[0]
-                    output.append(
-                        [
-                            [int(atom_indices[index]), int(atom_indices_2[index])]
-                            for index in aux_pairs
-                        ]
-                    )
-
-        else:
-            if coordinates_2 is None:
-                for ii in range(n_contact_maps):
-                    aux_pairs = np.nonzero(np.triu(contact_map[ii], k=1))
-                    aux_pairs = np.column_stack(aux_pairs).tolist()
-                    output.append(aux_pairs)
-            else:
-                for ii in range(n_contact_maps):
-                    aux_pairs = np.nonzero(contact_map[ii])
-                    aux_pairs = np.column_stack(aux_pairs).tolist()
-                    output.append(aux_pairs)
-
-            if output_indices == "atom":
-                atom_indices = np.array(atom_indices)
-
-                if atom_indices_2 is None:
-                    for ii in range(n_contact_maps):
-                        output[ii] = atom_indices[output[ii]].tolist()
-                else:
-                    atom_indices_2 = np.array(atom_indices_2)
-                    for ii in range(n_contact_maps):
-                        aux_pairs = np.asarray(output[ii], dtype=np.int64).reshape(
-                            -1, 2
-                        )
-                        output[ii] = np.column_stack(
-                            [
-                                atom_indices[aux_pairs[:, 0]],
-                                atom_indices_2[aux_pairs[:, 1]],
-                            ]
-                        ).tolist()
-
-        if output_type == "sorted pairs":
-            for ii in range(n_contact_maps):
-                output[ii] = sorted(output[ii])
+        output = contact_pairs(
+            contact_map,
+            paired=pairs,
+            strict_upper=not pairs and coordinates_2 is None,
+            atom_indices=atom_indices,
+            atom_indices_2=atom_indices_2,
+            output_indices=output_indices,
+            sorted_pairs=output_type == "sorted pairs",
+            budget=int(config.max_ram_usage),
+            caller=caller,
+        )
 
     return output

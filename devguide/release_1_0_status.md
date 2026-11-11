@@ -1,5 +1,28 @@
 # MolSysMT 1.0 Execution Status
 
+## Python neighbor/contact output memory accounted — 2026-11-11
+
+The [#693 delivery](archive/resolved_proposals/neighbor_python_compatibility_output_memory.md)
+admits row-object, boxed-pair and packing costs beyond native CSR. PyUnitWizard
+construction avoids per-row distance copies; contact pairs use bounded slabs
+and final-label packing. **181 geometry cases and two doctests pass**, including
+15 new representation guards.
+The [18-sample receipt](../devtools/data/compatibility_output_memory_693_20261110.json)
+records a large neighbor-projection peak reduction from about 19.2 to 12.0 MB
+and mapped-contact peak reduction from 35.6 to 19.3 MB. These are projection
+allocations, not total RSS or a host reservation.
+
+Neighbor/mapped-contact projection timings improve in the measured examples;
+unmapped self-contact packing is slower and small cases can allocate more.
+The [open #692 advisory](pending_proposals/neighbor_allocation_safety_performance_followup.md)
+retains those results under #567's warning policy. Correct tools stay available.
+The preexisting unyt/Astropy ragged-quantity limitation is reported in
+uibcdf/pyunitwizard#148; flat CSR quantities work with the four tested backends.
+No new initial-1.0 blocker, dependency, signature or scientific criterion follows.
+Seven HTML pages, docstrings, schemas, course and local lifecycle checks pass.
+The original weighted plan remains **76.3095%, 50/50 source graphical intents**;
+installed/candidate/publication and remaining client/format/#615 work are unchanged.
+
 ## Native reconstruction maps and operation evidence delivered — 2026-11-10
 
 The [#558 delivery](archive/resolved_proposals/native_terminal_completion_maps_and_evidence.md)
