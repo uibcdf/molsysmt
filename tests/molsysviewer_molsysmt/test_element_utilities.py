@@ -330,11 +330,7 @@ def test_inherited_native_examples_execute(path):
             assert outcome.attempted > 0
 
 
-@pytest.mark.parametrize(
-    "first_module",
-    ["molsysmt.element.atom", "molsysviewer", "molsysviewer_molsysmt.tools"],
-)
-def test_fresh_import_orders_preserve_native_exports_and_discovery(first_module):
+def _run_fresh_import_check(first_module):
     program = f"""
 import importlib
 importlib.import_module({first_module!r})
@@ -351,11 +347,62 @@ with msv.new_view() as view:
 assert msm.element.atom.normalize_atom_types('D') == ('H', 2)
 print('explicit-element-import-order-ok')
 """
-    result = subprocess.run(
-        [sys.executable, "-c", program],
-        text=True,
-        capture_output=True,
-        timeout=60,
+    program = (
+        "import faulthandler\nfaulthandler.dump_traceback_later(45)\n"
+        + program
+        + "\nfaulthandler.cancel_dump_traceback_later()\n"
     )
+    try:
+        return subprocess.run(
+            [sys.executable, "-c", program],
+            text=True,
+            capture_output=True,
+            timeout=60,
+        )
+    except subprocess.TimeoutExpired as error:
+        for label, content in (("stdout", error.output), ("stderr", error.stderr)):
+            if content is not None:
+                if isinstance(content, bytes):
+                    content = content.decode("utf-8", errors="replace")
+                print(
+                    f"Import order {first_module!r}, child {label}:\n{content}",
+                    file=sys.stderr,
+                )
+        raise
+
+
+@pytest.mark.parametrize(
+    "first_module",
+    ["molsysmt.element.atom", "molsysviewer", "molsysviewer_molsysmt.tools"],
+)
+def test_fresh_import_orders_preserve_native_exports_and_discovery(first_module):
+    result = _run_fresh_import_check(first_module)
     assert result.returncode == 0, result.stdout + result.stderr
     assert "explicit-element-import-order-ok" in result.stdout
+
+
+@pytest.mark.parametrize("as_bytes", [False, True])
+def test_import_timeout_preserves_original_error_and_child_diagnostics(
+    monkeypatch, capsys, as_bytes
+):
+    output = "controlled pre-timeout progress"
+    stderr = "Thread 123: controlled pre-deadline stack"
+    if as_bytes:
+        output, stderr = output.encode(), stderr.encode()
+    error = subprocess.TimeoutExpired(
+        [sys.executable], 60, output=output, stderr=stderr
+    )
+    deadlines = []
+
+    def timeout(*args, **kwargs):
+        deadlines.append(kwargs["timeout"])
+        raise error
+
+    monkeypatch.setattr(subprocess, "run", timeout)
+    with pytest.raises(subprocess.TimeoutExpired) as caught:
+        _run_fresh_import_check("molsysmt.element.atom")
+    assert caught.value is error
+    assert deadlines == [60]
+    captured = capsys.readouterr()
+    assert "controlled pre-timeout progress" in captured.err
+    assert "Thread 123: controlled pre-deadline stack" in captured.err
