@@ -1,5 +1,5 @@
 molsysmt.build.assess_protonation
-===============================
+=================================
 
 .. currentmodule:: molsysmt.build
 

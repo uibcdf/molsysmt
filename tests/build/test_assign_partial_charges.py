@@ -269,8 +269,49 @@ def test_multiple_state_storage_is_rejected_without_touching_source():
 
 def test_h5msm_05_does_not_silently_store_experimental_mechanics(tmp_path):
     source = assign(prepared())
+    output = tmp_path / "not_supported.h5msm"
     with pytest.raises(ValueError, match="cannot encode molecular mechanics"):
-        msm.convert(source, to_form=tmp_path / "not_supported.h5msm", strict=True)
+        msm.convert(source, to_form=output, strict=True, format_version="0.5")
+    assert not output.exists()
+
+
+@pytest.mark.parametrize("format_version", [None, "0.6", "1.0"])
+@pytest.mark.parametrize("units", [["nm", "ps"], ["pm", "fs", "coulomb"]])
+def test_modular_h5msm_preserves_assigned_charges_and_original_producer(
+    tmp_path, format_version, units
+):
+    import h5py
+
+    from molsysmt._private.partial_charges import validate_assignment
+
+    source = assign(prepared())
+    report = source.molecular_mechanics.partial_charge_assignment
+    output = tmp_path / "assigned.h5msm"
+    options = {} if format_version is None else {"format_version": format_version}
+    with puw.context(standard_units=units):
+        msm.convert(source, to_form=output, **options)
+        restored = msm.convert(output)
+        validate_assignment(restored)
+    with h5py.File(output) as stored:
+        assert stored.attrs["version"] == (format_version or "1.0")
+    np.testing.assert_array_equal(
+        restored.molecular_mechanics.partial_charge,
+        source.molecular_mechanics.partial_charge,
+    )
+    retained = restored.molecular_mechanics.partial_charge_assignment
+    for field in (
+        "schema",
+        "method",
+        "software",
+        "status",
+        "chemical_digest",
+        "values_digest",
+    ):
+        assert retained[field] == report[field]
+    np.testing.assert_array_equal(
+        puw.get_value(restored.structures.coordinates, to_unit="nm"),
+        puw.get_value(source.structures.coordinates, to_unit="nm"),
+    )
 
 
 def test_rich_h5msm_selection_uses_original_coordinates(tmp_path):

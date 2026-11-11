@@ -1,5 +1,5 @@
 molsysmt.build.reconcile_protonation
-==================================
+====================================
 
 .. currentmodule:: molsysmt.build
 

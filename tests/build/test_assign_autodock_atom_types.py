@@ -210,8 +210,49 @@ def test_geometry_does_not_stale_types_and_h5msm05_does_not_persist_mechanics(tm
     source.molecular_mechanics.partial_charge = np.zeros(source.get_n_atoms())
     source.structures.coordinates = source.structures.coordinates * 2
     assert "MOLSYSMT_ATOM_TYPES" in write(source, tmp_path / "moved.pdbqt")
+    output = tmp_path / "unsupported.h5msm"
     with pytest.raises(ValueError, match="cannot encode molecular mechanics"):
-        msm.convert(source, to_form=tmp_path / "unsupported.h5msm")
+        msm.convert(source, to_form=output, format_version="0.5")
+    assert not output.exists()
+
+
+@pytest.mark.parametrize("format_version", [None, "0.6", "1.0"])
+@pytest.mark.parametrize("units", [["nm", "ps"], ["pm", "fs", "coulomb"]])
+def test_modular_h5msm_preserves_assigned_types_and_original_producer(
+    tmp_path, format_version, units
+):
+    import h5py
+
+    from molsysmt._private.autodock_assignment import validate_assignment
+
+    source = assign(prepared())
+    report = source.molecular_mechanics.atom_type_assignment
+    output = tmp_path / "typed.h5msm"
+    options = {} if format_version is None else {"format_version": format_version}
+    with msm.pyunitwizard.context(standard_units=units):
+        msm.convert(source, to_form=output, **options)
+        restored = msm.convert(output)
+        validate_assignment(restored, "autodock4")
+    with h5py.File(output) as stored:
+        assert stored.attrs["version"] == (format_version or "1.0")
+    np.testing.assert_array_equal(
+        restored.molecular_mechanics.atom_ff_type,
+        source.molecular_mechanics.atom_ff_type,
+    )
+    retained = restored.molecular_mechanics.atom_type_assignment
+    for field in (
+        "schema",
+        "method",
+        "software",
+        "status",
+        "chemical_digest",
+        "values_digest",
+    ):
+        assert retained[field] == report[field]
+    np.testing.assert_array_equal(
+        msm.pyunitwizard.get_value(restored.structures.coordinates, to_unit="nm"),
+        msm.pyunitwizard.get_value(source.structures.coordinates, to_unit="nm"),
+    )
 
 
 def test_attachment_requires_nonempty_single_state_and_source_rdkit_is_unchanged():

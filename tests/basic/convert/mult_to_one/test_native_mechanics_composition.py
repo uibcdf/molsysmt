@@ -2,6 +2,7 @@
 
 from itertools import permutations
 
+import h5py
 import numpy as np
 import pandas as pd
 import pytest
@@ -11,7 +12,7 @@ from molsysmt._private.smonitor import (
     StructuralInconsistencyError,
 )
 from molsysmt.native import MolecularMechanics, Structures
-from tests.build.test_merge_nonpolar_hydrogens import declared_methanol
+from tests.build.test_merge_nonpolar_hydrogens import declared_methanol, unchanged
 
 
 def test_native_charge_getter_returns_numeric_values_for_public_setters():
@@ -305,6 +306,7 @@ def test_mechanical_parameters_and_named_provenance_survive_without_reassignment
 
 
 def test_four_domain_h5msm_preserves_chemistry_and_rejects_nonempty_mechanics(tmp_path):
+    """Keep the four-domain 0.5 refusal independent of the current default."""
     source = declared_methanol()
     output = tmp_path / "native.h5msm"
     domains = [
@@ -314,14 +316,75 @@ def test_four_domain_h5msm_preserves_chemistry_and_rejects_nonempty_mechanics(tm
         source.molecular_mechanics,
     ]
     with pytest.raises(ValueError, match="[Mm]echanics"):
-        msm.convert(domains, to_form=output)
+        msm.convert(domains, to_form=output, format_version="0.5")
     assert not output.exists()
     domains[-1] = MolecularMechanics()
-    msm.convert(domains, to_form=output, selection=[5, 1, 0], structure_indices=[2, 0])
+    msm.convert(
+        domains,
+        to_form=output,
+        selection=[5, 1, 0],
+        structure_indices=[2, 0],
+        format_version="0.5",
+    )
+    with h5py.File(output) as stored:
+        assert stored.attrs["version"] == "0.5"
     restored = msm.convert(output)
     assert restored.topology.atoms.atom_id.tolist() == ["17", "3", "11"]
     assert restored.chemical_states._states[0].connectivity_completeness == "complete"
     assert restored.structures.coordinates.shape == (2, 3, 3)
+
+
+@pytest.mark.parametrize("format_version", [None, "0.6", "1.0"])
+@pytest.mark.parametrize(
+    "standard_units",
+    [["nm", "elementary_charge"], ["pm", "coulomb"]],
+    ids=["canonical", "pm_coulomb"],
+)
+def test_h5msm_composition_keeps_mechanics_with_default_or_explicit_modular_version(
+    tmp_path, format_version, standard_units
+):
+    source = declared_methanol()
+    source.molecular_mechanics.forcefield = "declared_model_request"
+    source.molecular_mechanics.cutoff_distance = msm.pyunitwizard.quantity(
+        12, "angstrom"
+    )
+    before = source.copy()
+    output = tmp_path / "composed.h5msm"
+    domains = [
+        source.topology,
+        source.chemical_states,
+        source.structures,
+        source.molecular_mechanics,
+    ]
+    options = {} if format_version is None else {"format_version": format_version}
+    with msm.pyunitwizard.context(standard_units=standard_units):
+        msm.convert(
+            domains,
+            to_form=output,
+            selection=[5, 1, 0],
+            structure_indices=[2, 0],
+            **options,
+        )
+        restored = msm.convert(output)
+    with h5py.File(output) as stored:
+        assert stored.attrs["version"] == (format_version or "1.0")
+    assert restored.topology.atoms.atom_id.tolist() == ["17", "3", "11"]
+    assert restored.chemical_states._states[0].connectivity_completeness == "complete"
+    np.testing.assert_array_equal(
+        restored.molecular_mechanics.partial_charge, [-0.4, -0.5, 0.3]
+    )
+    assert restored.molecular_mechanics.atom_ff_type.tolist() == ["C", "OA", "HD"]
+    assert restored.molecular_mechanics.forcefield == "declared_model_request"
+    assert float(
+        msm.pyunitwizard.get_value(
+            restored.molecular_mechanics.cutoff_distance, to_unit="nm"
+        )
+    ) == pytest.approx(1.2)
+    np.testing.assert_array_equal(
+        msm.pyunitwizard.get_value(restored.structures.coordinates, to_unit="nm"),
+        (np.arange(54).reshape(3, 6, 3) / 10)[[2, 0]][:, [0, 1, 5]],
+    )
+    unchanged(source, before)
 
 
 @pytest.mark.parametrize("observable", [False, True])

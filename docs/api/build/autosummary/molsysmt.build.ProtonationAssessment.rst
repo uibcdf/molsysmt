@@ -1,5 +1,5 @@
 molsysmt.build.ProtonationAssessment
-==================================
+====================================
 
 .. currentmodule:: molsysmt.build
 

@@ -1,5 +1,5 @@
-molsysmt.physchem.get_charge_centers
-==================================
+﻿molsysmt.physchem.get\_charge\_centers
+======================================
 
 .. currentmodule:: molsysmt.physchem
 

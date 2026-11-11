@@ -1,5 +1,5 @@
-molsysmt.physchem.normalize_aromatic_bond_orders
-================================================
+﻿molsysmt.physchem.normalize\_aromatic\_bond\_orders
+===================================================
 
 .. currentmodule:: molsysmt.physchem
 
