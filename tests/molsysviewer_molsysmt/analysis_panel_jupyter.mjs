@@ -1,6 +1,7 @@
 /** Native Analysis through actual Jupyter, with independent coordinate oracles. */
 import assert from 'node:assert/strict';
 import {openMolecularPanel,observeMolecularControllers} from './jupyter_panel_controls.mjs';
+import {installInitialCanvasTrace,saveInitialCanvasTrace} from './jupyter_initial_canvas_trace.mjs';
 import {createRequire} from 'node:module';
 import {readFile,writeFile,appendFile} from 'node:fs/promises';
 import {dirname,resolve} from 'node:path';
@@ -10,7 +11,12 @@ const {chromium}=createRequire(config.viewer_root+'/molsysviewer/js/package.json
 let browser,page,stage='start';const checks=[],errors=[],baselineErrors=[];
 const campaignStarted=performance.now();
 async function step(name,action){stage=name;await appendFile(output+'/step-timings.jsonl',JSON.stringify({stage,phase:'start',elapsed_ms:performance.now()-campaignStarted})+'\n');console.log('STEP '+name);await action();checks.push(name);await appendFile(output+'/step-timings.jsonl',JSON.stringify({stage,phase:'complete',elapsed_ms:performance.now()-campaignStarted})+'\n');}
-async function execute(cell,p=page){await p.getByText(/Isolated molecular tools receiving\s*\|\s*Idle/).waitFor();await cell.locator('.cm-content').click();await p.getByRole('button',{name:/Run this cell and advance/}).click();}
+async function execute(cell,p=page,beforeRun){
+ await p.getByText(/Isolated molecular tools receiving\s*\|\s*Idle/).waitFor();
+ await cell.locator('.cm-content').click();
+ await beforeRun?.(cell);
+ await p.getByRole('button',{name:/Run this cell and advance/}).click();
+}
 const workspace=p=>openMolecularPanel(p,'analysis');
 async function populations(panel){await panel.locator('[data-first] [data-source]').selectOption('indices');await panel.locator('[data-first] [data-indices]').fill('0,2');await panel.locator('[data-second] [data-source]').selectOption('indices');await panel.locator('[data-second] [data-indices]').fill('3,5,7');}
 async function numericRows(panel){return panel.locator('[data-rows] tr').evaluateAll(rows=>rows.map(row=>[...row.querySelectorAll('td')].map(cell=>Number(cell.textContent))));}
@@ -63,8 +69,26 @@ try{
  const baseline=await browser.newPage();baseline.on('pageerror',error=>baselineErrors.push({error:String(error),stack:error.stack}));await baseline.goto(`http://127.0.0.1:${config.port}/lab/workspaces/analysis-plain-${Date.now()}/tree/plain.ipynb?token=${config.token}`,{waitUntil:'domcontentloaded'});const plain=baseline.locator('.jp-NotebookPanel:visible .jp-Cell').first();await plain.filter({hasText:'PLAIN_JUPYTER_CONTROL_OK'}).waitFor();await execute(plain,baseline);await baseline.getByText('PLAIN_JUPYTER_CONTROL_OK 2',{exact:true}).waitFor();await baseline.close();
  page=await browser.newPage({viewport:{width:1440,height:1100}});page.setDefaultTimeout(30000);const record=p=>p.on('pageerror',error=>errors.push({stage,error:String(error),stack:error.stack}));record(page);const panel=()=>page.locator('.msm-analysis').first();let expected;
  await observeMolecularControllers(page);
+ const armInitialCanvasTrace=await installInitialCanvasTrace(page,3983);
  await step('Load TcTIM and open Analysis without calculating implicitly',async()=>{
-  await page.goto(`http://127.0.0.1:${config.port}/lab/workspaces/analysis-${Date.now()}/tree/system.ipynb?token=${config.token}`,{waitUntil:'domcontentloaded'});const cell=page.locator('.jp-NotebookPanel:visible .jp-Cell').first();await cell.filter({hasText:'import molsysviewer as msv'}).waitFor();const no=page.getByRole('button',{name:'No',exact:true});if(await no.isVisible())await no.click();await execute(cell);await page.locator('canvas').waitFor();await workspace(page);assert.equal(await panel().locator('[data-calculate]').isDisabled(),true);assert.equal(await panel().locator('[data-report]').isVisible(),false);expected=JSON.parse(await readFile(output+'/analysis-expected.json','utf8'));
+  let outcome='run_unavailable';
+  try {
+   await page.goto(`http://127.0.0.1:${config.port}/lab/workspaces/analysis-${Date.now()}/tree/system.ipynb?token=${config.token}`,{waitUntil:'domcontentloaded'});
+   const cell=page.locator('.jp-NotebookPanel:visible .jp-Cell').first();
+   await cell.filter({hasText:'import molsysviewer as msv'}).waitFor();
+   const no=page.getByRole('button',{name:'No',exact:true});
+   if(await no.isVisible())await no.click();
+   await execute(cell,page,armInitialCanvasTrace);
+   outcome='canvas_wait_failed';
+   await page.locator('canvas').waitFor();
+   outcome='canvas_visible';
+   await workspace(page);
+  } finally {
+   await saveInitialCanvasTrace(page,output+'/initial-canvas.json',outcome);
+  }
+  assert.equal(await panel().locator('[data-calculate]').isDisabled(),true);
+  assert.equal(await panel().locator('[data-report]').isVisible(),false);
+  expected=JSON.parse(await readFile(output+'/analysis-expected.json','utf8'));
  });
  await step('Calculate explicit atom populations and verify native distances against coordinates',async()=>{
   await populations(panel());await panel().locator('[data-calculate]').click();await panel().locator('[data-report-heading]').filter({hasText:'Distances result'}).waitFor();const rows=await numericRows(panel());assert.equal(rows.length,6);assert.deepEqual(rows.map(r=>r.slice(0,3)),[[0,0,3],[0,0,5],[0,0,7],[0,2,3],[0,2,5],[0,2,7]]);rows.forEach((r,i)=>close(r[3],expected.distances[i]));assert.match(await panel().locator('[data-columns]').innerText(),/Distance \(nm\)/);
