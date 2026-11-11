@@ -1,5 +1,23 @@
 # MolSysMT 1.0 Execution Status
 
+## GHECOM PDB compatibility corrected; terminal-evidence scope reviewed — 2026-11-10
+
+The [#654 resolution](archive/resolved_bugs/pdb_opaque_remarks_block_coordinate_reading.md)
+retains opaque unnumbered comments and permits coordinate queries on TopoMT's
+unchanged original GHECOM file. **625 distinct cases pass**, including the
+nine guards that failed before the correction, existing PDB routes and valid
+and malformed assembly declarations. Comment retention is documented with its
+native-handler boundary; no chemical interpretation or writer roundtrip is
+claimed for provider-specific metadata.
+
+The [#558 implementation plan](pending_proposals/native_terminal_completion_maps_and_evidence.md)
+identifies existing expansion maps, composition and history tools. The optional
+completion report remains unimplemented. Cap/new-to-new bonds require explicit
+output-domain evidence rather than fabricated original parents. This work does
+not add a release gate. The original weighted plan stays **76.3095%, 50/50
+source graphical intents**; its existing client, format and candidate gates
+remain pending.
+
 ## H5MSM 1.0 default source writing — 2026-11-10
 
 Source `1951d0822` makes 1.0 the default for public conversion and both H5MSM
