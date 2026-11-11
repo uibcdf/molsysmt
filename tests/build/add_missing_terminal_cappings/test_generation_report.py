@@ -452,7 +452,9 @@ def test_unsupported_cap_refuses_before_selection_copy_or_reconstruction(
         )
 
 
-def test_native_cap_profile_does_not_restrict_pdbfixer_delegation(two_chains, monkeypatch):
+def test_native_cap_profile_does_not_restrict_pdbfixer_delegation(
+    two_chains, monkeypatch
+):
     class ProviderConversionReached(Exception):
         pass
 
