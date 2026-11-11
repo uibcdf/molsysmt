@@ -2,6 +2,7 @@
 
 from argdigest.core.caller import caller_matches
 
+from molsysmt._private.h5msm_storage.versions import MODULAR_VERSIONS
 from molsysmt._private.smonitor import ArgumentChoiceError
 
 
@@ -11,8 +12,8 @@ def digest_format_version(format_version, caller=None):
         caller, "molsysmt.form.file_h5msm.to_file_h5msm.to_file_h5msm"
     ):
         return None
-    if isinstance(format_version, str) and format_version in {"0.5", "0.6"}:
+    if isinstance(format_version, str) and format_version in MODULAR_VERSIONS:
         return format_version
     raise ArgumentChoiceError(
-        "format_version", format_version, ["0.5", "0.6"], caller=caller
+        "format_version", format_version, sorted(MODULAR_VERSIONS), caller=caller
     )

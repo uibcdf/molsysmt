@@ -20,9 +20,9 @@ accept their explicitly implemented versions/layer schemas, not every file with
 the same major. Changing a version attribute is not a schema migration.
 
 The maintainer's accepted target on 2026-11-08 is to qualify and publish the first
-stable **H5MSM 1.0 alongside MolSysMT 1.0**. Development version 0.6 may precede
-that freeze. This target does not change default 0.5 writing or promote experimental 0.6 to stable;
-the bounded mechanics and whole-format qualification work remains in
+stable **H5MSM 1.0 alongside MolSysMT 1.0**. Development source supports explicit
+1.0 reading and writing. Default writing stays on 0.5. The bounded mechanics and
+whole-format qualification work remains in
 [the #256 plan](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#revised-implementation-plan--2026-11-08).
 Format stability concerns the stored contract, not certification of every
 scientific model or completion of a requested force-field parameterization.
@@ -33,8 +33,13 @@ Every file carries `type="h5msm"` and an explicitly implemented `version`.
 Precision, units and timestamps belong to the declarations of the particular
 root/layer schema: legacy roots carry defaults; modular layers declare their
 stored fields and units. Do not infer a global root unit or precision attribute
-in a modular file. Experimental 0.6 requires the five text attributes `type`,
+in a modular file. Roots 0.6 and 1.0 require the five text attributes `type`,
 `version`, `creator`, `creator_version` and UTC `created_at`.
+The 1.0 root permits one optional `migration_source` text attribute containing
+a JSON object with the original 0.5 or 0.6 root metadata. The object retains
+`type`, `version` and any source `creator`, `creator_version`, `created_at`
+and legacy 0.5 `migrated_from_version` values. New file-writer fields are written
+at the root. Scientific producer records remain inside their original layers.
 
 Legacy roots contain `topology` and `structures` groups. Modular 0.5 layers
 `topology`, `chemical_states`, `structures` and named `interactions` are optional,
@@ -44,7 +49,7 @@ with zero or `False`.
 
 ## Modular encoding controls
 
-Roots 0.5/0.6 use field-specific dtypes rather than a global precision flag.
+Roots 0.5, 0.6 and 1.0 use field-specific dtypes rather than a global precision flag.
 Structural floating series use float64; structure IDs use int64 or explicit
 text encoding; topology/chemical/reference data follow their layer contracts;
 mechanical tables/reports retain their declared admitted dtypes. Global casting

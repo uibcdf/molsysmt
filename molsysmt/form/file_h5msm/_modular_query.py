@@ -11,7 +11,10 @@ from pathlib import Path
 import h5py
 
 from molsysmt._private.attribute_catalog import mechanical_attributes as _MECHANICAL
-from molsysmt._private.h5msm_storage.versions import MODULAR_VERSIONS
+from molsysmt._private.h5msm_storage.versions import (
+    MECHANICS_VERSIONS,
+    MODULAR_VERSIONS,
+)
 from molsysmt._private.variables import is_all
 
 from .._h5msm05_associations import read_associations
@@ -145,7 +148,7 @@ class _ModularQuery:
             raise ValueError("Expected an H5MSM 0.5 modular file.")
         self.layers = (
             _DOMAINS
-            if self.version == "0.6"
+            if self.version in MECHANICS_VERSIONS
             else set(_DOMAINS) - {"molecular_mechanics"}
         )
         self.file = file
@@ -193,7 +196,7 @@ class _ModularQuery:
             read_associations(self.file, self.sizes, axes={"atom"}, layers=self.layers)
             or []
         )
-        if self.version == "0.6":
+        if self.version in MECHANICS_VERSIONS:
             from molsysmt._private.h5msm_storage.modular import _require_shared_axes
 
             _require_shared_axes(links, self.sizes, axes=("atom",))

@@ -33,7 +33,7 @@ def to_file_h5msm(
 
     format_version : str or none, default=None
         None retains this adapter's legacy copy/extraction route. An explicit
-        '0.5' or experimental '0.6' reads native domains and writes that schema.
+        '0.5', experimental '0.6', or '1.0' writes the selected schema.
 
     Returns
     -------

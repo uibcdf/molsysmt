@@ -3,6 +3,7 @@
 import h5py
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.h5msm_storage.versions import DEFAULT_WRITE_VERSION
 
 __all__ = [
     "read",
@@ -23,7 +24,7 @@ def read(filename, skip_digestion=False):
     Parameters
     ----------
     filename : str
-        Path to an H5MSM 0.3, 0.4, 0.5, or experimental 0.6 file.
+        Path to an H5MSM 0.3, 0.4, 0.5, experimental 0.6, or 1.0 file.
     skip_digestion : bool, default=False
         Whether to skip argument validation for a trusted internal call.
 
@@ -66,7 +67,11 @@ def read(filename, skip_digestion=False):
 
 @arg_digest()
 def write(
-    molecular_system, output_filename, skip_digestion=False, *, format_version="0.5"
+    molecular_system,
+    output_filename,
+    skip_digestion=False,
+    *,
+    format_version=DEFAULT_WRITE_VERSION,
 ):
     """Writing a native molecular system in an explicitly selected H5MSM schema.
 
@@ -80,8 +85,9 @@ def write(
         Whether to skip argument validation for a trusted internal call.
 
     format_version : str, default='0.5'
-        Output schema. '0.5' retains the mechanics-free default; '0.6' explicitly
-        requests experimental persistence of stored molecular mechanics.
+        Output schema. '0.5' is the mechanics-free default. '0.6' selects the
+        experimental modular schema and '1.0' selects the new modular schema.
+        Both explicit versions can store molecular mechanics.
 
     Returns
     -------
@@ -100,8 +106,8 @@ def write(
     -----
     Topology, chemical states and named interactions can be written without
     Structures. The writer records identity links for the native system's shared
-    atom and structure axes. Experimental 0.6 also preserves typed mechanical
-    values and original assignment reports without recalculation. New 0.6 files
+    atom and structure axes. H5MSM 0.6 and 1.0 preserve typed mechanical
+    values and original assignment reports without recalculation. New 0.6 and 1.0 files
     are published atomically without replacing an existing destination; the
     destination filesystem must support hard links. This is atomic visibility,
     not crash durability. Analysis coverage, source maps and original producer
@@ -120,7 +126,7 @@ def write(
     ...         coordinates=msm.pyunitwizard.quantity(np.zeros((1, 2, 3)), "nm")
     ...     )
     ...     path = str(Path(directory) / "sample.h5msm")
-    ...     _ = msm.h5msm.write(molsys, path)
+    ...     _ = msm.h5msm.write(molsys, path, format_version="1.0")
     ...     msm.h5msm.read(path).get_n_atoms()
     2
 
@@ -129,11 +135,14 @@ def write(
     from molsysmt._private.h5msm_storage.versions import write_version
 
     version = write_version(format_version)
-    if version == "0.5":
-        from molsysmt.form._h5msm05_modular import write_molsys_file
-    else:
+    if version != "0.5":
         from molsysmt._private.h5msm_storage.modular import write_molsys_file
-    write_molsys_file(output_filename, molecular_system)
+
+        write_molsys_file(output_filename, molecular_system, format_version=version)
+    else:
+        from molsysmt.form._h5msm05_modular import write_molsys_file
+
+        write_molsys_file(output_filename, molecular_system)
     return output_filename
 
 
@@ -144,10 +153,11 @@ def read_layers(filename, layers=None, analysis_names=None, skip_digestion=False
     Parameters
     ----------
     filename : str
-        Path to an H5MSM 0.5 or experimental 0.6 file.
+        Path to an H5MSM 0.5, experimental 0.6, or 1.0 file.
     layers : str or iterable of str, default=None
         Layer names to read; None reads the layers defined by the stored root.
-        Molecular mechanics is absent in 0.5 and available only in 0.6.
+        Molecular mechanics is available in 0.6 and 1.0. An explicit request
+        for it in 0.5 returns None for that layer.
     analysis_names : str or iterable of str, default=None
         Names of interaction analyses to read when interactions are requested.
     skip_digestion : bool, default=False
@@ -179,7 +189,7 @@ def read_axis_sizes(filename, skip_digestion=False):
     Parameters
     ----------
     filename : str or pathlib.Path
-        Path to an H5MSM 0.5 or experimental 0.6 file.
+        Path to an H5MSM 0.5, experimental 0.6, or 1.0 file.
     skip_digestion : bool, default=False
         Whether to skip argument validation for a trusted internal call.
 
@@ -231,7 +241,7 @@ def write_layers(
     structures=None,
     molecular_mechanics=None,
     mechanics_n_atoms=None,
-    format_version="0.5",
+    format_version=DEFAULT_WRITE_VERSION,
     interactions=None,
     associations=None,
     skip_digestion=False,
@@ -250,12 +260,13 @@ def write_layers(
         Structure-aligned series, with coordinates in nanometers.
     molecular_mechanics : molsysmt.MolecularMechanics or none, default=None
         Stored model requests, atom parameters and detached assignment reports.
-        Requires format_version='0.6'; no calculation or rebinding occurs.
+        Requires format_version='0.6' or '1.0'; no calculation or rebinding occurs.
     mechanics_n_atoms : int or none, default=None
         Explicit atom count of the mechanical layer, required when it is supplied.
         Equal counts do not declare correspondence with another domain.
     format_version : str, default='0.5'
-        Output schema; '0.6' explicitly requests the experimental mechanics root.
+        Output schema. '0.6' selects the experimental mechanics root and '1.0'
+        selects the new modular root.
     interactions : dict, default=None
         Named sparse interaction analyses.
     associations : list of dict, default=None
@@ -274,7 +285,7 @@ def write_layers(
     Notes
     -----
     The default 0.5 schema rejects a supplied mechanics layer rather than
-    discarding it. Explicit 0.6 is experimental. Reading declared axis sizes
+    discarding it. Select 0.6 or 1.0 explicitly for stored mechanics. Reading declared axis sizes
     validates metadata cardinalities, not chemical identity or full payloads.
     Storage does not parameterize or execute a mechanical model.
 
@@ -303,15 +314,17 @@ def write_layers(
 
     version = write_version(format_version)
     options = {}
-    if version == "0.6":
+    if version != "0.5":
         from molsysmt._private.h5msm_storage.modular import write_modular_file
 
         options = dict(
-            molecular_mechanics=molecular_mechanics, mechanics_n_atoms=mechanics_n_atoms
+            molecular_mechanics=molecular_mechanics,
+            mechanics_n_atoms=mechanics_n_atoms,
+            format_version=version,
         )
     elif molecular_mechanics is not None or mechanics_n_atoms is not None:
         raise ValueError(
-            "H5MSM 0.5 has no molecular mechanics layer; explicitly request format_version='0.6'."
+            "H5MSM 0.5 has no molecular mechanics layer; explicitly request format_version='1.0' or '0.6'."
         )
     write_modular_file(
         output_filename,
@@ -339,7 +352,7 @@ def append_structures(
     Parameters
     ----------
     filename : str
-        Path to the H5MSM 0.5 or experimental 0.6 file to extend.
+        Path to the H5MSM 0.5, experimental 0.6, or 1.0 file to extend.
     structures : molsysmt.Structures
         Complete structure rows matching the stored series and atom axis.
     structure_state_indices : list of int, default=None
@@ -364,16 +377,19 @@ def append_structures(
 
     .. versionadded:: 1.0.0
     """
-    from molsysmt._private.h5msm_storage.versions import root_version
+    from molsysmt._private.h5msm_storage.versions import (
+        MECHANICS_VERSIONS,
+        root_version,
+    )
     from molsysmt.form._h5msm05_modular import append_modular_structures
 
     with h5py.File(filename, "r") as file:
         version = root_version(file)
     options = {}
-    if version == "0.6":
+    if version in MECHANICS_VERSIONS:
         from molsysmt._private.h5msm_storage.modular import _DOMAINS
 
-        options = dict(expected_version="0.6", layers=_DOMAINS)
+        options = dict(expected_version=version, layers=_DOMAINS)
     append_modular_structures(
         filename,
         structures,

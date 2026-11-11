@@ -324,3 +324,26 @@ same explicit output option preserves its supported mechanical values/reports.
 An ordinary 0.5 write still rejects them. Whole conversion is resident; this is
 not a streaming migration or scientific validation. See
 {ref}`user-tools-form-h5msm-06` for schema, query and memory limits.
+
+(cookbook-migrating-h5msm-10)=
+## Migrating a modular file to H5MSM 1.0
+
+Use the explicit version and a new destination to migrate a 0.5 or 0.6 file
+in full:
+
+```python
+import molsysmt as msm
+
+msm.convert("source_06.h5msm", to_form="file:h5msm",
+            output_filename="migrated_10.h5msm", format_version="1.0")
+layers = msm.h5msm.read_layers("migrated_10.h5msm")
+```
+
+The conversion loads and writes each stored layer with its declared axis
+links. Independent layers can retain distinct axes. An absent layer remains
+`None` and a present-empty interaction collection remains `{}`. The new file
+records the old root metadata in `migration_source` and keeps original
+scientific producer data in the layers. The source stays unchanged and the
+destination must be absent. Whole-file migration is a resident operation.
+Selection, source naming overrides, and conversion reports use the usual native
+conversion route. The default for new writes remains 0.5 while 1.0 is qualified.

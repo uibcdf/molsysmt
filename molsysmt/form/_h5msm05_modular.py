@@ -5,6 +5,7 @@ from pathlib import Path
 import h5py
 import numpy as np
 
+from molsysmt._private.h5msm_storage.versions import MECHANICS_VERSIONS
 from molsysmt.interactions._hdf5_collection import (
     read_named_analyses,
     write_named_analyses,
@@ -172,9 +173,9 @@ def append_modular_structures(
             file.attrs.get("type") != "h5msm"
             or file.attrs.get("version") != expected_version
         ):
-            raise ValueError("Expected an H5MSM 0.5 modular file.")
+            raise ValueError(f"Expected an H5MSM {expected_version} modular file.")
         allowed = {"structures", "chemical_states", "associations"}
-        if expected_version == "0.6":
+        if expected_version in MECHANICS_VERSIONS:
             from molsysmt._private.h5msm_storage.mechanics import read_mechanics
             from molsysmt._private.h5msm_storage.modular import (
                 _declared_sizes,
@@ -191,12 +192,12 @@ def append_modular_structures(
             )
         sizes = (
             _declared_sizes(file)
-            if expected_version == "0.6"
+            if expected_version in MECHANICS_VERSIONS
             else _axis_sizes_from_file(file)
         )
         options = {} if layers is None else {"layers": layers}
         links = read_associations(file, sizes, **options) or []
-        if expected_version == "0.6":
+        if expected_version in MECHANICS_VERSIONS:
             _require_shared_axes(links, sizes, axes=("atom",))
         if any(link["axis"] == "structure" for link in links):
             raise ValueError(
@@ -227,6 +228,12 @@ def append_modular_structures(
 
 def read_modular_file(filename, *, layers=None, analysis_names=None):
     """Read selected optional domains and validate requested associations."""
+    with h5py.File(Path(filename), "r") as file:
+        return read_modular_layers(file, layers=layers, analysis_names=analysis_names)
+
+
+def read_modular_layers(file, *, layers=None, analysis_names=None):
+    """Decode selected 0.5 domains from the same open file as its metadata."""
     allowed = {
         "topology",
         "chemical_states",
@@ -245,54 +252,51 @@ def read_modular_file(filename, *, layers=None, analysis_names=None):
         raise ValueError("Unknown H5MSM 0.5 layer requested.")
     if analysis_names is not None and "interactions" not in requested:
         raise ValueError("analysis_names requires the interactions layer.")
-    with h5py.File(Path(filename), "r") as file:
-        if file.attrs.get("type") != "h5msm" or file.attrs.get("version") != "0.5":
-            raise ValueError("Expected an H5MSM 0.5 modular file.")
-        if set(file) - allowed:
-            raise ValueError("H5MSM 0.5 file contains an unknown root layer.")
-        result = {}
-        if "topology" in requested:
-            result["topology"] = read_independent_topology(file)
-        if "chemical_states" in requested:
-            result["chemical_states"] = read_independent_chemical_states(file)
-        if "structures" in requested:
-            result["structures"] = read_independent_structures(file)
-        if "interactions" in requested:
-            result["interactions"] = (
-                read_named_analyses(file["interactions"], names=analysis_names)
-                if "interactions" in file
-                else None
-            )
-            if analysis_names is not None and result["interactions"] is None:
-                raise KeyError("The file has no interaction analyses.")
-        if "associations" in requested:
-            result["associations"] = read_associations(
-                file, _axis_sizes_from_file(file)
-            )
-        if (
-            result.get("topology") is not None
-            and result.get("chemical_states") is not None
-            and file["topology"].attrs.get("schema_version") in (1, 2)
-        ):
-            links = (
-                result["associations"]
-                if "associations" in result
-                else read_associations(file, _axis_sizes_from_file(file))
-            )
-            shared_atoms = any(
-                link["axis"] == "atom"
-                and {link["source"], link["target"]} == {"topology", "chemical_states"}
-                and link["source_name"] is None
-                and link["target_name"] is None
-                and isinstance(link["indices"], str)
-                and link["indices"] == "identity"
-                for link in links or []
-            )
-            if shared_atoms:
-                from molsysmt.native._legacy_molecule_membership import restore
+    if file.attrs.get("type") != "h5msm" or file.attrs.get("version") != "0.5":
+        raise ValueError("Expected an H5MSM 0.5 modular file.")
+    if set(file) - allowed:
+        raise ValueError("H5MSM 0.5 file contains an unknown root layer.")
+    result = {}
+    if "topology" in requested:
+        result["topology"] = read_independent_topology(file)
+    if "chemical_states" in requested:
+        result["chemical_states"] = read_independent_chemical_states(file)
+    if "structures" in requested:
+        result["structures"] = read_independent_structures(file)
+    if "interactions" in requested:
+        result["interactions"] = (
+            read_named_analyses(file["interactions"], names=analysis_names)
+            if "interactions" in file
+            else None
+        )
+        if analysis_names is not None and result["interactions"] is None:
+            raise KeyError("The file has no interaction analyses.")
+    if "associations" in requested:
+        result["associations"] = read_associations(file, _axis_sizes_from_file(file))
+    if (
+        result.get("topology") is not None
+        and result.get("chemical_states") is not None
+        and file["topology"].attrs.get("schema_version") in (1, 2)
+    ):
+        links = (
+            result["associations"]
+            if "associations" in result
+            else read_associations(file, _axis_sizes_from_file(file))
+        )
+        shared_atoms = any(
+            link["axis"] == "atom"
+            and {link["source"], link["target"]} == {"topology", "chemical_states"}
+            and link["source_name"] is None
+            and link["target_name"] is None
+            and isinstance(link["indices"], str)
+            and link["indices"] == "identity"
+            for link in links or []
+        )
+        if shared_atoms:
+            from molsysmt.native._legacy_molecule_membership import restore
 
-                restore(result["topology"], result["chemical_states"])
-        return result
+            restore(result["topology"], result["chemical_states"])
+    return result
 
 
 def _identity_link(axis, source, target, *, source_name=None):
@@ -411,7 +415,7 @@ def _read_calculation_chemistry(
         required.append(_identity_link("atom", "structures", "topology"))
     elif topology is None and ("structures", None, "atom") in sizes:
         required.append(_identity_link("atom", "structures", "chemical_states"))
-    if version == "0.6":
+    if version in MECHANICS_VERSIONS:
         _require_shared_axes(payload["associations"] or [], sizes, axes=("atom",))
     else:
         for link in required:

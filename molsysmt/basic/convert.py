@@ -793,9 +793,12 @@ def _convert_to_h5msm(
             )
 
     options = dict(kwargs)
-    from molsysmt._private.h5msm_storage.versions import write_version
+    from molsysmt._private.h5msm_storage.versions import (
+        DEFAULT_WRITE_VERSION,
+        write_version,
+    )
 
-    version = write_version(options.pop("format_version", "0.5"))
+    version = write_version(options.pop("format_version", DEFAULT_WRITE_VERSION))
     for name in ("int_precision", "float_precision"):
         if name in options:
             from molsysmt._private.smonitor import ArgumentConflictError
@@ -820,6 +823,18 @@ def _convert_to_h5msm(
             raise ValueError(
                 f"H5MSM {version} does not support the {name} conversion option yet."
             )
+
+    if (
+        version == "1.0"
+        and from_form == "file:h5msm"
+        and is_all(selection)
+        and is_all(structure_indices)
+        and not options
+    ):
+        from molsysmt._private.h5msm_storage.modular import rewrite_as_v1
+
+        if rewrite_as_v1(molecular_system, output_filename):
+            return output_filename
 
     if isinstance(from_form, str):
         routes = _dict_modules[from_form]._convert_to
@@ -864,7 +879,7 @@ def _convert_to_h5msm(
         and structures.bioassembly is not None
     ):
         raise ValueError(
-            "H5MSM 0.5 cannot write an atom selection with bioassembly until "
+            f"H5MSM {version} cannot write an atom selection with bioassembly until "
             "its chain indices can be remapped."
         )
     if target == "molsysmt.Structures":
@@ -1007,12 +1022,15 @@ def convert(
       adapter limitation.
     - Ordinary conversions do not construct a preflight report. This keeps the
       reporting layer opt-in when neither `strict` nor `return_report` is used.
-    - Converting to ``file:h5msm`` writes H5MSM 0.5 by default. The explicit
-      converter option ``format_version="0.6"`` enables experimental stored
-      mechanics persistence; it never certifies parameterization or rebinds
-      assignments. Reading supports both modular versions. Legacy 0.3 and 0.4
-      files remain readable and can be migrated with
-      :func:`molsysmt.h5msm.migrate_to_05`.
+    - Converting to ``file:h5msm`` writes H5MSM 0.5 by default. Explicit
+      ``format_version="0.6"`` or ``format_version="1.0"`` preserves stored
+      mechanics without recalculating or rebinding assignments. With a single
+      modular source file, all atoms and structures, and ordinary conversion
+      options, writing 1.0 re-encodes independent layers directly. It retains
+      absent and present-empty layers, axis links, and the original 0.5/0.6
+      root metadata. Use a new destination. This migration loads the stored
+      layers into memory. Legacy 0.3 and 0.4 files remain readable and can be
+      migrated with :func:`molsysmt.h5msm.migrate_to_05`.
     - Modular H5MSM writing uses field-specific stored dtypes. Structural
       floating series use float64; typed chemistry/mechanics payloads retain
       their declared encodings. Explicit ``int_precision`` or
@@ -1116,6 +1134,18 @@ def convert(
     >>> msm.get(partial, n_atoms=True, n_structures=True)
     [2, 1]
 
+    Migrating a modular file with a present-empty interaction layer:
+
+    >>> from pathlib import Path
+    >>> from tempfile import TemporaryDirectory
+    >>> with TemporaryDirectory() as directory:
+    ...     source = Path(directory) / 'analysis_05.h5msm'
+    ...     target = Path(directory) / 'analysis_10.h5msm'
+    ...     _ = msm.h5msm.write_layers(source, interactions={})
+    ...     _ = msm.convert(source, to_form=target, format_version='1.0')
+    ...     msm.h5msm.read_layers(target, layers='interactions')
+    {'interactions': {}}
+
 
     .. admonition:: Tutorial with more examples
 
@@ -1128,6 +1158,7 @@ def convert(
 
     from molsysmt._private.conversion_shortcuts import _multiple_conversion_shortcuts
     from molsysmt._private.h5msm import (
+        has_h5msm_path,
         maybe_read_modular_h5msm,
         validate_h5msm_handler_target,
     )
@@ -1162,9 +1193,26 @@ def convert(
         and from_naming_scheme is None
         and not kwargs
     )
-    molecular_system = maybe_read_modular_h5msm(
-        molecular_system, topology_only=topology_only, mechanics_only=mechanics_only
+    # A whole-file rewrite can preserve independent layers and their maps even
+    # when no single native MolSys can represent the stored composition.
+    independent_h5msm_write = (
+        kwargs.get("format_version") == "1.0"
+        and not isinstance(to_form, (list, tuple))
+        and (to_form == "file:h5msm" or has_h5msm_path(to_form))
+        and not isinstance(molecular_system, (list, tuple))
+        and has_h5msm_path(molecular_system)
+        and is_all(selection)
+        and is_all(structure_indices)
+        and from_naming_scheme is None
+        and not strict
+        and not return_report
+        and kwargs.keys()
+        <= {"format_version", "output_filename", "compression", "compression_opts"}
     )
+    if not independent_h5msm_write:
+        molecular_system = maybe_read_modular_h5msm(
+            molecular_system, topology_only=topology_only, mechanics_only=mechanics_only
+        )
     fresh_file_result = molecular_system is not incoming_system and not isinstance(
         incoming_system, (list, tuple)
     )

@@ -206,11 +206,15 @@ def extract(
         ):
             import h5py
 
-            from molsysmt._private.h5msm_storage.versions import root_version
+            from molsysmt._private.h5msm_storage.versions import (
+                MECHANICS_VERSIONS,
+                root_version,
+            )
 
             with h5py.File(molecular_system, "r") as file:
-                if root_version(file) == "0.6":
-                    options["format_version"] = "0.6"
+                version = root_version(file)
+                if version in MECHANICS_VERSIONS:
+                    options["format_version"] = version
         return convert(
             molecular_system,
             to_form=to_form,

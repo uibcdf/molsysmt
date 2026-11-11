@@ -1007,3 +1007,42 @@ mechanics-only reading and queries, bounded structural query/iteration,
 version-preserving copy/extraction and four append refusals. These results
 establish the pre-change baseline for the audited paths. Stable-root coding,
 end-to-end migration and independent client checks remain pending.
+
+### Explicit 1.0 source route — 2026-11-10
+
+The development reader and writers accept `format_version="1.0"` explicitly.
+Both 0.6 and 1.0 reuse the current independent domain codecs and atomic
+new-file publication. The 1.0 reader recognizes the new root and its optional
+`migration_source` record. The root and layer policies are shared by projected
+queries, iteration, conversion, selected extraction and the admitted append
+path. The public writer default still resolves to 0.5. Legacy handlers and
+version-specific migration helpers keep their previous behavior.
+
+Whole-file `convert` to 1.0 re-encodes 0.5 or 0.6 through the independent
+layer codecs. This route keeps the file's declared maps and counts, independent
+atom axes, absent layers, present-empty layers, typed values and original
+scientific reports. It does not construct a `MolSys` as an intermediate. The
+new writer records its own root identity and stores the old root metadata
+under `migration_source`. Refuse unrecognized source metadata, ambiguous
+provenance and existing destinations. The conversion reads resident layers.
+Selected conversion and report-producing conversion retain their native route.
+
+This is source implementation. P5 independent client receiving, the 1.0
+default-writer decision and exact MolSysMT/MolSysViewer candidate qualification
+are pending.
+
+Local H5MSM, interaction persistence and API doctest regression passes
+**1,238 cases** on Linux/Python 3.14 with the existing ABI3 extension. The
+initial run passed 1,236 cases and failed the new test that tried to access
+occurrence indices directly on `Interactions`. The corrected test obtains the
+indices through the supported query export. The final run also covers duplicate
+keys in migration provenance. All 683 warnings come from legacy 0.3/0.4 reads.
+The one-CPU, 2-GiB scope peaks at 470,056,960 bytes and retains at least 14.37
+GiB host memory available without limit or OOM events.
+
+An additional six cases migrate the three immutable DockingMT packet inputs
+under nm/ps and pm/fs, preserving complete typed native snapshots, exact PDBQT
+text, and source hashes. The first comparison omitted the PDBQT writer's
+required explicit `typing_scheme="autodock4"`. The corrected comparison uses
+that option for both source and target. This is provider-side evidence for
+the explicit 1.0 route and remains separate from DockingMT execution.

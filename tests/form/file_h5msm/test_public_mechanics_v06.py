@@ -1,4 +1,4 @@
-"""Receive explicit experimental mechanics through supported public boundaries."""
+"""Receive mechanics-capable H5MSM schemas through supported public boundaries."""
 
 from pathlib import Path
 
@@ -42,19 +42,20 @@ def _mechanical(domain="complete"):
     ["complete", "topology_free", "no_chemistry", "no_structures", "interactions"],
 )
 @pytest.mark.parametrize("route", ["write", "convert"])
+@pytest.mark.parametrize("version", ["0.6", "1.0"])
 def test_explicit_native_public_roundtrip_preserves_domains_and_original_reports(
-    tmp_path, domain, route
+    tmp_path, domain, route, version
 ):
     source = _mechanical(domain)
     path = tmp_path / "mechanics.h5msm"
     if route == "write":
-        msm.h5msm.write(source, path, format_version="0.6")
+        msm.h5msm.write(source, path, format_version=version)
     else:
         msm.convert(
-            source, to_form="file:h5msm", output_filename=path, format_version="0.6"
+            source, to_form="file:h5msm", output_filename=path, format_version=version
         )
     with h5py.File(path, "r") as file:
-        assert file.attrs["version"] == "0.6"
+        assert file.attrs["version"] == version
     restored = msm.h5msm.read(path)
     assert (restored.topology is None) == (source.topology is None)
     assert (restored.chemical_states is None) == (source.chemical_states is None)
@@ -95,7 +96,7 @@ def test_05_default_refuses_mechanics_and_preserves_default_layer_keys(tmp_path)
     assert not (tmp_path / "refused.h5msm").exists()
 
 
-@pytest.mark.parametrize("version", ["1.0", "0.4", 0.6, True, ["0.6"]])
+@pytest.mark.parametrize("version", ["1.1", "0.4", 0.6, True, ["0.6"]])
 def test_unknown_write_versions_are_rejected_by_public_digestion(tmp_path, version):
     path = tmp_path / "refused.h5msm"
     with pytest.raises(ArgumentChoiceError):
@@ -103,13 +104,14 @@ def test_unknown_write_versions_are_rejected_by_public_digestion(tmp_path, versi
     assert not path.exists()
 
 
-def test_independent_mechanics_only_public_layer_and_queries(tmp_path):
+@pytest.mark.parametrize("version", ["0.6", "1.0"])
+def test_independent_mechanics_only_public_layer_and_queries(tmp_path, version):
     path = tmp_path / "independent.h5msm"
     msm.h5msm.write_layers(
         path,
         molecular_mechanics=MolecularMechanics(forcefield="request"),
         mechanics_n_atoms=7,
-        format_version="0.6",
+        format_version=version,
     )
     mechanics = msm.h5msm.read_layers(path, layers="molecular_mechanics")[
         "molecular_mechanics"
@@ -144,8 +146,9 @@ def test_queries_keep_chemical_formal_charge_separate_from_legacy_mechanics(tmp_
     assert msm.has_attribute(path, "implicit_solvent", include_none=True)
 
 
+@pytest.mark.parametrize("version", ["0.6", "1.0"])
 def test_structure_queries_and_iterator_never_decode_unrequested_mechanics(
-    tmp_path, monkeypatch
+    tmp_path, monkeypatch, version
 ):
     source = _mechanical()
     source.structures = Structures(
@@ -154,7 +157,7 @@ def test_structure_queries_and_iterator_never_decode_unrequested_mechanics(
         )
     )
     path = tmp_path / "geometry.h5msm"
-    msm.h5msm.write(source, path, format_version="0.6")
+    msm.h5msm.write(source, path, format_version=version)
     import molsysmt._private.h5msm_storage.mechanics as codec
 
     def forbidden(*args, **kwargs):
@@ -199,14 +202,18 @@ def test_mechanical_queries_do_not_materialize_coordinates_or_other_domains(
     )
 
 
-def test_copy_and_selected_file_extraction_retain_root_version_and_mechanics(tmp_path):
+@pytest.mark.parametrize("version", ["0.6", "1.0"])
+@pytest.mark.parametrize("to_form", [None, "file:h5msm"])
+def test_copy_and_selected_file_extraction_retain_root_version_and_mechanics(
+    tmp_path, version, to_form
+):
     from tests.native.test_prepared_system_checkpoint import _prepared
 
     source = _prepared("complete")
     expected_charge = source.molecular_mechanics.partial_charge[1]
     original_report = source.molecular_mechanics.partial_charge_assignment
     path = tmp_path / "source.h5msm"
-    msm.h5msm.write(source, path, format_version="0.6")
+    msm.h5msm.write(source, path, format_version=version)
     original = path.read_bytes()
     copied = msm.copy(path, output_filename=tmp_path / "copied.h5msm")
     assert Path(copied).read_bytes() == original
@@ -215,9 +222,10 @@ def test_copy_and_selected_file_extraction_retain_root_version_and_mechanics(tmp
         selection=[1],
         structure_indices=[2, 0],
         output_filename=tmp_path / "subset.h5msm",
+        to_form=to_form,
     )
     with h5py.File(subset, "r") as file:
-        assert file.attrs["version"] == "0.6"
+        assert file.attrs["version"] == version
     restored = msm.h5msm.read(subset)
     assert restored.get(n_atoms=True, n_structures=True) == [1, 2]
     np.testing.assert_array_equal(
@@ -230,7 +238,10 @@ def test_copy_and_selected_file_extraction_retain_root_version_and_mechanics(tmp
     assert path.read_bytes() == original
 
 
-def test_public_append_preserves_mechanics_and_extends_state_assignments(tmp_path):
+@pytest.mark.parametrize("version", ["0.6", "1.0"])
+def test_public_append_preserves_mechanics_and_extends_state_assignments(
+    tmp_path, version
+):
     structures = Structures(
         coordinates=msm.pyunitwizard.quantity(np.zeros((1, 2, 3)), "nm")
     )
@@ -270,7 +281,7 @@ def test_public_append_preserves_mechanics_and_extends_state_assignments(tmp_pat
         molecular_mechanics=MolecularMechanics(forcefield="request"),
         mechanics_n_atoms=2,
         associations=links,
-        format_version="0.6",
+        format_version=version,
     )
     msm.h5msm.append_structures(path, structures, structure_state_indices=[0])
     restored = msm.h5msm.read(path)
@@ -279,7 +290,7 @@ def test_public_append_preserves_mechanics_and_extends_state_assignments(tmp_pat
     assert restored.get(structure_chemical_state_index=True) == [0, 0]
 
 
-@pytest.mark.parametrize("version", ["0.5", "0.6"])
+@pytest.mark.parametrize("version", ["0.5", "0.6", "1.0"])
 @pytest.mark.parametrize("excluded_layer", ["topology", "interactions"])
 def test_unsupported_append_preserves_existing_file_and_independent_layers(
     tmp_path, version, excluded_layer
@@ -309,7 +320,7 @@ def test_unsupported_append_preserves_existing_file_and_independent_layers(
                 method="synthetic_storage_control",
             )
         }
-    if version == "0.6":
+    if version != "0.5":
         layers.update(
             molecular_mechanics=MolecularMechanics(forcefield="stored_request"),
             mechanics_n_atoms=2,
@@ -338,7 +349,7 @@ def test_unsupported_append_preserves_existing_file_and_independent_layers(
         assert restored["interactions"][
             "probe"
         ].evaluated_structure_indices.tolist() == [0]
-    if version == "0.6":
+    if version != "0.5":
         mechanics = msm.h5msm.read_layers(path, layers="molecular_mechanics")
         assert mechanics["molecular_mechanics"].forcefield == "stored_request"
 
@@ -383,7 +394,10 @@ def test_complementary_public_sources_keep_report_only_mechanics(tmp_path, field
 
 
 @pytest.mark.parametrize("source_version", ["0.3", "0.4", "0.5"])
-def test_explicit_upgrade_keeps_source_file_unchanged(tmp_path, source_version):
+@pytest.mark.parametrize("target_version", ["0.6", "1.0"])
+def test_explicit_upgrade_keeps_source_file_unchanged(
+    tmp_path, source_version, target_version
+):
     if source_version == "0.3":
         source = Path(__file__).parent / "data/alanine_dipeptide_v03.h5msm"
         n_atoms = 22
@@ -400,11 +414,14 @@ def test_explicit_upgrade_keeps_source_file_unchanged(tmp_path, source_version):
     original = source.read_bytes()
     target = tmp_path / "development.h5msm"
     msm.convert(
-        source, to_form="file:h5msm", output_filename=target, format_version="0.6"
+        source,
+        to_form="file:h5msm",
+        output_filename=target,
+        format_version=target_version,
     )
     assert source.read_bytes() == original
     with h5py.File(target, "r") as file:
-        assert file.attrs["version"] == "0.6"
+        assert file.attrs["version"] == target_version
         assert "molecular_mechanics" not in file
     assert msm.h5msm.read(target).get_n_atoms() == n_atoms
 

@@ -6,8 +6,10 @@
 H5MSM 0.6 adds an optional `molecular_mechanics` layer to the independently
 owned domains of {ref}`H5MSM 0.5 <user-tools-form-h5msm-05>`. Request it explicitly
 with `format_version="0.6"`; ordinary writing still uses 0.5. The development
-schema and its public routes are experimental. The intended first stable format
-is H5MSM 1.0 after whole-format and consumer qualification.
+schema and its public routes are experimental. The development 1.0 reader and
+writer use the same domain codecs. Choose `format_version="1.0"` to exercise
+the new root and use {ref}`cookbook-migrating-h5msm-10` for whole-file migration.
+Whole-format and consumer qualification remain pending.
 
 ## Writing and recovering a system
 
@@ -89,7 +91,7 @@ A complete independent mechanics projection reads only that layer when requested
 with all axes and default conversion context, without strict/report or extra
 options. It does not validate unrequested layers or declare their association.
 
-`molsysmt.H5MSMFileHandler` remains a 0.3/0.4 handler and refuses 0.5/0.6.
+`molsysmt.H5MSMFileHandler` remains a 0.3/0.4 handler and refuses modular roots.
 Use resident conversion, selected-layer reads, queries or structural iteration.
 
 ## Querying and modifying represented data

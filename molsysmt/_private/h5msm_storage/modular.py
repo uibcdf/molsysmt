@@ -1,5 +1,6 @@
-"""Private development-root composition, reusing the existing domain codecs."""
+"""Mechanics-capable H5MSM roots composed from independent domain codecs."""
 
+import json
 from datetime import datetime, timezone
 from numbers import Integral
 from pathlib import Path
@@ -47,6 +48,8 @@ from .mechanics import (
     _write_prepared_mechanics,
     read_mechanics,
 )
+from .metadata import _unique_pairs
+from .versions import MECHANICS_VERSIONS, MODULAR_VERSIONS, root_version
 
 _DOMAINS = (
     "topology",
@@ -57,23 +60,62 @@ _DOMAINS = (
 )
 _LAYERS = frozenset((*_DOMAINS, "associations"))
 _ROOT_ATTRIBUTES = {"type", "version", "creator", "creator_version", "created_at"}
-_DEVELOPMENT_VERSION = "0.6"
+_MIGRATION_SOURCE = "migration_source"
 
 
 def _text(value):
     return value.decode() if isinstance(value, bytes) else value
 
 
+def _validate_migration_source(source):
+    if (
+        not isinstance(source, dict)
+        or any(not isinstance(value, str) for value in source.values())
+        or source.get("type") != "h5msm"
+        or source.get("version") not in {"0.5", "0.6"}
+    ):
+        raise ValueError("Invalid H5MSM migration source metadata.")
+    if source["version"] == "0.6":
+        valid = set(source) == _ROOT_ATTRIBUTES
+    else:
+        valid = set(source) <= _ROOT_ATTRIBUTES | {"migrated_from_version"} and (
+            "migrated_from_version" not in source
+            or source["migrated_from_version"] in {"0.3", "0.4"}
+        )
+    if not valid:
+        raise ValueError("Unsupported H5MSM migration source metadata.")
+
+
+def _read_migration_source(root):
+    if _MIGRATION_SOURCE not in root.attrs:
+        return None
+    try:
+        source = json.loads(
+            _text(root.attrs[_MIGRATION_SOURCE]), object_pairs_hook=_unique_pairs
+        )
+    except (TypeError, ValueError) as error:
+        raise ValueError("Invalid H5MSM migration source metadata.") from error
+    _validate_migration_source(source)
+    return source
+
+
 def _header(root):
-    version = _text(root.attrs.get("version"))
-    if _text(root.attrs.get("type")) != "h5msm" or version not in {
-        "0.5",
-        _DEVELOPMENT_VERSION,
-    }:
+    version = root_version(root)
+    kind = _text(root.attrs.get("type"))
+    if (
+        not isinstance(version, str)
+        or not isinstance(kind, str)
+        or kind != "h5msm"
+        or version not in MODULAR_VERSIONS
+    ):
         raise ValueError("Unsupported H5MSM modular root version.")
-    if version == _DEVELOPMENT_VERSION:
-        if set(root) - _LAYERS or set(root.attrs) != _ROOT_ATTRIBUTES:
-            raise ValueError("Unsupported development-root fields or metadata.")
+    if version in MECHANICS_VERSIONS:
+        attributes = set(root.attrs)
+        if version == "1.0":
+            attributes.discard(_MIGRATION_SOURCE)
+            _read_migration_source(root)
+        if set(root) - _LAYERS or attributes != _ROOT_ATTRIBUTES:
+            raise ValueError("Unsupported H5MSM modular-root fields or metadata.")
         if any(
             not isinstance(_text(root.attrs[name]), str) for name in _ROOT_ATTRIBUTES
         ):
@@ -170,8 +212,16 @@ def write_modular_file(
     mechanics_n_atoms=None,
     interactions=None,
     associations=None,
+    format_version="0.6",
+    migration_source=None,
 ):
-    """Stage a private development file and publish only after successful close."""
+    """Stage a complete modular file and publish only after successful close."""
+    if format_version not in MECHANICS_VERSIONS:
+        raise ValueError("The modular writer requires H5MSM 0.6 or 1.0.")
+    if migration_source is not None:
+        if format_version != "1.0":
+            raise ValueError("Migration source metadata requires H5MSM 1.0.")
+        _validate_migration_source(migration_source)
     payload = dict(
         topology=topology,
         chemical_states=chemical_states,
@@ -191,11 +241,15 @@ def write_modular_file(
         with h5py.File(staged, "w") as file:
             file.attrs.update(
                 type="h5msm",
-                version=_DEVELOPMENT_VERSION,
+                version=format_version,
                 creator="MolSysMT",
                 creator_version=__version__,
                 created_at=datetime.now(timezone.utc).isoformat(),
             )
+            if migration_source is not None:
+                file.attrs[_MIGRATION_SOURCE] = json.dumps(
+                    migration_source, sort_keys=True
+                )
             if prepared_mechanics is not None:
                 _write_prepared_mechanics(
                     file, prepared_mechanics, n_atoms=mechanics_n_atoms
@@ -213,6 +267,13 @@ def write_modular_file(
 
 def read_modular_file(filename, *, layers=None, analysis_names=None):
     """Read requested resident layers, retaining independently declared maps."""
+    with h5py.File(Path(filename), "r") as file:
+        return _read_layers(
+            file, _header(file), layers=layers, analysis_names=analysis_names
+        )
+
+
+def _read_layers(file, version, *, layers=None, analysis_names=None):
     requested = (
         _LAYERS
         if layers is None
@@ -224,41 +285,68 @@ def read_modular_file(filename, *, layers=None, analysis_names=None):
         raise ValueError("Unsupported modular layer requested.")
     if analysis_names is not None and "interactions" not in requested:
         raise ValueError("analysis_names requires the interactions layer.")
-    with h5py.File(Path(filename), "r") as file:
-        version = _header(file)
-        if version != "0.5":
-            result = {}
-            for name, reader in (
-                ("topology", read_independent_topology),
-                ("chemical_states", read_independent_chemical_states),
-                ("structures", read_independent_structures),
-                ("molecular_mechanics", read_mechanics),
-            ):
-                if name in requested:
-                    result[name] = reader(file)
-            if "interactions" in requested:
-                result["interactions"] = (
-                    read_named_analyses(file["interactions"], names=analysis_names)
-                    if "interactions" in file
-                    else None
-                )
-                if analysis_names is not None and result["interactions"] is None:
-                    raise KeyError("The file has no interaction analyses.")
-            if "associations" in requested:
-                result["associations"] = read_associations(
-                    file, _declared_sizes(file), layers=_DOMAINS
-                )
-            return result
-    from molsysmt.form._h5msm05_modular import read_modular_file as read_05
+    if version == "0.5":
+        from molsysmt.form._h5msm05_modular import read_modular_layers
 
-    result = read_05(
-        filename,
-        layers=requested - {"molecular_mechanics"},
-        analysis_names=analysis_names,
-    )
-    if "molecular_mechanics" in requested:
-        result["molecular_mechanics"] = None
+        result = read_modular_layers(
+            file,
+            layers=requested - {"molecular_mechanics"},
+            analysis_names=analysis_names,
+        )
+        if "molecular_mechanics" in requested:
+            result["molecular_mechanics"] = None
+        return result
+
+    result = {}
+    for name, reader in (
+        ("topology", read_independent_topology),
+        ("chemical_states", read_independent_chemical_states),
+        ("structures", read_independent_structures),
+        ("molecular_mechanics", read_mechanics),
+    ):
+        if name in requested:
+            result[name] = reader(file)
+    if "interactions" in requested:
+        result["interactions"] = (
+            read_named_analyses(file["interactions"], names=analysis_names)
+            if "interactions" in file
+            else None
+        )
+        if analysis_names is not None and result["interactions"] is None:
+            raise KeyError("The file has no interaction analyses.")
+    if "associations" in requested:
+        result["associations"] = read_associations(
+            file, _declared_sizes(file), layers=_DOMAINS
+        )
     return result
+
+
+def rewrite_as_v1(source, destination):
+    """Re-encode modular layers independently, preserving source metadata and presence."""
+    with h5py.File(Path(source), "r") as file:
+        version = root_version(file)
+        if not isinstance(version, str) or version not in MODULAR_VERSIONS:
+            return False
+        _header(file)
+        if version == "1.0":
+            original = _read_migration_source(file)
+        else:
+            original = {name: _text(value) for name, value in file.attrs.items()}
+            _validate_migration_source(original)
+        payload = _read_layers(file, version)
+        mechanics_n_atoms = (
+            _atom_count(file["molecular_mechanics"].attrs["n_atoms"])
+            if payload["molecular_mechanics"] is not None
+            else None
+        )
+    write_modular_file(
+        destination,
+        **payload,
+        mechanics_n_atoms=mechanics_n_atoms,
+        format_version="1.0",
+        migration_source=original,
+    )
+    return True
 
 
 def _nodes(sizes, axis):
@@ -348,7 +436,7 @@ def _require_shared_axes(links, sizes, *, axes=("atom", "structure")):
                 )
 
 
-def write_molsys_file(filename, molsys):
+def write_molsys_file(filename, molsys, *, format_version="0.6"):
     """Store represented native domains without discarding mechanical evidence."""
     from molsysmt.native import MolSys
 
@@ -371,7 +459,13 @@ def write_molsys_file(filename, molsys):
     links = _native_links(payload, sizes, molsys._structure_chemical_state_indices)
     # This also rejects inconsistent native atom/structure axis cardinalities.
     normalize_associations(links, sizes, layers=_DOMAINS)
-    write_modular_file(filename, **payload, mechanics_n_atoms=count, associations=links)
+    write_modular_file(
+        filename,
+        **payload,
+        mechanics_n_atoms=count,
+        associations=links,
+        format_version=format_version,
+    )
 
 
 def read_molsys_file(filename):

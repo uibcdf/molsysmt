@@ -23,6 +23,11 @@ for public layer queries, metadata cardinalities, source-preserving extraction
 and the limitations of resident assembly. The legacy handler does not support
 modular roots.
 
+Explicit `format_version="1.0"` is also available in development for writing a
+new modular file and testing migration. It stores the same independent domains
+as 0.6, including mechanics. To migrate a complete modular file while retaining
+independent layers and axis links, see {ref}`cookbook-migrating-h5msm-10`.
+
 ## HDF5 Layout and Dataset Schema
 
 An `.h5msm` file organizes data into hierarchical HDF5 groups and dataset arrays:
@@ -92,7 +97,7 @@ See {ref}`user-tools-form-h5msm-05` for the supported boundary.
 
 ## Performance and Storage Invariants
 
-Modular H5MSM 0.5/0.6 uses field-specific stored types. Structural floating
+Modular H5MSM 0.5, 0.6, and 1.0 use field-specific stored types. Structural floating
 series use float64; chemistry, topology, maps and mechanical payloads follow
 their declared encodings. The legacy global `float_precision` and `int_precision`
 conversion options are unsupported, including explicit `'single'` or `'double'`.

@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from .h5msm_storage.versions import MODULAR_VERSIONS
+from .h5msm_storage.versions import MECHANICS_VERSIONS, MODULAR_VERSIONS
 
 MODULAR_HANDLER_REASON = (
     "H5MSM 0.5 cannot be opened as molsysmt.H5MSMFileHandler; "
@@ -96,7 +96,7 @@ def modular_h5msm_axes(item):
             version = version.decode()
         if version not in MODULAR_VERSIONS:
             return None
-        if version == "0.6":
+        if version in MECHANICS_VERSIONS:
             from .h5msm_storage.modular import _declared_sizes, _header
 
             _header(file)
@@ -153,7 +153,7 @@ def maybe_read_modular_h5msm(item, *, topology_only=False, mechanics_only=False)
     if version not in MODULAR_VERSIONS:
         return item
 
-    if mechanics_only and version == "0.6":
+    if mechanics_only and version in MECHANICS_VERSIONS:
         from molsysmt.h5msm import read_layers
 
         mechanics = read_layers(str(path), layers="molecular_mechanics")[

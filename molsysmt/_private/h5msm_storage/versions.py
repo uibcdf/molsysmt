@@ -1,12 +1,16 @@
 """Selecting explicitly implemented H5MSM roots without guessing migrations."""
 
-MODULAR_VERSIONS = frozenset({"0.5", "0.6"})
+DEFAULT_WRITE_VERSION = "0.5"
+MECHANICS_VERSIONS = frozenset({"0.6", "1.0"})
+MODULAR_VERSIONS = MECHANICS_VERSIONS | {"0.5"}
 
 
 def write_version(value):
     """Require an implemented write contract even for trusted delegation."""
     if not isinstance(value, str) or value not in MODULAR_VERSIONS:
-        raise ValueError("H5MSM writing requires format_version '0.5' or '0.6'.")
+        raise ValueError(
+            "H5MSM writing requires format_version '0.5', '0.6', or '1.0'."
+        )
     return value
 
 

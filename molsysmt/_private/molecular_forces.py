@@ -232,11 +232,14 @@ def _project_modular(source, selection, structure_indices, syntax, *, parameteri
         topology = payload["topology"]
         import h5py
 
-        from molsysmt._private.h5msm_storage.versions import root_version
+        from molsysmt._private.h5msm_storage.versions import (
+            MECHANICS_VERSIONS,
+            root_version,
+        )
 
         with h5py.File(filename, "r") as file:
             version = root_version(file)
-        if version == "0.6":
+        if version in MECHANICS_VERSIONS:
             from molsysmt._private.h5msm_storage.modular import (
                 _require_shared_axes,
                 read_axis_sizes,
