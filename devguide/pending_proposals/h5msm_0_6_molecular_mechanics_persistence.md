@@ -1180,3 +1180,33 @@ course modules, docstrings and the API registry reflect the new default.
 MolSysViewer can now repeat its default-save expectations and the mechanics
 resave case on this source. The format freeze and exact installed pair remain
 the next acceptance boundaries under #256/#334.
+
+### Independent default-specific MolSysViewer receiving — 2026-11-11
+
+MolSysViewer publishes its independent default-transition receiving in
+`7d29efda6345e2a555402596e9762740a2a257b9`, under
+uibcdf/molsysviewer#315. The runtime base is `ed1e118212`; that commit changes
+only the session guard and developer records. MolSysMT source is
+`aee7aa65da56e896d1cb2d655bf73736f6453a43`, with the unchanged qualified native
+binary `4ffb82e4`. The [owner receipt](../../devtools/data/molsysviewer_default_h5msm_client_receiving_256_20261111.json)
+records the reviewed public blobs, original command exits, identical before/after
+input manifests and 45 independently rehashed retained files. The custodian's
+separately retained 124-MB source archive is not rescanned by this review.
+
+The new default passes **18 session cases** and **151 boundary cases**, with no
+failures or skips. A separate 18-case control retains the prior 0.5 default's
+mechanics refusal. Two genuinely retained prior-writer sessions reopen and
+resave as 1.0 without changing their original bytes. Force-field requests,
+partial charges, the cutoff's original units, scene state and named sparse
+analyses survive. Queries retain maps, compound participants, parallel
+occurrences, periodic images and evaluated-empty versus unevaluated coverage.
+Managed edits retain selective invalidation and require the explicit host
+synchronization already documented. The failed fixture preparation remains
+recorded; the public writer correctly refused overwriting a fresh probe.
+
+This accepts **default-specific client source receiving**, including ordinary
+mechanics save/reopen. It does not validate detector science, browser rendering,
+Jupyter, Qt, installed files or another platform. Stable-format freeze and the
+exact final MolSysMT 1.0.0 / MolSysViewer 1.0.0 installed qualification remain
+pending. #615's original cause is still unknown. No new client detector,
+mechanics visualization or DockingMT integration gate follows from this review.

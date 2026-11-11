@@ -1,13 +1,13 @@
 ---
 summary: MolSysViewer tool mirrors omit current native options and defaults
 issue: uibcdf/molsysmt#710
-status: active
+status: resolved
 opened: 2026-11-11
-closed:
+closed: 2026-11-11
 severity: medium
 verification: reproduced
 area: [api]
-guard:
+guard: tests/molsysviewer_molsysmt/test_provider_admission_tools.py::test_exact_native_signature_digestion_help_and_namespace
 normative:
 blocked_by: []
 supersedes: []
@@ -72,3 +72,31 @@ still reject. Required addon inventory/preflight tests remain unchanged.
 ArgDigest 0.15.0, DepDigest 0.15.1, SMonitor 0.21.0 and Pytest Receptor 1.2.1.
 The complete suite is failed with 49 failures/33,748 passes/16 skips; six
 signature failures belong here. Source receiving is not installed qualification.
+
+## Resolution — 2026-11-11
+
+Implementation: `7d07ae00e`.
+
+The two writer defaults now mirror native 1.0; explicit 0.5/0.6 remain
+available within their native limits. Both preparation methods forward their
+original native options, including reconstruction reports, without unpacking
+or adopting the returned dictionary. Existing ArgDigest plans, SMonitor
+signals and native engine/dependency/unit/attribution boundaries are retained;
+no new dependency or duplicate scientific implementation is introduced.
+
+The relevant 449-case receiving passes with no omissions. Actual report calls
+run once under nm and pm policies, preserve the native dictionary identity,
+source/output correspondence and retained coordinates, and leave source and
+scene unchanged. Twelve actual writer cases exercise both facades across
+default 1.0, explicit 1.0 and explicit 0.6 under two quantity policies, while
+explicit 0.5 refusals remain guarded. A further overlapping 106-case cohort
+receives updated provider signatures/help/doctests and documentation controls.
+The primary parametrized guard covers both writers and both preparation
+methods; the behavioral tests prevent signature-only conformity. The guide,
+paired content contract and Core04 prose now describe the same behavior.
+
+The [polishing receipt](../../../devtools/data/pre_1_0_polishing_receiving_334_20261111.json)
+retains original failures, the first focused eight-failure attempt, input/native
+identities, resource limits and documentation receiving. The original complete
+suite remains failed until a new full corrected-source session succeeds. This
+bounded closeout is not installed, graphical, platform or candidate acceptance.

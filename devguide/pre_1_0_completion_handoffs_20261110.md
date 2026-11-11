@@ -8,6 +8,18 @@ The [scorecard](../devtools/data/pre_1_0_progress_scorecard_20261107.json) owns
 original milestone accounting. The [audit](pre_1_0_robustness_audit_20261106.md)
 and [release ledger](release_1_0_status.md) retain current evidence and history.
 
+## Later 11 November polishing update
+
+The historical complete receiving below remains valid for its original source.
+The later clean `01c6266f6` run finishes **failed: 49 failures, 33,748 passes,
+16 skips**. The [polishing queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11)
+and [receipt](../devtools/data/pre_1_0_polishing_receiving_334_20261111.json)
+retain that result and the #709/#710 corrections. Their 449-case receiving passes,
+but a new complete corrected-source run remains due. Independently reviewed
+MolSysViewer default-1.0 source receiving is accepted under #256; format freeze,
+#615 and the final exact installed pair remain separate. No new candidate or
+hosted execution is requested by this update.
+
 ## Work that MolSysMT can advance now
 
 1. **Repeat the complete local default suite on the corrected source.** The
@@ -138,9 +150,13 @@ and maps, selective invalidation and explicit View synchronization. Its
 mechanics-bearing session loaded while the prior 0.5 default refused resaving.
 The [default-transition receipt](../devtools/data/h5msm_default_10_receiving_256_20261110.json)
 now verifies saving and reopening it with default 1.0 on exact MolSysViewer
-`a6a3a309`. Update the consumer's default-specific assertions and receive that
-transition independently before the format freeze. Exact installed-candidate
-receiving follows the existing publication plan.
+`a6a3a309`. Independent consumer receiving is accepted on 2026-11-11:
+MolSysViewer `7d29efda6345e2a555402596e9762740a2a257b9`, runtime base
+`ed1e118212`, passes 18 session cases and 151 boundary cases on MolSysMT
+`aee7aa65d`. The [reviewed receipt](../devtools/data/molsysviewer_default_h5msm_client_receiving_256_20261111.json)
+also retains the prior-default control and two prior-writer session artifacts.
+The default-save source handoff is complete. Format freeze and exact
+installed-candidate receiving remain pending under their existing scope.
 
 1. Save a complete system with explicit reference chemistry and a named periodic
    analysis, project onto nonconsecutive structures, reopen the session and edit

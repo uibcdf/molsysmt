@@ -91,3 +91,15 @@ All weights, fifty graphical intents and composite acceptance requirements are
 unchanged. New candidate selection must refresh this current-state review for
 any subsequent source delta; it cannot reuse this document as exact-candidate
 or installed-artifact qualification.
+
+## Later 11 November follow-up: explicit addon mirrors
+
+The completed clean-source suite on `01c6266f6` exposed the addon/default
+divergence above as an existing exact-native-signature regression, tracked in
+uibcdf/molsysmt#710. The follow-up aligns the two MolSysMT-owned addon writers
+with native default 1.0, preserves explicit 0.5 refusal/0.6 persistence, and
+forwards the already-public heavy-repair and terminal-preparation report and
+attribute-policy controls. Maintained user/course explanations now describe
+that alignment. The table and the 196-test receipt above retain the earlier
+source observation; they are not evidence for these later changes. The later
+receiving record under #334 supplies their separate tests and limitations.

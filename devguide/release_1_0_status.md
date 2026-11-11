@@ -2,7 +2,8 @@
 
 ## Resume from here
 
-**Reviewed 2026-11-11 against source `7b7cbc2f10f74870b9556f6e483c53c8293053f2`.**
+**Reviewed 2026-11-11 against code/fixture checkpoint `3546267d0`, API
+reference correction `e714c2f0d` and separately recorded polishing evidence.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
 does not select today's candidate or authorize new execution.
@@ -18,7 +19,7 @@ promotions and publication remain paused pending the agreed resumption.**
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
 | Complete the admitted pre-1.0 polishing review | Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11): correct worthwhile code, test, documentation and workflow findings, and review incoming issues/PRs at phase checkpoints. Preserve original milestone accounting and qualification boundaries. |
-| Finish #256 default-specific client receiving, then the stable-format decision | Development writers default to H5MSM 1.0; source restoration, migration and bounded mechanics are contract-tested. Both clients received explicit 1.0 cases; the changed default still needs independent client receiving. Format freeze and installed acceptance remain pending. |
+| Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
 | Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
 | Preserve #250/#254 source agreement and experimental boundaries | MolSysViewer accepts the exercised sparse/native contracts. Detector profiles, inspection pages and Qt retain their experimental limits. Final-candidate agreement is still due. |
 | Agree the exact clean pair and qualification scope with MolSysViewer | Select new producer commits and unused builds; share immutable files, channels and SHA-256 values when authorized. #524 still needs a published compatible host floor and clean minimum/newer installed workflows. |
@@ -33,6 +34,48 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## First polishing block and full-suite findings — 2026-11-11
+
+The [P1–P5 queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11)
+now records the completed strict HTML correction and a bounded semantic review
+of entry/native/course guidance. Three complete HTML builds on their respective
+clean sources finish with zero warnings. Fourteen Core04 cells execute; actual
+generated pages, the stored 1.0 example and eighteen cross-reference targets
+are inspected. Four preexisting RST edits are included under the maintainer's
+explicit approval; original failed builds and setup/admission attempts remain
+in the [polishing receipt](../devtools/data/pre_1_0_polishing_receiving_334_20261111.json).
+
+The complete Linux/Python 3.14.7 run on clean `01c6266f6` is **failed**, with
+**49 failures, 33,748 passes and 16 skips**. Its terminal exit, JUnit and receptor
+final counts agree; the receptor explicitly marks phase-detail and extension
+truncation. Do not promote it to passing evidence. The earlier interrupted run
+also remains separate.
+
+The failures identify two bounded integration defects: the private selective
+reader only accepts root 0.5 (#709), and several addon signatures/defaults have
+not followed their native providers (#710). Other affected fixtures still
+assume former defaults, omit required independent-axis associations or request
+an output budget too small for the result they test. The corrected relevant
+cohort passes **449 cases with no omissions**. It preserves explicit 0.5
+mechanics refusal, supported 0.6/1.0 round trips, unknown-extension rejection,
+association checks before coordinate reads, actual temporary-result cleanup,
+original report dictionaries/maps and source/scene ownership. A separate
+overlapping 106-case API/documentation cohort and all fifteen fast gates pass.
+#709/#710 have [reader](archive/resolved_bugs/selective_interaction_queries_reject_supported_modular_h5msm_roots.md)
+and [addon](archive/resolved_bugs/molsysviewer_tool_mirrors_omit_current_native_options_and_defaults.md)
+closeout records. Later HTML inspection finds four existing public functions
+without API destinations despite a zero-warning build; `e714c2f0d` adds them.
+The targeted rebuild and actual destination/anchor checks pass. A new complete
+corrected-source suite is still required; focused receiving does not clear the
+full-suite or nightly backlog.
+
+The [independent MolSysViewer default-specific receipt](../devtools/data/molsysviewer_default_h5msm_client_receiving_256_20261111.json)
+is accepted within its source scope, including mechanics-bearing sessions and
+prior-default controls. #256 still needs its stable-format decision and final
+installed acceptance. No source change here resolves #615, selects the final
+pair, creates an installed artifact or lifts the publication pause. The original
+score remains **77.7381%, 50/50 source graphical intents**.
 
 ## Native neighbor tradeoff measured — 2026-11-11
 

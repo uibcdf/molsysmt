@@ -46,9 +46,9 @@ or scientific-model certification follows from these bounded corrections.
 Complete the owning issue's full documented indexing, comparisons, tutorials,
 external-reader and evidence criteria before closing it. Track the pre-1.0
 example contribution independently in the frozen audit scorecard, without
-expanding the requirement or claiming the broader proposal complete. Clean
-source, public documentation and regression receiving for this contribution
-remain pending until their actual results are recorded.
+expanding the requirement or claiming the broader proposal complete. The bounded
+source contribution is received below; indexing, comparative evidence and
+external-reader acceptance retain their own outstanding criteria.
 
 ## Bounded source acceptance — 2026-11-08
 
@@ -58,3 +58,23 @@ the retired namespace; its corrected actual blocks execute with bounded source
 receiving. See the [shared receipt](../../../devtools/data/public_graph_xyz_receiving_648_610_20261108.json).
 This completes only the #378 contribution to the audit public-example leaf.
 The wider discoverability proposal remains partial and open.
+
+## Entry and native-course polish — 2026-11-11
+
+The bounded #334 review corrects stale Python-version/install guidance and
+unsupported universal conversion, losslessness, startup and implementation
+claims. Native ownership, physical quantities, experimental mechanics and
+H5MSM defaults/legacy limits are explicit. Fourteen Core04 cells execute; the
+clean `8ada7fe24` complete HTML build has zero warnings. Eight generated article
+DOMs and eighteen actual Core04 reference targets are inspected, including the
+new default-1.0 example's stored output and a preserved historical entry anchor.
+A later full HTML build on `3546267d0` also has zero warnings. Actual addon-page
+inspection nevertheless finds four existing functions without API destinations.
+`e714c2f0d` adds the missing maintained index/page entries; the targeted rebuild
+and actual four destination/anchor checks pass.
+
+This supplements instructional accuracy, not comparative superiority or measured
+search performance. Broader indexing, comparison, independently executed task
+and external-reader acceptance remain open. The original #378 leaf receives no
+second scorecard credit. The [polishing receipt](../../../devtools/data/pre_1_0_polishing_receiving_334_20261111.json)
+retains scope, original failures and later addon corrections separately.

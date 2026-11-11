@@ -1,13 +1,13 @@
 ---
 summary: Selective interaction queries reject supported modular H5MSM roots
 issue: uibcdf/molsysmt#709
-status: active
+status: resolved
 opened: 2026-11-11
-closed:
+closed: 2026-11-11
 severity: medium
 verification: reproduced
 area: [form, data]
-guard:
+guard: tests/interactions/test_hdf5_query.py
 normative:
 blocked_by: []
 supersedes: []
@@ -65,3 +65,26 @@ no new public file-backed API or format-stability decision is introduced.
 PyUnitWizard 0.29.2, ArgDigest 0.15.0, DepDigest 0.15.1, SMonitor 0.21.0 and
 Pytest Receptor 1.2.1. Three workers, 6-GiB cap, no own swap; minimum host
 available memory about 8.96 GiB. Full-session receipt belongs to #334.
+
+## Resolution — 2026-11-11
+
+Implementation: `245c8730b`.
+
+The private reader now delegates supported root/type/metadata validation to the
+central modular H5MSM validator, preserving collection/payload validation and
+close-on-error. The new cases compare selected nonconsecutive structures and
+atom filters against resident results for default 1.0 and explicit 0.5/0.6/1.0.
+A dataset-read guard rejects unrelated coordinate/mechanics materialization;
+unknown or malformed roots reject and the actual HDF5 handle is closed.
+
+The relevant 449-case receiving passes with no omissions, including the 25
+originally failing root-check cases. The primary guard protects both accepted
+and rejected roots and scientific result parity, rather than merely matching
+one version string. No public file-backed API, scientific detector change or
+format-freeze decision follows.
+
+The [polishing receipt](../../../devtools/data/pre_1_0_polishing_receiving_334_20261111.json)
+retains original failures, the first focused eight-failure attempt, input/native
+identities, resource limits and documentation receiving. The original complete
+suite remains failed until a new full corrected-source session succeeds. This
+bounded closeout is not installed, graphical, platform or candidate acceptance.

@@ -1,0 +1,96 @@
+{
+  "schema": "molsysmt.h5msm-default-client-receiving@1",
+  "date": "2026-11-11",
+  "owner_issue": "uibcdf/molsysmt#256",
+  "status": "independent_source_receiving_accepted",
+  "client_issue": "uibcdf/molsysviewer#315",
+  "client_commit": "7d29efda6345e2a555402596e9762740a2a257b9",
+  "client_runtime_base": "ed1e118212a6d33ec4495544184f26f75ee9c096",
+  "provider_source": "aee7aa65da56e896d1cb2d655bf73736f6453a43",
+  "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "public_receipt": {
+    "url": "https://github.com/uibcdf/molsysviewer/blob/7d29efda6345e2a555402596e9762740a2a257b9/devguide/h5msm_default_receiving_20261111.json",
+    "git_blob": "3c06b8bcc864c01b164bb7b540a3d435416147a9",
+    "sha256": "abf886018ee2fc30e69e2da2acc4f2a37757c34a3f6e6bb2b85fa51301b2178f"
+  },
+  "review": {
+    "public_guard_blob": "2a582b39e2e865ee33faf7020e5a5ef7bd229610",
+    "public_guard_sha256": "d50353d5feccd9155de5f1dae9a210215b85e7355ffa41a804ff38766c44b7f9",
+    "public_commit_changes": [
+      "three developer records",
+      "tests/test_session_h5msm_migration.py"
+    ],
+    "production_changes": false,
+    "verified_private_files": 45,
+    "verified_private_bytes": 19486388,
+    "manifest_sha256": "1e34d3a13b4a1316c3a11e35c8286cedcc42e2b2689ae0ba9bd7677d91d3a0b3",
+    "not_rehashed": [
+      {
+        "path": "source archive",
+        "bytes": 124252160,
+        "sha256": "2fd898bb24c8cfa9ab8a410ce20e5828599cfc1264c473270fc328e23c8276c5",
+        "disposition": "Custodian-verified archive retained; this receiving verifies published provider identity and selected input manifests, not a second archive scan."
+      }
+    ],
+    "terminal_exits_and_before_after_manifests_verified": true,
+    "runtime_delta_to_01c6266f6": "None in provider Python/addon/Rust source; only documentation, plan and test changes."
+  },
+  "validation": {
+    "new_default_cases": 18,
+    "retained_prior_writer_artifacts": 2,
+    "previous_default_cases": 18,
+    "boundary_cases": 151,
+    "documentation_cases": 409,
+    "failed": 0,
+    "skipped": 0,
+    "scope_notice": "Separate directed scopes; do not interpret these counts as full-suite, installed or notebook qualification."
+  },
+  "retained_artifacts": [
+    {
+      "input": "existing-05.msv",
+      "input_sha256": "418135b91881a1ead68f20444d79af5f982a72a0e2f8279281c196efc0fb1166",
+      "output_sha256": "f30f6d8ebfd7908c65b46a69f89565cd889489b2eff03bb3b7b8a5441246564a",
+      "output_schema": "1.0",
+      "scene_science_queries_preserved": true,
+      "input_bytes_unchanged": true
+    },
+    {
+      "input": "legacy-migrated-10.msv",
+      "input_sha256": "8f147fa3d359c6a04b14a5d29697449cc5caa24952dd8e784309828898c679e3",
+      "output_sha256": "b29ff3031feddaafc6bebc8d00f235ac3be5aa39099dc44289c193dad48122ba",
+      "output_schema": "1.0",
+      "scene_science_queries_preserved": true,
+      "input_bytes_unchanged": true
+    }
+  ],
+  "resources": {
+    "logical_cpus": 1,
+    "ram_gib": 1,
+    "own_swap_gib": 0,
+    "minimum_globally_available_gib": 6.5,
+    "sequential": true,
+    "supervised_own_processes_only": true,
+    "reason": "Respect announced concurrent MolSysMT work (3 CPU/6 GiB) and its 6.5 GiB shared reserve; free memory is not a reservation.",
+    "peak_owned_rss_mib": 533.2
+  },
+  "contracts": [
+    "Default save delegates to provider 1.0; no client schema override.",
+    "Mechanics requests, charge values and 12 angstrom cutoff survive default save/reopen.",
+    "Named sparse analyses retain compound participants, parallel evidence, occurrence indices, coverage, maps and periodic images.",
+    "Scene and molecular payload are preserved through explicit 0.5/1.0 and retained prior-writer sessions.",
+    "Managed coordinate edits retain selective invalidation; explicit host synchronization remains required."
+  ],
+  "retained_failed_attempt": [
+    {
+      "profile": "probe-425-h5msm-default",
+      "outcome": "New fixture attempted to overwrite a freshly created header probe; the public writer correctly raised FileExistsError. Use distinct fresh default-header and explicit-0.5 paths, then rerun the full file. No product error inferred."
+    }
+  ],
+  "limits": [
+    "Client-generated headless source evidence reviewed, not independently rerun in this receiving.",
+    "No detector-accuracy, browser, actual Jupyter, Qt, installed-package, platform-matrix or publication qualification.",
+    "Stable-format decision and exact installed final pair remain pending.",
+    "#615 original timeout remains active with unknown cause."
+  ],
+  "progress": "No original milestone credited by this bounded receipt alone; original score 77.73809523809524 and weights unchanged."
+}

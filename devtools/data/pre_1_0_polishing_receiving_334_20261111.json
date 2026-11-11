@@ -1,0 +1,754 @@
+{
+  "schema": "molsysmt.pre_1_0_polishing_receiving@1",
+  "date": "2026-11-11",
+  "owner_issue": "uibcdf/molsysmt#334",
+  "related_issues": [
+    "uibcdf/molsysmt#256",
+    "uibcdf/molsysmt#378",
+    "uibcdf/molsysmt#709",
+    "uibcdf/molsysmt#710"
+  ],
+  "scope": "Local source polishing, integration fixes and bounded instructional review; not an installed package, final candidate, platform matrix, whole-library scientific audit or publication authorization.",
+  "committed_sources": {
+    "initial": "aee7aa65da56e896d1cb2d655bf73736f6453a43",
+    "schema_and_rst": "01c6266f688103ad387f5d4b864ad8da4e2e90b7",
+    "polished_docs": "8ada7fe24bb80d9e2d492f42ffb15870057ff27a"
+  },
+  "runtime": {
+    "python": "3.14.7",
+    "platform": "Linux shared development host; 20 logical CPUs, approximately 30.7 GiB physical RAM; no applicable Slurm allocation",
+    "molsysviewer_source": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "pyunitwizard": "0.29.2 published artifact overlay",
+    "pyunitwizard_conda_sha256": "bb28b9420760b557025163e11c934e096c7b98200cac720100a2db924e9ee617",
+    "smonitor": {
+      "version": "0.21.0",
+      "source": "066b69cad8896cdc126d5586fd53268af4ea6490"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "source": "13cc73780a7cb645546ae3f396177f98b86a8792"
+    },
+    "argdigest": {
+      "version": "0.15.0",
+      "source": "57447cc4ec1f7ce85078f8a939892efd075bc919"
+    },
+    "pytest_receptor": "1.2.1 published overlay",
+    "support_overlay": "Pure-Python overlays built offline from reviewed CI source pins. This work makes no shared-environment edits; frozen overlays preserve the declared providers despite concurrent sibling development. The native binary is unchanged.",
+    "thread_caps": {
+      "BLAS": 1,
+      "OpenMP": 1,
+      "Rayon": 1,
+      "OpenMM_CPU": 1,
+      "NumExpr": 1
+    }
+  },
+  "initial_schema_controls": {
+    "earlier_draft": {
+      "executed": 98,
+      "failed": 6,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 92
+    },
+    "final": {
+      "executed": 98,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 98
+    },
+    "new_cases": 18,
+    "criteria": "Explicit 0.5 refuses nonempty mechanics; default/explicit 1.0 and explicit 0.6 preserve actual assignments, units and producer reports under two quantity policies. Draft failures were wrong private validator imports, retained separately."
+  },
+  "full_attempts": {
+    "original_interrupted": {
+      "source_commit": "aee7aa65da56e896d1cb2d655bf73736f6453a43",
+      "exit": 2,
+      "seconds": 702.9275082668755,
+      "checked_inputs": 8869,
+      "changed_inputs": [],
+      "viewer_checked_inputs": 2581,
+      "viewer_changed_inputs": [],
+      "limits": {
+        "cpu.max": "300000 100000",
+        "memory.max": "6442450944",
+        "memory.high": "5905580032",
+        "memory.swap.max": "0",
+        "memory.oom.group": "0",
+        "pids.max": "512"
+      },
+      "cgroup_memory_peak_bytes": 4258893824,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_observed_host_available_bytes": 11270868992,
+      "maximum_full_pressure_avg10": 0.24,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "resource_driver_sha256": "dd8cc90d841f50cf244f81b10582f6708cd6d73de2e1e7434e29dc2dbf62cfb9",
+      "cases": {
+        "executed": 12703,
+        "failed": 3,
+        "errors": 0,
+        "skipped": 14,
+        "passed": 12686
+      },
+      "verdict": "INTERRUPTED/FAIL, native exit 2; three stale-default failures observed. Incomplete session, not full acceptance."
+    },
+    "completed_corrected_schema": {
+      "source_commit": "01c6266f688103ad387f5d4b864ad8da4e2e90b7",
+      "exit": 1,
+      "seconds": 2440.9396809199825,
+      "checked_inputs": 8869,
+      "changed_inputs": [],
+      "viewer_checked_inputs": 2581,
+      "viewer_changed_inputs": [],
+      "limits": {
+        "cpu.max": "300000 100000",
+        "memory.max": "6442450944",
+        "memory.high": "5905580032",
+        "memory.swap.max": "0",
+        "memory.oom.group": "0",
+        "pids.max": "512"
+      },
+      "cgroup_memory_peak_bytes": 5905842176,
+      "memory_events": "low 0\nhigh 235\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_observed_host_available_bytes": 9615810560,
+      "maximum_full_pressure_avg10": 0.36,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "resource_driver_sha256": "368b2804549eadddc2a28563b7d95d8512208e828f9da7078b1971b301277c1c",
+      "cases": {
+        "executed": 33813,
+        "failed": 49,
+        "errors": 0,
+        "skipped": 16,
+        "passed": 33748
+      },
+      "verdict": "FAIL, native exit 1; all 33813 selected cases executed.",
+      "receptor": {
+        "complete": true,
+        "final": {
+          "artifact_policy": {
+            "dropped_records": 14885,
+            "max_bytes": 52428800,
+            "truncated": true
+          },
+          "complete": true,
+          "counts": {
+            "collected": 33813,
+            "deselected": 0,
+            "errors": 0,
+            "executed": 33813,
+            "failed": 49,
+            "not_executed": 0,
+            "passed": 33748,
+            "reruns": 0,
+            "skipped": 16,
+            "subtests": {},
+            "warnings": 6732,
+            "xfailed": 0,
+            "xpassed": 0
+          },
+          "duration": 2432.0955238619354,
+          "exitstatus": 1,
+          "extensions": {
+            "dropped": 2616,
+            "incomplete": true,
+            "recorded": 7227
+          },
+          "integrity": {
+            "algorithm": "sha256",
+            "digest": "986b669ccdad8e9a6761e256c1bf90e175f8e5830642d163ab07d0c0420f7d7b",
+            "records": 101466
+          },
+          "invalid_selections": [],
+          "note": "",
+          "outcome": "FAIL",
+          "root_causes": 14,
+          "run_id": "b417dc46e18541ca89cf3f71abe76309",
+          "schema": "pytest-receptor.events@1",
+          "stop_reason": "",
+          "type": "session_finish"
+        }
+      },
+      "failure_attribution": {
+        "709_old_root_check": 25,
+        "710_native_mirror_signature_drift": 6,
+        "stale_default_version_assertions": 14,
+        "historical_05_fixture_requires_explicit_version": 1,
+        "unsupported_custom_extension_fixture": 1,
+        "neighbor_output_budget_fixture": 1,
+        "modern_identity_refusal_wording": 1
+      },
+      "skips": {
+        "optional_ownership_study_requires_argdigest_0_17": 14,
+        "negative_form_example_is_valid_rdkit_smiles": 1,
+        "cupy_not_installed": 1
+      },
+      "remaining": "A fresh complete corrected-source suite is required. Focused receiving does not replace or relabel this failed session."
+    }
+  },
+  "integrated_receiving": {
+    "first": {
+      "source_commit": "8ada7fe24bb80d9e2d492f42ffb15870057ff27a",
+      "exit": 1,
+      "seconds": 107.77343390393071,
+      "checked_inputs": 8869,
+      "changed_inputs": [],
+      "viewer_checked_inputs": 2581,
+      "viewer_changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2684354560",
+        "memory.swap.max": "0",
+        "memory.oom.group": "0",
+        "pids.max": "256"
+      },
+      "cgroup_memory_peak_bytes": 1330708480,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_observed_host_available_bytes": 13667741696,
+      "maximum_full_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "resource_driver_sha256": "0a25e9e8a746e9947db31deda7c3993f7ef1e73dbbc6b204c7f54b1f52c078a3",
+      "cases": {
+        "executed": 449,
+        "failed": 8,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 441
+      },
+      "verdict": "FAIL; remaining fixture/default expectations preserved."
+    },
+    "corrected": {
+      "source_commit": "8ada7fe24bb80d9e2d492f42ffb15870057ff27a",
+      "exit": 0,
+      "seconds": 84.65144524187781,
+      "checked_inputs": 8869,
+      "changed_inputs": [],
+      "viewer_checked_inputs": 2581,
+      "viewer_changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2831155200",
+        "memory.swap.max": "0",
+        "memory.oom.group": "0",
+        "pids.max": "128"
+      },
+      "cgroup_memory_peak_bytes": 698531840,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_observed_host_available_bytes": 14450393088,
+      "maximum_full_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "resource_driver_sha256": "e72614070ac1fc9e627692c22ee0c25dc1eeca337a3abe09c6941f8422ad4f3a",
+      "cases": {
+        "executed": 449,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 449
+      },
+      "verdict": "PASS; all original 49 failed selectors covered by the relevant modules/updated fixtures.",
+      "input_scope": "Dirty worktree based on 8ada7fe24. All 8869 tracked inputs/native bytes and 2581 frozen host files unchanged before/after; only preexisting report/evidence additions are untracked. Current source delta is recorded below.",
+      "warnings": {
+        "legacy_h5msm": 45,
+        "pandas_future": 14,
+        "structural_attribute_drop": 13,
+        "deliberately_tiny_numeric_budget_pressure": 3
+      },
+      "contracts": [
+        "central explicit supported-root validation and file close on rejection",
+        "no unrelated coordinate/mechanics reads for selective named queries",
+        "native signatures and original report dictionaries/maps",
+        "default 1.0/explicit 0.6 mechanics preservation and explicit 0.5 refusal",
+        "strict independent-axis association and unsupported-extension rejection",
+        "actual disk intermediate cleanup with an independently computed distance oracle",
+        "no implicit source/scene adoption; original units and ownership",
+        "all three required addon inventory/preflight modules"
+      ]
+    }
+  },
+  "documentation": {
+    "rst_correction": {
+      "source_commit": "01c6266f688103ad387f5d4b864ad8da4e2e90b7",
+      "exit": 0,
+      "seconds": 172.95481385104358,
+      "checked_inputs": 8869,
+      "changed_inputs": [],
+      "viewer_checked_inputs": 2581,
+      "viewer_changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2684354560",
+        "memory.swap.max": "0",
+        "memory.oom.group": "0",
+        "pids.max": "512"
+      },
+      "cgroup_memory_peak_bytes": 1272152064,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_observed_host_available_bytes": 14015078400,
+      "maximum_full_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "resource_driver_sha256": "368b2804549eadddc2a28563b7d95d8512208e828f9da7078b1971b301277c1c",
+      "html_warnings": 0,
+      "complete_html": true,
+      "preexisting_edits": "Four maintainer-approved RST deltas included byte-for-byte; four further heading fixes. Original failed HTML retained."
+    },
+    "native_course": {
+      "source_commit": "01c6266f688103ad387f5d4b864ad8da4e2e90b7",
+      "exit": 0,
+      "seconds": 18.143269277876243,
+      "checked_inputs": 8869,
+      "changed_inputs": [],
+      "viewer_checked_inputs": 2581,
+      "viewer_changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1073741824",
+        "memory.high": "939524096",
+        "memory.swap.max": "0",
+        "memory.oom.group": "0",
+        "pids.max": "256"
+      },
+      "cgroup_memory_peak_bytes": 339234816,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_observed_host_available_bytes": 10855436288,
+      "maximum_full_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "resource_driver_sha256": "c9f47a45cff92b5c810928feb445dd718a940484579265a0b465a6be38fe6d78",
+      "code_cells": 14,
+      "stored_errors": 0,
+      "new_example": "Small default-1.0 charge and coordinate round trip. Later addon prose-only delta does not alter executed code."
+    },
+    "semantic_polish": {
+      "source_commit": "8ada7fe24bb80d9e2d492f42ffb15870057ff27a",
+      "exit": 0,
+      "seconds": 160.15327273099683,
+      "checked_inputs": 8869,
+      "changed_inputs": [],
+      "viewer_checked_inputs": 2581,
+      "viewer_changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1879048192",
+        "memory.swap.max": "0",
+        "memory.oom.group": "0",
+        "pids.max": "256"
+      },
+      "cgroup_memory_peak_bytes": 1879699456,
+      "memory_events": "low 0\nhigh 42\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_observed_host_available_bytes": 14503845888,
+      "maximum_full_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "resource_driver_sha256": "af090dc14d7f1702761b53d760a9078f4d726b7be29c54ab198a479161bb5d77",
+      "html_warnings": 0,
+      "complete_html": true,
+      "notebook_execution": "off; preexecuted outputs retained",
+      "autosummary_generate": false
+    },
+    "actual_html_review": {
+      "source": "8ada7fe24bb80d9e2d492f42ffb15870057ff27a",
+      "scope": "Eight actual generated article DOMs, Core04 native reference targets and stored round-trip output; not a whole-site link/semantic or visual-layout certification.",
+      "pages": [
+        {
+          "page": "content/user/foundations/entrance/index.html",
+          "h1": "The Entrance #",
+          "unresolved_python_references": [],
+          "system_messages": 0
+        },
+        {
+          "page": "content/user/foundations/entrance/what_is_molsysmt.html",
+          "h1": "What is MolSysMT? #",
+          "unresolved_python_references": [],
+          "system_messages": 0
+        },
+        {
+          "page": "content/user/foundations/entrance/installation.html",
+          "h1": "Installation #",
+          "unresolved_python_references": [],
+          "system_messages": 0
+        },
+        {
+          "page": "content/user/foundations/entrance/navigating_documentation.html",
+          "h1": "Navigating the Documentation #",
+          "unresolved_python_references": [],
+          "system_messages": 0
+        },
+        {
+          "page": "content/user/foundations/entrance/toolbox_overview.html",
+          "h1": "Overview of Tools #",
+          "unresolved_python_references": [],
+          "system_messages": 0
+        },
+        {
+          "page": "content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.html",
+          "h1": "MolecularMechanics #",
+          "unresolved_python_references": [],
+          "system_messages": 0
+        },
+        {
+          "page": "content/course/Common_Core/01_The_Form_Agnostic_Philosophy.html",
+          "h1": "Module 1: The Form-Agnostic Philosophy #",
+          "unresolved_python_references": [],
+          "system_messages": 0
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "h1": "Module 4: Native Forms #",
+          "unresolved_python_references": [],
+          "system_messages": 0
+        }
+      ],
+      "core04_seealso_verified_targets": [
+        "../../user/foundations/native_world/classes/molsysmt_MolSys.html#user-foundations-native-world-classes-molsysmt-molsys",
+        "../../user/foundations/native_world/classes/molsysmt_Topology.html#user-foundations-native-world-classes-molsysmt-topology",
+        "../../user/foundations/native_world/classes/molsysmt_ChemicalStates.html#user-foundations-native-world-classes-molsysmt-chemicalstates",
+        "../../../api/basic/api_native_queries.html#molsysmt.native.ChemicalStates.add_bonds",
+        "../../../api/basic/api_native_queries.html#molsysmt.native.ChemicalStates.remove_bonds",
+        "../../../api/basic/api_native_queries.html#molsysmt.native.ChemicalStates.rebuild_components",
+        "../../../api/basic/api_native_queries.html#molsysmt.native.ChemicalStates.get",
+        "../../../api/basic/api_native_queries.html#molsysmt.native.ChemicalStatesDict.get",
+        "../../../api/basic/api_native_queries.html#molsysmt.native.ChemicalStatesDict.info",
+        "../../../api/basic/api_native_queries.html#molsysmt.native.Topology.set_atom_molecules",
+        "../../user/foundations/native_world/classes/molsysmt_Structures.html#user-foundations-native-world-classes-molsysmt-structures",
+        "../../user/foundations/native_world/classes/molsysmt_MolecularMechanics.html#user-foundations-native-world-classes-molsysmt-molecularmechanics",
+        "../../user/foundations/native_world/classes/molsysmt_TopologyDict.html#user-foundations-native-world-classes-molsysmt-topologydict",
+        "../../user/foundations/native_world/classes/molsysmt_StructuresDict.html#user-foundations-native-world-classes-molsysmt-structuresdict",
+        "../../user/foundations/native_world/classes/molsysmt_MolSysDict.html#user-foundations-native-world-classes-molsysmt-molsysdict",
+        "03_Molecular_Elements.html",
+        "05_Combined_Forms.html",
+        "../../user/foundations/index.html#user-foundations-index"
+      ],
+      "h5msm_example_output_present": true,
+      "historical_intro_section_anchor_preserved": true
+    },
+    "later_addon_docs": "Full clean-source HTML on 3546267d0 passes with zero warnings. Inspection finds four older unresolved public API references despite that build result; e714c2f0d registers their maintained API pages. The separate targeted build passes with zero warnings, and two actual articles plus all four new destination anchors are checked.",
+    "post_addon_complete_html": {
+      "source_commit": "3546267d0640550d4bfadff3f913fcf8cdea7a7a",
+      "exit": 0,
+      "seconds": 153.63622988201678,
+      "checked_inputs": 8871,
+      "changed_inputs": [],
+      "viewer_checked_inputs": 2581,
+      "viewer_changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1879048192",
+        "memory.swap.max": "0",
+        "memory.oom.group": "0",
+        "pids.max": "256"
+      },
+      "cgroup_memory_peak_bytes": 1348132864,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_observed_host_available_bytes": 14115127296,
+      "maximum_full_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "resource_driver_sha256": "59b32f1a0e5a2b127a6749f8d142685d790adae0601246f6beab3bc99ed5acac",
+      "html_warnings": 0,
+      "complete_html": true,
+      "notebook_execution": "off",
+      "autosummary_generate": false
+    },
+    "api_link_targeted_html": {
+      "source_commit": "e714c2f0d6366b8f64fe3404145eed3653530f25",
+      "exit": 0,
+      "seconds": 38.61513400496915,
+      "checked_inputs": 8875,
+      "changed_inputs": [],
+      "viewer_checked_inputs": 2581,
+      "viewer_changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1879048192",
+        "memory.swap.max": "0",
+        "memory.oom.group": "0",
+        "pids.max": "256"
+      },
+      "cgroup_memory_peak_bytes": 970805248,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_observed_host_available_bytes": 14548160512,
+      "maximum_full_pressure_avg10": 0.01,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "resource_driver_sha256": "1c7cd6ec2e37c0a1c921b347e1c97b41abb5af8240fbf69dc76108931db03850",
+      "html_warnings": 0,
+      "complete_html": false,
+      "notebook_execution": "off",
+      "autosummary_generate": false
+    },
+    "post_addon_initial_inspection": {
+      "source": "3546267d0640550d4bfadff3f913fcf8cdea7a7a",
+      "full_html_exit": 0,
+      "sphinx_warnings": 0,
+      "article_content_checks": "Updated writer defaults and reports are present; Core04 text is correct.",
+      "unresolved_existing_references": [
+        "molsysmt.element.atom.get_atom_type_from_atom_ff_type",
+        "molsysmt.element.group.terminal_capping.is_n_terminal_capping",
+        "molsysmt.element.group.terminal_capping.is_c_terminal_capping",
+        "molsysmt.build.infer_covalent_bonds"
+      ],
+      "cause": "Public functions exist but are absent from the maintained autosummary/API page inventory; non-nitpicky Sphinx does not warn.",
+      "inspection_verdict": "FAIL for resolved-link requirement, despite zero-warning compilation.",
+      "setup_note": "The first inspection assertion failed; subsequent housekeeping was independent and did not establish successful inspection. Two original generated pages are retained.",
+      "retained_page_sha256": {
+        "content/user/tools/molsysviewer_tools.html": "a885c299b775072e78a66bb767ae385700999098164c245b4476d15d5b7032f3",
+        "content/course/Common_Core/04_Native_Forms.html": "92a3d83d20ac22eafbc4904382fa76f371af35350064fe9d8ebc1693698c9d2c"
+      }
+    },
+    "post_addon_final_inspection": {
+      "source": "e714c2f0d6366b8f64fe3404145eed3653530f25",
+      "pages": [
+        {
+          "page": "content/user/tools/molsysviewer_tools.html",
+          "sha256": "ce471768e2578f4f38ac744fc4dbf0427cb8c2f9c7faa2f4ccbd0ccaefe09141",
+          "unresolved_python_references": [],
+          "system_messages": 0
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "sha256": "3928663af57272cf2b155cb39fd8df03dd1841e0cddf3b05a18929f1d9bc246e",
+          "unresolved_python_references": [],
+          "system_messages": 0
+        }
+      ],
+      "resolved_existing_api_targets": [
+        {
+          "symbol": "molsysmt.element.atom.get_atom_type_from_atom_ff_type",
+          "href": "../../../api/element/atom/autosummary/molsysmt.element.atom.get_atom_type_from_atom_ff_type.html#molsysmt.element.atom.get_atom_type_from_atom_ff_type",
+          "target": "api/element/atom/autosummary/molsysmt.element.atom.get_atom_type_from_atom_ff_type.html",
+          "anchor_exists": true
+        },
+        {
+          "symbol": "molsysmt.element.group.terminal_capping.is_n_terminal_capping",
+          "href": "../../../api/element/group/terminal_capping/autosummary/molsysmt.element.group.terminal_capping.is_n_terminal_capping.html#molsysmt.element.group.terminal_capping.is_n_terminal_capping",
+          "target": "api/element/group/terminal_capping/autosummary/molsysmt.element.group.terminal_capping.is_n_terminal_capping.html",
+          "anchor_exists": true
+        },
+        {
+          "symbol": "molsysmt.element.group.terminal_capping.is_c_terminal_capping",
+          "href": "../../../api/element/group/terminal_capping/autosummary/molsysmt.element.group.terminal_capping.is_c_terminal_capping.html#molsysmt.element.group.terminal_capping.is_c_terminal_capping",
+          "target": "api/element/group/terminal_capping/autosummary/molsysmt.element.group.terminal_capping.is_c_terminal_capping.html",
+          "anchor_exists": true
+        },
+        {
+          "symbol": "molsysmt.build.infer_covalent_bonds",
+          "href": "../../../api/build/autosummary/molsysmt.build.infer_covalent_bonds.html#molsysmt.build.infer_covalent_bonds",
+          "target": "api/build/autosummary/molsysmt.build.infer_covalent_bonds.html",
+          "anchor_exists": true
+        }
+      ],
+      "actual_article_checks": [
+        "both native/default writer 1.0 signatures and explicit 0.5 refusal",
+        "heavy-repair report and atom maps",
+        "terminal report and strict-policy/external-provider limits",
+        "Core04 native writer default",
+        "obsolete absent-report/default claims removed"
+      ],
+      "scope": "Two actual generated articles and four new API destinations/anchors; not a visual-layout or whole-library semantic certification."
+    }
+  },
+  "retained_setup_and_admission_attempts": [
+    "Notebook admission deferred until aggregate shared-host headroom was sufficient.",
+    "Initial polished-docs asynchronous checkout/copy race was a setup failure, not a product result; corrected sequential setup retained.",
+    "Docs admission deferred before execution while full-scope reserved headroom was insufficient.",
+    "Focused v2 systemd launch rejected unsupported MemoryOOMGroup property before tests started; corrected scope keeps CPU/RAM/no-own-swap limits and records actual controls."
+  ],
+  "board_checkpoint": {
+    "complete_paginated": true,
+    "pages": 8,
+    "issues": 630,
+    "open_issues_before_closeout": 91,
+    "open_prs": 0,
+    "new_issues": [
+      "uibcdf/molsysmt#709",
+      "uibcdf/molsysmt#710"
+    ],
+    "scope": "Independent dated complete intake; state may change after closeout."
+  },
+  "private_retained_artifacts": {
+    "all-schema-controls.xml": "bf28c3e091c4755fa358588a8455f82ba5256ecda1e46ee01d076b4073dcd743",
+    "all-schema-controls-final.xml": "8c70bca3e5a816a74f47c3e472f63a2d97a8450a8ecd121aeda91b68d6a26236",
+    "docs-execution.json": "f7ced520631ed86ec4daeedd02c3005ef2582190e0c3e97fc909275d0edb247b",
+    "docs-corrected-01c6266f6-execution.json": "a405a39717bb630e1de71b4ec1cd5e85139c1304120c82ec6588c75633bf27e8",
+    "full-execution.json": "116ef252edfeb5558243ec0f0809bee3a6d347f45a08a8a04acfd304bd6ea3ab",
+    "full.xml": "e56e105f852943cadab333aace72cb2a9c7ca53e753001e76c7fcfad5baea176",
+    "full-corrected-01c6266f6-execution.json": "daa90aaa440250b1018e84fda5838c9acf3587edde66c7b102d38d05d7115ada",
+    "full-corrected-01c6266f6.xml": "d13343c4cbf94c1cb61438d4d219cf8ece5aabe613b6185d93aab56f88b83ecb",
+    "full-corrected-01c6266f6-artifact-status.json": "9c6d8d0014f704b7ceee134658a30a93320c3f93f31b53444829a277635579e4",
+    "full-corrected-01c6266f6-receptor-report.txt": "d49dbcf325db649b201dc823772e4e808fa516b35fdb5dec965dc5a4f8102c3a",
+    "native-course-04-execution.json": "d58fe26a20edaeb01756f6f480595f8e1c22770747a83b943471d6be9038c4ca",
+    "polished-docs-8ada7fe24-execution.json": "16e5513f083abb2aa0845a495928166004c252e25a80718107f6d66979ee56b7",
+    "polished-html-inspection.json": "bb68f48818b129055b61e6d5dd57ceeae06a49f815011523b013ae991668ed2e",
+    "integrated-709-710-v1-execution.json": "ec7c4d6ba422354babda655b96b3ee1085d91064b8a800ce6958d24fb7600d94",
+    "integrated-709-710-v1.xml": "6fbdab211fb004ab0e76079cf526ca42e0e7a87aa6b321a8681127b36bf80c20",
+    "integrated-709-710-v2-execution.json": "a370d18e19141f2ef9ebdcca40c92533495141d53c633ce2695676aa774f52cd",
+    "integrated-709-710-v2.xml": "c16dc572d4aaf31a81bcf091ebd9fea5601b2bd2d92be97f24c37705abf4779b",
+    "integrated-v2-initial-setup.json": "1e18618d90a0241a7c5c139109756ed47239938dc423aa9485b1c0947ff2a8fb",
+    "native-course-04-initial-admission.json": "09b89a0ee84da24d47f5c334f254916a06bb4b8a375db7d9685d9c02ad99dd2b",
+    "polished-docs-initial-admission.json": "7e1251df58c1920684aef9040537b326ce8435ebad231f5da3787aa713050a54",
+    "polished-docs-initial-setup.json": "6bb8a382c34152d6451c3d5b57a3921b767e23a8d39f929d07c1d99080f88307",
+    "board-checkpoint-20261111.json": "e30d5aa9028a97a72957b1eb2a416432c41a3ba203a003c0ac7fa35892b1fbaa",
+    "polish-closeout-v1-execution.json": "8d53c6c6509fdd0abee71f2afcc3aceca34d67cd6d4447112d21dbfee1a1592b",
+    "polish-closeout-v1.xml": "c6a7d3b0981efd8933f4eca846b59d436c5d201c83728683b4cab128657eb803",
+    "polish-closeout-v1.log": "06aefd80c7c5b4e28d8f4cb787d318f147e072022b33cab27789d059f28ec58d",
+    "polish-closeout-v1-results.json": "58bc6f46cd572767b385343c12b2508db62df0ee9997e3ee29aadc95f703ba24",
+    "polished-docs-3546267d0-execution.json": "126a4b8b4ffa3c81d44ec5b6fdee08bf411e4e76531a87f2d4fa00a0c7e1e56d",
+    "sphinx-result-polished-3546267d0.json": "8e954ad2d00f8817647c714606f6c7f5c0e6b6307094d2525be4f085969aa3a1",
+    "polished-corrections-html-initial-inspection.json": "d83b73c22cdae198e19c19708f59b0675b19115f9c779bfba63c2d543ce1559f",
+    "polished-api-link-corrections-execution.json": "5fd85c3b9584e032cfb706a2b124e32453b9591dab661aba8e5043d11d399735",
+    "sphinx-result-api-link-corrections.json": "903c32e128589612c4d30cf3568720721e62ebda0607d8c1ae35f585e0f0ab16",
+    "polished-corrections-html-inspection.json": "56da65f5d818fab99156b9c9bb43b8f2ad3bed111306fa875734ff11661f3188"
+  },
+  "checks_after_corrections": {
+    "source_commit": "8ada7fe24bb80d9e2d492f42ffb15870057ff27a",
+    "exit": 0,
+    "seconds": 65.93105264892802,
+    "checked_inputs": 8869,
+    "changed_inputs": [],
+    "viewer_checked_inputs": 2581,
+    "viewer_changed_inputs": [],
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "2147483648",
+      "memory.high": "1879048192",
+      "memory.swap.max": "0",
+      "memory.oom.group": "0",
+      "pids.max": "128"
+    },
+    "cgroup_memory_peak_bytes": 483442688,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_observed_host_available_bytes": 13015343104,
+    "maximum_full_pressure_avg10": 0.0,
+    "host_reserve_bytes": 6979321856,
+    "stop_reason": null,
+    "resource_driver_sha256": "b7647d959bcfdf4e0bac6f3a082658dd453eb0c58438c898c09f529b981e25f0",
+    "state": "PASS for bounded local checks, not the full suite",
+    "additional_tests": {
+      "passed": 106,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "Updated exact signatures, native help/doctests, provider file mechanics behavior and documentation structure/toolchain/source boundaries; overlaps the 449-case cohort."
+    },
+    "fast_gates": {
+      "passed": 15,
+      "total": 15,
+      "executed_science": false,
+      "full_pytest": false,
+      "installed_or_hosted": false
+    },
+    "lint": "ruff check . passes; ruff format --check . passes for 4679 files",
+    "indexes": "devguide index is current",
+    "course_prose_delta": "All fourteen executed Core04 code cells, outputs and execution metadata identical to 8ada7fe24 after the final addon prose edit."
+  },
+  "accounting": {
+    "original_score_percent": 77.73809523809524,
+    "graphical_intents_source_received": 50,
+    "graphical_intents_total": 50,
+    "weights_changed": false,
+    "supplemental_bonus": false
+  },
+  "publication": "Final 1.0.0/1.0.0 pair only. New construction, hosted qualification, tags, promotions and publication remain paused; source development/push is separate.",
+  "later_correction_delta": {
+    "devtools/scripts/create_molsysviewer_interactions_fixture.py": {
+      "base_sha256": "d9cf918aa58ab1a617d6895a4db96767f852194a137c1b3e63baa68809454378",
+      "current_sha256": "d4600ef2b3b51a2b84de402e6a19a502fce75c7dc11c6f49584d1d313b6f6f44"
+    },
+    "docs/content/course/Common_Core/04_Native_Forms.ipynb": {
+      "base_sha256": "4b42f72c896e717749bb817a1b5ba66ab8ee1c0259c262065f62e23d3e282af5",
+      "current_sha256": "691e1cbeb13676a6376702e3263429ae0339b1042fbcb4b48402d31b4f972ec7"
+    },
+    "docs/content/user/tools/molsysviewer_tools.md": {
+      "base_sha256": "66bd847a94ce4d24e16911052aeee1af7b820ac46956cd41f9e5af570d1b8118",
+      "current_sha256": "7f6d79ed995d764a97d825c37f0e4ec123b5ad00754614dd5406f53f9588eeed"
+    },
+    "docs/content/user/tools/molsysviewer_tools.md.AGENTS.md": {
+      "base_sha256": "7e5303118acc84f2fd756f3fac65fe55007772288b669ba4052ec046f0944e05",
+      "current_sha256": "573c6073c0b6ea37a5909078e1705f58e56bba189bc02cb142316337f00b7e1f"
+    },
+    "docs/docs_manifest.yml": {
+      "base_sha256": "ea5302902c0326a4e61dd9f2f0c6ef0442bc7590bee7546ea581e822db44e6d3",
+      "current_sha256": "723ad4268251f67632854f38fdb929c1cbbe3903cb1cfc89476f081409d1486d"
+    },
+    "molsysmt/interactions/_hdf5_query.py": {
+      "base_sha256": "2ee11bbdf2518f4b99f0ea9551f9db33124a3b1780f8ed7f1d0a26c193e43496",
+      "current_sha256": "e5333ce51b508cd114aad6035d3bdf758b8ba284137a63b5920032125da4124c"
+    },
+    "molsysviewer_molsysmt/_build.py": {
+      "base_sha256": "18fb88d03d46c17eede9657c33f61951c35d1d5b3f1ae61c76f2e1621261b501",
+      "current_sha256": "5035a70d8a34576dd3fedfbaa659ddb6ef54d515316a3fdb1f722484ff3ecc22"
+    },
+    "molsysviewer_molsysmt/_files.py": {
+      "base_sha256": "79ee350c0f104216855eae1bcee7e4a598dc95d2f56c44f5946ca6f2fda99242",
+      "current_sha256": "86383e527f9cbbd5babf2fb305ddf0bfce5aecf65308b7406a071b63e6221105"
+    },
+    "tests/conversion_truth/test_declared_h5msm_edges.py": {
+      "base_sha256": "a2367b1f121ddc42ca822c21063faf57aff93a4a77dbb9942e0538d18a6836dd",
+      "current_sha256": "2422a22c8e9aeb1581037ac37a3f818f7af3831a8dd215f38486e2e652a33615"
+    },
+    "tests/conversion_truth/test_declared_trajectory_edges.py": {
+      "base_sha256": "e45f7dfc38afee0066bafb2a1547c980ba0953a5c6f566fac0275c7c63ee9404",
+      "current_sha256": "8d9915d4637274fa893a55e9947de48f49fa64a65ebd54cf297f2c4d6c5fd518"
+    },
+    "tests/interactions/ionic/test_chunked_ionic.py": {
+      "base_sha256": "d16525e986a0b182560afcc71ea691bf8a1cf7091b0226ffe080351bc733e037",
+      "current_sha256": "2d03a7ca1fae116b07d06da5e2c394a1296108c767261e639a3af0f4f64d1f6b"
+    },
+    "tests/interactions/test_hdf5_query.py": {
+      "base_sha256": "63b2c4382baff9a976540e4ff958eddd69f6f2071fa73fd607271f2889427161",
+      "current_sha256": "10f44f5b7a8e32fd6808b1c4776feaa3909c6cb6856d7f8286c45d982a643336"
+    },
+    "tests/molsysviewer_molsysmt/test_build_expansion_tools.py": {
+      "base_sha256": "b0cfe7717ab6aab7fcf63abcac523030ca980fbd0eacc07e13f4e15cea3d36af",
+      "current_sha256": "3abd6bfa73b6b27cf421cf2163410fc3a42bf160b00cf348b0f1b5668d38e699"
+    },
+    "tests/molsysviewer_molsysmt/test_build_preparation_tools.py": {
+      "base_sha256": "f486bc51560169ef8dfd9389511ae4dade12ec2a232be901ca5fe00910fb086e",
+      "current_sha256": "26d4339f8880d814ecabeaffa3c50dda9d7a399889b39636b1c51ed6d62100aa"
+    },
+    "tests/molsysviewer_molsysmt/test_map_and_file_tools.py": {
+      "base_sha256": "6acd3fc75edf0fe00536aefc4bbd2a8a23594c1ddb3e7e6a13d35b7ee6f0bf76",
+      "current_sha256": "e8699fe7cc32859fe09708c99b2b29361ce5c4372652ff714bb0e5c9f618c161"
+    },
+    "tests/molsysviewer_molsysmt/test_provider_admission_tools.py": {
+      "base_sha256": "2e15df6b17f44df8651e4aa7795d9d52e7deb9edb2c25ea2e7248ea7abc17c70",
+      "current_sha256": "f95b6993b856c1f9c84b5d7acd337c05f7bb2f501e8249d4a182dadbe23d1c71"
+    },
+    "tests/native/test_molsys_copy.py": {
+      "base_sha256": "b992d772440532c9d9842ca2bdb526dfef24b78487c9285fe7a0e17dbe8e1787",
+      "current_sha256": "d1b85d2f2b5a2686fe6eac5ebbfb8fc6b81dd8f6b550972e5f17af306f3bd3c9"
+    },
+    "tests/native/test_preparation_history.py": {
+      "base_sha256": "ec3de67ed543cd3bdd0d30adb435571a4e2827d4ae811fd380c56254e36b7c0f",
+      "current_sha256": "bbf60a53bcfaeee92a99ccc5eca79a2e830ec518599f935d2563ac2c086a899b"
+    },
+    "tests/structure/test_distance_family_contract.py": {
+      "base_sha256": "45bebe8efbb32cc5c42e23347dc71c50fecd5171630e384d8274193956610322",
+      "current_sha256": "ada314140993ecfec7f6da7cb2d703644f8c91393a3ffe9304c8943dcdc263c9"
+    }
+  },
+  "correction_commits": {
+    "selective_reader": "245c8730b",
+    "addon": "7d07ae00e",
+    "fixtures": "3546267d0",
+    "api_reference_destinations": "e714c2f0d"
+  },
+  "current_development_position": {
+    "runtime_and_fixture_source": "3546267d0640550d4bfadff3f913fcf8cdea7a7a",
+    "api_reference_source": "e714c2f0d6366b8f64fe3404145eed3653530f25",
+    "709_resolution_record": "devguide/archive/resolved_bugs/selective_interaction_queries_reject_supported_modular_h5msm_roots.md",
+    "710_resolution_record": "devguide/archive/resolved_bugs/molsysviewer_tool_mirrors_omit_current_native_options_and_defaults.md",
+    "next": "Fresh complete corrected-source suite and continued bounded semantic review; final format/installed/candidate gates remain distinct."
+  }
+}
