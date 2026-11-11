@@ -5,6 +5,17 @@ hot MolSysMT coordinate paths.
 
 Current baseline scripts:
 
+- `neighbor_kernel_profile.py`: compares the reviewed pre-690 native binary
+  with the current CSR kernel on eight bounded populations. It checks all-pair
+  geometry and periodic images before timing, alternates route order and
+  records raw block means, exact inputs/binaries, units and execution context.
+  Source-derived grid head/candidate models are separate from measured native
+  counters and do not establish causal timing attribution. No public pipeline,
+  RSS or universal speed claim follows. Supply a preserved baseline extension
+  matching the script's fixed reviewed SHA-256; it is not downloaded or built
+  automatically. Run `python -m benchmarks.neighbor_kernel_profile --help`
+  for arguments, use six explicit thread caps and an OS resource limit, and
+  choose a fresh output. The producer and measured source must be committed.
 - `contact_pair_projection.py`: compares current bounded Python pair-list
   packing with a reviewed immutable helper from Git. Eight deterministic
   Boolean-map cases cover dense/sparse, mapped, rectangular and noncontiguous
