@@ -1046,3 +1046,35 @@ text, and source hashes. The first comparison omitted the PDBQT writer's
 required explicit `typing_scheme="autodock4"`. The corrected comparison uses
 that option for both source and target. This is provider-side evidence for
 the explicit 1.0 route and remains separate from DockingMT execution.
+
+### Independent experimental 0.6 P5 acceptance — 2026-11-10
+
+DockingMT publishes both final seven-case profiles at `d83d86d4`. They pass
+with normal and pm/fs units and cover all three agreed client checks. Explicit
+atom permutation and structure order `[2, 0]` retain typed states, bonds,
+mechanics and coverage. Editing a restored structure invalidates only the
+affected analysis. Unknown charge and atom-type reports survive storage and
+refuse projection/export with source protection. Existing #79/#88/#96 and
+reference/E3 acceptance retain their original scope. [DockingMT #73](https://github.com/uibcdf/dockingmt/issues/73#issuecomment-6783446850)
+
+The source is isolated MolSysMT `5e7d65a6` with the consumer's previously
+qualified Linux ABI3 `5715bda2`. The native allowance is two unchanged
+connected-component calls per policy, each for one atom and zero bonds.
+All changed neighbor kernels and other native calls are blocked. The
+[provider-side receipt](../../devtools/data/docking_h5msm_p5_client_receiving_256_20261110.json)
+authenticates both manifests and 11 selected stored records. The final
+reports retain identical caller unit settings and register named fast tracks
+during startup. The original failed admissions and reader remain in custody.
+This closes the bounded independent P5 profile for experimental 0.6.
+
+The next DockingMT format check belongs to P6. Use MolSysMT `05865fbb3` as
+the reference for the explicit 1.0 source API, and record the actually
+imported provider source and compatible binary in a separate consumer
+composition. MolSysMT's reference Linux ABI3 is `4ffb82e4`; the P5 report
+does not receive it. The Rust inputs are unchanged between `5e7d65a6` and
+`05865fbb3`. A build on another host requires its own recorded provenance
+and digest. Migrate the original fixture inputs with explicit
+`format_version="1.0"`, verify the new root and old root provenance, then
+repeat the three applicable persistence/edit/admission checks under both
+policies. Exact release artifacts and stable-format/default acceptance remain
+pending under #256/#334.

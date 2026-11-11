@@ -31,10 +31,9 @@ and [release ledger](release_1_0_status.md) retain current evidence and history.
    repeat a passing workflow without a new question, warm imports, restart a
    live kernel or extend a deadline. A causal correction or an evidenced bounded
    environmental disposition remains required.
-3. **Receive the remaining #256 P5 profile.** DockingMT agrees to the three
-   bounded consumer controls. Admit the isolated provider source/native pair
-   below before running them. Keep provider and independent client evidence
-   distinct and retain existing #79/#88/#96 acceptance.
+3. **Retain #256's bounded P5 acceptance.** DockingMT's independent experimental
+   0.6 cases pass under both unit policies. Keep their limited native composition
+   distinct from MolSysMT's provider evidence and the next explicit 1.0 check.
 4. **Qualify the explicit P6 source route.** H5MSM 1.0 reading, writing and
    whole-file modular migration are implemented. The default remains 0.5 and
    0.6 remains experimental. Review independent consumer results and finalize
@@ -156,15 +155,14 @@ uibcdf/dockingmt#79, #88 and #96 are closed. The provider receipt is
 [retained here](../devtools/data/docking_h5msm06_client_receiving_256_20261109.json).
 No new docking, preparation, scientific search or reopening is requested.
 
-DockingMT [#73](https://github.com/uibcdf/dockingmt/issues/73#issuecomment-6782682019)
-accepts all three proposed controls for independent receiving: an explicit
-permutation and structures `[2, 0]`, a restored coordinate edit with selective
-invalidation, and unknown-report transport with projection/export refusal.
-The [composition and execution record](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#dockingmt-scope-accepted-for-independent-receiving--2026-11-10)
-identifies the exact source and Linux ABI3 binary by digest. Register the actual
-imports and native digest in an isolated consumer composition before executing
-the same immutable fixtures under normal and pm/fs policies. The existing
-installed cohort retains its original provider. The three cases have yet to run.
+DockingMT completes the three additional controls on experimental 0.6 with
+seven passing cases per unit policy. Its isolated `5e7d65a6` source uses the
+previously qualified `5715bda2` ABI3 only for one-atom topology bookkeeping.
+The [P5 acceptance and 1.0 handoff](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-experimental-06-p5-acceptance--2026-11-10)
+identifies the scope and reference inputs. When an isolated compatible provider
+composition is agreed, repeat the applicable tests with the explicit 1.0 source
+API and compare migrated files with their immutable 0.6 inputs. The installed
+cohort retains its original provider. [DockingMT #73](https://github.com/uibcdf/dockingmt/issues/73#issuecomment-6783446850)
 
 The local DockingMT clone was 181 commits behind its fetched upstream during
 this checkpoint and was not updated or used as current consumer evidence.
@@ -183,20 +181,19 @@ come from the already executed public branch; no new preparation is required.
 The **156-case** provider receiving passes on ee4f72796, including four added
 0.5/0.6 topology/interaction append-refusal cases that verify byte-exact file
 nonmutation and preserved independently readable layers. Product source is
-unchanged from 5e7d65a66. This is distinct from the completed default session
-on 5e7d65a66 and from future independent client receiving.
+unchanged from 5e7d65a66. The completed default session on 5e7d65a66 and the
+accepted independent DockingMT profiles have their own exact inputs and verdicts.
 
-These are reviewed and scoped-received provider assertions, not a new executed
-client campaign. The complete local session retains its own source/verdict. Reuse
-the received DockingMT full-reference/E3 records for their original scopes;
-additional client work needs the exact prescription and team agreement first.
+The table describes the provider controls and the agreed bounded client scope.
+The independent client result above resolves its three experimental 0.6 cases.
+Reuse the full-reference/E3 records for their original scopes.
 
 | Boundary | Existing assertion-bearing provider guard | Remaining review |
 | --- | --- | --- |
 | Partial domains and typed mechanics | `tests/form/file_h5msm/test_public_mechanics_v06.py::test_explicit_native_public_roundtrip_preserves_domains_and_original_reports`; `tests/form/file_h5msm/test_mechanics_layer.py::test_nullable_mechanical_columns_keep_values_dtypes_and_missing_policy` | Complete/absent domains, original reports and exact stored units/dtypes; client need not pretend it can use a topology-free system. |
 | Fresh public reader and producer/edit ownership | `tests/form/file_h5msm/test_modular_mechanics.py::test_prepared_whole_file_in_a_fresh_reader_retains_provenance_and_edit_ownership` | Its public branch verifies both public read and convert, changed reader version, PDBQT parity, unit-policy preservation, selective analysis invalidation and absence of optional engines. Independent DockingMT receiving remains distinct. |
-| Selected/reordered native axes | `tests/form/file_h5msm/test_public_mechanics_v06.py::test_copy_and_selected_file_extraction_retain_root_version_and_mechanics`; `tests/form/file_h5msm/test_public_mechanics_v06.py::test_reordered_prepared_system_retains_correspondence_in_public_roundtrip` | Proposed additional client case: explicit atom permutation and nonconsecutive structures `[2, 0]`, original producer labels, expected correspondence, typed parameters and named-analysis coverage. Do not infer atom reordering from ordinary selection, which uses ascending unique indices. |
-| Stored unknown evidence versus usable assignments | `tests/native/test_unknown_mechanical_assignment_reports.py::test_unknown_reports_roundtrip_but_refuse_projection_and_scientific_export` | Proposed additional client adverse case: transport unknown reports without reinterpretation, then preserve source and refuse unsupported projection/export before output. Do not relabel loading as parameterization or repair. |
+| Selected/reordered native axes | `tests/form/file_h5msm/test_public_mechanics_v06.py::test_copy_and_selected_file_extraction_retain_root_version_and_mechanics`; `tests/form/file_h5msm/test_public_mechanics_v06.py::test_reordered_prepared_system_retains_correspondence_in_public_roundtrip` | Accepted on 0.6: explicit atom permutation and nonconsecutive structures `[2, 0]`, original producer labels, expected correspondence, typed parameters and named-analysis coverage. Ordinary atom selection uses ascending unique indices. |
+| Stored unknown evidence versus usable assignments | `tests/native/test_unknown_mechanical_assignment_reports.py::test_unknown_reports_roundtrip_but_refuse_projection_and_scientific_export` | Accepted on 0.6: transport unknown charge and type reports, then preserve source and refuse unsupported projection/export before output. |
 | Supported append versus documented refusal | `tests/form/file_h5msm/test_public_mechanics_v06.py::test_public_append_preserves_mechanics_and_extends_state_assignments`; new refusal guard `tests/form/file_h5msm/test_public_mechanics_v06.py::test_unsupported_append_preserves_existing_file_and_independent_layers` (four cases received) | Provider-owned append supports the documented topology-free/no-interactions composition and explicit state indices. Named-interaction file append is not promised. Confirm actual client use before requesting client execution or broadening support. |
 | Absent/present-empty and atomic publication | `tests/form/file_h5msm/test_modular_mechanics.py::test_explicitly_empty_mechanics_keeps_its_independent_presence`; `tests/form/file_h5msm/test_modular_mechanics.py::test_write_failure_after_partial_staging_publishes_nothing` | Keep independent layer presence distinct from native representability, and preserve existing caller files on normal failure. Crash durability remains outside the implemented atomic-visibility guarantee. |
 

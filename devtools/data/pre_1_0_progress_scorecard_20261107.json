@@ -1518,7 +1518,8 @@
     "new_guards": 4,
     "evidence": "devtools/data/h5msm_p5_provider_receiving_256_20261110.json",
     "fixtures": "devtools/data/h5msm_p5_review_20261110/manifest.json",
-    "independent_new_client_acceptance": "pending",
+    "independent_new_client_acceptance": "bounded experimental 0.6 profile accepted on DockingMT d83d86d4; stable 1.0 pending",
+    "independent_client_receipt": "devtools/data/docking_h5msm_p5_client_receiving_256_20261110.json",
     "original_progress_change": 0
   },
   "last_completion_handoff": {

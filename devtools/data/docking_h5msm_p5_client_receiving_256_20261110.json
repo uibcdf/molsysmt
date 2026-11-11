@@ -1,0 +1,48 @@
+{
+  "schema": "molsysmt.h5msm_p5_client_receiving@1",
+  "date": "2026-11-10",
+  "owner_issue": "uibcdf/molsysmt#256",
+  "consumer_issue": "uibcdf/dockingmt#73",
+  "consumer_record_commit": "d83d86d47c1961fee0177868369141478b912325",
+  "consumer_notice": "https://github.com/uibcdf/dockingmt/issues/73#issuecomment-6783446850",
+  "consumer_wheel_producer": "37a61e61db40f386a4ad031ecd14d578441f61ce",
+  "consumer_wheel_version": "0.0.0+359.g37a61e6",
+  "consumer_wheel_sha256": "ca082ab77b5b9ec77bd1bb75bc865f5279cde9105fe401b989b2b9b13f348e1d",
+  "isolated_provider_source": "5e7d65a665425fe6077f016dd95cbd65d424ee91",
+  "loaded_provider_native_sha256": "5715bda28be19820e96c2b81e4734bf75e1a9f05dd660d9c7e2817bc6bcd79d3",
+  "fixture_producer_commit": "1ce072ae7d8489831ad28d222b60a3c29616e0c6",
+  "format_version": "0.6",
+  "manifest_authentication": {
+    "primary_sha256": "d560986c63ff80c211230f7b20a9ec0702b73f07d813ea146e285ddae83f6d98",
+    "primary_inventory_members": 365,
+    "reader_sha256": "41f0c595d2281b8f60fa204538f31ed916805d975a37b2c35274cffc8d87a020",
+    "reader_inventory_members": 21,
+    "verified_primary_members_per_policy": ["junit.xml", "receipt.json", "native-calls.json", "native-maps.json", "public-io.json"],
+    "verified_reader_member": "reader-02/receipt.json.gz",
+    "scope": "Verified the exact manifest bytes and compressed and decoded identities of 11 selected members. No client execution or full archive reauthentication."
+  },
+  "accepted_profiles": {
+    "normal": {"passed": 7, "failed": 0, "errors": 0, "skipped": 0, "warnings": 0, "pytest_exit": 0},
+    "pm_fs": {"passed": 7, "failed": 0, "errors": 0, "skipped": 0, "warnings": 0, "pytest_exit": 0}
+  },
+  "accepted_native_scope": {
+    "call": "get_component_index_from_bonded_atom_pairs",
+    "calls_per_profile": 2,
+    "n_atoms": 1,
+    "bond_pair_shape": [0, 2],
+    "result": [0],
+    "other_kernels_admitted": false
+  },
+  "unit_policy_observation": {
+    "unchanged_semantics": ["default_form", "default_parser", "loaded_libraries", "loaded_parsers", "provenance", "standard_units"],
+    "named_fast_tracks_registered": ["angstroms", "kelvin", "nanometers", "picoseconds"]
+  },
+  "acceptance": [
+    "Three packet readbacks through both public readers, typed snapshots and original PDBQT text.",
+    "Explicit reversed atom permutation and structure order [2, 0] with persisted maps, states, parameters and analysis coverage.",
+    "Restored coordinate edit with selective named-analysis invalidation and exact within-policy round trip.",
+    "Both unknown-report families survive transport and refuse projection and export without changing source files."
+  ],
+  "disposition": "The agreed additional experimental-0.6 client profile passes. The older binary was admitted only for the recorded topology call. The provider's 4ffb82e4 binary and H5MSM 1.0 were outside this run. Earlier failed qualifications and reader attempt retain their original verdicts.",
+  "original_progress_change": 0
+}

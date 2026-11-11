@@ -1,5 +1,17 @@
 # MolSysMT 1.0 Execution Status
 
+## DockingMT's bounded H5MSM 0.6 checks accepted — 2026-11-10
+
+DockingMT `d83d86d4` passes seven cases each under normal and pm/fs units.
+The [independent P5 receipt](../devtools/data/docking_h5msm_p5_client_receiving_256_20261110.json)
+verifies the recorded profiles and narrow one-atom topology allowance on
+provider source `5e7d65a6` and native `5715bda2`. The three P5 client controls
+are accepted for experimental 0.6. The
+[P6 handoff](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-experimental-06-p5-acceptance--2026-11-10)
+identifies the explicit 1.0 source, reference ABI3 and applicable repeat.
+The stable-format/default freeze and exact installed pair remain pending.
+Original progress stays **76.2920%, 49/50**.
+
 ## Explicit H5MSM 1.0 source support — 2026-11-10
 
 The development source implements 1.0 reads, explicit writes and modular
