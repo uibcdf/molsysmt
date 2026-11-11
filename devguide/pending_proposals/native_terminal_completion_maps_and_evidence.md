@@ -5,7 +5,7 @@ status: active
 opened: 2026-11-10
 closed:
 verification: inspected
-area: [build, chemical_states, provenance]
+area: [build, chemical-states, metadata]
 guard:
 normative:
 blocked_by: []
