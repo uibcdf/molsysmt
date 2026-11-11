@@ -1,5 +1,22 @@
 # MolSysMT 1.0 Execution Status
 
+## H5MSM 1.0 default source writing — 2026-11-10
+
+Source `1951d0822` makes 1.0 the default for public conversion and both H5MSM
+writers. Whole-file conversion preserves independent layers and source maps;
+file extraction preserves the source schema. Legacy warning guidance points
+to current conversion. Named 0.5 migration helpers retain their destination.
+
+The [default-transition receipt](../devtools/data/h5msm_default_10_receiving_256_20261110.json)
+records **1,277 passes, zero failures/skips**, fifteen fast gates, the executed
+schema example and complete HTML receiving. The session test against exact
+MolSysViewer `a6a3a309` saves and restores stored mechanics and a named analysis.
+Four existing RST title warnings remain in the HTML log.
+
+Independent client receiving of the changed default, the format freeze, #615
+causality and the existing installed/candidate/publication gates remain due.
+Formal progress stays **76.3095%, 50/50 source graphical intents**.
+
 ## Independent MolSysViewer H5MSM 1.0 session receiving — 2026-11-10
 
 MolSysViewer `97d49215` reports **47 passes, zero failures or skips** on

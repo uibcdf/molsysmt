@@ -1152,3 +1152,31 @@ The next implementation step is the coordinated provider-default transition,
 followed by updated MolSysViewer expectations and mechanics session roundtrip
 receiving. Both bounded independent client profiles are accepted. The
 stable-format freeze and exact installed-pair qualification remain pending.
+
+### Default writing transitioned to 1.0 — 2026-11-10
+
+Source `1951d08220175edf3fdd343837cd9289b1311198` selects H5MSM 1.0 for
+`convert`, `h5msm.write` and `h5msm.write_layers`. Complete modular-file
+conversion uses the independent-layer route when the version is omitted.
+Copy retains the original bytes and file extraction retains its source version
+for every modular root. The legacy handler and named 0.5 migration helpers
+retain their version-specific contracts. Legacy reading warnings recommend
+the current source-preserving conversion command.
+
+The [transition receipt](../../devtools/data/h5msm_default_10_receiving_256_20261110.json)
+records **1,277 passing cases**, including doctests, six source-schema extraction
+controls and a real Python MolSysViewer session roundtrip with mechanics and a
+named analysis. The runtime is the consumer's exact `a6a3a309` source,
+PyUnitWizard 0.29.2 and reference native ABI3 `4ffb82e4`. All fifteen fast gates
+pass. The new schema example and the warning's legacy conversion command execute.
+The complete HTML build succeeds; seven affected pages are inspected, with four
+pre-existing API title-underline warnings retained.
+
+Schema-specific 0.5 fixtures now request that version explicitly. The initial
+57-failure and later one-failure attempts remain recorded; the final complete
+run has zero failures or omissions. User Guide, Cookbook, two corresponding
+course modules, docstrings and the API registry reflect the new default.
+
+MolSysViewer can now repeat its default-save expectations and the mechanics
+resave case on this source. The format freeze and exact installed pair remain
+the next acceptance boundaries under #256/#334.

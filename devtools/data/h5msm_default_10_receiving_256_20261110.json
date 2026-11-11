@@ -1,0 +1,91 @@
+{
+  "schema": "molsysmt.h5msm_default_transition@1",
+  "date": "2026-11-10",
+  "owner_issue": "uibcdf/molsysmt#256",
+  "source": "1951d08220175edf3fdd343837cd9289b1311198",
+  "default_output_version": "1.0",
+  "explicit_older_output_versions": [
+    "0.5",
+    "0.6"
+  ],
+  "public_entry_points": [
+    "molsysmt.convert",
+    "molsysmt.h5msm.write",
+    "molsysmt.h5msm.write_layers"
+  ],
+  "preservation": {
+    "complete_modular_conversion": "Uses the independent-layer rewrite route by default, preserving absent and present-empty layers, associations and original source-root metadata.",
+    "copy": "Retains original bytes.",
+    "file_extraction": "Retains each source modular root, including 0.5 when to_form is supplied.",
+    "named_migration_helpers": "migrate_to_05 and migrate_04_to_05 retain their named destination.",
+    "legacy_handler": "Retains the 0.3/0.4 contract."
+  },
+  "runtime": {
+    "python": "3.14",
+    "molsysviewer_source": "a6a3a309b31de2031e2517be6d913a9afd0c087b",
+    "pyunitwizard_version": "0.29.2",
+    "provider_route": "Verified public Conda import overlay in the existing development interpreter.",
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+  },
+  "qualification": {
+    "pytest_exit": 0,
+    "tests": 1277,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "junit_sha256": "bbb8f276200786f483c3fc8d282ce3cf5b1d45a2adfa039d5066b4ff2f807f87",
+    "doctests_included": [
+      "molsysmt/h5msm.py",
+      "molsysmt/basic/convert.py"
+    ],
+    "fast_release_gates_passed": 15,
+    "session_guard": "tests/form/file_h5msm/test_public_mechanics_v06.py::test_default_molsysviewer_session_preserves_mechanics_and_named_analysis",
+    "independent_layer_guard": "tests/form/file_h5msm/test_public_migration_v10.py::test_migrate_independent_layers_without_composing_a_molsys",
+    "extraction_guard": "tests/form/file_h5msm/test_public_mechanics_v06.py::test_file_subset_preserves_each_source_schema"
+  },
+  "documentation": {
+    "schema_page": "docs/content/user/tools/form/file/h5msm_10.md",
+    "executed_schema_example": true,
+    "executed_legacy_warning_conversion": true,
+    "course_source_updates": [
+      "Common_Core/04_Native_Forms.ipynb",
+      "Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb"
+    ],
+    "html_exit": 0,
+    "inspected_html_pages": 7,
+    "existing_rst_title_warnings": [
+      "api/build/autosummary/molsysmt.build.ProtonationAssessment.rst:2: WARNING: Title underline too short.",
+      "api/build/autosummary/molsysmt.build.add_ions.rst:2: WARNING: Title underline too short.",
+      "api/build/autosummary/molsysmt.build.assess_protonation.rst:2: WARNING: Title underline too short.",
+      "api/build/autosummary/molsysmt.build.reconcile_protonation.rst:2: WARNING: Title underline too short."
+    ]
+  },
+  "resources": {
+    "tests": {
+      "cpu_limit": 2,
+      "memory_limit_gib": 4,
+      "swap_limit_bytes": 0,
+      "sampled_peak_bytes": 960675840,
+      "minimum_host_mem_available_kib": 13353572
+    },
+    "html_and_prior_tests": {
+      "cpu_limit": 3,
+      "memory_limit_gib": 6,
+      "swap_limit_bytes": 0,
+      "sampled_peak_bytes": 2090229760,
+      "minimum_host_mem_available_kib": 12780608
+    }
+  },
+  "retained_attempts": [
+    "Initial post-default suite: 1213 passed, 57 failures in version-specific fixtures that omitted explicit 0.5.",
+    "Second suite: 1270 passed, one subset fixture still omitted explicit 0.5.",
+    "Third suite: 1271 passed. The later 0.5 source-extraction guard and preserving dispatch are included in the final 1277-case run.",
+    "The first schema example used root class names; corrected to the supported molsysmt.native imports and executed successfully."
+  ],
+  "pending": [
+    "Independent consumer receiving of the default transition",
+    "Stable-format freeze",
+    "Exact candidate, platform and installed-pair qualification"
+  ],
+  "original_weighted_progress_change": 0
+}
