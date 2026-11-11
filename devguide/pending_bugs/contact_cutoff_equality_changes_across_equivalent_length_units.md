@@ -134,3 +134,34 @@ This receives the bounded provider source fix. A compatible published provider
 and applicable broader endpoint/representation checks remain pending. The final
 contact intent needs independent graphical receiving. No dependency floor,
 milestone credit, package or release decision follows from this source run.
+
+## Contact panel source and browser receiving — 2026-11-10
+
+Local branch `wip/contacts-panel-666-source-20261110` at
+`fbb9e2bd4fd9c7cc5b5f998d7a5db6a1b15b0145` carries the prototype forward from
+current owner source `9df62445e`. It delegates to native `get_contacts`, retains
+the Boolean map, and sends at most 50 result rows per page. Paired and Cartesian
+scopes, center endpoints, original indices, evaluated zeros and explicit
+participant actions are covered in **264 passing** Python and preflight cases.
+The calculation preserves the cutoff and its unit at the native boundary.
+
+With PyUnitWizard `238ed119`, Viewer `5164f13b` and native `4ffb82e4`,
+two actual JupyterLab and Chromium runs pass under nm and pm working policies.
+Each includes 0.5 nm, 5 Å and 500 pm and excludes the immediate binary64
+predecessor in each input unit. The second, more distant pair stays negative.
+All twelve decisions are observed in the panel table. The mounted scene,
+coordinates, chemical states, unit configuration and managed revision stay
+unchanged across the calculations. Page errors match the plain-Jupyter control.
+The two concurrent runs peak at about 2.54 GiB with at least 12.07 GiB host
+memory available in the sampled interval.
+
+An initial browser run passes all cutoff decisions and fails its final scene
+comparison against a snapshot taken before the widget mounted. A subsequent
+attempt captures the mounted baseline but fails to recognize its Jupyter output
+marker. The final driver takes the baseline after mounting and checks the
+rendered output cell. Every attempt uses the same native cutoff criteria.
+
+The published PyUnitWizard 0.29.1 tag resolves to `ab92f1e6` and predates
+the correction. The panel remains in the local branch while the
+compatible publication and its installed receiving are pending. #666 remains
+open and this source browser evidence adds no formal milestone credit.

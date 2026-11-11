@@ -196,3 +196,31 @@ to the separate #705 scope.
 This is an agreed diagnostic disposition. A causal correction or an evidenced
 bounded environmental disposition is still required for closure. Implementation
 and an instrumented execution remain pending.
+
+## Owner kernel and live-session diagnostics received — 2026-11-10
+
+The local owner branch `wip/jupyter-canvas-615-owner-20261110` at
+`8060ba0eb0490534e936c1c49339ebdfd18501af` incorporates draft
+[#707](https://github.com/uibcdf/molsysmt/pull/707) and the MolSysMT-side capture.
+The opt-in `--scenario analysis --initial-canvas-only` run correlates the
+observed Run click, cold kernel imports, demo load, display expression and
+cell completion with the widget bootstrap, mount, scene and first native draw.
+One attempt label identifies all three records. The original 30-second canvas
+wait and 15-second kernel stack timer are retained.
+
+The session reader samples the existing authenticated endpoint about 15
+seconds into a pending wait and again on a canvas timeout before the browser
+closes. Its results contain bounded execution states and connection counts.
+A controlled timeout-clock run exercises both reads and verifies that tokens
+and kernel identifiers are absent from the record. An early canvas records the
+first checkpoint as not reached.
+
+**44 launcher and diagnostic cases pass** with loopback available. The first
+sandboxed attempt passes 36 and reports eight socket-permission failures.
+Two cold Jupyter and Chromium runs against Viewer `5164f13b` and native
+`4ffb82e4` reach the 3,983-atom scene. In the final opt-in run, the native
+scene registers 8.05 seconds after Run and the first native draw occurs at
+12.83 seconds. The canvas belongs to the initial cell. The run captures both
+kernel and browser milestones and reaches the canvas before the live-session
+checkpoint. The original intermittent failure has yet to recur with the
+diagnostics armed. #615 remains open.

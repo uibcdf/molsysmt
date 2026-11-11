@@ -1078,3 +1078,26 @@ and digest. Migrate the original fixture inputs with explicit
 repeat the three applicable persistence/edit/admission checks under both
 policies. Exact release artifacts and stable-format/default acceptance remain
 pending under #256/#334.
+
+### Local P6 provider reference ready — 2026-11-10
+
+The local worktree
+`.pytest_cache/pre1-review-20261110/h5msm10-05865fbb3-dockingmt-reference`
+checks out `05865fbb3ba499d4117d6ba3e1cf55d98a9e239e` and carries the
+verified Linux ABI3 SHA-256
+`4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345`.
+On Python 3.14 both imports resolve inside this worktree. The source import
+reports `0+unknown`. All six public 1.0 migration cases pass in this
+composition. DockingMT can use the same source and native binary on this
+host, or record an equivalent admitted build in its own environment. Its
+independent P6 profile and the MolSysViewer session profile are pending.
+
+A provider-side session check pairs the same worktree with Viewer `5164f13b`.
+Its normal save produces a 0.5 member. For the 1.0 control, migrate that member
+with public `convert` and retain the session manifest and scene document. The
+public Viewer loader reopens both archives under nm/ps and pm/fs. The four
+loads preserve a named region, coordinates, named interaction analysis,
+parallel occurrence identities, evaluation coverage and method. The initial
+fixture attempt tried to assign into the read-only analysis mapping. The
+passing fixture uses the public whole-mapping setter. Independent Viewer
+receiving and the default-writer decision remain pending.

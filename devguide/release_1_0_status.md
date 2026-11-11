@@ -1,5 +1,18 @@
 # MolSysMT 1.0 Execution Status
 
+## Contact panel, first-canvas diagnostics and P6 reference — 2026-11-10
+
+The [contact panel source pilot](pending_bugs/contact_cutoff_equality_changes_across_equivalent_length_units.md#contact-panel-source-and-browser-receiving--2026-11-10)
+passes 264 Python and preflight cases and twelve cutoff decisions in Jupyter.
+Its local branch awaits the compatible PyUnitWizard publication and installed
+receiving. [The #615 diagnostic](pending_bugs/intermittent_jupyter_initial_canvas_timeout.md#owner-kernel-and-live-session-diagnostics-received--2026-11-10)
+records the kernel and first native draw in the same attempt. The intermittent
+failure remains open. The [local H5MSM P6 reference](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#local-p6-provider-reference-ready--2026-11-10)
+passes six migration cases with the exact source and native binary for the
+independent DockingMT repeat. A provider-side Viewer session check reopens
+0.5 and explicitly migrated 1.0 members under two unit policies. Independent
+client receiving remains due. Formal progress stays **76.2920%, 49/50**.
+
 ## DockingMT's bounded H5MSM 0.6 checks accepted — 2026-11-10
 
 DockingMT `d83d86d4` passes seven cases each under normal and pm/fs units.
