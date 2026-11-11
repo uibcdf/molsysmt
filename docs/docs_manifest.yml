@@ -18,10 +18,22 @@ sections:
         index_file: docs/content/user/foundations/entrance/index.md
         index_agents_file: docs/content/user/foundations/entrance/index.AGENTS.md
         pages:
+          - name: what_is_molsysmt
+            file: docs/content/user/foundations/entrance/what_is_molsysmt.md
+            agents_file: docs/content/user/foundations/entrance/what_is_molsysmt.md.AGENTS.md
+            description: Form-agnostic prerequisites, fidelity reports, native/optional-engine preparation, measured performance boundaries and component ownership.
+          - name: navigating_documentation
+            file: docs/content/user/foundations/entrance/navigating_documentation.md
+            agents_file: docs/content/user/foundations/entrance/navigating_documentation.md.AGENTS.md
+            description: Documentation routes and actual namespace responsibilities after chemical-domain separation.
+          - name: installation
+            file: docs/content/user/foundations/entrance/installation.md
+            agents_file: docs/content/user/foundations/entrance/installation.md.AGENTS.md
+            description: Python 3.11–3.14 source policy, Python 3.14 development and explicit binary-versus-source Rust build requirements.
           - name: toolbox_overview
             file: docs/content/user/foundations/entrance/toolbox_overview.md
             agents_file: docs/content/user/foundations/entrance/toolbox_overview.md.AGENTS.md
-            description: Actual public namespaces and tools, separating stable topology, state-dependent chemistry, geometry and sparse interactions.
+            description: Supported form routes, independent native ownership, public quantity policies, explicit periodic prerequisites and experimental mechanics persistence.
       - name: molecular_system
         agents_file: docs/content/user/foundations/molecular_system/AGENTS.md
         index_file: docs/content/user/foundations/molecular_system/index.md
@@ -80,7 +92,7 @@ sections:
           - name: molecular_mechanics
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md.AGENTS.md
-            description: Engine-neutral physical requests, separate solute/solvent choices, stored-setting precedence and explicit limits on executed recipe tuning and persistence; native-only legacy constraint translation shares AllBonds/HBonds semantics with public conversion.
+            description: Engine-neutral model requests versus executed assignments, default 1.0 persistence, explicit 0.5 refusal and shared native/public constraint translation.
       - name: language
         description: Directional selection syntax, explicit index validation and element-level query masks.
         agents_file: docs/content/user/foundations/language/AGENTS.md

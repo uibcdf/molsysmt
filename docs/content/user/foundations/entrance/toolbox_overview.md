@@ -17,7 +17,7 @@ indices rather than infer it from labels or make existing labels unique.
 
 The **{doc}`Basic <../../tools/basic/index>`** module (`molsysmt.basic`) provides core, form-agnostic operations used across almost every workflow.
 - **Key Operations**: `get`, `set`, `select`, `convert`, `extract`, `view`, `compare`, `add`, `contains`, `copy`, `remove`, `append_structures`.
-- **Philosophy**: Universal interaction layer operating identically on any molecular representation — whether a disk file (PDB, mmCIF, GRO), an in-memory object (OpenMM `Topology`, MDAnalysis `Universe`), or a native `MolSys`.
+- **Philosophy**: A shared query and operation vocabulary for supported files, external objects and native systems. Each operation needs the relevant attributes and an implemented delivery route; a topology-only form cannot supply coordinates.
 
 ---
 
@@ -29,8 +29,8 @@ The **{doc}`Form <../../tools/form/index>`** module (`molsysmt.form`) hosts the 
 ---
 
 ## Element
-The **{doc}`Element <../../tools/element/index>`** module (`molsysmt.element`) provides targeted access and manipulation across biological structural tiers.
-- **Sub-namespaces**: `atom`, `group` (amino acids, nucleotides, ions), `component`, `molecule`, `entity`, `chain`.
+The **{doc}`Element <../../tools/element/index>`** module (`molsysmt.element`) provides targeted access and manipulation across molecular element types.
+- **Sub-namespaces**: `atom`, `group` (including amino acids, nucleotides, water, ions, lipids and small molecules), `component`, `molecule`, `entity`, `chain`.
 - **Philosophy**: Hierarchical queries allowing operations tailored to specific structural scales (e.g., querying alpha-carbon atoms of a chain or retrieving residue sequences for specific protein entities).
 
 ---
@@ -50,7 +50,7 @@ charge and a tabulated pH reference are distinct sources of evidence.
 ## Structure
 The **{doc}`Structure <../../tools/structure/index>`** module (`molsysmt.structure`) handles coordinate geometry, spatial measurements, structural analysis, and 3D transformations.
 - **Key Operations**: `get_distances`, `get_vectors`, `get_contacts`, `get_rmsd`, `get_rmsf`, `least_rmsd_fit`, `least_rmsd_align`, `get_radius_of_gyration`, `get_principal_axes`, `get_dihedral_angles`, `center`, `translate`, `rotate`.
-- **Philosophy**: High-performance analytical operations executed on precompiled Rust kernels. Coordinates follow strict geometric contracts: nanometer units, NumPy array shape `(n_structures, n_atoms, 3)`, right-handed 3×3 rotation matrices, and deterministic fitting requiring at least three non-collinear atoms.
+- **Philosophy**: Geometric tools reuse the bundled Rust kernels. Coordinate arrays have shape `(n_structures, n_atoms, 3)`; kernel boundaries use explicit nm values, while public quantities follow your PyUnitWizard policy. Proper rotation matrices are 3×3, and fitting a unique three-dimensional rotation requires at least three non-collinear points. Other measurements have their own prerequisites.
 
 ---
 
@@ -71,21 +71,21 @@ The **{doc}`Chemical States <../../tools/chemical_states/index>`** module (`mols
 ## PBC
 The **{doc}`PBC <../../tools/pbc/index>`** module (`molsysmt.pbc`) manages periodic boundary conditions, unit cell box vectors, and boundary unwrapping.
 - **Key Operations**: `get_box_from_lengths_and_angles`, `get_lengths_from_box`, `get_angles_from_box`, `get_volume_from_box`, `unwrap`, `wrap_to_mic`, `wrap_to_pbc`.
-- **Philosophy**: Automatic handling of periodic boundary conditions across simulations, ensuring correct distance and contact calculations under minimum image conventions.
+- **Philosophy**: Explicit periodic reconstruction and minimum-image operations on molecular structures. Supply a valid box and request the intended periodic behavior; an operation does not infer missing boxes or silently make molecules whole.
 
 ---
 
 ## Physchem
 The **{doc}`Physchem <../../tools/physchem/index>`** module (`molsysmt.physchem`) computes physical and chemical properties of molecular systems.
 - **Key Operations**: `get_charge`, `get_mass`, `get_sasa`, `get_tpsa`, `get_lipophilicity`, `get_aromatic_rings`, `get_chemical_readiness`.
-- **Philosophy**: Automated calculation of physical-chemical descriptors carrying explicit physical units (`pyunitwizard`).
+- **Philosophy**: Physical and chemical descriptors with explicit method definitions and chemical prerequisites. Dimensional results carry PyUnitWizard quantities; dimensionless descriptors retain their documented scale. Tabulated reference values and coordinate-dependent observables describe different properties.
 
 ---
 
 ## Molecular Mechanics
 The **{doc}`Molecular Mechanics <../../tools/molecular_mechanics/index>`** module (`molsysmt.molecular_mechanics`) handles forcefield definitions, atom types, and mechanics parameters.
 - **Key Operations**: `get_engine_forcefield`, `get_degrees_of_freedom`, `get_forces`, `get_potential_energy`, `potential_energy_minimization`.
-- **Philosophy**: Engine-backed mechanical calculations with explicit optional dependencies. The native MolecularMechanics container remains experimental and is outside H5MSM 0.5 persistence.
+- **Philosophy**: Engine-backed mechanical calculations with explicit optional dependencies. The native MolecularMechanics container remains experimental. H5MSM 1.0 preserves its admitted parameters and original assignment reports; explicit 0.5 output refuses stored mechanics. Persistence does not validate a force-field assignment or run a calculation.
 
 ---
 

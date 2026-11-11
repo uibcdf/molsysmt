@@ -3,57 +3,95 @@
 
 **MolSysMT** (*Molecular Systems Multi-Toolkit*) is a Python library built to handle, prepare, query, transform, analyze, and visualize molecular models through **one uniform API**.
 
-In computational structural biology and molecular simulation, taking a research project from raw coordinates to scientific insight typically requires chaining four or five different software libraries — each with its own incompatible object model, naming conventions, and file formats. Research groups frequently spend up to 70% of their time writing brittle "glue code", manually converting file formats, repairing incomplete structures, and fixing lost physical units. 
+Molecular workflows often combine libraries with different object models,
+naming conventions and file formats. Transferring a system between them can
+require conversion code, explicit index maps and careful unit handling.
 
-**MolSysMT was created to eliminate this technical friction entirely.**
+MolSysMT provides reusable tools for those tasks so you can focus on the
+scientific workflow and inspect the assumptions made at each boundary.
 
 ---
 
 ## The Form-Agnostic Paradigm
 
-The foundational principle behind MolSysMT is **Form Agnosticism**. MolSysMT abstracts away the underlying storage medium and representation layer. It does not matter whether your molecular model lives as a PDB or mmCIF file on disk, an OpenMM `Topology` object in memory, an MDAnalysis `Universe`, an MDTraj `Trajectory`, or an interactive NGLView canvas.
+The foundational principle is **Form Agnosticism**: public functions share a
+vocabulary across supported representations, including PDB/mmCIF files,
+OpenMM topology objects, MDAnalysis Universes and MDTraj trajectories.
 
-Rather than forcing you to learn specialized accessors for every individual tool, MolSysMT provides a single, intuitive vocabulary of core operations — such as `get`, `set`, `select`, `convert`, `build`, `view`, and `compare` — that behave identically across **89 supported forms** (including 75 Tier-1 fully guaranteed representations).
+Operations such as `get`, `set`, `select`, `convert`, `view` and `compare`
+reuse that vocabulary. The source must supply the required attributes and the
+operation must have a supported route. A sequence does not contain coordinates;
+a graphics projection need not preserve every chemical assignment. Consult
+{ref}`supported forms <user-foundations-support-forms>` and their declared
+tiers rather than assuming every operation works on every representation.
 
 ---
 
 ## Core Architectural Pillars
 
-### 1. Universal Interoperability & Zero-Loss Bridges
-MolSysMT acts as a universal bridge across files, web databases, and third-party object models. It connects your workflows without requiring you to abandon the tools you already rely on. Every conversion carries explicit fidelity tracking so you always know exactly which attributes are preserved.
+### 1. Interoperability and Conversion Fidelity
+MolSysMT connects supported files, database identifiers and third-party objects.
+Inspect a conversion's declared profile and optional report to understand what
+can be preserved; strict conversion refuses reported losses. An unsupported
+field or route is not made lossless by using a common API. See
+{ref}`converting systems <Tutorial_Convert>`.
 
 ### 2. Native Structure Preparation Pipeline
-Structure preparation — diagnosing missing heavy atoms, adding terminal cappings, placing hydrogens at specific pH values, solvating in water boxes, and neutralizing with counterions — is implemented directly within MolSysMT. You can prepare simulation-ready models natively without requiring external tools like PDBFixer or OpenMM.
+Preparation combines reusable native tools with explicitly selected optional
+engines. Native assessment, bounded template repair, chemical-state handling
+and index/evidence tools support larger preparation workflows. Hydrogen
+placement and solvation have method-specific dependencies, including RDKit,
+PDBFixer or OpenMM where declared. A successful individual step does not certify
+a simulation-ready system or choose the correct chemical state for your study.
 
 Heavy-atom assessment uses exact residue chemistry where available, including curated MSE, SEP, TPO, and MLY templates. Native repair supports bounded gaps in MSE, SEP, and TPO; MLY gaps remain unassessed because their placement has not been validated. A modified residue without a matching template is also reported as unassessed during native repair.
 
 ### 3. Native High-Performance Compute in Rust
-Analytical operations (including pairwise distances, neighbor lists, RMSD, structural superposition, radius of gyration, RMSF, principal component axes, SASA, and dihedral angles) are powered by precompiled Rust compute kernels. They run with **zero JIT compilation warmup**, zero startup latency, and configurable multi-threaded execution.
+Analytical operations, including distances, neighbor lists, RMSD, fitting,
+gyration radius, RMSF, principal axes, SASA and dihedrals, reuse the bundled Rust
+kernels. Binary packages require no JIT compilation warmup. Importing providers,
+preparing arrays and building indexes still have costs; performance and parallel
+execution depend on the operation, workload and resource policy.
 
 ### 4. Physical Safety & Unit Consistency
-All physical quantities in MolSysMT carry explicit physical units powered by `pyunitwizard` (nanometers, picoseconds, radians, elementary charges, Kelvin). Unit conversions, array dimensions, and coordinate invariants are validated automatically to safeguard scientific integrity.
+PyUnitWizard manages unit-bearing inputs, conversions and results. Coordinate
+and box kernels use explicit nm values, time uses ps, and angles use radians at
+their declared boundaries; public quantities follow the selected unit policy.
+Some native numeric attributes have fixed documented units, such as partial
+charge arrays in elementary charge. Unit and shape validation protect these
+contracts; they do not independently validate a scientific model.
 
 ### 5. Purpose-Built Infrastructure Libraries
-Behind MolSysMT lies a specialized suite of core infrastructure libraries designed at UIBCDF for the **MolSysSuite** ecosystem to guarantee scientific precision, high performance, and software reliability:
+MolSysMT uses UIBCDF support libraries at the corresponding **MolSysSuite**
+boundaries:
 - **`pyunitwizard`**: Universal management, validation, and conversion of physical quantities and units.
 - **`argdigest`**: Strict argument validation, normalization, and declarative function contracts at public boundaries.
-- **`depdigest`**: Dynamic lazy dependency management and feature discovery with instant library startup.
+- **`depdigest`**: Optional dependency checks, lazy loading and feature discovery.
 - **`smonitor`**: Structured diagnostic logging, telemetry, and transparent signal instrumentation across computational workflows.
 
 ---
 
 ## The Engine of MolSysSuite
 
-MolSysMT serves as the foundational "Operating System" for molecular data within the [**MolSysSuite**](https://www.uibcdf.org/) ecosystem developed at UIBCDF. Higher-level specialized libraries — such as **TopoMT** for topological analysis, **ElastNetMT** for elastic network models, and **MolSysViewer** for 3D web visualization — rely on MolSysMT as their underlying data engine.
+MolSysMT supplies core molecular-system representation, manipulation and general
+analysis within [**MolSysSuite**](https://www.uibcdf.org/). Specialized components
+can reuse those contracts: **TopoMT** studies cavities, pockets and surface
+topography, **ElastNetMT** builds elastic-network models, and **MolSysViewer**
+provides molecular visualization. Their scientific and graphical capabilities
+retain their own scope and validation.
 
 ---
 
 :::{admonition} Explore at Your Own Pace
 :class: note
-You will have the opportunity to test and verify every one of these architectural capabilities through hands-on code examples, interactive 3D visualizations, and step-by-step tutorials throughout the subsequent sections of this **User Guide**.
+Use the **User Guide** examples to explore these contracts and their stated
+limits. Consult each method's evidence and prerequisites before choosing it
+for a scientific study.
 :::
 
 :::{admonition} Key Takeaway
 :class: tip
-MolSysMT acts as the unified **Operating System** for your molecular data. It provides a single, form-agnostic API to build, prepare, query, transform, analyze, and visualize systems without changing libraries every time your research task changes.
+MolSysMT provides a shared molecular-data API and reusable tools. Form
+agnosticism preserves a common vocabulary while keeping missing information,
+conversion limits and scientific assumptions explicit.
 :::

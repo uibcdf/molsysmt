@@ -19,7 +19,13 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 2. Section 2: Domain Component Objects (`Topology`, `ChemicalStates`, `Structures`, `MolecularMechanics`)
 * Must present component objects: `molsysmt.Topology`, `molsysmt.ChemicalStates`, `molsysmt.Structures`, and `molsysmt.MolecularMechanics`.
-* Must explain the responsibilities of each component (`topology` for the stable atom inventory and hierarchy, `chemical_states` for covalent bonds and state-dependent assignments, `structures` for coordinate arrays `(n_structures, n_atoms, 3)` and periodic boxes, `molecular_mechanics` for force field parameters and energies).
+* Must explain the responsibilities of each component (`topology` for stable
+  inventory and hierarchy, `chemical_states` for covalent bonds and assignments,
+  `structures` for coordinates `(n_structures, n_atoms, 3)`, periodic boxes and
+  per-structure observables including energies, `molecular_mechanics` for model
+  requests, parameters and assignment reports).
+* Distinguish registered native form names from Python constructors. Direct
+  class construction uses `molsysmt.native`; not every form name is a root export.
 * Must explain that Topology has no bonds/components/state facade; ChemicalStates is independently owned by MolSys.
 * Preserve declared ChemicalStates/Structures composition without topology,
   ordered index selection and unknown multi-state structure association.
@@ -31,7 +37,12 @@ Any future revision or enhancement of this notebook **MUST preserve** the follow
 
 ### 3. Section 3: Native Disk Storage (`file:h5msm`)
 * Must present the **H5MSM** binary format (`file:h5msm`) as the HDF5-based disk counterpart of `molsysmt.MolSys`.
-* Must explain its I/O performance advantages (chunked execution and trajectory streaming without full RAM loading).
+* Explain chunk-oriented coordinate I/O while distinguishing supported iteration
+  from resident conversion and layer reads. Do not promise constant-memory
+  loading or a modular file-backed handler.
+* Preserve default 1.0 writing and the executed small charge/coordinate round
+  trip, explicit mechanics-free 0.5, experimental 0.6 and legacy 0.3/0.4 warning
+  and migration routes. The named `migrate_to_05` helper still writes 0.5.
 
 ### 4. Section 4: Native Dictionary Forms (`TopologyDict`, `StructuresDict`, `MolSysDict`)
 * Must present lightweight native dictionary forms (`TopologyDict`, `StructuresDict`, `MolSysDict`).
@@ -54,6 +65,7 @@ Preserve InteractionsDict's complete evidence table/code identity through .h5i
 and named H5MSM persistence, including unused labels after invalidation. Keep
 producer identity and evaluated-empty versus unevaluated coverage distinct.
 
-Preserve the default single-path H5MSM 0.5 whole-Topology projection: resident
+Preserve the single-path H5MSM 0.5 whole-Topology projection with default
+selection/context options: resident
 stable inventory only, no unrelated domain payloads, explicit contextual-route
 and requested-layer validation limits. Do not imply a constant-memory load.

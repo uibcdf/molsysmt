@@ -5,7 +5,12 @@ Governs `docs/content/user/foundations/native_world/classes/molsysmt_MolecularMe
 ## 🔒 Directives
 - Title MUST be `# MolecularMechanics` (no `molsysmt.` prefix).
 - MUST preserve top anchor `(user-foundations-native-world-classes-molsysmt-molecularmechanics)=`.
-- Internal attributes table lists forcefields, partial charges (`e`), masses (`Da`), and non-bonded methods.
+- Internal attributes reflect stored model requests, partial charges (`e`),
+  atom typing and non-bonded methods. Mass queries (`Da`) belong to atom
+  attributes, not a second table in this container.
+- Preserve experimental model status, default H5MSM 1.0 admitted persistence,
+  explicit 0.5 refusal and the distinction between stored requests and executed
+  parameterization. Per-structure energies belong to Structures.
 - Headings MUST follow balanced 2-3 word standard without `&`.
 - Includes links to existing native-query and conversion API targets; do not invent per-form API page paths.
 

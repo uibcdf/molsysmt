@@ -18,7 +18,11 @@ This micro-governance contract governs [`docs/content/user/foundations/entrance/
    - **`## Form`**: Must link to `../../tools/form/index`.
    - **`## Element`**: Must link to `../../tools/element/index`.
    - **`## Build`**: Must link to `../../tools/build/index`.
-   - **`## Structure`**: Must link to `../../tools/structure/index` (stipulating nm units, `(n_structures, n_atoms, 3)` shape, 3x3 rotation matrices, precompiled Rust kernels).
+   - **`## Structure`**: Must link to `../../tools/structure/index`, preserving
+     `(n_structures, n_atoms, 3)` coordinate shape, proper 3x3 rotations and
+     bundled Rust kernels. Distinguish explicit nm kernel inputs from public
+     PyUnitWizard policy; fitting prerequisites are not universal measurement
+     prerequisites.
    - **`## Topology`**: Must link to `../../tools/topology/index`.
    - **`## PBC`**: Must link to `../../tools/pbc/index`.
    - **`## Physchem`**: Must link to `../../tools/physchem/index`.

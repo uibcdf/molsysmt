@@ -4,14 +4,14 @@ This guide governs the development, editorial style, and structural standards fo
 
 All human contributors and AI agents working on course content must strictly adhere to these guidelines.
 
-> **Golden Reference Model:** Module 01 ([`Common_Core/01_The_Form_Agnostic_Philosophy.ipynb`](Common_Core/01_The_Form_Agnostic_Philosophy.ipynb)) and Module 04 ([`Common_Core/04_Native_Forms.ipynb`](Common_Core/04_Native_Forms.ipynb)) are the canonical reference models for all 54 modules in the course. Every new or updated module must mirror their exact visual, structural, and editorial pattern.
+> **Golden Reference Model:** Module 01 ([`Common_Core/01_The_Form_Agnostic_Philosophy.ipynb`](Common_Core/01_The_Form_Agnostic_Philosophy.ipynb)) and Module 04 ([`Common_Core/04_Native_Forms.ipynb`](Common_Core/04_Native_Forms.ipynb)) define the visual, structural and editorial pattern for the course. Each complete route has 54 modules: 20 Common Core modules followed by one 34-module path. The repository contains 156 notebooks across the shared core and four paths; [the maintenance map](../../../devguide/course_structure.md) owns that inventory.
 
 ---
 
 ## 🧭 Course Philosophy & Pedagogical Style
 
-1. **Spiral Learning Across Modules:** The curriculum is organized into 54 thematic **Modules**.
-2. **Terminology Standard ("Module"):** Always refer to course units and lessons as **Modules** (e.g., `Module 01: The Form-Agnostic Philosophy`, `Module 05: Molecular Anatomy`), maintaining a consistent naming convention across the entire codebase. Quedan prohibidos los términos "Phase" o "Unit".
+1. **Spiral Learning Across Modules:** Each learning route contains 54 thematic **Modules**, including the shared core.
+2. **Terminology Standard ("Module"):** Refer to course lessons as **Modules**, using their current manifest titles. Do not call lessons "phases" or "units".
 3. **Mandatory Hyperlink Cross-References:** Any reference in narrative text, admonitions, or seealso blocks to another Module or User Guide page **MUST be formatted as an active, clickable hyperlink** (e.g., `[Module 05: Molecular Anatomy](../Common_Core/index.md)` or `{ref}`/`{doc}` roles).
 4. **Narrative & Problem-First:** Every module must contextualize *why* a function or concept is used in computational structural biology before demonstrating code.
 5. **Second-Person Tone:** Direct, clear, and encouraging ("you", "your").
@@ -78,7 +78,7 @@ All MolSysMT functions used in the course are inventoried in [`docs/content/cour
    ```markdown
    :::{hint}
    :class: dropdown
-   **msm.convert()**: Converts a molecular system between any of the 89 supported forms in memory or on disk. See API doc: {func}`molsysmt.basic.convert`.
+   **msm.convert()**: Converts a molecular system through supported in-memory or file routes, subject to the required attributes and the target form’s fidelity contract. See API doc: {func}`molsysmt.basic.convert`.
    :::
    ```
 

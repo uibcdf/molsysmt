@@ -13,7 +13,7 @@ Whether you are configuring your environment for the first time or exploring bun
   Learn about the form-agnostic philosophy, mission, and key architectural goals of MolSysMT.
 
 - **{doc}`installation`**  
-  Step-by-step guide to installing MolSysMT via Conda, Pip, or source with optional dependencies.
+  Official Conda installation and editable source development with explicit build requirements.
 
 - **{doc}`navigating_documentation`**  
   Recommended learning paths and a compass for exploring Foundations, Tools, Cookbook, Showcase, and Course material.

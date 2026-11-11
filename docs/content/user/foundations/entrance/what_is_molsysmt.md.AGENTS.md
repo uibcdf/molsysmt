@@ -12,14 +12,26 @@ This micro-governance contract governs [`docs/content/user/foundations/entrance/
 2. **Mandatory MyST Section Anchor**:
    - `(user-foundations-entrance-what-is-molsysmt)=`
 
-3. **Core Messaging Pillars (Must NOT be removed or weakened)**:
-   - **Multi-library Friction & Glue Code Elimination**: Narrative explaining that computational structural biology suffers from 4-5 incompatible library models and brittle glue code.
-   - **Form-Agnostic Paradigm**: Explicit definition of form agnosticism across 89 supported forms (75 Tier-1 stable).
-   - **Native Preparation Pipeline**: Native capability to diagnose and repair heavy atoms, cappings, protonation at pH, solvation, and ions without requiring external tools like PDBFixer.
-   - **Native Rust Compute**: Precompiled Rust kernels for distances, SASA, RMSD, gyration radius, and dihedrals with 0ms JIT warmup.
+3. **Core Messaging Pillars**:
+   - **Multi-library Friction**: Explain reusable conversion, index and unit
+     tools without an unsupported percentage or a promise to eliminate all
+     integration work.
+   - **Form-Agnostic Paradigm**: Shared vocabulary with required attributes and
+     supported routes. Link the maintained form/tier authority; do not freeze
+     counts or promise every operation on every form.
+   - **Preparation Tools**: Distinguish bounded native repair from optional
+     engine-backed placement and solvation. Keep unsupported chemistry and
+     unassessed geometry explicit; no universal simulation-readiness claim.
+   - **Native Rust Compute**: Preserve bundled kernels for distances, SASA,
+     RMSD, gyration radius and dihedrals. No JIT warmup does not mean zero
+     import, preparation or indexing time.
    - **Physical Safety & Purpose-Built Infrastructure**: Explicit inclusion of UIBCDF infrastructure libraries powering MolSysSuite: `pyunitwizard` (units), `argdigest` (argument validation), `depdigest` (lazy dependencies), and `smonitor` (structured diagnostics).
-   - **MolSysSuite Foundation**: Positioning MolSysMT as the core "Operating System" for molecular data powering TopoMT, ElastNetMT, and MolSysViewer.
+   - **MolSysSuite Foundation**: Describe the core molecular-system role and
+     reusable contracts. TopoMT owns cavities/pockets/surface topography,
+     ElastNetMT elastic networks and MolSysViewer visualization; component
+     availability does not certify every workflow or scientific profile.
 
 4. **Frozen Admonitions**:
    - The `Explore at Your Own Pace` admonition inviting the reader to test capabilities throughout the User Guide.
-   - The `Key Takeaway` admonition box summarizing MolSysMT as the unified Operating System for molecular data.
+   - The `Key Takeaway` admonition summarizes the shared API with explicit
+     information, conversion and scientific limits.

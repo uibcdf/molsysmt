@@ -1,6 +1,8 @@
-"""
-MolSysMT
-This must be a short description of the project
+"""Working with molecular systems through a shared, form-agnostic API.
+
+MolSysMT provides native molecular domains and tools for querying, conversion,
+preparation and analysis. Each operation requires the attributes and supported
+delivery routes described by its public contract.
 """
 
 # Preserve the root package bootstrap order.

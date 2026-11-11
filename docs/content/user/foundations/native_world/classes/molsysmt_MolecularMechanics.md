@@ -3,7 +3,10 @@
 
 The native `MolecularMechanics` domain, accessed through `molsys.molecular_mechanics`,
 holds prepared force-field parameters and non-bonded interaction settings.
-It remains experimental; H5MSM 0.5 does not persist a nonempty mechanics domain.
+It remains experimental. Default H5MSM 1.0 output preserves its admitted
+parameters and original assignment reports; explicit 0.5 output refuses stored
+mechanics. Persistence does not certify parameterization or execute a model.
+See {ref}`user-tools-form-h5msm-10` for the versioned storage contract.
 
 ---
 
@@ -20,7 +23,7 @@ are separate attributes:
 
 | Attribute | Data Type | Description |
 | :--- | :--- | :--- |
-| **`forcefield`** | String | Name of the assigned forcefield (e.g. `'AMBER14'`, `'CHARMM36'`). |
+| **`forcefield`** | String or `None` | Declared solute parameterization request; a label does not prove completed assignment. |
 | **`implicit_solvent`** | String or `None` | Requested physical solvent variant, for example `'OBC1'` or `'OBC2'`, independently of the solute field. |
 | **`water_model`** | String or `None` | Explicit-water model request, separate from implicit solvation. |
 | **`constraints`** | String or `None` | Stored policy such as `'hbonds'` or `'none'`; container `None` leaves it unset. |

@@ -15,7 +15,15 @@ This micro-governance contract governs [`docs/content/user/foundations/entrance/
 3. **Inviolable Technical Directives**:
    - **Header H2**: MUST be `## Official Installation`.
    - **Official Distribution Link**: MUST link to `https://anaconda.org/channels/uibcdf` with `-c uibcdf -c conda-forge`.
-   - **Supported Python Versions**: Python 3.13 (recommended), 3.12, 3.11.
+   - **Python Scope**: Current source targets Python 3.11–3.14; routine
+     development uses 3.14. Distinguish source policy from the tested scope of
+     a particular published artifact.
    - **Development Environment Path**: MUST specify `devtools/conda-envs/development_env.yaml`.
    - **Editable Installation Command**: MUST specify `pip install --no-deps --editable .`.
-   - **Precompiled Kernels Admonition**: Note explaining precompiled Rust extension module (no legacy JIT references).
+   - **Precompiled Kernels Admonition**: Distinguish the bundled precompiled
+     extension in binary packages from a source installation's Rust/Cargo and
+     platform compiler requirements. The toolchain is owned by
+     `rust-toolchain.toml`; avoid duplicating its version here.
+   - **Editable Build Boundary**: Explain that `--no-deps` controls runtime
+     dependencies, while declared build requirements and native compilation
+     still apply. Do not instruct users to reuse an unrelated old extension.

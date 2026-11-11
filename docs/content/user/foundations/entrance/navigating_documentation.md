@@ -27,10 +27,13 @@ If you are starting a new research project or want to understand the architectur
 
 ## Tools
 When you need to look up function signatures, tutorials, or usage examples for specific tools, consult the **{doc}`Tools <../../tools/index>`** section:
-- **{doc}`Basic <../../tools/basic/index>`**: Core operations (`get`, `set`, `select`, `convert`, `build`, `view`, `compare`).
+- **{doc}`Basic <../../tools/basic/index>`**: Core operations (`get`, `set`, `select`, `convert`, `extract`, `view`, `compare`).
 - **{doc}`Build <../../tools/build/index>`**: Structure preparation, missing heavy atoms, cappings, protonation at pH, and solvation.
-- **{doc}`Structure <../../tools/structure/index>`**: RMSD, distances, SASA, radius of gyration, superposition, and dihedrals.
-- **{doc}`Topology <../../tools/topology/index>`**: Bond matrices, covalent paths, sequence extractions, and secondary structure.
+- **{doc}`Structure <../../tools/structure/index>`**: RMSD, distances, vectors, radius of gyration, superposition and dihedrals.
+- **{doc}`Topology <../../tools/topology/index>`**: Stable inventory and sequence correspondence.
+- **{doc}`Chemical States <../../tools/chemical_states/index>`**: Selected-state bonds, components, rings and covalent paths.
+- **{doc}`Physchem <../../tools/physchem/index>`**: Physical and chemical observables, including SASA, with method-specific prerequisites.
+- **{doc}`Interactions <../../tools/interactions/index>`**: Sparse named analyses, occurrence queries and experimental detector profiles.
 - **{doc}`Elements <../../tools/element/index>`**: Selection and manipulation by atom, group, component, molecule, or chain.
 - **{doc}`Third Party <../../tools/third_party/index>`**: Specialized bridges to OpenMM, MDAnalysis, MDTraj, ParmEd, RDKit, and NGLView.
 

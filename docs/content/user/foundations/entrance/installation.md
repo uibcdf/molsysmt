@@ -1,7 +1,10 @@
 (user-foundations-entrance-installation)=
 # Installation
 
-MolSysMT supports Python **3.13** (recommended), **3.12**, and **3.11**. High-performance compute kernels ship precompiled natively within the package.
+The current development source targets Python **3.11–3.14** and uses
+**3.14** for routine development. Published packages retain their own tested
+version and platform scope; a source checkout does not qualify a future release.
+Binary packages include the precompiled Rust extension.
 
 ---
 
@@ -32,11 +35,17 @@ cd molsysmt
 ```
 
 ### 2. Create the Development Conda Environment
-Use the provided environment specification file located at `devtools/conda-envs/development_env.yaml` to create an isolated environment with Python 3.13 and all development dependencies:
+Use `devtools/conda-envs/development_env.yaml` to create the Python 3.14
+environment with the declared development dependencies:
 
 ```bash
 conda env create -n molsysmt-dev -f devtools/conda-envs/development_env.yaml
 ```
+
+Editable source installation also builds the native extension. Install Rust
+and Cargo with the toolchain declared in `rust-toolchain.toml`, together with
+your platform's compiler/linker tools. The pinned toolchain, rather than a
+previously installed extension, determines the source build.
 
 ### 3. Activate the Environment and Install in Editable Mode
 Activate the newly created environment and install MolSysMT in editable mode without pulling redundant dependencies:
@@ -46,11 +55,18 @@ conda activate molsysmt-dev
 pip install --no-deps --editable .
 ```
 
+`--no-deps` leaves runtime dependencies under Conda's management. Pip still
+prepares the build requirements declared in `pyproject.toml`; it does not skip
+compiling Rust. Rebuild the editable installation after changing native source
+or build metadata. Ordinary Python source edits do not need a rebuild.
+
 ---
 
 :::{admonition} Precompiled Native Kernels
 :class: note
-MolSysMT's high-performance analytical kernels (distances, RMSD, SASA, gyration radius, dihedrals) are precompiled in Rust and integrated directly into the binary extension module.
+MolSysMT's analytical kernels (including distances, RMSD, SASA, gyration radius
+and dihedrals) use the bundled Rust extension. Installing a binary package does
+not require compiling those kernels locally. Installing from source does.
 :::
 
 (user-foundations-runtime-version)=
