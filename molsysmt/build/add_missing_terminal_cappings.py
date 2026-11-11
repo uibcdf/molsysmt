@@ -29,14 +29,19 @@ def add_missing_terminal_cappings(
     ----------
     molecular_system : molecular system
         Molecular system in any supported MolSysMT format.
-    N_terminal : object, default=None
-        Argument N_terminal.
-    C_terminal : object, default=None
-        Argument C_terminal.
-    pH : object, default=7.4
-        Argument pH.
-    keep_ids : object, default=False
-        Argument keep_ids.
+    N_terminal : str or None, default=None
+        N-terminal cap to add. The native engine supports exactly 'ACE'
+        (acetyl), or None to complete the existing uncapped terminus.
+    C_terminal : str or None, default=None
+        C-terminal cap to add. The native engine supports exactly 'NME'
+        (N-methylamide), or None to complete the existing uncapped terminus.
+        Primary-amide labels 'NH2' and 'NHE' are not supported by this tool's
+        native reconstruction route.
+    pH : float, default=7.4
+        pH used for terminal hydrogen completion. Native completion uses a
+        fixed amine threshold of 9.6; it does not assign a full chemical state.
+    keep_ids : bool, default=False
+        Whether to retain existing element ID labels during reconstruction.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Source atom selection: a query string, 0-based atom indices, or a full
         Boolean mask on the source atom axis. Numeric selections have this same
@@ -44,11 +49,13 @@ def add_missing_terminal_cappings(
         native local completion. Requested ACE/NME caps apply to the complete
         peptide/protein covalent components touched by the selection; selecting
         an internal group does not turn that group into a chemical terminus.
-        An empty selection returns an independent unchanged copy.
+        An empty selection with supported arguments returns an independent
+        unchanged copy.
     syntax : str, default='MolSysMT'
         Selection syntax used to evaluate `selection` (e.g., 'MolSysMT', 'MDTraj').
-    engine : object, default='MolSysMT'
-        Argument engine.
+    engine : {'MolSysMT', 'PDBFixer'}, default='MolSysMT'
+        Reconstruction engine. Cap availability is engine-specific; PDBFixer
+        requests follow its own reconstruction rules.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
     attribute_policy : {'intersection', 'strict'}, default='intersection'
@@ -81,7 +88,9 @@ def add_missing_terminal_cappings(
         strict policy would lose structural attributes or atom parameters.
 
     NotImplementedMethodError
-        If an external engine is requested with an exact report or strict policy.
+        If a native cap request is unsupported or supplied on the wrong end,
+        including for an empty selection; or if an external engine is requested
+        with an exact report or strict policy.
 
 
     Notes
@@ -89,6 +98,12 @@ def add_missing_terminal_cappings(
     Common capping groups:
       - `'ACE'` for acetyl (N-terminal)
       - `'NME'` for N-methyl amide (C-terminal)
+
+    The native profile is role-specific and case-sensitive. Unsupported cap
+    requests raise before selection, copying or reconstruction, even when
+    digestion is skipped. A primary carboxamide is chemically different from
+    NME and is never substituted automatically. Other tools may recognize or
+    construct additional cap labels; that does not extend this placement route.
 
     If no capping residues are provided, the function only completes missing terminal atoms
     in the native residues (which are often charged).
@@ -177,6 +192,25 @@ def add_missing_terminal_cappings(
 
     from molsysmt._private.smonitor import ArgumentError
     from molsysmt.basic import copy, get_form, select
+
+    if engine == "MolSysMT":
+        for argument, value, supported in (
+            ("N_terminal", N_terminal, "ACE"),
+            ("C_terminal", C_terminal, "NME"),
+        ):
+            if value not in (None, supported):
+                from molsysmt._private.smonitor import NotImplementedMethodError
+
+                raise NotImplementedMethodError(
+                    method="native terminal cap reconstruction",
+                    arguments={argument: value},
+                    caller="molsysmt.build.add_missing_terminal_cappings",
+                    message=(
+                        "Native terminal completion supports only N_terminal=None "
+                        "or 'ACE' and C_terminal=None or 'NME'; "
+                        f"requested {argument}={value!r}."
+                    ),
+                )
 
     if engine != "MolSysMT" and (return_report or attribute_policy != "intersection"):
         from molsysmt._private.smonitor import NotImplementedMethodError

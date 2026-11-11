@@ -1,5 +1,27 @@
 # MolSysMT 1.0 Execution Status
 
+## Unsupported native terminal-cap requests refused — 2026-11-11
+
+PeptideMT's new [#685 receiving comment](https://github.com/uibcdf/molsysmt/issues/685#issuecomment-6788187086)
+exposed a silent request mismatch: native ACE/NH2 reconstruction added only ACE,
+retaining the unsupported C-cap request with an empty unassessed list. The
+[#708 correction](archive/resolved_bugs/native_terminal_completion_silently_omits_unsupported_cap_requests.md)
+rejects unsupported or wrong-role caps before source work, including empty
+selections and digestion bypasses. The native profile remains N-terminal ACE /
+C-terminal NME (or None), with no automatic primary-amide substitution.
+PDBFixer retains its own profile.
+
+**252 reconstruction, correspondence, attribution and doctest cases pass**, including
+25 new refusal/delegation controls; 20 initial guards failed on the original
+source. The existing #558 ACE/NME maps/history contract remains intact. PeptideMT
+also reports bounded synthetic source receiving of that delivery, not installed
+or real-system chemical acceptance. The broader #685 capped/stereochemical
+reference proposal remains design/backlog, without a new release gate.
+
+This is a separate correctness closeout. The original weighted plan remains
+**76.3095%, 50/50 source graphical intents**; client/default-format receiving,
+#615 and exact installed/candidate/publication qualification remain pending.
+
 ## Python neighbor/contact output memory accounted — 2026-11-11
 
 The [#693 delivery](archive/resolved_proposals/neighbor_python_compatibility_output_memory.md)

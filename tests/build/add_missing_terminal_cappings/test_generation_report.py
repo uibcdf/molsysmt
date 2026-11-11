@@ -395,3 +395,74 @@ def test_default_unchanged_multistate_copy_does_not_require_report_support(two_c
     )
     with pytest.raises(StructuralInconsistencyError, match="one chemical state"):
         msm.build.add_missing_terminal_cappings(source, return_report=True)
+
+
+@pytest.mark.parametrize("return_report", [False, True])
+@pytest.mark.parametrize(
+    "argument, cap",
+    [
+        ("C_terminal", "NH2"),
+        ("C_terminal", "NHE"),
+        ("C_terminal", "ACE"),
+        ("N_terminal", "NME"),
+        ("C_terminal", "ALA"),
+        ("N_terminal", "ALA"),
+        ("N_terminal", "ace"),
+        ("C_terminal", "unknown"),
+    ],
+)
+def test_native_rejects_unsupported_cap_requests(
+    two_chains, return_report, argument, cap
+):
+    before = two_chains.copy()
+    with pytest.raises(NotImplementedMethodError, match=f"{argument}={cap!r}"):
+        msm.build.add_missing_terminal_cappings(
+            two_chains, return_report=return_report, **{argument: cap}
+        )
+    pd.testing.assert_frame_equal(two_chains.topology.atoms, before.topology.atoms)
+    np.testing.assert_array_equal(
+        puw.get_value(two_chains.structures.coordinates),
+        puw.get_value(before.structures.coordinates),
+    )
+    same_tree(
+        two_chains.chemical_states.get_preparation_history(),
+        before.chemical_states.get_preparation_history(),
+    )
+
+
+@pytest.mark.parametrize("selection", ["all", []])
+@pytest.mark.parametrize("skip_digestion", [False, True])
+@pytest.mark.parametrize("return_report", [False, True])
+def test_unsupported_cap_refuses_before_selection_copy_or_reconstruction(
+    two_chains, monkeypatch, selection, skip_digestion, return_report
+):
+    def unexpected_work(*args, **kwargs):
+        pytest.fail("Unsupported capping must be refused before resolving the system.")
+
+    monkeypatch.setattr(msm.basic, "select", unexpected_work)
+    monkeypatch.setattr(msm.basic, "copy", unexpected_work)
+    with pytest.raises(NotImplementedMethodError, match="C_terminal='NH2'"):
+        msm.build.add_missing_terminal_cappings(
+            two_chains,
+            N_terminal="ACE",
+            C_terminal="NH2",
+            selection=selection,
+            skip_digestion=skip_digestion,
+            return_report=return_report,
+        )
+
+
+def test_native_cap_profile_does_not_restrict_pdbfixer_delegation(two_chains, monkeypatch):
+    class ProviderConversionReached(Exception):
+        pass
+
+    def stop_conversion(molecular_system, to_form, **kwargs):
+        assert molecular_system is two_chains
+        assert to_form == "pdbfixer.PDBFixer"
+        raise ProviderConversionReached
+
+    monkeypatch.setattr(msm.basic, "convert", stop_conversion)
+    with pytest.raises(ProviderConversionReached):
+        msm.build.add_missing_terminal_cappings(
+            two_chains, C_terminal="NH2", engine="PDBFixer"
+        )

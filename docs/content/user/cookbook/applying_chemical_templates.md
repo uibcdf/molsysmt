@@ -143,6 +143,13 @@ The quaternion fitting criterion is attributed to
 references in the report and optional Ackredit tracking. Local cap and OXT
 rules are identified descriptively, without attributing them to that fit.
 
+For this reconstruction route, native explicit caps are exactly `N_terminal="ACE"`
+and `C_terminal="NME"`; either can be `None` for uncapped completion.
+An unsupported label or wrong end raises `NotImplementedMethodError` before
+any reconstruction, even for an empty selection. In particular, `NH2`/`NHE`
+primary-amide requests are unsupported and never replaced with NME. Other
+tools' cap recognition or construction profiles do not extend this route.
+
 Completion retains earlier preparation history and appends its own record.
 Requested heavy-atom reports from `add_missing_heavy_atoms(return_report=True)`
 also archive their own operation; a composed terminal operation retains that
