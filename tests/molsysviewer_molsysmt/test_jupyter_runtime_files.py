@@ -6,10 +6,58 @@ import os
 import stat
 import sys
 from contextlib import nullcontext
+from pathlib import Path
 
 import pytest
 
 from tests.molsysviewer_molsysmt import system_panel_jupyter as launcher
+
+
+@pytest.mark.parametrize("value", ["nan", "inf", "-inf", "0", "-1", "301"])
+def test_server_preparation_budget_rejects_unbounded_or_nonpositive_values(value):
+    import argparse
+
+    with pytest.raises(argparse.ArgumentTypeError):
+        launcher._server_ready_seconds(value)
+
+
+@pytest.mark.parametrize("value", ["0.1", "20", "90", "300"])
+def test_server_preparation_budget_keeps_explicit_finite_seconds(value):
+    assert launcher._server_ready_seconds(value) == float(value)
+
+
+@pytest.mark.parametrize(
+    "option,value",
+    [
+        ("--cycles", "0"),
+        ("--cycles", "31"),
+        ("--active-seconds", "nan"),
+        ("--active-seconds", "inf"),
+        ("--active-seconds", "0"),
+        ("--active-seconds", "91"),
+    ],
+)
+def test_prolonged_cli_rejects_unbounded_work_before_creating_output(
+    tmp_path, monkeypatch, option, value
+):
+    output = tmp_path / "receiving"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "receiving",
+            "--viewer-root",
+            str(tmp_path),
+            "--output",
+            str(output),
+            option,
+            value,
+        ],
+    )
+    with pytest.raises(SystemExit) as caught:
+        launcher.main()
+    assert caught.value.code == 2
+    assert not output.exists()
 
 
 def test_fixture_preparation_failure_leaves_no_runtime_credentials(
@@ -199,3 +247,145 @@ def test_actual_launcher_preserves_foreign_replacements_after_startup_failure(
     with pytest.raises(RuntimeError, match="synthetic startup failure"):
         launcher.main()
     assert all(path.read_text() == "foreign replacement" for path in paths)
+
+
+@pytest.mark.parametrize(
+    "response, budget, ready, probes",
+    [
+        ("success", None, True, 1),
+        ("success", "0.1", True, 1),
+        ("late", "0.1", False, 1),
+        ("at-deadline", "0.1", False, 1),
+        ("timeout", "0.1", False, 1),
+        ("exit", "0.1", False, 0),
+    ],
+)
+def test_launcher_readiness_obeys_deadline_and_retires_owned_files(
+    tmp_path, monkeypatch, response, budget, ready, probes
+):
+    from contextlib import contextmanager
+    from types import SimpleNamespace
+    from urllib.error import URLError
+
+    output = tmp_path / "receiving"
+    argv = ["receiving", "--viewer-root", str(tmp_path), "--output", str(output)]
+    if budget is not None:
+        argv.extend(["--server-ready-timeout", budget])
+    monkeypatch.setattr(sys, "argv", argv)
+    now = 0.0
+    sleeps = []
+    requests = []
+    browser_calls = []
+
+    def sleep(seconds):
+        nonlocal now
+        sleeps.append(seconds)
+        now += seconds
+
+    class Server:
+        pid = 42
+        returncode = 7 if response == "exit" else None
+
+        def poll(self):
+            return self.returncode
+
+        def wait(self, timeout):
+            self.returncode = 0
+            return self.returncode
+
+    server = Server()
+
+    @contextmanager
+    def urlopen(request, timeout):
+        nonlocal now
+        assert request.get_header("Authorization").startswith("token ")
+        if request.full_url.endswith("/api/sessions"):
+            yield SimpleNamespace(read=lambda _: b"[]")
+            return
+        if request.full_url.endswith("/api/shutdown"):
+            assert request.get_method() == "POST"
+            yield SimpleNamespace(status=200)
+            return
+        assert request.full_url.endswith("/api/status")
+        requests.append(timeout)
+        if response == "timeout":
+            now += 0.02
+            raise URLError("synthetic request timeout")
+        now += {"success": 0.05, "late": 0.2, "at-deadline": 0.1}[response]
+        yield SimpleNamespace(status=200)
+
+    monkeypatch.setattr(
+        launcher, "time", SimpleNamespace(monotonic=lambda: now, sleep=sleep)
+    )
+    monkeypatch.setattr(launcher, "urlopen", urlopen)
+    monkeypatch.setattr(launcher.subprocess, "Popen", lambda *args, **kwargs: server)
+    monkeypatch.setattr(
+        launcher.subprocess, "check_output", lambda *args, **kwargs: "node"
+    )
+    monkeypatch.setattr(
+        launcher.subprocess,
+        "run",
+        lambda command, **kwargs: browser_calls.append(command),
+    )
+
+    expectation = (
+        nullcontext()
+        if ready
+        else pytest.raises(RuntimeError, match="Isolated Jupyter")
+    )
+    with expectation:
+        launcher.main()
+
+    startup = json.loads((output / "server-startup.json").read_text())
+    limit = float(budget) if budget is not None else 20.0
+    assert startup["budget_seconds"] == limit
+    assert startup["ready"] is ready
+    assert len(requests) == probes
+    if probes:
+        assert requests[0] == pytest.approx(min(1.0, limit))
+    assert bool(browser_calls) is ready
+    if response == "exit":
+        assert startup["native_exit_observed"] == 7
+    if response == "timeout":
+        assert sleeps == pytest.approx([0.08])
+    assert startup["elapsed_seconds"] == pytest.approx(now)
+    assert server.poll() is not None
+    assert not (output / "settings.json").exists()
+    assert not (output / "config/jupyter_server_config.py").exists()
+
+
+@pytest.mark.parametrize("active_seconds", ["80", "90"])
+def test_prolonged_cli_rejects_playback_exhausting_browser_deadline(
+    tmp_path, monkeypatch, active_seconds
+):
+    output = tmp_path / "receiving"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "receiving",
+            "--viewer-root",
+            str(tmp_path),
+            "--output",
+            str(output),
+            "--scenario",
+            "prolonged-session",
+            "--cycles",
+            "30",
+            "--active-seconds",
+            active_seconds,
+        ],
+    )
+    monkeypatch.syspath_prepend(str(Path(launcher.__file__).parent))
+
+    def forbidden(*args, **kwargs):
+        pytest.fail("An impossible profile must be rejected before server startup")
+
+    monkeypatch.setattr(launcher.subprocess, "Popen", forbidden)
+    monkeypatch.setattr(
+        launcher.subprocess, "check_output", lambda *args, **kwargs: "node"
+    )
+    with pytest.raises(SystemExit) as caught:
+        launcher.main()
+    assert caught.value.code == 2
+    assert not output.exists()
