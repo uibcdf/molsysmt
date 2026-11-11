@@ -3,6 +3,7 @@
 import json
 from contextlib import contextmanager
 from http.client import IncompleteRead
+from types import SimpleNamespace
 from urllib.error import URLError
 
 import pytest
@@ -132,3 +133,78 @@ def test_diagnostic_write_failure_does_not_replace_the_attempt_verdict(
     assert (
         capsys.readouterr().err == "Jupyter session diagnostics could not be stored.\n"
     )
+
+
+def _kernel_namespace():
+    return {
+        "_source_clock": SimpleNamespace(
+            time_ns=lambda: 123456789, monotonic=lambda: 10.125
+        ),
+        "_source_started": 10,
+    }
+
+
+@pytest.mark.parametrize("failed", [False, True])
+def test_generated_kernel_timeline_is_jsonl_with_bounded_metadata(tmp_path, failed):
+    setup, completed = launcher._initial_canvas_diagnostics(tmp_path, "a" * 32)
+    namespace = _kernel_namespace()
+    exec(setup, namespace)
+    namespace["_initial_canvas_mark"]("viewer_imported")
+    exec("def completed(_result):\n" + completed, namespace)
+    namespace["completed"](
+        SimpleNamespace(
+            error_before_exec=None,
+            error_in_exec=RuntimeError("PRIVATE_EXCEPTION_CONTENT") if failed else None,
+        )
+    )
+    raw = (tmp_path / "initial-canvas-kernel.jsonl").read_text()
+    rows = [json.loads(line) for line in raw.splitlines()]
+    assert [row["stage"] for row in rows] == [
+        "cell_started",
+        "viewer_imported",
+        "cell_failed" if failed else "cell_completed",
+    ]
+    assert rows[0] == {
+        "attempt": "a" * 32,
+        "stage": "cell_started",
+        "epoch_ns": 123456789,
+        "elapsed_ms": 125,
+    }
+    assert all(row.keys() == rows[0].keys() for row in rows)
+    assert "PRIVATE" not in raw
+    assert namespace["_source_timeline"].closed
+
+
+@pytest.mark.parametrize("stage", ["open", "write", "flush", "close"])
+def test_generated_timeline_failure_does_not_stop_kernel_work(tmp_path, stage):
+    class Journal:
+        def write(self, text):
+            if stage == "write":
+                raise OSError("PRIVATE_DIAGNOSTIC_FAILURE")
+
+        def flush(self):
+            if stage == "flush":
+                raise OSError("PRIVATE_DIAGNOSTIC_FAILURE")
+
+        def close(self):
+            if stage == "close":
+                raise OSError("PRIVATE_DIAGNOSTIC_FAILURE")
+
+    def opening(*args, **kwargs):
+        if stage == "open":
+            raise OSError("PRIVATE_DIAGNOSTIC_FAILURE")
+        return Journal()
+
+    setup, completed = launcher._initial_canvas_diagnostics(tmp_path, "b" * 32)
+    namespace = {**_kernel_namespace(), "open": opening}
+    exec(setup, namespace)
+    namespace["_initial_canvas_mark"]("viewer_imported")
+    namespace["work_ran"] = True
+    exec("def completed(_result):\n" + completed, namespace)
+    namespace["completed"](SimpleNamespace(error_before_exec=None, error_in_exec=None))
+    assert namespace["work_ran"]
+
+
+def test_unrequested_kernel_timeline_has_no_code_or_files(tmp_path):
+    assert launcher._initial_canvas_diagnostics(tmp_path, None) == ("", "")
+    assert list(tmp_path.iterdir()) == []

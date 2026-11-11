@@ -1,13 +1,13 @@
 ---
 summary: Investigate intermittent Jupyter initialization before the first molecular canvas.
 issue: uibcdf/molsysmt#615
-status: open
+status: active
 opened: 2026-11-06
 closed:
 severity: medium
 verification: measured
 area: [tests, jupyter, initialization, molsysviewer]
-guard:
+guard: tests/molsysviewer_molsysmt/test_jupyter_stage_diagnostics.py
 normative:
 blocked_by: []
 supersedes: []
@@ -224,3 +224,44 @@ scene registers 8.05 seconds after Run and the first native draw occurs at
 kernel and browser milestones and reaches the canvas before the live-session
 checkpoint. The original intermittent failure has yet to recur with the
 diagnostics armed. #615 remains open.
+
+## Reviewed owner integration — 2026-11-11
+
+The owner increment incorporates PR #707 source
+`cdcb8ed7c682a384a8f65b1f38d6b46cead23b1c` and the local branch's paired
+kernel/live-session capture, with independent review before main delivery.
+The native library and addon runtime are unchanged. The existing full Analysis
+workflow remains the default; `--initial-canvas-only` is an explicit,
+Analysis-only receiving mode. It adds no warm scientific imports or larger
+canvas deadline. The isolated plain-notebook control retains its own kernel.
+
+Review found four reproducible journal failure paths: open, write, flush and
+close errors could interrupt the instrumented kernel. All four fail the added
+controls before correction. Optional timeline I/O now fails without changing
+kernel work. A missing/partial journal means unavailable evidence, not proof
+that the cell never started. Normal and exception completions write bounded
+JSONL metadata without serializing exception contents.
+
+**52 Python controls and six Node controls pass.** The latter exercise mount
+before DOM attachment, exclusion of a cached draw, wrong-scene rejection,
+unavailable/unarmed capture, write failure, early completion, sampler startup
+failure and two real authenticated loopback session reads before timeout cleanup.
+The Node command declares the qualified Python through
+`INITIAL_CANVAS_TEST_PYTHON` and is run explicitly with `node --test`.
+This is helper/observer receiving, not proof of a causal timeout repair.
+
+The browser trace labels its arming anchor and records actual
+`run_clicked_epoch_ms` separately. Its historical `run_epoch_ms` field is the
+arming epoch. Node session samples label their pre-click sampler anchor;
+correlate their absolute epoch with the actual browser click and the shared
+attempt label. Kernel rows retain epoch nanoseconds and cell-local monotonic
+elapsed time. Do not compare unrelated processes' relative elapsed values
+as though they had one clock origin.
+
+A controlled source-generation comparison against `00bec2941` confirms exact
+Analysis/contact/property notebook program equality after replacing only each
+owned output-directory prefix. It prepares source text, never runs molecular
+work or starts a server. Initial probe import-path failures are not receiving
+passes. The opt-in source has a new explicit actual-Jupyter guard in
+`jupyter_receiving_guard.py`; receive it on the committed integration next.
+Existing readiness, canvas and browser verdicts remain separate.

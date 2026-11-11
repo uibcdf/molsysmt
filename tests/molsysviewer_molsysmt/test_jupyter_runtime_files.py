@@ -26,6 +26,28 @@ def test_server_preparation_budget_keeps_explicit_finite_seconds(value):
     assert launcher._server_ready_seconds(value) == float(value)
 
 
+def test_initial_canvas_cli_is_explicitly_analysis_only(tmp_path, monkeypatch):
+    output = tmp_path / "receiving"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "receiving",
+            "--viewer-root",
+            str(tmp_path),
+            "--output",
+            str(output),
+            "--scenario",
+            "contacts",
+            "--initial-canvas-only",
+        ],
+    )
+    with pytest.raises(SystemExit) as caught:
+        launcher.main()
+    assert caught.value.code == 2
+    assert not output.exists()
+
+
 @pytest.mark.parametrize(
     "option,value",
     [

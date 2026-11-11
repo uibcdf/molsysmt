@@ -1,6 +1,7 @@
 /** Native Analysis through actual Jupyter, with independent coordinate oracles. */
 import assert from 'node:assert/strict';
 import {openMolecularPanel,observeMolecularControllers} from './jupyter_panel_controls.mjs';
+import {installInitialCanvasTrace,saveInitialCanvasTrace,initialCanvasSessionTrace} from './jupyter_initial_canvas_trace.mjs';
 import {createRequire} from 'node:module';
 import {readFile,writeFile,appendFile} from 'node:fs/promises';
 import {dirname,resolve} from 'node:path';
@@ -10,7 +11,13 @@ const {chromium}=createRequire(config.viewer_root+'/molsysviewer/js/package.json
 let browser,page,stage='start';const checks=[],errors=[],baselineErrors=[];
 const campaignStarted=performance.now();
 async function step(name,action){stage=name;await appendFile(output+'/step-timings.jsonl',JSON.stringify({stage,phase:'start',elapsed_ms:performance.now()-campaignStarted})+'\n');console.log('STEP '+name);await action();checks.push(name);await appendFile(output+'/step-timings.jsonl',JSON.stringify({stage,phase:'complete',elapsed_ms:performance.now()-campaignStarted})+'\n');}
-async function execute(cell,p=page){await p.getByText(/Isolated molecular tools receiving\s*\|\s*Idle/).waitFor();await cell.locator('.cm-content').click();await p.getByRole('button',{name:/Run this cell and advance/}).click();}
+async function execute(cell,p=page,beforeRun){
+ await p.getByText(/Isolated molecular tools receiving\s*\|\s*Idle/).waitFor();
+ await cell.locator('.cm-content').click();
+ const run=p.getByRole('button',{name:/Run this cell and advance/});
+ await beforeRun?.(cell,run);
+ await run.click();
+}
 const workspace=p=>openMolecularPanel(p,'analysis');
 async function populations(panel){await panel.locator('[data-first] [data-source]').selectOption('indices');await panel.locator('[data-first] [data-indices]').fill('0,2');await panel.locator('[data-second] [data-source]').selectOption('indices');await panel.locator('[data-second] [data-indices]').fill('3,5,7');}
 async function numericRows(panel){return panel.locator('[data-rows] tr').evaluateAll(rows=>rows.map(row=>[...row.querySelectorAll('td')].map(cell=>Number(cell.textContent))));}
@@ -63,9 +70,41 @@ try{
  const baseline=await browser.newPage();baseline.on('pageerror',error=>baselineErrors.push({error:String(error),stack:error.stack}));await baseline.goto(`http://127.0.0.1:${config.port}/lab/workspaces/analysis-plain-${Date.now()}/tree/plain.ipynb?token=${config.token}`,{waitUntil:'domcontentloaded'});const plain=baseline.locator('.jp-NotebookPanel:visible .jp-Cell').first();await plain.filter({hasText:'PLAIN_JUPYTER_CONTROL_OK'}).waitFor();await execute(plain,baseline);await baseline.getByText('PLAIN_JUPYTER_CONTROL_OK 2',{exact:true}).waitFor();await baseline.close();
  page=await browser.newPage({viewport:{width:1440,height:1100}});page.setDefaultTimeout(30000);const record=p=>p.on('pageerror',error=>errors.push({stage,error:String(error),stack:error.stack}));record(page);const panel=()=>page.locator('.msm-analysis').first();let expected;
  await observeMolecularControllers(page);
+ const armInitialCanvasTrace=config.initial_canvas_only
+  ? await installInitialCanvasTrace(page,3983,config.initial_canvas_attempt) : null;
  await step('Load TcTIM and open Analysis without calculating implicitly',async()=>{
-  await page.goto(`http://127.0.0.1:${config.port}/lab/workspaces/analysis-${Date.now()}/tree/system.ipynb?token=${config.token}`,{waitUntil:'domcontentloaded'});const cell=page.locator('.jp-NotebookPanel:visible .jp-Cell').first();await cell.filter({hasText:'import molsysviewer as msv'}).waitFor();const no=page.getByRole('button',{name:'No',exact:true});if(await no.isVisible())await no.click();await execute(cell);await page.locator('canvas').waitFor();await workspace(page);assert.equal(await panel().locator('[data-calculate]').isDisabled(),true);assert.equal(await panel().locator('[data-report]').isVisible(),false);expected=JSON.parse(await readFile(output+'/analysis-expected.json','utf8'));
+  let outcome='run_unavailable';
+  const sessions=config.initial_canvas_only ? initialCanvasSessionTrace(config,output) : null;
+  let sessionTrace;
+  try {
+   await page.goto(`http://127.0.0.1:${config.port}/lab/workspaces/analysis-${Date.now()}/tree/system.ipynb?token=${config.token}`,{waitUntil:'domcontentloaded'});
+   const cell=page.locator('.jp-NotebookPanel:visible .jp-Cell').first();
+   await cell.filter({hasText:'import molsysviewer as msv'}).waitFor();
+   const no=page.getByRole('button',{name:'No',exact:true});
+   if(await no.isVisible())await no.click();
+   await execute(cell,page,sessions ? async (initialCell,run)=>{
+    await armInitialCanvasTrace(initialCell,run);
+    sessions.arm();
+   } : undefined);
+   try {
+    outcome='canvas_wait_failed';
+    await page.locator('canvas').waitFor();
+    outcome='canvas_visible';
+   } finally {
+    sessionTrace=sessions?.finish(outcome);
+   }
+   await workspace(page);
+  } finally {
+   if(sessions)await Promise.all([
+    saveInitialCanvasTrace(page,output+'/initial-canvas.json',outcome),
+    sessionTrace??sessions.finish(outcome),
+   ]);
+  }
+  assert.equal(await panel().locator('[data-calculate]').isDisabled(),true);
+  assert.equal(await panel().locator('[data-report]').isVisible(),false);
+  expected=JSON.parse(await readFile(output+'/analysis-expected.json','utf8'));
  });
+ if(!config.initial_canvas_only){
  await step('Calculate explicit atom populations and verify native distances against coordinates',async()=>{
   await populations(panel());await panel().locator('[data-calculate]').click();await panel().locator('[data-report-heading]').filter({hasText:'Distances result'}).waitFor();const rows=await numericRows(panel());assert.equal(rows.length,6);assert.deepEqual(rows.map(r=>r.slice(0,3)),[[0,0,3],[0,0,5],[0,0,7],[0,2,3],[0,2,5],[0,2,7]]);rows.forEach((r,i)=>close(r[3],expected.distances[i]));assert.match(await panel().locator('[data-columns]').innerText(),/Distance \(nm\)/);
  });
@@ -242,6 +281,7 @@ try{
  await step('Python verifies retained native data separate plots and deliberate structure navigation',async()=>{
   await execute(page.locator('.jp-NotebookPanel:visible .jp-Cell').nth(6));await page.getByText('JUPYTER_CONFORMATION_SCENE_OK 2',{exact:true}).waitFor();assert.equal(await page.locator('.jp-OutputArea-error').count(),0);
  });
- const fingerprint=e=>e.error+'|'+(e.stack?.split('\n')[1]||'');assert.ok(errors.every(error=>baselineErrors.some(baseline=>fingerprint(error)===fingerprint(baseline))),'A page error was introduced beyond the plain Jupyter control');const receipt={checks,errors,baseline_errors:baselineErrors,scope:'Actual TcTIM and real three-structure ensemble in Jupyter/Mol*/AnyWidget: native geometric/conformational queries, bounded source-index pages, explicit participant and core Measure/plot adoption from source and both popups. Independent numerical, actual geometry/text/plot-axis and molecular-invariance checks, including duplicate participants, atom-versus-structure axes, frozen observations versus deliberate navigation and mass-weighted live-distance refusal. Not human Qt or installed qualification.'};await writeFile(output+'/full-result.json',JSON.stringify(receipt,null,2));console.log(JSON.stringify(receipt,null,2));
+ }
+ const fingerprint=e=>e.error+'|'+(e.stack?.split('\n')[1]||'');assert.ok(errors.every(error=>baselineErrors.some(baseline=>fingerprint(error)===fingerprint(baseline))),'A page error was introduced beyond the plain Jupyter control');const receipt={checks,errors,baseline_errors:baselineErrors,scope:config.initial_canvas_only?'Actual plain Jupyter control and the initial TcTIM canvas in Analysis. Initial canvas diagnostic only.':'Actual TcTIM and real three-structure ensemble in Jupyter/Mol*/AnyWidget: native geometric/conformational queries, bounded source-index pages, explicit participant and core Measure/plot adoption from source and both popups. Independent numerical, actual geometry/text/plot-axis and molecular-invariance checks, including duplicate participants, atom-versus-structure axes, frozen observations versus deliberate navigation and mass-weighted live-distance refusal. Not human Qt or installed qualification.'};await writeFile(output+'/full-result.json',JSON.stringify(receipt,null,2));console.log(JSON.stringify(receipt,null,2));
 }catch(error){await writeFile(output+'/full-failure.json',JSON.stringify({stage,error:String(error),checks,errors},null,2));if(browser){for(const [i,p] of browser.contexts().flatMap(c=>c.pages()).entries())await writeFile(output+'/window-'+i+'-failure-dom.txt',await p.locator('body').innerText());}if(page){await page.screenshot({path:output+'/failure.png',fullPage:true});await writeFile(output+'/failure-dom.txt',await page.locator('body').innerText());}console.error(error);process.exitCode=1;}
 finally{if(browser)await browser.close();}

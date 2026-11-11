@@ -95,6 +95,41 @@ def _record_session_snapshot(output, port, token, *, completed, ready):
         print("Jupyter session diagnostics could not be stored.", file=sys.stderr)
 
 
+def _initial_canvas_diagnostics(output, attempt):
+    """Generate optional kernel timeline code without loading molecular tools."""
+    diagnostic_setup = ""
+    diagnostic_completed = ""
+    if attempt:
+        diagnostic_setup = (
+            "import json as _source_json\n"
+            "_source_timeline = None\n"
+            "try:\n"
+            f"    _source_timeline = open({str(output / 'initial-canvas-kernel.jsonl')!r}, 'w')\n"
+            "except OSError:\n"
+            "    pass\n"
+            "def _initial_canvas_mark(stage):\n"
+            "    if _source_timeline is None:\n"
+            "        return\n"
+            "    try:\n"
+            f"        _source_timeline.write(_source_json.dumps(dict(attempt={attempt!r}, stage=stage, "
+            "epoch_ns=_source_clock.time_ns(), elapsed_ms=(_source_clock.monotonic()-_source_started)*1000))+'\\n')\n"
+            "        _source_timeline.flush()\n"
+            "    except (OSError, ValueError):\n"
+            "        pass\n"
+            "_initial_canvas_mark('cell_started')\n"
+        )
+        diagnostic_completed = (
+            "    _initial_canvas_mark('cell_failed' if _result.error_before_exec or "
+            "_result.error_in_exec else 'cell_completed')\n"
+            "    try:\n"
+            "        if _source_timeline is not None:\n"
+            "            _source_timeline.close()\n"
+            "    except (OSError, ValueError):\n"
+            "        pass\n"
+        )
+    return diagnostic_setup, diagnostic_completed
+
+
 def _notebook(cells):
     return {
         "nbformat": 4,
@@ -205,6 +240,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--viewer-root", type=Path, required=True)
     parser.add_argument("--provider-root", type=Path)
+    parser.add_argument(
+        "--initial-canvas-only",
+        action="store_true",
+        help="Run the plain control and the first Analysis canvas observation.",
+    )
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument(
         "--server-ready-timeout",
@@ -262,6 +302,8 @@ def main():
         default=os.environ.get("PW_CHROMIUM_BIN", "/usr/bin/google-chrome"),
     )
     args = parser.parse_args()
+    if args.initial_canvas_only and args.scenario != "analysis":
+        parser.error("--initial-canvas-only requires --scenario analysis.")
     if not 1 <= args.cycles <= 30:
         parser.error("--cycles must be in [1, 30].")
     if not math.isfinite(args.active_seconds) or not 0.5 <= args.active_seconds <= 90:
@@ -323,6 +365,12 @@ def main():
         "chromium": args.chromium,
         "scenario": args.scenario,
     }
+    if args.initial_canvas_only:
+        settings.update(
+            python=sys.executable,
+            initial_canvas_attempt=secrets.token_hex(16),
+            initial_canvas_only=args.initial_canvas_only,
+        )
     (output / "data/kernels/receiving/kernel.json").write_text(
         json.dumps(
             {
@@ -792,6 +840,29 @@ def main():
             f"Path({str(output / 'analysis-expected.json')!r}).write_text(json.dumps({{'distances':_distances.ravel().tolist(),'minimum':float(_distances.min()),'maximum':float(_distances.max()),'page51':float(np.linalg.norm(source_coordinates[0,50]-source_coordinates[0,3])),'center_points_angstrom':(_centers*10).tolist(),'focus_points_angstrom':(source_coordinates[0,[0,3]]*10).tolist()}}))\n"
             "view\n"
         )
+        if args.initial_canvas_only:
+            for code, before, after in (
+                (
+                    "import molsysviewer as msv",
+                    "viewer_import_started",
+                    "viewer_imported",
+                ),
+                (
+                    "import molsysmt as msm",
+                    "molsysmt_import_started",
+                    "molsysmt_imported",
+                ),
+                ("view = msv.demo['1TCD']", "demo_load_started", "demo_loaded"),
+            ):
+                initial = initial.replace(
+                    code + "\n",
+                    f"_initial_canvas_mark({before!r})\n{code}\n_initial_canvas_mark({after!r})\n",
+                    1,
+                )
+            initial = (
+                initial.removesuffix("view\n")
+                + "_initial_canvas_mark('display_expression')\nview\n"
+            )
         final = (
             "np.testing.assert_array_equal(msm.pyunitwizard.get_value(view.molsys.structures.coordinates,to_unit='nm'),source_coordinates)\n"
             "np.testing.assert_equal(msm.convert(view.molsys.chemical_states,to_form='molsysmt.ChemicalStatesDict').to_dict(),source_chemistry)\n"
@@ -867,15 +938,21 @@ def main():
         )
     # Keep a native stack if initialization stalls. The shell event closes the
     # diagnostic after the actual display hook, without warming that hook first.
+    attempt = settings.get("initial_canvas_attempt")
+    diagnostic_setup, diagnostic_completed = _initial_canvas_diagnostics(
+        output, attempt
+    )
     initial = (
         "import faulthandler as _source_faults\nimport time as _source_clock\n"
         f"_source_trace = open({str(output / 'kernel-initialization-trace.log')!r}, 'w')\n"
         "_source_started = _source_clock.monotonic()\n"
-        "_source_trace.write('Initial cell started\\n'); _source_trace.flush()\n"
+        + diagnostic_setup
+        + "_source_trace.write('Initial cell started\\n'); _source_trace.flush()\n"
         "_source_faults.dump_traceback_later(15, repeat=True, file=_source_trace)\n"
         "def _source_initialized(_result):\n"
         "    _source_faults.cancel_dump_traceback_later()\n"
-        "    _source_trace.write(f'Initial cell completed in {_source_clock.monotonic()-_source_started:.6f} s\\n')\n"
+        + diagnostic_completed
+        + "    _source_trace.write(f'Initial cell completed in {_source_clock.monotonic()-_source_started:.6f} s\\n')\n"
         "    _source_trace.close()\n"
         "    get_ipython().events.unregister('post_run_cell', _source_initialized)\n"
         "get_ipython().events.register('post_run_cell', _source_initialized)\n"
@@ -1242,4 +1319,12 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    if sys.argv[1:] == ["--sample-initial-canvas-sessions"]:
+        # Called only by the live Analysis observer. Keep the token in the
+        # existing private settings file and reuse the bounded session reader.
+        settings = json.loads(
+            Path(os.environ["MOLSYSVIEWER_JUPYTER_SETTINGS"]).read_text()
+        )
+        print(json.dumps(_session_snapshot(settings["port"], settings["token"])))
+    else:
+        main()

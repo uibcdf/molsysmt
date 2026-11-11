@@ -6,12 +6,74 @@ Missing browser/Jupyter prerequisites fail; they are not silently skipped.
 """
 
 import json
+import math
 import os
 import subprocess
 import sys
 from pathlib import Path
 
 import pytest
+
+
+def test_actual_jupyter_initial_canvas_diagnostics(tmp_path):
+    """Receive opt-in diagnostics separately from the original Analysis verdict."""
+    viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
+    output = tmp_path / "jupyter-initial-canvas"
+    command = [
+        sys.executable,
+        str(Path(__file__).with_name("system_panel_jupyter.py")),
+        "--viewer-root",
+        str(viewer),
+        "--scenario",
+        "analysis",
+        "--initial-canvas-only",
+        "--output",
+        str(output),
+    ]
+    if provider := os.environ.get("MOLSYSVIEWER_PROVIDER_ROOT"):
+        command.extend(["--provider-root", provider])
+    subprocess.run(command, check=True, timeout=360)
+    result = json.loads((output / "full-result.json").read_text())
+    assert result["checks"] == [
+        "Load TcTIM and open Analysis without calculating implicitly"
+    ]
+    capture = json.loads((output / "initial-canvas.json").read_text())
+    assert capture["outcome"] == "canvas_visible" and capture["capture"] == "available"
+    trace = capture["trace"]
+    assert trace["belongs_to_initial_cell"] is True
+    assert trace["observed_atoms"] == trace["expected_atoms"] == 3983
+    assert trace["canvas"]["connected"] and trace["observer_errors"] == 0
+    assert trace["run_clicked_epoch_ms"] is not None
+    assert trace["anchor"] == "observer_arm_before_run_click"
+    if "first_native_draw" in trace["marks"]:
+        assert (
+            trace["marks"]["first_native_draw"] >= trace["marks"]["draw_observer_armed"]
+        )
+    kernel = [
+        json.loads(line)
+        for line in (output / "initial-canvas-kernel.jsonl").read_text().splitlines()
+    ]
+    assert [row["stage"] for row in kernel] == [
+        "cell_started",
+        "viewer_import_started",
+        "viewer_imported",
+        "molsysmt_import_started",
+        "molsysmt_imported",
+        "demo_load_started",
+        "demo_loaded",
+        "display_expression",
+        "cell_completed",
+    ]
+    assert all(row["attempt"] == trace["attempt"] for row in kernel)
+    assert all(
+        math.isfinite(row["elapsed_ms"]) and row["elapsed_ms"] >= 0 for row in kernel
+    )
+    sessions = json.loads((output / "initial-canvas-sessions.json").read_text())
+    assert sessions["attempt"] == trace["attempt"]
+    assert sessions["anchor"] == "sampler_arm_before_run_click"
+    assert sessions["outcome"] == "canvas_visible"
+    assert not (output / "settings.json").exists()
+    assert not (output / "config/jupyter_server_config.py").exists()
 
 
 def test_actual_jupyter_analysis_distance_family(tmp_path):

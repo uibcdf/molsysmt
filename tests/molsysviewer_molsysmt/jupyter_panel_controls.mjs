@@ -6,7 +6,15 @@ export async function observeMolecularControllers(page){
     let runtime;window.__controllers=[];
     Object.defineProperty(window,'__molsysviewer_anywidget_runtime__',{configurable:true,get:()=>runtime,set(value){
       runtime=value;const C=value?.module?.MolSysViewerController;if(!C)return;
-      const create=C.create;C.create=async function(...args){const c=await create.apply(this,args);window.__controllers.push(c);return c;};
+      const trace=window.__initialCanvasTrace;
+      trace?.runtimeAvailable();
+      const create=C.create;C.create=async function(...args){
+        trace?.controllerStarted(args[0]);
+        const c=await create.apply(this,args);
+        window.__controllers.push(c);
+        trace?.controllerReady(c,args[0]);
+        return c;
+      };
     }});
     const open=window.open.bind(window);
     window.open=(...args)=>{
