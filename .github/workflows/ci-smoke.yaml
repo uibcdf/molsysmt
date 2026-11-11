@@ -274,6 +274,7 @@ jobs:
             tests/molsysviewer_molsysmt/test_construction_panel.py \
             tests/molsysviewer_molsysmt/test_chemistry_repair_panel.py \
             tests/molsysviewer_molsysmt/test_analysis_panel.py \
+            tests/molsysviewer_molsysmt/test_contacts_panel.py \
             tests/molsysviewer_molsysmt/test_vector_angular_analysis_panel.py \
             tests/molsysviewer_molsysmt/test_pca_analysis_panel.py \
             tests/molsysviewer_molsysmt/test_property_analysis_panel.py \

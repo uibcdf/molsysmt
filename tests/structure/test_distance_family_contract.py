@@ -965,6 +965,47 @@ def test_contact_cutoff_is_inclusive_and_self_map_contains_diagonal(route, cutof
     np.testing.assert_array_equal(result, distances(xyz, xyz) <= cutoff)
 
 
+@pytest.mark.parametrize("route", [False, True], ids=["dense", "cell-list"])
+@pytest.mark.parametrize("pbc", [False, True], ids=["vacuum", "periodic"])
+@pytest.mark.parametrize("standard", ["nm", "angstrom", "pm"])
+@pytest.mark.parametrize("unit,cutoff", [("nm", 0.5), ("angstrom", 5.0), ("pm", 500.0)])
+def test_equivalent_contact_cutoffs_keep_the_strict_predecessor(
+    route, pbc, standard, unit, cutoff
+):
+    xyz = np.array([[[0.0, 0, 0], [1.5 if pbc else 0.5, 0, 0]]])
+    box = np.eye(3) * 2.0 if pbc else None
+    magnitudes = (np.nextafter(cutoff, -np.inf), cutoff, np.nextafter(cutoff, np.inf))
+
+    with puw.context(
+        default_form="pint",
+        default_parser="pint",
+        standard_units=[
+            standard,
+            "ps",
+            "K",
+            "mole",
+            "dalton",
+            "kJ/mol",
+            "radians",
+            "e",
+        ],
+    ):
+        system = molecular(xyz, box)
+        for magnitude, expected in zip(magnitudes, (False, True, True), strict=True):
+            contacts = msm.structure.get_contacts(
+                system,
+                selection=[0],
+                selection_2=[1],
+                threshold=puw.quantity(magnitude, unit),
+                pbc=pbc,
+                cell_list=route,
+                use_gpu=False,
+                parallel=False,
+            )
+            assert contacts.dtype == np.dtype("bool")
+            np.testing.assert_array_equal(contacts, [[[expected]]])
+
+
 @pytest.mark.parametrize("route", [False, True])
 def test_contact_structure_zero_is_a_real_secondary_index(route):
     result = msm.structure.get_contacts(

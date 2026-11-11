@@ -32,7 +32,7 @@ requires-python = ">=3.11.0,<3.15.0"
 dependencies = [
     "h5py>=3.11.0",
     "numpy>=1.26",
-    "pyunitwizard>=0.28.1",
+    "pyunitwizard>=0.29.2",
     "pandas>=2.2.2",
     "jinja2>=3.1.2",
     "molsysviewer",
