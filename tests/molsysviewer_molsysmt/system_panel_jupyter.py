@@ -22,6 +22,8 @@ from pathlib import Path
 from urllib.error import URLError
 from urllib.request import Request, urlopen
 
+_PROLONGED_BROWSER_TIMEOUT_SECONDS = 2400
+
 
 def _server_ready_seconds(value):
     """Validate an explicit server-preparation budget, separate from UI waits."""
@@ -203,6 +205,14 @@ def main():
         parser.error("--cycles must be in [1, 30].")
     if not math.isfinite(args.active_seconds) or not 0.5 <= args.active_seconds <= 90:
         parser.error("--active-seconds must be finite and in [0.5, 90].")
+    if (
+        args.scenario == "prolonged-session"
+        and args.cycles * args.active_seconds >= _PROLONGED_BROWSER_TIMEOUT_SECONDS
+    ):
+        parser.error(
+            "Requested active playback must leave time within the "
+            f"{_PROLONGED_BROWSER_TIMEOUT_SECONDS}-second browser deadline."
+        )
     source = Path(__file__).resolve().parents[2]
     viewer = args.viewer_root.resolve()
     output = args.output.resolve()
@@ -982,7 +992,12 @@ def main():
                 startup.update(pid=server.pid, ready=False)
                 startup_path.write_text(json.dumps(startup, indent=2))
                 ready = False
-                while time.monotonic() - startup_started < args.server_ready_timeout:
+                deadline = startup_started + args.server_ready_timeout
+                request = Request(
+                    f"http://127.0.0.1:{port}/api/status",
+                    headers={"Authorization": f"token {token}"},
+                )
+                while True:
                     if server.poll() is not None:
                         startup.update(
                             elapsed_seconds=time.monotonic() - startup_started,
@@ -992,17 +1007,22 @@ def main():
                         raise RuntimeError(
                             "Isolated Jupyter exited; inspect the private server.log."
                         )
+                    remaining = deadline - time.monotonic()
+                    if remaining <= 0:
+                        break
                     try:
-                        request = Request(
-                            f"http://127.0.0.1:{port}/api/status",
-                            headers={"Authorization": f"token {token}"},
-                        )
-                        with urlopen(request, timeout=1) as response:
-                            ready = response.status == 200
-                        if ready:
-                            break
+                        with urlopen(request, timeout=min(1.0, remaining)) as response:
+                            responded = response.status == 200
                     except (URLError, TimeoutError):
-                        time.sleep(0.5)
+                        responded = False
+                    remaining = deadline - time.monotonic()
+                    if responded and remaining > 0:
+                        if server.poll() is None:
+                            ready = True
+                            break
+                        continue
+                    if remaining > 0:
+                        time.sleep(min(0.5, remaining))
                 startup.update(
                     ready=ready, elapsed_seconds=time.monotonic() - startup_started
                 )
@@ -1086,7 +1106,7 @@ def main():
                     ],
                     env=env,
                     check=True,
-                    timeout=2400
+                    timeout=_PROLONGED_BROWSER_TIMEOUT_SECONDS
                     if args.scenario == "prolonged-session"
                     else 360
                     if args.scenario == "continuous-session"
@@ -1095,7 +1115,7 @@ def main():
                     else 240,
                 )
         finally:
-            if server is not None:
+            if server is not None and server.poll() is None:
                 try:
                     shutdown = Request(
                         f"http://127.0.0.1:{port}/api/shutdown",
