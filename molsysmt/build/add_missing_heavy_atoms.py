@@ -11,6 +11,7 @@ def add_missing_heavy_atoms(
     skip_digestion=False,
     *,
     attribute_policy="intersection",
+    return_report=False,
 ):
     """
     Adding missing non-hydrogen atoms to a molecular system.
@@ -39,11 +40,19 @@ def add_missing_heavy_atoms(
         Keyword-only native-engine policy for attributes without values for
         added atoms. Intersection drops them with a diagnostic; strict fails
         without changing the source. PDBFixer supports only intersection here.
+    return_report : bool, default=False
+        With the native engine, return a molecular_system/report dictionary.
+        The detached heavy_atom_completion@1 report contains exact atom maps,
+        placement evidence and field losses. The requested report is also
+        archived in the returned native ChemicalStates preparation history.
+        This result always contains native MolSys, including for other input
+        forms, so the maps describe its actual atom axis.
 
     Returns
     -------
-    molecular system
-        A molecular system with the missing heavy atoms added, in the same form as the input system.
+    molecular system or dict
+        A molecular system with the missing heavy atoms added, in the same form
+        as the input. With return_report=True, a molecular_system/report dictionary.
 
 
     Raises
@@ -62,7 +71,7 @@ def add_missing_heavy_atoms(
         attribute policy cannot retain an existing attribute.
 
     NotImplementedMethodError
-        Raised if strict attribute policy is requested with PDBFixer.
+        Raised if strict attribute policy or an exact report is requested with PDBFixer.
 
 
     Notes
@@ -104,6 +113,13 @@ def add_missing_heavy_atoms(
     another form follows that form's supported attributes. PDBFixer is a separate
     reconstruction route with its own capabilities.
 
+    The optional report requires one chemical state. Its stage evidence names
+    the actual template resource and SHA-256, alignment anchors, canonical nm
+    units and bounded bond-length checks. The existing native fit uses the
+    quaternion least-squares criterion of Horn (1987), DOI
+    10.1364/JOSAA.4.000629. References are stored without requiring Ackredit;
+    optional tracking credits that criterion only after an executed fit.
+
     The list of supported molecular systems' forms is detailed in:
     :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
 
@@ -132,6 +148,10 @@ def add_missing_heavy_atoms(
     >>> molsys = msm.build.build_peptide('AAA', engine='MolSysMT')
     >>> msm.get(molsys, selection='atom_name=="CB"', n_atoms=True)
     3
+
+    >>> result = msm.build.add_missing_heavy_atoms(molsys, return_report=True)
+    >>> result['report']['schema']
+    'molsysmt.heavy_atom_completion@1'
     >>> molsys = msm.remove(molsys, selection='atom_name=="CB"')
     >>> msm.get(molsys, selection='atom_name=="CB"', n_atoms=True)
     0
@@ -155,6 +175,11 @@ def add_missing_heavy_atoms(
     form_out = form_in
 
     if engine == "PDBFixer":
+        if return_report:
+            raise NotImplementedMethodError(
+                method="PDBFixer reconstruction correspondence report",
+                caller="molsysmt.build.add_missing_heavy_atoms",
+            )
         from molsysmt._private.amino_acid_templates import check_external_preparation
 
         check_external_preparation(
@@ -323,9 +348,57 @@ def add_missing_heavy_atoms(
             native_ms = molecular_system
 
         topo = native_ms.topology
+        from molsysmt._private.reconstruction import Reconstruction, template_evidence
+
+        reconstruction = Reconstruction(native_ms) if return_report else None
+        placement_evidence = []
         selected_groups = select(
             native_ms, element="group", selection=selection, syntax=syntax
         )
+
+        def warn_unassessed(group_index, group_name, reason):
+            if reconstruction is not None:
+                reconstruction.unassessed.append(
+                    dict(
+                        group_index=int(group_index),
+                        group_name=group_name,
+                        reason=reason,
+                        index_scope="source",
+                    )
+                )
+            warn(
+                UnassessedResidueWarning(
+                    group_index=group_index, group_name=group_name, reason=reason
+                ),
+                stacklevel=3,
+            )
+
+        def native_result(output, step=None):
+            result = None
+            if reconstruction is not None:
+                if step is not None:
+                    reconstruction.add(
+                        step,
+                        "least_rmsd_template_alignment",
+                        evidence=placement_evidence,
+                    )
+                result = reconstruction.finish(
+                    output,
+                    "molsysmt.heavy_atom_completion@1",
+                    dict(attribute_policy=attribute_policy, selection_syntax=syntax),
+                    topo.atoms.index[
+                        topo.atoms["group_index"].isin(selected_groups)
+                    ].tolist(),
+                    selected_groups,
+                )
+            if result is not None:
+                return result
+            return (
+                convert(output, to_form=form_out, skip_digestion=True)
+                if form_in != "molsysmt.MolSys"
+                else output
+            )
+
         from molsysmt._private.amino_acid_templates import family
         from molsysmt.element.group.amino_acid.group_types import name_to_type
 
@@ -342,13 +415,10 @@ def add_missing_heavy_atoms(
                 or isinstance(topo.groups.at[int(group_idx), "group_type"], str)
                 and topo.groups.at[int(group_idx), "group_type"] == "amino acid"
             ):
-                warn(
-                    UnassessedResidueWarning(
-                        group_name=group_name,
-                        group_index=int(group_idx),
-                        reason="no exact curated repair template",
-                    ),
-                    stacklevel=2,
+                warn_unassessed(
+                    group_name=group_name,
+                    group_index=int(group_idx),
+                    reason="no exact curated repair template",
                 )
 
         missing_atoms = get_missing_heavy_atoms(
@@ -380,24 +450,12 @@ def add_missing_heavy_atoms(
                 chemical_states=native_ms.chemical_states,
             )
             if reason:
-                warn(
-                    UnassessedResidueWarning(
-                        group_name=group_name,
-                        group_index=group_idx,
-                        reason=reason,
-                    ),
-                    stacklevel=2,
+                warn_unassessed(
+                    group_name=group_name, group_index=group_idx, reason=reason
                 )
 
         if not missing_atoms:
-            output_molecular_system = (
-                native_ms.copy() if form_in == "molsysmt.MolSys" else molecular_system
-            )
-            return (
-                convert(output_molecular_system, to_form=form_out, skip_digestion=True)
-                if form_in != form_out
-                else output_molecular_system
-            )
+            return native_result(native_ms.copy())
 
         all_coords = puw.get_value(native_ms.structures.coordinates, to_unit="nm")
 
@@ -420,13 +478,10 @@ def add_missing_heavy_atoms(
                     )
                     is not None
                 ):
-                    warn(
-                        UnassessedResidueWarning(
-                            group_name=group_name,
-                            group_index=group_idx,
-                            reason="no exact native placement template",
-                        ),
-                        stacklevel=2,
+                    warn_unassessed(
+                        group_name=group_name,
+                        group_index=group_idx,
+                        reason="no exact native placement template",
                     )
                 continue
 
@@ -446,13 +501,8 @@ def add_missing_heavy_atoms(
                     chemical_states=native_ms.chemical_states,
                 )
             if reason:
-                warn(
-                    UnassessedResidueWarning(
-                        group_name=group_name,
-                        group_index=group_idx,
-                        reason=reason,
-                    ),
-                    stacklevel=2,
+                warn_unassessed(
+                    group_name=group_name, group_index=group_idx, reason=reason
                 )
                 continue
 
@@ -494,16 +544,23 @@ def add_missing_heavy_atoms(
                     if np.any(np.abs(actual - ideal) > 0.04):
                         bad_geometry = True
             if bad_geometry:
-                warn(
-                    UnassessedResidueWarning(
-                        group_name=group_name,
-                        group_index=group_idx,
-                        reason="placed bond geometry conflicts with observed coordinates",
-                    ),
-                    stacklevel=2,
+                warn_unassessed(
+                    group_name=group_name,
+                    group_index=group_idx,
+                    reason="placed bond geometry conflicts with observed coordinates",
                 )
                 continue
 
+            if reconstruction is not None:
+                placement_evidence.append(
+                    dict(
+                        group_index=int(group_idx),
+                        template=template_evidence(group_name, template),
+                        anchor_atom_names=anchors,
+                        generated_atom_names=list(placed),
+                        observed_bond_tolerance_nm=0.04,
+                    )
+                )
             for atom_name in missing_names:
                 if atom_name not in placed:
                     continue
@@ -562,26 +619,19 @@ def add_missing_heavy_atoms(
                     new_bonds_info.append((i1, i2))
 
         if not new_atom_info:
-            output_molecular_system = (
-                native_ms.copy() if form_in == "molsysmt.MolSys" else molecular_system
-            )
-            return (
-                convert(output_molecular_system, to_form=form_out, skip_digestion=True)
-                if form_in != form_out
-                else output_molecular_system
-            )
+            return native_result(native_ms.copy())
 
         native_out = append_atoms_to_molsys(
             native_ms,
             new_atom_info,
             new_bonds_info,
             attribute_policy=attribute_policy,
+            return_report=return_report,
         )
-        output_molecular_system = (
-            convert(native_out, to_form=form_out, skip_digestion=True)
-            if form_in != "molsysmt.MolSys"
-            else native_out
-        )
+        if return_report:
+            native_out, step = native_out
+            return native_result(native_out, step)
+        return native_result(native_out)
 
     else:
         raise NotImplementedMethodError

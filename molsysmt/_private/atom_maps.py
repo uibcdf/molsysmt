@@ -19,6 +19,7 @@ _DIRECT = {
     "molsysmt.ion_replacement@1",
 }
 _CREATION = {"molsysmt.terminal_attachment@1", "molsysmt.hydrogen_addition@1"}
+_RECONSTRUCTION = {"molsysmt.terminal_completion@1", "molsysmt.heavy_atom_completion@1"}
 _LABELS = (
     "source_atom_ids",
     "source_atom_names",
@@ -401,7 +402,31 @@ def normalize(raw):
     schema = raw.get("schema")
     if not isinstance(schema, str):
         fail("An atom-map report requires a string schema identifier.")
-    if schema in _CREATION:
+    if schema in _RECONSTRUCTION:
+        stage = direct(raw)
+        forward = stage["source_to_output_atom_indices"]
+        inverse = stage["output_to_source_atom_indices"]
+        generated = integers(
+            raw.get("generated_atom_indices"),
+            "generated_atom_indices",
+            (int(np.sum(inverse < 0)),),
+        )
+        added = pairs(
+            raw.get("introduced_bond_atom_pairs"), "introduced_bond_atom_pairs"
+        )
+        if (
+            np.any(forward < 0)
+            or not np.array_equal(generated, np.flatnonzero(inverse < 0))
+            or raw.get("bond_index_scope") != "output"
+            or np.any(added < 0)
+            or np.any(added >= len(inverse))
+        ):
+            fail(
+                "Reconstruction must retain every original atom and declare additions on the output axis."
+            )
+        stage["introduced_bond_atom_pairs"] = added
+        stage["bond_index_scope"] = "output"
+    elif schema in _CREATION:
         stage = creation(raw)
     elif schema in _DIRECT:
         stage = direct(raw)

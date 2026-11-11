@@ -6,6 +6,15 @@ what the source supplies. Declaration never records runtime use.
 """
 
 ARTICLES = {
+    "horn_1987": dict(
+        doi="10.1364/JOSAA.4.000629",
+        title="Closed-form solution of absolute orientation using unit quaternions",
+        authors=["Horn, B. K. P."],
+        year=1987,
+        journal="Journal of the Optical Society of America A",
+        volume="4",
+        pages="629-642",
+    ),
     # MDTraj compute_dssp's original method reference, inspected 2026-11-10.
     "kabsch_sander_1983": dict(
         doi="10.1002/bip.360221211",

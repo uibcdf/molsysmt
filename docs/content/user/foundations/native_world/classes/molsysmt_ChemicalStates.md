@@ -55,6 +55,15 @@ add a cap or certify a terminal/protonation state. See
 
 ## State Availability
 
+Native terminal completion now records its own operation-scoped reconstruction
+evidence. Original/output atom maps distinguish observed atoms from generated
+atoms; introduced bonds can join two generated atoms. Each placement step has
+its own index domain, method, template identity and declared limitations.
+Earlier history remains unchanged. H5MSM preserves these records without
+embedding coordinate arrays; extraction does not reinterpret historical indices
+as current positions. See {ref}`cookbook-native-reconstruction-evidence` for
+the optional public result and attribute-loss policy.
+
 An explicit CCD reference can be constructed without coordinates through
 {func}`molsysmt.physchem.get_chemical_template`. Its chemical assignments and
 historical construction report belong to ChemicalStates; names and original

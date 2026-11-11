@@ -23,7 +23,7 @@ import pandas as pd
 from molsysmt._private.residue_templates import load_residue_template
 
 # ---------------------------------------------------------------------------
-# Kabsch placement of missing atoms within an existing group
+# Least-RMSD placement of missing atoms within an existing group
 # ---------------------------------------------------------------------------
 
 
@@ -31,7 +31,7 @@ def place_missing_in_group(
     topo, all_coords_nm, group_idx, missing_names, template, anchor_names=None
 ):
     """
-    Compute coordinates for *missing_names* in *group_idx* via Kabsch alignment.
+    Compute coordinates through the native quaternion least-RMSD alignment.
 
 
     Parameters
@@ -204,10 +204,15 @@ def carry_structures_through_atom_change(
 
 
 def append_atoms_to_molsys(
-    native_molsys, new_atom_info, new_bonds_info, attribute_policy="intersection"
+    native_molsys,
+    new_atom_info,
+    new_bonds_info,
+    attribute_policy="intersection",
+    *,
+    return_report=False,
 ):
     """
-    Return a new MolSys with extra atoms appended after the existing ones.
+    Return a new MolSys with extra atoms inserted in stable group order.
 
 
     Parameters
@@ -360,13 +365,19 @@ def append_atoms_to_molsys(
         attribute_policy=attribute_policy,
     )
 
-    return _assemble_expanded_molsys(
+    output = _assemble_expanded_molsys(
         native_molsys,
         new_topo,
         new_structures,
         {old: new for old, new in old_to_new.items() if old < n_orig},
         new_states,
     )
+    if return_report:
+        from molsysmt._private.reconstruction import expansion
+
+        pairs = [(old_to_new[int(b[0])], old_to_new[int(b[1])]) for b in new_bonds_info]
+        return output, expansion(native_molsys, output, old_to_new, pairs)
+    return output
 
 
 def _assemble_expanded_molsys(
@@ -703,6 +714,9 @@ def rebuild_molsys_with_new_groups(
     component_group_ranges,
     extra_groups_before,
     extra_groups_after,
+    *,
+    attribute_policy="intersection",
+    return_report=False,
 ):
     """
     Rebuild a MolSys inserting ACE/NME groups at the correct positions.
@@ -741,7 +755,24 @@ def rebuild_molsys_with_new_groups(
             caller="molsysmt.build._native_placers.rebuild_molsys_with_new_groups",
         )
     if not extra_groups_before and not extra_groups_after:
-        return native_molsys.copy()
+        output = native_molsys.copy()
+        if return_report:
+            from molsysmt._private.reconstruction import expansion
+
+            return output, expansion(
+                native_molsys, output, dict(enumerate(range(topo.n_atoms))), []
+            )
+        return output
+    mechanics = native_molsys.molecular_mechanics
+    if (
+        attribute_policy == "strict"
+        and mechanics is not None
+        and mechanics.atoms_ff is not None
+    ):
+        raise StructuralInconsistencyError(
+            reason="Atom-domain expansion cannot retain atoms_ff without new parameters.",
+            caller="molsysmt.build._native_placers.rebuild_molsys_with_new_groups",
+        )
     component_indices = native_molsys.chemical_states._get_component_indices()
 
     all_coords = puw.get_value(structs.coordinates, to_unit="nm")  # (n_s, n_orig, 3)
@@ -943,6 +974,8 @@ def rebuild_molsys_with_new_groups(
             new_bonds_rows.append(remapped_row)
 
     # --- Peptide bonds for inserted groups ---
+    n_old_bonds = len(new_bonds_rows)
+
     # Build name→idx lookup per new group
     def _name_to_idx_for_group(new_g):
         mask = atoms_df["group_index"] == new_g
@@ -1036,11 +1069,20 @@ def rebuild_molsys_with_new_groups(
         new_coords,
         old_to_new_atom,
         caller="molsysmt.build._native_placers.rebuild_molsys_with_new_groups",
+        attribute_policy=attribute_policy,
     )
 
-    return _assemble_expanded_molsys(
+    output = _assemble_expanded_molsys(
         native_molsys, new_topo, new_structures, old_to_new_atom, new_states
     )
+    if return_report:
+        from molsysmt._private.reconstruction import expansion
+
+        pairs = [
+            (r["atom1_index"], r["atom2_index"]) for r in new_bonds_rows[n_old_bonds:]
+        ]
+        return output, expansion(native_molsys, output, old_to_new_atom, pairs)
+    return output
 
 
 # ---------------------------------------------------------------------------

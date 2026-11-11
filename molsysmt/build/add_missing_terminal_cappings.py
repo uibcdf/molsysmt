@@ -12,6 +12,9 @@ def add_missing_terminal_cappings(
     syntax="MolSysMT",
     engine="MolSysMT",
     skip_digestion=False,
+    *,
+    attribute_policy="intersection",
+    return_report=False,
 ):
     """
     Adding terminal cappings to peptides and proteins.
@@ -48,11 +51,21 @@ def add_missing_terminal_cappings(
         Argument engine.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
+    attribute_policy : {'intersection', 'strict'}, default='intersection'
+        Native atom-expansion policy. Intersection drops unsupported structural
+        fields and force-field atom parameters with diagnostics; strict rejects
+        those losses before publishing a result. PDBFixer supports intersection.
+    return_report : bool, default=False
+        Return a native molecular_system/report dictionary with exact int64
+        source/output maps, generated atoms, introduced bonds, stage-local
+        placement evidence and attribute losses. Available for MolSysMT only.
 
     Returns
     -------
-    molecular system
-        A new molecular system with modified termini, in the same form as the input system.
+    molecular system or dict
+        By default, a new system in the input form. With return_report=True,
+        a dictionary containing native MolSys and its detached
+        molsysmt.terminal_completion@1 report, even for another input form.
 
 
     Raises
@@ -62,6 +75,13 @@ def add_missing_terminal_cappings(
 
     ArgumentError
         Raised if an input argument value is invalid.
+
+    StructuralInconsistencyError
+        If native expansion/reporting cannot resolve one chemical state, or
+        strict policy would lose structural attributes or atom parameters.
+
+    NotImplementedMethodError
+        If an external engine is requested with an exact report or strict policy.
 
 
     Notes
@@ -100,6 +120,19 @@ def add_missing_terminal_cappings(
     and force-field atom parameters are dropped with a diagnostic. Assign and
     validate the intended terminal chemistry separately before further preparation.
 
+    Native completion archives a terminal_completion@1 operation record in the
+    returned ChemicalStates, retaining earlier history. With return_report=True,
+    even an empty selection records its unchanged outcome. Exact source/output
+    maps retain every original atom; inverse maps use -1 for generated atoms.
+    Introduced bonds use the final output atom axis and include new-to-new
+    edges. Steps retain their own local axes and placement evidence. These
+    historical indices do not change after extraction or reordering. Reports
+    omit coordinate arrays and do not certify a complete chemical state,
+    steric quality, a rotamer or an energy minimum. The optional result always
+    contains native MolSys so its maps describe the actual returned atom order.
+    An unchanged multistate default copy remains supported; no state is chosen
+    arbitrarily for an operation report. Select one state to request evidence.
+
     The list of supported molecular system forms is detailed in:
     :ref:`User Guide > Introduction > Molecular systems > Forms <Introduction_Forms>`
 
@@ -122,8 +155,12 @@ def add_missing_terminal_cappings(
     Examples
     --------
     >>> import molsysmt as msm
-    >>> molsys = msm.build.build_peptide('AlaValPro')
-    >>> molsys = msm.build.add_missing_terminal_cappings(molsys, N_terminal='ACE', C_terminal='NME')
+    >>> molsys = msm.build.build_peptide('AlaValPro', engine='MolSysMT')
+    >>> result = msm.build.add_missing_terminal_cappings(molsys,
+    ...     N_terminal='ACE', C_terminal='NME', return_report=True)
+    >>> result['report']['generated_atom_indices'].shape
+    (12,)
+    >>> molsys = result['molecular_system']
     >>> msm.convert(molsys, to_form='string:amino_acids_3')
     'AceAlaValProNme'
 
@@ -141,6 +178,14 @@ def add_missing_terminal_cappings(
     from molsysmt._private.smonitor import ArgumentError
     from molsysmt.basic import copy, get_form, select
 
+    if engine != "MolSysMT" and (return_report or attribute_policy != "intersection"):
+        from molsysmt._private.smonitor import NotImplementedMethodError
+
+        raise NotImplementedMethodError(
+            method="external terminal completion with exact report or strict attribute policy",
+            caller="molsysmt.build.add_missing_terminal_cappings",
+        )
+
     # Resolve the source atom population once, before any reconstruction changes
     # atom positions. Numeric/Boolean selectors do not depend on query syntax.
     if selection is None:
@@ -153,7 +198,7 @@ def add_missing_terminal_cappings(
         source_atoms = select(molecular_system, mask=selection)
     else:
         source_atoms = select(molecular_system, selection=selection)
-    if not source_atoms:
+    if not source_atoms and not return_report:
         return copy(molecular_system)
 
     output_molecular_system = None
@@ -363,6 +408,29 @@ def add_missing_terminal_cappings(
         else:
             native_ms = molecular_system
 
+        from molsysmt._private.reconstruction import Reconstruction, template_evidence
+
+        reconstruction = Reconstruction(native_ms)
+        trace_supported = (
+            native_ms.chemical_states is not None
+            and native_ms.chemical_states.n_chemical_states == 1
+        )
+        if return_report and not trace_supported:
+            from molsysmt._private.smonitor import StructuralInconsistencyError
+
+            raise StructuralInconsistencyError(
+                reason="Reconstruction evidence requires exactly one chemical state.",
+                caller="molsysmt.build.add_missing_terminal_cappings",
+            )
+        parameters = dict(
+            N_terminal=N_terminal,
+            C_terminal=C_terminal,
+            pH=pH,
+            keep_ids=keep_ids,
+            attribute_policy=attribute_policy,
+            selection_syntax=syntax,
+        )
+
         # Atom insertion preserves the group axis while sorting the expanded
         # atom table. Carry groups, never stale atom positions, through this stage.
         selected_groups = np.unique(
@@ -370,14 +438,41 @@ def add_missing_terminal_cappings(
         ).tolist()
         group_selection = f"group_index in {selected_groups}"
 
+        def native_result(output):
+            if trace_supported:
+                result = reconstruction.finish(
+                    output,
+                    "molsysmt.terminal_completion@1",
+                    parameters,
+                    source_atoms,
+                    selected_groups,
+                )
+                if return_report:
+                    return result
+            return (
+                convert(output, to_form=form_in, skip_digestion=True)
+                if form_in != "molsysmt.MolSys"
+                else output
+            )
+
+        if not source_atoms:
+            return native_result(native_ms.copy())
+
         # --- Case A: complete missing atoms in native terminal residues ---
         # Step A1: add missing sidechain/backbone heavy atoms (OXT excluded there).
-        native_ms = add_missing_heavy_atoms(
+        heavy_result = add_missing_heavy_atoms(
             native_ms,
             selection=selected_groups,
             syntax="MolSysMT",
             engine="MolSysMT",
+            attribute_policy=attribute_policy,
+            return_report=trace_supported,
         )
+        if trace_supported:
+            native_ms = heavy_result["molecular_system"]
+            reconstruction.add(heavy_result["report"], "native_heavy_atom_completion")
+        else:
+            native_ms = heavy_result
 
         # Step A2: add OXT where get_missing_terminal_cappings reports it missing.
         # Skip when C_terminal is not None: the C-terminus will be capped by a new
@@ -407,6 +502,7 @@ def add_missing_terminal_cappings(
             n_structures_a = coords_a.shape[0]
             new_atom_info_a = []
             new_bonds_info_a = []
+            oxt_evidence = []
             n_orig_a = topo_a.n_atoms
 
             for group_idx, oxt_list in missing_oxt.items():
@@ -423,6 +519,12 @@ def add_missing_terminal_cappings(
                 CA_pos = _pos("CA")
                 O_pos = _pos("O")
                 if C_pos is None or CA_pos is None or O_pos is None:
+                    reconstruction.unassessed.append(
+                        dict(
+                            group_index=int(group_idx),
+                            reason="OXT requires observed C, CA and O anchors",
+                        )
+                    )
                     continue
                 oxt_coords = place_oxt_atom(C_pos, CA_pos, O_pos, n_structures_a)
                 oxt_idx = n_orig_a + len(new_atom_info_a)
@@ -430,10 +532,26 @@ def add_missing_terminal_cappings(
                 # OXT is bonded to C
                 C_idx_in_topo = grow[grow["atom_name"] == "C"].index[0]
                 new_bonds_info_a.append((int(C_idx_in_topo), oxt_idx))
+                oxt_evidence.append(
+                    dict(
+                        group_index=int(group_idx),
+                        anchor_atom_indices=[
+                            int(grow[grow["atom_name"] == name].index[0])
+                            for name in ("C", "CA", "O")
+                        ],
+                    )
+                )
 
             if new_atom_info_a:
-                native_ms = append_atoms_to_molsys(
-                    native_ms, new_atom_info_a, new_bonds_info_a
+                native_ms, step = append_atoms_to_molsys(
+                    native_ms,
+                    new_atom_info_a,
+                    new_bonds_info_a,
+                    attribute_policy=attribute_policy,
+                    return_report=True,
+                )
+                reconstruction.add(
+                    step, "carboxylate_axis_reflection", evidence=oxt_evidence
                 )
 
         # Step A3: add H2, H3 at N-terminus if missing (free NH3+ / NH2).
@@ -449,11 +567,20 @@ def add_missing_terminal_cappings(
             n_structures_n = coords_n.shape[0]
             new_atom_info_n = []
             new_bonds_info_n = []
+            hydrogen_evidence = []
 
             from molsysmt.chemical_states import get_peptide_termini
 
             termini = get_peptide_termini(
                 native_ms, selection=group_selection, on_ambiguous="report"
+            )
+            reconstruction.unassessed.extend(
+                dict(
+                    chain_index=int(row["chain_index"]),
+                    reason=row.get("reason", "ambiguous backbone"),
+                )
+                for row in termini["chains"]
+                if row["status"] == "unassessed"
             )
             if C_terminal is not None:
                 from molsysmt.chemical_states._peptide_termini import warn_unassessed
@@ -480,6 +607,12 @@ def add_missing_terminal_cappings(
                 H_p = _pos_n("H")
                 CA_p = _pos_n("CA")
                 if N_p is None or H_p is None or CA_p is None:
+                    reconstruction.unassessed.append(
+                        dict(
+                            group_index=int(nterm_group_idx),
+                            reason="terminal H placement requires observed N, H and CA anchors",
+                        )
+                    )
                     continue
 
                 n_total_so_far = topo_n.n_atoms + len(new_atom_info_n)
@@ -491,20 +624,37 @@ def add_missing_terminal_cappings(
                     h_coord = h_arrays[k]
                     new_atom_info_n.append((nterm_group_idx, h_name, h_coord))
                     new_bonds_info_n.append((int(N_idx_in_topo), n_total_so_far + k))
+                hydrogen_evidence.append(
+                    dict(
+                        group_index=int(nterm_group_idx),
+                        anchor_atom_indices=[
+                            int(grow[grow["atom_name"] == name].index[0])
+                            for name in ("N", "H", "CA")
+                        ],
+                        hybridization="sp3",
+                        bond_length_nm=h_bond_length("N"),
+                        pH_charge_threshold=9.6,
+                        generated_atom_names=missing_h,
+                    )
+                )
 
             if new_atom_info_n:
-                native_ms = append_atoms_to_molsys(
-                    native_ms, new_atom_info_n, new_bonds_info_n
+                native_ms, step = append_atoms_to_molsys(
+                    native_ms,
+                    new_atom_info_n,
+                    new_bonds_info_n,
+                    attribute_policy=attribute_policy,
+                    return_report=True,
+                )
+                reconstruction.add(
+                    step,
+                    "local_sp3_terminal_hydrogen_placement",
+                    evidence=hydrogen_evidence,
                 )
 
         # If no capping groups requested, we're done
         if N_terminal is None and C_terminal is None:
-            output_molecular_system = (
-                convert(native_ms, to_form=form_in, skip_digestion=True)
-                if form_in != "molsysmt.MolSys"
-                else native_ms
-            )
-            return output_molecular_system
+            return native_result(native_ms)
 
         # --- Case B: insert ACE and/or NME as new groups ---
 
@@ -537,12 +687,7 @@ def add_missing_terminal_cappings(
             skip_digestion=True,
         )
         if component_indices is None or len(component_indices) == 0:
-            output_molecular_system = (
-                convert(native_ms, to_form=form_in, skip_digestion=True)
-                if form_in != "molsysmt.MolSys"
-                else native_ms
-            )
-            return output_molecular_system
+            return native_result(native_ms)
 
         from molsysmt._private.smonitor import StructuralInconsistencyError
         from molsysmt.chemical_states import get_peptide_termini
@@ -637,19 +782,26 @@ def add_missing_terminal_cappings(
                         )
                         extra_groups_after[mol_idx] = (C_terminal, nme_atoms)
 
-        native_out = rebuild_molsys_with_new_groups(
+        native_out, step = rebuild_molsys_with_new_groups(
             native_ms,
             mol_group_ranges,
             extra_groups_before,
             extra_groups_after,
+            attribute_policy=attribute_policy,
+            return_report=True,
         )
-        output_molecular_system = (
-            convert(native_out, to_form=form_in, skip_digestion=True)
-            if form_in != "molsysmt.MolSys"
-            else native_out
-        )
-
-        return output_molecular_system
+        cap_evidence = [
+            template_evidence(name, load_residue_template(name))
+            for name in sorted(
+                {
+                    entry[0]
+                    for entry in list(extra_groups_before.values())
+                    + list(extra_groups_after.values())
+                }
+            )
+        ]
+        reconstruction.add(step, "native_planar_terminal_caps", evidence=cap_evidence)
+        return native_result(native_out)
 
     else:
         raise NotImplementedError

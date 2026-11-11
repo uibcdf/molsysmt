@@ -41,7 +41,8 @@ def incomplete_serine(missing_og=True):
             method="independent-control",
         )
     }
-    molsys._structure_chemical_state_indices = np.array([0], dtype=np.int64)
+    # Keep an explicit stored binding even after the multi-state control grows.
+    molsys._structure_chemical_state_indices = pd.array([0], dtype="Int64")
     return molsys
 
 

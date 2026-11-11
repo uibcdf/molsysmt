@@ -17,6 +17,8 @@ def compose_atom_maps(atom_maps, skip_digestion=False):
         schemas are molsysmt.terminal_attachment@1, hydrogen_addition@1,
         atom_projection@1, atom_export@1, ion_replacement@1, pdbqt_pose_read@1
         and atom_map@1.
+        Native terminal_completion@1 and heavy_atom_completion@1 reconstruction
+        reports also retain their exact maps and output-domain introduced bonds.
         Report arrays may be NumPy arrays or JSON-decoded lists. These are
         declared correspondences; no spatial or chemical matching is performed.
     skip_digestion : bool, default=False

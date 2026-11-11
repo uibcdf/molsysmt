@@ -109,6 +109,61 @@ and the relevant `structure_indices`. The retained atoms can be disconnected
 even when their complete component is connected. Both tools keep source indices
 and reject missing/mixed state associations. See {ref}`Tutorial_Get_covalent_blocks`.
 
+(cookbook-native-reconstruction-evidence)=
+## Retaining reconstruction evidence
+
+Use native terminal completion's optional result to keep an exact correspondence
+when atoms are inserted in group order. Indices can change even when all
+observed coordinates are preserved:
+
+```python
+import molsysmt as msm
+
+molsys = msm.build.build_peptide("AA", engine="MolSysMT")
+result = msm.build.add_missing_terminal_cappings(
+    molsys, engine="MolSysMT", return_report=True,
+    attribute_policy="intersection")
+molsys_completed = result["molecular_system"]
+report = result["report"]
+old_to_new = report["source_to_output_atom_indices"]
+new_to_old = report["output_to_source_atom_indices"]
+generated = report["generated_atom_indices"]
+composed = msm.basic.compose_atom_maps([report])
+```
+
+The optional result always contains native MolSys, even with another supported
+input form. The default still returns the input form. Maps are int64 arrays;
+`new_to_old[generated]` is `-1`, meaning no original atom, not NumPy's last
+array entry. `introduced_bond_atom_pairs` uses final output indices and can
+include new-to-new bonds. Each `steps` entry keeps its own local source/output
+axis, placement rule and evidence. Heavy-template fits identify their exact
+bundled resource/hash and anchors; OXT and terminal H use distinct local rules.
+The quaternion fitting criterion is attributed to
+[Horn (1987)](https://doi.org/10.1364/JOSAA.4.000629) when executed, with portable
+references in the report and optional Ackredit tracking. Local cap and OXT
+rules are identified descriptively, without attributing them to that fit.
+
+Completion retains earlier preparation history and appends its own record.
+Requested heavy-atom reports from `add_missing_heavy_atoms(return_report=True)`
+also archive their own operation; a composed terminal operation retains that
+substep's evidence. H5MSM preserves the reports without repeated coordinate
+arrays. Their historical indices stay in the original operation domain after
+extraction/reordering. Do not treat them as current atom indices automatically.
+
+Intersection policy warns and records actual losses, such as occupancies,
+B-factors or force-field atom parameters. Strict rejects those losses and keeps
+the source unchanged. Named interaction analyses become unevaluated after atom
+expansion. Empty selections requested with a report retain identity maps and a
+distinct unchanged-outcome record. PDBFixer has no exact-report route here;
+an unsupported report/strict request fails before provider execution.
+
+Stored backbone context remains required. Reading 1HSG with inference disabled
+does not establish peptide bonds or termini: completion can report an unchanged,
+unassessed result. If you explicitly choose bounded native connectivity
+inference first, retain that separate operation and its limitations. Generated
+coordinates and terminal atom counts do not assign complete chemistry or
+validate clashes, rotamers, environmental protonation or an energy minimum.
+
 (cookbook-pdb-connectivity-policy)=
 ## Choosing PDB connectivity
 

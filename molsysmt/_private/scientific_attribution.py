@@ -3,6 +3,39 @@
 from copy import deepcopy
 
 
+def attach_reconstruction_attribution(report, caller):
+    """Credit the quaternion fit only when a reconstruction actually used it."""
+    from molsysmt import _ackredit
+    from molsysmt._private.scientific_citations import ARTICLES
+
+    references = {}
+    for step in report["steps"]:
+        for item in step.get("references", []):
+            references[item["id"]] = deepcopy(item)
+        if step["method"] == "least_rmsd_template_alignment":
+            record = deepcopy(ARTICLES["horn_1987"])
+            item = dict(
+                id="doi:" + record["doi"],
+                type="article",
+                **record,
+                roles=["scientific_criterion"],
+                url="https://doi.org/" + record["doi"],
+            )
+            references[item["id"]] = item
+    report["references"] = list(references.values())
+    items = report["references"] + [
+        executed_software_reference("molsysmt", report["software"]["molsysmt"])
+    ]
+    with _ackredit.scope(caller) as provider:
+        _ackredit.credit(
+            provider,
+            items,
+            caller,
+            contextual=True,
+            context=dict(method=report["method"], report_schema=report["schema"]),
+        )
+
+
 def executed_software_reference(software, version):
     """Build a detached record for software actually reached by an operation."""
     from molsysmt._private.scientific_citations import SOFTWARE

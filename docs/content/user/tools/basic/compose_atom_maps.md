@@ -9,6 +9,13 @@ it does not match molecules, identify atoms by proximity or generate coordinates
 The typed `molsysmt.atom_map@1` result uses one-dimensional NumPy arrays and a
 small list of normalized stages. It never creates an atom-pair matrix.
 
+Native `terminal_completion@1` and `heavy_atom_completion@1` reports can also
+be composed directly. They retain every original atom and declare introduced
+bonds on their output axis, including bonds between newly generated atoms.
+Their original detailed reports retain stage-local placement evidence and
+historical operation domains; a composed correspondence is not a replacement
+for that scientific evidence. See {ref}`cookbook-native-reconstruction-evidence`.
+
 For an explicit export rename, use
 {func}`molsysmt.build.project_atom_names` and insert its report at the actual
 renaming step. Original and projected labels remain separate; selected/renamed
