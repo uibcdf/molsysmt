@@ -112,12 +112,12 @@ def _independent_build_documentation(name, *, local_skip=False):
             if name == "remove_overlapping_molecules"
             else "returns a dictionary containing a separate molecular system and its report; "
             if name == "add_terminal_atoms"
+            else "returns a separate molecular system, optionally in its native system/report dictionary; "
+            if name in {"add_missing_heavy_atoms", "add_missing_terminal_cappings"}
             else "returns a separate molecular system; "
             if name
             in {
                 "make_bioassembly",
-                "add_missing_heavy_atoms",
-                "add_missing_terminal_cappings",
                 "mutate",
                 "build_peptide",
                 "solvate",
@@ -827,6 +827,7 @@ class _BuildTools:
         skip_digestion=False,
         *,
         attribute_policy="intersection",
+        return_report=False,
     ):
         return self._call(
             "add_missing_heavy_atoms",
@@ -836,6 +837,7 @@ class _BuildTools:
                 "engine": engine,
                 "skip_digestion": skip_digestion,
                 "attribute_policy": attribute_policy,
+                "return_report": return_report,
             },
         )
 
@@ -881,6 +883,9 @@ class _BuildTools:
         syntax="MolSysMT",
         engine="MolSysMT",
         skip_digestion=False,
+        *,
+        attribute_policy="intersection",
+        return_report=False,
     ):
         return self._call(
             "add_missing_terminal_cappings",
@@ -893,6 +898,8 @@ class _BuildTools:
                 "syntax": syntax,
                 "engine": engine,
                 "skip_digestion": skip_digestion,
+                "attribute_policy": attribute_policy,
+                "return_report": return_report,
             },
         )
 

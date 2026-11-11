@@ -114,12 +114,15 @@ def test_pairwise_numeric_budget_refusal_does_not_change_owner(view, monkeypatch
     unchanged(view, before)
 
 
-@pytest.mark.parametrize("path", PATHS)
+@pytest.mark.parametrize(
+    "path",
+    [*PATHS, "build.add_missing_heavy_atoms", "build.add_missing_terminal_cappings"],
+)
 def test_exact_native_signature_digestion_help_and_namespace(path):
     with msv.new_view() as owner:
         method = resolve(owner.addons.molsysmt, path)
         native = inspect.signature(resolve(msm, path))
-        if PATHS[path]:
+        if PATHS.get(path, True):
             native = native.replace(parameters=list(native.parameters.values())[1:])
         assert inspect.signature(method) == native
         assert method.digestion_plan is not None
@@ -246,12 +249,13 @@ def test_explicit_h5msm_axes_and_mechanics_layer_on_empty_owner(tmp_path, skip):
     with msv.new_view() as owner:
         before = snapshot(owner)
         files = owner.addons.molsysmt.h5msm
-        refused = tmp_path / "refused-default.h5msm"
+        refused = tmp_path / "refused-05.h5msm"
         with pytest.raises(ValueError, match="0.5"):
             files.write_layers(
                 refused,
                 molecular_mechanics=mechanics,
                 mechanics_n_atoms=7,
+                format_version="0.5",
                 skip_digestion=skip,
             )
         assert not refused.exists()
@@ -276,9 +280,7 @@ def test_explicit_h5msm_axes_and_mechanics_layer_on_empty_owner(tmp_path, skip):
 
 
 @pytest.mark.parametrize("skip", [False, True])
-def test_bound_h5msm_write_has_explicit_schema_and_rejects_lossy_default(
-    view, tmp_path, skip
-):
+def test_bound_h5msm_write_preserves_default_and_rejects_lossy_05(view, tmp_path, skip):
     view.molsys.molecular_mechanics.forcefield = "request"
     before = snapshot(view)
     default_path, explicit_path = (
@@ -286,9 +288,19 @@ def test_bound_h5msm_write_has_explicit_schema_and_rejects_lossy_default(
         tmp_path / "explicit.h5msm",
     )
     files = view.addons.molsysmt.h5msm
+    files.write(default_path, skip_digestion=skip)
+    with h5py.File(default_path) as stored:
+        assert str(stored.attrs["version"]) == "1.0"
+    default_loaded = files.read(default_path)
+    assert default_loaded.molecular_mechanics.forcefield == "request"
+    np.testing.assert_array_equal(
+        puw.get_value(default_loaded.structures.coordinates),
+        puw.get_value(view.molsys.structures.coordinates),
+    )
+    refused = tmp_path / "refused-05.h5msm"
     with pytest.raises(ValueError, match="0.5"):
-        files.write(default_path, skip_digestion=skip)
-    assert not default_path.exists()
+        files.write(refused, skip_digestion=skip, format_version="0.5")
+    assert not refused.exists()
     files.write(explicit_path, skip_digestion=skip, format_version="0.6")
     loaded = files.read(explicit_path)
     assert loaded.molecular_mechanics.forcefield == "request"

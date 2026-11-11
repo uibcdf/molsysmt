@@ -422,7 +422,9 @@ geometry, unassessed warnings, possible atom reordering and unknown new chemistr
 Distinguish native strict/intersection policies, output-only remapped analysis
 invalidation, no-change coverage and source/scene preservation. PDBFixer remains
 an explicit optional provider with separate limits; no hidden fallback or
-physical-refinement certificate. Neither tool adopts results or adds update_view.
+physical-refinement certificate. Heavy repair forwards the native return_report
+option, including its original system/report dictionary and correspondence maps.
+Neither tool adopts results or adds update_view.
 
 
 Preserve independent add_missing_hydrogens and add_missing_terminal_cappings.
@@ -434,6 +436,8 @@ Capping can complete the opposite free terminus as well as insert ACE/NME;
 retain native all-structure scope, reordering/invalidation and attribute losses.
 Keep approximate chemistry, unassessed gaps and provider/keep_ids limitations
 explicit, with independent outputs, pending reads and no automatic scene adoption.
+Terminal completion forwards the native attribute_policy and return_report
+options; keep native engine-specific refusals and report provenance intact.
 
 
 Preserve loaded-primary build.editable as a detached native builder, including
@@ -729,8 +733,9 @@ clustering and metadata-only H5MSM axis-size inspection. Keep native signatures,
 unit/work/memory limits, ordered member/source indices, reports and diagnostics.
 Explicit utilities work on open empty owners without reading the primary;
 closed owners reject, returned results remain caller-owned. Normalization is
-never a managed edit or automatic adoption. Both writers preserve H5MSM 0.5
-defaults and require explicit experimental 0.6 for stored mechanics. These
+never a managed edit or automatic adoption. Both writers mirror native H5MSM
+1.0 defaults, retain explicit experimental 0.6, and reject nonempty stored
+mechanics under explicit 0.5. These
 expert routes do not imply new GUI tasks or installed-pair qualification.
 
 

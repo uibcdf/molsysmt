@@ -47,7 +47,7 @@ class _H5MSMTools:
     @_native_documentation("write", module="h5msm", bind_primary=True)
     @signal(tags=["addon", "io"])
     @arg_digest(config="molsysviewer_molsysmt._argdigest")
-    def write(self, output_filename, skip_digestion=False, *, format_version="0.5"):
+    def write(self, output_filename, skip_digestion=False, *, format_version="1.0"):
         from molsysmt.h5msm import write
 
         return self._owner._read(
@@ -96,7 +96,7 @@ class _H5MSMTools:
         structures=None,
         molecular_mechanics=None,
         mechanics_n_atoms=None,
-        format_version="0.5",
+        format_version="1.0",
         interactions=None,
         associations=None,
         skip_digestion=False,

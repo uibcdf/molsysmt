@@ -69,6 +69,58 @@ def test_explicit_native_signature_help_and_validation(case):
 
 
 @pytest.mark.parametrize(
+    "name", ["add_missing_heavy_atoms", "add_missing_terminal_cappings"]
+)
+@pytest.mark.parametrize("unit", ["nm", "pm"])
+def test_reconstruction_reports_are_forwarded_once_without_adoption(
+    monkeypatch, name, unit
+):
+    from tests.build.add_missing_heavy_atoms.test_domain_preservation import (
+        incomplete_serine,
+    )
+
+    source = (
+        incomplete_serine() if name == "add_missing_heavy_atoms" else source_for(name)
+    )
+    parameters = {} if name == "add_missing_heavy_atoms" else parameters_for(name)
+    native = getattr(msm.build, name)
+    calls, results = [], []
+
+    def receive(molecular_system, **options):
+        calls.append(options.copy())
+        result = native(molecular_system, **options)
+        results.append(result)
+        return result
+
+    with msv.new_view(source) as view:
+        method = getattr(view.addons.molsysmt.build, name)
+        before = snapshot(view)
+        monkeypatch.setattr(msm.build, name, receive)
+        with puw.context(standard_units=[unit, "ps", "radians", "elementary_charge"]):
+            result = method(
+                **parameters, attribute_policy="intersection", return_report=True
+            )
+        assert len(results) == 1 and result is results[0]
+        assert calls[0]["return_report"] is True
+        assert calls[0]["attribute_policy"] == "intersection"
+        output, report = result["molecular_system"], result["report"]
+        assert output is not view.molsys
+        mapping = report["source_to_output_atom_indices"]
+        inverse = report["output_to_source_atom_indices"]
+        retained = np.flatnonzero(mapping >= 0)
+        np.testing.assert_array_equal(inverse[mapping[retained]], retained)
+        np.testing.assert_array_equal(
+            puw.get_value(output.structures.coordinates, to_unit="nm")[
+                :, mapping[retained]
+            ],
+            puw.get_value(view.molsys.structures.coordinates, to_unit="nm")[
+                :, retained
+            ],
+        )
+        unchanged(view, before)
+
+
+@pytest.mark.parametrize(
     "smiles,positions,count",
     [
         ("C", [[0, 0, 0]], 4),

@@ -74,11 +74,13 @@ def test_native_signature_help_validation_and_ownership_controls(case):
         "molecular_system",
         "in_place",
         "update_view",
-        "return_report",
         "structure_indices",
     ):
         with pytest.raises(UnknownArgumentError):
             method(**parameters_for(name), **{extra: None})
+    if name == "add_terminal_atoms":
+        with pytest.raises(UnknownArgumentError):
+            method(**parameters_for(name), return_report=None)
     with pytest.raises(Exception):
         method(**parameters_for(name), skip_digestion="yes")
 

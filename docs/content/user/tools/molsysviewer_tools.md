@@ -3646,7 +3646,7 @@ See {ref}`Attaching terminal atoms <Tutorial_Add_Terminal_Atoms>` and
 ### Repairing supported missing heavy atoms
 
 `view.addons.molsysmt.build.add_missing_heavy_atoms` returns a new molecular
-system. Its native engine estimates supported missing non-H positions from
+system by default. Its native engine estimates supported missing non-H positions from
 bounded local templates. For example, explicitly remove one serine oxygen from
 a generated peptide before loading it, then repair that selected group:
 
@@ -3689,8 +3689,12 @@ can materialize trajectory coordinates.
 `engine="PDBFixer"` explicitly selects the optional external provider with its
 own chemistry, conversion and preservation limits. It is not an automatic
 fallback and currently supports only intersection attribute policy here. The
-native engine's multi-state and strict-loss rejections remain explicit. There
-is no `return_report`, `in_place` or `update_view` argument on this method.
+native engine's multi-state and strict-loss rejections remain explicit.
+With the native engine, `return_report=True` returns the native dictionary with
+`molecular_system` and `report` unchanged. The report includes source-to-output
+and output-to-source atom maps and placement evidence; newly generated atoms
+have no source index. This option is not available for PDBFixer. There is no
+`in_place` or `update_view` argument on this method.
 See {ref}`Adding heavy atoms <Tutorial_Add_missing_heavy_atoms>` and
 {func}`molsysmt.build.add_missing_heavy_atoms` for native scope and alternatives.
 
@@ -3809,14 +3813,19 @@ The native engine retains bounded heavy-atom preflight and unassessed warnings.
 It preserves observed coordinates and old IDs while insertion can reorder atom
 indices. New chemical fields remain unknown; terminal geometry does not assign
 a complete protonation or force-field model. Unsupported structural/mechanical
-attributes are dropped with native diagnostics. Expanded output analyses retain
+attributes are dropped with native diagnostics under the default
+`attribute_policy="intersection"`; native `attribute_policy="strict"` refuses
+such loss. Expanded output analyses retain
 remapped provenance but lose occurrences and evaluated coverage. All source
 structures are processed by the received native capping route.
 
 `selection`, `syntax`, `pH` and `keep_ids` follow native engine-specific behavior.
 PDBFixer is optional and explicit; `keep_ids=True` remains unsupported by that
-route. No report, strict attribute policy, `in_place` or `update_view` control
-is invented. See {func}`molsysmt.build.add_missing_terminal_cappings` and
+route. For the native engine, `return_report=True` returns the original native
+`molecular_system`/`report` dictionary, including both atom correspondence maps
+and preparation evidence. Strict attribute policy and report output are not
+available for PDBFixer. There is no `in_place` or `update_view` argument.
+See {func}`molsysmt.build.add_missing_terminal_cappings` and
 {ref}`Preparing termini <Tutorial_Add_missing_terminal_cappings>`.
 
 Both preparation methods use the serialized current primary, including
@@ -4986,13 +4995,13 @@ or every scientific method/input population.
 
 ## Working with molecular files explicitly
 
-The bound addon writers below retain their explicit 0.5 defaults. They differ
-from the native public `msm.h5msm` writers and `msm.convert`, which default to
-1.0 in development source. Pass `format_version="1.0"` to a bound writer when
-you need that schema; see {ref}`user-tools-form-h5msm-10` for its qualification
-and persistence limits.
+The bound addon writers follow the native public `msm.h5msm` writers and
+`msm.convert`: they default to H5MSM 1.0 in development source. Explicit
+`format_version="0.5"` or `"0.6"` keeps the corresponding older profile and its
+limits. See {ref}`user-tools-form-h5msm-10` for qualification and persistence
+limits; this source default does not identify an installed release artifact.
 
-`tools.h5msm.write(output_filename, *, format_version="0.5")` writes the current primary, including pending
+`tools.h5msm.write(output_filename, *, format_version="1.0")` writes the current primary, including pending
 native edits, through the serialized reader. It does not synchronize the scene.
 All other H5MSM utilities keep filenames and domain objects explicit and work
 before loading a system while the view is open. Paths refer to the Python process
@@ -5009,7 +5018,7 @@ Viewer scene/session save or a browser download.
   or full payload validity.
 - `write_layers(output_filename, *, topology=None, chemical_states=None,
   structures=None, molecular_mechanics=None, mechanics_n_atoms=None,
-  format_version="0.5", interactions=None, associations=None)` writes only explicit
+  format_version="1.0", interactions=None, associations=None)` writes only explicit
   caller-owned domains and declared associations, never implicitly adding the
   primary's topology, analyses or structures.
 - `append_structures(filename, structures, *, structure_state_indices=None,
@@ -5021,8 +5030,10 @@ Viewer scene/session save or a browser download.
   a distinct destination under native schema and information-loss restrictions.
 
 Native units, sparse coverage, associations, producer metadata, return types,
-errors and overwrite behavior remain unchanged. H5MSM 0.5 rejects nonempty
-molecular-mechanics data rather than silently discarding it. Explicit
+errors and overwrite behavior remain unchanged. Default 1.0 preserves supported
+stored mechanics; it does not certify a complete physical model. Explicit
+H5MSM 0.5 rejects nonempty molecular-mechanics data rather than silently
+discarding it. Explicit
 `format_version="0.6"` on either writer requests experimental stored mechanics;
 `mechanics_n_atoms` declares the atom count of an independent mechanics layer.
 No parameterization or model execution occurs during storage. Explicit external

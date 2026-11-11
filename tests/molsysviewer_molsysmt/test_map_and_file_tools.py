@@ -272,8 +272,45 @@ def test_write_preserves_native_mechanics_rejection(view, tmp_path):
     view.molsys.molecular_mechanics.forcefield = "explicit-unsupported-forcefield"
     path = tmp_path / "rejected.h5msm"
     with pytest.raises(ValueError, match="molecular mechanics"):
-        view.addons.molsysmt.h5msm.write(path)
+        view.addons.molsysmt.h5msm.write(path, format_version="0.5")
     assert not path.exists()
+
+
+@pytest.mark.parametrize("version", [None, "0.6", "1.0"])
+@pytest.mark.parametrize("layered", [False, True])
+@pytest.mark.parametrize("unit", ["nm", "pm"])
+def test_current_writer_defaults_preserve_mechanics_without_scene_changes(
+    view, tmp_path, version, layered, unit
+):
+    mechanics = view.molsys.molecular_mechanics
+    mechanics.forcefield = "unresolved-model-request"
+    mechanics.partial_charge = np.linspace(-0.25, 0.25, view.molsys.get_n_atoms())
+    mechanics.cutoff_distance = puw.quantity(12, "angstrom")
+    before = view.export_state()
+    source = view.molsys
+    path = tmp_path / "mechanics.h5msm"
+    options = {} if version is None else {"format_version": version}
+    files = view.addons.molsysmt.h5msm
+    with puw.context(standard_units=[unit, "ps", "coulomb"]):
+        if layered:
+            files.write_layers(
+                path,
+                molecular_mechanics=mechanics,
+                mechanics_n_atoms=source.get_n_atoms(),
+                **options,
+            )
+        else:
+            files.write(path, **options)
+        restored = files.read_layers(path, layers=["molecular_mechanics"])[
+            "molecular_mechanics"
+        ]
+    with h5py.File(path, "r") as file:
+        assert file.attrs["version"] == (version or "1.0")
+    assert restored.forcefield == mechanics.forcefield
+    np.testing.assert_array_equal(restored.partial_charge, mechanics.partial_charge)
+    assert str(puw.get_unit(restored.cutoff_distance)) == "angstrom"
+    assert puw.get_value(restored.cutoff_distance, to_unit="nm") == pytest.approx(1.2)
+    assert view.molsys is source and view.export_state() == before
 
 
 @pytest.mark.parametrize("coordinates", [False, True])
@@ -339,7 +376,21 @@ def test_empty_and_named_interactions_remain_distinct_and_unattached(view, tmp_p
         method="explicit-native-test",
     )
     path = str(tmp_path / "analyses.h5msm")
-    files.write_layers(path, interactions={"first": analysis, "second": analysis})
+    files.write_layers(
+        path,
+        interactions={"first": analysis, "second": analysis},
+        associations=[
+            dict(
+                axis=axis,
+                source="interactions",
+                source_name="first",
+                target="interactions",
+                target_name="second",
+                indices="identity",
+            )
+            for axis in ("atom", "structure")
+        ],
+    )
     layers = files.read_layers(path, layers="interactions", analysis_names=["second"])
     assert set(layers["interactions"]) == {"second"}
     assert layers["interactions"]["second"].evaluated_structure_indices.tolist() == [
@@ -352,7 +403,7 @@ def test_empty_and_named_interactions_remain_distinct_and_unattached(view, tmp_p
     empty = str(tmp_path / "empty.h5msm")
     files.write_layers(empty, interactions={})
     assert files.read_layers(empty, layers="interactions")["interactions"] == {}
-    with pytest.raises(ValueError, match="read_layers"):
+    with pytest.raises(ValueError, match="independent layer"):
         files.read(empty)
     assert view.export_state() == state and not view.molsys.interactions
 
