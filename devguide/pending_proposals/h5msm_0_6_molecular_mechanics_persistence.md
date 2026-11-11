@@ -1101,3 +1101,23 @@ parallel occurrence identities, evaluation coverage and method. The initial
 fixture attempt tried to assign into the read-only analysis mapping. The
 passing fixture uses the public whole-mapping setter. Independent Viewer
 receiving and the default-writer decision remain pending.
+
+### Independent explicit 1.0 P6 acceptance — 2026-11-10
+
+DockingMT `03ed7676b2177440cbceea00574a437889a4d6f9` passes ten cases under
+each unit policy. All three 0.6 files migrate to explicit 1.0 with original
+root provenance. Typed readback, original PDBQT, atom permutation and
+structures `[2, 0]`, selective edit invalidation and both unknown-report
+transport/refusal cases pass. The two-case admission overlaps these profiles.
+[DockingMT #73](https://github.com/uibcdf/dockingmt/issues/73#issuecomment-6784434374)
+
+The [provider receipt](../../devtools/data/docking_h5msm_p6_client_receiving_256_20261110.json)
+verifies both manifest digests and the compressed and decoded identities of
+thirteen selected records. The received product bytes match the `05865fbb3`
+reference. The two actual import maps identify DockingMT's local ABI3
+`2dbcf13d` with unassessed compilation provenance. Four one-atom, zero-bond
+topology calls are the entire admitted native execution across the two final
+profiles. The 0.6 profile retains its original acceptance and binary identity.
+
+The remaining P6 client check is independent MolSysViewer session receiving.
+Retain the default at 0.5 until the default-writer and stable-format decisions.

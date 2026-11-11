@@ -1,0 +1,301 @@
+{
+  "schema": "molsysmt.contacts_public_provider_receiving@1",
+  "date": "2026-11-10",
+  "issues": [
+    "uibcdf/molsysmt#666",
+    "uibcdf/molsysmt#421",
+    "uibcdf/pyunitwizard#143"
+  ],
+  "contact_panel_source": "fbb9e2bd4fd9c7cc5b5f998d7a5db6a1b15b0145",
+  "dependency_and_native_guard_source": "c0007b4dc3319e620f4612dc51bee83229be04bb",
+  "integrated_source": "a9e6c6efb8393dab2101dca850dc3edbf2385947",
+  "molsysviewer_source": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+  "molsysviewer_test_harness_sha256": "26de87315cb015d47ceba8f968f9685fa97119209fa609576b515a248cf01696",
+  "native_extension_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "provider": {
+    "version": "0.29.2",
+    "source": "cf40c9fcdd4cd2d18df78a9d8fcef3b2d9516256",
+    "url": "https://conda.anaconda.org/uibcdf/noarch/pyunitwizard-0.29.2-py_0.tar.bz2",
+    "sha256": "bb28b9420760b557025163e11c934e096c7b98200cac720100a2db924e9ee617",
+    "receiving_route": "Verified public Conda package bytes extracted to an isolated import overlay; actual origin and distribution version asserted in the existing Linux/Python 3.14 development interpreter."
+  },
+  "public_package_pytest": {
+    "exit": 0,
+    "tests": 860,
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "boundary_cases_included": 135
+  },
+  "native_regression": {
+    "selector": "tests/structure/test_distance_family_contract.py::test_equivalent_contact_cutoffs_keep_the_strict_predecessor",
+    "public_0_29_2": {
+      "passed": 36,
+      "failed": 0
+    },
+    "old_0_28_1": {
+      "passed": 8,
+      "failed": 28
+    }
+  },
+  "browsers": {
+    "nm": {
+      "exit": 0,
+      "decisions": [
+        {
+          "cutoff": "0.5",
+          "unit": "nm",
+          "included": true,
+          "rows": [
+            [
+              "0",
+              "0",
+              "1",
+              "true"
+            ],
+            [
+              "0",
+              "0",
+              "2",
+              "false"
+            ]
+          ]
+        },
+        {
+          "cutoff": "0.49999999999999994",
+          "unit": "nm",
+          "included": false,
+          "rows": [
+            [
+              "0",
+              "0",
+              "1",
+              "false"
+            ],
+            [
+              "0",
+              "0",
+              "2",
+              "false"
+            ]
+          ]
+        },
+        {
+          "cutoff": "5",
+          "unit": "angstrom",
+          "included": true,
+          "rows": [
+            [
+              "0",
+              "0",
+              "1",
+              "true"
+            ],
+            [
+              "0",
+              "0",
+              "2",
+              "false"
+            ]
+          ]
+        },
+        {
+          "cutoff": "4.999999999999999",
+          "unit": "angstrom",
+          "included": false,
+          "rows": [
+            [
+              "0",
+              "0",
+              "1",
+              "false"
+            ],
+            [
+              "0",
+              "0",
+              "2",
+              "false"
+            ]
+          ]
+        },
+        {
+          "cutoff": "500",
+          "unit": "pm",
+          "included": true,
+          "rows": [
+            [
+              "0",
+              "0",
+              "1",
+              "true"
+            ],
+            [
+              "0",
+              "0",
+              "2",
+              "false"
+            ]
+          ]
+        },
+        {
+          "cutoff": "499.99999999999994",
+          "unit": "pm",
+          "included": false,
+          "rows": [
+            [
+              "0",
+              "0",
+              "1",
+              "false"
+            ],
+            [
+              "0",
+              "0",
+              "2",
+              "false"
+            ]
+          ]
+        }
+      ],
+      "server_ready_seconds": 12.532718756934628,
+      "page_errors_match_plain_jupyter": true,
+      "coordinates_chemistry_scene_unit_policy_and_revision_preserved": true
+    },
+    "pm": {
+      "exit": 0,
+      "decisions": [
+        {
+          "cutoff": "0.5",
+          "unit": "nm",
+          "included": true,
+          "rows": [
+            [
+              "0",
+              "0",
+              "1",
+              "true"
+            ],
+            [
+              "0",
+              "0",
+              "2",
+              "false"
+            ]
+          ]
+        },
+        {
+          "cutoff": "0.49999999999999994",
+          "unit": "nm",
+          "included": false,
+          "rows": [
+            [
+              "0",
+              "0",
+              "1",
+              "false"
+            ],
+            [
+              "0",
+              "0",
+              "2",
+              "false"
+            ]
+          ]
+        },
+        {
+          "cutoff": "5",
+          "unit": "angstrom",
+          "included": true,
+          "rows": [
+            [
+              "0",
+              "0",
+              "1",
+              "true"
+            ],
+            [
+              "0",
+              "0",
+              "2",
+              "false"
+            ]
+          ]
+        },
+        {
+          "cutoff": "4.999999999999999",
+          "unit": "angstrom",
+          "included": false,
+          "rows": [
+            [
+              "0",
+              "0",
+              "1",
+              "false"
+            ],
+            [
+              "0",
+              "0",
+              "2",
+              "false"
+            ]
+          ]
+        },
+        {
+          "cutoff": "500",
+          "unit": "pm",
+          "included": true,
+          "rows": [
+            [
+              "0",
+              "0",
+              "1",
+              "true"
+            ],
+            [
+              "0",
+              "0",
+              "2",
+              "false"
+            ]
+          ]
+        },
+        {
+          "cutoff": "499.99999999999994",
+          "unit": "pm",
+          "included": false,
+          "rows": [
+            [
+              "0",
+              "0",
+              "1",
+              "false"
+            ],
+            [
+              "0",
+              "0",
+              "2",
+              "false"
+            ]
+          ]
+        }
+      ],
+      "server_ready_seconds": 12.533106888877228,
+      "page_errors_match_plain_jupyter": true,
+      "coordinates_chemistry_scene_unit_policy_and_revision_preserved": true
+    }
+  },
+  "resource_scope": {
+    "cpu_limit": 4,
+    "memory_limit_gib": 6,
+    "swap_limit_bytes": 0,
+    "sampled_peak_bytes": 3191619584,
+    "sampled_minimum_host_mem_available_kib": 12246340
+  },
+  "fast_release_preflight_passed": 15,
+  "integrated_source_focused_receiving": {
+    "passed": 145,
+    "failed": 0,
+    "scope": "Unit-policy bootstrap and authority, distance-cluster units, H5MSM 1.0 migration, permanent contact guard and contact panel."
+  },
+  "disposition": "Accept the declared source and actual Jupyter contact intent. MolSysMT candidate, platform and final installed pair remain separate."
+}

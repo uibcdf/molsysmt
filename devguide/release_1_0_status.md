@@ -1,8 +1,21 @@
 # MolSysMT 1.0 Execution Status
 
+## Public contact correction and independent H5MSM 1.0 receiving — 2026-11-10
+
+MolSysMT source `a9e6c6efb` integrates the contact panel and requires
+PyUnitWizard 0.29.2. The [#666 resolution](archive/resolved_bugs/contact_cutoff_equality_changes_across_equivalent_length_units.md#published-correction-and-integrated-panel--2026-11-10)
+records 860 passing cases with the verified public package, the 36-case native
+guard and both actual Jupyter workflows. Source graphical acceptance reaches
+**50/50** and the unchanged weighted plan advances from **76.2920% to 76.3095%**.
+
+DockingMT's [independent 1.0 P6 profile](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-explicit-10-p6-acceptance--2026-11-10)
+passes **20** cases with its exact measured local binary and bounded native
+scope. Independent MolSysViewer session receiving and the stable-format/default
+decision remain due. #615's intermittent original failure remains open.
+
 ## Contact panel, first-canvas diagnostics and P6 reference — 2026-11-10
 
-The [contact panel source pilot](pending_bugs/contact_cutoff_equality_changes_across_equivalent_length_units.md#contact-panel-source-and-browser-receiving--2026-11-10)
+The [contact panel source pilot](archive/resolved_bugs/contact_cutoff_equality_changes_across_equivalent_length_units.md#contact-panel-source-and-browser-receiving--2026-11-10)
 passes 264 Python and preflight cases and twelve cutoff decisions in Jupyter.
 Its local branch awaits the compatible PyUnitWizard publication and installed
 receiving. [The #615 diagnostic](pending_bugs/intermittent_jupyter_initial_canvas_timeout.md#owner-kernel-and-live-session-diagnostics-received--2026-11-10)
@@ -41,7 +54,7 @@ startup controls pass and the PR is integrated in `257451d8`. The prolonged
 actual-browser campaign and #615 remain separate. See the
 [resolved #705 record](archive/resolved_proposals/explicit_bounded_jupyter_server_readiness_budget.md#integrated-and-verified--2026-11-10).
 PyUnitWizard `238ed11` passes **135 local contact-boundary controls** on the
-exact provider source export. The [#666 record](pending_bugs/contact_cutoff_equality_changes_across_equivalent_length_units.md#pyunitwizard-source-correction-received--2026-11-10)
+exact provider source export. The [#666 record](archive/resolved_bugs/contact_cutoff_equality_changes_across_equivalent_length_units.md#pyunitwizard-source-correction-received--2026-11-10)
 keeps publication of the compatible provider and graphical receiving pending.
 Formal progress remains **76.2920%, 49/50**. Candidate qualification and
 publication remain paused.

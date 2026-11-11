@@ -1,0 +1,76 @@
+{
+  "schema": "molsysmt.h5msm_p6_client_receiving@1",
+  "date": "2026-11-10",
+  "owner_issue": "uibcdf/molsysmt#256",
+  "consumer_issue": "uibcdf/dockingmt#73",
+  "consumer_record_commit": "03ed7676b2177440cbceea00574a437889a4d6f9",
+  "consumer_notice": "https://github.com/uibcdf/dockingmt/issues/73#issuecomment-6784434374",
+  "consumer_wheel_producer": "37a61e61db40f386a4ad031ecd14d578441f61ce",
+  "format_reference_source": "05865fbb3ba499d4117d6ba3e1cf55d98a9e239e",
+  "isolated_provider_source": "9df62445e49a1e268cf4c13d1ebbdd06b2088674",
+  "loaded_provider_native_sha256": "2dbcf13d148cb3ae13a5908707fcdd61c75a2de5027e50c566ce07de81bdb038",
+  "native_compile_provenance": "unassessed",
+  "format_version": "1.0",
+  "manifest_authentication": {
+    "primary_sha256": "73e8d385c763ebf4c85bcb86099b3785a69445c57c0ff3b30ec44283c8bf22fe",
+    "primary_inventory_members": 304,
+    "reader_sha256": "cd934192bebcbca34b5267590ecddaff56dc177356eb89e90ae86d04585ea58a",
+    "reader_inventory_members": 14,
+    "verified_primary_members_per_policy": [
+      "junit.xml",
+      "receipt.json",
+      "native-calls.json",
+      "native-maps.json",
+      "public-io.json"
+    ],
+    "verified_admission_member": "attempts/admit-normal-01/junit.xml.gz",
+    "verified_reader_members": [
+      "reader-01/receipt.json.gz",
+      "audit-01/receipt.json.gz"
+    ],
+    "scope": "Verified exact manifest bytes and compressed and decoded identities of 13 selected members; reconciled JUnit exits, native maps and bounded topology calls."
+  },
+  "accepted_profiles": {
+    "normal": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit": 0,
+      "native_topology_calls": 2,
+      "public_io_records": 15,
+      "startup_fast_tracks_added": [
+        "angstroms",
+        "kelvin",
+        "nanometers",
+        "picoseconds"
+      ]
+    },
+    "pm_fs": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "pytest_exit": 0,
+      "native_topology_calls": 2,
+      "public_io_records": 15,
+      "startup_fast_tracks_added": [
+        "angstroms",
+        "kelvin",
+        "nanometers",
+        "picoseconds"
+      ]
+    }
+  },
+  "two_case_admission_overlaps_final_selection": true,
+  "acceptance": [
+    "Explicit migration of all three 0.6 packet files to 1.0 and original root metadata preservation, with safe existing-destination refusal.",
+    "Typed readback and PDBQT parity, atom permutation and explicit structures [2, 0], selective edit invalidation, and unknown-report transport/refusal."
+  ],
+  "pending": [
+    "independent MolSysViewer session receiving",
+    "stable/default format decision",
+    "exact candidate qualification"
+  ],
+  "original_progress_change": 0
+}

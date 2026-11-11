@@ -9,7 +9,7 @@
   "gui_scope": "Tracking packages make the previously accepted workflow inventory explicit. They are user intents, not a GUI promise for every expert argument or a new scientific feature request. Native/expert APIs remain available and retain their own qualification.",
   "publication": "The existing pause remains. #640/#641/#642 and all other required correctness work retain owning acceptance. Exact candidate/platform/installed and final sign-off gates are not scored as passed by source tests.",
   "legacy_phase_exit_percent": 40,
-  "weighted_milestone_percent": 76.29204129204129,
+  "weighted_milestone_percent": 76.30952380952381,
   "reported_approximate_percent": 76.3,
   "phases": [
     {
@@ -640,9 +640,12 @@
                 {
                   "id": "contacts",
                   "requirement": "Receive the contact-query intent",
-                  "state": "pending",
-                  "evidence": [],
-                  "review": ""
+                  "state": "verified_source",
+                  "evidence": [
+                    "devtools/data/contact_panel_public_provider_receiving_666_20261110.json",
+                    "devguide/archive/resolved_bugs/contact_cutoff_equality_changes_across_equivalent_length_units.md"
+                  ],
+                  "review": "Public PyUnitWizard 0.29.2: 860 focused cases, 36 durable native guards and both actual Jupyter contact scenarios. Explicit source graphical intent accepted."
                 },
                 {
                   "id": "vectors",
@@ -772,8 +775,8 @@
           ]
         }
       ],
-      "verified_fraction": 0.8993006993006993,
-      "credited_points": 22.482517482517483
+      "verified_fraction": 0.9,
+      "credited_points": 22.5
     },
     {
       "id": "phase5",
@@ -934,14 +937,14 @@
       "uibcdf/molsysmt#688",
       "uibcdf/molsysmt#701",
       "uibcdf/molsysmt#703",
-      "uibcdf/molsysmt#704"
+      "uibcdf/molsysmt#704",
+      "uibcdf/molsysmt#666"
     ],
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
     "owner_verification": "Public ddd32ac1a independently matches 39 changed paths, preserves all four human files and atomically adopts the canonical qualified native extension; #701/#703/#704 are guarded/closed and #702 merged by ancestry. All scoped owner receiving remains separate from the failed original complete default session and paused final gates.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Receive contacts/provider143, original #615 causal/environmental disposition and incoming #705 preparation contribution. Viewer accepts the exercised #250/#254 source contracts. Await actual published Viewer/clean-installed #524 and final #250/#254 acceptance, and complete finite #256 P5/P6/stable-format and #334 exact-candidate gates under existing authority. Original weights/failures and publication pause remain.",
+    "scope": "Contact-query source intent received. Continue #615 causality, #524 actual dependency floors, final #250/#254 acceptance, independent MolSysViewer H5MSM 1.0 sessions, stable/default #256 decisions and #334 exact-candidate gates.",
     "active_related": [
-      "uibcdf/molsysmt#666",
       "uibcdf/molsysmt#421",
       "uibcdf/molsysmt#615",
       "uibcdf/molsysmt#256"
@@ -977,7 +980,7 @@
   },
   "derived_graphical_tracking": {
     "source": "phases/phase4/graphical-inventory",
-    "verified_source_intents": 49,
+    "verified_source_intents": 50,
     "total_intents": 50,
     "global_weight_points": 2.5,
     "meaning": "A separate count of accepted declared intents; not equal effort, scientific coverage or installed acceptance."
@@ -1531,5 +1534,17 @@
     ],
     "provider_fixture_notice": "https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6779668471",
     "scope": "Precise external deliverables and finite local P5/P6 work; no new client-integration gate or publication authority."
+  },
+  "last_contact_public_provider_receiving": {
+    "source": "a9e6c6efb8393dab2101dca850dc3edbf2385947",
+    "evidence": "devtools/data/contact_panel_public_provider_receiving_666_20261110.json",
+    "weighted_milestone_change": 0.017482517482520166,
+    "graphical_accepted": 50,
+    "graphical_total": 50
+  },
+  "last_h5msm_p6_client_receiving": {
+    "consumer_source": "03ed7676b2177440cbceea00574a437889a4d6f9",
+    "evidence": "devtools/data/docking_h5msm_p6_client_receiving_256_20261110.json",
+    "original_progress_change": 0
   }
 }

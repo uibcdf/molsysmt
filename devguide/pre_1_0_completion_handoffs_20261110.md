@@ -58,6 +58,11 @@ and the uncertain startup stage by [#615](pending_bugs/intermittent_jupyter_init
 ### PyUnitWizard: explicit boundary-safe conversion review
 
 **Owner:** uibcdf/pyunitwizard#143; consumer uibcdf/molsysmt#666.
+**Completed.** The published 0.29.2 package passes the native boundary
+controls and both real Jupyter contact workflows. The
+[#666 resolution](archive/resolved_bugs/contact_cutoff_equality_changes_across_equivalent_length_units.md)
+records the dependency floor and regression guard. The original handoff follows.
+
 **Deliverable:** identify a suitable supported conversion/comparison route, or
 propose the smallest explicit provider capability with declared guarantees and
 limits. An implementation/release is needed only if that review demonstrates
@@ -159,10 +164,12 @@ DockingMT completes the three additional controls on experimental 0.6 with
 seven passing cases per unit policy. Its isolated `5e7d65a6` source uses the
 previously qualified `5715bda2` ABI3 only for one-atom topology bookkeeping.
 The [P5 acceptance and 1.0 handoff](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-experimental-06-p5-acceptance--2026-11-10)
-identifies the scope and reference inputs. When an isolated compatible provider
-composition is agreed, repeat the applicable tests with the explicit 1.0 source
-API and compare migrated files with their immutable 0.6 inputs. The installed
-cohort retains its original provider. [DockingMT #73](https://github.com/uibcdf/dockingmt/issues/73#issuecomment-6783446850)
+identifies the scope and reference inputs. DockingMT then completes ten cases
+per policy on the explicit 1.0 route with local ABI3 `2dbcf13d`. The
+[accepted P6 receipt](../devtools/data/docking_h5msm_p6_client_receiving_256_20261110.json)
+records its separate provider composition and exact checks. Independent
+MolSysViewer session receiving and the default-writer decision remain due.
+[DockingMT #73](https://github.com/uibcdf/dockingmt/issues/73#issuecomment-6784434374)
 
 The local DockingMT clone was 181 commits behind its fetched upstream during
 this checkpoint and was not updated or used as current consumer evidence.

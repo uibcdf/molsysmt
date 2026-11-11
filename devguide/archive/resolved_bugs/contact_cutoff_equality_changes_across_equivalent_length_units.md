@@ -1,13 +1,13 @@
 ---
 summary: Contact cutoff equality changes across equivalent length units
 issue: uibcdf/molsysmt#666
-status: active
+status: resolved
 opened: 2026-11-09
-closed:
+closed: 2026-11-10
 severity: high
 verification: reproduced
 area: [structure, units]
-guard:
+guard: tests/structure/test_distance_family_contract.py::test_equivalent_contact_cutoffs_keep_the_strict_predecessor
 normative:
 blocked_by: []
 supersedes: []
@@ -15,8 +15,8 @@ supersedes: []
 
 # Equivalent contact cutoffs change a boundary decision
 
-**Status:** Reproduced directly in native get_contacts; scientific correction
-and general unit-conversion review remain open.
+**Status:** Resolved by requiring the published PyUnitWizard 0.29.2 cutoff
+correction. The original diagnosis and source-only attempts are retained below.
 
 ## What
 
@@ -47,7 +47,7 @@ routes reported in #665.
 
 ## What is measured and what is assumed
 
-[Exact attempts and observations](../../devtools/data/native_contact_unit_boundary_666_20261109.json)
+[Exact attempts and observations](../../../devtools/data/native_contact_unit_boundary_666_20261109.json)
 retain the 151-pass/three-failure prototype pilot and the corrected oracle's
 152 passes/two genuine native failures in 154 cases. The mass-oracle typo was
 corrected to public physchem.get_mass; no threshold assertion changed. The native
@@ -89,7 +89,7 @@ separate from host memory pressure.
 
 ## Exact-scale reference exploration — 2026-11-10
 
-A [27-case independent reference](../../devtools/data/unit_scale_boundary_reference_666_20261110.json)
+A [27-case independent reference](../../../devtools/data/unit_scale_boundary_reference_666_20261110.json)
 uses standard-library Fraction.from_float, declared exact SI length ratios,
 one final binary64 rounding and the unchanged inclusive comparator. Working
 policies nm, angstrom and pm each receive all three source units and the
@@ -165,3 +165,29 @@ The published PyUnitWizard 0.29.1 tag resolves to `ab92f1e6` and predates
 the correction. The panel remains in the local branch while the
 compatible publication and its installed receiving are pending. #666 remains
 open and this source browser evidence adds no formal milestone credit.
+
+## Published correction and integrated panel — 2026-11-10
+
+PyUnitWizard [0.29.2](https://github.com/uibcdf/pyunitwizard/releases/tag/0.29.2)
+contains the correction and is the new MolSysMT dependency floor. The
+[receiving record](../../../devtools/data/contact_panel_public_provider_receiving_666_20261110.json)
+identifies the public Conda file, its SHA-256, actual imports and the reviewed
+MolSysViewer and native-extension identities. The verified package ran from an
+isolated import overlay in the existing Linux/Python 3.14 environment.
+
+**860 focused cases pass**, including the 135 provider and native boundary
+controls. The permanent native guard passes all 36 cases with 0.29.2 and catches
+28 failures with 0.28.1. Each case exercises the predecessor, equality and
+successor for a declared cutoff and tests the native Boolean result. The guard
+protects exact boundary decisions under nm, angstrom and pm working policies,
+both CPU routes, and vacuum or periodic coordinates.
+
+Two actual JupyterLab and Chromium workflows pass all twelve displayed
+decisions under nm and pm. Each includes the equivalent cutoff and excludes its
+predecessor. The mounted scene, coordinates, chemical states, managed revision
+and caller units are preserved. All fifteen fast release gates pass. The
+source integration is `a9e6c6efb8393dab2101dca850dc3edbf2385947`. It passes
+145 focused cases including caller policy, explicit H5MSM migration, the
+native guard and the contact panel. This accepts the contact-query source
+intent under #421. Exact candidate, platform and final installed-pair
+qualification remain under #334 and #524.
