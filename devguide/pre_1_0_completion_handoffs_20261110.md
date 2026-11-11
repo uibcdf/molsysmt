@@ -127,6 +127,16 @@ minimum and newer installed dependency routes.
 
 **H5MSM 1.0 client cases.** Include the following cases in final receiving.
 
+The bounded source feedback is received from both clients. MolSysViewer
+`97d49215` reports 47 passing cases on the requested provider source and
+reference binary. The [session receipt](../devtools/data/molsysviewer_h5msm10_client_receiving_256_20261110.json)
+records prior-writer compatibility, explicit 1.0 restoration, sparse queries
+and maps, selective invalidation and explicit View synchronization. Its
+mechanics-bearing session loads but the current 0.5 default refuses resaving.
+Coordinate the provider-default transition and updated session expectations
+before the stable-format freeze. Exact installed-candidate receiving follows
+the existing publication plan.
+
 1. Save a complete system with explicit reference chemistry and a named periodic
    analysis, project onto nonconsecutive structures, reopen the session and edit
    one selected structure. Verify maps, occurrence geometry, producer identity,
@@ -167,8 +177,8 @@ The [P5 acceptance and 1.0 handoff](pending_proposals/h5msm_0_6_molecular_mechan
 identifies the scope and reference inputs. DockingMT then completes ten cases
 per policy on the explicit 1.0 route with local ABI3 `2dbcf13d`. The
 [accepted P6 receipt](../devtools/data/docking_h5msm_p6_client_receiving_256_20261110.json)
-records its separate provider composition and exact checks. Independent
-MolSysViewer session receiving and the default-writer decision remain due.
+records its separate provider composition and exact checks. The default-writer
+decision and receiving after that transition remain due.
 [DockingMT #73](https://github.com/uibcdf/dockingmt/issues/73#issuecomment-6784434374)
 
 The local DockingMT clone was 181 commits behind its fetched upstream during

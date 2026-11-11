@@ -1121,3 +1121,34 @@ profiles. The 0.6 profile retains its original acceptance and binary identity.
 
 The remaining P6 client check is independent MolSysViewer session receiving.
 Retain the default at 0.5 until the default-writer and stable-format decisions.
+
+### Independent MolSysViewer session acceptance — 2026-11-10
+
+MolSysViewer records **47 passing source cases**, including nine new guards,
+at `97d49215b2ef92316052697bee12c682ea322e6a`. The runtime is
+`a6a3a309b31de2031e2517be6d913a9afd0c087b`, with MolSysMT
+`8d05bc33e75327a2c4f55a8c06ed3a132627fb5b`, PyUnitWizard 0.29.2 and
+native ABI3 `4ffb82e4`. The
+[provider receipt](../../devtools/data/molsysviewer_h5msm10_client_receiving_256_20261110.json)
+verifies the public report and the test's declared SHA-256 and assertions.
+The raw JUnit remains in the consumer's recorded private custody.
+
+The four requested paths pass. A 0.5 session generated with frozen prior writer
+`af1e73523` opens with the current reader. Public conversion of its embedded
+system to 1.0 preserves coordinates, box, reference chemistry, scene, camera,
+named sparse analyses, parallel occurrence identities, coverage and source maps.
+Nonconsecutive queries, extraction and selectively invalidated coordinate edits
+are covered. The fixture uses the earlier writer during this receiving session.
+It is separate from retained historical user archives. Source restoration and
+scene projection are exercised headlessly.
+
+After a native external edit, the explicit View synchronization operation
+reconciles the scene before saving. Independent interaction-file attachment is
+also covered with the declared correspondence contract.
+
+The mechanics-bearing 1.0 session loads its stored data. Resaving with the
+current 0.5 default raises an error and preserves an existing destination.
+The next implementation step is the coordinated provider-default transition,
+followed by updated MolSysViewer expectations and mechanics session roundtrip
+receiving. Both bounded independent client profiles are accepted. The
+stable-format freeze and exact installed-pair qualification remain pending.

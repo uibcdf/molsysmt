@@ -1,5 +1,21 @@
 # MolSysMT 1.0 Execution Status
 
+## Independent MolSysViewer H5MSM 1.0 session receiving — 2026-11-10
+
+MolSysViewer `97d49215` reports **47 passes, zero failures or skips** on
+MolSysMT `8d05bc33e` with the reference ABI3 and PyUnitWizard 0.29.2. The
+[P6 session record](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-molsysviewer-session-acceptance--2026-11-10)
+accepts all four requested source paths, including restored scene/analysis
+data, source maps and selective invalidation. The public test hash and
+assertions are verified. The earlier-writer fixture was generated during
+receiving; source restoration was exercised headlessly.
+
+Both clients' bounded 1.0 profiles are received. The next source step is
+the default-writer transition and session save receiving for stored mechanics.
+Current 0.5 output safely rejects that domain. The stable-format freeze,
+installed qualification and publication retain their established owners.
+Formal progress stays **76.3095%, 50/50 source graphical intents**.
+
 ## Public contact correction and independent H5MSM 1.0 receiving — 2026-11-10
 
 MolSysMT source `a9e6c6efb` integrates the contact panel and requires

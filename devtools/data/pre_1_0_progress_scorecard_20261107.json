@@ -943,7 +943,7 @@
     "record": "devguide/pre_1_0_robustness_audit_20261106.md",
     "owner_verification": "Public ddd32ac1a independently matches 39 changed paths, preserves all four human files and atomically adopts the canonical qualified native extension; #701/#703/#704 are guarded/closed and #702 merged by ancestry. All scoped owner receiving remains separate from the failed original complete default session and paused final gates.",
     "independent_lightweight_review": "Continue remaining explicit graphical intents and scientific-contract dispositions; preserve broader #378, installed/platform and exact-candidate requirements.",
-    "scope": "Contact-query source intent received. Continue #615 causality, #524 actual dependency floors, final #250/#254 acceptance, independent MolSysViewer H5MSM 1.0 sessions, stable/default #256 decisions and #334 exact-candidate gates.",
+    "scope": "Contact-query source intent and bounded independent H5MSM 1.0 client paths received. Continue #615 causality, #524 actual dependency floors, final #250/#254 acceptance, stable/default #256 transition and its client save expectations, and #334 exact-candidate gates.",
     "active_related": [
       "uibcdf/molsysmt#421",
       "uibcdf/molsysmt#615",
@@ -1546,5 +1546,12 @@
     "consumer_source": "03ed7676b2177440cbceea00574a437889a4d6f9",
     "evidence": "devtools/data/docking_h5msm_p6_client_receiving_256_20261110.json",
     "original_progress_change": 0
+  },
+  "last_molsysviewer_h5msm10_receiving": {
+    "consumer_source": "97d49215b2ef92316052697bee12c682ea322e6a",
+    "evidence": "devtools/data/molsysviewer_h5msm10_client_receiving_256_20261110.json",
+    "reported_passed": 47,
+    "original_progress_change": 0,
+    "default_transition_pending": true
   }
 }

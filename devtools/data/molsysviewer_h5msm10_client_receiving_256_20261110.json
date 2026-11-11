@@ -1,0 +1,67 @@
+{
+  "schema": "molsysmt.molsysviewer_h5msm10_client_receiving@1",
+  "date": "2026-11-10",
+  "owner_issue": "uibcdf/molsysmt#256",
+  "consumer_issue": "uibcdf/molsysviewer#315",
+  "consumer_report_commit": "97d49215b2ef92316052697bee12c682ea322e6a",
+  "consumer_report_url": "https://github.com/uibcdf/molsysviewer/blob/97d49215b2ef92316052697bee12c682ea322e6a/devguide/molsysmt_h5msm10_receiving_20261110.json",
+  "consumer_report_sha256": "3b46ad55e800fcf73aa0d9d1b55144b36c744597f75175c5a0f6764597089602",
+  "consumer_runtime_source": "a6a3a309b31de2031e2517be6d913a9afd0c087b",
+  "provider_reader_source": "8d05bc33e75327a2c4f55a8c06ed3a132627fb5b",
+  "prior_writer_source": "af1e735232e21f4324234ff9ef11daf9a920a8ff",
+  "native_extension_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "public_guard": "tests/test_session_h5msm_migration.py",
+  "public_guard_sha256": "5137a66321180c4b4e3ab4d8c8210db9bdf3c172af942ad73867f1f4b119fdcc",
+  "reported_qualification": {
+    "passed": 47,
+    "new_guard_cases_included": 9,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "python": "3.14.7",
+    "pyunitwizard": "0.29.2",
+    "junit_sha256": "70953a697f2ba59335013424432472f4accca7cd5cb3d5622f6da0bd5011816f"
+  },
+  "provider_receiving": {
+    "verified": [
+      "Exact public report bytes and source commit",
+      "Public test hash and assertions for the four requested paths",
+      "Unchanged native Rust and Cargo inputs between the recorded provider sources"
+    ],
+    "raw_junit_received": false,
+    "molecular_replay_performed": false,
+    "private_custody_manifest": "65ff5b11d65643746f43c666b80a0a6ddea16095daa9e2d7e539322db311d2d9"
+  },
+  "accepted_source_paths": {
+    "requested_1_existing_05": "Pass: session produced with the earlier frozen 0.5 writer opens with the requested new reader. The original archive remains byte-identical.",
+    "requested_2_equivalent_10": "Pass: public msm.convert migrates only the embedded molecular file to 1.0. Other ZIP members are identical; load_session preserves exact coordinates/box, reference ChemicalStates bonds/components, scene, camera and both named analyses. Direct full-file 1.0 load also passes.",
+    "requested_3_sparse_queries_and_maps": "Pass: occurrence_indices, compound roles/participants, parallel evidence, measures/units, method/parameters, periodic images, source_id and declared maps survive. Request [4,1,0,4,3] yields frames [4,4,0,0], occurrence indices [3,4,0,1], evaluated [4,1,0]. All four selection modes and extraction [4,1,0] with atoms [0,1,2] pass.",
+    "requested_4_selective_coordinate_invalidation": "Pass in both schemas: public msm.set on atom 0 at [4] or [4,0] invalidates those frames only. Untouched observations/coverage and the empty-control analysis survive. Detached pre-edit results remain intact. Editing creates a new analysis version and may reassign occurrence_indices.",
+    "independent_interactions_files": "Pass for 0.5 and 1.0: both named analyses attach with assume_aligned=True; target MolSys identity and coordinates remain unchanged. Source maps declare correspondence, not authenticated origin.",
+    "post_edit_save_reopen": "Pass after explicit apply_system_edit(molsys, interactions_policy=\"preserve\") synchronizes source binding and scene with the already selectively invalidated scientific results. Native external edits alone are not automatically observed by the View.",
+    "mechanics": "Pass for 1.0 reading: stored unresolved force-field request, 62 partial charges and 12 angstrom cutoff are preserved. Default 0.5 session save refuses the mechanics domain and leaves an existing destination byte-identical."
+  },
+  "fixture": {
+    "n_atoms": 62,
+    "source_structure_indices": [
+      4999,
+      0,
+      73,
+      12,
+      4,
+      1
+    ],
+    "named_analyses": [
+      "parallel",
+      "empty-control"
+    ],
+    "prior_05_fixture": "Generated with the frozen earlier writer during receiving.",
+    "observation_source": "Synthetic persistence fixtures on the bundled pentalanine system."
+  },
+  "remaining": [
+    "Transition the provider writer default and corresponding session expectations.",
+    "Receive saving and reopening of mechanics-bearing sessions with the new default.",
+    "Exact installed candidate pair, platform and browser/Qt qualification within the established release scope."
+  ],
+  "original_progress_change": 0
+}
