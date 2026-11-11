@@ -157,3 +157,92 @@ Ruff, public signature stability, optional-import and developer-guide checks
 pass. No scientific formula, units, public signatures, dependencies or native
 binary change. **#692 remains partial/open for the native-kernel study**; this
 Python increment does not replace that broader acceptance or add plan credit.
+
+## Interleaved native evaluation — 2026-11-11
+
+The [native receiving record](../../devtools/data/native_neighbor_kernel_receiving_692_20261111.json)
+adds two fresh, interleaved campaigns on committed producer
+`e0a547dd8771e17aec6e0b0000617f1bb4b36437`. They compare the preserved
+pre-690 extension `2f1f69f6` with the current `4ffb82e4`, without rebuilding
+or replacing either. Eight deterministic workloads cover compact/dilute
+populations, one or many small structures, dense output, single-cell PBC
+and a skew periodic cell. The three original pilot populations retain their
+seed, shape and cutoffs. These measurements do not overwrite that older pilot.
+
+Before timing, both routes agree with an independent all-pairs oracle: exact
+CSR offsets/indices and distances within 1e-13 nm. Orthogonal cells use direct
+minimum images; the bounded skew fixture uses explicit `[-2,2]^3` lattice
+images. Every timed result is checked outside timing. All-pairs enumeration is
+a small-fixture oracle, not a proposed production replacement.
+
+Three warmups precede fifteen repeat-block means of five individually timed
+calls per route. Order reverses each repetition; campaign B reverses the
+initial route in a fresh process. GC stays enabled and is collected before
+each block. Imports, preparation, checking, retirement and modeled grid
+statistics are outside timing. The receipt preserves all **480 raw block
+means**, actual input identities, dependency/build environment, unit policy,
+source and binary hashes, and separate host/resource observations.
+
+| Case | Current / baseline median, A | Ratio, B | Interpretation |
+| --- | ---: | ---: | --- |
+| compact | 1.1173 | 1.0527 | No repeated >15% warning in this study. |
+| compact PBC | 1.1104 | 0.9800 | Direction varies; no attributed speedup. |
+| dilute | 1.8899 | 1.8703 | Repeated advisory warning. |
+| one small structure | 1.0992 | 0.8396 | Short/noisy case; direction varies. |
+| many small structures | 1.2338 | 1.2448 | Repeated advisory warning. |
+| dense | 1.2321 | 1.0682 | Only A exceeds the threshold; retain both. |
+| one-cell PBC | 1.1194 | 1.1267 | No repeated >15% warning in this study. |
+| skew PBC | 1.0235 | 1.0201 | No repeated >15% warning in this study. |
+
+For dilute input, medians are about **2.00/3.77 ms** (baseline/current) in A
+and **2.02/3.77 ms** in B. For many small structures, they are **1.38/1.70 ms**
+and **1.36/1.69 ms**. These are kernel calls on this shared host, not public
+get_neighbors/get_contacts pipeline times, general slowdowns, confidence
+intervals or a reason to withhold correct results. Absolute times and ratios
+need not reproduce the earlier differently scheduled pilot.
+
+### Grid evidence and remaining experiment
+
+A separate source-derived model calculates head counts and candidate visits;
+these are **not instrumented native counters**. On the four dilute structures,
+head tables fall from **143,748 to 8,192 entries** (about 94.3% fewer head-table
+bytes), while predicted candidate visits rise from **2,798 to 44,816**.
+This models a real tradeoff: limiting empty spatial storage can require more
+distance checks. It does not measure total allocation reduction or establish
+the timing contribution of coarsening versus checked growth, atomic output
+admission, scheduling, sorting or flattening. Skew-basis grid counts are not
+modeled. The host's `perf_event_paranoid=4` was inspected; no system setting
+was changed or privileged profiler launched.
+
+The next bounded experiment should evaluate more balanced coarsening **within
+the same four-heads-per-reference bound**. For the 1,000-atom example, the
+current `[16,16,8]` table uses 2,048 heads; `[15,16,16]` would use 3,840,
+still below 4,000. That is a testable occupancy hypothesis, not an implemented
+optimization or a speed claim. Preserve complete candidate coverage, cutoff,
+MIC geometry, checked storage and admission before retained output allocation.
+Measure the private prototype before changing the client reference binary.
+
+### Receiving and disposition
+
+Six new analytical-oracle/custody/model controls and nine existing telemetry
+controls pass (**15 total, no skips**); they reject wrong pair identities and
+unreviewed executable bytes. Both campaigns exit zero, with one CPU, 1.5-GiB
+memory cap, no swap and an active 6.5-GiB host-reserve watchdog. Scope peaks
+are about 242 and 178 MiB; observed host available memory stays above 13.96 GiB,
+with zero recorded full-pressure averages, OOM or reserve stops. The different
+peaks are whole-scope observations, not a baseline/current allocation comparison.
+One failed scope setup is retained: this systemd rejects `MemoryOOMGroup`;
+the corrected launch records its actual value while enforcing the supported
+CPU/memory/swap/task limits.
+
+The benchmark is runnable from the repository root with
+`python -m benchmarks.neighbor_kernel_profile --help`. Supply the preserved
+extension matching the fixed digest through `--baseline-extension`, a fresh
+`--output`, six explicit thread caps and an OS resource limit. The executable
+is not automatically downloaded or rebuilt. Two fresh invocations use
+`--first baseline` and `--first current` respectively.
+
+**#692 remains partial/open for optimization or an explicitly accepted safety
+tradeoff.** Native runtime, current client binary, public APIs, dependencies and
+scientific classifications are unchanged. This advisory evaluation earns no
+additional original-plan credit or new release gate.

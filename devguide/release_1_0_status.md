@@ -32,6 +32,24 @@ have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
 
+## Native neighbor tradeoff measured — 2026-11-11
+
+Two [interleaved #692 campaigns](pending_proposals/neighbor_allocation_safety_performance_followup.md#interleaved-native-evaluation--2026-11-11)
+compare the preserved pre-690 and current binaries on eight bounded workloads,
+with independent pair/image truth and all 480 raw timing-block means retained.
+Dilute and many-small-structure cases have repeated median warnings; other
+directions are mixed or below 15%. Modeled grid heads/candidate visits suggest
+a concrete occupancy experiment, without proving a causal timing attribution.
+
+Fifteen oracle/custody/telemetry controls pass. Both one-CPU, 1.5-GiB/no-swap
+campaigns finish below 243 MiB scope memory and keep more than 13.96 GiB host
+memory available. The setup failure and variable samples remain in the
+[receipt](../devtools/data/native_neighbor_kernel_receiving_692_20261111.json).
+The native/client binary is unchanged. Correct implementations remain available;
+#692 stays partial for optimization or an owned tradeoff disposition. Original
+progress remains **77.7381%, 50/50 source graphical intents**; #256, #615,
+installed/candidate acceptance and the publication pause are unchanged.
+
 ## First-canvas diagnostic integration received — 2026-11-11
 
 The reviewed #707/#615 test-harness integration passes **52 Python controls**,
