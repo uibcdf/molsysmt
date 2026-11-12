@@ -11,7 +11,7 @@ Metadata
 - Source repository: `pyunitwizard`
 - Source document: `standards/PYUNITWIZARD_GUIDE.md`
 - Source version: Git commit containing this canonical document; consumer copies must record the resolved commit and digest in their synchronization evidence.
-- Last revised: 2026-11-11 (UTC, public 0.29.4 and object-row capabilities, `uibcdf/pyunitwizard#150`).
+- Last revised: 2026-11-12 (UTC, public 0.29.5 and concurrent initialization, `uibcdf/pyunitwizard#152`).
 
 ## What is PyUnitWizard
 
@@ -30,9 +30,9 @@ PyUnitWizard follows a strict separation between Hard and Soft dependencies:
 - **Hard Dependencies**: `numpy>=1.23.5`, `pint>=0.25`, `smonitor>=0.16.0`, `depdigest>=0.11.0` and `argdigest>=0.14.0`, as declared in package metadata. These must be provisioned for normal use.
 - **Soft Dependencies**: optional unit backends, including `unyt`, `openmm.unit` and `astropy.units`, are managed via `depdigest`. Ackredit attribution is also optional; guide delivery alone does not qualify a newer provider profile.
 
-### Published maintenance baseline: 0.29.4
+### Published maintenance baseline: 0.29.5
 
-Public Conda release [0.29.4](https://github.com/uibcdf/pyunitwizard/releases/tag/0.29.4)
+Public Conda release [0.29.5](https://github.com/uibcdf/pyunitwizard/releases/tag/0.29.5)
 retains NumPy >=1.23.5 (Python 3.11 numerical baseline) and Pint >=0.25
 (CODATA-2022 definitions required by published record vectors). These floors
 are owned by `uibcdf/pyunitwizard#134`; the published 0.29.0 file is unchanged.
@@ -69,6 +69,37 @@ provider profiles can have narrower limits; use the provider's maintained
 and exact release qualification record. This corrects the dependency inventory;
 it does not change the initialization or validation contracts below. MolSysSuite
 owns synchronization of this canonical guide to registered client copies.
+
+### Concurrent first use (0.29.5)
+
+In PyUnitWizard >=0.29.5, concurrent first quantity/unit requests wait for the
+selected backend and parser configuration to finish. Same-thread recursive
+configuration remains valid. Native initialization failures propagate; another
+waiting request can initialize after a failed attempt. Ordinary ready/idle
+requests retain their existing admission path and optional loading stays lazy.
+This correction is owned by `uibcdf/pyunitwizard#151`.
+
+The qualified controls cover conventional-GIL Python 3.11–3.14, factory
+defaults, explicit/configured/context Pint and configured OpenMM, unyt and
+Astropy scalar length construction. Configure the process-global policy before
+launching workers; it remains shared, and free-threaded Python is not qualified.
+Backend arithmetic and application-owned native registry changes retain their
+own concurrency contracts.
+
+Applications wanting to prepare their workload's unit objects serially can
+use the existing public API before starting workers. For Pint output:
+
+```python
+import pyunitwizard as puw
+
+length_unit = puw.unit('angstrom', form='pint', parser='pint')
+# Workers can reuse this unit while constructing fresh quantities.
+quantity = puw.quantity(1.0, length_unit, form='pint')
+```
+
+Explicit form/parser arguments select these operations while preserving an
+existing application policy. See the maintained
+[backend contract](https://www.uibcdf.org/pyunitwizard/content/user/backend-coverage.html).
 
 ### NumPy object arrays of numeric rows (0.29.4)
 
