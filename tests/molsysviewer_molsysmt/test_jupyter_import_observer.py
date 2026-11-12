@@ -70,3 +70,23 @@ def test_snapshot_reports_loaded_modules_without_file_metadata(tmp_path, monkeyp
         "sha256": None,
         "module_version": None,
     }
+
+
+def test_snapshot_does_not_activate_a_lazy_module_dictionary(tmp_path, monkeypatch):
+    class LazyModule(ModuleType):
+        def __getattribute__(self, name):
+            if name == "__dict__":
+                raise AssertionError("Observation activated a lazy module dictionary")
+            return super().__getattribute__(name)
+
+    module = LazyModule("depdigest")
+    monkeypatch.setitem(sys.modules, "depdigest", module)
+    row = launcher._record_molecular_imports(tmp_path / "lazy.json")["modules"][
+        "depdigest"
+    ]
+    assert row == {
+        "loaded": True,
+        "origin": None,
+        "sha256": None,
+        "module_version": None,
+    }

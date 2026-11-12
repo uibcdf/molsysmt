@@ -44,7 +44,7 @@ def _record_molecular_imports(output):
         if module is None:
             modules[name] = {"loaded": False}
             continue
-        metadata = vars(module)
+        metadata = object.__getattribute__(module, "__dict__")
         filename = metadata.get("__file__")
         origin = Path(filename).resolve() if filename is not None else None
         modules[name] = {

@@ -124,3 +124,27 @@ syntax checks pass. Actual changed-observer Jupyter receiving is still pending;
 the original thirty-cycle contribution retains its active-observer composition
 and copied-source/client/runtime scope. No full-source or installed acceptance
 is inferred, and no publication/candidate pause is lifted.
+
+
+## Owner receiving and metadata refinement — 2026-11-11
+
+Clean integration source 687220ac9 passes both actual-Jupyter guards: cold
+initial canvas and one complete prolonged cycle over 5,000 structures with
+scientific calculations, hidden-control keyboard navigation, both popups,
+coherent save/recovery and ten seconds of actual playback. The frozen client
+is the independently received 5164f13b source/runtime, with published
+PyUnitWizard 0.29.2 and reviewed support copies. All 4,860 selected files
+remain unchanged; native bytes remain canonical. The two cases finish with
+zero skips/errors/failures. The source is clean before and after. The four-GiB,
+two-CPU service peaks at about 1.99 GiB and preserves at least 10.49 GiB host
+available memory, with no observed limit/OOM or reserve stop.
+
+A final metadata-only refinement bypasses custom module __getattribute__ when
+reading the stored dictionary. The extra fresh probe reproduces activation by
+vars(module); the correction and fourth guard pass in the final 57-case
+headless cohort. The first file-path probe failed to import tests and is
+retained separately; the corrected -c probe establishes the behavior. The GUI
+result remains scoped to 687220ac9, before that one-line refinement. No GUI
+rerun, whole-current-main or installed qualification is inferred. The earlier
+thirty-cycle contribution retains its distinct scientific/client/provider and
+active-observer composition; the corrected navigation driver is byte-identical.

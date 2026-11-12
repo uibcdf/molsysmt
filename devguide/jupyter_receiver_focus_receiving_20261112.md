@@ -83,3 +83,19 @@ no scientific provider is imported by the correction. Loaded-file and
 missing-file metadata controls are separate. The bounded affected cohort
 passes 56 cases. Changed-observer actual-Jupyter receiving remains pending
 at this checkpoint; it will not retroactively relabel the earlier campaign.
+
+
+## Owner receiving increment — 2026-11-11 local time
+
+The clean 687220ac9 integration passes both explicit actual-Jupyter guards
+with the frozen 5164f13b client, published PyUnitWizard 0.29.2 and reviewed
+support copies: cold initial canvas plus a full one-cycle scientific/popups/
+session/playback workload. The corrected control driver matches this
+contribution byte for byte. All 4,860 selected source/runtime/data files
+remain unchanged. This is separate from the original thirty-cycle composition.
+
+A later one-line metadata lookup bypasses a lazy module's custom attribute
+access. Its extra fresh probe and final 57-case headless cohort qualify that
+refinement; the GUI result is not silently reassigned to the later source.
+The initial file-path probe's missing-tests import is preserved separately.
+No installed/platform or exact final-candidate acceptance is implied.
