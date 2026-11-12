@@ -292,6 +292,16 @@ retain purposeful local categories with their owner and durable destination.
 The repository's maintainers own triage until explicitly delegated; there is
 no response-time promise.
 
+Datasets and Benchmarks, Literature and Resources, and Methods and Tools are
+individual optional suggestions. Any subset and purposeful domain-specific
+categories are valid; an omitted suggestion requires no exception. Before
+working in a repository's Discussions, read its `devguide/discussions.md`,
+`devguide/discussions/README.md` or documented equivalent. That local guide
+explains category purposes/triage, actual labels/forms, resource-thread reuse,
+sources/review updates, duplicates/answers/corrections, issue/decision links and
+posting/privacy rules. Keep substantive resource analysis in its conversations;
+devguide gives upkeep instructions and links authoritative work/artifacts.
+
 Use Discussions for usage questions, maintainer announcements and early ideas.
 Actionable suspected bugs, missing capabilities and concrete improvements go
 to owning issues even when uncertain or nonblocking. Record conclusions and
@@ -500,14 +510,24 @@ This adds no complete suite before each internal push.
 
 ### Local development workspace
 
-For routine Linux development use the qualified `molsyssuite@uibcdf_3.14`
-Conda environment created from the suite's
+New Linux development environments use `molsyssuite_dev@3.14`, with the actual
+Python major.minor in the suffix, created and verified from the suite's
 [canonical recipe](https://github.com/uibcdf/molsyssuite/blob/main/devtools/conda-envs/molsyssuite-dev-py314.yaml).
 Install every participating eligible local clone with `python -m pip install
 --no-deps --editable PATH`; Conda supplies its dependencies. Where native builds
 need the declared in-environment tools, add `--no-build-isolation`. Verify Python
 3.14, `python -m pip check` and actual editable import origins, then run the
 selected tests with `python -m pytest --receptor=llm` in that environment.
+The legacy `molsyssuite@uibcdf_3.14` prefix and its original receipts remain valid
+only for their recorded scope during the controlled #175 migration; the #82
+shared-prefix pause remains in force. Preserve that prefix until its replacement
+has verified tools, closure, origins and selected notebooks. Names do not rename
+installed environments. Future `molsyssuite@<python>` production profiles have
+separate runtime/engine/reproducibility qualification; MolI owns its corresponding
+`moli_dev@<python>` and `moli@<python>` profiles. The development/docs recipe
+includes the Sphinx PlantUML extension, executable, Java and Graphviz; the
+`development_environment.py documentation` operation must render a real diagram,
+not just import the extension.
 Ordinary Python source edits are visible without reinstalling; changes to
 metadata, entry points or compiled extensions can require reinstalling/rebuilding.
 
@@ -749,7 +769,13 @@ checks, secrets and scientific gates. A member without Conda publication records
 non-applicability.
 
 The official public route is the `uibcdf` Conda channel, with third-party
-dependencies from `conda-forge`. PyPI is optional and may be advertised only
+dependencies from `conda-forge`. The sole current PyPI exception is
+`pytest-receptor`, which also retains Conda. Explicit suite install hints set
+the real Conda name/channel and `pypi=None` when unavailable; the current
+[channel inventory](https://github.com/uibcdf/molsyssuite/blob/main/devguide/package_channels.toml)
+and `package_channels.py MEMBER` provide reviewed configuration, not artifact
+admission. Preserve third-party routes and local pip source/editable installs.
+Future additional PyPI routes are optional and may be advertised only
 after the published artifacts and full declared dependency closure install on
 the claimed platforms/minors. A GitHub Release or local pip install proves
 neither channel availability nor installed compatibility.
