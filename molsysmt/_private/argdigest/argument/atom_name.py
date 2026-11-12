@@ -41,6 +41,7 @@ def digest_atom_name(atom_name, caller=None):
     if isinstance(caller, str) and caller.endswith(functions_with_boolean):
         if isinstance(atom_name, bool):
             return atom_name
+        raise ArgumentError("atom_name", value=atom_name, caller=caller)
     elif (
         isinstance(caller, str)
         and caller_startswith(caller, "molsysmt.form.")

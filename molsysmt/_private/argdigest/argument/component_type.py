@@ -43,6 +43,7 @@ def digest_component_type(component_type, caller=None):
     if caller in ("molsysmt.basic.get.get", "molsysmt.basic.compare.compare"):
         if isinstance(component_type, bool):
             return component_type
+        raise ArgumentError("component_type", value=component_type, caller=caller)
     elif (
         isinstance(caller, str)
         and caller.startswith("molsysmt.form.")

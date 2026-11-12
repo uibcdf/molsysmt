@@ -3,6 +3,7 @@ from molsysmt._private.argdigest import arg_digest
 from ..molsysmt_Structures.iterators import (
     StructuresIterator as StructuresIterator_molsysmt_Structures,
 )
+from ..molsysmt_Topology.iterators import _INVENTORY_DIGEST
 from ..molsysmt_Topology.iterators import (
     TopologyIterator as TopologyIterator_molsysmt_Topology,
 )
@@ -45,7 +46,7 @@ class StructuresIterator(StructuresIterator_molsysmt_Structures):
 
 
 class TopologyIterator(TopologyIterator_molsysmt_Topology):
-    @arg_digest(form="molsysmt.MolSys")
+    @arg_digest(form="molsysmt.MolSys", **_INVENTORY_DIGEST)
     def __init__(
         self,
         molecular_system,

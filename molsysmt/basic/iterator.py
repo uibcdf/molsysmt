@@ -38,6 +38,8 @@ class Iterator:
     Notes
     -----
     - Supported molecular-system forms are summarized in :ref:`Introduction_Forms`.
+    - When only shared index/count fields are requested from forms without a
+      structure axis, iteration follows the existing inventory route.
     - Selection strings must follow one of the syntaxes described in
       :ref:`Introduction_Selection`.
     - This class implements the Python iterator protocol:
@@ -282,6 +284,14 @@ class Iterator:
         runs_in_structures = False
         if all([is_structural_attribute(ii) for ii in self.arguments]):
             runs_in_structures = True
+
+        # Indices/counts can describe either axis. A coordinate-free form must
+        # use inventory traversal even when every requested field is shared.
+        if runs_in_structures and not any(
+            _dict_modules[form].attributes.get("n_structures", False)
+            for form in aux_items_forms.values()
+        ):
+            runs_in_structures = False
 
         # No structure-axis check belongs here: `where_is_attribute` resolves a structural
         # attribute only to items spanning the structure axis of the system, so every

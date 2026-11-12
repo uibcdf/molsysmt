@@ -49,6 +49,7 @@ def digest_component_name(component_name, caller=None):
         if caller.endswith(functions_with_boolean):
             if isinstance(component_name, bool):
                 return component_name
+            raise ArgumentError("component_name", value=component_name, caller=caller)
         elif caller.startswith("molsysmt.form.") and caller.count(".to_") == 2:
             return component_name
 

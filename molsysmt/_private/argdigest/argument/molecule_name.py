@@ -40,6 +40,7 @@ def digest_molecule_name(molecule_name, caller=None):
         if caller.endswith(functions_with_boolean):
             if isinstance(molecule_name, bool):
                 return molecule_name
+            raise ArgumentError("molecule_name", value=molecule_name, caller=caller)
         elif caller_startswith(caller, "molsysmt.form.") and caller.count(".to_") == 2:
             return molecule_name
 

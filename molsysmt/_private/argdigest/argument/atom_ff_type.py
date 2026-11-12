@@ -11,6 +11,7 @@ def digest_atom_ff_type(atom_ff_type, caller=None):
     if any(caller_matches(caller, name) for name in boolean_callers):
         if isinstance(atom_ff_type, bool):
             return atom_ff_type
+        raise ArgumentError("atom_ff_type", value=atom_ff_type, caller=caller)
     elif caller_startswith(caller, "molsysmt.form.") and caller.count(".to_") == 2:
         return atom_ff_type
 

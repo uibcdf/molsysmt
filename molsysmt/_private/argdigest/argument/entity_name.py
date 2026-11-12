@@ -40,6 +40,7 @@ def digest_entity_name(entity_name, caller=None):
         if caller.endswith(functions_with_boolean):
             if isinstance(entity_name, bool):
                 return entity_name
+            raise ArgumentError("entity_name", value=entity_name, caller=caller)
         elif caller_startswith(caller, "molsysmt.form.") and caller.count(".to_") == 2:
             return entity_name
 

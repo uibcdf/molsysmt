@@ -43,6 +43,7 @@ def digest_chain_type(chain_type, caller=None):
     if isinstance(caller, str) and caller.endswith(functions_with_boolean):
         if isinstance(chain_type, bool):
             return chain_type
+        raise ArgumentError("chain_type", value=chain_type, caller=caller)
     elif (
         isinstance(caller, str)
         and caller_startswith(caller, "molsysmt.form.")

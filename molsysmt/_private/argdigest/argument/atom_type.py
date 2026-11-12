@@ -53,6 +53,7 @@ def digest_atom_type(atom_type, caller=None):
         if caller.endswith(functions_with_boolean):
             if isinstance(atom_type, bool):
                 return atom_type
+            raise ArgumentError("atom_type", value=atom_type, caller=caller)
         elif caller_startswith(caller, "molsysmt.form.") and caller.count(".to_") == 2:
             return atom_type
 

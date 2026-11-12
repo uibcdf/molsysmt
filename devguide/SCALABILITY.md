@@ -104,6 +104,25 @@ Where a constructor already uses ArgDigest, its validation still runs before
 the refusal.
 Supported iterators keep their own chunk, ownership and exhaustion contracts.
 
+## Native inventory iteration
+
+The native Topology inventory iterator, also used by MolSys inventory queries,
+reads selected row values through the native get boundary. Atom, group,
+molecule, chain and entity indices retain their requested order and repetitions.
+Traversal start/stop/step apply to positions in that selected sequence; chunk
+bounds each returned group. Retained form-specific result mappings/lists do not
+change on subsequent yields. Aggregate or unavailable fields are refused as row
+values; no chemistry or coordinates are synthesized.
+
+This is resident metadata iteration: queried arrays and the traversal plan stay
+in memory. It does not stream a coordinate trajectory from Topology. Shared
+index/count fields use the existing inventory route when the owning forms have
+no structure-axis declaration. Coordinate-bearing routes and their existing
+axis semantics are unchanged. The public basic.Iterator still has its existing
+outer result-container conventions; consume/copy attribute dictionaries when
+retaining them. See the executed Topology form example and
+[the native query contract](native_queries.md) for direct get/info.
+
 ## Chunk contract
 
 The public `basic.Iterator` with native molecular-system output delegates each

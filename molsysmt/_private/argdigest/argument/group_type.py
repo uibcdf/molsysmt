@@ -34,6 +34,7 @@ def digest_group_type(group_type, caller=None):
     if caller == "molsysmt.basic.get.get":
         if isinstance(group_type, bool):
             return group_type
+        raise ArgumentError("group_type", value=group_type, caller=caller)
     elif (
         isinstance(caller, str)
         and caller_startswith(caller, "molsysmt.form.")
