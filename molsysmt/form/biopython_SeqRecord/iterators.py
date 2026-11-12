@@ -17,10 +17,10 @@ class TopologyIterator:
         skip_digestion=False,
         **kwargs,
     ):
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="biopython.SeqRecord")
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="biopython.SeqRecord")

@@ -25,15 +25,15 @@ that front matter -- edit the entries, not this list.
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`macos_py312_environment_download_failure.md`](macos_py312_environment_download_failure.md) — [#671](https://github.com/uibcdf/molsysmt/issues/671) — Track the macOS Python 3.12 Conda download failure separately from tests. *(medium, upstream)*
 
-### In progress (2)
+### In progress (1)
 
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
-- [`jupyter_prolonged_controls_focus.md`](jupyter_prolonged_controls_focus.md) — [#718](https://github.com/uibcdf/molsysmt/issues/718) — Wait for actual controls focus before keyboard navigation in prolonged Jupyter receiving. *(medium, reproduced)*
 
-### Partially resolved (2)
+### Partially resolved (3)
 
 - [`fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md`](fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md) — [#713](https://github.com/uibcdf/molsysmt/issues/713) — Fresh import-order timeout lacks pre-deadline child diagnostics *(medium, reproduced)*
 - [`physchem_surface_area_unit_contract.md`](physchem_surface_area_unit_contract.md) — [#473](https://github.com/uibcdf/molsysmt/issues/473) — Verify the unit contract of Collantes surface-area descriptors. *(medium, inspected)*
+- [`prolonged_jupyter_receiver_does_not_wait_for_controls_focus.md`](prolonged_jupyter_receiver_does_not_wait_for_controls_focus.md) — [#718](https://github.com/uibcdf/molsysmt/issues/718) — Prolonged Jupyter receiver does not wait for controls focus *(medium, measured)*
 
 <!-- /generated -->
 

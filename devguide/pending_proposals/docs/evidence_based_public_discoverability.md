@@ -102,3 +102,17 @@ are explicit. This receives instructional accuracy, not every biological
 catalog claim, browser layout or wider discoverability acceptance. Continue
 the remaining handler/tool/workflow review and the owning issue's indexing,
 comparison and external-reader criteria without duplicate scorecard credit.
+
+## GRO operation review — 2026-11-11
+
+The bounded #716 correction removes unsupported mutation/streaming claims from
+the GRO form tutorial and executes its actual Foundations copy/query example
+under two unit policies. Its six cells and execution payload, 62 declarations
+and five conversions remain. The receiving also exposes #717's diagnostic bug:
+103 unavailable iterator branches now supply the existing SMonitor error's form
+argument. The combined 166-case cohort and fifteen fast gates pass. Complete
+strict HTML on clean bc2db775d has zero warnings; the two actual articles,
+26 article links and five implementation links pass inspection. The [shared
+receipt](../../../devtools/data/gro_iterator_receiving_716_717_20261111.json)
+retains original failures and limits. This adds bounded accuracy/robustness,
+without closing wider indexing, comparison or external-reader acceptance.

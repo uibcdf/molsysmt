@@ -1,0 +1,879 @@
+{
+  "schema": "molsysmt.gro_iterator_receiving@1",
+  "date": "2026-11-11",
+  "owner_issue": "uibcdf/molsysmt#717",
+  "related_issues": [
+    "uibcdf/molsysmt#716",
+    "uibcdf/molsysmt#334",
+    "uibcdf/molsysmt#378"
+  ],
+  "diagnostic_source": "9adad50d1",
+  "documentation_source": "bc2db775d4a807cbc268ae204e89c057c35ffdd9",
+  "scope": "103 unavailable-iterator refusals, GRO operation documentation and actual resident copy/query example. Available iterators, scientific calculations, signatures/wrappers and qualified native bytes are unchanged. No engine execution, full-source suite, installed, final-candidate, browser-layout or publication qualification.",
+  "runtime": {
+    "python": "3.14.7",
+    "platform": "Linux shared development host; 20 logical CPUs, approximately 30.7 GiB physical RAM; no applicable Slurm allocation",
+    "molsysviewer_source": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "pyunitwizard": "0.29.2 published artifact overlay",
+    "pyunitwizard_conda_sha256": "bb28b9420760b557025163e11c934e096c7b98200cac720100a2db924e9ee617",
+    "smonitor": {
+      "version": "0.21.0",
+      "source": "066b69cad8896cdc126d5586fd53268af4ea6490"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "source": "13cc73780a7cb645546ae3f396177f98b86a8792"
+    },
+    "argdigest": {
+      "version": "0.15.0",
+      "source": "57447cc4ec1f7ce85078f8a939892efd075bc919"
+    },
+    "pytest_receptor": "1.2.1 published overlay",
+    "support_overlay": "Pure-Python overlays built offline from reviewed CI source pins. This work makes no shared-environment edits; frozen overlays preserve the declared providers despite concurrent sibling development. The native binary is unchanged.",
+    "thread_caps": {
+      "BLAS": 1,
+      "OpenMP": 1,
+      "Rayon": 1,
+      "OpenMM_CPU": 1,
+      "NumExpr": 1
+    }
+  },
+  "baseline": {
+    "gro_documentation": {
+      "cases": 6,
+      "passed": 0,
+      "failed": 6,
+      "errors": 0,
+      "skipped": 0
+    },
+    "gro_failure_interpretation": "Five wrong availability assertions and one separate iterator TypeError, not six pure text failures.",
+    "iterator_refusals": {
+      "cases": 103,
+      "passed": 0,
+      "failed": 103,
+      "errors": 0,
+      "skipped": 0
+    },
+    "original_failures_preserved": true
+  },
+  "corrected": {
+    "cases": {
+      "cases": 166,
+      "passed": 166,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "groups": {
+      "reviewed_diagnostic_branches": 103,
+      "gro_documentation_and_actual_examples": 8,
+      "gro_record_contracts": 4,
+      "gro_bridge_copy_refusal_cases": 34,
+      "public_iterator_controls": 17
+    },
+    "warnings": {
+      "total": 105,
+      "legacy_h5msm_deprecation": 97,
+      "off_axis_structural_attributes": 8,
+      "scope": "Existing test workflows retain explicit legacy-read and off-axis diagnostics."
+    }
+  },
+  "refusal_edit_proof": {
+    "branches": 103,
+    "modules": 60,
+    "all_ast_outside_refusals_preserved": true,
+    "files": {
+      "molsysmt/form/MDAnalysis_topology_PDBParser/iterators.py": {
+        "old_sha256": "532b1f23f5944fb064bc08e842b385b5a0f8ec876ca55e0547e31e5e0be5cf1e",
+        "new_sha256": "d891b56f4cbb1518d629c3e18fcfe70b40a76a18d071c9f4f0998e8a2a91f0da",
+        "refusals": 1,
+        "form": "MDAnalysis.topology.PDBParser"
+      },
+      "molsysmt/form/XYZ/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "3fde6dc271baa963e0e97c6c44cebca97c351c42816d3d78edacf85b46022acc",
+        "refusals": 2,
+        "form": "XYZ"
+      },
+      "molsysmt/form/biopython_Seq/iterators.py": {
+        "old_sha256": "09665b66d7b94e2ac323a0dea0f8ac3d9c38def70c397314863f2a7e311de33b",
+        "new_sha256": "aeee9299863b322f26275acef638e636dc81b8623815b858c246a7bc242e59fe",
+        "refusals": 2,
+        "form": "biopython.Seq"
+      },
+      "molsysmt/form/biopython_SeqRecord/iterators.py": {
+        "old_sha256": "f1d7f8b8e424b58502e89d159c385a63c3a8b57d73643f6cb9f9365cb8361672",
+        "new_sha256": "62bccd56c2a638a9d5fcbb1151760b1f110a87e88d612c38f76f9f18d8a4d4ea",
+        "refusals": 2,
+        "form": "biopython.SeqRecord"
+      },
+      "molsysmt/form/file_crd/iterators.py": {
+        "old_sha256": "909ebbd1061c1f76a71ebfbdfadeb33d93fa089213c12782ab0d2e57d83270f0",
+        "new_sha256": "667f50e5358b9a578dccffa58e77ed0efb4140c3abec5604034cba923544d3db",
+        "refusals": 4,
+        "form": "file:crd"
+      },
+      "molsysmt/form/file_fasta/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "018fa3a48381324b32751e10bcdd416e3deae0d536264abc44a6c78951439289",
+        "refusals": 2,
+        "form": "file:fasta"
+      },
+      "molsysmt/form/file_gro/iterators.py": {
+        "old_sha256": "b0728850063ebfb2dc0bc0bf7a88f308dad3f18ca79d518f58e49beba19feea9",
+        "new_sha256": "db6e4341310e29f8a5d55a77328be8fc70d1716f419436f9a6213239c7bfbdea",
+        "refusals": 2,
+        "form": "file:gro"
+      },
+      "molsysmt/form/file_h5msm/iterators.py": {
+        "old_sha256": "d273056141cb1c1387651325f0a158ea40e78b1488ceae959e1396cb6ef845fd",
+        "new_sha256": "6341f5ef3bb3b745c074002f64953872507e0feb951ff8627bea95a5b976245c",
+        "refusals": 1,
+        "form": "file:h5msm"
+      },
+      "molsysmt/form/file_inpcrd/iterators.py": {
+        "old_sha256": "6b136bdd1cab09f7e3a03c20391a6ad6f13c420b5e86bdffdfe1258202d44d8d",
+        "new_sha256": "79633300f659fb94263ecb3a017d8020292ff96db1320ab50decda39338722d1",
+        "refusals": 1,
+        "form": "file:inpcrd"
+      },
+      "molsysmt/form/file_mdcrd/iterators.py": {
+        "old_sha256": "6b136bdd1cab09f7e3a03c20391a6ad6f13c420b5e86bdffdfe1258202d44d8d",
+        "new_sha256": "dd738b365c855d769c860f6b0143bab6289954f61b53adbbfec403baef8e7682",
+        "refusals": 1,
+        "form": "file:mdcrd"
+      },
+      "molsysmt/form/file_mol2/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "d6021abd5335fc99d32c8f4ab4c31696424472b174b2749682a5bc1497d93099",
+        "refusals": 2,
+        "form": "file:mol2"
+      },
+      "molsysmt/form/file_pdb/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "7c230a47e8361e4c434f307104d951e43cc489589376062b54b3970a659ed6af",
+        "refusals": 2,
+        "form": "file:pdb"
+      },
+      "molsysmt/form/file_pir/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "913bf55c050d786550cf8e0cc92986d25444dfdf95131b4009fd38a773b695d5",
+        "refusals": 2,
+        "form": "file:pir"
+      },
+      "molsysmt/form/file_prmtop/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "bd0a10e1dbf349adade4bdaa95c9b6f37e13065b6bdb72f10c91914f0aaf32bc",
+        "refusals": 2,
+        "form": "file:prmtop"
+      },
+      "molsysmt/form/file_psf/iterators.py": {
+        "old_sha256": "821bbb67ac166077622d30c8f4fbf5262313cb314d4c7c50435808c642559d10",
+        "new_sha256": "b94f679f74720aa5fd18a529e2ffbd2f85f4d32255696975ae58dac69172b4d0",
+        "refusals": 2,
+        "form": "file:psf"
+      },
+      "molsysmt/form/file_smi/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "1f585bf339ddf5db67425585e59f6534f021c2dbe579a0a180101a5b6e5e9409",
+        "refusals": 2,
+        "form": "file:smi"
+      },
+      "molsysmt/form/file_top/iterators.py": {
+        "old_sha256": "532b1f23f5944fb064bc08e842b385b5a0f8ec876ca55e0547e31e5e0be5cf1e",
+        "new_sha256": "f8b1351714c49b3625290ba2b1ac562885638c6edfe4e7946d0076fe0e5ac456",
+        "refusals": 1,
+        "form": "file:top"
+      },
+      "molsysmt/form/file_trjpk/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "41df5d96c9e95e1388101c9dad979aebc4ec6308abf0ff5302d5834e7675db10",
+        "refusals": 2,
+        "form": "file:trjpk"
+      },
+      "molsysmt/form/file_xyz/iterators.py": {
+        "old_sha256": "6b136bdd1cab09f7e3a03c20391a6ad6f13c420b5e86bdffdfe1258202d44d8d",
+        "new_sha256": "bc88bd3f7a252dcb0f26a56c3af198ba2dcaca5b572a7373c756c6be02b9a248",
+        "refusals": 1,
+        "form": "file:xyz"
+      },
+      "molsysmt/form/file_xyznpy/iterators.py": {
+        "old_sha256": "6b136bdd1cab09f7e3a03c20391a6ad6f13c420b5e86bdffdfe1258202d44d8d",
+        "new_sha256": "f6d49d6def4ffa16378d0e36f280d1e1b6822bad86c05a2a259744b8e8daa8b6",
+        "refusals": 1,
+        "form": "file:xyznpy"
+      },
+      "molsysmt/form/iterators.py": {
+        "old_sha256": "153f75337d882de323e4e005e28b74d99c0062d6f28e3cf48c66d23f97293281",
+        "new_sha256": "4fcfdfce3f069259f16e886e3ee4b26fc366fcf3366b4ddd223672e344b42b93",
+        "refusals": 2,
+        "form": "unregistered iterator template"
+      },
+      "molsysmt/form/mdtraj_AmberRestartFile/iterators.py": {
+        "old_sha256": "a6dc66813a0531b63762520d5985c7e322cb0c3e54129fe73c929e3668774cf6",
+        "new_sha256": "35c75707707ece2d7ff427bbf5ea36a10e495147b5fd564361d17bfd61253fe2",
+        "refusals": 1,
+        "form": "mdtraj.AmberRestartFile"
+      },
+      "molsysmt/form/mdtraj_GroTrajectoryFile/iterators.py": {
+        "old_sha256": "a6dc66813a0531b63762520d5985c7e322cb0c3e54129fe73c929e3668774cf6",
+        "new_sha256": "48eb0def1653786cfb3be9ea6983af1e6af15e297bc5e1428d1c784f4edf1f24",
+        "refusals": 1,
+        "form": "mdtraj.GroTrajectoryFile"
+      },
+      "molsysmt/form/mdtraj_PDBTrajectoryFile/iterators.py": {
+        "old_sha256": "a6dc66813a0531b63762520d5985c7e322cb0c3e54129fe73c929e3668774cf6",
+        "new_sha256": "f5b4d04ee2dff2811c85bb8bbd0dcf7eb14ec4571c1b71f66e891d68702cb522",
+        "refusals": 1,
+        "form": "mdtraj.PDBTrajectoryFile"
+      },
+      "molsysmt/form/mdtraj_Topology/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "fd69583fea48269fbbee48c9257bb993f6a3660b57f17a2d0d008509dd669ee8",
+        "refusals": 2,
+        "form": "mdtraj.Topology"
+      },
+      "molsysmt/form/mdtraj_Trajectory/iterators.py": {
+        "old_sha256": "fcc4a2e33c59b00a0d92a473cdd19b79227c3ab651e9411ca577e36850f57b85",
+        "new_sha256": "70701041f6d736590cc25d697e1b1baf3c5c4220f67188041721f2627eed941b",
+        "refusals": 2,
+        "form": "mdtraj.Trajectory"
+      },
+      "molsysmt/form/mmcif_PdbxContainers_DataContainer/iterators.py": {
+        "old_sha256": "320fb339f181a70fa63c8e8ddf32d488a5c2b87c7d2a914c00a924b70bdd0305",
+        "new_sha256": "9da1b8d49299f576cfb43c29513146e6c6ca59e9e660dd85c09a9767f07c1422",
+        "refusals": 1,
+        "form": "mmcif.PdbxContainers.DataContainer"
+      },
+      "molsysmt/form/molsysmt_GROFileHandler/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "a840304c8b7234b5a9b37886c3898509f601599424286c217bbb012212a5e267",
+        "refusals": 2,
+        "form": "molsysmt.GROFileHandler"
+      },
+      "molsysmt/form/molsysmt_H5MSMFileHandler/iterators.py": {
+        "old_sha256": "be618e49950d155f5715f6fa55b9e99d91daf59360ad186417debce749dda661",
+        "new_sha256": "a67903f708d556e5ebcb675ba23293871268a7189fac43337def01483fdf35c0",
+        "refusals": 1,
+        "form": "molsysmt.H5MSMFileHandler"
+      },
+      "molsysmt/form/molsysmt_PDBFileHandler/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "013a6280fb5bb8f714d648e617f0c1ff23a885060819b9159301471de5fd4b58",
+        "refusals": 2,
+        "form": "molsysmt.PDBFileHandler"
+      },
+      "molsysmt/form/molsysmt_StructuresDict/iterators.py": {
+        "old_sha256": "b935b9cf13d62936fdc66c8e7fdf6ca8faf59f93449457595806f453b685eb1d",
+        "new_sha256": "6e5c655111b17b3ba0a9efdea8df2939845ca7053def6ef2a6e217083408fee2",
+        "refusals": 1,
+        "form": "molsysmt.StructuresDict"
+      },
+      "molsysmt/form/networkx_Graph/iterators.py": {
+        "old_sha256": "532b1f23f5944fb064bc08e842b385b5a0f8ec876ca55e0547e31e5e0be5cf1e",
+        "new_sha256": "b5b200b3a302268cb31d2cac80865c33ff9d6f218bec594d268eac82b9069572",
+        "refusals": 1,
+        "form": "networkx.Graph"
+      },
+      "molsysmt/form/nglview_NGLWidget/iterators.py": {
+        "old_sha256": "cf1328b9c8b92a61ecdbe41b01d39c1f130f02d70c5548e6344faf0850c8439e",
+        "new_sha256": "63142f53d03a1ab8d7e582315e49f46f13d10b1d098337663b07ad47250073f4",
+        "refusals": 2,
+        "form": "nglview.NGLWidget"
+      },
+      "molsysmt/form/openff_Molecule/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "4cd26dc55157a09a78e2bf5ab30c7f3e3e7e55ce14254b1cbe596e7a6f02bdc3",
+        "refusals": 2,
+        "form": "openff.Molecule"
+      },
+      "molsysmt/form/openff_Topology/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "dc2f1764f49d480104080d6f7975d0b53dc9b990542074b22f2e3fbb972742e4",
+        "refusals": 2,
+        "form": "openff.Topology"
+      },
+      "molsysmt/form/openmm_AmberInpcrdFile/iterators.py": {
+        "old_sha256": "6b136bdd1cab09f7e3a03c20391a6ad6f13c420b5e86bdffdfe1258202d44d8d",
+        "new_sha256": "062c41d0310b4ef92dfb548dee7d7d16020d8dae4be2f691b95250178956f807",
+        "refusals": 1,
+        "form": "openmm.AmberInpcrdFile"
+      },
+      "molsysmt/form/openmm_AmberPrmtopFile/iterators.py": {
+        "old_sha256": "532b1f23f5944fb064bc08e842b385b5a0f8ec876ca55e0547e31e5e0be5cf1e",
+        "new_sha256": "3ab9cbbf2c44b7b1c34edd6a9a9a033ff8e5eda6aba42789bfa82b8d5b1cd7ad",
+        "refusals": 1,
+        "form": "openmm.AmberPrmtopFile"
+      },
+      "molsysmt/form/openmm_CharmmCrdFile/iterators.py": {
+        "old_sha256": "e4b9df0e50297b7dfdfc8aeff2a99378b288e3dae47e0fca5eea6494c80ea357",
+        "new_sha256": "56e045344126509e0d5d3ac0cd116bb49b311ed3549f874b62fb9e512c2cf8b3",
+        "refusals": 4,
+        "form": "openmm.CharmmCrdFile"
+      },
+      "molsysmt/form/openmm_CharmmPsfFile/iterators.py": {
+        "old_sha256": "54426e7e58fae9eab731a8c0b7c4fe1ef5cea230e57f661e80c18e6b56761680",
+        "new_sha256": "e5210ef97221a8751aff5a985e314bbbb3d35ca20d0e758c5dc3d53d37e53235",
+        "refusals": 4,
+        "form": "openmm.CharmmPsfFile"
+      },
+      "molsysmt/form/openmm_Context/iterators.py": {
+        "old_sha256": "2a1578e787fd7d5eae96e2167cae5e38a60d242767ce0c9ae49b21717ded2a65",
+        "new_sha256": "2255b51748de672ab35359d83b36e55d5fe9544f68e9d8ed708f0a8a09cc9c59",
+        "refusals": 1,
+        "form": "openmm.Context"
+      },
+      "molsysmt/form/openmm_GromacsGroFile/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "d0f6e04aeb6be2a24a40f9487f59a4abfaa97baa0dea0ac4f441a42b5023bedb",
+        "refusals": 2,
+        "form": "openmm.GromacsGroFile"
+      },
+      "molsysmt/form/openmm_GromacsTopFile/iterators.py": {
+        "old_sha256": "532b1f23f5944fb064bc08e842b385b5a0f8ec876ca55e0547e31e5e0be5cf1e",
+        "new_sha256": "7bf7946f7217dea93f87cc5211c6eee8eb49db4eb29190737de6228f09549393",
+        "refusals": 1,
+        "form": "openmm.GromacsTopFile"
+      },
+      "molsysmt/form/openmm_Modeller/iterators.py": {
+        "old_sha256": "cf1328b9c8b92a61ecdbe41b01d39c1f130f02d70c5548e6344faf0850c8439e",
+        "new_sha256": "3740a4b85a0ca11e21b5b9e24635f69214984d5e771b7cb02a9775a46b3cdc2d",
+        "refusals": 2,
+        "form": "openmm.Modeller"
+      },
+      "molsysmt/form/openmm_PDBFile/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "cf16d5e5d3f86769d7e814eadd12ef525defd8c2ee951dcd0a3af5895fd1d32f",
+        "refusals": 2,
+        "form": "openmm.PDBFile"
+      },
+      "molsysmt/form/openmm_Simulation/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "16cb910c4fb74a5c8e2b812a64ec34da5849c9f42f6967a4da36d55d8ce43d30",
+        "refusals": 2,
+        "form": "openmm.Simulation"
+      },
+      "molsysmt/form/openmm_State/iterators.py": {
+        "old_sha256": "bd58821e8a042ed0daba2cbf9cdd20d51e1c6a3437e7e310b43d098d61dd2978",
+        "new_sha256": "29b0303bc55f6d9a4747b5aec9c41814d9598a05cd12214457436a4fbcc787cc",
+        "refusals": 1,
+        "form": "openmm.State"
+      },
+      "molsysmt/form/openmm_System/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "96523d59f5df1ebfd2605154ebdca0cdfc219754936e206767f6203a9ec0254e",
+        "refusals": 2,
+        "form": "openmm.System"
+      },
+      "molsysmt/form/openmm_Topology/iterators.py": {
+        "old_sha256": "532b1f23f5944fb064bc08e842b385b5a0f8ec876ca55e0547e31e5e0be5cf1e",
+        "new_sha256": "9e0853fe2a9fc520b2c8c3c16d00fed0a7a05c342feb1ed9d5ca0632877211c6",
+        "refusals": 1,
+        "form": "openmm.Topology"
+      },
+      "molsysmt/form/parmed_GromacsTopologyFile/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "a341e07b0fe2ce738e0156c9c9f63d23fa794f6f8049a3a7bfd6dd28a005e024",
+        "refusals": 2,
+        "form": "parmed.GromacsTopologyFile"
+      },
+      "molsysmt/form/parmed_Structure/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "12390cb77c0803269b135e7d75edb86777d977f7c9d8e43c2459d4c360f4f3bc",
+        "refusals": 2,
+        "form": "parmed.Structure"
+      },
+      "molsysmt/form/pdbfixer_PDBFixer/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "8a7e81ed1920cbf27ec3d89e89ed93a943e0fee6bccc610d68112f3498abd197",
+        "refusals": 2,
+        "form": "pdbfixer.PDBFixer"
+      },
+      "molsysmt/form/pytraj_Topology/iterators.py": {
+        "old_sha256": "cf1328b9c8b92a61ecdbe41b01d39c1f130f02d70c5548e6344faf0850c8439e",
+        "new_sha256": "5504e5fb906e0c1f2cf81776f0acfeebf749464ad1cc24837e7b513be02fdfcd",
+        "refusals": 2,
+        "form": "pytraj.Topology"
+      },
+      "molsysmt/form/pytraj_Trajectory/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "a94769a5b73120e7b477e637a6f3ffa01ffd888720516af735bf2642ee9aa0eb",
+        "refusals": 2,
+        "form": "pytraj.Trajectory"
+      },
+      "molsysmt/form/string_alphafold_id/iterators.py": {
+        "old_sha256": "cf1328b9c8b92a61ecdbe41b01d39c1f130f02d70c5548e6344faf0850c8439e",
+        "new_sha256": "7eaf9519f36e669f7743c35c01a3699ca1b0bd4b2146e8dcbecdd6fa73246b1a",
+        "refusals": 2,
+        "form": "string:alphafold_id"
+      },
+      "molsysmt/form/string_amino_acids_1/iterators.py": {
+        "old_sha256": "532b1f23f5944fb064bc08e842b385b5a0f8ec876ca55e0547e31e5e0be5cf1e",
+        "new_sha256": "113b0d9fd202cb35608a298e0df36fff1e950d96bd201a34ca032781c3f78682",
+        "refusals": 1,
+        "form": "string:amino_acids_1"
+      },
+      "molsysmt/form/string_amino_acids_3/iterators.py": {
+        "old_sha256": "532b1f23f5944fb064bc08e842b385b5a0f8ec876ca55e0547e31e5e0be5cf1e",
+        "new_sha256": "210df0fae6217af04075d2db6182cbd77d8101283f79f144765e158d44d7364d",
+        "refusals": 1,
+        "form": "string:amino_acids_3"
+      },
+      "molsysmt/form/string_pdb_id/iterators.py": {
+        "old_sha256": "cf1328b9c8b92a61ecdbe41b01d39c1f130f02d70c5548e6344faf0850c8439e",
+        "new_sha256": "4d97b7f8a5b1ee5f3eb58817b306172178fb92b7eb7d9d67c9b13c28109a025d",
+        "refusals": 2,
+        "form": "string:pdb_id"
+      },
+      "molsysmt/form/string_pdb_text/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "c14a875f54e9bebcd4fdd76c9ed16b03c1b90fc0c10f3aa685957123c6c57c62",
+        "refusals": 2,
+        "form": "string:pdb_text"
+      },
+      "molsysmt/form/string_smiles/iterators.py": {
+        "old_sha256": "8cda9bb6324fc0392394308c1aa607634613f3fb298f8e3750cf00a2243d20d5",
+        "new_sha256": "2b305900f7cf7341bb81dd8d49cd8166410606f1005044f2be61c393edd8e5c1",
+        "refusals": 2,
+        "form": "string:smiles"
+      },
+      "molsysmt/form/string_uniprot_id/iterators.py": {
+        "old_sha256": "532b1f23f5944fb064bc08e842b385b5a0f8ec876ca55e0547e31e5e0be5cf1e",
+        "new_sha256": "9788454f18fe4e224f8a3c8a50ac9c2e4a112e64b79a6fac2ff52fa5c00a6c87",
+        "refusals": 1,
+        "form": "string:uniprot_id"
+      }
+    }
+  },
+  "corrected_phase_input_sha256": {
+    "tests/documentation/test_gro_handler_example.py": "c405b58774cb85d74c23f5f7481bffa1f7d0e95708091820a447630ca94da68b",
+    "docs/content/user/foundations/native_world/file_handlers/molsysmt_GROFileHandler.md": "92571c42f33a07d8e2af1f19f60d7ce71187a8ac7bfee24041955e7a07d8f907",
+    "docs/content/user/tools/form/class/molsysmt/molsysmt_GROFileHandler.ipynb": "eeff3ed470e256cc681c1e77850fa2fba062adc64d88f073275e1f989feb46c5",
+    "molsysmt/data/gro/md_1u19.gro": "8eec93cb0b45c43abc50ec40e49f983e2c2484671077777db19bf7340c068c76",
+    "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "tests/form/test_unavailable_iterator_diagnostics.py": "a9932d6c0a25af88910c9d8369a1c82135c24fa1ab88dae3a57bce2c4e39c852",
+    "molsysmt/form/MDAnalysis_topology_PDBParser/iterators.py": "d891b56f4cbb1518d629c3e18fcfe70b40a76a18d071c9f4f0998e8a2a91f0da",
+    "molsysmt/form/XYZ/iterators.py": "3fde6dc271baa963e0e97c6c44cebca97c351c42816d3d78edacf85b46022acc",
+    "molsysmt/form/biopython_Seq/iterators.py": "aeee9299863b322f26275acef638e636dc81b8623815b858c246a7bc242e59fe",
+    "molsysmt/form/biopython_SeqRecord/iterators.py": "62bccd56c2a638a9d5fcbb1151760b1f110a87e88d612c38f76f9f18d8a4d4ea",
+    "molsysmt/form/file_crd/iterators.py": "667f50e5358b9a578dccffa58e77ed0efb4140c3abec5604034cba923544d3db",
+    "molsysmt/form/file_fasta/iterators.py": "018fa3a48381324b32751e10bcdd416e3deae0d536264abc44a6c78951439289",
+    "molsysmt/form/file_gro/iterators.py": "db6e4341310e29f8a5d55a77328be8fc70d1716f419436f9a6213239c7bfbdea",
+    "molsysmt/form/file_h5msm/iterators.py": "6341f5ef3bb3b745c074002f64953872507e0feb951ff8627bea95a5b976245c",
+    "molsysmt/form/file_inpcrd/iterators.py": "79633300f659fb94263ecb3a017d8020292ff96db1320ab50decda39338722d1",
+    "molsysmt/form/file_mdcrd/iterators.py": "dd738b365c855d769c860f6b0143bab6289954f61b53adbbfec403baef8e7682",
+    "molsysmt/form/file_mol2/iterators.py": "d6021abd5335fc99d32c8f4ab4c31696424472b174b2749682a5bc1497d93099",
+    "molsysmt/form/file_pdb/iterators.py": "7c230a47e8361e4c434f307104d951e43cc489589376062b54b3970a659ed6af",
+    "molsysmt/form/file_pir/iterators.py": "913bf55c050d786550cf8e0cc92986d25444dfdf95131b4009fd38a773b695d5",
+    "molsysmt/form/file_prmtop/iterators.py": "bd0a10e1dbf349adade4bdaa95c9b6f37e13065b6bdb72f10c91914f0aaf32bc",
+    "molsysmt/form/file_psf/iterators.py": "b94f679f74720aa5fd18a529e2ffbd2f85f4d32255696975ae58dac69172b4d0",
+    "molsysmt/form/file_smi/iterators.py": "1f585bf339ddf5db67425585e59f6534f021c2dbe579a0a180101a5b6e5e9409",
+    "molsysmt/form/file_top/iterators.py": "f8b1351714c49b3625290ba2b1ac562885638c6edfe4e7946d0076fe0e5ac456",
+    "molsysmt/form/file_trjpk/iterators.py": "41df5d96c9e95e1388101c9dad979aebc4ec6308abf0ff5302d5834e7675db10",
+    "molsysmt/form/file_xyz/iterators.py": "bc88bd3f7a252dcb0f26a56c3af198ba2dcaca5b572a7373c756c6be02b9a248",
+    "molsysmt/form/file_xyznpy/iterators.py": "f6d49d6def4ffa16378d0e36f280d1e1b6822bad86c05a2a259744b8e8daa8b6",
+    "molsysmt/form/iterators.py": "4fcfdfce3f069259f16e886e3ee4b26fc366fcf3366b4ddd223672e344b42b93",
+    "molsysmt/form/mdtraj_AmberRestartFile/iterators.py": "35c75707707ece2d7ff427bbf5ea36a10e495147b5fd564361d17bfd61253fe2",
+    "molsysmt/form/mdtraj_GroTrajectoryFile/iterators.py": "48eb0def1653786cfb3be9ea6983af1e6af15e297bc5e1428d1c784f4edf1f24",
+    "molsysmt/form/mdtraj_PDBTrajectoryFile/iterators.py": "f5b4d04ee2dff2811c85bb8bbd0dcf7eb14ec4571c1b71f66e891d68702cb522",
+    "molsysmt/form/mdtraj_Topology/iterators.py": "fd69583fea48269fbbee48c9257bb993f6a3660b57f17a2d0d008509dd669ee8",
+    "molsysmt/form/mdtraj_Trajectory/iterators.py": "70701041f6d736590cc25d697e1b1baf3c5c4220f67188041721f2627eed941b",
+    "molsysmt/form/mmcif_PdbxContainers_DataContainer/iterators.py": "9da1b8d49299f576cfb43c29513146e6c6ca59e9e660dd85c09a9767f07c1422",
+    "molsysmt/form/molsysmt_GROFileHandler/iterators.py": "a840304c8b7234b5a9b37886c3898509f601599424286c217bbb012212a5e267",
+    "molsysmt/form/molsysmt_H5MSMFileHandler/iterators.py": "a67903f708d556e5ebcb675ba23293871268a7189fac43337def01483fdf35c0",
+    "molsysmt/form/molsysmt_PDBFileHandler/iterators.py": "013a6280fb5bb8f714d648e617f0c1ff23a885060819b9159301471de5fd4b58",
+    "molsysmt/form/molsysmt_StructuresDict/iterators.py": "6e5c655111b17b3ba0a9efdea8df2939845ca7053def6ef2a6e217083408fee2",
+    "molsysmt/form/networkx_Graph/iterators.py": "b5b200b3a302268cb31d2cac80865c33ff9d6f218bec594d268eac82b9069572",
+    "molsysmt/form/nglview_NGLWidget/iterators.py": "63142f53d03a1ab8d7e582315e49f46f13d10b1d098337663b07ad47250073f4",
+    "molsysmt/form/openff_Molecule/iterators.py": "4cd26dc55157a09a78e2bf5ab30c7f3e3e7e55ce14254b1cbe596e7a6f02bdc3",
+    "molsysmt/form/openff_Topology/iterators.py": "dc2f1764f49d480104080d6f7975d0b53dc9b990542074b22f2e3fbb972742e4",
+    "molsysmt/form/openmm_AmberInpcrdFile/iterators.py": "062c41d0310b4ef92dfb548dee7d7d16020d8dae4be2f691b95250178956f807",
+    "molsysmt/form/openmm_AmberPrmtopFile/iterators.py": "3ab9cbbf2c44b7b1c34edd6a9a9a033ff8e5eda6aba42789bfa82b8d5b1cd7ad",
+    "molsysmt/form/openmm_CharmmCrdFile/iterators.py": "56e045344126509e0d5d3ac0cd116bb49b311ed3549f874b62fb9e512c2cf8b3",
+    "molsysmt/form/openmm_CharmmPsfFile/iterators.py": "e5210ef97221a8751aff5a985e314bbbb3d35ca20d0e758c5dc3d53d37e53235",
+    "molsysmt/form/openmm_Context/iterators.py": "2255b51748de672ab35359d83b36e55d5fe9544f68e9d8ed708f0a8a09cc9c59",
+    "molsysmt/form/openmm_GromacsGroFile/iterators.py": "d0f6e04aeb6be2a24a40f9487f59a4abfaa97baa0dea0ac4f441a42b5023bedb",
+    "molsysmt/form/openmm_GromacsTopFile/iterators.py": "7bf7946f7217dea93f87cc5211c6eee8eb49db4eb29190737de6228f09549393",
+    "molsysmt/form/openmm_Modeller/iterators.py": "3740a4b85a0ca11e21b5b9e24635f69214984d5e771b7cb02a9775a46b3cdc2d",
+    "molsysmt/form/openmm_PDBFile/iterators.py": "cf16d5e5d3f86769d7e814eadd12ef525defd8c2ee951dcd0a3af5895fd1d32f",
+    "molsysmt/form/openmm_Simulation/iterators.py": "16cb910c4fb74a5c8e2b812a64ec34da5849c9f42f6967a4da36d55d8ce43d30",
+    "molsysmt/form/openmm_State/iterators.py": "29b0303bc55f6d9a4747b5aec9c41814d9598a05cd12214457436a4fbcc787cc",
+    "molsysmt/form/openmm_System/iterators.py": "96523d59f5df1ebfd2605154ebdca0cdfc219754936e206767f6203a9ec0254e",
+    "molsysmt/form/openmm_Topology/iterators.py": "9e0853fe2a9fc520b2c8c3c16d00fed0a7a05c342feb1ed9d5ca0632877211c6",
+    "molsysmt/form/parmed_GromacsTopologyFile/iterators.py": "a341e07b0fe2ce738e0156c9c9f63d23fa794f6f8049a3a7bfd6dd28a005e024",
+    "molsysmt/form/parmed_Structure/iterators.py": "12390cb77c0803269b135e7d75edb86777d977f7c9d8e43c2459d4c360f4f3bc",
+    "molsysmt/form/pdbfixer_PDBFixer/iterators.py": "8a7e81ed1920cbf27ec3d89e89ed93a943e0fee6bccc610d68112f3498abd197",
+    "molsysmt/form/pytraj_Topology/iterators.py": "5504e5fb906e0c1f2cf81776f0acfeebf749464ad1cc24837e7b513be02fdfcd",
+    "molsysmt/form/pytraj_Trajectory/iterators.py": "a94769a5b73120e7b477e637a6f3ffa01ffd888720516af735bf2642ee9aa0eb",
+    "molsysmt/form/string_alphafold_id/iterators.py": "7eaf9519f36e669f7743c35c01a3699ca1b0bd4b2146e8dcbecdd6fa73246b1a",
+    "molsysmt/form/string_amino_acids_1/iterators.py": "113b0d9fd202cb35608a298e0df36fff1e950d96bd201a34ca032781c3f78682",
+    "molsysmt/form/string_amino_acids_3/iterators.py": "210df0fae6217af04075d2db6182cbd77d8101283f79f144765e158d44d7364d",
+    "molsysmt/form/string_pdb_id/iterators.py": "4d97b7f8a5b1ee5f3eb58817b306172178fb92b7eb7d9d67c9b13c28109a025d",
+    "molsysmt/form/string_pdb_text/iterators.py": "c14a875f54e9bebcd4fdd76c9ed16b03c1b90fc0c10f3aa685957123c6c57c62",
+    "molsysmt/form/string_smiles/iterators.py": "2b305900f7cf7341bb81dd8d49cd8166410606f1005044f2be61c393edd8e5c1",
+    "molsysmt/form/string_uniprot_id/iterators.py": "9788454f18fe4e224f8a3c8a50ac9c2e4a112e64b79a6fac2ff52fa5c00a6c87"
+  },
+  "gro_documentation": {
+    "preserved_notebook": {
+      "cells": 6,
+      "code_outputs_execution_metadata_unchanged": true,
+      "declared_and_documented_attributes": [
+        "atom_id",
+        "atom_index",
+        "atom_name",
+        "atom_type",
+        "bond_id",
+        "bond_index",
+        "bond_order",
+        "bond_type",
+        "bonded_atoms",
+        "box",
+        "box_angles",
+        "box_lengths",
+        "box_shape",
+        "box_volume",
+        "chain_id",
+        "chain_index",
+        "chain_name",
+        "chain_type",
+        "component_id",
+        "component_index",
+        "component_name",
+        "component_type",
+        "coordinates",
+        "entity_id",
+        "entity_index",
+        "entity_name",
+        "entity_type",
+        "group_id",
+        "group_index",
+        "group_name",
+        "group_type",
+        "inner_bond_index",
+        "inner_bonded_atoms",
+        "molecule_id",
+        "molecule_index",
+        "molecule_name",
+        "molecule_type",
+        "n_amino_acids",
+        "n_atoms",
+        "n_bonds",
+        "n_chains",
+        "n_components",
+        "n_dnas",
+        "n_entities",
+        "n_groups",
+        "n_inner_bonds",
+        "n_ions",
+        "n_lipids",
+        "n_molecules",
+        "n_nucleotides",
+        "n_peptides",
+        "n_polysaccharides",
+        "n_proteins",
+        "n_rnas",
+        "n_saccharides",
+        "n_small_molecules",
+        "n_structures",
+        "n_waters",
+        "structure_id",
+        "structure_index",
+        "time",
+        "velocities"
+      ],
+      "attribute_count": 62,
+      "conversion_targets": [
+        "molsysmt.GROFileHandler",
+        "molsysmt.MolSys",
+        "molsysmt.Structures",
+        "molsysmt.Topology",
+        "nglview.NGLWidget"
+      ],
+      "conversion_count": 5,
+      "scope": "Preserved actual notebook execution payload and source declaration/registration correspondence; not proof that every file stores every value."
+    },
+    "actual_example": "Execute the actual Foundations Python block under nm/ps and pm/fs. Both independently owned buffers close; the selected (1,2,3) public coordinates match two independently sliced deposited GRO atom lines, use the active length unit and leave all 5547 source atom records unchanged. Raw entry quantities retain nm.",
+    "guard": "tests/documentation/test_gro_handler_example.py",
+    "course_source_review": {
+      "notebooks_checked": 178,
+      "matching_mentions": 1,
+      "finding": "Core01 links to the same GRO guide and accurately distinguishes resident native scope from provider coordinate series. No course code/output change or new course execution. No full instructional certification."
+    }
+  },
+  "checks": {
+    "fast_release_gates_passed": 15,
+    "fast_release_gates_total": 15,
+    "all_native_command_exits": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "ruff_check_and_format_changed_files": true,
+    "devguide_and_indexes": true
+  },
+  "html": {
+    "exit": 0,
+    "warnings": 0,
+    "full_site": true,
+    "notebook_execution": "off",
+    "autosummary_generate": false,
+    "source_proof": {
+      "source_commit": "bc2db775d4a807cbc268ae204e89c057c35ffdd9",
+      "expected_source_commit": "bc2db775d4a807cbc268ae204e89c057c35ffdd9",
+      "native_exit": 0,
+      "source_clean_after": true,
+      "inputs_before": {
+        "molsysmt/form/molsysmt_GROFileHandler/iterators.py": "a840304c8b7234b5a9b37886c3898509f601599424286c217bbb012212a5e267",
+        "docs/content/user/foundations/native_world/file_handlers/molsysmt_GROFileHandler.md": "92571c42f33a07d8e2af1f19f60d7ce71187a8ac7bfee24041955e7a07d8f907",
+        "docs/content/user/tools/form/class/molsysmt/molsysmt_GROFileHandler.ipynb": "eeff3ed470e256cc681c1e77850fa2fba062adc64d88f073275e1f989feb46c5",
+        "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+      },
+      "inputs_after": {
+        "molsysmt/form/molsysmt_GROFileHandler/iterators.py": "a840304c8b7234b5a9b37886c3898509f601599424286c217bbb012212a5e267",
+        "docs/content/user/foundations/native_world/file_handlers/molsysmt_GROFileHandler.md": "92571c42f33a07d8e2af1f19f60d7ce71187a8ac7bfee24041955e7a07d8f907",
+        "docs/content/user/tools/form/class/molsysmt/molsysmt_GROFileHandler.ipynb": "eeff3ed470e256cc681c1e77850fa2fba062adc64d88f073275e1f989feb46c5",
+        "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+      },
+      "changed_inputs": [],
+      "scope": "Full-site strict HTML build from a clean source checkpoint, with stored previously executed notebook output. No new notebook/scientific execution or installed qualification."
+    },
+    "article_inspection": {
+      "source_commit": "bc2db775d4a807cbc268ae204e89c057c35ffdd9",
+      "pages": [
+        {
+          "page": "content/user/foundations/native_world/file_handlers/molsysmt_GROFileHandler.html",
+          "sha256": "0b57bb94f13438845cec18a4bfa4e2cbfd4ddb5c8d3d127d34c7991d7886d342",
+          "internal_links_checked": 10,
+          "system_messages": 0
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_GROFileHandler.html",
+          "sha256": "31c153737686f2b25226dedef3b0618da153d0fed6c5bccf00f69a9e37bfaca2",
+          "internal_links_checked": 16,
+          "system_messages": 0
+        }
+      ],
+      "internal_targets_and_anchors_checked": 31,
+      "implementation_source_links_checked": 5,
+      "attribute_count": 62,
+      "conversion_count": 5,
+      "operation_rows": 11,
+      "explicit_unavailable_rows": 5,
+      "whole_handler_only_rows": 1,
+      "preserved_anchors": true,
+      "scope": "Actual generated article DOM, declared capabilities and local/API implementation targets. Not a browser-layout, external-format or scientific conformance certification."
+    }
+  },
+  "executions": {
+    "gro_baseline": {
+      "source_commit": "d9c9d4b75bd2ba728b8cf88c89c894d35749fbce",
+      "native_exit": 1,
+      "state": "completed",
+      "seconds": 4.048217014176771,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 178270208,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15383560192,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "changed_inputs": [],
+      "driver_sha256": "0d884d57463fd562b226288876235f1c482a8c0842d7d1fb792fee463e9c0f08",
+      "command": [
+        "<development-python-3.14>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=.pytest_cache/handler-review-20261111/baseline.xml",
+        "tests/documentation/test_gro_handler_example.py::test_tutorial_operation_limits_match_actual_adapter"
+      ],
+      "input_attribution": "Dirty d9c9d4b75 plus explicit new tests and the phase-specific documentation/diagnostic delta subsequently committed as 9adad50d1 and bc2db775d; phase input hashes retain exact exercised bytes."
+    },
+    "iterator_baseline": {
+      "source_commit": "d9c9d4b75bd2ba728b8cf88c89c894d35749fbce",
+      "native_exit": 1,
+      "state": "completed",
+      "seconds": 7.05132383806631,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 334942208,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15218221056,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "changed_inputs": [],
+      "driver_sha256": "c005ab952d56578de948864b22a9e5c0afe830753b1074efd5b7acd13d9d965c",
+      "command": [
+        "<development-python-3.14>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=.pytest_cache/iterator-diagnostics-717-20261111/baseline.xml",
+        "tests/form/test_unavailable_iterator_diagnostics.py"
+      ],
+      "input_attribution": "Dirty d9c9d4b75 plus explicit new tests and the phase-specific documentation/diagnostic delta subsequently committed as 9adad50d1 and bc2db775d; phase input hashes retain exact exercised bytes."
+    },
+    "corrected": {
+      "source_commit": "d9c9d4b75bd2ba728b8cf88c89c894d35749fbce",
+      "native_exit": 0,
+      "state": "completed",
+      "seconds": 63.08298026421107,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 869752832,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14462046208,
+      "maximum_memory_pressure_avg10": 3.99,
+      "stop_reason": null,
+      "changed_inputs": [],
+      "driver_sha256": "245429f9acbc86cbd7c995ae304f4b9dac70230123ea65e5298d8ff30ee66ccc",
+      "command": [
+        "<development-python-3.14>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=.pytest_cache/iterator-diagnostics-717-20261111/corrected.xml",
+        "tests/form/test_unavailable_iterator_diagnostics.py",
+        "tests/documentation/test_gro_handler_example.py",
+        "tests/form/file_gro/test_contract.py",
+        "tests/form/file_gro/test_bridge_contract.py",
+        "tests/basic/iterator/test_iterator.py"
+      ],
+      "input_attribution": "Dirty d9c9d4b75 plus explicit new tests and the phase-specific documentation/diagnostic delta subsequently committed as 9adad50d1 and bc2db775d; phase input hashes retain exact exercised bytes."
+    },
+    "checks": {
+      "source_commit": "d9c9d4b75bd2ba728b8cf88c89c894d35749fbce",
+      "native_exit": 0,
+      "state": "completed",
+      "seconds": 24.062796645099297,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 393601024,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15056990208,
+      "maximum_memory_pressure_avg10": 0.01,
+      "stop_reason": null,
+      "changed_inputs": [],
+      "driver_sha256": "245429f9acbc86cbd7c995ae304f4b9dac70230123ea65e5298d8ff30ee66ccc",
+      "command": [
+        "<development-python-3.14>",
+        ".pytest_cache/iterator-diagnostics-717-20261111/check_block.py"
+      ],
+      "input_attribution": "Dirty d9c9d4b75 plus explicit new tests and the phase-specific documentation/diagnostic delta subsequently committed as 9adad50d1 and bc2db775d; phase input hashes retain exact exercised bytes."
+    },
+    "html": {
+      "source_commit": "bc2db775d4a807cbc268ae204e89c057c35ffdd9",
+      "native_exit": 0,
+      "state": "completed",
+      "seconds": 144.09842807194218,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1879048192",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 860377088,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14831939584,
+      "maximum_memory_pressure_avg10": 0.36,
+      "stop_reason": null,
+      "changed_inputs": [],
+      "driver_sha256": "245429f9acbc86cbd7c995ae304f4b9dac70230123ea65e5298d8ff30ee66ccc",
+      "command": [
+        "<development-python-3.14>",
+        ".pytest_cache/iterator-diagnostics-717-20261111/build_html.py"
+      ],
+      "input_attribution": "Clean bc2db775d documentation worktree; stored notebook output, no new notebook execution."
+    }
+  },
+  "support_boundary_review": "Existing SMonitor NotImplementedIteratorError owns refusal diagnostics and receives its required form. ArgDigest wrappers, DepDigest optional imports and PyUnitWizard conversion remain intact; no new provider API/dependency/quantity/scientific-attribution boundary is introduced. Direct refusal tests deliberately unwrap existing validation and do not certify arbitrary inputs or optional engine execution.",
+  "board_before_closure": {
+    "acquisition": "Complete owning-script paginated issues and independent paginated open PRs",
+    "issues": 638,
+    "open_issues": 93,
+    "open_prs": 0,
+    "new_numbers": [
+      716,
+      717,
+      718
+    ],
+    "incoming_718": "Prioritize the reported actual-Jupyter control-focus receiver defect after this closeout; source inspected, external evidence not rerun here, incoming owner-reviewed PR expected."
+  },
+  "retained_probe_corrections": [
+    {
+      "first_edit_script": "Stopped before manifest update because the short legacy_h5msm_handler key occurs in both Foundations and Tools; earlier writes had completed.",
+      "correction": "Use the unique page path context, complete both manifest entries, and verify post-format AST outside the 103 refusal expressions."
+    },
+    {
+      "native_exit": 1,
+      "diagnosis": "The inspection flattened highlighted code tokens with spaces between punctuation. Check actual preformatted code text with whitespace normalization; source content needs no correction."
+    },
+    {
+      "native_exit": 1,
+      "diagnosis": "The inspection expected the raw MyST label as a DOM id. Sphinx normalizes it to tutorial-form-molsysmt-grofilehandler; the original source anchor is unchanged. Correct the expected emitted id without changing the documentation."
+    }
+  ],
+  "remaining": "Original 6acad4f35 complete source receiving retains its own scope; the later executable changes have focused receiving and remain in the next deliberate complete-source/nightly backlog. #718, #713/#615 uncertainty, #256 freeze, #524 public/installed closure, #250/#254 final-candidate agreement and exact final-pair gates remain open. Formal original score remains 77.73809523809524%, 50/50 source graphical intents. Candidate construction, hosted qualification and publication stay paused.",
+  "private_artifacts": {
+    "handler-review-20261111/baseline.xml": "0baa0947e779caf8b9eed5c411fc1c5ec06ea6073ea898815b28e929d8f25991",
+    "handler-review-20261111/baseline.log": "3b1a7d497fade1e4ca5fab64d550e7875208705a221568e94f829508a4c06a14",
+    "handler-review-20261111/baseline-execution.json": "e756cedc074c060a43337477ad890645ab7c69af87d860299f945660bddff901",
+    "handler-review-20261111/run_bounded.py": "0d884d57463fd562b226288876235f1c482a8c0842d7d1fb792fee463e9c0f08",
+    "handler-review-20261111/gro-handler-original.ipynb": "a369ab578ad6e0334fed80a4d4870b58fa611c8e48e488eb300b90507e0585aa",
+    "handler-review-20261111/notebook-preservation-proof.json": "96770aecaf6399d791f9b7cbd56f110bb1c4d6fdb642b51e403851175116b808",
+    "handler-review-20261111/course-source-review.json": "166ca5b8d6f3ab7857f4506ccb6a0deb75ec9f69e7d8d8ef87aa76b09b77293b",
+    "handler-review-20261111/edit-attempt-note.json": "8a05de777d4ba7af6157d3eda62ae8c2198b5f8f6366684cfc4df3bb874eade1",
+    "handler-review-20261111/iterator-refusal-inventory.json": "090216fb52764df0ca54965985c769ea7d45de24f8d1f9e14573e7519a77fc01",
+    "iterator-diagnostics-717-20261111/baseline.xml": "02c75f049b703d9d3608719a6e5148e575d9ae3b1434b5f8579f569ecedc3aaf",
+    "iterator-diagnostics-717-20261111/baseline.log": "74c49509c4204b23e910ab6d8ac48424f506649b0015c0a504713f7bd2e9de3e",
+    "iterator-diagnostics-717-20261111/corrected.xml": "b7206ed58cf30f7caee1f6c0ce9828cf1ff6a830ab2a91a7a9bc2a1f66a039d1",
+    "iterator-diagnostics-717-20261111/corrected.log": "d11d3eb395139f51f06109c20fcbde12edf02aa16d9fbf0962000351786e1db8",
+    "iterator-diagnostics-717-20261111/baseline-execution.json": "5de43eb1e911ec1854c8bf184fe3f306a738fd29cbef60ef6aee35765c5a42d4",
+    "iterator-diagnostics-717-20261111/corrected-execution.json": "002b0da005485fe3ff00d360ee4b751e8e957a2abbf8728065c56c6517fd480f",
+    "iterator-diagnostics-717-20261111/checks-execution.json": "472d94f931f12cd455f6e77c7512e4423d4e967f8e2ac58fc4dcbb554956617f",
+    "iterator-diagnostics-717-20261111/html-execution.json": "2a75f10948b39a212e6510cd82f94d36d97e3acea24a9fafd0d2ae39fcaa47fa",
+    "iterator-diagnostics-717-20261111/refusal-edit-proof.json": "342f574cefd1913a0379a55c9263c6e071e705e93d9f56d561d99e610c22f3f9",
+    "iterator-diagnostics-717-20261111/check-results.json": "9258e2d6c2369eb778b8add6128ce370aada7e00b436eb025bcc595df61586c6",
+    "iterator-diagnostics-717-20261111/sphinx-warnings.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "iterator-diagnostics-717-20261111/sphinx-result.json": "8e954ad2d00f8817647c714606f6c7f5c0e6b6307094d2525be4f085969aa3a1",
+    "iterator-diagnostics-717-20261111/html-source-proof.json": "29ad17fd8b8440759ac339e1b5daf72734117313f311f4be771fbbde5fbdc282",
+    "iterator-diagnostics-717-20261111/html-dom-proof.json": "b06cf3c55fbff6d12edb77a6c1a40afac0b30a5c1d3856279f0eb7c223b5b3b7",
+    "iterator-diagnostics-717-20261111/inspect_html.py": "24cfc83b329db1d37b8a04fd91c2b75b789b496e00c85c175fe8cb4e49b060a2",
+    "iterator-diagnostics-717-20261111/inspect_html-first-draft.py": "2b556b6a8c084fb502d93d6942030968e7646d87d0914de4a16f067b9a1b53b9",
+    "iterator-diagnostics-717-20261111/inspect_html-second-draft.py": "b0c82cbe50e526a0dcb29d07c269ef762367c6658562b0206a2e6d2d1efc2683",
+    "iterator-diagnostics-717-20261111/html-inspection-first-attempt.json": "7ce96a5c6a97a51a2d8f4def4a339576004082037b3d458a581e3e68a1e8ca9c",
+    "iterator-diagnostics-717-20261111/html-inspection-second-attempt.json": "e45ebb34fabcb433e020142432f88d1e341edbca155485a7399b121910734278",
+    "iterator-diagnostics-717-20261111/run_bounded.py": "245429f9acbc86cbd7c995ae304f4b9dac70230123ea65e5298d8ff30ee66ccc",
+    "iterator-diagnostics-717-20261111/run_bounded-baseline.py": "c005ab952d56578de948864b22a9e5c0afe830753b1074efd5b7acd13d9d965c",
+    "iterator-diagnostics-717-20261111/build_html.py": "6ccee760a56d813f0cf207d4d5f6f46a8d676e00d9b1bbc0a5ffb498a1ec2539",
+    "iterator-diagnostics-717-20261111/build_site.py": "bad37af0c5bd4dbc99f92c414b7d19fd827fe4c8e11f0df6b126be2bf93fcd1a",
+    "iterator-diagnostics-717-20261111/board-before-close.json": "5f98212d59ca56c56d029d040b97abe1ef8a971dc6b2df25f512a841c2c046cf",
+    "iterator-diagnostics-717-20261111/make_receipt.py": "835ca9edf7a74dd2b9e624af62d916c7a37c241ba424bc3b3039f68b4d2f0f9d"
+  }
+}

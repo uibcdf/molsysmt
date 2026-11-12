@@ -19,7 +19,7 @@ class StructuresIterator:
         return self
 
     def __next__(self):
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="pdbfixer.PDBFixer")
 
 
 class TopologyIterator:
@@ -30,4 +30,4 @@ class TopologyIterator:
         return self
 
     def __next__(self):
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="pdbfixer.PDBFixer")

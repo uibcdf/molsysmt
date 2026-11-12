@@ -93,6 +93,17 @@ from atom and structure counts. `heavy_mode` controls the decision:
 `memory_pressure_threshold` configure the policy. The footprint is an estimate,
 not a complete peak-memory proof; reducers and outputs may dominate memory use.
 
+## Unsupported iterator routes
+
+A registered iterator class does not establish that the form supports iteration.
+Unavailable form-specific constructor or next branches raise the structured
+`NotImplementedIteratorError` with their registered form identity. The generic
+unregistered template identifies itself explicitly. These refusals do not imply
+missing dependencies or malformed input; they do not supply streaming support.
+Where a constructor already uses ArgDigest, its validation still runs before
+the refusal.
+Supported iterators keep their own chunk, ownership and exhaustion contracts.
+
 ## Chunk contract
 
 The public `basic.Iterator` with native molecular-system output delegates each

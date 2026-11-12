@@ -89,4 +89,4 @@ class TopologyIterator:
         return self
 
     def __next__(self):
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="file:h5msm")

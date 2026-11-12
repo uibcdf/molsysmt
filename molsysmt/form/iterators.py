@@ -52,7 +52,7 @@ class StructuresIterator(BaseStructuresIterator):
         pass
 
     def __next__(self):
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="unregistered iterator template")
 
 
 class TopologyIterator(BaseTopologyIterator):
@@ -60,4 +60,4 @@ class TopologyIterator(BaseTopologyIterator):
         pass
 
     def __next__(self):
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="unregistered iterator template")

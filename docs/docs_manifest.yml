@@ -105,6 +105,10 @@ sections:
             file: docs/content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.md
             agents_file: docs/content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.md.AGENTS.md
             description: Resident PDB reading, normalized records versus native quantities, actual unavailable hooks and deterministic owned-buffer closure.
+          - name: gro_handler
+            file: docs/content/user/foundations/native_world/file_handlers/molsysmt_GROFileHandler.md
+            agents_file: docs/content/user/foundations/native_world/file_handlers/molsysmt_GROFileHandler.md.AGENTS.md
+            description: Resident first-entry reading, raw versus public units, independently owned whole-handler copies, executed selected-coordinate example and unavailable mutation/streaming.
           - name: legacy_h5msm_handler
             file: docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md
             agents_file: docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md.AGENTS.md
@@ -680,6 +684,10 @@ sections:
             agents_file: docs/content/user/tools/form/string/string_pdb_text.ipynb.AGENTS.md
             description: Declared native PDB text context, unchanged disabled-inference default, semantic selections and external interpretation limits.
             status: pending_review
+          - name: gro_handler_operations
+            file: docs/content/user/tools/form/class/molsysmt/molsysmt_GROFileHandler.ipynb
+            agents_file: docs/content/user/tools/form/class/molsysmt/molsysmt_GROFileHandler.ipynb.AGENTS.md
+            description: Sixty-two declared/piped attributes, five conversions, whole-handler extraction and explicit refusal of unavailable editing, append and iteration hooks.
           - name: pdb_handler_reader_context
             file: docs/content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.ipynb
             agents_file: docs/content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.ipynb.AGENTS.md

@@ -1,19 +1,8 @@
----
-summary: Wait for actual controls focus before keyboard navigation in prolonged Jupyter receiving.
-issue: uibcdf/molsysmt#718
-status: active
-opened: 2026-11-12
-closed:
-severity: medium
-verification: reproduced
-area: [testing, jupyter, molsysviewer]
-guard: tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_prolonged_popup_controls
-normative:
-blocked_by: []
-supersedes: []
----
+# Jupyter receiver focus and actual-import receiving — 2026-11-12
 
-# Prolonged receiver control focus
+This dated contribution receipt supports
+[the owning #718 report](pending_bugs/prolonged_jupyter_receiver_does_not_wait_for_controls_focus.md).
+It is not a second queue record or final acceptance.
 
 ## What
 
@@ -73,6 +62,12 @@ The copied scientific source has no generated version file and reports
 `0+unknown`; identity comes from byte comparison, never that version label.
 
 The earlier two-guard pass uses its original PyUnitWizard 0.28.1 overlay and
-keeps that separate scope. Counts overlap. The corrected thirty-cycle attempt
-is in progress; it is not yet acceptance. Owner integration, changed-head
-hosted/installed qualification and postponed human review remain separate.
+keeps that separate scope. Counts overlap. The corrected thirty-cycle campaign
+completes in 1,749.912 s with one scientific kernel and all 10,182 selected
+inputs unchanged. Every cycle starts with hidden popup controls and verifies
+Next focus. All 25 owned processes retire without a resource stop; the last
+weak-controller observation contains only the witness. This completes the
+functional campaign, not all memory acceptance: browser heap/charged memory
+grows across blocks and remains consumer #356/#315 work. Owner integration,
+changed-head hosted/installed qualification and postponed human review remain
+separate.

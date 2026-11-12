@@ -32,6 +32,11 @@ The later #715 source-backed catalog correction and actual notebook/HTML receivi
 have a separate [receipt](../devtools/data/demo_catalog_receiving_715_20261111.json).
 These metadata and focused-test changes are outside the frozen complete session;
 remaining semantic review follows the supplemental polishing queue.
+The later #716/#717 GRO guidance and unsupported-iterator diagnostic corrections
+pass 166 focused cases with their own [receipt](../devtools/data/gro_iterator_receiving_716_717_20261111.json).
+Their executable edits retain the next deliberate complete-source/nightly
+obligation. New #718's reported Jupyter control-focus readiness defect is the
+next validation priority; no new Jupyter campaign ran during its intake.
 
 Independently reviewed MolSysViewer default-1.0 source receiving is accepted
 under #256; format freeze, #615/#713 uncertainty and the final exact installed

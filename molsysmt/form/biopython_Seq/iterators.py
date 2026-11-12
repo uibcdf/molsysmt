@@ -16,10 +16,10 @@ class TopologyIterator:
         output_type="values",
         **kwargs,
     ):
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="biopython.Seq")
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="biopython.Seq")
