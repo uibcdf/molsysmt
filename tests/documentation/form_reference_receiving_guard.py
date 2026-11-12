@@ -10,7 +10,18 @@ from tests.documentation._form_reference_checks import (
 )
 
 
-@pytest.mark.parametrize("name", ["MolSys", "Topology", "Structures"])
+@pytest.mark.parametrize(
+    "name",
+    [
+        "MolSys",
+        "Topology",
+        "Structures",
+        "MolSysDict",
+        "TopologyDict",
+        "StructuresDict",
+        "MolecularMechanicsDict",
+    ],
+)
 def test_actual_native_tutorial_delivers_every_intended_reference(name):
     directory = os.environ.get("MOLSYSMT_FORM_REFERENCE_HTML")
     assert directory, "Select the actual received HTML directory explicitly."

@@ -169,3 +169,34 @@ are retired/already collected with MainPID-zero checks; no foreign process is
 signalled. The receipt distinguishes that staged source/test scope from a new
 full scientific or installed verdict. #727 remains partial for the broader
 source-matched cached article inventory.
+
+
+## Native dictionary source correction — 2026-11-12
+
+The next bounded increment covers MolSysDict, TopologyDict, StructuresDict and
+MolecularMechanicsDict. Their 53 intended implementation references point to
+53 files independently matched against the complete published 97ff11e1d tree.
+MolSysDict now lists its actual 98 declarations; TopologyDict lists 78 and its
+formerly omitted MolSys converter, for four registered routes. Both wrapper
+pages now include their existing independent-copy operation. The other two
+ordinary-dictionary forms retain 20/21 declarations and seven/two routes.
+
+Descriptions distinguish versioned wrappers from in-memory arrays/quantities,
+stable inventory from legacy chemical declarations, instance availability from
+form-level declaration, and real operations from unavailable compatibility
+hooks. StructuresDict subset extraction, add/merge and iteration are explicitly
+unavailable in those hooks; its coordinate setter and append route remain
+available. Empty mechanical/count-only topology conversions are not described
+as chemical reconstruction. MolecularMechanicsDict has no coordinate axis.
+Notebook code, outputs, metadata, six-cell order and anchors remain intact.
+
+The initial test prototype has eight failures and sixteen passes; two failures
+incorrectly require a particular count phrase. The corrected count check
+accepts either wording while requiring the actual set and number. Its baseline
+has six substantive documentation failures and eighteen passes. Corrected
+source receiving passes 24 cases; six existing dictionary suites pass 55
+runtime cases. Original attempts remain separate. A source-proof draft also
+compares the API query identifier to a local tree object; correcting that
+identifier check retains the independently verified file blobs. No library
+implementation changes in this increment. Actual HTML delivery is still to be
+received before claiming this four-page increment complete.

@@ -692,6 +692,22 @@ sections:
             file: docs/content/user/tools/form/class/molsysmt/molsysmt_Topology.ipynb
             agents_file: docs/content/user/tools/form/class/molsysmt/molsysmt_Topology.ipynb.AGENTS.md
             description: Thirty-eight stable-inventory declarations, real operation boundaries, selected native query/iteration example and seventeen conversion registrations with explicit domain/prerequisite limits.
+          - name: native_molsysdict_form
+            file: docs/content/user/tools/form/class/molsysmt/molsysmt_MolSysDict.ipynb
+            agents_file: docs/content/user/tools/form/class/molsysmt/molsysmt_MolSysDict.ipynb.AGENTS.md
+            description: 98 adapter declarations, 4 registered conversions, published implementation references and explicit schema, domain and unavailable-hook boundaries.
+          - name: native_topologydict_form
+            file: docs/content/user/tools/form/class/molsysmt/molsysmt_TopologyDict.ipynb
+            agents_file: docs/content/user/tools/form/class/molsysmt/molsysmt_TopologyDict.ipynb.AGENTS.md
+            description: 78 adapter declarations, 4 registered conversions, published implementation references and explicit schema, domain and unavailable-hook boundaries.
+          - name: native_structuresdict_form
+            file: docs/content/user/tools/form/class/molsysmt/molsysmt_StructuresDict.ipynb
+            agents_file: docs/content/user/tools/form/class/molsysmt/molsysmt_StructuresDict.ipynb.AGENTS.md
+            description: 20 adapter declarations, 7 registered conversions, published implementation references and explicit schema, domain and unavailable-hook boundaries.
+          - name: native_molecularmechanicsdict_form
+            file: docs/content/user/tools/form/class/molsysmt/molsysmt_MolecularMechanicsDict.ipynb
+            agents_file: docs/content/user/tools/form/class/molsysmt/molsysmt_MolecularMechanicsDict.ipynb.AGENTS.md
+            description: 21 adapter declarations, 2 registered conversions, published implementation references and explicit schema, domain and unavailable-hook boundaries.
           - name: gro_handler_operations
             file: docs/content/user/tools/form/class/molsysmt/molsysmt_GROFileHandler.ipynb
             agents_file: docs/content/user/tools/form/class/molsysmt/molsysmt_GROFileHandler.ipynb.AGENTS.md
