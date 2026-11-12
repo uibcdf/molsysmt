@@ -31,7 +31,11 @@ def digest_molecule_type(molecule_type, caller=None):
     if molecule_type is None and caller_matches(caller, "add_molecule"):
         return None
 
-    if caller == "molsysmt.basic.get.get":
+    if caller in (
+        "molsysmt.basic.get.get",
+        "molsysmt.basic.compare.compare",
+        "molsysmt.basic.iterator.__init__",
+    ):
         if isinstance(molecule_type, bool):
             return molecule_type
         raise ArgumentError("molecule_type", value=molecule_type, caller=caller)

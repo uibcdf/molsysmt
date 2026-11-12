@@ -40,7 +40,11 @@ def digest_component_type(component_type, caller=None):
 
         return normalize_assignment("component_type", component_type, caller)
 
-    if caller in ("molsysmt.basic.get.get", "molsysmt.basic.compare.compare"):
+    if caller in (
+        "molsysmt.basic.get.get",
+        "molsysmt.basic.compare.compare",
+        "molsysmt.basic.iterator.__init__",
+    ):
         if isinstance(component_type, bool):
             return component_type
         raise ArgumentError("component_type", value=component_type, caller=caller)

@@ -31,7 +31,11 @@ def digest_entity_type(entity_type, caller=None):
     if entity_type is None and caller_matches(caller, "add_entity"):
         return None
 
-    if caller == "molsysmt.basic.get.get":
+    if caller in (
+        "molsysmt.basic.get.get",
+        "molsysmt.basic.compare.compare",
+        "molsysmt.basic.iterator.__init__",
+    ):
         if isinstance(entity_type, bool):
             return entity_type
         raise ArgumentError("entity_type", value=entity_type, caller=caller)

@@ -31,7 +31,11 @@ def digest_group_type(group_type, caller=None):
     if group_type is None and caller_matches(caller, "add_group"):
         return None
 
-    if caller == "molsysmt.basic.get.get":
+    if caller in (
+        "molsysmt.basic.get.get",
+        "molsysmt.basic.compare.compare",
+        "molsysmt.basic.iterator.__init__",
+    ):
         if isinstance(group_type, bool):
             return group_type
         raise ArgumentError("group_type", value=group_type, caller=caller)

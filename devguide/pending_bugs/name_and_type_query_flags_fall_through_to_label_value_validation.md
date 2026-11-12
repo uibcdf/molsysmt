@@ -26,8 +26,8 @@ value as a True request. The provider executes the host digester as written.
 In thirteen reviewed name/type digesters, the Boolean context returns valid
 bool values, but invalid values fall through to the ordinary label branches.
 Cover atom name/type/force-field type and group/component/chain/molecule/entity
-name/type. Preserve each helper's existing context selection and true label
-constructor/setter/converter semantics. This is a host rule defect, not a
+name/type. Preserve true label constructor/setter/converter semantics while
+recognizing the existing get, compare and public Iterator query boundaries. This is a host rule defect, not a
 confirmed ArgDigest provider limitation.
 
 ## Why
@@ -60,9 +60,9 @@ native bytes are retained; final qualification remains separate.
 The 107-case family baseline has 56 failures and 51 passing controls. Two public
 get probes originally omitted element='atom' and failed at a later missing
 system getter; preserve that scope. The corrected three public probes all
-reproduce the missing Boolean refusal on unchanged helper sources. Thirteen
-helpers receive only the missing refusal inside their existing Boolean branch;
-an AST comparison proves every other branch unchanged. True labels, optional
+reproduce the missing Boolean refusal on unchanged helper sources. The first-stage thirteen-helper fix adds the missing refusal inside each
+existing Boolean branch; an AST comparison proves every other branch unchanged
+for that stage (`b0ae02b22`). True labels, optional
 builder values and converter bypasses retain their existing tests/semantics.
 
 The final combined cohort passes 377 cases, including all 107 new flag guards,
@@ -74,3 +74,24 @@ scientific work. No ArgDigest provider modification or new minimum API is needed
 All fifteen fast gates and applicable lint/index checks pass; complete HTML and
 publication closeout remain pending. Native bytes and physical-unit policy are
 unchanged. These are source contracts, not installed or final-pair qualification.
+
+
+## Boolean-context receiving
+
+An additional positive-control matrix exposes 24 rejected valid booleans out
+of 78 get/compare/Iterator calls on the first-stage source. Nine helpers lacked
+one or more existing query contexts. Their predicates now recognize those
+boundaries, including the public Iterator constructor, while retaining the
+separate label and chemical-assignment branches. The first-stage AST proof
+does not claim that these later predicate corrections were already present.
+
+The final focused cohort passes 526 cases with zero skips: 319 flag cases,
+27 existing name/type controls, 81 core digester cases, 64 native queries and
+35 inventory cases. Invalid values and actual Boolean positives cover all
+three query callers; four end-to-end cases check values through public get,
+compare and inventory traversal for atoms/groups/molecules/entities. The
+preceding attempt has 525 passes and one failed new expectation: the fixture's
+entity is labelled peptide, not protein. That test-oracle correction and the
+original failure are retained. These overlapping cohorts are not added as
+independent coverage credit. Complete-source, installed and final-pair gates
+remain separate.

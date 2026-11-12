@@ -5,6 +5,8 @@ from molsysmt._private.smonitor import ArgumentError
 functions_with_boolean = (
     "molsysmt.basic.get.get",
     "molsysmt.basic.compare.compare",
+    "molsysmt.basic.iterator.__init__",
+    "iterators.__init__",
 )
 
 
