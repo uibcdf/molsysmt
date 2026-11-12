@@ -35,8 +35,9 @@ remaining semantic review follows the supplemental polishing queue.
 The later #716/#717 GRO guidance and unsupported-iterator diagnostic corrections
 pass 166 focused cases with their own [receipt](../devtools/data/gro_iterator_receiving_716_717_20261111.json).
 Their executable edits retain the next deliberate complete-source/nightly
-obligation. New #718's reported Jupyter control-focus readiness defect is the
-next validation priority; no new Jupyter campaign ran during its intake.
+obligation. At intake, #718's reported Jupyter control-focus readiness defect
+became the next validation priority; no campaign ran during that intake. Its
+subsequent owner receiving is recorded below.
 
 The later native inventory/documentation/Boolean-flag corrections (#719/#720/
 #722) pass 377 first-stage and 526 later overlapping focused cases. The actual
@@ -44,9 +45,18 @@ Basic Iterator notebook executes 21 code cells; the actual Core04 query cell
 executes separately. Complete strict HTML on clean b0ae02b22 has zero warnings
 and inspected destinations. The [native receipt](../devtools/data/native_inventory_receiving_719_720_722_20261111.json)
 retains original failures and exact limits. These executable corrections do not
-clear the complete-source/nightly backlog. Draft #721 reports thirty functional
-cycles, while its passive-observer correction, owner integration and separate
-browser-memory acceptance remain open.
+clear the complete-source/nightly backlog. The earlier draft #721 checkpoint reports thirty functional cycles with its
+original observer/composition. Subsequent owner receiving below completes
+readiness/provenance; browser-memory acceptance remains separate under #723.
+
+Owner #718 readiness/provenance receiving now passes two real-Jupyter guards
+on clean 687220ac9 with the previously frozen client, published unit provider
+and unchanged native binary. The later lazy-dictionary refinement passes 57
+focused cases; exact scopes are in the [owner receipt](../devtools/data/jupyter_focus_receiving_718_20261111.json).
+New #723 owns a separate qualified host baseline/post-retirement sampling
+method; do not interpret raw heap deltas as proved molecular retention or
+repeat the long campaign before the method is received. The earlier thirty
+functional cycles retain their original composition.
 
 Independently reviewed MolSysViewer default-1.0 source receiving is accepted
 under #256; format freeze, #615/#713 uncertainty and the final exact installed

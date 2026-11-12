@@ -1,13 +1,13 @@
 ---
 summary: Prolonged Jupyter receiver does not wait for controls focus
 issue: uibcdf/molsysmt#718
-status: active
+status: resolved
 opened: 2026-11-11
-closed:
+closed: 2026-11-11
 severity: medium
-verification: upstream
+verification: measured
 area: [tests, diagnostics]
-guard:
+guard: tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_prolonged_popup_controls
 normative:
 blocked_by: []
 supersedes: []
@@ -148,3 +148,27 @@ result remains scoped to 687220ac9, before that one-line refinement. No GUI
 rerun, whole-current-main or installed qualification is inferred. The earlier
 thirty-cycle contribution retains its distinct scientific/client/provider and
 active-observer composition; the corrected navigation driver is byte-identical.
+
+
+## Resolution
+
+The owner integration receives actual visible focus before submitting keyboard
+navigation and keeps the scientific/window/session assertions and deadlines.
+The original corrected browser driver is unchanged. Four new passive-observer
+guards and the existing receiver controls pass (57 cases); two actual-Jupyter
+guards pass on clean 687220ac9. The later metadata-only refinement belongs to
+67a094749 and has separate focused receiving, not a relabelled GUI result.
+
+The primary guard starts with fully hidden controls, requires actual Next
+focus and structure navigation, and completes a real scientific/popups/session/
+playback cycle. It cannot pass on method names or fabricated output alone.
+The [owner receipt](../../../devtools/data/jupyter_focus_receiving_718_20261111.json)
+owns exact source/runtime/native identity, initial loaded/absent snapshots,
+4,860 unchanged selected files, failed probes and resource retirement. The
+[contribution receipt](../../jupyter_receiver_focus_receiving_20261112.md)
+retains the separate original thirty-cycle composition and reported growth.
+
+This closes receiver readiness/provenance only. #723 owns qualified memory
+metrology and host-only controls; #615/#713 original causes, client lifetimes,
+installed/platform and final-candidate acceptance remain open. There is no
+publication authorization or new formal score credit.

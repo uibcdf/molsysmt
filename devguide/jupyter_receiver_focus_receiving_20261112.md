@@ -1,7 +1,7 @@
 # Jupyter receiver focus and actual-import receiving — 2026-11-12
 
 This dated contribution receipt supports
-[the owning #718 report](pending_bugs/prolonged_jupyter_receiver_does_not_wait_for_controls_focus.md).
+[the owning #718 report](archive/resolved_bugs/prolonged_jupyter_receiver_does_not_wait_for_controls_focus.md).
 It is not a second queue record or final acceptance.
 
 ## What
@@ -99,3 +99,13 @@ access. Its extra fresh probe and final 57-case headless cohort qualify that
 refinement; the GUI result is not silently reassigned to the later source.
 The initial file-path probe's missing-tests import is preserved separately.
 No installed/platform or exact final-candidate acceptance is implied.
+
+
+## Owner closeout
+
+The [owner receipt](../devtools/data/jupyter_focus_receiving_718_20261111.json)
+keeps exact composition and original failure scopes. #718 closes receiver
+readiness/provenance. Newly admitted #723 owns the separate host-baseline,
+settled-sampling and memory-attribution work; neither the three diagnostic
+consumer cycles nor our one-cycle guard establishes thirty-cycle memory
+acceptance. #615/#713, installed/final-candidate and publication exits remain.

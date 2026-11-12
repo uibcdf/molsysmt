@@ -1,0 +1,486 @@
+{
+  "schema": "molsysmt.jupyter_focus_receiving@1",
+  "date": "2026-11-11",
+  "owner_issue": "uibcdf/molsysmt#718",
+  "contribution_pr": "uibcdf/molsysmt#721",
+  "follow_up": "uibcdf/molsysmt#723",
+  "integration_source": "687220ac938412bc9708f7a48e0a71c6ab601007",
+  "metadata_refinement_source": "67a0947491ccd064488af3428db8f47ab4bdcb0e",
+  "scope": "Bounded Linux/Python 3.14 development-source receiver correction. GUI receiving belongs to clean 687220ac9, before the one-line lazy-dictionary refinement; final 57-case headless receiving covers that refinement. Overlapping counts are not additive. No installed/platform/final-candidate or full memory qualification.",
+  "runtime": {
+    "python": "3.14.7",
+    "platform": "Linux shared development host; 20 logical CPUs, approximately 30.7 GiB physical RAM; no applicable Slurm allocation",
+    "molsysviewer_source": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "pyunitwizard": "0.29.2 published artifact overlay",
+    "pyunitwizard_conda_sha256": "bb28b9420760b557025163e11c934e096c7b98200cac720100a2db924e9ee617",
+    "smonitor": {
+      "version": "0.21.0",
+      "source": "066b69cad8896cdc126d5586fd53268af4ea6490"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "source": "13cc73780a7cb645546ae3f396177f98b86a8792"
+    },
+    "argdigest": {
+      "version": "0.15.0",
+      "source": "57447cc4ec1f7ce85078f8a939892efd075bc919"
+    },
+    "pytest_receptor": "1.2.1 published overlay",
+    "support_overlay": "Pure-Python overlays built offline from reviewed CI source pins. This work makes no shared-environment edits; frozen overlays preserve the declared providers despite concurrent sibling development. The native binary is unchanged.",
+    "thread_caps": {
+      "BLAS": 1,
+      "OpenMP": 1,
+      "Rayon": 1,
+      "OpenMM_CPU": 1,
+      "NumExpr": 1
+    }
+  },
+  "baseline": {
+    "three_observer_cases": {
+      "tests": 3,
+      "failures": 3,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 0
+    },
+    "original_passivity_scope": "The PR observer force-imports absent providers. The fresh-process test catches that behavior; loaded/missing-file controls also fail on the original observer.",
+    "lazy_dictionary_probe": {
+      "native_exit": 1,
+      "seconds": 0.2197489980608225,
+      "source_commit": "687220ac938412bc9708f7a48e0a71c6ab601007",
+      "scope": "Stdlib-only fresh probe. The first file-path attempt failed to import tests; the corrected -c probe establishes lazy dictionary activation on the unchanged helper."
+    },
+    "probe_disposition": "The first file-path diagnostic failed to import tests. Its log is retained as setup failure, not product evidence. The corrected -c diagnostic reaches vars(module) and reproduces lazy dictionary activation on unchanged 687220ac9."
+  },
+  "corrected": {
+    "first_headless": {
+      "tests": 56,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 56
+    },
+    "actual_gui": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 2
+    },
+    "final_headless": {
+      "tests": 57,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 57
+    },
+    "existing_receiver_controls": 52,
+    "initial_import_snapshot_control": 1,
+    "new_passivity_guards": 4
+  },
+  "scientific_gui": {
+    "initial_canvas": {
+      "checks": [
+        "Load TcTIM and open Analysis without calculating implicitly"
+      ],
+      "scope": "Actual plain Jupyter control and the initial TcTIM canvas in Analysis. Initial canvas diagnostic only."
+    },
+    "prolonged": {
+      "cycles": 1,
+      "seconds": 289.924,
+      "requested_active_seconds": 10,
+      "observed_playback": {
+        "seconds": 25.296,
+        "draws": 2,
+        "distinct_frames": 2
+      },
+      "controls": {
+        "started_hidden": true,
+        "next_focused": true
+      },
+      "one_scientific_kernel": true,
+      "native_cycle_count": 1,
+      "scope": "One unchanged scientific Jupyter kernel, real source APIs/widgets/Mol*, both popups, coherent session recovery and independent witness. Active playback is observed by native draws and changing structures, not idle waits. Automated source receiving only."
+    }
+  },
+  "initial_passive_snapshots": {
+    "initial_canvas": {
+      "molsysmt": {
+        "loaded": true,
+        "sha256": "dc89c5f21ab7ba4bb94b289927a19856d27cb670baf1b03d7f6fcb7fced03f90",
+        "module_version": "0.23.0+393.ge1facf624.dirty",
+        "selected_input": "molsysmt/__init__.py"
+      },
+      "molsysmt._rust": {
+        "loaded": false
+      },
+      "molsysviewer": {
+        "loaded": true,
+        "sha256": "76c5968d9a66d9fe01a475166515f4e0f02c3784b135ec60319cb2bf83b17cd4",
+        "module_version": "0.24.0+97.gdf4bf477.dirty",
+        "selected_input": "molsysviewer/__init__.py"
+      },
+      "molsysviewer_molsysmt": {
+        "loaded": false
+      },
+      "pyunitwizard": {
+        "loaded": true,
+        "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc",
+        "module_version": "0.29.2",
+        "selected_input": "providers/pyunitwizard/__init__.py"
+      },
+      "smonitor": {
+        "loaded": true,
+        "sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800",
+        "module_version": "0.21.0",
+        "selected_input": "providers/smonitor/__init__.py"
+      },
+      "argdigest": {
+        "loaded": true,
+        "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f",
+        "module_version": "0.15.0",
+        "selected_input": "providers/argdigest/__init__.py"
+      },
+      "depdigest": {
+        "loaded": true,
+        "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1",
+        "module_version": "0.15.1",
+        "selected_input": "providers/depdigest/__init__.py"
+      }
+    },
+    "prolonged": {
+      "molsysmt": {
+        "loaded": true,
+        "sha256": "dc89c5f21ab7ba4bb94b289927a19856d27cb670baf1b03d7f6fcb7fced03f90",
+        "module_version": "0.23.0+393.ge1facf624.dirty",
+        "selected_input": "molsysmt/__init__.py"
+      },
+      "molsysmt._rust": {
+        "loaded": false
+      },
+      "molsysviewer": {
+        "loaded": true,
+        "sha256": "76c5968d9a66d9fe01a475166515f4e0f02c3784b135ec60319cb2bf83b17cd4",
+        "module_version": "0.24.0+97.gdf4bf477.dirty",
+        "selected_input": "molsysviewer/__init__.py"
+      },
+      "molsysviewer_molsysmt": {
+        "loaded": false
+      },
+      "pyunitwizard": {
+        "loaded": true,
+        "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc",
+        "module_version": "0.29.2",
+        "selected_input": "providers/pyunitwizard/__init__.py"
+      },
+      "smonitor": {
+        "loaded": true,
+        "sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800",
+        "module_version": "0.21.0",
+        "selected_input": "providers/smonitor/__init__.py"
+      },
+      "argdigest": {
+        "loaded": true,
+        "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f",
+        "module_version": "0.15.0",
+        "selected_input": "providers/argdigest/__init__.py"
+      },
+      "depdigest": {
+        "loaded": true,
+        "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1",
+        "module_version": "0.15.1",
+        "selected_input": "providers/depdigest/__init__.py"
+      }
+    }
+  },
+  "passive_snapshot_scope": "Before demo/workload execution, native and addon modules remain explicitly absent in both kernel snapshots. Loaded entry points match the selected envelope. The native file is identified by the unchanged envelope, not falsely described as loaded at that early snapshot.",
+  "envelope": {
+    "selected_files": 4860,
+    "unchanged": true,
+    "source_clean_before": true,
+    "source_clean_after": true,
+    "important_sha256": {
+      "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+      "molsysmt/__init__.py": "dc89c5f21ab7ba4bb94b289927a19856d27cb670baf1b03d7f6fcb7fced03f90",
+      "receivers/sequence_panel_jupyter.mjs": "68e00de64e5c020c9dd32bcf648e69c44f7218661af5402794df6d352ab58da5",
+      "receivers/center_error_jupyter.mjs": "ba8c0aa4a4a648426bf24feb024a4a9b93d7d20d86245c34c83cf7d04b20a5db",
+      "receivers/system_panel_jupyter.py": "8d5a0f85eef4a0fef0b5da7f7cff8d297a668e5430db7a46addc29a8269eeb23",
+      "receivers/interaction_mechanics_jupyter.mjs": "9064e219097c8feba62f10bacae0d7ee6c773e5dd4818451b3ee52f66220a304",
+      "receivers/chemistry_panel_jupyter.mjs": "9692b8cdccd13edd396c6dfb9cfc41218768c4e587a4a98d066e6d707f5b2a1b",
+      "receivers/jupyter_receiving_guard.py": "eb910aeb3594e2e7d2bcd6cfb5e98d9ee339f1f4d2778885048604f49959bcc4",
+      "receivers/geometry_panel_jupyter.mjs": "e07c4a9608aebc167a410afb57698f7867e48c2a2aac5fe707638841d493e5e5",
+      "receivers/chemistry_repair_jupyter.mjs": "edafec5c7da47ab7a0cb0cdca183d40b56289fd8b52974d5b2700f0b037875bb",
+      "receivers/visual_adoption_jupyter.mjs": "d6b9d99b077582c0c996eec5708be58e8995530b36c859da0528bdd9e7c78b40",
+      "receivers/system_panel_browser.mjs": "d730e6eadfaed4d7daa39457b8c1aa8723fdba4fdf7673832c62ad7d9e5f1553",
+      "receivers/property_report_jupyter.mjs": "94025fa867c4a6eee57a245b7e270af120b37c8482f92f39db66defee277632b",
+      "receivers/periodic_origins_jupyter.mjs": "ddf07512e12317dccbab26985012b5854e251646654648bfe32377ae6b55b969",
+      "receivers/periodic_panel_jupyter.mjs": "a84c95a151134b314da0d213973c3cb5db95ceed22ee21b6711ab9c8e63fd803",
+      "receivers/continuous_session_jupyter.mjs": "5c514d9686f6e09de2825e10e4b7b15f313815c467bea5b82ecc92c51ba572d7",
+      "receivers/jupyter_panel_controls.mjs": "01acb74ed0101c36d41a06bd9e6c86af3752f4f2b615691b0574b5595679079f",
+      "receivers/construction_jupyter.mjs": "a0fdee534792fa0cb880db281fd2dce1849741fe1ea26fc66df6e735bccf01cb",
+      "receivers/prolonged_session_jupyter.mjs": "89075eabbe46e694b16a74132e9f2d3c605fde1bd8acd3b4a48d1d9c48804b8a",
+      "receivers/contacts_panel_jupyter.mjs": "3d1339874e6b64b34344c2be7b9dd839458027fbc9d17228376f184dab5ed8d2",
+      "receivers/result_panel_jupyter.mjs": "be7aef774023047aa42f05024afbc1db2e9b3eb048565302ad7637cbb9f2eb09",
+      "receivers/fit_external_panel_jupyter.mjs": "3eb59220d38c93e39bd00f282a3c041b811773b7f29885503402a350e50b28d2",
+      "receivers/center_panel_jupyter.mjs": "c4c0c2602ed94d9ebdf980593823c1ea43f53195ee54ad267fec4c4833d0d429",
+      "receivers/rotate_panel_jupyter.mjs": "5c82bbe3e1ed682326810b812c124149671869e45631e14d1a3dfc59b103f412",
+      "receivers/system_panel_jupyter.mjs": "df2433457c8a4dd21a3d398038815311f77ab218823d2e525f6b7a4c4e2d7a60",
+      "receivers/test_jupyter_import_observer.py": "7dc2c7bc3fd77506340efad9e2b5782dd84ef2a24172f6acb4d0c6906e991b18",
+      "receivers/initial_canvas_trace.test.mjs": "0800e196d441f1b89920ba9270ecaec962ed9a42888878b2607bb86d783785e4",
+      "receivers/chemistry_preparation_jupyter.mjs": "db6eaaa2cb70a7f660c10df212f45d6cacec63d288134974244791aae19833d2",
+      "receivers/assessed_protonation_jupyter.mjs": "0d035adeedecf72b1882c9ec7430d42312868056458690fecf55804567106db9",
+      "receivers/axes_panel_jupyter.mjs": "07063dc1da60ea261d5bd645242355a75c96bcdae9b2898456014159fe7b61c5",
+      "receivers/prolonged_session_fixture.py": "eed4e644e216499cd75d495e5ac252d68e54384af685e32ce7a5f86516081a4f",
+      "receivers/chemistry_pending_jupyter.mjs": "6e7c54d452c90fe874db54d612a76adc06f19f34766cd08a5a70207e7265729a",
+      "receivers/fit_panel_jupyter.mjs": "ebe5a31b8838f57789df6517f9176a5679e2b53bcf80613faaf400458526ba65",
+      "receivers/refinement_panel_jupyter.mjs": "67d2c13464a7102bee49bc791e87a2f70176108b0b7b2d1269b703424aa233c3",
+      "receivers/analysis_panel_jupyter.mjs": "b5e109a91e56ef3cb99307970ef6b0561d682b1702dc2f05227964384886303f",
+      "receivers/cell_panel_jupyter.mjs": "5fd6b5db12bbbfa0f500d086b999e4d681b1c8b4bb27acf40aa7f7bec9436f35",
+      "receivers/jupyter_initial_canvas_trace.mjs": "0f4d307e26b0484cdfca470fd9b828e601d55c4c6c7b587fc0fbd7c55fdc480f",
+      "molsysviewer/__init__.py": "76c5968d9a66d9fe01a475166515f4e0f02c3784b135ec60319cb2bf83b17cd4",
+      "molsysviewer/viewer.js": "11bf63f596cb9e2454c6ba4886387339b6c5f8a918adf0ae78e0733401e95735",
+      "providers/smonitor/__init__.py": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800",
+      "providers/argdigest/__init__.py": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f",
+      "providers/depdigest/__init__.py": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1",
+      "providers/pyunitwizard/__init__.py": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+    },
+    "scope": "Selected MolSysMT, addon, receiver, frozen MolSysViewer package/runtime and copied-provider files; caches/node_modules excluded. Not an exhaustive OS, browser or installed dependency manifest."
+  },
+  "final_headless_input_sha256": {
+    "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "044e3a341abb8c05c6059095a5f6460333c0c43280da72d2d75610f7d874ea83",
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "eb910aeb3594e2e7d2bcd6cfb5e98d9ee339f1f4d2778885048604f49959bcc4",
+    "tests/molsysviewer_molsysmt/prolonged_session_jupyter.mjs": "89075eabbe46e694b16a74132e9f2d3c605fde1bd8acd3b4a48d1d9c48804b8a",
+    "tests/molsysviewer_molsysmt/test_jupyter_import_observer.py": "f68744fed1d3df22c5323397241ed63bd0483e0b819f3be1c43e6abd32df49db"
+  },
+  "navigation_driver_identity": {
+    "path": "tests/molsysviewer_molsysmt/prolonged_session_jupyter.mjs",
+    "contribution_source": "5816bec86d03eb08d8ee3bebf4d033dbcc85187b",
+    "sha256": "89075eabbe46e694b16a74132e9f2d3c605fde1bd8acd3b4a48d1d9c48804b8a",
+    "contribution_bytes_preserved": true,
+    "scope": "Original corrected focus and thirty-cycle receiver logic unchanged; owner observer is separately changed and tested."
+  },
+  "contribution_thirty_cycles": {
+    "upstream_reported": true,
+    "pr_head": "5816bec86d03eb08d8ee3bebf4d033dbcc85187b",
+    "scientific_python_reference": "aee7aa65da56e896d1cb2d655bf73736f6453a43",
+    "molsysviewer": "c5115dff7f94fe17b5724e4863465a803c76f60e",
+    "pyunitwizard": "0.29.4+2.g9bb4f5f copied editable",
+    "cycles": 30,
+    "seconds": 1749.912,
+    "scope": "Original active-observer/copied-source contribution evidence; not rerun or silently reassigned to current main or our frozen 5164f13b/0.29.2 receiving. Reported heap growth remains #723 and consumer memory attribution work."
+  },
+  "client_comparison_disposition": "Owner GUI cases both pass with the earlier received frozen 5164f13b runtime. c5115dff tracked package bytes were separately prepared and verified for reference, but were not executed in this owner GUI receiving; no incompatibility/failure is claimed.",
+  "support_boundary_review": {
+    "argdigest": "No public molecular API or provider argument-contract change; helper remains private.",
+    "depdigest": "Observer never imports absent scientific/addon/provider modules, and reads stored metadata without lazy attribute activation. Existing optional routes/floors retained.",
+    "smonitor": "No scientific diagnostic-policy change or suppressed failure.",
+    "pyunitwizard": "Existing published 0.29.2 used; no unit/scientific behavior modified.",
+    "ackredit": "Receiver/provenance test correction adopts no new scientific method."
+  },
+  "executions": {
+    "baseline": {
+      "source_commit": "de578b72a70766b637e22544bd6a3fc9889af631",
+      "native_exit": 1,
+      "seconds": 4.043337620096281,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 178053120,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14786588672,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "5c530d75ee399450621264d394e40d66f613fbf3a73482fdbb13309f1e693fbd",
+      "pytest": {
+        "tests": 3,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      }
+    },
+    "corrected": {
+      "source_commit": "de578b72a70766b637e22544bd6a3fc9889af631",
+      "native_exit": 0,
+      "seconds": 3.033641962101683,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 145346560,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15300710400,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "a0a0080bc6927443105738330370c58df145490fc9d9319f0776a8730de59645",
+      "pytest": {
+        "tests": 56,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 56
+      }
+    },
+    "gui": {
+      "source_commit": "687220ac938412bc9708f7a48e0a71c6ab601007",
+      "native_exit": 0,
+      "seconds": 360.24939783802256,
+      "limits": {
+        "cpu.max": "200000 100000",
+        "memory.max": "4294967296",
+        "memory.high": "3758096384",
+        "memory.swap.max": "0",
+        "pids.max": "512"
+      },
+      "memory_peak_bytes": 2131230720,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 11266129920,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "5e344d4eae56fd9b16e3f46e5381a19d877cded76238dc0d632800fd1979c080",
+      "pytest": {
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2
+      }
+    },
+    "final_headless": {
+      "source_commit": "687220ac938412bc9708f7a48e0a71c6ab601007",
+      "native_exit": 0,
+      "seconds": 3.036200830945745,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 145342464,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 13318795264,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "29bd6dcf667c3fa92cc3ff1896ba4891f2a7985ea92bfb8dd2420ea4b40a0222",
+      "pytest": {
+        "tests": 57,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 57
+      }
+    },
+    "checks": {
+      "source_commit": "67a0947491ccd064488af3428db8f47ab4bdcb0e",
+      "native_exit": 0,
+      "seconds": 25.076340600848198,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 393502720,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14909583360,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "e4aca43d916bb094fd918839fb0f925a59a0672cf4e3e14e62fa5f56af6872d9",
+      "host_cpu_at_admission": {
+        "load_average": "0.73 2.73 3.90 6/2692 3663796",
+        "cpu_pressure": "some avg10=0.00 avg60=0.02 avg300=8.98 total=14472246932\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+        "online_logical_cpus": 20
+      }
+    }
+  },
+  "owned_retirement": {
+    "owned_terminal_services": 5,
+    "sampled_process_identities": 51,
+    "same_identity_still_live": 0,
+    "scope": "Only these owned terminal services stopped; sampled PID/start-tick identities checked, not an exhaustive census of every transient process.",
+    "explicit_stops": 4,
+    "already_collected_last_service": true
+  },
+  "board_before_closure": {
+    "complete_issues": 642,
+    "open_issues": 92,
+    "open_prs": [
+      721
+    ],
+    "new_issue": "#723 metrology request admitted; source confirms same-task GC/heap observation, external control experiments not rerun here."
+  },
+  "remaining": [
+    "#723 requires a plain-host baseline, actual host/extension identity, qualified post-retirement sampling and discriminating lifetime controls. Raw heap values do not prove molecular retention.",
+    "#615 original initialization causality and #713 original import timeout remain separate.",
+    "Complete-source/nightly backlog, stable-format/final pair, public dependency-floor/installed and exact-candidate gates remain open.",
+    "Formal original milestone accounting remains 77.73809523809524 percent and 50/50 graphical source intents.",
+    "Candidate construction, hosted qualification, tags, promotion and publication remain paused."
+  ],
+  "private_artifacts": {
+    "jupyter-focus-718-20261111/baseline-execution.json": "575980a5311cda9f6d40bb04fdb96eb248059ed86af3ae7746a3b1ea8aca044b",
+    "jupyter-focus-718-20261111/baseline.log": "3a2ba7414da4b94f5f0eb4c0574cc53cb5eb7f4f69325f88fc9e35d79219a46a",
+    "jupyter-focus-718-20261111/baseline.xml": "de51a3011b459f9f1d235e00615651148bd8a07b86fca53ab181916ef4d5080b",
+    "jupyter-focus-718-20261111/board-before-close.json": "b0ba480574123f4fe6df1f5b378042937fb207ae2f0b0158d0bf4b6e699c91c3",
+    "jupyter-focus-718-20261111/corrected-execution.json": "7a164f38179c4e43f74a19ef219d30516b1be33a17bc181bfc87d0f31943eb1c",
+    "jupyter-focus-718-20261111/corrected.log": "738667da1564a1ad9561123ef7c937eee3252ed2b211bfd9526f2bb27b8a4cc6",
+    "jupyter-focus-718-20261111/corrected.xml": "e123317c111b4cf6904f0abd2469595236a98fabc7f1f742da5dd904ca3955e4",
+    "jupyter-focus-718-20261111/final_headless-execution.json": "5753eb3f9ce54ea3bb9a8da2d2bc135f1a45aee6567e1ec2c169f741004b4c56",
+    "jupyter-focus-718-20261111/final_headless.log": "d3ebcfd233ce95c50dcb2a9f33318b358d006ed7d3bc85104b0c04ca7801710c",
+    "jupyter-focus-718-20261111/final_headless.xml": "c8bd147e4071f83e1984906e0eff651a7c14146c653a04f2e6b33a8f6790338b",
+    "jupyter-focus-718-20261111/gui-execution.json": "66def6169d6625ab21738ba5a610a6ff09eeab289213fae469871ab11ac787d5",
+    "jupyter-focus-718-20261111/gui-inputs-after.json": "2538409dfe61c4a1c347ad33730d143182df8a26490158b9370f86636b8496cb",
+    "jupyter-focus-718-20261111/gui-inputs-before.json": "2538409dfe61c4a1c347ad33730d143182df8a26490158b9370f86636b8496cb",
+    "jupyter-focus-718-20261111/gui-observed-processes.json": "82551e6beaa954bf0cfcc99cfae5c674a755fa9a150a0ca455acdeede292c597",
+    "jupyter-focus-718-20261111/gui.log": "c461153e045bf3a0c0c104040470fff176269800c988f72010f827331e194a85",
+    "jupyter-focus-718-20261111/gui.xml": "5f8617d0332712197f691d330f8799fd45512ae89ac8b8da0c8e46d58df651cf",
+    "jupyter-focus-718-20261111/lazy-dictionary-baseline-result.json": "4b3a4dfb0eab99a254335ad3e74a61abadd5741f64e887909ea6c9accafd285d",
+    "jupyter-focus-718-20261111/lazy-dictionary-baseline.log": "e3580a5ded70c3a36197a307810f88e738c880aa73972f219a3a4d613b50345d",
+    "jupyter-focus-718-20261111/lazy-dictionary-baseline.py": "39cfee3d91fc8f35c749f1d3a60cbd07cd32649e97faa9c1f6e078e8b76eabbe",
+    "jupyter-focus-718-20261111/lazy-dictionary-corrected-probe.log": "ae549aba57a52413abda24599758e59b924ccee7920cbec00d714eb995d548e9",
+    "jupyter-focus-718-20261111/open-prs-start.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "jupyter-focus-718-20261111/owned-retirement.json": "f70f93e73781a17dc3eb35bab7d256dc35e98b547f9d0b467307ad1c0e0e19c3",
+    "jupyter-focus-718-20261111/prepare_gui.py": "8230afea437d76f27a1141d26e7df5e5f54e129ec74364e01a66c571228caef3",
+    "jupyter-focus-718-20261111/provider-copy-proof.json": "f4b86c838334b086259a53b46b68df0889ade3c4d8bf170a7d30b8d23580a962",
+    "jupyter-focus-718-20261111/prs-before-close.json": "f09babc60a7486d003454fb4af3ac01203bbf6e57dde65934abf28d0094fac02",
+    "jupyter-focus-718-20261111/receive_and_close.py": "939cd123e72b842ab0560c0499b3b08cdfb4c51fc86975be36dbba38a67ad1ad",
+    "jupyter-focus-718-20261111/receiver-control-identity.json": "07a30903cb24ff1edbbd962c2b65360311dff67e5d56c648eea2351fa3fa0035",
+    "jupyter-focus-718-20261111/run_bounded.py": "e4aca43d916bb094fd918839fb0f925a59a0672cf4e3e14e62fa5f56af6872d9",
+    "jupyter-focus-718-20261111/viewer-c5115dff-source-proof.json": "d70ca0be2a53b561a0024ce9f56df15b6f64130f2a74cb8042a57441f7656f08",
+    "jupyter-focus-718-20261111/gui-tmp/test_actual_jupyter_initial_ca0/jupyter-initial-canvas/full-result.json": "59b323168ee28bfec66a46427a638b231fcd28a48937d29c533d4b79c2b72e60",
+    "jupyter-focus-718-20261111/gui-tmp/test_actual_jupyter_initial_ca0/jupyter-initial-canvas/initial-canvas.json": "2f246545a7fc85799311c222658343095d689aa5504fefd414ea46fac8ee852b",
+    "jupyter-focus-718-20261111/gui-tmp/test_actual_jupyter_initial_ca0/jupyter-initial-canvas/initial-canvas-kernel.jsonl": "ba06f2b9b4d1bda61ace02dc3b532bc9f380282bdd85523606491934fac441e7",
+    "jupyter-focus-718-20261111/gui-tmp/test_actual_jupyter_initial_ca0/jupyter-initial-canvas/initial-canvas-sessions.json": "ad70544d07de790f83dc834d239bc4501a41ed43c0611004fcdf8df1d169981c",
+    "jupyter-focus-718-20261111/gui-tmp/test_actual_jupyter_initial_ca0/jupyter-initial-canvas/kernel-molecular-imports.json": "191d87e8ad03d4e416a3ccca745ffba31826b3de26706815ce590c0fc61b5a24",
+    "jupyter-focus-718-20261111/gui-tmp/test_actual_jupyter_prolonged_0/jupyter-prolonged-controls/full-result.json": "ae30b325d806213c798811acb3da66603d2268dd9c26069b37361a8603363758",
+    "jupyter-focus-718-20261111/gui-tmp/test_actual_jupyter_prolonged_0/jupyter-prolonged-controls/kernel-molecular-imports.json": "191d87e8ad03d4e416a3ccca745ffba31826b3de26706815ce590c0fc61b5a24",
+    "jupyter-focus-718-20261111/gui-tmp/test_actual_jupyter_prolonged_0/jupyter-prolonged-controls/long-ledger.json": "9f5e53f8e2344c2d9de57e6833456e70a37797559bd9a95ef8dd3b6d02397024",
+    "jupyter-focus-718-20261111/gui-tmp/test_actual_jupyter_prolonged_0/jupyter-prolonged-controls/browser-cycles.json": "6297586a286f3d1d27ec810ab7e4f6a23a6957284da025ff185fab928299ea21",
+    "jupyter-focus-718-20261111/final_checks.py": "f0f9122b53da962a82eb76a5301b20f7abc17bd341dc332821aebe21efa3cc4c",
+    "jupyter-focus-718-20261111/final-check-results.json": "edc2c840bdbd5ce8dcc3256a9c5a0194efcb6879c3d168df7b22a9616ec8d977",
+    "jupyter-focus-718-20261111/checks-execution.json": "5b148153dc2cca330203a6d42d1c6ce2b2137096dd2ba3998fe082104487b5b3",
+    "jupyter-focus-718-20261111/checks.log": "2af936add6995707d3099e5d483ca71d711ed540c9b5774a84bf1877ada7c150",
+    "jupyter-focus-718-20261111/checks-retirement.json": "968e70828be3af342326ff79b849fe2c0cf3d4a8c90aaccb8ea6ad375dc7c576"
+  },
+  "final_checks": {
+    "fast_release_gates": 15,
+    "fast_release_passed": 15,
+    "ruff_check": true,
+    "ruff_format": true,
+    "node_syntax": true,
+    "devguide_integrity": true,
+    "devguide_index": true,
+    "scope": "Applicable source/lifecycle/receiver checks; not hosted, scientific-truth, clean installed or exact-candidate gates."
+  },
+  "receiving_limits_note": "GUI CPU quota is two logical CPUs and memory hard cap four GiB, with zero own swap and a 6.5-GiB host reserve. Before/after selected inputs, resource samples and original timeouts are retained. Final-check admission additionally records CPU load/pressure; do not infer an unrecorded exhaustive pre-GUI utilization trace."
+}

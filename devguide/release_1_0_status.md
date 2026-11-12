@@ -4,7 +4,8 @@
 
 **Reviewed 2026-11-11 against complete-source checkpoint `6acad4f35`,
 GRO documentation `bc2db775d`, iterator diagnostics `9adad50d1`,
-native inventory/query corrections `b0ae02b22` / `4280a8d42` and the
+native inventory/query corrections `b0ae02b22` / `4280a8d42`, Jupyter
+receiving `687220ac9` / `67a094749` and the
 separately received earlier documentation/catalog slices.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
@@ -20,7 +21,7 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
-| Receive #718's Jupyter control-focus correction | Draft PR #721 reports thirty passing functional cycles on its declared copied sources; browser-memory acceptance remains separate. Owner review receives report consolidation but still requires a passive import observer to preserve #615 cold semantics. Integrate only after reviewed changed-input evidence; no new actual-GUI run is claimed here. |
+| Receive #723's memory-measurement method | Source confirms same-task GC/heap observation. Independent plain-host/settled-sample findings are reported by MolSysViewer. Review its bounded host baseline and asynchronous sampling proposal, discriminate timing from metric API, and preserve default-host/ablation and original functional scopes. No blind long replay. |
 | Complete the admitted pre-1.0 polishing review | Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11): correct worthwhile code, test, documentation and workflow findings, and review incoming issues/PRs at phase checkpoints. Preserve original milestone accounting and qualification boundaries. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
 | Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
@@ -38,6 +39,29 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Jupyter control readiness received — 2026-11-11
+
+#718's corrected control driver receives real visible focus before submitting
+Next. Owner integration 687220ac9 passes two actual-Jupyter guards: cold initial
+canvas and one scientific 5,000-structure cycle with hidden controls, both
+popups, coherent sessions and requested active playback. All 4,860 selected
+files remain unchanged. Its two-CPU/four-GiB service peaks near 1.99 GiB and
+preserves at least 10.49 GiB available host memory, with no reserve/OOM stop.
+
+The observer records loaded/absent modules without force imports. A later
+one-line dictionary lookup refinement prevents lazy attribute activation;
+57 focused cases receive that increment. The GUI result retains 687220ac9
+scope. The original contribution's thirty cycles retain their distinct copied
+source/client/provider composition and reported heap growth. The [owner
+receipt](../devtools/data/jupyter_focus_receiving_718_20261111.json) owns exact
+inputs, original probes and owned-process retirement. This closes readiness/
+provenance, not whole-current-main, installed or full memory acceptance.
+
+New #723 owns host-only and qualified post-retirement memory controls. Review
+the measurement method before another comparable long campaign; default-host
+and diagnostic-ablation scopes remain separate. #615/#713 causality, original
+formal accounting and the final-pair/publication pause are unchanged.
 
 ## Native inventory queries and documentation — 2026-11-11
 
@@ -77,7 +101,7 @@ owns exact source/input attribution, warnings, resource limits and failed probes
 The later executable edits have focused receiving; the complete source result
 still applies to `6acad4f35`, and the nightly/final-source backlog remains.
 
-New incoming [#718](pending_bugs/prolonged_jupyter_receiver_does_not_wait_for_controls_focus.md)
+New incoming [#718](archive/resolved_bugs/prolonged_jupyter_receiver_does_not_wait_for_controls_focus.md)
 is the next validation priority. Its external actual-Jupyter focus diagnostic is
 kept separate from an unobserved state in the original failure and from #615.
 No new Jupyter campaign was launched during this intake. The final-pair,
