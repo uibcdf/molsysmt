@@ -1,0 +1,193 @@
+{
+  "schema": "molsysmt.developer_label_inventory_receiving@1",
+  "date": "2026-11-12",
+  "issue": "uibcdf/molsysmt#724",
+  "scope": "Local developer-tool acquisition/absence semantics; not scientific/runtime, ecosystem adoption, full-suite, installed or candidate qualification.",
+  "implementation_commit": "9af9be18ca48c5d601b46f8cd773c96a3aefcb6c",
+  "method": "Native gh api --paginate --slurp repository-context REST labels, validating pages and nonempty string names before deciding absence.",
+  "guard": "devtools/tests/test_devguide_issue_pagination.py::test_label_absence_is_decided_after_every_label_page",
+  "guard_intent": "The real missing-label result must retain label 201 and reject only the truly absent name; a larger finite cap cannot satisfy the independent full-acquisition assertion. Transport is controlled, not the absence decision.",
+  "baseline": {
+    "native_exit": 1,
+    "seconds": 3.046002886025235,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "1610612736",
+      "memory.high": "1409286144",
+      "memory.swap.max": "0",
+      "pids.max": "128"
+    },
+    "memory_peak_bytes": 134647808,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 11641987072,
+    "maximum_memory_pressure_avg10": 0.18,
+    "stop_reason": null,
+    "host_reserve_bytes": 6979321856,
+    "driver_sha256": "d905f434bf640280b38f2b287dbbf919cdcb1bc7589f76b51e9faf0648217cb8",
+    "counts": {
+      "tests": 16,
+      "failures": 10,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 6
+    },
+    "head_at_execution": "95bac785e168e58dff3d8ca07e4ac065cf86b8bc",
+    "changed_inputs": [],
+    "inputs": {
+      "devtools/scripts/devguide_issue.py": "571defe4f0288214b02b45af4fb4178a8c132ede50718c18ec9462503f20bee1",
+      "devtools/tests/test_devguide_issue_pagination.py": "f5cc3c37e919b1ddb4fad6aec267af965a47b71f5764c46e4184f720a2a34601"
+    },
+    "artifacts": {
+      "baseline-execution.json": "372406db5eba5db974b3d67c4fcc8b738814ab1ad67b18d3fbb9e703b6d7d22e",
+      "baseline-driver.py": "d905f434bf640280b38f2b287dbbf919cdcb1bc7589f76b51e9faf0648217cb8",
+      "baseline.log": "e36ccf93ba4f7556107e883319a703273a4664c1a82719137f77d7f3efa5b51e",
+      "baseline.xml": "c66ae830dcf02a79aa3e7fe6980897229daffef6cbffad6f3e3beb00194e44de"
+    }
+  },
+  "baseline_interpretation": "One of ten failures reproduces the old finite-cap absence decision. Nine specify the new JSON/REST empty/malformed contract against an old newline parser, not nine additional original CLI defects. Six controls pass.",
+  "initial_correction": {
+    "state": "deferred_before_execution",
+    "native_pytest_exit": null,
+    "disposition": {
+      "state": "deferred_before_execution",
+      "pytest_started": false,
+      "actual_driver_record": "corrected-execution.json",
+      "reason": "Conservative shared-host admission failed",
+      "correction": "The initial retirement note incorrectly attributed this to an unprepared command entry. Native service status 75 and the preserved admission record establish resource deferral before command lookup; no pytest failure is claimed. The independent Ruff preparation stop remains a separate operation."
+    },
+    "artifacts": {
+      "corrected-execution.json": "7a84f310cb0574a7a0968f96f7a547dd8a7ff33627bd3d11b6f92e6a4a2535dd",
+      "corrected-preparation-disposition-initial.json": "98da4d8bca2d83c7cdaf02fd76fc16a21215fc4fa7c183199c845567a456d0de",
+      "corrected-preparation-disposition.json": "1ef0cc92f99eef25e3a1edaae72d8dc58a86c2d4fcd505da331d6da175193fd8",
+      "corrected-producer-journal.log": "b77a39aa36f0760fba5a5fe5082f509990a643963a7fc6203ec295487130c520",
+      "unformatted-correction.py": "765160460a76ab833f10b4d35535f1ac257fbc2afab35c70c1b8f6ec5f4481cb"
+    },
+    "scope": "No pytest started in the deferred attempt. An independent Ruff preparation stop and the corrected initial attribution are retained, not test failures."
+  },
+  "first_corrected": {
+    "native_exit": 0,
+    "seconds": 24.410059438087046,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "1610612736",
+      "memory.high": "1409286144",
+      "memory.swap.max": "0",
+      "pids.max": "128"
+    },
+    "memory_peak_bytes": 214413312,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 12369711104,
+    "maximum_memory_pressure_avg10": 0.44,
+    "stop_reason": null,
+    "host_reserve_bytes": 6979321856,
+    "driver_sha256": "4a41b860a70020e84a603a7abdd51d82aec1cad34bf67d0b86e54033b76d09f0",
+    "counts": {
+      "tests": 75,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 75
+    },
+    "head_at_execution": "95bac785e168e58dff3d8ca07e4ac065cf86b8bc",
+    "changed_inputs": [],
+    "inputs": {
+      "devtools/scripts/devguide_issue.py": "5185f16b340298321c3fde3c6ed858123efd11816d7e431eb7aedf27cb64f6ad",
+      "devtools/tests/test_devguide_issue_pagination.py": "f5cc3c37e919b1ddb4fad6aec267af965a47b71f5764c46e4184f720a2a34601"
+    },
+    "artifacts": {
+      "corrected2-execution.json": "ca28bda0d5a9d26f7521704b57668ddb39610a7329e51fd6297c5ffd493abad2",
+      "corrected2-driver.py": "4a41b860a70020e84a603a7abdd51d82aec1cad34bf67d0b86e54033b76d09f0",
+      "corrected2.log": "1957a10b22a0b3263c5e17b39e309054409554e22c9e01df285ee3c622b1305f",
+      "corrected2.xml": "5a44c4285145adae8de4343cadc0ee4147c7323d10f31daae3658090f4531dec"
+    }
+  },
+  "final": {
+    "native_exit": 0,
+    "seconds": 6.007000197889283,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "1610612736",
+      "memory.high": "1409286144",
+      "memory.swap.max": "0",
+      "pids.max": "128"
+    },
+    "memory_peak_bytes": 143327232,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 15302971392,
+    "maximum_memory_pressure_avg10": 0.0,
+    "stop_reason": null,
+    "host_reserve_bytes": 6979321856,
+    "driver_sha256": "2ddc2af53d6b529cb675ee4ff307b4165c1d3c47b7c1831ba37eff009f00b498",
+    "counts": {
+      "tests": 75,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 75
+    },
+    "head_at_execution": "1a899f9f0032082406c889030d290cf78b924913",
+    "changed_inputs": [],
+    "inputs": {
+      "devtools/scripts/devguide_issue.py": "5185f16b340298321c3fde3c6ed858123efd11816d7e431eb7aedf27cb64f6ad",
+      "devtools/tests/test_devguide_issue_pagination.py": "06a673b7edf41c467558b04ad70e6c3ba8cc182842163a900d91ead4ce0e30dc"
+    },
+    "artifacts": {
+      "final-execution.json": "0fd2468dc2bf3203208295f0ee9441e9c08d370181474cff98f94e6f4a3f9436",
+      "final-driver.py": "2ddc2af53d6b529cb675ee4ff307b4165c1d3c47b7c1831ba37eff009f00b498",
+      "final.log": "1778c7d4dab26297e0b8da08b0a2a1d3e10dbc1256fc70c3f7348780721c4407",
+      "final.xml": "373cccf8d4aed4da2e2b2f8be3e5d8eb7714d2771882f731ca06b1d753f2c0ad"
+    },
+    "source_note": "Head plus the five-line guard refinement identified by the input hash, now committed in 90aa8eae144c10ccbde8911ea21755f22bf3c2c9. Not a clean-source claim."
+  },
+  "live_receiving": {
+    "label_count": 72,
+    "present_requested": "wontfix",
+    "truly_absent_requested": "molsysmt-receiving-724-known-absent-20261112",
+    "reported_missing": [
+      "molsysmt-receiving-724-known-absent-20261112"
+    ],
+    "scope": "Live read-only native paginated acquisition and absence decision; not a claim that the live board exceeds 200 or a label write."
+  },
+  "live_artifact_sha256": "2c48e50439cb58a6724c4bea8102372126305971d6c4a1c4083bcfa62cdf3425",
+  "limitations": [
+    "The actual live board contains 72 labels; beyond-cap behavior is controlled receiving.",
+    "No labels created, deleted or renamed by the live read-only probe. Normal issue lifecycle synchronization is separate.",
+    "No central MolSysSuite #171 or MolI #85 adoption claim."
+  ],
+  "closeout_checks": {
+    "source_commit": "90aa8eae144c10ccbde8911ea21755f22bf3c2c9",
+    "native_exit": 0,
+    "seconds": 46.09336111601442,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "1610612736",
+      "memory.high": "1409286144",
+      "memory.swap.max": "0",
+      "pids.max": "128"
+    },
+    "memory_peak_bytes": 403972096,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 14984290304,
+    "maximum_memory_pressure_avg10": 0.36,
+    "stop_reason": null,
+    "host_reserve_bytes": 6979321856,
+    "fast_gates_passed": 15,
+    "ruff_check": "whole repository passes",
+    "ruff_format_check": "4690 files already formatted",
+    "node_syntax_checks": 5,
+    "scope": "Focused dirty-documentation checkpoint; not complete scientific or installed/candidate acceptance.",
+    "artifacts": {
+      "checks-execution.json": "285249ccd41ea248ebdf9a8117f0aec96f55d0662011a37e5ca20617351d59b0",
+      "checks-driver.py": "a0a3323001bae55423a5ff6a07a02a9fd56eaa4c110a2aa841492d5aa0c7dc25",
+      "final_checks.py": "d8cb0b4906ff9e41bb25dec8f5709f4c3c52170b8c8a6445af6aa11345325ff8",
+      "final-check-results.json": "c29cba32ffc0ce6a939eaf87ab7929959daef2ffcb3213461bc23de5f9131f53",
+      "owned-retirement.json": "43e724bff3af86754be2e810b5d26cd639bb94f8609bb7eaaf8a4336d67eadfd"
+    },
+    "owned_retirement": {
+      "terminal_units_reviewed": 7,
+      "sampled_gui_processes": 28,
+      "same_pid_start_identity_still_running": 0,
+      "scope": "Only named task-owned terminal units; PID plus start ticks, sampled not a full process census. No foreign process signal."
+    }
+  }
+}

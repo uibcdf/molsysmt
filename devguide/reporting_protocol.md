@@ -328,6 +328,12 @@ an empty board. See #587 and its bounded transport regression. Shared agent
 guidance remains under uibcdf/molsyssuite#171 and uibcdf/moli#85; delivery of
 those notices does not establish ecosystem adoption.
 
+Label absence follows the same rule: acquire all native REST pages, validate
+the label records and propagate transport/shape failures. A larger finite cap
+cannot establish completeness. #724 guards the actual missing-label decision
+after 201 labels and separately rejects a return to finite-cap acquisition;
+the live board used for receiving has only 72 labels.
+
 `devtools/scripts/validate_devguide.py`, already part of the release gate, checks:
 
 - front matter present, parseable, and carrying every required field;

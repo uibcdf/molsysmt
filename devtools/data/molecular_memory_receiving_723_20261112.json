@@ -1,0 +1,1027 @@
+{
+  "schema": "molsysmt.molecular_memory_receiving@1",
+  "date": "2026-11-12",
+  "issue": "uibcdf/molsysmt#723",
+  "status": "partial",
+  "scope": "One actual scientific Jupyter pilot plus focused browser/launcher/observer controls; selected main-notebook molecular owners. Not a comparable thirty-cycle campaign, complete allocation census, error-free host, installed/platform/final candidate or publication qualification.",
+  "source_commit": "1a899f9f0032082406c889030d290cf78b924913",
+  "runtime": {
+    "python": "3.14.7",
+    "node": "v22.22.1",
+    "packages": {
+      "jupyterlab": "4.6.4",
+      "ipykernel": "7.3.0",
+      "anywidget": "0.11.0",
+      "ipywidgets": "8.1.9"
+    },
+    "browser": {
+      "protocolVersion": "1.3",
+      "product": "Chrome/157.0.8103.38",
+      "revision": "@a733b5afbb3ba618844ff8876b89ad1a774b2f18",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "jsVersion": "15.7.112.23"
+    },
+    "molsysviewer_source": "c5115dff7f94fe17b5724e4863465a803c76f60e",
+    "molsysviewer_independently_matched_tracked_files": 990,
+    "molsysviewer_source_proof_sha256": "d70ca0be2a53b561a0024ce9f56df15b6f64130f2a74cb8042a57441f7656f08",
+    "node_dependencies": "Existing shared developer node_modules symlink; not a complete SDK/OS manifest.",
+    "actual_after_workload_modules": {
+      "molsysmt": {
+        "loaded": true,
+        "sha256": "dc89c5f21ab7ba4bb94b289927a19856d27cb670baf1b03d7f6fcb7fced03f90",
+        "module_version": "0.23.0+393.ge1facf624.dirty",
+        "owner": "MolSysMT source/native",
+        "selected_path": "molsysmt/__init__.py",
+        "matches_before_after_input_hash": true
+      },
+      "molsysmt._rust": {
+        "loaded": true,
+        "sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+        "module_version": null,
+        "owner": "MolSysMT source/native",
+        "selected_path": "molsysmt/_rust.abi3.so",
+        "matches_before_after_input_hash": true
+      },
+      "molsysviewer": {
+        "loaded": true,
+        "sha256": "76c5968d9a66d9fe01a475166515f4e0f02c3784b135ec60319cb2bf83b17cd4",
+        "module_version": "0.24.0+97.gdf4bf477.dirty",
+        "owner": "frozen MolSysViewer c5115dff source",
+        "selected_path": "molsysviewer/__init__.py",
+        "matches_before_after_input_hash": true
+      },
+      "molsysviewer_molsysmt": {
+        "loaded": true,
+        "sha256": "1665840cb208aabed8ea4e6f800c3444e3219c14abb5ed1eb90ae3bfa16ef3f0",
+        "module_version": null,
+        "owner": "MolSysMT source/native",
+        "selected_path": "molsysviewer_molsysmt/__init__.py",
+        "matches_before_after_input_hash": true
+      },
+      "pyunitwizard": {
+        "loaded": true,
+        "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc",
+        "module_version": "0.29.2",
+        "owner": "frozen composite provider snapshot",
+        "selected_path": "pyunitwizard/__init__.py",
+        "matches_before_after_input_hash": true
+      },
+      "smonitor": {
+        "loaded": true,
+        "sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800",
+        "module_version": "0.21.0",
+        "owner": "frozen composite provider snapshot",
+        "selected_path": "smonitor/__init__.py",
+        "matches_before_after_input_hash": true
+      },
+      "argdigest": {
+        "loaded": true,
+        "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f",
+        "module_version": "0.15.0",
+        "owner": "frozen composite provider snapshot",
+        "selected_path": "argdigest/__init__.py",
+        "matches_before_after_input_hash": true
+      },
+      "depdigest": {
+        "loaded": true,
+        "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1",
+        "module_version": "0.15.1",
+        "owner": "frozen composite provider snapshot",
+        "selected_path": "depdigest/__init__.py",
+        "matches_before_after_input_hash": true
+      }
+    },
+    "module_version_caveat": "Stored module_version labels are retained verbatim from generated version modules; they do not select source identity. Source commit, actual module hashes and frozen source proof govern this receipt.",
+    "providers": "Composite frozen snapshot: published PyUnitWizard 0.29.2, SMonitor 0.21.0, ArgDigest 0.15.0, DepDigest 0.15.1. Not original thirty-cycle PyUnitWizard 0.29.4dev composition.",
+    "controller_pytest_receptor": "Published 1.2.1 frozen runtime overlay; presentation only, native command exit and JUnit preserved."
+  },
+  "input_integrity": {
+    "clean_before_after": true,
+    "selected_envelope_files": 4913,
+    "selected_counts": {
+      "molsysmt": 3493,
+      "addon": 56,
+      "receivers": 155,
+      "molsysviewer": 990,
+      "providers": 219
+    },
+    "before_manifest_sha256": "5500f54c2ef095a08449e860b1a146850c95180ce84dea7e91ae43433e20c2ef",
+    "after_manifest_sha256": "5500f54c2ef095a08449e860b1a146850c95180ce84dea7e91ae43433e20c2ef",
+    "portable_content_manifest_sha256": "79cbd0c42781f495b59c223983cd68f939c1fa6562658eb3851c7c3b3ebc3c58",
+    "changed": [],
+    "scientific_fixture": {
+      "path": "tests/molsysviewer_molsysmt/prolonged_session_fixture.py",
+      "sha256": "eed4e644e216499cd75d495e5ac252d68e54384af685e32ce7a5f86516081a4f",
+      "byte_identical_to_commit": "95bac785e168e58dff3d8ca07e4ac065cf86b8bc"
+    },
+    "scope": "Selected sources, native bytes and providers, not the entire OS or Node/GUI dependency closure."
+  },
+  "controls": {
+    "native_exit": 0,
+    "seconds": 14.06328606698662,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "1610612736",
+      "memory.high": "1409286144",
+      "memory.swap.max": "0",
+      "pids.max": "256"
+    },
+    "memory_peak_bytes": 354848768,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 15104790528,
+    "maximum_memory_pressure_avg10": 0.0,
+    "stop_reason": null,
+    "host_reserve_bytes": 6979321856,
+    "driver_sha256": "3f4b22b9dde58bf897df33664554f8bee4e028fb8e6cd85fcf3c8113d51518a5",
+    "counts": {
+      "tests": 63,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 63
+    },
+    "head_at_execution": "9af9be18ca48c5d601b46f8cd773c96a3aefcb6c",
+    "changed_inputs": [],
+    "inputs": {
+      "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+      "tests/molsysviewer_molsysmt/prolonged_session_jupyter.mjs": "e0cfbbbcc45cf5b3c1b0e556254e8b8a932d2f2b567dfaff3672f9aa31c429a5",
+      "tests/molsysviewer_molsysmt/prolonged_native_lifetimes.mjs": "b57f95d084472be0686bbf6f4f745e025ec41a629f1ceef44343c63000871be5",
+      "tests/molsysviewer_molsysmt/prolonged_session_fixture.py": "eed4e644e216499cd75d495e5ac252d68e54384af685e32ce7a5f86516081a4f",
+      "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "62b0208482db23535c265e70e3e4c5e9f5273bcf096c4ec9c2d1d8a5a8f689da",
+      "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "76def918dac1e221ba64fc7011c562c8722760b0ffbebb0f7e2dcbe6691057ab",
+      "tests/molsysviewer_molsysmt/memory_sampling_guard.mjs": "858410c28478270a8d468e39d03adbc07fc4f423b373003472ed9b77bb9ec515",
+      "tests/molsysviewer_molsysmt/jupyter_memory_sampling.mjs": "33e2db6038ae1cbe5799102f0f4b2e62c6541e9f9b68ebdfd3bd4ca301287abc"
+    },
+    "artifacts": {
+      "controls-execution.json": "c94522c396057a4d8dc8c43105b849dc3a762a3696c40e1ba57d2bec09bbd226",
+      "controls-driver.py": "3f4b22b9dde58bf897df33664554f8bee4e028fb8e6cd85fcf3c8113d51518a5",
+      "controls.log": "1675e699beb2c17ee781af51d941c853c0b1b88b86be901bf5d79da36ae76970",
+      "controls.xml": "61685e0712a2677ce77b9987c89cb5de5d13c59632cd1217f3192d7ee2ac0b61"
+    }
+  },
+  "positive_negative_and_remote_handle_control": {
+    "schema": "molsysmt.memory_sampler_controls@1",
+    "outcome": "passed",
+    "browser": {
+      "protocolVersion": "1.3",
+      "product": "Chrome/157.0.8103.38",
+      "revision": "@a733b5afbb3ba618844ff8876b89ad1a774b2f18",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "jsVersion": "15.7.112.23"
+    },
+    "creation_job": {
+      "witness": {
+        "object_alive": true,
+        "buffer_alive": true
+      },
+      "retained": {
+        "object_alive": true,
+        "buffer_alive": true
+      },
+      "retired": {
+        "object_alive": true,
+        "buffer_alive": true
+      }
+    },
+    "before_release": {
+      "schema": "molsysmt.jupyter_memory_sample@1",
+      "method": "two_task_barriers_then_two_cdp_collections",
+      "cdp_collections": 2,
+      "metric_order": [
+        "performance.memory",
+        "Runtime.getHeapUsage",
+        "Memory.getDOMCounters",
+        "subjects"
+      ],
+      "scope": "Sequential API pairs within recorded windows; neither simultaneous instants nor RSS, GPU or complete process-family memory.",
+      "raw": {
+        "phase": "same_task_exposed_gc",
+        "exposed_gc_before_page_metric": true,
+        "node_window_started_ms": 1752.670802,
+        "node_window_finished_ms": 1822.51362,
+        "page": {
+          "timestamp_ms": 298.7000000476837,
+          "used_js_heap_bytes": 21637525,
+          "total_js_heap_bytes": 23068853,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 672476,
+          "totalSize": 2097152,
+          "embedderHeapUsedSize": 394976,
+          "backingStorageSize": 20971701
+        },
+        "cdp_dom": {
+          "documents": 1,
+          "nodes": 9,
+          "jsEventListeners": 0
+        },
+        "subjects": {
+          "witness": {
+            "object_alive": true,
+            "buffer_alive": true
+          },
+          "retained": {
+            "object_alive": true,
+            "buffer_alive": true
+          },
+          "retired": {
+            "object_alive": false,
+            "buffer_alive": false
+          }
+        }
+      },
+      "after_tasks": {
+        "phase": "after_two_tasks",
+        "exposed_gc_before_page_metric": false,
+        "node_window_started_ms": 1830.269727,
+        "node_window_finished_ms": 1839.434491,
+        "page": {
+          "timestamp_ms": 317.2000000476837,
+          "used_js_heap_bytes": 21681293,
+          "total_js_heap_bytes": 23068853,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 713712,
+          "totalSize": 2097152,
+          "embedderHeapUsedSize": 695120,
+          "backingStorageSize": 20971701
+        },
+        "cdp_dom": {
+          "documents": 1,
+          "nodes": 9,
+          "jsEventListeners": 2
+        },
+        "subjects": {
+          "witness": {
+            "object_alive": true,
+            "buffer_alive": true
+          },
+          "retained": {
+            "object_alive": true,
+            "buffer_alive": true
+          },
+          "retired": {
+            "object_alive": false,
+            "buffer_alive": false
+          }
+        }
+      },
+      "after_collection": {
+        "phase": "after_cdp_collections",
+        "exposed_gc_before_page_metric": false,
+        "node_window_started_ms": 1936.562246,
+        "node_window_finished_ms": 1945.327877,
+        "page": {
+          "timestamp_ms": 423.60000014305115,
+          "used_js_heap_bytes": 13270488,
+          "total_js_heap_bytes": 13832292,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 692604,
+          "totalSize": 1835008,
+          "embedderHeapUsedSize": 639992,
+          "backingStorageSize": 12583012
+        },
+        "cdp_dom": {
+          "documents": 1,
+          "nodes": 9,
+          "jsEventListeners": 1
+        },
+        "subjects": {
+          "witness": {
+            "object_alive": true,
+            "buffer_alive": true
+          },
+          "retained": {
+            "object_alive": true,
+            "buffer_alive": true
+          },
+          "retired": {
+            "object_alive": false,
+            "buffer_alive": false
+          }
+        }
+      }
+    },
+    "after_release": {
+      "schema": "molsysmt.jupyter_memory_sample@1",
+      "method": "two_task_barriers_then_two_cdp_collections",
+      "cdp_collections": 2,
+      "metric_order": [
+        "performance.memory",
+        "Runtime.getHeapUsage",
+        "Memory.getDOMCounters",
+        "subjects"
+      ],
+      "scope": "Sequential API pairs within recorded windows; neither simultaneous instants nor RSS, GPU or complete process-family memory.",
+      "raw": {
+        "phase": "same_task_exposed_gc",
+        "exposed_gc_before_page_metric": true,
+        "node_window_started_ms": 1947.524638,
+        "node_window_finished_ms": 1961.411332,
+        "page": {
+          "timestamp_ms": 436.90000009536743,
+          "used_js_heap_bytes": 13268416,
+          "total_js_heap_bytes": 13918308,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 690588,
+          "totalSize": 2097152,
+          "embedderHeapUsedSize": 394544,
+          "backingStorageSize": 12583012
+        },
+        "cdp_dom": {
+          "documents": 1,
+          "nodes": 9,
+          "jsEventListeners": 0
+        },
+        "subjects": {
+          "witness": {
+            "object_alive": true,
+            "buffer_alive": true
+          },
+          "retained": {
+            "object_alive": false,
+            "buffer_alive": false
+          },
+          "retired": {
+            "object_alive": false,
+            "buffer_alive": false
+          }
+        }
+      },
+      "after_tasks": {
+        "phase": "after_two_tasks",
+        "exposed_gc_before_page_metric": false,
+        "node_window_started_ms": 1965.42594,
+        "node_window_finished_ms": 2013.043908,
+        "page": {
+          "timestamp_ms": 452,
+          "used_js_heap_bytes": 13293676,
+          "total_js_heap_bytes": 14180452,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 714708,
+          "totalSize": 2097152,
+          "embedderHeapUsedSize": 693536,
+          "backingStorageSize": 12583012
+        },
+        "cdp_dom": {
+          "documents": 1,
+          "nodes": 9,
+          "jsEventListeners": 2
+        },
+        "subjects": {
+          "witness": {
+            "object_alive": true,
+            "buffer_alive": true
+          },
+          "retained": {
+            "object_alive": false,
+            "buffer_alive": false
+          },
+          "retired": {
+            "object_alive": false,
+            "buffer_alive": false
+          }
+        }
+      },
+      "after_collection": {
+        "phase": "after_cdp_collections",
+        "exposed_gc_before_page_metric": false,
+        "node_window_started_ms": 2033.261338,
+        "node_window_finished_ms": 2041.749017,
+        "page": {
+          "timestamp_ms": 520.2000000476837,
+          "used_js_heap_bytes": 4881861,
+          "total_js_heap_bytes": 5443661,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 692400,
+          "totalSize": 1835008,
+          "embedderHeapUsedSize": 639992,
+          "backingStorageSize": 4194381
+        },
+        "cdp_dom": {
+          "documents": 1,
+          "nodes": 9,
+          "jsEventListeners": 1
+        },
+        "subjects": {
+          "witness": {
+            "object_alive": true,
+            "buffer_alive": true
+          },
+          "retained": {
+            "object_alive": false,
+            "buffer_alive": false
+          },
+          "retired": {
+            "object_alive": false,
+            "buffer_alive": false
+          }
+        }
+      }
+    },
+    "released_backing_bytes": 8388631,
+    "witness_value": 37,
+    "handle_retained": {
+      "schema": "molsysmt.jupyter_memory_sample@1",
+      "method": "two_task_barriers_then_two_cdp_collections",
+      "cdp_collections": 2,
+      "metric_order": [
+        "performance.memory",
+        "Runtime.getHeapUsage",
+        "Memory.getDOMCounters",
+        "subjects"
+      ],
+      "scope": "Sequential API pairs within recorded windows; neither simultaneous instants nor RSS, GPU or complete process-family memory.",
+      "raw": {
+        "phase": "same_task_exposed_gc",
+        "exposed_gc_before_page_metric": true,
+        "node_window_started_ms": 2113.596001,
+        "node_window_finished_ms": 2158.8552,
+        "page": {
+          "timestamp_ms": 637.7000000476837,
+          "used_js_heap_bytes": 13814181,
+          "total_js_heap_bytes": 14745841,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 1248408,
+          "totalSize": 2662400,
+          "embedderHeapUsedSize": 448664,
+          "backingStorageSize": 12583156
+        },
+        "cdp_dom": {
+          "documents": 1,
+          "nodes": 10,
+          "jsEventListeners": 13
+        },
+        "subjects": {
+          "object_alive": true,
+          "buffer_alive": true
+        }
+      },
+      "after_tasks": {
+        "phase": "after_two_tasks",
+        "exposed_gc_before_page_metric": false,
+        "node_window_started_ms": 2163.226836,
+        "node_window_finished_ms": 2170.883038,
+        "page": {
+          "timestamp_ms": 649.9000000953674,
+          "used_js_heap_bytes": 13843452,
+          "total_js_heap_bytes": 14745844,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 1264360,
+          "totalSize": 2662400,
+          "embedderHeapUsedSize": 691600,
+          "backingStorageSize": 12583156
+        },
+        "cdp_dom": {
+          "documents": 1,
+          "nodes": 10,
+          "jsEventListeners": 15
+        },
+        "subjects": {
+          "object_alive": true,
+          "buffer_alive": true
+        }
+      },
+      "after_collection": {
+        "phase": "after_cdp_collections",
+        "exposed_gc_before_page_metric": false,
+        "node_window_started_ms": 2240.547553,
+        "node_window_finished_ms": 2248.212562,
+        "page": {
+          "timestamp_ms": 727.4000000953674,
+          "used_js_heap_bytes": 13792790,
+          "total_js_heap_bytes": 14156014,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 1214560,
+          "totalSize": 2400256,
+          "embedderHeapUsedSize": 637560,
+          "backingStorageSize": 12583150
+        },
+        "cdp_dom": {
+          "documents": 1,
+          "nodes": 10,
+          "jsEventListeners": 14
+        },
+        "subjects": {
+          "object_alive": true,
+          "buffer_alive": true
+        }
+      }
+    },
+    "handle_disposed": {
+      "schema": "molsysmt.jupyter_memory_sample@1",
+      "method": "two_task_barriers_then_two_cdp_collections",
+      "cdp_collections": 2,
+      "metric_order": [
+        "performance.memory",
+        "Runtime.getHeapUsage",
+        "Memory.getDOMCounters",
+        "subjects"
+      ],
+      "scope": "Sequential API pairs within recorded windows; neither simultaneous instants nor RSS, GPU or complete process-family memory.",
+      "raw": {
+        "phase": "same_task_exposed_gc",
+        "exposed_gc_before_page_metric": true,
+        "node_window_started_ms": 2250.416983,
+        "node_window_finished_ms": 2261.198821,
+        "page": {
+          "timestamp_ms": 740.3000001907349,
+          "used_js_heap_bytes": 13789102,
+          "total_js_heap_bytes": 14266606,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 1210872,
+          "totalSize": 2662400,
+          "embedderHeapUsedSize": 401704,
+          "backingStorageSize": 12583150
+        },
+        "cdp_dom": {
+          "documents": 1,
+          "nodes": 9,
+          "jsEventListeners": 13
+        },
+        "subjects": {
+          "object_alive": false,
+          "buffer_alive": false
+        }
+      },
+      "after_tasks": {
+        "phase": "after_two_tasks",
+        "exposed_gc_before_page_metric": false,
+        "node_window_started_ms": 2265.396589,
+        "node_window_finished_ms": 2313.072289,
+        "page": {
+          "timestamp_ms": 752,
+          "used_js_heap_bytes": 13804882,
+          "total_js_heap_bytes": 14528750,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 1225784,
+          "totalSize": 2662400,
+          "embedderHeapUsedSize": 688280,
+          "backingStorageSize": 12583150
+        },
+        "cdp_dom": {
+          "documents": 1,
+          "nodes": 9,
+          "jsEventListeners": 15
+        },
+        "subjects": {
+          "object_alive": false,
+          "buffer_alive": false
+        }
+      },
+      "after_collection": {
+        "phase": "after_cdp_collections",
+        "exposed_gc_before_page_metric": false,
+        "node_window_started_ms": 2334.450134,
+        "node_window_finished_ms": 2342.208408,
+        "page": {
+          "timestamp_ms": 821.3000001907349,
+          "used_js_heap_bytes": 5403898,
+          "total_js_heap_bytes": 5767406,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 1214276,
+          "totalSize": 2400256,
+          "embedderHeapUsedSize": 636280,
+          "backingStorageSize": 4194542
+        },
+        "cdp_dom": {
+          "documents": 1,
+          "nodes": 9,
+          "jsEventListeners": 14
+        },
+        "subjects": {
+          "object_alive": false,
+          "buffer_alive": false
+        }
+      }
+    },
+    "scope": "Chromium method/controls only; no molecular package, widget, Jupyter host or long-campaign acceptance."
+  },
+  "actual_gui": {
+    "native_exit": 0,
+    "seconds": 242.65310242120177,
+    "limits": {
+      "cpu.max": "300000 100000",
+      "memory.max": "3758096384",
+      "memory.high": "3221225472",
+      "memory.swap.max": "0",
+      "pids.max": "512"
+    },
+    "memory_peak_bytes": 2343641088,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 12021575680,
+    "maximum_memory_pressure_avg10": 0.0,
+    "stop_reason": null,
+    "host_reserve_bytes": 6979321856,
+    "driver_sha256": "a2ae603d2086d964b4abbdf58f892266dfbd9b116cbade95f5fcd03fd55ef6ba",
+    "counts": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1
+    },
+    "head_at_execution": "1a899f9f0032082406c889030d290cf78b924913",
+    "changed_inputs": [],
+    "inputs": {
+      "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+      "tests/molsysviewer_molsysmt/prolonged_session_jupyter.mjs": "e0cfbbbcc45cf5b3c1b0e556254e8b8a932d2f2b567dfaff3672f9aa31c429a5",
+      "tests/molsysviewer_molsysmt/prolonged_native_lifetimes.mjs": "b57f95d084472be0686bbf6f4f745e025ec41a629f1ceef44343c63000871be5",
+      "tests/molsysviewer_molsysmt/prolonged_session_fixture.py": "eed4e644e216499cd75d495e5ac252d68e54384af685e32ce7a5f86516081a4f",
+      "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "62b0208482db23535c265e70e3e4c5e9f5273bcf096c4ec9c2d1d8a5a8f689da",
+      "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "76def918dac1e221ba64fc7011c562c8722760b0ffbebb0f7e2dcbe6691057ab",
+      "tests/molsysviewer_molsysmt/memory_sampling_guard.mjs": "858410c28478270a8d468e39d03adbc07fc4f423b373003472ed9b77bb9ec515",
+      "tests/molsysviewer_molsysmt/jupyter_memory_sampling.mjs": "33e2db6038ae1cbe5799102f0f4b2e62c6541e9f9b68ebdfd3bd4ca301287abc"
+    },
+    "artifacts": {
+      "gui-execution.json": "f31389645c2dc0974e8ea4371b6c3ad4f155c93a335b5e169a9d4415d343b065",
+      "gui-driver.py": "a2ae603d2086d964b4abbdf58f892266dfbd9b116cbade95f5fcd03fd55ef6ba",
+      "gui.log": "7e140b7779c65a4e5d8ddd7a1c4a807ca92554548f6f56f9fbbe682947c3dbdb",
+      "gui.xml": "0e3e53928549b32621f4d8989e78131d6de197355239f2fba69a257f66bcbd6a"
+    }
+  },
+  "actual_gui_scope_correction": "The raw resource-wrapper scope string was inherited as Chromium-only. Its preserved command selects the actual scientific prolonged-popup guard. This receipt records that executed scope; the raw record is not silently rewritten.",
+  "pilot": {
+    "cycles": 1,
+    "active_seconds_requested_per_cycle": 10,
+    "observed_activity": {
+      "seconds": 14.410099999904633,
+      "draws": 2,
+      "distinct_frames": 2
+    },
+    "hidden_controls": {
+      "started_hidden": true,
+      "next_focused": true
+    },
+    "workload": "62 atoms / 5,000 structures, real distance/hbond/edit/stale-analysis/window/session/playback assertions and original per-step deadlines retained.",
+    "legacy_raw": {
+      "legacy_memory_method": "same_evaluation_gc_performance_memory_and_weakrefs",
+      "gc_exposed": true,
+      "js_heap_bytes": 144627317,
+      "observed_controllers": 1,
+      "controller_lifetimes": [
+        {
+          "disposed": false,
+          "connected": true,
+          "atoms": 3983
+        }
+      ],
+      "connected_controllers": 1
+    },
+    "retirement_memory": {
+      "schema": "molsysmt.jupyter_memory_sample@1",
+      "method": "two_task_barriers_then_two_cdp_collections",
+      "cdp_collections": 2,
+      "metric_order": [
+        "performance.memory",
+        "Runtime.getHeapUsage",
+        "Memory.getDOMCounters",
+        "subjects"
+      ],
+      "scope": "Sequential API pairs within recorded windows; neither simultaneous instants nor RSS, GPU or complete process-family memory.",
+      "raw": {
+        "phase": "same_task_exposed_gc",
+        "exposed_gc_before_page_metric": true,
+        "node_window_started_ms": 219538.339414,
+        "node_window_finished_ms": 219733.256556,
+        "page": {
+          "timestamp_ms": 198024.09999990463,
+          "used_js_heap_bytes": 144601561,
+          "total_js_heap_bytes": 161804713,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 107453488,
+          "totalSize": 124821504,
+          "embedderHeapUsedSize": 22288440,
+          "backingStorageSize": 37171625
+        },
+        "cdp_dom": {
+          "documents": 76,
+          "nodes": 21235,
+          "jsEventListeners": 29477
+        },
+        "subjects": {
+          "witness_data_unchanged": true,
+          "rows": [
+            {
+              "label": "witness",
+              "witness": true,
+              "atoms": 3983,
+              "targets": {
+                "controller": true,
+                "structure": true,
+                "model": true,
+                "x": true,
+                "y": true,
+                "z": true
+              },
+              "buffers": [
+                {
+                  "bytes": 47796,
+                  "alive": true
+                }
+              ]
+            },
+            {
+              "label": "cycle-1-created",
+              "witness": false,
+              "atoms": 62,
+              "targets": {
+                "controller": false,
+                "structure": false,
+                "model": false,
+                "x": false,
+                "y": false,
+                "z": false
+              },
+              "buffers": [
+                {
+                  "bytes": 3720000,
+                  "alive": false
+                }
+              ]
+            },
+            {
+              "label": "cycle-1-recovered",
+              "witness": false,
+              "atoms": 62,
+              "targets": {
+                "controller": false,
+                "structure": false,
+                "model": false,
+                "x": false,
+                "y": false,
+                "z": false
+              },
+              "buffers": [
+                {
+                  "bytes": 3720000,
+                  "alive": false
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "after_tasks": {
+        "phase": "after_two_tasks",
+        "exposed_gc_before_page_metric": false,
+        "node_window_started_ms": 219737.899377,
+        "node_window_finished_ms": 219746.455362,
+        "page": {
+          "timestamp_ms": 198041.19999980927,
+          "used_js_heap_bytes": 144982553,
+          "total_js_heap_bytes": 161804713,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 107814904,
+          "totalSize": 124821504,
+          "embedderHeapUsedSize": 22288440,
+          "backingStorageSize": 37171625
+        },
+        "cdp_dom": {
+          "documents": 76,
+          "nodes": 21235,
+          "jsEventListeners": 29479
+        },
+        "subjects": {
+          "witness_data_unchanged": true,
+          "rows": [
+            {
+              "label": "witness",
+              "witness": true,
+              "atoms": 3983,
+              "targets": {
+                "controller": true,
+                "structure": true,
+                "model": true,
+                "x": true,
+                "y": true,
+                "z": true
+              },
+              "buffers": [
+                {
+                  "bytes": 47796,
+                  "alive": true
+                }
+              ]
+            },
+            {
+              "label": "cycle-1-created",
+              "witness": false,
+              "atoms": 62,
+              "targets": {
+                "controller": false,
+                "structure": false,
+                "model": false,
+                "x": false,
+                "y": false,
+                "z": false
+              },
+              "buffers": [
+                {
+                  "bytes": 3720000,
+                  "alive": false
+                }
+              ]
+            },
+            {
+              "label": "cycle-1-recovered",
+              "witness": false,
+              "atoms": 62,
+              "targets": {
+                "controller": false,
+                "structure": false,
+                "model": false,
+                "x": false,
+                "y": false,
+                "z": false
+              },
+              "buffers": [
+                {
+                  "bytes": 3720000,
+                  "alive": false
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "after_collection": {
+        "phase": "after_cdp_collections",
+        "exposed_gc_before_page_metric": false,
+        "node_window_started_ms": 220532.373411,
+        "node_window_finished_ms": 220541.653411,
+        "page": {
+          "timestamp_ms": 198835.69999980927,
+          "used_js_heap_bytes": 132070901,
+          "total_js_heap_bytes": 134700749,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 94921192,
+          "totalSize": 98205696,
+          "embedderHeapUsedSize": 22308760,
+          "backingStorageSize": 37166797
+        },
+        "cdp_dom": {
+          "documents": 76,
+          "nodes": 21235,
+          "jsEventListeners": 29478
+        },
+        "subjects": {
+          "witness_data_unchanged": true,
+          "rows": [
+            {
+              "label": "witness",
+              "witness": true,
+              "atoms": 3983,
+              "targets": {
+                "controller": true,
+                "structure": true,
+                "model": true,
+                "x": true,
+                "y": true,
+                "z": true
+              },
+              "buffers": [
+                {
+                  "bytes": 47796,
+                  "alive": true
+                }
+              ]
+            },
+            {
+              "label": "cycle-1-created",
+              "witness": false,
+              "atoms": 62,
+              "targets": {
+                "controller": false,
+                "structure": false,
+                "model": false,
+                "x": false,
+                "y": false,
+                "z": false
+              },
+              "buffers": [
+                {
+                  "bytes": 3720000,
+                  "alive": false
+                }
+              ]
+            },
+            {
+              "label": "cycle-1-recovered",
+              "witness": false,
+              "atoms": 62,
+              "targets": {
+                "controller": false,
+                "structure": false,
+                "model": false,
+                "x": false,
+                "y": false,
+                "z": false
+              },
+              "buffers": [
+                {
+                  "bytes": 3720000,
+                  "alive": false
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "sampling_overhead_ms": 1003.3139970000193,
+    "observed_page_errors": {
+      "count": 8,
+      "messages": [
+        "Error: No active debugger session"
+      ],
+      "baseline_count": 1,
+      "scope": "Baseline list overlaps recorded errors; counts are not additive. Passing workload assertions do not certify error-free Jupyter or establish causality."
+    }
+  },
+  "artifacts": {
+    "full-result.json": "06c85602776521f37d2db6980a33560c93d0fc1204a30e6a45b086d18f1952f5",
+    "browser-cycles.json": "830580a0c4893a80dcf6ea7ed14cef15146c6e492297d5804e0c98a0e453bdee",
+    "cycle-1-memory.json": "5480cc4a2cea3648d128a3cba505d0eda24ad078968c1d5dae87161defe83993",
+    "kernel-molecular-imports.json": "891768027ca7790da107f3eb94ecce7a78972da38b3b7584f7d469c1b8fd9b11",
+    "kernel-molecular-imports-after-cycle-1.json": "2b2eb03e1a71203d2dd0a85e354a7a73979dc8a913b98804b78c2a7a1fbadd0c",
+    "environment.json": "f460e8b970e9c71c6fb6ec32a3b9f6b51ff9144e8584002b13b0ddc1a14f6b98"
+  },
+  "technical_changes": [
+    "Explicitly dispose owned root ElementHandle and readiness result after bind, preserving native readiness assertions.",
+    "After actual disposal, use fixed task/collection sequence with primitive-only weak targets and independent retained witness.",
+    "Write each memory sample before asserting retirement; prune retired weak registry rows only after recorded acceptance.",
+    "Record actually loaded kernel module hashes after scientific work, without warming absent providers."
+  ],
+  "remaining": [
+    "Qualify comparable long campaign on explicitly frozen code, client and provider composition; preserve original raw outcomes.",
+    "Do not transfer original aee7aa65/c5115dff/PyUnitWizard 0.29.4dev thirty-cycle evidence to this source/client/provider combination.",
+    "Selected owners do not enumerate popup realms, historical structures, renderer allocations or every backing allocation.",
+    "Host growth/default versus diagnostic-ablation and #615/#713 causal uncertainty remain separate.",
+    "No new dependency floor, installed-pair/candidate acceptance or publication is implied."
+  ],
+  "closeout_checks": {
+    "source_commit": "90aa8eae144c10ccbde8911ea21755f22bf3c2c9",
+    "native_exit": 0,
+    "seconds": 46.09336111601442,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "1610612736",
+      "memory.high": "1409286144",
+      "memory.swap.max": "0",
+      "pids.max": "128"
+    },
+    "memory_peak_bytes": 403972096,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 14984290304,
+    "maximum_memory_pressure_avg10": 0.36,
+    "stop_reason": null,
+    "host_reserve_bytes": 6979321856,
+    "fast_gates_passed": 15,
+    "ruff_check": "whole repository passes",
+    "ruff_format_check": "4690 files already formatted",
+    "node_syntax_checks": 5,
+    "scope": "Focused dirty-documentation checkpoint; not complete scientific or installed/candidate acceptance.",
+    "artifacts": {
+      "checks-execution.json": "285249ccd41ea248ebdf9a8117f0aec96f55d0662011a37e5ca20617351d59b0",
+      "checks-driver.py": "a0a3323001bae55423a5ff6a07a02a9fd56eaa4c110a2aa841492d5aa0c7dc25",
+      "final_checks.py": "d8cb0b4906ff9e41bb25dec8f5709f4c3c52170b8c8a6445af6aa11345325ff8",
+      "final-check-results.json": "c29cba32ffc0ce6a939eaf87ab7929959daef2ffcb3213461bc23de5f9131f53",
+      "owned-retirement.json": "43e724bff3af86754be2e810b5d26cd639bb94f8609bb7eaaf8a4336d67eadfd"
+    },
+    "owned_retirement": {
+      "terminal_units_reviewed": 7,
+      "sampled_gui_processes": 28,
+      "same_pid_start_identity_still_running": 0,
+      "scope": "Only named task-owned terminal units; PID plus start ticks, sampled not a full process census. No foreign process signal."
+    }
+  }
+}

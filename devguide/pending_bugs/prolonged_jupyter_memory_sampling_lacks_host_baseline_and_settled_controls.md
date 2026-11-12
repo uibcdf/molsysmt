@@ -96,7 +96,8 @@ settings read before/after. Real Jupyter receiving of that mode remains pending
 at this checkpoint. It does not import molecular/AnyWidget providers in the
 control kernel or disable a routine extension.
 
-The long scientific receiver and its original raw measurements are unchanged.
+At this checkpoint the long scientific receiver and its original raw measurements
+are unchanged.
 The method is a bounded contract-tested increment, not full #723 acceptance.
 The [operational method](../jupyter_memory_sampling_method.md) records its
 sequence, sources, commands and remaining host/scientific/long-run boundaries.
@@ -126,14 +127,14 @@ unchanged and source is clean before/after. The [method receipt](../../devtools/
 owns all paired API windows, non-additive counts, oracle refinement, source
 and runtime identity, expected scope and raw diagnostic observations.
 
-The guard above protects this partial baseline only. #723 remains partial: the
-scientific receiver's raw sampler is byte-identical to the earlier source.
-Receive the concrete molecular/witness/backing-buffer integration before a
-comparable long campaign; no whole-current-main, installed or final-pair
+The guard above protects this partial baseline only. At this checkpoint #723
+remains partial and the scientific receiver is byte-identical to the earlier
+source. The next increment below receives the concrete molecular integration
+before a comparable long campaign; no whole-current-main, installed or final-pair
 qualification or publication is implied.
 
 
-## Molecular receiver integration in preparation — 2026-11-12
+## Molecular receiver integration received — 2026-11-12
 
 The owner integration preserves the original legacy raw observation, labels
 its method, and adds the received three-window sampler after actual frontend
@@ -154,8 +155,33 @@ remain unchanged; the producer inserts a passive loaded-provider snapshot
 into the existing closing cell before its completion marker, without adding
 a scientific calculation or warming absent modules.
 
-A bounded actual molecular pilot on a recorded clean source is pending at
-this checkpoint. Preserve its failures if any; do not retry until collection
-or relax lifetime checks merely to obtain a pass. Full campaign, retention
-attribution, installed/platform/final-candidate gates and publication pause
-retain their separate scope.
+The bounded actual molecular pilot passes on clean 1a899f9f0. The original
+scientific fixture is byte-identical to 95bac785e; both popups, scientific
+calculations, coordinate edits, stale-analysis rejection, coherent recovery
+and requested active playback pass. In the defined after-collection window,
+all six selected targets and each 3,720,000-byte buffer clear for the initial
+and recovered 62-atom views. The independent 3,983-atom witness, its 47,796-byte
+buffer and coordinate signature survive. The separate remote-handle control
+also distinguishes retained from disposed subjects.
+
+All eight actually loaded module hashes after the workload match the frozen
+selected input envelope, including the addon and Rust binary. Generated
+module-version labels are retained as observations, not used as source
+identity. The 4,913-file selected envelope stays unchanged before/after, with
+clean source on both sides; MolSysViewer is the independently matched c5115dff
+source and the composite snapshot uses published PyUnitWizard 0.29.2. This is
+not the original aee7aa65/PyUnitWizard 0.29.4dev thirty-cycle composition.
+
+The three-CPU/3.5-GiB/no-own-swap service peaks at 2.18 GiB and preserves at
+least 11.20 GiB host available memory, with no resource stop/OOM. Sampling
+adds 1,003.314 ms. Eight No active debugger session page errors are retained;
+the baseline list overlaps them. Successful scientific assertions do not
+certify error-free Jupyter or identify the retaining chain.
+
+The [molecular receipt](../../devtools/data/molecular_memory_receiving_723_20261112.json)
+owns observations, actual inputs, command/results, resources and the correction
+to the raw wrapper's inherited Chromium-only description. Its command actually
+selects the scientific prolonged-popup guard; the raw record remains preserved.
+#723 remains partial until a comparable long campaign with explicit frozen
+composition and comparison question. Retention attribution, #615/#713,
+installed/platform/final-candidate gates and publication pause keep their scope.

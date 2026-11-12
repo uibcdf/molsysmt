@@ -63,8 +63,15 @@ nine-execution Jupyter baseline with excluded molecular/AnyWidget kernel
 imports. The [receipt](../devtools/data/jupyter_memory_method_receiving_723_20261112.json)
 records unchanged observed host identity/settings, paired heap APIs and
 continued host-side node/event growth, including eleven debugger errors.
-The original scientific receiver remains unchanged; review its concrete
-lifetime/sampling integration before another comparable long campaign.
+The concrete molecular integration is now received on clean 1a899f9f0: 63
+controls and one real 5,000-structure cycle pass, with initial/recovered native
+owners and buffers released and the independent witness unchanged. The
+[molecular receipt](../devtools/data/molecular_memory_receiving_723_20261112.json)
+records exact code/client/provider composition, selected owner scope, eight
+debugger errors and the preserved original raw observation. Agree the frozen
+composition and comparison question before the comparable long campaign.
+#724's label acquisition is also corrected with a 75-case cohort and live
+read-only probe; local instruction delivery does not establish central adoption.
 This does not resolve #615/#713 or qualify the final installed pair.
 
 Independently reviewed MolSysViewer default-1.0 source receiving is accepted

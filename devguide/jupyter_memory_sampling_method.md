@@ -4,7 +4,8 @@
 This is private receiving tooling, not a public molecular API or a claim that
 a memory leak has been identified or fixed. The scientific
 receiver preserves its original raw sampler and now has a separate integrated
-three-window observation pending the actual molecular pilot. Original functional outcomes and diagnostic experiments keep their
+three-window observation received in one actual molecular pilot. Original
+functional outcomes and diagnostic experiments keep their
 source/runtime scope.
 
 ## Method and controls
@@ -79,8 +80,9 @@ prerequisites fail when selected. These explicit browser guards remain
 outside default scientific collection. Select shared-host CPU/RAM limits,
 reserve, finite process deadlines and PID-safe cleanup before execution.
 The 63-case owner control receiving and one actual nine-execution Jupyter
-baseline pass on clean db1706f8a. The bounded scientific integration is implemented; its actual molecular pilot
-and the comparable long campaign remain pending.
+baseline pass on clean db1706f8a. The integrated molecular pilot passes on
+clean 1a899f9f0, with its own 63-case control cohort. The comparable long
+campaign remains pending; these overlapping cohorts are not additive coverage.
 
 ## Technical basis and remaining work
 
@@ -95,8 +97,9 @@ and the protocol types shipped with the recorded Playwright installation.
 No new molecular scientific method or Ackredit attribution is introduced.
 
 The default-host baseline below is received within its stated scope. Keep
-diagnostic-ablation comparisons separate and agree the concrete scientific
-receiver integration before selecting another comparable long campaign. A passing
+diagnostic-ablation comparisons separate. The concrete molecular integration
+is now received below; agree the frozen composition and comparison question
+before another long campaign. A passing
 synthetic control alone does not establish which objects Jupyter retains or
 qualify molecular memory behavior. #615's original initialization cause,
 installed/platform and final-candidate acceptance remain separate.
@@ -136,3 +139,27 @@ Historical raw values keep their original scope; this correction does not
 establish what caused their growth. Sampling overhead is separate from
 functional cycle time. The existing closing notebook cell also records
 providers actually loaded after scientific work; it does not force an import.
+
+## Actual molecular pilot — 2026-11-12
+
+Clean 1a899f9f0 passes one actual 5,000-structure scientific cycle with both
+popups, coordinate edits, stale-analysis rejection, session recovery and active
+playback. After the defined collection method, all six selected native targets
+and the 3,720,000-byte coordinate buffer clear for both the initial and recovered
+62-atom views. The independent 3,983-atom witness and its 47,796-byte buffer
+remain reachable, with unchanged coordinates. These are selected native owners,
+not a census of popup realms, renderer allocations or total memory retention.
+
+The existing raw measurement is retained. Sampling adds 1,003.314 ms in this
+cycle; its window timestamps and both heap APIs remain separate. Eight observed
+No active debugger session errors are retained (the baseline list overlaps);
+the passing workload does not certify error-free Jupyter. The actual after-use
+kernel snapshot matches all eight selected provider/module file hashes, including
+the Rust binary and addon, without forcing their initial import.
+
+The [molecular receipt](../devtools/data/molecular_memory_receiving_723_20261112.json)
+owns the exact client/provider composition, private artifact hashes, preserved
+fixture and observations. The three-CPU/3.5-GiB/no-own-swap service peaks at
+2.18 GiB, keeping at least 11.20 GiB host available memory. #723 remains partial
+until the comparable long campaign; original #615/#713 causality, installed
+qualification and the final-pair publication pause are unchanged.
