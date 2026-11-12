@@ -1,13 +1,13 @@
 ---
 summary: Legacy H5MSM creation truncates a destination before rejecting an unsupported schema
 issue: uibcdf/molsysmt#711
-status: active
+status: resolved
 opened: 2026-11-11
-closed:
+closed: 2026-11-11
 severity: high
 verification: reproduced
 area: [form, data]
-guard:
+guard: tests/native/test_legacy_h5msm_creation_preflight.py
 normative:
 blocked_by: []
 supersedes: []
@@ -62,3 +62,20 @@ conversion and a real public file-copy doctest. Original failures are retained.
 Two actual documentation examples execute under nm/ps and pm/fs with unchanged
 input bytes, physical coordinates, declared shapes and closed owned handles.
 This is bounded source receiving, not full-suite or installed acceptance.
+
+## Resolution — 2026-11-11
+
+Implementation: `17e3cfaf1`.
+
+The schema allowlist is evaluated before any HDF5 destination is opened. The
+primary guard spies on real file opens and checks unchanged existing ordinary
+and HDF5 bytes or an absent new destination for every rejected schema. Positive
+controls verify actual default/0.3/0.4 layouts. It protects rejection without
+side effects, not just the error text. Valid legacy writes retain their explicit
+replacement behavior; unrelated invalid options and interrupted writes are not
+certified as atomic.
+
+The [follow-up receipt](../../../devtools/data/pre_1_0_polishing_followup_334_20261111.json)
+retains the original failing guards, bounded correction receiving and related
+documentation checks. The separate full-source timeout remains open under #713;
+this closeout is not full-suite, installed or exact-candidate qualification.

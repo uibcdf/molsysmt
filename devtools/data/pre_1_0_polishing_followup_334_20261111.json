@@ -1,0 +1,1750 @@
+{
+  "schema": "molsysmt.pre_1_0_polishing_followup@1",
+  "date": "2026-11-11",
+  "owner_issue": "uibcdf/molsysmt#334",
+  "related_issues": [
+    "uibcdf/molsysmt#711",
+    "uibcdf/molsysmt#712",
+    "uibcdf/molsysmt#713",
+    "uibcdf/molsysmt#256",
+    "uibcdf/molsysmt#378"
+  ],
+  "scope": "Bounded local source corrections and documentation receiving. Not a passing full suite, installed package, exact final candidate, platform matrix, whole-library scientific audit or publication authorization.",
+  "sources": {
+    "full_run": "f0dbb58e0c0a2d29bdc74024a3f888c002a9a2f0",
+    "legacy_preflight": "17e3cfaf15d946e37da980e0749562de90899941",
+    "legacy_copy_refusal": "b90c5239a5efee658752e1c41dad5b70e927410b",
+    "test_diagnostics": "9feea357f74340acf49ce65f1f82d352fd49b25b",
+    "documentation": "792c14d8a51afa58aa3e034650fa60fa9b505b97"
+  },
+  "runtime": {
+    "python": "3.14.7",
+    "platform": "Linux shared development host; 20 logical CPUs, approximately 30.7 GiB physical RAM; no applicable Slurm allocation",
+    "molsysviewer_source": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "pyunitwizard": "0.29.2 published artifact overlay",
+    "pyunitwizard_conda_sha256": "bb28b9420760b557025163e11c934e096c7b98200cac720100a2db924e9ee617",
+    "smonitor": {
+      "version": "0.21.0",
+      "source": "066b69cad8896cdc126d5586fd53268af4ea6490"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "source": "13cc73780a7cb645546ae3f396177f98b86a8792"
+    },
+    "argdigest": {
+      "version": "0.15.0",
+      "source": "57447cc4ec1f7ce85078f8a939892efd075bc919"
+    },
+    "pytest_receptor": "1.2.1 published overlay",
+    "support_overlay": "Pure-Python overlays built offline from reviewed CI source pins. This work makes no shared-environment edits; frozen overlays preserve the declared providers despite concurrent sibling development. The native binary is unchanged.",
+    "thread_caps": {
+      "BLAS": 1,
+      "OpenMP": 1,
+      "Rayon": 1,
+      "OpenMM_CPU": 1,
+      "NumExpr": 1
+    }
+  },
+  "complete_source_attempt": {
+    "cases": {
+      "executed": 33841,
+      "passed": 33824,
+      "failed": 1,
+      "errors": 0,
+      "skipped": 16
+    },
+    "verdict": "FAIL",
+    "failure": "Original 60-second fresh-import child timeout for first_module=molsysmt.element.atom",
+    "previous_49_failures_recurred": false,
+    "receptor_final": {
+      "artifact_policy": {
+        "dropped_records": 14563,
+        "max_bytes": 52428800,
+        "truncated": true
+      },
+      "complete": true,
+      "counts": {
+        "collected": 33841,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 33841,
+        "failed": 1,
+        "not_executed": 0,
+        "passed": 33824,
+        "reruns": 0,
+        "skipped": 16,
+        "subtests": {},
+        "warnings": 6771,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "duration": 2580.8147589559667,
+      "exitstatus": 1,
+      "extensions": {
+        "dropped": 2673,
+        "incomplete": true,
+        "recorded": 7182
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "digest": "e488b66847917634b9347c95be3ca82e2c54d2eaccad65d8ddaf53dfcb25d93e",
+        "records": 101910
+      },
+      "invalid_selections": [],
+      "note": "",
+      "outcome": "FAIL",
+      "root_causes": 1,
+      "run_id": "00029b01a8b74e55b13df1cec40f25b2",
+      "schema": "pytest-receptor.events@1",
+      "stop_reason": "",
+      "type": "session_finish"
+    },
+    "externally_observed_native_exit": null,
+    "custody_gap": "Original process wait status was lost with its supervisor during daemon restart. Reported pytest status and JUnit remain distinct; the test session is failed.",
+    "recovery": {
+      "source_commit": "f0dbb58e0c0a2d29bdc74024a3f888c002a9a2f0",
+      "main_pid": 3145882,
+      "main_start_ticks": 198838116,
+      "supervision_recovered_after_daemon_restart": true,
+      "original_supervisor_missing": true,
+      "external_native_exit_status": null,
+      "native_exit_status_scope": "Cannot recover the original child wait status after its supervisor exited. Do not infer it from artifacts or cgroup success.",
+      "full_source": ".pytest_cache/pre1-90-20261111/docs-fixes-source",
+      "state": "completed recovered observation; external native command exit remains unavailable",
+      "host_reserve_bytes": 6979321856,
+      "minimum_observed_host_available_bytes_after_recovery": 7110545408,
+      "maximum_full_pressure_avg10_after_recovery": 10.45,
+      "finite_deadline_seconds_since_native_start": 4200,
+      "stop_reason": null,
+      "changed_source_inputs_after_recovery": [],
+      "checked_source_inputs": 8877,
+      "ending_source_status": "",
+      "changed_viewer_inputs_after_recovery": [],
+      "checked_viewer_inputs": 2581,
+      "changed_support_inputs_after_recovery": [],
+      "checked_support_inputs": 231,
+      "resource_controls_at_recovery": {}
+    },
+    "resource_snapshot": {
+      "observation": "After daemon recovery; sampled kernel scope counters, not a reconstruction of lost supervisor observations.",
+      "time_utc": "2026-11-11T23:22:10Z",
+      "fields": {
+        "memory.current": "5097205760",
+        "memory.peak": "5377941504",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0",
+        "memory.max": "6442450944",
+        "memory.high": "5905580032",
+        "memory.swap.max": "0",
+        "cpu.max": "300000 100000",
+        "cpu.stat": "usage_usec 5270766078\nuser_usec 5160977738\nsystem_usec 109788339\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 18177\nnr_throttled 15772\nthrottled_usec 152944842\nnr_bursts 0\nburst_usec 0"
+      }
+    },
+    "limits_of_recovery": "Native pytest outlived the agent application daemon/original external supervisor. No final scope peak/events or pre-recovery supervisor samples can be reconstructed. Post-recovery minima/pressure and sampled kernel counters have only their stated observation scope. Do not infer native wait status from stream/JUnit/cgroup state.",
+    "skip_disposition": {
+      "14": "Optional ArgDigest >=0.17 ownership-study cases; exercised runtime uses the reviewed 0.15.0 source pin.",
+      "1_rdkit": "RDKit accepts the CCO negative-form example.",
+      "1_cupy": "CuPy absent."
+    },
+    "next_action": "Keep #713 partial; next deliberate complete corrected-source receiving uses durable supervisor and new pre-deadline diagnostics. No blind warming/deadline expansion or isolated-success closure."
+  },
+  "isolated_original_import_orders": {
+    "cases": {
+      "executed": 3,
+      "passed": 3,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "execution": {
+      "scope": "One isolated run of the unchanged original three import orders, keeping their 60-second child deadline. Not a replacement passing full suite.",
+      "native_exit": 0,
+      "state": "completed",
+      "input_scope": "Exact failed full-source checkout, selected import guard/boundaries and native binary; same pinned providers. All full-source inputs were separately verified unchanged after the failed session.",
+      "seconds": 17.055136321112514,
+      "source_commit": "f0dbb58e0c0a2d29bdc74024a3f888c002a9a2f0",
+      "inputs_before": {
+        "tests/molsysviewer_molsysmt/test_element_utilities.py": "ac3cb605c8642fa708cb74724c0530652508d30ede424ffc331871855a29ab38",
+        "molsysmt/__init__.py": "dc89c5f21ab7ba4bb94b289927a19856d27cb670baf1b03d7f6fcb7fced03f90",
+        "molsysmt/element/atom/__init__.py": "88765f6b98103cad80130c5a111ce259d80e1ea90b95cd49127eefd75134d1d0",
+        "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+      },
+      "inputs_after": {
+        "tests/molsysviewer_molsysmt/test_element_utilities.py": "ac3cb605c8642fa708cb74724c0530652508d30ede424ffc331871855a29ab38",
+        "molsysmt/__init__.py": "dc89c5f21ab7ba4bb94b289927a19856d27cb670baf1b03d7f6fcb7fced03f90",
+        "molsysmt/element/atom/__init__.py": "88765f6b98103cad80130c5a111ce259d80e1ea90b95cd49127eefd75134d1d0",
+        "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+      },
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0"
+      },
+      "memory_peak_bytes": 390840320,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15233482752,
+      "maximum_pressure_avg10": 1.3,
+      "stop_reason": null
+    },
+    "disposition": "Separate isolated pass; no causal explanation or relabelling of failed complete run."
+  },
+  "diagnostic_increment": {
+    "cases": {
+      "executed": 134,
+      "passed": 134,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "execution": {
+      "scope": "Current element-utility module with unchanged import-order assertions/deadline and new diagnostic-transport controls. No causal or full-suite acceptance.",
+      "native_exit": 0,
+      "state": "completed",
+      "input_scope": "Dirty b90c5239a worktree plus the diagnostic test increment subsequently committed as 9feea357f; four explicit input hashes, same pinned providers. The raw wrapper inherited an incorrect exact-checkout label from its template; this receipt corrects that attribution without altering raw evidence.",
+      "seconds": 37.06996434205212,
+      "source_commit": "b90c5239a5efee658752e1c41dad5b70e927410b",
+      "inputs_before": {
+        "tests/molsysviewer_molsysmt/test_element_utilities.py": "d148428f928014cf633c125ef57c358fc534e15617f615982fa9748592b3d6bb",
+        "molsysmt/__init__.py": "dc89c5f21ab7ba4bb94b289927a19856d27cb670baf1b03d7f6fcb7fced03f90",
+        "molsysmt/element/atom/__init__.py": "88765f6b98103cad80130c5a111ce259d80e1ea90b95cd49127eefd75134d1d0",
+        "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+      },
+      "inputs_after": {
+        "tests/molsysviewer_molsysmt/test_element_utilities.py": "d148428f928014cf633c125ef57c358fc534e15617f615982fa9748592b3d6bb",
+        "molsysmt/__init__.py": "dc89c5f21ab7ba4bb94b289927a19856d27cb670baf1b03d7f6fcb7fced03f90",
+        "molsysmt/element/atom/__init__.py": "88765f6b98103cad80130c5a111ce259d80e1ea90b95cd49127eefd75134d1d0",
+        "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+      },
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0"
+      },
+      "memory_peak_bytes": 636821504,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14925340672,
+      "maximum_pressure_avg10": 0.0,
+      "stop_reason": null
+    },
+    "functional_proof": {
+      "original_source": "f0dbb58e0",
+      "original_body_sha256": "48d612c5c04f45cbc0a298ec82ff7da02f78d17db4d9f5c6880e250d000ef285",
+      "functional_program_ast_unchanged": true,
+      "parent_result_assertions_unchanged": true,
+      "original_three_orders_unchanged": true,
+      "child_timeout_seconds": 60,
+      "diagnostic_timer_seconds": 45,
+      "warming_imports_added": false,
+      "runtime_library_changed": false
+    },
+    "status": "Implemented diagnostic increment; causal or evidenced bounded disposition remains open in #713. No runtime library changes."
+  },
+  "legacy_handler_corrections": {
+    "receiving": {
+      "legacy-711-712-baseline": {
+        "cases": {
+          "executed": 23,
+          "passed": 3,
+          "failed": 20,
+          "errors": 0,
+          "skipped": 0
+        },
+        "execution": {
+          "mode": "fast",
+          "source_commit": "f0dbb58e0c0a2d29bdc74024a3f888c002a9a2f0",
+          "starting_status": "?? devguide/pending_bugs/copying_an_open_legacy_h5msm_handler_fails_with_an_unstructured_path_typeerror.md\n?? devguide/pending_bugs/legacy_h5msm_creation_rejects_schema_after_truncation.md\n?? tests/form/molsysmt_H5MSMFileHandler/test_copy.py\n?? tests/native/test_legacy_h5msm_creation_preflight.py\n",
+          "ending_status": "?? devguide/pending_bugs/copying_an_open_legacy_h5msm_handler_fails_with_an_unstructured_path_typeerror.md\n?? devguide/pending_bugs/legacy_h5msm_creation_rejects_schema_after_truncation.md\n?? tests/form/molsysmt_H5MSMFileHandler/test_copy.py\n?? tests/native/test_legacy_h5msm_creation_preflight.py\n",
+          "command": [
+            "PYTHON",
+            "-m",
+            "pytest",
+            "--receptor=llm",
+            "-n0",
+            "--junitxml=REPOSITORY/.pytest_cache/pre1-90-20261111/legacy-711-712-baseline.xml",
+            "tests/native/test_legacy_h5msm_creation_preflight.py",
+            "tests/form/molsysmt_H5MSMFileHandler/test_copy.py"
+          ],
+          "exit": 1,
+          "seconds": 7.963987913215533,
+          "changed_inputs": [],
+          "checked_inputs": 8879,
+          "viewer_changed_inputs": [],
+          "viewer_checked_inputs": 2581,
+          "stop_reason": null,
+          "limits": {
+            "cpu.max": "100000 100000",
+            "memory.max": "1073741824",
+            "memory.high": "939524096",
+            "memory.swap.max": "0",
+            "memory.oom.group": "0",
+            "pids.max": "128"
+          },
+          "cgroup_memory_peak_bytes": 732266496,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+          "minimum_observed_host_available_bytes": 11380940800,
+          "maximum_full_pressure_avg10": 0.0,
+          "warning_transitions": [],
+          "host_reserve_bytes": 6979321856,
+          "resource_driver_sha256": "6f695fc73306492c644ece82c66fc16633c16bfa5c121ab8e238f036e88d7ef6",
+          "scope": "Local focused dirty-worktree receiving with unchanged tracked inputs; not full-suite or installed/candidate qualification."
+        }
+      },
+      "legacy-711-712-corrected": {
+        "cases": {
+          "executed": 85,
+          "passed": 85,
+          "failed": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "execution": {
+          "mode": "fast",
+          "source_commit": "f0dbb58e0c0a2d29bdc74024a3f888c002a9a2f0",
+          "starting_status": " M molsysmt/form/molsysmt_H5MSMFileHandler/copy.py\n M molsysmt/native/h5msm_file_handler.py\n?? devguide/pending_bugs/copying_an_open_legacy_h5msm_handler_fails_with_an_unstructured_path_typeerror.md\n?? devguide/pending_bugs/legacy_h5msm_creation_rejects_schema_after_truncation.md\n?? tests/form/molsysmt_H5MSMFileHandler/test_copy.py\n?? tests/native/test_legacy_h5msm_creation_preflight.py\n",
+          "ending_status": " M molsysmt/form/molsysmt_H5MSMFileHandler/copy.py\n M molsysmt/native/h5msm_file_handler.py\n?? devguide/pending_bugs/copying_an_open_legacy_h5msm_handler_fails_with_an_unstructured_path_typeerror.md\n?? devguide/pending_bugs/legacy_h5msm_creation_rejects_schema_after_truncation.md\n?? tests/form/molsysmt_H5MSMFileHandler/test_copy.py\n?? tests/native/test_legacy_h5msm_creation_preflight.py\n",
+          "command": [
+            "PYTHON",
+            "-m",
+            "pytest",
+            "--receptor=llm",
+            "-n0",
+            "--junitxml=REPOSITORY/.pytest_cache/pre1-90-20261111/legacy-711-712-corrected.xml",
+            "tests/native/test_legacy_h5msm_creation_preflight.py",
+            "tests/form/molsysmt_H5MSMFileHandler/test_copy.py",
+            "tests/basic/test_file_copy.py",
+            "tests/basic/test_file_copy_lifecycle.py",
+            "tests/basic/test_copy.py",
+            "tests/native/test_h5msm_file_handler.py",
+            "tests/basic/convert/one_to_one/test_h5msm_handler_version_boundary.py",
+            "molsysmt/form/molsysmt_H5MSMFileHandler/copy.py",
+            "--doctest-modules"
+          ],
+          "exit": 0,
+          "seconds": 31.16563696996309,
+          "changed_inputs": [],
+          "checked_inputs": 8879,
+          "viewer_changed_inputs": [],
+          "viewer_checked_inputs": 2581,
+          "stop_reason": null,
+          "limits": {
+            "cpu.max": "100000 100000",
+            "memory.max": "1073741824",
+            "memory.high": "939524096",
+            "memory.swap.max": "0",
+            "memory.oom.group": "0",
+            "pids.max": "128"
+          },
+          "cgroup_memory_peak_bytes": 802156544,
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+          "minimum_observed_host_available_bytes": 10669424640,
+          "maximum_full_pressure_avg10": 0.0,
+          "warning_transitions": [],
+          "host_reserve_bytes": 6979321856,
+          "resource_driver_sha256": "3aad50b720cf7407b6293d3889fa008cb2b34cfc7dde6cc411c6f4a17363e802",
+          "scope": "Local focused dirty-worktree receiving with unchanged tracked inputs; not full-suite or installed/candidate qualification."
+        }
+      }
+    },
+    "711": "Validate exact legacy 0.3/0.4 creation schema before opening any destination; valid replacement semantics unchanged. No general atomic-writer guarantee.",
+    "712": "Existing structured NotImplementedMethodError for unavailable live-handler copy. File-path/resident-copy alternatives remain supported; live-resource snapshot is not implemented.",
+    "support_boundaries": "Existing ArgDigest boundary and SMonitor exception are reused. No new dependency or third-party scientific method; no additional DepDigest/Ackredit requirement."
+  },
+  "documentation": {
+    "source": "792c14d8a51afa58aa3e034650fa60fa9b505b97",
+    "actual_examples": {
+      "executions": [
+        {
+          "source": "docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md",
+          "code_sha256": "c2edbee907c87fbd379bee158e8db5a4d00a80209f914c617927db1c51b3e723",
+          "length_policy": "nm",
+          "time_policy": "ps",
+          "exit": 0
+        },
+        {
+          "source": "docs/content/user/foundations/native_world/files/file_h5msm.md",
+          "code_sha256": "fc993aef61984b662ed80519ae1d59041eef626ff4db48ac3f0ce7edf894a7f6",
+          "length_policy": "nm",
+          "time_policy": "ps",
+          "exit": 0
+        },
+        {
+          "source": "docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md",
+          "code_sha256": "c2edbee907c87fbd379bee158e8db5a4d00a80209f914c617927db1c51b3e723",
+          "length_policy": "pm",
+          "time_policy": "fs",
+          "exit": 0
+        },
+        {
+          "source": "docs/content/user/foundations/native_world/files/file_h5msm.md",
+          "code_sha256": "fc993aef61984b662ed80519ae1d59041eef626ff4db48ac3f0ce7edf894a7f6",
+          "length_policy": "pm",
+          "time_policy": "fs",
+          "exit": 0
+        }
+      ],
+      "bundled_input_unchanged": true,
+      "scope": "Actual two Markdown examples under two unit policies, no stored notebook code changed."
+    },
+    "example_execution": {
+      "scope": "Bounded execution of two actual Markdown examples under two unit policies; not complete-source or candidate certification.",
+      "native_exit": 0,
+      "state": "completed",
+      "input_scope": "Explicit example sources and changed runtime boundaries, native binary and bundled data; no repeated all-repository or unrelated client scan.",
+      "seconds": 11.06701542204246,
+      "source_commit": "f0dbb58e0c0a2d29bdc74024a3f888c002a9a2f0",
+      "inputs_before": {
+        "docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md": "3c1c0c4f3c6e05e9e652e8d8289af9f771513eb71bb32bc9cb679b2bebb75d56",
+        "docs/content/user/foundations/native_world/files/file_h5msm.md": "565dd4eef682e9cc77d97ee68645a4b229b059f3c2f6ca54f1e2fdc8e788e2d8",
+        "molsysmt/native/h5msm_file_handler.py": "1b41fc8832d93bd5d972548bee7a6caff70a5e598fbc8b68817e01422c2b61d4",
+        "molsysmt/form/molsysmt_H5MSMFileHandler/copy.py": "da945d26dc6838fe432dc89f521dfde6e629b498297e39802a93cb68afbf5f3c",
+        "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+        "molsysmt/data/h5msm/traj_pentalanine.h5msm": "d882572a520fe0cb7dbd4c3254e8f38171d4c788d739ab81ee387acd495433b6"
+      },
+      "inputs_after": {
+        "docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md": "3c1c0c4f3c6e05e9e652e8d8289af9f771513eb71bb32bc9cb679b2bebb75d56",
+        "docs/content/user/foundations/native_world/files/file_h5msm.md": "565dd4eef682e9cc77d97ee68645a4b229b059f3c2f6ca54f1e2fdc8e788e2d8",
+        "molsysmt/native/h5msm_file_handler.py": "1b41fc8832d93bd5d972548bee7a6caff70a5e598fbc8b68817e01422c2b61d4",
+        "molsysmt/form/molsysmt_H5MSMFileHandler/copy.py": "da945d26dc6838fe432dc89f521dfde6e629b498297e39802a93cb68afbf5f3c",
+        "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+        "molsysmt/data/h5msm/traj_pentalanine.h5msm": "d882572a520fe0cb7dbd4c3254e8f38171d4c788d739ab81ee387acd495433b6"
+      },
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1073741824",
+        "memory.high": "939524096",
+        "memory.swap.max": "0"
+      },
+      "memory_peak_bytes": 186134528,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 7415885824,
+      "maximum_pressure_avg10": 0.24,
+      "stop_reason": null,
+      "source_attribution": "Working tree with the corrected runtime boundaries and Markdown example edits, later committed in the listed implementation/documentation commits. Git HEAD alone did not identify its dirty input bytes; six explicit before/after hashes remain authority."
+    },
+    "notebook_proof": [
+      {
+        "path": "docs/content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.ipynb",
+        "code_cells_outputs_and_execution_metadata_unchanged": true,
+        "code_cells": 1
+      },
+      {
+        "path": "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+        "code_cells_outputs_and_execution_metadata_unchanged": true,
+        "code_cells": 14
+      },
+      {
+        "path": "docs/content/course/Common_Core/05_Combined_Forms.ipynb",
+        "code_cells_outputs_and_execution_metadata_unchanged": true,
+        "code_cells": 4
+      }
+    ],
+    "declared_handler_attributes": {
+      "declared": 92,
+      "missing": [],
+      "extra": [],
+      "scope": "Declaration parity, not availability in every file or implemented operation support."
+    },
+    "retained_attempts": [
+      {
+        "label": "legacy-docs-html-inspection-draft",
+        "outcome": "FAILED PRIVATE CHECK",
+        "reason": "Probe expected two nonliteral Core04 phrases; actual article accurately says live legacy handler and replaces its target. Only the probe phrases were corrected; the initial inspection result is retained."
+      },
+      {
+        "label": "legacy-handler-doc-examples",
+        "outcome": "FAIL",
+        "reason": "Draft expected 53 atoms; actual bundled metadata is (5000,62,3). Draft corrected; original failed execution retained."
+      },
+      {
+        "label": "legacy-handler-doc-examples-v2",
+        "outcome": "INTERRUPTED/UNVERIFIED",
+        "reason": "Redundant all-repository hashing/I/O startup; only owned service stopped. Log descriptor existed by stop time, child execution uncertain; no example pass counted."
+      },
+      {
+        "label": "legacy-docs-792c14d8a",
+        "outcome": "DEFERRED",
+        "reason": "Shared-host admission rejected before Sphinx ran."
+      },
+      {
+        "label": "legacy-docs-792c14d8a-v2 launch configuration",
+        "outcome": "NOT STARTED",
+        "reason": "Installed systemd rejects MemoryOOMGroup assignment; compatible OOMPolicy=kill used for actual launch. No build counted from rejected invocation."
+      }
+    ],
+    "scope": "Five changed articles and bounded examples; not whole-library semantic/scientific or visual-layout certification.",
+    "strict_html": {
+      "exit": 0,
+      "warnings": 0,
+      "full_site": true,
+      "notebook_execution": "off",
+      "autosummary_generate": false
+    },
+    "strict_html_execution": {
+      "mode": "docs",
+      "source_commit": "792c14d8a51afa58aa3e034650fa60fa9b505b97",
+      "starting_status": "",
+      "ending_status": "",
+      "command": [
+        "PYTHON",
+        "REPOSITORY/.pytest_cache/pre1-90-20261111/build_legacy_polish_docs.py"
+      ],
+      "exit": 0,
+      "seconds": 195.9025371670723,
+      "changed_inputs": [],
+      "checked_inputs": 8882,
+      "viewer_changed_inputs": [],
+      "viewer_checked_inputs": 2581,
+      "stop_reason": null,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1879048192",
+        "memory.swap.max": "0",
+        "memory.oom.group": "1",
+        "pids.max": "128"
+      },
+      "cgroup_memory_peak_bytes": 1879797760,
+      "memory_events": "low 0\nhigh 90\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_observed_host_available_bytes": 14669635584,
+      "maximum_full_pressure_avg10": 0.32,
+      "warning_transitions": [],
+      "host_reserve_bytes": 6979321856,
+      "resource_driver_sha256": "88d89a76927f496f4042dbe5be1ac8bf9b23c38a198cf96cb49765f260841b9e",
+      "scope": "Local clean source receiving; not a package, exact final candidate, platform matrix or release authorization."
+    },
+    "generated_article_inspection": {
+      "source": "792c14d8a",
+      "pages": [
+        {
+          "page": "content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.html",
+          "sha256": "adb5ea249b271a42de89664dce04cc07b540500ff13748b6115430f213bd8640",
+          "actual_article_phrases": {
+            "Unsupported creation versions reject before opening": true,
+            "there are no": true,
+            "NotImplementedMethodError": true,
+            "Raw": true,
+            "zero-copy": true
+          },
+          "unresolved_python_references": [],
+          "system_messages": 0
+        },
+        {
+          "page": "content/user/foundations/native_world/files/file_h5msm.html",
+          "sha256": "5f7d950b656ea089609cf1c91d2b9e3ad771effc955bf7fceea16bdb63d9b800",
+          "actual_article_phrases": {
+            "Schema 1.0": true,
+            "legacy 0.4": true,
+            "groups of column datasets": true,
+            "active PyUnitWizard policy": true
+          },
+          "unresolved_python_references": [],
+          "system_messages": 0
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "sha256": "41a4bf114d36fc9a065cfa070bbcda8f09fa5850b21795793ca4ac72a5f32038",
+          "actual_article_phrases": {
+            "Implemented operations": true,
+            "Not implemented for a live handler": true,
+            "Implementation reference": true,
+            "registered direct conversion": true
+          },
+          "unresolved_python_references": [],
+          "system_messages": 0
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "sha256": "043ae9837920cb7a85ca982a268351cc6ea351e136f7ad84f0374d0bd1694721",
+          "actual_article_phrases": {
+            "Independent copying of that live legacy handler is unavailable": true,
+            "valid legacy write mode still replaces its target": true
+          },
+          "unresolved_python_references": [],
+          "system_messages": 0
+        },
+        {
+          "page": "content/course/Common_Core/05_Combined_Forms.html",
+          "sha256": "7f048d0d44048c80c1198384a4a9eae8730766aff6f7e30f8e043a98e4e57eb1",
+          "actual_article_phrases": {
+            "atom order": true,
+            "identity": true
+          },
+          "unresolved_python_references": [],
+          "system_messages": 0
+        }
+      ],
+      "internal_targets": [
+        {
+          "page": "content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.html",
+          "href": "#h5msmfilehandler",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.html",
+          "href": "#overview-and-handler-role",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.html",
+          "href": "../../../tools/form/file/h5msm_10.html#user-tools-form-h5msm-10",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.html",
+          "href": "#class-attributes-and-parsed-records",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.html",
+          "href": "#practical-usage-and-streaming-workflow",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.html",
+          "href": "../../../tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html#tutorial-form-molsysmt-h5msmfilehandler",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.html",
+          "href": "#performance-and-i-o-invariants",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/files/file_h5msm.html",
+          "href": "#h5msm",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/files/file_h5msm.html",
+          "href": "#overview-and-format-purpose",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/files/file_h5msm.html",
+          "href": "../../../tools/form/file/h5msm_10.html#user-tools-form-h5msm-10",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/files/file_h5msm.html",
+          "href": "../../../tools/form/file/h5msm_05.html",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/files/file_h5msm.html",
+          "href": "../../../tools/form/file/h5msm_06.html#user-tools-form-h5msm-06",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/files/file_h5msm.html",
+          "href": "../../../cookbook/migrating_h5msm.html#cookbook-migrating-h5msm-10",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/files/file_h5msm.html",
+          "href": "#hdf5-layout-and-dataset-schema",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/files/file_h5msm.html",
+          "href": "../../../tools/form/file/h5msm_10.html#user-tools-form-h5msm-10",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/files/file_h5msm.html",
+          "href": "#read-write-and-streaming-operations",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/files/file_h5msm.html",
+          "href": "../../../tools/form/file/h5msm_05.html#user-tools-form-h5msm-05",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/files/file_h5msm.html",
+          "href": "../../../tools/form/file/h5msm_05.html#user-tools-form-h5msm-05",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/files/file_h5msm.html",
+          "href": "../../../tools/form/file/h5msm_05.html#user-tools-form-h5msm-05",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/foundations/native_world/files/file_h5msm.html",
+          "href": "#performance-and-storage-invariants",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "href": "#h5msmfilehandler",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "href": "#overview",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "href": "../../file/h5msm_10.html#user-tools-form-h5msm-10",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "href": "#supported-attributes",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "href": "#implemented-operations",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "href": "#supported-conversions",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "href": "../../../../foundations/molecular_system/the_molecular_system.html#user-foundations-molecular-system-definition",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "href": "../../../../foundations/native_world/classes/molsysmt_MolSys.html#user-foundations-native-world-classes-molsysmt-molsys",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "href": "../../../../foundations/native_world/classes/molsysmt_Topology.html#user-foundations-native-world-classes-molsysmt-topology",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "href": "../../../../foundations/native_world/classes/molsysmt_Structures.html#user-foundations-native-world-classes-molsysmt-structures",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "href": "../../../basic/convert.html#tutorial-convert",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "href": "../../../../../../api/basic/autosummary/molsysmt.basic.convert.html#molsysmt.basic.convert",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "href": "../../get_attributes.html#tutorial-form-get-attributes",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "href": "../../../../../../api/form/autosummary/molsysmt.form.get_attributes.html#molsysmt.form.get_attributes",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "href": "../../has_attribute.html#tutorial-form-has-attribute",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "href": "../../../../../../api/form/autosummary/molsysmt.form.has_attribute.html#molsysmt.form.has_attribute",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "#module-4-native-forms",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "01_The_Form_Agnostic_Philosophy.html#course-core-the-form-agnostic-philosophy",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "02_Molecular_Attributes.html#course-core-molecular-attributes",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/index.html#user-foundations-index",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/molsysviewer_tools.html",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "#the-native-orchestrator-molsysmt-molsys",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/basic/get.html#tutorial-get",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/basic/info.html#tutorial-info",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/basic/convert.html#tutorial-convert",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/basic/convert.html#tutorial-convert",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/molsysviewer_tools.html",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/molsysviewer_tools.html",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_MolSys.html#user-foundations-native-world-classes-molsysmt-molsys",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "#modular-domain-components-topology-chemicalstates-structures-and-molecularmechanics",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "05_Combined_Forms.html#course-core-combined-forms",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "19_Structures_and_Trajectories.html#course-core-structures-and-trajectories",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/interactions/result.html",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/basic/convert.html#tutorial-convert",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/cookbook/saving_pi_pi_interactions.html#cookbook-saving-pi-pi-interactions",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/interactions/result.html#user-tools-interactions-result",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_MolSys.html#user-foundations-molsys-copying",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_Structures.html#user-foundations-structures-copying",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_MolSys.html#user-foundations-molsys-copying",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_MolSysBuilder.html#user-foundations-native-world-classes-molsysmt-molsysbuilder",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_MolSys.html#user-foundations-resident-copying",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_MolecularMechanics.html#user-foundations-native-world-classes-molsysmt-molecularmechanics",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/form/file/h5msm_06.html#user-tools-form-h5msm-06",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_Topology.html#user-foundations-native-world-classes-molsysmt-topology",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_ChemicalStates.html#user-foundations-native-world-classes-molsysmt-chemicalstates",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_Structures.html#user-foundations-native-world-classes-molsysmt-structures",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_MolecularMechanics.html#user-foundations-native-world-classes-molsysmt-molecularmechanics",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/file_handlers/molsysmt_GROFileHandler.html#user-foundations-native-world-file-handlers-molsysmt-grofilehandler",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "#composing-native-domains",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/basic/convert.html",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "#declaring-stable-molecule-membership",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_Topology.html#user-foundations-native-world-classes-molsysmt-topology",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/cookbook/group_free_hierarchy.html#cookbook-group-free-hierarchy",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/element/group/get_1_letter_code_from_name.html#tutorial-group-name-code",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/molecular_system/naming_schemes.html#user-foundations-group-naming-schemes",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "#editing-one-chemical-state",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/basic/native_chemical_editing.html#tutorial-native-chemical-editing",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_ChemicalStates.html#user-foundations-native-world-classes-molsysmt-chemicalstates",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/cookbook/group_free_hierarchy.html#cookbook-group-free-hierarchy",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "#inspecting-a-selected-chemical-state",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "#reading-declared-chemical-fields",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_ChemicalStates.html#user-foundations-native-world-classes-molsysmt-chemicalstates",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../../api/basic/api_native_queries.html#molsysmt.native.ChemicalStates.get",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_ChemicalStates.html#user-foundations-native-world-classes-molsysmt-chemicalstates",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "#high-performance-disk-storage-h5msm-files-file-h5msm",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/form/file/h5msm_10.html#user-tools-form-h5msm-10",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/cookbook/migrating_h5msm.html#cookbook-h5msm-assembly-operations",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/form/file/h5msm_06.html#user-tools-form-h5msm-06",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/cookbook/migrating_h5msm.html#cookbook-migrating-h5msm-10",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_MolSys.html#user-foundations-molsys-copying",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/basic/convert.html#tutorial-convert",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/form/file/h5msm_05.html#user-tools-form-h5msm-05",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/form/file/h5msm_05.html#user-tools-form-h5msm-05",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/form/file/h5msm_05.html#user-tools-form-h5msm-05",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/form/file/h5msm_05.html#user-tools-form-h5msm-05",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/entrance/installation.html#user-foundations-runtime-version",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_MolSysDict.html#user-foundations-native-checkpoints",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/form/file/h5msm_10.html",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/cookbook/migrating_h5msm.html#cookbook-migrating-h5msm-10",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/index.html#user-foundations-index",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "#lightweight-native-dictionaries-topologydict-structuresdict-and-molsysdict",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_TopologyDict.html",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_MolSysDict.html",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_StructuresDict.html",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_ViewerJSON.html#user-foundations-native-world-classes-molsysmt-viewerjson",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_ViewerJSON.html#user-foundations-native-world-classes-molsysmt-viewerjson",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/tools/interactions/result.html#user-tools-interactions-result",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_TopologyDict.html#user-foundations-native-world-classes-molsysmt-topologydict",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "#querying-typed-chemical-columns",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../../api/basic/api_native_queries.html#molsysmt.native.ChemicalStatesDict.get",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../../api/basic/api_native_queries.html#molsysmt.native.ChemicalStatesDict.info",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_ChemicalStatesDict.html#user-foundations-native-world-classes-molsysmt-chemicalstatesdict",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "#assigning-typed-chemical-fields",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "#challenge-4-the-native-architect",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "05_Combined_Forms.html",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "#inspecting-native-objects-briefly",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "#querying-native-domains",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../../api/basic/api_native_queries.html#api-native-queries",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/cookbook/group_free_hierarchy.html#cookbook-group-free-hierarchy",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_MolSys.html#user-foundations-native-world-classes-molsysmt-molsys",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_Topology.html#user-foundations-native-world-classes-molsysmt-topology",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_ChemicalStates.html#user-foundations-native-world-classes-molsysmt-chemicalstates",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../../api/basic/api_native_queries.html#molsysmt.native.ChemicalStates.add_bonds",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../../api/basic/api_native_queries.html#molsysmt.native.ChemicalStates.remove_bonds",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../../api/basic/api_native_queries.html#molsysmt.native.ChemicalStates.rebuild_components",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../../api/basic/api_native_queries.html#molsysmt.native.ChemicalStates.get",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../../api/basic/api_native_queries.html#molsysmt.native.ChemicalStatesDict.get",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../../api/basic/api_native_queries.html#molsysmt.native.ChemicalStatesDict.info",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../../api/basic/api_native_queries.html#molsysmt.native.Topology.set_atom_molecules",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_Structures.html#user-foundations-native-world-classes-molsysmt-structures",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_MolecularMechanics.html#user-foundations-native-world-classes-molsysmt-molecularmechanics",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_TopologyDict.html#user-foundations-native-world-classes-molsysmt-topologydict",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_StructuresDict.html#user-foundations-native-world-classes-molsysmt-structuresdict",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/native_world/classes/molsysmt_MolSysDict.html#user-foundations-native-world-classes-molsysmt-molsysdict",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "03_Molecular_Elements.html",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "05_Combined_Forms.html",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "href": "../../user/foundations/index.html#user-foundations-index",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/05_Combined_Forms.html",
+          "href": "#module-5-combined-forms",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/05_Combined_Forms.html",
+          "href": "#the-virtual-multi-form-system",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/05_Combined_Forms.html",
+          "href": "../../../api/basic/autosummary/molsysmt.basic.is_a_molecular_system.html#molsysmt.basic.is_a_molecular_system",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/05_Combined_Forms.html",
+          "href": "#attribute-precedence-msm-where-is-attribute",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/05_Combined_Forms.html",
+          "href": "../../../api/basic/autosummary/molsysmt.basic.where_is_attribute.html#molsysmt.basic.where_is_attribute",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/05_Combined_Forms.html",
+          "href": "#querying-attributes-across-multi-forms-msm-get",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/05_Combined_Forms.html",
+          "href": "#consolidating-multi-forms-into-a-single-form-msm-convert",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/05_Combined_Forms.html",
+          "href": "../../user/tools/form/file/h5msm_05.html",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/05_Combined_Forms.html",
+          "href": "#challenge-5-the-system-weaver",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/05_Combined_Forms.html",
+          "href": "06_Visualizing_Anything.html",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/05_Combined_Forms.html",
+          "href": "../../../api/basic/autosummary/molsysmt.basic.is_a_molecular_system.html#molsysmt.basic.is_a_molecular_system",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/05_Combined_Forms.html",
+          "href": "../../../api/basic/autosummary/molsysmt.basic.where_is_attribute.html#molsysmt.basic.where_is_attribute",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/05_Combined_Forms.html",
+          "href": "../../../api/basic/autosummary/molsysmt.basic.convert.html#molsysmt.basic.convert",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/05_Combined_Forms.html",
+          "href": "04_Native_Forms.html",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/05_Combined_Forms.html",
+          "href": "06_Visualizing_Anything.html",
+          "target_exists": true,
+          "anchor_exists": true
+        },
+        {
+          "page": "content/course/Common_Core/05_Combined_Forms.html",
+          "href": "../../user/foundations/index.html#user-foundations-index",
+          "target_exists": true,
+          "anchor_exists": true
+        }
+      ],
+      "implementation_source_links": [
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/__init__.py",
+          "exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/__init__.py",
+          "exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/extract.py",
+          "exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/copy.py",
+          "exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/add.py",
+          "exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/merge.py",
+          "exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/append_structures.py",
+          "exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/get_topological_attributes.py",
+          "exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/get_structural_attributes.py",
+          "exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/set.py",
+          "exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/iterators.py",
+          "exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/has_attribute.py",
+          "exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/is_form.py",
+          "exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/__init__.py",
+          "exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/to_molsysmt_H5MSMFileHandler.py",
+          "exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/to_molsysmt_MolSys.py",
+          "exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/to_molsysmt_Structures.py",
+          "exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/to_molsysmt_Topology.py",
+          "exists": true
+        },
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.html",
+          "path": "molsysmt/form/molsysmt_H5MSMFileHandler/to_nglview_NGLWidget.py",
+          "exists": true
+        }
+      ],
+      "errors": [],
+      "scope": "Actual five generated article DOMs, reviewed statements, internal targets/anchors and local implementation destinations; no whole-site link, visual-layout or scientific certification."
+    }
+  },
+  "issue_intake": {
+    "complete_paginated_issues": 633,
+    "open_before_closeout": 92,
+    "open_prs": 0,
+    "new_issue_identities_since_previous_receiving": [
+      711,
+      712,
+      713
+    ]
+  },
+  "accounting": {
+    "original_score_percent": 77.73809523809524,
+    "source_graphical_intents": {
+      "received": 50,
+      "total": 50
+    },
+    "supplemental_credit_added": false,
+    "failed_full_suite_backlog_cleared": false,
+    "candidate_and_publication_pause_lifted": false,
+    "artifact_builds_hosted_gates_tags_releases_promotions": false
+  },
+  "fast_gates": {
+    "scope": "Fifteen local fast gates plus index and Ruff validation of current worktree; not complete-source, installed or exact-candidate certification.",
+    "native_exit": 0,
+    "state": "completed",
+    "input_scope": "Six explicit runtime/example/binary/data before/after hashes on the current worktree. This focused wrapper did not fingerprint every validator or repository file. Actual gate commands/results are retained separately; not immutable full-source qualification.",
+    "seconds": 96.11381426989101,
+    "source_commit": "792c14d8a51afa58aa3e034650fa60fa9b505b97",
+    "inputs_before": {
+      "docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md": "3c1c0c4f3c6e05e9e652e8d8289af9f771513eb71bb32bc9cb679b2bebb75d56",
+      "docs/content/user/foundations/native_world/files/file_h5msm.md": "565dd4eef682e9cc77d97ee68645a4b229b059f3c2f6ca54f1e2fdc8e788e2d8",
+      "molsysmt/native/h5msm_file_handler.py": "1b41fc8832d93bd5d972548bee7a6caff70a5e598fbc8b68817e01422c2b61d4",
+      "molsysmt/form/molsysmt_H5MSMFileHandler/copy.py": "e59f4cd60d0cebf0c79cf39ae45ecad12946ba1958517e4b63f309319df9209b",
+      "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+      "molsysmt/data/h5msm/traj_pentalanine.h5msm": "d882572a520fe0cb7dbd4c3254e8f38171d4c788d739ab81ee387acd495433b6"
+    },
+    "inputs_after": {
+      "docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md": "3c1c0c4f3c6e05e9e652e8d8289af9f771513eb71bb32bc9cb679b2bebb75d56",
+      "docs/content/user/foundations/native_world/files/file_h5msm.md": "565dd4eef682e9cc77d97ee68645a4b229b059f3c2f6ca54f1e2fdc8e788e2d8",
+      "molsysmt/native/h5msm_file_handler.py": "1b41fc8832d93bd5d972548bee7a6caff70a5e598fbc8b68817e01422c2b61d4",
+      "molsysmt/form/molsysmt_H5MSMFileHandler/copy.py": "e59f4cd60d0cebf0c79cf39ae45ecad12946ba1958517e4b63f309319df9209b",
+      "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+      "molsysmt/data/h5msm/traj_pentalanine.h5msm": "d882572a520fe0cb7dbd4c3254e8f38171d4c788d739ab81ee387acd495433b6"
+    },
+    "changed_inputs": [],
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "1610612736",
+      "memory.high": "1409286144",
+      "memory.swap.max": "0"
+    },
+    "memory_peak_bytes": 447180800,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 15289536512,
+    "maximum_pressure_avg10": 0.0,
+    "stop_reason": null
+  },
+  "style": {
+    "results": [
+      {
+        "command": [
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.8s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                         59.0s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                       11.8s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.4s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.8s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  1.1s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.1s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.4s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            1.5s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   6.8s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.6s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.3s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.5s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.4s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.5s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "molsysmt",
+          "molsysviewer_molsysmt",
+          "tests",
+          "devtools"
+        ],
+        "native_exit": 0,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "molsysmt",
+          "molsysviewer_molsysmt",
+          "tests",
+          "devtools"
+        ],
+        "native_exit": 0,
+        "stdout": "4623 files already formatted\n",
+        "stderr": ""
+      }
+    ],
+    "passed": true
+  },
+  "private_evidence_sha256": {
+    "full-polished-f0dbb58e0.log": "bbdcff14ee92e83ab9364b7576a0e6a85d354d93544631dc442d1692415e43d1",
+    "full-polished-f0dbb58e0.xml": "3e9aad8df8300c74625b6b6f87f7f971bb0b1212e4453a3b0c0855e7d1f8cd2b",
+    "full-polished-f0dbb58e0.events.jsonl": "10dd165920a106c406affbfefbb743c0977e8af252df5b70840fcebdb58b776c",
+    "full-polished-f0dbb58e0-artifact-status.json": "db2387476e6b86cebbe293a6103aeadbfffd97ea6731f459f5386359b58e8b9d",
+    "full-polished-f0dbb58e0-recovery.json": "7229ca072d9237fac91be1d0a758cab70e6f5d5623b97708f5a8d4758ee6ac8c",
+    "full-polished-resource-recovery-snapshot.json": "f261def078e29fb5211a95d91eda1e30e66921a25d0adb003a893b3adef6b8fa",
+    "fresh-import-isolated-f0dbb58e0-execution.json": "cb08ac66a619366e96a8d9bc39bb9821df8086eb14dc277d0ab39e51ae938480",
+    "fresh-import-isolated-f0dbb58e0.xml": "a3fbf24cee418633f994722824039ba8c0099296f2c41b4fac8e9b0ecd8b077c",
+    "fresh-import-diagnostics-current-execution.json": "39ba5775ee79415dab78d1b5f2109168ec0d39a318c29e3882317ce7222dd91e",
+    "fresh-import-diagnostics-current.xml": "c7cf63802c0f1149f10aeb401d16d1c22d0755e223b2eaa3ffe5115ea9c8cd02",
+    "fresh-import-diagnostic-functional-proof.json": "2ec72594ed2d06b79b77df037a0939f69c2c42888177784b216d8d4be524d99a",
+    "legacy-711-712-baseline-execution.json": "83b9b5353f16b6c3a4d1d3f217a09a2f59f6b2ba39aee385cf69d0484eed8443",
+    "legacy-711-712-baseline.xml": "6902f342b22e08cb9520ff60bcda1c0db3fddf36f3c0e1c692a32e765d36778b",
+    "legacy-711-712-corrected-execution.json": "d93c9a090dede8fb314d698ea9b1d8a678a3d6aaa83f0abcbeeaed9c5b249128",
+    "legacy-711-712-corrected.xml": "779a94e0b1523040415ebcb2582db707dad6ba495c0ff2bbdaa5527e4bfb397f",
+    "legacy-handler-doc-examples-execution.json": "cfc01fa9ad31355ea15fb637e817b4378d580575558f600c395433857d8fcb13",
+    "legacy-handler-doc-examples-v3-execution.json": "750cc6f1501c21f52f10d1e01d5c76837dd20e0a5b2bdb2f28379afbfb5fd45a",
+    "h5msm-documentation-examples-v2.json": "8513a928c6de5ceefe7047be369db7fce97702088b0114c7f308fdfc60ed5799",
+    "doc-examples-v2-startup-disposition.json": "d604849b43dd509b28ffb893991aa678799f5a005d7845e87422d8ffbfe1dcd5",
+    "legacy-handler-declared-attributes-proof.json": "44a35b58c0563edacb0ad0e0240628a6fb322bddde661e5d46c24703477e256d",
+    "legacy-docs-first-admission-disposition.json": "e72ecc82494d3a941db24590ef2ea28eefe39a61202ff5d76e4c792c4244a300",
+    "run_full_polished_f0dbb58e0.py": "5722fa3d748577c6b854d9d813ba87f537fa2119d904d8ddb7b0329c26e87f84",
+    "rescue_full_polished_monitor.py": "a49a08063eb6af39ef06b1dfaa778e612db8590079fb4fbbc778a93e48a1496c",
+    "run_fresh_import_isolated.py": "66a7dc2088e1a94abf4bb0475d95c85a44218024e96a6c2c67bdfd16bf42b121",
+    "run_fresh_import_diagnostics.py": "cc228b33fdd6365a6e6ba46171b6706a3b315131f67216bf86218419d92eccb3",
+    "run_legacy_polish_docs_v2.py": "88d89a76927f496f4042dbe5be1ac8bf9b23c38a198cf96cb49765f260841b9e",
+    "build_legacy_polish_docs.py": "59b95f0680a8ace208da70b35d3f45154a6900348ec4fb430cb0df4261889c1b",
+    "run_doc_examples_v3.py": "aaaab80baf3e16b6d8ed8482d51002f304e7011345fdc7b599cf6def8d31a2ed",
+    "receive_followup.py": "4de4b2707f76805fc765283468c96cfdc1732e251fc3b27e424b86f862f50f8b",
+    "inspect_legacy_docs.py": "9359218516ecac303e672a7bedd5abe0320f16b297381a909bdf0a225352f1f9",
+    "legacy-docs-html-inspection-draft.json": "d57862d6acea1c053de735bc05802a753342d0f51169e9ba23f52a2bcaabaf15",
+    "sphinx-result-legacy-792c14d8a.json": "8e954ad2d00f8817647c714606f6c7f5c0e6b6307094d2525be4f085969aa3a1",
+    "legacy-docs-792c14d8a-v2-execution.json": "692edb992f2de8f694e4510487bf61589c5ee7655a51e0a12045c5583eb130bd",
+    "sphinx-status-legacy-792c14d8a.log": "8988e32a448a6a6a64f2585bb81c7c7415c02c4a0be296074af05239212cf9b7",
+    "sphinx-warnings-legacy-792c14d8a.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "legacy-docs-html-inspection.json": "76ab1a12c78c8d3d94315edd9104884ffa8c252cbefbd38d59fb8fd20feec012",
+    "followup-fast-execution.json": "2902db9c1553b808271ae34206adfe808160a425a05715cde265cb6c3a9339d1",
+    "followup-fast.log": "ffd9b7db0dff5efed0d522bb7b4bfe4778afb8906322c69c33f06632a9737c5b",
+    "followup-style.json": "4716955ff745746aeaa9b43964bd5369bfe54ae3d1ff8d53faea132cfa36fda5"
+  },
+  "private_evidence_scope": "Retained ignored-cache artifacts; basename/digest references identify evidence, not shipped public attachments or a promise of remote artifact availability. No private path/hostname/raw exception is committed."
+}

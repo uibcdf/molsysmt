@@ -2,8 +2,9 @@
 
 ## Resume from here
 
-**Reviewed 2026-11-11 against code/fixture checkpoint `3546267d0`, API
-reference correction `e714c2f0d` and separately recorded polishing evidence.**
+**Reviewed 2026-11-11 against complete-source checkpoint `f0dbb58e0`,
+legacy-handler corrections `17e3cfaf1`/`b90c5239a`, test diagnostics
+`9feea357f` and documentation `792c14d8a`.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
 does not select today's candidate or authorize new execution.
@@ -34,6 +35,52 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Follow-up source receiving and legacy boundaries — 2026-11-11
+
+The complete run on clean `f0dbb58e0` finishes **failed: one failure, 33,824
+passes and 16 skips** in 33,841 cases. The previous 49 integration/schema
+failures do not recur. The remaining failure exceeds the original 60-second
+fresh-import child deadline. No incorrect scientific or query result is
+observed in that failure, but its cause is not established.
+
+The application daemon restart lost the original external supervisor's wait
+status while native pytest continued. A persistent recovery monitor verifies
+unchanged source, native binary, client and provider inputs; JUnit and the
+validated receptor final record agree on the failed test. The externally
+observed native exit remains **unknown**. Resource counters sampled after
+recovery are not complete-run telemetry. Retain the explicit receptor detail
+truncation and this custody gap; neither a recovered monitor nor a valid final
+record turns the session green.
+
+The unchanged three import orders pass once in isolation. The subsequent
+[diagnostic increment](pending_bugs/fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md)
+passes 134 element-utility cases, retaining the original functional program,
+assertions and 60-second deadline while exposing a stack at 45 seconds and
+partial streams on timeout. **#713 stays partial**: the next deliberate
+complete receiving must use a persistent supervisor and capture any recurrence.
+Do not use isolated success to explain the timeout, clear the backlog or
+dispose of the separate #615 investigation.
+
+Two independently reproduced legacy-handler defects have bounded corrections:
+unsupported schema requests reject before opening/truncating a destination
+(#711), and unavailable live-handler copy raises a structured refusal (#712).
+The original guards fail 20 cases with three positive controls; the corrected
+expanded cohort passes 85 cases. The supported file-path copy remains distinct
+from a live-resource snapshot. The reviewed H5MSM/handler guidance and two course
+lessons now state actual layouts, ownership and limitations. Four executions
+of the actual Markdown examples pass under nm/ps and pm/fs; notebook code and
+stored outputs are unchanged. Complete strict HTML on clean `792c14d8a` passes
+with zero warnings; the five generated articles, 153 internal targets/anchors
+and 19 implementation source links are inspected. The bounded service retains
+its soft memory-high events, without OOM or reserve stop. Fifteen fast gates,
+queue indexes, Ruff checks and formatting checks pass on the current worktree.
+
+The [follow-up receipt](../devtools/data/pre_1_0_polishing_followup_334_20261111.json)
+owns detailed evidence and failed/deferred attempts. These local source
+corrections do not qualify the latest complete source, an installed artifact or
+the final pair. Formal progress remains **77.7381%, 50/50 source graphical
+intents**; publication and candidate preparation remain paused.
 
 ## First polishing block and full-suite findings — 2026-11-11
 

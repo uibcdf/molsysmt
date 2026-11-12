@@ -1,13 +1,13 @@
 ---
 summary: Copying an open legacy H5MSM handler fails with an unstructured path TypeError
 issue: uibcdf/molsysmt#712
-status: active
+status: resolved
 opened: 2026-11-11
-closed:
+closed: 2026-11-11
 severity: medium
 verification: reproduced
 area: [form]
-guard:
+guard: tests/form/molsysmt_H5MSMFileHandler/test_copy.py
 normative:
 blocked_by: []
 supersedes: []
@@ -67,3 +67,19 @@ conversion and a real public file-copy doctest. Original failures are retained.
 Two actual documentation examples execute under nm/ps and pm/fs with unchanged
 input bytes, physical coordinates, declared shapes and closed owned handles.
 This is bounded source receiving, not full-suite or installed acceptance.
+
+## Resolution — 2026-11-11
+
+Implementation: `b90c5239a`.
+
+The adapter uses the existing structured NotImplementedMethodError at its
+validated public boundary. Eight direct/universal, destination/default and
+normal/trusted cases check the original owned handle stays open and identical,
+source bytes stay unchanged and no destination appears. The supported path-copy
+and lifecycle controls also pass. This is a truthful refusal of an unavailable
+capability, not implementation of independent live-handler copying.
+
+The [follow-up receipt](../../../devtools/data/pre_1_0_polishing_followup_334_20261111.json)
+retains the original failing guards, bounded correction receiving and related
+documentation checks. The separate full-source timeout remains open under #713;
+this closeout is not full-suite, installed or exact-candidate qualification.
