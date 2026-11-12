@@ -1,12 +1,19 @@
 # Micro-Governance: file_fasta.ipynb
 
 ## Purpose
-Governance rules and frozen contracts for `/home/diego/repos@uibcdf/molsysmt/docs/content/user/tools/form/file/file_fasta.ipynb` (`file:fasta`).
+Governance rules and frozen contracts for `docs/content/user/tools/form/file/file_fasta.ipynb` (`file:fasta`).
 
 ## Cell Sequence & Inviolable Order
 1. **Cell 1 (Code, metadata `{"tags": ["remove-input"]}`)**: Warning suppression.
 2. **Cell 2 (Markdown - Header & Overview)**: Target anchor `(Tutorial_Form_file_fasta)=`, clean title `# file:fasta`, technical metadata, versionadded, collapsible API documentation dropdown, and Overview.
-3. **Cell 3 (Markdown - Supported Attributes)**: Single unified Markdown table listing all 15 supported attributes. No code cells.
+3. **Cell 3 (Markdown - Supported Attributes)**: Single unified Markdown table listing all 15 declared attributes, with instance/version availability explained. No code cells.
 4. **Cell 4 (Markdown - Implemented Operations)**: Table with columns `Function / Module` and `Description` for all public functions/modules in `{mod}`molsysmt.form.file_fasta`` plus collapsible `{note}` dropdown.
 5. **Cell 5 (Markdown - Supported Conversions)**: Table with columns `Target Form`, `Form Type`, and `API Documentation` covering all six direct conversions, including the atom-free Topology and MolSys outputs. Preserve raw-reader versus normalized-conversion distinctions and the explicit distinction between retained native hierarchy and absent atomic realization.
 6. **Cell 6 (Markdown - Related Tools & References)**: Collapsible `{seealso}` dropdown linking to Foundations and Form tools.
+
+## Implementation delivery
+
+Unindexed adapter symbols link to immutable published owning source/docstrings.
+Require intended destinations in actual rendered tables. Preserve every
+registered route, optional prerequisite, unavailable hook and existing reader,
+identity or fidelity caveat. Code, outputs, metadata and anchors stay intact.

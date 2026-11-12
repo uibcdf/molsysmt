@@ -277,3 +277,44 @@ Fifteen common fast gates, generated-index verification and whole-repository
 Ruff checks/format verification pass with unchanged checked inputs. Board/queue
 reconciliation passes. Seven exact task-owned services are terminal/retired; no
 foreign process is touched. These results do not lift the qualification pause.
+
+
+## File-family source review — 2026-11-12
+
+The next increment covers all 26 flagged file notebooks. The new discriminating
+baseline has 29 failures/55 passes: missing intended-link delivery, three stale
+attribute inventories (H5MSM and two YAML domains), and missing MolSys routes
+for SMILES/topology YAML. Corrected H5MSM/MolSys-YAML/topology-YAML inventories
+match 116/98/78 declarations, distinguishing version/layer/instance availability
+and PyYAML prerequisites. Both omitted routes are restored. Unavailable
+add/merge/append/set/iterator and copy hooks are no longer advertised as working.
+Resident versus backend iteration and coordinate-dump XYZ's actual header,
+units and absence of an element column are explicit. Earlier reader, identity,
+chemical-evidence and selection explanations remain.
+
+The first corrected cohort has one failure/83 passes. GRO's self-conversion
+links to a dormant to_file_gro wrapper rather than its registered extract
+route; the final route correction passes all 84 cases. The shared private
+guards preserve eleven native cases and add an explicitly reviewed file
+inventory, conditional YAML registry checks and independent converter-table
+destinations for hooks reused as converters. They do not glob-admit future
+adapters or execute every optional conversion. Actual HTML receiving remains
+due. Notebook code, stored outputs, metadata, anchors and six-cell order remain.
+
+The source review separately discovers #729's independent-copy/source-safety
+bug. Its functional correction is published in 7b607f638, with a retained
+80-failure/52-pass baseline and 136 corrected focused/example passes. That
+correctness work is admitted under #334's finite cutoff; its documentation,
+common gates and lifecycle closeout remain separate from #727's link repair.
+
+
+## File-family integrated source receiving — 2026-11-12
+
+The final combined cohort passes 237 cases, including the 84 reference/native
+controls, #729 file extraction, dictionary schemas, PDB/GRO instructional
+examples, the new recipe under two unit policies and basic.extract doctests.
+One expected LegacyH5MSMWarning is retained rather than suppressed. The final
+26 pages contain 493 intended reference occurrences to 440 independently
+matched files at published 7b607f638. Empty getter modules and unavailable
+operations are distinguished from delivery through other supported routes.
+Actual HTML and common/lifecycle completion remain pending; #727 stays partial.

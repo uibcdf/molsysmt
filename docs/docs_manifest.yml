@@ -688,6 +688,91 @@ sections:
             agents_file: docs/content/user/tools/form/string/string_pdb_text.ipynb.AGENTS.md
             description: Declared native PDB text context, unchanged disabled-inference default, semantic selections and external interpretation limits.
             status: pending_review
+          - name: reviewed_file_crd_references
+            file: docs/content/user/tools/form/file/file_crd.ipynb
+            agents_file: docs/content/user/tools/form/file/file_crd.ipynb.AGENTS.md
+            description: 15 adapter declarations and 5 registered routes, with published implementation references and explicit operation/prerequisite limits.
+            status: pending_review
+          - name: reviewed_file_dcd_references
+            file: docs/content/user/tools/form/file/file_dcd.ipynb
+            agents_file: docs/content/user/tools/form/file/file_dcd.ipynb.AGENTS.md
+            description: 9 adapter declarations and 5 registered routes, with published implementation references and explicit operation/prerequisite limits.
+            status: pending_review
+          - name: reviewed_file_gro_references
+            file: docs/content/user/tools/form/file/file_gro.ipynb
+            agents_file: docs/content/user/tools/form/file/file_gro.ipynb.AGENTS.md
+            description: 20 adapter declarations and 12 registered routes, with published implementation references and explicit operation/prerequisite limits.
+            status: pending_review
+          - name: reviewed_file_h5_references
+            file: docs/content/user/tools/form/file/file_h5.ipynb
+            agents_file: docs/content/user/tools/form/file/file_h5.ipynb.AGENTS.md
+            description: 60 adapter declarations and 11 registered routes, with published implementation references and explicit operation/prerequisite limits.
+            status: pending_review
+          - name: reviewed_file_h5msm_references
+            file: docs/content/user/tools/form/file/file_h5msm.ipynb
+            agents_file: docs/content/user/tools/form/file/file_h5msm.ipynb.AGENTS.md
+            description: 116 adapter declarations and 8 registered routes, with published implementation references and explicit operation/prerequisite limits.
+            status: pending_review
+          - name: reviewed_file_inpcrd_references
+            file: docs/content/user/tools/form/file/file_inpcrd.ipynb
+            agents_file: docs/content/user/tools/form/file/file_inpcrd.ipynb.AGENTS.md
+            description: 12 adapter declarations and 3 registered routes, with published implementation references and explicit operation/prerequisite limits.
+            status: pending_review
+          - name: reviewed_file_mdcrd_references
+            file: docs/content/user/tools/form/file/file_mdcrd.ipynb
+            agents_file: docs/content/user/tools/form/file/file_mdcrd.ipynb.AGENTS.md
+            description: 0 adapter declarations and 1 registered routes, with published implementation references and explicit operation/prerequisite limits.
+            status: pending_review
+          - name: reviewed_file_mol2_references
+            file: docs/content/user/tools/form/file/file_mol2.ipynb
+            agents_file: docs/content/user/tools/form/file/file_mol2.ipynb.AGENTS.md
+            description: 50 adapter declarations and 11 registered routes, with published implementation references and explicit operation/prerequisite limits.
+            status: pending_review
+          - name: reviewed_file_molsys_yaml_references
+            file: docs/content/user/tools/form/file/file_molsys_yaml.ipynb
+            agents_file: docs/content/user/tools/form/file/file_molsys_yaml.ipynb.AGENTS.md
+            description: 98 adapter declarations and 3 registered routes, with published implementation references and explicit operation/prerequisite limits.
+            status: pending_review
+          - name: reviewed_file_pir_references
+            file: docs/content/user/tools/form/file/file_pir.ipynb
+            agents_file: docs/content/user/tools/form/file/file_pir.ipynb.AGENTS.md
+            description: 15 adapter declarations and 5 registered routes, with published implementation references and explicit operation/prerequisite limits.
+            status: pending_review
+          - name: reviewed_file_psf_references
+            file: docs/content/user/tools/form/file/file_psf.ipynb
+            agents_file: docs/content/user/tools/form/file/file_psf.ipynb.AGENTS.md
+            description: 55 adapter declarations and 5 registered routes, with published implementation references and explicit operation/prerequisite limits.
+            status: pending_review
+          - name: reviewed_file_smi_references
+            file: docs/content/user/tools/form/file/file_smi.ipynb
+            agents_file: docs/content/user/tools/form/file/file_smi.ipynb.AGENTS.md
+            description: 54 adapter declarations and 5 registered routes, with published implementation references and explicit operation/prerequisite limits.
+            status: pending_review
+          - name: reviewed_file_top_references
+            file: docs/content/user/tools/form/file/file_top.ipynb
+            agents_file: docs/content/user/tools/form/file/file_top.ipynb.AGENTS.md
+            description: 0 adapter declarations and 4 registered routes, with published implementation references and explicit operation/prerequisite limits.
+            status: pending_review
+          - name: reviewed_file_topology_yaml_references
+            file: docs/content/user/tools/form/file/file_topology_yaml.ipynb
+            agents_file: docs/content/user/tools/form/file/file_topology_yaml.ipynb.AGENTS.md
+            description: 78 adapter declarations and 4 registered routes, with published implementation references and explicit operation/prerequisite limits.
+            status: pending_review
+          - name: reviewed_file_xtc_references
+            file: docs/content/user/tools/form/file/file_xtc.ipynb
+            agents_file: docs/content/user/tools/form/file/file_xtc.ipynb.AGENTS.md
+            description: 6 adapter declarations and 5 registered routes, with published implementation references and explicit operation/prerequisite limits.
+            status: pending_review
+          - name: reviewed_file_xyz_references
+            file: docs/content/user/tools/form/file/file_xyz.ipynb
+            agents_file: docs/content/user/tools/form/file/file_xyz.ipynb.AGENTS.md
+            description: 5 adapter declarations and 2 registered routes, with published implementation references and explicit operation/prerequisite limits.
+            status: pending_review
+          - name: reviewed_file_xyznpy_references
+            file: docs/content/user/tools/form/file/file_xyznpy.ipynb
+            agents_file: docs/content/user/tools/form/file/file_xyznpy.ipynb.AGENTS.md
+            description: 5 adapter declarations and 2 registered routes, with published implementation references and explicit operation/prerequisite limits.
+            status: pending_review
           - name: native_topology_form
             file: docs/content/user/tools/form/class/molsysmt/molsysmt_Topology.ipynb
             agents_file: docs/content/user/tools/form/class/molsysmt/molsysmt_Topology.ipynb.AGENTS.md

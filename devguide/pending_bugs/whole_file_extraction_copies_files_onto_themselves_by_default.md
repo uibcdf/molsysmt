@@ -109,3 +109,9 @@ Initial lint exposes sixteen unreachable legacy returns after early-return
 refactoring and one import-layout mismatch; those are corrected before source
 publication. HDF5 automatic subset writing is deliberately not claimed: its
 existing external writer requires a distinct explicit destination.
+
+
+The integrated cohort passes 237 cases, including existing dictionary/PDB/GRO
+examples and basic.extract doctests. The one legacy-0.4 warning is retained.
+Functional source 7b607f638 is published; actual HTML, common checks and final
+lifecycle evidence remain pending. No complete-source or installed claim follows.

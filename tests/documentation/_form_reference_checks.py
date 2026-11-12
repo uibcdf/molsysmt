@@ -144,26 +144,107 @@ _OPERATIONS = {
         "is_form",
     },
 }
+_FILE_HOOKS = {
+    "__init__",
+    "extract",
+    "copy",
+    "add",
+    "merge",
+    "append_structures",
+    "get_topological_attributes",
+    "get_structural_attributes",
+    "set",
+    "iterators",
+    "has_attribute",
+    "is_form",
+}
+_YAML_HOOKS = {
+    "__init__",
+    "get_topological_attributes",
+    "get_structural_attributes",
+    "has_attribute",
+    "is_form",
+}
+# Explicitly reviewed file tutorials; adding an adapter does not admit it here.
+_FILE_OPERATIONS = {
+    "file_bcif": _FILE_HOOKS,
+    "file_bcif_gz": _FILE_HOOKS,
+    "file_cif": _FILE_HOOKS,
+    "file_cif_gz": _FILE_HOOKS,
+    "file_crd": _FILE_HOOKS,
+    "file_dcd": _FILE_HOOKS,
+    "file_fasta": _FILE_HOOKS - {"append_structures"},
+    "file_gro": _FILE_HOOKS,
+    "file_h5": _FILE_HOOKS,
+    "file_h5msm": _FILE_HOOKS,
+    "file_inpcrd": _FILE_HOOKS,
+    "file_mdcrd": _FILE_HOOKS,
+    "file_mol2": _FILE_HOOKS | {"get_mechanical_attributes"},
+    "file_molsys_yaml": _YAML_HOOKS,
+    "file_pdb": _FILE_HOOKS,
+    "file_pir": _FILE_HOOKS - {"append_structures"},
+    "file_prmtop": _FILE_HOOKS,
+    "file_psf": _FILE_HOOKS | {"get_mechanical_attributes"},
+    "file_smi": _FILE_HOOKS - {"append_structures"},
+    "file_structures_yaml": _YAML_HOOKS,
+    "file_top": _FILE_HOOKS,
+    "file_topology_yaml": _YAML_HOOKS,
+    "file_trjpk": _YAML_HOOKS | {"to_molsysmt_StructuresDict"},
+    "file_xtc": _FILE_HOOKS,
+    "file_xyz": _FILE_HOOKS,
+    "file_xyznpy": _FILE_HOOKS,
+}
+
+
+def _declared_converters(adapter, directory):
+    if directory.name not in {
+        "file_molsys_yaml",
+        "file_structures_yaml",
+        "file_topology_yaml",
+    }:
+        return adapter._convert_to
+    # These three reviewed adapters condition their entire registry on PyYAML.
+    # Their documentation describes the routes with that prerequisite, even in
+    # a source-only receiving environment where the optional engine is absent.
+    from depdigest import is_installed
+
+    tree = ast.parse((ROOT / directory / "__init__.py").read_text())
+    conditional = [node for node in tree.body if isinstance(node, ast.If)]
+    assert len(conditional) == 1
+    assert ast.unparse(conditional[0].test) == "is_installed('yaml')"
+    assignment = conditional[0].body[0]
+    assert isinstance(assignment, ast.Assign)
+    assert ast.unparse(assignment.targets[0]) == "_convert_to"
+    declarations = ast.literal_eval(assignment.value)
+    assert adapter._convert_to == (declarations if is_installed("yaml") else {})
+    return declarations
 
 
 def _assert_native_form_reference_contract(name):
-    page = ROOT / PAGES / f"molsysmt_{name}.ipynb"
+    is_file = name in _FILE_OPERATIONS
+    adapter_name = name if is_file else f"molsysmt_{name}"
+    page = ROOT / (
+        Path("docs/content/user/tools/form/file") / f"{name}.ipynb"
+        if is_file
+        else PAGES / f"{adapter_name}.ipynb"
+    )
+    operations = _FILE_OPERATIONS[name] if is_file else _OPERATIONS[name]
     notebook = json.loads(page.read_text())
     source = "\n".join("".join(cell["source"]) for cell in notebook["cells"])
-    adapter = importlib.import_module(f"molsysmt.form.molsysmt_{name}")
-    directory = Path(f"molsysmt/form/molsysmt_{name}")
-    expected = {directory / f"{item}.py" for item in _OPERATIONS[name]}
-    expected.update(
+    adapter = importlib.import_module(f"molsysmt.form.{adapter_name}")
+    directory = Path(f"molsysmt/form/{adapter_name}")
+    converters = _declared_converters(adapter, directory)
+    expected = {directory / f"{item}.py" for item in operations}
+    converter_files = {
         directory / f"{value if isinstance(value, str) else value.__name__}.py"
-        for value in adapter._convert_to.values()
-    )
+        for value in converters.values()
+    }
+    expected.update(converter_files)
     conversions = "".join(notebook["cells"][4]["source"])
-    assert set(re.findall(r"^\| `([^`]+)` \|", conversions, re.M)) == set(
-        adapter._convert_to
-    )
+    assert set(re.findall(r"^\| `([^`]+)` \|", conversions, re.M)) == set(converters)
     assert re.findall(
         r"\*\*(\d+) registered direct conversion routes\*\*", conversions
-    ) == [str(len(adapter._convert_to))]
+    ) == [str(len(converters))]
     links = re.findall(r"\]\((https://github.com/uibcdf/molsysmt/blob/[^)]+)\)", source)
     observed = set()
     for url in links:
@@ -189,15 +270,17 @@ def _assert_native_form_reference_contract(name):
         observed.add(path)
     assert observed == expected
     assert not re.search(
-        rf"\{{(?:func|mod)\}}`~?molsysmt\.form\.molsysmt_{name}", source
+        rf"\{{(?:func|mod)\}}`~?molsysmt\.form\.{adapter_name}", source
     )
     return {
         "name": name,
         "page": page,
         "links": links,
         "source_files": expected,
-        "operations": len(_OPERATIONS[name]) - 1,
-        "converters": len(adapter._convert_to),
+        "operations": len(operations) - 1,
+        "operation_names": operations,
+        "converter_files": converter_files,
+        "converters": len(converters),
     }
 
 
@@ -206,9 +289,7 @@ def _assert_rendered_native_form_references(html_root, name):
 
     contract = _assert_native_form_reference_contract(name)
     html_root = Path(html_root).resolve()
-    page = (
-        html_root / "content/user/tools/form/class/molsysmt" / f"molsysmt_{name}.html"
-    )
+    page = html_root / contract["page"].relative_to(ROOT / "docs").with_suffix(".html")
     soup = BeautifulSoup(page.read_text(), "html.parser")
     article = soup.select_one("article.bd-article")
     assert article is not None
@@ -225,13 +306,15 @@ def _assert_rendered_native_form_references(html_root, name):
     expected_operations = {
         href
         for href in expected
-        if Path(urlsplit(href).path).stem in _OPERATIONS[name] - {"__init__"}
+        if Path(urlsplit(href).path).stem in contract["operation_names"] - {"__init__"}
     }
     assert {
         node["href"] for node in tables[1].find_all("a", href=True)
     } == expected_operations
-    assert {node["href"] for node in tables[2].find_all("a", href=True)} == expected - {
-        href for href in expected if Path(urlsplit(href).path).stem in _OPERATIONS[name]
+    assert {node["href"] for node in tables[2].find_all("a", href=True)} == {
+        href
+        for href in expected
+        if Path(*urlsplit(href).path.split("/")[5:]) in contract["converter_files"]
     }
     local = set()
     for href in hrefs:

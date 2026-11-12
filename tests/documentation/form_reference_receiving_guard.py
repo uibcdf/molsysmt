@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 from tests.documentation._form_reference_checks import (
+    _FILE_OPERATIONS,
     _assert_rendered_native_form_references,
 )
 
@@ -24,6 +25,7 @@ from tests.documentation._form_reference_checks import (
         "MolecularMechanics",
         "ViewerJSON",
         "GROFileHandler",
+        *_FILE_OPERATIONS,
     ],
 )
 def test_actual_native_tutorial_delivers_every_intended_reference(name):
