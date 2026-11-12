@@ -318,3 +318,16 @@ One expected LegacyH5MSMWarning is retained rather than suppressed. The final
 matched files at published 7b607f638. Empty getter modules and unavailable
 operations are distinguished from delivery through other supported routes.
 Actual HTML and common/lifecycle completion remain pending; #727 stays partial.
+
+
+## Public-route follow-up before final receiving — 2026-11-12
+
+The first clean 543831138 build receives 29 pages with zero warnings; its
+37 actual native/file article guards pass. An extra public HDF5 subset control
+then exposes a legacy output_name route defect despite direct-adapter success.
+Nine further identity routes reproduce that same issue. #729 corrects those
+registered routes in public 7097f81c5 without enabling unsupported MOL2 output.
+All 26 file articles now point to that exact updated source. The final combined
+cohort passes 258 cases with the same one expected legacy-0.4 warning. Renew
+clean HTML/article receiving after the source-link change; preserve the earlier
+237-case and first HTML results at their original scope.

@@ -133,3 +133,10 @@ unsupported extraction through its intended catalog error. The final focused
 cohort passes 157 cases, including nine public identity routes, ten legacy-alias/
 conflict controls, both HDF5 entry points and two unit-policy recipe executions.
 Actual documentation and common/lifecycle receiving remain due at this increment.
+
+
+Public source 7097f81c5 contains the destination-route integration. The expanded
+combined cohort passes 258 cases and retains one expected LegacyH5MSMWarning.
+No hidden engine installation, descriptor bypass or new serialization capability
+is used to satisfy the controls. Renewal of current-source HTML/article proof,
+common gates and the owning closeout record remain due.
