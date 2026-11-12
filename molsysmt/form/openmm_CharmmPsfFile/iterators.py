@@ -17,13 +17,13 @@ class StructuresIterator:
         skip_digestion=False,
     ):
 
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="openmm.CharmmPsfFile")
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="openmm.CharmmPsfFile")
 
 
 class TopologyIterator:
@@ -41,10 +41,10 @@ class TopologyIterator:
         skip_digestion=False,
     ):
 
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="openmm.CharmmPsfFile")
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="openmm.CharmmPsfFile")

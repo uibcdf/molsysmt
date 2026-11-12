@@ -18,10 +18,10 @@ class TopologyIterator:
         **kwargs,
     ):
 
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="file:psf")
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="file:psf")

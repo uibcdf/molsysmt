@@ -18,7 +18,7 @@ class StructuresIterator:
         return self
 
     def __next__(self):
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="file:gro")
 
 
 class TopologyIterator:
@@ -29,4 +29,4 @@ class TopologyIterator:
         return self
 
     def __next__(self):
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="file:gro")

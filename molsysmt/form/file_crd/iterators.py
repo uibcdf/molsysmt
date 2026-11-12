@@ -18,13 +18,13 @@ class StructuresIterator:
         **kwargs,
     ):
 
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="file:crd")
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="file:crd")
 
 
 class TopologyIterator:
@@ -43,10 +43,10 @@ class TopologyIterator:
         **kwargs,
     ):
 
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="file:crd")
 
     def __iter__(self):
         return self
 
     def __next__(self):
-        raise NotImplementedIteratorError
+        raise NotImplementedIteratorError(form="file:crd")
