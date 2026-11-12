@@ -1,0 +1,557 @@
+{
+  "schema": "molsysmt.dependency_hint_receiving/1",
+  "date": "2026-11-12",
+  "issue": "uibcdf/molsysmt#730",
+  "status": "source correction received",
+  "scope": "Two suite-provider acquisition hints, actual missing-provider diagnostics and read-only auditor contracts; not installed compatibility or publication qualification.",
+  "provider_policy_owner": "uibcdf/molsyssuite#167",
+  "executions": {
+    "hints-baseline": {
+      "phase": "hints-baseline",
+      "source_commit": "022460c14841711d5c83fe9150b15e0080519767",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded full HTML or fast-governance receiving as selected; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "2.28 2.04 1.97 4/2896 507646",
+        "cpu_pressure": "some avg10=0.00 avg60=1.81 avg300=2.10 total=15707864892\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "checked_inputs": 7531,
+      "seconds": 4.882147078868002,
+      "changed_inputs": [],
+      "memory_peak_bytes": 138862592,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 13359128576,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "fda2433359f4e6b3632c1cd81c9c70bd8666c800285cc7fe7d8e3b7f547a8b98",
+      "command": [
+        "<python-3.14.7>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/file-reference-727-20261112/hints-baseline.xml",
+        "tests/test_dependencies_architecture.py::test_missing_suite_provider_offers_only_its_uibcdf_conda_route"
+      ],
+      "junit_counts": {
+        "tests": 2,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "junit_sha256": "d369663a8d4b11993010b907cd6c0667d75d973350b48a8e1908b0c16e2397ae",
+      "log_sha256": "8d5971679539922cbe3ca073bbbba8de9076c3ee8b08c03c5b7403025019e70b"
+    },
+    "hints-corrected": {
+      "phase": "hints-corrected",
+      "source_commit": "022460c14841711d5c83fe9150b15e0080519767",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded full HTML or fast-governance receiving as selected; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.93 1.98 1.95 4/2888 508240",
+        "cpu_pressure": "some avg10=0.01 avg60=1.08 avg300=1.88 total=15707958558\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "checked_inputs": 7531,
+      "seconds": 20.91324735688977,
+      "changed_inputs": [],
+      "memory_peak_bytes": 173047808,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 13441474560,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "78c7d9e2d7813d0f1ceaf5daa205b109fc13e918211646a126d43bd3ea58adde",
+      "command": [
+        "<python-3.14.7>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/file-reference-727-20261112/hints-corrected.xml",
+        "tests/test_dependencies_architecture.py",
+        "tests/test_openff_dependency_contract.py",
+        "devtools/tests/test_audit_dependency_contract.py"
+      ],
+      "junit_counts": {
+        "tests": 108,
+        "failures": 9,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 99
+      },
+      "junit_sha256": "9da77c148edfbfa398cdbf66fc1abe69bd62b7167b1dac7e48b6bd644afcc79f",
+      "log_sha256": "3dcfb40eda351e73180ecab2c6552392eacc52c3164d00b7d0bc450124dddab0"
+    },
+    "hints-final": {
+      "phase": "hints-final",
+      "source_commit": "022460c14841711d5c83fe9150b15e0080519767",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded full HTML or fast-governance receiving as selected; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.40 1.86 1.92 1/2701 510933",
+        "cpu_pressure": "some avg10=0.02 avg60=0.19 avg300=1.27 total=15708170730\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "checked_inputs": 7531,
+      "seconds": 19.70387231791392,
+      "changed_inputs": [],
+      "memory_peak_bytes": 172716032,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14858215424,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "32e5da37c87291df4fcf7f34fbb055f09818b904d7383bd585d3f860f193ba05",
+      "command": [
+        "<python-3.14.7>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/file-reference-727-20261112/hints-final.xml",
+        "tests/test_dependencies_architecture.py",
+        "tests/test_openff_dependency_contract.py",
+        "devtools/tests/test_audit_dependency_contract.py"
+      ],
+      "junit_counts": {
+        "tests": 118,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 118
+      },
+      "junit_sha256": "0470129fdada6dee13b1dac8e13922e4818224b76d3852d615524c162717df11",
+      "log_sha256": "28c8613fca8aba08e4301d068fbeec4192034fb7764f12e48a8666259ea4d4c6"
+    }
+  },
+  "preserved": [
+    "Ackredit soft classification",
+    "MolSysViewer hard classification and pyproject runtime requirement",
+    "Third-party routes",
+    "Local source/editable installation",
+    "Version floors and lazy loading"
+  ],
+  "provider_basis": "Existing frozen controlled Python 3.14.7 composition, DepDigest 0.15.1; synchronized guide for a newer provider does not imply runtime adoption.",
+  "final_passed": 118,
+  "warnings": 0,
+  "skipped": 0,
+  "resource_contract": {
+    "cpu_quota": 1,
+    "maximum_gib": 1.5,
+    "own_swap_bytes": 0,
+    "minimum_host_reserve_gib": 6.5,
+    "foreign_processes_signalled": false
+  },
+  "failure_disposition": [
+    "Original two hints fail both focused controls.",
+    "First correction: 9 failed, 99 passed; old hard-PyPI assumption plus one overly broad PyTraj fixture mutation.",
+    "Auditor now validates a plain named Conda route and channel and still requires hard package declaration; ten independent positive/negative guards exercise the boundary.",
+    "PyTraj fixture mutation now targets that provider; its rejection assertion is unchanged."
+  ],
+  "common_receiving": {
+    "execution": {
+      "phase": "checks",
+      "source_commit": "022460c14841711d5c83fe9150b15e0080519767",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded full HTML or fast-governance receiving as selected; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "5.94 3.76 2.62 4/2720 515186",
+        "cpu_pressure": "some avg10=2.07 avg60=16.97 avg300=8.09 total=15735479662\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<python-3.14.7>",
+        "<checkout>/.pytest_cache/file-reference-727-20261112/final_checks.py"
+      ],
+      "checked_inputs": 7414,
+      "seconds": 25.724150442983955,
+      "changed_inputs": [],
+      "memory_peak_bytes": 397471744,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14974607360,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "84a7b924f0dc2400e28990890c2b585b1f59d775cbfdf4a8cd48c379674bcd9c"
+    },
+    "checks": {
+      "passed": true,
+      "commands": [
+        {
+          "command": [
+            "<python-3.14.7>",
+            "devtools/scripts/release_gate.py"
+          ],
+          "native_exit": 0,
+          "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.5s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        5.6s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.4s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.3s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.1s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.4s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   1.9s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.2s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.0s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.2s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "<python-3.14.7>",
+            "devtools/scripts/devguide_index.py",
+            "--check"
+          ],
+          "native_exit": 0,
+          "stdout": "Every queue index is up to date.\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "ruff",
+            "check",
+            "."
+          ],
+          "native_exit": 0,
+          "stdout": "All checks passed!\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "ruff",
+            "format",
+            "--check",
+            "."
+          ],
+          "native_exit": 0,
+          "stdout": "4698 files already formatted\n",
+          "stderr": ""
+        }
+      ]
+    },
+    "scope": "15 common fast gates, index check and full-repository Ruff lint/format on the staged correction; not a heavy or installed qualification.",
+    "exact_task_owned_unit_retirement": {
+      "units": [
+        {
+          "unit": "msm-file727-baseline-20261112.service",
+          "state_before": {
+            "LoadState": "loaded",
+            "ActiveState": "failed",
+            "SubState": "failed",
+            "MainPID": "0",
+            "Result": "exit-code",
+            "ExecMainStatus": "1"
+          },
+          "action": "retired terminal task-owned unit"
+        },
+        {
+          "unit": "msm-file727-copy-probe-20261112.service",
+          "state_before": {
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead",
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0"
+          },
+          "action": "already collected"
+        },
+        {
+          "unit": "msm-file729-baseline-20261112.service",
+          "state_before": {
+            "LoadState": "loaded",
+            "ActiveState": "failed",
+            "SubState": "failed",
+            "MainPID": "0",
+            "Result": "exit-code",
+            "ExecMainStatus": "1"
+          },
+          "action": "retired terminal task-owned unit"
+        },
+        {
+          "unit": "msm-file729-corrected-20261112.service",
+          "state_before": {
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead",
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0"
+          },
+          "action": "already collected"
+        },
+        {
+          "unit": "msm-file729-expanded-20261112.service",
+          "state_before": {
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead",
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0"
+          },
+          "action": "already collected"
+        },
+        {
+          "unit": "msm-file729-lifecycle-20261112.service",
+          "state_before": {
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead",
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0"
+          },
+          "action": "already collected"
+        },
+        {
+          "unit": "msm-file727-corrected-20261112.service",
+          "state_before": {
+            "LoadState": "loaded",
+            "ActiveState": "failed",
+            "SubState": "failed",
+            "MainPID": "0",
+            "Result": "exit-code",
+            "ExecMainStatus": "1"
+          },
+          "action": "retired terminal task-owned unit"
+        },
+        {
+          "unit": "msm-file727-final-20261112.service",
+          "state_before": {
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead",
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0"
+          },
+          "action": "already collected"
+        },
+        {
+          "unit": "msm-file727-integration-20261112.service",
+          "state_before": {
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead",
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0"
+          },
+          "action": "already collected"
+        },
+        {
+          "unit": "msm-file727-html-20261112.service",
+          "state_before": {
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead",
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0"
+          },
+          "action": "already collected"
+        },
+        {
+          "unit": "msm-file727-rendered-20261112.service",
+          "state_before": {
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead",
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0"
+          },
+          "action": "already collected"
+        },
+        {
+          "unit": "msm-file729-publich5-20261112.service",
+          "state_before": {
+            "LoadState": "loaded",
+            "ActiveState": "failed",
+            "SubState": "failed",
+            "MainPID": "0",
+            "Result": "exit-code",
+            "ExecMainStatus": "1"
+          },
+          "action": "retired terminal task-owned unit"
+        },
+        {
+          "unit": "msm-file729-publich5-fixed-20261112.service",
+          "state_before": {
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead",
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0"
+          },
+          "action": "already collected"
+        },
+        {
+          "unit": "msm-file729-identity-base-20261112.service",
+          "state_before": {
+            "LoadState": "loaded",
+            "ActiveState": "failed",
+            "SubState": "failed",
+            "MainPID": "0",
+            "Result": "exit-code",
+            "ExecMainStatus": "1"
+          },
+          "action": "retired terminal task-owned unit"
+        },
+        {
+          "unit": "msm-file729-identity-fixed-20261112.service",
+          "state_before": {
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead",
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0"
+          },
+          "action": "already collected"
+        },
+        {
+          "unit": "msm-file727-integration-final-20261112.service",
+          "state_before": {
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead",
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0"
+          },
+          "action": "already collected"
+        },
+        {
+          "unit": "msm-file727-html-final-20261112.service",
+          "state_before": {
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead",
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0"
+          },
+          "action": "already collected"
+        },
+        {
+          "unit": "msm-file727-rendered-final-20261112.service",
+          "state_before": {
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead",
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0"
+          },
+          "action": "already collected"
+        },
+        {
+          "unit": "msm-file727-guard-negative-20261112.service",
+          "state_before": {
+            "LoadState": "loaded",
+            "ActiveState": "failed",
+            "SubState": "failed",
+            "MainPID": "0",
+            "Result": "exit-code",
+            "ExecMainStatus": "1"
+          },
+          "action": "retired terminal task-owned unit"
+        },
+        {
+          "unit": "msm-file727-guard-final-20261112.service",
+          "state_before": {
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead",
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0"
+          },
+          "action": "already collected"
+        },
+        {
+          "unit": "msm-hints730-baseline-20261112.service",
+          "state_before": {
+            "LoadState": "loaded",
+            "ActiveState": "failed",
+            "SubState": "failed",
+            "MainPID": "0",
+            "Result": "exit-code",
+            "ExecMainStatus": "1"
+          },
+          "action": "retired terminal task-owned unit"
+        },
+        {
+          "unit": "msm-hints730-corrected-20261112.service",
+          "state_before": {
+            "LoadState": "loaded",
+            "ActiveState": "failed",
+            "SubState": "failed",
+            "MainPID": "0",
+            "Result": "exit-code",
+            "ExecMainStatus": "1"
+          },
+          "action": "retired terminal task-owned unit"
+        },
+        {
+          "unit": "msm-hints730-final-20261112.service",
+          "state_before": {
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead",
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0"
+          },
+          "action": "already collected"
+        },
+        {
+          "unit": "msm-file727-checks-20261112.service",
+          "state_before": {
+            "LoadState": "not-found",
+            "ActiveState": "inactive",
+            "SubState": "dead",
+            "MainPID": "0",
+            "Result": "success",
+            "ExecMainStatus": "0"
+          },
+          "action": "already collected"
+        }
+      ],
+      "foreign_processes_signalled": false
+    }
+  }
+}

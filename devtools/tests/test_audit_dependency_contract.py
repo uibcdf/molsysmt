@@ -10,7 +10,7 @@ from pathlib import Path
 import pytest
 import yaml
 
-from devtools.scripts.audit_dependency_contract import audit
+from devtools.scripts.audit_dependency_contract import _registry_findings, audit
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -212,8 +212,49 @@ def test_misspelled_provider_inventory_cannot_disable_acquisition_checks(contrac
 def test_conda_provider_routes_come_from_valid_registry_metadata(
     contract_tree, old, new, message
 ):
-    _replace(contract_tree / "molsysmt/_depdigest.py", old, new)
+    path = contract_tree / "molsysmt/_depdigest.py"
+    text = path.read_text()
+    start = text.index('    "pytraj": {')
+    end = text.index("    },", start) + len("    },")
+    provider = text[start:end]
+    assert old in provider
+    path.write_text(text[:start] + provider.replace(old, new, 1) + text[end:])
     assert any(message in finding.message for finding in audit(contract_tree))
+
+
+@pytest.mark.parametrize(
+    ("route", "channel", "requirements", "message"),
+    [
+        ("molsysviewer", "uibcdf", {"molsysviewer"}, None),
+        ("molsysviewer", "uibcdf", set(), "is absent from pyproject.toml"),
+        (None, "uibcdf", {"molsysviewer"}, "has no public Python distribution route"),
+        ("molsysviewer", None, {"molsysviewer"}, "invalid hard Conda"),
+        ("molsysviewer", False, {"molsysviewer"}, "invalid hard Conda"),
+        ("molsysviewer", "", {"molsysviewer"}, "invalid hard Conda"),
+        ("molsysviewer>=0.24", "uibcdf", {"molsysviewer"}, "invalid hard Conda"),
+        ("molsysviewer[extra]", "uibcdf", {"molsysviewer"}, "invalid hard Conda"),
+        ("molsysviewer; python_version<'3.12'", "uibcdf", set(), "invalid hard Conda"),
+        ("not a package name", "uibcdf", set(), "invalid hard Conda"),
+    ],
+)
+def test_hard_conda_hint_still_requires_valid_route_and_runtime_metadata(
+    route, channel, requirements, message
+):
+    findings = _registry_findings(
+        {
+            "molsysviewer": {
+                "type": "hard",
+                "pypi": None,
+                "conda": route,
+                "channel": channel,
+            }
+        },
+        requirements,
+    )
+    if message is None:
+        assert findings == []
+    else:
+        assert len(findings) == 1 and message in findings[0].message
 
 
 @pytest.mark.parametrize("requirement", ["pytraj>=2.0.6", "ambertools>=26"])

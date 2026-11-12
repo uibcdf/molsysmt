@@ -2,9 +2,11 @@ import pytest
 from depdigest import (
     DepConfig,
     dep_digest,
+    get_info,
     is_installed,
     register_package_config,
     resolve_config,
+    temporary_package_config,
 )
 
 from molsysmt._private.smonitor import LibraryNotFoundError
@@ -95,3 +97,44 @@ def test_mmcif_is_registered_as_a_hard_dependency():
     assert _depdigest.MAPPING["file_cif_gz"] == "mmcif"
     assert _depdigest.MAPPING["file_bcif"] == "mmcif"
     assert _depdigest.MAPPING["file_bcif_gz"] == "mmcif"
+
+
+@pytest.mark.parametrize(
+    ("library", "dependency_type"),
+    [("ackredit", "soft"), ("molsysviewer", "hard")],
+)
+def test_missing_suite_provider_offers_only_its_uibcdf_conda_route(
+    monkeypatch, library, dependency_type
+):
+    from depdigest.core import checker
+
+    from molsysmt._depdigest import LIBRARIES
+
+    metadata = LIBRARIES[library]
+    assert metadata == {
+        "type": dependency_type,
+        "pypi": None,
+        "conda": library,
+        "channel": "uibcdf",
+    }
+    monkeypatch.setattr(checker, "is_installed", lambda name: False)
+
+    def operation():
+        raise AssertionError("an absent provider must not execute its consumer")
+
+    operation.__module__ = "suite_installation_probe.consumer"
+    guarded = dep_digest(library)(operation)
+    with temporary_package_config(
+        "suite_installation_probe",
+        DepConfig(libraries={library: metadata}, exception_class=LibraryNotFoundError),
+    ):
+        info = get_info("suite_installation_probe", format="dict")["dependencies"][0]
+        with pytest.raises(LibraryNotFoundError) as missing:
+            guarded()
+
+    command = f"conda install -c uibcdf {library}"
+    assert info["installed"] is False
+    assert info["package_name"] == {"pypi": None, "conda": library}
+    assert info["install"] == {"pypi": None, "conda": command}
+    assert command in str(missing.value)
+    assert "pip install" not in str(missing.value)

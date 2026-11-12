@@ -12,6 +12,18 @@ SHAs used while a coordinated Conda pair is staged live in the controlled
 source manifest named by `devtools/dependency_contract.toml`; those SHAs do
 not define public version floors.
 
+Installation hints are acquisition metadata, independently of hard/soft status.
+Ackredit remains optional and MolSysViewer remains required; both advertise
+their reviewed `uibcdf` Conda route with `pypi=None`. A required provider may
+use a named Conda route instead of a PyPI hint, but its plain package name
+and explicit channel must be valid and its requirement must still occur in
+`pyproject.toml`. The auditor rejects missing runtime requirements, malformed
+routes, constraints/extras/markers embedded in a route and missing channel metadata.
+This metadata does not certify a public PyPI release, installed compatibility
+or a provider version. Third-party routes and local pip source/editable
+installation are unchanged. MolSysSuite #167 owns shared route policy;
+MolSysMT #730 owns this consumer correction.
+
 The inventory's `runtime_extras` classifies public runtime extras by name;
 currently it selects `soft`, independently of test and documentation tools.
 Their names, version constraints, extras, markers and URLs are read from

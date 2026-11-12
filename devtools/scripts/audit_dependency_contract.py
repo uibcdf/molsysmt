@@ -266,14 +266,37 @@ def _registry_findings(libraries: dict, project: set[str]) -> list[Finding]:
             continue
         distribution = metadata.get("pypi", library)
         if distribution is None:
-            if kind == "hard":
+            if kind != "hard":
+                continue
+            distribution = metadata.get("conda")
+            if not isinstance(distribution, str) or not distribution.strip():
                 findings.append(
                     Finding(
                         path,
                         f"hard form dependency {library} has no public Python distribution route",
                     )
                 )
-            continue
+                continue
+            try:
+                route = Requirement(distribution)
+            except ValueError:
+                route = None
+            channel = metadata.get("channel")
+            if (
+                route is None
+                or route.specifier
+                or route.extras
+                or route.marker
+                or route.url
+                or not isinstance(channel, str)
+                or not channel.strip()
+            ):
+                findings.append(
+                    Finding(
+                        path, f"invalid hard Conda distribution route for {library}"
+                    )
+                )
+                continue
         if not isinstance(distribution, str) or not distribution.strip():
             findings.append(
                 Finding(path, f"invalid Python distribution route for {library}")

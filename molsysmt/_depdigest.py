@@ -2,7 +2,12 @@
 from molsysmt._private.smonitor import LibraryNotFoundError
 
 LIBRARIES = {
-    "ackredit": {"type": "soft", "pypi": "ackredit"},
+    "ackredit": {
+        "type": "soft",
+        "pypi": None,
+        "conda": "ackredit",
+        "channel": "uibcdf",
+    },
     "numpy": {"type": "hard", "pypi": "numpy"},
     "pandas": {"type": "hard", "pypi": "pandas"},
     "jinja2": {"type": "hard", "pypi": "jinja2"},
@@ -18,7 +23,12 @@ LIBRARIES = {
         "channel": "conda-forge",
     },
     "nglview": {"type": "soft", "pypi": "nglview"},
-    "molsysviewer": {"type": "hard", "pypi": "molsysviewer"},
+    "molsysviewer": {
+        "type": "hard",
+        "pypi": None,
+        "conda": "molsysviewer",
+        "channel": "uibcdf",
+    },
     "pdbfixer": {"type": "soft", "pypi": "pdbfixer"},
     "Bio": {"type": "soft", "pypi": "biopython", "conda": "biopython"},
     "rdkit": {"type": "soft", "pypi": "rdkit"},
