@@ -12,6 +12,59 @@ API = (
     "--slurp",
     "repos/{owner}/{repo}/issues?state=all&per_page=100",
 )
+LABEL_API = (
+    "api",
+    "--paginate",
+    "--slurp",
+    "repos/{owner}/{repo}/labels?per_page=100",
+)
+
+
+def test_label_absence_is_decided_after_every_label_page(monkeypatch):
+    names = ["bug", *[f"area-{index:03d}" for index in range(199)], "last-label"]
+
+    def acquire(*arguments):
+        if arguments[:2] == ("label", "list"):
+            # Reproduce the old valid native transport and its explicit cap.
+            count = int(arguments[arguments.index("--limit") + 1])
+            return "\n".join(names[:count])
+        assert arguments == LABEL_API
+        return json.dumps(
+            [
+                [{"name": name} for name in names[start : start + 100]]
+                for start in range(0, len(names), 100)
+            ]
+        )
+
+    monkeypatch.setattr(devguide_issue, "_gh", acquire)
+    assert devguide_issue._missing_labels(["bug", "last-label", "truly-absent"]) == [
+        "truly-absent"
+    ]
+
+
+@pytest.mark.parametrize("pages", [[], [[]]])
+def test_label_inventory_accepts_valid_empty_pages(monkeypatch, pages):
+    monkeypatch.setattr(devguide_issue, "_gh", lambda *args: json.dumps(pages))
+    assert devguide_issue._board_labels() == set()
+
+
+@pytest.mark.parametrize(
+    "payload",
+    ["", "not-json", "{}", "[{}]", "[[null]]", '[[{"name":null}]]', '[[{"name":""}]]'],
+)
+def test_invalid_label_acquisition_is_not_missing_labels(monkeypatch, payload):
+    monkeypatch.setattr(devguide_issue, "_gh", lambda *args: payload)
+    with pytest.raises(ValueError):
+        devguide_issue._missing_labels(["bug"])
+
+
+def test_label_transport_failure_preserves_its_error(monkeypatch):
+    def fail(*arguments):
+        raise SystemExit("Label acquisition failed")
+
+    monkeypatch.setattr(devguide_issue, "_gh", fail)
+    with pytest.raises(SystemExit, match="Label acquisition failed"):
+        devguide_issue._missing_labels(["bug"])
 
 
 def test_remote_state_keeps_old_issues_beyond_five_pages_and_filters_prs(monkeypatch):

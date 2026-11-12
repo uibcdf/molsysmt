@@ -78,7 +78,7 @@ def _slug(title: str) -> str:
 
 
 def _board_labels() -> set:
-    """The labels that exist on the board, fetched once.
+    """Acquire the complete current label inventory before deciding absence.
 
     `gh` validates every label in a call against the repository and rejects the whole
     command if one is unknown, so a label that does not exist stops the labels that do
@@ -87,8 +87,24 @@ def _board_labels() -> set:
     first is what turns that into a message the filer can act on.
     """
 
-    listed = _gh("label", "list", "--limit", "200", "--json", "name", "-q", ".[].name")
-    return {name.strip() for name in listed.splitlines() if name.strip()}
+    pages = json.loads(
+        _gh("api", "--paginate", "--slurp", "repos/{owner}/{repo}/labels?per_page=100")
+    )
+    if not isinstance(pages, list) or any(not isinstance(page, list) for page in pages):
+        raise ValueError("Invalid paginated label inventory: expected label pages")
+    names = set()
+    for page in pages:
+        for label in page:
+            if (
+                not isinstance(label, dict)
+                or not isinstance(label.get("name"), str)
+                or not label["name"]
+            ):
+                raise ValueError(
+                    "Invalid paginated label inventory: missing label name"
+                )
+            names.add(label["name"])
+    return names
 
 
 def _missing_labels(labels) -> list:
