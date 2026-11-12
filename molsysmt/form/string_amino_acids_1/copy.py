@@ -1,27 +1,31 @@
-from copy import copy
+from copy import copy as shallow_copy
 
 from molsysmt._private.argdigest import arg_digest
 
 
 @arg_digest(form="string:amino_acids_1")
-def extract(item, skip_digestion=False):
+def copy(item, skip_digestion=False):
     """
-    Extracting a subset of elements or structures from form string:amino_acids_1.
-
+    Copying a one-letter amino-acid sequence.
 
     Parameters
     ----------
-    item : molecular system
-        Argument item.
+    item : str
+        One-letter sequence, optionally prefixed with ``amino_acids_1:``.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    string:amino_acids_1
-        Resulting object in string:amino_acids_1 form.
+    str
+        The unchanged sequence value. Immutable strings may retain their identity.
 
+    Examples
+    --------
+    >>> from molsysmt.form.string_amino_acids_1.copy import copy
+    >>> copy('ACD')
+    'ACD'
 
     .. versionadded:: 1.0.0
     """
-    return copy(item)
+    return shallow_copy(item)
