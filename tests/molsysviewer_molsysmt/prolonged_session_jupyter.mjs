@@ -13,7 +13,14 @@ const cell=(i,p=page)=>p.locator('.jp-NotebookPanel:visible .jp-Cell').nth(i);
 const surface=i=>cell(i).locator('[data-molsysviewer-canvas-output]').first();
 async function execute(i,p=page){await p.getByText(/Isolated molecular tools receiving\s*\|\s*Idle/).waitFor();await cell(i,p).locator('.cm-content').click();await p.getByRole('button',{name:/Run this cell and advance/}).click();}
 async function marker(s){await page.waitForFunction(s=>document.querySelector('.jp-OutputArea-error')||[...document.querySelectorAll('.jp-OutputArea-output')].some(n=>n.textContent.trim()===s),s);assert.equal(await page.locator('.jp-OutputArea-error').count(),0,'Notebook cell reported a Python exception');await page.getByText(s,{exact:true}).waitFor();}
-async function controls(p,scope=p){await scope.getByRole('button',{name:'Show canvas controls',exact:true}).focus();await p.keyboard.press('Enter');}
+async function controls(p,scope=p){
+ await scope.getByRole('button',{name:'Show canvas controls',exact:true}).focus();
+ await p.keyboard.press('Enter');
+ // Enter initiates an asynchronous visibility/focus transfer. focus() on a
+ // hidden descendant can silently leave the hotspot active. Receive the real
+ // transfer in this canvas before the caller targets another button.
+ await scope.locator('.molsysviewer-controls button:focus').waitFor({state:'visible'});
+}
 async function installObservation(p){
  await p.addInitScript(()=>{
   window.__longRefs=[];
@@ -63,7 +70,16 @@ try{
    return Object.entries(expected.positions).every(([k,v])=>found[k]?.every((x,i)=>x===Math.fround(v[i])));
   },expected);
   stage='cycle '+n+' stale rejection and windows';stamp();await execute(2);await marker('LONG_WINDOWS_READY_'+n);await frame(page,0);await controls(page,surface(1));const opened=page.waitForEvent('popup');await surface(1).getByTitle('Open popup',{exact:true}).click();const canvas=await opened;recordPage(canvas);await canvas.locator('#molsysviewer-loading').waitFor({state:'hidden'});await bind(canvas);await frame(canvas,0);
-  await controls(canvas);const next=canvas.locator('[data-molsysviewer-trajectory-step="next"]');await next.focus();await canvas.keyboard.press('Enter');await frame(canvas,1);await frame(page,1);
+  // Exercise the hidden-to-visible path instead of depending on the initial
+  // two-second discovery window still being open on this particular cycle.
+  await canvas.locator('canvas').focus();
+  const bounds=await canvas.locator('canvas').boundingBox();assert.ok(bounds);
+  await canvas.mouse.move(bounds.x+bounds.width*.75,bounds.y+bounds.height*.75);
+  await canvas.waitForFunction(()=>{const s=document.querySelector('.molsysviewer-controls');return s?.inert&&getComputedStyle(s).visibility==='hidden';});
+  await controls(canvas);const next=canvas.locator('[data-molsysviewer-trajectory-step="next"]');await next.focus();
+  const nextFocused=await next.evaluate(element=>document.activeElement===element);
+  assert.equal(nextFocused,true,'Next needs actual focus before keyboard activation');
+  await canvas.keyboard.press('Enter');await frame(canvas,1);await frame(page,1);
   await controls(canvas);const toggle=canvas.getByTitle('Panel mode (N / W)',{exact:true});if(!await canvas.getByTitle('Popout panel to external window',{exact:true}).isVisible())await toggle.click();const detached=canvas.waitForEvent('popup');await canvas.getByTitle('Popout panel to external window',{exact:true}).click();const studio=await detached;recordPage(studio);await studio.locator('#molsysviewer-loading').waitFor({state:'detached'});await studio.close();await canvas.close();
   stage='cycle '+n+' coherent save/recovery';stamp();await execute(3);await marker('LONG_RECOVERED_'+n);const recovered=JSON.parse(await readFile(output+'/cycle-recovered.json','utf8'));assert.equal(recovered.structure,1);await surface(3).locator('canvas').waitFor();await bind(page,3,recovered.viewer_id);await frame(page,1);
 
@@ -73,7 +89,7 @@ try{
   const activity=await page.evaluate(()=>{const s=window.__longPlayback;s.subscription.unsubscribe();const row={seconds:(performance.now()-s.started)/1000,draws:s.draws,distinct_frames:s.frames.size};delete window.__longPlayback;return row;});
   stage='cycle '+n+' pause/final check';stamp();await execute(5);await marker('LONG_PAUSED_'+n);await frame(page,73);await execute(6);await marker('LONG_CLOSED_'+n);
   const diagnostic=await page.evaluate(()=>{const w=window.__longWitness,s=w.plugin.canvas3d.camera.getSnapshot();const camera=JSON.stringify({position:s.position,target:s.target,up:s.up,fov:s.fov,mode:s.mode});if(camera!==window.__longWitnessCamera)throw new Error('Independent witness camera changed '+JSON.stringify({before:JSON.parse(window.__longWitnessCamera),after:JSON.parse(camera)}));delete window.__longActive;globalThis.gc?.();window.__longRefs=window.__longRefs.filter(r=>r.deref());return {frame_trace:(window.__longFrameTrace??[]).slice(-200),gc_exposed:typeof globalThis.gc==='function',js_heap_bytes:performance.memory?.usedJSHeapSize??null,observed_controllers:window.__longRefs.length,controller_lifetimes:window.__longRefs.map(r=>{const c=r.deref();return {disposed:c?.disposed??null,connected:c?.canvasHost?.isConnected??false,atoms:c?.getStructureData()?.elementCount??null};}),connected_controllers:window.__longRefs.filter(r=>r.deref()?.canvasHost?.isConnected).length};});
-  records.push({cycle:n,stages:cycleStages,seconds:(Date.now()-cycleStart)/1000,activity,...diagnostic});await writeFile(output+'/browser-cycles.json',JSON.stringify(records,null,2));console.log('CYCLE '+n+' passed '+JSON.stringify(records.at(-1)));
+  records.push({cycle:n,stages:cycleStages,seconds:(Date.now()-cycleStart)/1000,activity,controls:{started_hidden:true,next_focused:nextFocused},...diagnostic});await writeFile(output+'/browser-cycles.json',JSON.stringify(records,null,2));console.log('CYCLE '+n+' passed '+JSON.stringify(records.at(-1)));
  }
  stage='final cleanup';await execute(7);await marker('LONG_ALL_COMPLETE '+cycles);const native=JSON.parse(await readFile(output+'/long-ledger.json','utf8'));assert.equal(native.length,cycles);assert.equal(new Set(native.map(r=>r.kernel_identity)).size,1);assert.equal(new Set(native.map(r=>r.kernel_pid+':'+r.kernel_birth)).size,1);
  const fingerprint=e=>e.error+'|'+(e.stack?.split('\n')[1]||'');assert.ok(errors.every(e=>baselineErrors.some(b=>fingerprint(e)===fingerprint(b))));

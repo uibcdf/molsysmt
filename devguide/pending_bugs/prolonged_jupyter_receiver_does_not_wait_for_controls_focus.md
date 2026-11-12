@@ -105,3 +105,22 @@ Browser-memory growth retains separate consumer #356/#315 work. Owner review
 force-imports providers before the demo and may change cold initialization.
 Retain existing functional results for their actual composition; changed-input
 receiving and owner integration remain pending. Publication pause is unchanged.
+
+
+## Owner passive-observer correction — 2026-11-11
+
+The owner receives PR #721 at 5816bec8 onto de578b72a, retaining the existing
+single report and release-ledger row. A fresh-process guard reproduces imports
+by the contribution's observer; loaded-provider and missing-file controls also
+fail on that original implementation. The corrected observer reads sys.modules
+and stored module metadata only, records loaded versus absent explicitly, and
+uses the private receiving schema @2. It does not invoke lazy module attributes
+or activate missing providers. Its file/entry-point record remains distinct
+from a complete source manifest or installed identity.
+
+The three new guards and 53 existing receiver/import controls pass (56 cases,
+zero skips). Original baseline failures remain retained. Ruff/format and Node
+syntax checks pass. Actual changed-observer Jupyter receiving is still pending;
+the original thirty-cycle contribution retains its active-observer composition
+and copied-source/client/runtime scope. No full-source or installed acceptance
+is inferred, and no publication/candidate pause is lifted.
