@@ -21,8 +21,4 @@ Entries are filed and closed under [reporting_protocol.md](../../reporting_proto
 
 - [`course_modules_lack_paired_content_contracts.md`](course_modules_lack_paired_content_contracts.md) — [#512](https://github.com/uibcdf/molsysmt/issues/512) — Course modules lack paired content-protection contracts. *(low, measured)*
 
-### In progress (1)
-
-- [`gro_handler_tutorial_advertises_unavailable_mutation_and_iteration.md`](gro_handler_tutorial_advertises_unavailable_mutation_and_iteration.md) — [#716](https://github.com/uibcdf/molsysmt/issues/716) — GRO handler tutorial advertises unavailable mutation and iteration *(medium, reproduced)*
-
 <!-- /generated -->

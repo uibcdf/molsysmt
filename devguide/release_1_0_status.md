@@ -3,8 +3,8 @@
 ## Resume from here
 
 **Reviewed 2026-11-11 against complete-source checkpoint `6acad4f35`,
-PDB documentation `a3b6d30eb`, catalog correction `af4ac5daa` and their
-separately received evidence.**
+GRO documentation `bc2db775d`, iterator diagnostics `9adad50d1` and the
+separately received earlier documentation/catalog slices.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
 does not select today's candidate or authorize new execution.
@@ -19,6 +19,7 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
+| Receive #718's Jupyter control-focus correction | Source inspection confirms that the prolonged receiver proceeds before receiving actual visible keyboard focus. The controlled reproduction is reported by MolSysViewer, not rerun here. Review its proposed PR, execute the bounded actual-GUI guard and then the unchanged thirty-cycle campaign; preserve original deadlines and distinguish #615 and lifetime investigations. |
 | Complete the admitted pre-1.0 polishing review | Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11): correct worthwhile code, test, documentation and workflow findings, and review incoming issues/PRs at phase checkpoints. Preserve original milestone accounting and qualification boundaries. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
 | Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
@@ -36,6 +37,31 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## GRO guidance and unsupported iterator diagnostics — 2026-11-11
+
+#716 corrects the GRO tutorial's unsupported operation claims and demonstrates
+independent copy ownership plus selected public quantities under nm/ps and pm/fs.
+#717 fixes 103 refusal branches that previously raised TypeError while trying to
+construct the SMonitor exception. The actual registered form is now supplied;
+available iterator behavior, signatures, wrappers and the native binary remain
+unchanged. Six original documentation-cohort failures and all 103 original
+diagnostic failures are retained separately.
+
+The combined corrected cohort passes **166 cases with zero skips**. Fifteen
+fast gates and applicable Ruff/index checks pass. Complete HTML on clean
+`bc2db775d` has zero warnings; two actual GRO articles, 26 article references and
+five implementation links are inspected. The [receiving receipt](../devtools/data/gro_iterator_receiving_716_717_20261111.json)
+owns exact source/input attribution, warnings, resource limits and failed probes.
+The later executable edits have focused receiving; the complete source result
+still applies to `6acad4f35`, and the nightly/final-source backlog remains.
+
+New incoming [#718](pending_bugs/prolonged_jupyter_receiver_does_not_wait_for_controls_focus.md)
+is the next validation priority. Its external actual-Jupyter focus diagnostic is
+kept separate from an unobserved state in the original failure and from #615.
+No new Jupyter campaign was launched during this intake. The final-pair,
+installed, format-freeze and publication boundaries and original **77.7381%,
+50/50 source graphical intents** accounting remain unchanged.
 
 ## Source-backed demo catalog correction — 2026-11-11
 

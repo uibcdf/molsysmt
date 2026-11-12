@@ -1,13 +1,13 @@
 ---
 summary: Unavailable form iterators fail while constructing their diagnostic
 issue: uibcdf/molsysmt#717
-status: active
+status: resolved
 opened: 2026-11-11
-closed:
+closed: 2026-11-11
 severity: medium
 verification: reproduced
 area: [form, diagnostics]
-guard:
+guard: tests/form/test_unavailable_iterator_diagnostics.py
 normative:
 blocked_by: []
 supersedes: []
@@ -78,5 +78,27 @@ own memory-high/max/OOM event or reserve stop. A transient global pressure pulse
 is retained; available memory is not a resource reservation.
 
 All 15 fast release gates, applicable Ruff and queue checks pass. Complete HTML
-and publication/closure are still pending. This is diagnostic/contract receiving,
+is received below; publication/closure follow its final checks. This is diagnostic/contract receiving,
 not a complete source suite, optional-engine execution or installed qualification.
+
+## Resolution — 2026-11-11
+
+Implementation 9adad50d1 supplies the existing SMonitor exception's required form
+in all 103 reviewed refusals across 60 modules. The explicit 103-route guard
+executes each actual refusal, including decorated constructors deliberately
+unwrapped only to isolate the branch, and checks exception type and form text.
+It fails at every original missing-form expression. A normalized AST comparison
+proves signatures, wrappers and all other statements unchanged. The generic
+unregistered template identifies that scope explicitly.
+
+The 166-case combined source cohort, fifteen fast gates and applicable Ruff/
+index checks pass. Complete strict HTML on clean bc2db775d has zero warnings;
+two GRO articles and their actual references are inspected. The [shared receipt](../../../devtools/data/gro_iterator_receiving_716_717_20261111.json)
+retains original failures, warnings, input hashes, native exits and shared-host
+telemetry. No phase changes its checked inputs, reaches an own memory limit or
+stops for the host reserve. Temporary global pressure is retained explicitly.
+
+These are later executable changes outside complete-source checkpoint 6acad4f35;
+their focused receiving does not clear the next deliberate complete-source or
+hosted nightly backlog. #718, #713/#615 uncertainty and final artifact/installed
+qualification remain open. The publication pause is unchanged.

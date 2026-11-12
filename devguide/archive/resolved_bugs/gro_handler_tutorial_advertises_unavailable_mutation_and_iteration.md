@@ -1,13 +1,13 @@
 ---
 summary: GRO handler tutorial advertises unavailable mutation and iteration
 issue: uibcdf/molsysmt#716
-status: active
+status: resolved
 opened: 2026-11-11
-closed:
+closed: 2026-11-11
 severity: medium
 verification: reproduced
 area: [docs, form]
-guard:
+guard: tests/documentation/test_gro_handler_example.py
 normative:
 blocked_by: []
 supersedes: []
@@ -91,7 +91,34 @@ five conversion references are preserved. Only its explanatory Markdown changes;
 no new execution mark is claimed. A source-only review of course notebooks
 checks for this form/diagnostic without running or modifying their examples.
 The 15 fast release gates and applicable Ruff/index checks pass. Complete HTML
-and actual generated article/reference receiving remain pending before closure.
+and actual generated article/reference receiving are recorded in the resolution below.
 The first edit helper stopped on a duplicated short manifest key; selecting the
 unique page-path context completed that update. No partial script is treated as
 proof of finished edits.
+
+## Resolution — 2026-11-11
+
+Documentation bc2db775d distinguishes registered hooks from actual availability,
+whole-handler copies from unsupported subsets, and declared/piped attributes
+from data stored in a GRO entry. Its paired instructions and manifest reflect
+that scope. Diagnostic implementation remains separately owned by #717.
+
+The primary guard executes the actual adapter outcomes before checking their
+advertised table status; it fails on the original misleading claims. Its two
+actual page-example cases independently compare deposited coordinates and
+buffer ownership under both unit policies. The six-cell tutorial execution
+payload is unchanged. Core01's existing handler link/scope is source-reviewed;
+no new course execution is claimed.
+
+Complete strict HTML on clean bc2db775d has zero warnings. Both actual articles
+preserve their anchors, 62 declarations, five conversion rows and eleven
+operation rows, including five explicitly unavailable rows and one whole-handler
+restriction. Twenty-six article links and five implementation-source links are
+checked. The [shared receipt](../../../devtools/data/gro_iterator_receiving_716_717_20261111.json)
+retains baseline failures, exact source attribution, checks, resources and two
+corrected inspection probes (highlighted-code whitespace and Sphinx-normalized
+anchor IDs). Neither probe required changing documentation to fit an assertion.
+
+The next incoming priority is #718's reported Jupyter receiver readiness defect.
+Full-source, format-freeze, installed/final-pair and publication boundaries remain
+separate. No new streaming or writer capability is supplied by this correction.
