@@ -14,6 +14,13 @@ before publication. The intermediate 0.24.0 / 0.25.0 milestone is deferred.
 
 ### Review coverage and order
 
+The maintainer's [12 November handoff objective](technical_handoff_for_1_0_documentation_review.md)
+now bounds this queue: complete technical readiness and deliver documentation
+for his review. The [scope cutoff](release_1_0_scope.md#documentation-review-handoff-objective--2026-11-12)
+supersedes automatic admission of optional improvements; the review coverage
+below identifies defects and owned future work without continually enlarging
+the release requirements.
+
 1. **Correctness and data integrity:** numerical and scientific meaning,
    quantities under non-default policies, selections/maps, chemical-state and
    interaction validity, partial systems, persistence and explicit loss/refusal.
@@ -43,7 +50,7 @@ before publication. The intermediate 0.24.0 / 0.25.0 milestone is deferred.
 | P1 — strict API documentation, #334 | Complete HTML on clean `01c6266f6`, `8ada7fe24` and `3546267d0` passes with zero warnings. Eight RST files include the four expressly approved preexisting edits; the original six-title failure is retained. | This bounded correction is received. Recheck affected pages for later changes and run the exact final candidate's documentation gate. |
 | P2 — persistence/integration and source receiving, #334 / #256 / #709–#713 / #717 / #720 / #722 | Complete `6acad4f35` remains **33,850 passes, 16 skips, zero failures/errors**. Later iterator diagnostic/inventory and flag repairs have focused receiving: 166, then 377, then 526 overlapping cases pass. The native binary remains unchanged. | Preserve exact scopes and original failures. Later executable changes remain in the deliberate complete-source/nightly backlog; latest main is not fully qualified. #713 causality, hosted/platform/installed and exact-candidate gates stay separate. |
 | P3 — semantic documentation review, #334 / #378 / #714–#716 / #719 / #725–#727 | The four dictionary guides join MolSys/Topology/Structures: 24 source controls, 55 existing runtime cases, zero-warning targeted HTML and seven actual-article guards pass. Seven reviewed pages deliver 162 intended links to 156 verified source files. | #727 remains partial: 79 of 87 unchanged-source/HTML cached articles retain 1,517 unlinked Python-role nodes. Continue per-form review, preserving failed attempts, contracts and scorecard. |
-| P4 — incoming and remaining issues/PRs, owning issue / #334 | Complete 12 November intake now has 647 issues, 93 open and no open PRs. New [#728](pending_proposals/protor_radii_types_and_provenance_in_one_evaluation.md) requests ProtOr radii/types/provenance from one evaluation; source shows discarded intermediate typing, with no measured speedup or numerical defect. #723 retains its earlier bounded molecular receiving. | Admit the bounded #728 API/compatibility study after the active native-form documentation increment; preserve radius-only behavior and measure before claiming savings. Keep #723 long-campaign and #615/#713 causal acceptance separate. |
+| P4 — incoming and remaining issues/PRs, owning issue / #334 | Complete 12 November intake now has 647 issues, 93 open and no open PRs. New [#728](pending_proposals/protor_radii_types_and_provenance_in_one_evaluation.md) requests ProtOr radii/types/provenance from one evaluation; source shows discarded intermediate typing, with no measured speedup or numerical defect. #723 retains its earlier bounded molecular receiving. | Under the new handoff cutoff, retain #728's source study and defer implementation until post-1.0 unless explicitly admitted later. Preserve the existing public composition. Review new correctness/integrity reports; keep #723 long-campaign and #615/#713 causal acceptance separate. |
 | P5 — client and final-candidate boundaries, #256 / #250 / #254 / #524 / #615 / #334 | Independent default-specific MolSysViewer source receiving is [reviewed and accepted](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-default-specific-molsysviewer-receiving--2026-11-11): 18 session cases and 151 boundary cases on the declared source. The final pair is not frozen; #615's original uncertainty and installed-package evidence remain open. | Complete the stable-format decision and final pair agreement. Keep the published dependency floor, installed matrix and publication decisions distinct from local polish and headless source receiving. |
 
 ### Adding and closing findings
@@ -55,8 +62,9 @@ its own owning issue/report. The detailed report remains the evidence owner;
 this queue links it rather than duplicating an independent status register.
 Small related corrections may be grouped in their work package.
 
-Admit worthwhile bounded corrections and improvements that can be reviewed and
-verified before 1.0. If a change alters a public/scientific contract, complete
+Under the 12 November cutoff, complete necessary bounded corrections that can
+be reviewed and verified before 1.0; optional improvements default to the owned
+post-1.0 queue. If a change alters a public/scientific contract, complete
 its documentation, attribution, units and consumer-impact work as applicable.
 For a large new capability or redesign, state alternatives and impact before
 implementation. Deferred work records why, who owns it and when to reconsider.

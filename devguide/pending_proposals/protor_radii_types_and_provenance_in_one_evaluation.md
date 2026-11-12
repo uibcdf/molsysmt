@@ -45,9 +45,14 @@ opportunity, not an established performance result or a new radius model.
 
 ## Scope and work order
 
-Admit a bounded API/compatibility study into the pre-1.0 polishing queue after
-the active native-form documentation increment. It is not a correctness blocker
-for 1.0. Retain selection, syntax, units, fallback and typing semantics; do not
+The initial intake admitted a bounded API/compatibility study to the polishing
+queue. The maintainer's later 12 November
+[documentation-review handoff cutoff](../release_1_0_scope.md#documentation-review-handoff-objective--2026-11-12)
+defers implementation until after 1.0 unless explicitly admitted later or
+demonstrated necessary to correct an admitted blocker. Keep this proposal open,
+owned by MolSysMT physchem, and revisit after the coordinated 1.0 release.
+It is not a correctness blocker for 1.0. Retain selection, syntax, units, fallback
+and typing semantics; do not
 expand this request into new chemistry or alter #470/#471 selector contracts.
 A public change needs ArgDigest validation, applicable attribution, documentation
 and course review, focused guards and a consumer handoff before completion.

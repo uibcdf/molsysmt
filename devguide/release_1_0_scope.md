@@ -23,10 +23,33 @@ prepare an intermediate MolSysMT 0.24.0 / MolSysViewer 0.25.0 milestone. Use
 the interval for the pre-1.0 polishing review below. This does not authorize
 candidate construction, hosted qualification or publication.
 
+## Documentation-review handoff objective — 2026-11-12
+
+The maintainer selects a finite destination: deliver a technically qualified
+MolSysMT 1.0.0 / MolSysViewer 1.0.0 pair with only his editorial/scientific
+documentation review outstanding. The [handoff plan](technical_handoff_for_1_0_documentation_review.md)
+defines the work order, evidence criteria and review-to-publication sequence.
+It does not claim that this destination has already been reached.
+
+This narrows the discretionary polishing admission below. Correctness,
+data integrity, materially misleading documentation and existing release/client
+obligations remain in scope. New optional capabilities, redesigns and efficiency
+improvements default to post-1.0 unless the maintainer explicitly admits them
+or evidence makes them necessary to fix an admitted blocker. #728 is retained
+as a nonblocking proposal, with implementation deferred by this cutoff.
+Continue issue intake without requiring every open issue to close.
+
+The final-pair agreement, exact-candidate gates and documented uncertainty
+boundaries remain required. Candidate/hosted/publication pauses are unchanged.
+Changes following the maintainer's review require final-reference qualification
+under the existing release gate; documentation edits are not an exception.
+
 ## Pre-1.0 polishing admission — 2026-11-11
 
-The maintainer explicitly requests incorporating worthwhile polishing and
-corrections, and attending issues that merit resolution before 1.0. This
+The 12 November handoff cutoff above now limits discretionary additions under
+this earlier admission. The maintainer explicitly requests incorporating
+worthwhile polishing and corrections, and attending issues that merit resolution
+before 1.0. This
 supplements the stabilization queue: review code, scientific meaning, data
 integrity, public contracts, documentation and usable workflows as work
 advances. An existing post-1.0 label does not exempt a finding from review.

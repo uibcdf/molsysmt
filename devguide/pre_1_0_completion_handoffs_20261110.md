@@ -8,6 +8,17 @@ The [scorecard](../devtools/data/pre_1_0_progress_scorecard_20261107.json) owns
 original milestone accounting. The [audit](pre_1_0_robustness_audit_20261106.md)
 and [release ledger](release_1_0_status.md) retain current evidence and history.
 
+## Current destination — 2026-11-12
+
+The maintainer now selects the [technical handoff for his documentation review](technical_handoff_for_1_0_documentation_review.md).
+Reach a qualified final pair with engineering, format/client agreements and
+mandatory technical gates concluded, leaving his editorial/scientific review
+as the remaining substantive task. The plan defines finite stages, exit
+criteria, deferred optional work and final-reference requalification after
+review changes. This target is not yet achieved and does not lift the existing
+candidate/hosted/publication pause. The ledger remains the single current-status
+owner; the dated intake and receiving below retain their original scope.
+
 ## Later 11 November polishing update
 
 The historical complete receiving below remains valid for its original source.

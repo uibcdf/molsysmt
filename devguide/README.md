@@ -144,6 +144,9 @@ Read these documents in order when first working on MolSysMT:
   evidence ledger for the remaining 1.0 work.
 - [release_1_0_scope.md](release_1_0_scope.md) — accepted feature freeze, finite
   stabilization queue and preserved post-1.0 issues.
+- [technical_handoff_for_1_0_documentation_review.md](technical_handoff_for_1_0_documentation_review.md)
+  — accepted destination, finite work order and criteria for leaving only the
+  maintainer's documentation review before the final release decision.
 - [release_gate.md](release_gate.md) — exact-commit checklist required before
   tagging.
 - [release_and_citation.md](release_and_citation.md) — GitHub Release, Zenodo,
