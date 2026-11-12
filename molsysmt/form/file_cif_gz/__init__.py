@@ -37,3 +37,5 @@ _convert_to = {
     "molsysmt.Structures": "to_molsysmt_Structures",
     "file:h5msm": "to_file_h5msm",
 }
+
+_conversion_opt_kwargs = {"file:cif.gz": ["output_name", "output_filename"]}

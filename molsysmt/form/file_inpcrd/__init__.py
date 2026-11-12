@@ -35,3 +35,5 @@ _convert_to = {
     "openmm.AmberInpcrdFile": "to_openmm_AmberInpcrdFile",
     "molsysmt.Structures": "to_molsysmt_Structures",
 }
+
+_conversion_opt_kwargs = {"file:inpcrd": ["output_name", "output_filename"]}

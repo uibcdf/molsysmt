@@ -40,3 +40,5 @@ _convert_to = {
 
 bonds_are_explicit = False
 bonds_can_be_computed = False
+
+_conversion_opt_kwargs = {"file:crd": ["output_name", "output_filename"]}

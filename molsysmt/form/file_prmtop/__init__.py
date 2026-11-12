@@ -41,3 +41,5 @@ _convert_to = {
     "openmm.Modeller": "to_openmm_Modeller",
     "openmm.Topology": "to_openmm_Topology",
 }
+
+_conversion_opt_kwargs = {"file:prmtop": ["output_name", "output_filename"]}

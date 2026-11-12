@@ -40,3 +40,5 @@ _convert_to = {
     "file:pdb": "to_file_pdb",
     "file:h5msm": "to_file_h5msm",
 }
+
+_conversion_opt_kwargs = {"file:h5": ["output_name", "output_filename"]}

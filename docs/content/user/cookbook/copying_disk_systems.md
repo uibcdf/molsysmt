@@ -120,6 +120,11 @@ subset serialization. Copying or writing a subset onto source aliases is
 rejected before modifying the source; an explicit no-copy request for a complete
 selection may instead return the original path.
 
+Use `output_filename` as the canonical destination in supported identity
+converters. Converters retaining `output_name` accept it as a legacy alias;
+providing both spellings raises `ArgumentConflictError` before writing. Alias
+support does not add unavailable subset or format-writing capabilities.
+
 ## Respecting each boundary
 
 Without `output_filename`, MolSysMT securely reserves a unique same-suffix path

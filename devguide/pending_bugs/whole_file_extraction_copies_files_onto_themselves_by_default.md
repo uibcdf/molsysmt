@@ -115,3 +115,21 @@ The integrated cohort passes 237 cases, including existing dictionary/PDB/GRO
 examples and basic.extract doctests. The one legacy-0.4 warning is retained.
 Functional source 7b607f638 is published; actual HTML, common checks and final
 lifecycle evidence remain pending. No complete-source or installed claim follows.
+
+
+## Public identity-route integration — 2026-11-12
+
+An added actual public HDF5 subset case exposes the old output_name converter
+argument being treated as an unavailable molecular attribute: the direct case
+passes while the public case fails. The same public probe fails in nine further
+legacy self-converters. These are real registered-route defects, not missing
+engines or unsupported physical calculations. The original failures remain.
+
+Ten converters now accept canonical output_filename and preserve output_name as
+an exclusive alias. Their explicit optional-keyword metadata no longer asks the
+source for an output_name attribute. One private general resolver owns conflict
+handling; no competing file/temporary registry is introduced. MOL2 still refuses
+unsupported extraction through its intended catalog error. The final focused
+cohort passes 157 cases, including nine public identity routes, ten legacy-alias/
+conflict controls, both HDF5 entry points and two unit-policy recipe executions.
+Actual documentation and common/lifecycle receiving remain due at this increment.

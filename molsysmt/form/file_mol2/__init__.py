@@ -46,3 +46,5 @@ piped_structural_attribute = "molsysmt.Structures"
 piped_any_attribute = "molsysmt.MolSys"
 bonds_are_explicit = True
 bonds_can_be_computed = False
+
+_conversion_opt_kwargs = {"file:mol2": ["output_name", "output_filename"]}

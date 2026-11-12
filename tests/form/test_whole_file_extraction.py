@@ -173,7 +173,8 @@ def test_hdf5_subset_requires_distinct_destination_before_opening(tmp_path):
         assert source.read_bytes() == b"unchanged sentinel before decoder"
 
 
-def test_hdf5_subset_preserves_values_order_and_source(tmp_path):
+@pytest.mark.parametrize("entry", ["adapter", "public"])
+def test_hdf5_subset_preserves_values_order_and_source(tmp_path, entry):
     md = pytest.importorskip("mdtraj")
     pytest.importorskip("tables")
     from molsysmt.form.file_h5.extract import extract
@@ -190,12 +191,20 @@ def test_hdf5_subset_preserves_values_order_and_source(tmp_path):
         writer.write(coordinates=coordinates, time=np.array([1, 2], dtype=np.float32))
         writer.topology = topology
     before = source.read_bytes()
-    result = extract(
-        str(source),
-        atom_indices=[0, 2],
-        structure_indices=[1, 0],
-        output_filename=str(destination),
-    )
+    if entry == "public":
+        result = msm.extract(
+            str(source),
+            selection=[0, 2],
+            structure_indices=[1, 0],
+            output_filename=str(destination),
+        )
+    else:
+        result = extract(
+            str(source),
+            atom_indices=[0, 2],
+            structure_indices=[1, 0],
+            output_filename=str(destination),
+        )
     with md.formats.HDF5TrajectoryFile(result, "r") as reader:
         selected = reader.read()
         np.testing.assert_array_equal(
@@ -204,3 +213,93 @@ def test_hdf5_subset_preserves_values_order_and_source(tmp_path):
         np.testing.assert_array_equal(selected.time, [2, 1])
         assert reader.topology.n_atoms == 2
     assert source.read_bytes() == before
+
+
+def test_hdf5_destination_alias_conflict_precedes_writing(tmp_path):
+    from molsysmt._private.smonitor import ArgumentConflictError
+    from molsysmt.form.file_h5.to_file_h5 import to_file_h5
+
+    source = tmp_path / "source.h5"
+    source.write_bytes(b"caller-owned source")
+    with pytest.raises(ArgumentConflictError):
+        to_file_h5(
+            str(source),
+            output_name=str(tmp_path / "legacy.h5"),
+            output_filename=str(tmp_path / "canonical.h5"),
+        )
+    assert source.read_bytes() == b"caller-owned source"
+    assert (
+        not (tmp_path / "legacy.h5").exists()
+        and not (tmp_path / "canonical.h5").exists()
+    )
+
+
+LEGACY_IDENTITY = [
+    "file_bcif",
+    "file_bcif_gz",
+    "file_cif",
+    "file_cif_gz",
+    "file_crd",
+    "file_inpcrd",
+    "file_mol2",
+    "file_prmtop",
+    "file_xyznpy",
+]
+
+
+@pytest.mark.parametrize("name", LEGACY_IDENTITY)
+def test_public_identity_conversion_has_canonical_destination(name, tmp_path):
+    from molsysmt._private.smonitor import NotImplementedMethodError
+
+    module = importlib.import_module("molsysmt.form." + name)
+    suffix = module.form_name.removeprefix("file:")
+    source = tmp_path / ("source." + suffix)
+    destination = tmp_path / ("output." + suffix)
+    source.write_bytes(b"whole-file byte payload\x00\xff")
+    if name == "file_mol2":
+        with pytest.raises(NotImplementedMethodError):
+            msm.convert(str(source), to_form=str(destination))
+    else:
+        output = msm.convert(str(source), to_form=str(destination))
+        assert (
+            Path(output) == destination
+            and destination.read_bytes() == source.read_bytes()
+        )
+    assert source.read_bytes() == b"whole-file byte payload\x00\xff"
+
+
+@pytest.mark.parametrize("name", [*LEGACY_IDENTITY, "file_h5"])
+def test_legacy_identity_alias_and_conflict(name, tmp_path):
+    from molsysmt._private.smonitor import (
+        ArgumentConflictError,
+        NotImplementedMethodError,
+    )
+
+    if name == "file_h5":
+        pytest.importorskip("mdtraj")
+    module = importlib.import_module("molsysmt.form." + name)
+    target = module._convert_to[module.form_name]
+    converter = getattr(
+        importlib.import_module(f"molsysmt.form.{name}.{target}"), target
+    )
+    suffix = module.form_name.removeprefix("file:")
+    source = tmp_path / ("source." + suffix)
+    destination = tmp_path / ("output." + suffix)
+    source.write_bytes(b"caller-owned byte payload")
+    with pytest.raises(ArgumentConflictError):
+        converter(
+            str(source),
+            output_name=str(destination),
+            output_filename=str(tmp_path / ("other." + suffix)),
+        )
+    assert not destination.exists()
+    if name == "file_mol2":
+        with pytest.raises(NotImplementedMethodError):
+            converter(str(source), output_name=str(destination))
+    else:
+        output = converter(str(source), output_name=str(destination))
+        assert (
+            Path(output) == destination
+            and destination.read_bytes() == source.read_bytes()
+        )
+    assert source.read_bytes() == b"caller-owned byte payload"

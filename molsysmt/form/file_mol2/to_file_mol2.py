@@ -9,6 +9,8 @@ def to_file_mol2(
     output_name=None,
     copy_if_all=True,
     skip_digestion=False,
+    *,
+    output_filename=None,
 ):
     """
     Converting from file:mol2 to file:mol2.
@@ -22,8 +24,11 @@ def to_file_mol2(
         Atom indices (0-based) to include.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
-    output_name : object, default=None
-        Argument output_name.
+    output_name : str or pathlib.Path, default=None
+        Legacy destination alias. Prefer output_filename; do not provide both.
+    output_filename : str or pathlib.Path, default=None
+        Canonical destination forwarded to the registered extraction route,
+        with its documented copy, selection and availability limits.
     copy_if_all : object, default=True
         Argument copy_if_all.
     skip_digestion : bool, default=False
@@ -35,16 +40,27 @@ def to_file_mol2(
         Resulting object in file:mol2 form.
 
 
+    Raises
+    ------
+    ArgumentConflictError
+        If both destination spellings are supplied.
+
+
     .. versionadded:: 1.0.0
     """
 
+    from molsysmt._private.files_and_directories import resolve_output_filename
+
+    output_filename = resolve_output_filename(
+        output_filename, output_name, caller="molsysmt.form.file_mol2.to_file_mol2"
+    )
     from .extract import extract
 
     return extract(
         item,
         atom_indices=atom_indices,
         structure_indices=structure_indices,
-        output_name=output_name,
+        output_filename=output_filename,
         copy_if_all=copy_if_all,
         skip_digestion=True,
     )

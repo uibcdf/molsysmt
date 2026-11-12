@@ -6,6 +6,20 @@ from pathlib import Path, PosixPath
 from molsysmt._private.smonitor import ArgumentError
 
 
+def resolve_output_filename(output_filename, output_name, *, caller):
+    """Resolve the legacy destination alias without accepting conflicting paths."""
+    if output_name is not None and output_filename is not None:
+        from molsysmt._private.smonitor import ArgumentConflictError
+
+        raise ArgumentConflictError(
+            arg1="output_name",
+            arg2="output_filename",
+            reason="Provide only one destination; output_filename is preferred.",
+            caller=caller,
+        )
+    return output_filename if output_filename is not None else output_name
+
+
 @contextmanager
 def atomic_new_file(destination):
     """Stage privately and publish one complete new file without replacing a path.
