@@ -25,6 +25,39 @@ from urllib.request import Request, urlopen
 _PROLONGED_BROWSER_TIMEOUT_SECONDS = 2400
 
 
+def _record_molecular_imports(output):
+    """Record files imported by this process, without inferring a source commit."""
+    import hashlib
+    import importlib
+
+    modules = {}
+    for name in (
+        "molsysmt",
+        "molsysmt._rust",
+        "molsysviewer",
+        "molsysviewer_molsysmt",
+        "pyunitwizard",
+        "smonitor",
+        "argdigest",
+        "depdigest",
+    ):
+        module = importlib.import_module(name)
+        origin = Path(module.__file__).resolve()
+        modules[name] = {
+            "origin": str(origin),
+            "sha256": hashlib.sha256(origin.read_bytes()).hexdigest(),
+            "module_version": getattr(module, "__version__", None),
+        }
+    record = {
+        "schema": "molsysmt.jupyter_receiving_imports@1",
+        "scope": "Actual process imports; not a full source manifest or installed qualification.",
+        "python": sys.version,
+        "modules": modules,
+    }
+    Path(output).write_text(json.dumps(record, indent=2), encoding="utf-8")
+    return record
+
+
 def _server_ready_seconds(value):
     """Validate an explicit server-preparation budget, separate from UI waits."""
     seconds = float(value)
@@ -401,6 +434,8 @@ def main():
         "from pathlib import Path\nimport molsysviewer as msv\nimport molsysmt as msm\n"
         f"assert Path(msm.__file__).resolve() == Path({str(source / 'molsysmt/__init__.py')!r})\n"
         f"assert Path(msv.__file__).resolve() == Path({str(viewer / 'molsysviewer/__init__.py')!r})\n"
+        "from tests.molsysviewer_molsysmt.system_panel_jupyter import _record_molecular_imports\n"
+        f"_record_molecular_imports(Path({str(output / 'kernel-molecular-imports.json')!r}))\n"
         "view = msv.demo['1TCD']\nassert view.molsys.get_n_atoms() == 3983\nview\n"
     )
     if args.provider_root:

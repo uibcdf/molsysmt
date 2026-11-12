@@ -15,6 +15,67 @@ from pathlib import Path
 import pytest
 
 
+def test_molecular_import_snapshot_uses_actual_imported_files(tmp_path):
+    """Keep inner-provider identity independent of the outer caller's label."""
+    import hashlib
+    import importlib
+
+    from tests.molsysviewer_molsysmt import system_panel_jupyter as launcher
+
+    path = tmp_path / "actual-imports.json"
+    observed = launcher._record_molecular_imports(path)
+    assert json.loads(path.read_text()) == observed
+    for name, row in observed["modules"].items():
+        module = importlib.import_module(name)
+        origin = Path(module.__file__).resolve()
+        assert Path(row["origin"]) == origin
+        assert row["sha256"] == hashlib.sha256(origin.read_bytes()).hexdigest()
+        assert row["module_version"] == getattr(module, "__version__", None)
+
+
+def test_actual_jupyter_prolonged_popup_controls(tmp_path):
+    """Activate Next from fully hidden controls before receiving a real cycle."""
+    viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
+    output = tmp_path / "jupyter-prolonged-controls"
+    command = [
+        sys.executable,
+        str(Path(__file__).with_name("system_panel_jupyter.py")),
+        "--viewer-root",
+        str(viewer),
+        "--scenario",
+        "prolonged-session",
+        "--cycles",
+        "1",
+        "--active-seconds",
+        "10",
+        "--output",
+        str(output),
+    ]
+    if provider := os.environ.get("MOLSYSVIEWER_PROVIDER_ROOT"):
+        command.extend(["--provider-root", provider])
+    subprocess.run(command, check=True, timeout=360)
+    result = json.loads((output / "full-result.json").read_text())
+    assert result["cycles"] == len(result["records"]) == len(result["native"]) == 1
+    assert result["records"][0]["controls"] == {
+        "started_hidden": True,
+        "next_focused": True,
+    }
+    assert result["records"][0]["activity"]["distinct_frames"] >= 2
+    assert result["active_seconds_per_cycle"] == 10
+    imports = json.loads((output / "kernel-molecular-imports.json").read_text())
+    source = Path(__file__).resolve().parents[2]
+    assert (
+        Path(imports["modules"]["molsysmt"]["origin"])
+        == source / "molsysmt/__init__.py"
+    )
+    assert (
+        Path(imports["modules"]["molsysviewer"]["origin"])
+        == viewer / "molsysviewer/__init__.py"
+    )
+    assert not (output / "settings.json").exists()
+    assert not (output / "config/jupyter_server_config.py").exists()
+
+
 def test_actual_jupyter_initial_canvas_diagnostics(tmp_path):
     """Receive opt-in diagnostics separately from the original Analysis verdict."""
     viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
