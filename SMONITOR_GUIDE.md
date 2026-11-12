@@ -10,8 +10,8 @@ Source of truth for integrating and using **SMonitor** in this library.
 Metadata
 - Source repository: `smonitor`
 - Source document: `standards/SMONITOR_GUIDE.md`
-- Source version: `smonitor@0.22.0`
-- Last synced: 2026-10-22
+- Source version: `smonitor@0.23.0`
+- Last synced: 2026-11-10
 
 ## What is SMonitor
 
@@ -92,6 +92,33 @@ bridge itself is available from >=0.18.0. Selecting a new QA command requires
 its own capability floor; receiving a guide copy does not activate it or raise
 a consumer's runtime dependency floor.
 
+**SMonitor >=0.22.1** keeps an eligible outer exception signal observable when
+an inner signal is filtered, disabled or silenced. Only the first admitted
+observation suppresses enclosing duplicates; an admitted DEBUG observation is
+not promoted to ERROR. Diagnostics emitted by formatters or template callbacks
+have independent admission. Native exception identity and application-owned
+configuration remain unchanged. Consumers should exercise their normal
+thresholds and capture policies when receiving this correction.
+
+**SMonitor >=0.23.0** adds explicit `bind_provider(PACKAGE_ROOT)` snapshots
+for repeated `emit_from_catalog(..., package_root=bound)` or bootstrap-enabled
+`DiagnosticBundle` use. Binding resolves the root once. Rebind to select a new
+relative/cwd/symlink target; ordinary path inputs retain live resolution.
+Configured-package reset, current-manager registration and application policy
+continue to apply. Bound declaration-only emission retains the current manager's
+first registration. The binding selects a canonical pathname, with provider
+files remaining subject to their normal registration/configuration lifecycle.
+
+The same version adds opt-in `smonitor.profiling.observe_calls` on GIL-enabled
+CPython 3.12–3.14 and `observe_process_family` / `linux_resource_snapshot` on
+Linux. Call observations distinguish code aggregation, callable/receiver
+selection, counts, wall/thread CPU and current/all-thread scope. Process-family
+observations use a sibling worker, all-TID discovery, PID/start-tick checks and
+bounded sampled CPU/PSS/RSS with per-read gaps and overhead. Read the
+[observation contract](https://github.com/uibcdf/smonitor/blob/main/docs/content/developer/observation.md)
+for actual backend/capability limits and examples before selecting an API.
+Consumers own receiving evidence and any new >=0.23.0 capability floor.
+
 ## 1. Required Configuration Structure
 
 If the library package is named `mylib`, the following files must exist:
@@ -136,7 +163,9 @@ stricter behaviour.
 
 Recommended pattern:
 - define `CATALOG`, `CODES`, and `SIGNALS` in `mylib/_private/smonitor/catalog.py`;
-- in `_smonitor.py`, import them from `mylib._private.smonitor.catalog`.
+- in `_smonitor.py`, import only `CODES` and `SIGNALS` from that catalog module.
+  `CATALOG` stays in the private integration API; it is not a supported
+  top-level configuration key.
 
 This avoids drift where emitted catalog codes exist but template messages are missing at runtime.
 
@@ -749,7 +778,7 @@ Use duplicate policies for genuinely repeated incidents where aggregate counts a
 Level: **Advanced / CI-support**
 
 Install the optional `smonitor[pytest]` extra to use Pytest Receptor
-`>=1.2,<2`. Conda users install `pytest` and `pytest-receptor>=1.2,<2`
+`>=1.2`. Conda users install `pytest` and `pytest-receptor>=1.2`
 alongside SMonitor. The bridge loads with pytest; activate the receptor's
 `llm` (local) or `ci` profile and explicitly request its artifact:
 
@@ -1029,6 +1058,17 @@ library stand*, SMonitor ships the same checks as a sweep:
 python devtools/verify_integration.py ../mylib          # one
 python devtools/verify_integration.py --all             # every sibling carrying this guide
 ```
+
+The audit discovers either `<repo>/<repo-name>` or
+`<repo>/src/<repo-name>`. If both exist, or the package name differs from the
+checkout name, choose its directory explicitly:
+
+```bash
+python devtools/verify_integration.py ../my-project --package-dir src/mylib
+```
+
+`--package-dir` is relative to that repository (or absolute) and applies to one
+explicit repository. Missing or ambiguous roots fail the layout check.
 
 It covers checks 1, 2, 3 and 5, reads your catalog without importing your
 library, and exits non-zero on any failure, so it works as a gate. Check 4 stays

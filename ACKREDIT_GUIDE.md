@@ -8,19 +8,24 @@ Canonical source: https://github.com/uibcdf/ackredit/blob/main/standards/ACKREDI
 Source of truth for integrating **Ackredit** into a host library, following the
 **MolSysSuite** standards.
 
-## Release reference — 0.12.1
+## Release reference — 0.12.2
 
-The current recommended maintenance release is **Ackredit 0.12.1**, available
-on the `uibcdf` Conda channel. See the [release notes](https://github.com/uibcdf/ackredit/releases/tag/0.12.1)
+The current recommended maintenance release is **Ackredit 0.12.2**, available
+on the `uibcdf` Conda channel as `ackredit-0.12.2-py_1.tar.bz2`. See the [release notes](https://github.com/uibcdf/ackredit/releases/tag/0.12.2)
 and [installation evidence](https://github.com/uibcdf/ackredit/blob/main/docs/content/about/installation.md)
 for the exact noarch file, SHA-256, Linux/macOS arm64 × Python 3.11–3.14
 installed matrix and clean public Linux/Python 3.14 installation.
 
-This release improves large enclosing-workflow snapshots in `get_attribution()`
-while preserving recorded references, contextual uses, order and graph. The
+This release preserves the large enclosing-workflow snapshot improvement from
+0.12.1, including recorded references, contextual uses, order and graph. The
 [performance review](https://github.com/uibcdf/ackredit/blob/main/docs/content/about/performance.md)
 records the measured scope and allocation tradeoff; small cases show no
-consistent speedup. It introduces no API, schema or dependency-floor change.
+consistent speedup. Runtime implementation bytes are unchanged from 0.12.1;
+the maintenance delivery updates packaging and qualification. The required
+ArgDigest floor is now `>=0.15.0` for import without NumPy; optional DueCredit
+uses the tested `>=0.10.2` floor. Source builds require Setuptools `>=77.0.3`
+for the preserved MIT notice's SPDX/license-file metadata. No public API or
+schema changes follow.
 The feature minimums below remain `>=0.9.0` for portable attribution,
 `>=0.11.0` for prepared credit/function providers, and `>=0.12.0` for bounded
 recorder evidence and standalone validation. Guide synchronization and client
