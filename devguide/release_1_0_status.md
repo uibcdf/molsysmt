@@ -70,15 +70,19 @@ corrects independent whole-file output in eighteen adapters, source-safe XYZ
 subset writing and ten canonical public destination routes. Actual public
 GRO/XYZ/HDF5 and both unit-policy recipe executions are guarded. Unsupported
 MOL2 output, H5MSM/TRJPK identity and explicit-destination HDF5 subset limits
-remain. #730 corrects suite installation hints and retains separate dependency
-auditor/diagnostic receiving. Common checks and issue lifecycle results follow
-in the owning receipts. Later executable changes retain the complete-source/
+remain. [#730](archive/resolved_bugs/suite_dependency_hints_offer_unqualified_pypi_routes.md)
+corrects suite installation hints and retains separate dependency
+auditor/diagnostic receiving. Fifteen common fast gates, generated indexes and
+whole-repository Ruff pass; #729 and #730 are closed after verifying published
+main 5d449db79 and all 44 changed-file blobs. Board/queue agreement passes.
+The source/record checkpoint preserves an independently published common-guide
+update through a non-rewriting merge. The owning receipts retain exact scopes. Later executable changes retain the complete-source/
 nightly backlog; the last full default result remains 6acad4f35.
 
 #727 stays partial: 49 of 57 unchanged-source/HTML cached articles retain 972
 unlinked Python-role nodes, all external class/string forms. The complete
-intake finds 649 issues, 95 open before these two local closures, no open PRs
-and new #730. Continue the finite handoff plan. Original scorecard, #723,
+post-closeout intake finds 649 issues, 93 open, no open PRs
+and no newly numbered issue after #730. Continue the finite handoff plan. Original scorecard, #723,
 #615/#713, format/client decisions and exact final-pair/publication gates are
 unchanged; local polish does not establish that only Diego's review remains.
 

@@ -365,3 +365,11 @@ Fifteen common fast gates, generated-index and whole-repository Ruff checks
 pass after the file increment and #730 hint/auditor correction. All 24 exact
 task-owned units are terminal/retired; foreign jobs are untouched. Later
 executable changes remain in the separate complete-source/nightly backlog.
+
+
+Published closeout verifies main 5d449db79 and all 44 changed-file blobs.
+#729/#730 are closed; complete intake has 649 issues, 93 open, no open PRs
+and no newly numbered issue after #730. Board/queue agreement passes.
+The concurrent common-guide update is preserved through a non-rewriting merge.
+The file-family increment is delivered; the next work remains external
+class/string references and the separate handoff requirements.

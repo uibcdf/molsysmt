@@ -6105,5 +6105,212 @@
       ],
       "foreign_processes_signalled": false
     }
+  },
+  "published_closeout": {
+    "published_code_and_record_checkpoint": "5d449db794a46822fb6d70f6da034b8a20b30482",
+    "public_changed_file_blob_proof": {
+      "published_main": "5d449db794a46822fb6d70f6da034b8a20b30482",
+      "queried_source": "5d449db794a46822fb6d70f6da034b8a20b30482",
+      "truncated": false,
+      "matched_changed_files": [
+        {
+          "path": "MOLSYSSUITE_GUIDE.md",
+          "git_blob": "c3ba41977e5dcf880d6379ab500fed66d5df65fc"
+        },
+        {
+          "path": "devguide/archive/resolved_bugs/suite_dependency_hints_offer_unqualified_pypi_routes.md",
+          "git_blob": "cf4ca444f12fcb7c1e28e9c6b99e74efff474aea"
+        },
+        {
+          "path": "devguide/archive/resolved_bugs/whole_file_extraction_copies_files_onto_themselves_by_default.md",
+          "git_blob": "2cb0edd8787ee54da180b4bd77aaa0d012df37f0"
+        },
+        {
+          "path": "devguide/dependency_contract_audit.md",
+          "git_blob": "83cc22bb9c1903556baa8977c7fcde983797cc89"
+        },
+        {
+          "path": "devguide/pending_bugs/README.md",
+          "git_blob": "1b59023c8f43ebf4eaec7cbc38307b2a72aa873d"
+        },
+        {
+          "path": "devguide/pending_bugs/docs/native_form_implementation_references_render_without_links.md",
+          "git_blob": "897aba977ff8b2d1e842c228d1de56412dfd2ab0"
+        },
+        {
+          "path": "devguide/pending_proposals/docs/evidence_based_public_discoverability.md",
+          "git_blob": "3a2d7045fa5d4a6ef6f3f02480e5f15d63f5e69a"
+        },
+        {
+          "path": "devguide/pre_1_0_completion_handoffs_20261110.md",
+          "git_blob": "9553008cdb88f91e9ba0a72a46c2488270015a74"
+        },
+        {
+          "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+          "git_blob": "c19b837a9a2cb0f15e1575fcb2954fd856cf69d0"
+        },
+        {
+          "path": "devguide/release_1_0_status.md",
+          "git_blob": "60467f24706936f01e12293b620abcd53fd2d714"
+        },
+        {
+          "path": "devtools/data/file_form_and_extraction_receiving_727_729_20261112.json",
+          "git_blob": "8f2dd2fad747dd7abc8f982c03c6fd0933b76151"
+        },
+        {
+          "path": "devtools/data/suite_installation_hint_receiving_730_20261112.json",
+          "git_blob": "98d5774d1e8a31a9a434213293893f2e7e20f92a"
+        },
+        {
+          "path": "devtools/scripts/audit_dependency_contract.py",
+          "git_blob": "8bc4d9162be07c067d8b51322ce1e7c9e17eb989"
+        },
+        {
+          "path": "devtools/tests/test_audit_dependency_contract.py",
+          "git_blob": "e35050212e7fabb13cc53d052aac8712636b0293"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_bcif.ipynb",
+          "git_blob": "289b7d4b8127aed9cc6c437f416c4dfa40477abd"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_bcif_gz.ipynb",
+          "git_blob": "14f99ec7f0f888a9342c476e7e21143df9be5b7f"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_cif.ipynb",
+          "git_blob": "ab7766c81bc23d0895cd9f220fa62364b1a55df2"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_cif_gz.ipynb",
+          "git_blob": "794ff7229df7ecdda145ebde05786e21af40d683"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_crd.ipynb",
+          "git_blob": "906ff220a9067d59035504178c198404716c6835"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_dcd.ipynb",
+          "git_blob": "449282b4f4754039d3f4726e095aab04f8392be2"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_fasta.ipynb",
+          "git_blob": "d0f2d601129d2efd9ebe941cb1288e2e55d59608"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_gro.ipynb",
+          "git_blob": "4293155e3da0bbe310c243f45a98b7e76e8158fa"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_h5.ipynb",
+          "git_blob": "7b7c6ce2c17e861080194ac08ef7660c49a6c665"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_h5msm.ipynb",
+          "git_blob": "32bcf78ad4a823f2c14072258b4e2600ab806fed"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_inpcrd.ipynb",
+          "git_blob": "892fe222eb0468e9f5ff7f3c7bf05eb592a002e9"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_mdcrd.ipynb",
+          "git_blob": "1ceac2384cb352bb57ca66b70fe7c2feb7437b13"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_mol2.ipynb",
+          "git_blob": "29c30bcbb2016e366a77760f0ffe513d7e60dbcd"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_molsys_yaml.ipynb",
+          "git_blob": "5f69da93fe0d3aa83f1602bc28db41b07e27aa9d"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_pdb.ipynb",
+          "git_blob": "d3b043bda0c9fa63db2975ba8de0175b7838bd3a"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_pir.ipynb",
+          "git_blob": "355d07cf976491881105fddfc165655166de763d"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_prmtop.ipynb",
+          "git_blob": "ae2dd9f19b49be6ada05d394d3267828e63b585f"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_psf.ipynb",
+          "git_blob": "ce8947e64e77cc0e35d29104b195aba71b5437eb"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_smi.ipynb",
+          "git_blob": "466734573955717d29d05a4d7480ce6ae2fe8277"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_structures_yaml.ipynb",
+          "git_blob": "b094c0d065720d126d11694f6e32cbf6e285cc26"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_top.ipynb",
+          "git_blob": "5a7e476fa094a1b8305c84764c2001a052d5b8a9"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_topology_yaml.ipynb",
+          "git_blob": "77583217233c6e89d9aee8ce7e869a9b2c58e22f"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_trjpk.ipynb",
+          "git_blob": "63bffb35d6530524ac979cdcbd26abb6cb22a6a6"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_xtc.ipynb",
+          "git_blob": "045508cdca625585a0b9fbf4231683ce3a4db764"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_xyz.ipynb",
+          "git_blob": "faa6911e3e0eabad3616334c1277da991d63678e"
+        },
+        {
+          "path": "docs/content/user/tools/form/file/file_xyznpy.ipynb",
+          "git_blob": "e12fe452fe82cbcb0edc874abbeaf93c48c88b83"
+        },
+        {
+          "path": "molsysmt/_depdigest.py",
+          "git_blob": "b2b77554fe43c7425ae2a91db95b86875c8685a2"
+        },
+        {
+          "path": "tests/documentation/_form_reference_checks.py",
+          "git_blob": "e034d987f4f499ed8fcd0f696a48d9674640f3bb"
+        },
+        {
+          "path": "tests/documentation/test_file_form_references.py",
+          "git_blob": "8b3bfc87f6d8f995320fdaf6380dd0274660c54e"
+        },
+        {
+          "path": "tests/test_dependencies_architecture.py",
+          "git_blob": "ffaf71127600b94508c121de44d7dbc6fab8fa65"
+        }
+      ],
+      "before_issue_closure": true
+    },
+    "issue_states": {
+      "729": "CLOSED",
+      "730": "CLOSED"
+    },
+    "board_agrees_with_queues": true,
+    "complete_intake": {
+      "issue_count": 649,
+      "open_issue_count": 93,
+      "open_pull_request_count": 0
+    },
+    "new_issues_after_730": [],
+    "partial_727_progress_comment": 6837304650,
+    "incoming_common_guide": "fb5eba63e",
+    "incoming_guide_only_merge": "5d449db794a46822fb6d70f6da034b8a20b30482",
+    "post_merge_checks": [
+      "Developer-guide integrity passed",
+      "Generated indexes current",
+      "git diff --check passed"
+    ],
+    "scope": "Published code/report and closed issue receiving; the merged common guide changes no library implementation. Exact-candidate and complete-source/installed obligations remain."
   }
 }
