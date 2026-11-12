@@ -200,3 +200,29 @@ compares the API query identifier to a local tree object; correcting that
 identifier check retains the independently verified file blobs. No library
 implementation changes in this increment. Actual HTML delivery is still to be
 received before claiming this four-page increment complete.
+
+
+## Native dictionary HTML receiving — 2026-11-12
+
+Clean `bdcd326ae` compiles the four corrected pages with zero warnings and
+unchanged source inputs. All seven actual native-article guards pass, checking
+intended link occurrences, correct table destinations, absence of unlinked
+Python roles and local targets. The new four-page increment delivers 53
+references; the seven reviewed pages now deliver 162 references to 156 matched
+published source files. Its [receipt](../../../devtools/data/native_dictionary_form_reference_receiving_727_20261112.json)
+retains failed drafts, source/reference hashes, code/output preservation,
+resource limits and terminal status. Seven task-owned terminal services are
+retired/already collected; no foreign process is signalled.
+
+The unchanged-source/HTML wider census now receives 87 cached articles. Of
+these, 79 retain 1,517 unlinked Python-role nodes. The seven changed native
+pages have separate current receiving, not relabelled old HTML. Continue the
+remaining native and external families without closing #727 prematurely.
+The complete intake finds 647 issues, 93 open, no open PRs and new #728;
+its bounded ProtOr API study is tracked separately. No additional scientific,
+complete-source, installed, platform or publication qualification is claimed.
+
+Fifteen common fast gates, generated-index verification and whole-repository
+Ruff checking/format verification pass with unchanged checked inputs. Board/queue
+reconciliation also passes after classifying #728. These fast controls do not
+execute the separate complete-source or installed qualification routes.

@@ -37,7 +37,7 @@ Entries carrying front matter under
 
 <!-- generated: devguide_index -->
 
-### Open (35)
+### Open (36)
 
 - [`add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md`](add_a_native_general_ligand_hydrogen_engine_for_fixed_chemical_states.md) — [#308](https://github.com/uibcdf/molsysmt/issues/308) — Add a native general ligand hydrogen engine for fixed chemical states *(inspected)*
 - [`add_an_explicit_source_form_hint_to_convert.md`](add_an_explicit_source_form_hint_to_convert.md) — [#151](https://github.com/uibcdf/molsysmt/issues/151) — Add an explicit source-form hint to convert. *(inspected)*
@@ -64,6 +64,7 @@ Entries carrying front matter under
 - [`post_1_0_streaming_interactions_and_h5msm_append.md`](post_1_0_streaming_interactions_and_h5msm_append.md) — [#336](https://github.com/uibcdf/molsysmt/issues/336) — Post-1.0 streaming interactions and H5MSM append *(inspected)*
 - [`post_1_0_water_paths_beyond_two_mediators.md`](post_1_0_water_paths_beyond_two_mediators.md) — [#338](https://github.com/uibcdf/molsysmt/issues/338) — Post-1.0 water paths beyond two mediators *(inspected)*
 - [`profile_and_reduce_test_suite_runtime_without_weakening_coverage.md`](profile_and_reduce_test_suite_runtime_without_weakening_coverage.md) — [#122](https://github.com/uibcdf/molsysmt/issues/122) — Profile and reduce test-suite runtime without weakening coverage *(measured)*
+- [`protor_radii_types_and_provenance_in_one_evaluation.md`](protor_radii_types_and_provenance_in_one_evaluation.md) — [#728](https://github.com/uibcdf/molsysmt/issues/728) — Return ProtOr radii, assigned types and provenance from one evaluation *(asserted)*
 - [`qualify_corrected_mdtraj_batch_sasa_and_retire_independent_structure_evaluation.md`](qualify_corrected_mdtraj_batch_sasa_and_retire_independent_structure_evaluation.md) — [#530](https://github.com/uibcdf/molsysmt/issues/530) — Qualify corrected MDTraj batch SASA and retire independent-structure evaluation *(inspected)*
 - [`qualify_pyparsing_3_3_4_or_its_published_successor_for_mdtraj_selections.md`](qualify_pyparsing_3_3_4_or_its_published_successor_for_mdtraj_selections.md) — [#486](https://github.com/uibcdf/molsysmt/issues/486) — Qualify PyParsing 3.3.4 or its published successor for MDTraj selections *(upstream)*
 - [`read_only_geometry_and_steric_plausibility_assessment.md`](read_only_geometry_and_steric_plausibility_assessment.md) — [#555](https://github.com/uibcdf/molsysmt/issues/555) — Provide explicit read-only molecular geometry and steric plausibility assessment. *(inspected)*

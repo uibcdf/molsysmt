@@ -1,0 +1,1738 @@
+{
+  "schema": "molsysmt.documentation_receiving/1",
+  "date": "2026-11-12",
+  "issue": "uibcdf/molsysmt#727",
+  "status": "partial",
+  "implementation_source": "bdcd326aee262bf987d7d8d0b03a3359562e9501",
+  "scope": "Four dictionary tutorials and seven actual native articles, not full scientific/source or installed qualification. Notebook executable payloads, scientific algorithms, native binary, runtime floors and final-pair/publication boundaries are unchanged.",
+  "executions": {
+    "baseline": {
+      "source_commit": "97ff11e1d7fb7166c748852150bcd224476a3077",
+      "native_exit": 1,
+      "seconds": 6.049715812085196,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 337678336,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15445409792,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "driver_sha256": "abb9176765c4587e728381eeedfda6ec0eb8378999dc584d4cec03d7b61de2a8",
+      "command": [
+        "<python-3.14.7>",
+        "<checkout>/.pytest_cache/dict-reference-727-20261112/baseline.py"
+      ],
+      "selected_inputs_sha256": "19b3fd8a94aea109832aa7fa4130c67eee83d81347ae750712007acecc6a9227",
+      "changed_inputs": [],
+      "junit_counts": {
+        "tests": 24,
+        "failures": 8,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 16
+      },
+      "junit_sha256": "1bb8abc5a7abbda894a85423e62e2acf5c95b68d73fc0e5a836bb4c1af10d584",
+      "log_sha256": "961ad4f522e4427e91170f388a474e797c47c4b849064b55f3a085dd77f8c80a"
+    },
+    "baseline2": {
+      "source_commit": "97ff11e1d7fb7166c748852150bcd224476a3077",
+      "native_exit": 1,
+      "seconds": 4.0304282798897475,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 198250496,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15109464064,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "driver_sha256": "78f0a799838b0b481035a166e6f225e1a204ccd2fc8fd69eac186627570caf6f",
+      "command": [
+        "<python-3.14.7>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/dict-reference-727-20261112/baseline2.xml",
+        "tests/documentation/test_native_form_references.py",
+        "tests/documentation/test_native_molsys_tutorial.py",
+        "tests/documentation/test_native_topology_tutorial.py"
+      ],
+      "selected_inputs_sha256": "50910b0b7f987dec1bed60f1561301428b48c905858362023c2a19ca5214323a",
+      "changed_inputs": [],
+      "junit_counts": {
+        "tests": 24,
+        "failures": 6,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 18
+      },
+      "junit_sha256": "090ea685730685528cc72aa872625ca7b28f923c6096be7ab85521c33b8cb33f",
+      "log_sha256": "9eddcab26dc32db75158ca235376dc0067c1b825b5a63bfab135486fc5ad2742"
+    },
+    "final": {
+      "source_commit": "97ff11e1d7fb7166c748852150bcd224476a3077",
+      "native_exit": 0,
+      "seconds": 5.034480152186006,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 198819840,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15147601920,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "driver_sha256": "abb9176765c4587e728381eeedfda6ec0eb8378999dc584d4cec03d7b61de2a8",
+      "command": [
+        "<python-3.14.7>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/dict-reference-727-20261112/final.xml",
+        "tests/documentation/test_native_form_references.py",
+        "tests/documentation/test_native_molsys_tutorial.py",
+        "tests/documentation/test_native_topology_tutorial.py"
+      ],
+      "selected_inputs_sha256": "2d1b20248b845e66451d829195d8eb4b766b1c50e24eec99057363e32ca4f09f",
+      "changed_inputs": [],
+      "junit_counts": {
+        "tests": 24,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 24
+      },
+      "junit_sha256": "8da9f14a8b994667b081c013054f2a314e35de15dcee58eda041533fc1374813",
+      "log_sha256": "2505484d86119cafe407cb5f537c2e8373e473cff2b5f0f3864c9a4c45669368"
+    },
+    "contracts": {
+      "source_commit": "97ff11e1d7fb7166c748852150bcd224476a3077",
+      "native_exit": 0,
+      "seconds": 9.221771392039955,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 334008320,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14855102464,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "driver_sha256": "89c4c3dc5b77c8c4a0a13022ca679999f4562f5779c88ec33b09f374139c77bd",
+      "command": [
+        "<python-3.14.7>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/dict-reference-727-20261112/contracts.xml",
+        "tests/form/molsysmt_TopologyDict/test_roundtrip.py",
+        "tests/form/molsysmt_MolSysDict/test_independent_domains.py",
+        "tests/form/molsysmt_StructuresDict/test_roundtrip.py",
+        "tests/form/molsysmt_StructuresDict/test_coordinate_set_axes.py",
+        "tests/form/molsysmt_MolecularMechanicsDict/test_identity_conversion.py",
+        "tests/form/molsysmt_MolecularMechanicsDict/test_copy.py"
+      ],
+      "selected_inputs_sha256": "936e6bb7007b128b025a763e5a789f403d66ef6608aca26a4a23a4a5b4dbecb6",
+      "changed_inputs": [],
+      "junit_counts": {
+        "tests": 55,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 55
+      },
+      "junit_sha256": "ec7b8d23b99ff986ed7abcfee1b7f81ef52c92994f5126e0f249cf0ef93fc29c",
+      "log_sha256": "52216ce1b39c59bdedc435e72e537ee18574f89b7244cb9f5eef7b6c61bc65dc"
+    },
+    "links-html": {
+      "source_commit": "bdcd326aee262bf987d7d8d0b03a3359562e9501",
+      "native_exit": 0,
+      "seconds": 12.0288977320306,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2818572288",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 377204736,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15367847936,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "driver_sha256": "3f7fe813d934d89197fcc2f6acfc9a4b9fde6060a850c9d5b622b75df4b44e90",
+      "command": [
+        "<python-3.14.7>",
+        "<checkout>/.pytest_cache/dict-reference-727-20261112/build_links.py"
+      ],
+      "selected_inputs_sha256": "e422cbe27c7e9c487ab118dd22b43543a262636aa5a0ff5e72700a4807750a35",
+      "changed_inputs": [],
+      "starting_source_clean": true,
+      "ending_source_clean": true,
+      "checked_inputs": 7409,
+      "log_sha256": "64faa409de564310137ec94c7530ba24112f27c451076593b37fab6259258cb3"
+    },
+    "rendered": {
+      "source_commit": "bdcd326aee262bf987d7d8d0b03a3359562e9501",
+      "native_exit": 0,
+      "seconds": 11.061287762131542,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 244899840,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15452459008,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "driver_sha256": "abb9176765c4587e728381eeedfda6ec0eb8378999dc584d4cec03d7b61de2a8",
+      "command": [
+        "<python-3.14.7>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/dict-reference-727-20261112/rendered.xml",
+        "tests/documentation/form_reference_receiving_guard.py"
+      ],
+      "selected_inputs_sha256": "35cecf3f8b8556b65ae9eb4cc0755477cdaf90d2345f3de40ccd38ae37e2c0b3",
+      "changed_inputs": [],
+      "junit_counts": {
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 7
+      },
+      "junit_sha256": "3024aee37b5515e91c92417e3384e0b9a8c0ca582f54bc209bf38965b10a3b2d",
+      "log_sha256": "058708677237b3589d4f7e3588183af49cdfbb92ae0581c5cfa10c2eb51f1132"
+    }
+  },
+  "failures_and_draft_dispositions": [
+    "The initial prototype has 8 failures/16 passes; two failures only demand the word declared. The refined guard accepts either wording and still checks exact attribute sets/counts. Its baseline has 6 real documentation failures/18 passes.",
+    "A first source-proof draft incorrectly compares the returned GitHub query identifier with the local tree object SHA. The corrected check validates the requested commit and every referenced file blob against the complete published tree.",
+    "Initial Ruff format checking requests one wrapping change in the test parametrization; formatting is corrected before final receiving."
+  ],
+  "forms": [
+    {
+      "name": "MolSysDict",
+      "page": "docs/content/user/tools/form/class/molsysmt/molsysmt_MolSysDict.ipynb",
+      "source_sha256": "b2588b9dc916456cc91018445f7bb8e13207e652af82dc4287c2acf4de45c3b3",
+      "html_sha256": "cc8257edb6094cf3605285827ad797da32acb52ddef5948b83fcd5781821c360",
+      "declared_attributes": 98,
+      "registered_converters": {
+        "molsysmt.MolSysDict": "to_molsysmt_MolSysDict",
+        "molsysmt.MolSysBuilder": "to_molsysmt_MolSysBuilder",
+        "molsysmt.MolSys": "to_molsysmt_MolSys",
+        "file:molsys_yaml": "to_file_molsys_yaml"
+      },
+      "operation_links": 6,
+      "intended_reference_occurrences": 11,
+      "source_destinations": 11,
+      "notebook_code_outputs_metadata_order_preserved": true,
+      "actual_html_guard_passed": true,
+      "unlinked_python_roles": 0
+    },
+    {
+      "name": "TopologyDict",
+      "page": "docs/content/user/tools/form/class/molsysmt/molsysmt_TopologyDict.ipynb",
+      "source_sha256": "417fb3c0b7d2d57440ca8e8ab73acfcd40d816f5bc34235b0dded130b6242f3d",
+      "html_sha256": "29931644b4ba400d17397d8c75e31896aca9d8226ed9841a3f0fc1b24a42cc06",
+      "declared_attributes": 78,
+      "registered_converters": {
+        "molsysmt.MolSys": "to_molsysmt_MolSys",
+        "molsysmt.TopologyDict": "to_molsysmt_TopologyDict",
+        "molsysmt.Topology": "to_molsysmt_Topology",
+        "file:topology_yaml": "to_file_topology_yaml"
+      },
+      "operation_links": 6,
+      "intended_reference_occurrences": 11,
+      "source_destinations": 11,
+      "notebook_code_outputs_metadata_order_preserved": true,
+      "actual_html_guard_passed": true,
+      "unlinked_python_roles": 0
+    },
+    {
+      "name": "StructuresDict",
+      "page": "docs/content/user/tools/form/class/molsysmt/molsysmt_StructuresDict.ipynb",
+      "source_sha256": "7194aeb6dd54cbd3e31d29b965d9234f9c996b3ac3dbc3cc04a3441fca361c58",
+      "html_sha256": "f0e1f3b133ed437a23e9f6818afb3632866d6f37410a590f879c4c3728d91a44",
+      "declared_attributes": 20,
+      "registered_converters": {
+        "molsysmt.StructuresDict": "to_molsysmt_StructuresDict",
+        "molsysmt.MolecularMechanics": "to_molsysmt_MolecularMechanics",
+        "molsysmt.Structures": "to_molsysmt_Structures",
+        "molsysmt.Topology": "to_molsysmt_Topology",
+        "molsysmt.MolSys": "to_molsysmt_MolSys",
+        "file:trjpk": "to_file_trjpk",
+        "file:structures_yaml": "to_file_structures_yaml"
+      },
+      "operation_links": 11,
+      "intended_reference_occurrences": 19,
+      "source_destinations": 19,
+      "notebook_code_outputs_metadata_order_preserved": true,
+      "actual_html_guard_passed": true,
+      "unlinked_python_roles": 0
+    },
+    {
+      "name": "MolecularMechanicsDict",
+      "page": "docs/content/user/tools/form/class/molsysmt/molsysmt_MolecularMechanicsDict.ipynb",
+      "source_sha256": "858d2adcf43560c1dada6e0f3dd28660bd19f39dd7a6ea941392b0f047b74273",
+      "html_sha256": "ac62a227b5d2ae4ab00bd2ef1d70f16fefc4df069888dee3cb182a4b29afb9c8",
+      "declared_attributes": 21,
+      "registered_converters": {
+        "molsysmt.MolecularMechanicsDict": "to_molsysmt_MolecularMechanicsDict",
+        "molsysmt.MolecularMechanics": "to_molsysmt_MolecularMechanics"
+      },
+      "operation_links": 9,
+      "intended_reference_occurrences": 12,
+      "source_destinations": 12,
+      "notebook_code_outputs_metadata_order_preserved": true,
+      "actual_html_guard_passed": true,
+      "unlinked_python_roles": 0
+    }
+  ],
+  "html_result": {
+    "exit": 0,
+    "warnings": 0,
+    "full_site": false,
+    "notebook_execution": "off",
+    "autosummary_generate": false,
+    "parallel": 1
+  },
+  "source_reference_map": [
+    {
+      "form": "MolSysDict",
+      "original_role": "{mod}`molsysmt.form.molsysmt_MolSysDict`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolSysDict/__init__.py#L1",
+      "source_path": "molsysmt/form/molsysmt_MolSysDict/__init__.py",
+      "line": 1
+    },
+    {
+      "form": "MolSysDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_MolSysDict.extract.extract`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolSysDict/extract.py#L21",
+      "source_path": "molsysmt/form/molsysmt_MolSysDict/extract.py",
+      "line": 21
+    },
+    {
+      "form": "MolSysDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_MolSysDict.copy.copy`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolSysDict/copy.py#L5",
+      "source_path": "molsysmt/form/molsysmt_MolSysDict/copy.py",
+      "line": 5
+    },
+    {
+      "form": "MolSysDict",
+      "original_role": "{mod}`~molsysmt.form.molsysmt_MolSysDict.get_topological_attributes`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolSysDict/get_topological_attributes.py#L1",
+      "source_path": "molsysmt/form/molsysmt_MolSysDict/get_topological_attributes.py",
+      "line": 1
+    },
+    {
+      "form": "MolSysDict",
+      "original_role": "{mod}`~molsysmt.form.molsysmt_MolSysDict.get_structural_attributes`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolSysDict/get_structural_attributes.py#L1",
+      "source_path": "molsysmt/form/molsysmt_MolSysDict/get_structural_attributes.py",
+      "line": 1
+    },
+    {
+      "form": "MolSysDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_MolSysDict.has_attribute.has_attribute`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolSysDict/has_attribute.py#L5",
+      "source_path": "molsysmt/form/molsysmt_MolSysDict/has_attribute.py",
+      "line": 5
+    },
+    {
+      "form": "MolSysDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_MolSysDict.is_form.is_form`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolSysDict/is_form.py#L4",
+      "source_path": "molsysmt/form/molsysmt_MolSysDict/is_form.py",
+      "line": 4
+    },
+    {
+      "form": "MolSysDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_MolSysDict.to_file_molsys_yaml.to_file_molsys_yaml`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolSysDict/to_file_molsys_yaml.py#L8",
+      "source_path": "molsysmt/form/molsysmt_MolSysDict/to_file_molsys_yaml.py",
+      "line": 8
+    },
+    {
+      "form": "MolSysDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_MolSysDict.to_molsysmt_MolSys.to_molsysmt_MolSys`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolSysDict/to_molsysmt_MolSys.py#L7",
+      "source_path": "molsysmt/form/molsysmt_MolSysDict/to_molsysmt_MolSys.py",
+      "line": 7
+    },
+    {
+      "form": "MolSysDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_MolSysDict.to_molsysmt_MolSysBuilder.to_molsysmt_MolSysBuilder`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolSysDict/to_molsysmt_MolSysBuilder.py#L7",
+      "source_path": "molsysmt/form/molsysmt_MolSysDict/to_molsysmt_MolSysBuilder.py",
+      "line": 7
+    },
+    {
+      "form": "MolSysDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_MolSysDict.to_molsysmt_MolSysDict.to_molsysmt_MolSysDict`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolSysDict/to_molsysmt_MolSysDict.py#L5",
+      "source_path": "molsysmt/form/molsysmt_MolSysDict/to_molsysmt_MolSysDict.py",
+      "line": 5
+    },
+    {
+      "form": "TopologyDict",
+      "original_role": "{mod}`molsysmt.form.molsysmt_TopologyDict`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_TopologyDict/__init__.py#L1",
+      "source_path": "molsysmt/form/molsysmt_TopologyDict/__init__.py",
+      "line": 1
+    },
+    {
+      "form": "TopologyDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_TopologyDict.extract.extract`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_TopologyDict/extract.py#L17",
+      "source_path": "molsysmt/form/molsysmt_TopologyDict/extract.py",
+      "line": 17
+    },
+    {
+      "form": "TopologyDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_TopologyDict.copy.copy`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_TopologyDict/copy.py#L5",
+      "source_path": "molsysmt/form/molsysmt_TopologyDict/copy.py",
+      "line": 5
+    },
+    {
+      "form": "TopologyDict",
+      "original_role": "{mod}`~molsysmt.form.molsysmt_TopologyDict.get_topological_attributes`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_TopologyDict/get_topological_attributes.py#L1",
+      "source_path": "molsysmt/form/molsysmt_TopologyDict/get_topological_attributes.py",
+      "line": 1
+    },
+    {
+      "form": "TopologyDict",
+      "original_role": "{mod}`~molsysmt.form.molsysmt_TopologyDict.get_structural_attributes`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_TopologyDict/get_structural_attributes.py#L1",
+      "source_path": "molsysmt/form/molsysmt_TopologyDict/get_structural_attributes.py",
+      "line": 1
+    },
+    {
+      "form": "TopologyDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_TopologyDict.has_attribute.has_attribute`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_TopologyDict/has_attribute.py#L5",
+      "source_path": "molsysmt/form/molsysmt_TopologyDict/has_attribute.py",
+      "line": 5
+    },
+    {
+      "form": "TopologyDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_TopologyDict.is_form.is_form`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_TopologyDict/is_form.py#L4",
+      "source_path": "molsysmt/form/molsysmt_TopologyDict/is_form.py",
+      "line": 4
+    },
+    {
+      "form": "TopologyDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_TopologyDict.to_file_topology_yaml.to_file_topology_yaml`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_TopologyDict/to_file_topology_yaml.py#L8",
+      "source_path": "molsysmt/form/molsysmt_TopologyDict/to_file_topology_yaml.py",
+      "line": 8
+    },
+    {
+      "form": "TopologyDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_TopologyDict.to_molsysmt_MolSys.to_molsysmt_MolSys`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_TopologyDict/to_molsysmt_MolSys.py#L5",
+      "source_path": "molsysmt/form/molsysmt_TopologyDict/to_molsysmt_MolSys.py",
+      "line": 5
+    },
+    {
+      "form": "TopologyDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_TopologyDict.to_molsysmt_Topology.to_molsysmt_Topology`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_TopologyDict/to_molsysmt_Topology.py#L5",
+      "source_path": "molsysmt/form/molsysmt_TopologyDict/to_molsysmt_Topology.py",
+      "line": 5
+    },
+    {
+      "form": "TopologyDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_TopologyDict.to_molsysmt_TopologyDict.to_molsysmt_TopologyDict`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_TopologyDict/to_molsysmt_TopologyDict.py#L5",
+      "source_path": "molsysmt/form/molsysmt_TopologyDict/to_molsysmt_TopologyDict.py",
+      "line": 5
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{mod}`molsysmt.form.molsysmt_StructuresDict`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/__init__.py#L1",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/__init__.py",
+      "line": 1
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_StructuresDict.extract.extract`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/extract.py#L7",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/extract.py",
+      "line": 7
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_StructuresDict.copy.copy`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/copy.py#L5",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/copy.py",
+      "line": 5
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_StructuresDict.add.add`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/add.py#L6",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/add.py",
+      "line": 6
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_StructuresDict.merge.merge`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/merge.py#L6",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/merge.py",
+      "line": 6
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_StructuresDict.append_structures.append_structures`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/append_structures.py#L5",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/append_structures.py",
+      "line": 5
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{mod}`~molsysmt.form.molsysmt_StructuresDict.get_topological_attributes`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/get_topological_attributes.py#L1",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/get_topological_attributes.py",
+      "line": 1
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{mod}`~molsysmt.form.molsysmt_StructuresDict.get_structural_attributes`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/get_structural_attributes.py#L1",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/get_structural_attributes.py",
+      "line": 1
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{mod}`~molsysmt.form.molsysmt_StructuresDict.set`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/set.py#L1",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/set.py",
+      "line": 1
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{mod}`~molsysmt.form.molsysmt_StructuresDict.iterators`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/iterators.py#L1",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/iterators.py",
+      "line": 1
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_StructuresDict.has_attribute.has_attribute`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/has_attribute.py#L5",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/has_attribute.py",
+      "line": 5
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_StructuresDict.is_form.is_form`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/is_form.py#L1",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/is_form.py",
+      "line": 1
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_StructuresDict.to_file_structures_yaml.to_file_structures_yaml`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/to_file_structures_yaml.py#L8",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/to_file_structures_yaml.py",
+      "line": 8
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_StructuresDict.to_file_trjpk.to_file_trjpk`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/to_file_trjpk.py#L7",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/to_file_trjpk.py",
+      "line": 7
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_StructuresDict.to_molsysmt_MolSys.to_molsysmt_MolSys`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/to_molsysmt_MolSys.py#L5",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/to_molsysmt_MolSys.py",
+      "line": 5
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_StructuresDict.to_molsysmt_MolecularMechanics.to_molsysmt_MolecularMechanics`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/to_molsysmt_MolecularMechanics.py#L5",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/to_molsysmt_MolecularMechanics.py",
+      "line": 5
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_StructuresDict.to_molsysmt_Structures.to_molsysmt_Structures`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/to_molsysmt_Structures.py#L5",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/to_molsysmt_Structures.py",
+      "line": 5
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_StructuresDict.to_molsysmt_StructuresDict.to_molsysmt_StructuresDict`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/to_molsysmt_StructuresDict.py#L5",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/to_molsysmt_StructuresDict.py",
+      "line": 5
+    },
+    {
+      "form": "StructuresDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_StructuresDict.to_molsysmt_Topology.to_molsysmt_Topology`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_StructuresDict/to_molsysmt_Topology.py#L5",
+      "source_path": "molsysmt/form/molsysmt_StructuresDict/to_molsysmt_Topology.py",
+      "line": 5
+    },
+    {
+      "form": "MolecularMechanicsDict",
+      "original_role": "{mod}`molsysmt.form.molsysmt_MolecularMechanicsDict`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolecularMechanicsDict/__init__.py#L1",
+      "source_path": "molsysmt/form/molsysmt_MolecularMechanicsDict/__init__.py",
+      "line": 1
+    },
+    {
+      "form": "MolecularMechanicsDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_MolecularMechanicsDict.extract.extract`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolecularMechanicsDict/extract.py#L19",
+      "source_path": "molsysmt/form/molsysmt_MolecularMechanicsDict/extract.py",
+      "line": 19
+    },
+    {
+      "form": "MolecularMechanicsDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_MolecularMechanicsDict.copy.copy`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolecularMechanicsDict/copy.py#L5",
+      "source_path": "molsysmt/form/molsysmt_MolecularMechanicsDict/copy.py",
+      "line": 5
+    },
+    {
+      "form": "MolecularMechanicsDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_MolecularMechanicsDict.add.add`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolecularMechanicsDict/add.py#L8",
+      "source_path": "molsysmt/form/molsysmt_MolecularMechanicsDict/add.py",
+      "line": 8
+    },
+    {
+      "form": "MolecularMechanicsDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_MolecularMechanicsDict.merge.merge`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolecularMechanicsDict/merge.py#L6",
+      "source_path": "molsysmt/form/molsysmt_MolecularMechanicsDict/merge.py",
+      "line": 6
+    },
+    {
+      "form": "MolecularMechanicsDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_MolecularMechanicsDict.append_structures.append_structures`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolecularMechanicsDict/append_structures.py#L6",
+      "source_path": "molsysmt/form/molsysmt_MolecularMechanicsDict/append_structures.py",
+      "line": 6
+    },
+    {
+      "form": "MolecularMechanicsDict",
+      "original_role": "{mod}`~molsysmt.form.molsysmt_MolecularMechanicsDict.get_mechanical_attributes`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolecularMechanicsDict/get_mechanical_attributes.py#L1",
+      "source_path": "molsysmt/form/molsysmt_MolecularMechanicsDict/get_mechanical_attributes.py",
+      "line": 1
+    },
+    {
+      "form": "MolecularMechanicsDict",
+      "original_role": "{mod}`~molsysmt.form.molsysmt_MolecularMechanicsDict.set`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolecularMechanicsDict/set.py#L1",
+      "source_path": "molsysmt/form/molsysmt_MolecularMechanicsDict/set.py",
+      "line": 1
+    },
+    {
+      "form": "MolecularMechanicsDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_MolecularMechanicsDict.has_attribute.has_attribute`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolecularMechanicsDict/has_attribute.py#L5",
+      "source_path": "molsysmt/form/molsysmt_MolecularMechanicsDict/has_attribute.py",
+      "line": 5
+    },
+    {
+      "form": "MolecularMechanicsDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_MolecularMechanicsDict.is_form.is_form`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolecularMechanicsDict/is_form.py#L1",
+      "source_path": "molsysmt/form/molsysmt_MolecularMechanicsDict/is_form.py",
+      "line": 1
+    },
+    {
+      "form": "MolecularMechanicsDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_MolecularMechanicsDict.to_molsysmt_MolecularMechanics.to_molsysmt_MolecularMechanics`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolecularMechanicsDict/to_molsysmt_MolecularMechanics.py#L6",
+      "source_path": "molsysmt/form/molsysmt_MolecularMechanicsDict/to_molsysmt_MolecularMechanics.py",
+      "line": 6
+    },
+    {
+      "form": "MolecularMechanicsDict",
+      "original_role": "{func}`~molsysmt.form.molsysmt_MolecularMechanicsDict.to_molsysmt_MolecularMechanicsDict.to_molsysmt_MolecularMechanicsDict`",
+      "target": "https://github.com/uibcdf/molsysmt/blob/97ff11e1d7fb7166c748852150bcd224476a3077/molsysmt/form/molsysmt_MolecularMechanicsDict/to_molsysmt_MolecularMechanicsDict.py#L5",
+      "source_path": "molsysmt/form/molsysmt_MolecularMechanicsDict/to_molsysmt_MolecularMechanicsDict.py",
+      "line": 5
+    }
+  ],
+  "published_source_proof": {
+    "source_commit": "97ff11e1d7fb7166c748852150bcd224476a3077",
+    "query_tree_identifier": "97ff11e1d7fb7166c748852150bcd224476a3077",
+    "truncated": false,
+    "files": [
+      {
+        "path": "molsysmt/form/molsysmt_MolSysDict/__init__.py",
+        "git_blob": "96feb9b6f56c14bd2857aa5dfee61235e5df48e2",
+        "sha256": "fa1bc72f3c99265e7d61ec31bd75859e79ce7779e642c54994ab4dbd99522629"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolSysDict/copy.py",
+        "git_blob": "001e9a7f2b173ddc0bdbe927ecf5744ce380d55d",
+        "sha256": "36357f1d6464eaf1e4a35225011974d0c9463acb6a5e0e5baade982192657736"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolSysDict/extract.py",
+        "git_blob": "12d49a1f177dbf94c1039d9b0763b06637b30e33",
+        "sha256": "0632eb29e4af75e110ed3fd0de13298e84af2c565d5eee53769d963f3c413652"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolSysDict/get_structural_attributes.py",
+        "git_blob": "7e667fa7916cfdcd43d36e3277cd2f924b2aac97",
+        "sha256": "a9c1de21fb71567111056cd56cb8d4d584b8f8428a9bd1da752ccda31738745d"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolSysDict/get_topological_attributes.py",
+        "git_blob": "f929428280a4186669f5db14270a3c68df88400d",
+        "sha256": "eac10b24a7bdd1dcaf8b7f261753824c76084e4274a881de72467e3db7137b54"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolSysDict/has_attribute.py",
+        "git_blob": "f4323509afed24c4089ea1152f7c71ebca3bf954",
+        "sha256": "1870ee7151fe8257d841671abfc8fba33d8d96f2ca1273f253ddc49b683262cf"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolSysDict/is_form.py",
+        "git_blob": "842323acf1e7d3725dab55d4eb9fd69f44cdb90b",
+        "sha256": "4620b880570b773c6eb08f2e6ed7d0a78a4ed21d5e0d134c12be8fb1ca364a49"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolSysDict/to_file_molsys_yaml.py",
+        "git_blob": "5829e10373c1497956d8824da458bd2871444a55",
+        "sha256": "10d65e28401a9ab9df54667f5edb55d3c14ef00629c63bd3c5ca045025f9f832"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolSysDict/to_molsysmt_MolSys.py",
+        "git_blob": "9af67aa2ce421f937d2f7bc757a26a6ba7e704fa",
+        "sha256": "45d5616d9d52b78f22068aa952778658a9efb7553ea70b3a88f805a12ad9f314"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolSysDict/to_molsysmt_MolSysBuilder.py",
+        "git_blob": "e74800e1d9317d10e624623a13680ead492d3c88",
+        "sha256": "5a7494cdd79ef0c149dc025e0cdc817cd227f2682248e4312a7f15db44488da6"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolSysDict/to_molsysmt_MolSysDict.py",
+        "git_blob": "cf6f518b4be0071b8fc409fb09bdedff9190a95e",
+        "sha256": "4fa1e2073fb0d89bed272ce8dadaec4394c36fc873f6aa71b4425d742c763e67"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolecularMechanicsDict/__init__.py",
+        "git_blob": "2d68fddb520735bbf357255c46bd596c36acc07e",
+        "sha256": "0939bfa2841d58df4f42c1d0c04a8220c7200586af3c06456ef7ec0de2706cb1"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolecularMechanicsDict/add.py",
+        "git_blob": "e0f2c20112507d4f1eca392535b294db0dba7a2e",
+        "sha256": "a32c81ac2425700914dedf53243671f4da2a2c0c648656e2f71f2d681e854ef9"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolecularMechanicsDict/append_structures.py",
+        "git_blob": "be2e88c9fa7dac617696f61fe23bb9e7ade3a7d5",
+        "sha256": "2cdcb6edc86eb38ddf0e9f6a45c6c65dc74773f83f469b397d0952fe286f9a0b"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolecularMechanicsDict/copy.py",
+        "git_blob": "91e6f8498a3c84a3400b340efe1df55eea492d6e",
+        "sha256": "070f22cbd5e83b77fa3967638f1e20172c6b1c2023e1693b676d6cca04985a1c"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolecularMechanicsDict/extract.py",
+        "git_blob": "82cc9f263ca5b684005121307351bcbb690f6d58",
+        "sha256": "9ea8b51f07a03c617cf375c48d923a177123298901a561fc81e5b0570b118381"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolecularMechanicsDict/get_mechanical_attributes.py",
+        "git_blob": "49c52d5a9ab74c984bfa8bb1e8d432bea8f030ab",
+        "sha256": "19c4450ffc5e2e6422208e0b3ad1d9306a0ac7171b0ec2f32967886d356e8c99"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolecularMechanicsDict/has_attribute.py",
+        "git_blob": "d2def142f17865818488e007c0715dacfcfe9728",
+        "sha256": "ea41cc6dd18bc1030ca39070fa1b170b4bd3331e5c5a71826d1a8a74586b1b9e"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolecularMechanicsDict/is_form.py",
+        "git_blob": "9a050929da77b4b52e2a8c4803d386fc82f55c9d",
+        "sha256": "9650a25b322fc388875a6de6611628ca952b0763b5544d9e49eeafd577f111bb"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolecularMechanicsDict/merge.py",
+        "git_blob": "7ce6094192b98570b8dfe2576f9797dac0c726fd",
+        "sha256": "a6a5aec575b0b74c7c271f891e45ab63948aa5697fa904fbb196b2695808f614"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolecularMechanicsDict/set.py",
+        "git_blob": "c777dff0453e5d025ed4e8fad3972330be231ec7",
+        "sha256": "6136348ff20f8837a22cb60f63e78bad529d0db47f12456768be2ecbe4c002f0"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolecularMechanicsDict/to_molsysmt_MolecularMechanics.py",
+        "git_blob": "c95a6c950b3f2bd151770bcdce8b4a81fd35c5a1",
+        "sha256": "ecef649b21d3891b42cadb2d52601bb46fccb42b6f6fed8f3e27555ba9320484"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_MolecularMechanicsDict/to_molsysmt_MolecularMechanicsDict.py",
+        "git_blob": "101371b64bd2b860729b80ce7ec03b5942c93a35",
+        "sha256": "48605a3b0334f8a4f10337f48d231632993b275590b2f53e52d8c7a007043ed7"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/__init__.py",
+        "git_blob": "aa1256654415268193225cb63449045ac153b7a8",
+        "sha256": "004ad3a95dc20ec89e25c7106359012fa4e96990dffec25b8ee4c435445b1d0d"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/add.py",
+        "git_blob": "e3d1aabca66c27b5dff8410d1aa19d5cbde88309",
+        "sha256": "9a885feb637a49972e0126693ebf5ce04f5539cb9e913157a923de0bfec47961"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/append_structures.py",
+        "git_blob": "b65d0508f1c0a677c70005236c3e47989562f2b1",
+        "sha256": "7ebf788c5dad865f763e4f04acc7f1abb51ef251680bb7b220806f48b3fd891d"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/copy.py",
+        "git_blob": "79984c6227db2e5542ade6de1e25fc0ee52440e1",
+        "sha256": "788f038c84a3c40a1598120156a600806d05d98e38184de7c8b2c981082372eb"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/extract.py",
+        "git_blob": "54eaa43fe8ee155e3600f1a751cc98e0e5a92801",
+        "sha256": "24f2e377dc1ca713f62a38b45517decabf440473bfac63d32a03241a6c515ba3"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/get_structural_attributes.py",
+        "git_blob": "d9921900cb56250764056389e9374ff417bea960",
+        "sha256": "6f175d785448a32f2f19cc1766ed4f7a7c3595a5d8d1893e2b5bfbf09100d1c8"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/get_topological_attributes.py",
+        "git_blob": "949d2cd11a8dce5a79dedc5fcf82a8f78a5d2243",
+        "sha256": "725abec8aab9733645d42de06c43ec9da15e86d102dfe28226293c8f526d3691"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/has_attribute.py",
+        "git_blob": "877b8cbd965c2adc329f60ec96715584d0a029d4",
+        "sha256": "e51ad9e9575ec588b57efbb8def9c29903a78c806cde388fb49bdef95b26d5ef"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/is_form.py",
+        "git_blob": "82004394aad9e5b1ab2aad7b299f683f9dd8b807",
+        "sha256": "a0d35c191bff1d015945a77aba62b92ab43d4933dbf4a6f859ad6e7ffede1974"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/iterators.py",
+        "git_blob": "910bd4008fb88d70360f2028ecb39847910effca",
+        "sha256": "6e5c655111b17b3ba0a9efdea8df2939845ca7053def6ef2a6e217083408fee2"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/merge.py",
+        "git_blob": "b6aa1ab10262a50b2146c14e15581f66f6ab0e08",
+        "sha256": "b0b8437f82d8f75b75b13357919575a26de6d8597d3a18db4405a862b4023c1a"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/set.py",
+        "git_blob": "bd7607be4d9747f0ffa691d90e7544332ef9345b",
+        "sha256": "80f2bcb9aa8bfdbc623f235947fe01089f8c657b1b89609c11c79e1fd1d3c432"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/to_file_structures_yaml.py",
+        "git_blob": "600b36d31795ed33f51456828ff6289eb279a1c3",
+        "sha256": "e3e4e8dd9c2c011c39bcf82c9e76afef37199215d7bc73d049a37a007e2225c4"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/to_file_trjpk.py",
+        "git_blob": "60fbe2add14f605830d4342c794c1fdbd806458b",
+        "sha256": "d41557f6842a36d5a35f5624b0b2ab1b3dfd61e0610cfb2ab04f40254b849908"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/to_molsysmt_MolSys.py",
+        "git_blob": "9e7c075a6ce14ce0123aa805550cf36a253a6ed1",
+        "sha256": "232d0ddaf62b35629018f15bc1ba7c347bbe61217348772a6670f11a480616e9"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/to_molsysmt_MolecularMechanics.py",
+        "git_blob": "efb7aa5b44a60b09bba62935fa0bf22c49a8b8d5",
+        "sha256": "db64bb74402a6765473a69906f39f50e5a372a6ec1a88df76c3027fdaa9de834"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/to_molsysmt_Structures.py",
+        "git_blob": "103cf807ac3228f00a1470c3ccd616798634f557",
+        "sha256": "cc81ed848036f40170d6815dee0771da49f8780bd472ab458a620aa94696ed3f"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/to_molsysmt_StructuresDict.py",
+        "git_blob": "f4a8f46bbbff055ed7c58e81644b27515aae8107",
+        "sha256": "cef5d9c4751e196506b5c043fb05d79d0e47125831641270346044a5c00ec3ed"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_StructuresDict/to_molsysmt_Topology.py",
+        "git_blob": "85bc9f7415831790d439601ec1e031d3a1715eb4",
+        "sha256": "6ffe4f78753665e2d314fe48bd37e48cb22bdbea7199a40fabbfc2a22144672a"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_TopologyDict/__init__.py",
+        "git_blob": "196e45c5e1f0f816caba97bca7f48af9c990184a",
+        "sha256": "885845c2c32020229afb1231e547ba4ee0318c727c169d91c4e116dd0c100c36"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_TopologyDict/copy.py",
+        "git_blob": "dd653cbaff6ae7117c0cdf1fec1c92211141f9ae",
+        "sha256": "ae14e56835a786663518f0bc62f55f9f61de6016dd5343ed59496f2d23185210"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_TopologyDict/extract.py",
+        "git_blob": "93eb857233f8abb49feb0b3a469e42da5ba52d09",
+        "sha256": "1588abdeacc39ac380fca80f452f4142dc181e521cbf5947a386fdaaa30b3ecb"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_TopologyDict/get_structural_attributes.py",
+        "git_blob": "a9a2c5b3bb437bff74e283b62c894075e8c15331",
+        "sha256": "75ad4f4c2943325f88064ad2beae890b59674be2bf0404b30afc5584dc4de4bb"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_TopologyDict/get_topological_attributes.py",
+        "git_blob": "5d46c36c25cb485caacd5bf95759a0b09ce7121d",
+        "sha256": "a52676d097313f26d8810f208fe5d8d6721fca76a460ace41504096c5a21f1f8"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_TopologyDict/has_attribute.py",
+        "git_blob": "d9240101b9f7136a4da8941ea1d98b6a3cefa938",
+        "sha256": "c832a0b1b6f38657daeaeb01399a1e81a50f01fc98458dcabf0991f31956047e"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_TopologyDict/is_form.py",
+        "git_blob": "44a8ebe240e91aa7b5cc8106dc0281d55e62fa35",
+        "sha256": "36fefdf698f40317d465d1afa77dfe5e25b5d1e31da1c3730e4d389c3617f5ee"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_TopologyDict/to_file_topology_yaml.py",
+        "git_blob": "eeb45376db93d0ee6a387f46c17a33350bc9bb58",
+        "sha256": "a54c76096b6eda1ea62028d5407ef37cd93b49fda6afb04da7e896f327a57497"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_TopologyDict/to_molsysmt_MolSys.py",
+        "git_blob": "44e43bf6c14c83c763cf55fe55c381c754a37217",
+        "sha256": "c469aaa937824cdb09d8d18a9a41a8c39b6dc9e7b375e9fdcc386e40572d0d6e"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_TopologyDict/to_molsysmt_Topology.py",
+        "git_blob": "ff5079c6ab5434cc3751998cb4c0b4f006b4ca14",
+        "sha256": "49b44eda3fc43db93059e72a483b531a9e864a94ad079e05baa674d4b1595f0e"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_TopologyDict/to_molsysmt_TopologyDict.py",
+        "git_blob": "81a11cb87521f6e3d07cb00c7f93ba88936d57fe",
+        "sha256": "85dcb924f0276c3c5d33212dc0f9480544adc2c4d35866f5cb3ae040c2a990ed"
+      }
+    ]
+  },
+  "native_seven_totals": {
+    "intended_reference_occurrences": 162,
+    "distinct_source_files": 156,
+    "actual_html_guards_passed": 7
+  },
+  "remaining_cached_articles": {
+    "scope": "Unchanged source and HTML SHA-256 receiving of the previous per-page DOM census, excluding the four changed dictionaries and the three previously separate native pages. Separate current seven-page DOM receiving is required. No optional converter or installed qualification.",
+    "full_html_source": "1b98c2b1de047cf8f5d0d7dc4ed83a939db6a7cc",
+    "source_matched_articles": 87,
+    "source_matched_articles_with_unlinked_python_roles": 79,
+    "unlinked_python_role_nodes_in_matched_articles": 1517
+  },
+  "remaining_page_inventory": [
+    {
+      "page": "docs/content/user/tools/form/class/biopython/biopython_PDBStructure.ipynb",
+      "source_sha256": "bd4a46191e2614ef2a8dd07f4faf46677c7b80f2b3290bdc8bdf5cc93d752276",
+      "html_sha256": "272c3a79e872cf3d52aecba416f55b0d81a87220574fe3ae3f1acb00b5fb2b45",
+      "unlinked_python_role_count": 9
+    },
+    {
+      "page": "docs/content/user/tools/form/class/biopython/biopython_Seq.ipynb",
+      "source_sha256": "b3798a038170b7214ea60de90bc08589400e0c6030f9a2900179bcfc8ac713f5",
+      "html_sha256": "21093692ebe9a57c71358eb8c255dd1299f9d3d21d6bf8bcb92434c378ed56c3",
+      "unlinked_python_role_count": 17
+    },
+    {
+      "page": "docs/content/user/tools/form/class/biopython/biopython_SeqRecord.ipynb",
+      "source_sha256": "217939ee48f56d90f1392b25bb98d2dfe5eb11a058e384b7942cb6c1b726b772",
+      "html_sha256": "3d160dc2cb20505fcca7223ec3f25dd8837ac87822c752a9346bf474e07d2b0a",
+      "unlinked_python_role_count": 16
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_AtomGroup.ipynb",
+      "source_sha256": "1a863ed839b35e7ec22f6c087a440039d83423b32add5823fd5817d402d50f62",
+      "html_sha256": "4d182a818b5a3c7c3a82f1b9bc0ff0302ed230dcbc8cc152d1320efaabba555d",
+      "unlinked_python_role_count": 13
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_Topology.ipynb",
+      "source_sha256": "f18726c7d805316cbbd30f869e75497ba228920062fe49555c6c72f68f036bc7",
+      "html_sha256": "5469b05f5d663e02c0b3037ca673523e5c88350981dd15fb98c8f792809cfa17",
+      "unlinked_python_role_count": 16
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_Universe.ipynb",
+      "source_sha256": "f07fa410ff96546cc31d5a9622ffb11e259336aa91d0505671c5c2751243405a",
+      "html_sha256": "d699a7ed55e74adb495011ce13ac9a4e3dc155a1781041ceecc7fec524f202a2",
+      "unlinked_python_role_count": 21
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_topology_PDBParser.ipynb",
+      "source_sha256": "aedbc2cb78353c14aff9f688fc29c75fdc9fdffafa7d59d8a7d7b4c8355712b7",
+      "html_sha256": "34f64285877a48d5d4ceb9dad64f83c7c3fc92a76298afe44dd50834b89a6af2",
+      "unlinked_python_role_count": 18
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_AmberRestartFile.ipynb",
+      "source_sha256": "18f3ca1ca58ad8407f330ea1901469d92ea9a7208190f6e0dcc8526f16f84ab8",
+      "html_sha256": "7577dcf44e7cdc6fe1d50d20b788d0adc09075155dacd25bbd2b3674ae2f9b03",
+      "unlinked_python_role_count": 17
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_DCDTrajectoryFile.ipynb",
+      "source_sha256": "9d9a65e29755e0dc0829c5d079a479d74b8fdb72588a876a97171a6ba4b05a55",
+      "html_sha256": "397c3c994694fa0a98f318a4197475e4a9a32b087b2f999e055efcc8dd473ee7",
+      "unlinked_python_role_count": 17
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_GroTrajectoryFile.ipynb",
+      "source_sha256": "7cb277e491fc98df335bc88eb8d3487e6d65a54690c5554f9f6435b909936f5e",
+      "html_sha256": "e1d089af96a41368b26e35f91b5915575ddc85379ac7cb6719acc67c676acf9a",
+      "unlinked_python_role_count": 17
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_HDF5TrajectoryFile.ipynb",
+      "source_sha256": "4c3b1d6c3183e9799d1ae9168a82d729f41a3396582832fcb2825ea75ee2c33e",
+      "html_sha256": "dba5e24c85e1f1ba33f7a3bfd70db5fcbcf1a7209a05cf41147ef48c629903a0",
+      "unlinked_python_role_count": 20
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_PDBTrajectoryFile.ipynb",
+      "source_sha256": "f440b68bb38059b531df96513a856959b2aad91c8b83d713db0790978b7db981",
+      "html_sha256": "502d712705d3c2f07755c80748b0ccacb17616422928cf405f796ce263990769",
+      "unlinked_python_role_count": 18
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_Topology.ipynb",
+      "source_sha256": "c427867a6a53266925feb10047228ecdc9530c87c5906479194bf5c06bf2f3e7",
+      "html_sha256": "c8c13cfdb68ae6693553d25345252323115cff1de98bb561aeb598e92eb42a18",
+      "unlinked_python_role_count": 23
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_Trajectory.ipynb",
+      "source_sha256": "9de1edaf7632a368ea2b5c80280bcd80e96a17d4ae1b0e03988e7f8edf66ad68",
+      "html_sha256": "e0c290832ec51447f7a4921013c111cbf9761a9c27ea69fdd8a8ddf3971cc798",
+      "unlinked_python_role_count": 32
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_XTCTrajectoryFile.ipynb",
+      "source_sha256": "fba9ba80e9231d00002e855b5a5e138f635297a4163856c21a5ff3df10ce0bf3",
+      "html_sha256": "0fdc124095f9c4da2bd21fe2fc393a55123a5a813d5b67c4c7b78ba300ba0800",
+      "unlinked_python_role_count": 16
+    },
+    {
+      "page": "docs/content/user/tools/form/class/molsysmt/molsysmt_GROFileHandler.ipynb",
+      "source_sha256": "eeff3ed470e256cc681c1e77850fa2fba062adc64d88f073275e1f989feb46c5",
+      "html_sha256": "c0194f36192abed0b09d87838215b33bf267bcd1bb452e99fcb06f6430c590af",
+      "unlinked_python_role_count": 19
+    },
+    {
+      "page": "docs/content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.ipynb",
+      "source_sha256": "7eb46e17edc7f7129984d6ebecedf6294fce45bbe2b839e13f917d7f0c11a11d",
+      "html_sha256": "40a81ad7f29e4804e629d07f4aba3b1257c2709aee2b75f232abfca009c83df9",
+      "unlinked_python_role_count": 0
+    },
+    {
+      "page": "docs/content/user/tools/form/class/molsysmt/molsysmt_MolSysBuilder.ipynb",
+      "source_sha256": "86944019d6a6f9e72463d7accc87c867dc09ae7debccfc1ae5a734f48a45d6c2",
+      "html_sha256": "967be32f927c6e35f4fcefe439fa466406ef4970481091284e3bf8acc4d249f4",
+      "unlinked_python_role_count": 11
+    },
+    {
+      "page": "docs/content/user/tools/form/class/molsysmt/molsysmt_MolecularMechanics.ipynb",
+      "source_sha256": "abb3282e0a4764157b4acdf513620d908a7c95eea64f9c843e6f6b9cb6d55f2a",
+      "html_sha256": "d74fcd16ed2188a69cd9670c073b1403c2b6eb69dfecc62b77eff11e5d0a59ae",
+      "unlinked_python_role_count": 14
+    },
+    {
+      "page": "docs/content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.ipynb",
+      "source_sha256": "621bed0e4cef733738026b85f1d25fe1a95d9430104db9d0d90510e6924180f0",
+      "html_sha256": "2d3d8e63985941e9c17e81fa3817a905e247f4fbf562a606968a5379897fc221",
+      "unlinked_python_role_count": 0
+    },
+    {
+      "page": "docs/content/user/tools/form/class/molsysmt/molsysmt_ViewerJSON.ipynb",
+      "source_sha256": "5982f248a11b5fa9ff94cb8a0ad3d33be95867caa4a1b614e3c21f711acbb5d7",
+      "html_sha256": "aeb958d8534d06ca42c448cc5bf7357818d19c8dbc8cf9e70e65406dbdbc416e",
+      "unlinked_python_role_count": 12
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openff/openff_Molecule.ipynb",
+      "source_sha256": "7d45a4105f754d4cfd12749a9933421dc35fcec0931780bcb70a16822b865392",
+      "html_sha256": "dae6dd45097fab40874eb5d8841d7146e7cf298b166e23babdfc3f5158b103b9",
+      "unlinked_python_role_count": 21
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openff/openff_Topology.ipynb",
+      "source_sha256": "42f586fbce18c15fbe8f27f2eb4eb95e4cb123d34bf30faab5b7087ffe3df034",
+      "html_sha256": "3d5299edcff181c9108b3a107375b47dd11ff721f4b54e35cae4856b9929726e",
+      "unlinked_python_role_count": 19
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_AmberInpcrdFile.ipynb",
+      "source_sha256": "bad11db662b034f5dbf8332aaf0263052e3a5734331c7bc61fe7fce160f0e2df",
+      "html_sha256": "38843a78572e01a096aea57946b263c086591e472e1710592f91e176e8e73181",
+      "unlinked_python_role_count": 16
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_AmberPrmtopFile.ipynb",
+      "source_sha256": "b8d337b06a2cb71487d06526deb1bbce7488a7dc7b510c38dc0ecccc069a9e94",
+      "html_sha256": "73ab42f2ad5861aff19f91e06354920f6358e7412697d648fed64f8367fd9213",
+      "unlinked_python_role_count": 18
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_CharmmCrdFile.ipynb",
+      "source_sha256": "87ec8dd4abd9c0ad15818e997a39471cb45f730237b4af8849524210e4914141",
+      "html_sha256": "cb741d30bb6d1b65bf2fe0abea022d04d30bae4fdfe7888ee7b74340052ad3b9",
+      "unlinked_python_role_count": 15
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_CharmmPsfFile.ipynb",
+      "source_sha256": "d1c2533ec8217b87bc139b041abf347415c169ee297b1e29b915a0f75111bd77",
+      "html_sha256": "9b0f709e92aee18610cdd09654898db5391ce7f08daecc7c0ebccd586c612230",
+      "unlinked_python_role_count": 17
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_Context.ipynb",
+      "source_sha256": "c4375e14f31073f62413a82880095ddc04f51abd87b235f19ecc54cb894d276d",
+      "html_sha256": "7b70c3138b376b3e87a6a426e87eb7a92ed3e9498fbcdd895d72340e6ebd3780",
+      "unlinked_python_role_count": 17
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_GromacsGroFile.ipynb",
+      "source_sha256": "a891007bd89f2f9b7e38b3c7ae01e4157fe9ade4f16f46a1ee76e69a2e83fce9",
+      "html_sha256": "06e4f5ec2993cd2fdf84271ae97c96476893a23faa7b6af3babf1e0608c7c8b0",
+      "unlinked_python_role_count": 18
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_GromacsTopFile.ipynb",
+      "source_sha256": "83e0f984b8a10d0a4917d59de61d11d21aa7fca7aff16f8cdced59960d9a4863",
+      "html_sha256": "ef89c99a524c88989f43c12c70cc80431ad9e2f78ff3b1469aa4747c20f266b8",
+      "unlinked_python_role_count": 17
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_Modeller.ipynb",
+      "source_sha256": "a16199ea6ff0199abd139895517d9caf9c69ee3ffd1018bad74d20edbc34b68d",
+      "html_sha256": "535c37798ebaee2eb453686367d7e426cc0d0c939572ed718ecdf63daa82e041",
+      "unlinked_python_role_count": 26
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_PDBFile.ipynb",
+      "source_sha256": "5a7dec68ca5bb9604b7b05b1a92000335e2abe5cd796e454c72dfb7eea1d7ded",
+      "html_sha256": "795b2ff2936df6b998bd62cfb40265b60a0e47358d8b2b46bd94c7a2fa0c9860",
+      "unlinked_python_role_count": 23
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_Simulation.ipynb",
+      "source_sha256": "43e6ba85b5da98ea732648b3d1aa863966f0e6593bfd99bfb2aa28f699ce2239",
+      "html_sha256": "2ba90befbcdca84c6401e2d43d22e74d1259647329f174133ce3e7484daf8b15",
+      "unlinked_python_role_count": 23
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_State.ipynb",
+      "source_sha256": "429dc1f932f3acd23a3b48bed2cd3b4d87aecc895e4a29c34301799604a193f6",
+      "html_sha256": "b68fd4a39845bfb6462a0770bbc5d22ef8a398a7584a7f0ef14561c74f4b9bfa",
+      "unlinked_python_role_count": 17
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_System.ipynb",
+      "source_sha256": "6b965a327dbe5a7b2fdf8f14b2d3aa00a942b2101ebd255e02a862253bf8bbc3",
+      "html_sha256": "946d8e2751623d23b68f12f138fdf5b2f4bd106c1ae4103d3d2bf009b80af804",
+      "unlinked_python_role_count": 16
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_Topology.ipynb",
+      "source_sha256": "95c400a96dac6fd221b8c522d7dbcb017e6c97e3836a882841955b65c4e414ec",
+      "html_sha256": "3d2c931492fc7ade03cee111e7ccd261c5b79e0ce4dc142df3c164ed43cd8bff",
+      "unlinked_python_role_count": 32
+    },
+    {
+      "page": "docs/content/user/tools/form/class/others/XYZ.ipynb",
+      "source_sha256": "03a9a35dcede1d3f7d6fd1383f1242be978492542890099551536c159d55fbfe",
+      "html_sha256": "404de8ed210b6683e29a85e441de798ef9e55b47f9413ad4de03ce30a54d394b",
+      "unlinked_python_role_count": 21
+    },
+    {
+      "page": "docs/content/user/tools/form/class/others/cupy_ndarray.ipynb",
+      "source_sha256": "6cf5030e107a1f0dde76cfe2e2636d6a82b66b97c52814ce0465a70bb6fca290",
+      "html_sha256": "3b772ca2b0f1a814c5bd6c9d1be692ea42b8bd27e8df2eab6899b77fb85b96d5",
+      "unlinked_python_role_count": 16
+    },
+    {
+      "page": "docs/content/user/tools/form/class/others/mmcif_PdbxContainers_DataContainer.ipynb",
+      "source_sha256": "09f59c05c7e642c70360d546fda135d1d71e508350b3810971c16ebecf8e5c33",
+      "html_sha256": "ec100099ea57806b218faf754612b2a9157ccad7edcccc6b16138d3e3bf194d9",
+      "unlinked_python_role_count": 26
+    },
+    {
+      "page": "docs/content/user/tools/form/class/others/networkx_Graph.ipynb",
+      "source_sha256": "e3be07213682e279f85e0039926a992acc08db99d5a1eb3e87182b0c5c718916",
+      "html_sha256": "52231fa0372e94773b6643e19a12e862b1a658c019e3d3d04f51bbc03ef5cfe5",
+      "unlinked_python_role_count": 15
+    },
+    {
+      "page": "docs/content/user/tools/form/class/others/pdbfixer_PDBFixer.ipynb",
+      "source_sha256": "b7204070258523e2e9f809b88f7d5d84b77e528f983efdfa14ec638edfb2e5f4",
+      "html_sha256": "05ca10a7c60a03897611973eb82f6089c2f4d1041e437352c6c7952067caac4b",
+      "unlinked_python_role_count": 28
+    },
+    {
+      "page": "docs/content/user/tools/form/class/parmed/parmed_GromacsTopologyFile.ipynb",
+      "source_sha256": "8c4e7cc06f9772911110f2d8062c06478eb30a4040d3ef7628ec4889dc28c9df",
+      "html_sha256": "0f5c958c5a5b0f4b162d9a624cdb1a47541b9629d3df0d5a0087c5990ed74e00",
+      "unlinked_python_role_count": 21
+    },
+    {
+      "page": "docs/content/user/tools/form/class/parmed/parmed_Structure.ipynb",
+      "source_sha256": "53a6d1a608e2568cc6ef73c376bc1bd8e02c56c913dc804cf6a04265c0414917",
+      "html_sha256": "e3e90da3558758d9cf47d254c4df779eb2c96cda62683fcddf1950edcd867a5b",
+      "unlinked_python_role_count": 28
+    },
+    {
+      "page": "docs/content/user/tools/form/class/pytraj/pytraj_Topology.ipynb",
+      "source_sha256": "9ca02c32a642e362700568e5b2ad77524cf3146cb07c6318e86deaad8ec83a4c",
+      "html_sha256": "2a808ba740306868262567a7fcf762dd0900e53e10e801ee29cf01f8131cb430",
+      "unlinked_python_role_count": 17
+    },
+    {
+      "page": "docs/content/user/tools/form/class/pytraj/pytraj_Trajectory.ipynb",
+      "source_sha256": "de4633c8da78ee0a9a82f93a454d3ebd2916310edd758cfeb9d72ddddef6b109",
+      "html_sha256": "34cb87fbe6dcc406f45e111bc01c8544d99f767d54f1c395e17fe8b93a6c22ae",
+      "unlinked_python_role_count": 20
+    },
+    {
+      "page": "docs/content/user/tools/form/class/rdkit/rdkit_Mol.ipynb",
+      "source_sha256": "37d3eb9bcd07d4c9d3df83e53b5ac207304bbaf3824a179330cc3d1882ab18f9",
+      "html_sha256": "e15d4bfbd8e5678b651c6902ba932799ccf049057f3644c0573d260e6c3a9577",
+      "unlinked_python_role_count": 15
+    },
+    {
+      "page": "docs/content/user/tools/form/class/viewers/molsysviewer_MolSysView.ipynb",
+      "source_sha256": "d4bafc6d8ac88592634ef2eee7a2ab86f8fe88b5920a886a36613f3b48cdad72",
+      "html_sha256": "5af7a89bc921e42990e59ff4551ae3236c27ea1d2cab206d318a955817c5250e",
+      "unlinked_python_role_count": 13
+    },
+    {
+      "page": "docs/content/user/tools/form/class/viewers/nglview_NGLWidget.ipynb",
+      "source_sha256": "166fbd7ea8f323201a1a766a52b651123a11bd605d14690d85bec56642954e86",
+      "html_sha256": "1dc5859a4ac144481cdf62817acfd922ae6fe94818e61d43131c6c02d39b9d5b",
+      "unlinked_python_role_count": 22
+    },
+    {
+      "page": "docs/content/user/tools/form/close.ipynb",
+      "source_sha256": "b43b9d00bb046917fda823386dd714b9f13dd0780c2f17224bc8622ba925c59a",
+      "html_sha256": "423660bf5fa0b82f25707c490c951d849b92979124b4a70f8b871d84f01969a1",
+      "unlinked_python_role_count": 0
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_bcif.ipynb",
+      "source_sha256": "ec95495a8510df820cdf2f9f962edf96e2a2d11f6fc0dce6db0e12ff15d60f65",
+      "html_sha256": "63fcc33499dcdde4e9a82c48c7d527175987fef89bcaed497b39f366e4b8e0c0",
+      "unlinked_python_role_count": 20
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_bcif_gz.ipynb",
+      "source_sha256": "a79ead94ef68c1d71f030be60c9022a130076c66171346fe9bd65686ae725077",
+      "html_sha256": "14e2608d8828750ece435774a147ede88e9931bb2dd8e7fc737e0a1b1927da90",
+      "unlinked_python_role_count": 20
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_cif.ipynb",
+      "source_sha256": "a1986d580dd0e0b35b642b4988becce30617d9a1d0e933e8bce5031a38165670",
+      "html_sha256": "9a926b7ad0b9f931e49b51a1207762727d273c920f40c4857b412979f466f3bf",
+      "unlinked_python_role_count": 20
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_cif_gz.ipynb",
+      "source_sha256": "16dd0c2e363afbae276110456cc34cdcff23d460335d6e67a3bbcb0e97e74411",
+      "html_sha256": "5912668767f0d195cfb69203bf0af0eb6eb61ef0f3d3d6658e3b24aa9acf9c96",
+      "unlinked_python_role_count": 20
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_crd.ipynb",
+      "source_sha256": "f1dff55789046fc6e7451e9b320c9bde9cf0ada473ab2212a4117cfcbf52513e",
+      "html_sha256": "e182b5b17f387a4953fabf538d383a7721e493135195392d14582c7cc68546df",
+      "unlinked_python_role_count": 19
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_dcd.ipynb",
+      "source_sha256": "f03415d9d45c56c2f5d066cd9ba6ed1bd92a470728729240cadac4b07533ecbe",
+      "html_sha256": "426761c5f72e2d8afd0581751f1cf3740b8d7798b606cbaac88f0ef3c6490a3b",
+      "unlinked_python_role_count": 19
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_fasta.ipynb",
+      "source_sha256": "9ba29b796bffcffea922688c73e5c01b0cdd1e571808d122735d461fc4e7f3e0",
+      "html_sha256": "fb1c4a924235fa4a74bd01eb122cd08f91f7f6222fb53b67090ac68cf3fcf3e8",
+      "unlinked_python_role_count": 17
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_gro.ipynb",
+      "source_sha256": "f804c39b89ea3fcc65600b1b47edb28d47a255c18fdcd5cfe3da3e002a25fdc9",
+      "html_sha256": "5e951d0aa9374dea3500bab2e053dee3432eb81ca6f86cb51aab656b855d64b4",
+      "unlinked_python_role_count": 26
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_h5.ipynb",
+      "source_sha256": "59e849a0c6f0f77ee7e4f69c78f1d6e6643057d713fc3317c2791a7473081ee5",
+      "html_sha256": "b75c063986971b5cbf0f36b3401c18982a084caba00841fbee287e8626736174",
+      "unlinked_python_role_count": 25
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_h5msm.ipynb",
+      "source_sha256": "0630ee826c6bc8c7b5538434613044553755ed4057362f631134aff88c4b563d",
+      "html_sha256": "e89f267ec88417b92546c40082f789821e8a488441083c347377a277cc5828e2",
+      "unlinked_python_role_count": 22
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_inpcrd.ipynb",
+      "source_sha256": "46ab95c007ba2c96f4d63ded259314221050bd6a6782f01b93428e1e670da065",
+      "html_sha256": "1d9d23751d121300f733c47c965baafa02dfa4bb7ec423449be243f3d8f17e2f",
+      "unlinked_python_role_count": 17
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_mdcrd.ipynb",
+      "source_sha256": "62222e743607f23f89f9a32bfee277c40d0ac06fc1133dfc5909407ba42c9969",
+      "html_sha256": "c63624d52e0f17a75a8c578974da6c35362f814d6f579a15b85e2ca6646abb99",
+      "unlinked_python_role_count": 15
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_mol2.ipynb",
+      "source_sha256": "76822e671920e93a533bdf3e37d80161774d2e0ffa8116929af95110ca1823a3",
+      "html_sha256": "6ce4e5f70a1937683745f455a90776b987cf0a574f78945f9cc88a82fea1a3bb",
+      "unlinked_python_role_count": 26
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_molsys_yaml.ipynb",
+      "source_sha256": "7455ec71ea3032db8346a6a98ae14afd52ae458fd74696667109e5a849e49a7c",
+      "html_sha256": "69aaec1c6430d84780560bdf22cc03cbd007e617b525ac1e8762716733a0e64a",
+      "unlinked_python_role_count": 10
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_pdb.ipynb",
+      "source_sha256": "88f6661889612430c05fdcf9020aa8d71c540b802bd97def3e22e1973b603758",
+      "html_sha256": "9483a05dbfe73b9d045be9c06826438c96d218b96e026f082d7c85d3799412ce",
+      "unlinked_python_role_count": 37
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_pir.ipynb",
+      "source_sha256": "012e1acfe935f4d509a173378d28cfa83933b01ffd6b8bdb51763aa67844ebc0",
+      "html_sha256": "241b538c4966533df6fc8d8b76c3966c2dae247e825842c3eb5d1f4be2321b20",
+      "unlinked_python_role_count": 18
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_prmtop.ipynb",
+      "source_sha256": "32549ad265691ef3b2cf57f84d1335d8cde1c20d28837ef0c9ed30e922f3ac5d",
+      "html_sha256": "fbc018ac5ef5fa206f6d5b1202b99d4185ad70e8638f0596abff205e730af846",
+      "unlinked_python_role_count": 23
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_psf.ipynb",
+      "source_sha256": "998639bb9f5469bef19752b7bef2ed8033cd5c18c08e3b1f5f919704e5802e71",
+      "html_sha256": "acde7305c49ec202e3ce31f3a6e423943181898cdc0081e72c1683406fcba7cf",
+      "unlinked_python_role_count": 20
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_smi.ipynb",
+      "source_sha256": "f30182be8cebc11250a9ed85da0fb3ff1dfc2b8a060efd6669c8e6f4480a8607",
+      "html_sha256": "a3f9cdcdc82aac163a8388f6119d781d57229704cf974c255a3d7f5553de9057",
+      "unlinked_python_role_count": 17
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_structures_yaml.ipynb",
+      "source_sha256": "20f9e4fc706b542c4f559e64cee4332c3a2d699398c05ebace142d8964c0ab91",
+      "html_sha256": "bc7cc507ee785fbdd34f9b6079345d9b147a2fad158cf1e8a908e01c945b7136",
+      "unlinked_python_role_count": 10
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_top.ipynb",
+      "source_sha256": "fc57eead9f1238c1f70705ea1ec151db9777363c371d748e97995bb4c9e4d650",
+      "html_sha256": "dcc44cc4e2baac912ab6f83ac0fadfc68ee429a6035fcdb640a5fea92901a97b",
+      "unlinked_python_role_count": 18
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_topology_yaml.ipynb",
+      "source_sha256": "c5e9129a1fb6090f2a94edea2914c7b9f8a412742f7cf4f97fd059617bc5c04f",
+      "html_sha256": "ace6caa69fc0e79a73aacef9f93192a1e823a01d53b6e274fe5df038daf18938",
+      "unlinked_python_role_count": 10
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_trjpk.ipynb",
+      "source_sha256": "745363a77986c2f76133245e633051343bad948ad63210da49ecc8d2b2ef031f",
+      "html_sha256": "3ed9e9b49c9bb7e7786f64ea350541575d669613b426c3b190b534c3c6400588",
+      "unlinked_python_role_count": 9
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_xtc.ipynb",
+      "source_sha256": "407755d218dba2932cbb49e37afcbaefa7cb5b9f12de753c371dc165db9b876d",
+      "html_sha256": "ff4909e8269853ed366fc5dfcbced21042f105ad5afe1b7eef42eea7ab800116",
+      "unlinked_python_role_count": 19
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_xyz.ipynb",
+      "source_sha256": "dcaa0c842cee83504df2c57225e0767c8c443f3670f8a7d4898e2e03d2d5df0a",
+      "html_sha256": "91fe2329df09759067a379ef8bcbec85156128154aeeea32e972aff2fe5dc87c",
+      "unlinked_python_role_count": 16
+    },
+    {
+      "page": "docs/content/user/tools/form/file/file_xyznpy.ipynb",
+      "source_sha256": "687baa0a9e6138e292a14920265ed03e16ffc0f4c06335e20eee1ccc6105fc30",
+      "html_sha256": "8de8e6bd80e5b38c3aacad84ca26f5890d11fab7c566a63a4c66255ee76c8950",
+      "unlinked_python_role_count": 16
+    },
+    {
+      "page": "docs/content/user/tools/form/get_attributes.ipynb",
+      "source_sha256": "44bfb93314abb0886b3fdae2c1e7d05b5d62e658ff244bb2052942929d74d4de",
+      "html_sha256": "1c5e2c540804a5ad6f71cd5813fa6d48848f27e7ed7d28803c316b0c5c73e50d",
+      "unlinked_python_role_count": 0
+    },
+    {
+      "page": "docs/content/user/tools/form/has_attribute.ipynb",
+      "source_sha256": "4737367d051c0cd8c8ad3bdce8f3706b12db2531173d00928655ec8aff25d94f",
+      "html_sha256": "9e4f071f4d65db42e6ea7b523774061e10b4164219f75a474fa09a7fcf0cd1c9",
+      "unlinked_python_role_count": 0
+    },
+    {
+      "page": "docs/content/user/tools/form/is_file.ipynb",
+      "source_sha256": "a1431fdd61f20d8b99163ba44b9a5e28ba6076b2ec0dd618b0f11884583793a0",
+      "html_sha256": "0d18c6c4670fa782948777874a03cecccad9f68d36dc2043feae74322bcdb92e",
+      "unlinked_python_role_count": 0
+    },
+    {
+      "page": "docs/content/user/tools/form/is_item.ipynb",
+      "source_sha256": "65d0658b0af6b2e7224be33d79ef9f59e28ad8b53e1e9a891475922be52e4f3e",
+      "html_sha256": "2fa9de94d064b37444c1929437fa8adde15442431a55ac8d7c79cb91c08beb0b",
+      "unlinked_python_role_count": 0
+    },
+    {
+      "page": "docs/content/user/tools/form/is_string.ipynb",
+      "source_sha256": "37ba57e035fd7ffa10b100a7ed0f04d43342b7e58e05c8c58dc3b241e610d737",
+      "html_sha256": "636b5916e51888324c7fca0248883a4d2dc257b52df15458a6808a65d48c250e",
+      "unlinked_python_role_count": 0
+    },
+    {
+      "page": "docs/content/user/tools/form/string/string_alphafold_id.ipynb",
+      "source_sha256": "55e9112e6868306767087fc2255229c0a05d7c04b2f85b97ecac5a0cbd95c248",
+      "html_sha256": "71cc704a5156547b85aec88f5d35d704917ff90465bb5e64dba4cbf2f16a265c",
+      "unlinked_python_role_count": 31
+    },
+    {
+      "page": "docs/content/user/tools/form/string/string_amino_acids_1.ipynb",
+      "source_sha256": "5ce32199e965ed0211f64e09831676925b190fac8c272cbeccd8aa883baffc48",
+      "html_sha256": "2dbabe6f2dccc430dc0dd46997ecb33f8eff63ad17524d4d4c35455d02d8fc35",
+      "unlinked_python_role_count": 18
+    },
+    {
+      "page": "docs/content/user/tools/form/string/string_amino_acids_3.ipynb",
+      "source_sha256": "bae851b8028204d009ef96d50eb6714588f88216d2567fec1210dd7bcd9365aa",
+      "html_sha256": "db8e9f79a7e6cd45ef118973f874e50c1e2d61eb8d64e3a5547d1cfeb0a49a0e",
+      "unlinked_python_role_count": 18
+    },
+    {
+      "page": "docs/content/user/tools/form/string/string_pdb_id.ipynb",
+      "source_sha256": "ba37778518a7b43621292fa9f6b23c95a50010c93cc5d9bb4980de6086c647c4",
+      "html_sha256": "71bce22c68721a5dab155a93d0e024516992197e6bd6872c9a8882012b528a50",
+      "unlinked_python_role_count": 34
+    },
+    {
+      "page": "docs/content/user/tools/form/string/string_pdb_text.ipynb",
+      "source_sha256": "cd0a6a9328359c393994647b8f716e094f35a385d83cd175ca3b107dcbc38d14",
+      "html_sha256": "281633787ae569dc6d6a7010cf58035a1a7c1ec46d6d90b20dcffccc97276118",
+      "unlinked_python_role_count": 29
+    },
+    {
+      "page": "docs/content/user/tools/form/string/string_smiles.ipynb",
+      "source_sha256": "f4523a59764e5cf4fb2c9a60174188d78b565ec235aabb60dcb965acdd12ed40",
+      "html_sha256": "629c04be8b5adcacdb0d4509a7476504435bac311c4142472c90bd7e3a1798c3",
+      "unlinked_python_role_count": 18
+    },
+    {
+      "page": "docs/content/user/tools/form/string/string_uniprot_id.ipynb",
+      "source_sha256": "9f3c4121c32201d255d3a9747c54e6a98cb244318e738092cdd8af6ef18050da",
+      "html_sha256": "2ded2608ada6fe20fe7097219ccf623e9955429dfbb8995732512a26a3520c38",
+      "unlinked_python_role_count": 17
+    }
+  ],
+  "board_checkpoint": {
+    "issue_count": 647,
+    "open_issue_count": 93,
+    "new_issues_after_727": [
+      {
+        "number": 728,
+        "title": "Return ProtOr radii, assigned types and typing provenance in one public operation",
+        "state": "OPEN",
+        "labels": [
+          {
+            "name": "component:opencastp"
+          }
+        ]
+      }
+    ],
+    "open_pull_request_count": 0
+  },
+  "own_resource_retirement": {
+    "task_owned_only": true,
+    "foreign_processes_signalled": false,
+    "units": [
+      {
+        "unit": "msm-dict727-baseline-20261112.service",
+        "before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "reset exact task-owned failed terminal unit",
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "MainPID": "0"
+        },
+        "query_exit": 0
+      },
+      {
+        "unit": "msm-dict727-baseline2-20261112.service",
+        "before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "reset exact task-owned failed terminal unit",
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "MainPID": "0"
+        },
+        "query_exit": 0
+      },
+      {
+        "unit": "msm-dict727-final-20261112.service",
+        "before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": null,
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "MainPID": "0"
+        },
+        "query_exit": 0
+      },
+      {
+        "unit": "msm-dict727-contracts-20261112.service",
+        "before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": null,
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "MainPID": "0"
+        },
+        "query_exit": 0
+      },
+      {
+        "unit": "msm-dict727-html-20261112.service",
+        "before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": null,
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "MainPID": "0"
+        },
+        "query_exit": 0
+      },
+      {
+        "unit": "msm-dict727-rendered-20261112.service",
+        "before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": null,
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "MainPID": "0"
+        },
+        "query_exit": 0
+      },
+      {
+        "unit": "msm-dict727-checks-20261112.service",
+        "before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already terminal/collected; no signal required",
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "query_exit": 0
+      }
+    ]
+  },
+  "common_checks": {
+    "passed": true,
+    "commands": [
+      {
+        "command": [
+          "<python-3.14.7>",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.4s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        5.5s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.1s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.3s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.1s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.4s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   1.9s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.3s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.1s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.2s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<python-3.14.7>",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "native_exit": 0,
+        "stdout": "4695 files already formatted\n",
+        "stderr": ""
+      }
+    ]
+  },
+  "common_checks_execution": {
+    "source_commit": "bdcd326aee262bf987d7d8d0b03a3359562e9501",
+    "native_exit": 0,
+    "seconds": 25.711909464094788,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "1610612736",
+      "memory.high": "1409286144",
+      "memory.swap.max": "0",
+      "pids.max": "128"
+    },
+    "memory_peak_bytes": 414449664,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 15265341440,
+    "maximum_memory_pressure_avg10": 0.0,
+    "host_reserve_bytes": 6979321856,
+    "driver_sha256": "f50f0eda89670ca837ebef3f4b65e45487ff30cfa40a249c8202c7be37e05dec",
+    "command": [
+      "<python-3.14.7>",
+      "<checkout>/.pytest_cache/dict-reference-727-20261112/final_checks.py"
+    ],
+    "selected_inputs_sha256": "1d617f82ed66204bcb60d78f8c3b6653bb5cbd3b9b057488a515a0a6854ae84c",
+    "changed_inputs": [],
+    "log_sha256": "4986ef3f5b2db8333d3652f9e37d9a955093a6eb1acbce1553f4b16672a99b3f"
+  },
+  "runtime_basis": {
+    "python": "3.14.7",
+    "native_binary_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "reused_runtime_environment_sha256": "4d5c6c736cb9168bc1ce61c6236b9760767c01706402a712330821633ac61a72",
+    "published_support_basis": "Same controlled provider/tooling roots as native_form_reference_receiving_727_20261112.json; no shared environment modification or new installed/provider qualification."
+  },
+  "next_actions": [
+    "Continue #727 on remaining bounded families; 79 source-matched cached articles retain 1517 unlinked Python-role nodes.",
+    "Study admitted source-reviewed #728 without changing radius-only contracts or claiming measured speedup.",
+    "Retain complete-source/nightly backlog, #723 long campaign, #615/#713 causal uncertainty, original 77.7381% scorecard and paused final installed-pair/publication routes."
+  ]
+}

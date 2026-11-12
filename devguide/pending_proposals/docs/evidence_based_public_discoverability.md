@@ -162,3 +162,18 @@ retains original failures, scoped runtime and preserved data. A source-matched
 cached wider audit finds 83 articles with unlinked Python roles; #727 stays
 partial. This is concrete documentation delivery, not improved search ranking,
 comparative superiority, full current-site acceptance or extra scorecard credit.
+
+
+## Dictionary-form delivery — 2026-11-12
+
+The next #727 increment receives four native dictionary tutorials as well.
+All seven reviewed articles deliver 162 intended source references; 156
+published source files match independently. Source/semantic controls pass 24
+cases, existing dictionary suites pass 55, seven actual HTML guards pass, and
+the clean `bdcd326ae` targeted build has zero warnings. Domain/schema and
+unavailable-hook descriptions are corrected with code/outputs preserved.
+The [dictionary receipt](../../../devtools/data/native_dictionary_form_reference_receiving_727_20261112.json)
+retains exact scopes. Seventy-nine unchanged-source/HTML cached articles still
+have unlinked Python roles. #727 and this wider discoverability proposal stay
+partial; no ranking, comparison, external-reader or installed acceptance is
+claimed.

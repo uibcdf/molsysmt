@@ -97,6 +97,17 @@ keeps sources and original failures. A source-matched wider cached audit finds
 next bounded review queue. This does not add score credit or relax final-pair,
 installed, original causal or publication boundaries.
 
+The next #727 dictionary increment on clean `bdcd326ae` receives four further
+native forms: 24 source/semantic cases, 55 existing dictionary runtime cases,
+zero-warning targeted HTML and seven actual-article guards pass. The seven
+reviewed native articles deliver 162 intended references to 156 verified files;
+79 source-matched cached articles still retain 1,517 unlinked Python-role nodes.
+The [dictionary receipt](../devtools/data/native_dictionary_form_reference_receiving_727_20261112.json)
+retains limits and failures. Complete intake has 647 issues/93 open/no open PRs;
+new [#728](pending_proposals/protor_radii_types_and_provenance_in_one_evaluation.md)
+adds a bounded ProtOr API study, not a numerical bug or release veto. No scoring,
+complete-source or publication boundary changes.
+
 ## Work that MolSysMT can advance now
 
 1. **Retain the received complete local source session.** Clean `6acad4f35`
