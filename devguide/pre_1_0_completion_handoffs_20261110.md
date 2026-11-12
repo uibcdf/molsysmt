@@ -119,6 +119,16 @@ new [#728](pending_proposals/protor_radii_types_and_provenance_in_one_evaluation
 adds a bounded ProtOr API study, not a numerical bug or release veto. No scoring,
 complete-source or publication boundary changes.
 
+The final flagged native-family increment on clean `61e0a24ba` receives Builder,
+MolecularMechanics, ViewerJSON and GROFileHandler: 32 source controls, 74
+existing-runtime cases, eleven actual-article guards and zero-warning targeted
+HTML pass. The [receipt](../devtools/data/native_remaining_form_reference_receiving_727_20261112.json)
+retains the original six old-locator failures and unchanged functional
+assertions. Eleven native pages deliver 214 references to 204 matched source
+files. #727's remaining 75 flagged cached articles are external class/file/string
+forms. No new issue after #728 or open PR is present in the complete intake;
+the finite handoff cutoff and separate qualification boundaries remain.
+
 ## Work that MolSysMT can advance now
 
 1. **Retain the received complete local source session.** Clean `6acad4f35`

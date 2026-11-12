@@ -251,3 +251,29 @@ accepts the exact published-source path as well; all independent-copy,
 unsupported-operation, iterator, nonmutation and quantity assertions remain.
 The failed attempt stays recorded. Actual HTML receiving and final checks
 remain due before claiming this increment delivered.
+
+
+## Remaining flagged native articles: HTML received — 2026-11-12
+
+Clean `61e0a24ba` compiles the four pages with zero warnings and unchanged
+inputs. All eleven actual native-article guards pass with correct intended
+hrefs in their tables and no unlinked Python roles. The latest existing-runtime
+cohort passes 74 cases after the GRO locator adjustment; 32 source controls
+also pass. The [remaining-native receipt](../../../devtools/data/native_remaining_form_reference_receiving_727_20261112.json)
+retains source/HTML hashes, failures, source-file proof and resource limits.
+Eleven reviewed native pages now deliver 214 reference occurrences to 204
+matched published source files. This completes the native-family debt identified
+by this census, not the whole issue.
+
+The unchanged-source/HTML audit now receives 83 cached articles: 75 retain
+1,461 unlinked Python-role nodes, all outside the native class-form family.
+Continue external class, file and string families with actual destination and
+availability checks. Complete intake remains 647 issues, 93 open and no open
+PRs; no newly numbered issue after #728 is present at this checkpoint. Keep
+the finite documentation-review handoff cutoff, original score and separate
+complete-source, causal, long-memory, installed and publication boundaries.
+
+Fifteen common fast gates, generated-index verification and whole-repository
+Ruff checks/format verification pass with unchanged checked inputs. Board/queue
+reconciliation passes. Seven exact task-owned services are terminal/retired; no
+foreign process is touched. These results do not lift the qualification pause.

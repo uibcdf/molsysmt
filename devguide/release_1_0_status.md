@@ -8,7 +8,7 @@ native inventory/query corrections `b0ae02b22` / `4280a8d42`, Jupyter
 receiving `687220ac9` / `67a094749`, memory-method `db1706f8a`, molecular pilot `1a899f9f0`, label-inventory
 correction `9af9be18c` / guard `90aa8eae1`, native-domain guidance
 `1b98c2b1d` / `2bf21835f` / `115ebe335`, dictionary guidance
-`bdcd326ae` and the
+`bdcd326ae`, remaining native guidance `61e0a24ba` and the
 separately received earlier documentation/catalog slices.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
@@ -33,7 +33,7 @@ promotions and publication remain paused pending the agreed resumption.**
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
 | Complete #723's comparable long campaign | The method/default-host baseline passes on `db1706f8a`; the concrete molecular integration passes 63 controls and one actual 5,000-structure cycle on clean `1a899f9f0`. Initial/recovered native targets and 3,720,000-byte buffers clear; the independent witness survives unchanged. Host growth and debugger errors remain explicit. Freeze the comparison composition before the long campaign; preserve original raw outcomes and #615/#713 scopes. |
-| Complete #727 and the admitted pre-1.0 polishing review | Seven reviewed native form articles now deliver 162 intended implementation links. The source-matched wider audit retains 79 articles/1,517 unlinked Python-role nodes; continue bounded per-form review. Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11) under the new handoff cutoff: fix admitted correctness, integrity, supported-workflow and documentation defects; review incoming reports without admitting optional expansion automatically. #728 remains owned but its implementation is deferred. Preserve original milestone accounting and qualification boundaries. |
+| Complete #727 and the admitted pre-1.0 polishing review | Eleven reviewed native form articles now deliver 214 intended implementation links. All flagged native-class debt in the census is received; 75 other articles retain 1,461 unlinked Python-role nodes. Continue external class, file and string families. Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11) under the new handoff cutoff: fix admitted correctness, integrity, supported-workflow and documentation defects; review incoming reports without admitting optional expansion automatically. #728 remains owned but its implementation is deferred. Preserve original milestone accounting and qualification boundaries. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
 | Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
 | Retain #713's bounded import-timeout investigation | The complete durable `6acad4f35` session and all three original import orders pass. No cause for the earlier timeout is established; keep the diagnostics and original failure. A new full retry needs a new question or agreed gate. |
@@ -50,6 +50,28 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Flagged native-family reference debt received — 2026-11-12
+
+The `61e0a24ba` increment receives MolSysBuilder, MolecularMechanics,
+ViewerJSON and GROFileHandler. All 32 source controls, 74 existing-runtime
+cases and eleven actual-article guards pass; targeted HTML has zero warnings.
+The first runtime attempt retains six failures in an old dotted-role row
+locator; its updated published-path locator preserves all original functional
+assertions. Builder and mechanics tables now match 98/21 declarations and
+actual domain/operation limits. Notebook executable payloads remain unchanged.
+Fifteen fast gates, whole-repository Ruff and board/queue reconciliation pass.
+The [receipt](../devtools/data/native_remaining_form_reference_receiving_727_20261112.json)
+owns staged inputs, original failures, source/HTML hashes and resources.
+
+Eleven reviewed native pages deliver 214 intended reference occurrences to
+204 matched published source files. #727 stays partial: 75 of 83 unchanged
+source/HTML cached articles retain 1,461 unlinked Python-role nodes, outside
+the native class-form family. Complete intake has 647 issues, 93 open, no open
+PRs and no newly numbered issue after #728. Next continue external class/file/
+string reference receiving under the finite handoff cutoff. No runtime
+scientific implementation, original score, complete-source/nightly, client,
+installed or publication boundary changes.
 
 ## Native dictionary guidance and issue intake — 2026-11-12
 

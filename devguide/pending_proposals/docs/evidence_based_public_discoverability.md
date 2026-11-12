@@ -177,3 +177,14 @@ retains exact scopes. Seventy-nine unchanged-source/HTML cached articles still
 have unlinked Python roles. #727 and this wider discoverability proposal stay
 partial; no ranking, comparison, external-reader or installed acceptance is
 claimed.
+
+
+## Flagged native-family completion — 2026-11-12
+
+The [remaining-native receipt](../../../devtools/data/native_remaining_form_reference_receiving_727_20261112.json)
+receives the final four flagged native articles on clean `61e0a24ba`. Eleven
+actual article guards pass; all reviewed native pages deliver 214 intended
+references to 204 matched source files. Source/runtime controls and zero-warning
+HTML retain their bounded scopes. Seventy-five external class/file/string
+articles remain flagged under #727. This completes the identified native
+reference family, not the wider discoverability or qualification obligations.
