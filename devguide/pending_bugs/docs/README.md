@@ -21,9 +21,8 @@ Entries are filed and closed under [reporting_protocol.md](../../reporting_proto
 
 - [`course_modules_lack_paired_content_contracts.md`](course_modules_lack_paired_content_contracts.md) — [#512](https://github.com/uibcdf/molsysmt/issues/512) — Course modules lack paired content-protection contracts. *(low, measured)*
 
-### In progress (2)
+### Partially resolved (1)
 
-- [`native_container_ownership_and_persistence_guidance.md`](native_container_ownership_and_persistence_guidance.md) — [#725](https://github.com/uibcdf/molsysmt/issues/725) — Native container guidance retains retired chemical authority and stale persistence emphasis *(low, inspected)*
-- [`native_molsys_tutorial_attribute_and_bond_scope.md`](native_molsys_tutorial_attribute_and_bond_scope.md) — [#726](https://github.com/uibcdf/molsysmt/issues/726) — Native MolSys tutorial omits explicit hydrogen counts and mislabels bond ownership *(low, reproduced)*
+- [`native_form_implementation_references_render_without_links.md`](native_form_implementation_references_render_without_links.md) — [#727](https://github.com/uibcdf/molsysmt/issues/727) — Form tutorial API roles render as unlinked code despite a warning-free build *(medium, reproduced)*
 
 <!-- /generated -->

@@ -4,6 +4,7 @@ import importlib
 import json
 import re
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import pandas as pd
 import pytest
@@ -44,7 +45,7 @@ def test_form_bond_edit_descriptions_match_chemical_state_ownership(operation):
     rows = [
         line
         for line in text.splitlines()
-        if line.startswith("|") and f".{operation}." in line
+        if line.startswith("|") and re.search(rf"[./]{operation}[.(]", line)
     ]
     assert len(rows) == 1
     description = rows[0].split("|")[2].lower()
@@ -65,3 +66,53 @@ def test_form_bond_edit_descriptions_match_chemical_state_ownership(operation):
     assert "chemical" in description and "topology" not in description
     if operation == "remove_bonds":
         assert "bond indices" in description
+
+
+def test_molsys_implementation_references_cover_real_owned_source():
+    notebook = json.loads(PAGE.read_text())
+    source = "\n".join("".join(cell["source"]) for cell in notebook["cells"])
+    adapter = importlib.import_module("molsysmt.form.molsysmt_MolSys")
+    directory = Path("molsysmt/form/molsysmt_MolSys")
+    operations = {
+        "__init__",
+        "extract",
+        "copy",
+        "add",
+        "merge",
+        "append_structures",
+        "add_bonds",
+        "remove_bonds",
+        "get_topological_attributes",
+        "get_structural_attributes",
+        "get_mechanical_attributes",
+        "set",
+        "iterators",
+        "has_attribute",
+        "is_form",
+    }
+    expected = {directory / f"{name}.py" for name in operations}
+    expected.update(
+        directory / f"{value if isinstance(value, str) else value.__name__}.py"
+        for value in adapter._convert_to.values()
+    )
+    conversions = "".join(notebook["cells"][4]["source"])
+    listed = set(re.findall(r"^\| `([^`]+)` \|", conversions, re.M))
+    assert listed == set(adapter._convert_to)
+    assert re.findall(
+        r"\*\*(\d+) registered direct conversion routes\*\*", conversions
+    ) == [str(len(adapter._convert_to))]
+    observed = set()
+    for url in re.findall(
+        r"\]\((https://github.com/uibcdf/molsysmt/blob/[^)]+)\)", source
+    ):
+        parsed = urlsplit(url)
+        parts = parsed.path.split("/")
+        assert re.fullmatch(r"[a-f0-9]{40}", parts[4])
+        path = Path(*parts[5:])
+        assert path in expected and (ROOT / path).is_file()
+        line = re.fullmatch(r"L([1-9][0-9]*)", parsed.fragment)
+        assert line is not None
+        assert int(line[1]) <= len((ROOT / path).read_text().splitlines())
+        observed.add(path)
+    assert observed == expected
+    assert not re.search(r"\{(?:func|mod)\}`~?molsysmt\.form\.molsysmt_MolSys", source)

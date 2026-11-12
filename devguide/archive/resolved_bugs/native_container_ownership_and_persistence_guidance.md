@@ -1,13 +1,13 @@
 ---
 summary: Native container guidance retains retired chemical authority and stale persistence emphasis
 issue: uibcdf/molsysmt#725
-status: active
+status: resolved
 opened: 2026-11-12
-closed:
+closed: 2026-11-12
 severity: low
 verification: inspected
 area: [docs]
-guard:
+guard: tests/documentation/test_native_domain_examples.py::test_native_composition_example_keeps_separate_domains_and_physical_axes
 normative:
 blocked_by: []
 supersedes: []
@@ -88,3 +88,23 @@ calls; there is no new scientific method requiring Ackredit registration.
 Complete strict HTML and actual article/link inspection remain pending at this
 checkpoint. This supplemental work earns no duplicate score credit and leaves
 #723/#615/#713, complete-source/nightly and final-pair qualification separate.
+
+
+## Resolution — 2026-11-12
+
+The corrected source 1b98c2b1d passes complete strict HTML with zero warnings;
+three actual article DOMs and all 130 unique local destinations pass inspection.
+A first inspection draft fails because its substring oracle did not normalize
+intra-node newlines. Its script/disposition is preserved; the corrected inspector
+uses the same presence/absence and file/fragment assertions after whitespace
+normalization. This is an inspection-oracle failure, not a source/build failure.
+The one-CPU/three-GiB/no-own-swap build peaks at 1.70 GiB and preserves at least
+12.21 GiB available host RAM, with all 7,403 selected inputs unchanged and clean
+source before/after. The current guard executes actual reader examples and checks
+independent physical values, indices, domain ownership and partial chemistry;
+it does not purport to prove every future prose claim automatically.
+
+The [combined receipt](../../../devtools/data/native_domain_documentation_receiving_725_726_20261112.json)
+owns exact sources, failed attempts, observed runtime, resources and final checks.
+This bounded documentation correction does not clear the complete-source/nightly
+backlog, original #615/#713 uncertainty or final-pair/publication acceptance.

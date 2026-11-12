@@ -1,0 +1,1466 @@
+{
+  "schema": "molsysmt.native_domain_documentation_receiving@1",
+  "date": "2026-11-12",
+  "issues": [
+    "uibcdf/molsysmt#725",
+    "uibcdf/molsysmt#726"
+  ],
+  "related_partial_issue": "uibcdf/molsysmt#727",
+  "scope": "Bounded native ownership/default-persistence guidance and MolSys form tutorial. Actual examples, native context and HTML; not full scientific/source, installed, platform, candidate or publication qualification.",
+  "source_docstring_proof": {
+    "compared_with": "9323111cff4e78509520c677e420c9470a635049",
+    "path": "molsysmt/native/molsys.py",
+    "ast_equal_after_excluding_function_docstrings": true,
+    "scope": "No executable native behavior changed; selected API/private-helper description corrections only."
+  },
+  "examples_initial": {
+    "source_commit": "9323111cff4e78509520c677e420c9470a635049",
+    "native_exit": 0,
+    "seconds": 5.051402244018391,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "1610612736",
+      "memory.high": "1409286144",
+      "memory.swap.max": "0",
+      "pids.max": "128"
+    },
+    "memory_peak_bytes": 201351168,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 14606376960,
+    "maximum_memory_pressure_avg10": 0.0,
+    "stop_reason": null,
+    "changed_inputs": [],
+    "inputs_before": {
+      "molsysmt/native/molsys.py": "a1f8107bbf2cd2605df15d9210da349e73e6ab43cf0ed65e0484b5b82d85f388",
+      "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+      "tests/documentation/test_native_domain_examples.py": "631f7c96ed6798cf5a936cb4432f6e39691fdb81f533f3cfd621ac914a90469f",
+      "docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md": "3f8cb27f4d1c2c7eb78be289022eaf0019678a039bd7c1f050d049b10cf64277",
+      "docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md": "f5b92fac31a766a7cab5a07e26ffb4d192ec7138ff36426380aaa99113f3a8e4",
+      "docs/content/user/foundations/native_world/classes/molsysmt_Structures.md": "7f4fdb2b4ff26ad4d699b3f3f165996f4e83fa5ee6f1675fa3b8d0da4b09eded",
+      "docs/content/user/tools/form/file/h5msm_10.md": "8905189d58482883c3d35d553783ebcd6bd10c342760fc9aa4f9813367c490f7",
+      "docs/content/course/Common_Core/04_Native_Forms.ipynb": "7bc302e5847deeff2aaa8703a33fde47c2b13d985baa5be4caffd2dae6158ed1"
+    },
+    "artifacts": {
+      "examples-execution.json": "8c11976754aea696dc8df03cd7b81a63c955719bc047e82d940c8c3bcae8ae17",
+      "examples-driver.py": "1f72055d0d2044300cf3e037e941e4e852e2c841b08f44454de852ace23df83a",
+      "examples.xml": "4be75453868a85ec69b5fd5c1ccff35dc841d94fb202c80cb218c90c46f7ac29"
+    },
+    "counts": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "examples_with_course_cells": {
+    "source_commit": "9323111cff4e78509520c677e420c9470a635049",
+    "native_exit": 0,
+    "seconds": 4.041408966993913,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "1610612736",
+      "memory.high": "1409286144",
+      "memory.swap.max": "0",
+      "pids.max": "128"
+    },
+    "memory_peak_bytes": 198508544,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 15173644288,
+    "maximum_memory_pressure_avg10": 0.15,
+    "stop_reason": null,
+    "changed_inputs": [],
+    "inputs_before": {
+      "molsysmt/native/molsys.py": "a1f8107bbf2cd2605df15d9210da349e73e6ab43cf0ed65e0484b5b82d85f388",
+      "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+      "tests/documentation/test_native_domain_examples.py": "e261f25359debdbd6e78c2c3c7d79a81ddebf741c01e962e312cd71d568f9ace",
+      "docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md": "e31f6e07082c02184adbe542a86ee7b45526454db00dcb5809a5f427b0d15b57",
+      "docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md": "f5b92fac31a766a7cab5a07e26ffb4d192ec7138ff36426380aaa99113f3a8e4",
+      "docs/content/user/foundations/native_world/classes/molsysmt_Structures.md": "7f4fdb2b4ff26ad4d699b3f3f165996f4e83fa5ee6f1675fa3b8d0da4b09eded",
+      "docs/content/user/tools/form/file/h5msm_10.md": "8905189d58482883c3d35d553783ebcd6bd10c342760fc9aa4f9813367c490f7",
+      "docs/content/course/Common_Core/04_Native_Forms.ipynb": "7bc302e5847deeff2aaa8703a33fde47c2b13d985baa5be4caffd2dae6158ed1"
+    },
+    "artifacts": {
+      "examples2-execution.json": "33dd3f45d783d37b817d08e354df06426db934ace3df936c1914bbfd90d14d97",
+      "examples2-driver.py": "521618899b8fbadc32b87720adb1c454aefaa8219571bf1e14e69b7ca18a94d5",
+      "examples2.xml": "a9ff396c0897800b7e267bbc08d5815011257ebf62175fd57bcdbfc636fbc8c1"
+    },
+    "counts": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "native_doctest_context": {
+    "source_commit": "9323111cff4e78509520c677e420c9470a635049",
+    "native_exit": 0,
+    "seconds": 5.050053335959092,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "1610612736",
+      "memory.high": "1409286144",
+      "memory.swap.max": "0",
+      "pids.max": "128"
+    },
+    "memory_peak_bytes": 179105792,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 13855158272,
+    "maximum_memory_pressure_avg10": 0.0,
+    "stop_reason": null,
+    "changed_inputs": [],
+    "inputs_before": {
+      "molsysmt/native/molsys.py": "a1f8107bbf2cd2605df15d9210da349e73e6ab43cf0ed65e0484b5b82d85f388",
+      "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+      "tests/documentation/test_native_domain_examples.py": "631f7c96ed6798cf5a936cb4432f6e39691fdb81f533f3cfd621ac914a90469f",
+      "docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md": "3f8cb27f4d1c2c7eb78be289022eaf0019678a039bd7c1f050d049b10cf64277",
+      "docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md": "f5b92fac31a766a7cab5a07e26ffb4d192ec7138ff36426380aaa99113f3a8e4",
+      "docs/content/user/foundations/native_world/classes/molsysmt_Structures.md": "7f4fdb2b4ff26ad4d699b3f3f165996f4e83fa5ee6f1675fa3b8d0da4b09eded",
+      "docs/content/user/tools/form/file/h5msm_10.md": "8905189d58482883c3d35d553783ebcd6bd10c342760fc9aa4f9813367c490f7",
+      "docs/content/course/Common_Core/04_Native_Forms.ipynb": "7bc302e5847deeff2aaa8703a33fde47c2b13d985baa5be4caffd2dae6158ed1"
+    },
+    "artifacts": {
+      "context-execution.json": "fefc02ca115ee63e53610a173c60f0fbf429de3d77b9fdd686519e25071c28f1",
+      "context-driver.py": "1f72055d0d2044300cf3e037e941e4e852e2c841b08f44454de852ace23df83a",
+      "context.xml": "42a170852b3cc1a260317196f335ac60e0c8a250904a3169579ecbaabb38192a"
+    },
+    "counts": {
+      "tests": 34,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "tutorial_before": {
+    "source_commit": "1b98c2b1de047cf8f5d0d7dc4ed83a939db6a7cc",
+    "native_exit": 1,
+    "seconds": 4.044300481909886,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "1610612736",
+      "memory.high": "1409286144",
+      "memory.swap.max": "0",
+      "pids.max": "128"
+    },
+    "memory_peak_bytes": 176783360,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 12903088128,
+    "maximum_memory_pressure_avg10": 0.0,
+    "stop_reason": null,
+    "changed_inputs": [],
+    "inputs_before": {
+      "molsysmt/native/molsys.py": "a1f8107bbf2cd2605df15d9210da349e73e6ab43cf0ed65e0484b5b82d85f388",
+      "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+      "tests/documentation/test_native_domain_examples.py": "e261f25359debdbd6e78c2c3c7d79a81ddebf741c01e962e312cd71d568f9ace",
+      "docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md": "e31f6e07082c02184adbe542a86ee7b45526454db00dcb5809a5f427b0d15b57",
+      "docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md": "f5b92fac31a766a7cab5a07e26ffb4d192ec7138ff36426380aaa99113f3a8e4",
+      "docs/content/user/foundations/native_world/classes/molsysmt_Structures.md": "7f4fdb2b4ff26ad4d699b3f3f165996f4e83fa5ee6f1675fa3b8d0da4b09eded",
+      "docs/content/user/tools/form/file/h5msm_10.md": "8905189d58482883c3d35d553783ebcd6bd10c342760fc9aa4f9813367c490f7",
+      "tests/documentation/test_native_molsys_tutorial.py": "f55021442659cffeb2ee9da057c97ab6f730127a2330f250b4cfd8e0e05f9118",
+      "docs/content/user/tools/form/class/molsysmt/molsysmt_MolSys.ipynb": "c6174caf87b4d665be2994922db95de313b91c0cd26ef1d9b5daea70fb47c923",
+      "docs/content/course/Common_Core/04_Native_Forms.ipynb": "7bc302e5847deeff2aaa8703a33fde47c2b13d985baa5be4caffd2dae6158ed1"
+    },
+    "artifacts": {
+      "tutorial-baseline-execution.json": "f0ebf50a7948e0aa8092a4387498821adaa8a7ae19c51eb34114b53f5f979aa3",
+      "tutorial-baseline-driver.py": "5422dd42eddfdc520b5101291d6809f2299ae73758804eca6e23e7df5576a789",
+      "tutorial-baseline.xml": "0c58ca2770d1073bd43b2e814e21624cd864d80b2f813f4fc06afc7d7b7dc955"
+    },
+    "counts": {
+      "tests": 4,
+      "failures": 3,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "tutorial_corrected": {
+    "source_commit": "1b98c2b1de047cf8f5d0d7dc4ed83a939db6a7cc",
+    "native_exit": 0,
+    "seconds": 3.0355234751477838,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "1610612736",
+      "memory.high": "1409286144",
+      "memory.swap.max": "0",
+      "pids.max": "128"
+    },
+    "memory_peak_bytes": 175710208,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 14953324544,
+    "maximum_memory_pressure_avg10": 0.0,
+    "stop_reason": null,
+    "changed_inputs": [],
+    "inputs_before": {
+      "molsysmt/native/molsys.py": "a1f8107bbf2cd2605df15d9210da349e73e6ab43cf0ed65e0484b5b82d85f388",
+      "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+      "tests/documentation/test_native_domain_examples.py": "e261f25359debdbd6e78c2c3c7d79a81ddebf741c01e962e312cd71d568f9ace",
+      "docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md": "e31f6e07082c02184adbe542a86ee7b45526454db00dcb5809a5f427b0d15b57",
+      "docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md": "f5b92fac31a766a7cab5a07e26ffb4d192ec7138ff36426380aaa99113f3a8e4",
+      "docs/content/user/foundations/native_world/classes/molsysmt_Structures.md": "7f4fdb2b4ff26ad4d699b3f3f165996f4e83fa5ee6f1675fa3b8d0da4b09eded",
+      "docs/content/user/tools/form/file/h5msm_10.md": "8905189d58482883c3d35d553783ebcd6bd10c342760fc9aa4f9813367c490f7",
+      "tests/documentation/test_native_molsys_tutorial.py": "f55021442659cffeb2ee9da057c97ab6f730127a2330f250b4cfd8e0e05f9118",
+      "docs/content/user/tools/form/class/molsysmt/molsysmt_MolSys.ipynb": "dcdb928f5b6e7a51611d788af2de96ce9ffa95fe2ac997ba3df2650f1575cd87",
+      "docs/content/course/Common_Core/04_Native_Forms.ipynb": "7bc302e5847deeff2aaa8703a33fde47c2b13d985baa5be4caffd2dae6158ed1"
+    },
+    "artifacts": {
+      "tutorial-corrected-execution.json": "e08300f8bfb4103dc70a6695035425053296c353cf7514cfde3766be37112175",
+      "tutorial-corrected-driver.py": "5422dd42eddfdc520b5101291d6809f2299ae73758804eca6e23e7df5576a789",
+      "tutorial-corrected.xml": "51eae7cfac0c7b8bdb99988c174be8096e3c3a2d83db5a22baed1c980d82cc8a"
+    },
+    "counts": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "tutorial_source_links": {
+    "source_commit": "2bf21835fc161b0e25246dac4e352b3a73bba914",
+    "native_exit": 1,
+    "seconds": 3.035257139010355,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "1610612736",
+      "memory.high": "1409286144",
+      "memory.swap.max": "0",
+      "pids.max": "128"
+    },
+    "memory_peak_bytes": 176922624,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 15094284288,
+    "maximum_memory_pressure_avg10": 0.0,
+    "stop_reason": null,
+    "changed_inputs": [],
+    "inputs_before": {
+      "molsysmt/native/molsys.py": "a1f8107bbf2cd2605df15d9210da349e73e6ab43cf0ed65e0484b5b82d85f388",
+      "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+      "tests/documentation/test_native_domain_examples.py": "e261f25359debdbd6e78c2c3c7d79a81ddebf741c01e962e312cd71d568f9ace",
+      "docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md": "e31f6e07082c02184adbe542a86ee7b45526454db00dcb5809a5f427b0d15b57",
+      "docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md": "f5b92fac31a766a7cab5a07e26ffb4d192ec7138ff36426380aaa99113f3a8e4",
+      "docs/content/user/foundations/native_world/classes/molsysmt_Structures.md": "7f4fdb2b4ff26ad4d699b3f3f165996f4e83fa5ee6f1675fa3b8d0da4b09eded",
+      "docs/content/user/tools/form/file/h5msm_10.md": "8905189d58482883c3d35d553783ebcd6bd10c342760fc9aa4f9813367c490f7",
+      "tests/documentation/test_native_molsys_tutorial.py": "c16e698bed0600dadb97932aaedc103b15de9a2c4d3398a095f142f61bd34922",
+      "docs/content/user/tools/form/class/molsysmt/molsysmt_MolSys.ipynb": "cd3a293363f67261f75bda8c4526596dc65aade2b7f6150b876d239881ae3aa9",
+      "docs/content/course/Common_Core/04_Native_Forms.ipynb": "7bc302e5847deeff2aaa8703a33fde47c2b13d985baa5be4caffd2dae6158ed1"
+    },
+    "artifacts": {
+      "tutorial-links-execution.json": "21dd1e3a11e6a0b4192ff80cb55a039f8a0c7e2170fb8824ede4ceacf1159b76",
+      "tutorial-links-driver.py": "6f1ebc5d0f4604686a0358332599a8b4d2e683167c770f3e24f486341ccca2f5",
+      "tutorial-links.xml": "9aed04c0ea8e8b23088217177968d9bd8891c2f2741fb23030a51e649627b45f"
+    },
+    "counts": {
+      "tests": 5,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "baseline_interpretation": "Three documentation mismatches fail while the actual stored explicit-H count route already passes. Actual bond edits preserve stable inventory and work before correction. No original scientific/runtime defect is claimed.",
+  "complete_html": {
+    "source_commit": "1b98c2b1de047cf8f5d0d7dc4ed83a939db6a7cc",
+    "native_exit": 0,
+    "seconds": 167.91674339096062,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "3221225472",
+      "memory.high": "2818572288",
+      "memory.swap.max": "0",
+      "pids.max": "128"
+    },
+    "memory_peak_bytes": 1820844032,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 13111808000,
+    "maximum_memory_pressure_avg10": 0.0,
+    "stop_reason": null,
+    "changed_inputs": [],
+    "starting_status": "",
+    "ending_status": "",
+    "checked_inputs": 7403,
+    "artifacts": {
+      "html-execution.json": "7763729fdc2e75ece004bf2f056531774ebf3243ac96b21de4faa0bb76bafbdd",
+      "html-driver.py": "78cd1c084a00cada1ca50f46f8b11884eff5cb709595e261eae23697ff063370"
+    }
+  },
+  "complete_html_result": {
+    "exit": 0,
+    "warnings": 0,
+    "full_site": true,
+    "notebook_execution": "off",
+    "autosummary_generate": false,
+    "parallel": 1
+  },
+  "first_article_inspection": {
+    "articles": [
+      {
+        "article": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "sha256": "fbc0831b2e46cf6a1dd17cae086199bafea061ac71d64f27e9924af6d6315c5f",
+        "verified_local_links": 79
+      },
+      {
+        "article": "content/user/foundations/native_world/classes/molsysmt_ChemicalStates.html",
+        "sha256": "c09ee472cf4a551e4617ea5f3337cf20684d89db005a479f96791c96144f956f",
+        "verified_local_links": 35
+      },
+      {
+        "article": "content/user/foundations/native_world/classes/molsysmt_Structures.html",
+        "sha256": "53ca9bb7b6d10ea9e678abc0dda93c19e00bf20ef9eddf92319259757098b2f5",
+        "verified_local_links": 35
+      }
+    ],
+    "unique_local_destinations": 130,
+    "all_local_destinations": [
+      {
+        "path": "api/basic/api_native_queries.html",
+        "fragment": "api-native-chemical-editing"
+      },
+      {
+        "path": "api/basic/api_native_queries.html",
+        "fragment": "api-native-queries"
+      },
+      {
+        "path": "api/basic/api_native_queries.html",
+        "fragment": "api-native-structure-inputs"
+      },
+      {
+        "path": "api/basic/autosummary/molsysmt.basic.convert.html",
+        "fragment": "molsysmt.basic.convert"
+      },
+      {
+        "path": "api/basic/autosummary/molsysmt.basic.permute_atoms.html",
+        "fragment": "molsysmt.basic.permute_atoms"
+      },
+      {
+        "path": "api/build/autosummary/molsysmt.build.assign_partial_charges.html",
+        "fragment": "molsysmt.build.assign_partial_charges"
+      },
+      {
+        "path": "api/chemical_states/autosummary/molsysmt.chemical_states.get_atom_correspondences.html",
+        "fragment": "molsysmt.chemical_states.get_atom_correspondences"
+      },
+      {
+        "path": "api/chemical_states/autosummary/molsysmt.chemical_states.get_peptide_termini.html",
+        "fragment": "molsysmt.chemical_states.get_peptide_termini"
+      },
+      {
+        "path": "api/physchem/autosummary/molsysmt.physchem.get_aromaticity.html",
+        "fragment": "molsysmt.physchem.get_aromaticity"
+      },
+      {
+        "path": "api/physchem/autosummary/molsysmt.physchem.get_charge_centers.html",
+        "fragment": "molsysmt.physchem.get_charge_centers"
+      },
+      {
+        "path": "api/physchem/autosummary/molsysmt.physchem.get_chemical_template.html",
+        "fragment": "molsysmt.physchem.get_chemical_template"
+      },
+      {
+        "path": "api/physchem/autosummary/molsysmt.physchem.get_partial_charges.html",
+        "fragment": "molsysmt.physchem.get_partial_charges"
+      },
+      {
+        "path": "api/structure/autosummary/molsysmt.structure.get_distance_clusters.html",
+        "fragment": "molsysmt.structure.get_distance_clusters"
+      },
+      {
+        "path": "api/structure/autosummary/molsysmt.structure.get_pairwise_rmsd.html",
+        "fragment": "molsysmt.structure.get_pairwise_rmsd"
+      },
+      {
+        "path": "api/structure/autosummary/molsysmt.structure.get_symmetry_corrected_rmsd.html",
+        "fragment": "molsysmt.structure.get_symmetry_corrected_rmsd"
+      },
+      {
+        "path": "content/user/cookbook/applying_chemical_templates.html",
+        "fragment": "cookbook-component-hydrogen-reinsertion"
+      },
+      {
+        "path": "content/user/cookbook/applying_chemical_templates.html",
+        "fragment": "cookbook-native-reconstruction-evidence"
+      },
+      {
+        "path": "content/user/cookbook/applying_chemical_templates.html",
+        "fragment": "cookbook-pdb-connectivity-policy"
+      },
+      {
+        "path": "content/user/cookbook/applying_chemical_templates.html",
+        "fragment": "cookbook-prepared-interface"
+      },
+      {
+        "path": "content/user/cookbook/assigning_partial_charges.html",
+        "fragment": "cookbook-assigning-partial-charges"
+      },
+      {
+        "path": "content/user/cookbook/clustering_poses.html",
+        "fragment": "cookbook-clusteringposes"
+      },
+      {
+        "path": "content/user/cookbook/copying_disk_systems.html",
+        "fragment": "cookbook-copying-disk-systems"
+      },
+      {
+        "path": "content/user/cookbook/group_free_hierarchy.html",
+        "fragment": "cookbook-group-free-hierarchy"
+      },
+      {
+        "path": "content/user/cookbook/migrating_h5msm.html",
+        "fragment": "cookbook-h5msm-assembly-operations"
+      },
+      {
+        "path": "content/user/cookbook/saving_cation_pi_interactions.html",
+        "fragment": "cookbook-saving-cation-pi-interactions"
+      },
+      {
+        "path": "content/user/cookbook/saving_halogen_bonds.html",
+        "fragment": "cookbook-saving-halogen-bonds"
+      },
+      {
+        "path": "content/user/cookbook/saving_hydrophobic_interactions.html",
+        "fragment": "cookbook-saving-hydrophobic-interactions"
+      },
+      {
+        "path": "content/user/cookbook/saving_pi_pi_interactions.html",
+        "fragment": "cookbook-saving-pi-pi-interactions"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_ChemicalStates.html",
+        "fragment": "api-documentation"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_ChemicalStates.html",
+        "fragment": "assigning-state-fields"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_ChemicalStates.html",
+        "fragment": "chemical-and-structural-scope"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_ChemicalStates.html",
+        "fragment": "chemicalstates"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_ChemicalStates.html",
+        "fragment": "component-declarations"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_ChemicalStates.html",
+        "fragment": "controlled-editing"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_ChemicalStates.html",
+        "fragment": "declared-and-inferred-reader-connectivity"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_ChemicalStates.html",
+        "fragment": "observed-peptide-endpoints"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_ChemicalStates.html",
+        "fragment": "overview-and-role"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_ChemicalStates.html",
+        "fragment": "state-availability"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_ChemicalStates.html",
+        "fragment": "stored-assignments"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_ChemicalStates.html",
+        "fragment": "stored-queries"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_ChemicalStates.html",
+        "fragment": "table-boundaries"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_ChemicalStatesDict.html",
+        "fragment": "user-foundations-native-world-classes-molsysmt-chemicalstatesdict"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "api-documentation"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "atom-axis"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "brief-inspection"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "charge-interpretation"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "chemical-correspondence"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "composing-native-domains"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "detached-aromaticity"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "evidence-updates"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "independent-copies"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "inherited-construction"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "internal-attributes"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "invariants-and-performance"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "molsys"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "named-chemical-types"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "native-copying"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "native-queries"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "overview-and-role"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "restricting-chemical-domains"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "user-foundations-molsys-copying"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "user-foundations-native-world-classes-molsysmt-molsys"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSysDict.html",
+        "fragment": "user-foundations-native-checkpoints"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_Structures.html",
+        "fragment": "aligned-observables"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_Structures.html",
+        "fragment": "api-documentation"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_Structures.html",
+        "fragment": "assembly-operations"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_Structures.html",
+        "fragment": "domain-embedding"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_Structures.html",
+        "fragment": "independent-copies"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_Structures.html",
+        "fragment": "internal-attributes"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_Structures.html",
+        "fragment": "invariants-and-performance"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_Structures.html",
+        "fragment": "native-queries"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_Structures.html",
+        "fragment": "overview-and-role"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_Structures.html",
+        "fragment": "primary-observations"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_Structures.html",
+        "fragment": "structures"
+      },
+      {
+        "path": "content/user/tools/basic/compare.html",
+        "fragment": "tutorial-compare"
+      },
+      {
+        "path": "content/user/tools/basic/convert.html",
+        "fragment": "tutorial-convert"
+      },
+      {
+        "path": "content/user/tools/basic/extract.html",
+        "fragment": "tutorial-extract"
+      },
+      {
+        "path": "content/user/tools/basic/get.html",
+        "fragment": "tutorial-get"
+      },
+      {
+        "path": "content/user/tools/basic/info.html",
+        "fragment": "tutorial-info"
+      },
+      {
+        "path": "content/user/tools/basic/native_chemical_editing.html",
+        "fragment": "tutorial-native-chemical-editing"
+      },
+      {
+        "path": "content/user/tools/basic/permute_atoms.html",
+        "fragment": "tutorial-permute-atoms"
+      },
+      {
+        "path": "content/user/tools/basic/remove.html",
+        "fragment": "tutorial-remove"
+      },
+      {
+        "path": "content/user/tools/basic/set.html",
+        "fragment": "tutorial-set"
+      },
+      {
+        "path": "content/user/tools/build/add_missing_heavy_atoms.html",
+        "fragment": "tutorial-add-missing-heavy-atoms"
+      },
+      {
+        "path": "content/user/tools/build/assign_autodock_atom_types.html",
+        "fragment": "tutorial-assign-autodock-types"
+      },
+      {
+        "path": "content/user/tools/build/fixed_state_hydrogens.html",
+        "fragment": "tutorial-fixed-state-hydrogens"
+      },
+      {
+        "path": "content/user/tools/build/get_covalent_bond_candidates.html",
+        "fragment": "tutorial-covalent-bond-candidates"
+      },
+      {
+        "path": "content/user/tools/build/get_residue_chemical_coverage.html",
+        "fragment": "tutorial-residue-chemical-coverage"
+      },
+      {
+        "path": "content/user/tools/build/make_bioassembly.html",
+        "fragment": "tutorial-make-bioassembly"
+      },
+      {
+        "path": "content/user/tools/build/make_water_box.html",
+        "fragment": "tutorial-make-water-box"
+      },
+      {
+        "path": "content/user/tools/build/solve_atoms_with_alternate_locations.html",
+        "fragment": "tutorial-solve-atoms-with-alternate-locations"
+      },
+      {
+        "path": "content/user/tools/chemical_states/get_atom_correspondences.html",
+        "fragment": "tutorial-get-atom-correspondences"
+      },
+      {
+        "path": "content/user/tools/chemical_states/get_peptide_termini.html",
+        "fragment": "tutorial-get-peptide-termini"
+      },
+      {
+        "path": "content/user/tools/chemical_states/normalize_indexed_hydrogen_policy.html",
+        "fragment": "tutorial-normalize-indexed-hydrogen-policy"
+      },
+      {
+        "path": "content/user/tools/form/class/others/mmcif_PdbxContainers_DataContainer.html",
+        "fragment": "tutorial-form-mmcif-pdbxcontainers-datacontainer"
+      },
+      {
+        "path": "content/user/tools/form/file/h5msm_05.html",
+        "fragment": "user-tools-form-h5msm-05"
+      },
+      {
+        "path": "content/user/tools/form/file/h5msm_10.html",
+        "fragment": "user-tools-form-h5msm-10"
+      },
+      {
+        "path": "content/user/tools/interactions/get_cation_pi_interactions.html",
+        "fragment": "tutorial-get-cation-pi-interactions"
+      },
+      {
+        "path": "content/user/tools/interactions/get_halogen_bonds.html",
+        "fragment": "tutorial-get-halogen-bonds"
+      },
+      {
+        "path": "content/user/tools/interactions/get_hbond_sites.html",
+        "fragment": "tutorial-get-hbond-sites"
+      },
+      {
+        "path": "content/user/tools/interactions/get_hydrophobic_interactions.html",
+        "fragment": "tutorial-get-hydrophobic-interactions"
+      },
+      {
+        "path": "content/user/tools/interactions/get_ionic_interactions.html",
+        "fragment": "tutorial-get-ionic-interactions"
+      },
+      {
+        "path": "content/user/tools/interactions/get_metal_coordination.html",
+        "fragment": "tutorial-get-metal-coordination"
+      },
+      {
+        "path": "content/user/tools/interactions/get_pi_pi_interactions.html",
+        "fragment": "tutorial-get-pi-pi-interactions"
+      },
+      {
+        "path": "content/user/tools/interactions/get_water_bridges.html",
+        "fragment": "tutorial-get-water-bridges"
+      },
+      {
+        "path": "content/user/tools/interactions/result.html",
+        "fragment": ""
+      },
+      {
+        "path": "content/user/tools/interactions/result.html",
+        "fragment": "user-tools-interactions-attribution"
+      },
+      {
+        "path": "content/user/tools/interactions/result.html",
+        "fragment": "user-tools-interactions-compaction"
+      },
+      {
+        "path": "content/user/tools/interactions/result.html",
+        "fragment": "user-tools-interactions-coordinate-edits"
+      },
+      {
+        "path": "content/user/tools/interactions/result.html",
+        "fragment": "user-tools-interactions-copying"
+      },
+      {
+        "path": "content/user/tools/interactions/result.html",
+        "fragment": "user-tools-interactions-pages"
+      },
+      {
+        "path": "content/user/tools/interactions/result.html",
+        "fragment": "user-tools-interactions-result"
+      },
+      {
+        "path": "content/user/tools/pbc/wrap_to_mic.html",
+        "fragment": "tutorial-wrap-to-mic"
+      },
+      {
+        "path": "content/user/tools/pbc/wrap_to_pbc.html",
+        "fragment": "tutorial-wrap-to-pbc"
+      },
+      {
+        "path": "content/user/tools/physchem/chemical_templates.html",
+        "fragment": "tutorial-chemical-templates"
+      },
+      {
+        "path": "content/user/tools/physchem/chemical_templates.html",
+        "fragment": "tutorial-context-chemical-template"
+      },
+      {
+        "path": "content/user/tools/physchem/chemical_templates.html",
+        "fragment": "tutorial-get-chemical-template"
+      },
+      {
+        "path": "content/user/tools/physchem/chemical_templates.html",
+        "fragment": "tutorial-get-peptide-chemical-template"
+      },
+      {
+        "path": "content/user/tools/physchem/chemical_templates.html",
+        "fragment": "tutorial-normalize-aromatic-bond-orders"
+      },
+      {
+        "path": "content/user/tools/physchem/chemical_templates.html",
+        "fragment": "tutorial-selected-chemical-template"
+      },
+      {
+        "path": "content/user/tools/physchem/get_aromaticity.html",
+        "fragment": "tutorial-get-aromaticity"
+      },
+      {
+        "path": "content/user/tools/physchem/get_autodock_atom_types.html",
+        "fragment": "tutorial-autodock-typing"
+      },
+      {
+        "path": "content/user/tools/physchem/get_halogen_bond_sites.html",
+        "fragment": "tutorial-get-halogen-bond-sites"
+      },
+      {
+        "path": "content/user/tools/physchem/get_hydrophobic_sites.html",
+        "fragment": "tutorial-get-hydrophobic-sites"
+      },
+      {
+        "path": "content/user/tools/physchem/get_partial_charges.html",
+        "fragment": "tutorial-partial-charge-assignment"
+      },
+      {
+        "path": "content/user/tools/structure/get_least_squares_plane.html",
+        "fragment": "tutorial-get-least-squares-plane"
+      },
+      {
+        "path": "content/user/tools/structure/get_symmetry_corrected_rmsd.html",
+        "fragment": "tutorial-get-symmetry-corrected-rmsd"
+      },
+      {
+        "path": "content/user/tools/structure/rotate.html",
+        "fragment": "tutorial-rotate-axis-angle"
+      },
+      {
+        "path": "content/user/tools/structure/set_dihedral_angles.html",
+        "fragment": "tutorial-set-dihedral-angles"
+      },
+      {
+        "path": "content/user/tools/structure/shift_dihedral_angles.html",
+        "fragment": "tutorial-shift-dihedral-angles"
+      }
+    ],
+    "scope": "Actual article DOM and internal file/fragment inspection after strict Sphinx build; no interactive browser/layout qualification."
+  },
+  "inspection_oracle_failure": {
+    "state": "inspection_oracle_failure",
+    "native_exit": 1,
+    "script_sha256": "9ea8d9947ca68788b7ea9af0316a617335e23e64952f547d227db008063c4b8a",
+    "reason": "BeautifulSoup get_text preserves intra-node source newlines; the expected current ownership phrase spans such a newline. Strict Sphinx succeeded with zero warnings. Normalize whitespace before the same semantic absence/presence and actual-link assertions; do not change product/source or declare the initial inspection passing."
+  },
+  "initial_targeted_html": {
+    "source_commit": "2bf21835fc161b0e25246dac4e352b3a73bba914",
+    "native_exit": 0,
+    "seconds": 10.69724787119776,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "3221225472",
+      "memory.high": "2818572288",
+      "memory.swap.max": "0",
+      "pids.max": "128"
+    },
+    "memory_peak_bytes": 373587968,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 14801092608,
+    "maximum_memory_pressure_avg10": 0.0,
+    "stop_reason": null,
+    "changed_inputs": [],
+    "starting_status": "",
+    "ending_status": "",
+    "checked_inputs": 7405,
+    "artifacts": {
+      "tutorial-html-execution.json": "a8303e8154049679fcfebf75be584983828f554c130373041dd48f1cc55c184e",
+      "tutorial-html-driver.py": "26bd929a0bec31f7771c2a560318aad2aa2e3a9ec4eae78a868c3204e79ef331"
+    }
+  },
+  "initial_targeted_html_result": {
+    "exit": 0,
+    "warnings": 0,
+    "full_site": false,
+    "notebook_execution": "off",
+    "autosummary_generate": false,
+    "parallel": 1
+  },
+  "initial_tutorial_inspection": {
+    "article": "content/user/tools/form/class/molsysmt/molsysmt_MolSys.html",
+    "sha256": "0da762bbc9b0da4d0d81790e2ede8c18f38e4945aa97bf48c4238030c58355de",
+    "unique_local_destinations": 16,
+    "destinations": [
+      {
+        "path": "api/basic/autosummary/molsysmt.basic.convert.html",
+        "fragment": "molsysmt.basic.convert"
+      },
+      {
+        "path": "api/form/autosummary/molsysmt.form.get_attributes.html",
+        "fragment": "molsysmt.form.get_attributes"
+      },
+      {
+        "path": "api/form/autosummary/molsysmt.form.has_attribute.html",
+        "fragment": "molsysmt.form.has_attribute"
+      },
+      {
+        "path": "content/user/cookbook/native_pdbqt.html",
+        "fragment": "cookbook-native-pdbqt"
+      },
+      {
+        "path": "content/user/foundations/molecular_system/the_molecular_system.html",
+        "fragment": "user-foundations-molecular-system-definition"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "fragment": "user-foundations-native-world-classes-molsysmt-molsys"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_Structures.html",
+        "fragment": "user-foundations-native-world-classes-molsysmt-structures"
+      },
+      {
+        "path": "content/user/foundations/native_world/classes/molsysmt_Topology.html",
+        "fragment": "user-foundations-native-world-classes-molsysmt-topology"
+      },
+      {
+        "path": "content/user/tools/basic/convert.html",
+        "fragment": "tutorial-convert"
+      },
+      {
+        "path": "content/user/tools/form/class/molsysmt/molsysmt_MolSys.html",
+        "fragment": "implemented-operations"
+      },
+      {
+        "path": "content/user/tools/form/class/molsysmt/molsysmt_MolSys.html",
+        "fragment": "molsys"
+      },
+      {
+        "path": "content/user/tools/form/class/molsysmt/molsysmt_MolSys.html",
+        "fragment": "overview"
+      },
+      {
+        "path": "content/user/tools/form/class/molsysmt/molsysmt_MolSys.html",
+        "fragment": "supported-attributes"
+      },
+      {
+        "path": "content/user/tools/form/class/molsysmt/molsysmt_MolSys.html",
+        "fragment": "supported-conversions"
+      },
+      {
+        "path": "content/user/tools/form/get_attributes.html",
+        "fragment": "tutorial-form-get-attributes"
+      },
+      {
+        "path": "content/user/tools/form/has_attribute.html",
+        "fragment": "tutorial-form-has-attribute"
+      }
+    ],
+    "earlier_three_articles_byte_identical": {
+      "content/user/foundations/native_world/classes/molsysmt_MolSys.html": true,
+      "content/user/foundations/native_world/classes/molsysmt_ChemicalStates.html": true,
+      "content/user/foundations/native_world/classes/molsysmt_Structures.html": true
+    },
+    "scope": "Actual corrected tutorial DOM and local file/fragments, with earlier rendered article bytes preserved. No browser layout/GUI qualification."
+  },
+  "unlinked_reference_finding": {
+    "before": {
+      "MolSys": [
+        {
+          "table": 0,
+          "links": 0,
+          "unlinked_python_roles": 0
+        },
+        {
+          "table": 1,
+          "links": 0,
+          "unlinked_python_roles": 14
+        },
+        {
+          "table": 2,
+          "links": 0,
+          "unlinked_python_roles": 34
+        }
+      ],
+      "Topology": [
+        {
+          "table": 0,
+          "links": 0,
+          "unlinked_python_roles": 0
+        },
+        {
+          "table": 1,
+          "links": 0,
+          "unlinked_python_roles": 11
+        },
+        {
+          "table": 2,
+          "links": 0,
+          "unlinked_python_roles": 17
+        }
+      ],
+      "Structures": [
+        {
+          "table": 0,
+          "links": 0,
+          "unlinked_python_roles": 0
+        },
+        {
+          "table": 1,
+          "links": 0,
+          "unlinked_python_roles": 11
+        },
+        {
+          "table": 2,
+          "links": 0,
+          "unlinked_python_roles": 6
+        }
+      ]
+    },
+    "scope_correction": "130/16 received local href destinations do not prove delivery of intended references rendered without anchors. Issue #727 owns the distinct debt. Initial strict builds remain passed on their recorded source, not evidence for the missing API links.",
+    "current_correction": "MolSys source has 57 explicit references to immutable published implementation/docstrings, including all 40 registered converters. The first stronger guard exposes six missing converters while four earlier controls pass; the final five-case guard passes. Final rendered-href receiving follows. Other forms remain under #727."
+  },
+  "notebook_preservation": {
+    "original_sha256": "c6174caf87b4d665be2994922db95de313b91c0cd26ef1d9b5daea70fb47c923",
+    "changed_markdown_cell_indices": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "code_outputs_metadata_cell_order_unchanged": true,
+    "original_six_cells": 6,
+    "scope": "The early attribute/description correction changed two Markdown fields; the later explicit-source reference increment also changes header/conversion Markdown. No code or stored scientific output is changed.",
+    "conversion_scope": "All original 34 routes retained; six previously omitted registered routes added. The earlier two-cell-only correction retains its narrower recorded source; final reference/capability changes affect Markdown only."
+  },
+  "implementation_reference_map": [
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys",
+      "kind": "mod",
+      "path": "molsysmt/form/molsysmt_MolSys/__init__.py",
+      "line": 1,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/__init__.py#L1"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys",
+      "kind": "mod",
+      "path": "molsysmt/form/molsysmt_MolSys/__init__.py",
+      "line": 1,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/__init__.py#L1"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.extract.extract",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/extract.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/extract.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.copy.copy",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/copy.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/copy.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.add.add",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/add.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/add.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.merge.merge",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/merge.py",
+      "line": 7,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/merge.py#L7"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.append_structures.append_structures",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/append_structures.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/append_structures.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.add_bonds.add_bonds",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/add_bonds.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/add_bonds.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.remove_bonds.remove_bonds",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/remove_bonds.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/remove_bonds.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.get_topological_attributes",
+      "kind": "mod",
+      "path": "molsysmt/form/molsysmt_MolSys/get_topological_attributes.py",
+      "line": 1,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/get_topological_attributes.py#L1"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.get_structural_attributes",
+      "kind": "mod",
+      "path": "molsysmt/form/molsysmt_MolSys/get_structural_attributes.py",
+      "line": 1,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/get_structural_attributes.py#L1"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.get_mechanical_attributes",
+      "kind": "mod",
+      "path": "molsysmt/form/molsysmt_MolSys/get_mechanical_attributes.py",
+      "line": 1,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/get_mechanical_attributes.py#L1"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.set",
+      "kind": "mod",
+      "path": "molsysmt/form/molsysmt_MolSys/set.py",
+      "line": 1,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/set.py#L1"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.iterators",
+      "kind": "mod",
+      "path": "molsysmt/form/molsysmt_MolSys/iterators.py",
+      "line": 1,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/iterators.py#L1"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.has_attribute.has_attribute",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/has_attribute.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/has_attribute.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.is_form.is_form",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/is_form.py",
+      "line": 1,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/is_form.py#L1"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys",
+      "kind": "mod",
+      "path": "molsysmt/form/molsysmt_MolSys/__init__.py",
+      "line": 1,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/__init__.py#L1"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_XYZ.to_XYZ",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_XYZ.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_XYZ.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_biopython_PDBStructure.to_biopython_PDBStructure",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_biopython_PDBStructure.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_biopython_PDBStructure.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_biopython_Seq.to_biopython_Seq",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_biopython_Seq.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_biopython_Seq.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_biopython_SeqRecord.to_biopython_SeqRecord",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_biopython_SeqRecord.py",
+      "line": 9,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_biopython_SeqRecord.py#L9"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_file_h5msm.to_file_h5msm",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_file_h5msm.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_file_h5msm.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_file_molsys_yaml.to_file_molsys_yaml",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_file_molsys_yaml.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_file_molsys_yaml.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_file_pdb.to_file_pdb",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_file_pdb.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_file_pdb.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_file_psf.to_file_psf",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_file_psf.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_file_psf.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_mdtraj_Topology.to_mdtraj_Topology",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_mdtraj_Topology.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_mdtraj_Topology.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_mdtraj_Trajectory.to_mdtraj_Trajectory",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_mdtraj_Trajectory.py",
+      "line": 10,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_mdtraj_Trajectory.py#L10"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_molsysmt_MolSys.to_molsysmt_MolSys",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_molsysmt_MolSys.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_molsysmt_MolSys.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_molsysmt_MolSysBuilder.to_molsysmt_MolSysBuilder",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_molsysmt_MolSysBuilder.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_molsysmt_MolSysBuilder.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_molsysmt_MolSysDict.to_molsysmt_MolSysDict",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_molsysmt_MolSysDict.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_molsysmt_MolSysDict.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_molsysmt_MolecularMechanics.to_molsysmt_MolecularMechanics",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_molsysmt_MolecularMechanics.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_molsysmt_MolecularMechanics.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_molsysmt_MolecularMechanicsDict.to_molsysmt_MolecularMechanicsDict",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_molsysmt_MolecularMechanicsDict.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_molsysmt_MolecularMechanicsDict.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_molsysmt_Structures.to_molsysmt_Structures",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_molsysmt_Structures.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_molsysmt_Structures.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_molsysmt_Topology.to_molsysmt_Topology",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_molsysmt_Topology.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_molsysmt_Topology.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_molsysmt_ViewerJSON.to_molsysmt_ViewerJSON",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_molsysmt_ViewerJSON.py",
+      "line": 19,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_molsysmt_ViewerJSON.py#L19"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_molsysviewer_MolSysView.to_molsysviewer_MolSysView",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_molsysviewer_MolSysView.py",
+      "line": 6,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_molsysviewer_MolSysView.py#L6"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_networkx_Graph.to_networkx_Graph",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_networkx_Graph.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_networkx_Graph.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_nglview_NGLWidget.to_nglview_NGLWidget",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_nglview_NGLWidget.py",
+      "line": 9,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_nglview_NGLWidget.py#L9"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_openmm_Context.to_openmm_Context",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_openmm_Context.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_openmm_Context.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_openmm_Modeller.to_openmm_Modeller",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_openmm_Modeller.py",
+      "line": 8,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_openmm_Modeller.py#L8"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_openmm_Simulation.to_openmm_Simulation",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_openmm_Simulation.py",
+      "line": 8,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_openmm_Simulation.py#L8"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_openmm_System.to_openmm_System",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_openmm_System.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_openmm_System.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_openmm_Topology.to_openmm_Topology",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_openmm_Topology.py",
+      "line": 8,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_openmm_Topology.py#L8"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_parmed_Structure.to_parmed_Structure",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_parmed_Structure.py",
+      "line": 8,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_parmed_Structure.py#L8"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_pdbfixer_PDBFixer.to_pdbfixer_PDBFixer",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_pdbfixer_PDBFixer.py",
+      "line": 10,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_pdbfixer_PDBFixer.py#L10"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_pytraj_Topology.to_pytraj_Topology",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_pytraj_Topology.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_pytraj_Topology.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_pytraj_Trajectory.to_pytraj_Trajectory",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_pytraj_Trajectory.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_pytraj_Trajectory.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_rdkit_Mol.to_rdkit_Mol",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_rdkit_Mol.py",
+      "line": 54,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_rdkit_Mol.py#L54"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_string_amino_acids_1.to_string_amino_acids_1",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_string_amino_acids_1.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_string_amino_acids_1.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_string_amino_acids_3.to_string_amino_acids_3",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_string_amino_acids_3.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_string_amino_acids_3.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_string_pdb_text.to_string_pdb_text",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_string_pdb_text.py",
+      "line": 120,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_string_pdb_text.py#L120"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_molsysmt_TopologyDict.to_molsysmt_TopologyDict",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_molsysmt_TopologyDict.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_molsysmt_TopologyDict.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_molsysmt_ChemicalStates.to_molsysmt_ChemicalStates",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_molsysmt_ChemicalStates.py",
+      "line": 6,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_molsysmt_ChemicalStates.py#L6"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_molsysmt_ChemicalStatesDict.to_molsysmt_ChemicalStatesDict",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_molsysmt_ChemicalStatesDict.py",
+      "line": 6,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_molsysmt_ChemicalStatesDict.py#L6"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_file_sdf.to_file_sdf",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_file_sdf.py",
+      "line": 7,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_file_sdf.py#L7"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_file_pdbqt.to_file_pdbqt",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_file_pdbqt.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_file_pdbqt.py#L5"
+    },
+    {
+      "symbol": "molsysmt.form.molsysmt_MolSys.to_string_pdbqt_text.to_string_pdbqt_text",
+      "kind": "func",
+      "path": "molsysmt/form/molsysmt_MolSys/to_string_pdbqt_text.py",
+      "line": 5,
+      "url": "https://github.com/uibcdf/molsysmt/blob/9323111cff4e78509520c677e420c9470a635049/molsysmt/form/molsysmt_MolSys/to_string_pdbqt_text.py#L5"
+    }
+  ],
+  "support_boundaries": "Existing public ArgDigest validation, DepDigest availability, SMonitor diagnostics and PyUnitWizard quantities/contexts remain in use. No new public API, scientific method, provider floor or Ackredit record is introduced. Pure documentary native code change is proven by equal AST after excluding function docstrings.",
+  "remaining": [
+    "Receive final explicit-reference HTML and common checks before closing #725/#726.",
+    "#727 remains partial for other form tutorials and intended-reference auditing.",
+    "#723/#615/#713, full-source/nightly backlog and final-pair publication pause remain separate."
+  ],
+  "tutorial_source_links_final": {
+    "source_commit": "2bf21835fc161b0e25246dac4e352b3a73bba914",
+    "native_exit": 0,
+    "seconds": 4.048480657162145,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "1610612736",
+      "memory.high": "1409286144",
+      "memory.swap.max": "0",
+      "pids.max": "128"
+    },
+    "memory_peak_bytes": 176533504,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 13402992640,
+    "stop_reason": null,
+    "changed_inputs": [],
+    "inputs_before": {
+      "molsysmt/native/molsys.py": "a1f8107bbf2cd2605df15d9210da349e73e6ab43cf0ed65e0484b5b82d85f388",
+      "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+      "tests/documentation/test_native_domain_examples.py": "e261f25359debdbd6e78c2c3c7d79a81ddebf741c01e962e312cd71d568f9ace",
+      "docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md": "e31f6e07082c02184adbe542a86ee7b45526454db00dcb5809a5f427b0d15b57",
+      "docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md": "f5b92fac31a766a7cab5a07e26ffb4d192ec7138ff36426380aaa99113f3a8e4",
+      "docs/content/user/foundations/native_world/classes/molsysmt_Structures.md": "7f4fdb2b4ff26ad4d699b3f3f165996f4e83fa5ee6f1675fa3b8d0da4b09eded",
+      "docs/content/user/tools/form/file/h5msm_10.md": "8905189d58482883c3d35d553783ebcd6bd10c342760fc9aa4f9813367c490f7",
+      "tests/documentation/test_native_molsys_tutorial.py": "74311b7eaa386f165b423cf369579b28c8fd3ddce00ba3bf4b93c1d0a4262fdb",
+      "docs/content/user/tools/form/class/molsysmt/molsysmt_MolSys.ipynb": "d791d44dc3830250aefa5dadbc48532b0241eedee1a35ec25d641602300094c2",
+      "docs/content/course/Common_Core/04_Native_Forms.ipynb": "7bc302e5847deeff2aaa8703a33fde47c2b13d985baa5be4caffd2dae6158ed1"
+    },
+    "counts": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "artifacts": {
+      "tutorial-links2-execution.json": "805d5336618705439d3d27b1031392355e17ee47bf4e9f31e334f37442a482d5",
+      "tutorial-links2-driver.py": "8fe537dc4e711ce3cdad90353e73acab41068930b0d9fdb7621d7bfee141347f",
+      "tutorial-links2.xml": "e8ab5b4fbd7595596e7bab90115c3bc409143a81288d84d453cfaf808010f29a"
+    }
+  }
+}

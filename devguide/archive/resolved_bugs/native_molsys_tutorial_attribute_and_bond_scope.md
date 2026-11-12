@@ -1,13 +1,13 @@
 ---
 summary: Native MolSys tutorial omits explicit hydrogen counts and mislabels bond ownership
 issue: uibcdf/molsysmt#726
-status: active
+status: resolved
 opened: 2026-11-12
-closed:
+closed: 2026-11-12
 severity: low
 verification: reproduced
 area: [docs]
-guard:
+guard: tests/documentation/test_native_molsys_tutorial.py::test_molsys_tutorial_lists_the_complete_native_attribute_contract
 normative:
 blocked_by: []
 supersedes: []
@@ -75,3 +75,33 @@ code, outputs, metadata, cell order, anchors and conversion table are preserved.
 No scientific code or dependency changes. Actual corrected HTML/link receiving
 and common final checks follow; #725's separate full-site result keeps its
 exact earlier source and unchanged input scope.
+
+
+## Resolution — 2026-11-12
+
+Corrected source 2bf21835f passes the strict targeted HTML update with zero
+warnings; the actual tutorial's complete local links pass inspection. The earlier
+three rendered articles remain byte-identical. The one-CPU/three-GiB/no-own-swap
+update peaks near 356 MiB and preserves at least 13.78 GiB available host RAM.
+All 7,405 selected inputs stay unchanged, with clean source before/after. The
+primary guard compares the real runtime declaration set and displayed count;
+separate controls receive actual stored counts and chemical bond edits plus
+their descriptions. Merely changing the headline number cannot satisfy it.
+
+The [combined receipt](../../../devtools/data/native_domain_documentation_receiving_725_726_20261112.json)
+owns exact sources, failed attempts, observed runtime, resources and final checks.
+This bounded documentation correction does not clear the complete-source/nightly
+backlog, original #615/#713 uncertainty or final-pair/publication acceptance.
+
+
+## Additional source-reference receiving — 2026-11-12
+
+A stronger reference guard then exposes six omitted registered conversion routes:
+TopologyDict, ChemicalStates, ChemicalStatesDict, SDF, PDBQT and PDBQT text.
+The four prior attribute/ownership controls remain passing; the new reference
+control fails. This is another real tutorial inventory omission, not a product
+or oracle failure. The final table adds those six routes and declares all 40;
+its previous 34 routes remain. Source links include all 57 adapter role
+occurrences, explicitly labelled implementation/docstring references rather
+than nonexistent Sphinx API articles. General user API links remain indexed.
+#727 owns the separately observed wider form-reference debt.
