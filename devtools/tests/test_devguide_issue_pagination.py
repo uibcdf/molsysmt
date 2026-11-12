@@ -22,6 +22,7 @@ LABEL_API = (
 
 def test_label_absence_is_decided_after_every_label_page(monkeypatch):
     names = ["bug", *[f"area-{index:03d}" for index in range(199)], "last-label"]
+    complete_acquisition = []
 
     def acquire(*arguments):
         if arguments[:2] == ("label", "list"):
@@ -29,6 +30,7 @@ def test_label_absence_is_decided_after_every_label_page(monkeypatch):
             count = int(arguments[arguments.index("--limit") + 1])
             return "\n".join(names[:count])
         assert arguments == LABEL_API
+        complete_acquisition.append(True)
         return json.dumps(
             [
                 [{"name": name} for name in names[start : start + 100]]
@@ -40,6 +42,9 @@ def test_label_absence_is_decided_after_every_label_page(monkeypatch):
     assert devguide_issue._missing_labels(["bug", "last-label", "truly-absent"]) == [
         "truly-absent"
     ]
+    assert complete_acquisition, (
+        "A higher finite cap is not proof of complete acquisition"
+    )
 
 
 @pytest.mark.parametrize("pages", [[], [[]]])
