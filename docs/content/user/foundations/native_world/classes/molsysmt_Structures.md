@@ -97,6 +97,11 @@ object unchanged. Existing append policies apply: `intersection` keeps shared
 attributes, while `strict` refuses one-sided attributes.
 
 These observables survive supported `StructuresDict` and H5MSM 0.5 round trips.
+The current default H5MSM 1.0 writer preserves them as well; see
+{ref}`user-tools-form-h5msm-10`. The example in
+{ref}`Composing native domains <user-foundations-native-world-classes-molsysmt-molsys>`
+constructs coordinates in angstrom and times in femtoseconds before a default
+H5MSM round trip, without assigning chemistry to Topology.
 MolSysDict 0.1 and the current structures YAML codec do not store these three
 thermodynamic series. Converting to those formats does not extend their schema.
 Scalar temperatures in simulation settings keep their existing contract.

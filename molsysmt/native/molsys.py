@@ -358,7 +358,7 @@ class MolSys(NativeQueries):
 
     @property
     def topology(self):
-        """Returning the stable topology and its compatibility facades."""
+        """Returning stable inventory independently of chemical states."""
 
         return self._topology
 
@@ -422,7 +422,7 @@ class MolSys(NativeQueries):
         )
 
     def _bind_chemical_states(self, value):
-        """Bind prepared chemistry without duplicating its topology authority."""
+        """Bind prepared chemistry to its owning system independently of topology."""
         previous = getattr(self, "_chemical_states_domain", None)
         if previous is not None and previous is not value:
             owner_ref = getattr(previous, "_molsys_owner_ref", None)

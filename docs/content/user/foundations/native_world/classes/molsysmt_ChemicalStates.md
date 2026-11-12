@@ -306,8 +306,9 @@ changes invalidate the owning system's observations. Reading a stored assignment
 does not repair or rewrite its source data.
 
 Copies own their chemical records. `ChemicalStatesDict` retains typed columns
-and null masks, and H5MSM 0.5 stores chemistry independently of topology and
-structures; see {ref}`user-tools-form-h5msm-05`. Restriction and historical index
+and null masks. The current default H5MSM 1.0 writer stores chemistry independently
+of topology and structures; see {ref}`user-tools-form-h5msm-10`. Explicit 0.5
+output also preserves this domain separation. Restriction and historical index
 scope are described in {ref}`Tutorial_Extract`.
 
 ## API Documentation
@@ -324,6 +325,15 @@ Graph-editing methods still require explicit conversion to ChemicalStates.
 `contains` and `is_composed_of` accept `chemical_state` for supported state-local
 counts; they do not supply absent stable hierarchy.
 
-## Recognizing observed peptide endpoints
+## Observed Peptide Endpoints
+
+{func}`molsysmt.chemical_states.get_peptide_termini` combines a selected state's
+stored backbone bonds with stable atom, group and chain context. Coordinates
+are unnecessary; Topology alone cannot supply the bonds. The experimental rule
+follows chemical direction rather than sorting group positions or ID labels.
+Missing or ambiguous backbone context is reported or rejected, never repaired.
+Recognizing an observed end does not choose its protonation or establish a
+biological terminus. See {ref}`Tutorial_Get_peptide_termini` for cap handling,
+explicit state selection and source group indices.
 
 With stable group/chain context, {func}`molsysmt.chemical_states.get_peptide_termini` reads a selected stored backbone graph. It uses bonds rather than ID labels or storage order, records cap attachments and refuses ambiguous paths. This observed-graph result does not certify complete chemistry or reconstruct missing links. See {ref}`Getting peptide termini <Tutorial_Get_peptide_termini>`.

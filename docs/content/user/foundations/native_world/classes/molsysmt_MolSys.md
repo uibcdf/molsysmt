@@ -89,10 +89,12 @@ owner still detach according to their native ownership rules. Unowned structures
 and supplied mechanics can be shared explicitly. Index selections use existing
 extraction: Topology-backed atom subsets are sorted; a chemical/structural-only
 system retains the requested atom order. Several chemical states do not acquire
-an automatic structure association. H5MSM 0.5 still rejects nonempty mechanics. Explicit
-experimental 0.6 snapshots preserve supported values and original reports;
-see {ref}`user-tools-form-h5msm-06`. This neither parameterizes the system
-nor certifies the stored evidence.
+an automatic structure association. The current development writer defaults to
+H5MSM 1.0, preserving supported mechanical values and original reports alongside
+the other native domains; see {ref}`user-tools-form-h5msm-10`. An explicitly
+selected H5MSM 0.5 output rejects nonempty mechanics; 0.6 remains an explicit
+experimental compatibility format. Persistence neither parameterizes the system
+nor certifies its stored evidence.
 
 ---
 
@@ -123,6 +125,74 @@ scope. A complete induced graph is not a prepared standalone chemical fragment:
 extraction does not add caps or hydrogens, perceive aromaticity, choose a chemical
 state or recalculate interactions. See {ref}`Tutorial_Extract` and
 {ref}`Cookbook_Group_Free_Hierarchy` for executed examples.
+
+## Composing Native Domains
+
+You can construct stable inventory, declared chemistry and coordinates separately,
+then compose them on a shared atom axis. This small example declares two bonds;
+it does not infer missing chemistry or certify a complete chemical state.
+The list passed to `convert` declares positional atom correspondence. Equal
+counts alone do not prove that separately acquired domains refer to the same atoms.
+
+```python
+import numpy as np
+import molsysmt as msm
+from molsysmt.native import ChemicalStates, Structures, Topology
+
+puw = msm.pyunitwizard
+topology = Topology(n_atoms=3)
+msm.set(topology, element="atom", atom_type=["C", "C", "O"])
+chemistry = ChemicalStates(n_atoms=3)
+chemistry.append_state()
+chemistry.add_bonds([[0, 1], [1, 2]])
+structures = Structures(
+    coordinates=puw.quantity(
+        [[[0, 0, 0], [1, 0, 0], [2, 0, 0]],
+         [[0, 0, 1], [1, 0, 1], [2, 0, 1]]], "angstrom"
+    ),
+    time=puw.quantity([0, 2], "fs"),
+)
+molsys = msm.convert(
+    [topology, chemistry, structures], to_form="molsysmt.MolSys"
+)
+assert molsys.get(n_atoms=True) == 3
+assert molsys.get(n_bonds=True) == 2
+assert molsys.get(n_structures=True) == 2
+assert molsys.chemical_states is not chemistry
+assert not hasattr(molsys.topology, "bonds")
+```
+
+The default composition is independent of the supplied objects. Topology owns
+the element symbols and stable memberships; ChemicalStates owns the partial
+graph; Structures owns both coordinate structures and their times. Input lengths
+and times carry explicit units. Native storage converts them to nm and ps;
+selected getters present quantities using your active output policy.
+
+The same domains can accompany the system through the current default H5MSM
+writer. This temporary file is removed after reading; the recovered resident
+system remains usable. See {ref}`user-tools-form-h5msm-10` for layer associations
+and supported mechanical persistence.
+
+```python
+from pathlib import Path
+from tempfile import TemporaryDirectory
+import h5py
+
+with TemporaryDirectory() as directory:
+    path = Path(directory) / "native-domains.h5msm"
+    msm.convert(molsys, to_form=path)
+    with h5py.File(path, "r") as stored:
+        assert stored.attrs["version"] == "1.0"
+    molsys_B = msm.convert(path, to_form="molsysmt.MolSys")
+
+assert molsys_B.get(n_bonds=True) == 2
+assert molsys_B.get(connectivity_completeness=True) == "partial"
+assert not hasattr(molsys_B.topology, "chemical_states")
+np.testing.assert_allclose(
+    puw.get_value(molsys_B.get(element="atom", coordinates=True), to_unit="angstrom"),
+    puw.get_value(structures.get_coordinates(), to_unit="angstrom"),
+)
+```
 
 ## Native Queries
 
@@ -214,11 +284,13 @@ geometry, coverage and previous query snapshots remain unchanged. Standalone
 domain copies have no owner. Assigning an already attached `Structures` to
 another system creates an independent domain wrapper with deferred geometry
 allocation, preserving the original owner. Assigning another system's
-`ChemicalStates` likewise creates independent chemical tables and retains one
-authority shared by the destination's topology and chemical domain. Standalone
+`ChemicalStates` likewise creates independent chemical tables owned by the
+destination system. Its Topology remains a separate stable inventory with no
+bond, component or chemical-state facade. Standalone
 chemical copies/pickles omit their weak owner link; system copies/restoration
-rebind it. Unobserved chemistry/table edits and
-whole-domain replacement still require explicit owner invalidation. Use
+rebind it. Controlled replacement of `topology`, `chemical_states` or `structures`
+invalidates the owner's named analyses. Direct table/private writes remain
+outside that notification boundary and require explicit invalidation. Use
 `MolSys` extraction/append operations to change axes with attached analyses.
 See {ref}`Changing coordinates <user-tools-interactions-coordinate-edits>`.
 
