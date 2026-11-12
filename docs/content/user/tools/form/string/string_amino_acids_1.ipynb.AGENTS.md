@@ -1,7 +1,7 @@
 # Micro-Governance: string_amino_acids_1.ipynb
 
 ## Purpose
-Governance rules and frozen contracts for `/home/diego/repos@uibcdf/molsysmt/docs/content/user/tools/form/string/string_amino_acids_1.ipynb` (`string:amino_acids_1`).
+Governance rules and frozen contracts for `docs/content/user/tools/form/string/string_amino_acids_1.ipynb` (`string:amino_acids_1`).
 
 ## Cell Sequence & Inviolable Order
 1. **Cell 1 (Code, metadata `{"tags": ["remove-input"]}`)**: Warning suppression.
@@ -10,3 +10,14 @@ Governance rules and frozen contracts for `/home/diego/repos@uibcdf/molsysmt/doc
 4. **Cell 4 (Markdown - Implemented Operations)**: Table with columns `Function / Module` and `Description` for all public functions/modules in `{mod}`molsysmt.form.string_amino_acids_1`` plus collapsible `{note}` dropdown.
 5. **Cell 5 (Markdown - Supported Conversions)**: Table with columns `Target Form`, `Form Type`, and `API Documentation` covering the four existing sequence/Biopython routes and the two native group-only Topology/MolSys routes. Preserve numeric group selections, caps, empty atomic/coordinate inventory and the distinction between native hierarchy support and absent atomic realization.
 6. **Cell 6 (Markdown - Related Tools & References)**: Collapsible `{seealso}` dropdown linking to Foundations and Form tools.
+
+
+## Implementation-reference receiving
+
+For unindexed adapter symbols, retain explicit published-source links with an
+immutable commit and the actual function-definition line (or module header).
+Preserve indexed generic public API roles, notebook code/output/metadata, six-cell
+order, headings, anchors and established native naming/chemical-state limits.
+Operation rows must distinguish unavailable hooks and empty modules from working
+queries/conversions. Registered routes do not certify provider or data availability.
+Strings are immutable: copying preserves values without promising a fresh identity.

@@ -373,3 +373,36 @@ and no newly numbered issue after #730. Board/queue agreement passes.
 The concurrent common-guide update is preserved through a non-rewriting merge.
 The file-family increment is delivered; the next work remains external
 class/string references and the separate handoff requirements.
+
+
+## String-family source intake — 2026-11-12
+
+Seven string pages enter the next bounded increment. The baseline has seven
+failures and 81 passes: six pages lack received implementation references/route
+counts; SMILES also omits the registered MolSys converter. Existing declaration
+sets/counts match 67/2/2/67/53/54/0. The review separately reproduces #731's
+mis-exported one-letter copy boundary and #732's false-success AlphaFold FASTA
+route. Their combined baseline has eight failures/two passes; thirteen corrected
+source/doctest controls pass. #733 defers a real model-aware writer; refusing an
+unimplemented route does not establish scientific sequence correspondence.
+Source/HTML receiving and common/lifecycle checks remain due.
+
+
+## String-family source correction — 2026-11-12
+
+All seven pages now provide 170 intended references to 156 source files at
+local ed12b039a, to be publicly verified after the bounded checkpoint push.
+All 67/2/2/67/53/54/0 declaration sets remain; SMILES includes its previously
+omitted sixth MolSys route. Descriptions distinguish immutable values, native
+group-only inventories, remote data resolution and declaration versus instance
+availability. Copy identity, empty getter/setter modules and unavailable
+mutation/iteration are explicit. PDB naming/inference defaults, sequence caps,
+selection/naming context and native ownership explanations remain.
+
+Corrected source-reference receiving passes 88 cases. An expanded integrated
+cohort passes 210 existing/new source, sequence, PDB-example and doctest cases.
+The final semantic samples additionally enforce valid form inputs at trusted
+refusal checks; receive that final test change with the actual HTML. The new
+writer capability remains deferred, with #732's explicit refusal prominently
+documented. Notebook executable payloads and established headings/anchors are
+preserved. Actual HTML, public source proof and common/lifecycle checks remain.

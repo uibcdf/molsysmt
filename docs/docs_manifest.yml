@@ -678,6 +678,26 @@ sections:
         status: pending_review
         description: Form contracts, early PDB/GRO naming context, selected coordinate/box correspondence, reader ownership and explicitly unsupported OpenMM runtime/snapshot copies.
         pages:
+          - name: reviewed_string_alphafold_id_references
+            file: docs/content/user/tools/form/string/string_alphafold_id.ipynb
+            agents_file: docs/content/user/tools/form/string/string_alphafold_id.ipynb.AGENTS.md
+            description: 67 declarations and 17 registered routes with actual source references, immutable/group-only limits and explicit unavailable hooks.
+            status: pending_review
+          - name: reviewed_string_pdb_id_references
+            file: docs/content/user/tools/form/string/string_pdb_id.ipynb
+            agents_file: docs/content/user/tools/form/string/string_pdb_id.ipynb.AGENTS.md
+            description: 67 declarations and 20 registered routes with actual source references, immutable/group-only limits and explicit unavailable hooks.
+            status: pending_review
+          - name: reviewed_string_smiles_references
+            file: docs/content/user/tools/form/string/string_smiles.ipynb
+            agents_file: docs/content/user/tools/form/string/string_smiles.ipynb.AGENTS.md
+            description: 54 declarations and 6 registered routes with actual source references, immutable/group-only limits and explicit unavailable hooks.
+            status: pending_review
+          - name: reviewed_string_uniprot_id_references
+            file: docs/content/user/tools/form/string/string_uniprot_id.ipynb
+            agents_file: docs/content/user/tools/form/string/string_uniprot_id.ipynb.AGENTS.md
+            description: 0 declarations and 3 registered routes with actual source references, immutable/group-only limits and explicit unavailable hooks.
+            status: pending_review
           - name: pdb_reader_context
             file: docs/content/user/tools/form/file/file_pdb.ipynb
             agents_file: docs/content/user/tools/form/file/file_pdb.ipynb.AGENTS.md
@@ -686,7 +706,7 @@ sections:
           - name: pdb_text_reader_context
             file: docs/content/user/tools/form/string/string_pdb_text.ipynb
             agents_file: docs/content/user/tools/form/string/string_pdb_text.ipynb.AGENTS.md
-            description: Declared native PDB text context, unchanged disabled-inference default, semantic selections and external interpretation limits.
+            description: 53 declarations and 15 registered routes with actual source references, immutable/group-only limits and explicit unavailable hooks.
             status: pending_review
           - name: reviewed_file_crd_references
             file: docs/content/user/tools/form/file/file_crd.ipynb
@@ -833,11 +853,11 @@ sections:
           - name: one_letter_native_sequence
             file: docs/content/user/tools/form/string/string_amino_acids_1.ipynb
             agents_file: docs/content/user/tools/form/string/string_amino_acids_1.ipynb.AGENTS.md
-            description: Native one-letter group-only Topology/MolSys conversions and deferred hierarchy limits.
+            description: 2 declarations and 6 registered routes with actual source references, immutable/group-only limits and explicit unavailable hooks.
           - name: three_letter_native_sequence
             file: docs/content/user/tools/form/string/string_amino_acids_3.ipynb
             agents_file: docs/content/user/tools/form/string/string_amino_acids_3.ipynb.AGENTS.md
-            description: Native three-letter groups and caps without atomic projection, with ordered native hierarchy and explicit chemical prerequisites.
+            description: 2 declarations and 6 registered routes with actual source references, immutable/group-only limits and explicit unavailable hooks.
           - name: fasta
             file: docs/content/user/tools/form/file/file_fasta.ipynb
             agents_file: docs/content/user/tools/form/file/file_fasta.ipynb.AGENTS.md

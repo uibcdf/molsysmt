@@ -1,7 +1,7 @@
 # Micro-Governance: string_pdb_text.ipynb
 
 ## Purpose
-Governance rules and frozen contracts for `/home/diego/repos@uibcdf/molsysmt/docs/content/user/tools/form/string/string_pdb_text.ipynb` (`string:pdb_text`).
+Governance rules and frozen contracts for `docs/content/user/tools/form/string/string_pdb_text.ipynb` (`string:pdb_text`).
 
 ## Cell Sequence & Inviolable Order
 1. **Cell 1 (Code, metadata `{"tags": ["remove-input"]}`)**: Warning suppression.
@@ -10,3 +10,14 @@ Governance rules and frozen contracts for `/home/diego/repos@uibcdf/molsysmt/doc
 4. **Cell 4 (Markdown - Implemented Operations)**: Table with columns `Function / Module` and `Description` for all public functions/modules in `{mod}`molsysmt.form.string_pdb_text`` plus collapsible `{note}` dropdown.
 5. **Cell 5 (Markdown - Supported Conversions)**: Table with columns `Target Form`, `Form Type`, and `API Documentation` covering all 15 direct conversions.
 6. **Cell 6 (Markdown - Related Tools & References)**: Collapsible `{seealso}` dropdown linking to Foundations and Form tools.
+
+
+## Implementation-reference receiving
+
+For unindexed adapter symbols, retain explicit published-source links with an
+immutable commit and the actual function-definition line (or module header).
+Preserve indexed generic public API roles, notebook code/output/metadata, six-cell
+order, headings, anchors and established native naming/chemical-state limits.
+Operation rows must distinguish unavailable hooks and empty modules from working
+queries/conversions. Registered routes do not certify provider or data availability.
+Strings are immutable: copying preserves values without promising a fresh identity.

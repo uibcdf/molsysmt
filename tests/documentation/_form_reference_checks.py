@@ -1,4 +1,4 @@
-"""Shared source and rendered-reference checks for reviewed native tutorials."""
+"""Shared source and rendered-reference checks for explicitly reviewed forms."""
 
 import ast
 import importlib
@@ -194,6 +194,15 @@ _FILE_OPERATIONS = {
     "file_xyz": _FILE_HOOKS,
     "file_xyznpy": _FILE_HOOKS,
 }
+_STRING_OPERATIONS = {
+    "string_alphafold_id": _FILE_HOOKS,
+    "string_amino_acids_1": _FILE_HOOKS,
+    "string_amino_acids_3": _FILE_HOOKS,
+    "string_pdb_id": _FILE_HOOKS,
+    "string_pdb_text": _FILE_HOOKS,
+    "string_smiles": _FILE_HOOKS - {"append_structures"},
+    "string_uniprot_id": _FILE_HOOKS,
+}
 
 
 def _declared_converters(adapter, directory):
@@ -222,13 +231,15 @@ def _declared_converters(adapter, directory):
 
 def _assert_native_form_reference_contract(name):
     is_file = name in _FILE_OPERATIONS
-    adapter_name = name if is_file else f"molsysmt_{name}"
-    page = ROOT / (
-        Path("docs/content/user/tools/form/file") / f"{name}.ipynb"
-        if is_file
-        else PAGES / f"{adapter_name}.ipynb"
-    )
-    operations = _FILE_OPERATIONS[name] if is_file else _OPERATIONS[name]
+    is_string = name in _STRING_OPERATIONS
+    adapter_name = name if is_file or is_string else f"molsysmt_{name}"
+    if is_file or is_string:
+        folder = "file" if is_file else "string"
+        page = ROOT / f"docs/content/user/tools/form/{folder}/{name}.ipynb"
+        operations = (_FILE_OPERATIONS if is_file else _STRING_OPERATIONS)[name]
+    else:
+        page = ROOT / PAGES / f"{adapter_name}.ipynb"
+        operations = _OPERATIONS[name]
     notebook = json.loads(page.read_text())
     source = "\n".join("".join(cell["source"]) for cell in notebook["cells"])
     adapter = importlib.import_module(f"molsysmt.form.{adapter_name}")

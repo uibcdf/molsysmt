@@ -1,7 +1,7 @@
 # Micro-Governance: string_amino_acids_3.ipynb
 
 ## Purpose
-Governance rules and frozen contracts for `/home/diego/repos@uibcdf/molsysmt/docs/content/user/tools/form/string/string_amino_acids_3.ipynb` (`string:amino_acids_3`).
+Governance rules and frozen contracts for `docs/content/user/tools/form/string/string_amino_acids_3.ipynb` (`string:amino_acids_3`).
 
 ## Cell Sequence & Inviolable Order
 1. **Cell 1 (Code, metadata `{"tags": ["remove-input"]}`)**: Warning suppression.
@@ -14,3 +14,14 @@ Governance rules and frozen contracts for `/home/diego/repos@uibcdf/molsysmt/doc
 Preserve the scheme-aware one-letter projection: canonical sequence symbols,
 assessed modified parents, explicit state context, selected cap omission and
 no implicit historical fallback or chemical replacement.
+
+
+## Implementation-reference receiving
+
+For unindexed adapter symbols, retain explicit published-source links with an
+immutable commit and the actual function-definition line (or module header).
+Preserve indexed generic public API roles, notebook code/output/metadata, six-cell
+order, headings, anchors and established native naming/chemical-state limits.
+Operation rows must distinguish unavailable hooks and empty modules from working
+queries/conversions. Registered routes do not certify provider or data availability.
+Strings are immutable: copying preserves values without promising a fresh identity.
