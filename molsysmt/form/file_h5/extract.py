@@ -28,9 +28,14 @@ def extract(
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
         Structure indices (0-based) to include or process.
     output_filename : str or pathlib.Path, default=None
-        Output file path for serialization.
-    copy_if_all : object, default=True
-        Argument copy_if_all.
+        Destination for an independent file. None creates a session-owned
+        temporary copy for whole-file extraction. Subset serialization needs
+        an explicit distinct destination; use native conversion for an
+        in-memory subset.
+    copy_if_all : bool, default=True
+        Whether to copy a complete selection. False permits returning the
+        source when no distinct destination is requested. A distinct explicit
+        destination is honored regardless of this flag.
     progress_bar : object, default=False
         Argument progress_bar.
     skip_digestion : bool, default=False
@@ -42,39 +47,61 @@ def extract(
         Resulting object in file:h5 form.
 
 
+    Raises
+    ------
+    ArgumentError
+        If a requested copy destination aliases the source or names a directory.
+
+
     .. versionadded:: 1.0.0
     """
 
-    if output_filename is None:
-        output_filename = item
-
     if is_all(atom_indices) and is_all(structure_indices):
-        if copy_if_all or (output_filename != item):
-            from shutil import copy as copy_file
+        if not copy_if_all and (
+            output_filename is None or str(output_filename) == str(item)
+        ):
+            return item
+        from molsysmt._private.files_and_directories import copy_file
 
-            copy_file(item, output_filename)
-            tmp_item = output_filename
-
-        else:
-            tmp_item = item
+        return copy_file(item, output_filename, caller="molsysmt.form.file_h5.extract")
     else:
+        from molsysmt._private.files_and_directories import validate_copy_destination
+        from molsysmt._private.smonitor import ArgumentError
+
         from ..mdtraj_HDF5TrajectoryFile.extract import (
             extract as extract_mdtraj_HDF5TrajectoryFile,
         )
         from .to_mdtraj_HDF5TrajectoryFile import to_mdtraj_HDF5TrajectoryFile
 
-        tmp_item = to_mdtraj_HDF5TrajectoryFile(item, skip_digestion=True)
-        tmp_item = extract_mdtraj_HDF5TrajectoryFile(
-            tmp_item,
-            atom_indices=atom_indices,
-            structure_indices=structure_indices,
-            output_filename=output_filename,
-            copy_if_all=copy_if_all,
-            progress_bar=progress_bar,
-            skip_digestion=True,
+        if output_filename is None:
+            raise ArgumentError(
+                "output_filename",
+                value=None,
+                caller="molsysmt.form.file_h5.extract",
+                message="HDF5 subset extraction requires a distinct output_filename; convert to native structures for an in-memory selection.",
+            )
+        validate_copy_destination(
+            item, output_filename, caller="molsysmt.form.file_h5.extract"
         )
-        tmp_item.close()
-
-        tmp_item = output_filename
+        destination = output_filename
+        reader = to_mdtraj_HDF5TrajectoryFile(item, skip_digestion=True)
+        extracted = None
+        try:
+            extracted = extract_mdtraj_HDF5TrajectoryFile(
+                reader,
+                atom_indices=atom_indices,
+                structure_indices=structure_indices,
+                output_filename=destination,
+                copy_if_all=copy_if_all,
+                progress_bar=progress_bar,
+                skip_digestion=True,
+            )
+        finally:
+            try:
+                if extracted is not None and extracted is not reader:
+                    extracted.close()
+            finally:
+                reader.close()
+        tmp_item = destination
 
     return tmp_item

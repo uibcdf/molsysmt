@@ -80,6 +80,14 @@ def extract(
     - When the input is an H5MSM file, extracting a subset to the same file
       form requires a distinct ``output_filename``. Use
       ``to_form='molsysmt.MolSys'`` for an in-memory subset.
+    - Supported whole-file extraction adapters return an independent,
+      session-owned temporary copy when no destination is requested. The
+      explicit ``copy_if_all=False`` policy can retain the source. H5MSM and
+      TRJPK retain their separately documented identity behavior; registration
+      alone does not establish extraction support for every file form.
+      Coordinate-dump XYZ subsets also use independent temporary output;
+      MDTraj HDF5 subset serialization needs a distinct explicit destination.
+      See :ref:`Cookbook_Copying_Disk_Systems` for file lifetime and ownership.
     - ViewerJSON extraction preserves explicit atom order, remaps retained bond
       endpoints and keeps bond columns aligned. Atom indices must be unique;
       structure indices preserve their requested order and repetitions. Only

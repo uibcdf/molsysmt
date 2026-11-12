@@ -831,7 +831,7 @@ sections:
       - name: copying_disk_systems
         file: docs/content/user/cookbook/copying_disk_systems.md
         agents_file: docs/content/user/cookbook/copying_disk_systems.md.AGENTS.md
-        description: Automatic session temporaries, caller-owned snapshots, source-alias rejection and independent native coordinate edits.
+        description: Independent automatic/persistent snapshots, source-safe whole-file and coordinate-dump extraction, native edits and explicit form/lifetime limits.
         status: reviewed
       - name: weighting_pca
         file: docs/content/user/cookbook/weighting_pca.md

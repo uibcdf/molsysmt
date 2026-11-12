@@ -81,6 +81,45 @@ whole-file output. `copy_if_all=False` returns the source only with all atoms,
 all structures and no output filename. File-handler copying has separate
 capabilities; it must not be inferred from a successful file-path copy.
 
+## Extracting stored coordinates safely
+
+Supported file extraction adapters also keep whole-file copies independent.
+The coordinate-dump `file:xyz` format uses a `n_structures n_atoms` header,
+followed by three numerical coordinate columns in nm; it has no element column.
+This small example checks both a complete copy and a selected output without
+changing the source:
+
+```python
+import tempfile
+from pathlib import Path
+import numpy as np
+import molsysmt as msm
+
+with tempfile.TemporaryDirectory() as directory:
+    source = Path(directory) / 'source.xyz'
+    source.write_text('2 2\n0 0 0\n1 0 0\n0 2 0\n1 2 0\n')
+    original = source.read_bytes()
+    whole = msm.extract(str(source))
+    selected = msm.extract(str(source), selection=[1], structure_indices=[1])
+    assert Path(whole).resolve() != source.resolve()
+    assert Path(whole).read_bytes() == original
+    xyz = msm.get(selected, element='atom', coordinates=True)
+    np.testing.assert_array_equal(
+        msm.pyunitwizard.get_value(xyz, to_unit='nm'), [[[1., 2., 0.]]])
+    assert source.read_bytes() == original
+    assert msm.extract(str(source), copy_if_all=False) == str(source)
+assert Path(whole).is_file() and Path(selected).is_file()
+```
+
+The automatic outputs follow the process-owned lifetime below. An explicit
+destination remains caller-owned. Subset support depends on the adapter:
+H5MSM and MDTraj HDF5 file subsets need a distinct explicit output destination;
+TRJPK selections are exported through StructuresDict. Use native conversion
+for an in-memory subset. A registered file form does not promise mutation or
+subset serialization. Copying or writing a subset onto source aliases is
+rejected before modifying the source; an explicit no-copy request for a complete
+selection may instead return the original path.
+
 ## Respecting each boundary
 
 Without `output_filename`, MolSysMT securely reserves a unique same-suffix path

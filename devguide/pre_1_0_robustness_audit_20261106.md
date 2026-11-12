@@ -53,6 +53,17 @@ the release requirements.
 | P4 — incoming and remaining issues/PRs, owning issue / #334 | Complete 12 November intake now has 647 issues, 93 open and no open PRs. New [#728](pending_proposals/protor_radii_types_and_provenance_in_one_evaluation.md) requests ProtOr radii/types/provenance from one evaluation; source shows discarded intermediate typing, with no measured speedup or numerical defect. #723 retains its earlier bounded molecular receiving. | Under the new handoff cutoff, retain #728's source study and defer implementation until post-1.0 unless explicitly admitted later. Preserve the existing public composition. Review new correctness/integrity reports; keep #723 long-campaign and #615/#713 causal acceptance separate. |
 | P5 — client and final-candidate boundaries, #256 / #250 / #254 / #524 / #615 / #334 | Independent default-specific MolSysViewer source receiving is [reviewed and accepted](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-default-specific-molsysviewer-receiving--2026-11-11): 18 session cases and 151 boundary cases on the declared source. The final pair is not frozen; #615's original uncertainty and installed-package evidence remain open. | Complete the stable-format decision and final pair agreement. Keep the published dependency floor, installed matrix and publication decisions distinct from local polish and headless source receiving. |
 
+### File-review correctness intake — 2026-11-12
+
+New [#729](pending_bugs/whole_file_extraction_copies_files_onto_themselves_by_default.md)
+gets priority within the active file-reference review: default whole-file
+extraction fails and selected coordinate-dump XYZ output can overwrite its
+source. The discriminating baseline has 80 failures/52 passes. Reusing existing
+managed copy/destination tools corrects eighteen adapters; expanded source and
+unit-policy cookbook receiving pass 136 cases. Integration, actual documentation
+and common checks remain due. This is necessary integrity correction under the
+finite handoff cutoff; the 26-page #727 file-reference increment is still pending.
+
 ### Adding and closing findings
 
 For each discovered item, record the observed behavior or misleading claim,
