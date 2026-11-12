@@ -21,17 +21,23 @@ DICTIONARY_FORMS = [
     "StructuresDict",
     "MolecularMechanicsDict",
 ]
+ADDITIONAL_FORMS = [
+    "MolSysBuilder",
+    "MolecularMechanics",
+    "ViewerJSON",
+    "GROFileHandler",
+]
 
 
 @pytest.mark.parametrize(
-    "name", ["MolSys", "Topology", "Structures", *DICTIONARY_FORMS]
+    "name", ["MolSys", "Topology", "Structures", *DICTIONARY_FORMS, *ADDITIONAL_FORMS]
 )
 def test_native_tutorial_references_cover_all_registered_routes(name):
     _assert_native_form_reference_contract(name)
 
 
-@pytest.mark.parametrize("name", DICTIONARY_FORMS)
-def test_dictionary_tutorial_attribute_declarations_match_the_live_adapter(name):
+@pytest.mark.parametrize("name", [*DICTIONARY_FORMS, *ADDITIONAL_FORMS])
+def test_native_tutorial_attribute_declarations_match_the_live_adapter(name):
     notebook = json.loads((ROOT / PAGES / f"molsysmt_{name}.ipynb").read_text())
     source = "".join(notebook["cells"][2]["source"])
     rows = "\n".join(line for line in source.splitlines() if line.startswith("|"))

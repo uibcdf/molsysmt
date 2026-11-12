@@ -708,6 +708,18 @@ sections:
             file: docs/content/user/tools/form/class/molsysmt/molsysmt_MolecularMechanicsDict.ipynb
             agents_file: docs/content/user/tools/form/class/molsysmt/molsysmt_MolecularMechanicsDict.ipynb.AGENTS.md
             description: 21 adapter declarations, 2 registered conversions, published implementation references and explicit schema, domain and unavailable-hook boundaries.
+          - name: native_molsysbuilder_form
+            file: docs/content/user/tools/form/class/molsysmt/molsysmt_MolSysBuilder.ipynb
+            agents_file: docs/content/user/tools/form/class/molsysmt/molsysmt_MolSysBuilder.ipynb.AGENTS.md
+            description: Ninety-eight declared native attributes, three registered conversions, domain-aware builder operations and immutable implementation references.
+          - name: native_molecularmechanics_form
+            file: docs/content/user/tools/form/class/molsysmt/molsysmt_MolecularMechanics.ipynb
+            agents_file: docs/content/user/tools/form/class/molsysmt/molsysmt_MolecularMechanics.ipynb.AGENTS.md
+            description: Twenty-one parameter/atom-axis declarations, two registered conversions, experimental parameter scope and explicit unavailable operation boundaries.
+          - name: native_viewerjson_form
+            file: docs/content/user/tools/form/class/molsysmt/molsysmt_ViewerJSON.ipynb
+            agents_file: docs/content/user/tools/form/class/molsysmt/molsysmt_ViewerJSON.ipynb.AGENTS.md
+            description: Graphics extraction/recovery fidelity, eighteen declarations, two registered converters and published implementation references.
           - name: gro_handler_operations
             file: docs/content/user/tools/form/class/molsysmt/molsysmt_GROFileHandler.ipynb
             agents_file: docs/content/user/tools/form/class/molsysmt/molsysmt_GROFileHandler.ipynb.AGENTS.md

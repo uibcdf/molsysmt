@@ -43,11 +43,14 @@ GRO_TEXT = (
 def test_tutorial_operation_limits_match_actual_adapter(operation):
     tutorial = json.loads(TUTORIAL.read_text())
     operations = "".join(tutorial["cells"][3]["source"])
-    marker = f"molsysmt_GROFileHandler.{operation}"
+    marker = re.compile(
+        rf"molsysmt_GROFileHandler\.{operation}\b"
+        rf"|/molsysmt_GROFileHandler/{operation}\.py#L[1-9][0-9]*"
+    )
     rows = [
         line
         for line in operations.splitlines()
-        if line.startswith("|") and marker in line
+        if line.startswith("|") and marker.search(line)
     ]
     assert len(rows) == 1
     description = rows[0].split("|")[2].strip()

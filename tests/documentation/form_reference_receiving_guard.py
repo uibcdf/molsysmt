@@ -20,6 +20,10 @@ from tests.documentation._form_reference_checks import (
         "TopologyDict",
         "StructuresDict",
         "MolecularMechanicsDict",
+        "MolSysBuilder",
+        "MolecularMechanics",
+        "ViewerJSON",
+        "GROFileHandler",
     ],
 )
 def test_actual_native_tutorial_delivers_every_intended_reference(name):

@@ -226,3 +226,28 @@ Fifteen common fast gates, generated-index verification and whole-repository
 Ruff checking/format verification pass with unchanged checked inputs. Board/queue
 reconciliation also passes after classifying #728. These fast controls do not
 execute the separate complete-source or installed qualification routes.
+
+
+## Remaining flagged native articles: source correction — 2026-11-12
+
+The next bounded increment covers MolSysBuilder, MolecularMechanics, ViewerJSON
+and GROFileHandler, the remaining native notebook articles flagged in the
+cached census. It supplies 52 intended references to 48 independently matched
+published files at ebded7917. The Builder table now includes both omitted
+assignments, for 98 declarations; MolecularMechanics includes atom positions
+and counts, for 21. ViewerJSON retains 18 declarations and its graphics
+identity/extraction limits; GRO retains 62 declarations and its resident,
+whole-handler and unavailable-hook boundaries. All three/two/two/five
+registered routes remain. The mechanical container's unavailable add/structure
+hooks are no longer described as supported operations; merge/drop/report limits
+and experimental parameter scope remain explicit. No runtime implementation
+changes. Code, outputs, metadata, anchors and cell order are preserved.
+
+The baseline has six documentation failures and 26 passes. Corrected source
+receiving passes 32 cases. The first existing-runtime cohort has 68 passes and
+six failures in an old GRO documentation guard: it locates rows by the dotted
+Sphinx spelling, which the new actual source links replace. Its locator now
+accepts the exact published-source path as well; all independent-copy,
+unsupported-operation, iterator, nonmutation and quantity assertions remain.
+The failed attempt stays recorded. Actual HTML receiving and final checks
+remain due before claiming this increment delivered.
