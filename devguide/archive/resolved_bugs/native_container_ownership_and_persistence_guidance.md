@@ -108,3 +108,12 @@ The [combined receipt](../../../devtools/data/native_domain_documentation_receiv
 owns exact sources, failed attempts, observed runtime, resources and final checks.
 This bounded documentation correction does not clear the complete-source/nightly
 backlog, original #615/#713 uncertainty or final-pair/publication acceptance.
+
+
+## Common closeout checks — 2026-11-12
+
+All fifteen fast gates, whole-repository Ruff lint/format and the separate
+controlled runtime probe pass. Eleven exact task-owned terminal units are
+retired/already collected after MainPID-zero checks; no foreign process is
+signalled. The combined receipt retains the actual source/runtime versions,
+unchanged selected inputs, resource bounds, failures and intended-link limits.

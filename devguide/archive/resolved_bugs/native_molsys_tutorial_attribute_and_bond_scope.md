@@ -105,3 +105,25 @@ its previous 34 routes remain. Source links include all 57 adapter role
 occurrences, explicitly labelled implementation/docstring references rather
 than nonexistent Sphinx API articles. General user API links remain indexed.
 #727 owns the separately observed wider form-reference debt.
+
+
+## Final intended-link receiving — 2026-11-12
+
+Clean 115ebe335 passes the strict targeted update with zero warnings. Actual
+HTML has all 57 intended source-link occurrences, including fourteen operation
+links and all forty converters. Every referenced distinct file (55) independently
+matches the complete published GitHub tree at the declared immutable source.
+There are no unlinked Python roles in this article; all sixteen existing local
+destinations still resolve. Earlier foundation HTML remains byte-identical.
+The five final source/semantic controls pass. The failed stronger guard that
+revealed six missing converters is retained as a real documentation finding.
+#727 remains partial for other forms; no broad form-reference closure follows.
+
+
+## Common closeout checks — 2026-11-12
+
+All fifteen fast gates, whole-repository Ruff lint/format and the separate
+controlled runtime probe pass. Eleven exact task-owned terminal units are
+retired/already collected after MainPID-zero checks; no foreign process is
+signalled. The combined receipt retains the actual source/runtime versions,
+unchanged selected inputs, resource bounds, failures and intended-link limits.

@@ -6,7 +6,8 @@
 GRO documentation `bc2db775d`, iterator diagnostics `9adad50d1`,
 native inventory/query corrections `b0ae02b22` / `4280a8d42`, Jupyter
 receiving `687220ac9` / `67a094749`, memory-method `db1706f8a`, molecular pilot `1a899f9f0`, label-inventory
-correction `9af9be18c` / guard `90aa8eae1` and the
+correction `9af9be18c` / guard `90aa8eae1`, native-domain guidance
+`1b98c2b1d` / `2bf21835f` / `115ebe335` and the
 separately received earlier documentation/catalog slices.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
@@ -40,6 +41,37 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Native-domain documentation and real references — 2026-11-12
+
+#725 corrects independent Topology/ChemicalStates ownership, controlled domain
+replacement and current default H5MSM persistence. Six actual example cases
+under nm/ps and pm/fs include six unchanged Core04 cells; 34 native context and
+doctest cases pass. Full strict HTML on clean 1b98c2b1d has zero warnings;
+three actual foundation articles and 130 unique local destinations pass inspection.
+The code change consists only of two docstrings, with executable AST unchanged.
+
+#726 corrects MolSys's capability tutorial: 116 attributes include the stored
+explicit-H count, bond edits belong to ChemicalStates and removal takes bond
+indices. A stronger guard also discovers six missing registered converters;
+all 40 routes are now listed. Code, stored outputs, cell order and non-source
+metadata remain unchanged. Three initial documentation failures/one passing
+runtime control, then a later one-failure/four-pass reference guard are retained.
+The final five-case source/semantic cohort passes. The [combined receipt](../devtools/data/native_domain_documentation_receiving_725_726_20261112.json)
+owns exact staged sources, counts, resources and inspection-oracle corrections.
+
+New [#727](pending_bugs/docs/native_form_implementation_references_render_without_links.md)
+exposes intended adapter references that render as unlinked code despite a
+zero-warning build. MolSys is received on clean 115ebe335 with all 57 intended
+source-link occurrences, all 55 distinct published source files, fourteen
+operation links and forty converter links checked. The earlier three articles
+remain byte-identical. Topology/Structures and wider form-reference review
+remain pending under #727. Next continue that bounded intended-link work;
+#723's comparable campaign and original #615/#713 uncertainty remain separate.
+All fifteen fast gates, whole-repository Ruff checks/format and the controlled
+runtime probe pass. Eleven own terminal units are retired/already collected;
+foreign processes are untouched. No extra score credit, new complete-source result, candidate, hosted gate,
+installed/platform acceptance or publication is implied.
 
 ## Molecular memory pilot and label inventory — 2026-11-12
 

@@ -130,3 +130,18 @@ Complete strict HTML on clean b0ae02b22 has zero warnings. Three articles and
 inspection. See the [native receipt](../../../devtools/data/native_inventory_receiving_719_720_722_20261111.json).
 This adds bounded instructional accuracy. Wider indexing, comparison, external
 reader acceptance and the original scorecard criteria remain unchanged/open.
+
+
+## Native-domain and reference delivery — 2026-11-12
+
+#725/#726 reconcile native ownership, default persistence, stored explicit-H
+count discovery and all forty registered MolSys conversion routes. Actual
+examples run under nm/ps and pm/fs, including six unchanged Core04 cells;
+native context/doctests and strict full/targeted HTML have bounded receiving.
+The [combined receipt](../../../devtools/data/native_domain_documentation_receiving_725_726_20261112.json)
+owns exact sources, failures and actual article checks. A later stronger guard
+also exposes missing intended API links: the final MolSys article has all 57
+explicit implementation/docstring references, independently verified against
+published source bytes. #727 retains Topology/Structures and wider form debt.
+This improves instructional accuracy/delivery, not comparative discoverability,
+search ranking, installed qualification or original scorecard credit.

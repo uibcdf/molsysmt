@@ -78,6 +78,16 @@ Independently reviewed MolSysViewer default-1.0 source receiving is accepted
 under #256; format freeze, #615/#713 uncertainty and the final exact installed
 pair remain separate. No new candidate or hosted execution is requested.
 
+The later #725/#726 native-domain guidance and form tutorial pass bounded
+physical/ownership examples, native context/doctests and actual rendered articles.
+MolSys lists all 116 attributes/40 routes and delivers 57 real implementation
+references. The [combined receipt](../devtools/data/native_domain_documentation_receiving_725_726_20261112.json)
+retains strict full-versus-targeted HTML, preserved notebook code/outputs and
+original failures. #727 owns the newly demonstrated intended-link gap in other
+native form tutorials; zero warnings plus valid existing hrefs is insufficient.
+Continue that local review while #723 and final-pair coordination retain their
+separate scope; no duplicate scorecard credit is assigned.
+
 ## Work that MolSysMT can advance now
 
 1. **Retain the received complete local source session.** Clean `6acad4f35`

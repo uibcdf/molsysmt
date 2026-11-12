@@ -63,3 +63,16 @@ receiving belong to the #725/#726 combined receipt. Its declaration-only source
 checks do not claim installed/provider execution for every optional converter.
 Close this issue only after the remaining intended form references are audited
 and repaired or explicitly scoped with an owned disposition.
+
+
+## Received MolSys increment — 2026-11-12
+
+Clean 115ebe335 receives the final native MolSys article with zero warnings,
+57 intended reference occurrences and 55 distinct real published source files.
+The actual DOM has 14 operation and 40 converter links, no unlinked Python
+roles and all 16 existing local destinations. Earlier three foundation articles
+remain unchanged. Five source/semantic controls pass. The earlier strong guard
+also exposes six undocumented converter routes, now corrected under #726.
+See the [combined receipt](../../../devtools/data/native_domain_documentation_receiving_725_726_20261112.json).
+Topology and Structures still need intended-link correction, and the wider
+form scope remains unaudited. This report therefore stays partial.
