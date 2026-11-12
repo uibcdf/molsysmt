@@ -21,4 +21,8 @@ Entries are filed and closed under [reporting_protocol.md](../../reporting_proto
 
 - [`course_modules_lack_paired_content_contracts.md`](course_modules_lack_paired_content_contracts.md) — [#512](https://github.com/uibcdf/molsysmt/issues/512) — Course modules lack paired content-protection contracts. *(low, measured)*
 
+### In progress (1)
+
+- [`pdb_handler_documentation_advertises_unavailable_writing_copying_and_streaming.md`](pdb_handler_documentation_advertises_unavailable_writing_copying_and_streaming.md) — [#714](https://github.com/uibcdf/molsysmt/issues/714) — PDB handler documentation advertises unavailable writing, copying and streaming *(medium, inspected)*
+
 <!-- /generated -->

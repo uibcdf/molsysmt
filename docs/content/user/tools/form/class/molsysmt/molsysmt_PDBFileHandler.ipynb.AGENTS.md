@@ -6,7 +6,9 @@ Governance rules and frozen contracts for `/home/diego/repos@uibcdf/molsysmt/doc
 ## Cell Sequence & Inviolable Order
 1. **Cell 1 (Code, metadata `{"tags": ["remove-input"]}`)**: Warning suppression.
 2. **Cell 2 (Markdown - Header & Overview)**: Target anchor `(Tutorial_Form_molsysmt_PDBFileHandler)=`, clean title `# PDBFileHandler`, technical metadata, versionadded, collapsible API documentation dropdown, and Overview.
-3. **Cell 3 (Markdown - Supported Attributes)**: Single unified Markdown table listing all 64 supported attributes. No code cells.
+3. **Cell 3 (Markdown - Supported Attributes)**: Single unified Markdown table listing all 64 declared attributes; declarations do not guarantee values in every file. No code cells.
 4. **Cell 4 (Markdown - Implemented Operations)**: Table with columns `Function / Module` and `Description` for all public functions/modules in `{mod}`molsysmt.form.molsysmt_PDBFileHandler`` plus collapsible `{note}` dropdown.
-5. **Cell 5 (Markdown - Supported Conversions)**: Table with columns `Target Form`, `Form Type`, and `API Documentation` covering all 5 direct conversions.
+5. **Cell 5 (Markdown - Supported Conversions)**: Table with columns `Target Form`, `Form Type`, and `Implementation reference` covering all 5 registered direct conversions. Source links replace unavailable Sphinx implementation destinations for this legacy adapter.
 6. **Cell 6 (Markdown - Related Tools & References)**: Collapsible `{seealso}` dropdown linking to Foundations and Form tools.
+
+- Preserve resident read-only limits: copy/edit/append/streaming hooks remain unavailable, and identity conversion may borrow the same handler. Preserve the six cells, warning-suppression code and all execution payloads. Do not present module exports as implemented behavior.

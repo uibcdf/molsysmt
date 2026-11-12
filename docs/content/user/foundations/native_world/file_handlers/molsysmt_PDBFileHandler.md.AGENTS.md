@@ -10,3 +10,5 @@ Governs `docs/content/user/foundations/native_world/file_handlers/molsysmt_PDBFi
   2. `## Class Attributes and Parsed Records`
   3. `## Practical Usage and Streaming Workflow`
   4. `## Performance and I/O Invariants`
+
+- Preserve the resident read-only capability boundary, raw angstrom versus public quantity distinction, and deterministic `contextlib.closing` example. Do not advertise independent live-handler copy, streaming iterators or writing without implemented and received routes.

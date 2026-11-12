@@ -97,6 +97,10 @@ sections:
             file: docs/content/user/foundations/native_world/files/file_h5msm.md
             agents_file: docs/content/user/foundations/native_world/files/file_h5msm.md.AGENTS.md
             description: Default modular 1.0 versus legacy column groups, explicit stored units, resident layers and self-contained selected-system persistence.
+          - name: pdb_handler
+            file: docs/content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.md
+            agents_file: docs/content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.md.AGENTS.md
+            description: Resident PDB reading, normalized records versus native quantities, actual unavailable hooks and deterministic owned-buffer closure.
           - name: legacy_h5msm_handler
             file: docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md
             agents_file: docs/content/user/foundations/native_world/file_handlers/molsysmt_H5MSMFileHandler.md.AGENTS.md
