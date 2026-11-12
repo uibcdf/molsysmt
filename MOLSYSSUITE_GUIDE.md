@@ -216,6 +216,16 @@ automatic retries remain pending; this instruction does not implement them.
 
 ### Reporting ownership and records
 
+Before a remote audit concludes that an issue, label or record is absent, or
+that an inventory is exhaustive, acquire the complete declared repository,
+endpoint, state and filter scope through all pages. Bounded list/search results
+remain useful for exploration; they do not establish absence. Failed, truncated,
+malformed or unavailable acquisition is partial/unknown, not an empty inventory.
+Preserve valid local records and distinguish REST pull-request entries when
+the audit targets issues. Follow the
+[remote-inventory contract](https://github.com/uibcdf/molsyssuite/blob/main/devguide/reporting_protocol.md#remote-inventory-completeness)
+and reuse qualified owner tooling before adding another reader.
+
 Decide ownership before filing:
 
 - one-component behavior is tracked in that component;
