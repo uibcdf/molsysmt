@@ -13,6 +13,66 @@ import pytest
 from tests.molsysviewer_molsysmt import system_panel_jupyter as launcher
 
 
+@pytest.mark.parametrize("groups", ["-1", "0", "8"])
+def test_host_memory_groups_are_bounded_before_creating_runtime_files(
+    tmp_path, monkeypatch, groups
+):
+    output = tmp_path / "host-memory"
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "receiver",
+            "--viewer-root",
+            str(tmp_path),
+            "--output",
+            str(output),
+            "--scenario",
+            "host-memory",
+            "--host-groups",
+            groups,
+        ],
+    )
+    with pytest.raises(SystemExit) as caught:
+        launcher.main()
+    assert caught.value.code == 2
+    assert not output.exists()
+
+
+def test_host_identity_uses_actual_server_paths_and_discards_credentials(tmp_path):
+    package = tmp_path / "python-package"
+    application = tmp_path / "application"
+    package.mkdir()
+    application.mkdir()
+    initializer = package / "__init__.py"
+    initializer.write_text("__version__ = 'host-control'\n")
+    (application / "package.json").write_text('{"name":"host-app"}')
+    (tmp_path / "server.log").write_text(
+        f"[LabApp] JupyterLab extension loaded from {package}\n"
+        f"[LabApp] JupyterLab application directory is {application}\n"
+        "[ServerApp] http://localhost/?token=never-record-this\n"
+    )
+    observed = launcher._record_host_application_identity(tmp_path, "host.json")
+    assert observed["available"] is True
+    assert (
+        observed["files"]["python_initializer"]["sha256"]
+        == hashlib.sha256(initializer.read_bytes()).hexdigest()
+    )
+    assert observed["observed"]["application_directory"] == str(application)
+    assert "never-record-this" not in (tmp_path / "host.json").read_text()
+    assert "application_package" in observed["files"]
+
+
+def test_host_identity_does_not_resolve_ambiguous_application_paths(tmp_path):
+    (tmp_path / "server.log").write_text(
+        "[LabApp] JupyterLab application directory is /first\n"
+        "[LabApp] JupyterLab application directory is /second\n"
+    )
+    observed = launcher._record_host_application_identity(tmp_path, "ambiguous.json")
+    assert observed["available"] is False
+    assert observed["observed"]["application_directory"] is None
+
+
 @pytest.mark.parametrize("value", ["nan", "inf", "-inf", "0", "-1", "301"])
 def test_server_preparation_budget_rejects_unbounded_or_nonpositive_values(value):
     import argparse

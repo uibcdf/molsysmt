@@ -15,6 +15,76 @@ from pathlib import Path
 import pytest
 
 
+def test_chromium_memory_sampling_retained_and_released_controls(tmp_path):
+    """Distinguish retained witnesses from retired objects and backing buffers."""
+    output = tmp_path / "memory-sampling.json"
+    subprocess.run(
+        [
+            "node",
+            str(Path(__file__).with_name("memory_sampling_guard.mjs")),
+            str(output),
+        ],
+        check=True,
+        timeout=90,
+    )
+    result = json.loads(output.read_text())
+    assert result["outcome"] == "passed"
+    assert result["witness_value"] == 37
+    assert result["released_backing_bytes"] >= 7 * 1024 * 1024
+    for name in ["before_release", "after_release"]:
+        sample = result[name]
+        assert sample["cdp_collections"] == 2
+        assert sample["after_collection"]["subjects"]["witness"] == {
+            "object_alive": True,
+            "buffer_alive": True,
+        }
+    assert result["before_release"]["after_collection"]["subjects"]["retained"][
+        "object_alive"
+    ]
+    assert not result["after_release"]["after_collection"]["subjects"]["retained"][
+        "object_alive"
+    ]
+
+
+def test_actual_plain_jupyter_memory_baseline(tmp_path):
+    """Measure default Jupyter execution without molecular kernel imports."""
+    viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
+    output = tmp_path / "jupyter-host-memory"
+    command = [
+        sys.executable,
+        str(Path(__file__).with_name("system_panel_jupyter.py")),
+        "--viewer-root",
+        str(viewer),
+        "--scenario",
+        "host-memory",
+        "--host-groups",
+        "3",
+        "--output",
+        str(output),
+    ]
+    if provider := os.environ.get("MOLSYSVIEWER_PROVIDER_ROOT"):
+        command.extend(["--provider-root", provider])
+    subprocess.run(command, check=True, timeout=300)
+    result = json.loads((output / "full-result.json").read_text())
+    assert result["outcome"] == "passed" and result["groups"] == 3
+    assert [sample["executions"] for sample in result["samples"]] == [0, 3, 6, 9]
+    assert result["kernel"]["initial_forbidden_imports"] == []
+    assert result["kernel"]["final_forbidden_imports"] == []
+    assert result["settings_changed"] is False
+    assert result["host_page_config"] == result["host_page_config_after"]
+    assert result["cell_toolbar_settings"] == result["cell_toolbar_settings_after"]
+    assert result["host_page_config"]["appVersion"]
+    assert result["cell_toolbar_settings"]["available"] is True
+    before = json.loads((output / "host-application-before.json").read_text())
+    after = json.loads((output / "host-application-after.json").read_text())
+    assert before["available"] is True and before == after
+    assert (
+        "application_package" in before["files"] or "static_package" in before["files"]
+    )
+    assert not (output / "settings.json").exists()
+    assert not (output / "config/jupyter_server_config.py").exists()
+
+
 def test_molecular_import_snapshot_uses_actual_imported_files(tmp_path):
     """Keep inner-provider identity independent of the outer caller's label."""
     import hashlib

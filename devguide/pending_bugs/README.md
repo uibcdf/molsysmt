@@ -20,20 +20,20 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (3)
+### Open (2)
 
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`macos_py312_environment_download_failure.md`](macos_py312_environment_download_failure.md) — [#671](https://github.com/uibcdf/molsysmt/issues/671) — Track the macOS Python 3.12 Conda download failure separately from tests. *(medium, upstream)*
-- [`prolonged_jupyter_memory_sampling_lacks_host_baseline_and_settled_controls.md`](prolonged_jupyter_memory_sampling_lacks_host_baseline_and_settled_controls.md) — [#723](https://github.com/uibcdf/molsysmt/issues/723) — Prolonged Jupyter memory sampling lacks host baseline and settled controls *(medium, upstream)*
 
 ### In progress (1)
 
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
 
-### Partially resolved (2)
+### Partially resolved (3)
 
 - [`fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md`](fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md) — [#713](https://github.com/uibcdf/molsysmt/issues/713) — Fresh import-order timeout lacks pre-deadline child diagnostics *(medium, reproduced)*
 - [`physchem_surface_area_unit_contract.md`](physchem_surface_area_unit_contract.md) — [#473](https://github.com/uibcdf/molsysmt/issues/473) — Verify the unit contract of Collantes surface-area descriptors. *(medium, inspected)*
+- [`prolonged_jupyter_memory_sampling_lacks_host_baseline_and_settled_controls.md`](prolonged_jupyter_memory_sampling_lacks_host_baseline_and_settled_controls.md) — [#723](https://github.com/uibcdf/molsysmt/issues/723) — Prolonged Jupyter memory sampling lacks host baseline and settled controls *(medium, measured)*
 
 <!-- /generated -->
 

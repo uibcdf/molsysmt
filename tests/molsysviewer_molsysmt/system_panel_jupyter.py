@@ -77,6 +77,46 @@ def _server_ready_seconds(value):
     return seconds
 
 
+def _record_host_application_identity(output, filename):
+    """Record package/application paths actually reported by this private server."""
+    import hashlib
+
+    log = (output / "server.log").read_text(encoding="utf-8")
+    observed = {}
+    markers = {
+        "package_directory": "JupyterLab extension loaded from ",
+        "application_directory": "JupyterLab application directory is ",
+    }
+    for name, marker in markers.items():
+        values = {
+            line.split(marker, 1)[1].strip()
+            for line in log.splitlines()
+            if marker in line
+        }
+        observed[name] = next(iter(values)) if len(values) == 1 else None
+    files = {}
+    for name, directory, relative in [
+        ("python_initializer", observed["package_directory"], "__init__.py"),
+        ("application_package", observed["application_directory"], "package.json"),
+        ("static_package", observed["application_directory"], "static/package.json"),
+    ]:
+        path = Path(directory) / relative if directory else None
+        if path is not None and path.is_file():
+            files[name] = {
+                "path": str(path.resolve()),
+                "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+            }
+    result = {
+        "schema": "molsysmt.jupyter_host_identity@1",
+        "available": all(observed.values()) and "python_initializer" in files,
+        "observed": observed,
+        "files": files,
+        "scope": "Actual server log paths and selected package files, not every web asset or an installed-pair qualification.",
+    }
+    (output / filename).write_text(json.dumps(result, indent=2), encoding="utf-8")
+    return result
+
+
 def _session_snapshot(port, token):
     """Read bounded kernel state without retaining tokens, paths or kernel IDs."""
     request = Request(
@@ -298,6 +338,12 @@ def main():
         "--cycles", type=int, default=30, help="Prolonged-session cycles, 1–30."
     )
     parser.add_argument(
+        "--host-groups",
+        type=int,
+        default=3,
+        help="Host-memory groups of three executions, 1–7.",
+    )
+    parser.add_argument(
         "--active-seconds",
         type=float,
         default=10.0,
@@ -334,6 +380,7 @@ def main():
             "interaction-mechanics",
             "continuous-session",
             "prolonged-session",
+            "host-memory",
         ),
         default="system",
     )
@@ -348,6 +395,8 @@ def main():
         parser.error("--initial-canvas-only requires --scenario analysis.")
     if not 1 <= args.cycles <= 30:
         parser.error("--cycles must be in [1, 30].")
+    if not 1 <= args.host_groups <= 7:
+        parser.error("--host-groups must be in [1, 7].")
     if not math.isfinite(args.active_seconds) or not 0.5 <= args.active_seconds <= 90:
         parser.error("--active-seconds must be finite and in [0.5, 90].")
     if (
@@ -405,6 +454,7 @@ def main():
         "contribution": str(source),
         "viewer_root": str(viewer),
         "chromium": args.chromium,
+        "host_memory_groups": args.host_groups,
         "scenario": args.scenario,
     }
     if args.initial_canvas_only:
@@ -1155,6 +1205,10 @@ def main():
                 "print('JUPYTER_CONFORMATION_SCENE_OK',len(_plots))\n",
             ]
         )
+    if args.scenario == "host-memory":
+        from host_memory_fixture import notebook_cells
+
+        cells = notebook_cells(output)
     (output / "notebooks/system.ipynb").write_text(json.dumps(_notebook(cells)))
     (output / "notebooks/plain.ipynb").write_text(
         json.dumps(_notebook(["print('PLAIN_JUPYTER_CONTROL_OK', 1 + 1)\n"]))
@@ -1246,12 +1300,18 @@ def main():
                 startup_path.write_text(json.dumps(startup, indent=2))
                 if not ready:
                     raise RuntimeError("Isolated Jupyter did not become ready.")
+                if args.scenario == "host-memory":
+                    _record_host_application_identity(
+                        output, "host-application-before.json"
+                    )
                 subprocess.run(
                     [
                         args.node,
                         str(
                             Path(__file__).with_name("prolonged_session_jupyter.mjs")
                             if args.scenario == "prolonged-session"
+                            else Path(__file__).with_name("host_memory_jupyter.mjs")
+                            if args.scenario == "host-memory"
                             else Path(__file__).with_name("construction_jupyter.mjs")
                             if args.scenario == "construction"
                             else Path(__file__).with_name(
@@ -1360,6 +1420,8 @@ def main():
                         except subprocess.TimeoutExpired:
                             server.kill()
                             server.wait(timeout=5)
+            if args.scenario == "host-memory" and (output / "server.log").exists():
+                _record_host_application_identity(output, "host-application-after.json")
 
 
 if __name__ == "__main__":

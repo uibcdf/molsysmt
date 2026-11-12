@@ -1,11 +1,11 @@
 ---
 summary: Prolonged Jupyter memory sampling lacks host baseline and settled controls
 issue: uibcdf/molsysmt#723
-status: open
+status: partial
 opened: 2026-11-11
 closed:
 severity: medium
-verification: upstream
+verification: measured
 area: [tests, diagnostics]
 guard:
 normative:
@@ -72,3 +72,31 @@ publication remain paused; installed/final-pair and human acceptance stay open.
 matched aee7aa65 scientific Python bytes, canonical 4ffb82e4 native binary,
 PyUnitWizard development copy, host controls and diagnostic scopes. Source
 inspection alone does not independently validate all reported experiments.
+
+
+## Owner method increment — 2026-11-12
+
+A private Chromium sampler now records paired performance.memory/CDP heap/DOM
+windows before task barriers, after two tasks, and after two explicit CDP
+collections separated by tasks. Windows and API order are explicit; their
+values are not treated as simultaneous instants, RSS or complete process
+memory. A real browser guard retains an independent witness and a deliberately
+held object/buffer, releases an unrelated object/buffer, then drops the held
+control. The strengthened guard removes ordinary strong locals from the
+creation-job WeakRef control and observes an approximately eight-MiB decrease
+in the CDP backing-storage metric. It does not require equal heap APIs.
+
+The affected cohort passes 63 cases, including the real Chromium control,
+fresh-provider observer guards, runtime-file lifecycle, bounded host-group
+arguments and actual-log identity parsing. The original one-case pilot is
+retained, with its later-strengthened creation-job oracle. A plain-kernel
+host-memory mode is implemented with three groups of three executions and
+actual package/application path/file receipts, page configuration and toolbar
+settings read before/after. Real Jupyter receiving of that mode remains pending
+at this checkpoint. It does not import molecular/AnyWidget providers in the
+control kernel or disable a routine extension.
+
+The long scientific receiver and its original raw measurements are unchanged.
+The method is a bounded contract-tested increment, not full #723 acceptance.
+The [operational method](../jupyter_memory_sampling_method.md) records its
+sequence, sources, commands and remaining host/scientific/long-run boundaries.
