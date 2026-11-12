@@ -1068,6 +1068,13 @@ def main():
         from prolonged_session_fixture import notebook_cells
 
         cells = notebook_cells(initial[: initial.index("view = msv.demo")], output)
+        closing_marker = "print(f'LONG_CLOSED_{_long_cycle}')"
+        cells[6] = cells[6].replace(
+            closing_marker,
+            "_ = _record_molecular_imports(\n"
+            "    _long_output / f'kernel-molecular-imports-after-cycle-{_long_cycle}.json')\n"
+            + closing_marker,
+        )
     if args.scenario == "construction":
         from construction_fixture import notebook_cells
 

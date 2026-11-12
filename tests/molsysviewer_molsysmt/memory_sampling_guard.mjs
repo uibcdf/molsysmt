@@ -71,6 +71,24 @@ try {
         'Releasing the eight-MiB control must reduce observed backing storage');
     result.witness_value = await page.evaluate(() => globalThis.__memoryControlWitness.data[0]);
     assert.equal(result.witness_value, 37);
+    const element = await page.evaluateHandle(() => {
+        const node = document.createElement('div');
+        node.payload = new Uint8Array(8 * 1024 * 1024);
+        globalThis.__memoryHandleRefs = {object: new WeakRef(node), buffer: new WeakRef(node.payload.buffer)};
+        return node;
+    });
+    const inspectHandle = page => page.evaluate(() => ({
+        object_alive: !!globalThis.__memoryHandleRefs.object.deref(),
+        buffer_alive: !!globalThis.__memoryHandleRefs.buffer.deref(),
+    }));
+    try {
+        result.handle_retained = await sampleRetirementMemory(page, cdp, {inspect: inspectHandle});
+        assert.deepEqual(result.handle_retained.after_collection.subjects, {object_alive: true, buffer_alive: true});
+    } finally {
+        await element.dispose();
+    }
+    result.handle_disposed = await sampleRetirementMemory(page, cdp, {inspect: inspectHandle});
+    assert.deepEqual(result.handle_disposed.after_collection.subjects, {object_alive: false, buffer_alive: false});
     result.outcome = 'passed';
     result.scope = 'Chromium method/controls only; no molecular package, widget, Jupyter host or long-campaign acceptance.';
     await cdp.detach();

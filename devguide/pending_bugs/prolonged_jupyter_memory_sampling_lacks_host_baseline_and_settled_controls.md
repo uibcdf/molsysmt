@@ -131,3 +131,31 @@ scientific receiver's raw sampler is byte-identical to the earlier source.
 Receive the concrete molecular/witness/backing-buffer integration before a
 comparable long campaign; no whole-current-main, installed or final-pair
 qualification or publication is implied.
+
+
+## Molecular receiver integration in preparation — 2026-11-12
+
+The owner integration preserves the original legacy raw observation, labels
+its method, and adds the received three-window sampler after actual frontend
+disposal. Weak native targets cover the notebook's initial/recovered molecular
+controllers, structures, models, coordinate axes and backing buffers. An
+independent molecular witness is intentionally retained as the positive owner,
+with its coordinate signature checked. Retired rows are discarded only after
+their observations pass and are preserved in the per-cycle receipt. Popup
+functional assertions remain; this is not a census of every popup realm/object.
+
+Source inspection also identifies a receiver-owned ElementHandle in bind()
+that was not explicitly disposed. The integration releases owned root/result
+handles; the actual Chromium control proves deliberate remote-handle retention
+and collection after disposal. This is observer hygiene, not a demonstrated
+cause of the original molecular/host growth. The affected 63-case cohort
+passes. Original Python scientific fixture bytes, assertions and deadlines
+remain unchanged; the producer inserts a passive loaded-provider snapshot
+into the existing closing cell before its completion marker, without adding
+a scientific calculation or warming absent modules.
+
+A bounded actual molecular pilot on a recorded clean source is pending at
+this checkpoint. Preserve its failures if any; do not retry until collection
+or relax lifetime checks merely to obtain a pass. Full campaign, retention
+attribution, installed/platform/final-candidate gates and publication pause
+retain their separate scope.

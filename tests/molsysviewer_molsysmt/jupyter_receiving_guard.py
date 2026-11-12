@@ -31,6 +31,14 @@ def test_chromium_memory_sampling_retained_and_released_controls(tmp_path):
     assert result["outcome"] == "passed"
     assert result["witness_value"] == 37
     assert result["released_backing_bytes"] >= 7 * 1024 * 1024
+    assert result["handle_retained"]["after_collection"]["subjects"] == {
+        "object_alive": True,
+        "buffer_alive": True,
+    }
+    assert result["handle_disposed"]["after_collection"]["subjects"] == {
+        "object_alive": False,
+        "buffer_alive": False,
+    }
     for name in ["before_release", "after_release"]:
         sample = result[name]
         assert sample["cdp_collections"] == 2
@@ -134,6 +142,23 @@ def test_actual_jupyter_prolonged_popup_controls(tmp_path):
     }
     assert result["records"][0]["activity"]["distinct_frames"] >= 2
     assert result["active_seconds_per_cycle"] == 10
+    sample = result["records"][0]["retirement_memory"]
+    assert sample["after_collection"]["subjects"]["witness_data_unchanged"] is True
+    rows = sample["after_collection"]["subjects"]["rows"]
+    assert [row["label"] for row in rows] == [
+        "witness",
+        "cycle-1-created",
+        "cycle-1-recovered",
+    ]
+    for row in rows:
+        assert all(alive is row["witness"] for alive in row["targets"].values())
+        assert row["buffers"]
+        assert all(buffer["alive"] is row["witness"] for buffer in row["buffers"])
+    after_imports = json.loads(
+        (output / "kernel-molecular-imports-after-cycle-1.json").read_text()
+    )
+    assert after_imports["modules"]["molsysmt._rust"]["loaded"] is True
+    assert after_imports["modules"]["molsysviewer_molsysmt"]["loaded"] is True
     imports = json.loads((output / "kernel-molecular-imports.json").read_text())
     source = Path(__file__).resolve().parents[2]
     assert (

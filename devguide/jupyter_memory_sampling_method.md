@@ -2,9 +2,9 @@
 
 **Role:** operational method under uibcdf/molsysmt#723, 2026-11-12.
 This is private receiving tooling, not a public molecular API or a claim that
-a memory leak has been identified or fixed. The existing long scientific
-receiver still retains its original raw sampler; it does not yet use this
-method. Original functional outcomes and diagnostic experiments keep their
+a memory leak has been identified or fixed. The scientific
+receiver preserves its original raw sampler and now has a separate integrated
+three-window observation pending the actual molecular pilot. Original functional outcomes and diagnostic experiments keep their
 source/runtime scope.
 
 ## Method and controls
@@ -79,8 +79,8 @@ prerequisites fail when selected. These explicit browser guards remain
 outside default scientific collection. Select shared-host CPU/RAM limits,
 reserve, finite process deadlines and PID-safe cleanup before execution.
 The 63-case owner control receiving and one actual nine-execution Jupyter
-baseline pass on clean db1706f8a. Scientific integration and the comparable
-long campaign remain pending.
+baseline pass on clean db1706f8a. The bounded scientific integration is implemented; its actual molecular pilot
+and the comparable long campaign remain pending.
 
 ## Technical basis and remaining work
 
@@ -113,4 +113,26 @@ remain visible evidence; successful cell assertions are not a clean-Jupyter
 claim or proof of that error's causal role. Collection is an intervention:
 its timing envelope can be derived from the first window's start through the
 last window's end, including barriers/GC. Do not compare normal cycle latency
-without accounting for it. The original long receiver is still unchanged.
+without accounting for it. The original raw observation and scientific fixture are retained; the new
+molecular sampling adds its own separate evidence.
+
+
+## Molecular observer ownership
+
+`prolonged_native_lifetimes.mjs` records weak native owners for the initial
+and recovered notebook views. The witness snapshot is explicitly retained
+for a positive control; retired snapshots have no intentional strong owner.
+Actual controller disposal is received before the fixed collection method,
+then selected controller/structure/model/axis/backing-buffer reachability and
+witness values are checked. Rows are pruned only after recorded acceptance.
+This does not inventory every historical structure, popup realm or renderer
+allocation. The original scientific/window/session assertions remain.
+
+The receiver releases its owned ElementHandle and readiness-result handles
+after binding. [Playwright handles](https://playwright.dev/docs/api/class-jshandle)
+can otherwise keep their referenced objects alive. An actual retained/disposed
+remote-handle control receives that behavior without molecular assumptions.
+Historical raw values keep their original scope; this correction does not
+establish what caused their growth. Sampling overhead is separate from
+functional cycle time. The existing closing notebook cell also records
+providers actually loaded after scientific work; it does not force an import.
