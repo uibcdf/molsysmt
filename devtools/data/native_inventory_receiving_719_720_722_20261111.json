@@ -1,0 +1,965 @@
+{
+  "schema": "molsysmt.native_inventory_receiving@1",
+  "date": "2026-11-11",
+  "owner_issue": "uibcdf/molsysmt#334",
+  "related_issues": [
+    "uibcdf/molsysmt#719",
+    "uibcdf/molsysmt#720",
+    "uibcdf/molsysmt#722"
+  ],
+  "implementation_source": "b0ae02b22abdfb214fee76d12cb6de15ad223cc1",
+  "query_context_source": "4280a8d42038b378eafc34366d45866e3efc8411",
+  "scope": "Bounded Linux/Python 3.14 development-source receiving. Overlapping cohorts are not additive. Not a latest-head complete suite, full course, actual GUI, installed artifact, platform matrix or final-candidate qualification.",
+  "runtime": {
+    "python": "3.14.7",
+    "platform": "Linux shared development host; 20 logical CPUs, approximately 30.7 GiB physical RAM; no applicable Slurm allocation",
+    "molsysviewer_source": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "pyunitwizard": "0.29.2 published artifact overlay",
+    "pyunitwizard_conda_sha256": "bb28b9420760b557025163e11c934e096c7b98200cac720100a2db924e9ee617",
+    "smonitor": {
+      "version": "0.21.0",
+      "source": "066b69cad8896cdc126d5586fd53268af4ea6490"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "source": "13cc73780a7cb645546ae3f396177f98b86a8792"
+    },
+    "argdigest": {
+      "version": "0.15.0",
+      "source": "57447cc4ec1f7ce85078f8a939892efd075bc919"
+    },
+    "pytest_receptor": "1.2.1 published overlay",
+    "support_overlay": "Pure-Python overlays built offline from reviewed CI source pins. This work makes no shared-environment edits; frozen overlays preserve the declared providers despite concurrent sibling development. The native binary is unchanged.",
+    "thread_caps": {
+      "BLAS": 1,
+      "OpenMP": 1,
+      "Rayon": 1,
+      "OpenMM_CPU": 1,
+      "NumExpr": 1
+    }
+  },
+  "baseline": {
+    "source": "ace38507cdcb90e28342a4d3e4cbd286b79ce727 plus explicit new guard bytes",
+    "corrected_oracle": {
+      "tests": 19,
+      "failures": 13,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 6
+    },
+    "original_flag_family": {
+      "tests": 107,
+      "failures": 56,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 51
+    },
+    "corrected_public_probes": {
+      "tests": 3,
+      "failures": 3,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 0
+    },
+    "valid_contexts_before_predicate_fix": {
+      "tests": 78,
+      "failures": 24,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 54
+    },
+    "original_flag_input_scope": "The first two flag-baseline driver manifests omit the thirteen helpers and new test. Original helper bytes were subsequently proven to match Git ace38507c before editing. Do not infer a complete pre-run helper or runtime manifest from those driver records."
+  },
+  "corrected": {
+    "first_combined_cohort": {
+      "tests": 377,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 377
+    },
+    "final_context_cohort": {
+      "tests": 526,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 526
+    },
+    "final_flag_cases": 319,
+    "ordinary_name_type_controls": 27,
+    "core_digester_controls": 81,
+    "native_query_controls": 64,
+    "inventory_controls": 35,
+    "warning_scope": "The first 377-case cohort records 105 expected warnings (97 legacy H5MSM, eight off-axis). No skips/errors/failures in either final cohort."
+  },
+  "query_flag_first_stage_proof": {
+    "molsysmt/_private/argdigest/argument/atom_ff_type.py": {
+      "before_sha256": "d8e26db11047a73c55e29594993ac524717313ef504500a1527a579a0f35ce7b",
+      "after_sha256": "a7f3742c195a2c6fd65fd5ee78744d9cee126c6144e0e55711952691242810ff",
+      "prior_bytes_match_git_head": true,
+      "change": "Reject the non-Boolean fall-through inside the existing Boolean context only.",
+      "all_ast_outside_new_boolean_refusal_preserved": true
+    },
+    "molsysmt/_private/argdigest/argument/atom_name.py": {
+      "before_sha256": "6861c7ca237ab93f2c663284f26c6d08b7391d66a2d11c8246f4e618b8dc9988",
+      "after_sha256": "5920875468bc6c14f35026e163f9087a1f3e3c8490ac46446ee9ee1a2fb8d481",
+      "prior_bytes_match_git_head": true,
+      "change": "Reject the non-Boolean fall-through inside the existing Boolean context only.",
+      "all_ast_outside_new_boolean_refusal_preserved": true
+    },
+    "molsysmt/_private/argdigest/argument/atom_type.py": {
+      "before_sha256": "3cb0a37358f62f7c7d2d31d9a128e046354a632a2ad6b134fb34417315eba661",
+      "after_sha256": "85bc5bc9c67bb4ee0f1117ca5ac7e66dee12d36df2e825530768bdccc54b94cb",
+      "prior_bytes_match_git_head": true,
+      "change": "Reject the non-Boolean fall-through inside the existing Boolean context only.",
+      "all_ast_outside_new_boolean_refusal_preserved": true
+    },
+    "molsysmt/_private/argdigest/argument/group_name.py": {
+      "before_sha256": "e3d8bf82e06c2daf8feec32b0c8efb05b2aa4fbc8b165ecae834aaf7f3cc1e7b",
+      "after_sha256": "ecd24f1e7ca2fc43b740ff232a5dff11d7b415eae5f4c65e1eeae305b8171f8a",
+      "prior_bytes_match_git_head": true,
+      "change": "Reject the non-Boolean fall-through inside the existing Boolean context only.",
+      "all_ast_outside_new_boolean_refusal_preserved": true
+    },
+    "molsysmt/_private/argdigest/argument/group_type.py": {
+      "before_sha256": "2e6aae011eb1f0ca195f028b194a185c8e4107d4925e53263033f60dfcd98bd1",
+      "after_sha256": "931b75c7700b819b809c58f7b7ebc45146e299ad07d0e074c252d23efdb8b16c",
+      "prior_bytes_match_git_head": true,
+      "change": "Reject the non-Boolean fall-through inside the existing Boolean context only.",
+      "all_ast_outside_new_boolean_refusal_preserved": true
+    },
+    "molsysmt/_private/argdigest/argument/component_name.py": {
+      "before_sha256": "39bbd9dae9b5784d0d64339abbc458e824c72c112aa5eb0d460151b6749ebf40",
+      "after_sha256": "de9140037f25fb059e9a8993c17e35edb5b7ea2980bcc1db969a6f401df853db",
+      "prior_bytes_match_git_head": true,
+      "change": "Reject the non-Boolean fall-through inside the existing Boolean context only.",
+      "all_ast_outside_new_boolean_refusal_preserved": true
+    },
+    "molsysmt/_private/argdigest/argument/component_type.py": {
+      "before_sha256": "82917525e78e52d2473ae519b990d718268f83139f03221295f3ece7a09aa544",
+      "after_sha256": "c663f8d9078aab2cb1180071c8785da665a18db4f3c6e1154652519b9debf62d",
+      "prior_bytes_match_git_head": true,
+      "change": "Reject the non-Boolean fall-through inside the existing Boolean context only.",
+      "all_ast_outside_new_boolean_refusal_preserved": true
+    },
+    "molsysmt/_private/argdigest/argument/chain_name.py": {
+      "before_sha256": "a600c137003cb35b2708c43c81ca263c3d50227bfcc01da32dd90e1167984486",
+      "after_sha256": "730f85fb3b57ea42db6b61c1d05cc48d586026b419f01714ce225783ace5b43f",
+      "prior_bytes_match_git_head": true,
+      "change": "Reject the non-Boolean fall-through inside the existing Boolean context only.",
+      "all_ast_outside_new_boolean_refusal_preserved": true
+    },
+    "molsysmt/_private/argdigest/argument/chain_type.py": {
+      "before_sha256": "699d687bded4a16425bd595fa37f85a7e768de5e6946780e7560e421c1baf9a1",
+      "after_sha256": "be7eacc4e8269fc97b09f0d9a18375a61ca70beed2ba6b85c6948c8efefb0dd4",
+      "prior_bytes_match_git_head": true,
+      "change": "Reject the non-Boolean fall-through inside the existing Boolean context only.",
+      "all_ast_outside_new_boolean_refusal_preserved": true
+    },
+    "molsysmt/_private/argdigest/argument/molecule_name.py": {
+      "before_sha256": "00883d50850c42a1ff47dfe0567109ee80bd66aaa56225e5254935f6c9a49a4f",
+      "after_sha256": "280dc5de391b1f5f1e6bf3d9935f02df02e3223c61e46a8ac57b05bed2dd98c5",
+      "prior_bytes_match_git_head": true,
+      "change": "Reject the non-Boolean fall-through inside the existing Boolean context only.",
+      "all_ast_outside_new_boolean_refusal_preserved": true
+    },
+    "molsysmt/_private/argdigest/argument/molecule_type.py": {
+      "before_sha256": "1eb7ba2214efdec6f3f33422a1de9fd8185b391b6700b227d264e8164502cde2",
+      "after_sha256": "65eeefcf54c31d8cbe1d65dc1725a0427ff4b5f7d0ae0eb6045659cc4594ad8a",
+      "prior_bytes_match_git_head": true,
+      "change": "Reject the non-Boolean fall-through inside the existing Boolean context only.",
+      "all_ast_outside_new_boolean_refusal_preserved": true
+    },
+    "molsysmt/_private/argdigest/argument/entity_name.py": {
+      "before_sha256": "eb86816485c7ef2aabbc902426128ef1dc3e5ad7c095aefdeeddb04d8ea5c086",
+      "after_sha256": "bd44010e99ced4b0e7256b94e935c6053b782df4f4dd4159990992a6dfac3dff",
+      "prior_bytes_match_git_head": true,
+      "change": "Reject the non-Boolean fall-through inside the existing Boolean context only.",
+      "all_ast_outside_new_boolean_refusal_preserved": true
+    },
+    "molsysmt/_private/argdigest/argument/entity_type.py": {
+      "before_sha256": "693966219cdb1509b004c7246d64474a66047e14fad8aa6186665734e880b9ea",
+      "after_sha256": "f42bb8af785aed17a375ac409f9bf58804e800a0bdb093858e745d3c073393b6",
+      "prior_bytes_match_git_head": true,
+      "change": "Reject the non-Boolean fall-through inside the existing Boolean context only.",
+      "all_ast_outside_new_boolean_refusal_preserved": true
+    }
+  },
+  "query_flag_later_predicate_scope": "The first-stage AST equivalence is restricted to b0ae02b22. Nine later helper predicate corrections recognize real Boolean get/compare/Iterator contexts; the final 319-case flag module plus existing label, builder/converter and native-query controls receives this increment.",
+  "comment_preservation": {
+    "path": "molsysmt/basic/iterator.py",
+    "tested_sha256": "eb75d9675dbac416a410a250d0c7e0a80131d465a8040b39ada7e54a89617980",
+    "final_sha256": "eb75d9675dbac416a410a250d0c7e0a80131d465a8040b39ada7e54a89617980",
+    "executable_and_docstring_ast_unchanged": true,
+    "scope": "Comment-only clarification after the 377-case receiving; no runtime/docstring change or extra broad test run."
+  },
+  "final_explicit_input_sha256": {
+    "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "molsysmt/form/molsysmt_Topology/iterators.py": "76ab1a7a70fdc9889b5b8dfcf53b85652ceca42474a47fec16ed72c823f7f438",
+    "molsysmt/form/molsysmt_MolSys/iterators.py": "8f257fbe69d752609e7d64f6065ecaf1626df1ed78f256aceb8fe752b4492ef4",
+    "molsysmt/form/molsysmt_Topology/attributes.py": "7ceddc4d94dccb4b2ea306093ba1918c363e26aaed4bf21897b03fb429a6c381",
+    "tests/documentation/test_native_topology_tutorial.py": "c1ffb3423e10a4459d196c6542a3b47e37120ee5f65f1edcc2aa09cc00bfa93b",
+    "tests/form/molsysmt_Topology/test_inventory_iterator.py": "20f34a48191f6ed0f849a312fa65a41be72018c6e666e65b361fdc633cb3c5f2",
+    "docs/content/user/tools/form/class/molsysmt/molsysmt_Topology.ipynb": "cb9e6dcbc6a26b74fb62eb1f66777025112894d7a1dddb4feabbbb3a7d39bace",
+    "molsysmt/_private/argdigest/native_inventory_iterator.py": "dbcdf27fc23e7115fdf8d7daacbff6558f36ce5cd98667d67db30cdf81765450",
+    "tests/_private/argdigest/test_query_label_flags.py": "ab43c94afe8cedf0f7a953555e9d702eba0dbd00042326b14450fac91a27d073",
+    "molsysmt/_private/argdigest/argument/atom_ff_type.py": "2d4851f30c09be70d3d3b6083bb7041ef10ce5afdf5d3aecef5110672e7a7d55",
+    "molsysmt/_private/argdigest/argument/atom_name.py": "5920875468bc6c14f35026e163f9087a1f3e3c8490ac46446ee9ee1a2fb8d481",
+    "molsysmt/_private/argdigest/argument/atom_type.py": "9f09e01ac3bcc5ed7424263bae5fa42f70260fd001fb163d5ea2b3038b2fdba2",
+    "molsysmt/_private/argdigest/argument/chain_name.py": "730f85fb3b57ea42db6b61c1d05cc48d586026b419f01714ce225783ace5b43f",
+    "molsysmt/_private/argdigest/argument/chain_type.py": "be7eacc4e8269fc97b09f0d9a18375a61ca70beed2ba6b85c6948c8efefb0dd4",
+    "molsysmt/_private/argdigest/argument/component_name.py": "71f6332c87a00ec8cad567450f7875622595ca99c9697ad7e116bad07a5cb798",
+    "molsysmt/_private/argdigest/argument/component_type.py": "c2490559ececb8066f2adee774381d5e6f80b253670b9030de36dcfadfe1830b",
+    "molsysmt/_private/argdigest/argument/entity_name.py": "1877e1a0c02f7a246b8468fb570efda57a8a0fea4a9ba4f2632d4b2140b89072",
+    "molsysmt/_private/argdigest/argument/entity_type.py": "768f2201427b5b43896e63ad6d94eac27556b464bd06d2ec11467c4bae26c2e3",
+    "molsysmt/_private/argdigest/argument/group_name.py": "ecd24f1e7ca2fc43b740ff232a5dff11d7b415eae5f4c65e1eeae305b8171f8a",
+    "molsysmt/_private/argdigest/argument/group_type.py": "3d4cc0c4d8aef40d676b1c31aa3d40ad3e827128930ada08d3a11ee4012966d1",
+    "molsysmt/_private/argdigest/argument/molecule_name.py": "80859ede6207d9de29d1a10c8ccceaa699f1716c2bcd430629f3edfabd0d1791",
+    "molsysmt/_private/argdigest/argument/molecule_type.py": "a32195db23b5384f9da8e957ea917f8f65fb809783147dd4a9c4c39010df78a2",
+    "molsysmt/basic/iterator.py": "eb75d9675dbac416a410a250d0c7e0a80131d465a8040b39ada7e54a89617980",
+    "docs/content/user/tools/basic/iterator.ipynb": "347f5f72c07603cf1e2b511dbf5891b80b5c76b993e858e5f4cf965fe643c4b1",
+    "docs/content/course/Common_Core/04_Native_Forms.ipynb": "7bc302e5847deeff2aaa8703a33fde47c2b13d985baa5be4caffd2dae6158ed1"
+  },
+  "notebooks": {
+    "docs/content/user/tools/form/class/molsysmt/molsysmt_Topology.ipynb": {
+      "cells": 6,
+      "code_cells": 1,
+      "code_sources_unchanged": true,
+      "executable_payload_unchanged": true,
+      "code_fingerprint": "008592ad4933c9529fb3a4e7cfef332f02f1023e61514b5a6ef35b541a099acf"
+    },
+    "docs/content/user/tools/basic/iterator.ipynb": {
+      "cells": 38,
+      "code_cells": 21,
+      "code_sources_unchanged": true,
+      "executable_payload_unchanged": false,
+      "code_fingerprint": "8b4bb5d449fc19d9501e45574c82e071d1473d9c0bb2fa3b42f810bed76e60a1",
+      "actual_execution_mark": {
+        "code_sha256": "8b4bb5d449fc19d9501e45574c82e071d1473d9c0bb2fa3b42f810bed76e60a1",
+        "executed_at": "2026-11-12T04:49:31+00:00"
+      },
+      "actual_executed_payload_preserved_after_later_prose": true
+    },
+    "docs/content/course/Common_Core/04_Native_Forms.ipynb": {
+      "cells": 38,
+      "code_cells": 14,
+      "code_sources_unchanged": true,
+      "executable_payload_unchanged": true,
+      "code_fingerprint": "11361c969ccef37102a0a748cb78fc04a6a898b1e2a56933ea263e0be8730852"
+    }
+  },
+  "actual_execution": {
+    "basic_iterator_code_cells": 21,
+    "maintained_runner": [
+      "python",
+      "docs/execute_notebooks.py",
+      "-q",
+      "-n",
+      "1",
+      "--force",
+      "docs/content/user/tools/basic/iterator.ipynb"
+    ],
+    "course_cell": {
+      "source": "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+      "cell_index": 36,
+      "code_sha256": "bd857bbd01a9042a26570c1100b5a4cbdb6cc1365729ef2e399b1d8814d41ad7",
+      "executed": true,
+      "native_and_dictionary_queries_pass": true,
+      "selected_coordinate_shape": [
+        3,
+        2,
+        3
+      ],
+      "scope": "Actual existing query cell only, not a full course rerun."
+    },
+    "topology_form_markdown_example": "Executed by the six-case documentation guard; one stored code cell is preserved, not claimed newly executed."
+  },
+  "checks": {
+    "fast_release_gates": 15,
+    "fast_release_passed": 15,
+    "ruff_check": true,
+    "ruff_format": true,
+    "devguide_index": true,
+    "scope": "First-stage checks recorded before Boolean-context predicate corrections; final applicable checks are added separately."
+  },
+  "html": {
+    "source": {
+      "source_commit": "b0ae02b22abdfb214fee76d12cb6de15ad223cc1",
+      "expected_source_commit": "b0ae02b22abdfb214fee76d12cb6de15ad223cc1",
+      "native_exit": 0,
+      "source_clean_after": true,
+      "inputs_before": {
+        "molsysmt/basic/iterator.py": "eb75d9675dbac416a410a250d0c7e0a80131d465a8040b39ada7e54a89617980",
+        "molsysmt/form/molsysmt_Topology/iterators.py": "76ab1a7a70fdc9889b5b8dfcf53b85652ceca42474a47fec16ed72c823f7f438",
+        "molsysmt/_private/argdigest/native_inventory_iterator.py": "dbcdf27fc23e7115fdf8d7daacbff6558f36ce5cd98667d67db30cdf81765450",
+        "docs/content/user/tools/form/class/molsysmt/molsysmt_Topology.ipynb": "cb9e6dcbc6a26b74fb62eb1f66777025112894d7a1dddb4feabbbb3a7d39bace",
+        "docs/content/user/tools/basic/iterator.ipynb": "347f5f72c07603cf1e2b511dbf5891b80b5c76b993e858e5f4cf965fe643c4b1",
+        "docs/content/course/Common_Core/04_Native_Forms.ipynb": "7bc302e5847deeff2aaa8703a33fde47c2b13d985baa5be4caffd2dae6158ed1",
+        "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+      },
+      "inputs_after": {
+        "molsysmt/basic/iterator.py": "eb75d9675dbac416a410a250d0c7e0a80131d465a8040b39ada7e54a89617980",
+        "molsysmt/form/molsysmt_Topology/iterators.py": "76ab1a7a70fdc9889b5b8dfcf53b85652ceca42474a47fec16ed72c823f7f438",
+        "molsysmt/_private/argdigest/native_inventory_iterator.py": "dbcdf27fc23e7115fdf8d7daacbff6558f36ce5cd98667d67db30cdf81765450",
+        "docs/content/user/tools/form/class/molsysmt/molsysmt_Topology.ipynb": "cb9e6dcbc6a26b74fb62eb1f66777025112894d7a1dddb4feabbbb3a7d39bace",
+        "docs/content/user/tools/basic/iterator.ipynb": "347f5f72c07603cf1e2b511dbf5891b80b5c76b993e858e5f4cf965fe643c4b1",
+        "docs/content/course/Common_Core/04_Native_Forms.ipynb": "7bc302e5847deeff2aaa8703a33fde47c2b13d985baa5be4caffd2dae6158ed1",
+        "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+      },
+      "changed_inputs": [],
+      "scope": "Full-site strict HTML build from a clean source checkpoint, with stored previously executed notebook output. No new notebook/scientific execution or installed qualification."
+    },
+    "result": {
+      "exit": 0,
+      "warnings": 0,
+      "full_site": true,
+      "notebook_execution": "off",
+      "autosummary_generate": false
+    },
+    "dom": {
+      "source_commit": "b0ae02b22abdfb214fee76d12cb6de15ad223cc1",
+      "pages": [
+        {
+          "page": "content/user/tools/form/class/molsysmt/molsysmt_Topology.html",
+          "sha256": "9ba40aad14d3fb8ac66eb90bc6d969e6e8039b656472130e10f9f81ee573966e",
+          "article_links_checked": 18,
+          "system_messages": 0,
+          "attributes": 38,
+          "operation_rows": 11,
+          "conversion_rows": 17,
+          "retired_bond_adapter_links_absent": true
+        },
+        {
+          "page": "content/user/tools/basic/iterator.html",
+          "sha256": "9d21a48cb9e48c8da88a14c0c533ab22133f1525276c080fbefc00f916a3be88",
+          "article_links_checked": 28,
+          "system_messages": 0
+        },
+        {
+          "page": "content/course/Common_Core/04_Native_Forms.html",
+          "sha256": "62d226a712848675224263cdc438118881c2e9a8bc5625c0aeb407486bbcb91a",
+          "article_links_checked": 103,
+          "system_messages": 0
+        }
+      ],
+      "internal_targets_and_anchors_checked": 119,
+      "implementation_links_checked": 16,
+      "scope": "Actual generated DOM, declaration/registration tables, preserved anchors, usage code and local/API/iframe destinations. No browser-layout or new GUI/installed/candidate qualification."
+    },
+    "scope": "Complete strict site from clean b0ae02b22, stored notebook execution disabled; later context-only private Python corrections have separate receiving. 119 unique internal destinations include sixteen implementation-source links; per-article link occurrences overlap."
+  },
+  "executions": {
+    "baseline": {
+      "source_commit": "ace38507cdcb90e28342a4d3e4cbd286b79ce727",
+      "native_exit": 1,
+      "seconds": 4.044373827986419,
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 177307648,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 13293989888,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "99fd3f09c303d475e631b9a0961079093cb2d09f876e66745897a43f505b0f73",
+      "pytest": {
+        "tests": 19,
+        "failures": 17,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2
+      }
+    },
+    "baseline2": {
+      "source_commit": "ace38507cdcb90e28342a4d3e4cbd286b79ce727",
+      "native_exit": 1,
+      "seconds": 4.04323866404593,
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 179650560,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 13264736256,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "1afdcf8b8c81229b150cefbbeb1c0246bbe8a1ea38af0e8ca50fefb83ea11303",
+      "pytest": {
+        "tests": 19,
+        "failures": 13,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 6
+      }
+    },
+    "flags_baseline": {
+      "source_commit": "ace38507cdcb90e28342a4d3e4cbd286b79ce727",
+      "native_exit": 1,
+      "seconds": 4.042717350879684,
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 154189824,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 12646772736,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "6815407fa44b80e3f9bc6c8ab97eccfc2fc9a47eca415579d1240e7b0a107ec5",
+      "pytest": {
+        "tests": 107,
+        "failures": 56,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 51
+      }
+    },
+    "flags_public_baseline": {
+      "source_commit": "ace38507cdcb90e28342a4d3e4cbd286b79ce727",
+      "native_exit": 1,
+      "seconds": 3.033768794964999,
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 147992576,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 12733448192,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "bef7d95c19d7ed78b588701caa25b700d786eb4d03beef612309747b5a7f12eb",
+      "pytest": {
+        "tests": 3,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      }
+    },
+    "pilot": {
+      "source_commit": "ace38507cdcb90e28342a4d3e4cbd286b79ce727",
+      "native_exit": 1,
+      "seconds": 4.044249416096136,
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 180637696,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 13065232384,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "b8b7f55750813b2fec4c26c6d2c63deaf3a2be104024841d457f6a490cfbf3b9",
+      "pytest": {
+        "tests": 32,
+        "failures": 18,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 14
+      }
+    },
+    "pilot2": {
+      "source_commit": "ace38507cdcb90e28342a4d3e4cbd286b79ce727",
+      "native_exit": 1,
+      "seconds": 6.044104762841016,
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 177508352,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 12707057664,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "f90d1ce7aac56f62f5385f18341ad7ee7de35da34015c349949d0cf701596fe0",
+      "pytest": {
+        "tests": 166,
+        "failures": 4,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 162
+      }
+    },
+    "corrected": {
+      "source_commit": "ace38507cdcb90e28342a4d3e4cbd286b79ce727",
+      "native_exit": 1,
+      "seconds": 67.07411167910323,
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 637874176,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 12009480192,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "84b13ac270ed81753ffbea8532c54ca3bffb7ce4558c595160514581be05b9ba",
+      "pytest": {
+        "tests": 373,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 372
+      }
+    },
+    "corrected2": {
+      "source_commit": "ace38507cdcb90e28342a4d3e4cbd286b79ce727",
+      "native_exit": 0,
+      "seconds": 60.062483608024195,
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 650805248,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 11728785408,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "6eaa5c09dd8ba640c9186d3996c268434d179d2ffe248cfacdb646394e07f9a1",
+      "pytest": {
+        "tests": 377,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 377
+      }
+    },
+    "flag_contexts": {
+      "source_commit": "b0ae02b22abdfb214fee76d12cb6de15ad223cc1",
+      "native_exit": 1,
+      "seconds": 3.038695776835084,
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 143622144,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15174873088,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "a9f2c8a61f0bc26e058bb28f007e8a60425d7a55b0d011dd09b4c8a8d9c95db1",
+      "pytest": {
+        "tests": 78,
+        "failures": 24,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 54
+      }
+    },
+    "context_corrected": {
+      "source_commit": "b0ae02b22abdfb214fee76d12cb6de15ad223cc1",
+      "native_exit": 1,
+      "seconds": 12.052003307966515,
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 342564864,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 13608185856,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "9fa14326662cd06635599f0bcbb52115ab6d0399626f91ca53b4c23e113ccf75",
+      "pytest": {
+        "tests": 526,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 525
+      }
+    },
+    "context_corrected2": {
+      "source_commit": "b0ae02b22abdfb214fee76d12cb6de15ad223cc1",
+      "native_exit": 0,
+      "seconds": 12.053347041131929,
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 342474752,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 13494665216,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "951e41383edc880addafd3deda4b46530776e6e25341ebfa8c38db9c4a2e612b",
+      "pytest": {
+        "tests": 526,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 526
+      }
+    },
+    "notebook": {
+      "source_commit": "ace38507cdcb90e28342a4d3e4cbd286b79ce727",
+      "native_exit": 0,
+      "seconds": 12.05323133780621,
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 368775168,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14942003200,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "b380463b25cbb653e27084bd290abadecbf3cc3381eb1c3465012fa91f610dbf"
+    },
+    "checks": {
+      "source_commit": "ace38507cdcb90e28342a4d3e4cbd286b79ce727",
+      "native_exit": 0,
+      "seconds": 27.05941082118079,
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 395878400,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14810202112,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "b380463b25cbb653e27084bd290abadecbf3cc3381eb1c3465012fa91f610dbf"
+    },
+    "html": {
+      "source_commit": "b0ae02b22abdfb214fee76d12cb6de15ad223cc1",
+      "native_exit": 0,
+      "seconds": 142.12052023294382,
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1879048192",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 860078080,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14563930112,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "b380463b25cbb653e27084bd290abadecbf3cc3381eb1c3465012fa91f610dbf"
+    },
+    "final_checks": {
+      "source_commit": "4280a8d42038b378eafc34366d45866e3efc8411",
+      "native_exit": 0,
+      "seconds": 27.061677291989326,
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 393916416,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 13790879744,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "292f493384211cc51c4c87ce05a2c43b7f65f847cf7ea8fc3cce2b4974e56576"
+    }
+  },
+  "support_boundary_review": {
+    "argdigest": "Existing provider performs the host rules; scoped inventory registry uses supported contracts and normalization. No provider defect/floor change.",
+    "depdigest": "No new provider/backend or top-level optional import; existing lazy routes preserved.",
+    "smonitor": "Existing ArgumentError and NotWithThisFormError carry typed refusal; no invented diagnostic.",
+    "pyunitwizard": "No physical quantities/scientific computation changed. Frozen published 0.29.2 overlay retained.",
+    "ackredit": "No scientific method or third-party implementation adopted in this traversal/validation repair."
+  },
+  "board_before_closure": {
+    "complete_issues": 641,
+    "open_issues": 94,
+    "open_prs": [
+      721
+    ],
+    "pr_721_head": "5816bec86d03eb08d8ee3bebf4d033dbcc85187b",
+    "pr_721_draft": true
+  },
+  "retained_probe_corrections": [
+    "First 17-failure baseline includes wrong root Topology import and an ambiguous operation-row selector in new tests; use corrected 13-failure/6-pass oracle for product interpretation.",
+    "First implementation misses output-mode setup, inherits the flag failure and retains mapping aliases; later pilots preserve failures before correction.",
+    "The 373-case attempt has one actual missing pure-Topology index-only dispatch case; its successor passes 377.",
+    "The final context attempt initially has 525 passes and one incorrect new fixture expectation (protein vs the declared peptide entity); corrected expectation passes 526."
+  ],
+  "remaining": [
+    "Original complete-source result remains scoped to 6acad4f35; later executable changes remain in the deliberate complete-source/nightly backlog.",
+    "#718/#721 contribution reports thirty functional cycles, but passive provenance-observer correction and owner integration remain pending; browser memory acceptance is separate.",
+    "#615/#713 original causal uncertainties remain open.",
+    "Formal progress unchanged at 77.73809523809524 percent and 50/50 graphical source intents.",
+    "Final format/pair, minimum/newer installed runtime and exact candidate/hosted/publication gates remain open; publication pause unchanged."
+  ],
+  "private_artifacts": {
+    "native-topology-719-20261111/baseline-execution.json": "0084173346df73d5c484ecce9efc51a84baf9fcdf7927888606a5f08d0cb1f82",
+    "native-topology-719-20261111/baseline.log": "5bd85c34396cb375bca79cf533169067f6694d893850341a3b906f7efd2e26ac",
+    "native-topology-719-20261111/baseline.xml": "6a7d712c761d5332cb120bfe768ea4a354a6997b71b82e7f0ca91b6928179d71",
+    "native-topology-719-20261111/baseline2-execution.json": "ade61a903a6ad915b1d3f2e73b7c0eb96a7bab853bfa5b1897d8b6be17fb8ce0",
+    "native-topology-719-20261111/baseline2.log": "9fae10f3fe01ea500ae5a4d944d5c5df3619a75d1cf3fdefc6683f47972cf6d2",
+    "native-topology-719-20261111/baseline2.xml": "664fb78f34c6667396d1a22ad949164759c91e801a4c24f1aded1f9f7bfefec1",
+    "native-topology-719-20261111/basic-iterator-tested.py": "eb75d9675dbac416a410a250d0c7e0a80131d465a8040b39ada7e54a89617980",
+    "native-topology-719-20261111/board-checkpoint.json": "e54073a212816012dbeb10d1062e4221195382d6c3ffd9edb7d1ae98ee4a6688",
+    "native-topology-719-20261111/build_html.py": "994d63e9011ff05eda6299532d4dd3bce41cd410dfdba2987a8bfdb57847c6d4",
+    "native-topology-719-20261111/build_site.py": "8dfc12a5e8d615887bc84265dffddaa2c445b5fe80b46e8b7e0c2ba0c32cb733",
+    "native-topology-719-20261111/check-results.json": "1969c02c13379cf3102893d85d755b72b1e13084f3d272c81e0eed88e2f72ea6",
+    "native-topology-719-20261111/check_block.py": "353f7bc644f25a0e73dcc085c87dd71bc4280b31dbd2e710b7acf9eb5d1aca57",
+    "native-topology-719-20261111/checks-execution.json": "19deebb94232434a9ba3c3bfff2aaee424033b8aed381967cf1a574bbb0f22e5",
+    "native-topology-719-20261111/checks.log": "7ed12150eab81ca85d9df55009a9986416d0f4dfbaa0fc4ef1d41aa34658a0e7",
+    "native-topology-719-20261111/context_corrected-execution.json": "ce188fb9e2fdfde80eeb3ff9159966d523ef2f0e2a8bb5a14da9084629c7c9d0",
+    "native-topology-719-20261111/context_corrected.log": "560c9c502d00df8d88fa15520e621ee01c95c17bcdae31b2359ebeb3b5656f24",
+    "native-topology-719-20261111/context_corrected.xml": "53c58057f667c723f353dd3cdc5a6276b5a9f04446d71ccfc76384c6bddf4be5",
+    "native-topology-719-20261111/context_corrected2-execution.json": "a75c66cfdaeb1b802c1fbe78793b80bc87b165501ae64b05ecf7f9f84e51fa50",
+    "native-topology-719-20261111/context_corrected2.log": "ebeda6cd7e9cae38203a3fc319ab47a213d8d199845c60e5ff6ca1f02a70235c",
+    "native-topology-719-20261111/context_corrected2.xml": "974d1d6f410a184b841b269d1811e398cf113a6561e08af454c4ad1d366a5b1b",
+    "native-topology-719-20261111/corrected-execution.json": "d0ed14edbbd576adeb37a673002896c7f2494ebd2f56b54bad2a574b722a0fff",
+    "native-topology-719-20261111/corrected.log": "2fbb8fd3dddab146531679dd8b05667d0a0116687a17d9f5e5184dc0d5d11512",
+    "native-topology-719-20261111/corrected.xml": "b4194a4fb72d52cf81e3b7712ee010da84a56113191c8a4522b394b4b6cb043b",
+    "native-topology-719-20261111/corrected2-execution.json": "828aea8deb76b59c6b08b62391a951d1155a0fd490617db362dac8fecc7d8f47",
+    "native-topology-719-20261111/corrected2.log": "0d85316f97124def37a81eae417807121d8927f344f396b8534b53b22812f9bc",
+    "native-topology-719-20261111/corrected2.xml": "a3c552cece4b8f869a59d32e9e3c858ee0cace247653002cb72712ef3a681ef6",
+    "native-topology-719-20261111/course-query-receiving.json": "ae48006db14eb6ff56f8920b7fd622e51c6fa82d2571326a28e0f3575f0cd9c6",
+    "native-topology-719-20261111/documentation-test-first-draft.py": "67f234225b496c5e74cf2c00c0be302b667c843a173105fedc8f80b1ec5a3cb8",
+    "native-topology-719-20261111/final-comment-delta.json": "03b3e705dbb6b77e8d38fd167d5d6de61545c0372d41d8db7688bd911f2b8ddf",
+    "native-topology-719-20261111/flag_contexts-execution.json": "7140224b4c92a4526d1fdd7b5a996ed81416989da243c8ebb2bad552014d4de4",
+    "native-topology-719-20261111/flag_contexts.log": "4a2102f4409917b9b1b99b469ffba4ea11f830b36fc344566d77f7b31223fdf3",
+    "native-topology-719-20261111/flag_contexts.xml": "f2b0fb8748210a67ac99ae16bc1c81f18b628e67ac48b27dabff46e702ca0422",
+    "native-topology-719-20261111/flags_baseline-execution.json": "f3e821d96a69107a4d4b9f8fa39fa23afe4aa198fadba3b4e40be8f8c503cf7a",
+    "native-topology-719-20261111/flags_baseline.log": "c18b6fc3059adcf952b63eacd4736d85be85e97645f53597e5c07654232f85bc",
+    "native-topology-719-20261111/flags_baseline.xml": "301db5019232a1d53d2738f68c8e855361990808814a8734c9ff48f81d7c96dd",
+    "native-topology-719-20261111/flags_public_baseline-execution.json": "714fa9bb0b16139698f95a89fee12c05329ff6b5086aa7402e8324bef0ea621a",
+    "native-topology-719-20261111/flags_public_baseline.log": "161bb94f91cf5455122142abc386c3706f2ef996d6549a87786474d34e4b0a91",
+    "native-topology-719-20261111/flags_public_baseline.xml": "ce7f1eae7013e03a4fc7c67ffeba76945f106d8866cce39a126b09e36ea2a8cf",
+    "native-topology-719-20261111/html-dom-proof.json": "5dd49a2529ea38a86e46de988b73ebc922f2d1e1fdc5b6b70045c80ab1fa4e4c",
+    "native-topology-719-20261111/html-execution.json": "765730a2a864df87b0b122da6a15f0b7146746910d397abb88e14149b2af413c",
+    "native-topology-719-20261111/html-source-proof.json": "0158b1f105dfca2b46b7c7077240a6b06fc820f14ce136696cdc0be150fc58cf",
+    "native-topology-719-20261111/html.log": "a62b99e8b793ccca7afa6f550b09d54900482c7cc0c196cbdddbf7959efd79f1",
+    "native-topology-719-20261111/inspect_html.py": "3d19dd923f54922e8ec2dd35317294f2a335bcef54da821410e28ff67972866a",
+    "native-topology-719-20261111/inventory-test-baseline2.py": "11b6fa3cbfa2497753484286d982e94992950bc781d79441090631d7ff90939d",
+    "native-topology-719-20261111/inventory-test-first-draft.py": "20e61ac19be4ad45eac9b2712603077fe71359a5158be6c5c6ae550e2cc3a48b",
+    "native-topology-719-20261111/notebook-execution.json": "d560a04047ba1e1e62a688f292ca2b928feb6698f45feb3d68592df373f935fb",
+    "native-topology-719-20261111/notebook-proof.json": "6fb3868071c1c50b6488cfe9350bc987d6e07b3d421196dd399bc61440d8ed63",
+    "native-topology-719-20261111/notebook.log": "7ff0f82ad34c553cd4cc385fc095e0b0cebe40f7afd6c9362a6b43732b270cbf",
+    "native-topology-719-20261111/pilot-execution.json": "d19963997ab426406140af93e39772626dfe7511e28ebc97cca6048e71f845ae",
+    "native-topology-719-20261111/pilot.log": "63edcb72710b9b8521ed91b6c35e6e71cd6fda87a419972a18c98a299a8ebc80",
+    "native-topology-719-20261111/pilot.xml": "055e151f2c24e718288b0ef6bb2a50eaba931b090692ec544b2dce10a7fa9431",
+    "native-topology-719-20261111/pilot2-execution.json": "820d6968276048abdd60660f7f27b572b790d1fea912d9281aa396bedc02fe47",
+    "native-topology-719-20261111/pilot2.log": "a45f4a1e282d0a85be69887c9d6914f1acec821429c1c059f3c9785e15b2eeb5",
+    "native-topology-719-20261111/pilot2.xml": "706b2c438bb0a2879ac2f3c50bceed5357007eff2ec498102872ebb8335178ff",
+    "native-topology-719-20261111/prs-checkpoint.json": "cbdd91f0aa933b3201c74b5554e75c5b373f4bfc0fe42713de898ffbd2ac414f",
+    "native-topology-719-20261111/query-flag-edit-proof.json": "30cf1ae4371ac3ee9a499fd80e9f56e7a59262f644ab6a713c4a94acb73c1ee3",
+    "native-topology-719-20261111/query-flags-context-first-draft.py": "8adf8546f4e8e9175c858fa1623b0d851903649598ab8a0d975b1c26122e19b0",
+    "native-topology-719-20261111/query-flags-first-draft.py": "edd9dbb1b92a89ea3afb9300a2ad6c1515c9f90231ed9a0f8f07f828936a3e00",
+    "native-topology-719-20261111/query-flags-validated-107.py": "67ad95254f954a0d074467a542fa3646eeff9f8fb7ef72f36374ba1751abf81f",
+    "native-topology-719-20261111/run_bounded-baseline2.py": "1afdcf8b8c81229b150cefbbeb1c0246bbe8a1ea38af0e8ca50fefb83ea11303",
+    "native-topology-719-20261111/run_bounded-before-context-baseline.py": "b380463b25cbb653e27084bd290abadecbf3cc3381eb1c3465012fa91f610dbf",
+    "native-topology-719-20261111/run_bounded-before-corrected.py": "f90d1ce7aac56f62f5385f18341ad7ee7de35da34015c349949d0cf701596fe0",
+    "native-topology-719-20261111/run_bounded-before-corrected2.py": "84b13ac270ed81753ffbea8532c54ca3bffb7ce4558c595160514581be05b9ba",
+    "native-topology-719-20261111/run_bounded-before-notebook.py": "6eaa5c09dd8ba640c9186d3996c268434d179d2ffe248cfacdb646394e07f9a1",
+    "native-topology-719-20261111/run_bounded-before-pilot2.py": "bef7d95c19d7ed78b588701caa25b700d786eb4d03beef612309747b5a7f12eb",
+    "native-topology-719-20261111/run_bounded-first.py": "99fd3f09c303d475e631b9a0961079093cb2d09f876e66745897a43f505b0f73",
+    "native-topology-719-20261111/run_bounded-flags-baseline.py": "6815407fa44b80e3f9bc6c8ab97eccfc2fc9a47eca415579d1240e7b0a107ec5",
+    "native-topology-719-20261111/run_bounded-pilot.py": "b8b7f55750813b2fec4c26c6d2c63deaf3a2be104024841d457f6a490cfbf3b9",
+    "native-topology-719-20261111/run_bounded.py": "292f493384211cc51c4c87ce05a2c43b7f65f847cf7ea8fc3cce2b4974e56576",
+    "native-topology-719-20261111/sphinx-result.json": "8e954ad2d00f8817647c714606f6c7f5c0e6b6307094d2525be4f085969aa3a1",
+    "native-topology-719-20261111/sphinx-status.log": "4ddb0b43cd8d68dadaa26d4d6545b8b56734fafad54d6a663eecb26675fbd6a6",
+    "native-topology-719-20261111/sphinx-warnings.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-topology-719-20261111/final-check-results.json": "651e61b4861883c23b98b53c88be46d862f2c8dce8a040bcbdeecffc7f0efeec",
+    "native-topology-719-20261111/final_checks-execution.json": "aa82b4378b6493664a9fe449531eee1d263c6ddaa91a37b2378f5753fb3cf3d6",
+    "native-topology-719-20261111/final_checks.log": "c4ac4c8fcafb9bf814ca6d437a278ae9fd59ddaa645cefc5b1ae8865e1d08555",
+    "native-topology-719-20261111/final_checks.py": "d92394b05356dcacf34eb18b4b11d559485ee1dfa2c15a1ddd00946487551cbd",
+    "native-topology-719-20261111/owned-unit-retirement.json": "04c7fb68555dc537dab3714c6b65ad1ab323265661e9f12c3f4a3631c038a294"
+  },
+  "final_explicit_inputs_match_query_context_commit": {
+    "molsysmt/form/molsysmt_Topology/iterators.py": "76ab1a7a70fdc9889b5b8dfcf53b85652ceca42474a47fec16ed72c823f7f438",
+    "molsysmt/form/molsysmt_MolSys/iterators.py": "8f257fbe69d752609e7d64f6065ecaf1626df1ed78f256aceb8fe752b4492ef4",
+    "molsysmt/form/molsysmt_Topology/attributes.py": "7ceddc4d94dccb4b2ea306093ba1918c363e26aaed4bf21897b03fb429a6c381",
+    "tests/documentation/test_native_topology_tutorial.py": "c1ffb3423e10a4459d196c6542a3b47e37120ee5f65f1edcc2aa09cc00bfa93b",
+    "tests/form/molsysmt_Topology/test_inventory_iterator.py": "20f34a48191f6ed0f849a312fa65a41be72018c6e666e65b361fdc633cb3c5f2",
+    "docs/content/user/tools/form/class/molsysmt/molsysmt_Topology.ipynb": "cb9e6dcbc6a26b74fb62eb1f66777025112894d7a1dddb4feabbbb3a7d39bace",
+    "molsysmt/_private/argdigest/native_inventory_iterator.py": "dbcdf27fc23e7115fdf8d7daacbff6558f36ce5cd98667d67db30cdf81765450",
+    "tests/_private/argdigest/test_query_label_flags.py": "ab43c94afe8cedf0f7a953555e9d702eba0dbd00042326b14450fac91a27d073",
+    "molsysmt/_private/argdigest/argument/atom_ff_type.py": "2d4851f30c09be70d3d3b6083bb7041ef10ce5afdf5d3aecef5110672e7a7d55",
+    "molsysmt/_private/argdigest/argument/atom_name.py": "5920875468bc6c14f35026e163f9087a1f3e3c8490ac46446ee9ee1a2fb8d481",
+    "molsysmt/_private/argdigest/argument/atom_type.py": "9f09e01ac3bcc5ed7424263bae5fa42f70260fd001fb163d5ea2b3038b2fdba2",
+    "molsysmt/_private/argdigest/argument/chain_name.py": "730f85fb3b57ea42db6b61c1d05cc48d586026b419f01714ce225783ace5b43f",
+    "molsysmt/_private/argdigest/argument/chain_type.py": "be7eacc4e8269fc97b09f0d9a18375a61ca70beed2ba6b85c6948c8efefb0dd4",
+    "molsysmt/_private/argdigest/argument/component_name.py": "71f6332c87a00ec8cad567450f7875622595ca99c9697ad7e116bad07a5cb798",
+    "molsysmt/_private/argdigest/argument/component_type.py": "c2490559ececb8066f2adee774381d5e6f80b253670b9030de36dcfadfe1830b",
+    "molsysmt/_private/argdigest/argument/entity_name.py": "1877e1a0c02f7a246b8468fb570efda57a8a0fea4a9ba4f2632d4b2140b89072",
+    "molsysmt/_private/argdigest/argument/entity_type.py": "768f2201427b5b43896e63ad6d94eac27556b464bd06d2ec11467c4bae26c2e3",
+    "molsysmt/_private/argdigest/argument/group_name.py": "ecd24f1e7ca2fc43b740ff232a5dff11d7b415eae5f4c65e1eeae305b8171f8a",
+    "molsysmt/_private/argdigest/argument/group_type.py": "3d4cc0c4d8aef40d676b1c31aa3d40ad3e827128930ada08d3a11ee4012966d1",
+    "molsysmt/_private/argdigest/argument/molecule_name.py": "80859ede6207d9de29d1a10c8ccceaa699f1716c2bcd430629f3edfabd0d1791",
+    "molsysmt/_private/argdigest/argument/molecule_type.py": "a32195db23b5384f9da8e957ea917f8f65fb809783147dd4a9c4c39010df78a2",
+    "molsysmt/basic/iterator.py": "eb75d9675dbac416a410a250d0c7e0a80131d465a8040b39ada7e54a89617980",
+    "docs/content/user/tools/basic/iterator.ipynb": "347f5f72c07603cf1e2b511dbf5891b80b5c76b993e858e5f4cf965fe643c4b1",
+    "docs/content/course/Common_Core/04_Native_Forms.ipynb": "7bc302e5847deeff2aaa8703a33fde47c2b13d985baa5be4caffd2dae6158ed1"
+  },
+  "source_attribution_note": "The last focused run starts from b0ae02b22 with a dirty context correction. Every tracked input named by that run is independently matched to committed 4280a8d42 after execution; the native file retains its separately recorded canonical hash. This is not a full provider/tree manifest.",
+  "final_checks": {
+    "source_commit": "4280a8d42038b378eafc34366d45866e3efc8411",
+    "working_delta": "Archive/receipt/current-queue documentation closeout; executable source committed and unchanged.",
+    "commands": [
+      {
+        "command": [
+          "python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0
+      },
+      {
+        "command": [
+          "python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "molsysmt/_private/argdigest/argument/atom_ff_type.py",
+          "molsysmt/_private/argdigest/argument/atom_name.py",
+          "molsysmt/_private/argdigest/argument/atom_type.py",
+          "molsysmt/_private/argdigest/argument/chain_name.py",
+          "molsysmt/_private/argdigest/argument/chain_type.py",
+          "molsysmt/_private/argdigest/argument/component_name.py",
+          "molsysmt/_private/argdigest/argument/component_type.py",
+          "molsysmt/_private/argdigest/argument/entity_name.py",
+          "molsysmt/_private/argdigest/argument/entity_type.py",
+          "molsysmt/_private/argdigest/argument/group_name.py",
+          "molsysmt/_private/argdigest/argument/group_type.py",
+          "molsysmt/_private/argdigest/argument/molecule_name.py",
+          "molsysmt/_private/argdigest/argument/molecule_type.py",
+          "molsysmt/_private/argdigest/native_inventory_iterator.py",
+          "molsysmt/basic/iterator.py",
+          "molsysmt/form/molsysmt_MolSys/iterators.py",
+          "molsysmt/form/molsysmt_Topology/iterators.py",
+          "tests/_private/argdigest/test_query_label_flags.py",
+          "tests/documentation/test_native_topology_tutorial.py",
+          "tests/form/molsysmt_Topology/test_inventory_iterator.py"
+        ],
+        "native_exit": 0
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "molsysmt/_private/argdigest/argument/atom_ff_type.py",
+          "molsysmt/_private/argdigest/argument/atom_name.py",
+          "molsysmt/_private/argdigest/argument/atom_type.py",
+          "molsysmt/_private/argdigest/argument/chain_name.py",
+          "molsysmt/_private/argdigest/argument/chain_type.py",
+          "molsysmt/_private/argdigest/argument/component_name.py",
+          "molsysmt/_private/argdigest/argument/component_type.py",
+          "molsysmt/_private/argdigest/argument/entity_name.py",
+          "molsysmt/_private/argdigest/argument/entity_type.py",
+          "molsysmt/_private/argdigest/argument/group_name.py",
+          "molsysmt/_private/argdigest/argument/group_type.py",
+          "molsysmt/_private/argdigest/argument/molecule_name.py",
+          "molsysmt/_private/argdigest/argument/molecule_type.py",
+          "molsysmt/_private/argdigest/native_inventory_iterator.py",
+          "molsysmt/basic/iterator.py",
+          "molsysmt/form/molsysmt_MolSys/iterators.py",
+          "molsysmt/form/molsysmt_Topology/iterators.py",
+          "tests/_private/argdigest/test_query_label_flags.py",
+          "tests/documentation/test_native_topology_tutorial.py",
+          "tests/form/molsysmt_Topology/test_inventory_iterator.py"
+        ],
+        "native_exit": 0
+      }
+    ],
+    "fast_release_gates": 15,
+    "fast_release_passed": 15,
+    "runtime_entry_points": {
+      "molsysmt": {
+        "module_version": "0.23.0+393.ge1facf624.dirty",
+        "sha256": "dc89c5f21ab7ba4bb94b289927a19856d27cb670baf1b03d7f6fcb7fced03f90"
+      },
+      "molsysmt._rust": {
+        "module_version": null,
+        "sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+      },
+      "pyunitwizard": {
+        "module_version": "0.29.2",
+        "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+      },
+      "smonitor": {
+        "module_version": "0.21.0",
+        "sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+      },
+      "argdigest": {
+        "module_version": "0.15.0",
+        "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+      },
+      "depdigest": {
+        "module_version": "0.15.1",
+        "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+      },
+      "pytest_receptor": {
+        "module_version": "1.2.1",
+        "sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+      }
+    },
+    "runtime_scope": "Actual observed module entry-point hashes; not complete provider-tree or installed identity. MolSysMT generated version label is not used to identify current source."
+  },
+  "own_resource_retirement": {
+    "owned_terminal_services": 15,
+    "foreign_processes_modified": false,
+    "scope": "Terminal MainPID zero checked; states retained before stopping only listed owned units."
+  }
+}

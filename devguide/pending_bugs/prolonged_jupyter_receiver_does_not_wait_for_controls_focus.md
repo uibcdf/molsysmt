@@ -92,3 +92,16 @@ modules before cold initialization. Its reported current-support guards and
 in-progress thirty-cycle campaign are not local receiving or merge acceptance.
 Review the completed contribution before integration. Independent documentation
 and native correctness work can continue.
+
+
+## Contribution checkpoint — 2026-11-11
+
+Draft PR #721 at 5816bec8 consolidates the existing report/ledger and reports
+a terminal thirty-cycle functional campaign on its declared copied scientific
+source, canonical native bytes and PyUnitWizard development overlay. This is
+contribution evidence, not a new owner execution or current-main qualification.
+Browser-memory growth retains separate consumer #356/#315 work. Owner review
+6815289098 still requests a passive provenance observer: the present helper
+force-imports providers before the demo and may change cold initialization.
+Retain existing functional results for their actual composition; changed-input
+receiving and owner integration remain pending. Publication pause is unchanged.

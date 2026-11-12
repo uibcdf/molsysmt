@@ -3,7 +3,8 @@
 ## Resume from here
 
 **Reviewed 2026-11-11 against complete-source checkpoint `6acad4f35`,
-GRO documentation `bc2db775d`, iterator diagnostics `9adad50d1` and the
+GRO documentation `bc2db775d`, iterator diagnostics `9adad50d1`,
+native inventory/query corrections `b0ae02b22` / `4280a8d42` and the
 separately received earlier documentation/catalog slices.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
@@ -19,7 +20,7 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
-| Receive #718's Jupyter control-focus correction | Source inspection confirms that the prolonged receiver proceeds before receiving actual visible keyboard focus. The controlled reproduction is reported by MolSysViewer, not rerun here. Review its proposed PR, execute the bounded actual-GUI guard and then the unchanged thirty-cycle campaign; preserve original deadlines and distinguish #615 and lifetime investigations. |
+| Receive #718's Jupyter control-focus correction | Draft PR #721 reports thirty passing functional cycles on its declared copied sources; browser-memory acceptance remains separate. Owner review receives report consolidation but still requires a passive import observer to preserve #615 cold semantics. Integrate only after reviewed changed-input evidence; no new actual-GUI run is claimed here. |
 | Complete the admitted pre-1.0 polishing review | Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11): correct worthwhile code, test, documentation and workflow findings, and review incoming issues/PRs at phase checkpoints. Preserve original milestone accounting and qualification boundaries. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
 | Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
@@ -37,6 +38,26 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Native inventory queries and documentation — 2026-11-11
+
+#719 reconciles the Topology tutorial with its 38 stable declarations and
+separate ChemicalStates/Structures ownership. #720 repairs actual native
+inventory traversal, preserving explicit source positions/order/repeats, empty
+selections, element sizes and retained chunk values. #722 validates Boolean
+flags consistently across get/compare/Iterator while keeping label assignments.
+The first combined receiving passes 377 cases; later context receiving passes
+526 overlapping cases. Failed test drafts and real baselines remain recorded.
+
+The actual Basic Iterator notebook executes 21 code cells. Core04's existing
+query cell 36 is received separately; no whole-course rerun is claimed. Fifteen
+fast gates pass. Complete strict HTML on clean b0ae02b22 has zero warnings;
+three actual articles and 119 unique internal destinations (sixteen implementation
+links included) pass inspection. The [native receipt](../devtools/data/native_inventory_receiving_719_720_722_20261111.json)
+retains exact source/native/runtime identity, resource limits and original failures.
+Later executable changes remain in the deliberate complete-source/nightly backlog.
+Formal score and publication pause are unchanged. #718/#721 owner integration,
+#615/#713 causality and final installed-pair acceptance remain separate.
 
 ## GRO guidance and unsupported iterator diagnostics — 2026-11-11
 

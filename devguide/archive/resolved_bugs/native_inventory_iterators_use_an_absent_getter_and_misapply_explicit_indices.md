@@ -1,13 +1,13 @@
 ---
 summary: Native inventory iterators use an absent getter and misapply explicit indices
 issue: uibcdf/molsysmt#720
-status: active
+status: resolved
 opened: 2026-11-11
-closed:
+closed: 2026-11-11
 severity: medium
 verification: reproduced
 area: [form, tests]
-guard:
+guard: tests/form/molsysmt_Topology/test_inventory_iterator.py
 normative:
 blocked_by: []
 supersedes: []
@@ -80,4 +80,21 @@ atom/group sizes, aliases, traversal windows, typed errors, retained mappings
 and nonmutation are covered. A later comment-only clarification preserves the
 entire executable/docstring AST. The actual Basic Iterator notebook executes
 21 cells successfully, and Core04's existing native-query cell runs separately.
-Fifteen fast gates and applicable Ruff/index checks pass; HTML remains pending.
+Fifteen fast gates and applicable Ruff/index checks pass. Complete strict HTML
+on clean b0ae02b22 has zero warnings; actual article/reference receiving passes.
+
+
+## Resolution
+
+The implementation and maintained examples are received at b0ae02b22, with
+Boolean-context corrections at 4280a8d42. The [shared receipt](../../../devtools/data/native_inventory_receiving_719_720_722_20261111.json)
+owns exact inputs, overlapping counts, failed probes, runtime/native identity,
+resource limits and documentation scope. The addressable guard above checks
+actual behavior: declared capability and live example execution (#719), source
+positions/traversal and retained chunks (#720), or accepted/rejected flag values
+plus public query results (#722). It cannot pass merely by matching a table's
+format or silently skipping an unavailable path.
+
+This closes these bounded defects, not the wider #378 review, #615/#713
+causality, client memory campaign or installed/final-candidate acceptance. No
+release/publication action or extra formal scorecard credit is implied.

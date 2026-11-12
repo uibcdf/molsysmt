@@ -21,8 +21,4 @@ Entries are filed and closed under [reporting_protocol.md](../../reporting_proto
 
 - [`course_modules_lack_paired_content_contracts.md`](course_modules_lack_paired_content_contracts.md) — [#512](https://github.com/uibcdf/molsysmt/issues/512) — Course modules lack paired content-protection contracts. *(low, measured)*
 
-### In progress (1)
-
-- [`native_topology_tutorial_still_advertises_retired_chemical_capabilities.md`](native_topology_tutorial_still_advertises_retired_chemical_capabilities.md) — [#719](https://github.com/uibcdf/molsysmt/issues/719) — Native Topology tutorial still advertises retired chemical capabilities *(medium, reproduced)*
-
 <!-- /generated -->

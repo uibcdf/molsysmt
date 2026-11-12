@@ -1,13 +1,13 @@
 ---
 summary: Name and type query flags fall through to label-value validation
 issue: uibcdf/molsysmt#722
-status: active
+status: resolved
 opened: 2026-11-11
-closed:
+closed: 2026-11-11
 severity: medium
 verification: reproduced
 area: [argdigest, digestion, tests]
-guard:
+guard: tests/_private/argdigest/test_query_label_flags.py
 normative:
 blocked_by: []
 supersedes: []
@@ -60,20 +60,22 @@ native bytes are retained; final qualification remains separate.
 The 107-case family baseline has 56 failures and 51 passing controls. Two public
 get probes originally omitted element='atom' and failed at a later missing
 system getter; preserve that scope. The corrected three public probes all
-reproduce the missing Boolean refusal on unchanged helper sources. The first-stage thirteen-helper fix adds the missing refusal inside each
-existing Boolean branch; an AST comparison proves every other branch unchanged
+reproduce the missing Boolean refusal on unchanged helper sources. The
+first-stage thirteen-helper fix adds the missing refusal inside each existing
+Boolean branch; an AST comparison proves every other branch unchanged
 for that stage (`b0ae02b22`). True labels, optional
 builder values and converter bypasses retain their existing tests/semantics.
 
-The final combined cohort passes 377 cases, including all 107 new flag guards,
+The first combined cohort passes 377 cases, including all 107 new flag guards,
 existing 27 name/type and 81 core digester controls, 64 native queries and the
 #719/#720 controls. The inventory constructors now use a scoped supported
 ArgDigest registry and native query flag context, rather than interpreting
 attribute kwargs as constructor labels/counts. Unknown keywords reject before
 scientific work. No ArgDigest provider modification or new minimum API is needed.
-All fifteen fast gates and applicable lint/index checks pass; complete HTML and
-publication closeout remain pending. Native bytes and physical-unit policy are
-unchanged. These are source contracts, not installed or final-pair qualification.
+All fifteen first-stage fast gates and applicable lint/index checks pass.
+Complete strict HTML on clean b0ae02b22 has zero warnings; the later private
+Boolean-context predicates have separate focused receiving. Native bytes and
+physical-unit policy are unchanged. These are source contracts, not installed or final-pair qualification.
 
 
 ## Boolean-context receiving
@@ -95,3 +97,19 @@ entity is labelled peptide, not protein. That test-oracle correction and the
 original failure are retained. These overlapping cohorts are not added as
 independent coverage credit. Complete-source, installed and final-pair gates
 remain separate.
+
+
+## Resolution
+
+The implementation and maintained examples are received at b0ae02b22, with
+Boolean-context corrections at 4280a8d42. The [shared receipt](../../../devtools/data/native_inventory_receiving_719_720_722_20261111.json)
+owns exact inputs, overlapping counts, failed probes, runtime/native identity,
+resource limits and documentation scope. The addressable guard above checks
+actual behavior: declared capability and live example execution (#719), source
+positions/traversal and retained chunks (#720), or accepted/rejected flag values
+plus public query results (#722). It cannot pass merely by matching a table's
+format or silently skipping an unavailable path.
+
+This closes these bounded defects, not the wider #378 review, #615/#713
+causality, client memory campaign or installed/final-candidate acceptance. No
+release/publication action or extra formal scorecard credit is implied.

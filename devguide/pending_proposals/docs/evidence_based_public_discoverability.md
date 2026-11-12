@@ -116,3 +116,17 @@ strict HTML on clean bc2db775d has zero warnings; the two actual articles,
 receipt](../../../devtools/data/gro_iterator_receiving_716_717_20261111.json)
 retains original failures and limits. This adds bounded accuracy/robustness,
 without closing wider indexing, comparison or external-reader acceptance.
+
+
+## Native inventory guidance — 2026-11-11
+
+#719 replaces retired chemical/structural capabilities in the native Topology
+tutorial with the actual 38 stable declarations and documented prerequisites.
+The actual example and six documentation guards execute; source traversal and
+Boolean flags receive separate #720/#722 corrections. The Basic Iterator
+notebook executes all 21 code cells; Core04 query cell 36 runs separately.
+Complete strict HTML on clean b0ae02b22 has zero warnings. Three articles and
+119 unique internal targets, including sixteen implementation links, pass
+inspection. See the [native receipt](../../../devtools/data/native_inventory_receiving_719_720_722_20261111.json).
+This adds bounded instructional accuracy. Wider indexing, comparison, external
+reader acceptance and the original scorecard criteria remain unchanged/open.

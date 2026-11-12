@@ -1,13 +1,13 @@
 ---
 summary: Native Topology tutorial still advertises retired chemical capabilities
 issue: uibcdf/molsysmt#719
-status: active
+status: resolved
 opened: 2026-11-11
-closed:
+closed: 2026-11-11
 severity: medium
 verification: reproduced
 area: [docs, form]
-guard:
+guard: tests/documentation/test_native_topology_tutorial.py
 normative:
 blocked_by: []
 supersedes: []
@@ -74,4 +74,22 @@ forced through the maintained executor: 21 code cells complete and outputs/mark
 are regenerated; its code sources are unchanged. Core04's prose is updated and
 its actual existing native-query cell 36 executes, without claiming a full course
 rerun. All fifteen fast gates and applicable Ruff/index checks pass. Complete
-HTML and actual article/reference receiving are pending.
+strict HTML on clean b0ae02b22 passes with zero warnings. Three actual articles
+and 119 unique internal destinations, including sixteen implementation links,
+are inspected; stored notebook execution stays disabled in that build.
+
+
+## Resolution
+
+The implementation and maintained examples are received at b0ae02b22, with
+Boolean-context corrections at 4280a8d42. The [shared receipt](../../../devtools/data/native_inventory_receiving_719_720_722_20261111.json)
+owns exact inputs, overlapping counts, failed probes, runtime/native identity,
+resource limits and documentation scope. The addressable guard above checks
+actual behavior: declared capability and live example execution (#719), source
+positions/traversal and retained chunks (#720), or accepted/rejected flag values
+plus public query results (#722). It cannot pass merely by matching a table's
+format or silently skipping an unavailable path.
+
+This closes these bounded defects, not the wider #378 review, #615/#713
+causality, client memory campaign or installed/final-candidate acceptance. No
+release/publication action or extra formal scorecard credit is implied.

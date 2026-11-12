@@ -25,11 +25,9 @@ that front matter -- edit the entries, not this list.
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`macos_py312_environment_download_failure.md`](macos_py312_environment_download_failure.md) — [#671](https://github.com/uibcdf/molsysmt/issues/671) — Track the macOS Python 3.12 Conda download failure separately from tests. *(medium, upstream)*
 
-### In progress (4)
+### In progress (2)
 
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
-- [`name_and_type_query_flags_fall_through_to_label_value_validation.md`](name_and_type_query_flags_fall_through_to_label_value_validation.md) — [#722](https://github.com/uibcdf/molsysmt/issues/722) — Name and type query flags fall through to label-value validation *(medium, reproduced)*
-- [`native_inventory_iterators_use_an_absent_getter_and_misapply_explicit_indices.md`](native_inventory_iterators_use_an_absent_getter_and_misapply_explicit_indices.md) — [#720](https://github.com/uibcdf/molsysmt/issues/720) — Native inventory iterators use an absent getter and misapply explicit indices *(medium, reproduced)*
 - [`prolonged_jupyter_receiver_does_not_wait_for_controls_focus.md`](prolonged_jupyter_receiver_does_not_wait_for_controls_focus.md) — [#718](https://github.com/uibcdf/molsysmt/issues/718) — Prolonged Jupyter receiver does not wait for controls focus *(medium, upstream)*
 
 ### Partially resolved (2)

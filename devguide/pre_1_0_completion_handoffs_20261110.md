@@ -38,6 +38,16 @@ Their executable edits retain the next deliberate complete-source/nightly
 obligation. New #718's reported Jupyter control-focus readiness defect is the
 next validation priority; no new Jupyter campaign ran during its intake.
 
+The later native inventory/documentation/Boolean-flag corrections (#719/#720/
+#722) pass 377 first-stage and 526 later overlapping focused cases. The actual
+Basic Iterator notebook executes 21 code cells; the actual Core04 query cell
+executes separately. Complete strict HTML on clean b0ae02b22 has zero warnings
+and inspected destinations. The [native receipt](../devtools/data/native_inventory_receiving_719_720_722_20261111.json)
+retains original failures and exact limits. These executable corrections do not
+clear the complete-source/nightly backlog. Draft #721 reports thirty functional
+cycles, while its passive-observer correction, owner integration and separate
+browser-memory acceptance remain open.
+
 Independently reviewed MolSysViewer default-1.0 source receiving is accepted
 under #256; format freeze, #615/#713 uncertainty and the final exact installed
 pair remain separate. No new candidate or hosted execution is requested.
