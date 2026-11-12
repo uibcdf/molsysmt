@@ -278,7 +278,7 @@ systems.info = {
         "category": "Dipeptides & Small Peptides",
         "summary": "Ace-Ala-NME capped dipeptide benchmark system containing 22 atoms, including hydrogens.",
         "files": {
-            "alanine_dipeptide.h5msm": "Native MolSysMT HDF5 file containing full topology, 22 atoms, and coordinates."
+            "alanine_dipeptide.h5msm": "Native MolSysMT HDF5 file containing stored topology, 22 atoms, and coordinates."
         },
     },
     "proline dipeptide": {
@@ -286,7 +286,7 @@ systems.info = {
         "category": "Dipeptides & Small Peptides",
         "summary": "Ace-Pro-NME capped dipeptide featuring a cyclic pyrrolidine sidechain.",
         "files": {
-            "proline_dipeptide.h5msm": "Native MolSysMT HDF5 file with complete topology, coordinates, and physical units."
+            "proline_dipeptide.h5msm": "Native MolSysMT HDF5 file with stored topology, coordinates, and declared units."
         },
     },
     "valine dipeptide": {
@@ -294,15 +294,15 @@ systems.info = {
         "category": "Dipeptides & Small Peptides",
         "summary": "Ace-Val-NME capped dipeptide featuring a branched aliphatic sidechain.",
         "files": {
-            "valine_dipeptide.h5msm": "Native MolSysMT HDF5 file with complete topology, coordinates, and physical units."
+            "valine_dipeptide.h5msm": "Native MolSysMT HDF5 file with stored topology, coordinates, and declared units."
         },
     },
     "lysine dipeptide": {
         "title": "Lysine Dipeptide",
         "category": "Dipeptides & Small Peptides",
-        "summary": "Ace-Lys-NME capped dipeptide with a positively charged sidechain.",
+        "summary": "Ace-Lys-NME capped lysine dipeptide example.",
         "files": {
-            "lysine_dipeptide.h5msm": "Native MolSysMT HDF5 file with complete topology, coordinates, and physical units."
+            "lysine_dipeptide.h5msm": "Native MolSysMT HDF5 file with stored topology, coordinates, and declared units."
         },
     },
     "pentalanine": {
@@ -312,8 +312,8 @@ systems.info = {
         "files": {
             "pentalanine.inpcrd": "Amber initial coordinate file (INPCRD format).",
             "pentalanine.prmtop": "Amber molecular topology and forcefield parameter file (PRMTOP format).",
-            "traj_pentalanine.h5": "HDF5 trajectory file containing coordinate frames.",
-            "traj_pentalanine.h5msm": "Native MolSysMT HDF5 trajectory file containing complete dynamics and topology.",
+            "traj_pentalanine.h5": "HDF5 file containing a coordinate structure series.",
+            "traj_pentalanine.h5msm": "Native MolSysMT HDF5 file containing a coordinate series and stored topology.",
         },
     },
     "Met-enkephalin": {
@@ -331,15 +331,15 @@ systems.info = {
         "category": "Small & Globular Proteins",
         "summary": "20-residue synthetic mini-protein TC5b (PDB 1L2Y) folding into a compact hydrophobic cage.",
         "files": {
-            "1l2y.pdb": "PDB file containing the 20-model NMR structure ensemble.",
+            "1l2y.pdb": "PDB NMR ensemble containing 38 structures.",
             "1l2y.bcif.gz": "Compressed Binary CIF file containing full atomic coordinates and experimental metadata.",
-            "1l2y.h5msm": "Native MolSysMT HDF5 file containing normalized topology, coordinates, and physical units for all 20 frames.",
+            "1l2y.h5msm": "Native MolSysMT HDF5 file containing stored topology and 38 structures with declared physical units.",
         },
     },
     "chicken villin HP35": {
-        "title": "Chicken Villin Headpiece HP35",
+        "title": "Chicken Villin Headpiece Examples",
         "category": "Small & Globular Proteins",
-        "summary": "35-residue fast-folding subdomain (PDB 1VII), including solvated structure and DCD trajectory.",
+        "summary": "Villin headpiece examples based on 36 amino acids in PDB 1VII, with separate capped and solvated datasets.",
         "files": {
             "1vii.pdb": "Original PDB structure file (PDB format).",
             "1vii.bcif": "Binary CIF structure file (BCIF format).",
@@ -347,21 +347,21 @@ systems.info = {
             "chicken_villin_HP35.h5msm": "Native MolSysMT HDF5 file for the vacuum protein structure.",
             "chicken_villin_HP35_solvated.h5msm": "Native MolSysMT HDF5 file for the protein solvated in a water box.",
             "traj_chicken_villin_HP35_solvated.dcd": "CHARMM/NAMD DCD binary trajectory file of solvated dynamics.",
-            "traj_chicken_villin_HP35_solvated.h5": "HDF5 trajectory file containing coordinate frames.",
-            "traj_chicken_villin_HP35_solvated.h5msm": "Native MolSysMT HDF5 trajectory file with solvated protein dynamics.",
+            "traj_chicken_villin_HP35_solvated.h5": "HDF5 file containing a coordinate structure series.",
+            "traj_chicken_villin_HP35_solvated.h5msm": "Legacy H5MSM snapshot containing 1 structure of the solvated villin example.",
         },
     },
     "T4 lysozyme L99A": {
-        "title": "T4 Lysozyme L99A Cavity Mutant",
+        "title": "T4 Lysozyme L99A and Reference Models",
         "category": "Small & Globular Proteins",
-        "summary": "Engineered T4 lysozyme mutant with an internal hydrophobic cavity for ligand binding studies.",
+        "summary": "Related T4 lysozyme examples, including benzene-bound L99A (181L) and the I3V reference variant (1L17).",
         "files": {
             "181l.pdb": "PDB file of the benzene-bound L99A cavity mutant (PDB 181L).",
             "181l.bcif.gz": "Compressed Binary CIF file for structure 181L.",
             "181l.h5msm": "Native MolSysMT HDF5 file for structure 181L.",
-            "1l17.pdb": "PDB file of the Apo L99A cavity mutant (PDB 1L17).",
-            "1l17.h5msm": "Native MolSysMT HDF5 file for structure 1L17.",
-            "t4_lysozyme_L99A.h5msm": "Consolidated native MolSysMT HDF5 file for T4 lysozyme L99A.",
+            "1l17.pdb": "PDB reference structure of the I3V T4 lysozyme variant (PDB 1L17).",
+            "1l17.h5msm": "Native MolSysMT HDF5 reference for the I3V T4 lysozyme variant (1L17).",
+            "t4_lysozyme_L99A.h5msm": "Native T4 lysozyme example with its own prepared atom inventory.",
         },
     },
     "TcTIM": {
@@ -377,7 +377,7 @@ systems.info = {
     "Hexokinase 2": {
         "title": "Human Hexokinase 2",
         "category": "Small & Globular Proteins",
-        "summary": "Key glycolytic enzyme Human Hexokinase 2 bound to glucose and inhibitor (PDB 2NZT).",
+        "summary": "Human hexokinase II structure with deposited glucose-related ligands (PDB 2NZT).",
         "files": {
             "2nzt.bcif.gz": "Compressed Binary CIF file (BCIF.GZ format).",
             "2nzt.h5msm": "Native MolSysMT HDF5 file containing full enzyme topology and coordinates.",
@@ -398,7 +398,7 @@ systems.info = {
     "1YCR": {
         "title": "MDM2 - p53 Peptide Complex",
         "category": "Complexes & Assemblies",
-        "summary": "Human MDM2 oncogene bound to the p53 transactivation domain peptide (PDB 1YCR).",
+        "summary": "Human MDM2 protein bound to the p53 transactivation domain peptide (PDB 1YCR).",
         "files": {
             "1ycr.pdb": "PDB structure file featuring SOURCE records without trailing semicolons.",
             "1ycr.bcif.gz": "Compressed Binary CIF file for 1YCR complex.",
@@ -414,9 +414,9 @@ systems.info = {
         },
     },
     "1CEN": {
-        "title": "CENP-B DNA-Binding Domain",
+        "title": "Cellulase CELC with Cellohexaose",
         "category": "Complexes & Assemblies",
-        "summary": "Centromere protein B DNA-binding domain crystal structure (PDB 1CEN).",
+        "summary": "Cellulase CELC mutant complexed with cellohexaose (PDB 1CEN).",
         "files": {
             "1cen.pdb": "PDB structure file with HETSYN hetero-group records.",
             "1cen.bcif.gz": "Compressed Binary CIF file for 1CEN structure.",
@@ -488,7 +488,7 @@ systems.info = {
         "category": "Toy & Synthetic Models",
         "summary": "4-particle spatial coordinate trajectory.",
         "files": {
-            "traj_particles_4.xyznpy": "NumPy NPY binary array file containing (n_frames, 4, 3) coordinates."
+            "traj_particles_4.xyznpy": "XYZNpy file with 2 consecutive NPY records: a shape header (n_structures, 4, 3), followed by coordinates."
         },
     },
     "nglview": {

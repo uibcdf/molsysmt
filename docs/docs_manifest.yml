@@ -30,6 +30,10 @@ sections:
             file: docs/content/user/foundations/entrance/installation.md
             agents_file: docs/content/user/foundations/entrance/installation.md.AGENTS.md
             description: Python 3.11–3.14 source policy, Python 3.14 development and explicit binary-versus-source Rust build requirements.
+          - name: demo_systems
+            file: docs/content/user/foundations/entrance/demo_systems.ipynb
+            agents_file: docs/content/user/foundations/entrance/demo_systems.ipynb.AGENTS.md
+            description: Source-checked molecular identities and cardinalities, distinct bundled realizations, legacy-read limits and actually generated offline-data catalog.
           - name: toolbox_overview
             file: docs/content/user/foundations/entrance/toolbox_overview.md
             agents_file: docs/content/user/foundations/entrance/toolbox_overview.md.AGENTS.md

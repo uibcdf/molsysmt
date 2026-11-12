@@ -25,3 +25,17 @@ This micro-governance contract governs [`docs/content/user/foundations/entrance/
    - **2-Line System Header**: Line 1: `**Title** | msm.systems['keyword']`, Line 2: `*Summary...*`.
    - **File Explanation Tables**: 2-column native HTML tables (`File String`, `Contents & Usage Explanation`) detailing exact contents and purpose for every file.
    - **Offline Accessibility Note**: Must include the `{admonition}` note box highlighting offline dataset availability.
+
+## Verified catalog limits
+
+- Keep molecular identity and numerical descriptions consistent with the
+  deposited records or stored axis metadata. Structure counts and amino-acid
+  counts are separate facts; never infer one from a filename or collection key.
+- Preserve distinct file realizations within a collection and the supported
+  legacy-read versus current-write H5MSM distinction. Bundled data are offline;
+  this does not promise that every tutorial/provider workflow is offline.
+- The native query example reports general group counts. Keep the dynamic
+  catalog generator and its hidden-input tag; generate output by actual notebook
+  execution rather than manually replacing rendered tables.
+
+- Changes to imported catalog metadata require `--force` for the selected notebook; an unchanged generator fingerprint or upgraded legacy mark is not evidence of a new execution.

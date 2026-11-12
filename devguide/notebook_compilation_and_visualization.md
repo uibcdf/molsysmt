@@ -73,15 +73,34 @@ Developers run [`docs/execute_notebooks.py`](../docs/execute_notebooks.py) to pr
 python docs/execute_notebooks.py -q -n 12 -r docs/content/user
 ```
 
-### **C. Hybrid Modification Tracking Logic**
-For any notebook `example.ipynb`:
-1. **Timestamp File (`example.nbconvert.last_run`)**: Stores the UTC timestamp of the last successful local execution.
-2. **Active Local Working Session (`git status`)**:
-   - If `example.ipynb` has uncommitted local changes (tracked modified `M` or untracked `??`), the script compares the filesystem modification time (`st_mtime`) against `last_run`.
-   - It executes the notebook ONCE, updates `last_run`, and skips it on subsequent runs in the same session.
-3. **Fresh Clones & Branch Checkouts (`git log`)**:
-   - On a fresh `git clone` or `git checkout`, Linux resets `st_mtime` to the current time.
-   - If `git status` is clean, the script compares the **last Git commit timestamp** (`git log -1 --format=%ct`) against `last_run`. Since no new commits occurred, it skips all unchanged notebooks instantly.
+### **C. Code-Fingerprint Tracking**
+
+Normal execution marks store `code_sha256`, computed from the ordered Python
+code-cell sources, and an informational UTC `executed_at`. The current runner
+compares that code fingerprint; it does not compare Git commit times to decide
+whether a normally marked notebook needs execution.
+
+- Missing or invalid marks and changed code request execution.
+- Markdown-only edits leave the code fingerprint unchanged and normally skip
+  kernel execution. A skip is not a new successful execution.
+- Old timestamp-only marks retain a compatibility path using their file times.
+  A mark can be upgraded without a new kernel run; that upgrade is not receiving
+  evidence for new code, imported libraries or datasets.
+- `--force` executes the selected notebook regardless of its mark. Never write
+  execution marks manually.
+
+A code-only fingerprint does not observe changes to imported library metadata,
+providers or bundled data. In particular, changing `molsysmt/systems.py` requires
+an actual forced catalog execution, even if the notebook generator is unchanged:
+
+```bash
+python docs/execute_notebooks.py -q -n 1 --force docs/content/user/foundations/entrance/demo_systems.ipynb
+```
+
+Inspect the generated catalog against its backend metadata and source facts.
+Successful execution proves the generator ran; it cannot establish that an
+incorrect molecular description agrees with the deposited data. Keep those two
+checks separate and retain the script-produced mark and execution evidence.
 
 ### **D. JSON Schema Integrity (`outputs: []`)**
 `myst_nb` requires every code cell in `.ipynb` v4 format to contain an `outputs` array. `execute_notebooks.py` automatically sanitizes all code cells, guaranteeing `"outputs": []` is present and preventing Sphinx `AttributeError: outputs` build failures.
