@@ -10,11 +10,11 @@ Source of truth for integrating and using **DepDigest** in this library.
 Metadata
 - Source repository: `depdigest`
 - Source document: `standards/DEPDIGEST_GUIDE.md`
-- Source version: `depdigest@0.15.1`
-- Publication tracking: `uibcdf/depdigest#39` (0.15.1); base registry: `uibcdf/depdigest#34`
+- Source version: `depdigest@0.15.2`
+- Publication tracking: `uibcdf/depdigest#49` (0.15.2 public Conda qualification); base registry: `uibcdf/depdigest#34`
 - Adapter-inspection publication tracking: `uibcdf/depdigest#37`; implementation
   `uibcdf/depdigest#36`. Public 0.14.0 does not provide this option.
-- Last source update: 2026-10-13
+- Last source update: 2026-11-05
 - Consumer synchronization: audit delivery in `uibcdf/molsyssuite#95`;
   declaration-based registry admission/handoff in `uibcdf/molsyssuite#115`.
 
@@ -244,6 +244,14 @@ payload = get_info("MyLibrary", format="dict")  # or format='json'
 
 ### 3.3 Architecture Audit in CI
 Use the audit command to detect top-level imports of soft dependencies:
+
+From 0.15.2, correction #47/#48 distinguishes relative internal imports
+(`from .vina import VinaBackend`) from absolute external imports (`import vina`).
+The former are excluded from external-package findings; 0.15.1 predates this fix.
+Published adoption requires DepDigest >=0.15.2, admitted to public Conda under #49
+after exact-source and installed qualification. The release receipt is
+`devguide/evidence/release_0.15.2_2026-11-05.json`; receiving consumers own their
+version selection and integration checks.
 
 ```bash
 depdigest audit --src-root MyLibrary --soft-deps mdtraj,openmm

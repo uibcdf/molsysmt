@@ -130,6 +130,27 @@ An absent or incomplete `session_finish` means incomplete evidence, not a failed
 session. Preserve the command's exit status and use native CI records such as JUnit when
 they are part of the repository's required gate.
 
+Finalized, integrity-valid transport does not imply exhaustive event detail.
+Before deriving all skipped nodes or another exhaustive node set, require a
+final `artifact_policy.truncated == False`. A live `evidence_limit` record
+signals loss of subsequent detail; counters can remain correct after phase
+records stop. Unknown cap state cannot establish exhaustive detail. Request
+`--junitxml=FRESH_PATH` in the same invocation when complete node recovery may
+be needed. Preserve that invocation's source/selection identity, confirm JUnit
+completion, and reconcile its skipped entries with the final counters. JUnit
+testcase names need an unambiguous same-selection mapping for exact pytest
+rerun selectors. Missing/partial JUnit, ambiguous identity or counter mismatch
+means incomplete recovery. A later run does not repair the original evidence.
+See `docs/artifacts.md` in the provider for the complete supported fallback.
+
+From 1.2.3, failed collectors contribute to `counts.errors`, not `counts.failed`
+or `counts.executed`; repeated xdist diagnostics count once per collector while
+their phase events remain available. Setup/teardown errors still belong to
+executed test items. Successful `--collect-only` preserves exit 0 and reports
+`INCOMPLETE` with an explicit collection-only note and zero executed items; it
+does not certify a passed execution gate. Historical artifacts retain their
+producer's counts and must not be silently rewritten.
+
 ## When to use native pytest
 
 Repeat the same selection without a compact profile when:

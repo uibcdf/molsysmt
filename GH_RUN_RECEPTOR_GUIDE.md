@@ -11,8 +11,8 @@ Metadata
 
 - Source repository: `gh-run-receptor`
 - Source document: `standards/GH_RUN_RECEPTOR_GUIDE.md`
-- Source version: `gh-run-receptor@1.4.0`
-- Last synced: 2026-10-29
+- Source version: `gh-run-receptor@1.5.0`
+- Last synced: 2026-11-11
 
 ## What gh-run-receptor is
 
@@ -120,14 +120,14 @@ need GitHub CLI.
 Install the exact stable tag:
 
 ```text
-gh extension install uibcdf/gh-run-receptor --pin 1.4.0
+gh extension install uibcdf/gh-run-receptor --pin 1.5.0
 gh run-receptor --version
 ```
 
 Expected version output:
 
 ```text
-1.4.0
+1.5.0
 ```
 
 Pinning is deliberate. A pinned script extension does not advance through an ordinary
@@ -165,7 +165,7 @@ jobs:
   report:
     runs-on: ubuntu-latest
     steps:
-      - uses: uibcdf/gh-run-receptor@1.4.0
+      - uses: uibcdf/gh-run-receptor@1.5.0
         with:
           run-id: ${{ github.event.workflow_run.id }}
           repository: ${{ github.repository }}
@@ -185,7 +185,7 @@ For a small dedicated reporter, the same complete configuration accepted by `con
 may be placed beside the Action call:
 
 ```yaml
-      - uses: uibcdf/gh-run-receptor@1.4.0
+      - uses: uibcdf/gh-run-receptor@1.5.0
         with:
           run-id: ${{ github.event.workflow_run.id }}
           repository: ${{ github.repository }}
@@ -237,7 +237,7 @@ For a smaller terminal reporter, delegate the complete job to the reusable workf
 ```yaml
 jobs:
   report:
-    uses: uibcdf/gh-run-receptor/.github/workflows/reusable-report.yml@1.4.0
+    uses: uibcdf/gh-run-receptor/.github/workflows/reusable-report.yml@1.5.0
     with:
       run-id: ${{ github.event.workflow_run.id }}
       repository: ${{ github.repository }}
@@ -249,7 +249,7 @@ ready state, and error category. It deliberately omits runner-local paths. Inter
 uses GitHub's `$/` same-repository reference, so the Action resolves from the exact commit
 selected for the reusable workflow without a checkout or moving internal reference. This
 path requires github.com runner 2.336.0 or newer; older GitHub Enterprise Server versions
-without `$/` are not claimed. Pin the full 1.4.0 commit instead of the tag when an
+without `$/` are not claimed. Pin the full 1.5.0 commit instead of the tag when an
 immutable reference is required.
 
 ## Minimum use from a client
@@ -699,3 +699,33 @@ the editable before tests. Normal extension/Action/reusable/Conda/Python command
 interfaces are retained. Exact-file Conda qualification uses shared support @1,
 installed-prefix checks before and after execution and twelve native cells over
 Python 3.11–3.14. Historical 1.3.0 recovery retains its original source and bytes.
+
+
+## Source-preserving diagnostics in 1.5.0
+
+Initial Conda index/package transport and missing micromamba binary diagnostics
+remain visible before later cleanup, and missing artifact downloads retain
+their requested identity before empty evidence uploads. Context has its own
+original source pointers and does not establish causality. Independent cleanup
+and upload failures retain their diagnostics.
+
+A completed job with nonterminal or null-conclusion steps produces a bounded
+warning and additive `completeness.terminal_steps=partial` with source-referenced
+unknown entries. Run/job conclusions and process status remain authoritative.
+A PASS can coexist with unknown child-step qualification: inspect the warning
+and native step observations before claiming every step completed successfully.
+Use an explicit fresh capture into a separate directory to compare suspected
+transient metadata; passing logs never fill unknown original step conclusions.
+
+For terminal cancelled/timed-out jobs with no steps, exact original linked
+annotations can provide unverified hosted-runner acquisition or macOS ARM64
+capacity hints. Repeated notices are shown once; capacity notices do not prove
+cancellation cause. Reruns do not substitute a newer successful check for the
+selected original job. Missing, partial and invalid evidence retain their states.
+
+Python 3.11–3.14, external gh>=2.48.0, the stdlib-only Python runtime, CLI/Action/
+reusable interfaces and all nine frozen schemas remain. The original Conda file
+passes all twelve native installed cells (732 product/integration tests each).
+Independent public wheel receiving is Linux/Python3.14.7; exact public extension
+and minimum gh are separately verified. Consumer guide/pin adoption remains
+owned by the receiving repository and MolSysSuite coordination.

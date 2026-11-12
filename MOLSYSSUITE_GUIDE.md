@@ -234,8 +234,8 @@ issue, regenerate local indexes, and archive the document. Archive, never delete
 
 When an issue owned by one repository has a concrete relationship with another registered
 component, add `component:<name>` for every related component and explain the relationship
-in the issue body. For example, MolSysMT work requested by DockingMT uses
-`component:dockingmt`. These labels are created on demand through the central
+in the issue body. For example, MolSysMT work requested by BindingMT uses
+`component:bindingmt`. These labels are created on demand through the central
 `component_issue_labels.py` tool; do not invent unregistered suffixes or use a component's
 own label in its repository. The central reporting protocol defines the full procedure.
 
@@ -625,7 +625,7 @@ an implementation because its owner is incubating or the needed API is absent.
 | Cavities, pockets and molecular surface topography | TopoMT; OpenCASTp owns its independent CASTp numerical kernel |
 | Pharmacophore modeling | PharmacophoreMT |
 | Elastic-network definitions and analysis | ElastNetMT |
-| Molecular docking workflows | DockingMT |
+| Molecular binding modeling and characterization: docking, complex prediction/refinement, binding free-energy calculation/prediction and interfaces | BindingMT; current implementations and future scope remain distinguished in its scientific contract |
 | Peptide-specific design and functional evaluation | PeptideMT |
 | Interpolation support | LinDelINT |
 | Scientific/AI subsystem understanding and operation of the suite | MolSys-AI, preserving its subsystem/platform boundary |
