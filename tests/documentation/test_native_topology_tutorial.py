@@ -8,6 +8,9 @@ from pathlib import Path
 import pytest
 
 from molsysmt.native import Topology
+from tests.documentation._form_reference_checks import (
+    _assert_native_form_reference_contract,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 PAGE = ROOT / "docs/content/user/tools/form/class/molsysmt/molsysmt_Topology.ipynb"
@@ -32,16 +35,7 @@ def test_topology_tutorial_attributes_are_the_actual_inventory_declarations():
 
 
 def test_topology_tutorial_function_targets_really_exist():
-    notebook = json.loads(PAGE.read_text())
-    source = "\n".join("".join(cell["source"]) for cell in notebook["cells"])
-    targets = re.findall(
-        r"\{func\}`~?(molsysmt\.form\.molsysmt_Topology\.[^`]+)`", source
-    )
-    assert targets
-    for target in targets:
-        module_name, function_name = target.rsplit(".", 1)
-        module = importlib.import_module(module_name)
-        assert callable(getattr(module, function_name))
+    _assert_native_form_reference_contract("Topology")
 
 
 @pytest.mark.parametrize(
@@ -55,13 +49,7 @@ def test_topology_tutorial_marks_unavailable_operations(operation):
     rows = [
         line
         for line in source.splitlines()
-        if line.startswith("|")
-        and (
-            f"molsysmt_Topology.{operation}."
-            if operation != "get_structural_attributes"
-            else f"molsysmt_Topology.{operation}`"
-        )
-        in line
+        if line.startswith("|") and re.search(rf"[./]{operation}[.`]", line)
     ]
     assert len(rows) == 1
     description = rows[0].split("|")[2].strip()

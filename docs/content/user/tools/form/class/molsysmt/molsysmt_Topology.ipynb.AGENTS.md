@@ -21,3 +21,6 @@ Governance rules and frozen contracts for the paired `molsysmt_Topology.ipynb` (
   Distinguish native methods from similarly named unsupported adapter hooks.
 - Keep seventeen registered conversion routes and explain provider, geometry and
   fidelity prerequisites; registration alone is not universal conformance.
+- Adapter implementation references without an indexed API article point to
+  immutable published owning source/docstrings. Verify the actual rendered
+  anchors and complete route set; source-object existence alone is insufficient.

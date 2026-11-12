@@ -76,3 +76,54 @@ also exposes six undocumented converter routes, now corrected under #726.
 See the [combined receipt](../../../devtools/data/native_domain_documentation_receiving_725_726_20261112.json).
 Topology and Structures still need intended-link correction, and the wider
 form scope remains unaudited. This report therefore stays partial.
+
+
+## Topology and Structures source receiving — 2026-11-12
+
+The next owner baseline has two failures and twelve passing controls. The
+Topology failure concerns missing complete source links; Structures first
+fails its route-set check because its MolSys embedding route is omitted.
+The prior source-object existence check passes during this baseline, showing
+why existence alone cannot establish link delivery. Earlier native MolSys
+references and domain/availability controls remain received.
+
+Topology now has explicit published-source references while preserving its
+38 declarations, seventeen registered converters, unavailable hooks, chemical
+separation and executable inventory example. Structures retains 22 declarations
+and adds the already implemented MolSys embedding to list all seven converters;
+that route does not invent Topology or ChemicalStates. Both notebooks preserve
+all code, outputs, cell order and non-source metadata. General axis descriptions
+use structures. Their 52 final reference occurrences cover the existing 51
+roles plus the formerly omitted converter.
+
+The existing MolSys and Topology guards now reuse one private test-only source
+checker; it requires the reviewed operation inventory, every runtime-registered
+converter, actual defining function/line and no unlinked adapter role in source.
+An explicit non-default HTML guard separately requires every expected href in
+the actual article and validates local destinations. This introduces no public
+runtime API or provider dependency.
+
+Fourteen corrected controls pass. The first expanded cohort has fourteen
+passes and two test-draft failures: its coordinate edit passes a quantity as
+the positional indices argument. ArgDigest correctly refuses it. Preserve that
+draft and use the documented value keyword, retaining the intended geometry,
+unit, order and independence assertions. The initial provisional pass sentence
+was incorrect and is corrected before publication. Final expanded and actual
+HTML receiving follow before claiming these checks or links delivered.
+
+A complete source notebook census finds 94 pages/1,832 func/mod role occurrences
+under the form-tool root. These include indexed generic user APIs; syntax alone
+is not a rendered failure. Literal-file feasibility is similarly bounded: aliases
+and generic API spelling can require different resolution, so its unknowns are
+not declared missing implementations. Other form-reference scope remains owned
+here, with real source/HTML matching still required before broader acceptance.
+
+
+## Expanded source cohort received — 2026-11-12
+
+The corrected sixteen-case cohort passes with unchanged selected inputs. Both
+unit policies preserve the original coordinate/time values and selected source
+axis order, keep topology/chemical states absent and detach coordinate edits.
+The two initial test-draft rejections and their erroneous provisional note are
+retained separately; neither is a product or provider failure. Actual HTML
+receiving is still pending at this checkpoint.
