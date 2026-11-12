@@ -1,0 +1,960 @@
+{
+  "schema": "molsysmt.jupyter_memory_method_receiving@1",
+  "date": "2026-11-12",
+  "owner_issue": "uibcdf/molsysmt#723",
+  "source_commit": "db1706f8a62fa131d2ad7aedc2b9d96988187b2d",
+  "scope": "Partial receiving: Chromium method/lifetime controls and one default-host nine-execution Jupyter baseline. Not scientific receiver integration, an extension-ablation comparison, a retaining-chain diagnosis, a comparable long campaign, installed/platform/final-candidate qualification or public release.",
+  "runtime": {
+    "python": "3.14.7",
+    "node": "v22.22.1",
+    "host_packages": {
+      "jupyterlab": "4.6.4",
+      "ipykernel": "7.3.0",
+      "anywidget": "0.11.0",
+      "ipywidgets": "8.1.9"
+    },
+    "browser": {
+      "protocolVersion": "1.3",
+      "product": "Chrome/157.0.8103.38",
+      "revision": "@a733b5afbb3ba618844ff8876b89ad1a774b2f18",
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "jsVersion": "15.7.112.23"
+    },
+    "playwright": "1.57.0",
+    "provider_scope": "Existing frozen development-support/units/receptor overlays. No install or shared-environment mutation; molecular providers are excluded in the control kernel, not claimed absent from the pytest controller.",
+    "controller_support": {
+      "smonitor": {
+        "version": "0.21.0",
+        "source": "066b69cad8896cdc126d5586fd53268af4ea6490"
+      },
+      "depdigest": {
+        "version": "0.15.1",
+        "source": "13cc73780a7cb645546ae3f396177f98b86a8792"
+      },
+      "argdigest": {
+        "version": "0.15.0",
+        "source": "57447cc4ec1f7ce85078f8a939892efd075bc919"
+      },
+      "pyunitwizard": "0.29.2 published artifact overlay",
+      "pytest_receptor": "1.2.1 published overlay",
+      "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+    },
+    "controller_support_scope": "Existing source/tooling overlay identity, separate from the plain-kernel exclusion and actual Jupyter package/application receipts. No newer provider adoption or dependency floor is claimed."
+  },
+  "method": {
+    "schema": "molsysmt.jupyter_memory_sample@1",
+    "windows": [
+      "raw",
+      "after_tasks",
+      "after_collection"
+    ],
+    "explicit_cdp_collections": 2,
+    "metric_order": [
+      "performance.memory",
+      "Runtime.getHeapUsage",
+      "Memory.getDOMCounters",
+      "subjects"
+    ],
+    "window_scope": "Sequential API pairs within recorded windows; neither simultaneous instants nor RSS, GPU or complete process-family memory.",
+    "collection_overhead": "Sampling envelope is last-window end minus first-window start; collection/task interventions are included. These values do not benchmark ordinary application latency.",
+    "subject_oracles": "Retained witness and deliberately retained object/buffer stay alive; a separate retired object/buffer clears; after removing the intentional strong reference its object/buffer clears and observed backing storage drops.",
+    "limitations": "No assumed equality or summation between metric APIs. Subject snapshots are primitive data; no remote object handles. Fixed task/collection sequence, no retry-until-clear."
+  },
+  "controls": {
+    "original_pilot": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1
+    },
+    "final_cohort": {
+      "tests": 63,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 63
+    },
+    "creation_job": {
+      "witness": {
+        "object_alive": true,
+        "buffer_alive": true
+      },
+      "retained": {
+        "object_alive": true,
+        "buffer_alive": true
+      },
+      "retired": {
+        "object_alive": true,
+        "buffer_alive": true
+      }
+    },
+    "before_release": {
+      "schema": "molsysmt.jupyter_memory_sample@1",
+      "method": "two_task_barriers_then_two_cdp_collections",
+      "cdp_collections": 2,
+      "metric_order": [
+        "performance.memory",
+        "Runtime.getHeapUsage",
+        "Memory.getDOMCounters",
+        "subjects"
+      ],
+      "scope": "Sequential API pairs within recorded windows; neither simultaneous instants nor RSS, GPU or complete process-family memory.",
+      "raw": {
+        "phase": "same_task_exposed_gc",
+        "exposed_gc_before_page_metric": true,
+        "node_window_started_ms": 1684.353689,
+        "node_window_finished_ms": 1701.154022,
+        "page": {
+          "timestamp_ms": 288.2000000476837,
+          "used_js_heap_bytes": 21637525,
+          "total_js_heap_bytes": 23068853,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 672476,
+          "totalSize": 2097152,
+          "embedderHeapUsedSize": 394976,
+          "backingStorageSize": 20971701
+        },
+        "cdp_dom": {
+          "documents": 1,
+          "nodes": 9,
+          "jsEventListeners": 0
+        },
+        "subjects": {
+          "witness": {
+            "object_alive": true,
+            "buffer_alive": true
+          },
+          "retained": {
+            "object_alive": true,
+            "buffer_alive": true
+          },
+          "retired": {
+            "object_alive": false,
+            "buffer_alive": false
+          }
+        }
+      },
+      "after_tasks": {
+        "phase": "after_two_tasks",
+        "exposed_gc_before_page_metric": false,
+        "node_window_started_ms": 1708.546829,
+        "node_window_finished_ms": 1718.084076,
+        "page": {
+          "timestamp_ms": 308,
+          "used_js_heap_bytes": 21681293,
+          "total_js_heap_bytes": 23068853,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 713700,
+          "totalSize": 2097152,
+          "embedderHeapUsedSize": 695120,
+          "backingStorageSize": 20971701
+        },
+        "cdp_dom": {
+          "documents": 1,
+          "nodes": 9,
+          "jsEventListeners": 2
+        },
+        "subjects": {
+          "witness": {
+            "object_alive": true,
+            "buffer_alive": true
+          },
+          "retained": {
+            "object_alive": true,
+            "buffer_alive": true
+          },
+          "retired": {
+            "object_alive": false,
+            "buffer_alive": false
+          }
+        }
+      },
+      "after_collection": {
+        "phase": "after_cdp_collections",
+        "exposed_gc_before_page_metric": false,
+        "node_window_started_ms": 1809.706858,
+        "node_window_finished_ms": 1818.806845,
+        "page": {
+          "timestamp_ms": 408.90000009536743,
+          "used_js_heap_bytes": 13270488,
+          "total_js_heap_bytes": 13832292,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 692604,
+          "totalSize": 1835008,
+          "embedderHeapUsedSize": 639992,
+          "backingStorageSize": 12583012
+        },
+        "cdp_dom": {
+          "documents": 1,
+          "nodes": 9,
+          "jsEventListeners": 1
+        },
+        "subjects": {
+          "witness": {
+            "object_alive": true,
+            "buffer_alive": true
+          },
+          "retained": {
+            "object_alive": true,
+            "buffer_alive": true
+          },
+          "retired": {
+            "object_alive": false,
+            "buffer_alive": false
+          }
+        }
+      }
+    },
+    "after_release": {
+      "schema": "molsysmt.jupyter_memory_sample@1",
+      "method": "two_task_barriers_then_two_cdp_collections",
+      "cdp_collections": 2,
+      "metric_order": [
+        "performance.memory",
+        "Runtime.getHeapUsage",
+        "Memory.getDOMCounters",
+        "subjects"
+      ],
+      "scope": "Sequential API pairs within recorded windows; neither simultaneous instants nor RSS, GPU or complete process-family memory.",
+      "raw": {
+        "phase": "same_task_exposed_gc",
+        "exposed_gc_before_page_metric": true,
+        "node_window_started_ms": 1821.23807,
+        "node_window_finished_ms": 1882.769256,
+        "page": {
+          "timestamp_ms": 428.40000009536743,
+          "used_js_heap_bytes": 13268416,
+          "total_js_heap_bytes": 13918308,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 690588,
+          "totalSize": 2097152,
+          "embedderHeapUsedSize": 394544,
+          "backingStorageSize": 12583012
+        },
+        "cdp_dom": {
+          "documents": 1,
+          "nodes": 9,
+          "jsEventListeners": 0
+        },
+        "subjects": {
+          "witness": {
+            "object_alive": true,
+            "buffer_alive": true
+          },
+          "retained": {
+            "object_alive": false,
+            "buffer_alive": false
+          },
+          "retired": {
+            "object_alive": false,
+            "buffer_alive": false
+          }
+        }
+      },
+      "after_tasks": {
+        "phase": "after_two_tasks",
+        "exposed_gc_before_page_metric": false,
+        "node_window_started_ms": 1887.163289,
+        "node_window_finished_ms": 1894.769116,
+        "page": {
+          "timestamp_ms": 486.10000014305115,
+          "used_js_heap_bytes": 13293676,
+          "total_js_heap_bytes": 14180452,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 714720,
+          "totalSize": 2097152,
+          "embedderHeapUsedSize": 693536,
+          "backingStorageSize": 12583012
+        },
+        "cdp_dom": {
+          "documents": 1,
+          "nodes": 9,
+          "jsEventListeners": 2
+        },
+        "subjects": {
+          "witness": {
+            "object_alive": true,
+            "buffer_alive": true
+          },
+          "retained": {
+            "object_alive": false,
+            "buffer_alive": false
+          },
+          "retired": {
+            "object_alive": false,
+            "buffer_alive": false
+          }
+        }
+      },
+      "after_collection": {
+        "phase": "after_cdp_collections",
+        "exposed_gc_before_page_metric": false,
+        "node_window_started_ms": 1914.654356,
+        "node_window_finished_ms": 1923.641478,
+        "page": {
+          "timestamp_ms": 513.6000001430511,
+          "used_js_heap_bytes": 4881861,
+          "total_js_heap_bytes": 5451853,
+          "js_heap_limit_bytes": 4395630592
+        },
+        "cdp_heap": {
+          "usedSize": 692400,
+          "totalSize": 1835008,
+          "embedderHeapUsedSize": 639992,
+          "backingStorageSize": 4194381
+        },
+        "cdp_dom": {
+          "documents": 1,
+          "nodes": 9,
+          "jsEventListeners": 1
+        },
+        "subjects": {
+          "witness": {
+            "object_alive": true,
+            "buffer_alive": true
+          },
+          "retained": {
+            "object_alive": false,
+            "buffer_alive": false
+          },
+          "retired": {
+            "object_alive": false,
+            "buffer_alive": false
+          }
+        }
+      }
+    },
+    "released_backing_bytes": 8388631,
+    "witness_sentinel": 37,
+    "oracle_review": "The first pilot passed with an ordinary strong local in its creation-job control. The final guard nests the retired subject allocation so only WeakRefs escape; this strengthens the intended keep-during-job oracle. Original successful pilot scope is retained and counts overlap."
+  },
+  "host_baseline": {
+    "pytest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 1
+    },
+    "groups": 3,
+    "executions": 9,
+    "kernel_ipykernel_version": "7.3.0",
+    "initial_forbidden_imports": [],
+    "final_forbidden_imports": [],
+    "page_config": {
+      "appVersion": "4.6.4",
+      "appName": "JupyterLab",
+      "disabledExtensions": []
+    },
+    "toolbar_settings_observed_unchanged": true,
+    "toolbar_schema_defaults": {
+      "showToolbar": true,
+      "askCellDeleteConfirmation": true,
+      "toolbar": []
+    },
+    "toolbar_raw_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "toolbar_settings_scope": "Raw settings and schema defaults are separately recorded; no effective override inferred from defaults alone. Raw source remains private.",
+    "observed_host_files": {
+      "python_initializer": {
+        "sha256": "ec8988eb6b1f1f734074997229ef98f87072056185f01dc7c16ffb5e053af038"
+      },
+      "static_package": {
+        "sha256": "f817c75cee609363b2a60a30e3fe6a191b7369d088e5ace010c509dc7ee1d491"
+      }
+    },
+    "package_application_files_unchanged": true,
+    "identity_scope": "Actual server log paths and selected package files, not every web asset or an installed-pair qualification.",
+    "samples": [
+      {
+        "executions": 0,
+        "sampling_envelope_ms": 1031.6280189999998,
+        "windows": {
+          "raw": {
+            "phase": "same_task_exposed_gc",
+            "exposed_gc_before_page_metric": true,
+            "node_window_started_ms": 9470.297905,
+            "node_window_finished_ms": 9694.500963,
+            "page": {
+              "timestamp_ms": 8590.700000047684,
+              "used_js_heap_bytes": 71471728,
+              "total_js_heap_bytes": 135991948,
+              "js_heap_limit_bytes": 4395630592
+            },
+            "cdp_heap": {
+              "usedSize": 57726500,
+              "totalSize": 122245120,
+              "embedderHeapUsedSize": 11089224,
+              "backingStorageSize": 13804261
+            },
+            "cdp_dom": {
+              "documents": 73,
+              "nodes": 8898,
+              "jsEventListeners": 16467
+            },
+            "subjects": null
+          },
+          "after_tasks": {
+            "phase": "after_two_tasks",
+            "exposed_gc_before_page_metric": false,
+            "node_window_started_ms": 9699.760235,
+            "node_window_finished_ms": 9706.642772,
+            "page": {
+              "timestamp_ms": 8606.5,
+              "used_js_heap_bytes": 71538329,
+              "total_js_heap_bytes": 135992037,
+              "js_heap_limit_bytes": 4395630592
+            },
+            "cdp_heap": {
+              "usedSize": 57738132,
+              "totalSize": 122245120,
+              "embedderHeapUsedSize": 11089224,
+              "backingStorageSize": 13804261
+            },
+            "cdp_dom": {
+              "documents": 73,
+              "nodes": 8898,
+              "jsEventListeners": 16469
+            },
+            "subjects": null
+          },
+          "after_collection": {
+            "phase": "after_cdp_collections",
+            "exposed_gc_before_page_metric": false,
+            "node_window_started_ms": 10495.686411,
+            "node_window_finished_ms": 10501.925924,
+            "page": {
+              "timestamp_ms": 9402.399999856949,
+              "used_js_heap_bytes": 70651140,
+              "total_js_heap_bytes": 72118204,
+              "js_heap_limit_bytes": 4395630592
+            },
+            "cdp_heap": {
+              "usedSize": 56914016,
+              "totalSize": 58806272,
+              "embedderHeapUsedSize": 11038512,
+              "backingStorageSize": 13754300
+            },
+            "cdp_dom": {
+              "documents": 73,
+              "nodes": 8893,
+              "jsEventListeners": 16468
+            },
+            "subjects": null
+          }
+        }
+      },
+      {
+        "executions": 3,
+        "sampling_envelope_ms": 1004.7564789999997,
+        "windows": {
+          "raw": {
+            "phase": "same_task_exposed_gc",
+            "exposed_gc_before_page_metric": true,
+            "node_window_started_ms": 11597.911533,
+            "node_window_finished_ms": 11813.964765,
+            "page": {
+              "timestamp_ms": 10710,
+              "used_js_heap_bytes": 72363748,
+              "total_js_heap_bytes": 84104164,
+              "js_heap_limit_bytes": 4395630592
+            },
+            "cdp_heap": {
+              "usedSize": 58651256,
+              "totalSize": 70340608,
+              "embedderHeapUsedSize": 11881616,
+              "backingStorageSize": 13763651
+            },
+            "cdp_dom": {
+              "documents": 73,
+              "nodes": 10215,
+              "jsEventListeners": 20521
+            },
+            "subjects": null
+          },
+          "after_tasks": {
+            "phase": "after_two_tasks",
+            "exposed_gc_before_page_metric": false,
+            "node_window_started_ms": 11818.155285,
+            "node_window_finished_ms": 11822.661814,
+            "page": {
+              "timestamp_ms": 10724.099999904633,
+              "used_js_heap_bytes": 72420755,
+              "total_js_heap_bytes": 84104259,
+              "js_heap_limit_bytes": 4395630592
+            },
+            "cdp_heap": {
+              "usedSize": 58661508,
+              "totalSize": 70340608,
+              "embedderHeapUsedSize": 11832104,
+              "backingStorageSize": 13763651
+            },
+            "cdp_dom": {
+              "documents": 73,
+              "nodes": 10215,
+              "jsEventListeners": 20523
+            },
+            "subjects": null
+          },
+          "after_collection": {
+            "phase": "after_cdp_collections",
+            "exposed_gc_before_page_metric": false,
+            "node_window_started_ms": 12597.099413,
+            "node_window_finished_ms": 12602.668012,
+            "page": {
+              "timestamp_ms": 11503.5,
+              "used_js_heap_bytes": 72263242,
+              "total_js_heap_bytes": 73736162,
+              "js_heap_limit_bytes": 4395630592
+            },
+            "cdp_heap": {
+              "usedSize": 58526080,
+              "totalSize": 60379136,
+              "embedderHeapUsedSize": 11761240,
+              "backingStorageSize": 13754338
+            },
+            "cdp_dom": {
+              "documents": 73,
+              "nodes": 10201,
+              "jsEventListeners": 20521
+            },
+            "subjects": null
+          }
+        }
+      },
+      {
+        "executions": 6,
+        "sampling_envelope_ms": 1174.751323999999,
+        "windows": {
+          "raw": {
+            "phase": "same_task_exposed_gc",
+            "exposed_gc_before_page_metric": true,
+            "node_window_started_ms": 13550.99825,
+            "node_window_finished_ms": 13800.846464,
+            "page": {
+              "timestamp_ms": 12697.200000047684,
+              "used_js_heap_bytes": 73809857,
+              "total_js_heap_bytes": 84624057,
+              "js_heap_limit_bytes": 4395630592
+            },
+            "cdp_heap": {
+              "usedSize": 60120792,
+              "totalSize": 70864896,
+              "embedderHeapUsedSize": 12891576,
+              "backingStorageSize": 13759325
+            },
+            "cdp_dom": {
+              "documents": 73,
+              "nodes": 11753,
+              "jsEventListeners": 25380
+            },
+            "subjects": null
+          },
+          "after_tasks": {
+            "phase": "after_two_tasks",
+            "exposed_gc_before_page_metric": false,
+            "node_window_started_ms": 13806.682088,
+            "node_window_finished_ms": 13813.306388,
+            "page": {
+              "timestamp_ms": 12712.899999856949,
+              "used_js_heap_bytes": 73967271,
+              "total_js_heap_bytes": 84626731,
+              "js_heap_limit_bytes": 4395630592
+            },
+            "cdp_heap": {
+              "usedSize": 60213864,
+              "totalSize": 70864896,
+              "embedderHeapUsedSize": 12991704,
+              "backingStorageSize": 13761843
+            },
+            "cdp_dom": {
+              "documents": 74,
+              "nodes": 11766,
+              "jsEventListeners": 25515
+            },
+            "subjects": null
+          },
+          "after_collection": {
+            "phase": "after_cdp_collections",
+            "exposed_gc_before_page_metric": false,
+            "node_window_started_ms": 14719.89676,
+            "node_window_finished_ms": 14725.749574,
+            "page": {
+              "timestamp_ms": 13627,
+              "used_js_heap_bytes": 73754695,
+              "total_js_heap_bytes": 74928459,
+              "js_heap_limit_bytes": 4395630592
+            },
+            "cdp_heap": {
+              "usedSize": 60016888,
+              "totalSize": 61427712,
+              "embedderHeapUsedSize": 12959856,
+              "backingStorageSize": 13754699
+            },
+            "cdp_dom": {
+              "documents": 74,
+              "nodes": 11760,
+              "jsEventListeners": 25514
+            },
+            "subjects": null
+          }
+        }
+      },
+      {
+        "executions": 9,
+        "sampling_envelope_ms": 1221.792793999999,
+        "windows": {
+          "raw": {
+            "phase": "same_task_exposed_gc",
+            "exposed_gc_before_page_metric": true,
+            "node_window_started_ms": 15697.648443,
+            "node_window_finished_ms": 15920.959399,
+            "page": {
+              "timestamp_ms": 14818.299999952316,
+              "used_js_heap_bytes": 75196541,
+              "total_js_heap_bytes": 85673017,
+              "js_heap_limit_bytes": 4395630592
+            },
+            "cdp_heap": {
+              "usedSize": 61493712,
+              "totalSize": 71913472,
+              "embedderHeapUsedSize": 14116744,
+              "backingStorageSize": 13759634
+            },
+            "cdp_dom": {
+              "documents": 74,
+              "nodes": 13312,
+              "jsEventListeners": 30373
+            },
+            "subjects": null
+          },
+          "after_tasks": {
+            "phase": "after_two_tasks",
+            "exposed_gc_before_page_metric": false,
+            "node_window_started_ms": 15924.998238,
+            "node_window_finished_ms": 15930.260547,
+            "page": {
+              "timestamp_ms": 14831.200000047684,
+              "used_js_heap_bytes": 75259194,
+              "total_js_heap_bytes": 85673106,
+              "js_heap_limit_bytes": 4395630592
+            },
+            "cdp_heap": {
+              "usedSize": 61503624,
+              "totalSize": 71913472,
+              "embedderHeapUsedSize": 14116744,
+              "backingStorageSize": 13759634
+            },
+            "cdp_dom": {
+              "documents": 74,
+              "nodes": 13312,
+              "jsEventListeners": 30375
+            },
+            "subjects": null
+          },
+          "after_collection": {
+            "phase": "after_cdp_collections",
+            "exposed_gc_before_page_metric": false,
+            "node_window_started_ms": 16915.434346,
+            "node_window_finished_ms": 16919.441237,
+            "page": {
+              "timestamp_ms": 15821.799999952316,
+              "used_js_heap_bytes": 75130658,
+              "total_js_heap_bytes": 76280214,
+              "js_heap_limit_bytes": 4395630592
+            },
+            "cdp_heap": {
+              "usedSize": 61384156,
+              "totalSize": 63000576,
+              "embedderHeapUsedSize": 14167648,
+              "backingStorageSize": 13754892
+            },
+            "cdp_dom": {
+              "documents": 74,
+              "nodes": 13308,
+              "jsEventListeners": 30374
+            },
+            "subjects": null
+          }
+        }
+      }
+    ],
+    "after_collection_deltas": {
+      "cdp_heap_bytes": 4470140,
+      "page_heap_bytes": 4479518,
+      "nodes": 4415,
+      "js_event_listeners": 13906,
+      "documents": 1
+    },
+    "page_errors": [
+      {
+        "name": "Error",
+        "message": "No active debugger session",
+        "count": 11
+      }
+    ],
+    "error_scope": "Eleven No active debugger session errors remain recorded. Cell execution/exclusion and sampling assertions pass; this is not an error-free Jupyter certification, causal debugger attribution or proof of the cell-toolbar retaining chain.",
+    "settings_ablation": false,
+    "interpretation": "Heap/DOM/event counts also grow without molecular/AnyWidget imports in the controlled kernel. Sampling windows and host behavior are confounders; no molecular leak is inferred or denied from these deltas alone."
+  },
+  "input_identity": {
+    "selected_host_envelope_files": 4645,
+    "selected_envelope_unchanged": true,
+    "source_clean_before": true,
+    "source_clean_after": true,
+    "final_control_input_sha256": {
+      "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+      "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "37d19a7f5544e19a398e18c71fab02f5080d30cba1f8ae45764f096a28be9c86",
+      "tests/molsysviewer_molsysmt/jupyter_memory_sampling.mjs": "33e2db6038ae1cbe5799102f0f4b2e62c6541e9f9b68ebdfd3bd4ca301287abc",
+      "tests/molsysviewer_molsysmt/memory_sampling_guard.mjs": "9973221db59593f3a1302cbadc9bd4afdd1653935047565451658f77dae80b46",
+      "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "e98cc164575fe80014f96b09c5d878b14fe0c0b237aff69a91e817a136d0317d",
+      "tests/molsysviewer_molsysmt/host_memory_fixture.py": "a06debdd20f22916e29f43b084132ec912f7c9b61f28d81a7714b110d9999478",
+      "tests/molsysviewer_molsysmt/host_memory_jupyter.mjs": "11c466c92bb61efb863c319e7fdb9bf0ce4b99207c8537f037dc58ac7ab6ef72",
+      "tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py": "ffaf643fcbf52c1f13445aa0cf6db6c4ac7f001404d87a1cb775ad989b31f348"
+    },
+    "unchanged_original_long_receiver": {
+      "tests/molsysviewer_molsysmt/prolonged_session_jupyter.mjs": "89075eabbe46e694b16a74132e9f2d3c605fde1bd8acd3b4a48d1d9c48804b8a",
+      "tests/molsysviewer_molsysmt/prolonged_session_fixture.py": "eed4e644e216499cd75d495e5ac252d68e54384af685e32ce7a5f86516081a4f"
+    },
+    "scope": "Complete selected directory/file envelope for this receiving, excluding caches and node_modules; host identity adds selected active package/application files. Not every operating-system/browser/application asset or an authenticated installed package."
+  },
+  "executions": {
+    "controls": {
+      "source_commit": "22c61d53901a81052d09ad24296465e911f712ad",
+      "native_exit": 0,
+      "seconds": 7.053486079908907,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "memory_peak_bytes": 317239296,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14993215488,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "host_cpu_at_admission": {
+        "load_average": "0.56 0.70 1.50 4/2743 3687238",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.10 total=14473894694\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+        "online_logical_cpus": 20
+      },
+      "driver_sha256": "c9e4bc2e6121275306dd2fac4f8394915b16658fa38ba64786fbde05adf5db56",
+      "pytest": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1
+      }
+    },
+    "controls2": {
+      "source_commit": "22c61d53901a81052d09ad24296465e911f712ad",
+      "native_exit": 0,
+      "seconds": 7.083094108151272,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "memory_peak_bytes": 316297216,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15061569536,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "host_cpu_at_admission": {
+        "load_average": "2.49 2.33 1.93 3/2674 3700011",
+        "cpu_pressure": "some avg10=0.00 avg60=1.71 avg300=2.32 total=14488549342\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+        "online_logical_cpus": 20
+      },
+      "driver_sha256": "7042dc91d511035d01656a90f3939a554b3d9142eb220b3b2b1e7a1665b25250",
+      "pytest": {
+        "tests": 63,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 63
+      }
+    },
+    "controls3": {
+      "source_commit": "db1706f8a62fa131d2ad7aedc2b9d96988187b2d",
+      "native_exit": 0,
+      "seconds": 7.05313214706257,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "memory_peak_bytes": 317804544,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15040962560,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "host_cpu_at_admission": {
+        "load_average": "1.01 1.31 1.86 4/2732 3719549",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=1.08 total=14529317384\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+        "online_logical_cpus": 20
+      },
+      "driver_sha256": "121bfee43a1182de3a8a788ed674b9b22134dd90d3ca075ad6cc2c2e78fa891f",
+      "pytest": {
+        "tests": 63,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 63
+      }
+    },
+    "gui": {
+      "source_commit": "db1706f8a62fa131d2ad7aedc2b9d96988187b2d",
+      "native_exit": 0,
+      "seconds": 25.90968856611289,
+      "limits": {
+        "cpu.max": "200000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2684354560",
+        "memory.swap.max": "0",
+        "pids.max": "512"
+      },
+      "memory_peak_bytes": 728248320,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 13237624832,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "host_cpu_at_admission": {
+        "load_average": "1.59 2.35 2.12 19/2838 3706058",
+        "cpu_pressure": "some avg10=26.40 avg60=8.21 avg300=5.72 total=14515115199\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+        "online_logical_cpus": 20
+      },
+      "driver_sha256": "c97c51decd79477072eb8a695904bd21a7fb03d54474f4584f23d838c3152ed2",
+      "pytest": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1
+      }
+    },
+    "checks": {
+      "source_commit": "db1706f8a62fa131d2ad7aedc2b9d96988187b2d",
+      "native_exit": 0,
+      "seconds": 25.052473140880466,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "memory_peak_bytes": 393211904,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14815686656,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "host_cpu_at_admission": {
+        "load_average": "1.45 1.11 1.50 3/2807 3730351",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.14 total=14530235953\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+        "online_logical_cpus": 20
+      },
+      "driver_sha256": "79a613d01f935493b2b6f756b480f2651cee0a2cea48743088f518e7ade34928"
+    }
+  },
+  "board_checkpoint": {
+    "complete_issues": 642,
+    "open_issues": 91,
+    "open_prs": []
+  },
+  "technical_sources": [
+    {
+      "title": "ECMAScript WeakRef memory rules",
+      "url": "https://tc39.es/ecma262/multipage/managing-memory.html#sec-weakrefderef"
+    },
+    {
+      "title": "Playwright CDPSession API",
+      "url": "https://playwright.dev/docs/api/class-cdpsession"
+    },
+    {
+      "title": "Chrome DevTools memory guidance",
+      "url": "https://developer.chrome.com/docs/devtools/memory-problems"
+    }
+  ],
+  "remaining": [
+    "Receive a concrete scientific receiver integration, with native model/backing-buffer and independent witness controls, preserving original assertions/deadlines.",
+    "Keep original raw/functional evidence and default-host versus diagnostic-ablation scopes distinct; agree inputs before another comparable long campaign.",
+    "Do not infer a Jupyter retaining chain or released upstream fix from this method/baseline alone; no external upstream write is authorized or performed.",
+    "#615/#713 original causes, complete-source/nightly backlog, final-pair/installed and exact-candidate gates remain open.",
+    "Original formal score stays 77.73809523809524 percent and 50/50 graphical source intents. Candidate/hosted/tag/promotion/publication pause unchanged."
+  ],
+  "private_artifacts": {
+    "jupyter-memory-723-20261111/board-checkpoint.json": "db1271cf768d8060eef9266f6bbab1219f69254b7aae1814b649688ab3ca3db1",
+    "jupyter-memory-723-20261111/board-intake.json": "db1271cf768d8060eef9266f6bbab1219f69254b7aae1814b649688ab3ca3db1",
+    "jupyter-memory-723-20261111/controls-execution.json": "b65a620bd7e39629c01d8d85bdedd5c4468e75b5e205376b21df4eb1b1af8079",
+    "jupyter-memory-723-20261111/controls.log": "c1ec041a9cbbccf6d8090ce498de57983bc8e41297df3bab88d26522ebca1faa",
+    "jupyter-memory-723-20261111/controls.xml": "d0cb14e70025f768d14fcd63e87cfe88a69b59ee266a73dd2e82f2de20778f08",
+    "jupyter-memory-723-20261111/controls2-execution.json": "85347a4a7da4355b90171cffbc87d868e5d51d10577c27a78a57971f7afb45a2",
+    "jupyter-memory-723-20261111/controls2.log": "f073cbc5f5866761ab668d257add802da56c159781060df1d353a0a24f8e8c0b",
+    "jupyter-memory-723-20261111/controls2.xml": "760d35e70535220c8364e6af6e9230a7dd224dcf1f5c91ec4749c7eb9ac45b35",
+    "jupyter-memory-723-20261111/controls3-execution.json": "f07c7364be0fe9a088ecc4c37b860b87ece153112cacc946628304a73142b64f",
+    "jupyter-memory-723-20261111/controls3.log": "5487dc4706064451c22824c9d64b5fdd1b2ef2e3d40ed1737854f041575403b8",
+    "jupyter-memory-723-20261111/controls3.xml": "fc7089659d4aff54550f87ab352f95c5762547a9419d8d3839df173510324763",
+    "jupyter-memory-723-20261111/gui-execution.json": "7a0a59bc44ed93902636bb0b4f0a7dfa329331fa2f78ad846b41292b46c61c32",
+    "jupyter-memory-723-20261111/gui-inputs-after.json": "30a936b8d7e4e2f776146f074e7fc863c8c73028d976f2604261388d0c04889e",
+    "jupyter-memory-723-20261111/gui-inputs-before.json": "30a936b8d7e4e2f776146f074e7fc863c8c73028d976f2604261388d0c04889e",
+    "jupyter-memory-723-20261111/gui-observed-processes.json": "48d1207207a9d91274a38cbf1e8b384be158f71a4dc4da5ea6b49218fa67a505",
+    "jupyter-memory-723-20261111/gui.log": "75bb3b4c61e3ff87df72bdadeb2dd2fc7287dd265e44b0a4b77ee931e6c43946",
+    "jupyter-memory-723-20261111/gui.xml": "e667abbbd7b14dc34634dd5ebcc8f8dcb37e0b8944e566f927ad781aa68dd01d",
+    "jupyter-memory-723-20261111/pr-checkpoint.json": "93a632246f28a39eedc6577fda8be826f662ca408592e96b1b2b26b4256eea3d",
+    "jupyter-memory-723-20261111/pr-intake.json": "93a632246f28a39eedc6577fda8be826f662ca408592e96b1b2b26b4256eea3d",
+    "jupyter-memory-723-20261111/receive_method.py": "e445dba0bee6a11d5a34258f83ed0015c1575147316770f567684a7f19ad34c3",
+    "jupyter-memory-723-20261111/run_bounded.py": "79a613d01f935493b2b6f756b480f2651cee0a2cea48743088f518e7ade34928",
+    "jupyter-memory-723-20261111/host-tmp/test_actual_plain_jupyter_memo0/jupyter-host-memory/full-result.json": "95ef3cb21b12c217dc63572c6811c22eb0116e7bab5efed11469bae14120cb4c",
+    "jupyter-memory-723-20261111/controls3-tmp/test_chromium_memory_sampling_0/memory-sampling.json": "c6089e31b3d80e332d7189531290a994c9b09479369f1a9fdb614ad1196016e8",
+    "jupyter-memory-723-20261111/host-tmp/test_actual_plain_jupyter_memo0/jupyter-host-memory/environment.json": "f460e8b970e9c71c6fb6ec32a3b9f6b51ff9144e8584002b13b0ddc1a14f6b98",
+    "jupyter-memory-723-20261111/host-tmp/test_actual_plain_jupyter_memo0/jupyter-host-memory/host-kernel.json": "20acacded1aa18702aaaf2a91d2a2ddfba3e984ea31bb897274f97b11445f399",
+    "jupyter-memory-723-20261111/host-tmp/test_actual_plain_jupyter_memo0/jupyter-host-memory/host-application-before.json": "ca885a0384c1af4816e5b6088132140fb4e7c6bac8f68980122286be6bafb8b4",
+    "jupyter-memory-723-20261111/host-tmp/test_actual_plain_jupyter_memo0/jupyter-host-memory/host-application-after.json": "ca885a0384c1af4816e5b6088132140fb4e7c6bac8f68980122286be6bafb8b4",
+    "jupyter-memory-723-20261111/checks-execution.json": "b0d4668f0fad354832080ba32e2c4bb82b2bbda8ca6284148cc5edc528700fe1",
+    "jupyter-memory-723-20261111/checks-driver.py": "79a613d01f935493b2b6f756b480f2651cee0a2cea48743088f518e7ade34928",
+    "jupyter-memory-723-20261111/checks.log": "4e6696afdeb79ed3813ee54dd35d2a16ae1ea426421530e022584141a12cb349",
+    "jupyter-memory-723-20261111/final_checks.py": "7db3dc38406022569f47f2628e7386073a781fa35990b3b3c0cc5c7fac5ca870",
+    "jupyter-memory-723-20261111/final-check-results.json": "c9fba994eae9965764312a970c355207224bbba80ce7737302da11eb086d9bd1",
+    "jupyter-memory-723-20261111/owned-retirement.json": "9fea69807295a381207201821341eb92cb0f8c4bcac4b17b2a718e00d65458f2"
+  },
+  "final_checks": {
+    "fast_release_gates_passed": 15,
+    "fast_release_gates": 15,
+    "ruff_check": true,
+    "ruff_format": true,
+    "node_syntax": true,
+    "devguide_integrity": true,
+    "devguide_index": true,
+    "scope": "Applicable fast/source/lifecycle checks, not hosted, scientific truth, installed-pair or exact-candidate acceptance."
+  },
+  "owned_retirement": {
+    "terminal_services": 5,
+    "sampled_process_identities": 22,
+    "same_identity_still_live": 0,
+    "scope": "Only listed owned terminal services considered; PID/start-tick check is sampled, not a census of every transient process."
+  },
+  "support_boundary_review": {
+    "argdigest": "Private receiving helpers use explicit script/protocol boundaries; no public molecular validation contract or new decorator API.",
+    "depdigest": "No new runtime dependency or optional-engine import; browser/Jupyter prerequisites remain explicit selected-test requirements.",
+    "smonitor": "No change to application configuration or diagnostic policy; Jupyter page errors remain captured.",
+    "pyunitwizard": "No physical-quantity or unit policy change. Measurements are explicitly named byte/ms diagnostics, not molecular observables.",
+    "ackredit": "Technical standards/prior receiving practice are documented; no new molecular scientific method is adopted."
+  }
+}

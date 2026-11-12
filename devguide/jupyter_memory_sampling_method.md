@@ -78,8 +78,9 @@ Set `MOLSYSVIEWER_ROOT` to the declared frozen source/runtime. Missing
 prerequisites fail when selected. These explicit browser guards remain
 outside default scientific collection. Select shared-host CPU/RAM limits,
 reserve, finite process deadlines and PID-safe cleanup before execution.
-The 63-case owner control receiving is separate from the pending actual
-Jupyter baseline, scientific integration and comparable long campaign.
+The 63-case owner control receiving and one actual nine-execution Jupyter
+baseline pass on clean db1706f8a. Scientific integration and the comparable
+long campaign remain pending.
 
 ## Technical basis and remaining work
 
@@ -93,9 +94,23 @@ approach with explicit API windows. See uibcdf/molsysviewer#315/#356 and
 and the protocol types shipped with the recorded Playwright installation.
 No new molecular scientific method or Ackredit attribution is introduced.
 
-Receive the actual plain-host baseline, compare default-host and diagnostic
-ablation scopes separately, and agree the concrete scientific receiver
-integration before selecting another comparable long campaign. A passing
+The default-host baseline below is received within its stated scope. Keep
+diagnostic-ablation comparisons separate and agree the concrete scientific
+receiver integration before selecting another comparable long campaign. A passing
 synthetic control alone does not establish which objects Jupyter retains or
 qualify molecular memory behavior. #615's original initialization cause,
 installed/platform and final-candidate acceptance remain separate.
+
+
+## Observed owner checkpoint — 2026-11-12
+
+The [receipt](../devtools/data/jupyter_memory_method_receiving_723_20261112.json)
+records all three API windows for zero/three/six/nine executions with matching
+4.6.4 package/application metadata and unchanged observed configuration.
+After collection, the plain-host node/event/CDP-heap deltas are +4,415 /
++13,906 / +4,470,140 bytes. The eleven No active debugger session errors
+remain visible evidence; successful cell assertions are not a clean-Jupyter
+claim or proof of that error's causal role. Collection is an intervention:
+its timing envelope can be derived from the first window's start through the
+last window's end, including barriers/GC. Do not compare normal cycle latency
+without accounting for it. The original long receiver is still unchanged.

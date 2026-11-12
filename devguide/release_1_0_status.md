@@ -2,10 +2,10 @@
 
 ## Resume from here
 
-**Reviewed 2026-11-11 against complete-source checkpoint `6acad4f35`,
+**Reviewed 2026-11-12 against complete-source checkpoint `6acad4f35`,
 GRO documentation `bc2db775d`, iterator diagnostics `9adad50d1`,
 native inventory/query corrections `b0ae02b22` / `4280a8d42`, Jupyter
-receiving `687220ac9` / `67a094749` and the
+receiving `687220ac9` / `67a094749`, memory-method `db1706f8a` and the
 separately received earlier documentation/catalog slices.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
@@ -21,7 +21,7 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
-| Receive #723's memory-measurement method | Source confirms same-task GC/heap observation. Independent plain-host/settled-sample findings are reported by MolSysViewer. Review its bounded host baseline and asynchronous sampling proposal, discriminate timing from metric API, and preserve default-host/ablation and original functional scopes. No blind long replay. |
+| Complete #723's scientific sampling integration | The bounded Chromium method/lifetime controls and nine-execution default-host Jupyter baseline pass on clean `db1706f8a`: 63 focused cases plus one real host case. Host growth and eleven debugger errors remain explicitly recorded. Receive the molecular/witness/backing-buffer proposal before a comparable long campaign; preserve original raw outcomes and #615/#713 scopes. |
 | Complete the admitted pre-1.0 polishing review | Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11): correct worthwhile code, test, documentation and workflow findings, and review incoming issues/PRs at phase checkpoints. Preserve original milestone accounting and qualification boundaries. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
 | Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
@@ -39,6 +39,25 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Memory method and plain-host baseline — 2026-11-12
+
+#723 remains partial. Clean db1706f8a passes 63 controls and a real
+nine-execution Jupyter baseline. The method compares paired metric windows
+before/after task separation and CDP collections; actual retained/released
+object and backing-buffer controls discriminate lifetime behavior. The
+control kernel excludes molecular/AnyWidget imports, with actual 4.6.4
+package/frontend identity and unchanged observed settings/files.
+
+Host nodes/events/CDP heap still increase after collection. Eleven No active
+debugger session errors remain recorded; no retaining-chain diagnosis or
+error-free-host claim follows. The [method receipt](../devtools/data/jupyter_memory_method_receiving_723_20261112.json)
+owns measurements, original pilot scope and resource limits. The three-GiB,
+two-CPU host service peaks near 695 MiB and preserves at least 12.32 GiB
+available host memory. The original scientific long receiver is unchanged.
+Next receive its concrete molecular/witness/backing-buffer integration before
+a comparable long campaign. Original accounting, #615/#713 causality and the
+final-pair/candidate/publication pause remain unchanged.
 
 ## Jupyter control readiness received — 2026-11-11
 

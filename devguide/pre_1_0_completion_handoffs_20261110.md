@@ -58,6 +58,15 @@ method; do not interpret raw heap deltas as proved molecular retention or
 repeat the long campaign before the method is received. The earlier thirty
 functional cycles retain their original composition.
 
+The 12 November #723 method increment passes 63 controls and a real
+nine-execution Jupyter baseline with excluded molecular/AnyWidget kernel
+imports. The [receipt](../devtools/data/jupyter_memory_method_receiving_723_20261112.json)
+records unchanged observed host identity/settings, paired heap APIs and
+continued host-side node/event growth, including eleven debugger errors.
+The original scientific receiver remains unchanged; review its concrete
+lifetime/sampling integration before another comparable long campaign.
+This does not resolve #615/#713 or qualify the final installed pair.
+
 Independently reviewed MolSysViewer default-1.0 source receiving is accepted
 under #256; format freeze, #615/#713 uncertainty and the final exact installed
 pair remain separate. No new candidate or hosted execution is requested.
