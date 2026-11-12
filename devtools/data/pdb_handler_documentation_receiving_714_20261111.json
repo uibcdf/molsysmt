@@ -1,0 +1,803 @@
+{
+  "schema": "molsysmt.pdb_handler_documentation_receiving@1",
+  "date": "2026-11-11",
+  "owner_issue": "uibcdf/molsysmt#714",
+  "related_issues": [
+    "uibcdf/molsysmt#334",
+    "uibcdf/molsysmt#378"
+  ],
+  "source": "a3b6d30eb0b945e80c85592911fed93280f68ffa",
+  "scope": "Three PDB handler/portal articles, actual bundled example and documented legacy operation boundaries. No parser, scientific algorithm, native binary or public capability implementation changes; no full-suite, installed or candidate qualification.",
+  "runtime": {
+    "python": "3.14.7",
+    "platform": "Linux shared development host; 20 logical CPUs, approximately 30.7 GiB physical RAM; no applicable Slurm allocation",
+    "molsysviewer_source": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "pyunitwizard": "0.29.2 published artifact overlay",
+    "pyunitwizard_conda_sha256": "bb28b9420760b557025163e11c934e096c7b98200cac720100a2db924e9ee617",
+    "smonitor": {
+      "version": "0.21.0",
+      "source": "066b69cad8896cdc126d5586fd53268af4ea6490"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "source": "13cc73780a7cb645546ae3f396177f98b86a8792"
+    },
+    "argdigest": {
+      "version": "0.15.0",
+      "source": "57447cc4ec1f7ce85078f8a939892efd075bc919"
+    },
+    "pytest_receptor": "1.2.1 published overlay",
+    "support_overlay": "Pure-Python overlays built offline from reviewed CI source pins. This work makes no shared-environment edits; frozen overlays preserve the declared providers despite concurrent sibling development. The native binary is unchanged.",
+    "thread_caps": {
+      "BLAS": 1,
+      "OpenMP": 1,
+      "Rayon": 1,
+      "OpenMM_CPU": 1,
+      "NumExpr": 1
+    }
+  },
+  "actual_example": {
+    "cases": {
+      "executed": 2,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "errors": 0
+    },
+    "execution": {
+      "scope": "Actual PDB Foundations example under nm/ps and pm/fs with deposited-record oracle, resident ownership and cleanup checks; no complete-source/candidate acceptance.",
+      "native_exit": 0,
+      "state": "completed",
+      "input_scope": "Explicit example sources and changed runtime boundaries, native binary and bundled data; no repeated all-repository or unrelated client scan.",
+      "seconds": 3.0370306549593806,
+      "source_commit": "6acad4f35a22fe618042c6922d2cbe29bff56dee",
+      "inputs_before": {
+        "docs/content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.md": "beca1ced0e23c4a198f4344a80bf10162a5817fca1856b23c100843d03c16263",
+        "tests/documentation/test_pdb_handler_example.py": "e30fb24c5c7a967225b566d7ea06e0dcc5c76e16b209f54dde2fda25a87062c1",
+        "molsysmt/native/pdb_file_handler.py": "cb874c9af3e24359aae6f2079331eea7cc030fc7e650ff5ec802d61e39b7ad27",
+        "molsysmt/native/_pdb_file_handler_content.py": "2754516f351456ed19f83bf1e46ebf6719c818eebfc6bdb38998d6e6b91bab00",
+        "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+        "molsysmt/data/pdb/1l2y.pdb": "5d1bbb545a312dfff1ae1e64b6d8addecb2f561ddc4011aeb5bee9d1dfcd4438"
+      },
+      "inputs_after": {
+        "docs/content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.md": "beca1ced0e23c4a198f4344a80bf10162a5817fca1856b23c100843d03c16263",
+        "tests/documentation/test_pdb_handler_example.py": "e30fb24c5c7a967225b566d7ea06e0dcc5c76e16b209f54dde2fda25a87062c1",
+        "molsysmt/native/pdb_file_handler.py": "cb874c9af3e24359aae6f2079331eea7cc030fc7e650ff5ec802d61e39b7ad27",
+        "molsysmt/native/_pdb_file_handler_content.py": "2754516f351456ed19f83bf1e46ebf6719c818eebfc6bdb38998d6e6b91bab00",
+        "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+        "molsysmt/data/pdb/1l2y.pdb": "5d1bbb545a312dfff1ae1e64b6d8addecb2f561ddc4011aeb5bee9d1dfcd4438"
+      },
+      "changed_inputs": [],
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1073741824",
+        "memory.high": "939524096",
+        "memory.swap.max": "0"
+      },
+      "memory_peak_bytes": 157216768,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 12219207680,
+      "maximum_pressure_avg10": 0.0,
+      "stop_reason": null
+    },
+    "input_attribution": "Dirty 6acad4f35 worktree plus documentation/test delta subsequently committed as a3b6d30eb; six explicit before/after input hashes identify the exercised bytes.",
+    "checks": [
+      "Actual page code executes under nm/ps and pm/fs.",
+      "Resident StringIO buffer closes deterministically; parsed content identity is preserved.",
+      "38 nonempty source models with 304 first-model atoms.",
+      "First normalized and queried coordinates agree with independently sliced deposited ATOM fields in angstroms.",
+      "Selected result shape (1,2,3) and configured public length unit.",
+      "Bundled source bytes remain unchanged."
+    ]
+  },
+  "notebook": {
+    "path": "docs/content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.ipynb",
+    "six_cells_preserved": true,
+    "code_outputs_execution_metadata_unchanged": true,
+    "declarations": {
+      "declared": [
+        "alternate_location",
+        "atom_id",
+        "atom_index",
+        "atom_name",
+        "atom_type",
+        "b_factor",
+        "bioassembly",
+        "bond_index",
+        "bond_type",
+        "bonded_atoms",
+        "box",
+        "box_angles",
+        "box_lengths",
+        "box_shape",
+        "box_volume",
+        "chain_id",
+        "chain_index",
+        "chain_name",
+        "chain_type",
+        "component_id",
+        "component_index",
+        "component_name",
+        "component_type",
+        "coordinates",
+        "entity_id",
+        "entity_index",
+        "entity_name",
+        "entity_type",
+        "formal_charge",
+        "group_id",
+        "group_index",
+        "group_name",
+        "group_type",
+        "inner_bond_index",
+        "inner_bonded_atoms",
+        "molecule_id",
+        "molecule_index",
+        "molecule_name",
+        "molecule_type",
+        "n_amino_acids",
+        "n_atoms",
+        "n_bioassemblies",
+        "n_bonds",
+        "n_chains",
+        "n_components",
+        "n_dnas",
+        "n_entities",
+        "n_groups",
+        "n_inner_bonds",
+        "n_ions",
+        "n_lipids",
+        "n_molecules",
+        "n_nucleotides",
+        "n_peptides",
+        "n_polysaccharides",
+        "n_proteins",
+        "n_rnas",
+        "n_saccharides",
+        "n_small_molecules",
+        "n_structures",
+        "n_waters",
+        "occupancy",
+        "structure_id",
+        "structure_index"
+      ],
+      "listed": [
+        "alternate_location",
+        "atom_id",
+        "atom_index",
+        "atom_name",
+        "atom_type",
+        "b_factor",
+        "bioassembly",
+        "bond_index",
+        "bond_type",
+        "bonded_atoms",
+        "box",
+        "box_angles",
+        "box_lengths",
+        "box_shape",
+        "box_volume",
+        "chain_id",
+        "chain_index",
+        "chain_name",
+        "chain_type",
+        "component_id",
+        "component_index",
+        "component_name",
+        "component_type",
+        "coordinates",
+        "entity_id",
+        "entity_index",
+        "entity_name",
+        "entity_type",
+        "formal_charge",
+        "group_id",
+        "group_index",
+        "group_name",
+        "group_type",
+        "inner_bond_index",
+        "inner_bonded_atoms",
+        "molecule_id",
+        "molecule_index",
+        "molecule_name",
+        "molecule_type",
+        "n_amino_acids",
+        "n_atoms",
+        "n_bioassemblies",
+        "n_bonds",
+        "n_chains",
+        "n_components",
+        "n_dnas",
+        "n_entities",
+        "n_groups",
+        "n_inner_bonds",
+        "n_ions",
+        "n_lipids",
+        "n_molecules",
+        "n_nucleotides",
+        "n_peptides",
+        "n_polysaccharides",
+        "n_proteins",
+        "n_rnas",
+        "n_saccharides",
+        "n_small_molecules",
+        "n_structures",
+        "n_waters",
+        "occupancy",
+        "structure_id",
+        "structure_index"
+      ],
+      "missing": [],
+      "extra": [],
+      "scope": "Declarations only; not every-file availability or operation support."
+    },
+    "claim_scope": "Declaration parity and inspected actual hooks; registration does not prove file availability or implemented copying/editing/streaming."
+  },
+  "retained_attempts": [
+    {
+      "label": "pdb-handler-doc-714",
+      "cases": {
+        "executed": 2,
+        "passed": 0,
+        "failed": 2,
+        "skipped": 0,
+        "errors": 0
+      },
+      "execution": {
+        "scope": "Actual PDB Foundations example under nm/ps and pm/fs with deposited-record oracle, resident ownership and cleanup checks; no complete-source/candidate acceptance.",
+        "native_exit": 1,
+        "state": "completed",
+        "input_scope": "Explicit example sources and changed runtime boundaries, native binary and bundled data; no repeated all-repository or unrelated client scan.",
+        "seconds": 3.037436366081238,
+        "source_commit": "6acad4f35a22fe618042c6922d2cbe29bff56dee",
+        "inputs_before": {
+          "docs/content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.md": "9932029573211c28afef01cf412e71dc98a292aec3e2822c027766a85e5a2ab4",
+          "tests/documentation/test_pdb_handler_example.py": "e30fb24c5c7a967225b566d7ea06e0dcc5c76e16b209f54dde2fda25a87062c1",
+          "molsysmt/native/pdb_file_handler.py": "cb874c9af3e24359aae6f2079331eea7cc030fc7e650ff5ec802d61e39b7ad27",
+          "molsysmt/native/_pdb_file_handler_content.py": "2754516f351456ed19f83bf1e46ebf6719c818eebfc6bdb38998d6e6b91bab00",
+          "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+          "molsysmt/data/pdb/1l2y.pdb": "5d1bbb545a312dfff1ae1e64b6d8addecb2f561ddc4011aeb5bee9d1dfcd4438"
+        },
+        "inputs_after": {
+          "docs/content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.md": "9932029573211c28afef01cf412e71dc98a292aec3e2822c027766a85e5a2ab4",
+          "tests/documentation/test_pdb_handler_example.py": "e30fb24c5c7a967225b566d7ea06e0dcc5c76e16b209f54dde2fda25a87062c1",
+          "molsysmt/native/pdb_file_handler.py": "cb874c9af3e24359aae6f2079331eea7cc030fc7e650ff5ec802d61e39b7ad27",
+          "molsysmt/native/_pdb_file_handler_content.py": "2754516f351456ed19f83bf1e46ebf6719c818eebfc6bdb38998d6e6b91bab00",
+          "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+          "molsysmt/data/pdb/1l2y.pdb": "5d1bbb545a312dfff1ae1e64b6d8addecb2f561ddc4011aeb5bee9d1dfcd4438"
+        },
+        "changed_inputs": [],
+        "limits": {
+          "cpu.max": "100000 100000",
+          "memory.max": "1073741824",
+          "memory.high": "939524096",
+          "memory.swap.max": "0"
+        },
+        "memory_peak_bytes": 136638464,
+        "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+        "minimum_host_available_bytes": 12280246272,
+        "maximum_pressure_avg10": 0.0,
+        "stop_reason": null
+      },
+      "disposition": "Failed new draft example used unsupported msm.native attribute access. The supported explicit import from molsysmt.native corrected the draft; native code is unchanged. Original failure retained."
+    },
+    {
+      "label": "pdb-docs-a3b6d30eb",
+      "disposition": {
+        "attempt": "molsysmt-pdb-docs-a3b6d30eb.service",
+        "result": "DEFERRED before Sphinx execution",
+        "native_service_exit": 1,
+        "observed_journal": "Deferred by shared-host admission",
+        "reason_for_followup": "Wait until complete-source execution ends; no concurrent full-suite memory headroom is then required. Existing admission and host reserve remain enforced."
+      }
+    }
+  ],
+  "upstream_execution_feedback": {
+    "issue": "uibcdf/uibcdf-infrastructure#1",
+    "comment": "https://github.com/uibcdf/uibcdf-infrastructure/issues/1#issuecomment-6811859224",
+    "scope": "Observed loss of external wait status after agent application restart, complementing prior owner-scoped cancellation requirements. This does not diagnose #713 or claim a portable infrastructure implementation."
+  },
+  "qualification_boundary": {
+    "separate_complete_suite_source": "6acad4f35a22fe618042c6922d2cbe29bff56dee",
+    "new_pdb_documentation_guards_in_that_full_selection": false,
+    "original_score_percent": 77.73809523809524,
+    "new_milestone_credit": false,
+    "publication_pause_lifted": false
+  },
+  "strict_html": {
+    "exit": 0,
+    "warnings": 0,
+    "full_site": true,
+    "notebook_execution": "off",
+    "autosummary_generate": false
+  },
+  "strict_html_execution": {
+    "mode": "docs",
+    "source_commit": "a3b6d30eb0b945e80c85592911fed93280f68ffa",
+    "starting_status": "",
+    "ending_status": "",
+    "command": [
+      "PYTHON",
+      "REPOSITORY/.pytest_cache/pre1-90-20261111/build_pdb_polish_docs.py"
+    ],
+    "exit": 0,
+    "seconds": 172.32447274099104,
+    "changed_inputs": [],
+    "checked_inputs": 8885,
+    "viewer_changed_inputs": [],
+    "viewer_checked_inputs": 2581,
+    "stop_reason": null,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "2147483648",
+      "memory.high": "1879048192",
+      "memory.swap.max": "0",
+      "memory.oom.group": "1",
+      "pids.max": "128"
+    },
+    "cgroup_memory_peak_bytes": 1879470080,
+    "memory_events": "low 0\nhigh 125\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_observed_host_available_bytes": 14743502848,
+    "maximum_full_pressure_avg10": 0.0,
+    "warning_transitions": [],
+    "host_reserve_bytes": 6979321856,
+    "resource_driver_sha256": "47aeebde028040e52b28b4ca9c03cadda81929f2b9aad75410e12be062326e9a",
+    "scope": "Local clean source receiving; not a package, exact final candidate, platform matrix or release authorization."
+  },
+  "generated_article_inspection": {
+    "source": "a3b6d30eb",
+    "pages": [
+      {
+        "page": "content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.html",
+        "sha256": "e8dcdfea51b8d2d0b1af5a9b09c39a3beca46bcbf70068f7af9f5e8fa8cd9628",
+        "actual_article_phrases": {
+          "not a streaming trajectory reader": true,
+          "do not produce PDB records": true,
+          "without PyUnitWizard quantity wrappers": true,
+          "does not implement the context-manager protocol": true
+        },
+        "unresolved_python_references": [],
+        "system_messages": 0
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "sha256": "b5e5daba0d3b7a65a3a16679491c65165d5e3559898ba511cc6d2277120cb4cb",
+        "actual_article_phrases": {
+          "resident reader": true,
+          "Unavailable for a live handler": true,
+          "No field setters are implemented": true,
+          "TopologyIterator are unimplemented": true,
+          "Implementation reference": true,
+          "not an independent snapshot": true
+        },
+        "unresolved_python_references": [],
+        "system_messages": 0
+      },
+      {
+        "page": "content/user/foundations/native_world/file_handlers/index.html",
+        "sha256": "95d3ae107b9c80998cdb0a9fbd04bf653ecada59d511f7d2f9dbd9b00859966a",
+        "actual_article_phrases": {
+          "Resident reader": true,
+          "Legacy 0.3/0.4": true,
+          "experimental": true,
+          "PDBQTFileHandler": true
+        },
+        "unresolved_python_references": [],
+        "system_messages": 0
+      }
+    ],
+    "internal_targets": [
+      {
+        "page": "content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.html",
+        "href": "#pdbfilehandler",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.html",
+        "href": "#overview-and-handler-role",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.html",
+        "href": "../../../tools/basic/convert.html#tutorial-convert",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.html",
+        "href": "#class-attributes-and-parsed-records",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.html",
+        "href": "../../../../../api/basic/autosummary/molsysmt.basic.get.html#molsysmt.basic.get",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.html",
+        "href": "#practical-usage-and-streaming-workflow",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.html",
+        "href": "#performance-and-i-o-invariants",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.html",
+        "href": "../../../tools/form/class/molsysmt/molsysmt_PDBFileHandler.html#tutorial-form-molsysmt-pdbfilehandler",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "href": "#pdbfilehandler",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "href": "#overview",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "href": "../../../../foundations/native_world/file_handlers/molsysmt_PDBFileHandler.html#user-foundations-native-world-file-handlers-molsysmt-pdbfilehandler",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "href": "../../../../foundations/molecular_system/naming_schemes.html#user-foundations-group-naming-schemes",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "href": "../../../build/infer_covalent_bonds.html#tutorial-infer-covalent-bonds",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "href": "#supported-attributes",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "href": "#implemented-operations",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "href": "#supported-conversions",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "href": "../../../../foundations/molecular_system/the_molecular_system.html#user-foundations-molecular-system-definition",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "href": "../../../../foundations/native_world/classes/molsysmt_MolSys.html#user-foundations-native-world-classes-molsysmt-molsys",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "href": "../../../../foundations/native_world/classes/molsysmt_Topology.html#user-foundations-native-world-classes-molsysmt-topology",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "href": "../../../../foundations/native_world/classes/molsysmt_Structures.html#user-foundations-native-world-classes-molsysmt-structures",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "href": "../../../basic/convert.html#tutorial-convert",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "href": "../../../../../../api/basic/autosummary/molsysmt.basic.convert.html#molsysmt.basic.convert",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "href": "../../get_attributes.html#tutorial-form-get-attributes",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "href": "../../../../../../api/form/autosummary/molsysmt.form.get_attributes.html#molsysmt.form.get_attributes",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "href": "../../has_attribute.html#tutorial-form-has-attribute",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "href": "../../../../../../api/form/autosummary/molsysmt.form.has_attribute.html#molsysmt.form.has_attribute",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/foundations/native_world/file_handlers/index.html",
+        "href": "#file-handlers",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/foundations/native_world/file_handlers/index.html",
+        "href": "#contents",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/foundations/native_world/file_handlers/index.html",
+        "href": "molsysmt_PDBFileHandler.html",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/foundations/native_world/file_handlers/index.html",
+        "href": "molsysmt_H5MSMFileHandler.html",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/foundations/native_world/file_handlers/index.html",
+        "href": "molsysmt_GROFileHandler.html",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/foundations/native_world/file_handlers/index.html",
+        "href": "../../../tools/form/class/molsysmt/pdbqt_file_handler.html#tutorial-form-pdbqtfilehandler",
+        "target_exists": true,
+        "anchor_exists": true
+      },
+      {
+        "page": "content/user/foundations/native_world/file_handlers/index.html",
+        "href": "../../../cookbook/native_pdbqt.html#cookbook-native-pdbqt",
+        "target_exists": true,
+        "anchor_exists": true
+      }
+    ],
+    "implementation_source_links": [
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/__init__.py",
+        "exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/__init__.py",
+        "exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/extract.py",
+        "exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/copy.py",
+        "exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/add.py",
+        "exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/merge.py",
+        "exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/append_structures.py",
+        "exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/get_topological_attributes.py",
+        "exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/get_structural_attributes.py",
+        "exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/set.py",
+        "exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/iterators.py",
+        "exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/has_attribute.py",
+        "exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/is_form.py",
+        "exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/__init__.py",
+        "exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/to_molsysmt_MolSys.py",
+        "exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/to_molsysmt_PDBFileHandler.py",
+        "exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/to_molsysmt_Structures.py",
+        "exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/to_molsysmt_Topology.py",
+        "exists": true
+      },
+      {
+        "page": "content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.html",
+        "path": "molsysmt/form/molsysmt_PDBFileHandler/to_nglview_NGLWidget.py",
+        "exists": true
+      }
+    ],
+    "errors": [],
+    "scope": "Actual three generated article DOMs, reviewed statements, internal targets/anchors and local implementation destinations; no whole-site link, visual-layout or scientific certification."
+  },
+  "local_fast_checks": {
+    "scope": "Fifteen local fast gates plus index and Ruff validation of current worktree; not complete-source, installed or exact-candidate certification.",
+    "native_exit": 0,
+    "state": "completed",
+    "input_scope": "Explicit example sources and changed runtime boundaries, native binary and bundled data; no repeated all-repository or unrelated client scan.",
+    "seconds": 95.08162412210368,
+    "source_commit": "a3b6d30eb0b945e80c85592911fed93280f68ffa",
+    "inputs_before": {
+      "docs/content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.md": "beca1ced0e23c4a198f4344a80bf10162a5817fca1856b23c100843d03c16263",
+      "tests/documentation/test_pdb_handler_example.py": "e30fb24c5c7a967225b566d7ea06e0dcc5c76e16b209f54dde2fda25a87062c1",
+      "molsysmt/native/pdb_file_handler.py": "cb874c9af3e24359aae6f2079331eea7cc030fc7e650ff5ec802d61e39b7ad27",
+      "molsysmt/native/_pdb_file_handler_content.py": "2754516f351456ed19f83bf1e46ebf6719c818eebfc6bdb38998d6e6b91bab00",
+      "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+      "molsysmt/data/pdb/1l2y.pdb": "5d1bbb545a312dfff1ae1e64b6d8addecb2f561ddc4011aeb5bee9d1dfcd4438"
+    },
+    "inputs_after": {
+      "docs/content/user/foundations/native_world/file_handlers/molsysmt_PDBFileHandler.md": "beca1ced0e23c4a198f4344a80bf10162a5817fca1856b23c100843d03c16263",
+      "tests/documentation/test_pdb_handler_example.py": "e30fb24c5c7a967225b566d7ea06e0dcc5c76e16b209f54dde2fda25a87062c1",
+      "molsysmt/native/pdb_file_handler.py": "cb874c9af3e24359aae6f2079331eea7cc030fc7e650ff5ec802d61e39b7ad27",
+      "molsysmt/native/_pdb_file_handler_content.py": "2754516f351456ed19f83bf1e46ebf6719c818eebfc6bdb38998d6e6b91bab00",
+      "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+      "molsysmt/data/pdb/1l2y.pdb": "5d1bbb545a312dfff1ae1e64b6d8addecb2f561ddc4011aeb5bee9d1dfcd4438"
+    },
+    "changed_inputs": [],
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "1610612736",
+      "memory.high": "1409286144",
+      "memory.swap.max": "0"
+    },
+    "memory_peak_bytes": 448573440,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 15320973312,
+    "maximum_pressure_avg10": 0.0,
+    "stop_reason": null
+  },
+  "style_checks": {
+    "results": [
+      {
+        "command": [
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.5s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                         49.8s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                       18.6s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.5s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.7s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.9s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.2s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.4s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            1.9s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   8.0s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.6s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.3s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.4s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       3.3s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "molsysmt",
+          "molsysviewer_molsysmt",
+          "tests",
+          "devtools"
+        ],
+        "native_exit": 0,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "molsysmt",
+          "molsysviewer_molsysmt",
+          "tests",
+          "devtools"
+        ],
+        "native_exit": 0,
+        "stdout": "4624 files already formatted\n",
+        "stderr": ""
+      }
+    ],
+    "passed": true
+  },
+  "private_evidence_sha256": {
+    "pdb-handler-doc-714.xml": "49868ba223e268ca99574ba1f1c64e377567b568e65b5e78cad337519dc85c71",
+    "pdb-handler-doc-714.log": "f268273f582405b9980b6d0bf23c8566ae3f4b6898cb736c1a6920ab49cb1bf5",
+    "pdb-handler-doc-714-execution.json": "83f0cb3b0566d1cb63ee0cd4ffe872a413a2939f8d69bb87e08883285fb7a0fa",
+    "pdb-handler-doc-714-v2.xml": "db59f70cf0b23a3c317399e79d2f37e4361e8442acab3c11046eccc6b13b2382",
+    "pdb-handler-doc-714-v2.log": "fb00706565c778f9487429a2680f0c905f2d7352729bf86dd444bfb39a37cd09",
+    "pdb-handler-doc-714-v2-execution.json": "23c887f29d357bd2138698440e9350ad77b30816c24e686345cd6747a74c92e2",
+    "pdb-handler-714-attribute-parity.json": "df6c94b007d6a0e85607eb01a1979d57e0e1a4633ec538d6d4e89d75bcb38243",
+    "pdb-docs-initial-admission.json": "f6313be45428cf5d55d6d163339742193981b08849a8e28bb29a03aba490055d",
+    "run_pdb_handler_doc_714.py": "ef43cba54e335929be518dc46add25d7a7cb1efed22c9222582d96fbbdd95b8c",
+    "run_pdb_handler_doc_714_v2.py": "8b444160aabbf5ffac5c49df5b2db40f70bfbaaf284ac29ce43b995c5d0678c5",
+    "run_pdb_polish_docs_v2.py": "47aeebde028040e52b28b4ca9c03cadda81929f2b9aad75410e12be062326e9a",
+    "after_full_pdb_docs.py": "73792b799eb7ec4dd21bacdd0ec5ff01a62fafc45d42381c000a932f66676b77",
+    "build_pdb_polish_docs.py": "848c3dafed966887d8ab3190ef61cbe28477e4821a92f4ac0f0c71bc8a04540b",
+    "receive_pdb_docs_714.py": "04bd4abd4e4ddcb56b836d63c69803b517dcb4cdd62991477b9a50c72a0c8f5c",
+    "inspect_pdb_docs_714.py": "ba1365cfdeee105ae4aa316005ded218523ed24336d2c220586e3c7cbf2f30fd",
+    "run_pdb_714_fast.py": "2e967f5e85caf0f713429abf9fb6acb04e0f85ec8e7f082cddfa85e11a991339",
+    "pdb_714_fast_commands.py": "a3ad745947b173ad92cdd62b8c709f4e8e9c913df9ac361ed1f72226ac37327e",
+    "pdb-714-fast.log": "c646f980f3797038ccb41329383e22a39cccd34b6438d7046e3c45cead67a2b2",
+    "pdb-714-style.json": "e147146fe03e2a7fde2c2e04f7f014eb8a4e5434a8f73ace668675e601890d6f",
+    "sphinx-result-pdb-a3b6d30eb.json": "8e954ad2d00f8817647c714606f6c7f5c0e6b6307094d2525be4f085969aa3a1",
+    "sphinx-warnings-pdb-a3b6d30eb.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "pdb-docs-a3b6d30eb-v2-execution.json": "ce6af8595fc8b16370c4e6e0e75b378d411f83ef5b2d6d0d1beda4236a49fdab",
+    "pdb-handler-714-html-inspection.json": "193505c7dec5f06b20063d1067837370a7e910448648a2dcafea4c97a81bf22f",
+    "pdb-714-fast-execution.json": "8cbb80e3639fc0fc1a4ed83f3350a651e338050f8ea0d558737c8fe055af59c0",
+    "pdb-docs-sequencing.json": "698ad58d26229723a7dac96c058adc38a9f10cb97ccbff1c2b92aaf1c7857efe"
+  },
+  "private_evidence_scope": "Retained ignored-cache basenames and hashes; no public attachment availability or exported private paths/logs is implied."
+}

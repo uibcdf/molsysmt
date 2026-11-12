@@ -78,3 +78,20 @@ search performance. Broader indexing, comparison, independently executed task
 and external-reader acceptance remain open. The original #378 leaf receives no
 second scorecard credit. The [polishing receipt](../../../devtools/data/pre_1_0_polishing_receiving_334_20261111.json)
 retains scope, original failures and later addon corrections separately.
+
+## Additional handler review — 2026-11-11
+
+The legacy H5MSM review now has four executed Markdown-example cases under two
+unit policies, 92 declaration entries and inspected implementation destinations;
+its limits remain in the [follow-up receipt](../../../devtools/data/pre_1_0_polishing_followup_334_20261111.json).
+A separate misleading PDB handler capability page/notebook is being corrected
+under #714, with actual bundled coordinate/ownership checks. This is another
+bounded accuracy increment, not closure of discoverability or external-reader
+acceptance.
+
+The next bounded catalog review should reconcile bundled example descriptions
+with their actual source metadata and regenerate the executed demo notebook.
+One inspected discrepancy: the 1l2y.pdb catalog description says 20 models, while
+its deposited MODEL records and the new PDB guard establish 38. This minor
+metadata correction remains owned by the #334/#378 polishing queue; it is not a
+claim that the entire catalog has been checked or that coordinates are wrong.

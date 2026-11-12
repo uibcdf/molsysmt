@@ -20,28 +20,32 @@ the old 49 failures no longer occur, but the fresh-import timeout remains
 unexplained under #713. The [follow-up receipt](../devtools/data/pre_1_0_polishing_followup_334_20261111.json)
 retains the lost external-supervisor status, recovered artifact/input checks,
 isolated success, diagnostic increment and separate legacy-handler corrections.
-The next deliberate complete run requires a durable supervisor and pre-deadline
-evidence; no passing full-suite or backlog clearance is claimed. Independently reviewed
-MolSysViewer default-1.0 source receiving is accepted under #256; format freeze,
-#615 and the final exact installed pair remain separate. No new candidate or
-hosted execution is requested by this update.
+The next complete receiving on clean `6acad4f35` now passes **33,850 cases
+with 16 skips and zero failures/errors**. Native/service exit status, JUnit and
+the validated receptor agree; the [complete receipt](../devtools/data/complete_durable_source_receiving_334_20261111.json)
+retains unchanged inputs, resources and truncation. #713 remains partial because
+the original timeout does not recur and its cause is not established. Do not repeat a passing
+full session without a new question or agreed gate. #714's two later PDB example
+guards and clean `a3b6d30eb` HTML/article receiving have their own
+[receipt](../devtools/data/pdb_handler_documentation_receiving_714_20261111.json).
+
+Independently reviewed MolSysViewer default-1.0 source receiving is accepted
+under #256; format freeze, #615/#713 uncertainty and the final exact installed
+pair remain separate. No new candidate or hosted execution is requested.
 
 ## Work that MolSysMT can advance now
 
-1. **Complete the next deliberate local default suite.** Select a clean
-   committed checkpoint containing the #713 diagnostics, unchanged qualified
-   native extension 4ffb82e4, verified MolSysViewer 5164f13b and the declared
-   frozen support composition, including published PyUnitWizard 0.29.2. Keep
-   the three-worker, 6-GiB/three-CPU/no-own-swap limits, aggregate host reserve
-   and finite wall budget. Run the external supervisor as a durable service,
-   retaining native wait status independently of the agent daemon. Preserve
-   the original 60-second child deadline and capture its pre-deadline stack
-   if the timeout recurs. Earlier isolated success is not a causal explanation.
-   The [follow-up receipt](../devtools/data/pre_1_0_polishing_followup_334_20261111.json)
-   owns the failed latest full session; the [earlier complete receipt](../devtools/data/complete_default_source_receiving_334_20261110.json)
-   retains 33,549 passes/two skips on its original source. Neither qualifies a
-   changed candidate or clears the latest full-suite/nightly backlog. Local
-   Linux/Python 3.14 receiving remains separate from platform/installed gates.
+1. **Retain the received complete local source session.** Clean `6acad4f35`
+   completes all 33,866 selected default cases (33,850 passes/16 justified skips),
+   using the qualified native 4ffb82e4, verified MolSysViewer 5164f13b and declared
+   support composition with published PyUnitWizard 0.29.2. The durable service,
+   actual wait status, receptor/JUnit agreement, unchanged input snapshots and
+   resource observations are in the [complete receipt](../devtools/data/complete_durable_source_receiving_334_20261111.json).
+   Keep earlier failures and the #713 causal uncertainty. No new blind full retry
+   is required now; changed executable scope, new failures or an agreed gate
+   determine the next run. The later PDB documentation guards are separately
+   received. Local Linux/Python 3.14 is not the hosted nightly/platform/installed
+   matrix or final-candidate qualification.
 2. **Maintain a discriminating #615 investigation.** Separate the original
    executing-cell timeout from later pre-execution, server-startup, replacement,
    deadline and missing-harness observations. The real-server session diagnostic
@@ -52,14 +56,15 @@ hosted execution is requested by this update.
    environmental disposition remains required.
 3. **Retain #256's bounded P5 acceptance.** DockingMT's independent experimental
    0.6 cases pass under both unit policies. Keep their limited native composition
-   distinct from MolSysMT's provider evidence and later explicit 1.0 source receiving. Both clients have received their
-   bounded 1.0 profiles; format freeze and exact installed acceptance remain due.
+   distinct from MolSysMT's provider evidence and later explicit 1.0 source
+   receiving. Both clients have received their bounded 1.0 profiles; format
+   freeze and exact installed acceptance remain due.
 4. **Complete P6 after the default transition.** Source `1951d0822` defaults
    to H5MSM 1.0 and preserves independent whole-file migration, while 0.6 remains
    explicit and experimental. Both clients' bounded earlier profiles are
-   received. Independent default-save receiving with MolSysViewer is accepted, including
-   mechanics-bearing sessions. Complete the stable-format freeze and retain
-   final installed acceptance. Qualify scientific profiles under their own scope.
+   received. Independent default-save receiving with MolSysViewer is accepted,
+   including mechanics-bearing sessions. Complete the stable-format freeze and
+   retain final installed acceptance. Qualify scientific profiles under their own scope.
 5. **Use bounded Jupyter startup diagnostics.** The
    [resolved #705 record](archive/resolved_proposals/explicit_bounded_jupyter_server_readiness_budget.md)
    retains the two original deadline defects, 44 passing focused cases and

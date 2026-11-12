@@ -2,9 +2,8 @@
 
 ## Resume from here
 
-**Reviewed 2026-11-11 against complete-source checkpoint `f0dbb58e0`,
-legacy-handler corrections `17e3cfaf1`/`b90c5239a`, test diagnostics
-`9feea357f` and documentation `792c14d8a`.**
+**Reviewed 2026-11-11 against complete-source checkpoint `6acad4f35`,
+PDB documentation `a3b6d30eb` and their separately received evidence.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
 does not select today's candidate or authorize new execution.
@@ -22,6 +21,7 @@ promotions and publication remain paused pending the agreed resumption.**
 | Complete the admitted pre-1.0 polishing review | Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11): correct worthwhile code, test, documentation and workflow findings, and review incoming issues/PRs at phase checkpoints. Preserve original milestone accounting and qualification boundaries. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
 | Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
+| Retain #713's bounded import-timeout investigation | The complete durable `6acad4f35` session and all three original import orders pass. No cause for the earlier timeout is established; keep the diagnostics and original failure. A new full retry needs a new question or agreed gate. |
 | Preserve #250/#254 source agreement and experimental boundaries | MolSysViewer accepts the exercised sparse/native contracts. Detector profiles, inspection pages and Qt retain their experimental limits. Final-candidate agreement is still due. |
 | Agree the exact clean pair and qualification scope with MolSysViewer | Select new producer commits and unused builds; share immutable files, channels and SHA-256 values when authorized. #524 still needs a published compatible host floor and clean minimum/newer installed workflows. |
 | Qualify and make the publication decision | Run the mandatory exact-source, native, scientific, documentation and sixteen-cell installed gates at the agreed checkpoint. Preserve failed attempts and inspect terminal results. Publication and archival require final authorization after qualification. |
@@ -35,6 +35,43 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Complete durable source receiving and PDB guidance — 2026-11-11
+
+Clean `6acad4f35` completes **33,850 passes, 16 skips and zero failures/errors**
+in 33,866 cases. The actual native wait status, terminal service status,
+complete JUnit and validated receptor final record agree. The original three
+fresh-import cases pass with the unchanged 60-second child deadline. Source,
+native, client and support input snapshots remain unchanged. The [complete
+receipt](../devtools/data/complete_durable_source_receiving_334_20261111.json)
+retains timing, explicit detail/extension truncation and all skip reasons.
+
+The bounded three-CPU/6-GiB/no-own-swap service records about 5.50 GiB charged
+peak, soft memory-high events and no observed max/OOM events. Minimum observed
+host available memory is about 8.10 GiB; transient memory/I/O pressure remains
+recorded. A durable supervisor stores the native exit before postprocessing.
+This receives one local complete source session, with no installed/platform or
+exact-candidate inference. All previous failed sessions keep their verdicts.
+
+**#713 remains partial:** this full run does not reproduce or explain the
+original timeout. Keep its diagnostic/causal scope separate from #615 and
+from a passing complete session. No blind repeated full run is needed now.
+
+The separate #714 correction states actual resident PDB parsing, unavailable
+writer/copy/edit/streaming hooks and raw angstrom versus public quantity
+boundaries. Its two actual bundled-example guards pass under nm/ps and pm/fs.
+Complete strict HTML on clean `a3b6d30eb` has zero warnings; three actual pages,
+33 internal targets/anchors and 19 implementation links pass inspection. The
+[documentation receipt](../devtools/data/pdb_handler_documentation_receiving_714_20261111.json)
+retains the failed draft, deferred first build, preserved notebook execution
+payload and unchanged parser/native code. These two later guards are outside
+the frozen complete selection. The wider #378/catalog review remains open.
+
+The [polishing queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11)
+remains supplemental. Formal progress stays **77.7381%, 50/50 source graphical
+intents**. The hosted nightly matrix backlog, #256 freeze, #524 installed floors,
+#250/#254 final-candidate agreement and the final exact installed pair retain
+their own acceptance. The construction/publication pause is unchanged.
 
 ## Follow-up source receiving and legacy boundaries — 2026-11-11
 

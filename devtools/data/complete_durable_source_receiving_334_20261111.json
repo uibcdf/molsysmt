@@ -1,0 +1,302 @@
+{
+  "schema": "molsysmt.complete_durable_source_receiving@1",
+  "date": "2026-11-11",
+  "owner_issue": "uibcdf/molsysmt#334",
+  "related_issues": [
+    "uibcdf/molsysmt#713",
+    "uibcdf/molsysmt#711",
+    "uibcdf/molsysmt#712"
+  ],
+  "scope": "Complete default Linux/Python 3.14.7 source receiving on clean 6acad4f35, qualified unchanged native ABI3 binary and frozen client/support overlays. Not installed packages, a platform matrix, latest documentation guard inclusion, final candidate or publication authorization.",
+  "runtime": {
+    "python": "3.14.7",
+    "platform": "Linux shared development host; 20 logical CPUs, approximately 30.7 GiB physical RAM; no applicable Slurm allocation",
+    "molsysviewer_source": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "pyunitwizard": "0.29.2 published artifact overlay",
+    "pyunitwizard_conda_sha256": "bb28b9420760b557025163e11c934e096c7b98200cac720100a2db924e9ee617",
+    "smonitor": {
+      "version": "0.21.0",
+      "source": "066b69cad8896cdc126d5586fd53268af4ea6490"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "source": "13cc73780a7cb645546ae3f396177f98b86a8792"
+    },
+    "argdigest": {
+      "version": "0.15.0",
+      "source": "57447cc4ec1f7ce85078f8a939892efd075bc919"
+    },
+    "pytest_receptor": "1.2.1 published overlay",
+    "support_overlay": "Pure-Python overlays built offline from reviewed CI source pins. This work makes no shared-environment edits; frozen overlays preserve the declared providers despite concurrent sibling development. The native binary is unchanged.",
+    "thread_caps": {
+      "BLAS": 1,
+      "OpenMP": 1,
+      "Rayon": 1,
+      "OpenMM_CPU": 1,
+      "NumExpr": 1
+    }
+  },
+  "verdict": "PASS",
+  "cases": {
+    "executed": 33866,
+    "passed": 33850,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 16
+  },
+  "native_exit": 0,
+  "reported_pytest_exit": 0,
+  "resource_and_input_execution": {
+    "source_commit": "6acad4f35a22fe618042c6922d2cbe29bff56dee",
+    "native_exit": 0,
+    "limits": {
+      "cpu.max": "300000 100000",
+      "memory.max": "6442450944",
+      "memory.high": "5905580032",
+      "memory.swap.max": "0",
+      "memory.oom.group": "1",
+      "pids.max": "512"
+    },
+    "host_reserve_bytes": 6979321856,
+    "finite_native_wall_budget_seconds": 4200,
+    "stop_reason": null,
+    "starting_available_bytes": 15606366208,
+    "starting_memory_pressure_avg10": 0.0,
+    "starting_io_pressure_avg10": 2.64,
+    "checked_source_inputs": 8883,
+    "checked_viewer_inputs": 2581,
+    "checked_support_inputs": 231,
+    "minimum_observed_host_available_bytes": 8694697984,
+    "maximum_memory_pressure_avg10": 3.4,
+    "maximum_io_pressure_avg10": 47.18,
+    "warning_transitions": [
+      {
+        "native_seconds": 0.0011903319973498583,
+        "warning": false,
+        "memory_pressure_avg10": 0.0,
+        "io_pressure_avg10": 21.99,
+        "available_bytes": 15726751744,
+        "own_memory_bytes": 270475264
+      },
+      {
+        "native_seconds": 2004.1071698928718,
+        "warning": true,
+        "memory_pressure_avg10": 1.12,
+        "io_pressure_avg10": 17.0,
+        "available_bytes": 10095255552,
+        "own_memory_bytes": 5736505344
+      },
+      {
+        "native_seconds": 2036.1320691509172,
+        "warning": false,
+        "memory_pressure_avg10": 0.88,
+        "io_pressure_avg10": 5.29,
+        "available_bytes": 10549665792,
+        "own_memory_bytes": 5330997248
+      }
+    ],
+    "native_seconds": 2496.6721340098884,
+    "kernel_memory_peak_bytes": 5906157568,
+    "kernel_memory_events": "low 0\nhigh 2092\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "changed_source_inputs": [],
+    "changed_viewer_inputs": [],
+    "changed_support_inputs": [],
+    "ending_source_status": "",
+    "resource_driver_sha256": "4f17a3904386689934167871e4e08aee1882078006c3ac7e7b5551f39d4ff582",
+    "total_supervisor_seconds": 2570.545017863158,
+    "kernel_peak_observation_scope": "Recorded immediately after native pytest terminated; the independent terminal systemd MemoryPeak agrees. It is charged cgroup memory, not process RSS or total host usage."
+  },
+  "terminal_service_observations": {
+    "molsysmt-full-durable-6acad4f35.service": {
+      "Id": "molsysmt-full-durable-6acad4f35.service",
+      "ActiveState": "active",
+      "SubState": "exited",
+      "Result": "success",
+      "ExecMainCode": "1",
+      "ExecMainStatus": "0",
+      "MemoryPeak": "5906157568"
+    },
+    "molsysmt-read-full-durable-6acad4f35.service": {
+      "Id": "molsysmt-read-full-durable-6acad4f35.service",
+      "ActiveState": "active",
+      "SubState": "exited",
+      "Result": "success",
+      "ExecMainCode": "1",
+      "ExecMainStatus": "0",
+      "MemoryPeak": "417787904"
+    }
+  },
+  "systemd_wait_code_note": "ExecMainCode=1 is CLD_EXITED; ExecMainStatus=0 is the actual zero service exit status. Native pytest p.wait status is retained separately and also zero.",
+  "canonical_receptor": {
+    "artifact_policy": {
+      "dropped_records": 14599,
+      "max_bytes": 52428800,
+      "truncated": true
+    },
+    "complete": true,
+    "counts": {
+      "collected": 33866,
+      "deselected": 0,
+      "errors": 0,
+      "executed": 33866,
+      "failed": 0,
+      "not_executed": 0,
+      "passed": 33850,
+      "reruns": 0,
+      "skipped": 16,
+      "subtests": {},
+      "warnings": 6780,
+      "xfailed": 0,
+      "xpassed": 0
+    },
+    "duration": 2489.6233790530823,
+    "exitstatus": 0,
+    "extensions": {
+      "dropped": 2669,
+      "incomplete": true,
+      "recorded": 7195
+    },
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "c615ea4f68673fedd18bdad1d87a69caf3843264a0c079380b650b41d44fe596",
+      "records": 101965
+    },
+    "invalid_selections": [],
+    "note": "",
+    "outcome": "PASS",
+    "root_causes": 0,
+    "run_id": "5b8fd5d71e254a27b991d86f80f63263",
+    "schema": "pytest-receptor.events@1",
+    "stop_reason": "",
+    "type": "session_finish"
+  },
+  "original_import_orders": [
+    {
+      "name": "test_fresh_import_orders_preserve_native_exports_and_discovery[molsysmt.element.atom]",
+      "seconds": 13.494,
+      "passed": true
+    },
+    {
+      "name": "test_fresh_import_orders_preserve_native_exports_and_discovery[molsysviewer]",
+      "seconds": 4.522,
+      "passed": true
+    },
+    {
+      "name": "test_fresh_import_orders_preserve_native_exports_and_discovery[molsysviewer_molsysmt.tools]",
+      "seconds": 4.841,
+      "passed": true
+    }
+  ],
+  "skip_reasons": [
+    {
+      "case": "test_context_free_constructor_candidate_needs_an_explicit_owner[None-MolSys]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "case": "test_context_free_constructor_candidate_needs_an_explicit_owner[None-Topology]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "case": "test_context_free_constructor_candidate_needs_an_explicit_owner[None-ChemicalStates]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "case": "test_context_free_constructor_candidate_needs_an_explicit_owner[definition-MolSys]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "case": "test_context_free_constructor_candidate_needs_an_explicit_owner[definition-Topology]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "case": "test_context_free_constructor_candidate_needs_an_explicit_owner[definition-ChemicalStates]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "case": "test_context_free_constructor_candidate_needs_an_explicit_owner[exact-MolSys]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "case": "test_context_free_constructor_candidate_needs_an_explicit_owner[exact-Topology]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "case": "test_context_free_constructor_candidate_needs_an_explicit_owner[exact-ChemicalStates]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "case": "test_ownership_preserves_aliases_standardizer_domain_and_value_checks[definition]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "case": "test_ownership_preserves_aliases_standardizer_domain_and_value_checks[exact]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "case": "test_separately_decorated_override_needs_its_own_logical_contract[definition]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "case": "test_separately_decorated_override_needs_its_own_logical_contract[exact]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "case": "test_mixin_runtime_and_definition_ownership_select_distinct_contracts",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "case": "test_is_form_cco_without_rdkit",
+      "reason": "with rdkit CCO is recognized as valid SMILES"
+    },
+    {
+      "case": "test_cupy_ndarray_form_detection_and_conversion",
+      "reason": "CuPy is not available."
+    }
+  ],
+  "previous_attempts": {
+    "reference": "devtools/data/pre_1_0_polishing_followup_334_20261111.json",
+    "original_49_failure_session": "Still failed on its original source. Its failures do not recur here.",
+    "original_one_failure_session": "Still failed on f0dbb58e0. Its external wait-status gap remains; it is not replaced or reconstructed by this new run.",
+    "isolated_pass": "Separate receiving; it is not used to relabel an original full failure."
+  },
+  "diagnostic_disposition": {
+    "issue": "uibcdf/molsysmt#713",
+    "state": "partial",
+    "observed": "All three original import orders pass in the complete session with the original 60-second deadline and the standard-library pre-deadline diagnostic timer. No import warm-up or assertion relaxation was added.",
+    "unknown": "No recurrence or pre-timeout stack was produced. This does not identify or repair the original timeout cause; an evidenced bounded disposition remains pending.",
+    "execution_custody": "This service records actual wait status independently of the interactive submitting process. No deliberate daemon-restart stress test or portable provider qualification is claimed.",
+    "provider_feedback": "https://github.com/uibcdf/uibcdf-infrastructure/issues/1#issuecomment-6811859224"
+  },
+  "documentation_delta": "The subsequent a3b6d30eb PDB documentation and two example guards are outside this frozen complete selection; their bounded source/HTML receiving is separate under #714. They modify no parser/scientific runtime code.",
+  "accounting": {
+    "this_complete_source_session_received": true,
+    "earlier_failures_reclassified": false,
+    "nightly_full_linux_matrix_backlog_cleared": false,
+    "installed_platform_exact_candidate_gates_replaced": false,
+    "original_score_percent": 77.73809523809524,
+    "source_graphical_intents": {
+      "received": 50,
+      "total": 50
+    },
+    "additional_milestone_credit": false,
+    "publication_pause_lifted": false
+  },
+  "private_evidence_sha256": {
+    "full-durable-6acad4f35.log": "dfabb78c2838622fb9362ab0ab05446669409ebe743abb983651623e2113f2f3",
+    "full-durable-6acad4f35.xml": "57eabb12e938cce377df71b311f2e1502f07fbc4c56600021832c70965939992",
+    "full-durable-6acad4f35.events.jsonl": "50779d1212b3bea4874dc0b7aacc70eb6afbb29d904cc73fcfbeecf385d26061",
+    "full-durable-6acad4f35-execution.json": "494add072af51a92adf03b6b54cc8b30778b0c044337d308ed8521f948c06c75",
+    "full-durable-6acad4f35-artifact-status.json": "b1b73694d0940c3ed54ab7d81d1206d93bb568beec8a0ff7f40f528705ddb793",
+    "full-durable-6acad4f35-inputs-before.json": "c3ca7e59a3282cba0247443724bc038eb0022d87051d4edbc22a042758f56912",
+    "full-durable-6acad4f35-inputs-after.json": "c3ca7e59a3282cba0247443724bc038eb0022d87051d4edbc22a042758f56912",
+    "full-durable-6acad4f35-support-before.json": "f31f80b032850611b2c7e595a5733a330a8419701a901619bdd2e1984b7d24fe",
+    "full-durable-6acad4f35-support-after.json": "f31f80b032850611b2c7e595a5733a330a8419701a901619bdd2e1984b7d24fe",
+    "full-durable-6acad4f35-service-status.json": "777e627bb53c1456e3ee2f741810751b9013005d1f58a459e6760fb1d230006e",
+    "run_full_durable_6acad4f35.py": "4f17a3904386689934167871e4e08aee1882078006c3ac7e7b5551f39d4ff582",
+    "read_full_durable_artifact.py": "764aa349269b8658ec22963c677f1e461bd880282bcfac78844d9399ae73a649",
+    "read_full_durable_entry.py": "0d566391b5d694a8a23000909546a626605b02300c917a10fcb145ecf4119c22",
+    "receive_full_durable.py": "ca7ec92e7bf944ccd06ccebb56fbaa6f3eb1cfdb02097e7aef19da2ef87ad24d"
+  },
+  "private_evidence_scope": "Retained ignored-cache basenames/digests identify the local evidence. Raw traces, local paths and hostnames are not exported; public attachment availability is not implied."
+}

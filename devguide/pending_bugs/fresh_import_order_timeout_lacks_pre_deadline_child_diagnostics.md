@@ -88,3 +88,44 @@ the original functional program AST, import-order parameters and two parent
 result assertions are unchanged. Only the standard-library pre-deadline stack
 timer and timeout reporting are added. This completes the diagnostic increment;
 causal or explicitly evidenced disposition of the full-run timeout remains open.
+
+## Durable next attempt and provider feedback
+
+One complete local receiving starts on published 6acad4f35 with the original
+selection, three workers, unchanged native/client/support inputs and unchanged
+60-second child deadline. A persistent user service owns the process tree,
+records the real native wait status before postprocessing and keeps the existing
+resource cap/reserve watchdog. Its complete terminal result is received below.
+
+The distinct execution-custody requirement is reported to the existing
+[uibcdf/uibcdf-infrastructure#1](https://github.com/uibcdf/uibcdf-infrastructure/issues/1#issuecomment-6811859224),
+in coordination with uibcdf/moli#96: reconnectable job identity, logs, actual
+termination status and owner-scoped cancellation must survive the submitting
+client. This is provider feedback, not a portable execution API or attribution
+of the import timeout to infrastructure. The temporary local service does not
+resolve this report's original causal uncertainty.
+
+## Complete durable receiving — 2026-11-11
+
+Clean 6acad4f35 completes 33,866 cases: 33,850 pass, 16 skip, zero failures or
+errors. The actual native wait status is zero; the terminal service status,
+complete JUnit and validated receptor final record agree. All three original
+import orders pass, in 13.494, 4.522 and 4.841 seconds, with the unchanged child
+deadline. The 8,883 source/native, 2,581 client and 231 support input hashes
+remain unchanged, and the source ends clean.
+
+The [complete-source receipt](../../devtools/data/complete_durable_source_receiving_334_20261111.json)
+retains explicit bounded phase/extension truncation, all 16 skip reasons,
+resource pressure and the earlier failed sessions. Peak charged scope memory
+is about 5.50 GiB, with soft memory-high events and no observed max/OOM events;
+minimum observed host available memory is about 8.10 GiB. This measures the
+actual bounded local execution, not an infrastructure reservation or platform
+qualification.
+
+The timeout does not recur; no causal stack is therefore produced. The
+instrumentation and this complete-source session are received, while the
+original cause remains unestablished. This report stays partial pending a
+causal correction or an evidenced bounded disposition. The earlier failed
+session is not relabelled, and the #615, installed/platform/final-candidate and
+publication boundaries remain separate. Do not repeat this passing complete
+session without a new diagnostic question, executable change or agreed gate.

@@ -1,13 +1,13 @@
 ---
 summary: PDB handler documentation advertises unavailable writing, copying and streaming
 issue: uibcdf/molsysmt#714
-status: active
+status: resolved
 opened: 2026-11-11
-closed:
+closed: 2026-11-11
 severity: medium
 verification: inspected
 area: [docs, form]
-guard:
+guard: tests/documentation/test_pdb_handler_example.py::test_bundled_pdb_handler_example_preserves_coordinates_and_closes_buffer
 normative:
 blocked_by: []
 supersedes: []
@@ -65,3 +65,39 @@ aligned with their sources without claiming availability in every input.
 source and documentation inspection; execution receiving is recorded separately.
 The concurrent complete-source run uses its own clean frozen worktree and
 unchanged qualified native binary. #713 remains independent.
+
+## Bounded example receiving
+
+The actual page code passes two guards under nm/ps and pm/fs. The guard checks
+38 deposited models and 304 first-model atoms, selected shape, configured units,
+physical coordinates against independently sliced ATOM fields and deterministic
+owned-buffer closure. The new draft's first attempt failed twice because it
+used unsupported `msm.native` attribute access; the supported explicit import
+corrected that draft. The failed attempt is retained and is not attributed to
+an introduced runtime defect. No native parser code changed.
+
+All 64 declared attributes match the revised table. Notebook warning-suppression
+code, outputs and execution metadata remain unchanged. The first strict HTML
+attempt was deferred
+by shared-host admission. The next single attempt, sequenced after the
+separate complete source suite, passes with zero warnings. Three actual article
+DOMs, 33 internal targets/anchors and 19 source implementation links pass
+inspection. The [receiving record](../../../devtools/data/pdb_handler_documentation_receiving_714_20261111.json)
+keeps the actual executions, declared source composition and failed/deferred
+attempts. The new two-case guard is outside the frozen 6acad4f35 full selection.
+
+## Resolution — 2026-11-11
+
+Implementation: a3b6d30eb. The two pages state resident parsing and actual
+unavailable routes; the portal distinguishes handler access models and links
+the existing experimental PDBQT guide. Raw PDB angstrom values and public
+quantity queries are distinct. The guard executes the actual published example
+and compares deposited coordinates, shape, units and cleanup, so a nonfunctional
+or empty replacement cannot satisfy it by preserving headings alone. The
+notebook execution payload and all parser/scientific/native code are unchanged.
+
+This closes the bounded web-documentation/example defect. It neither implements
+legacy writer/copy/iterator hooks nor certifies all API docstrings or every form
+page. #378 retains the wider documentation review and catalog follow-up. The
+separate complete 6acad4f35 session excludes these two later example guards;
+source receiving is not installed or exact-candidate acceptance.
