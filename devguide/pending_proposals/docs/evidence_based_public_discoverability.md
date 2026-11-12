@@ -145,3 +145,20 @@ explicit implementation/docstring references, independently verified against
 published source bytes. #727 retains Topology/Structures and wider form debt.
 This improves instructional accuracy/delivery, not comparative discoverability,
 search ranking, installed qualification or original scorecard credit.
+
+
+## Additional native-form reference receiving — 2026-11-12
+
+The next #727 increment receives Topology and Structures as well: all three
+native form articles deliver 109 intended source references, with 103 published
+files matched at their immutable source commits. Sixteen source/semantic cases,
+three actual HTML guards and the targeted zero-warning build pass; the shared
+private guard also checks destination placement in operation/conversion tables.
+Structures now documents its existing structural-only MolSys route. Notebook
+code/outputs and scientific/runtime APIs remain unchanged.
+
+The [new receipt](../../../devtools/data/native_form_reference_receiving_727_20261112.json)
+retains original failures, scoped runtime and preserved data. A source-matched
+cached wider audit finds 83 articles with unlinked Python roles; #727 stays
+partial. This is concrete documentation delivery, not improved search ranking,
+comparative superiority, full current-site acceptance or extra scorecard credit.

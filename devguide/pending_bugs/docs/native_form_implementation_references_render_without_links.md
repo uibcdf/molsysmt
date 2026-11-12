@@ -127,3 +127,45 @@ axis order, keep topology/chemical states absent and detach coordinate edits.
 The two initial test-draft rejections and their erroneous provisional note are
 retained separately; neither is a product or provider failure. Actual HTML
 receiving is still pending at this checkpoint.
+
+
+## Native article delivery and remaining inventory — 2026-11-12
+
+Clean e308832d8 passes strict targeted compilation of Topology/Structures with
+zero warnings. The explicit three-case HTML guard passes on frozen before/after
+article bytes: every native article has all intended hrefs, matching operation
+and converter counts, valid local destinations and no unlinked Python role.
+Across MolSys/Topology/Structures this receives 109 reference occurrences and
+103 distinct published source files. Complete native GitHub trees previously
+received at their immutable commits prove every current linked file's bytes.
+The cohort retains the earlier passed MolSys scope and 38/22 Topology/Structures
+attribute declarations. No optional converter is executed merely by linking it.
+
+The complete syntax census is followed by a source-SHA-matched audit of the
+retained full site at 1b98c2b1d. Ninety-one articles still match that source;
+83 contain 1,575 unlinked Python-role nodes. The three changed native pages
+are not attributed to the old full-site source and have separate current
+receiving above. These counts include Python-role nodes in actual articles;
+indexed generic form APIs are not blindly declared broken from source syntax.
+This is a dated cached-article observation, not an installed/current-public-site
+or optional-provider qualification. It bounds the remaining work and keeps
+#727 partial rather than treating three corrected forms as a complete audit.
+
+The [owner receipt](../../../devtools/data/native_form_reference_receiving_727_20261112.json)
+retains source/HTML identity, baseline and test-draft failures, wider page rows,
+notebook preservation and resource limits. Helpers are private and reusable
+within tests; no runtime API, dependency floor or scientific model is added.
+
+
+## Final native guard and common checks — 2026-11-12
+
+The final private checker also requires the correct destinations within each
+operation/conversion table rather than accepting the full href set anywhere
+in the article. Sixteen source/semantic cases and three explicit rendered
+cases pass after that refinement; the actual article bytes stay unchanged.
+All fifteen common fast gates pass at their documented checkpoint, followed by
+whole-repository Ruff lint/format on the final helper. Ten own terminal units
+are retired/already collected with MainPID-zero checks; no foreign process is
+signalled. The receipt distinguishes that staged source/test scope from a new
+full scientific or installed verdict. #727 remains partial for the broader
+source-matched cached article inventory.

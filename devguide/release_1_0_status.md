@@ -24,7 +24,7 @@ promotions and publication remain paused pending the agreed resumption.**
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
 | Complete #723's comparable long campaign | The method/default-host baseline passes on `db1706f8a`; the concrete molecular integration passes 63 controls and one actual 5,000-structure cycle on clean `1a899f9f0`. Initial/recovered native targets and 3,720,000-byte buffers clear; the independent witness survives unchanged. Host growth and debugger errors remain explicit. Freeze the comparison composition before the long campaign; preserve original raw outcomes and #615/#713 scopes. |
-| Complete the admitted pre-1.0 polishing review | Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11): correct worthwhile code, test, documentation and workflow findings, and review incoming issues/PRs at phase checkpoints. Preserve original milestone accounting and qualification boundaries. |
+| Complete #727 and the admitted pre-1.0 polishing review | The three native form articles now deliver all 109 intended implementation links. The source-matched wider audit retains 83 articles/1,575 unlinked Python-role nodes; continue bounded per-form review. Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11): correct worthwhile code, test, documentation and workflow findings, and review incoming issues/PRs at phase checkpoints. Preserve original milestone accounting and qualification boundaries. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
 | Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
 | Retain #713's bounded import-timeout investigation | The complete durable `6acad4f35` session and all three original import orders pass. No cause for the earlier timeout is established; keep the diagnostics and original failure. A new full retry needs a new question or agreed gate. |
@@ -41,6 +41,34 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Native reference delivery and bounded wider audit — 2026-11-12
+
+#727 receives Topology and Structures on clean e308832d8, preserving declared
+attributes, unavailable hooks and notebook code/outputs. Structures now lists
+its existing structural-only MolSys route, for seven converters. Two initial
+new guards fail while twelve old controls pass; fourteen corrected controls
+then pass. An expanded test-draft misuse is preserved; the corrected sixteen
+cases pass, including nm/ps and pm/fs geometry/index/isolation checks.
+
+Strict targeted HTML has zero warnings; all three explicit actual-article guards
+pass with frozen source/HTML inputs. MolSys/Topology/Structures deliver 109
+intended references to 103 independently matched published source files. Shared
+private source/HTML guards now check intended delivery rather than source
+existence alone. The [receipt](../devtools/data/native_form_reference_receiving_727_20261112.json)
+owns exact sources, failures, article counts, preservation and resources.
+
+#727 stays partial. The full form-notebook syntax census has 94 pages/1,832
+Python func/mod roles, including indexed generic APIs. Per-page source hashes
+match 91 cached full-site articles; 83 have 1,575 unlinked Python-role nodes.
+The three changed native pages have separate current receiving. Continue the
+bounded wider form-reference review; do not mistake valid existing hrefs or
+zero build warnings for complete intended-link delivery. Original scorecard,
+#723/#615/#713, complete-source/nightly and final-pair/publication boundaries
+remain unchanged. Fifteen common fast gates pass; the final sixteen-case
+source cohort, three article guards and whole-repository Ruff also pass after
+the last test-only refinement. Ten own terminal units are retired/already
+collected; foreign jobs are untouched.
 
 ## Native-domain documentation and real references — 2026-11-12
 

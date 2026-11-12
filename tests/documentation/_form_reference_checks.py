@@ -134,6 +134,17 @@ def _assert_rendered_native_form_references(html_root, name):
     tables = article.find_all("table")
     assert len(tables[1].find_all("a", href=True)) == contract["operations"]
     assert len(tables[2].find_all("a", href=True)) == contract["converters"]
+    expected_operations = {
+        href
+        for href in expected
+        if Path(urlsplit(href).path).stem in _OPERATIONS[name] - {"__init__"}
+    }
+    assert {
+        node["href"] for node in tables[1].find_all("a", href=True)
+    } == expected_operations
+    assert {node["href"] for node in tables[2].find_all("a", href=True)} == expected - {
+        href for href in expected if Path(urlsplit(href).path).stem in _OPERATIONS[name]
+    }
     local = set()
     for href in hrefs:
         parsed = urlsplit(href)

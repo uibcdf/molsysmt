@@ -88,6 +88,15 @@ native form tutorials; zero warnings plus valid existing hrefs is insufficient.
 Continue that local review while #723 and final-pair coordination retain their
 separate scope; no duplicate scorecard credit is assigned.
 
+The next #727 native increment receives Topology/Structures and all three
+actual native articles: sixteen focused cases, strict targeted HTML and three
+explicit rendered guards pass. All 109 intended references point to 103 matched
+published source files. The [receipt](../devtools/data/native_form_reference_receiving_727_20261112.json)
+keeps sources and original failures. A source-matched wider cached audit finds
+83 articles/1,575 unlinked Python-role nodes; #727 stays partial and supplies the
+next bounded review queue. This does not add score credit or relax final-pair,
+installed, original causal or publication boundaries.
+
 ## Work that MolSysMT can advance now
 
 1. **Retain the received complete local source session.** Clean `6acad4f35`
