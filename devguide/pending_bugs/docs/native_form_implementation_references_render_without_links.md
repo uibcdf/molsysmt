@@ -434,3 +434,12 @@ Fifteen common fast gates, generated-index checks and whole-repository Ruff
 pass. All nine exact task-owned services are terminal/retired after MainPID-zero
 verification. No foreign process is signalled. Publication and board closure
 follow the source/report checkpoint, without clearing heavy-gate obligations.
+
+
+Published closeout verifies main 8030985fc and all 32 changed-file blobs.
+#731/#732 are closed and board/queue agreement passes. Complete post-closeout
+intake has 653 issues, 95 open and no open PRs. New #734 requests a bounded
+existing contacts/SASA contract review with BindingMT/TopoMT; it enters the
+operational queue without admitting new kernels, campaigns or release gates.
+#733 remains a separate post-1.0 capability. Continue the 42 external class
+articles and preserve the separate technical-handoff obligations.

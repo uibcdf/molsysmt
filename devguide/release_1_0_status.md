@@ -36,6 +36,7 @@ promotions and publication remain paused pending the agreed resumption.**
 | --- | --- |
 | Complete #723's comparable long campaign | The method/default-host baseline passes on `db1706f8a`; the concrete molecular integration passes 63 controls and one actual 5,000-structure cycle on clean `1a899f9f0`. Initial/recovered native targets and 3,720,000-byte buffers clear; the independent witness survives unchanged. Host growth and debugger errors remain explicit. Freeze the comparison composition before the long campaign; preserve original raw outcomes and #615/#713 scopes. |
 | Complete #727 and the admitted pre-1.0 polishing review | Forty-four reviewed native/file/string articles now deliver 877 intended implementation links to 800 verified source files. All flagged native/file/string debt in the census is received; 42 other articles retain 807 unlinked Python-role nodes. Continue the external class families. Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11) under the new handoff cutoff: fix admitted correctness, integrity, supported-workflow and documentation defects; review incoming reports without admitting optional expansion automatically. #728 remains owned but its implementation is deferred. Preserve original milestone accounting and qualification boundaries. |
+| Review #734 existing contacts/SASA handoff | BindingMT requests selected public-call, map, occluder/radius, units and numerical-boundary disposition under MolSysSuite #195, BindingMT #112 and TopoMT #197. Review current supported operations and reusable guards before identifying a concrete gap. No new kernel, provider floor, scientific campaign or release prerequisite is admitted by this intake. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
 | Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
 | Retain #713's bounded import-timeout investigation | The complete durable `6acad4f35` session and all three original import orders pass. No cause for the earlier timeout is established; keep the diagnostics and original failure. A new full retry needs a new question or agreed gate. |
@@ -71,13 +72,16 @@ already worked. [#732](archive/resolved_bugs/alphafold_fasta_conversion_reports_
 replaces a fictitious FASTA-file success with an explicit no-I/O refusal. It
 does not implement a scientific writer. [#733](pending_proposals/define_model_aware_alphafold_sequence_and_fasta_export.md)
 owns that separate capability after 1.0; no complete-UniProt/model-index
-correspondence is assumed. Common and board closeout evidence follows in the
-receipt. These changes remain in the complete-source/nightly backlog.
+correspondence is assumed. Fifteen common fast gates, indexes and whole-
+repository Ruff pass. Published 8030985fc and all 32 changed-file blobs are
+verified; #731/#732 are closed and board/queue agreement passes. The receipt
+retains staged scopes. These changes remain in the complete-source/nightly backlog.
 
 The reviewed 44 articles deliver 877 references to 800 source files. #727 remains
 partial for 42 external class articles/807 unlinked nodes among 50 unchanged-
-source, byte-identical cached articles. The complete intake finds 652 issues,
-96 open before these two closures, no new issue after #733 and no open PRs.
+source, byte-identical cached articles. The post-closeout complete intake finds
+653 issues, 95 open and no open PRs; new #734 requests a bounded existing-API
+contact/SASA owner review, not a new calculation engine.
 Continue the finite handoff plan without changing original milestone credit,
 investigative conclusions, stable-format/client agreement or exact-pair gates.
 
