@@ -3,7 +3,8 @@
 ## Resume from here
 
 **Reviewed 2026-11-11 against complete-source checkpoint `6acad4f35`,
-PDB documentation `a3b6d30eb` and their separately received evidence.**
+PDB documentation `a3b6d30eb`, catalog correction `af4ac5daa` and their
+separately received evidence.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
 does not select today's candidate or authorize new execution.
@@ -35,6 +36,30 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Source-backed demo catalog correction — 2026-11-11
+
+The #715 correction on `af4ac5daa` reconciles descriptions with bundled source
+records: Trp-Cage has 38 structures; 1CEN is cellulase CELC/cellohexaose; 1L17
+is the I3V reference variant; the villin source has 36 amino acids and its named
+native trajectory stores one structure; XYZNpy contains two NPY records.
+Registry/file keys, molecular data and non-metadata Python logic are unchanged.
+
+Eight baseline failures and three positive controls are retained. Eleven
+corrected catalog cases and two overlapping PDB example cases pass. The actual
+notebook executes both code cells and regenerates all 27 systems and 64 file
+explanations. Complete strict HTML from the clean source has zero warnings;
+the actual article and eight internal references pass inspection. Five runner
+CLI controls, fifteen fast release gates and applicable lint/index checks pass.
+The [catalog receipt](../devtools/data/demo_catalog_receiving_715_20261111.json)
+records input attribution, failed probes and conservative resource limits.
+
+This is bounded accuracy receiving, not certification of every catalog claim,
+a new complete-source run, an installed artifact or a final release candidate.
+The wider #378 review, #713/#615 uncertainty, stable-format freeze, dependency
+floor/installed closure and final-pair gates retain their scope. Formal progress
+remains **77.7381%, 50/50 source graphical intents**. Candidate construction,
+hosted qualification and publication remain paused.
 
 ## Complete durable source receiving and PDB guidance — 2026-11-11
 

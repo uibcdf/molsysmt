@@ -1,13 +1,13 @@
 ---
 summary: Demo catalog contradicts bundled source identities and structure counts
 issue: uibcdf/molsysmt#715
-status: active
+status: resolved
 opened: 2026-11-11
-closed:
+closed: 2026-11-11
 severity: medium
 verification: reproduced
 area: [docs, data]
-guard:
+guard: tests/test_demo_catalog.py
 normative:
 blocked_by: []
 supersedes: []
@@ -106,4 +106,39 @@ keep the source/native/input hashes unchanged during their execution. The
 initial count audit reads metadata or streams records; the actual notebook
 then assembles the small 38-structure Trp-Cage example intentionally. These are
 separate scopes, not a claim that every operation avoids coordinate reads.
-Generated-page HTML receiving remains the last local check for this correction.
+Complete strict HTML on clean af4ac5daa finishes with zero warnings. The actual
+article matches all 27 systems and 64 file descriptions and preserves its
+eight internal references/anchors, visible native result and hidden generator.
+
+## Resolution — 2026-11-11
+
+Implementation af4ac5daa changes catalog descriptions and documentation, not
+molecular data, registry/file keys or non-metadata Python logic. The selected
+guard independently reads deposited compound/sequence labels, atom records,
+coordinate-axis metadata and record layouts before comparing the public claims.
+It therefore rejects the actual wrong identities/counts instead of merely
+requiring headings or particular output formatting. Eight original failures,
+three original positive controls and the later thirteen passing cases are retained.
+
+The actual notebook is forced through the maintained runner: two code cells
+complete, its generator code stays unchanged and the run mark records that
+execution. The runner guide now accurately explains code fingerprints and why
+changes in imported catalog data require --force. Five existing runner CLI
+controls, fifteen fast release gates, queue checks and applicable Ruff checks pass.
+The first HTML-inspection probe failed on a newline inside a two-word phrase;
+normalizing inspection whitespace corrected the probe without changing content.
+
+The bounded HTML service uses one CPU, a 2-GiB hard memory cap and no own swap.
+It peaks at about 1.65 GiB, keeps at least 13.82 GiB host memory available and
+records no memory-high/max/OOM events or reserve stop. Earlier focused phases
+stay below 0.39 GiB. Source/data/native input hashes remain unchanged within
+each phase; the source attribution explicitly records the dirty b5e10d8e2
+worktree delta later committed as af4ac5daa.
+
+The [receiving receipt](../../../devtools/data/demo_catalog_receiving_715_20261111.json)
+contains exact scopes, versions, input/artifact hashes, original failures,
+commands and resource observations. The complete source suite remains received
+only at 6acad4f35; these later metadata/guard changes have their own focused
+receiving. Broader #378, #713/#615 causality, format freeze, published dependency
+floor, exact final pair and installed/platform gates remain open. No release
+or publication is authorized by this documentation correction.

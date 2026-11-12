@@ -1,0 +1,399 @@
+{
+  "schema": "molsysmt.demo_catalog_receiving@1",
+  "date": "2026-11-11",
+  "owner_issue": "uibcdf/molsysmt#715",
+  "related_issues": [
+    "uibcdf/molsysmt#334",
+    "uibcdf/molsysmt#378"
+  ],
+  "implementation_source": "af4ac5daa9796d131da017c4c345b9dec4e43989",
+  "scope": "Source-backed catalog metadata and generated example accuracy. Registry/file keys, data bytes, non-metadata Python AST and scientific/native implementations are unchanged. This is not full biological catalog certification, browser layout, full-suite, installed-package, final-candidate or publication qualification.",
+  "runtime": {
+    "python": "3.14.7",
+    "platform": "Linux shared development host; 20 logical CPUs, approximately 30.7 GiB physical RAM; no applicable Slurm allocation",
+    "molsysviewer_source": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "pyunitwizard": "0.29.2 published artifact overlay",
+    "pyunitwizard_conda_sha256": "bb28b9420760b557025163e11c934e096c7b98200cac720100a2db924e9ee617",
+    "smonitor": {
+      "version": "0.21.0",
+      "source": "066b69cad8896cdc126d5586fd53268af4ea6490"
+    },
+    "depdigest": {
+      "version": "0.15.1",
+      "source": "13cc73780a7cb645546ae3f396177f98b86a8792"
+    },
+    "argdigest": {
+      "version": "0.15.0",
+      "source": "57447cc4ec1f7ce85078f8a939892efd075bc919"
+    },
+    "pytest_receptor": "1.2.1 published overlay",
+    "support_overlay": "Pure-Python overlays built offline from reviewed CI source pins. This work makes no shared-environment edits; frozen overlays preserve the declared providers despite concurrent sibling development. The native binary is unchanged.",
+    "thread_caps": {
+      "BLAS": 1,
+      "OpenMP": 1,
+      "Rayon": 1,
+      "OpenMM_CPU": 1,
+      "NumExpr": 1
+    }
+  },
+  "baseline": {
+    "cases": {
+      "cases": 11,
+      "passed": 3,
+      "failed": 8,
+      "errors": 0,
+      "skipped": 0
+    },
+    "native_exit": 1,
+    "metadata_sha256": "bde5abb71b2a0bb627031cac104e5d83f568dfcb8f1566c2b374d6e14c7c5bd6",
+    "description": "The original descriptions fail eight new source-backed cases; three positive controls pass. Failed artifacts remain retained."
+  },
+  "corrected": {
+    "cases": {
+      "cases": 13,
+      "passed": 13,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "catalog_cases": 11,
+    "overlapping_pdb_example_cases": 2,
+    "native_exit": 0,
+    "catalog_test_sha256": "a1192cd9eda97770d7dd2ce1b3cf4757072c6b86b2c76ce9d01fa2a6f2a35614",
+    "metadata_sha256": "a4b637a1240c24009c2c3eb812c777f5c639e2b402fb2572899f33123c652f33",
+    "expected_warnings": "Three legacy H5MSM deprecation warnings; source files remain unchanged."
+  },
+  "source_facts": [
+    {
+      "example": "Trp-Cage 1L2Y",
+      "evidence": "38 PDB MODEL records and 38 native coordinate structures; public queries agree. 20 amino-acid groups are a separate count."
+    },
+    {
+      "example": "1CEN",
+      "evidence": "Deposited COMPND/TITLE name CELLULASE CELC and cellohexaose; previous CENP-B identity was false."
+    },
+    {
+      "example": "T4 1L17",
+      "evidence": "SEQADV declares I3V; deposited/native group IDs 3 and 99 retain VAL and LEU, respectively. 181L remains the distinct L99A benzene example."
+    },
+    {
+      "example": "Villin 1VII",
+      "evidence": "SEQRES/ATOM inventory contains 36 amino acids. The native file with traj in its name stores one structure; prepared variants retain their own caps/solvent and atom inventory."
+    },
+    {
+      "example": "Four-particle XYZNpy",
+      "evidence": "Two consecutive NPY records: integer shape header (3,4,3) and coordinates of that shape, rather than one plain array."
+    },
+    {
+      "example": "Positive count controls",
+      "evidence": "4V4Z OpenMM PDB has 149640 atom records, caffeine SDF has 24 atoms and alanine public/manifest inventory has 22 atoms."
+    },
+    {
+      "example": "Other bounded inspection",
+      "evidence": "Small 2NZT BinaryCIF metadata supports human hexokinase II and deposited glucose-related ligands; no inhibitor/protonation interpretation is certified. Two trusted two-particle pickle header integers declare 2 atoms and 20000 structures without loading their arrays."
+    }
+  ],
+  "input_sha256": {
+    "molsysmt/systems.py": "a4b637a1240c24009c2c3eb812c777f5c639e2b402fb2572899f33123c652f33",
+    "tests/test_demo_catalog.py": "a1192cd9eda97770d7dd2ce1b3cf4757072c6b86b2c76ce9d01fa2a6f2a35614",
+    "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "molsysmt/data/pdb/1l2y.pdb": "5d1bbb545a312dfff1ae1e64b6d8addecb2f561ddc4011aeb5bee9d1dfcd4438",
+    "molsysmt/data/h5msm/1l2y.h5msm": "fb1fcfdf51f323d3fcaf3157660d1b4f4ed7a16e3232c1f29d08e5bacf6d649b",
+    "molsysmt/data/pdb/1cen.pdb": "14ffce0785947bd0b212f955d6ef54e35810efd65a2069740e8b14f075a97fac",
+    "molsysmt/data/pdb/1l17.pdb": "73dc3934a6c852cb40f17685d434fc6c082baf5be9d4ee51314eec722c0a0b0d",
+    "molsysmt/data/h5msm/1l17.h5msm": "2b2942c1b29bd198f52a940cd1c882503d9dadd2ecded508816121b3214af604",
+    "molsysmt/data/pdb/1vii.pdb": "ebecd3d6c0dd9c8b34bcbea9b57c73e4f73986cc674150f0aaa0687db66e77ef",
+    "molsysmt/data/h5msm/traj_chicken_villin_HP35_solvated.h5msm": "696349ed5ee495160c04be05c24a476296d86acb469996ff5f7b92678c185c31",
+    "molsysmt/data/xyznpy/traj_particles_4.xyznpy": "144ba1bb0d1c2006ef838c0f3beab04f4ba1f971dede875b9067985655c977af",
+    "molsysmt/data/pdb/4v4z_openmm.pdb": "dc4114b3d01bf795bbbf1a42db3ba7a1429b4fcecd44b1c0157206a0c75e379f",
+    "molsysmt/data/sdf/caffeine.sdf": "5fa7d904623492f573a51f82300b815e1036b90c76545b27ab32a8a61e08206c"
+  },
+  "actual_notebook": {
+    "path": "docs/content/user/foundations/entrance/demo_systems.ipynb",
+    "executed_code_cells": 2,
+    "execution_native_exit": 0,
+    "systems": 27,
+    "file_descriptions": 64,
+    "generated_catalog_matches_current_metadata": true,
+    "example_result": "304 atoms, 20 groups, 38 structures",
+    "generator_code_unchanged": true,
+    "hidden_input_tag_preserved": true,
+    "registry_keys_and_file_keys_unchanged": true,
+    "all_nonmetadata_python_ast_unchanged": true,
+    "notebook_cells": 6,
+    "actual_code_sha256": "ef8538cfbd5e85762037e5ab9b56abec88b395dbfa28bb6d4c0932ae3f93a87c",
+    "run_mark": {
+      "code_sha256": "ef8538cfbd5e85762037e5ab9b56abec88b395dbfa28bb6d4c0932ae3f93a87c",
+      "executed_at": "2026-11-12T03:03:15+00:00"
+    },
+    "scope": "Actually executed stored catalog and native example, exact metadata pairing and source registry/code preservation; not all biological claims or equivalence between files.",
+    "limits": "Actual native example assembles the small 38-structure Trp-Cage system; initial dataset inspection uses streaming counts or metadata."
+  },
+  "html": {
+    "exit": 0,
+    "warnings": 0,
+    "full_site": true,
+    "notebook_execution": "off",
+    "autosummary_generate": false,
+    "source_proof": {
+      "source_commit": "af4ac5daa9796d131da017c4c345b9dec4e43989",
+      "expected_source_commit": "af4ac5daa9796d131da017c4c345b9dec4e43989",
+      "native_exit": 0,
+      "source_clean_after": true,
+      "inputs_before": {
+        "molsysmt/systems.py": "a4b637a1240c24009c2c3eb812c777f5c639e2b402fb2572899f33123c652f33",
+        "docs/content/user/foundations/entrance/demo_systems.ipynb": "23c90c9a4428fafb804d82553cf1c97e3e0f0fe8577af3aa314e3d300a7ffe3d",
+        "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+      },
+      "inputs_after": {
+        "molsysmt/systems.py": "a4b637a1240c24009c2c3eb812c777f5c639e2b402fb2572899f33123c652f33",
+        "docs/content/user/foundations/entrance/demo_systems.ipynb": "23c90c9a4428fafb804d82553cf1c97e3e0f0fe8577af3aa314e3d300a7ffe3d",
+        "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+      },
+      "changed_inputs": [],
+      "scope": "Full-site strict HTML build from a clean source checkpoint, with stored previously executed notebook output. No new notebook/scientific execution or installed qualification."
+    },
+    "article_inspection": {
+      "source_commit": "af4ac5daa9796d131da017c4c345b9dec4e43989",
+      "page": "content/user/foundations/entrance/demo_systems.html",
+      "systems": 27,
+      "file_descriptions": 64,
+      "exact_metadata_pairs": true,
+      "visible_example": "304 atoms, 20 groups, 38 structures",
+      "hidden_generator_input_absent": true,
+      "original_anchor_present": true,
+      "variant_legacy_offline_workflow_limits_visible": true,
+      "internal_targets_and_anchors_checked": 8,
+      "internal_links": [
+        "#demo-systems-catalog",
+        "#how-to-access-demo-systems",
+        "#listing-available-systems",
+        "#accessing-a-system-file-path",
+        "#loading-a-system-directly-into-molsysmt",
+        "../../tools/form/file/h5msm_10.html#user-tools-form-h5msm-10",
+        "../../cookbook/migrating_h5msm.html#cookbook-migrating-h5msm-10",
+        "#complete-catalog-of-bundled-systems"
+      ],
+      "unresolved_system_messages": 0,
+      "sha256": "37bfc8b6d71272a373e6d779797640705ceb3a0b8a85d43cf157fb8c3a55d5b6",
+      "scope": "Actual generated article DOM, metadata pairs and local reference targets; no browser layout or external biological/functional certification."
+    }
+  },
+  "checks": {
+    "notebook_runner_cli_cases": {
+      "cases": 5,
+      "passed": 5,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "fast_release_gates": {
+      "passed": 15,
+      "total": 15
+    },
+    "all_native_command_exits": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "ruff_check_and_format_changed_python": true,
+    "devguide_and_indexes": true
+  },
+  "executions": {
+    "baseline": {
+      "source_commit": "b5e10d8e2c40daa653c1f5ffc118388c4b797a6f",
+      "native_exit": 1,
+      "state": "completed",
+      "seconds": 11.11201568506658,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 228052992,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15328993280,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "changed_inputs": [],
+      "driver_sha256": "e690f4d003cbf6c9fb3943ac3c75a8fe9759e177e5db8485e90a46efa511aaf2",
+      "command": [
+        "<development-python-3.14>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=.pytest_cache/catalogue-715-20261111/baseline.xml",
+        "tests/test_demo_catalog.py"
+      ],
+      "resource_input_scope": "Explicit catalog/test/native and ten bundled data paths; unchanged before/after hashes, not a full repository audit.",
+      "input_attribution": "Dirty b5e10d8e2 worktree plus explicit metadata/test/notebook/documentation delta subsequently committed as af4ac5daa; before/after phase hashes identify exercised bytes."
+    },
+    "corrected": {
+      "source_commit": "b5e10d8e2c40daa653c1f5ffc118388c4b797a6f",
+      "native_exit": 0,
+      "state": "completed",
+      "seconds": 10.110704245045781,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 228380672,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15403106304,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "changed_inputs": [],
+      "driver_sha256": "e690f4d003cbf6c9fb3943ac3c75a8fe9759e177e5db8485e90a46efa511aaf2",
+      "command": [
+        "<development-python-3.14>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=.pytest_cache/catalogue-715-20261111/corrected.xml",
+        "tests/test_demo_catalog.py",
+        "tests/documentation/test_pdb_handler_example.py"
+      ],
+      "resource_input_scope": "Explicit catalog/test/native and ten bundled data paths; unchanged before/after hashes, not a full repository audit.",
+      "input_attribution": "Dirty b5e10d8e2 worktree plus explicit metadata/test/notebook/documentation delta subsequently committed as af4ac5daa; before/after phase hashes identify exercised bytes."
+    },
+    "notebook": {
+      "source_commit": "b5e10d8e2c40daa653c1f5ffc118388c4b797a6f",
+      "native_exit": 0,
+      "state": "completed",
+      "seconds": 10.111905146855861,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 297988096,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15310266368,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "changed_inputs": [],
+      "driver_sha256": "e690f4d003cbf6c9fb3943ac3c75a8fe9759e177e5db8485e90a46efa511aaf2",
+      "command": [
+        "<development-python-3.14>",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "docs/content/user/foundations/entrance/demo_systems.ipynb"
+      ],
+      "resource_input_scope": "Explicit catalog/test/native and ten bundled data paths; unchanged before/after hashes, not a full repository audit.",
+      "input_attribution": "Dirty b5e10d8e2 worktree plus explicit metadata/test/notebook/documentation delta subsequently committed as af4ac5daa; before/after phase hashes identify exercised bytes."
+    },
+    "checks": {
+      "source_commit": "b5e10d8e2c40daa653c1f5ffc118388c4b797a6f",
+      "native_exit": 0,
+      "state": "completed",
+      "seconds": 39.12940414901823,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 409817088,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15320350720,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "changed_inputs": [],
+      "driver_sha256": "e690f4d003cbf6c9fb3943ac3c75a8fe9759e177e5db8485e90a46efa511aaf2",
+      "command": [
+        "<development-python-3.14>",
+        ".pytest_cache/catalogue-715-20261111/check_block.py"
+      ],
+      "resource_input_scope": "Explicit catalog/test/native and ten bundled data paths; unchanged before/after hashes, not a full repository audit.",
+      "input_attribution": "Dirty b5e10d8e2 worktree plus explicit metadata/test/notebook/documentation delta subsequently committed as af4ac5daa; before/after phase hashes identify exercised bytes."
+    },
+    "html": {
+      "source_commit": "af4ac5daa9796d131da017c4c345b9dec4e43989",
+      "native_exit": 0,
+      "state": "completed",
+      "seconds": 172.18758176709525,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1879048192",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "memory_peak_bytes": 1768042496,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14837186560,
+      "maximum_memory_pressure_avg10": 0.02,
+      "stop_reason": null,
+      "changed_inputs": [],
+      "driver_sha256": "e690f4d003cbf6c9fb3943ac3c75a8fe9759e177e5db8485e90a46efa511aaf2",
+      "command": [
+        "<development-python-3.14>",
+        ".pytest_cache/catalogue-715-20261111/build_html.py"
+      ],
+      "resource_input_scope": "Explicit catalog/test/native and ten bundled data paths; unchanged before/after hashes, not a full repository audit.",
+      "input_attribution": "Clean af4ac5daa documentation worktree; the outer worktree and clean source key hashes are separately retained."
+    }
+  },
+  "board_checkpoint_before_closure": {
+    "acquisition": "Complete owning-script paginated REST issues and independent paginated open PR inventory",
+    "issues": 635,
+    "open_issues": 91,
+    "open_prs": 0,
+    "newest_issue": 715,
+    "new_since_prior_checkpoint": [
+      715
+    ]
+  },
+  "support_boundary_review": "Only catalog text, regression tests and documentation change. ArgDigest, DepDigest, SMonitor and PyUnitWizard runtime contracts are reused unchanged. No new optional-engine/API/quantity or third-party-method attribution boundary calls for a new provider implementation.",
+  "guard": "tests/test_demo_catalog.py",
+  "remaining": "Broader #378 discovery/comparison/external-reader work, #713 causal uncertainty, #615, #256 freeze, #524 public floor/installed closure, #250/#254 exact-candidate acceptance and final source/installed/platform gates remain separate. Original score 77.73809523809524%, graphical source intents 50/50; supplemental work earns no duplicate credit. Candidate construction, hosted qualification and publication pause remains.",
+  "inspection_probe_correction": {
+    "native_exit": 1,
+    "failed_assertion": "optional providers",
+    "diagnosis": "DOM text contained a source newline between the two words; normalizing whitespace in the inspection program fixes the probe. No document or implementation defect."
+  },
+  "private_artifacts": {
+    "baseline.xml": "873b40a96a4f6669135ac35786c5586c884abdbf296541bfe30f60dc4bec1bb3",
+    "corrected.xml": "0220add83aab3cb7a7ae3df601464316f47ab24452aa9614af05a007ab8b1639",
+    "runner-controls.xml": "075b2366b11b285d4e756a0627c01154fd78651e33d99aec100b6042f2405d57",
+    "baseline.log": "59ed2ff711c66002cfbbd0181d461b444763b32d934f3bff21fdb396918eebdc",
+    "corrected.log": "fd2113be4565b312063fc9c0488b9953c882ecc6e39dfd81d1ef078bf6a5ed4c",
+    "notebook.log": "26f3a63a83446078e5544234db6612223fd8b96d5b2f0ac447a43c61985e6b5c",
+    "check-results.json": "c8d968ea8b392237721ece3908cf04dd498f96f4731d6c044cd9f991ad2166a4",
+    "sphinx-warnings.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "sphinx-result.json": "8e954ad2d00f8817647c714606f6c7f5c0e6b6307094d2525be4f085969aa3a1",
+    "html-source-proof.json": "19935d6c77958da3f246817fe202d4d6767f0aacee4b91b7c7a1aed79cb59550",
+    "html-dom-proof.json": "9d37bae02e7a27b4c12a25657531c70c17aeb3723a830fc25450dd7d43bf4bf1",
+    "catalogue-notebook-proof.json": "763edc6ac657c49d0d7d4c26ce0694a3ad0db2c722d8b4513a010658430d327e",
+    "toy-header-proof.json": "2184a7509e1d9bf571b444f063c1031c8d620f6627de458c172a1297b2f42983",
+    "board-before-close.json": "6e46a1690e8c5370b3ad9725d046a6cbee8902344fc43073d7859085130fba52",
+    "inspect_html.py": "5dabd2e9403f366083fd4109e83e6caf070f075d8e4d659067eabdfc50521297",
+    "inspect_html-first-draft.py": "2f22ba086cee69c10399d4952d82d97a1cbc66a63bdcfbbee1a2b42ffd913f40",
+    "html-inspection-first-attempt.json": "08c5647a201874856059122535bad2107bbee5825dae1b7e14c70781788edb6d",
+    "make_receipt.py": "6fe701e2923fcaf916a04c11e031075f1d7bd2719e3fcfbe05ad29c9c7d55dec",
+    "build_site.py": "7da2a846f6117c059ce6a7d99791e664e31205d8b064a3a8a1aa0a4609d180d9",
+    "build_html.py": "05e3e17f7310df04396b41ee20ec622cf42aae0cd27e36d7e0cf37f977d26ca1",
+    "run_bounded.py": "e690f4d003cbf6c9fb3943ac3c75a8fe9759e177e5db8485e90a46efa511aaf2",
+    "baseline-execution.json": "48df3f2a3dae68c02d471449c11afb9ad8780e94af2a074360c2cdd0208e4d96",
+    "corrected-execution.json": "73eefbf854f226a1a66973b77583c833b4d1434cd0a5993091e510ee1a73cbb9",
+    "notebook-execution.json": "22f7092c8dee275fde1b51d765bf8060a4fdc1773f36bb5f19ddabbd3237ab86",
+    "checks-execution.json": "796e2eacabcd66a0050212d914e7bc56e424f2d659ee19b66b505c77b3a0822e",
+    "html-execution.json": "0fd826af053a7fe6423c3fdcfd9c81d6b6d7a05c4b70f1882d82e4e9f3a07484"
+  }
+}

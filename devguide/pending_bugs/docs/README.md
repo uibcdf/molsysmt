@@ -21,8 +21,4 @@ Entries are filed and closed under [reporting_protocol.md](../../reporting_proto
 
 - [`course_modules_lack_paired_content_contracts.md`](course_modules_lack_paired_content_contracts.md) — [#512](https://github.com/uibcdf/molsysmt/issues/512) — Course modules lack paired content-protection contracts. *(low, measured)*
 
-### In progress (1)
-
-- [`demo_catalog_contradicts_bundled_source_identities_and_structure_counts.md`](demo_catalog_contradicts_bundled_source_identities_and_structure_counts.md) — [#715](https://github.com/uibcdf/molsysmt/issues/715) — Demo catalog contradicts bundled source identities and structure counts *(medium, reproduced)*
-
 <!-- /generated -->

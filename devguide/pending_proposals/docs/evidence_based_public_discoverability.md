@@ -84,14 +84,21 @@ retains scope, original failures and later addon corrections separately.
 The legacy H5MSM review now has four executed Markdown-example cases under two
 unit policies, 92 declaration entries and inspected implementation destinations;
 its limits remain in the [follow-up receipt](../../../devtools/data/pre_1_0_polishing_followup_334_20261111.json).
-A separate misleading PDB handler capability page/notebook is being corrected
+A separate misleading PDB handler capability page/notebook is corrected
 under #714, with actual bundled coordinate/ownership checks. This is another
 bounded accuracy increment, not closure of discoverability or external-reader
 acceptance.
 
-The next bounded catalog review should reconcile bundled example descriptions
-with their actual source metadata and regenerate the executed demo notebook.
-One inspected discrepancy: the 1l2y.pdb catalog description says 20 models, while
-its deposited MODEL records and the new PDB guard establish 38. This minor
-metadata correction remains owned by the #334/#378 polishing queue; it is not a
-claim that the entire catalog has been checked or that coordinates are wrong.
+The bounded #715 catalog correction now reconciles 1L2Y structure counts,
+1CEN molecular identity, 1L17 variant labels, villin sequence/snapshot counts
+and the XYZNpy record layout with independent bundled evidence. Eleven catalog
+cases and two overlapping PDB example cases pass; the actual two-cell notebook
+execution regenerates all 27 system entries and 64 file explanations. Complete
+strict HTML on clean `af4ac5daa` has zero warnings; the actual article and its
+eight internal references pass inspection. See the [catalog receipt](../../../devtools/data/demo_catalog_receiving_715_20261111.json).
+Data bytes, registry/file keys and non-metadata Python logic are unchanged.
+Legacy-read/default-write, distinct variant axes and offline/provider limits
+are explicit. This receives instructional accuracy, not every biological
+catalog claim, browser layout or wider discoverability acceptance. Continue
+the remaining handler/tool/workflow review and the owning issue's indexing,
+comparison and external-reader criteria without duplicate scorecard credit.

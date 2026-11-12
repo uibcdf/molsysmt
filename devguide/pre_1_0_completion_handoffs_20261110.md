@@ -28,6 +28,10 @@ the original timeout does not recur and its cause is not established. Do not rep
 full session without a new question or agreed gate. #714's two later PDB example
 guards and clean `a3b6d30eb` HTML/article receiving have their own
 [receipt](../devtools/data/pdb_handler_documentation_receiving_714_20261111.json).
+The later #715 source-backed catalog correction and actual notebook/HTML receiving
+have a separate [receipt](../devtools/data/demo_catalog_receiving_715_20261111.json).
+These metadata and focused-test changes are outside the frozen complete session;
+remaining semantic review follows the supplemental polishing queue.
 
 Independently reviewed MolSysViewer default-1.0 source receiving is accepted
 under #256; format freeze, #615/#713 uncertainty and the final exact installed
