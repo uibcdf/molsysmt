@@ -9,7 +9,8 @@ receiving `687220ac9` / `67a094749`, memory-method `db1706f8a`, molecular pilot 
 correction `9af9be18c` / guard `90aa8eae1`, native-domain guidance
 `1b98c2b1d` / `2bf21835f` / `115ebe335`, dictionary guidance
 `bdcd326ae`, remaining native guidance `61e0a24ba`, file guidance `022460c14`,
-file extraction/identity corrections `7b607f638` / `7097f81c5` and the
+file extraction/identity corrections `7b607f638` / `7097f81c5`, string guidance
+`4b280fdcb` and string boundary corrections `ed12b039a`, plus the
 separately received earlier documentation/catalog slices.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
@@ -33,9 +34,8 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
-| Finish string-adapter correctness found during #727 | #731 reproduces the one-letter copy adapter rejecting its common digestion argument; #732 reproduces a returned FASTA path without an output file. Four copy and four export cases fail in the retained baseline; thirteen corrected source/doctest controls pass. Complete documentation/common receiving before closure. #733 owns a real model-aware export after 1.0. |
 | Complete #723's comparable long campaign | The method/default-host baseline passes on `db1706f8a`; the concrete molecular integration passes 63 controls and one actual 5,000-structure cycle on clean `1a899f9f0`. Initial/recovered native targets and 3,720,000-byte buffers clear; the independent witness survives unchanged. Host growth and debugger errors remain explicit. Freeze the comparison composition before the long campaign; preserve original raw outcomes and #615/#713 scopes. |
-| Complete #727 and the admitted pre-1.0 polishing review | Thirty-seven reviewed native/file articles now deliver 707 intended implementation links to 644 verified source files. All flagged native/file debt in the census is received; 49 other articles retain 972 unlinked Python-role nodes. Continue external class and string families. Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11) under the new handoff cutoff: fix admitted correctness, integrity, supported-workflow and documentation defects; review incoming reports without admitting optional expansion automatically. #728 remains owned but its implementation is deferred. Preserve original milestone accounting and qualification boundaries. |
+| Complete #727 and the admitted pre-1.0 polishing review | Forty-four reviewed native/file/string articles now deliver 877 intended implementation links to 800 verified source files. All flagged native/file/string debt in the census is received; 42 other articles retain 807 unlinked Python-role nodes. Continue the external class families. Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11) under the new handoff cutoff: fix admitted correctness, integrity, supported-workflow and documentation defects; review incoming reports without admitting optional expansion automatically. #728 remains owned but its implementation is deferred. Preserve original milestone accounting and qualification boundaries. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
 | Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
 | Retain #713's bounded import-timeout investigation | The complete durable `6acad4f35` session and all three original import orders pass. No cause for the earlier timeout is established; keep the diagnostics and original failure. A new full retry needs a new question or agreed gate. |
@@ -52,6 +52,34 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## String reference and adapter-contract receiving — 2026-11-12
+
+Seven string pages deliver 170 references to 156 independently matched files at
+ed12b039a. SMILES now includes its sixth MolSys route. Immutable-copy semantics,
+native group-only inventory, remote resolution, naming/inference defaults,
+empty modules and unavailable editing/iteration/export hooks match actual code.
+Clean 4b280fdcb receives seven pages without warnings. The final combined cohort
+passes 254 cases without warnings/skips, including 44 actual-article controls.
+Notebook executable payloads, outputs, metadata, order and anchors are unchanged.
+The [receipt](../devtools/data/string_form_reference_receiving_727_731_732_20261112.json)
+retains original failures, exact staged scopes, source/HTML proof and resources.
+
+[#731](archive/resolved_bugs/one_letter_sequence_copying_exposes_the_standard_library_function_instead_of_its.md)
+repairs the one-letter adapter's common copy argument; ordinary public copying
+already worked. [#732](archive/resolved_bugs/alphafold_fasta_conversion_reports_success_without_creating_output.md)
+replaces a fictitious FASTA-file success with an explicit no-I/O refusal. It
+does not implement a scientific writer. [#733](pending_proposals/define_model_aware_alphafold_sequence_and_fasta_export.md)
+owns that separate capability after 1.0; no complete-UniProt/model-index
+correspondence is assumed. Common and board closeout evidence follows in the
+receipt. These changes remain in the complete-source/nightly backlog.
+
+The reviewed 44 articles deliver 877 references to 800 source files. #727 remains
+partial for 42 external class articles/807 unlinked nodes among 50 unchanged-
+source, byte-identical cached articles. The complete intake finds 652 issues,
+96 open before these two closures, no new issue after #733 and no open PRs.
+Continue the finite handoff plan without changing original milestone credit,
+investigative conclusions, stable-format/client agreement or exact-pair gates.
 
 ## File reference and source-safety receiving — 2026-11-12
 

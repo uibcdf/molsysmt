@@ -1,9 +1,9 @@
 ---
 summary: One-letter sequence copying exposes the standard-library function instead of its adapter
 issue: uibcdf/molsysmt#731
-status: active
+status: resolved
 opened: 2026-11-12
-closed:
+closed: 2026-11-12
 severity: medium
 verification: reproduced
 area: [form]
@@ -50,3 +50,26 @@ source/HTML, common gates and closeout remain due before closure.
 Linux/Python 3.14.7; the frozen controlled provider composition and native
 4ffb82e4 remain. One CPU, 1.5 GiB, no own swap and a 6.5-GiB host reserve.
 Original probe failures and source hashes remain in the receiving cache.
+
+
+## Resolution — 2026-11-12
+
+The functional correction is delivered in ed12b039a, with documentation on
+clean 4b280fdcb. The final combined cohort passes 254 cases without warnings
+or omissions, including 44 actual native/file/string article controls, existing
+sequence/native/PDB examples, both repaired adapter boundaries and doctests.
+The seven-page strict HTML build has zero warnings and unchanged inputs.
+The [receiving record](../../../devtools/data/string_form_reference_receiving_727_731_732_20261112.json)
+retains failed attempts, independently matched published source files, notebook
+preservation and bounded resource controls. Common/lifecycle receiving follows
+separately in the same receipt; this is not complete-source or installed
+qualification. Source/native binary and provider-adoption scopes stay explicit.
+
+
+### Common-check closeout — 2026-11-12
+
+Fifteen common fast gates, generated-index checks and whole-repository Ruff
+lint/format pass with unchanged checked inputs. All nine exact task-owned
+services are terminal/retired after MainPID-zero checks; no foreign process
+is signalled. The receiving record retains resources and native exits.
+Source, nightly, client, installed and publication obligations remain separate.

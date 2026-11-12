@@ -203,3 +203,17 @@ retains failed attempts and #729's separately guarded file-integrity repair.
 Forty-nine external class/string cached articles remain flagged under #727.
 This is bounded instructional correctness and source delivery; indexing,
 comparison, external-reader and installed/final-pair acceptance stay open.
+
+
+## String-form delivery — 2026-11-12
+
+Seven string articles add 170 references to 156 matched source files; 44
+reviewed native/file/string articles now deliver 877 references to 800 files.
+The [receipt](../../../devtools/data/string_form_reference_receiving_727_731_732_20261112.json)
+receives zero-warning seven-page HTML and 254 combined cases, including all
+44 actual articles, without warnings/skips. Immutable/group-only, remote,
+optional-provider and unavailable-route limits are explicit; notebook payloads
+are unchanged. #731/#732's separate corrections preserve valid copying and
+refuse nonexistent-file success. A real model-aware export remains #733's
+post-1.0 capability. #727 stays partial for 42 external class cached articles.
+Broader indexing, comparisons, external-reader and installed acceptance remain.

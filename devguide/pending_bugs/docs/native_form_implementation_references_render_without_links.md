@@ -406,3 +406,31 @@ refusal checks; receive that final test change with the actual HTML. The new
 writer capability remains deferred, with #732's explicit refusal prominently
 documented. Notebook executable payloads and established headings/anchors are
 preserved. Actual HTML, public source proof and common/lifecycle checks remain.
+
+
+## String-family HTML received — 2026-11-12
+
+Clean 4b280fdcb receives all seven pages with zero warnings. Their 170 intended
+references point to 156 independently matched files at published ed12b039a.
+The final combined cohort passes 254 cases without warnings or omissions;
+44 actual native/file/string articles retain all intended/table links and no
+unlinked Python roles. Semantic refusal controls now use recognized, valid
+form samples. All seven notebooks retain code, outputs, metadata, order,
+headings and anchors. The [receipt](../../../devtools/data/string_form_reference_receiving_727_731_732_20261112.json)
+owns staged sources and original failures.
+
+The 44 reviewed articles now deliver 877 references to 800 source files.
+#727 remains partial: 50 other cached articles match unchanged source and
+byte-identical HTML; 42 external class articles retain 807 unlinked Python-role
+nodes. No flagged string, file or native article remains in that census.
+#731's copy contract and #732's false-success refusal have guarded corrections;
+#733's model-aware writer remains post-1.0. Complete intake has 652 issues,
+96 open before those two closures, no new issue after #733 and no open PRs.
+Common checks/board closeout retain separate receiving. Original score, complete-
+source/nightly, causal, long-memory, client and final-pair boundaries remain.
+
+
+Fifteen common fast gates, generated-index checks and whole-repository Ruff
+pass. All nine exact task-owned services are terminal/retired after MainPID-zero
+verification. No foreign process is signalled. Publication and board closure
+follow the source/report checkpoint, without clearing heavy-gate obligations.

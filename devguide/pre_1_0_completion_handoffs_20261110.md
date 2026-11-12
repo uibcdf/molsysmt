@@ -404,3 +404,16 @@ Ackredit by this packet. Their received boundaries and existing owned follow-ups
 remain in force. Other client libraries do not become additional initial 1.0
 integration gates through this coordination document. A successful local suite,
 new issue count or completed handoff earns no extra original milestone credit.
+
+
+## String-form reference and boundary increment — 2026-11-12
+
+The [receiving record](../devtools/data/string_form_reference_receiving_727_731_732_20261112.json)
+receives seven more pages and #731/#732's bounded adapter corrections on
+ed12b039a / clean 4b280fdcb. All 254 combined cases pass without warnings/skips;
+seven-page HTML has zero warnings and 44 actual reviewed articles pass.
+The string pages add 170 references/156 matched files, for totals of 877/800
+across 44 pages. Notebook payloads and scientific/native-domain explanations
+remain. #727 still owns 42 external class pages with 807 unlinked nodes; #733
+defers a real model-aware writer. These are source/documentation increments,
+not original-score credit, live-service or installed/final-pair acceptance.

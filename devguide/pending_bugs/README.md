@@ -25,11 +25,9 @@ that front matter -- edit the entries, not this list.
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`macos_py312_environment_download_failure.md`](macos_py312_environment_download_failure.md) — [#671](https://github.com/uibcdf/molsysmt/issues/671) — Track the macOS Python 3.12 Conda download failure separately from tests. *(medium, upstream)*
 
-### In progress (3)
+### In progress (1)
 
-- [`alphafold_fasta_conversion_reports_success_without_creating_output.md`](alphafold_fasta_conversion_reports_success_without_creating_output.md) — [#732](https://github.com/uibcdf/molsysmt/issues/732) — AlphaFold FASTA conversion reports success without creating output *(high, reproduced)*
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
-- [`one_letter_sequence_copying_exposes_the_standard_library_function_instead_of_its.md`](one_letter_sequence_copying_exposes_the_standard_library_function_instead_of_its.md) — [#731](https://github.com/uibcdf/molsysmt/issues/731) — One-letter sequence copying exposes the standard-library function instead of its adapter *(medium, reproduced)*
 
 ### Partially resolved (3)
 

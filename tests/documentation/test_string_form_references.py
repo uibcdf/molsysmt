@@ -19,7 +19,7 @@ from tests.documentation._form_reference_checks import (
 _SAMPLES = {
     "string_alphafold_id": "AF-P05067-F1",
     "string_amino_acids_1": "amino_acids_1:ACD",
-    "string_amino_acids_3": "amino_acids_3:ALA CYS ASP",
+    "string_amino_acids_3": "amino_acids_3:ALACYSASP",
     "string_pdb_id": "pdb_id:1L2Y",
     "string_pdb_text": (
         "ATOM      1  CA  ALA A   1       0.000   0.000   0.000  1.00  0.00           C  \n"
