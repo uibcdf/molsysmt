@@ -30,34 +30,51 @@ Parsed fields live under `handler.entry`, not directly on the handler:
 | **`entry.box`** | quantity | Three row vectors in nm. |
 
 There is no public `handler.content`, `handler.title` or `handler.n_atoms`
-attribute. Request higher-level quantities and selections through
+attribute. Raw entry quantities retain their declared GRO units (nm and nm/ps),
+independently of the active output-unit policy. Request higher-level quantities
+and selections through
 {func}`molsysmt.basic.get` or convert to a native molecular system.
 
 ## Practical Usage and Streaming Workflow
 
 ```python
+from contextlib import closing
 import molsysmt as msm
 from molsysmt.native import GROFileHandler
 
-handler = GROFileHandler(msm.systems['nglview']['md_1u19.gro'])
-copied = msm.copy(handler)
-try:
-    print(handler.entry.header, handler.entry.n_atoms)
-    assert copied is not handler
-finally:
-    copied.close()
-    handler.close()
+path = msm.systems['nglview']['md_1u19.gro']
+with closing(GROFileHandler(path)) as handler:
+    with closing(msm.copy(handler)) as copied:
+        assert copied is not handler
+        coordinates = msm.get(
+            copied, selection=[0, 1], structure_indices=[0], coordinates=True
+        )
+        assert coordinates.shape == (1, 2, 3)
+    assert not handler.file.closed
+assert handler.file.closed and copied.file.closed
 ```
 
 Default identity conversion, `copy` and whole-handler `extract` create an
-independent resident buffer and parsed entry. Closing or editing the copy does
+independent resident buffer and parsed entry. `contextlib.closing` closes each
+buffer deterministically, including when a nested operation raises; the handler
+itself does not implement context-manager methods. A caller-supplied `StringIO`
+is borrowed directly and is closed by `handler.close()`.
+
+Closing or editing the copy does
 not close or change the original. Explicit `copy_if_all=False` permits aliasing.
 Handler subset extraction and handler writing remain unsupported; convert to
 `MolSys` or `Structures` to work with native selections.
 
 ## Performance and I/O Invariants
 
-The resident buffer and parsed entry are loaded eagerly; no large-file or
+The registered addition, merge, structure-append and structure/topology iterator
+hooks are unavailable; the setter module has no editing routes. Their presence
+in an adapter module does not mean those operations are supported. `dump()`
+produces no records. Convert to an appropriate supported native form to edit.
+
+The resident buffer and parsed entry are loaded eagerly; a selected public
+coordinate query may construct resident structures before selecting its result.
+A small result does not establish a bounded input working set. No large-file or
 streaming performance claim follows from the class name. Native GRO conversion
 reads one entry, including the optional velocities. For concatenated coordinate
 structures, use the existing MDTraj/OpenMM provider routes and inspect their
