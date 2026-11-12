@@ -49,20 +49,21 @@ the release requirements.
 | --- | --- | --- |
 | P1 — strict API documentation, #334 | Complete HTML on clean `01c6266f6`, `8ada7fe24` and `3546267d0` passes with zero warnings. Eight RST files include the four expressly approved preexisting edits; the original six-title failure is retained. | This bounded correction is received. Recheck affected pages for later changes and run the exact final candidate's documentation gate. |
 | P2 — persistence/integration and source receiving, #334 / #256 / #709–#713 / #717 / #720 / #722 | Complete `6acad4f35` remains **33,850 passes, 16 skips, zero failures/errors**. Later iterator diagnostic/inventory and flag repairs have focused receiving: 166, then 377, then 526 overlapping cases pass. The native binary remains unchanged. | Preserve exact scopes and original failures. Later executable changes remain in the deliberate complete-source/nightly backlog; latest main is not fully qualified. #713 causality, hosted/platform/installed and exact-candidate gates stay separate. |
-| P3 — semantic documentation review, #334 / #378 / #714–#716 / #719 / #725–#727 | All eleven reviewed native pages deliver 214 intended references to 204 matched published source files. The latest four-page increment passes 32 source controls, 74 existing-runtime cases, zero-warning targeted HTML and eleven actual-article guards; no flagged native article remains in the matched census. | #727 remains partial: 75 of 83 unchanged-source/HTML cached articles retain 1,461 unlinked Python-role nodes. Continue external class/file/string families, preserving original failures, contracts and scorecard. |
-| P4 — incoming and remaining issues/PRs, owning issue / #334 | Complete 12 November intake now has 647 issues, 93 open and no open PRs. New [#728](pending_proposals/protor_radii_types_and_provenance_in_one_evaluation.md) requests ProtOr radii/types/provenance from one evaluation; source shows discarded intermediate typing, with no measured speedup or numerical defect. #723 retains its earlier bounded molecular receiving. | Under the new handoff cutoff, retain #728's source study and defer implementation until post-1.0 unless explicitly admitted later. Preserve the existing public composition. Review new correctness/integrity reports; keep #723 long-campaign and #615/#713 causal acceptance separate. |
+| P3 — semantic documentation review, #334 / #378 / #714–#716 / #719 / #725–#727 | Thirty-seven reviewed native/file articles deliver 707 references to 644 independently matched source files. The file increment receives 29 selected HTML pages without warnings and 37 actual-article controls; the final combined cohort passes 296 cases with one expected legacy warning. | #727 remains partial: 49 of 57 unchanged-source/HTML cached articles retain 972 unlinked Python-role nodes. Continue external class/string families, preserving original failures, contracts and scorecard. |
+| P4 — incoming and remaining issues/PRs, owning issue / #334 | Complete 12 November intake has 649 issues, 95 open before local #729/#730 closure, and no open PRs. #729 source-safe extraction and #730 suite installation hints have focused receiving; #723 retains its earlier bounded molecular receiving. | Retain the finite cutoff and defer #728 implementation unless explicitly admitted. Review new correctness/integrity reports; keep #723 long-campaign and #615/#713 causal acceptance separate. |
 | P5 — client and final-candidate boundaries, #256 / #250 / #254 / #524 / #615 / #334 | Independent default-specific MolSysViewer source receiving is [reviewed and accepted](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-default-specific-molsysviewer-receiving--2026-11-11): 18 session cases and 151 boundary cases on the declared source. The final pair is not frozen; #615's original uncertainty and installed-package evidence remain open. | Complete the stable-format decision and final pair agreement. Keep the published dependency floor, installed matrix and publication decisions distinct from local polish and headless source receiving. |
 
 ### File-review correctness intake — 2026-11-12
 
-New [#729](pending_bugs/whole_file_extraction_copies_files_onto_themselves_by_default.md)
-gets priority within the active file-reference review: default whole-file
-extraction fails and selected coordinate-dump XYZ output can overwrite its
-source. The discriminating baseline has 80 failures/52 passes. Reusing existing
-managed copy/destination tools corrects eighteen adapters; expanded source and
-unit-policy cookbook receiving pass 136 cases. Integration, actual documentation
-and common checks remain due. This is necessary integrity correction under the
-finite handoff cutoff; the 26-page #727 file-reference increment is still pending.
+[#729](archive/resolved_bugs/whole_file_extraction_copies_files_onto_themselves_by_default.md)
+is corrected: the final combined 296-case cohort includes source-safe public
+file extraction and identity routes, two unit-policy recipe executions and
+37 actual native/file article controls. Original copy/overwrite and later
+public-route failures remain in the [receipt](../devtools/data/file_form_and_extraction_receiving_727_729_20261112.json).
+The 26-page #727 file increment is received; 49 external class/string articles
+remain flagged. #730's suite-installation hint repair has separate positive/
+negative diagnostics and auditor controls. These are admitted correctness/
+documentation changes, not optional expansion or final-pair qualification.
 
 ### Adding and closing findings
 

@@ -8,7 +8,8 @@ native inventory/query corrections `b0ae02b22` / `4280a8d42`, Jupyter
 receiving `687220ac9` / `67a094749`, memory-method `db1706f8a`, molecular pilot `1a899f9f0`, label-inventory
 correction `9af9be18c` / guard `90aa8eae1`, native-domain guidance
 `1b98c2b1d` / `2bf21835f` / `115ebe335`, dictionary guidance
-`bdcd326ae`, remaining native guidance `61e0a24ba` and the
+`bdcd326ae`, remaining native guidance `61e0a24ba`, file guidance `022460c14`,
+file extraction/identity corrections `7b607f638` / `7097f81c5` and the
 separately received earlier documentation/catalog slices.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
@@ -32,9 +33,8 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
-| Finish #729 source-safe file extraction | The #727 file review reproduces default SameFileError and selected XYZ source overwrite. Eighteen adapters now reuse the existing managed-copy/destination tools; the 80-failure/52-pass baseline is retained and 136 corrected source/example cases pass. | Complete integration, doctest/documentation receiving and common gates, then close the [owning report](pending_bugs/whole_file_extraction_copies_files_onto_themselves_by_default.md). This is admitted correctness/data-integrity work, not optional expansion or full-source qualification. |
 | Complete #723's comparable long campaign | The method/default-host baseline passes on `db1706f8a`; the concrete molecular integration passes 63 controls and one actual 5,000-structure cycle on clean `1a899f9f0`. Initial/recovered native targets and 3,720,000-byte buffers clear; the independent witness survives unchanged. Host growth and debugger errors remain explicit. Freeze the comparison composition before the long campaign; preserve original raw outcomes and #615/#713 scopes. |
-| Complete #727 and the admitted pre-1.0 polishing review | Eleven reviewed native form articles now deliver 214 intended implementation links. All flagged native-class debt in the census is received; 75 other articles retain 1,461 unlinked Python-role nodes. Continue external class, file and string families. Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11) under the new handoff cutoff: fix admitted correctness, integrity, supported-workflow and documentation defects; review incoming reports without admitting optional expansion automatically. #728 remains owned but its implementation is deferred. Preserve original milestone accounting and qualification boundaries. |
+| Complete #727 and the admitted pre-1.0 polishing review | Thirty-seven reviewed native/file articles now deliver 707 intended implementation links to 644 verified source files. All flagged native/file debt in the census is received; 49 other articles retain 972 unlinked Python-role nodes. Continue external class and string families. Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11) under the new handoff cutoff: fix admitted correctness, integrity, supported-workflow and documentation defects; review incoming reports without admitting optional expansion automatically. #728 remains owned but its implementation is deferred. Preserve original milestone accounting and qualification boundaries. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
 | Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
 | Retain #713's bounded import-timeout investigation | The complete durable `6acad4f35` session and all three original import orders pass. No cause for the earlier timeout is established; keep the diagnostics and original failure. A new full retry needs a new question or agreed gate. |
@@ -51,6 +51,36 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## File reference and source-safety receiving — 2026-11-12
+
+The 26 file pages now describe their actual declaration portfolios, supported
+operations, optional prerequisites and unavailable hooks. They deliver 493
+implementation references to 440 independently verified files at 7097f81c5.
+Together with eleven native pages, 37 articles deliver 707 references to 644
+verified files. Clean 022460c14 receives 29 selected pages with zero warnings;
+all 37 actual-article controls pass. A final stronger cohort passes 296 cases
+with one expected legacy-0.4 warning. Notebook executable payloads, outputs,
+metadata, order and heading anchors remain unchanged. The
+[combined receipt](../devtools/data/file_form_and_extraction_receiving_727_729_20261112.json)
+owns staged sources, original failures, source/HTML hashes and bounded resources.
+
+[#729](archive/resolved_bugs/whole_file_extraction_copies_files_onto_themselves_by_default.md)
+corrects independent whole-file output in eighteen adapters, source-safe XYZ
+subset writing and ten canonical public destination routes. Actual public
+GRO/XYZ/HDF5 and both unit-policy recipe executions are guarded. Unsupported
+MOL2 output, H5MSM/TRJPK identity and explicit-destination HDF5 subset limits
+remain. #730 corrects suite installation hints and retains separate dependency
+auditor/diagnostic receiving. Common checks and issue lifecycle results follow
+in the owning receipts. Later executable changes retain the complete-source/
+nightly backlog; the last full default result remains 6acad4f35.
+
+#727 stays partial: 49 of 57 unchanged-source/HTML cached articles retain 972
+unlinked Python-role nodes, all external class/string forms. The complete
+intake finds 649 issues, 95 open before these two local closures, no open PRs
+and new #730. Continue the finite handoff plan. Original scorecard, #723,
+#615/#713, format/client decisions and exact final-pair/publication gates are
+unchanged; local polish does not establish that only Diego's review remains.
 
 ## Flagged native-family reference debt received — 2026-11-12
 

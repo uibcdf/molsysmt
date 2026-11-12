@@ -3,6 +3,7 @@
 import importlib
 import json
 import re
+from pathlib import Path
 
 import pytest
 
@@ -29,3 +30,18 @@ def test_file_tutorial_declarations_match_the_adapter(name):
     assert re.findall(r"\*\*(\d+) (?:declared )?attributes\*\*", source) == [
         str(len(declared))
     ]
+
+
+def test_file_reference_guard_rejects_function_link_to_module_header(monkeypatch):
+    page = ROOT / "docs/content/user/tools/form/file/file_gro.ipynb"
+    original = Path.read_text
+    text = original(page)
+    altered, count = re.subn(r"(/file_gro/extract\.py#)L\d+", r"\g<1>L1", text)
+    assert count and altered != text
+
+    def read_text(path, *args, **kwargs):
+        return altered if path == page else original(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", read_text)
+    with pytest.raises(AssertionError):
+        _assert_native_form_reference_contract("file_gro")

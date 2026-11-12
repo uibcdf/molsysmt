@@ -331,3 +331,37 @@ All 26 file articles now point to that exact updated source. The final combined
 cohort passes 258 cases with the same one expected legacy-0.4 warning. Renew
 clean HTML/article receiving after the source-link change; preserve the earlier
 237-case and first HTML results at their original scope.
+
+
+## File-family HTML and final receiving — 2026-11-12
+
+Clean 022460c14 receives 29 selected documentation pages with zero warnings.
+All 37 actual native/file article guards pass with unchanged source/HTML inputs.
+The stronger final combined cohort passes 296 cases, including a negative
+control that first demonstrates acceptance of a function link to the module
+header; the checker now requires the real function definition even at line 1.
+Its 259 other source/runtime/example/doctest controls retain one expected
+legacy-0.4 warning. None of the 28 touched notebook executable payloads, stored
+outputs, metadata, order or heading anchors changes.
+
+The 26 file pages deliver 493 references to 440 independently matched files at
+published 7097f81c5. Together with eleven native pages, 37 reviewed articles
+deliver 707 references to 644 matched files. The
+[combined receipt](../../../devtools/data/file_form_and_extraction_receiving_727_729_20261112.json)
+retains original failures, staged source/HTML identities and bounded resources.
+#729's separately guarded source-safety and public destination repairs are
+received; common checks and board closeout remain separately recorded.
+
+#727 remains partial: 57 unchanged-source/HTML cached articles are received;
+49 retain 972 unlinked Python-role nodes, all in external class/string families.
+No flagged native or file article remains in that census. Continue those
+remaining families without treating the cached census as current public-site,
+complete-source or installed qualification. New #730's installation-hint repair
+is admitted correctness work; optional #728 stays deferred under the handoff
+cutoff. Original milestone weights and final-pair/publication boundaries remain.
+
+
+Fifteen common fast gates, generated-index and whole-repository Ruff checks
+pass after the file increment and #730 hint/auditor correction. All 24 exact
+task-owned units are terminal/retired; foreign jobs are untouched. Later
+executable changes remain in the separate complete-source/nightly backlog.

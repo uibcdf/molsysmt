@@ -1,9 +1,9 @@
 ---
 summary: Whole-file extraction copies files onto themselves by default
 issue: uibcdf/molsysmt#729
-status: active
+status: resolved
 opened: 2026-11-12
-closed:
+closed: 2026-11-12
 severity: high
 verification: reproduced
 area: [form]
@@ -140,3 +140,38 @@ combined cohort passes 258 cases and retains one expected LegacyH5MSMWarning.
 No hidden engine installation, descriptor bypass or new serialization capability
 is used to satisfy the controls. Renewal of current-source HTML/article proof,
 common gates and the owning closeout record remain due.
+
+
+## Resolution — 2026-11-12
+
+Source-safe extraction and canonical public destinations are delivered in
+7b607f638 and 7097f81c5. The final cohort passes 296 cases: 259 source, runtime,
+example and doctest controls plus 37 actual native/file article controls. One
+expected LegacyH5MSMWarning remains visible. Clean 022460c14 receives the 29
+affected documentation pages with zero warnings and unchanged build inputs.
+The [receiving record](../../../devtools/data/file_form_and_extraction_receiving_727_729_20261112.json)
+retains all failed attempts, exact inputs, output/source integrity, notebook
+preservation, public source proof and resource limits. Common fast-governance
+receiving is recorded there separately from these focused results.
+
+The addressable guard exercises independent whole copies, persistent outputs,
+no-copy requests, source/symlink/hardlink refusal, selected XYZ values/order,
+actual public GRO/XYZ/HDF5 paths and legacy destination aliases. It would fail
+if default copying targeted the source or if selected output changed source
+bytes. Raw-byte cases are integrity controls, not scientific parser conformance.
+The recipe runs under nm/ps and pm/fs; public guidance and the course describe
+the file-specific limits. No unsupported MOL2 output, H5MSM/TRJPK policy change,
+automatic partial HDF5 writer, new dependency or native binary is introduced.
+
+Later executable changes retain the complete-source/nightly backlog. This
+closure does not qualify an installed final pair or lift the publication pause.
+
+
+### Common-check closeout — 2026-11-12
+
+All fifteen common fast gates, generated-index checking and whole-repository
+Ruff lint/format pass with unchanged checked inputs. Twenty-four exact task-owned
+terminal services are retired/already collected after MainPID-zero checks; no
+foreign process is signalled. The receiving records retain the staged scope
+and native exits. Full scientific/source, installed and publication obligations
+remain outstanding rather than being replaced by these controls.

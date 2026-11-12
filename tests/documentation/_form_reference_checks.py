@@ -257,7 +257,16 @@ def _assert_native_form_reference_contract(name):
         assert line is not None
         lineno = int(line[1])
         assert lineno <= len((ROOT / path).read_text().splitlines())
-        if lineno > 1:
+        if path.stem in {
+            "__init__",
+            "get_topological_attributes",
+            "get_structural_attributes",
+            "get_mechanical_attributes",
+            "set",
+            "iterators",
+        }:
+            assert lineno == 1
+        else:
             definitions = [
                 node
                 for node in ast.parse((ROOT / path).read_text()).body

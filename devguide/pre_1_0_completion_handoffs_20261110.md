@@ -129,6 +129,19 @@ files. #727's remaining 75 flagged cached articles are external class/file/strin
 forms. No new issue after #728 or open PR is present in the complete intake;
 the finite handoff cutoff and separate qualification boundaries remain.
 
+The next #727 file-family increment receives all 26 flagged file pages: 493
+references to 440 matched files, for 37 native/file pages with 707 references
+to 644 files. Clean 022460c14 builds 29 selected pages without warnings; all
+37 actual articles pass receiving, and the final stronger combined cohort
+passes 296 cases with one expected legacy warning. The [receipt](../devtools/data/file_form_and_extraction_receiving_727_729_20261112.json)
+retains exact inputs, notebook preservation, failed attempts and bounded
+resources. #729's independent-copy/source-safety and public-destination
+corrections are received. #730 installation hints receive their own diagnostic
+and auditor controls. #727 remains partial for 49 external class/string cached
+articles with 972 unlinked roles. No full-source, installed, final-pair or
+publication acceptance is inferred.
+
+
 ## Work that MolSysMT can advance now
 
 1. **Retain the received complete local source session.** Clean `6acad4f35`

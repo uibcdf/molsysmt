@@ -188,3 +188,18 @@ references to 204 matched source files. Source/runtime controls and zero-warning
 HTML retain their bounded scopes. Seventy-five external class/file/string
 articles remain flagged under #727. This completes the identified native
 reference family, not the wider discoverability or qualification obligations.
+
+
+## File-family delivery and integrity correction — 2026-11-12
+
+All 26 flagged file articles now deliver 493 intended references to 440
+independently verified source files and describe their actual operation limits.
+The reviewed 37 native/file articles deliver 707 references to 644 files;
+clean 022460c14 receives 29 selected pages without warnings, and all 37 actual
+article guards pass. The final stronger combined cohort passes 296 cases,
+retaining one expected legacy-0.4 warning and unchanged notebook payloads.
+The [receipt](../../../devtools/data/file_form_and_extraction_receiving_727_729_20261112.json)
+retains failed attempts and #729's separately guarded file-integrity repair.
+Forty-nine external class/string cached articles remain flagged under #727.
+This is bounded instructional correctness and source delivery; indexing,
+comparison, external-reader and installed/final-pair acceptance stay open.
