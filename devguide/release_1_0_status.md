@@ -12,7 +12,7 @@ correction `9af9be18c` / guard `90aa8eae1`, native-domain guidance
 file extraction/identity corrections `7b607f638` / `7097f81c5`, string guidance
 `4b280fdcb`, string boundary corrections `ed12b039a`, Biopython guidance
 `26b550f96`, OpenMM coordinate repairs `3f034dbd0` and OpenMM guidance
-`9a261ebd5`, MDTraj iteration repair `083b7c166` and guidance `00590f26e`, nullable membership `8cc066c84` and alias link `83eb35cf1`, plus the
+`9a261ebd5`, MDTraj iteration repair `083b7c166` and guidance `00590f26e`, nullable membership `8cc066c84` and alias link `83eb35cf1`, read-only inventory `a3cf6b3a5`, plus the
 separately received earlier documentation/catalog slices.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
@@ -37,7 +37,7 @@ promotions and publication remain paused pending the agreed resumption.**
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
 | Complete #723's comparable long campaign | The method/default-host baseline passes on `db1706f8a`; the concrete molecular integration passes 63 controls and one actual 5,000-structure cycle on clean `1a899f9f0`. Initial/recovered native targets and 3,720,000-byte buffers clear; the independent witness survives unchanged. Host growth and debugger errors remain explicit. Freeze the comparison composition before the long campaign; preserve original raw outcomes and #615/#713 scopes. |
-| Correct read-side native inventory loss #740 | A labelled-row witness confirms that a molecule-count read replaces two declared molecule rows with one inferred row. Keep this independent of #739; resolve count/preflight and applicable parent-read fallbacks before returning to #727 documentation. |
+| Receive #740 public closeout and resume #727 | Source a3cf6b3a5 preserves native declared inventory and nullable parent reads; 1,566 affected cases and five actual HTML pages are received with the exterior cohort failure retained separately. Publish/archive/close, inspect intake, then continue the remaining external-class articles. |
 | Complete #727 and the admitted pre-1.0 polishing review | Sixty-eight reviewed native/file/string/Biopython/OpenMM/MDTraj articles deliver 1,338 intended links to 1,213 verified source files. Eighteen other external class articles retain 350 unlinked nodes. The MDTraj increment passes 836 adapter cases (two retained provider warnings), 269 final combined controls and ten zero-warning HTML pages. #738 corrects bounded HDF5 iteration; continue with MDAnalysis and other remaining families. Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11). Original credit, investigations, nightly/exact-pair gates and deferred optional expansion remain separate. |
 | Preserve #734's bounded contacts/SASA owner disposition | The [owner contract](native_interface_contacts_sasa_contract.md) and 104-case receiving offer existing public operations for the first Cartesian bundled-element-vdW profile. No concrete new operation gap is established. BindingMT #112 and TopoMT #197 retain application decisions and actual client acceptance; MolSysSuite #195 remains the coordination owner. This finite review adds no release prerequisite. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
@@ -8086,3 +8086,28 @@ changed blobs; #739 is closed and queue/board synchronization passes. Complete
 intake has 659 issues, 96 open, no issue after #740 and no open PRs. #740 is the
 next correctness task. This dated source receipt does not clear the complete-
 source/nightly backlog or alter the exact-pair/publication pause.
+
+
+## Read-only inventory correction — 2026-11-12 (#740)
+
+[Receiving receipt](../devtools/data/native_inventory_read_receiving_740_20261112.json).
+
+Source a3cf6b3a5 preserves declared molecule/entity rows and labels through
+native counts, summaries and selection preflights. Applicable scalar parent
+reads propagate unknown membership as None while preserving order/repetitions.
+The guard checks all stable tables and dirty flags, including unused and
+atom-free inventories. Explicit reconstruction keeps its separate contract.
+
+The expanded 76-case control passes without warnings or omissions; the affected
+cohort's pytest child passes 1,566 cases with three expected legacy warnings.
+A tool-server restart leaves that cohort's exterior service failed with exit
+120; independently retained child exit 0, JUnit and unchanged input hashes are
+recovered without repeating it. Subsequent detached fast-check/HTML/article
+services have verified terminal exit 0. Five actual HTML pages receive the new
+contract, 160 local destinations and four canonical aliases with no unlinked
+roles; all 100 complete executable cells and metadata survive.
+
+This closes the read-side correction independently of #739. Resume #727's
+eighteen remaining external-class articles, beginning with MDAnalysis, after
+public closeout/intake. No original-score bonus, complete-source/nightly or
+installed/client/scientific certificate or publication resumption follows.

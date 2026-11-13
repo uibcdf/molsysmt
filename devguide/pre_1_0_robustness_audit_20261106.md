@@ -49,7 +49,7 @@ the release requirements.
 | --- | --- | --- |
 | P1 — strict API documentation, #334 | Complete HTML on clean `01c6266f6`, `8ada7fe24` and `3546267d0` passes with zero warnings. Eight RST files include the four expressly approved preexisting edits; the original six-title failure is retained. | This bounded correction is received. Recheck affected pages for later changes and run the exact final candidate's documentation gate. |
 | P2 — persistence/integration and source receiving, #334 / #256 / #709–#713 / #717 / #720 / #722 | Complete `6acad4f35` remains **33,850 passes, 16 skips, zero failures/errors**. Later iterator diagnostic/inventory and flag repairs have focused receiving: 166, then 377, then 526 overlapping cases pass. The native binary remains unchanged. | Preserve exact scopes and original failures. Later executable changes remain in the deliberate complete-source/nightly backlog; latest main is not fully qualified. #713 causality, hosted/platform/installed and exact-candidate gates stay separate. |
-| P3 — semantic documentation and discoverability, #727 / #378 | Sixty-eight reviewed actual articles deliver 1,338 intended implementation links to 1,213 verified source files. The MDTraj increment passes 836 adapter cases with two retained provider warnings, 269 combined controls and ten strict zero-warning HTML pages. | After #740, continue 18 flagged external class articles / 350 nodes among 26 unchanged-source/byte-identical cached articles, beginning with MDAnalysis. Preserve original failures and qualification limits; [receipt](../devtools/data/mdtraj_form_and_iterator_receiving_727_738_20261112.json). |
+| P3 — semantic documentation and discoverability, #727 / #378 | Sixty-eight reviewed actual articles deliver 1,338 intended implementation links to 1,213 verified source files. The MDTraj increment passes 836 adapter cases with two retained provider warnings, 269 combined controls and ten strict zero-warning HTML pages. | After #740 public closeout, continue 18 flagged external class articles / 350 nodes among 26 unchanged-source/byte-identical cached articles, beginning with MDAnalysis. Preserve original failures and qualification limits; [receipt](../devtools/data/mdtraj_form_and_iterator_receiving_727_738_20261112.json). |
 | P4 — incoming and remaining issues/PRs, owning issue / #334 | Complete post-closeout intake has 659 issues, 96 open, no issue after #740 and no open PRs. #738/#739 are verified closed; #739 closure follows public 4702a71db and 19 matched changed blobs, 221 affected cases, 51 final cases and four actual articles. #740 independently reproduces read-side loss of labelled molecule rows. | Correct #740 before the next MDAnalysis documentation block. Preserve #723 and #615/#713, deferred #737/#733/#728, full-source/nightly and all client/final-pair boundaries. |
 | P5 — client and final-candidate boundaries, #256 / #250 / #254 / #524 / #615 / #334 | Independent default-specific MolSysViewer source receiving is [reviewed and accepted](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-default-specific-molsysviewer-receiving--2026-11-11): 18 session cases and 151 boundary cases on the declared source. The final pair is not frozen; #615's original uncertainty and installed-package evidence remain open. | Complete the stable-format decision and final pair agreement. Keep the published dependency floor, installed matrix and publication decisions distinct from local polish and headless source receiving. |
 
@@ -2724,3 +2724,15 @@ newer reporter host, an installed pair or a final candidate. No graphical intent
 or weighted-score bonus is added. #421's contact task remains held by native
 unit-boundary review #666 / uibcdf/pyunitwizard#143. #256 handoffs, #524 floors,
 remaining graphical work and #334 release gates remain outstanding.
+
+
+### Read-only inventory receiving — 2026-11-12
+
+Source a3cf6b3a5 fixes #740 native inventory-loss reads independently of #739.
+The [receipt](../devtools/data/native_inventory_read_receiving_740_20261112.json)
+retains 1,566 passing affected cases, 76 focused/docstring cases, five strict
+actual articles, four alias repairs and 100 protected executable cells. The
+cohort child exits 0, while its interrupted exterior service exits 120; both
+are preserved. Later detached receiving services terminate successfully. Public
+closeout/intake is next, then #727's remaining eighteen external-class pages.
+The original score and all source/nightly/client/final-pair boundaries remain.

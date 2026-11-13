@@ -592,3 +592,16 @@ requires the intended alias link and zero unlinked Python roles. The
 retains the first observation separately. This does not change the 68 reviewed
 form articles, 1,338 form-reference occurrences or eighteen remaining flagged
 external-class pages; #740 correctness work takes priority next.
+
+
+## Additional native-query aliases — 2026-11-12
+
+The #740 lifecycle review corrects four existing unlinked get/info alias
+references in two basic-tool articles. Five actual affected articles receive
+160 local destinations, all four intended aliases and no unlinked API roles;
+100 complete executable cells and their outputs/metadata remain unchanged.
+The [receipt](../../../devtools/data/native_inventory_read_receiving_740_20261112.json)
+retains the recovered cohort supervisor failure separately. This is outside
+the form-reference counters: 68 reviewed form articles / 1,338 occurrences /
+1,213 source files and eighteen remaining flagged external-class pages are
+unchanged. Resume MDAnalysis after #740 public closeout and intake.

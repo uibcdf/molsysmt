@@ -509,3 +509,28 @@ remaining eighteen #727 external-class articles. #739 is not a certification
 of that read-side behavior. No complete-source/nightly, pandas-3 reporter,
 installed, scientific or exact-pair qualification, score bonus or publication
 resumption is implied.
+
+
+## Read-only inventory correction — 2026-11-12 (#740)
+
+[Receiving receipt](../devtools/data/native_inventory_read_receiving_740_20261112.json).
+
+Source a3cf6b3a5 preserves declared molecule/entity rows and labels through
+native counts, summaries and selection preflights. Applicable scalar parent
+reads propagate unknown membership as None while preserving order/repetitions.
+The guard checks all stable tables and dirty flags, including unused and
+atom-free inventories. Explicit reconstruction keeps its separate contract.
+
+The expanded 76-case control passes without warnings or omissions; the affected
+cohort's pytest child passes 1,566 cases with three expected legacy warnings.
+A tool-server restart leaves that cohort's exterior service failed with exit
+120; independently retained child exit 0, JUnit and unchanged input hashes are
+recovered without repeating it. Subsequent detached fast-check/HTML/article
+services have verified terminal exit 0. Five actual HTML pages receive the new
+contract, 160 local destinations and four canonical aliases with no unlinked
+roles; all 100 complete executable cells and metadata survive.
+
+This closes the read-side correction independently of #739. Resume #727's
+eighteen remaining external-class articles, beginning with MDAnalysis, after
+public closeout/intake. No original-score bonus, complete-source/nightly or
+installed/client/scientific certificate or publication resumption follows.

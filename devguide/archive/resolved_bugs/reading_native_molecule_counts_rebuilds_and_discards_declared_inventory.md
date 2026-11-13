@@ -1,14 +1,14 @@
 ---
 summary: Reading native molecule counts rebuilds and discards declared inventory
 issue: uibcdf/molsysmt#740
-status: active
+status: resolved
 opened: 2026-11-12
-closed:
+closed: 2026-11-12
 severity: high
 verification: reproduced
 area: [native, attribute]
-guard:
-normative:
+guard: tests/form/molsysmt_Topology/test_readonly_inventory_counts.py
+normative: devguide/native_queries.md
 blocked_by: []
 supersedes: []
 ---
@@ -98,7 +98,7 @@ external class articles. Existing final-pair qualification/publication pause
 and original milestone accounting remain unchanged.
 
 
-The [owning investigation receipt](../../devtools/data/native_nullable_membership_receiving_739_20261112.json)
+The [owning investigation receipt](../../../devtools/data/native_nullable_membership_receiving_739_20261112.json)
 retains the independent labelled-row witness and exact execution metadata.
 This remains a failed preservation control; #739 receiving does not close it.
 
@@ -155,3 +155,31 @@ passing cohort is not rerun merely to replace this operational evidence. Later
 receiving uses a detached service with durable logs and an independently checked
 terminal supervisor result. Neither this recovery nor the bounded tests supply
 a complete-source, installed or final-candidate gate.
+
+## Resolution — 2026-11-12
+
+Source a3cf6b3a5 corrects both native count fallbacks and the twelve applicable
+nullable parent getters. The module guard compares every stable table and both
+dirty flags around public/native count, info and selection reads, then checks
+independent expected inventories and parent values. A deliberate label edit
+changes only its addressed label. Live inventory changes, atom-free/empty rows,
+unknown parent indices/IDs/names/types and repeated/nonconsecutive selections
+are covered. This catches the original data loss rather than merely checking
+a count's type or agreement with an already-mutated source.
+
+Five affected actual HTML articles build without warnings. Receiving verifies
+the new read-only explanation, all 160 local destinations, four intended
+canonical get/info alias links and no unlinked API roles. All 100 complete
+executable notebook cells, outputs and metadata are unchanged. The maintained
+native query/conversion contracts and User Guide, course and Cookbook now
+distinguish reading declared inventory from explicit reconstruction.
+
+Fifteen offline fast gates and repository Ruff checks pass. The later detached
+checks, HTML and article services have independently verified terminal exit 0;
+the earlier cohort's exterior exit 120 remains a failed supervisor event, not
+a passing release gate. The
+[receiving receipt](../../../devtools/data/native_inventory_read_receiving_740_20261112.json)
+preserves native results, input fingerprints, provider provenance, resource
+limits, fixture mistakes and the recovery. No new dependency, native binary,
+scientific algorithm or serialized format is introduced. Final scientific,
+complete-source/nightly, installed-pair and publication gates remain separate.
