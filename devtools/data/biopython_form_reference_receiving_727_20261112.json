@@ -1961,5 +1961,83 @@
     "open_issue_count": 94,
     "new_issues_after_734": [],
     "open_pull_request_count": 0
+  },
+  "public_delivery": {
+    "published_main": "244089d6c63d3c64953eb13eefef5a740b101388",
+    "queried_source": "244089d6c63d3c64953eb13eefef5a740b101388",
+    "truncated": false,
+    "matched_changed_files": [
+      {
+        "path": "devguide/pending_bugs/docs/native_form_implementation_references_render_without_links.md",
+        "git_blob": "124b6d06465beca0b6f90434946dd7a871f5db7f"
+      },
+      {
+        "path": "devguide/pending_proposals/docs/evidence_based_public_discoverability.md",
+        "git_blob": "9fc1123d214b6f3ec0d8358f988b7aa22fe712b5"
+      },
+      {
+        "path": "devguide/pre_1_0_completion_handoffs_20261110.md",
+        "git_blob": "662e5b15712ad5c6e84fcdabc782b836aa12d173"
+      },
+      {
+        "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+        "git_blob": "22b76047afa66e5235d1ba3e36e4e9b6e40fdf4b"
+      },
+      {
+        "path": "devguide/release_1_0_status.md",
+        "git_blob": "7d40b9ce642ef92d4d400e1724ec2fe99c718c16"
+      },
+      {
+        "path": "devtools/data/biopython_form_reference_receiving_727_20261112.json",
+        "git_blob": "877c00eb23fb0e8ae21d8520a16fe4b827e0647a"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/biopython/biopython_PDBStructure.ipynb",
+        "git_blob": "a0107b3c2492e4b7e089dde82a2de76806767032"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/biopython/biopython_PDBStructure.ipynb.AGENTS.md",
+        "git_blob": "bf6d3ffa578fbd7280c30c4c29e87c7889cf0f14"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/biopython/biopython_Seq.ipynb",
+        "git_blob": "0107ad8e63f4b85e2cf21528b01d72aad8e60c2f"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/biopython/biopython_Seq.ipynb.AGENTS.md",
+        "git_blob": "19c62f5d47d4f4f71ee7d47b9c25a4ae7130c9ab"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/biopython/biopython_SeqRecord.ipynb",
+        "git_blob": "d6fb916dc13b6f2485e87aded53a371a1857dfd1"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/biopython/biopython_SeqRecord.ipynb.AGENTS.md",
+        "git_blob": "6dacceb6e7278ea731be7e03e24d0b1f1e6b91ea"
+      },
+      {
+        "path": "docs/docs_manifest.yml",
+        "git_blob": "bf79643499b3f0847ee4c49216d08a835e2bde8c"
+      },
+      {
+        "path": "tests/documentation/_form_reference_checks.py",
+        "git_blob": "31af9b8848fff130ebd33ca7891c90bdfe5d8782"
+      },
+      {
+        "path": "tests/documentation/form_reference_receiving_guard.py",
+        "git_blob": "e5e1b0365b95077ca16665d87e594211a721a42d"
+      },
+      {
+        "path": "tests/documentation/test_biopython_form_references.py",
+        "git_blob": "5455d6e1314fd970e0f00b375f3851d319ff3d02"
+      },
+      {
+        "path": "tests/form/biopython_PDBStructure/test_parity.py",
+        "git_blob": "373994d7a4d29c8d38411da2c6a90d664adc0530"
+      }
+    ],
+    "before_issue_closure": true,
+    "board_queue_sync": "pass",
+    "issue_727_remains_partial": true
   }
 }

@@ -489,3 +489,9 @@ Five exact task-owned services are terminal/retired after MainPID-zero checks;
 foreign processes are untouched. Complete intake still has 653 issues, 94 open,
 no new issue after #734 and no open PRs. The source/report checkpoint is ready
 for batched publication and independent readback; heavy gates remain separate.
+
+
+Published closeout verifies main 244089d6c and all seventeen changed-file blobs.
+Board/queue agreement passes; #727 remains partial for the 39 external class
+articles. The new receipt retains the delivered source independently of any
+later metadata-only closeout. No original milestone acceptance is replaced.

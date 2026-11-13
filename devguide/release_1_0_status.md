@@ -70,8 +70,9 @@ Notebook executable payloads, outputs, metadata, order and headings/anchors are
 unchanged. The [receipt](../devtools/data/biopython_form_reference_receiving_727_20261112.json)
 retains the original nine-failure baseline, exact staged inputs and resources.
 Fifteen common fast gates, generated indexes and whole-repository Ruff pass.
-All five terminal task-owned services are retired; publication readback follows
-the source/record checkpoint.
+All five terminal task-owned services are retired. Published main `244089d6c`
+and all seventeen changed-file blobs are independently verified; board/queue
+agreement passes and #727 remains partial.
 
 #727 remains partial: the 47 reviewed pages deliver 919 references to 836
 files; 39 other external class pages retain 765 unlinked nodes among 47
