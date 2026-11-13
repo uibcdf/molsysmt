@@ -3023,5 +3023,175 @@
     "open_issue_count": 96,
     "new_issues_after_738": [],
     "open_pull_request_count": 0
-  }
+  },
+  "public_delivery": {
+    "published_main": "9fd5c6e55a0f50c25eb2cb81af6fb8a2a8716430",
+    "queried_source": "9fd5c6e55a0f50c25eb2cb81af6fb8a2a8716430",
+    "truncated": false,
+    "matched_changed_files": [
+      {
+        "path": "devguide/SCALABILITY.md",
+        "git_blob": "97cd24f7a1a912d739e6396fb2131eeab07aa1bf"
+      },
+      {
+        "path": "devguide/archive/resolved_bugs/mdtraj_hdf5_iteration_fails_on_optional_fields_and_incomplete_chunk_delivery.md",
+        "git_blob": "f47bf7bde92039511f0c813eb98b788bdafb22dd"
+      },
+      {
+        "path": "devguide/forms_and_conversions.md",
+        "git_blob": "80748bb442f64b7e58656fe4fb9c81f99f36024a"
+      },
+      {
+        "path": "devguide/pending_bugs/docs/native_form_implementation_references_render_without_links.md",
+        "git_blob": "19330e180df875f6bc6189f1f033e54ac4563713"
+      },
+      {
+        "path": "devguide/pending_proposals/docs/evidence_based_public_discoverability.md",
+        "git_blob": "ce184c8cd019611fd7afbefe128a16349029fc3c"
+      },
+      {
+        "path": "devguide/pre_1_0_completion_handoffs_20261110.md",
+        "git_blob": "b05152209f70ae1745e42cfd6a332c32907d5379"
+      },
+      {
+        "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+        "git_blob": "3726da12482c9cc7ea1f29a7443cfe28e2b3064a"
+      },
+      {
+        "path": "devguide/release_1_0_status.md",
+        "git_blob": "bef0df470fd09ad79cf138514eda9219929d6db8"
+      },
+      {
+        "path": "devtools/data/mdtraj_form_and_iterator_receiving_727_738_20261112.json",
+        "git_blob": "cff07ca42fa13d3b7ccbb58da4be2c5491c706cf"
+      },
+      {
+        "path": "devtools/data/openmm_form_and_coordinate_receiving_727_735_736_20261112.json",
+        "git_blob": "3bf382cc653c13079a69128fc18e270c3d7573bb"
+      },
+      {
+        "path": "docs/content/course/Common_Core/11_Iterating_Systems.ipynb",
+        "git_blob": "5d6a86f4404aba0dc1ad28847fbee37d7d0360d1"
+      },
+      {
+        "path": "docs/content/user/cookbook/big_data_trajectories.ipynb",
+        "git_blob": "aaab6e788c6a1cf9171893dacb071bc8d5d9fcc3"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/mdtraj/mdtraj_AmberRestartFile.ipynb",
+        "git_blob": "f3ef6f0835cf96dfbdbf0fdaf5afe11b84ac24b3"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/mdtraj/mdtraj_AmberRestartFile.ipynb.AGENTS.md",
+        "git_blob": "b7755be122b8d1ef70707d9ca84061dcfa56853c"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/mdtraj/mdtraj_DCDTrajectoryFile.ipynb",
+        "git_blob": "db7f361be9b28862488dfa4b6c9cfe63f20fbfde"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/mdtraj/mdtraj_DCDTrajectoryFile.ipynb.AGENTS.md",
+        "git_blob": "fbfa7a117aab29674e62c4b346b7b387ea576211"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/mdtraj/mdtraj_GroTrajectoryFile.ipynb",
+        "git_blob": "656111a3af9d545cb4c61deb6fc0e339fa6b5bfa"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/mdtraj/mdtraj_GroTrajectoryFile.ipynb.AGENTS.md",
+        "git_blob": "0819a2abd4c42f71bd37c06b296a8af1365f1b93"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/mdtraj/mdtraj_HDF5TrajectoryFile.ipynb",
+        "git_blob": "74ae207452afb05f58680ee91660bcc9998ea723"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/mdtraj/mdtraj_HDF5TrajectoryFile.ipynb.AGENTS.md",
+        "git_blob": "a922bdb2b4af1fe1b83831363f095d4779eb6e2a"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/mdtraj/mdtraj_PDBTrajectoryFile.ipynb",
+        "git_blob": "6f173fa01e6c29a37866c287268a5e87ce0350a0"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/mdtraj/mdtraj_PDBTrajectoryFile.ipynb.AGENTS.md",
+        "git_blob": "df31b2c752023c5913f753b414d9ce28a706ce84"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/mdtraj/mdtraj_Topology.ipynb",
+        "git_blob": "da25adad1ac0da9db898356745065f12e2221e91"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/mdtraj/mdtraj_Topology.ipynb.AGENTS.md",
+        "git_blob": "a921332c9a66d7e0a100e93741cb5df2a6a43f8c"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/mdtraj/mdtraj_Trajectory.ipynb",
+        "git_blob": "b1cdbe517b37355f0a432a7ad7152419f4ead021"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/mdtraj/mdtraj_Trajectory.ipynb.AGENTS.md",
+        "git_blob": "6a9ee270874ba16ea1985cf39229c132ecb47fa1"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/mdtraj/mdtraj_XTCTrajectoryFile.ipynb",
+        "git_blob": "61c3efb7443ac3a479342bba5068099d761504be"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/mdtraj/mdtraj_XTCTrajectoryFile.ipynb.AGENTS.md",
+        "git_blob": "21aec0079cb4824e545c1ac4bfb5943be87e7181"
+      },
+      {
+        "path": "docs/docs_manifest.yml",
+        "git_blob": "6e1a3e74e9d48cee21678e664360c7cba0ec4c67"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/iterators.py",
+        "git_blob": "96fc9a244ea6b892e2f70218ef714b1b92085c49"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/extract.py",
+        "git_blob": "3fa06c7b21f3c9f6a798ed377dba8e1f3ca15635"
+      },
+      {
+        "path": "tests/conftest.py",
+        "git_blob": "cb7e79b9d6d6ee345a7412c11ce781a8e8a170d4"
+      },
+      {
+        "path": "tests/documentation/_form_reference_checks.py",
+        "git_blob": "0d0b34c89fda84181325a3bca7f9371a47cf1dc9"
+      },
+      {
+        "path": "tests/documentation/test_mdtraj_form_references.py",
+        "git_blob": "8d7ca461535eb9963f92745bab28131935a92d3f"
+      },
+      {
+        "path": "tests/form/mdtraj_HDF5TrajectoryFile/test_iterator_contract.py",
+        "git_blob": "5157ea3b32cf13d246a4c430d56e09996d5e298c"
+      },
+      {
+        "path": "tests/form/mdtraj_Trajectory/test_selection_axes.py",
+        "git_blob": "d661ff045d2affd4c1dd0e39e5da73ec114faad5"
+      },
+      {
+        "path": "tests/form/test_mdtraj_coordinate_streams.py",
+        "git_blob": "d0dd6c8d814ee43604ac7edbddf08cf0aaf3609f"
+      }
+    ],
+    "before_issue_closure": true
+  },
+  "complete_post_closeout_intake": {
+    "issue_count": 658,
+    "open_issue_count": 96,
+    "new_issues_after_738": [
+      {
+        "number": 739,
+        "title": "Public group-index assignment loses nullable dtype and later missing-value edits fail",
+        "state": "OPEN",
+        "labels": []
+      }
+    ],
+    "open_pull_request_count": 0
+  },
+  "next_correctness_intake": "uibcdf/molsysmt#739 takes priority over the next MDAnalysis documentation increment; not yet reproduced in the receiving runtime."
 }
