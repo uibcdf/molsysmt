@@ -534,3 +534,12 @@ This closes the read-side correction independently of #739. Resume #727's
 eighteen remaining external-class articles, beginning with MDAnalysis, after
 public closeout/intake. No original-score bonus, complete-source/nightly or
 installed/client/scientific certificate or publication resumption follows.
+
+
+The #740 archive and receipt are publicly verified on 2d6dc1457, including
+eighteen changed blobs. The issue is closed; queue/board synchronization passes.
+Complete post-closeout intake has 659 issues, 95 open, no issue after #740 and
+no open PRs. All eleven exact task-owned services are terminal and retired,
+with the failed exterior event preserved. See the
+[public closeout receipt](../devtools/data/native_inventory_read_closeout_740_20261112.json).
+Continue MDAnalysis under #727; all final-pair boundaries remain unchanged.

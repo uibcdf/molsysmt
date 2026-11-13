@@ -37,7 +37,6 @@ promotions and publication remain paused pending the agreed resumption.**
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
 | Complete #723's comparable long campaign | The method/default-host baseline passes on `db1706f8a`; the concrete molecular integration passes 63 controls and one actual 5,000-structure cycle on clean `1a899f9f0`. Initial/recovered native targets and 3,720,000-byte buffers clear; the independent witness survives unchanged. Host growth and debugger errors remain explicit. Freeze the comparison composition before the long campaign; preserve original raw outcomes and #615/#713 scopes. |
-| Receive #740 public closeout and resume #727 | Source a3cf6b3a5 preserves native declared inventory and nullable parent reads; 1,566 affected cases and five actual HTML pages are received with the exterior cohort failure retained separately. Publish/archive/close, inspect intake, then continue the remaining external-class articles. |
 | Complete #727 and the admitted pre-1.0 polishing review | Sixty-eight reviewed native/file/string/Biopython/OpenMM/MDTraj articles deliver 1,338 intended links to 1,213 verified source files. Eighteen other external class articles retain 350 unlinked nodes. The MDTraj increment passes 836 adapter cases (two retained provider warnings), 269 final combined controls and ten zero-warning HTML pages. #738 corrects bounded HDF5 iteration; continue with MDAnalysis and other remaining families. Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11). Original credit, investigations, nightly/exact-pair gates and deferred optional expansion remain separate. |
 | Preserve #734's bounded contacts/SASA owner disposition | The [owner contract](native_interface_contacts_sasa_contract.md) and 104-case receiving offer existing public operations for the first Cartesian bundled-element-vdW profile. No concrete new operation gap is established. BindingMT #112 and TopoMT #197 retain application decisions and actual client acceptance; MolSysSuite #195 remains the coordination owner. This finite review adds no release prerequisite. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
@@ -8111,3 +8110,12 @@ This closes the read-side correction independently of #739. Resume #727's
 eighteen remaining external-class articles, beginning with MDAnalysis, after
 public closeout/intake. No original-score bonus, complete-source/nightly or
 installed/client/scientific certificate or publication resumption follows.
+
+
+The #740 archive and receipt are publicly verified on 2d6dc1457, including
+eighteen changed blobs. The issue is closed; queue/board synchronization passes.
+Complete post-closeout intake has 659 issues, 95 open, no issue after #740 and
+no open PRs. All eleven exact task-owned services are terminal and retired,
+with the failed exterior event preserved. See the
+[public closeout receipt](../devtools/data/native_inventory_read_closeout_740_20261112.json).
+Continue MDAnalysis under #727; all final-pair boundaries remain unchanged.

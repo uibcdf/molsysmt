@@ -1,0 +1,233 @@
+{
+  "schema": "molsysmt.native_inventory_read_closeout/1",
+  "date": "2026-11-12",
+  "issue": "uibcdf/molsysmt#740",
+  "published_checkpoint": {
+    "published_main": "2d6dc145794db0ba537a31569f6e289c869e300f",
+    "queried_source": "2d6dc145794db0ba537a31569f6e289c869e300f",
+    "truncated": false,
+    "matched_changed_files": [
+      {
+        "path": "devguide/archive/resolved_bugs/reading_native_molecule_counts_rebuilds_and_discards_declared_inventory.md",
+        "git_blob": "a03349c30773ba1954ea906945735c7c647a88e0"
+      },
+      {
+        "path": "devguide/forms_and_conversions.md",
+        "git_blob": "6fae49e2809a26bc9c03a99d38374421a3393b71"
+      },
+      {
+        "path": "devguide/native_queries.md",
+        "git_blob": "3111ab6d7950276f7ec79f29e127b1a183becf92"
+      },
+      {
+        "path": "devguide/pending_bugs/README.md",
+        "git_blob": "1b59023c8f43ebf4eaec7cbc38307b2a72aa873d"
+      },
+      {
+        "path": "devguide/pending_bugs/docs/native_form_implementation_references_render_without_links.md",
+        "git_blob": "0a04aefe07ce32bba651448825344e169ead8096"
+      },
+      {
+        "path": "devguide/pre_1_0_completion_handoffs_20261110.md",
+        "git_blob": "156c6ca4fae0f497b17e359d4ae65d7431e938b0"
+      },
+      {
+        "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+        "git_blob": "d7ac90b230aff1704a08ede301987ddf960622de"
+      },
+      {
+        "path": "devguide/release_1_0_status.md",
+        "git_blob": "7745b2beef196cadad14c8a90eab18d3ba707a4b"
+      },
+      {
+        "path": "devtools/data/native_inventory_read_receiving_740_20261112.json",
+        "git_blob": "427d43680da829ab27fc3b59cf103d8f191b5767"
+      },
+      {
+        "path": "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb",
+        "git_blob": "79d0a62885980ef3e3d0d024e0ae151e855d2544"
+      },
+      {
+        "path": "docs/content/user/cookbook/group_free_hierarchy.ipynb",
+        "git_blob": "c768bf14a9d0550501fbb39957fc5b55317b282d"
+      },
+      {
+        "path": "docs/content/user/foundations/native_world/classes/molsysmt_Topology.md",
+        "git_blob": "ac2ac222d7069257229c330f5961252aca839699"
+      },
+      {
+        "path": "docs/content/user/tools/basic/get.ipynb",
+        "git_blob": "2f1ea223172e3c03b5d54bb661630facd582ca5f"
+      },
+      {
+        "path": "docs/content/user/tools/basic/info.ipynb",
+        "git_blob": "32d46a83d22884e2b534eac8b8d5ce2c5262c080"
+      },
+      {
+        "path": "docs/docs_manifest.yml",
+        "git_blob": "e29a3e26cc16f4bd22dcb3ae0eea87ce028e678e"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_Topology/get_topological_attributes.py",
+        "git_blob": "0fb8312ebd0d0d1502d98752dea863f48af7203c"
+      },
+      {
+        "path": "tests/conftest.py",
+        "git_blob": "60332ae448c7ba964f64fc5e16832e826831289c"
+      },
+      {
+        "path": "tests/form/molsysmt_Topology/test_readonly_inventory_counts.py",
+        "git_blob": "48ecdfa770fdda4151f2237b265fde191a7cb1c5"
+      }
+    ],
+    "before_issue_closure": true
+  },
+  "board_after_closure": {
+    "complete_issue_inventory": true,
+    "issue_count": 659,
+    "open_issue_count": 95,
+    "new_issues_after_740": [],
+    "complete_open_pull_request_inventory": true,
+    "open_pull_request_count": 0,
+    "issue_740_state": "CLOSED",
+    "queue_sync_native_exit": 0
+  },
+  "owned_service_retirement": {
+    "units": [
+      {
+        "unit": "msm-inventory740-baseline-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-inventory740-valid-baseline-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-inventory740-corrected-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-inventory740-parent-baseline-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-inventory740-parent-corrected-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-inventory740-expanded-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-inventory740-cohort-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "120"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-inventory740-checks-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-inventory740-html-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-inventory740-articles-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-inventory740-final-checks-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      }
+    ],
+    "foreign_processes_signalled": false
+  },
+  "qualification_limit": "Published source/issue closeout only; no complete-source/nightly, installed-pair, scientific or release gate waiver."
+}
