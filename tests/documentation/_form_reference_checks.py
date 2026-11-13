@@ -237,6 +237,22 @@ _STRING_OPERATIONS = {
     "string_smiles": _FILE_HOOKS - {"append_structures"},
     "string_uniprot_id": _FILE_HOOKS,
 }
+_OPENMM_CLASS_OPERATIONS = {
+    "openmm_AmberInpcrdFile": _FILE_HOOKS,
+    "openmm_AmberPrmtopFile": _FILE_HOOKS,
+    "openmm_CharmmCrdFile": _FILE_HOOKS,
+    "openmm_CharmmPsfFile": _FILE_HOOKS,
+    "openmm_Context": _FILE_HOOKS,
+    "openmm_GromacsGroFile": _FILE_HOOKS,
+    "openmm_GromacsTopFile": _FILE_HOOKS,
+    "openmm_Modeller": _FILE_HOOKS,
+    "openmm_PDBFile": _FILE_HOOKS,
+    "openmm_Simulation": _FILE_HOOKS,
+    "openmm_State": _FILE_HOOKS,
+    "openmm_System": _FILE_HOOKS,
+    "openmm_Topology": _FILE_HOOKS,
+}
+_EXTERNAL_CLASS_OPERATIONS.update(_OPENMM_CLASS_OPERATIONS)
 
 
 def _declared_converters(adapter, directory):
@@ -303,10 +319,22 @@ def _assert_native_form_reference_contract(name):
         assert re.fullmatch(r"[a-f0-9]{40}", parts[4])
         path = Path(*parts[5:])
         assert path in expected and (ROOT / path).is_file()
+        source_lines = (ROOT / path).read_text().splitlines()
+        if not source_lines:
+            # An honestly empty module has no line to anchor. It must never
+            # stand in for a callable converter or implemented operation.
+            assert path.stem in {
+                "set",
+                "get_topological_attributes",
+                "get_structural_attributes",
+            }
+            assert not parsed.fragment
+            observed.add(path)
+            continue
         line = re.fullmatch(r"L([1-9][0-9]*)", parsed.fragment)
         assert line is not None
         lineno = int(line[1])
-        assert lineno <= len((ROOT / path).read_text().splitlines())
+        assert lineno <= len(source_lines)
         if path.stem in {
             "__init__",
             "get_topological_attributes",

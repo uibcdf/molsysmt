@@ -713,6 +713,71 @@ sections:
             agents_file: docs/content/user/tools/form/class/biopython/biopython_PDBStructure.ipynb.AGENTS.md
             description: Actual declarations, conversion routes and optional Biopython operation limits with received implementation links.
             status: pending_review
+          - name: reviewed_openmm_AmberInpcrdFile_references
+            file: docs/content/user/tools/form/class/openmm/openmm_AmberInpcrdFile.ipynb
+            agents_file: docs/content/user/tools/form/class/openmm/openmm_AmberInpcrdFile.ipynb.AGENTS.md
+            description: Received OpenMM declarations and implementation links with actual coordinate, chemistry, runtime and unavailable-operation limits.
+            status: pending_review
+          - name: reviewed_openmm_AmberPrmtopFile_references
+            file: docs/content/user/tools/form/class/openmm/openmm_AmberPrmtopFile.ipynb
+            agents_file: docs/content/user/tools/form/class/openmm/openmm_AmberPrmtopFile.ipynb.AGENTS.md
+            description: Received OpenMM declarations and implementation links with actual coordinate, chemistry, runtime and unavailable-operation limits.
+            status: pending_review
+          - name: reviewed_openmm_CharmmCrdFile_references
+            file: docs/content/user/tools/form/class/openmm/openmm_CharmmCrdFile.ipynb
+            agents_file: docs/content/user/tools/form/class/openmm/openmm_CharmmCrdFile.ipynb.AGENTS.md
+            description: Received OpenMM declarations and implementation links with actual coordinate, chemistry, runtime and unavailable-operation limits.
+            status: pending_review
+          - name: reviewed_openmm_CharmmPsfFile_references
+            file: docs/content/user/tools/form/class/openmm/openmm_CharmmPsfFile.ipynb
+            agents_file: docs/content/user/tools/form/class/openmm/openmm_CharmmPsfFile.ipynb.AGENTS.md
+            description: Received OpenMM declarations and implementation links with actual coordinate, chemistry, runtime and unavailable-operation limits.
+            status: pending_review
+          - name: reviewed_openmm_Context_references
+            file: docs/content/user/tools/form/class/openmm/openmm_Context.ipynb
+            agents_file: docs/content/user/tools/form/class/openmm/openmm_Context.ipynb.AGENTS.md
+            description: Received OpenMM declarations and implementation links with actual coordinate, chemistry, runtime and unavailable-operation limits.
+            status: pending_review
+          - name: reviewed_openmm_GromacsGroFile_references
+            file: docs/content/user/tools/form/class/openmm/openmm_GromacsGroFile.ipynb
+            agents_file: docs/content/user/tools/form/class/openmm/openmm_GromacsGroFile.ipynb.AGENTS.md
+            description: Received OpenMM declarations and implementation links with actual coordinate, chemistry, runtime and unavailable-operation limits.
+            status: pending_review
+          - name: reviewed_openmm_GromacsTopFile_references
+            file: docs/content/user/tools/form/class/openmm/openmm_GromacsTopFile.ipynb
+            agents_file: docs/content/user/tools/form/class/openmm/openmm_GromacsTopFile.ipynb.AGENTS.md
+            description: Received OpenMM declarations and implementation links with actual coordinate, chemistry, runtime and unavailable-operation limits.
+            status: pending_review
+          - name: reviewed_openmm_Modeller_references
+            file: docs/content/user/tools/form/class/openmm/openmm_Modeller.ipynb
+            agents_file: docs/content/user/tools/form/class/openmm/openmm_Modeller.ipynb.AGENTS.md
+            description: Received OpenMM declarations and implementation links with actual coordinate, chemistry, runtime and unavailable-operation limits.
+            status: pending_review
+          - name: reviewed_openmm_PDBFile_references
+            file: docs/content/user/tools/form/class/openmm/openmm_PDBFile.ipynb
+            agents_file: docs/content/user/tools/form/class/openmm/openmm_PDBFile.ipynb.AGENTS.md
+            description: Received OpenMM declarations and implementation links with actual coordinate, chemistry, runtime and unavailable-operation limits.
+            status: pending_review
+          - name: reviewed_openmm_Simulation_references
+            file: docs/content/user/tools/form/class/openmm/openmm_Simulation.ipynb
+            agents_file: docs/content/user/tools/form/class/openmm/openmm_Simulation.ipynb.AGENTS.md
+            description: Received OpenMM declarations and implementation links with actual coordinate, chemistry, runtime and unavailable-operation limits.
+            status: pending_review
+          - name: reviewed_openmm_State_references
+            file: docs/content/user/tools/form/class/openmm/openmm_State.ipynb
+            agents_file: docs/content/user/tools/form/class/openmm/openmm_State.ipynb.AGENTS.md
+            description: Received OpenMM declarations and implementation links with actual coordinate, chemistry, runtime and unavailable-operation limits.
+            status: pending_review
+          - name: reviewed_openmm_System_references
+            file: docs/content/user/tools/form/class/openmm/openmm_System.ipynb
+            agents_file: docs/content/user/tools/form/class/openmm/openmm_System.ipynb.AGENTS.md
+            description: Received OpenMM declarations and implementation links with actual coordinate, chemistry, runtime and unavailable-operation limits.
+            status: pending_review
+          - name: reviewed_openmm_Topology_references
+            file: docs/content/user/tools/form/class/openmm/openmm_Topology.ipynb
+            agents_file: docs/content/user/tools/form/class/openmm/openmm_Topology.ipynb.AGENTS.md
+            description: Received OpenMM declarations and implementation links with actual coordinate, chemistry, runtime and unavailable-operation limits.
+            status: pending_review
           - name: pdb_reader_context
             file: docs/content/user/tools/form/file/file_pdb.ipynb
             agents_file: docs/content/user/tools/form/file/file_pdb.ipynb.AGENTS.md

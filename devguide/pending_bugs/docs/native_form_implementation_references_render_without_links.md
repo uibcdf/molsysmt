@@ -495,3 +495,26 @@ Published closeout verifies main 244089d6c and all seventeen changed-file blobs.
 Board/queue agreement passes; #727 remains partial for the 39 external class
 articles. The new receipt retains the delivered source independently of any
 later metadata-only closeout. No original milestone acceptance is replaced.
+
+
+## OpenMM source-reference increment — 2026-11-12
+
+Thirteen OpenMM pages enter the next bounded review. The documentation baseline
+has 31 failures and eleven passes: missing intended links/counts, three omitted
+registered MolSys routes, omitted Simulation settings and PDB count delivery
+added by #735. Real coordinate probes separately establish #735/#736, whose
+source repairs and original outcomes have their own reports. No new engine or
+scientific algorithm is commissioned by this increment.
+
+The pages now supply 258 intended references to 232 source files at local
+3f034dbd0, pending public readback. They distinguish actual unavailable hooks,
+empty modules, instance absence, native chemistry ownership, current runtime
+versus captured snapshots and first-pose projections versus trajectories.
+The existing Topology/copy/temporary-PDB/periodic-export explanations remain.
+The first corrected cohort has 52 passes/two failures because two honestly
+empty setter modules have no line 1. The guard now admits an unanchored link
+only for an explicitly empty module; invented empty-file lines and unanchored
+callable references remain rejected. No source file is padded to satisfy it.
+The extended corrected cohort passes 56 cases without warnings or omissions.
+Notebook executable payloads, metadata, outputs, order and headings/anchors
+are preserved. Clean HTML, wider receiving and common/public closeout remain.

@@ -11,18 +11,19 @@ from molsysmt._private.smonitor import (
     NotImplementedMethodError,
 )
 from tests.documentation._form_reference_checks import (
-    _EXTERNAL_CLASS_OPERATIONS,
     ROOT,
     _assert_native_form_reference_contract,
 )
 
+_BIOPYTHON_FORMS = ("biopython_Seq", "biopython_SeqRecord", "biopython_PDBStructure")
 
-@pytest.mark.parametrize("name", tuple(_EXTERNAL_CLASS_OPERATIONS))
+
+@pytest.mark.parametrize("name", _BIOPYTHON_FORMS)
 def test_biopython_tutorial_delivers_every_reviewed_hook_and_converter(name):
     _assert_native_form_reference_contract(name)
 
 
-@pytest.mark.parametrize("name", tuple(_EXTERNAL_CLASS_OPERATIONS))
+@pytest.mark.parametrize("name", _BIOPYTHON_FORMS)
 def test_biopython_tutorial_declarations_match_the_adapter(name):
     page = ROOT / f"docs/content/user/tools/form/class/biopython/{name}.ipynb"
     source = "".join(json.loads(page.read_text())["cells"][2]["source"])
