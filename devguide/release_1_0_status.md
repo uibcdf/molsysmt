@@ -10,7 +10,9 @@ correction `9af9be18c` / guard `90aa8eae1`, native-domain guidance
 `1b98c2b1d` / `2bf21835f` / `115ebe335`, dictionary guidance
 `bdcd326ae`, remaining native guidance `61e0a24ba`, file guidance `022460c14`,
 file extraction/identity corrections `7b607f638` / `7097f81c5`, string guidance
-`4b280fdcb` and string boundary corrections `ed12b039a`, plus the
+`4b280fdcb`, string boundary corrections `ed12b039a`, Biopython guidance
+`26b550f96`, OpenMM coordinate repairs `3f034dbd0` and OpenMM guidance
+`9a261ebd5`, plus the
 separately received earlier documentation/catalog slices.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
@@ -35,7 +37,7 @@ promotions and publication remain paused pending the agreed resumption.**
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
 | Complete #723's comparable long campaign | The method/default-host baseline passes on `db1706f8a`; the concrete molecular integration passes 63 controls and one actual 5,000-structure cycle on clean `1a899f9f0`. Initial/recovered native targets and 3,720,000-byte buffers clear; the independent witness survives unchanged. Host growth and debugger errors remain explicit. Freeze the comparison composition before the long campaign; preserve original raw outcomes and #615/#713 scopes. |
-| Complete #727 and the admitted pre-1.0 polishing review | Forty-seven reviewed native/file/string/Biopython articles deliver 919 intended implementation links to 836 verified source files. All flagged native/file/string/Biopython debt in the census is received; 39 other external class articles retain 765 unlinked Python-role nodes. Continue those external class families. Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11) under the handoff cutoff: fix admitted correctness, integrity, supported-workflow and documentation defects; review incoming reports without admitting optional expansion automatically. #728 implementation stays deferred. Preserve original milestone accounting and qualification boundaries. |
+| Complete #727 and the admitted pre-1.0 polishing review | Sixty reviewed native/file/string/Biopython/OpenMM articles deliver 1,177 intended implementation links to 1,068 verified source files. All flagged debt in those reviewed families is received; 26 other external class articles retain 510 unlinked Python-role nodes. Continue those families. The 700-case OpenMM receiving covers #735/#736's admitted coordinate/copy/mutation repairs; #737 owns adjacent direct-reader consistency after 1.0. Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11) and preserve original credit, investigations and qualification boundaries. Optional expansion, including #728, remains deferred. |
 | Preserve #734's bounded contacts/SASA owner disposition | The [owner contract](native_interface_contacts_sasa_contract.md) and 104-case receiving offer existing public operations for the first Cartesian bundled-element-vdW profile. No concrete new operation gap is established. BindingMT #112 and TopoMT #197 retain application decisions and actual client acceptance; MolSysSuite #195 remains the coordination owner. This finite review adds no release prerequisite. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
 | Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
@@ -53,6 +55,42 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## OpenMM form and coordinate receiving — 2026-11-12
+
+Thirteen OpenMM pages receive their actual declarations, conversions, hooks
+and runtime/data boundaries. Three missing MolSys routes and two Simulation
+settings are included. Stable inventory, native chemical assignments and live
+engine configuration are distinguished. The pages deliver 258 references to
+232 independently matched files at published `3f034dbd0`; honestly empty modules
+have file links without fictitious line anchors, while functions require their
+real definitions. Original Topology/copy/preparation/temporary-PDB explanations
+and all notebook executable payloads, metadata, outputs, order and anchors remain.
+
+The review also finds and repairs #735's PDB model/atom-axis/copy defects and
+Modeller coordinate/ownership mismatch. Native and MDTraj projections retain
+the supported selected axes and source box. #736 makes unsupported State
+mutation a catalogued refusal and restores the public selector on live Context
+assignment. #592's independent-runtime/snapshot-copy work remains separate.
+#737 owns the inspected direct identity-reuse behavior of five other readers
+after 1.0; it does not add a release condition.
+
+Clean `9a261ebd5` generates all thirteen pages without warnings. The final
+combined source/runtime/doctest/actual-article cohort passes **700 cases without
+warnings or omissions**, including all sixty reviewed articles. The
+[receipt](../devtools/data/openmm_form_and_coordinate_receiving_727_735_736_20261112.json)
+retains original numerical/dispatch failures, two expected-value test-draft
+errors, the stronger 38-model regression, link-guard recovery and exact
+source/provider/resource scope. Fifteen common fast gates, indexes and whole-
+repository Ruff pass. All fifteen exact task-owned units are terminal/retired.
+Public readback and issue closeout follow this source/record checkpoint.
+
+#727 remains partial for 26 external class pages/510 unlinked nodes among 34
+unchanged-source, byte-identical cached articles. This is neither a complete
+full-source/scientific certificate nor a new full-site, installed or provider-
+floor qualification. Later executable changes remain in the complete-source/
+nightly backlog. Original credit, investigations, client/format agreements,
+mandatory final-pair gates and the publication pause remain unchanged.
 
 ## Biopython form reference receiving — 2026-11-12
 

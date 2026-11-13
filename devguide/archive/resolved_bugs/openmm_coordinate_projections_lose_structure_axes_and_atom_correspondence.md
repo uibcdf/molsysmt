@@ -1,9 +1,9 @@
 ---
 summary: OpenMM coordinate projections lose structure axes and atom correspondence
 issue: uibcdf/molsysmt#735
-status: active
+status: resolved
 opened: 2026-11-12
-closed:
+closed: 2026-11-12
 severity: high
 verification: reproduced
 area: [form, extract, units]
@@ -68,3 +68,30 @@ and the stronger check compares every model/selected atom against the reader.
 The corrected focused cohort passes 34 cases without warnings or omissions,
 including #736's separate State/Context controls and updated doctests. Broader
 final receiving, form documentation and public closeout remain due.
+
+
+## Resolution — 2026-11-12
+
+Existing coordinate queries and projections now preserve their admitted
+structure/atom axes, units and ownership. PDBFile count/box/model delivery,
+identity copying and coherent same-form/native/MDTraj projections are received.
+Modeller copy/extraction has independent topology/positions and one aligned
+source-sorted unique atom axis. The first selected PDB pose remains the explicit
+Modeller projection policy. Meaningful additional guards live in
+`tests/form/openmm_Modeller/test_extraction_axes.py` and the stronger 38-model
+`tests/form/openmm_PDBFile/test_to_mdtraj_Trajectory.py`.
+
+The final combined cohort passes 700 cases without warnings or omissions on
+clean 9a261ebd5, including source/runtime/doctest and sixty actual reviewed
+articles. Fifteen common fast gates, indexes and whole-repository Ruff pass.
+The [receipt](../../../devtools/data/openmm_form_and_coordinate_receiving_727_735_736_20261112.json)
+retains original failures, staged source/provider scope, numerical limits and
+shared-host resource receiving. All fifteen terminal task-owned units are
+retired after MainPID-zero checks; foreign processes are untouched.
+
+Docstrings, form articles and maintained conversion guidance agree with these
+contracts. No new molecular kernel, provider floor, installed/final-pair
+qualification or publication authorization follows. Public source/readback and
+issue closeout use this record; lifecycle metadata receives its own offline
+checks after archival. The adjacent direct-reader consistency review stays
+post-1.0 under #737.

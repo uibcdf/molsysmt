@@ -1,0 +1,4194 @@
+{
+  "schema": "molsysmt.documentation_and_adapter_receiving/1",
+  "date": "2026-11-12",
+  "issues": [
+    "uibcdf/molsysmt#727",
+    "uibcdf/molsysmt#735",
+    "uibcdf/molsysmt#736"
+  ],
+  "deferred_followup": "uibcdf/molsysmt#737",
+  "implementation_source": "3f034dbd0ebdf4a55ec46af2426b90177a12424d",
+  "documentation_source": "9a261ebd5221f3ed8c7b29f116bcfbb26897328d",
+  "scope": "Thirteen OpenMM form articles, all sixty reviewed actual form articles, coherent coordinate projections/copies and mutable-Context versus immutable-State assignment. Not complete-source/scientific, installed, full-site, provider-floor or final-pair qualification.",
+  "executions": {
+    "runtime-baseline": {
+      "phase": "runtime-baseline",
+      "source_commit": "e6e81533ce4d1013dbb21714eb0ea4fd8cd7dbaa",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded Biopython documentation/source receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.66 0.61 0.52 2/2696 721895",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=15985690815\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/openmm-reference-727-20261112/runtime-baseline.xml",
+        "tests/form/openmm_PDBFile/test_ensemble_axes.py",
+        "tests/form/openmm_Modeller/test_extraction_axes.py"
+      ],
+      "checked_inputs": 7429,
+      "seconds": 5.655892821960151,
+      "changed_inputs": [],
+      "memory_peak_bytes": 222044160,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14525992960,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "6915b5da84137901148d4f885110529208cb3c9b0fe47baa5650eb605d06da2d",
+      "log_sha256": "db2503498b262230cbcdb45fe789a0a08e8a30b6dc66e5176a4da4f8f2608f59",
+      "input_inventory_sha256": "0b8bf272e71a7f7b17df24ae007d0ed7774fddb7b2c94e5646c12471618f0458",
+      "junit_counts": {
+        "tests": 12,
+        "failures": 12,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "junit_sha256": "99853f58441670159703c85a646a9c93acc16d356db658ec26b15c9fa09576ba"
+    },
+    "runtime-corrected": {
+      "phase": "runtime-corrected",
+      "source_commit": "e6e81533ce4d1013dbb21714eb0ea4fd8cd7dbaa",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded Biopython documentation/source receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "2.03 0.90 0.64 2/2703 727895",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=15986100961\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/openmm-reference-727-20261112/runtime-corrected.xml",
+        "tests/form/openmm_PDBFile/test_ensemble_axes.py",
+        "tests/form/openmm_Modeller/test_extraction_axes.py"
+      ],
+      "checked_inputs": 7430,
+      "seconds": 6.6739754201844335,
+      "changed_inputs": [],
+      "memory_peak_bytes": 223293440,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14505549824,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "f395f5513b8a583a3dce52201481bcd06fc35081f6afec25a6af5b1e9a6ffa44",
+      "log_sha256": "194df8291421013236954d58b50704e09db2211f35061cee4de266ec421a3109",
+      "input_inventory_sha256": "01bd649899112be5df83df257c6326a4deff6e60f7067e0a7af5ff3373867653",
+      "junit_counts": {
+        "tests": 17,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 17
+      },
+      "junit_sha256": "8cac3557b55767124cf080fdd66c53cb27513f16e4627a033034f4f8cdd3cbb5"
+    },
+    "state-baseline": {
+      "phase": "state-baseline",
+      "source_commit": "e6e81533ce4d1013dbb21714eb0ea4fd8cd7dbaa",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded Biopython documentation/source receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.74 1.02 0.69 3/2688 729355",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=15986205369\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/openmm-reference-727-20261112/state-baseline.xml",
+        "tests/form/openmm_State/test_immutable_positions.py"
+      ],
+      "checked_inputs": 7431,
+      "seconds": 4.699097434990108,
+      "changed_inputs": [],
+      "memory_peak_bytes": 164311040,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14633730048,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "2c49586eaa63266955c31474c3505a74a99c9ebea6b5b6f3de35de971e199c5b",
+      "log_sha256": "1fb39389faa940f4a9199b24130631ccdba57692625b77cb9e5a7a2dce4969e5",
+      "input_inventory_sha256": "d80cecf61dbcb120861456a833d12160737d711fa0d35b35b6944ebb97eef0c5",
+      "junit_counts": {
+        "tests": 4,
+        "failures": 4,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "junit_sha256": "06c15f4ac23a56cffd40ae234317de82c65e2af98c78156cab8df6e8a940cf14"
+    },
+    "state-direct-baseline": {
+      "phase": "state-direct-baseline",
+      "source_commit": "e6e81533ce4d1013dbb21714eb0ea4fd8cd7dbaa",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded Biopython documentation/source receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.14 1.02 0.73 2/2728 731158",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=15986353893\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/openmm-reference-727-20261112/state-direct-baseline.xml",
+        "tests/form/openmm_State/test_immutable_positions.py"
+      ],
+      "checked_inputs": 7431,
+      "seconds": 4.677407005103305,
+      "changed_inputs": [],
+      "memory_peak_bytes": 164360192,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14560288768,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "45a4d9cfe94a39a96bea748e31f707c88d9efba38200419d7efedfe0afeb49d5",
+      "log_sha256": "72cc732d4b64dd6a2bf6dc5840506619b94e01954b81d55b2d1ebacae44ad825",
+      "input_inventory_sha256": "7d2025d1041efec2ffec93c113fbe5c8c36e598bb6ecd9a02442105a986539bc",
+      "junit_counts": {
+        "tests": 6,
+        "failures": 6,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "junit_sha256": "e8d76888f4ef6e618f76b5d7abddf7f97af9d9b9554660f12e6e4082627c113c"
+    },
+    "state-corrected": {
+      "phase": "state-corrected",
+      "source_commit": "e6e81533ce4d1013dbb21714eb0ea4fd8cd7dbaa",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded Biopython documentation/source receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.87 0.96 0.76 2/2688 735498",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=15986678438\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/openmm-reference-727-20261112/state-corrected.xml",
+        "tests/form/openmm_State/test_immutable_positions.py"
+      ],
+      "checked_inputs": 7432,
+      "seconds": 4.679285055026412,
+      "changed_inputs": [],
+      "memory_peak_bytes": 163000320,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14535647232,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "ae3908ee9c2718491e5ec9a0329c67b99ce4b2110fa21ec740366fb29658850b",
+      "log_sha256": "e2f452cadb9c6fae64d3ae05a0a3085ace7f3dba41af6e8a3b7c44742c63509c",
+      "input_inventory_sha256": "f846dc814a8920bff328c493db7bbe44aa065b2f0c3d861abeef40286603dc69",
+      "junit_counts": {
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 6
+      },
+      "junit_sha256": "9601b8e99a2d5de19d8965b6d8004d7bf81643be498224015bebfbba149918db"
+    },
+    "downstream-baseline": {
+      "phase": "downstream-baseline",
+      "source_commit": "e6e81533ce4d1013dbb21714eb0ea4fd8cd7dbaa",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded Biopython documentation/source receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.02 0.99 0.78 4/2726 736079",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=15986737093\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/openmm-reference-727-20261112/downstream-baseline.xml",
+        "tests/form/openmm_PDBFile/test_to_mdtraj_Trajectory.py"
+      ],
+      "checked_inputs": 7432,
+      "seconds": 4.6211296080145985,
+      "changed_inputs": [],
+      "memory_peak_bytes": 195035136,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14515294208,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "ae3908ee9c2718491e5ec9a0329c67b99ce4b2110fa21ec740366fb29658850b",
+      "log_sha256": "d689773134bddbe05b810164b25f2fa4f2b9d5ae8aa85bf3d02caa5c3dd5ccef",
+      "input_inventory_sha256": "f846dc814a8920bff328c493db7bbe44aa065b2f0c3d861abeef40286603dc69",
+      "junit_counts": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "junit_sha256": "c89033c21fdefbfa7cf5d82dcc12f566b1447048e13b0cdd647623dc21e1904b"
+    },
+    "runtime-integrated": {
+      "phase": "runtime-integrated",
+      "source_commit": "e6e81533ce4d1013dbb21714eb0ea4fd8cd7dbaa",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded Biopython documentation/source receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.66 0.87 0.75 3/2714 737863",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=15986868543\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/openmm-reference-727-20261112/runtime-integrated.xml",
+        "tests/form/openmm_PDBFile",
+        "tests/form/openmm_Modeller",
+        "tests/form/openmm_State",
+        "tests/form/openmm_Topology/test_copy_and_extract_metadata.py",
+        "tests/form/openmm_Topology/test_to_molsysmt_native.py",
+        "--doctest-modules",
+        "molsysmt/form/openmm_PDBFile/get_structural_attributes.py"
+      ],
+      "checked_inputs": 7432,
+      "seconds": 118.7222725211177,
+      "changed_inputs": [],
+      "memory_peak_bytes": 255569920,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14472048640,
+      "maximum_memory_pressure_avg10": 0.57,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "88da4fccf9f99423b8c62eade409ea0dfa81119f8d8d2da966aa26e107cd1b81",
+      "log_sha256": "10c2a065c6d65bfd21b6501cf567f484ed8700468f3980ab1183d875ccec3ed9",
+      "input_inventory_sha256": "af66109b4c52022720639083a411405ca1bb80f7e747afb88ad26a136c15e406",
+      "junit_counts": {
+        "tests": 478,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 476
+      },
+      "junit_sha256": "26691fc154904946886799d773efdf7928b7b44999ac91c732a26a4774ae32b0"
+    },
+    "context-baseline": {
+      "phase": "context-baseline",
+      "source_commit": "e6e81533ce4d1013dbb21714eb0ea4fd8cd7dbaa",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded Biopython documentation/source receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.70 1.12 0.91 4/2710 742680",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=15987187575\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/openmm-reference-727-20261112/context-baseline.xml",
+        "tests/form/openmm_Context/test_position_assignment.py"
+      ],
+      "checked_inputs": 7433,
+      "seconds": 4.660497569013387,
+      "changed_inputs": [],
+      "memory_peak_bytes": 167657472,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15423926272,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "7e0c612637a258a0da16034592296dbbf3ec7c8271add5724ad2794dd0da94dc",
+      "log_sha256": "a9936d79150321b9bbe486f297de0ca84db4992534d583116235277200fb72fd",
+      "input_inventory_sha256": "1eff03f7e00ce5889e04046cbb38a7bf5df39feffb5c516942f4136a4bf37544",
+      "junit_counts": {
+        "tests": 4,
+        "failures": 4,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "junit_sha256": "d869370ba09a278c53a5d06b5d32e3e8a7cdd75fa0ed7ee43e0e2e0c2f65365f"
+    },
+    "focused": {
+      "phase": "focused",
+      "source_commit": "e6e81533ce4d1013dbb21714eb0ea4fd8cd7dbaa",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded Biopython documentation/source receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.69 1.02 0.89 3/2695 743995",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=15987294681\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/openmm-reference-727-20261112/focused.xml",
+        "tests/form/openmm_PDBFile/test_ensemble_axes.py",
+        "tests/form/openmm_Modeller/test_extraction_axes.py",
+        "tests/form/openmm_State/test_immutable_positions.py",
+        "tests/form/openmm_Context/test_position_assignment.py",
+        "tests/form/openmm_PDBFile/test_to_mdtraj_Trajectory.py",
+        "--doctest-modules",
+        "molsysmt/form/openmm_PDBFile/get_structural_attributes.py"
+      ],
+      "checked_inputs": 7433,
+      "seconds": 7.67419721907936,
+      "changed_inputs": [],
+      "memory_peak_bytes": 246870016,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15280459776,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "bc3a0cb88cb14797ab41b6e1e8824ddfce860e730a29a73acc1f72c3608a1bb4",
+      "log_sha256": "724c13d440058f9b2f85ef2e0d8ed65176a1baa2dc247e01e146b152d7570fd3",
+      "input_inventory_sha256": "69a63119f49dd12beb0e043f41ca8e833137b5f639497df83ced421bad3f08ce",
+      "junit_counts": {
+        "tests": 34,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 34
+      },
+      "junit_sha256": "a7e89da5dfd9bd4b166ae90f94c6f23dab903fd30dd0c528c0c47f016b86050d"
+    },
+    "baseline": {
+      "phase": "baseline",
+      "source_commit": "e6e81533ce4d1013dbb21714eb0ea4fd8cd7dbaa",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded Biopython documentation/source receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.23 1.11 0.95 4/2698 747145",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=15987514096\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/openmm-reference-727-20261112/baseline.py"
+      ],
+      "checked_inputs": 7434,
+      "seconds": 7.662275866838172,
+      "changed_inputs": [],
+      "memory_peak_bytes": 382369792,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15217152000,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "bc3a0cb88cb14797ab41b6e1e8824ddfce860e730a29a73acc1f72c3608a1bb4",
+      "log_sha256": "117b1be2af4e470d37032271f754e0f7e238714577fa79f498a7037f2f006116",
+      "input_inventory_sha256": "0bd1f880f64047177fe8c321e784641520ea3b798fd73ec3069042c3804cdc37",
+      "junit_counts": {
+        "tests": 42,
+        "failures": 31,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 11
+      },
+      "junit_sha256": "216a2ef8baa443e5b3462a0e70d4b45166635d083ec037186ecdd35ca437cdd6"
+    },
+    "corrected": {
+      "phase": "corrected",
+      "source_commit": "3f034dbd0ebdf4a55ec46af2426b90177a12424d",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded Biopython documentation/source receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.71 2.18 1.67 2/2705 756683",
+        "cpu_pressure": "some avg10=0.00 avg60=1.39 avg300=6.15 total=16029106657\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/openmm-reference-727-20261112/corrected.xml",
+        "tests/documentation/test_openmm_form_references.py",
+        "tests/documentation/test_biopython_form_references.py"
+      ],
+      "checked_inputs": 7434,
+      "seconds": 6.676744737895206,
+      "changed_inputs": [],
+      "memory_peak_bytes": 237572096,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15294029824,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "bc3a0cb88cb14797ab41b6e1e8824ddfce860e730a29a73acc1f72c3608a1bb4",
+      "log_sha256": "e8a32d23686e347d55ccc98da9f3a2760beee74894e2d5b7df2c63c4a65637d0",
+      "input_inventory_sha256": "c6ba729669100c01abd2bf128a247c4e8a622027675a628296122998e86f883a",
+      "junit_counts": {
+        "tests": 54,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 52
+      },
+      "junit_sha256": "feef9058cac8083dcf77a9800594e3f58b638506a7ebdd940a189235c22d7fff"
+    },
+    "corrected2": {
+      "phase": "corrected2",
+      "source_commit": "3f034dbd0ebdf4a55ec46af2426b90177a12424d",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded Biopython documentation/source receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.42 1.88 1.63 2/2696 759769",
+        "cpu_pressure": "some avg10=0.00 avg60=0.10 avg300=3.66 total=16029323189\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/openmm-reference-727-20261112/corrected2.xml",
+        "tests/documentation/test_openmm_form_references.py",
+        "tests/documentation/test_biopython_form_references.py"
+      ],
+      "checked_inputs": 7434,
+      "seconds": 6.651113284053281,
+      "changed_inputs": [],
+      "memory_peak_bytes": 238411776,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15305293824,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "3650064157243e3a55866ab694e41d83cc31a289a81eed4848704d0b709199be",
+      "log_sha256": "bcb375c9e3565e90601bc88490017eb9219184da878a5bfaa373e0638ab179e3",
+      "input_inventory_sha256": "68ecdc8e43b230a782fd5cfa386e55714f99ff5d08c514ba879d5836de743ea5",
+      "junit_counts": {
+        "tests": 56,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 56
+      },
+      "junit_sha256": "408f109e9f69a02781befa66dbb258a3c07e058a81c450f61327f0cff98aa72d"
+    },
+    "html": {
+      "phase": "html",
+      "source_commit": "9a261ebd5221f3ed8c7b29f116bcfbb26897328d",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded Biopython documentation/source receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.73 1.18 1.39 4/2697 764422",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=1.59 total=16029667007\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2818572288",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/openmm-reference-727-20261112/build_links.py"
+      ],
+      "checked_inputs": 7434,
+      "seconds": 14.75441097212024,
+      "changed_inputs": [],
+      "memory_peak_bytes": 377651200,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15155834880,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "3650064157243e3a55866ab694e41d83cc31a289a81eed4848704d0b709199be",
+      "log_sha256": "104ffb3542bd5c2afd472cd6f55c03ea3f8521c95770e0820e8e2413d35b532e",
+      "input_inventory_sha256": "8a0a5d21abb2bc39ccffa45bd54e839b9a2cb64eefd7ede7d403e61ff1be2fda"
+    },
+    "receiving": {
+      "phase": "receiving",
+      "source_commit": "9a261ebd5221f3ed8c7b29f116bcfbb26897328d",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded Biopython documentation/source receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.50 1.01 1.31 4/2718 766734",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=1.09 total=16029832541\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/openmm-reference-727-20261112/receiving.xml",
+        "tests/documentation/test_native_form_references.py",
+        "tests/documentation/test_file_form_references.py",
+        "tests/documentation/test_string_form_references.py",
+        "tests/documentation/test_biopython_form_references.py",
+        "tests/documentation/test_openmm_form_references.py",
+        "tests/documentation/form_reference_receiving_guard.py",
+        "tests/form/openmm_PDBFile",
+        "tests/form/openmm_Modeller",
+        "tests/form/openmm_State",
+        "tests/form/openmm_Context/test_position_assignment.py",
+        "tests/form/openmm_Topology/test_copy_and_extract_metadata.py",
+        "tests/form/openmm_Topology/test_to_molsysmt_native.py",
+        "--doctest-modules",
+        "molsysmt/form/openmm_PDBFile/get_structural_attributes.py"
+      ],
+      "checked_inputs": 8262,
+      "seconds": 185.89541645697318,
+      "changed_inputs": [],
+      "memory_peak_bytes": 456970240,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14603501568,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "fcf930e58847fa76a79038427a6db140df5e0f15d54590fa7a5018b4d199f240",
+      "log_sha256": "0274ea85fc4942f8bdbccd24566485d50b200187bea02e91460af67f83a02a6f",
+      "input_inventory_sha256": "27ec288ebbfe12a7783ab265a46e0752acd532baad1ae0fa1cded77cb33c8262",
+      "junit_counts": {
+        "tests": 700,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 700
+      },
+      "junit_sha256": "233bce9052e399b9490e876b10d01242c686688972d436cbd0aee0f5593e877b"
+    },
+    "checks": {
+      "phase": "checks",
+      "source_commit": "9a261ebd5221f3ed8c7b29f116bcfbb26897328d",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded Biopython documentation/source receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "7.86 4.46 2.60 17/2855 778451",
+        "cpu_pressure": "some avg10=40.04 avg60=28.09 avg300=14.04 total=16085121288\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/openmm-reference-727-20261112/final_checks.py"
+      ],
+      "checked_inputs": 8147,
+      "seconds": 30.084820373915136,
+      "changed_inputs": [],
+      "memory_peak_bytes": 437911552,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 13744672768,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "fcf930e58847fa76a79038427a6db140df5e0f15d54590fa7a5018b4d199f240",
+      "results": {
+        "passed": true,
+        "commands": [
+          {
+            "command": [
+              "<development-prefix>/bin/python",
+              "devtools/scripts/release_gate.py"
+            ],
+            "native_exit": 0,
+            "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          4.2s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        6.3s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    6.1s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.4s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.5s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.7s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   2.3s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.3s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.1s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.7s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "<development-prefix>/bin/python",
+              "devtools/scripts/devguide_index.py",
+              "--check"
+            ],
+            "native_exit": 0,
+            "stdout": "Every queue index is up to date.\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "ruff",
+              "check",
+              "."
+            ],
+            "native_exit": 0,
+            "stdout": "All checks passed!\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "ruff",
+              "format",
+              "--check",
+              "."
+            ],
+            "native_exit": 0,
+            "stdout": "4709 files already formatted\n",
+            "stderr": ""
+          }
+        ]
+      },
+      "results_sha256": "a9020ce273cc5b5bb2f9ab7d3a6f852d125b9cab6aef77955a1fcedd8ffed637"
+    }
+  },
+  "final_receiving": {
+    "passed": 700,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "warnings": 0,
+    "actual_reviewed_articles": 60
+  },
+  "notebook_preservation": [
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_AmberInpcrdFile.ipynb",
+      "sha256": "926c3f5163eda77859bccc792ba69a0a374cdffa9e0d935ab719147d1413e303",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_AmberPrmtopFile.ipynb",
+      "sha256": "6206a9c0e1cfa1e7a91900999fbc6a2d1999cd3ae0264cf71a430e6d4596dc76",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_CharmmCrdFile.ipynb",
+      "sha256": "e2b5975fca3dcd60a2b2c69bcf65ce67bb400976928fbcd7482d639ce985ff96",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_CharmmPsfFile.ipynb",
+      "sha256": "3954e8a2e9c52fe644e10bb03dbccfde7e0051dfd2dcb1e0e5fc31b552ef5717",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_Context.ipynb",
+      "sha256": "aa98200ffe37abe530c25639ffcfb5aad209268455cbc9917232e35aa9bae75b",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_GromacsGroFile.ipynb",
+      "sha256": "5640de36b1c7c812e5d0385a736276dff4c7dfdbbb319ed2f00c72a1def74099",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_GromacsTopFile.ipynb",
+      "sha256": "15329cc6a131267ee19d5dc88b7a211e4811c9cac2713aa9a126c861f10f8d92",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_Modeller.ipynb",
+      "sha256": "f9d59566caf5e43b32b4cc21ea9db6ffaf3daa90425bc3bb43b35cd8e2984ba1",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_PDBFile.ipynb",
+      "sha256": "c93a979439167fceccff6bc4f578012fdb8df283bfbbfe769ad83d045ae8ff58",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_Simulation.ipynb",
+      "sha256": "7ad8974af2d05fd2f8b10becf573e0bce4abc34a8a0e0e7050145b0efb9fbfcd",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_State.ipynb",
+      "sha256": "6296f64e28561ad988a8e06713aaa510831bb60bb7ac3ca4278376f34a7f376b",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_System.ipynb",
+      "sha256": "3d21a0acc39e3a98c25d35abed1f7841245c84fbc3c84bb3e2cc82fd21ab3e32",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/openmm/openmm_Topology.ipynb",
+      "sha256": "a73ebf9518b80b8a246cc8c8b935fc35a472bd7db7c328d8c74f4ae011e7c190",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    }
+  ],
+  "new_rendered_articles": [
+    {
+      "article": "content/user/tools/form/class/openmm/openmm_AmberInpcrdFile.html",
+      "sha256": "1c8a578987dd1f8eea0711ad5d4240207f5d8f004d7f6eef287328f98eaa639a"
+    },
+    {
+      "article": "content/user/tools/form/class/openmm/openmm_AmberPrmtopFile.html",
+      "sha256": "bd32102d08d93906e08681c39e10f931407201903beeac17d39c096d39588eab"
+    },
+    {
+      "article": "content/user/tools/form/class/openmm/openmm_CharmmCrdFile.html",
+      "sha256": "dd46104749e4243bda32e363053f45ade13d757c7ed7cdb8b80e2d97a8842c15"
+    },
+    {
+      "article": "content/user/tools/form/class/openmm/openmm_CharmmPsfFile.html",
+      "sha256": "f8734ebafb955ca022b5b3a7a6b088d074c421f6ea85afbadba8978f9404c218"
+    },
+    {
+      "article": "content/user/tools/form/class/openmm/openmm_Context.html",
+      "sha256": "9dd36fc113a535cc4fb951d203ac69abf7f8a313d1c6118e8aa26861d338bbc4"
+    },
+    {
+      "article": "content/user/tools/form/class/openmm/openmm_GromacsGroFile.html",
+      "sha256": "6021d907585e484576f86c323e570fa92c4673435d70982b84e0990790309999"
+    },
+    {
+      "article": "content/user/tools/form/class/openmm/openmm_GromacsTopFile.html",
+      "sha256": "5886acf5b00b4017ad668195a3675ccf908b7cbeeb87afd9d735fe375bf4d6cd"
+    },
+    {
+      "article": "content/user/tools/form/class/openmm/openmm_Modeller.html",
+      "sha256": "c15631f6d3daa082031c2e8b4d155f2f25fb19882c263e2d124f19cd43f4de64"
+    },
+    {
+      "article": "content/user/tools/form/class/openmm/openmm_PDBFile.html",
+      "sha256": "cfdfc8115aa87c0386d8817011f75eec2ad48aa966f25ba7137ca658addcb1db"
+    },
+    {
+      "article": "content/user/tools/form/class/openmm/openmm_Simulation.html",
+      "sha256": "28b0ff65163a7857f2a9089e5706b4f189c344e78685073bd6e4f03e444cc689"
+    },
+    {
+      "article": "content/user/tools/form/class/openmm/openmm_State.html",
+      "sha256": "93bf4362d7685ae1325261fcd026ac5da74b17399a0487e72ce907d5ff5ea21a"
+    },
+    {
+      "article": "content/user/tools/form/class/openmm/openmm_System.html",
+      "sha256": "d8a7590b8fe54f87d100145900548336f4b6a4422c5d9bff066d1e964e55bbd1"
+    },
+    {
+      "article": "content/user/tools/form/class/openmm/openmm_Topology.html",
+      "sha256": "1d7e4db40b1baf345a92cba6c15da512602bfc43fba8a2255d842ae0684199c3"
+    }
+  ],
+  "strict_targeted_html": {
+    "exit": 0,
+    "warnings": 0,
+    "full_site": false,
+    "selected_pages": 13,
+    "notebook_execution": "off",
+    "autosummary_generate": false,
+    "parallel": 1
+  },
+  "new_reference_occurrences": 258,
+  "new_independently_matched_source_files": 232,
+  "total_reviewed_articles": 60,
+  "total_reference_occurrences": 1177,
+  "total_verified_source_files": 1068,
+  "published_source_proof": {
+    "source_commit": "3f034dbd0ebdf4a55ec46af2426b90177a12424d",
+    "truncated": false,
+    "files": [
+      {
+        "path": "molsysmt/form/openmm_AmberInpcrdFile/__init__.py",
+        "git_blob": "3104ec02a56377eb0b6bbb4a536a6b488623149b",
+        "sha256": "0d764ecb08b35581fe45a47e49a230cf3859381af053b1b722222147469559ce"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberInpcrdFile/add.py",
+        "git_blob": "f2c3919c73aeb07ef45ed0e53f69b95a66a1b297",
+        "sha256": "39c4c7fdc3090571a03652b269cf95ef558d8a7ff97abb1cf37c568ca809cb29"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberInpcrdFile/append_structures.py",
+        "git_blob": "cc9e60722ce77c1e7a92f49820cb77d6668be6a3",
+        "sha256": "194b135ccfb387a4d237948e5406cc3570e596bd7633366752275904414e99f6"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberInpcrdFile/copy.py",
+        "git_blob": "8085ba7d2fa5d6ca9a75d5f9c724ffcfca311d62",
+        "sha256": "6eb8f0caa9211b7da105f780b006102b1ff9fca1590aae1ce3ff84578179ac90"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberInpcrdFile/extract.py",
+        "git_blob": "8e73235e1c0001e7f10f2a960bdf7da2b5322630",
+        "sha256": "7047af80994832ae484f912381db85022c91bc052f4ee919b595f3997185caf2"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberInpcrdFile/get_structural_attributes.py",
+        "git_blob": "478667d452fef418d1ae1afbec4beb7176a2c524",
+        "sha256": "7cb0893839402d0d16e99a8e02024942e97de429ec569dd7732e6a782cb3e77f"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberInpcrdFile/get_topological_attributes.py",
+        "git_blob": "c940d12842ce40f1062cd5d5cf308dafb23fff92",
+        "sha256": "d0a5879cd018728cd083c9d6a6888560201c2afc2c6af65ff8b19205cf2fc372"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberInpcrdFile/has_attribute.py",
+        "git_blob": "9aa3b95dcbb794812cb6585ed1c044031b8f9e15",
+        "sha256": "9980fd069535f858887ff2cc27cc24c912c4e58d65bc89a7f6e6c133832430db"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberInpcrdFile/is_form.py",
+        "git_blob": "f55d7094d25eb1bea9fa6eaaae9a89a3a75abca6",
+        "sha256": "4e5ac41e4a4e46a3cde4e2c0b590343760e0ae74cdd2633c76edb5b3ebe8f4cc"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberInpcrdFile/iterators.py",
+        "git_blob": "d7ccddce85df78ba1006c2f005dfa8551ba4e620",
+        "sha256": "062c41d0310b4ef92dfb548dee7d7d16020d8dae4be2f691b95250178956f807"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberInpcrdFile/merge.py",
+        "git_blob": "a9a1b91e8694b550d60cc2f28efa5c50a7319926",
+        "sha256": "181e1054c0cf8c177116fa19bee572458482a678427fb70980525597af2c9436"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberInpcrdFile/set.py",
+        "git_blob": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberInpcrdFile/to_molsysmt_Structures.py",
+        "git_blob": "0a814250988d26f91d6f1c9b18a0af2e04ab9d89",
+        "sha256": "6026e6ae4da0907ca49f1a88fa9be9a67714da82f410191fc7a242e5bc306a40"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberInpcrdFile/to_openmm_AmberInpcrdFile.py",
+        "git_blob": "dec8aea1ef854491bb6b940c8509cb434ae1c894",
+        "sha256": "7f7a94b1db40a7f512754b44391df342766c3bcac0216a70c4b781ecd88edcc4"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberPrmtopFile/__init__.py",
+        "git_blob": "f08ce594dd67b7967ae24613d2fc24a62be44746",
+        "sha256": "8818943207f8e77374d366a59596a0492a26294169074bad42ef95a8dd787a61"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberPrmtopFile/add.py",
+        "git_blob": "c3c0ec2ab3df6144f7f8ddda647680b74d09844c",
+        "sha256": "52b52f86a05a26795458d5360e7303eb42fe633cf47962df030ba298295165e3"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberPrmtopFile/append_structures.py",
+        "git_blob": "6f905c530a25550864711329a1d2f73ce6eda653",
+        "sha256": "b146891be92d23b539625f35c7fe5b858fc0b942ef6f8bd0aea3669b97709aee"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberPrmtopFile/copy.py",
+        "git_blob": "b849b9faf5f4ef816d07d765a01b4aaa50f172af",
+        "sha256": "40a1fa713f3bff515eb7a3c37191da7415d3cc25449aa2ce4036f726fddd3d08"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberPrmtopFile/extract.py",
+        "git_blob": "e618656da4489a48c75f689a9e4abd2ee72078aa",
+        "sha256": "9034e795e8bf34f12513681a218379d514117a026b438c92f77b97970c968b92"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberPrmtopFile/get_structural_attributes.py",
+        "git_blob": "7bddb17db3b1ecdfd27d0f47228f8639a167efe7",
+        "sha256": "2adc7ada7a0b83e1e681a3c6b335b6053b1eb9add80821d0e600cd07e5430130"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberPrmtopFile/get_topological_attributes.py",
+        "git_blob": "3552adada66aa7c0a2035116a1336fdcb2dfbcd1",
+        "sha256": "ece3af8f41e100784183e4ff6a83ef534c9c3da23a08991ff7f5b16ab82c7faa"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberPrmtopFile/has_attribute.py",
+        "git_blob": "c4a796720917535af1874d8d5c101197ba953a83",
+        "sha256": "209c184f7b8965e7d025e24c0364f2d13614ce88d904100ea9cf2a303f308065"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberPrmtopFile/is_form.py",
+        "git_blob": "096d018f39a00ac015a7bad5472a4e392f607b15",
+        "sha256": "0e82254dfa436e9ca04708ab24d5ca52cf5739de37382c64bee3f81956f93f58"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberPrmtopFile/iterators.py",
+        "git_blob": "e8f6723012a3bba02141e8d57d705bbe9a574247",
+        "sha256": "3ab9cbbf2c44b7b1c34edd6a9a9a033ff8e5eda6aba42789bfa82b8d5b1cd7ad"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberPrmtopFile/merge.py",
+        "git_blob": "1505f88e68d49675eaca03eac7e4171d3b7b1e2f",
+        "sha256": "88ac273ebb0d90827635d6d34ad349d925b549a6fc2dbcc88ee50a713df482b8"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberPrmtopFile/set.py",
+        "git_blob": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberPrmtopFile/to_molsysmt_MolSys.py",
+        "git_blob": "56d33ee7626553f135939c25f494e41876ef59a4",
+        "sha256": "fb2749a4297c17926d7010c22b475138c8828c272e7820246f6471945bca7d8e"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberPrmtopFile/to_molsysmt_Topology.py",
+        "git_blob": "33694d89d7d5b705f8c1be9454a82ed4adfbc449",
+        "sha256": "5203d295cc2d8fb2fb34159d6811053920e1c438f110f013ab351d4089a550db"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberPrmtopFile/to_openmm_AmberPrmtopFile.py",
+        "git_blob": "64300d82788152a37c3ba13434fe0ce4c232a2b6",
+        "sha256": "49c2b2e2568d996e02607d245b6af6a7b4001ef84f76b5c3ad6d2f8795689514"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberPrmtopFile/to_openmm_System.py",
+        "git_blob": "5668cd23ae3e667b7ece81bcd42706b1d03bbfe1",
+        "sha256": "e4b3ef6ee137dcc02708f37d06ae52b9b8ab6885b1a27e41070bb5947345532d"
+      },
+      {
+        "path": "molsysmt/form/openmm_AmberPrmtopFile/to_openmm_Topology.py",
+        "git_blob": "8c68355e7babdc74890241a8ff8fe25b2a574f42",
+        "sha256": "26d44d8155c1955e9f31feaf7757b2c7b33a89e852c2c1a9a1b6ade58575a874"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmCrdFile/__init__.py",
+        "git_blob": "09214aac7ca779133f39ad67214cabbae5f93354",
+        "sha256": "d0b59c7951260eba249966d88dd2ee287e836b640b55d97e5bf5731234588917"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmCrdFile/add.py",
+        "git_blob": "8f073335a1d5a395178ace326557e9407f9d163b",
+        "sha256": "334c21b54f770a2a7e2bd635e59e829e3f778939ac49f85f35c58891b10a5086"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmCrdFile/append_structures.py",
+        "git_blob": "7f6d9d6423ae813bebebdfe83ff826301af082c8",
+        "sha256": "7820692cf342cc0d4bb6159740c588c93c7cae363a99c98fd9e8e445d1edcc8d"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmCrdFile/copy.py",
+        "git_blob": "a0b2778d44f810f14ef1147b952c1266f15f0b88",
+        "sha256": "45972d739dae966f3f71a26aae27a6ab45ef2cbaa9ce850a5ebef007e228b8b7"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmCrdFile/extract.py",
+        "git_blob": "5e96344adf6ffddea8c7ed622d1437f056f355fa",
+        "sha256": "fb4c7f9acfd355647e1500507e8ceb61a4e0198da1d70d776f7abe3310e9613d"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmCrdFile/get_structural_attributes.py",
+        "git_blob": "0ce8330c85f1aafc1418cd96bb6bf4f802928691",
+        "sha256": "85e234042ee7d1d6909ced284dace1c24e9f22c2202ea0de8f77ec94f64a5670"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmCrdFile/get_topological_attributes.py",
+        "git_blob": "419ff4cd6f9587e82f90be260672db539b2cda6d",
+        "sha256": "59ee13885f57855c528fff63c4ad6bff39dc24b06dcac2dd86beb3b8faf61576"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmCrdFile/has_attribute.py",
+        "git_blob": "df865749642a22b2bc00b54f4ebfd0a8de7e7f4c",
+        "sha256": "d05f8ef3366a06e88215cabf704a0defd6427048ca3b99f4e611ac92e1db8888"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmCrdFile/is_form.py",
+        "git_blob": "e44d2ed36def7b385ea21786f20ea058c97e6799",
+        "sha256": "310f201063e0d8fc624907f4221249c9ac0709d0311fb4000a71001b5fc84d42"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmCrdFile/iterators.py",
+        "git_blob": "46f13ff9270af87f724b885118929bb142a55e8b",
+        "sha256": "56e045344126509e0d5d3ac0cd116bb49b311ed3549f874b62fb9e512c2cf8b3"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmCrdFile/merge.py",
+        "git_blob": "510fd27c0cdede85008fcfefbac2deef5d58561b",
+        "sha256": "8a765d2bc6899969713008d8ed6d9d2abc393dbaa44c937d000941cb7e10e920"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmCrdFile/set.py",
+        "git_blob": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmCrdFile/to_openmm_CharmmCrdFile.py",
+        "git_blob": "a68f6fc0e00860d95ba21937e12a2003159a02f2",
+        "sha256": "20fcf7f593c7d97a9a0048605fd7ddebe65c8c326fa29146862659b884dc328e"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmPsfFile/__init__.py",
+        "git_blob": "c09b94662f1bdadb1bbe1ccbd1f80b46deba499d",
+        "sha256": "9542735ccf12d8d807bb6a7d1b08b01471d26690b951ec95d0841d69e8a23206"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmPsfFile/add.py",
+        "git_blob": "ac61f77a5fa7767340ec139b4b7d722448f9e70b",
+        "sha256": "7ea4180f0655ca714c8a59851723f5df3a3e5f2b813313462ce98fa0ead05aba"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmPsfFile/append_structures.py",
+        "git_blob": "e47dfba825b7a9d7865bdaa08ac12a3fb2617b4b",
+        "sha256": "3254ba60a50312910628926a9448080afb52fa840661178996565a02ed733e26"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmPsfFile/copy.py",
+        "git_blob": "8d82e8885888f9bf3fb32aebff087ea8fdd9ff0b",
+        "sha256": "0fb403cd49bf866b17e9e32171eba7841c66f428ce959e5e2dd3a39fa8652f15"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmPsfFile/extract.py",
+        "git_blob": "be67929d86c33a54f13ba19e3ad5aed6362dfa91",
+        "sha256": "189c21a868f945351afded5da8afa1d190e587a0974a5dd01a12b2f9c34cb887"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmPsfFile/get_structural_attributes.py",
+        "git_blob": "568ed054fd2723042a04f196c104ddc2d98dd84f",
+        "sha256": "fbab639c98852b419ef8ca7b5857c31fe970119f5ad46a22c66d10da966d7c75"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmPsfFile/get_topological_attributes.py",
+        "git_blob": "114975b91b03fc31d292ccddf1c1b541dbd434ab",
+        "sha256": "62be5e4f96117b683ee8b3b1da2114a1328b5b5e5c8be21943a4c9dc1945c635"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmPsfFile/has_attribute.py",
+        "git_blob": "c250388da8e223b25cd83085adbd0f001dbce5ea",
+        "sha256": "abe8985676d69c89f3582025fc414021586f626cc1fb01383ed891096627ef57"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmPsfFile/is_form.py",
+        "git_blob": "26012f77dc363d70f09190827543fcf282ecb941",
+        "sha256": "060d19bee5bd6b0e3c3e5b0ecffff044b0dcdfad27fb1e36ce4e45cf0bb1ca32"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmPsfFile/iterators.py",
+        "git_blob": "6be50bc8633001c5875a4d5c91e55fafd92ad5a8",
+        "sha256": "e5210ef97221a8751aff5a985e314bbbb3d35ca20d0e758c5dc3d53d37e53235"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmPsfFile/merge.py",
+        "git_blob": "355de59fd2de21bae1d5bb1f95d0f05d654b8330",
+        "sha256": "704842d89a317e6d4d48e5c31c3030565a57a588b9a8c5234a70217371c9bcb1"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmPsfFile/set.py",
+        "git_blob": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmPsfFile/to_molsysmt_MolSys.py",
+        "git_blob": "7e55f7813b643e3c1fac6661ea9d848b16c0bbb6",
+        "sha256": "6602e30cdf69298441a7d595c51b21e1eb053e6e4ebe3572721f00513d149230"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmPsfFile/to_molsysmt_Topology.py",
+        "git_blob": "da3518b585a247e481ea4e38a8bd93fdfb7e7165",
+        "sha256": "4f0f301ee11b21275b52163c97a60795cc97a0c901fdc4243032801486a083ee"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmPsfFile/to_openmm_CharmmPsfFile.py",
+        "git_blob": "9158980225ae4bce6c832ca029ce5871b7f69ac5",
+        "sha256": "3a5dff9ca7d346f870058e470e8837a05583512892e150a4d710e45866f20dec"
+      },
+      {
+        "path": "molsysmt/form/openmm_CharmmPsfFile/to_openmm_Topology.py",
+        "git_blob": "e38dbcaa434e81dcb053f5cdf6552dca2ae7de7c",
+        "sha256": "61be2cf642b69278014e06fea886405baa9104a4cb2884232ee2bd729f29b01a"
+      },
+      {
+        "path": "molsysmt/form/openmm_Context/__init__.py",
+        "git_blob": "5c2375d964bbd6786b0c9fd0d247488606342b7a",
+        "sha256": "48d819b4a7a6730420ca3a2dc184a40b57bfae7cea1b926f7511cec83ba98e6e"
+      },
+      {
+        "path": "molsysmt/form/openmm_Context/add.py",
+        "git_blob": "d6d74cc88187ced828f6cc68aa0b007661e42816",
+        "sha256": "f4e1e2beec563a9e8d7e5ab1c247b1ebc6f280a6a3eee8be8a2f455dab9646d2"
+      },
+      {
+        "path": "molsysmt/form/openmm_Context/append_structures.py",
+        "git_blob": "cc639817117e8d0b3e6b6c6f10b028c492a832a1",
+        "sha256": "80d0fa27d4836d92ed8c08db32248187c1cf95938ada2faa07e70d85949ba593"
+      },
+      {
+        "path": "molsysmt/form/openmm_Context/copy.py",
+        "git_blob": "a1fb319ed52df19aa36b19765c6495b37e7fd0cd",
+        "sha256": "1f38da4a3d0fab30c34ad6e5ae36f2c8db9087f2720efe2071d838e87ac7f0d9"
+      },
+      {
+        "path": "molsysmt/form/openmm_Context/extract.py",
+        "git_blob": "7c78ed0695207776dd2378fd4a32e3e4f986db39",
+        "sha256": "5167b81f71a82857557f21750265af2a627943626bb9225ed111e93e3bfd279a"
+      },
+      {
+        "path": "molsysmt/form/openmm_Context/get_structural_attributes.py",
+        "git_blob": "bd84f3eddf8ea23afd9e5db58c4917e46fb1ba7a",
+        "sha256": "6f79aa2e6ae4fea9ca3b96d1baeb110f5e0f310abb61ae93e008a059ec3b48a5"
+      },
+      {
+        "path": "molsysmt/form/openmm_Context/get_topological_attributes.py",
+        "git_blob": "8979021f25248fe899437821a06c404fd9c6e7a4",
+        "sha256": "63c252d5f595a07e23b95ade101063292edc6d3bdc45de0440c4ce5c779a5742"
+      },
+      {
+        "path": "molsysmt/form/openmm_Context/has_attribute.py",
+        "git_blob": "8e4ccb5ca13a011ab881c218c8f803b3b806d624",
+        "sha256": "5ab21b5e89cd35c389871e2bd3ce3dbaacaf74f3e53beb29f7bf4541c495adc2"
+      },
+      {
+        "path": "molsysmt/form/openmm_Context/is_form.py",
+        "git_blob": "928cc2cb82c8dae6707a42c92a220fa9a3cbe3d8",
+        "sha256": "95af08071100191b38584d9ed9739d8515982ca014330d32d5780ee036699848"
+      },
+      {
+        "path": "molsysmt/form/openmm_Context/iterators.py",
+        "git_blob": "b638f231f96ce82671ab2fb7f6daaab2243a33ff",
+        "sha256": "2255b51748de672ab35359d83b36e55d5fe9544f68e9d8ed708f0a8a09cc9c59"
+      },
+      {
+        "path": "molsysmt/form/openmm_Context/merge.py",
+        "git_blob": "f9752b3d19fa35a41e2801e3b89e4dd5476cfffe",
+        "sha256": "05d6753daeb98bb2716240a81aa1b87486bf977f6dcdc62f7dbd7ffd9132a8f1"
+      },
+      {
+        "path": "molsysmt/form/openmm_Context/set.py",
+        "git_blob": "e52dd48e05334c824e75ee3951745149ccab3f59",
+        "sha256": "1abd276d9a7b83bfc38b9d054f9aad32f4e9cdb516a32db1ce0a77efadb251f0"
+      },
+      {
+        "path": "molsysmt/form/openmm_Context/to_molsysmt_Structures.py",
+        "git_blob": "8d2cee49f6b1cd1c53c6427dc5fedd7d2185a854",
+        "sha256": "d099cad77d948a755751943ea31ff65523a351d8b7b25d9323f050c7dd75ddc4"
+      },
+      {
+        "path": "molsysmt/form/openmm_Context/to_openmm_Context.py",
+        "git_blob": "aab6f33467de49fe993ce6eb61aadf9231343e25",
+        "sha256": "5ff6545f8b73e7a4ab160d24d4c4f499b1c540609ed4803f7e4ee28cee85ac2a"
+      },
+      {
+        "path": "molsysmt/form/openmm_Context/to_openmm_System.py",
+        "git_blob": "70543750a1692cb1ffaeead9adcc540b21b0df38",
+        "sha256": "55798a52a04a16856b22a2f1056bbc16254a8270c8ae2d6544bad5aaec610e50"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsGroFile/__init__.py",
+        "git_blob": "01ea8debf774f14e3ba73596b64026b51609dba3",
+        "sha256": "9afbf2208d4daab7c5a290693a583775b61e5d10392422f3cdf7ac141917ba2c"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsGroFile/add.py",
+        "git_blob": "845c52c97bbccd703dc28bbbf6ad366f6c894caa",
+        "sha256": "0ab5839f9a1573444110b86f965ddf0a567d533fdba21f4be7bc981bbd08e399"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsGroFile/append_structures.py",
+        "git_blob": "471fce316b49d982f515b4739b1d44c03547a9a6",
+        "sha256": "98236f5762e1af5298f93e6183d79ff7e09d754dbf469c1715ec7ffff775feae"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsGroFile/copy.py",
+        "git_blob": "7519207ef9eabe153798e5d4477dd358012f81c7",
+        "sha256": "c39c8ee73df007735fbe505619cc5435ceb5888cd571c43fff45a6c4f512a323"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsGroFile/extract.py",
+        "git_blob": "35d38c537ec2f398bfcba006fecc697dfa9c252d",
+        "sha256": "3db3222c3659f08bca5d559c46c7ec047838306c5450b5b7fb7d05ee37da4049"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsGroFile/get_structural_attributes.py",
+        "git_blob": "f155dd2ce98a018c67b95ea97861fff54c5d03d3",
+        "sha256": "39302b3ef78c5fe23cc3a6b233fbd73da1b80a9570bb0e37afa9610b76b35c18"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsGroFile/get_topological_attributes.py",
+        "git_blob": "7e4013f0c09b75efa4893b298dc2aa2d8e0e7b97",
+        "sha256": "84f73307e1181a13028c134fff42677c52e062e7ee8642f67d8195ff58c0800d"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsGroFile/has_attribute.py",
+        "git_blob": "3552cf82a9067464f4567e6a2e7d637fb6258586",
+        "sha256": "43d9832c0daad5297680434d28b5994372f9df44301054e58db9a48000cea4df"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsGroFile/is_form.py",
+        "git_blob": "d3675b355bba2325d682669f090f845aaa8c8e22",
+        "sha256": "3c5358d418ba2f161ae52174186bd27df78a9121f52850bbe7f42d0f4b08793e"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsGroFile/iterators.py",
+        "git_blob": "6d72d913478bad80c73575f6a7cf846e3343e911",
+        "sha256": "d0f6e04aeb6be2a24a40f9487f59a4abfaa97baa0dea0ac4f441a42b5023bedb"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsGroFile/merge.py",
+        "git_blob": "638b88a39d39554bb1228341162f49203bc42b80",
+        "sha256": "8a5f6c290abe0bd81c85e0ea3ba693b2c3388a009ef7cba01c30d7e38a2c2d0e"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsGroFile/set.py",
+        "git_blob": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsGroFile/to_molsysmt_MolSys.py",
+        "git_blob": "72b196047f4076722aba27a85c07601be91ecf90",
+        "sha256": "cf59288f85f7c5cecb012cee8cec961af19900d5e544a15364024f3018d0782a"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsGroFile/to_molsysmt_Structures.py",
+        "git_blob": "35ca992d6e328d03830141d87a23fe74982ad14c",
+        "sha256": "8dff16618c109a414c065838f49a865283421acd49ee820aad9e4927f62075e6"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsGroFile/to_molsysmt_Topology.py",
+        "git_blob": "7234c726b3a1ab42e58720994496a9d9098b33ed",
+        "sha256": "4c09b217b81aa65d102b4a04fc42bc1b1bcb4f0ea11f0111733297679460da48"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsGroFile/to_openmm_GromacsGroFile.py",
+        "git_blob": "cdbf7ab8ac61ab4a92948ab92443bef47328c077",
+        "sha256": "e8310eac6916b56835d6cf94aba7814f3ed2ab94ad0ca5946656f006e5fbe99f"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsTopFile/__init__.py",
+        "git_blob": "c52aa21e9a83bead154f550a83a8b6da4b5b44b0",
+        "sha256": "2608c261d100cb4ce7d772be253ded62fb617b074ffea0bdbc4d92a043e358a5"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsTopFile/add.py",
+        "git_blob": "1dcd71a68c7b18c330a7d5641ac5bf3aa7385168",
+        "sha256": "d1a7e46201b52f73dfc28be041d5637aacbe463d3cae03654d6da406134e61b3"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsTopFile/append_structures.py",
+        "git_blob": "fa30150b4171999972c3f41173b99141b136d5e8",
+        "sha256": "156ff63360d9a73875e9ce03ec94bfb495fa46c8ea7b2f91d09d2e4609ced1db"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsTopFile/copy.py",
+        "git_blob": "3f4cac0de12cd4680558426e19c023c03aefe028",
+        "sha256": "46484fc46d221482fe3a232decdf3b8995c2aae10a1f18024a9d2e91f1edc65c"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsTopFile/extract.py",
+        "git_blob": "09bb095712a9a52147b558041d7e56043619a719",
+        "sha256": "107b950dd36b3ddf62a88a047677a11a7a0c93d34dd0fbe496a3d1a11dedbcb1"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsTopFile/get_structural_attributes.py",
+        "git_blob": "c5f6b18157e89eae99019255efdcf89e9ab9bcd5",
+        "sha256": "13ab900028ffa39d8108ca318d16847911b1e967e0067c297c829ca2fd3b26ad"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsTopFile/get_topological_attributes.py",
+        "git_blob": "c5f6b18157e89eae99019255efdcf89e9ab9bcd5",
+        "sha256": "13ab900028ffa39d8108ca318d16847911b1e967e0067c297c829ca2fd3b26ad"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsTopFile/has_attribute.py",
+        "git_blob": "b59cc9d481e978ab1da5c66826ac41b0afb53bba",
+        "sha256": "710e59ee109e560a2776a4109d2fad36ed20cda10ac5a19c4e57667b65af3055"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsTopFile/is_form.py",
+        "git_blob": "92eb9e2bb66a5e284c46a756a7474a53a87cb481",
+        "sha256": "c034e6c438944e380a474f6f138e8c6dcb202f317c863bd4df6419a8866041f6"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsTopFile/iterators.py",
+        "git_blob": "37902d3555d93c003db9abb905d975953ba0bb6d",
+        "sha256": "7bf7946f7217dea93f87cc5211c6eee8eb49db4eb29190737de6228f09549393"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsTopFile/merge.py",
+        "git_blob": "0eb6cb281dca05d59b7f9f272fd94fa52687759e",
+        "sha256": "5d593b270c3155759fa17a724e2997b94a7479a313e1e387762e5bbdfe25dfe8"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsTopFile/set.py",
+        "git_blob": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsTopFile/to_molsysmt_MolSys.py",
+        "git_blob": "b74a9240df1963430883f2a7dafa3ddab9725f00",
+        "sha256": "f9aa80bcfddfb669a1aa8e554c6444b93e405396c89f48d8310db691194d109d"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsTopFile/to_molsysmt_Topology.py",
+        "git_blob": "ceb86e08bcd2c24e3fff9080b9634954375a7282",
+        "sha256": "c772ba9711a2ed36ec440f69ebb190647eea18a849fbfe393cc9068a80026ab2"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsTopFile/to_openmm_GromacsTopFile.py",
+        "git_blob": "dde2e4c9b1df74f42ead11d51ab017f2a112a4d0",
+        "sha256": "d4d928fb13004c6c0d9264003f2fc93851ce24e9b1850f7240b67a1728ca6b50"
+      },
+      {
+        "path": "molsysmt/form/openmm_GromacsTopFile/to_openmm_Topology.py",
+        "git_blob": "178eabd614af9a0d4436b0f455d8c5f50e7cb281",
+        "sha256": "f2bcfed10b35535328a3248d89b5b4239c635330729301037041e1ffd1f5efc1"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/__init__.py",
+        "git_blob": "e8429d16fdd6a241e29f873220d181b64c5ae6a4",
+        "sha256": "2cc9f3e0b9514a33273cbf84cdf300de8b64b3d2bb215bcd7cbaad5e6cbed34f"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/add.py",
+        "git_blob": "53d8bb4d3d63ed5fbbc7b3852b932ec3902b5233",
+        "sha256": "b10e459f9f2702466636b8990d0a762ba9a8256fca2c950a5c5f2a2e350cc680"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/append_structures.py",
+        "git_blob": "55c4cc53d8a2e39cfcec7f9eda7c77db83617121",
+        "sha256": "064e59a4b5d0da3e21432271db75c389a77303f75f7a4e6af58747ea96d8f672"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/copy.py",
+        "git_blob": "d091f75e8033ae38e5fd9370f6857804548b6fc6",
+        "sha256": "753f5b02f3dd1009d7a6084c108dd86876e924fb4ef9c5598461eaaaa55c332e"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/extract.py",
+        "git_blob": "c93a69f02b62590befaa87891591eeffe7a5aa87",
+        "sha256": "167366697d548a2fe975eacb5774171c231d7a14d48dfa573eeeb9ef7628093e"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/get_structural_attributes.py",
+        "git_blob": "200b0e43dd882c798f068f428869c9272e394198",
+        "sha256": "18aa8b6cd748b0a8cd4f83e78419b19ccd42fd05bfae023c415061d3adf82736"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/get_topological_attributes.py",
+        "git_blob": "83147b8db9a8409f867922457bb0e9126adab472",
+        "sha256": "8f62e61adde2051fa9fc93467b43bfa589d7faafa9af5128021d4e2317cf8c7d"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/has_attribute.py",
+        "git_blob": "2ca12f0df10aa076231627ca8dc8743268e6ea50",
+        "sha256": "19f89ec554f30054c22996946d6e7e8ac1f30606b0db14dc91535841c0a05a3f"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/is_form.py",
+        "git_blob": "a05a1b7fdb806173268a84a6f16584b3cfbca069",
+        "sha256": "443a9ec0e5d6c42e75107c39499b7b7904d0977b40244c8bebf35c0ae5a3f150"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/iterators.py",
+        "git_blob": "e3d9422f6d66ef43fff26dd0807ec4cec807969b",
+        "sha256": "3740a4b85a0ca11e21b5b9e24635f69214984d5e771b7cb02a9775a46b3cdc2d"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/merge.py",
+        "git_blob": "fc780b8cc27a4a41944dccebd6d7907139dc56d4",
+        "sha256": "2e75361e22cd5782b86b5702626f56b6d1230545e8a54fd4ad6da4f3dfe5279c"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/set.py",
+        "git_blob": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/to_file_pdb.py",
+        "git_blob": "4e948a2db9ad987b8a6482195148a533c4c86732",
+        "sha256": "4ad41afcdad1408b5ab6669f002c2d8077251bc37b6837ad713f0008c56b774a"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/to_mdtraj_Topology.py",
+        "git_blob": "067dd2d0bd663b9ebfad32f4217cd6d100995c09",
+        "sha256": "e8077ed9d884848fac16b8dae02b49a892bff3953b8077c6528fe7d015a143ea"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/to_mdtraj_Trajectory.py",
+        "git_blob": "c8b76c93bffced04e21d4a786260e3242d7072f6",
+        "sha256": "5b29953800982ad9c700d739e0ac7eb5a7d4ad363cef1e2e6e1062e1f4e00a86"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/to_molsysmt_MolSys.py",
+        "git_blob": "3262b9d1066ef9bbf8a894cb6b781849e20669a5",
+        "sha256": "021d9765553339a79653ea209ef90121dd47215e3e5e9fa35382a05957a4e34a"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/to_molsysmt_Structures.py",
+        "git_blob": "e0ef13d383508fe44acfae66e2cbe17e493b85a0",
+        "sha256": "32022472647e1509d55f5f270f5244697c86e8f59d2a94931c927d5cb02c11c2"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/to_molsysmt_Topology.py",
+        "git_blob": "551efef0f7652970c27548614153d8312341065c",
+        "sha256": "b0b8cce41d59a59e06b799fb48c6aa0bf6ad8df3aa7cd91b437dd65f21456662"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/to_nglview_NGLWidget.py",
+        "git_blob": "4dcdc3bdfecb20f7636f633cf6dca9ec1a10967a",
+        "sha256": "917f5e58d9c2f12a74ce4bc989c58bbf9f4eff540f22c6aa94de955048a06847"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/to_openmm_Modeller.py",
+        "git_blob": "2ce715b53544332516fa75d8ebdc4df7f85521fa",
+        "sha256": "3973db11deb7eb5e4ef7fda9632a71b3a50dde83bf40743198d94036e6ed74b6"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/to_openmm_Simulation.py",
+        "git_blob": "1eff7bc639a68035395627497785d55338adf39f",
+        "sha256": "1e31577451c062ecce658bafb4e54ac43745932a3b2e5511c94ecd3e99235838"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/to_openmm_System.py",
+        "git_blob": "62fddd9c5ade33e86168eb4ba98afb28a705dd55",
+        "sha256": "134cb5d6d5edeaad6e862fe97c4cf51f583c5b901289d40ec58389b792344732"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/to_openmm_Topology.py",
+        "git_blob": "c2f5c0f2cd0ce7c77eb27ad348a9dca6dc99c1c6",
+        "sha256": "5cdbbe0268c11f6355caf7f658ddcbe4ec22aff21e93e93661ed292f0e4a19de"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/to_pdbfixer_PDBFixer.py",
+        "git_blob": "69488da827e579b68e950f02d97efb042d1f23da",
+        "sha256": "7e6e8e1c91a2b2decbb63cd073c0b7a7ab714bb260cab87565f4276e269b80d8"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/__init__.py",
+        "git_blob": "222c05ebf88cc3d898d60f9d0544c340b3a594a8",
+        "sha256": "afccb33f51c7743372841fbeb8de94c0dc8323468275a5f32f50aa523da31c3f"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/add.py",
+        "git_blob": "2ef9b33f8a3a2be94f7c894c46b60c875ac152bf",
+        "sha256": "2889f12c8909ea4194a3e79c82f8c9ebcb89a96d5f7b72d284a8b4c84e75f577"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/append_structures.py",
+        "git_blob": "6058646dd72c1653c6cc9f8c8bfd2f6f98e6dfce",
+        "sha256": "4528270da3581a84161029d2cd3b371f5718eb4f4457421ab1bb2b5fdf4a681b"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/copy.py",
+        "git_blob": "b1a2c7f4ea05128e227c9397bcd1d3be3396ccfc",
+        "sha256": "0ebb93a7e1aecfcd0913e6ed90951ecaf8b64aa8059a8e6cbbe78319f8b5ef14"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/extract.py",
+        "git_blob": "fb6275380642e56d01e36b94317345521a707709",
+        "sha256": "6cbd1737545cb33dc1e6a9faa64d52707c60cb56faf4461f65cb4c8dc3fe694d"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/get_structural_attributes.py",
+        "git_blob": "cc411250f34c46f7f7ebe3be4785aaced1b73954",
+        "sha256": "00186711a2dd72692d34fc8dd17fab24033140f735a8fc6547011e5e786b7256"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/get_topological_attributes.py",
+        "git_blob": "a88852721dd6288faed7496d8eef0a926e225cd8",
+        "sha256": "09f1d9a224612d89e36e9a4238cec10eb14fdb940ff8034ac1235ba97e211ea0"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/has_attribute.py",
+        "git_blob": "ff1e0617d15795f510493da4f8ca090e0909724c",
+        "sha256": "205830be7209f3b081fe809160e6de7ffa60e7263e83111a26ce9f3459d98d66"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/is_form.py",
+        "git_blob": "c218fde6e699524fcd78a20647d5683c8b07ffa5",
+        "sha256": "b8124f65ec63d52bfd72bfd8e5641d5392678615c38516c6efae621c5f71d68e"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/iterators.py",
+        "git_blob": "6cb770b933f77f3c7e1c7bd42d4744c4a9daf759",
+        "sha256": "cf16d5e5d3f86769d7e814eadd12ef525defd8c2ee951dcd0a3af5895fd1d32f"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/merge.py",
+        "git_blob": "5417e1a05b77a66950d98f104a58f7f809a601fd",
+        "sha256": "04b017977c802a8a7280f050a17f3b1122ec373fcccd48db1ac4a9140c98ef2a"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/set.py",
+        "git_blob": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/to_mdtraj_Topology.py",
+        "git_blob": "1a792cd8e9b629c8f2b910b3f4dbec18d58a610b",
+        "sha256": "066ade55f9abe7961f06706ed3428d8fe2c4a7946e1d7bc6614dc2dfc4d38cec"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/to_mdtraj_Trajectory.py",
+        "git_blob": "8bb3c69d5c998297199d6a5477360c78503a9d39",
+        "sha256": "dc6cd8131f4917cf868c8d38fa29dc6aafd7951f33e414b0626fc2025c607d43"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/to_molsysmt_MolSys.py",
+        "git_blob": "009d1ba9b08b54918dc97cf6b3490260f8d5b3bb",
+        "sha256": "51dc6368bcfefd797f6deb8bd960f552af1d47880ed1d94c9004354a1f6edd6c"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/to_molsysmt_Structures.py",
+        "git_blob": "aee6a415f3120f9ff22c8305d77bc4038aa15bfb",
+        "sha256": "edeca0f7f7df1d234e1ef7db32e92a337371b4da627e3108bb810f8a2897bb20"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/to_molsysmt_Topology.py",
+        "git_blob": "c48a221770b14e665464c734ae907968386fcbe9",
+        "sha256": "7f6c9d61e049242f856aa86326bf527362d34e632299be7d679a84df9a236b2b"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/to_nglview_NGLWidget.py",
+        "git_blob": "62feed470eee0919a6283ff53ca74ec92fd6975d",
+        "sha256": "d67413718642590d1c856956317f0bc2cee33780fecffb0715546c2f03386287"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/to_openmm_Modeller.py",
+        "git_blob": "ccbd61c1c5928878de7c1c896c815f2d715b3e87",
+        "sha256": "bf826c736cd71f493da64fc8c8ede903633753371085fe90b8f024ed05647192"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/to_openmm_PDBFile.py",
+        "git_blob": "cff760a70f2e573b44d880ef7889d90f059edbb8",
+        "sha256": "b81a57a1c44c42d30370aacfb047b086e53d7b52e54266cee92f05ab33bce6c7"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/to_openmm_Topology.py",
+        "git_blob": "75e96a8b82369ce0a9039b4fb91e6eb660f0fe7c",
+        "sha256": "78b645e7f9f489e475c340a5e40717d2e7895949281837d3174c86e880d9d700"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/__init__.py",
+        "git_blob": "b233df5d01044143424f79f4bdf901666098eaad",
+        "sha256": "088972b376660c9373d7f4f909a3efa85054e5d65048caac43abbd2152519cdc"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/add.py",
+        "git_blob": "a8b7bce14041868367126632be250683b63361de",
+        "sha256": "09dfbfc01c6a8fbc8202d0ceb478367aacf9147ae2943164d4e3dc314ad85038"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/append_structures.py",
+        "git_blob": "c202fc74a402fb59a2c0eb6160b74096160d3289",
+        "sha256": "746d1df9eba7da3a72432a62e95206f2b1f6d8197921f00207b7d0780f856995"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/copy.py",
+        "git_blob": "67c4e1edff6154da03417835a30bb2df18ed9cde",
+        "sha256": "6c3d470ccdd69d86071650e7feb849aa7c511ed82c19c42b3b11db925c62104c"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/extract.py",
+        "git_blob": "da0a55ff4144ddf84912c63f8d6152c8266e993c",
+        "sha256": "bd5c56e1314621e7aebc010b8675ce21a8ed82b00a7ff20abe00f8a5b6694f1d"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/get_structural_attributes.py",
+        "git_blob": "540fc5090e2c60fe748b4fb845f40cec2861f73c",
+        "sha256": "0c898a4df10de0d00d36cb175a4eb09374b1162d45bfb9d4d8815235b6f547ef"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/get_topological_attributes.py",
+        "git_blob": "f96b291e5ae41122983d98fdc03667f2d6508acf",
+        "sha256": "8a4770d1087adfa2289b7839e7a8b19b28f0161054d02c1a98533a6a111c6555"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/has_attribute.py",
+        "git_blob": "f69720a88a1fe90a43ab66f0e94a2132517d1aa8",
+        "sha256": "5b00b168da70725f8c106e743c6686b2abbdc896baa29d7ba96376943beeba05"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/is_form.py",
+        "git_blob": "5eae8cea16014b0b73a232777b8b1118d139ee7e",
+        "sha256": "1268c2c7c78120917713c4fbc534ecfc3186d915459d96b89346d6d03b732c3e"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/iterators.py",
+        "git_blob": "08c4c4b35ab4edf87da82a54adb861ec6e08ddd2",
+        "sha256": "16cb910c4fb74a5c8e2b812a64ec34da5849c9f42f6967a4da36d55d8ce43d30"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/merge.py",
+        "git_blob": "391ddc9e74a068a55852997fbffd56d3965ae304",
+        "sha256": "9e8cf4e6162003434debe3776f9e80b130b2b20ba24909d66183c6468bf763ac"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/set.py",
+        "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/to_file_pdb.py",
+        "git_blob": "df4e6f69d82d7e0353b0e77e429fda496c954b11",
+        "sha256": "81abd43e94f3be08d2d35fd7db24b545d6d5e0565666f409519fa6cd64d60ebe"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/to_molsysmt_MolSys.py",
+        "git_blob": "6f0aaa8867f1ac0ea2f7642bf4701f49dfeb3889",
+        "sha256": "627ddfc6cb71eb37a3036c000ce8578fa2684050d5cdfb5ba6792d7735fbfd2d"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/to_molsysmt_Structures.py",
+        "git_blob": "ad0a0a79cf8423b37ff4b82b9a34f488fb989278",
+        "sha256": "2a8bd345894a6b44f8de29973cf91815f7a58e3add5490286c42394b87b800a3"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/to_molsysmt_Topology.py",
+        "git_blob": "4e8457c66192d0ca97623a79fe0c11d45a790460",
+        "sha256": "c23b373b8821541b0d47b862ab731dbb99e9f48e613b84d92eaa439b44a77660"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/to_openmm_Context.py",
+        "git_blob": "96eac08a5b364f8fbcdd0afab1a5893ce4eefbc6",
+        "sha256": "f6257d40740be15b55e72ebac9b03d936def38ee3c08227efb9d093b9c386866"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/to_openmm_Modeller.py",
+        "git_blob": "b1af85916f2c081182468694ad2bdd91bd6b9bf4",
+        "sha256": "6b2786fc2b9632a3273ff64b9f165b97b2ae6a6349d35e0dc7b383845dcacfb4"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/to_openmm_Simulation.py",
+        "git_blob": "5cbd4da399669a58ddd6590789ccb9216d0ffc94",
+        "sha256": "91a4d45ac72f86475c4ef2a16d2b60b04d456c09db0915b668a7fbb732a041f8"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/to_openmm_Topology.py",
+        "git_blob": "db243459c4e0a04f2c1bb3c6ae0701a7ef804d42",
+        "sha256": "c13fff43ab5faddaa3125f3a4eb92c0bd50c8d9d0a2c9ff3f10f59c3e744f5c2"
+      },
+      {
+        "path": "molsysmt/form/openmm_Simulation/to_pdbfixer_PDBFixer.py",
+        "git_blob": "e34cc92724bae7aef3c3ad0666ece97c35671fc7",
+        "sha256": "f426a73a31ab313a32020c7b16f0e03c12008cbdc945046e73ae8e7351fe527d"
+      },
+      {
+        "path": "molsysmt/form/openmm_State/__init__.py",
+        "git_blob": "a012e034148632518ff32a7f25d5ed386c9072ee",
+        "sha256": "da251f539fac39d624fac7e0aa1ab2a2ec3288e7fc4d1b375a29d9636e8248ce"
+      },
+      {
+        "path": "molsysmt/form/openmm_State/add.py",
+        "git_blob": "8a8fbfbe33c4204965f65782a0d2bdcebc6f629b",
+        "sha256": "3feb3f708333ee4d50a4bf2c5174595c557e5b604d4c2b56ee08ad9c2712c3b8"
+      },
+      {
+        "path": "molsysmt/form/openmm_State/append_structures.py",
+        "git_blob": "f851433c28938c26fd68f5f9332767522c2c70a6",
+        "sha256": "6f85fa4f3015dfa7a0c9931efa1160ee93fa9fb4f6ce98c7f4a92d8c50464f78"
+      },
+      {
+        "path": "molsysmt/form/openmm_State/copy.py",
+        "git_blob": "103f6f5087cf06af4633a031ead280d8e8148da1",
+        "sha256": "bdfc4553354c4d21ec82832bfd22b9510e9db4e71920ddd89215077d6976fbfa"
+      },
+      {
+        "path": "molsysmt/form/openmm_State/extract.py",
+        "git_blob": "290922646a2c50b5a416709c8eddf51c1fe3004b",
+        "sha256": "1f125cca84358305ab44e99893eecb8165ed904c244e5d06f99d5caa36f1a464"
+      },
+      {
+        "path": "molsysmt/form/openmm_State/get_structural_attributes.py",
+        "git_blob": "6478f9471c60776249dfd40744a403518f30c5d4",
+        "sha256": "a385bfbe5d8830ab9b01abd8eb3cb9b74046bb9f9e7f34b26da90cb888e69ca2"
+      },
+      {
+        "path": "molsysmt/form/openmm_State/get_topological_attributes.py",
+        "git_blob": "0006fcf7374342a9189311b56a7d65e4e1a34499",
+        "sha256": "1ce16d25e1dfc5f01906369668e5103d416fa528c69dcf430a437d4f518f0356"
+      },
+      {
+        "path": "molsysmt/form/openmm_State/has_attribute.py",
+        "git_blob": "9e5a53abac3a36ce2be869e27be4ce79c1ed5f94",
+        "sha256": "f863110bf5c96aacba69ff9ad9cd6c15d977367f502234b76bb0b600fad6b83d"
+      },
+      {
+        "path": "molsysmt/form/openmm_State/is_form.py",
+        "git_blob": "1558b65af664dfbd7c34a232ff9ba0100faf20cd",
+        "sha256": "a5eb081bd73a938e457d739658a33a31a977a30a061e10d59807e40cb0e5b239"
+      },
+      {
+        "path": "molsysmt/form/openmm_State/iterators.py",
+        "git_blob": "2342ef80f462514f076a1ce43c01509c4fd87e1a",
+        "sha256": "29b0303bc55f6d9a4747b5aec9c41814d9598a05cd12214457436a4fbcc787cc"
+      },
+      {
+        "path": "molsysmt/form/openmm_State/merge.py",
+        "git_blob": "f4bf697f4d1b857c002ac9e64e042ba0221d5cbd",
+        "sha256": "a416ca52cd60d74f1fdf6246acd5d2120181ad5f594eeacd5aa2d64be6ecc634"
+      },
+      {
+        "path": "molsysmt/form/openmm_State/set.py",
+        "git_blob": "5b444fb8c63fa6c89ee448c8499f36a552967ce3",
+        "sha256": "b08e009f3c79cc64cf84df91f9fd8f5fcafec70c1c1602a1f6000bbcc31ecbf6"
+      },
+      {
+        "path": "molsysmt/form/openmm_State/to_XYZ.py",
+        "git_blob": "3aa101c8011aa3d2f0b7c9af9af031aed2619ed3",
+        "sha256": "69a607a593a78ff3dcac6190d0dc924cc26a6383be72d2ef90016e56ac3d9764"
+      },
+      {
+        "path": "molsysmt/form/openmm_State/to_molsysmt_Structures.py",
+        "git_blob": "75b228fd28602e36a97d3ab3b961228709bac37b",
+        "sha256": "f41b2009d856f69029a986cb4a07a30270cbe055d4f36205e2c90dda889a0ce2"
+      },
+      {
+        "path": "molsysmt/form/openmm_State/to_openmm_State.py",
+        "git_blob": "ae834f3e863fe12f20e5aef3946aba7d64b6a0f7",
+        "sha256": "86eaeee4faf69a60278725e4937028d46145cc260e18cdf087379fc9111c1c7a"
+      },
+      {
+        "path": "molsysmt/form/openmm_System/__init__.py",
+        "git_blob": "35df98bca300d5be51a9968e0db8bfc2f40680ae",
+        "sha256": "8dd31ea56438bac9b7b088a49afc19c6cbdc3e434743c489b80b75ddec46ef0b"
+      },
+      {
+        "path": "molsysmt/form/openmm_System/add.py",
+        "git_blob": "73932cc9885872340b27d4b8c35980d84a06d095",
+        "sha256": "ec5f5a7457a308e8665ecd013bc593a76b92062efc221325a01d44d1d5b38c8c"
+      },
+      {
+        "path": "molsysmt/form/openmm_System/append_structures.py",
+        "git_blob": "3131887cb8471108a2cd1117d0ec107f3a678fcd",
+        "sha256": "e72bedb9b3ed26ad36f62c7d35c69f7474a2ac64458a550b9ec65c649e04409a"
+      },
+      {
+        "path": "molsysmt/form/openmm_System/copy.py",
+        "git_blob": "faf0808566d78f84029b3e4764ea9e05c0565b84",
+        "sha256": "e4d439f7c74dacc48f4fd2089f8cb1e66d6fd625a12bf26e5b3fc07bee957be1"
+      },
+      {
+        "path": "molsysmt/form/openmm_System/extract.py",
+        "git_blob": "431aea7b704f019a21e5582ff12b3cb02410b315",
+        "sha256": "3aea8690a06697ca9ee8e02cc192bf554c2e9be97f32fa646e311a438f795b86"
+      },
+      {
+        "path": "molsysmt/form/openmm_System/get_structural_attributes.py",
+        "git_blob": "758a3be91352a3cbb0c75676bfbc9e87b6218713",
+        "sha256": "6a95e79297c5231f48e042e5cbb614bb76d28df484ce6dc32ee70d2b8e12afb7"
+      },
+      {
+        "path": "molsysmt/form/openmm_System/get_topological_attributes.py",
+        "git_blob": "2b7b85cfba569cd87a894959e1ceba703c2284f9",
+        "sha256": "bc1954a219fe941412e7df1e8146ab88318cb7cb47d940ed149c52111acc767c"
+      },
+      {
+        "path": "molsysmt/form/openmm_System/has_attribute.py",
+        "git_blob": "d5239c073629dfcfe20c42f1681b3c0ca1082bdb",
+        "sha256": "d2255519e8f4f980531a136b41c3db84ddd60add40cdc1bd723235af2572ed0d"
+      },
+      {
+        "path": "molsysmt/form/openmm_System/is_form.py",
+        "git_blob": "5154be5872fbfe0ef5723b4f982afeae0d324e12",
+        "sha256": "dffac189eefbab1829677033b9ea6124875d1e01c6169c02bb86ede1c2b12c95"
+      },
+      {
+        "path": "molsysmt/form/openmm_System/iterators.py",
+        "git_blob": "ae795958e86c5721e5f706f27e36d6c519352402",
+        "sha256": "96523d59f5df1ebfd2605154ebdca0cdfc219754936e206767f6203a9ec0254e"
+      },
+      {
+        "path": "molsysmt/form/openmm_System/merge.py",
+        "git_blob": "420df34e3610f9527ba96911294926814e259fbb",
+        "sha256": "bd0ca3168c6211f66aa052cd14e8d75e3ddaacbf1202498e88cb84e4242a8468"
+      },
+      {
+        "path": "molsysmt/form/openmm_System/set.py",
+        "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "molsysmt/form/openmm_System/to_openmm_Context.py",
+        "git_blob": "a071e15b7949b8065e4183e6faa4c4799648957d",
+        "sha256": "bfc6bad487c399b1f139a5d8f636732c423b83381b4d38394e70fdddaacf3487"
+      },
+      {
+        "path": "molsysmt/form/openmm_System/to_openmm_System.py",
+        "git_blob": "19bacc046a7f263aae115e9f27ee716fc637c5fc",
+        "sha256": "ef5b777a49045f53d5afba9750073b43fb4b4ed258a7b814af4f49429add259b"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/__init__.py",
+        "git_blob": "fc1052c1f8ca975ddfa2090af15b41cda151c691",
+        "sha256": "86b3d98d12b2a07443ce41a5b6226e0553f09fd182ef48a1d2774df7f87bb032"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/add.py",
+        "git_blob": "756e08e64bae4258a54dff28748e7d7f5cd2bcbe",
+        "sha256": "7ff09043fceec5542a332438c6a475e67a0cfce19242d0c13201efa343715950"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/append_structures.py",
+        "git_blob": "9bda3553d86100668390c714371fe5e207f86cd5",
+        "sha256": "7ec02a7d4e0497e30a51b35944bd9e9c3e1fe12531e5767c1f30b25926aa189a"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/copy.py",
+        "git_blob": "705aa7d43c907f3b11c2bc6df7a3198fc5b1ce27",
+        "sha256": "3d5e778a09e89c6920529668c6f23e56314ad0cae2806f62b27b8182b21d6d41"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/extract.py",
+        "git_blob": "54886a08462b2788a6a46d9b227eeca208aa662d",
+        "sha256": "56114b27b7db216f221ff17cb02859ed4f461be8cfe500b3ac4b1011282e1849"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/get_structural_attributes.py",
+        "git_blob": "0d2870176a10aab1f13a8b1a07111fb29ddcf2de",
+        "sha256": "988e5c930028915c0baa0c1739fe41eddf52eedd6f3ec0389902784c787c7923"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/get_topological_attributes.py",
+        "git_blob": "d1dbfde1c8eb7225dfc8d5baae75268faaff11de",
+        "sha256": "54cd975479d815c03b04e0eee5afce758f8a33bbfd84d7bebd2945e40e0e6ed4"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/has_attribute.py",
+        "git_blob": "f2b28f08a7ae371d8daca4e6fe817cd30cd3cf8c",
+        "sha256": "eab5c4b3cfa779b747ace2614bcf0f6b1c0536dc32ca49abef3658b901b8d0be"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/is_form.py",
+        "git_blob": "62fc220e4ca8aa57cd243193ced468b958ee5a63",
+        "sha256": "dbca41a694c2ad79a7ffeb1dc02841216273c2026dee3efbc9ef7dd80e71706f"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/iterators.py",
+        "git_blob": "ecad1bc1956f822b1bfa5cfcd49fa98965b98d15",
+        "sha256": "9e0853fe2a9fc520b2c8c3c16d00fed0a7a05c342feb1ed9d5ca0632877211c6"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/merge.py",
+        "git_blob": "83c19a110002a297b6e63b545955ee3c0a591ae0",
+        "sha256": "b955334d28fff60f067d29d896bd167043bf6defcae65e22fa7eb7f5af39fe24"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/set.py",
+        "git_blob": "1241f1a350a2266730bbd3ecd0653902a1df4294",
+        "sha256": "27c049f5abbed2059c5c5c505a3335a1e834332fa41597bdfec766b769ac6d8d"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/to_file_pdb.py",
+        "git_blob": "242a0394dbbf739725c738da7f8a53c3341300a0",
+        "sha256": "d8bc2861e4bb6381dfb53d5cb83762d23ac49def95477c0ca0e0ff0d00a2c4e3"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/to_file_psf.py",
+        "git_blob": "ceb5a7bc5062b0fb31d958401dec8cc54e1cf95c",
+        "sha256": "e263829fc4c5dfcfaf60f4dcf1775c3dcd432448ff4bf855d44ccfb8d29dc46f"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/to_mdtraj_Topology.py",
+        "git_blob": "612179024772e602c9cc79d557e103fee57d6958",
+        "sha256": "6b58bd5061f28d9e4c205b9fa803eaa63647df262d257263ace20de429ad1706"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/to_molsysmt_MolSys.py",
+        "git_blob": "272cb9fc093fc5e59fc8a69fd5c289dfcf431628",
+        "sha256": "714f26480ea09ad3d784c0e7c18ffd41327bf490ec4ba2eaaf85ffbba8429a2f"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/to_molsysmt_Topology.py",
+        "git_blob": "a96d2bd11d512b825f4254c8786b92df5509e36b",
+        "sha256": "2b3fe8ac8980070540f95e085d85f2b97b7c28e885509a717887a5e75be697be"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/to_networkx_Graph.py",
+        "git_blob": "dc83a868adc5eefd89433cb5a4feb428e8dfa646",
+        "sha256": "9fdbed92845378d67f64910f1996f2150b6a97b999a387cd5db76aa5d8bf94e8"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/to_nglview_NGLWidget.py",
+        "git_blob": "236569046e723dd31f85a11a7a0f368a620b58a4",
+        "sha256": "6ae4b103cf27cd2e1680fa54a52b0d473e9f78f0d16e74a52c03fef9b530b532"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/to_openmm_Context.py",
+        "git_blob": "bff9027646fe3cd8eaa424145c6f7affa3c340da",
+        "sha256": "fb0fc024665458535428c89ccea24893610bc7a6f8ca8b4671254cc0444f8afa"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/to_openmm_Modeller.py",
+        "git_blob": "7673fbfbcc844f78d8fe4786e92e287f93b6d7fe",
+        "sha256": "1f6688978aa77bd3eb5692b289cb6a4d2f4310d47d87fccf111a82c120181173"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/to_openmm_PDBFile.py",
+        "git_blob": "8d4ea1e28c9c4371a60c4416798e2a113f71a510",
+        "sha256": "17b815120a4c10a36f5e82d6d1af525e4dbe57d4bf96d83bfd1b0bb71c2e91d8"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/to_openmm_Simulation.py",
+        "git_blob": "d7e141e09b225dcd14d1c001b230eb7b9e18fbc7",
+        "sha256": "5b3236781b5ee2e7bd8d355ef5088fb79fa9138e08921b021a86b408f41fa381"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/to_openmm_System.py",
+        "git_blob": "5cf9bd9bb4b5933bb69d49a0d013276395d6f5bf",
+        "sha256": "5397face61d7244f0babfabe214f332519c96f3b84b4a4a7c3d0eb4faafda49c"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/to_openmm_Topology.py",
+        "git_blob": "81cba94427c7f6dd5f69e5578631b098fa46e241",
+        "sha256": "9ccdf8590b98f05f6fc9b92d78d95113a28868567afd4609540a35471bf196a0"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/to_parmed_Structure.py",
+        "git_blob": "d74aa8b054993b3349554e765783c6ccfb0dfc99",
+        "sha256": "9c1a36a47c9306470fb1f52ecad279b01e4ab0a7b886e5b9921bc3a4de51d772"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/to_pdbfixer_PDBFixer.py",
+        "git_blob": "dd67c2588013493937e5cd87e9831817062a9399",
+        "sha256": "b40cafb855ca939b1c5cfa80a29c1a9964363d876c721e093e30398edfc7ec9b"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/to_string_amino_acids_1.py",
+        "git_blob": "d6ff0ca84629513f7437504203d011d5544b73dd",
+        "sha256": "946817f11c5e0696023c5d5ca1c0ee586e50bd4ca51cf6e6517101c6bf18cf3d"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/to_string_amino_acids_3.py",
+        "git_blob": "046e5cb1cb020af2a5c7e27a0f16cf1cc6e99d18",
+        "sha256": "597d8ce80b0c4ea870b65f61525828557a06c61f11e1d6daece0db2b3f9b41f6"
+      },
+      {
+        "path": "molsysmt/form/openmm_Topology/to_string_pdb_text.py",
+        "git_blob": "d55599e6f8ab9934948d5cd9adbb5eeae42d9214",
+        "sha256": "6f9a3a40fa380d58d88b9e927802301a04497f844f7b82bc917de84133c3bcec"
+      }
+    ]
+  },
+  "adapter_facts": {
+    "openmm_AmberInpcrdFile": {
+      "attributes": [
+        "atom_index",
+        "n_atoms",
+        "structure_index",
+        "structure_id",
+        "box",
+        "box_shape",
+        "box_angles",
+        "box_lengths",
+        "box_volume",
+        "coordinates",
+        "velocities",
+        "n_structures"
+      ],
+      "converters": {
+        "openmm.AmberInpcrdFile": "to_openmm_AmberInpcrdFile",
+        "molsysmt.Structures": "to_molsysmt_Structures"
+      },
+      "piping": {
+        "piped_topological_attribute": null,
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    },
+    "openmm_AmberPrmtopFile": {
+      "attributes": [
+        "atom_index",
+        "atom_name",
+        "atom_id",
+        "atom_type",
+        "group_index",
+        "group_name",
+        "group_id",
+        "group_type",
+        "component_index",
+        "chain_index",
+        "chain_name",
+        "chain_id",
+        "chain_type",
+        "molecule_index",
+        "molecule_name",
+        "molecule_id",
+        "molecule_type",
+        "bond_index",
+        "bond_type",
+        "bond_order",
+        "bonded_atoms",
+        "inner_bonded_atoms",
+        "inner_bond_index",
+        "n_atoms",
+        "n_groups",
+        "n_components",
+        "n_chains",
+        "n_molecules",
+        "n_bonds",
+        "n_inner_bonds",
+        "n_amino_acids",
+        "n_nucleotides",
+        "n_ions",
+        "n_waters",
+        "n_small_molecules",
+        "n_peptides",
+        "n_proteins",
+        "n_dnas",
+        "n_rnas",
+        "n_lipids",
+        "n_polysaccharides",
+        "n_saccharides",
+        "box",
+        "box_shape",
+        "box_angles",
+        "box_lengths",
+        "box_volume"
+      ],
+      "converters": {
+        "molsysmt.MolSys": "to_molsysmt_MolSys",
+        "openmm.AmberPrmtopFile": "to_openmm_AmberPrmtopFile",
+        "molsysmt.Topology": "to_molsysmt_Topology",
+        "openmm.System": "to_openmm_System",
+        "openmm.Topology": "to_openmm_Topology"
+      },
+      "piping": {
+        "piped_topological_attribute": "molsysmt.MolSys",
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    },
+    "openmm_CharmmCrdFile": {
+      "attributes": [
+        "atom_index",
+        "atom_name",
+        "atom_id",
+        "atom_type",
+        "group_index",
+        "group_name",
+        "group_id",
+        "group_type",
+        "coordinates"
+      ],
+      "converters": {
+        "openmm.CharmmCrdFile": "to_openmm_CharmmCrdFile"
+      },
+      "piping": {
+        "piped_topological_attribute": null,
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    },
+    "openmm_CharmmPsfFile": {
+      "attributes": [
+        "atom_index",
+        "atom_name",
+        "atom_id",
+        "atom_type",
+        "group_index",
+        "group_name",
+        "group_id",
+        "group_type",
+        "box"
+      ],
+      "converters": {
+        "molsysmt.MolSys": "to_molsysmt_MolSys",
+        "openmm.CharmmPsfFile": "to_openmm_CharmmPsfFile",
+        "openmm.Topology": "to_openmm_Topology",
+        "molsysmt.Topology": "to_molsysmt_Topology"
+      },
+      "piping": {
+        "piped_topological_attribute": "molsysmt.MolSys",
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    },
+    "openmm_Context": {
+      "attributes": [
+        "atom_index",
+        "n_atoms",
+        "structure_id",
+        "time",
+        "box",
+        "coordinates",
+        "velocities",
+        "n_structures",
+        "temperature"
+      ],
+      "converters": {
+        "openmm.Context": "to_openmm_Context",
+        "openmm.System": "to_openmm_System",
+        "molsysmt.Structures": "to_molsysmt_Structures"
+      },
+      "piping": {
+        "piped_topological_attribute": null,
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    },
+    "openmm_GromacsGroFile": {
+      "attributes": [
+        "atom_index",
+        "atom_name",
+        "group_index",
+        "group_name",
+        "group_id",
+        "group_type",
+        "n_atoms",
+        "n_groups",
+        "box",
+        "coordinates",
+        "n_structures"
+      ],
+      "converters": {
+        "openmm.GromacsGroFile": "to_openmm_GromacsGroFile",
+        "molsysmt.Topology": "to_molsysmt_Topology",
+        "molsysmt.Structures": "to_molsysmt_Structures",
+        "molsysmt.MolSys": "to_molsysmt_MolSys"
+      },
+      "piping": {
+        "piped_topological_attribute": null,
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    },
+    "openmm_GromacsTopFile": {
+      "attributes": [
+        "atom_index",
+        "atom_name",
+        "atom_id",
+        "atom_type",
+        "group_index",
+        "group_name",
+        "group_id",
+        "group_type",
+        "chain_index",
+        "chain_name",
+        "chain_id",
+        "chain_type",
+        "molecule_index",
+        "molecule_name",
+        "molecule_id",
+        "molecule_type",
+        "bond_index",
+        "bond_type",
+        "bond_order"
+      ],
+      "converters": {
+        "molsysmt.MolSys": "to_molsysmt_MolSys",
+        "openmm.GromacsTopFile": "to_openmm_GromacsTopFile",
+        "openmm.Topology": "to_openmm_Topology",
+        "molsysmt.Topology": "to_molsysmt_Topology"
+      },
+      "piping": {
+        "piped_topological_attribute": "molsysmt.MolSys",
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    },
+    "openmm_Modeller": {
+      "attributes": [
+        "atom_index",
+        "atom_name",
+        "atom_id",
+        "atom_type",
+        "group_index",
+        "group_name",
+        "group_id",
+        "group_type",
+        "component_index",
+        "component_type",
+        "chain_index",
+        "chain_name",
+        "chain_id",
+        "chain_type",
+        "molecule_index",
+        "molecule_type",
+        "entity_index",
+        "entity_type",
+        "bond_index",
+        "bonded_atoms",
+        "bonded_atom_pairs",
+        "inner_bonded_atoms",
+        "inner_bonded_atom_pairs",
+        "inner_bond_index",
+        "n_atoms",
+        "n_groups",
+        "n_components",
+        "n_chains",
+        "n_molecules",
+        "n_entities",
+        "n_bonds",
+        "n_inner_bonds",
+        "n_amino_acids",
+        "n_nucleotides",
+        "n_ions",
+        "n_waters",
+        "n_small_molecules",
+        "n_peptides",
+        "n_proteins",
+        "n_dnas",
+        "n_rnas",
+        "n_lipids",
+        "n_polysaccharides",
+        "n_saccharides",
+        "structure_index",
+        "structure_id",
+        "box",
+        "box_shape",
+        "box_angles",
+        "box_lengths",
+        "box_volume",
+        "coordinates",
+        "n_structures"
+      ],
+      "converters": {
+        "openmm.Modeller": "to_openmm_Modeller",
+        "file:pdb": "to_file_pdb",
+        "molsysmt.MolSys": "to_molsysmt_MolSys",
+        "molsysmt.Topology": "to_molsysmt_Topology",
+        "molsysmt.Structures": "to_molsysmt_Structures",
+        "mdtraj.Topology": "to_mdtraj_Topology",
+        "mdtraj.Trajectory": "to_mdtraj_Trajectory",
+        "openmm.System": "to_openmm_System",
+        "openmm.Simulation": "to_openmm_Simulation",
+        "openmm.Topology": "to_openmm_Topology",
+        "pdbfixer.PDBFixer": "to_pdbfixer_PDBFixer",
+        "nglview.NGLWidget": "to_nglview_NGLWidget"
+      },
+      "piping": {
+        "piped_topological_attribute": "openmm.Topology",
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    },
+    "openmm_PDBFile": {
+      "attributes": [
+        "atom_index",
+        "atom_name",
+        "atom_id",
+        "atom_type",
+        "group_index",
+        "group_name",
+        "group_id",
+        "group_type",
+        "component_index",
+        "component_name",
+        "component_id",
+        "component_type",
+        "chain_index",
+        "chain_name",
+        "chain_id",
+        "chain_type",
+        "molecule_index",
+        "molecule_name",
+        "molecule_id",
+        "molecule_type",
+        "entity_index",
+        "entity_name",
+        "entity_id",
+        "entity_type",
+        "structure_id",
+        "time",
+        "box",
+        "coordinates",
+        "n_structures"
+      ],
+      "converters": {
+        "openmm.PDBFile": "to_openmm_PDBFile",
+        "mdtraj.Topology": "to_mdtraj_Topology",
+        "molsysmt.MolSys": "to_molsysmt_MolSys",
+        "molsysmt.Structures": "to_molsysmt_Structures",
+        "molsysmt.Topology": "to_molsysmt_Topology",
+        "openmm.Topology": "to_openmm_Topology",
+        "openmm.Modeller": "to_openmm_Modeller",
+        "mdtraj.Trajectory": "to_mdtraj_Trajectory",
+        "nglview.NGLWidget": "to_nglview_NGLWidget"
+      },
+      "piping": {
+        "piped_topological_attribute": "molsysmt.MolSys",
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    },
+    "openmm_Simulation": {
+      "attributes": [
+        "atom_index",
+        "atom_name",
+        "atom_id",
+        "atom_type",
+        "group_index",
+        "group_name",
+        "group_id",
+        "group_type",
+        "component_index",
+        "component_type",
+        "chain_index",
+        "chain_name",
+        "chain_id",
+        "chain_type",
+        "molecule_index",
+        "molecule_type",
+        "entity_index",
+        "entity_type",
+        "bond_index",
+        "bonded_atoms",
+        "bonded_atom_pairs",
+        "inner_bonded_atoms",
+        "inner_bonded_atom_pairs",
+        "inner_bond_index",
+        "n_atoms",
+        "n_groups",
+        "n_components",
+        "n_chains",
+        "n_molecules",
+        "n_entities",
+        "n_bonds",
+        "n_inner_bonds",
+        "n_amino_acids",
+        "n_nucleotides",
+        "n_ions",
+        "n_waters",
+        "n_small_molecules",
+        "n_peptides",
+        "n_proteins",
+        "n_dnas",
+        "n_rnas",
+        "n_lipids",
+        "n_polysaccharides",
+        "n_saccharides",
+        "structure_index",
+        "structure_id",
+        "box",
+        "box_shape",
+        "box_angles",
+        "box_lengths",
+        "box_volume",
+        "coordinates",
+        "n_structures",
+        "temperature",
+        "integrator",
+        "friction"
+      ],
+      "converters": {
+        "openmm.Simulation": "to_openmm_Simulation",
+        "file:pdb": "to_file_pdb",
+        "openmm.Context": "to_openmm_Context",
+        "openmm.Topology": "to_openmm_Topology",
+        "molsysmt.MolSys": "to_molsysmt_MolSys",
+        "molsysmt.Structures": "to_molsysmt_Structures",
+        "molsysmt.Topology": "to_molsysmt_Topology",
+        "openmm.Modeller": "to_openmm_Modeller",
+        "pdbfixer.PDBFixer": "to_pdbfixer_PDBFixer"
+      },
+      "piping": {
+        "piped_topological_attribute": "openmm.Topology",
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    },
+    "openmm_State": {
+      "attributes": [
+        "atom_index",
+        "n_atoms",
+        "structure_id",
+        "time",
+        "box",
+        "coordinates",
+        "velocities",
+        "n_structures"
+      ],
+      "converters": {
+        "openmm.State": "to_openmm_State",
+        "molsysmt.Structures": "to_molsysmt_Structures",
+        "XYZ": "to_XYZ"
+      },
+      "piping": {
+        "piped_topological_attribute": null,
+        "piped_structural_attribute": "molsysmt.Structures",
+        "piped_any_attribute": null
+      }
+    },
+    "openmm_System": {
+      "attributes": [
+        "atom_index",
+        "n_atoms",
+        "box"
+      ],
+      "converters": {
+        "openmm.System": "to_openmm_System",
+        "openmm.Context": "to_openmm_Context"
+      },
+      "piping": {
+        "piped_topological_attribute": null,
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    },
+    "openmm_Topology": {
+      "attributes": [
+        "atom_index",
+        "atom_name",
+        "atom_id",
+        "atom_type",
+        "group_index",
+        "group_name",
+        "group_id",
+        "group_type",
+        "component_index",
+        "component_name",
+        "component_id",
+        "component_type",
+        "chain_index",
+        "chain_id",
+        "chain_type",
+        "molecule_index",
+        "molecule_name",
+        "molecule_id",
+        "molecule_type",
+        "entity_index",
+        "entity_type",
+        "bond_index",
+        "bond_type",
+        "bond_order",
+        "bond_is_aromatic",
+        "bonded_atoms",
+        "bonded_atom_pairs",
+        "inner_bonded_atoms",
+        "inner_bonded_atom_pairs",
+        "inner_bond_index",
+        "n_atoms",
+        "n_groups",
+        "n_components",
+        "n_chains",
+        "n_molecules",
+        "n_entities",
+        "n_bonds",
+        "n_inner_bonds",
+        "n_amino_acids",
+        "n_ions",
+        "n_waters",
+        "n_small_molecules",
+        "n_peptides",
+        "n_proteins",
+        "n_dnas",
+        "n_rnas",
+        "n_lipids",
+        "n_polysaccharides",
+        "n_saccharides",
+        "box",
+        "box_shape",
+        "box_angles",
+        "box_lengths",
+        "box_volume",
+        "formal_charge"
+      ],
+      "converters": {
+        "openmm.Topology": "to_openmm_Topology",
+        "string:pdb_text": "to_string_pdb_text",
+        "file:pdb": "to_file_pdb",
+        "file:psf": "to_file_psf",
+        "molsysmt.MolSys": "to_molsysmt_MolSys",
+        "molsysmt.Topology": "to_molsysmt_Topology",
+        "mdtraj.Topology": "to_mdtraj_Topology",
+        "networkx.Graph": "to_networkx_Graph",
+        "openmm.Modeller": "to_openmm_Modeller",
+        "openmm.Simulation": "to_openmm_Simulation",
+        "openmm.Context": "to_openmm_Context",
+        "openmm.PDBFile": "to_openmm_PDBFile",
+        "openmm.System": "to_openmm_System",
+        "parmed.Structure": "to_parmed_Structure",
+        "pdbfixer.PDBFixer": "to_pdbfixer_PDBFixer",
+        "nglview.NGLWidget": "to_nglview_NGLWidget",
+        "string:amino_acids_1": "to_string_amino_acids_1",
+        "string:amino_acids_3": "to_string_amino_acids_3"
+      },
+      "piping": {
+        "piped_topological_attribute": "molsysmt.MolSys",
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    }
+  },
+  "remaining_census": {
+    "scope": "Unchanged-source and byte-identical cached HTML only. Sixty separately reviewed native/file/string/Biopython/OpenMM articles have current incremental receiving; this is not a full-current-site or installed/scientific certificate.",
+    "source_matched_articles": 34,
+    "source_matched_articles_with_unlinked_python_roles": 26,
+    "unlinked_python_role_nodes_in_matched_articles": 510,
+    "newly_excluded_pages": [
+      {
+        "page": "docs/content/user/tools/form/class/openmm/openmm_AmberInpcrdFile.ipynb",
+        "source_sha256": "bad11db662b034f5dbf8332aaf0263052e3a5734331c7bc61fe7fce160f0e2df",
+        "syntax_role_occurrences_before": 18,
+        "status": "source_matched_cached_article",
+        "html_sha256": "38843a78572e01a096aea57946b263c086591e472e1710592f91e176e8e73181",
+        "unlinked_python_role_count": 16,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.openmm_AmberInpcrdFile",
+          "molsysmt.form.openmm_AmberInpcrdFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.openmm_AmberInpcrdFile",
+          "to_molsysmt_Structures()",
+          "to_openmm_AmberInpcrdFile()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/openmm/openmm_AmberPrmtopFile.ipynb",
+        "source_sha256": "b8d337b06a2cb71487d06526deb1bbce7488a7dc7b510c38dc0ecccc069a9e94",
+        "syntax_role_occurrences_before": 20,
+        "status": "source_matched_cached_article",
+        "html_sha256": "73ab42f2ad5861aff19f91e06354920f6358e7412697d648fed64f8367fd9213",
+        "unlinked_python_role_count": 18,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.openmm_AmberPrmtopFile",
+          "molsysmt.form.openmm_AmberPrmtopFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.openmm_AmberPrmtopFile",
+          "to_molsysmt_Topology()",
+          "to_openmm_AmberPrmtopFile()",
+          "to_openmm_System()",
+          "to_openmm_Topology()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/openmm/openmm_CharmmCrdFile.ipynb",
+        "source_sha256": "87ec8dd4abd9c0ad15818e997a39471cb45f730237b4af8849524210e4914141",
+        "syntax_role_occurrences_before": 17,
+        "status": "source_matched_cached_article",
+        "html_sha256": "cb741d30bb6d1b65bf2fe0abea022d04d30bae4fdfe7888ee7b74340052ad3b9",
+        "unlinked_python_role_count": 15,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.openmm_CharmmCrdFile",
+          "molsysmt.form.openmm_CharmmCrdFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.openmm_CharmmCrdFile",
+          "to_openmm_CharmmCrdFile()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/openmm/openmm_CharmmPsfFile.ipynb",
+        "source_sha256": "d1c2533ec8217b87bc139b041abf347415c169ee297b1e29b915a0f75111bd77",
+        "syntax_role_occurrences_before": 19,
+        "status": "source_matched_cached_article",
+        "html_sha256": "9b0f709e92aee18610cdd09654898db5391ce7f08daecc7c0ebccd586c612230",
+        "unlinked_python_role_count": 17,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.openmm_CharmmPsfFile",
+          "molsysmt.form.openmm_CharmmPsfFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.openmm_CharmmPsfFile",
+          "to_molsysmt_Topology()",
+          "to_openmm_CharmmPsfFile()",
+          "to_openmm_Topology()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/openmm/openmm_Context.ipynb",
+        "source_sha256": "c4375e14f31073f62413a82880095ddc04f51abd87b235f19ecc54cb894d276d",
+        "syntax_role_occurrences_before": 19,
+        "status": "source_matched_cached_article",
+        "html_sha256": "7b70c3138b376b3e87a6a426e87eb7a92ed3e9498fbcdd895d72340e6ebd3780",
+        "unlinked_python_role_count": 17,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.openmm_Context",
+          "molsysmt.form.openmm_Context",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.openmm_Context",
+          "to_molsysmt_Structures()",
+          "to_openmm_Context()",
+          "to_openmm_System()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/openmm/openmm_GromacsGroFile.ipynb",
+        "source_sha256": "a891007bd89f2f9b7e38b3c7ae01e4157fe9ade4f16f46a1ee76e69a2e83fce9",
+        "syntax_role_occurrences_before": 20,
+        "status": "source_matched_cached_article",
+        "html_sha256": "06e4f5ec2993cd2fdf84271ae97c96476893a23faa7b6af3babf1e0608c7c8b0",
+        "unlinked_python_role_count": 18,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.openmm_GromacsGroFile",
+          "molsysmt.form.openmm_GromacsGroFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.openmm_GromacsGroFile",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_openmm_GromacsGroFile()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/openmm/openmm_GromacsTopFile.ipynb",
+        "source_sha256": "83e0f984b8a10d0a4917d59de61d11d21aa7fca7aff16f8cdced59960d9a4863",
+        "syntax_role_occurrences_before": 19,
+        "status": "source_matched_cached_article",
+        "html_sha256": "ef89c99a524c88989f43c12c70cc80431ad9e2f78ff3b1469aa4747c20f266b8",
+        "unlinked_python_role_count": 17,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.openmm_GromacsTopFile",
+          "molsysmt.form.openmm_GromacsTopFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.openmm_GromacsTopFile",
+          "to_molsysmt_Topology()",
+          "to_openmm_GromacsTopFile()",
+          "to_openmm_Topology()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/openmm/openmm_Modeller.ipynb",
+        "source_sha256": "a16199ea6ff0199abd139895517d9caf9c69ee3ffd1018bad74d20edbc34b68d",
+        "syntax_role_occurrences_before": 28,
+        "status": "source_matched_cached_article",
+        "html_sha256": "535c37798ebaee2eb453686367d7e426cc0d0c939572ed718ecdf63daa82e041",
+        "unlinked_python_role_count": 26,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.openmm_Modeller",
+          "molsysmt.form.openmm_Modeller",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.openmm_Modeller",
+          "to_file_pdb()",
+          "to_mdtraj_Topology()",
+          "to_mdtraj_Trajectory()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_nglview_NGLWidget()",
+          "to_openmm_Modeller()",
+          "to_openmm_Simulation()",
+          "to_openmm_System()",
+          "to_openmm_Topology()",
+          "to_pdbfixer_PDBFixer()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/openmm/openmm_PDBFile.ipynb",
+        "source_sha256": "5a7dec68ca5bb9604b7b05b1a92000335e2abe5cd796e454c72dfb7eea1d7ded",
+        "syntax_role_occurrences_before": 25,
+        "status": "source_matched_cached_article",
+        "html_sha256": "795b2ff2936df6b998bd62cfb40265b60a0e47358d8b2b46bd94c7a2fa0c9860",
+        "unlinked_python_role_count": 23,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.openmm_PDBFile",
+          "molsysmt.form.openmm_PDBFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.openmm_PDBFile",
+          "to_mdtraj_Topology()",
+          "to_mdtraj_Trajectory()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_nglview_NGLWidget()",
+          "to_openmm_Modeller()",
+          "to_openmm_PDBFile()",
+          "to_openmm_Topology()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/openmm/openmm_Simulation.ipynb",
+        "source_sha256": "43e6ba85b5da98ea732648b3d1aa863966f0e6593bfd99bfb2aa28f699ce2239",
+        "syntax_role_occurrences_before": 25,
+        "status": "source_matched_cached_article",
+        "html_sha256": "2ba90befbcdca84c6401e2d43d22e74d1259647329f174133ce3e7484daf8b15",
+        "unlinked_python_role_count": 23,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.openmm_Simulation",
+          "molsysmt.form.openmm_Simulation",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.openmm_Simulation",
+          "to_file_pdb()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_openmm_Context()",
+          "to_openmm_Modeller()",
+          "to_openmm_Simulation()",
+          "to_openmm_Topology()",
+          "to_pdbfixer_PDBFixer()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/openmm/openmm_State.ipynb",
+        "source_sha256": "429dc1f932f3acd23a3b48bed2cd3b4d87aecc895e4a29c34301799604a193f6",
+        "syntax_role_occurrences_before": 19,
+        "status": "source_matched_cached_article",
+        "html_sha256": "b68fd4a39845bfb6462a0770bbc5d22ef8a398a7584a7f0ef14561c74f4b9bfa",
+        "unlinked_python_role_count": 17,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.openmm_State",
+          "molsysmt.form.openmm_State",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.openmm_State",
+          "to_XYZ()",
+          "to_molsysmt_Structures()",
+          "to_openmm_State()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/openmm/openmm_System.ipynb",
+        "source_sha256": "6b965a327dbe5a7b2fdf8f14b2d3aa00a942b2101ebd255e02a862253bf8bbc3",
+        "syntax_role_occurrences_before": 18,
+        "status": "source_matched_cached_article",
+        "html_sha256": "946d8e2751623d23b68f12f138fdf5b2f4bd106c1ae4103d3d2bf009b80af804",
+        "unlinked_python_role_count": 16,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.openmm_System",
+          "molsysmt.form.openmm_System",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.openmm_System",
+          "to_openmm_Context()",
+          "to_openmm_System()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/openmm/openmm_Topology.ipynb",
+        "source_sha256": "95c400a96dac6fd221b8c522d7dbcb017e6c97e3836a882841955b65c4e414ec",
+        "syntax_role_occurrences_before": 34,
+        "status": "source_matched_cached_article",
+        "html_sha256": "3d2c931492fc7ade03cee111e7ccd261c5b79e0ce4dc142df3c164ed43cd8bff",
+        "unlinked_python_role_count": 32,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.openmm_Topology",
+          "molsysmt.form.openmm_Topology",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.openmm_Topology",
+          "to_file_pdb()",
+          "to_file_psf()",
+          "to_mdtraj_Topology()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Topology()",
+          "to_networkx_Graph()",
+          "to_nglview_NGLWidget()",
+          "to_openmm_Context()",
+          "to_openmm_Modeller()",
+          "to_openmm_PDBFile()",
+          "to_openmm_Simulation()",
+          "to_openmm_System()",
+          "to_openmm_Topology()",
+          "to_parmed_Structure()",
+          "to_pdbfixer_PDBFixer()",
+          "to_string_amino_acids_1()",
+          "to_string_amino_acids_3()",
+          "to_string_pdb_text()"
+        ]
+      }
+    ],
+    "rows": [
+      {
+        "page": "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_AtomGroup.ipynb",
+        "source_sha256": "1a863ed839b35e7ec22f6c087a440039d83423b32add5823fd5817d402d50f62",
+        "syntax_role_occurrences_before": 15,
+        "status": "source_matched_cached_article",
+        "html_sha256": "4d182a818b5a3c7c3a82f1b9bc0ff0302ed230dcbc8cc152d1320efaabba555d",
+        "unlinked_python_role_count": 13,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.MDAnalysis_AtomGroup",
+          "molsysmt.form.MDAnalysis_AtomGroup",
+          "extract()",
+          "copy()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.MDAnalysis_AtomGroup",
+          "extract()",
+          "to_MDAnalysis_Universe()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Topology()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_Topology.ipynb",
+        "source_sha256": "f18726c7d805316cbbd30f869e75497ba228920062fe49555c6c72f68f036bc7",
+        "syntax_role_occurrences_before": 18,
+        "status": "source_matched_cached_article",
+        "html_sha256": "5469b05f5d663e02c0b3037ca673523e5c88350981dd15fb98c8f792809cfa17",
+        "unlinked_python_role_count": 16,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.MDAnalysis_Topology",
+          "molsysmt.form.MDAnalysis_Topology",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.MDAnalysis_Topology",
+          "to_MDAnalysis_Topology()",
+          "to_molsysmt_Topology()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_Universe.ipynb",
+        "source_sha256": "f07fa410ff96546cc31d5a9622ffb11e259336aa91d0505671c5c2751243405a",
+        "syntax_role_occurrences_before": 23,
+        "status": "source_matched_cached_article",
+        "html_sha256": "d699a7ed55e74adb495011ce13ac9a4e3dc155a1781041ceecc7fec524f202a2",
+        "unlinked_python_role_count": 21,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.MDAnalysis_Universe",
+          "molsysmt.form.MDAnalysis_Universe",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.MDAnalysis_Universe",
+          "to_MDAnalysis_Universe()",
+          "to_file_pdb()",
+          "to_mdtraj_Trajectory()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_nglview_NGLWidget()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_topology_PDBParser.ipynb",
+        "source_sha256": "aedbc2cb78353c14aff9f688fc29c75fdc9fdffafa7d59d8a7d7b4c8355712b7",
+        "syntax_role_occurrences_before": 20,
+        "status": "source_matched_cached_article",
+        "html_sha256": "34f64285877a48d5d4ceb9dad64f83c7c3fc92a76298afe44dd50834b89a6af2",
+        "unlinked_python_role_count": 18,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.MDAnalysis_topology_PDBParser",
+          "molsysmt.form.MDAnalysis_topology_PDBParser",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.MDAnalysis_topology_PDBParser",
+          "to_MDAnalysis_Topology()",
+          "to_MDAnalysis_topology_PDBParser()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Topology()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_AmberRestartFile.ipynb",
+        "source_sha256": "18f3ca1ca58ad8407f330ea1901469d92ea9a7208190f6e0dcc8526f16f84ab8",
+        "syntax_role_occurrences_before": 19,
+        "status": "source_matched_cached_article",
+        "html_sha256": "7577dcf44e7cdc6fe1d50d20b788d0adc09075155dacd25bbd2b3674ae2f9b03",
+        "unlinked_python_role_count": 17,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.mdtraj_AmberRestartFile",
+          "molsysmt.form.mdtraj_AmberRestartFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.mdtraj_AmberRestartFile",
+          "to_mdtraj_AmberRestartFile()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_DCDTrajectoryFile.ipynb",
+        "source_sha256": "9d9a65e29755e0dc0829c5d079a479d74b8fdb72588a876a97171a6ba4b05a55",
+        "syntax_role_occurrences_before": 19,
+        "status": "source_matched_cached_article",
+        "html_sha256": "397c3c994694fa0a98f318a4197475e4a9a32b087b2f999e055efcc8dd473ee7",
+        "unlinked_python_role_count": 17,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.mdtraj_DCDTrajectoryFile",
+          "molsysmt.form.mdtraj_DCDTrajectoryFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.mdtraj_DCDTrajectoryFile",
+          "to_mdtraj_DCDTrajectoryFile()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_GroTrajectoryFile.ipynb",
+        "source_sha256": "7cb277e491fc98df335bc88eb8d3487e6d65a54690c5554f9f6435b909936f5e",
+        "syntax_role_occurrences_before": 19,
+        "status": "source_matched_cached_article",
+        "html_sha256": "e1d089af96a41368b26e35f91b5915575ddc85379ac7cb6719acc67c676acf9a",
+        "unlinked_python_role_count": 17,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.mdtraj_GroTrajectoryFile",
+          "molsysmt.form.mdtraj_GroTrajectoryFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.mdtraj_GroTrajectoryFile",
+          "to_mdtraj_GroTrajectoryFile()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_HDF5TrajectoryFile.ipynb",
+        "source_sha256": "4c3b1d6c3183e9799d1ae9168a82d729f41a3396582832fcb2825ea75ee2c33e",
+        "syntax_role_occurrences_before": 22,
+        "status": "source_matched_cached_article",
+        "html_sha256": "dba5e24c85e1f1ba33f7a3bfd70db5fcbcf1a7209a05cf41147ef48c629903a0",
+        "unlinked_python_role_count": 20,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.mdtraj_HDF5TrajectoryFile",
+          "molsysmt.form.mdtraj_HDF5TrajectoryFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.mdtraj_HDF5TrajectoryFile",
+          "to_mdtraj_HDF5TrajectoryFile()",
+          "to_mdtraj_Topology()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_openmm_Topology()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_PDBTrajectoryFile.ipynb",
+        "source_sha256": "f440b68bb38059b531df96513a856959b2aad91c8b83d713db0790978b7db981",
+        "syntax_role_occurrences_before": 20,
+        "status": "source_matched_cached_article",
+        "html_sha256": "502d712705d3c2f07755c80748b0ccacb17616422928cf405f796ce263990769",
+        "unlinked_python_role_count": 18,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.mdtraj_PDBTrajectoryFile",
+          "molsysmt.form.mdtraj_PDBTrajectoryFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.mdtraj_PDBTrajectoryFile",
+          "to_mdtraj_PDBTrajectoryFile()",
+          "to_mdtraj_Topology()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_Topology.ipynb",
+        "source_sha256": "c427867a6a53266925feb10047228ecdc9530c87c5906479194bf5c06bf2f3e7",
+        "syntax_role_occurrences_before": 25,
+        "status": "source_matched_cached_article",
+        "html_sha256": "c8c13cfdb68ae6693553d25345252323115cff1de98bb561aeb598e92eb42a18",
+        "unlinked_python_role_count": 23,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.mdtraj_Topology",
+          "molsysmt.form.mdtraj_Topology",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.mdtraj_Topology",
+          "to_file_top()",
+          "to_mdtraj_Topology()",
+          "to_mdtraj_Trajectory()",
+          "to_molsysmt_Topology()",
+          "to_openmm_Topology()",
+          "to_parmed_GromacsTopologyFile()",
+          "to_parmed_Structure()",
+          "to_string_amino_acids_1()",
+          "to_string_amino_acids_3()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_Trajectory.ipynb",
+        "source_sha256": "9de1edaf7632a368ea2b5c80280bcd80e96a17d4ae1b0e03988e7f8edf66ad68",
+        "syntax_role_occurrences_before": 34,
+        "status": "source_matched_cached_article",
+        "html_sha256": "e0c290832ec51447f7a4921013c111cbf9761a9c27ea69fdd8a8ddf3971cc798",
+        "unlinked_python_role_count": 32,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.mdtraj_Trajectory",
+          "molsysmt.form.mdtraj_Trajectory",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.mdtraj_Trajectory",
+          "to_biopython_Seq()",
+          "to_biopython_SeqRecord()",
+          "to_file_pdb()",
+          "to_file_xtc()",
+          "to_mdtraj_Topology()",
+          "to_mdtraj_Trajectory()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_nglview_NGLWidget()",
+          "to_openmm_Modeller()",
+          "to_openmm_Topology()",
+          "to_parmed_Structure()",
+          "to_pdbfixer_PDBFixer()",
+          "to_pytraj_Topology()",
+          "to_pytraj_Trajectory()",
+          "to_string_amino_acids_1()",
+          "to_string_amino_acids_3()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_XTCTrajectoryFile.ipynb",
+        "source_sha256": "fba9ba80e9231d00002e855b5a5e138f635297a4163856c21a5ff3df10ce0bf3",
+        "syntax_role_occurrences_before": 18,
+        "status": "source_matched_cached_article",
+        "html_sha256": "0fdc124095f9c4da2bd21fe2fc393a55123a5a813d5b67c4c7b78ba300ba0800",
+        "unlinked_python_role_count": 16,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.mdtraj_XTCTrajectoryFile",
+          "molsysmt.form.mdtraj_XTCTrajectoryFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.mdtraj_XTCTrajectoryFile",
+          "to_mdtraj_XTCTrajectoryFile()",
+          "to_molsysmt_Structures()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.ipynb",
+        "source_sha256": "7eb46e17edc7f7129984d6ebecedf6294fce45bbe2b839e13f917d7f0c11a11d",
+        "syntax_role_occurrences_before": 2,
+        "status": "source_matched_cached_article",
+        "html_sha256": "40a81ad7f29e4804e629d07f4aba3b1257c2709aee2b75f232abfca009c83df9",
+        "unlinked_python_role_count": 0,
+        "unlinked_python_role_labels": []
+      },
+      {
+        "page": "docs/content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.ipynb",
+        "source_sha256": "621bed0e4cef733738026b85f1d25fe1a95d9430104db9d0d90510e6924180f0",
+        "syntax_role_occurrences_before": 2,
+        "status": "source_matched_cached_article",
+        "html_sha256": "2d3d8e63985941e9c17e81fa3817a905e247f4fbf562a606968a5379897fc221",
+        "unlinked_python_role_count": 0,
+        "unlinked_python_role_labels": []
+      },
+      {
+        "page": "docs/content/user/tools/form/class/openff/openff_Molecule.ipynb",
+        "source_sha256": "7d45a4105f754d4cfd12749a9933421dc35fcec0931780bcb70a16822b865392",
+        "syntax_role_occurrences_before": 23,
+        "status": "source_matched_cached_article",
+        "html_sha256": "dae6dd45097fab40874eb5d8841d7146e7cf298b166e23babdfc3f5158b103b9",
+        "unlinked_python_role_count": 21,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.openff_Molecule",
+          "molsysmt.form.openff_Molecule",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "get_mechanical_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.openff_Molecule",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_openff_Molecule()",
+          "to_openff_Topology()",
+          "to_rdkit_Mol()",
+          "to_string_smiles()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/openff/openff_Topology.ipynb",
+        "source_sha256": "42f586fbce18c15fbe8f27f2eb4eb95e4cb123d34bf30faab5b7087ffe3df034",
+        "syntax_role_occurrences_before": 21,
+        "status": "source_matched_cached_article",
+        "html_sha256": "3d5299edcff181c9108b3a107375b47dd11ff721f4b54e35cae4856b9929726e",
+        "unlinked_python_role_count": 19,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.openff_Topology",
+          "molsysmt.form.openff_Topology",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "get_mechanical_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.openff_Topology",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_openff_Molecule()",
+          "to_openmm_Topology()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/others/XYZ.ipynb",
+        "source_sha256": "03a9a35dcede1d3f7d6fd1383f1242be978492542890099551536c159d55fbfe",
+        "syntax_role_occurrences_before": 23,
+        "status": "source_matched_cached_article",
+        "html_sha256": "404de8ed210b6683e29a85e441de798ef9e55b47f9413ad4de03ce30a54d394b",
+        "unlinked_python_role_count": 21,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.XYZ",
+          "molsysmt.form.XYZ",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.XYZ",
+          "to_XYZ()",
+          "to_cupy_ndarray()",
+          "to_file_xyznpy()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_MolecularMechanics()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/others/cupy_ndarray.ipynb",
+        "source_sha256": "6cf5030e107a1f0dde76cfe2e2636d6a82b66b97c52814ce0465a70bb6fca290",
+        "syntax_role_occurrences_before": 18,
+        "status": "source_matched_cached_article",
+        "html_sha256": "3b772ca2b0f1a814c5bd6c9d1be692ea42b8bd27e8df2eab6899b77fb85b96d5",
+        "unlinked_python_role_count": 16,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.cupy_ndarray",
+          "molsysmt.form.cupy_ndarray",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.cupy_ndarray",
+          "to_XYZ()",
+          "to_molsysmt_Structures()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/others/mmcif_PdbxContainers_DataContainer.ipynb",
+        "source_sha256": "09f59c05c7e642c70360d546fda135d1d71e508350b3810971c16ebecf8e5c33",
+        "syntax_role_occurrences_before": 28,
+        "status": "source_matched_cached_article",
+        "html_sha256": "ec100099ea57806b218faf754612b2a9157ccad7edcccc6b16138d3e3bf194d9",
+        "unlinked_python_role_count": 26,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.mmcif_PdbxContainers_DataContainer",
+          "molsysmt.form.mmcif_PdbxContainers_DataContainer",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.mmcif_PdbxContainers_DataContainer",
+          "to_file_pdb()",
+          "to_mdtraj_Trajectory()",
+          "to_mmcif_PdbxContainers_DataContainer()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_MolecularMechanics()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_openmm_Topology()",
+          "to_string_amino_acids_1()",
+          "to_string_amino_acids_3()",
+          "to_string_pdb_id()",
+          "to_string_pdb_text()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/others/networkx_Graph.ipynb",
+        "source_sha256": "e3be07213682e279f85e0039926a992acc08db99d5a1eb3e87182b0c5c718916",
+        "syntax_role_occurrences_before": 17,
+        "status": "source_matched_cached_article",
+        "html_sha256": "52231fa0372e94773b6643e19a12e862b1a658c019e3d3d04f51bbc03ef5cfe5",
+        "unlinked_python_role_count": 15,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.networkx_Graph",
+          "molsysmt.form.networkx_Graph",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.networkx_Graph",
+          "to_networkx_Graph()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/others/pdbfixer_PDBFixer.ipynb",
+        "source_sha256": "b7204070258523e2e9f809b88f7d5d84b77e528f983efdfa14ec638edfb2e5f4",
+        "syntax_role_occurrences_before": 30,
+        "status": "source_matched_cached_article",
+        "html_sha256": "05ca10a7c60a03897611973eb82f6089c2f4d1041e437352c6c7952067caac4b",
+        "unlinked_python_role_count": 28,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.pdbfixer_PDBFixer",
+          "molsysmt.form.pdbfixer_PDBFixer",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.pdbfixer_PDBFixer",
+          "to_biopython_Seq()",
+          "to_biopython_SeqRecord()",
+          "to_file_pdb()",
+          "to_mdtraj_Topology()",
+          "to_mdtraj_Trajectory()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_nglview_NGLWidget()",
+          "to_openmm_Modeller()",
+          "to_openmm_Topology()",
+          "to_pdbfixer_PDBFixer()",
+          "to_string_amino_acids_1()",
+          "to_string_amino_acids_3()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/parmed/parmed_GromacsTopologyFile.ipynb",
+        "source_sha256": "8c4e7cc06f9772911110f2d8062c06478eb30a4040d3ef7628ec4889dc28c9df",
+        "syntax_role_occurrences_before": 23,
+        "status": "source_matched_cached_article",
+        "html_sha256": "0f5c958c5a5b0f4b162d9a624cdb1a47541b9629d3df0d5a0087c5990ed74e00",
+        "unlinked_python_role_count": 21,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.parmed_GromacsTopologyFile",
+          "molsysmt.form.parmed_GromacsTopologyFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.parmed_GromacsTopologyFile",
+          "to_file_top()",
+          "to_mdtraj_Topology()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Topology()",
+          "to_openmm_Topology()",
+          "to_parmed_GromacsTopologyFile()",
+          "to_parmed_Structure()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/parmed/parmed_Structure.ipynb",
+        "source_sha256": "53a6d1a608e2568cc6ef73c376bc1bd8e02c56c913dc804cf6a04265c0414917",
+        "syntax_role_occurrences_before": 30,
+        "status": "source_matched_cached_article",
+        "html_sha256": "e3e90da3558758d9cf47d254c4df779eb2c96cda62683fcddf1950edcd867a5b",
+        "unlinked_python_role_count": 28,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.parmed_Structure",
+          "molsysmt.form.parmed_Structure",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "get_mechanical_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.parmed_Structure",
+          "to_file_mol2()",
+          "to_file_pdb()",
+          "to_file_psf()",
+          "to_mdtraj_Topology()",
+          "to_mdtraj_Trajectory()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_nglview_NGLWidget()",
+          "to_openmm_Modeller()",
+          "to_openmm_Topology()",
+          "to_parmed_GromacsTopologyFile()",
+          "to_parmed_Structure()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/pytraj/pytraj_Topology.ipynb",
+        "source_sha256": "9ca02c32a642e362700568e5b2ad77524cf3146cb07c6318e86deaad8ec83a4c",
+        "syntax_role_occurrences_before": 19,
+        "status": "source_matched_cached_article",
+        "html_sha256": "2a808ba740306868262567a7fcf762dd0900e53e10e801ee29cf01f8131cb430",
+        "unlinked_python_role_count": 17,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.pytraj_Topology",
+          "molsysmt.form.pytraj_Topology",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.pytraj_Topology",
+          "to_molsysmt_Topology()",
+          "to_pytraj_Topology()",
+          "to_pytraj_Trajectory()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/pytraj/pytraj_Trajectory.ipynb",
+        "source_sha256": "de4633c8da78ee0a9a82f93a454d3ebd2916310edd758cfeb9d72ddddef6b109",
+        "syntax_role_occurrences_before": 22,
+        "status": "source_matched_cached_article",
+        "html_sha256": "34cb87fbe6dcc406f45e111bc01c8544d99f767d54f1c395e17fe8b93a6c22ae",
+        "unlinked_python_role_count": 20,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.pytraj_Trajectory",
+          "molsysmt.form.pytraj_Trajectory",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.pytraj_Trajectory",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_nglview_NGLWidget()",
+          "to_pytraj_Topology()",
+          "to_pytraj_Trajectory()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/rdkit/rdkit_Mol.ipynb",
+        "source_sha256": "37d3eb9bcd07d4c9d3df83e53b5ac207304bbaf3824a179330cc3d1882ab18f9",
+        "syntax_role_occurrences_before": 17,
+        "status": "source_matched_cached_article",
+        "html_sha256": "e15d4bfbd8e5678b651c6902ba932799ccf049057f3644c0573d260e6c3a9577",
+        "unlinked_python_role_count": 15,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.rdkit_Mol",
+          "molsysmt.form.rdkit_Mol",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "get_mechanical_attributes",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.rdkit_Mol",
+          "to_file_smi()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_openff_Molecule()",
+          "to_rdkit_Mol()",
+          "to_string_smiles()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/viewers/molsysviewer_MolSysView.ipynb",
+        "source_sha256": "d4bafc6d8ac88592634ef2eee7a2ab86f8fe88b5920a886a36613f3b48cdad72",
+        "syntax_role_occurrences_before": 15,
+        "status": "source_matched_cached_article",
+        "html_sha256": "5af7a89bc921e42990e59ff4551ae3236c27ea1d2cab206d318a955817c5250e",
+        "unlinked_python_role_count": 13,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.molsysviewer_MolSysView",
+          "molsysmt.form.molsysviewer_MolSysView",
+          "extract()",
+          "copy()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "get_mechanical_attributes",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.molsysviewer_MolSysView",
+          "to_molsysmt_MolSys()",
+          "to_molsysviewer_MolSysView()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/viewers/nglview_NGLWidget.ipynb",
+        "source_sha256": "166fbd7ea8f323201a1a766a52b651123a11bd605d14690d85bec56642954e86",
+        "syntax_role_occurrences_before": 24,
+        "status": "source_matched_cached_article",
+        "html_sha256": "1dc5859a4ac144481cdf62817acfd922ae6fe94818e61d43131c6c02d39b9d5b",
+        "unlinked_python_role_count": 22,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.nglview_NGLWidget",
+          "molsysmt.form.nglview_NGLWidget",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.nglview_NGLWidget",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_nglview_NGLWidget()",
+          "to_openmm_Topology()",
+          "to_string_amino_acids_1()",
+          "to_string_amino_acids_3()",
+          "to_string_pdb_text()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/close.ipynb",
+        "source_sha256": "b43b9d00bb046917fda823386dd714b9f13dd0780c2f17224bc8622ba925c59a",
+        "syntax_role_occurrences_before": 4,
+        "status": "source_matched_cached_article",
+        "html_sha256": "423660bf5fa0b82f25707c490c951d849b92979124b4a70f8b871d84f01969a1",
+        "unlinked_python_role_count": 0,
+        "unlinked_python_role_labels": []
+      },
+      {
+        "page": "docs/content/user/tools/form/get_attributes.ipynb",
+        "source_sha256": "44bfb93314abb0886b3fdae2c1e7d05b5d62e658ff244bb2052942929d74d4de",
+        "syntax_role_occurrences_before": 4,
+        "status": "source_matched_cached_article",
+        "html_sha256": "1c5e2c540804a5ad6f71cd5813fa6d48848f27e7ed7d28803c316b0c5c73e50d",
+        "unlinked_python_role_count": 0,
+        "unlinked_python_role_labels": []
+      },
+      {
+        "page": "docs/content/user/tools/form/has_attribute.ipynb",
+        "source_sha256": "4737367d051c0cd8c8ad3bdce8f3706b12db2531173d00928655ec8aff25d94f",
+        "syntax_role_occurrences_before": 4,
+        "status": "source_matched_cached_article",
+        "html_sha256": "9e4f071f4d65db42e6ea7b523774061e10b4164219f75a474fa09a7fcf0cd1c9",
+        "unlinked_python_role_count": 0,
+        "unlinked_python_role_labels": []
+      },
+      {
+        "page": "docs/content/user/tools/form/is_file.ipynb",
+        "source_sha256": "a1431fdd61f20d8b99163ba44b9a5e28ba6076b2ec0dd618b0f11884583793a0",
+        "syntax_role_occurrences_before": 4,
+        "status": "source_matched_cached_article",
+        "html_sha256": "0d18c6c4670fa782948777874a03cecccad9f68d36dc2043feae74322bcdb92e",
+        "unlinked_python_role_count": 0,
+        "unlinked_python_role_labels": []
+      },
+      {
+        "page": "docs/content/user/tools/form/is_item.ipynb",
+        "source_sha256": "65d0658b0af6b2e7224be33d79ef9f59e28ad8b53e1e9a891475922be52e4f3e",
+        "syntax_role_occurrences_before": 4,
+        "status": "source_matched_cached_article",
+        "html_sha256": "2fa9de94d064b37444c1929437fa8adde15442431a55ac8d7c79cb91c08beb0b",
+        "unlinked_python_role_count": 0,
+        "unlinked_python_role_labels": []
+      },
+      {
+        "page": "docs/content/user/tools/form/is_string.ipynb",
+        "source_sha256": "37ba57e035fd7ffa10b100a7ed0f04d43342b7e58e05c8c58dc3b241e610d737",
+        "syntax_role_occurrences_before": 4,
+        "status": "source_matched_cached_article",
+        "html_sha256": "636b5916e51888324c7fca0248883a4d2dc257b52df15458a6808a65d48c250e",
+        "unlinked_python_role_count": 0,
+        "unlinked_python_role_labels": []
+      }
+    ]
+  },
+  "provider": {
+    "version": "8.6.1",
+    "distribution": "8.6.1",
+    "pdbfile_implementation": "<development-prefix>/lib/python3.14/site-packages/openmm/app/pdbfile.py",
+    "pdbfile_sha256": "0045f4410011f845097b2ecd696aca8553a2bef0d3f140178c055f6459697fa6"
+  },
+  "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "resource_contract": {
+    "cpu_quota": 1,
+    "test_maximum_gib": 1.5,
+    "html_maximum_gib": 3,
+    "own_swap_bytes": 0,
+    "minimum_host_reserve_gib": 6.5,
+    "foreign_processes_signalled": false
+  },
+  "failure_disposition": [
+    "Twelve original coordinate/copy cases fail: PDB count metadata/models, nonexistent extraction getter, Modeller shape/order/duplicate mismatch and shared topology, and direct PDB identity alias. Seventeen corrected cases then pass.",
+    "State public baseline has four UnknownArgumentError failures; two later direct hooks additionally expose nonexistent State.setPositions. Six corrected State cases pass. Four positive mutable-Context cases separately reproduce the shared selector-signature defect before repair.",
+    "The old MDTraj guard expects one model from a 38-model PDB. Its original failure is retained; the stronger guard checks every selected atom in all 38 models.",
+    "The first wider cohort has 476 passes and two errors from indexing an expected OpenMM list with a numpy-style list index. The expected-value reader is corrected without weakening geometry. A focused 34-case cohort passes before full documentation receiving.",
+    "Documentation baseline has 31 failures and eleven passes: absent links/counts, three omitted registered MolSys converters, two missing Simulation settings and PDB count delivery newly added by #735.",
+    "First corrected documentation has 52 passes/two failures: genuinely zero-byte setter modules cannot target line 1. Only explicitly empty modules may omit a line anchor; both fake empty-file anchors and unanchored callable references are negatively guarded. No source padding or placeholder functions are introduced.",
+    "One GitHub GraphQL issue-creation attempt fails; the complete board confirms no issue was created before the retry produces #736. This is not a scientific result or a demonstrated provider library defect."
+  ],
+  "limits": [
+    "PDB projections update known OpenMM position caches; layout changes need renewed adapter receiving. Actual provider is fingerprinted separately from the inspected reference checkout.",
+    "PDB models share one reader topology/box; homogeneous model identity and chemical completeness are not newly validated or authenticated.",
+    "PDBFile-to-Modeller intentionally uses the first selected pose, model zero by default; a trajectory target instead keeps selected models.",
+    "MDTraj numerical arrays use its nm/float32 contract; this is not an arbitrary-precision promise or an energy/scientific-method certificate.",
+    "The direct identity reuse behavior of five other reader adapters is documented and owned by post-1.0 #737; faithful runtime/snapshot copying remains #592.",
+    "Early stage fingerprints cover selected source extensions and drafted tests, not every external input. Final receiving also fingerprints tracked JSON and actual form HTML; it is still not an exact-candidate certificate.",
+    "Thirteen-page Sphinx receiving disables notebook execution and autosummary regeneration. Applicable actual runtime controls and updated docstrings execute separately.",
+    "Remaining 26 flagged pages retain unchanged-source and byte-identical cached HTML receiving, not a newly rebuilt full public site.",
+    "Complete-source/nightly, original score, investigations, stable format/client, installed final-pair and publication pause remain."
+  ],
+  "course_review": {
+    "explicit_form_mentions": [
+      {
+        "page": "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+        "cell": 1,
+        "kind": "markdown",
+        "matching_lines": [
+          "single-structure container such as `openmm.Modeller` cannot represent every"
+        ]
+      }
+    ],
+    "engine_code_cells": [
+      {
+        "page": "docs/content/course/Path_Enzyme/45_OpenMM_Integration.ipynb",
+        "cell": 3,
+        "source": "# Convert to OpenMM Simulation\n# Setting the temperature to 343 K (70 degrees Celsius) to simulate industrial heat\ntry:\n    simulation = msm.convert(molsys, to_form='openmm.Simulation', \n                             forcefield='AMBER14', water_model='TIP3P-FB',\n                             temperature='343 K')\n    print(f\"OpenMM Simulation ready: {type(simulation)}\")\nexcept Exception as e:\n    print(f\"OpenMM initialization failed: {e}\")"
+      },
+      {
+        "page": "docs/content/course/Path_Enzyme/52_Framework_Reliability.ipynb",
+        "cell": 1,
+        "source": "import molsysmt as msm\n\ntry:\n    # Attempting an impossible conversion\n    msm.convert(\"not_a_molecule\", to_form='openmm.Simulation')\nexcept Exception as e:\n    print(f\"SMonitor captured a detailed error: {e}\")"
+      },
+      {
+        "page": "docs/content/course/Path_Alzheimer/45_OpenMM_Integration.ipynb",
+        "cell": 3,
+        "source": "# Create an OpenMM Simulation object\n# Note: This requires OpenMM installed. \ntry:\n    simulation = msm.convert(molsys, to_form='openmm.Simulation', \n                             forcefield='AMBER14', water_model='TIP3P-FB',\n                             temperature='310 K')\n    print(f\"OpenMM Simulation ready: {type(simulation)}\")\nexcept Exception as e:\n    print(f\"OpenMM conversion failed: {e}\")"
+      },
+      {
+        "page": "docs/content/course/Common_Core/01_The_Form_Agnostic_Philosophy.ipynb",
+        "cell": 8,
+        "source": "# Let's convert the Enzyme (H5MSM file) into an OpenMM Topology\nopenmm_topo = msm.convert(enzyme_system, to_form='openmm.Topology')\n\nprint(f\"New form: {msm.get_form(openmm_topo)}\")"
+      },
+      {
+        "page": "docs/content/course/Path_Antiviral/45_OpenMM_Integration.ipynb",
+        "cell": 1,
+        "source": "import molsysmt as msm\nmolsys = msm.convert('pdb:6LU7', to_form='molsysmt.MolSys')\n# A prepared system with topology and coordinates can initialize OpenMM directly.\n# The first requested structure becomes the initial state of the context.\n# simulation = msm.convert(molsys, to_form='openmm.Simulation', structure_indices=0)"
+      },
+      {
+        "page": "docs/content/course/Path_Biophysics/45_OpenMM_Integration.ipynb",
+        "cell": 1,
+        "source": "import molsysmt as msm\nmolsys = msm.convert('pdb:1K4C', to_form='molsysmt.MolSys')\n# A prepared system with topology and coordinates can initialize OpenMM directly.\n# The CPU platform is the portable default; request another installed platform explicitly.\n# simulation = msm.convert(molsys, to_form='openmm.Simulation', structure_indices=0)"
+      }
+    ],
+    "disposition": "The changed reader/extraction/State hooks are not called in the course source cells. Native-source engine initialization uses different routes with the retained first-pose policy; no course code/output is changed or newly claimed executed."
+  },
+  "runtime": {
+    "openmm": {
+      "imported_version": "8.6.1",
+      "distribution_version": "8.6.1",
+      "imported_file": "<development-prefix>/lib/python3.14/site-packages/openmm/__init__.py"
+    },
+    "Bio": {
+      "imported_version": "1.88",
+      "distribution_version": "1.88",
+      "imported_file": "<development-prefix>/lib/python3.14/site-packages/Bio/__init__.py"
+    },
+    "pyunitwizard": {
+      "imported_version": "0.29.2",
+      "distribution_version": "0.29.2",
+      "imported_file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py"
+    },
+    "smonitor": {
+      "imported_version": "0.21.0",
+      "distribution_version": "0.21.0",
+      "imported_file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py"
+    },
+    "argdigest": {
+      "imported_version": "0.15.0",
+      "distribution_version": "0.15.0",
+      "imported_file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py"
+    },
+    "depdigest": {
+      "imported_version": "0.15.1",
+      "distribution_version": "0.15.1",
+      "imported_file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py"
+    },
+    "pytest_receptor": {
+      "imported_version": "1.2.1",
+      "distribution_version": "1.2.1",
+      "imported_file": "<checkout>/.pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py"
+    }
+  },
+  "terminal_unit_cleanup": {
+    "units": [
+      {
+        "unit": "msm-omm727-runtime-baseline-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-omm727-runtime-corrected-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-omm727-state-baseline-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-omm727-state-direct-baseline-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-omm727-state-corrected-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-omm727-downstream-baseline-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-omm727-runtime-integrated-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-omm727-context-baseline-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-omm727-focused-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-omm727-baseline-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-omm727-corrected-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-omm727-corrected2-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-omm727-html-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-omm727-receiving-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-omm727-checks-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      }
+    ],
+    "foreign_processes_signalled": false
+  }
+}

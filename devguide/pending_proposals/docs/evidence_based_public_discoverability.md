@@ -229,3 +229,17 @@ intended references; 39 other external class pages remain flagged under #727.
 Unavailable hooks, instance/metadata limits and native selection/unit semantics
 are explicit. This is neither broad discoverability acceptance nor complete
 scientific/provider/installed qualification.
+
+
+## OpenMM form delivery — 2026-11-12
+
+[Receiving receipt](../../../devtools/data/openmm_form_and_coordinate_receiving_727_735_736_20261112.json).
+
+Thirteen more articles add 258 references to 232 independently matched source
+files. Zero-warning HTML and 700 combined source/runtime/doctest/actual-article
+controls receive sixty reviewed pages, for totals of 1,177 references and 1,068
+files. Source/model/ownership boundaries, actual unavailable hooks and native
+chemical domains are explicit. #735/#736's related repairs remain source-level
+acceptance; #737 owns adjacent consistency after 1.0. #727 remains partial for
+26 other external class articles. Wider indexing, comparisons, reader and
+installed acceptance are not supplied by this increment.

@@ -443,3 +443,17 @@ sequence tests remain; six new Bio.PDB cases check selected atom/model order
 and quantities under two unit policies. No runtime implementation is changed.
 #727 remains partial for 39 external class pages/765 unlinked cached nodes.
 This does not change original milestone credit or final-pair boundaries.
+
+
+## OpenMM form and coordinate increment — 2026-11-12
+
+[Receiving receipt](../devtools/data/openmm_form_and_coordinate_receiving_727_735_736_20261112.json).
+
+The bounded source handoff receives thirteen OpenMM pages on clean 9a261ebd5:
+258 references to 232 matched source files, zero-warning HTML and 700 combined
+controls, including sixty actual reviewed articles. The review repairs PDB
+model/copy/atom-axis and Modeller ownership defects (#735), plus explicit State
+refusal and live-Context selector dispatch (#736). Original failures and the
+stronger 38-model regression remain in the receipt. Source changes do not clear
+complete-source/nightly or installed final-pair qualification. #737's adjacent
+direct-reader review stays after 1.0; #727 remains partial for 26 external pages.

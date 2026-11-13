@@ -25,11 +25,9 @@ that front matter -- edit the entries, not this list.
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`macos_py312_environment_download_failure.md`](macos_py312_environment_download_failure.md) — [#671](https://github.com/uibcdf/molsysmt/issues/671) — Track the macOS Python 3.12 Conda download failure separately from tests. *(medium, upstream)*
 
-### In progress (3)
+### In progress (1)
 
-- [`openmm_coordinate_projections_lose_structure_axes_and_atom_correspondence.md`](openmm_coordinate_projections_lose_structure_axes_and_atom_correspondence.md) — [#735](https://github.com/uibcdf/molsysmt/issues/735) — OpenMM coordinate projections lose structure axes and atom correspondence *(high, reproduced)*
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
-- [`openmm_state_coordinate_setters_call_a_nonexistent_mutator.md`](openmm_state_coordinate_setters_call_a_nonexistent_mutator.md) — [#736](https://github.com/uibcdf/molsysmt/issues/736) — OpenMM State coordinate setters call a nonexistent mutator *(medium, reproduced)*
 
 ### Partially resolved (3)
 

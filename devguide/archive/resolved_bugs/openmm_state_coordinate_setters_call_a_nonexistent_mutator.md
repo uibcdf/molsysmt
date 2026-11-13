@@ -1,9 +1,9 @@
 ---
 summary: OpenMM State coordinate setters call a nonexistent mutator
 issue: uibcdf/molsysmt#736
-status: active
+status: resolved
 opened: 2026-11-12
-closed:
+closed: 2026-11-12
 severity: medium
 verification: reproduced
 area: [form, diagnostics]
@@ -64,3 +64,28 @@ The final focused 34-case cohort passes both State refusal and Context mutation
 under nm/ps and pm/fs, alongside #735 and the updated PDB doctests. No provider
 upgrade or snapshot-copy implementation is introduced. Form documentation,
 common checks and public closeout remain due.
+
+
+## Resolution — 2026-11-12
+
+Captured State assignment now refuses with the existing catalogued
+NotImplementedMethodError, through public and direct atom/system routes.
+The shared selector protocol is also restored for live Context assignment,
+which remains genuinely mutable and unit-aware. The additional positive guard
+is `tests/form/openmm_Context/test_position_assignment.py`. This does not
+implement independent runtime/snapshot copying; #592 retains that scope.
+
+The final combined cohort passes 700 cases without warnings or omissions on
+clean 9a261ebd5, including source/runtime/doctest and sixty actual reviewed
+articles. Fifteen common fast gates, indexes and whole-repository Ruff pass.
+The [receipt](../../../devtools/data/openmm_form_and_coordinate_receiving_727_735_736_20261112.json)
+retains original failures, staged source/provider scope, numerical limits and
+shared-host resource receiving. All fifteen terminal task-owned units are
+retired after MainPID-zero checks; foreign processes are untouched.
+
+Docstrings, form articles and maintained conversion guidance agree with these
+contracts. No new molecular kernel, provider floor, installed/final-pair
+qualification or publication authorization follows. Public source/readback and
+issue closeout use this record; lifecycle metadata receives its own offline
+checks after archival. The adjacent direct-reader consistency review stays
+post-1.0 under #737.

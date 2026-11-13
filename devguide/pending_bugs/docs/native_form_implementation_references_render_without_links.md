@@ -518,3 +518,30 @@ callable references remain rejected. No source file is padded to satisfy it.
 The extended corrected cohort passes 56 cases without warnings or omissions.
 Notebook executable payloads, metadata, outputs, order and headings/anchors
 are preserved. Clean HTML, wider receiving and common/public closeout remain.
+
+
+## OpenMM actual-article receiving — 2026-11-12
+
+[Receiving receipt](../../../devtools/data/openmm_form_and_coordinate_receiving_727_735_736_20261112.json).
+
+Clean 9a261ebd5 receives thirteen pages without warnings. All 700 combined
+source/runtime/doctest/actual-article cases pass without warnings or omissions,
+including sixty reviewed articles. The pages add 258 references to 232 matched
+files for totals of 1,177 references and 1,068 source files. Original notebook
+code, outputs, metadata, order, headings and anchors are preserved. #735/#736
+own the separately guarded coordinate/copy/dispatch corrections; #737 keeps
+adjacent direct-reader reuse review after 1.0. The linked receipt retains every
+original failure and scope, including the guard distinction between an honest
+empty file and an implemented callable. No file is padded to satisfy a gate.
+
+Of 34 other unchanged-source/byte-identical cached articles, 26 retain 510
+unlinked nodes. #727 stays partial. Common gates, lifecycle and public readback
+remain separate receiving steps; original score and final-pair boundaries stay.
+
+
+Fifteen common fast gates, indexes and whole-repository Ruff pass. All fifteen
+exact task-owned units are terminal/retired after MainPID-zero verification;
+no foreign process is signalled. #735/#736 move to their resolved archive, with
+public readback and issue closeout following publication. #727 remains partial
+for the 26 other external class articles. Latest full-source/nightly and
+final-pair obligations are not cleared by this bounded increment.
