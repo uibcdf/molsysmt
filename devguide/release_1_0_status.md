@@ -12,7 +12,7 @@ correction `9af9be18c` / guard `90aa8eae1`, native-domain guidance
 file extraction/identity corrections `7b607f638` / `7097f81c5`, string guidance
 `4b280fdcb`, string boundary corrections `ed12b039a`, Biopython guidance
 `26b550f96`, OpenMM coordinate repairs `3f034dbd0` and OpenMM guidance
-`9a261ebd5`, MDTraj iteration repair `083b7c166` and guidance `00590f26e`, nullable membership `8cc066c84` and alias link `83eb35cf1`, read-only inventory `a3cf6b3a5`, plus the
+`9a261ebd5`, MDTraj iteration repair `083b7c166` and guidance `00590f26e`, nullable membership `8cc066c84` and alias link `83eb35cf1`, read-only inventory `a3cf6b3a5`, MDAnalysis guidance `7eacf1654` / receiving `9e8ef6d38`, plus the
 separately received earlier documentation/catalog slices.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
@@ -37,7 +37,7 @@ promotions and publication remain paused pending the agreed resumption.**
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
 | Complete #723's comparable long campaign | The method/default-host baseline passes on `db1706f8a`; the concrete molecular integration passes 63 controls and one actual 5,000-structure cycle on clean `1a899f9f0`. Initial/recovered native targets and 3,720,000-byte buffers clear; the independent witness survives unchanged. Host growth and debugger errors remain explicit. Freeze the comparison composition before the long campaign; preserve original raw outcomes and #615/#713 scopes. |
-| Complete #727 and the admitted pre-1.0 polishing review | Sixty-eight reviewed native/file/string/Biopython/OpenMM/MDTraj articles deliver 1,338 intended links to 1,213 verified source files. Eighteen other external class articles retain 350 unlinked nodes. The MDTraj increment passes 836 adapter cases (two retained provider warnings), 269 final combined controls and ten zero-warning HTML pages. #738 corrects bounded HDF5 iteration; continue with MDAnalysis and other remaining families. Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11). Original credit, investigations, nightly/exact-pair gates and deferred optional expansion remain separate. |
+| Complete #727 and the admitted pre-1.0 polishing review | Seventy-two actual reviewed form articles deliver 1,403 intended references to 1,273 independently matched source files. The MDAnalysis block passes 117 adapter cases and 263 combined source/HTML cases. Fourteen flagged external-class pages / 282 nodes remain among twenty-two unchanged-source cached articles; continue RDKit, then OpenFF/ParmEd. Preserve original failures, provider limits and the final-pair pause. |
 | Preserve #734's bounded contacts/SASA owner disposition | The [owner contract](native_interface_contacts_sasa_contract.md) and 104-case receiving offer existing public operations for the first Cartesian bundled-element-vdW profile. No concrete new operation gap is established. BindingMT #112 and TopoMT #197 retain application decisions and actual client acceptance; MolSysSuite #195 remains the coordination owner. This finite review adds no release prerequisite. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
 | Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
@@ -8119,3 +8119,40 @@ no open PRs. All eleven exact task-owned services are terminal and retired,
 with the failed exterior event preserved. See the
 [public closeout receipt](../devtools/data/native_inventory_read_closeout_740_20261112.json).
 Continue MDAnalysis under #727; all final-pair boundaries remain unchanged.
+
+
+## MDAnalysis form receiving — 2026-11-12 (#727)
+
+[Receiving receipt](../devtools/data/mdanalysis_form_reference_receiving_727_20261112.json).
+
+Four articles on 7eacf1654 / 13c9984c2 add 65 intended references to sixty
+independently matched files from public 1dcab8363. They distinguish actual
+per-instance data from declarations, unavailable exports from working tools,
+filename-backed PDBParser copying from a file snapshot, and initial native
+materialization from streaming. Native chemical ownership, quantity policy,
+source cursor/view semantics and atom-order boundaries remain explicit.
+
+The existing MDAnalysis 2.10.0 adapter cohort passes 117 cases with nine retained
+provider PDB warnings. Four strict actual pages build without warnings, keeping
+all six-cell layouts, code/output/metadata, headings and anchors. The joint
+source/HTML receiving passes 263 cases without warnings or omissions: all 72
+reviewed form articles deliver 1,403 intended references to 1,273 source files.
+
+The first joint run records 84 failures / 179 passes because an overbroad
+verifier adjustment rejects old valid physical-line-1 whitespace-header links.
+The 9e8ef6d38 correction retains those anchors and independently requires an
+actual callable for every converter. A negative control rejects a fabricated
+conversion to an empty setter module. The failed run is preserved separately.
+
+#727 remains partial: fourteen flagged external-class pages / 282 unlinked
+role nodes remain among twenty-two unchanged-source, byte-identical cached
+articles. Continue with RDKit, then OpenFF/ParmEd and the remaining providers.
+This is bounded source/HTML receiving; no complete-site, complete-source,
+minimum-provider, scientific or installed/final-pair certificate, original-score
+bonus or publication resumption follows.
+
+
+The MDAnalysis closeout also passes all fifteen offline fast gates and Ruff.
+Complete intake remains 659 issues, 95 open, no issue after #740 and no open
+PRs. Seven terminal task-owned services are retired; the failed verifier
+attempt remains in the receipt. No hosted gate or candidate production runs.

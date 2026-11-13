@@ -605,3 +605,40 @@ retains the recovered cohort supervisor failure separately. This is outside
 the form-reference counters: 68 reviewed form articles / 1,338 occurrences /
 1,213 source files and eighteen remaining flagged external-class pages are
 unchanged. Resume MDAnalysis after #740 public closeout and intake.
+
+
+## MDAnalysis form receiving — 2026-11-12 (#727)
+
+[Receiving receipt](../../../devtools/data/mdanalysis_form_reference_receiving_727_20261112.json).
+
+Four articles on 7eacf1654 / 13c9984c2 add 65 intended references to sixty
+independently matched files from public 1dcab8363. They distinguish actual
+per-instance data from declarations, unavailable exports from working tools,
+filename-backed PDBParser copying from a file snapshot, and initial native
+materialization from streaming. Native chemical ownership, quantity policy,
+source cursor/view semantics and atom-order boundaries remain explicit.
+
+The existing MDAnalysis 2.10.0 adapter cohort passes 117 cases with nine retained
+provider PDB warnings. Four strict actual pages build without warnings, keeping
+all six-cell layouts, code/output/metadata, headings and anchors. The joint
+source/HTML receiving passes 263 cases without warnings or omissions: all 72
+reviewed form articles deliver 1,403 intended references to 1,273 source files.
+
+The first joint run records 84 failures / 179 passes because an overbroad
+verifier adjustment rejects old valid physical-line-1 whitespace-header links.
+The 9e8ef6d38 correction retains those anchors and independently requires an
+actual callable for every converter. A negative control rejects a fabricated
+conversion to an empty setter module. The failed run is preserved separately.
+
+#727 remains partial: fourteen flagged external-class pages / 282 unlinked
+role nodes remain among twenty-two unchanged-source, byte-identical cached
+articles. Continue with RDKit, then OpenFF/ParmEd and the remaining providers.
+This is bounded source/HTML receiving; no complete-site, complete-source,
+minimum-provider, scientific or installed/final-pair certificate, original-score
+bonus or publication resumption follows.
+
+
+The MDAnalysis closeout also passes all fifteen offline fast gates and Ruff.
+Complete intake remains 659 issues, 95 open, no issue after #740 and no open
+PRs. Seven terminal task-owned services are retired; the failed verifier
+attempt remains in the receipt. No hosted gate or candidate production runs.
