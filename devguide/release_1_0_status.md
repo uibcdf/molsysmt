@@ -83,7 +83,10 @@ retains original numerical/dispatch failures, two expected-value test-draft
 errors, the stronger 38-model regression, link-guard recovery and exact
 source/provider/resource scope. Fifteen common fast gates, indexes and whole-
 repository Ruff pass. All fifteen exact task-owned units are terminal/retired.
-Public readback and issue closeout follow this source/record checkpoint.
+Published main `c4c770140` and all 57 changed-file blobs are independently
+verified. #735/#736 are closed; board/queue agreement passes. Complete intake
+has 656 issues, 95 open, no issue after #737 and no open PRs. #737 remains an
+owned post-1.0 proposal.
 
 #727 remains partial for 26 external class pages/510 unlinked nodes among 34
 unchanged-source, byte-identical cached articles. This is neither a complete

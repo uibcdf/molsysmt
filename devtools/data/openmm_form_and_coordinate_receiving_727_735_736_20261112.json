@@ -4190,5 +4190,253 @@
       }
     ],
     "foreign_processes_signalled": false
+  },
+  "public_delivery": {
+    "published_main": "c4c770140e7c13a51ab98fef79c682cfa9393ddf",
+    "queried_source": "c4c770140e7c13a51ab98fef79c682cfa9393ddf",
+    "truncated": false,
+    "matched_changed_files": [
+      {
+        "path": "devguide/archive/resolved_bugs/openmm_coordinate_projections_lose_structure_axes_and_atom_correspondence.md",
+        "git_blob": "5121c154bbe8558b0edb2c48d820df76bf620324"
+      },
+      {
+        "path": "devguide/archive/resolved_bugs/openmm_state_coordinate_setters_call_a_nonexistent_mutator.md",
+        "git_blob": "bf9eea5c382ecfbf893acf043ef769e1cd74d66a"
+      },
+      {
+        "path": "devguide/forms_and_conversions.md",
+        "git_blob": "d04d0459d695127f714a4234800f0afb9ced1f3a"
+      },
+      {
+        "path": "devguide/pending_bugs/docs/native_form_implementation_references_render_without_links.md",
+        "git_blob": "2887a6bd582016ef30e9e29e39ce540f28e4dc75"
+      },
+      {
+        "path": "devguide/pending_proposals/docs/evidence_based_public_discoverability.md",
+        "git_blob": "f5dfd5497378f33fd399ae81b7a635e40ba5f940"
+      },
+      {
+        "path": "devguide/pre_1_0_completion_handoffs_20261110.md",
+        "git_blob": "6f3a42f2c8f657cbcee60c4ca99496d9c729a49f"
+      },
+      {
+        "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+        "git_blob": "f921128960334ce1949cae0df53d4c07621492aa"
+      },
+      {
+        "path": "devguide/release_1_0_status.md",
+        "git_blob": "c39498b07a32a819a48bbf9756ff91c9659e2c2f"
+      },
+      {
+        "path": "devtools/data/openmm_form_and_coordinate_receiving_727_735_736_20261112.json",
+        "git_blob": "894d31ed37e5e880a605307d176941c76e5e1f5d"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_AmberInpcrdFile.ipynb",
+        "git_blob": "ea842bd70ca38b32356f59bc19fb35308e1a2aa0"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_AmberInpcrdFile.ipynb.AGENTS.md",
+        "git_blob": "cba5e0e92b061caed16c98f347c8d902dd8ae9e7"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_AmberPrmtopFile.ipynb",
+        "git_blob": "a36c08be8ba72a0323bbeddb5eef46f801040842"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_AmberPrmtopFile.ipynb.AGENTS.md",
+        "git_blob": "b8c065edb923dc557b4b640e7a99f1dfcd12da90"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_CharmmCrdFile.ipynb",
+        "git_blob": "53d39ddab35709252ab075f147f7704be8d4d21b"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_CharmmCrdFile.ipynb.AGENTS.md",
+        "git_blob": "08e19ca9558c6e81be5d3d3e43f771673d976ec2"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_CharmmPsfFile.ipynb",
+        "git_blob": "7439e2c3dd6d13de7e393e31d3c2f4406735bc22"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_CharmmPsfFile.ipynb.AGENTS.md",
+        "git_blob": "5e23ede55f28fb44267f8c20ae43a5e657ff2e79"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_Context.ipynb",
+        "git_blob": "2edddaafd2b5b0cfbaa5f96a813e76f4d13fed9f"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_Context.ipynb.AGENTS.md",
+        "git_blob": "b8d823a0afd694030262040418cf2ab1e2f9654d"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_GromacsGroFile.ipynb",
+        "git_blob": "8f4e960c3ca6604988c4883828915cc53bd0c816"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_GromacsGroFile.ipynb.AGENTS.md",
+        "git_blob": "5a3c9f4bae7b2809597f04b147d22476bb17060e"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_GromacsTopFile.ipynb",
+        "git_blob": "199e5a09cd2a96602ecd40ac4662d7a97a871d35"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_GromacsTopFile.ipynb.AGENTS.md",
+        "git_blob": "fb0c4f1435194a49ba41a8cc3c8df17df1c56156"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_Modeller.ipynb",
+        "git_blob": "6b28040423f55307f373a9a5ac8956eac5c68968"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_Modeller.ipynb.AGENTS.md",
+        "git_blob": "2ed7d3c306360591d4689605118341234b7c0079"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_PDBFile.ipynb",
+        "git_blob": "e0db0f61808b3ecd6ef7982af3ba83b78c8d9aa0"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_PDBFile.ipynb.AGENTS.md",
+        "git_blob": "f41968ac7ae8cb5ced6bde14520c795a06f97eff"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_Simulation.ipynb",
+        "git_blob": "4598c62fa120b2dd8825b3047bd9cd83ca437166"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_Simulation.ipynb.AGENTS.md",
+        "git_blob": "9b4d0cd56612c94a047999c35e24fb78c23d19fd"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_State.ipynb",
+        "git_blob": "9f591ab002180f49432148695104e4e232a20ca3"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_State.ipynb.AGENTS.md",
+        "git_blob": "95155001e2be60d488daa3d99f89b2d181807c4d"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_System.ipynb",
+        "git_blob": "5b8bf7b6b3ece843e9dc1e0612f7a79d6256117a"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_System.ipynb.AGENTS.md",
+        "git_blob": "940c8983715bd9cc064b166661eac647c4aaedb6"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_Topology.ipynb",
+        "git_blob": "5ea5e9724d8f5554053ce954f2fddd9e7ff7a07e"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/openmm/openmm_Topology.ipynb.AGENTS.md",
+        "git_blob": "70beabdac6bd160bd50f4b716c2f0eadf9e4c278"
+      },
+      {
+        "path": "docs/docs_manifest.yml",
+        "git_blob": "afb20e3a6eda4116760b6f60b827a05ce4497e0c"
+      },
+      {
+        "path": "molsysmt/form/openmm_Context/set.py",
+        "git_blob": "e52dd48e05334c824e75ee3951745149ccab3f59"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/copy.py",
+        "git_blob": "d091f75e8033ae38e5fd9370f6857804548b6fc6"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/extract.py",
+        "git_blob": "c93a69f02b62590befaa87891591eeffe7a5aa87"
+      },
+      {
+        "path": "molsysmt/form/openmm_Modeller/to_molsysmt_MolSys.py",
+        "git_blob": "3262b9d1066ef9bbf8a894cb6b781849e20669a5"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/attributes.py",
+        "git_blob": "58b09cc80c92f872366e5945228710c38c57791f"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/extract.py",
+        "git_blob": "fb6275380642e56d01e36b94317345521a707709"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/get_structural_attributes.py",
+        "git_blob": "cc411250f34c46f7f7ebe3be4785aaced1b73954"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/to_mdtraj_Trajectory.py",
+        "git_blob": "8bb3c69d5c998297199d6a5477360c78503a9d39"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/to_molsysmt_MolSys.py",
+        "git_blob": "009d1ba9b08b54918dc97cf6b3490260f8d5b3bb"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/to_openmm_Modeller.py",
+        "git_blob": "ccbd61c1c5928878de7c1c896c815f2d715b3e87"
+      },
+      {
+        "path": "molsysmt/form/openmm_PDBFile/to_openmm_PDBFile.py",
+        "git_blob": "cff760a70f2e573b44d880ef7889d90f059edbb8"
+      },
+      {
+        "path": "molsysmt/form/openmm_State/set.py",
+        "git_blob": "5b444fb8c63fa6c89ee448c8499f36a552967ce3"
+      },
+      {
+        "path": "tests/conftest.py",
+        "git_blob": "129f9f810ff5e7801c7b908dd7e141768d452fe0"
+      },
+      {
+        "path": "tests/documentation/_form_reference_checks.py",
+        "git_blob": "c64404d3d022bbe53071ea00f641c19b4a108a2d"
+      },
+      {
+        "path": "tests/documentation/test_biopython_form_references.py",
+        "git_blob": "d81021fedf83b062467dc2216708ff41b88b491b"
+      },
+      {
+        "path": "tests/documentation/test_openmm_form_references.py",
+        "git_blob": "a02931f9c2b0f60491ec98572e8e5c486bf490be"
+      },
+      {
+        "path": "tests/form/openmm_Context/test_position_assignment.py",
+        "git_blob": "7889651dbbfd5359080cc05b10f526e57e586a72"
+      },
+      {
+        "path": "tests/form/openmm_Modeller/test_extraction_axes.py",
+        "git_blob": "97817408e3e250a5bb4ddb4031185eaa0533c857"
+      },
+      {
+        "path": "tests/form/openmm_PDBFile/test_ensemble_axes.py",
+        "git_blob": "5c75f64f572c0c1f67d58c16a99e0b4781cce283"
+      },
+      {
+        "path": "tests/form/openmm_PDBFile/test_to_mdtraj_Trajectory.py",
+        "git_blob": "a1e4f393300d166f5763bcd7a3f4536fa79aae0b"
+      },
+      {
+        "path": "tests/form/openmm_State/test_immutable_positions.py",
+        "git_blob": "a170867dacdcab9fe8e3b18cdbd80d4092cc0476"
+      }
+    ],
+    "before_issue_closure": true,
+    "closed_issues": [
+      735,
+      736
+    ],
+    "deferred_issue": 737,
+    "board_queue_sync": "pass"
+  },
+  "complete_post_closeout_intake": {
+    "issue_count": 656,
+    "open_issue_count": 95,
+    "new_issues_after_737": [],
+    "open_pull_request_count": 0
   }
 }
