@@ -1,0 +1,1130 @@
+{
+  "schema": "molsysmt.native_membership_receiving/1",
+  "date": "2026-11-12",
+  "issue": "uibcdf/molsysmt#739",
+  "related_open_finding": "uibcdf/molsysmt#740",
+  "implementation_source": "8cc066c84331d9fdd08b1923e14e1b1802e2e491",
+  "documentation_source": "83eb35cf1f16548df2b91f085189f44e80d15d39",
+  "scope": "Native nullable parent-column assignment and supported full projections, 221 affected regressions, 49 final focused controls, two executable docstrings, and four affected documentation articles. No complete-source, pandas-3/reporting-client, installed, scientific or final-pair qualification.",
+  "executions": {
+    "baseline": {
+      "phase": "baseline",
+      "source_commit": "97b688c61fdb9e2a27accc7b9a866ed010e6e9aa",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded native nullable-membership editing receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.46 1.68 1.86 3/2645 854415",
+        "cpu_pressure": "some avg10=7.55 avg60=2.33 avg300=3.42 total=16300631494\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/native-membership-739-20261112/baseline.xml",
+        "tests/form/molsysmt_Topology/test_nullable_membership_assignment.py"
+      ],
+      "checked_inputs": 8154,
+      "seconds": 4.685016626026481,
+      "changed_inputs": [],
+      "memory_peak_bytes": 141205504,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15390965760,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "c235d8f4aed59ee2ab56547bc9a9c8a552895c94c7967f6da7eb7b916140aa2d",
+      "log_sha256": "5f9c5240ee45663c8ab88a96f37d30f85b0d3771c6eb32d7196cba4e3e387ee5",
+      "input_inventory_sha256": "4f9615a2dccd2e7bcfe02a3b6dfbfe28c3820deb9460e763250b5129989c82d0",
+      "junit_counts": {
+        "tests": 8,
+        "failures": 8,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "junit_sha256": "b728468d6bb7887dd96db78c8fc4f466ca9cef7d44e92830c8e304851d7e53c4"
+    },
+    "contract-baseline": {
+      "phase": "contract-baseline",
+      "source_commit": "97b688c61fdb9e2a27accc7b9a866ed010e6e9aa",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded native nullable-membership editing receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.79 1.46 1.77 1/2616 855263",
+        "cpu_pressure": "some avg10=0.02 avg60=0.89 avg300=2.80 total=16300730017\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/native-membership-739-20261112/contract-baseline.xml",
+        "tests/form/molsysmt_Topology/test_nullable_membership_assignment.py"
+      ],
+      "checked_inputs": 8154,
+      "seconds": 5.711583497002721,
+      "changed_inputs": [],
+      "memory_peak_bytes": 202194944,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15472607232,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "5abc02b108ef59bff68d0b10c6d868de93cba19a40704d58528680a9c14a8012",
+      "log_sha256": "0ee62bd47d8f29adb3d1e7150defeb35e6c9eae56a39da5902629437bb5e87c5",
+      "input_inventory_sha256": "deafb54024e79c58a13f3968a785042b50fcee174802acf486057130f5d46d9f",
+      "junit_counts": {
+        "tests": 10,
+        "failures": 8,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2
+      },
+      "junit_sha256": "b5bb83ab2a75d17623946157a1ad7b21e2eec9873f75376a6b1e45a480b69212"
+    },
+    "declared-baseline": {
+      "phase": "declared-baseline",
+      "source_commit": "97b688c61fdb9e2a27accc7b9a866ed010e6e9aa",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded native nullable-membership editing receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "6.51 4.58 2.96 1/2621 858081",
+        "cpu_pressure": "some avg10=4.08 avg60=26.55 avg300=17.14 total=16363789559\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/native-membership-739-20261112/declared-baseline.xml",
+        "tests/form/molsysmt_Topology/test_nullable_membership_assignment.py"
+      ],
+      "checked_inputs": 8154,
+      "seconds": 4.683243116829544,
+      "changed_inputs": [],
+      "memory_peak_bytes": 180764672,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15485079552,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "79808dd63ebf84f9a516926ae43fd7486c695a28b29b77a84d54f410dc48c95b",
+      "log_sha256": "14a4ef638e0fe8d773af2acf670b328fd6eec93316e86399e0290af0907cf0a3",
+      "input_inventory_sha256": "b551fc100835068089d74ed83121578b6a44bfe52e9a114b3ebecb7ee1510921",
+      "junit_counts": {
+        "tests": 10,
+        "failures": 8,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 2
+      },
+      "junit_sha256": "4564eafcde13d749a55fef74167d6e8a249f539157280caedb5c50e13d67ef1a"
+    },
+    "corrected": {
+      "phase": "corrected",
+      "source_commit": "97b688c61fdb9e2a27accc7b9a866ed010e6e9aa",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded native nullable-membership editing receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "2.67 3.83 2.81 1/2587 859108",
+        "cpu_pressure": "some avg10=0.00 avg60=8.28 avg300=13.48 total=16363876834\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/native-membership-739-20261112/corrected.xml",
+        "tests/form/molsysmt_Topology/test_nullable_membership_assignment.py"
+      ],
+      "checked_inputs": 8154,
+      "seconds": 4.681212852941826,
+      "changed_inputs": [],
+      "memory_peak_bytes": 179830784,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15500668928,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "79808dd63ebf84f9a516926ae43fd7486c695a28b29b77a84d54f410dc48c95b",
+      "log_sha256": "ebd8a39bd9d15cc3571303d136ac6e703cc8142c708891a018037cf49bddce4f",
+      "input_inventory_sha256": "b98e4d1f8181eeb2a796292cc508f105213c5c187834112b153545fae62b16fa",
+      "junit_counts": {
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 10
+      },
+      "junit_sha256": "3992d1f29106af49f02e6b6305058b7bde32a644b0f5e18ec76ef876826f6ae2"
+    },
+    "expanded": {
+      "phase": "expanded",
+      "source_commit": "97b688c61fdb9e2a27accc7b9a866ed010e6e9aa",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded native nullable-membership editing receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.50 3.07 2.63 2/2618 860505",
+        "cpu_pressure": "some avg10=0.90 avg60=3.39 avg300=10.35 total=16365496774\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/native-membership-739-20261112/expanded.xml",
+        "tests/form/molsysmt_Topology/test_nullable_membership_assignment.py"
+      ],
+      "checked_inputs": 8154,
+      "seconds": 5.670997729059309,
+      "changed_inputs": [],
+      "memory_peak_bytes": 189644800,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15382081536,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "82c0a60b2293819c76c73a225562611a37a66c9c4b18481c6b11b678a65e6501",
+      "log_sha256": "3f79890c058e621fd3fac6391e3e5d0528b976b85e0cb111dab6d324299e6b4d",
+      "input_inventory_sha256": "6579c2428ccccb8dd1b57cbe52e25f36bdcbc2203e639a43c97ae59c5fafbb5b",
+      "junit_counts": {
+        "tests": 33,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 31
+      },
+      "junit_sha256": "6071874d8e0066db85808108ffd88a6ae7f1fe90191a800f0868488e35f23897"
+    },
+    "expanded2": {
+      "phase": "expanded2",
+      "source_commit": "97b688c61fdb9e2a27accc7b9a866ed010e6e9aa",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded native nullable-membership editing receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.08 2.55 2.48 11/2640 861551",
+        "cpu_pressure": "some avg10=0.00 avg60=0.93 avg300=7.91 total=16365600870\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/native-membership-739-20261112/expanded2.xml",
+        "tests/form/molsysmt_Topology/test_nullable_membership_assignment.py"
+      ],
+      "checked_inputs": 8154,
+      "seconds": 5.725116970948875,
+      "changed_inputs": [],
+      "memory_peak_bytes": 180973568,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15427543040,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "6a6edbf94521a3512ca52fe6ba84e9fb2289db3543f11724e1aff86eb9f9faa1",
+      "log_sha256": "d741f44f892fc4929a5cc1c241771e8628e98d3d0c0b4f1e81c2eae5f4cf6f3e",
+      "input_inventory_sha256": "5ff03425c81683433e2574ecbfb26abb12b4e763f8c5d3e07f25e13b44299847",
+      "junit_counts": {
+        "tests": 33,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 33
+      },
+      "junit_sha256": "e97d2cbfac1e31a7d836436c381ce66892231c02b9183743237343adc4f74d23"
+    },
+    "cohort": {
+      "phase": "cohort",
+      "source_commit": "97b688c61fdb9e2a27accc7b9a866ed010e6e9aa",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded native nullable-membership editing receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "10.59 5.64 3.61 1/2604 865206",
+        "cpu_pressure": "some avg10=26.62 avg60=37.96 avg300=21.14 total=16432783658\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/native-membership-739-20261112/cohort.xml",
+        "tests/form/molsysmt_Topology/test_nullable_membership_assignment.py",
+        "tests/form/molsysmt_Topology/test_set_atom_level.py",
+        "tests/form/molsysmt_Topology/test_set_topological_attributes.py",
+        "tests/form/molsysmt_Topology/test_nullable_chain_projection.py",
+        "tests/native/test_atom_molecule_membership.py",
+        "tests/native/test_group_inventory_hierarchy.py",
+        "tests/native/test_pandas_warning_compatibility.py",
+        "tests/basic/test_set_contracts.py",
+        "--doctest-modules",
+        "molsysmt/basic/set.py",
+        "molsysmt/form/molsysmt_Topology/set.py"
+      ],
+      "checked_inputs": 8155,
+      "seconds": 11.727082720026374,
+      "changed_inputs": [],
+      "memory_peak_bytes": 283316224,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15348379648,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "6a6edbf94521a3512ca52fe6ba84e9fb2289db3543f11724e1aff86eb9f9faa1",
+      "log_sha256": "a848492a94b4e4996854d8f159e9e49e45dddca6255fe6c22a9218ba97e4cb79",
+      "input_inventory_sha256": "64fe4f4c11c8c97a6151bb44cc7d7a0513b7198019b10aee16cbfea2462af7c9",
+      "junit_counts": {
+        "tests": 221,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 221
+      },
+      "junit_sha256": "3404135929ca1edb3308de9d0a07bc5753d01320386bd0ba1ce0668ebb77ae35"
+    },
+    "focused": {
+      "phase": "focused",
+      "source_commit": "97b688c61fdb9e2a27accc7b9a866ed010e6e9aa",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded native nullable-membership editing receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.39 3.67 3.17 1/2603 867268",
+        "cpu_pressure": "some avg10=0.00 avg60=3.23 avg300=12.71 total=16432972398\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/native-membership-739-20261112/focused.xml",
+        "tests/form/molsysmt_Topology/test_nullable_membership_assignment.py"
+      ],
+      "checked_inputs": 8155,
+      "seconds": 5.854407076025382,
+      "changed_inputs": [],
+      "memory_peak_bytes": 180170752,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15403528192,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "6a6edbf94521a3512ca52fe6ba84e9fb2289db3543f11724e1aff86eb9f9faa1",
+      "log_sha256": "9686881658c1171209dfc519daef51fab2c625754610d5fa7e14b5bb4959325e",
+      "input_inventory_sha256": "5ce4d5671da68ca82c27921e62df956e843212571959c28c14d60d56053891c3",
+      "junit_counts": {
+        "tests": 49,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 49
+      },
+      "junit_sha256": "cc15a470c2b1bc28bff7b8269163d0bb7775cd173db67e47c17be95f09d19870"
+    },
+    "inference-witness": {
+      "phase": "inference-witness",
+      "source_commit": "97b688c61fdb9e2a27accc7b9a866ed010e6e9aa",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded native nullable-membership editing receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.07 2.59 2.83 3/2605 869635",
+        "cpu_pressure": "some avg10=2.11 avg60=1.94 avg300=7.60 total=16434644551\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/native-membership-739-20261112/inference_witness.py"
+      ],
+      "checked_inputs": 8155,
+      "seconds": 3.703529332065955,
+      "changed_inputs": [],
+      "memory_peak_bytes": 121917440,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15466704896,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "ea4350cf96ecd84229821b77239fdcca336a2a4ca6730d6451d129f1b9a58ad9",
+      "log_sha256": "47b80af60bf3c775ce99569ec16e7295a78b8d1ad7a1b165f85f2b9db8864c72",
+      "input_inventory_sha256": "5ce4d5671da68ca82c27921e62df956e843212571959c28c14d60d56053891c3"
+    },
+    "checks": {
+      "phase": "checks",
+      "source_commit": "97b688c61fdb9e2a27accc7b9a866ed010e6e9aa",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded native nullable-membership editing receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.36 1.88 2.50 2/2615 872462",
+        "cpu_pressure": "some avg10=0.00 avg60=0.07 avg300=3.94 total=16434887006\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/native-membership-739-20261112/final_checks.py"
+      ],
+      "checked_inputs": 8156,
+      "seconds": 26.749067929107696,
+      "changed_inputs": [],
+      "memory_peak_bytes": 459116544,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14991081472,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "ea4350cf96ecd84229821b77239fdcca336a2a4ca6730d6451d129f1b9a58ad9",
+      "log_sha256": "4986ef3f5b2db8333d3652f9e37d9a955093a6eb1acbce1553f4b16672a99b3f",
+      "input_inventory_sha256": "68be54a0b74549a4d56f3416d02dc18a18663b70f575c1bad820277f5abb46e3"
+    },
+    "html": {
+      "phase": "html",
+      "source_commit": "8cc066c84331d9fdd08b1923e14e1b1802e2e491",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded native nullable-membership editing receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.06 1.70 2.36 1/2613 874406",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=2.54 total=16435040202\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2818572288",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/native-membership-739-20261112/build_pages.py"
+      ],
+      "checked_inputs": 8156,
+      "seconds": 11.72285038116388,
+      "changed_inputs": [],
+      "memory_peak_bytes": 391770112,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15183122432,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "ea4350cf96ecd84229821b77239fdcca336a2a4ca6730d6451d129f1b9a58ad9",
+      "log_sha256": "11f2e10d82b46a2a78fc5c25891d4bc46ef91956b39bed511acf8d59966946b9",
+      "input_inventory_sha256": "68be54a0b74549a4d56f3416d02dc18a18663b70f575c1bad820277f5abb46e3"
+    },
+    "receiving": {
+      "phase": "receiving",
+      "source_commit": "8cc066c84331d9fdd08b1923e14e1b1802e2e491",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded native nullable-membership editing receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.27 1.60 2.27 2/2636 875369",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=1.99 total=16435118615\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/native-membership-739-20261112/receive_documentation.py"
+      ],
+      "checked_inputs": 8276,
+      "seconds": 14.790306450100616,
+      "changed_inputs": [],
+      "memory_peak_bytes": 233115648,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15249248256,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "45222f936e03c75e4fb2442060073243d1cd978bd453b3e56cf89ff5233a76ff",
+      "log_sha256": "475b0fe289fae61d9ecbd4021ac57b084984c954631ae2dda206892408cbece4",
+      "input_inventory_sha256": "94e657724f468cb4fc8278ab392f82a1e4694b1a3754800a8d062c59c9b95f56",
+      "junit_counts": {
+        "tests": 51,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 51
+      },
+      "junit_sha256": "013a46e35eb38bde48551728b788ea627ad44204f68f7433dceb72d1a5b92cc0"
+    },
+    "html2": {
+      "phase": "html2",
+      "source_commit": "83eb35cf1f16548df2b91f085189f44e80d15d39",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded native nullable-membership editing receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.94 1.27 2.04 2/2598 877442",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=1.19 total=16435298453\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2818572288",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/native-membership-739-20261112/build_pages2.py"
+      ],
+      "checked_inputs": 8156,
+      "seconds": 11.727522966219112,
+      "changed_inputs": [],
+      "memory_peak_bytes": 383279104,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15186857984,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "99ae56fc5c6fb8544d5a6efac7d43e2710375ad4ce6b654ace296bb890ec7bdc",
+      "log_sha256": "11f2e10d82b46a2a78fc5c25891d4bc46ef91956b39bed511acf8d59966946b9",
+      "input_inventory_sha256": "e0fa7b0758148a59d82b07604a25b3d4ffd01a3797bc7eb00807f8b45929bce9"
+    },
+    "articles": {
+      "phase": "articles",
+      "source_commit": "83eb35cf1f16548df2b91f085189f44e80d15d39",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded native nullable-membership editing receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.73 1.19 1.99 1/2633 877970",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=1.04 total=16435345774\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/native-membership-739-20261112/receive_strict_articles.py"
+      ],
+      "checked_inputs": 8276,
+      "seconds": 9.764221603050828,
+      "changed_inputs": [],
+      "memory_peak_bytes": 91082752,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15423434752,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "99ae56fc5c6fb8544d5a6efac7d43e2710375ad4ce6b654ace296bb890ec7bdc",
+      "log_sha256": "1306f14a934a7e93d96cfb7f6d3099f5e0e9328f223322fd0d7f55c1630c3086",
+      "input_inventory_sha256": "2107c3ee8481dc5e3ed9ba4e0411028decc41676c20ed92cf72ec32bf1b923f5"
+    }
+  },
+  "affected_cohort": {
+    "passed": 221,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "warnings": 1,
+    "warning_scope": "Retained expected legacy H5MSM 0.4 warning."
+  },
+  "final_receiving": {
+    "passed": 51,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "warnings": 0,
+    "actual_articles": 4
+  },
+  "actual_articles": [
+    {
+      "source": "docs/content/user/tools/basic/set.ipynb",
+      "local_destinations": 28,
+      "unlinked_python_roles": [],
+      "nullable_contract_present": true
+    },
+    {
+      "source": "docs/content/user/foundations/native_world/classes/molsysmt_Topology.md",
+      "local_destinations": 40,
+      "unlinked_python_roles": [],
+      "nullable_contract_present": true
+    },
+    {
+      "source": "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb",
+      "local_destinations": 26,
+      "unlinked_python_roles": [],
+      "nullable_contract_present": true
+    },
+    {
+      "source": "docs/content/user/cookbook/group_free_hierarchy.ipynb",
+      "local_destinations": 37,
+      "unlinked_python_roles": [],
+      "nullable_contract_present": true
+    }
+  ],
+  "canonical_alias": {
+    "display": "molsysmt.set",
+    "href": "../../../../api/basic/autosummary/molsysmt.basic.set.html#molsysmt.basic.set",
+    "expected_count": 1,
+    "observed_count": 1,
+    "canonical_target_received": true
+  },
+  "new_rendered_articles": [
+    {
+      "page": "docs/content/user/tools/basic/set.ipynb",
+      "article": "content/user/tools/basic/set.html",
+      "source_sha256": "8d8e4b101011587459b2a039e232dbd25a1bc93dbe08c52dde1c307b68067f34",
+      "html_sha256": "441d3085532eaa71fcf1198bde516256fcd9b38fb384347dfbd3d0abb01a115c"
+    },
+    {
+      "page": "docs/content/user/foundations/native_world/classes/molsysmt_Topology.md",
+      "article": "content/user/foundations/native_world/classes/molsysmt_Topology.html",
+      "source_sha256": "008d0ade76326506d7e4dbfacb0a388c982e7df07659aae95539c8980d9bba33",
+      "html_sha256": "d9daaf2b9ddd03d28983e254ef97a0a7934f4b919d9dbddaa3117cd6ec6a143a"
+    },
+    {
+      "page": "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb",
+      "article": "content/course/Common_Core/10_Modifying_Molecular_Attributes.html",
+      "source_sha256": "83359852a151cf9d35e45b570633907596fedf8ad432c77c16c7e3a6ce43f683",
+      "html_sha256": "0a1eef0b3724a3d5d20dc7856b07f0042da2cdb82a5817a3a593d7341f5b6220"
+    },
+    {
+      "page": "docs/content/user/cookbook/group_free_hierarchy.ipynb",
+      "article": "content/user/cookbook/group_free_hierarchy.html",
+      "source_sha256": "85a3a8b3063ab1075dfcfeb3ac533d3f80759b199465b659f66b1e7df30a4538",
+      "html_sha256": "1e9fb0f4404383cf473a01b6a6404a78431221ad7409305aa3be7441c1824a52"
+    }
+  ],
+  "notebook_preservation": [
+    {
+      "page": "docs/content/user/tools/basic/set.ipynb",
+      "code_cells": 13,
+      "code_outputs_metadata_preserved": true,
+      "added_membership_section": true
+    },
+    {
+      "page": "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb",
+      "code_cells": 9,
+      "code_outputs_metadata_preserved": true,
+      "added_membership_section": false
+    },
+    {
+      "page": "docs/content/user/cookbook/group_free_hierarchy.ipynb",
+      "code_cells": 17,
+      "code_outputs_metadata_preserved": true,
+      "added_membership_section": false
+    }
+  ],
+  "strict_html": {
+    "exit": 0,
+    "warnings": 0,
+    "full_site": false,
+    "selected_pages": 4,
+    "notebook_execution": "off",
+    "autosummary_generate": false,
+    "parallel": 1
+  },
+  "initial_offline_checks": {
+    "passed": true,
+    "commands": [
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.4s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        5.6s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.3s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.3s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.1s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.5s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   1.9s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.2s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.1s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.3s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "native_exit": 0,
+        "stdout": "4714 files already formatted\n",
+        "stderr": ""
+      }
+    ]
+  },
+  "runtime": {
+    "pandas": {
+      "imported_version": "2.3.3",
+      "distribution_version": "2.3.3",
+      "imported_file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py"
+    },
+    "pyunitwizard": {
+      "imported_version": "0.29.2",
+      "distribution_version": "0.29.2",
+      "imported_file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py"
+    },
+    "smonitor": {
+      "imported_version": "0.21.0",
+      "distribution_version": "0.21.0",
+      "imported_file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py"
+    },
+    "argdigest": {
+      "imported_version": "0.15.0",
+      "distribution_version": "0.15.0",
+      "imported_file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py"
+    },
+    "depdigest": {
+      "imported_version": "0.15.1",
+      "distribution_version": "0.15.1",
+      "imported_file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py"
+    },
+    "pytest_receptor": {
+      "imported_version": "1.2.1",
+      "distribution_version": "1.2.1",
+      "imported_file": "<checkout>/.pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py"
+    }
+  },
+  "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "independent_inference_witness": {
+    "pandas_version": "2.3.3",
+    "before": {
+      "n_molecules": 2,
+      "ids": [
+        "declared-0",
+        "declared-1"
+      ]
+    },
+    "returned": 1,
+    "after": {
+      "n_molecules": 1,
+      "ids": [
+        "0"
+      ]
+    },
+    "changed": true
+  },
+  "resource_contract": {
+    "cpu_quota": 1,
+    "test_maximum_gib": 1.5,
+    "html_maximum_gib": 3,
+    "own_swap_bytes": 0,
+    "minimum_host_reserve_gib": 6.5,
+    "foreign_processes_signalled": false
+  },
+  "failure_disposition": [
+    "First eight failures use a nonexistent root MolSys constructor in the test draft; the actual public import is molsysmt.native.MolSys.",
+    "An incompletely declared parent fixture also exposes a distinct destructive read-side reconstruction. The labelled witness confirms #740 separately. The declared fixture isolates #739 without weakening the stable-inventory concern.",
+    "The declared baseline has eight dtype failures, two passing three-step witnesses and two pandas FutureWarnings. Retained pandas 2.3.3 warns/coerces instead of raising the reporter's TypeError; that exact newer reporting environment is not newly qualified.",
+    "Ten corrected controls pass. The first expanded cohort has 31 passes and two failures: projected chain staging cannot accept None in an integer NumPy buffer, and a test incorrectly expects an unsupported chain-to-molecule public edit. Typed staging fixes the real limitation; the existing refusal is negatively guarded, not bypassed.",
+    "The 33-case expanded and 49-case final focused controls pass without warnings. The affected 221-case cohort retains one expected legacy-file warning. The final 51 cases include both executable public docstrings.",
+    "First actual-document receiving validates 131 existing local targets but observes one unlinked root set alias. It does not establish intended-link completeness. The indexed canonical alias target is corrected; strict subsequent article receiving requires no unlinked roles and an explicit live alias link.",
+    "One #740 filing call is rejected before mutation because get is not a board label. The owning helper confirms nothing was created. Retrying with existing native/attribute labels creates #740."
+  ],
+  "limits": [
+    "The report's original failing exception is environment dependent; native nullable storage is independently asserted. Pandas 3 and BindingMT's exact composition are not installed or newly qualified.",
+    "Column type/length staging is not a multi-attribute transaction or a redesign of parent bounds, hierarchy inference, projected subset conflicts or analysis invalidation.",
+    "Missing chain membership preserves declared chains; complete known chain assignments retain existing rebuild policy. Unsupported public chain-to-molecule editing remains refused.",
+    "#740 remains open for destructive read-side count/preflight behavior. This receipt does not certify those reads or claim that the labelled-row loss is fixed.",
+    "Four targeted strict HTML pages disable notebook execution/autosummary regeneration; existing executable payloads are preserved and runtime/docstring controls run separately. Existing cached API targets are not a freshly regenerated complete API site.",
+    "No dependency floor, native kernel, chemistry or H5MSM schema is changed. Complete-source/nightly, original score, remaining #727 pages, investigations, stable-format/client decisions and exact-pair/publication pause remain outstanding."
+  ],
+  "final_offline_checks": {
+    "execution": {
+      "phase": "final-checks",
+      "source_commit": "83eb35cf1f16548df2b91f085189f44e80d15d39",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded native nullable-membership editing receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.81 1.13 1.80 1/2605 880787",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.49 total=16435576052\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/native-membership-739-20261112/final_receipt_checks.py"
+      ],
+      "checked_inputs": 8157,
+      "seconds": 26.704255019081756,
+      "changed_inputs": [],
+      "memory_peak_bytes": 458940416,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14927020032,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "99ae56fc5c6fb8544d5a6efac7d43e2710375ad4ce6b654ace296bb890ec7bdc",
+      "log_sha256": "4986ef3f5b2db8333d3652f9e37d9a955093a6eb1acbce1553f4b16672a99b3f",
+      "input_inventory_sha256": "240845d2bf599febcfe787dba2cf862273d7d0c5d7ec2827112373faff04e20f"
+    },
+    "results": {
+      "passed": true,
+      "commands": [
+        {
+          "command": [
+            "<development-prefix>/bin/python",
+            "devtools/scripts/release_gate.py"
+          ],
+          "native_exit": 0,
+          "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.6s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        5.6s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.2s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.3s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.0s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.4s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   1.9s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.2s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.1s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.3s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "<development-prefix>/bin/python",
+            "devtools/scripts/devguide_index.py",
+            "--check"
+          ],
+          "native_exit": 0,
+          "stdout": "Every queue index is up to date.\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "ruff",
+            "check",
+            "."
+          ],
+          "native_exit": 0,
+          "stdout": "All checks passed!\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "ruff",
+            "format",
+            "--check",
+            "."
+          ],
+          "native_exit": 0,
+          "stdout": "4714 files already formatted\n",
+          "stderr": ""
+        }
+      ]
+    }
+  },
+  "terminal_unit_cleanup": {
+    "units": [
+      {
+        "unit": "msm-membership739-baseline-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-membership739-contract-baseline-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-membership739-declared-baseline-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-membership739-corrected-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-membership739-expanded-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-membership739-expanded2-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-membership739-cohort-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-membership739-focused-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-membership739-inference-witness-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-membership739-checks-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-membership739-html-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-membership739-receiving-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-membership739-html2-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-membership739-articles-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-membership739-final-checks-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      }
+    ],
+    "foreign_processes_signalled": false
+  }
+}

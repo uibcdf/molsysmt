@@ -12,7 +12,7 @@ correction `9af9be18c` / guard `90aa8eae1`, native-domain guidance
 file extraction/identity corrections `7b607f638` / `7097f81c5`, string guidance
 `4b280fdcb`, string boundary corrections `ed12b039a`, Biopython guidance
 `26b550f96`, OpenMM coordinate repairs `3f034dbd0` and OpenMM guidance
-`9a261ebd5`, MDTraj iteration repair `083b7c166` and guidance `00590f26e`, plus the
+`9a261ebd5`, MDTraj iteration repair `083b7c166` and guidance `00590f26e`, nullable membership `8cc066c84` and alias link `83eb35cf1`, plus the
 separately received earlier documentation/catalog slices.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
@@ -37,7 +37,6 @@ promotions and publication remain paused pending the agreed resumption.**
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
 | Complete #723's comparable long campaign | The method/default-host baseline passes on `db1706f8a`; the concrete molecular integration passes 63 controls and one actual 5,000-structure cycle on clean `1a899f9f0`. Initial/recovered native targets and 3,720,000-byte buffers clear; the independent witness survives unchanged. Host growth and debugger errors remain explicit. Freeze the comparison composition before the long campaign; preserve original raw outcomes and #615/#713 scopes. |
-| Review new correctness intake #739 | BindingMT reports repeated public group-index edits losing nullable native storage. Reproduce the provided witness and preserve applicable parent-column dtypes/missing semantics before returning to the remaining #727 articles. No contact kernel change is requested. |
 | Correct read-side native inventory loss #740 | A labelled-row witness confirms that a molecule-count read replaces two declared molecule rows with one inferred row. Keep this independent of #739; resolve count/preflight and applicable parent-read fallbacks before returning to #727 documentation. |
 | Complete #727 and the admitted pre-1.0 polishing review | Sixty-eight reviewed native/file/string/Biopython/OpenMM/MDTraj articles deliver 1,338 intended links to 1,213 verified source files. Eighteen other external class articles retain 350 unlinked nodes. The MDTraj increment passes 836 adapter cases (two retained provider warnings), 269 final combined controls and ten zero-warning HTML pages. #738 corrects bounded HDF5 iteration; continue with MDAnalysis and other remaining families. Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11). Original credit, investigations, nightly/exact-pair gates and deferred optional expansion remain separate. |
 | Preserve #734's bounded contacts/SASA owner disposition | The [owner contract](native_interface_contacts_sasa_contract.md) and 104-case receiving offer existing public operations for the first Cartesian bundled-element-vdW profile. No concrete new operation gap is established. BindingMT #112 and TopoMT #197 retain application decisions and actual client acceptance; MolSysSuite #195 remains the coordination owner. This finite review adds no release prerequisite. |
@@ -8055,3 +8054,28 @@ MDAnalysis, then the remaining provider families. This is bounded technical
 preparation, not full-site, complete-source, minimum-provider, installed or
 final-pair qualification. Original score, investigations and the publication
 pause are unchanged.
+
+
+## Nullable membership correction — 2026-11-12 (#739)
+
+[Receiving receipt](../devtools/data/native_nullable_membership_receiving_739_20261112.json).
+
+The source repair preserves nullable Int64 parent-column storage through native
+MolSys/Topology full and selected assignments, with per-column invalid type/
+length staging and explicit missing values in supported full projections.
+Declared chains survive unknown memberships; supported known reconstruction
+and unsupported public projection boundaries remain explicit.
+
+The affected cohort passes 221 cases with one retained legacy-file warning.
+Final focused controls pass 49 cases; 51 final cases include two executable
+public docstrings. Four actual guide/foundation/course/Cookbook articles build
+without warnings and retain protected code/output/metadata. Their 131 existing
+local destinations alone initially miss one unlinked set alias; explicit
+canonical-alias and zero-unlinked-role receiving corrects that gap.
+
+The separate #740 witness shows a count query replacing two labelled molecule
+rows with one inferred row. That defect remains open and is next, before the
+remaining eighteen #727 external-class articles. #739 is not a certification
+of that read-side behavior. No complete-source/nightly, pandas-3 reporter,
+installed, scientific or exact-pair qualification, score bonus or publication
+resumption is implied.

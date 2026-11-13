@@ -580,3 +580,15 @@ MDAnalysis, then the remaining provider families. This is bounded technical
 preparation, not full-site, complete-source, minimum-provider, installed or
 final-pair qualification. Original score, investigations and the publication
 pause are unchanged.
+
+
+## Additional set-alias link — 2026-11-12
+
+The #739 article review observes one existing unlinked root set alias despite
+131 valid local destinations across four articles. Visible molsysmt.set now
+links to the canonical indexed basic.set API. Strict actual-article receiving
+requires the intended alias link and zero unlinked Python roles. The
+[receipt](../../../devtools/data/native_nullable_membership_receiving_739_20261112.json)
+retains the first observation separately. This does not change the 68 reviewed
+form articles, 1,338 form-reference occurrences or eighteen remaining flagged
+external-class pages; #740 correctness work takes priority next.

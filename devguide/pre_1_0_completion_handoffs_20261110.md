@@ -484,3 +484,28 @@ MDAnalysis, then the remaining provider families. This is bounded technical
 preparation, not full-site, complete-source, minimum-provider, installed or
 final-pair qualification. Original score, investigations and the publication
 pause are unchanged.
+
+
+## Nullable membership correction — 2026-11-12 (#739)
+
+[Receiving receipt](../devtools/data/native_nullable_membership_receiving_739_20261112.json).
+
+The source repair preserves nullable Int64 parent-column storage through native
+MolSys/Topology full and selected assignments, with per-column invalid type/
+length staging and explicit missing values in supported full projections.
+Declared chains survive unknown memberships; supported known reconstruction
+and unsupported public projection boundaries remain explicit.
+
+The affected cohort passes 221 cases with one retained legacy-file warning.
+Final focused controls pass 49 cases; 51 final cases include two executable
+public docstrings. Four actual guide/foundation/course/Cookbook articles build
+without warnings and retain protected code/output/metadata. Their 131 existing
+local destinations alone initially miss one unlinked set alias; explicit
+canonical-alias and zero-unlinked-role receiving corrects that gap.
+
+The separate #740 witness shows a count query replacing two labelled molecule
+rows with one inferred row. That defect remains open and is next, before the
+remaining eighteen #727 external-class articles. #739 is not a certification
+of that read-side behavior. No complete-source/nightly, pandas-3 reporter,
+installed, scientific or exact-pair qualification, score bonus or publication
+resumption is implied.

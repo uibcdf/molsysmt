@@ -94,3 +94,8 @@ execution/input hashes are retained with the #739 investigation record. Work
 order: finish #739 receiving, address this defect, then resume #727's remaining
 external class articles. Existing final-pair qualification/publication pause
 and original milestone accounting remain unchanged.
+
+
+The [owning investigation receipt](../../devtools/data/native_nullable_membership_receiving_739_20261112.json)
+retains the independent labelled-row witness and exact execution metadata.
+This remains a failed preservation control; #739 receiving does not close it.
