@@ -1,8 +1,5 @@
-import numpy as np  # noqa: F401
-
-from molsysmt import pyunitwizard as puw
 from molsysmt._private.argdigest import arg_digest
-from molsysmt._private.variables import is_all
+from molsysmt._private.smonitor import NotImplementedMethodError
 
 form = "openmm.State"
 
@@ -12,34 +9,39 @@ form = "openmm.State"
 
 
 @arg_digest(form=form)
-def set_coordinates_to_atom(item, indices="all", value=None, skip_digestion=False):
+def set_coordinates_to_atom(
+    item, indices="all", value=None, structure_indices="all", skip_digestion=False
+):
     """
-    Setting coordinates to atom on form openmm.State.
+    Refusing coordinate mutation of a captured OpenMM State.
 
 
     Parameters
     ----------
-    item : molecular system
-        Argument item.
-    indices : object, default='all'
-        Argument indices.
-    value : object, default=None
-        Argument value.
+    item : openmm.State
+        Captured data, which has no position mutator. Use an OpenMM Context
+        or native Structures object for coordinate editing.
+    indices : str or list of int, default='all'
+        Requested atom positions; assignment is unavailable for this form.
+    value : quantity or none, default=None
+        Requested coordinates of shape (n_structures, n_atoms, 3). No values
+        are assigned to the snapshot.
+    structure_indices : str or list of int, default='all'
+        Requested structure positions, accepted for the public set protocol.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    Raises
+    ------
+    NotImplementedMethodError
+        Always: a State snapshot cannot be edited in place.
+
     .. versionadded:: 1.0.0
     """
-    value = puw.convert(value[0], to_unit="nanometers", to_form="openmm.unit")
-
-    if is_all(indices):
-        item.setPositions(value)
-    else:
-        positions = item.getPositions(asNumpy=True)
-        positions[indices, :] = value
-        item.setPositions(positions)
-
-    pass
+    raise NotImplementedMethodError(
+        method="assigning coordinates to an immutable openmm.State; use Context or Structures",
+        caller="molsysmt.form.openmm_State.set_coordinates_to_atom",
+    )
 
 
 ###
@@ -48,20 +50,36 @@ def set_coordinates_to_atom(item, indices="all", value=None, skip_digestion=Fals
 
 
 @arg_digest(form=form)
-def set_coordinates_to_system(item, value=None, skip_digestion=False):
+def set_coordinates_to_system(
+    item, value=None, structure_indices="all", skip_digestion=False
+):
     """
-    Setting coordinates to system on form openmm.State.
+    Refusing whole-system coordinate mutation of a captured State.
 
 
     Parameters
     ----------
-    item : molecular system
-        Argument item.
-    value : object, default=None
-        Argument value.
+    item : openmm.State
+        Immutable captured data; edit a Context or native Structures instead.
+    value : quantity or none, default=None
+        Requested coordinates of shape (n_structures, n_atoms, 3). The
+        snapshot is not modified.
+    structure_indices : str or list of int, default='all'
+        Requested structure positions, accepted for the public set protocol.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    Raises
+    ------
+    NotImplementedMethodError
+        Always: a State snapshot cannot be edited in place.
+
     .. versionadded:: 1.0.0
     """
-    return set_coordinates_to_atom(item, indices="all", value=value)
+    return set_coordinates_to_atom(
+        item,
+        indices="all",
+        value=value,
+        structure_indices=structure_indices,
+        skip_digestion=True,
+    )

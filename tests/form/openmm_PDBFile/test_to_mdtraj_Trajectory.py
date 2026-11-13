@@ -19,7 +19,14 @@ def test_selected_atoms_keep_their_coordinates():
 
     trajectory = to_mdtraj_Trajectory(source, atom_indices=atom_indices)
 
-    expected = msm.pyunitwizard.get_value(source.getPositions(), to_unit="nanometers")
-    assert trajectory.n_frames == 1
+    expected = np.array(
+        [
+            msm.pyunitwizard.get_value(source.getPositions(frame=index), to_unit="nm")
+            for index in range(source.getNumFrames())
+        ]
+    )
+    assert trajectory.n_frames == source.getNumFrames() == 38
     assert trajectory.n_atoms == len(atom_indices)
-    np.testing.assert_allclose(trajectory.xyz[0], np.asarray(expected)[atom_indices])
+    np.testing.assert_array_equal(
+        trajectory.xyz, expected[:, atom_indices].astype("float32")
+    )

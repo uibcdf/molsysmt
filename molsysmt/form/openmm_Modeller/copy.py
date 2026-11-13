@@ -7,6 +7,8 @@ def copy(item, skip_digestion=False):
     Creating a copy of an item of form openmm.Modeller.
 
 
+    Both the topology and positions are independent of the source.
+
     Parameters
     ----------
     item : molecular system
@@ -23,8 +25,6 @@ def copy(item, skip_digestion=False):
     .. versionadded:: 1.0.0
     """
 
-    from openmm.app import Modeller
+    from .extract import extract
 
-    tmp_item = Modeller(item.topology, item.positions)
-
-    return tmp_item
+    return extract(item, skip_digestion=True)

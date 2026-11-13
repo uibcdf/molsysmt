@@ -751,3 +751,73 @@ def native_interface_molsys():
         )
     msm.set(source, element="system", structure_chemical_state_index=[0, 0, second])
     return source
+
+
+@pytest.fixture()
+def openmm_pdb_ensemble(builder_openmm_topology):
+    """Supply three distinguishable PDB models with a common declared box."""
+    from io import StringIO
+
+    import numpy as np
+    from openmm import Vec3, unit
+    from openmm.app import PDBFile
+
+    topology = builder_openmm_topology
+    topology.setPeriodicBoxVectors(
+        (Vec3(4, 0, 0), Vec3(0, 5, 0), Vec3(0, 0, 6)) * unit.nanometer
+    )
+    positions = np.array(
+        [[0.1, 0.2, 0.3], [0.4, 0.5, 0.6], [0.7, 0.8, 0.9], [1.0, 1.1, 1.2]]
+    )
+    text = StringIO()
+    PDBFile.writeHeader(topology, text)
+    for index in range(3):
+        PDBFile.writeModel(
+            topology,
+            (positions + index) * unit.nanometer,
+            text,
+            modelIndex=index + 1,
+            keepIds=True,
+        )
+    PDBFile.writeFooter(topology, text)
+    text.seek(0)
+    return PDBFile(text)
+
+
+@pytest.fixture()
+def openmm_position_snapshot():
+    """Supply positions captured from a tiny Reference context, without simulation."""
+    import openmm
+    from openmm import unit
+
+    system = openmm.System()
+    system.addParticle(12 * unit.dalton)
+    system.addParticle(12 * unit.dalton)
+    integrator = openmm.VerletIntegrator(0.001 * unit.picosecond)
+    context = openmm.Context(
+        system, integrator, openmm.Platform.getPlatformByName("Reference")
+    )
+    context.setPositions([[0, 0, 0], [1, 2, 3]] * unit.nanometer)
+    snapshot = context.getState(getPositions=True)
+    del context
+    del integrator
+    return snapshot
+
+
+@pytest.fixture()
+def openmm_reference_context():
+    """Supply a mutable two-particle Reference context without dynamics."""
+    import openmm
+    from openmm import unit
+
+    system = openmm.System()
+    for _ in range(2):
+        system.addParticle(12 * unit.dalton)
+    integrator = openmm.VerletIntegrator(0.001 * unit.picosecond)
+    context = openmm.Context(
+        system, integrator, openmm.Platform.getPlatformByName("Reference")
+    )
+    context.setPositions([[0, 0, 0], [1, 2, 3]] * unit.nanometer)
+    yield context
+    del context
+    del integrator

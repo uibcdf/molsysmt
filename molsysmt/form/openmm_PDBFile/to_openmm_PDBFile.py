@@ -43,8 +43,6 @@ def to_openmm_PDBFile(
 
     from openmm.app import PDBFile
 
-    from molsysmt._private.variables import is_all
-
     if isinstance(item, str):
         is_file = False
         if len(item) < 1024:
@@ -63,15 +61,12 @@ def to_openmm_PDBFile(
     else:
         tmp_item = item
 
-    if not (is_all(atom_indices) and is_all(structure_indices)):
-        from .extract import extract
+    from .extract import extract
 
-        tmp_item = extract(
-            tmp_item,
-            atom_indices=atom_indices,
-            structure_indices=structure_indices,
-            copy_if_all=copy_if_all,
-            skip_digestion=True,
-        )
-
-    return tmp_item
+    return extract(
+        tmp_item,
+        atom_indices=atom_indices,
+        structure_indices=structure_indices,
+        copy_if_all=copy_if_all,
+        skip_digestion=True,
+    )

@@ -33,7 +33,7 @@ def to_molsysmt_MolSys(
 
     # Match the canonical native topology order across every source domain.
     if not is_all(atom_indices):
-        atom_indices = sorted(atom_indices)
+        atom_indices = sorted(set(atom_indices))
 
     from molsysmt.form.openmm_Topology._read_native import read_native
 

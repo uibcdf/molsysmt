@@ -5,7 +5,7 @@ from .get_structural_attributes import (
 )
 
 
-@arg_digest(form="openmm.Topology")
+@arg_digest(form="openmm.PDBFile")
 def to_openmm_Modeller(
     item, atom_indices="all", structure_indices="all", skip_digestion=False
 ):
@@ -18,9 +18,10 @@ def to_openmm_Modeller(
     item : molecular system
         Argument item.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Atom indices (0-based) to include.
+        Atom positions to retain once each in source order.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include or process.
+        The first selected model supplies the single Modeller pose. The
+        default 'all' uses model 0. No trajectory is retained by this target.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
@@ -36,14 +37,26 @@ def to_openmm_Modeller(
     from openmm.app import Modeller
 
     from molsysmt import pyunitwizard as puw
-    from molsysmt.form.openmm_Topology.to_openmm_Topology import to_openmm_Topology
+    from molsysmt._private.smonitor import NotImplementedMethodError
+    from molsysmt._private.variables import is_all
+    from molsysmt.form.openmm_Topology.extract import extract as extract_topology
 
-    topology = to_openmm_Topology(item, atom_indices=atom_indices, skip_digestion=True)
+    if not is_all(atom_indices):
+        atom_indices = sorted(set(atom_indices))
+    selected = [0] if is_all(structure_indices) else structure_indices[:1]
+    if len(selected) == 0:
+        raise NotImplementedMethodError(
+            method="constructing an openmm.Modeller without a structure",
+            caller="molsysmt.form.openmm_PDBFile.to_openmm_Modeller",
+        )
+    topology = extract_topology(
+        item.topology, atom_indices=atom_indices, skip_digestion=True
+    )
 
     coordinates = get_coordinates_from_atom(
         item,
         indices=atom_indices,
-        structure_indices=structure_indices,
+        structure_indices=selected,
         skip_digestion=True,
     )
     positions = puw.convert(coordinates[0], "nm", to_form="openmm.unit")

@@ -851,6 +851,42 @@ BIOVIA's
 defines the syntax and precedence. RDKit's reader is a reference implementation,
 not an additional required dependency or a claim of full compatibility.
 
+## OpenMM coordinate projections and runtime snapshots
+
+`openmm.PDBFile` exposes all loaded coordinate models on the structure axis.
+Direct coordinate queries retain requested atom/model order and repetitions;
+the count query counts those selected entries. Its one topology box is repeated
+for the selected models, not interpreted as independently measured model boxes.
+Coordinates and boxes carry quantities and follow standard length policy.
+
+Same-form PDB extraction retains source-sorted unique atoms and aligns every
+selected model with that inventory. Model order/repetitions survive. Full
+copies are independent; `copy_if_all=False` permits unrestricted source reuse.
+Projection updates the reader's known position stores and numpy cache together
+without PDB serialization, coordinate rounding or new bond inference. This
+bounded OpenMM adapter coupling requires receiving when provider layout changes.
+It does not deep-copy unselected coordinate models. At least one model is
+required for a PDBFile projection; direct empty structure queries remain shaped.
+
+Modeller extraction also uses source-sorted unique atoms, a separate topology
+and two-dimensional positions for its single pose. It admits only `all` or `[0]`
+on that structure axis. Copies do not share topology or coordinate data. A
+PDBFile-to-Modeller conversion deliberately takes the first selected model
+(model 0 by default), not a trajectory. PDB-to-MDTraj trajectory conversion
+instead retains all requested models and the box, with MDTraj's nm/float32
+coordinate representation. Native MolSys projections deduplicate inventory
+and coordinates together; native Structures-only queries retain positional
+request order. These projections do not establish heterogeneous-model identity.
+
+An OpenMM Context is live and mutable; public coordinate assignment accepts
+the shared single-structure selector and converts lengths explicitly to engine
+nm. A captured State has no coordinate mutator: both public and direct setter
+hooks refuse with `NotImplementedMethodError` and preserve the snapshot. Use a
+Context or native Structures for editing. Neither coordinate access nor a
+captured iterator supplies independent live-runtime copying; #592 retains that
+separate contract. Source topology/chemistry transport still follows the native
+domain rules above, without preparation, minimization or force-field inference.
+
 ## Validation obligations
 
 For every supported conversion edge, tests should cover:
