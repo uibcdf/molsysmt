@@ -78,6 +78,12 @@ matches the already implemented provisional ISA quantity; primary verification
 remains open. This work does not clear the complete-source/nightly backlog or
 alter milestone credit, format decisions, investigations or final-pair gates.
 
+Published main `04bf56131` and all eleven changed-file blobs are independently
+verified. #734 is closed; MolSysSuite #195 has received the owner disposition
+without a central/client acceptance claim. Complete post-closeout intake has
+653 issues, 94 open and no open PRs or newly numbered issue after #734.
+Board/queue agreement passes. Resume #727's remaining external class articles.
+
 ## String reference and adapter-contract receiving — 2026-11-12
 
 Seven string pages deliver 170 references to 156 independently matched files at

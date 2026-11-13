@@ -802,5 +802,67 @@
     "open_issue_count": 95,
     "new_issues_after_734": [],
     "open_pull_request_count": 0
+  },
+  "public_delivery": {
+    "published_main": "04bf56131fd0cea94359e1f0f9307d0f0e36b3cb",
+    "queried_source": "04bf56131fd0cea94359e1f0f9307d0f0e36b3cb",
+    "truncated": false,
+    "matched_changed_files": [
+      {
+        "path": "devguide/archive/resolved_proposals/native_interface_contacts_and_sasa_owner_review.md",
+        "git_blob": "142de2fc557e7c2466d161c5ada163496def9b7f"
+      },
+      {
+        "path": "devguide/native_interface_contacts_sasa_contract.md",
+        "git_blob": "43eac696dd6439855817bb6fd6c6318b5465bc76"
+      },
+      {
+        "path": "devguide/pending_bugs/physchem_surface_area_unit_contract.md",
+        "git_blob": "a6f2e1bc6dcf0befaae673dcc4d113fc777b288f"
+      },
+      {
+        "path": "devguide/physchem_query_contract.md",
+        "git_blob": "7e7266045fb0a94dafabb0d39bc4670add1995f1"
+      },
+      {
+        "path": "devguide/pre_1_0_completion_handoffs_20261110.md",
+        "git_blob": "a68bc7dfde4780a1adb79563f2c8f7cac5cd85e3"
+      },
+      {
+        "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+        "git_blob": "3551294f9bd5a43fd91ce36d6264e3928783898b"
+      },
+      {
+        "path": "devguide/release_1_0_status.md",
+        "git_blob": "aff33b663f78326c30eb0913cd8b43f23b0124e1"
+      },
+      {
+        "path": "devtools/data/native_interface_handoff_receiving_734_20261112.json",
+        "git_blob": "57fba91f68e9c3e47cdaa68692e40d7426c105c4"
+      },
+      {
+        "path": "tests/conftest.py",
+        "git_blob": "6dcba7989cc03f27b15ace2bb3451f1065e5deef"
+      },
+      {
+        "path": "tests/physchem/get_sasa/test_native_interface_handoff.py",
+        "git_blob": "39b606294a66a8f34f577736ae71ee7df2900cc1"
+      },
+      {
+        "path": "tests/structure/get_contacts/test_native_interface_handoff.py",
+        "git_blob": "47fca3ccdd5aac875afb1d652d86f57389193930"
+      }
+    ],
+    "before_issue_closure": true,
+    "owner_triage_comment": 6839590931,
+    "central_disposition_comment": 6839592275,
+    "issue_closed": true,
+    "board_queue_sync": "pass"
+  },
+  "complete_post_closeout_intake": {
+    "issue_count": 653,
+    "open_issue_count": 94,
+    "new_issues_after_734": [],
+    "open_pull_request_count": 0
   }
 }
