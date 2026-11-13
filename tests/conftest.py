@@ -879,3 +879,28 @@ def nullable_membership_molsys():
     molsys.topology.groups["molecule_index"] = pd.array([0, 1], dtype="Int64")
     molsys.topology.molecules["entity_index"] = pd.array([0, 1], dtype="Int64")
     return molsys
+
+
+@pytest.fixture()
+def partial_declared_inventory_molsys():
+    """Supply labelled native inventories with unknown and unused parents."""
+    import pandas as pd
+
+    from molsysmt.native import MolSys
+
+    molsys = MolSys(n_atoms=4, n_groups=2, n_molecules=3, n_entities=4, n_chains=2)
+    topology = molsys.topology
+    topology.atoms["group_index"] = pd.array([0, None, 1, None], dtype="Int64")
+    topology.atoms["chain_index"] = pd.array([0, None, 1, None], dtype="Int64")
+    topology.groups["molecule_index"] = pd.array([1, None], dtype="Int64")
+    topology.molecules["entity_index"] = pd.array([2, None, 0], dtype="Int64")
+    for table, prefix in [
+        (topology.groups, "group"),
+        (topology.molecules, "molecule"),
+        (topology.entities, "entity"),
+        (topology.chains, "chain"),
+    ]:
+        table[prefix + "_id"] = pd.array(
+            [f"declared-{prefix}-{i}" for i in range(len(table))], dtype="string"
+        )
+    return molsys

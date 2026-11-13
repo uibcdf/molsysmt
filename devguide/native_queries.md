@@ -142,7 +142,14 @@ universal dispatch throughout an expression evaluation.
 The requested structure scope is passed to every summary acquisition and
 recursive expression-mask selection. Selected hierarchy counts exclude missing
 parents and deduplicate only declared memberships; full-system counts retain
-the complete declared inventories. Typed counts retain their existing group
+the complete declared inventories, including rows without known members. Reading
+`n_molecules`, `n_entities` or an `info()` summary never reconstructs native
+parent tables, clears dirty flags or replaces stored labels. Missing scalar
+parent links propagate as `None` through atom/group/molecule queries for parent
+indices, IDs, names and types; explicit index order and repetitions survive.
+Reconstruction is a separate explicit operation. This contract describes resident
+native inventories, not foreign-form or dictionary finalization.
+Typed counts retain their existing group
 or molecule type definitions. No missing group is labelled a small molecule.
 
 Standalone Structures atom counts use native observable alignment, including

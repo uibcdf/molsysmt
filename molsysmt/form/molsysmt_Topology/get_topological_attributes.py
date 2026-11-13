@@ -27,6 +27,39 @@ _PUBLIC_TO_NATIVE_ATOM_STATE = {
 }
 
 
+def _hierarchy_values(item, parents, level, attribute):
+    """Read scalar parent values while retaining unknown correspondence."""
+    if attribute != "index":
+        table = getattr(
+            item,
+            {
+                "group": "groups",
+                "molecule": "molecules",
+                "entity": "entities",
+                "chain": "chains",
+            }[level],
+        )
+        parents = parents.map(table[level + "_" + attribute])
+    return [
+        None if pd.isna(value) else int(value) if attribute == "index" else value
+        for value in parents
+    ]
+
+
+def _get_hierarchy_from_parent(item, source, level, attribute, indices):
+    """Project stored group/molecule parents without rebuilding a hierarchy."""
+    parents = (
+        item.groups["molecule_index"]
+        if source == "group"
+        else item.molecules["entity_index"]
+    )
+    if not is_all(indices):
+        parents = parents.iloc[indices]
+    if source == "group" and level == "entity":
+        parents = parents.map(item.molecules["entity_index"])
+    return _hierarchy_values(item, parents, level, attribute)
+
+
 def _get_hierarchy_from_atom(item, level, attribute, indices):
     """Map nullable parent indices without assigning missing atoms to a group."""
     if level == "group" and item.n_groups == 0:
@@ -43,21 +76,7 @@ def _get_hierarchy_from_atom(item, level, attribute, indices):
         parents = parents.iloc[indices]
     if level == "entity":
         parents = parents.map(item.molecules["entity_index"])
-    if attribute != "index":
-        table = getattr(
-            item,
-            {
-                "group": "groups",
-                "molecule": "molecules",
-                "entity": "entities",
-                "chain": "chains",
-            }[level],
-        )
-        parents = parents.map(table[level + "_" + attribute])
-    return [
-        None if pd.isna(value) else int(value) if attribute == "index" else value
-        for value in parents
-    ]
+    return _hierarchy_values(item, parents, level, attribute)
 
 
 def _count_hierarchy_from_atom(item, level, indices):
@@ -2117,33 +2136,26 @@ def get_molecule_index_from_group(item, indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source native Topology containing stable inventory and parent links.
     indices : object, default='all'
-        Argument indices.
+        Source element positions, preserving requested order and repetitions.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list
+        Stored parent values in source order; unknown relationships are None.
 
+
+    Notes
+    -----
+    Reads declared correspondence without inferring parents or replacing labels.
+    Parent indices are positions; IDs retain their stored string labels.
 
     .. versionadded:: 1.0.0
     """
-    if _uses_declared_hierarchy(item):
-        return _project_hierarchy(item, "group", "molecule_index", indices)
-
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-
-    if indices == "all":
-        output = molecule_index_from_group.tolist()
-    else:
-        output = molecule_index_from_group[indices].tolist()
-
-    del molecule_index_from_group
-
-    return output
+    return _get_hierarchy_from_parent(item, "group", "molecule", "index", indices)
 
 
 @arg_digest(form=form)
@@ -2155,36 +2167,35 @@ def get_molecule_id_from_group(item, indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source native Topology containing stable inventory and parent links.
     indices : object, default='all'
-        Argument indices.
+        Source element positions, preserving requested order and repetitions.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list
+        Stored parent values in source order; unknown relationships are None.
 
+
+    Notes
+    -----
+    Reads declared correspondence without inferring parents or replacing labels.
+    Parent indices are positions; IDs retain their stored string labels.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> topology = Topology(n_groups=2, n_molecules=1)
+    >>> topology.groups.loc[0, 'molecule_index'] = 0
+    >>> topology.molecules['molecule_id'] = ['ligand']
+    >>> get_molecule_id_from_group(topology, indices=[1, 0, 1])
+    [None, 'ligand', None]
 
     .. versionadded:: 1.0.0
     """
-    if _uses_declared_hierarchy(item):
-        return _project_hierarchy(item, "group", "molecule_id", indices)
-
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_id_from_molecule = item.molecules["molecule_id"].to_numpy()
-
-    if indices == "all":
-        output = molecule_index_from_group
-    else:
-        output = molecule_index_from_group[indices]
-
-    output = molecule_id_from_molecule[output].tolist()
-
-    del molecule_index_from_group, molecule_id_from_molecule
-
-    return output
+    return _get_hierarchy_from_parent(item, "group", "molecule", "id", indices)
 
 
 @arg_digest(form=form)
@@ -2196,36 +2207,26 @@ def get_molecule_name_from_group(item, indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source native Topology containing stable inventory and parent links.
     indices : object, default='all'
-        Argument indices.
+        Source element positions, preserving requested order and repetitions.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list
+        Stored parent values in source order; unknown relationships are None.
 
+
+    Notes
+    -----
+    Reads declared correspondence without inferring parents or replacing labels.
+    Parent indices are positions; IDs retain their stored string labels.
 
     .. versionadded:: 1.0.0
     """
-    if _uses_declared_hierarchy(item):
-        return _project_hierarchy(item, "group", "molecule_name", indices)
-
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_name_from_molecule = item.molecules["molecule_name"].to_numpy()
-
-    if indices == "all":
-        output = molecule_index_from_group
-    else:
-        output = molecule_index_from_group[indices]
-
-    output = molecule_name_from_molecule[output].tolist()
-
-    del molecule_index_from_group, molecule_name_from_molecule
-
-    return output
+    return _get_hierarchy_from_parent(item, "group", "molecule", "name", indices)
 
 
 @arg_digest(form=form)
@@ -2237,36 +2238,26 @@ def get_molecule_type_from_group(item, indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source native Topology containing stable inventory and parent links.
     indices : object, default='all'
-        Argument indices.
+        Source element positions, preserving requested order and repetitions.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list
+        Stored parent values in source order; unknown relationships are None.
 
+
+    Notes
+    -----
+    Reads declared correspondence without inferring parents or replacing labels.
+    Parent indices are positions; IDs retain their stored string labels.
 
     .. versionadded:: 1.0.0
     """
-    if _uses_declared_hierarchy(item):
-        return _project_hierarchy(item, "group", "molecule_type", indices)
-
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    molecule_type_from_molecule = item.molecules["molecule_type"].to_numpy()
-
-    if indices == "all":
-        output = molecule_index_from_group
-    else:
-        output = molecule_index_from_group[indices]
-
-    output = molecule_type_from_molecule[output].tolist()
-
-    del molecule_index_from_group, molecule_type_from_molecule
-
-    return output
+    return _get_hierarchy_from_parent(item, "group", "molecule", "type", indices)
 
 
 @arg_digest(form=form)
@@ -2278,36 +2269,26 @@ def get_entity_index_from_group(item, indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source native Topology containing stable inventory and parent links.
     indices : object, default='all'
-        Argument indices.
+        Source element positions, preserving requested order and repetitions.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list
+        Stored parent values in source order; unknown relationships are None.
 
+
+    Notes
+    -----
+    Reads declared correspondence without inferring parents or replacing labels.
+    Parent indices are positions; IDs retain their stored string labels.
 
     .. versionadded:: 1.0.0
     """
-    if _uses_declared_hierarchy(item):
-        return _project_hierarchy(item, "group", "entity_index", indices)
-
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-
-    if indices == "all":
-        output = molecule_index_from_group
-    else:
-        output = molecule_index_from_group[indices]
-
-    output = entity_index_from_molecule[output].tolist()
-
-    del molecule_index_from_group, entity_index_from_molecule
-
-    return output
+    return _get_hierarchy_from_parent(item, "group", "entity", "index", indices)
 
 
 @arg_digest(form=form)
@@ -2319,38 +2300,26 @@ def get_entity_id_from_group(item, indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source native Topology containing stable inventory and parent links.
     indices : object, default='all'
-        Argument indices.
+        Source element positions, preserving requested order and repetitions.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list
+        Stored parent values in source order; unknown relationships are None.
 
+
+    Notes
+    -----
+    Reads declared correspondence without inferring parents or replacing labels.
+    Parent indices are positions; IDs retain their stored string labels.
 
     .. versionadded:: 1.0.0
     """
-    if _uses_declared_hierarchy(item):
-        return _project_hierarchy(item, "group", "entity_id", indices)
-
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    entity_id_from_entity = item.entities["entity_id"].to_numpy()
-
-    if indices == "all":
-        output = molecule_index_from_group
-    else:
-        output = molecule_index_from_group[indices]
-
-    output = entity_index_from_molecule[output]
-    output = entity_id_from_entity[output].tolist()
-
-    del molecule_index_from_group, entity_index_from_molecule, entity_id_from_entity
-
-    return output
+    return _get_hierarchy_from_parent(item, "group", "entity", "id", indices)
 
 
 @arg_digest(form=form)
@@ -2362,38 +2331,26 @@ def get_entity_name_from_group(item, indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source native Topology containing stable inventory and parent links.
     indices : object, default='all'
-        Argument indices.
+        Source element positions, preserving requested order and repetitions.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list
+        Stored parent values in source order; unknown relationships are None.
 
+
+    Notes
+    -----
+    Reads declared correspondence without inferring parents or replacing labels.
+    Parent indices are positions; IDs retain their stored string labels.
 
     .. versionadded:: 1.0.0
     """
-    if _uses_declared_hierarchy(item):
-        return _project_hierarchy(item, "group", "entity_name", indices)
-
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    entity_name_from_entity = item.entities["entity_name"].to_numpy()
-
-    if indices == "all":
-        output = molecule_index_from_group
-    else:
-        output = molecule_index_from_group[indices]
-
-    output = entity_index_from_molecule[output]
-    output = entity_name_from_entity[output].tolist()
-
-    del molecule_index_from_group, entity_index_from_molecule, entity_name_from_entity
-
-    return output
+    return _get_hierarchy_from_parent(item, "group", "entity", "name", indices)
 
 
 @arg_digest(form=form)
@@ -2405,38 +2362,26 @@ def get_entity_type_from_group(item, indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source native Topology containing stable inventory and parent links.
     indices : object, default='all'
-        Argument indices.
+        Source element positions, preserving requested order and repetitions.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list
+        Stored parent values in source order; unknown relationships are None.
 
+
+    Notes
+    -----
+    Reads declared correspondence without inferring parents or replacing labels.
+    Parent indices are positions; IDs retain their stored string labels.
 
     .. versionadded:: 1.0.0
     """
-    if _uses_declared_hierarchy(item):
-        return _project_hierarchy(item, "group", "entity_type", indices)
-
-    molecule_index_from_group = item.groups["molecule_index"].to_numpy()
-    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    entity_type_from_entity = item.entities["entity_type"].to_numpy()
-
-    if indices == "all":
-        output = molecule_index_from_group
-    else:
-        output = molecule_index_from_group[indices]
-
-    output = entity_index_from_molecule[output]
-    output = entity_type_from_entity[output].tolist()
-
-    del molecule_index_from_group, entity_index_from_molecule, entity_type_from_entity
-
-    return output
+    return _get_hierarchy_from_parent(item, "group", "entity", "type", indices)
 
 
 @arg_digest(form=form)
@@ -4287,33 +4232,26 @@ def get_entity_index_from_molecule(item, indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source native Topology containing stable inventory and parent links.
     indices : object, default='all'
-        Argument indices.
+        Source element positions, preserving requested order and repetitions.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list
+        Stored parent values in source order; unknown relationships are None.
 
+
+    Notes
+    -----
+    Reads declared correspondence without inferring parents or replacing labels.
+    Parent indices are positions; IDs retain their stored string labels.
 
     .. versionadded:: 1.0.0
     """
-    if _uses_declared_hierarchy(item):
-        return _project_hierarchy(item, "molecule", "entity_index", indices)
-
-    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-
-    if indices == "all":
-        output = entity_index_from_molecule.tolist()
-    else:
-        output = entity_index_from_molecule[indices].tolist()
-
-    del entity_index_from_molecule
-
-    return output
+    return _get_hierarchy_from_parent(item, "molecule", "entity", "index", indices)
 
 
 @arg_digest(form=form)
@@ -4325,36 +4263,26 @@ def get_entity_id_from_molecule(item, indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source native Topology containing stable inventory and parent links.
     indices : object, default='all'
-        Argument indices.
+        Source element positions, preserving requested order and repetitions.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list
+        Stored parent values in source order; unknown relationships are None.
 
+
+    Notes
+    -----
+    Reads declared correspondence without inferring parents or replacing labels.
+    Parent indices are positions; IDs retain their stored string labels.
 
     .. versionadded:: 1.0.0
     """
-    if _uses_declared_hierarchy(item):
-        return _project_hierarchy(item, "molecule", "entity_id", indices)
-
-    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    entity_id_from_entity = item.entities["entity_id"].to_numpy()
-
-    if indices == "all":
-        output = entity_index_from_molecule
-    else:
-        output = entity_index_from_molecule[indices]
-
-    output = entity_id_from_entity[output].tolist()
-
-    del entity_index_from_molecule, entity_id_from_entity
-
-    return output
+    return _get_hierarchy_from_parent(item, "molecule", "entity", "id", indices)
 
 
 @arg_digest(form=form)
@@ -4366,36 +4294,26 @@ def get_entity_name_from_molecule(item, indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source native Topology containing stable inventory and parent links.
     indices : object, default='all'
-        Argument indices.
+        Source element positions, preserving requested order and repetitions.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list
+        Stored parent values in source order; unknown relationships are None.
 
+
+    Notes
+    -----
+    Reads declared correspondence without inferring parents or replacing labels.
+    Parent indices are positions; IDs retain their stored string labels.
 
     .. versionadded:: 1.0.0
     """
-    if _uses_declared_hierarchy(item):
-        return _project_hierarchy(item, "molecule", "entity_name", indices)
-
-    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    entity_name_from_entity = item.entities["entity_name"].to_numpy()
-
-    if indices == "all":
-        output = entity_index_from_molecule
-    else:
-        output = entity_index_from_molecule[indices]
-
-    output = entity_name_from_entity[output].tolist()
-
-    del entity_index_from_molecule, entity_name_from_entity
-
-    return output
+    return _get_hierarchy_from_parent(item, "molecule", "entity", "name", indices)
 
 
 @arg_digest(form=form)
@@ -4407,36 +4325,26 @@ def get_entity_type_from_molecule(item, indices="all", skip_digestion=False):
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source native Topology containing stable inventory and parent links.
     indices : object, default='all'
-        Argument indices.
+        Source element positions, preserving requested order and repetitions.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    list
+        Stored parent values in source order; unknown relationships are None.
 
+
+    Notes
+    -----
+    Reads declared correspondence without inferring parents or replacing labels.
+    Parent indices are positions; IDs retain their stored string labels.
 
     .. versionadded:: 1.0.0
     """
-    if _uses_declared_hierarchy(item):
-        return _project_hierarchy(item, "molecule", "entity_type", indices)
-
-    entity_index_from_molecule = item.molecules["entity_index"].to_numpy()
-    entity_type_from_entity = item.entities["entity_type"].to_numpy()
-
-    if indices == "all":
-        output = entity_index_from_molecule
-    else:
-        output = entity_index_from_molecule[indices]
-
-    output = entity_type_from_entity[output].tolist()
-
-    del entity_index_from_molecule, entity_type_from_entity
-
-    return output
+    return _get_hierarchy_from_parent(item, "molecule", "entity", "type", indices)
 
 
 @arg_digest(form=form)
@@ -10141,61 +10049,71 @@ def get_n_groups_from_system(item, skip_digestion=False):
 
 @arg_digest(form=form)
 def get_n_molecules_from_system(item, skip_digestion=False):
-    """
-    Getting n molecules from system in form molsysmt.Topology.
-
+    """Getting the declared native molecule inventory size.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source native Topology containing the stored stable inventory.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Number of stored molecule rows, including rows without known members.
 
+    Notes
+    -----
+    Unknown parent links do not reconstruct inventory or replace its labels.
+    Request native reconstruction explicitly when it is intended.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> topology = Topology(n_atoms=2, n_groups=1, n_molecules=3)
+    >>> get_n_molecules_from_system(topology)
+    3
 
     .. versionadded:: 1.0.0
     """
     if _uses_declared_hierarchy(item):
         return _project_hierarchy(item, "system", "n_molecules")
-
-    if item._molecules_dirty or item.groups["molecule_index"].isnull().any():
-        item.rebuild_molecules(force=True)
-
     return item.molecules.shape[0]
 
 
 @arg_digest(form=form)
 def get_n_entities_from_system(item, skip_digestion=False):
-    """
-    Getting n entities from system in form molsysmt.Topology.
-
+    """Getting the declared native entity inventory size.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        Source native Topology containing the stored stable inventory.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
-    object
-        Resulting object in object form.
+    int
+        Number of stored entity rows, including rows without known members.
 
+    Notes
+    -----
+    Unknown parent links do not reconstruct inventory or replace its labels.
+    Request native reconstruction explicitly when it is intended.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> topology = Topology(n_atoms=2, n_groups=1, n_entities=4)
+    >>> get_n_entities_from_system(topology)
+    4
 
     .. versionadded:: 1.0.0
     """
     if _uses_declared_hierarchy(item):
         return _project_hierarchy(item, "system", "n_entities")
-
-    if item._entities_dirty or item.molecules["entity_index"].isnull().any():
-        item.rebuild_entities(force=True)
-
     return item.entities.shape[0]
 
 

@@ -410,6 +410,16 @@ public conversion with the full-domain sharing policy for a read-only context.
 
 ## Forms with partial source information
 
+### Resident native inventory reads
+
+Native Topology and MolSys count/summary queries read declared molecule and
+entity rows, including unused rows and atom-free inventories. Unknown parent
+links remain unknown; reading cannot rebuild these tables or discard their
+labels. Scalar parent queries preserve `None`, order and repeated positions.
+Explicit reconstruction and foreign/dictionary conversion finalization retain
+their own contracts; the resident-read guarantee is not a direct serialized
+count shortcut. See [the native query contract](native_queries.md).
+
 ### Whole H5MSM stable inventory
 
 A default whole conversion from one H5MSM 0.5 path to `molsysmt.Topology`

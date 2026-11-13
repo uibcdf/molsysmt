@@ -80,7 +80,7 @@ sections:
           - name: topology
             file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md.AGENTS.md
-            description: Native hierarchy with compact group-name schemes, stable ungrouped atom/molecule declarations, ordered atom-free chain/group membership, alphabetic chain IDs, source-index covalent walks and FASTA correspondence, copy boundaries, controlled editing and analysis invalidation. Includes nullable native parent-column editing limits.
+            description: Native hierarchy with compact group-name schemes, stable ungrouped atom/molecule declarations, ordered atom-free chain/group membership, alphabetic chain IDs, source-index covalent walks and FASTA correspondence, copy boundaries, controlled editing and analysis invalidation. Includes nullable native parent-column editing limits. Read-only declared native molecule/entity inventories and nullable parent queries.
 
           - name: molsys
             description: Independent native domains, explicit composition, chemical graph restriction, exact component labels, remapped references and staged ChemicalStates/Structures owner invalidation.
@@ -195,11 +195,11 @@ sections:
             agents_file: docs/content/user/tools/basic/get_form.ipynb.AGENTS.md
             description: Registry-confirmed prefixes, extension priority, recognition separate from parsing and preserved operational failure causes.
           - name: get
-            description: Attribute queries, incident group bond counts and valid empty connectivity.
+            description: Attribute queries, incident group bond counts and valid empty connectivity. Read-only declared native molecule/entity inventories and nullable parent queries.
             file: docs/content/user/tools/basic/get.ipynb
             agents_file: docs/content/user/tools/basic/get.ipynb.AGENTS.md
           - name: info
-            description: Styled/programmatic summaries, explicit element masks and bounded native representations without data rendering.
+            description: Styled/programmatic summaries, explicit element masks and bounded native representations without data rendering. Read-only declared native molecule/entity inventories and nullable parent queries.
             file: docs/content/user/tools/basic/info.ipynb
             agents_file: docs/content/user/tools/basic/info.ipynb.AGENTS.md
           - name: set
@@ -1092,7 +1092,7 @@ sections:
       - name: group_free_hierarchy
         file: docs/content/user/cookbook/group_free_hierarchy.ipynb
         agents_file: docs/content/user/cookbook/group_free_hierarchy.ipynb.AGENTS.md
-        description: Declaring stable molecules and partial components, absent-domain staging, exact-set labels, alternative-state chemistry, graph restriction and MDTraj selectors. Includes nullable native parent-column editing limits.
+        description: Declaring stable molecules and partial components, absent-domain staging, exact-set labels, alternative-state chemistry, graph restriction and MDTraj selectors. Includes nullable native parent-column editing limits. Read-only declared native molecule/entity inventories and nullable parent queries.
       - name: molecular_descriptors
         file: docs/content/user/cookbook/molecular_descriptors.md
         agents_file: docs/content/user/cookbook/molecular_descriptors.md.AGENTS.md

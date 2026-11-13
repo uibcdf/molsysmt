@@ -198,6 +198,12 @@ form for that subclass.
 
 ## Native Queries
 
+System counts include all declared molecule and entity rows, even unused rows
+or inventories with no atoms. Reading counts or summaries preserves labels and
+never reconstructs these tables. Missing parent links return `None` in scalar
+parent queries; selected positions retain order and repetitions. Rebuild the
+hierarchy explicitly when reconstruction is intended.
+
 Query stable inventory and represented hierarchy with `topology.get(...)`. State-dependent fields require ChemicalStates or the owning MolSys as input. Native `info()` supports Styler, DataFrame and dictionary records. See {ref}`Tutorial_Get` and {ref}`Tutorial_Info`.
 
 ## Controlled Edits

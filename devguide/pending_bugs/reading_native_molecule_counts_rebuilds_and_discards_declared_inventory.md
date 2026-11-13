@@ -1,7 +1,7 @@
 ---
 summary: Reading native molecule counts rebuilds and discards declared inventory
 issue: uibcdf/molsysmt#740
-status: open
+status: active
 opened: 2026-11-12
 closed:
 severity: high
@@ -70,7 +70,9 @@ First cover system inventory counts and public native selection preflights,
 then inspect related native parent reads for the same destructive fallback.
 Retain explicit rebuild operations for callers intentionally requesting
 reconstruction. Do not broaden optional-engine conversions, invent missing
-chemistry or change scientific detectors. No fix or final receiving is claimed.
+chemistry or change scientific detectors. The count fallbacks and applicable nullable parent projections are corrected
+in the working source. The affected runtime cohort has completed; documentation receiving and final
+checks remain due before closure.
 
 ## Acceptance criteria
 
@@ -99,3 +101,57 @@ and original milestone accounting remain unchanged.
 The [owning investigation receipt](../../devtools/data/native_nullable_membership_receiving_739_20261112.json)
 retains the independent labelled-row witness and exact execution metadata.
 This remains a failed preservation control; #739 receiving does not close it.
+
+
+## Bounded correction in progress — 2026-11-12
+
+The getter audit finds exactly two destructive rebuild calls in the native
+Topology query adapter: molecule and entity system counts. Both are removed.
+Declared counts include unused parent rows, remain live after explicit inventory
+edits and do not clear dirty flags. Native MolSys wrappers and get/info/select/
+label-edit preflights reuse these corrected owners; explicit rebuild methods
+and their local inference helpers are unchanged.
+
+Applicable single-parent reads reveal an additional twelve-case failure after
+the count fix: missing group-to-molecule, group-to-entity and molecule-to-entity
+links become invalid NumPy index arrays. Twelve existing getters now share a
+private vectorized stored-parent reader with the existing atom lookup formatter.
+They preserve source order/repetitions and return None for unknown index, ID,
+name and type values. No missing parent is reconstructed or used as position 0.
+Many-to-many chain/group traversal and foreign/dictionary finalization keep their
+separate contracts; no chemical owner, dependency floor or kernel is changed.
+
+The first 32-case draft includes eight invalid fixture attempts to replace an
+attached four-atom topology with an atom-free topology. The native shared-axis
+guard correctly refuses those. A separately constructed atom-free fixture gives
+a valid baseline of 27 failures and eight controls. After removing the two
+count fallbacks, 33 cases pass and two test-side entity-plural lookups fail;
+correcting that lookup preserves the intended all-table source comparisons.
+The parent-read baseline then has twelve IndexErrors and 43 passes. These raw
+outcomes are retained rather than relabelled or discarded.
+
+The expanded receiving passes 76 cases without warnings or omissions, including
+stored parent names/types, unknown/zero parent inventories, empty selections,
+nonconsecutive/repeated queries, live counts and deterministic public docstrings.
+Those are bounded contract controls, not a complete-source, installed, scientific
+or final-pair certificate. Relevant existing reconstruction/conversion tests and
+updated documentation receiving are the next checks.
+
+## Affected cohort and supervisor recovery — 2026-11-12
+
+The wider native Topology adapter, hierarchy/query/selection and basic summary
+cohort completes with 1,566 passing cases, no failures/errors/omissions and three
+expected legacy H5MSM warnings. Its pytest child exits 0; the completed durable
+record, JUnit and independently rechecked 8,158 input hashes agree. Peak service
+memory is 573,022,208 bytes with no own swap or OOM; minimum observed host
+available memory is 13,734,129,664 bytes. Brief host memory full-pressure avg10
+reaches 1.02 and subsides without crossing the reserve.
+
+A tool-server restart interrupts the original interactive output connection.
+The exterior service subsequently exits 120, with MainPID 0. That supervisor
+result is failed and is retained separately from the successful pytest child;
+no preserved traceback establishes the exact output/flush failure stage. The
+passing cohort is not rerun merely to replace this operational evidence. Later
+receiving uses a detached service with durable logs and an independently checked
+terminal supervisor result. Neither this recovery nor the bounded tests supply
+a complete-source, installed or final-candidate gate.
