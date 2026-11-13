@@ -33,8 +33,18 @@ def extract(
     Returns
     -------
     pdbfixer.PDBFixer
-        Resulting object in pdbfixer.PDBFixer form.
+        Independent copied/selected object with atom inventory and coordinates
+        in the same canonical source order. Unrestricted explicit reuse returns
+        the original object.
 
+
+    Notes
+    -----
+    Selected extraction reuses this form's OpenMM Topology converter and the
+    general OpenMM-to-PDBFixer reconstruction route. Coordinates carry units
+    through those tools and inherit that route's PDB coordinate precision.
+    Only the source object's single represented pose is available. Copying or
+    extracting does not perform chemical repair, hydration or minimization.
 
     .. versionadded:: 1.0.0
     """
@@ -47,12 +57,16 @@ def extract(
         else:
             tmp_item = item
     else:
-        from molsysmt.form.openmm_Topology.to_openmm_Topology import to_openmm_Topology
         from molsysmt.form.openmm_Topology.to_pdbfixer_PDBFixer import (
             to_pdbfixer_PDBFixer as openmm_Topology_to_pdbfixer_PDBFixer,
         )
 
         from . import get_coordinates_from_atom
+        from .to_openmm_Topology import to_openmm_Topology
+
+        # Topology extraction uses canonical source order; keep geometry aligned.
+        if not is_all(atom_indices):
+            atom_indices = sorted(atom_indices)
 
         coordinates = get_coordinates_from_atom(
             item,
