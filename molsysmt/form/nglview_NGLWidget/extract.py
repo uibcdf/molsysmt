@@ -1,5 +1,3 @@
-from copy import copy
-
 from depdigest import dep_digest
 
 from molsysmt._private.argdigest import arg_digest
@@ -35,15 +33,25 @@ def extract(
     Returns
     -------
     nglview.NGLWidget
-        Resulting object in nglview.NGLWidget form.
+        Independent widget for copied/extracted molecular data, or the original
+        widget when unrestricted reuse is explicitly requested.
 
+
+    Notes
+    -----
+    Whole extraction delegates to the independent molecular-copy adapter.
+    Explicit copy_if_all=False can reuse the unrestricted source. Subsets use
+    the established native conversion route. This does not clone camera or
+    browser session state; coordinates are materialized rather than streamed.
 
     .. versionadded:: 1.0.0
     """
 
     if is_all(atom_indices) and is_all(structure_indices):
         if copy_if_all:
-            tmp_item = copy(item)
+            from .copy import copy
+
+            tmp_item = copy(item, skip_digestion=True)
         else:
             tmp_item = item
     else:

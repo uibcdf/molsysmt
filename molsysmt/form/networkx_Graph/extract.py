@@ -1,4 +1,5 @@
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import NotImplementedMethodError
 from molsysmt._private.variables import is_all
 
 
@@ -10,42 +11,56 @@ def extract(
     copy_if_all=True,
     skip_digestion=False,
 ):
-    """
-    Extracting a subset of elements or structures from form networkx.Graph.
-
+    """Copying or explicitly reusing an unrestricted molecular graph.
 
     Parameters
     ----------
     item : molecular system
-        Argument item.
+        NetworkX graph with the supported scalar molecular metadata.
     atom_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Atom indices (0-based) to include.
+        Only the unrestricted atom axis is supported by this adapter.
     structure_indices : int, list, tuple, or numpy.ndarray, default='all'
-        Structure indices (0-based) to include or process.
-    copy_if_all : object, default=True
-        Argument copy_if_all.
+        Only 'all' is accepted; the graph has no coordinate structure axis.
+    copy_if_all : bool, default=True
+        Return a NetworkX graph copy. False reuses the unrestricted source.
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
     Returns
     -------
     networkx.Graph
-        Resulting object in networkx.Graph form.
+        Complete graph with unchanged node keys, edges and supported metadata.
+        A graph copy owns its structure and attribute dictionaries; arbitrary
+        nested extension values retain NetworkX's ordinary shallow-copy rules.
 
+    Raises
+    ------
+    NotImplementedMethodError
+        If explicit atom or structure selection is requested. No partial result
+        is constructed or source data modified by this refusal.
+
+    Notes
+    -----
+    Passing the 'all' sentinel to Graph.subgraph would interpret it as node
+    labels. Unrestricted reuse returns the existing graph instead. Selected
+    molecular subgraphs need an explicit node-index and chemical-reference
+    remapping contract; this adapter does not invent one.
+
+    Examples
+    --------
+    >>> import networkx as nx
+    >>> graph = nx.path_graph(3)
+    >>> extract(graph, copy_if_all=False) is graph
+    True
+    >>> copied = extract(graph)
+    >>> copied is graph, list(copied.edges)
+    (False, [(0, 1), (1, 2)])
 
     .. versionadded:: 1.0.0
     """
 
-    if is_all(atom_indices) and is_all(structure_indices):
-        if copy_if_all:
-            tmp_item = item.copy()
-        else:
-            tmp_item = item.subgraph(atom_indices).copy()
-    else:
-        tmp_item = item
-        if not is_all(atom_indices):
-            tmp_item = tmp_item.atom_slice(atom_indices)
-        if not is_all(structure_indices):
-            tmp_item = tmp_item.slice(structure_indices)
-
-    return tmp_item
+    if not (is_all(atom_indices) and is_all(structure_indices)):
+        raise NotImplementedMethodError(
+            "Selected molecular extraction from networkx.Graph is unavailable."
+        )
+    return item.copy() if copy_if_all else item

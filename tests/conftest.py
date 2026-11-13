@@ -904,3 +904,22 @@ def partial_declared_inventory_molsys():
             [f"declared-{prefix}-{i}" for i in range(len(table))], dtype="string"
         )
     return molsys
+
+
+@pytest.fixture
+def nglview_ensemble_widget(builder_pdb_molsys):
+    """Provide three structures and close the owned NGL widget after use."""
+    pytest.importorskip("nglview")
+    import numpy as np
+
+    from molsysmt import pyunitwizard as puw
+    from molsysmt.native import Structures
+
+    molsys = builder_pdb_molsys.copy()
+    coordinates = puw.get_value(molsys.structures.coordinates, to_unit="nm")[:1]
+    coordinates = np.concatenate([coordinates, coordinates + 0.2, coordinates + 0.4])
+    molsys.structures = Structures(coordinates=puw.quantity(coordinates, "nm"))
+    widget = msm.convert(molsys, to_form="nglview.NGLWidget")
+    widget.frame = 1
+    yield widget
+    widget.close()
