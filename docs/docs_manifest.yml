@@ -137,6 +137,11 @@ sections:
             file: docs/content/user/foundations/governance/configuration_options.md
             agents_file: docs/content/user/foundations/governance/configuration_options.md.AGENTS.md
             description: Application controls, numerical working admission and separation from OS resource caps or reservations.
+          - name: public_api_and_lifecycle
+            file: docs/content/user/foundations/governance/public_api_and_lifecycle.md
+            agents_file: docs/content/user/foundations/governance/public_api_and_lifecycle.md.AGENTS.md
+            description: Public argument validation, supported molecular copying versus graphical sessions, explicit reuse/refusal and lifecycle integrity.
+            status: pending_review
       - name: support
         agents_file: docs/content/user/foundations/support/AGENTS.md
         index_file: docs/content/user/foundations/support/index.md
@@ -210,7 +215,7 @@ sections:
           - name: copy
             file: docs/content/user/tools/basic/copy.ipynb
             agents_file: docs/content/user/tools/basic/copy.ipynb.AGENTS.md
-            description: Independent resident snapshots, automatic process-owned file temporaries and persistent explicit destinations.
+            description: Independent resident snapshots, automatic process-owned file temporaries and persistent explicit destinations. Supported external molecular copies and selected extraction preserve their explicit graphical/precision/axis limits.
             status: reviewed
           - name: convert
             file: docs/content/user/tools/basic/convert.ipynb
@@ -219,7 +224,7 @@ sections:
           - name: extract
             file: docs/content/user/tools/basic/extract.ipynb
             agents_file: docs/content/user/tools/basic/extract.ipynb.AGENTS.md
-            description: Aligned subsystem extraction, complete induced chemical graphs, partial component declarations and stable molecule ownership.
+            description: Aligned subsystem extraction, complete induced chemical graphs, partial component declarations and stable molecule ownership. Supported external molecular copies and selected extraction preserve their explicit graphical/precision/axis limits.
           - name: native_chemical_editing
             file: docs/content/user/tools/basic/native_chemical_editing.md
             agents_file: docs/content/user/tools/basic/native_chemical_editing.md.AGENTS.md
@@ -865,6 +870,51 @@ sections:
             agents_file: docs/content/user/tools/form/class/parmed/parmed_GromacsTopologyFile.ipynb.AGENTS.md
             description: Reviewed RDKit/OpenFF/ParmEd declarations and immutable source links, native chemical/mechanical ownership, unit boundaries and explicit subset, copy, geometry and unavailable-hook limits.
             status: pending_review
+          - name: reviewed_XYZ_references
+            file: docs/content/user/tools/form/class/others/XYZ.ipynb
+            agents_file: docs/content/user/tools/form/class/others/XYZ.ipynb.AGENTS.md
+            description: Reviewed external-form declarations and immutable implementation/alias links, source ownership, units, supported molecular copying/selection and explicit unavailable/GPU/renderer limits.
+            status: pending_review
+          - name: reviewed_cupy_ndarray_references
+            file: docs/content/user/tools/form/class/others/cupy_ndarray.ipynb
+            agents_file: docs/content/user/tools/form/class/others/cupy_ndarray.ipynb.AGENTS.md
+            description: Reviewed external-form declarations and immutable implementation/alias links, source ownership, units, supported molecular copying/selection and explicit unavailable/GPU/renderer limits.
+            status: pending_review
+          - name: reviewed_mmcif_PdbxContainers_DataContainer_references
+            file: docs/content/user/tools/form/class/others/mmcif_PdbxContainers_DataContainer.ipynb
+            agents_file: docs/content/user/tools/form/class/others/mmcif_PdbxContainers_DataContainer.ipynb.AGENTS.md
+            description: Reviewed external-form declarations and immutable implementation/alias links, source ownership, units, supported molecular copying/selection and explicit unavailable/GPU/renderer limits.
+            status: pending_review
+          - name: reviewed_networkx_Graph_references
+            file: docs/content/user/tools/form/class/others/networkx_Graph.ipynb
+            agents_file: docs/content/user/tools/form/class/others/networkx_Graph.ipynb.AGENTS.md
+            description: Reviewed external-form declarations and immutable implementation/alias links, source ownership, units, supported molecular copying/selection and explicit unavailable/GPU/renderer limits.
+            status: pending_review
+          - name: reviewed_pdbfixer_PDBFixer_references
+            file: docs/content/user/tools/form/class/others/pdbfixer_PDBFixer.ipynb
+            agents_file: docs/content/user/tools/form/class/others/pdbfixer_PDBFixer.ipynb.AGENTS.md
+            description: Reviewed external-form declarations and immutable implementation/alias links, source ownership, units, supported molecular copying/selection and explicit unavailable/GPU/renderer limits.
+            status: pending_review
+          - name: reviewed_pytraj_Topology_references
+            file: docs/content/user/tools/form/class/pytraj/pytraj_Topology.ipynb
+            agents_file: docs/content/user/tools/form/class/pytraj/pytraj_Topology.ipynb.AGENTS.md
+            description: Reviewed external-form declarations and immutable implementation/alias links, source ownership, units, supported molecular copying/selection and explicit unavailable/GPU/renderer limits.
+            status: pending_review
+          - name: reviewed_pytraj_Trajectory_references
+            file: docs/content/user/tools/form/class/pytraj/pytraj_Trajectory.ipynb
+            agents_file: docs/content/user/tools/form/class/pytraj/pytraj_Trajectory.ipynb.AGENTS.md
+            description: Reviewed external-form declarations and immutable implementation/alias links, source ownership, units, supported molecular copying/selection and explicit unavailable/GPU/renderer limits.
+            status: pending_review
+          - name: reviewed_molsysviewer_MolSysView_references
+            file: docs/content/user/tools/form/class/viewers/molsysviewer_MolSysView.ipynb
+            agents_file: docs/content/user/tools/form/class/viewers/molsysviewer_MolSysView.ipynb.AGENTS.md
+            description: Reviewed external-form declarations and immutable implementation/alias links, source ownership, units, supported molecular copying/selection and explicit unavailable/GPU/renderer limits.
+            status: pending_review
+          - name: reviewed_nglview_NGLWidget_references
+            file: docs/content/user/tools/form/class/viewers/nglview_NGLWidget.ipynb
+            agents_file: docs/content/user/tools/form/class/viewers/nglview_NGLWidget.ipynb.AGENTS.md
+            description: Reviewed external-form declarations and immutable implementation/alias links, source ownership, units, supported molecular copying/selection and explicit unavailable/GPU/renderer limits.
+            status: pending_review
           - name: pdb_reader_context
             file: docs/content/user/tools/form/file/file_pdb.ipynb
             agents_file: docs/content/user/tools/form/file/file_pdb.ipynb.AGENTS.md
@@ -1217,7 +1267,7 @@ sections:
         agents_file: docs/content/user/cookbook/structural_surgery_mutagenesis.ipynb.AGENTS.md
       - name: form_teleportation
         file: docs/content/user/cookbook/form_teleportation.ipynb
-        description: Conversion workflows, operational verification causes, deposited CIF model-label correspondence, coordinate-free OpenMM inference, MDTraj/ParmEd geometry and cells, managed reader ownership and public capability inspection.
+        description: Conversion workflows, operational verification causes, deposited CIF model-label correspondence, coordinate-free OpenMM inference, MDTraj/ParmEd geometry and cells, managed reader ownership and public capability inspection. Supported external molecular copies and selected extraction preserve their explicit graphical/precision/axis limits.
         agents_file: docs/content/user/cookbook/form_teleportation.ipynb.AGENTS.md
       - name: querying_sparse_interactions
         description: Sparse queries, independent copies, geometry and chemical owner notification, finite torsion rejection and scoped invalidation, state inventory publication, structure replacement and H5MSM persistence with complete evidence catalog/code identity.

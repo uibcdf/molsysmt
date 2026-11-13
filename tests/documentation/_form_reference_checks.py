@@ -289,6 +289,54 @@ _CHEMICAL_CLASS_OPERATIONS = {
     "parmed_GromacsTopologyFile": _FILE_HOOKS,
 }
 _EXTERNAL_CLASS_OPERATIONS.update(_CHEMICAL_CLASS_OPERATIONS)
+_REMAINING_CLASS_OPERATIONS = {
+    "XYZ": _FILE_HOOKS | {"get_rank_3_XYZ"},
+    "cupy_ndarray": _FILE_HOOKS,
+    "mmcif_PdbxContainers_DataContainer": _FILE_HOOKS,
+    "networkx_Graph": _FILE_HOOKS,
+    "pdbfixer_PDBFixer": _FILE_HOOKS,
+    "pytraj_Topology": _FILE_HOOKS,
+    "pytraj_Trajectory": _FILE_HOOKS,
+    "molsysviewer_MolSysView": {
+        "__init__",
+        "is_form",
+        "has_attribute",
+        "extract",
+        "copy",
+        "append_structures",
+        "get_topological_attributes",
+        "get_structural_attributes",
+        "get_mechanical_attributes",
+    },
+    "nglview_NGLWidget": _FILE_HOOKS,
+}
+_EXTERNAL_CLASS_OPERATIONS.update(_REMAINING_CLASS_OPERATIONS)
+_EXTERNAL_CLASS_FOLDERS = {
+    "XYZ": "others",
+    "cupy_ndarray": "others",
+    "mmcif_PdbxContainers_DataContainer": "others",
+    "networkx_Graph": "others",
+    "pdbfixer_PDBFixer": "others",
+    "molsysviewer_MolSysView": "viewers",
+    "nglview_NGLWidget": "viewers",
+}
+# Reviewed alias declarations link to module headers, not invented definitions.
+_SHARED_OPERATION_MODULES = {
+    Path("molsysmt/form/cupy_ndarray/has_attribute.py"): (
+        "molsysmt.form.XYZ.has_attribute",
+        "has_attribute",
+    ),
+    Path("molsysmt/form/cupy_ndarray/extract.py"): (
+        "molsysmt.form.XYZ.extract",
+        "extract",
+    ),
+    Path("molsysmt/form/cupy_ndarray/add.py"): ("molsysmt.form.XYZ.add", "add"),
+    Path("molsysmt/form/cupy_ndarray/merge.py"): ("molsysmt.form.XYZ.merge", "merge"),
+    Path("molsysmt/form/cupy_ndarray/append_structures.py"): (
+        "molsysmt.form.XYZ.append_structures",
+        "append_structures",
+    ),
+}
 
 
 def _declared_converters(adapter, directory):
@@ -325,7 +373,7 @@ def _assert_native_form_reference_contract(name):
         page = ROOT / f"docs/content/user/tools/form/{folder}/{name}.ipynb"
         operations = (_FILE_OPERATIONS if is_file else _STRING_OPERATIONS)[name]
     elif is_external:
-        owner = name.split("_", 1)[0].lower()
+        owner = _EXTERNAL_CLASS_FOLDERS.get(name, name.split("_", 1)[0].lower())
         page = ROOT / f"docs/content/user/tools/form/class/{owner}/{name}.ipynb"
         operations = _EXTERNAL_CLASS_OPERATIONS[name]
     else:
@@ -385,6 +433,19 @@ def _assert_native_form_reference_contract(name):
             "iterators",
         }:
             assert lineno == 1
+        elif path in _SHARED_OPERATION_MODULES:
+            assert lineno == 1
+            module_name, symbol = _SHARED_OPERATION_MODULES[path]
+            declarations = ast.parse((ROOT / path).read_text()).body
+            assert len(declarations) == 1 and isinstance(
+                declarations[0], ast.ImportFrom
+            )
+            declaration = declarations[0]
+            assert declaration.module == module_name and declaration.level == 0
+            assert [(n.name, n.asname) for n in declaration.names] == [(symbol, symbol)]
+            local = importlib.import_module(".".join(path.with_suffix("").parts))
+            owner = importlib.import_module(module_name)
+            assert getattr(local, symbol) is getattr(owner, symbol)
         else:
             definitions = [
                 node

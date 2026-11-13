@@ -7,8 +7,8 @@ MolSysMT enforces strict architectural boundaries between user-facing public API
 
 ## Public vs. Private Boundaries
 
-- **Public APIs (`molsysmt.*`)**: Functions and classes exported in package top-level `__init__.py` modules intended for end users. All public functions are guarded by the `@digest` decorator.
-- **Private Helpers (`molsysmt._private.*`)**: Internal helper functions designed for high-speed focused logic. Private helpers **must never** use the `@digest` decorator and are never exposed directly in public user APIs.
+- **Public APIs (`molsysmt.*`)**: Functions and classes exported in package top-level `__init__.py` modules intended for end users. All public functions are guarded by the `@arg_digest` decorator.
+- **Private Helpers (`molsysmt._private.*`)**: Internal helper functions designed for high-speed focused logic. Private helpers **must never** use the `@arg_digest` decorator and are never exposed directly in public user APIs.
 
 ---
 
@@ -31,3 +31,13 @@ group name, a completed terminus or matching atom counts do not establish comple
 chemistry, a validated conformation or an energy minimum. An explicitly selected
 optional engine has its own reconstruction policy; there is no automatic fallback.
 See {ref}`Tutorial_Mutate` and {ref}`Tutorial_Add_missing_terminal_cappings`.
+
+## Molecular copying and graphical state
+
+A supported molecular copy owns independent mutable molecular data according to
+its form contract. It does not imply a cloned graphical scene, camera or saved
+session. Explicit unrestricted reuse may return the original object; unsupported
+selected axes must refuse instead of producing an apparently valid empty or
+misaligned result. Reconstructed formats retain their precision and capacity
+limits. See {ref}`Tutorial_Copy` and {ref}`Tutorial_Extract` before choosing a
+copy or extraction route for an external representation.

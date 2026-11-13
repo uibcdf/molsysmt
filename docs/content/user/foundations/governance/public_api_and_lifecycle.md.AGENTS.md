@@ -11,4 +11,4 @@ This micro-governance contract governs [`docs/content/user/foundations/governanc
    - MUST preserve top anchor `(user-foundations-governance-public-api-and-lifecycle)=`.
 
 2. **Conceptual Scope**:
-   - Explains public vs _private boundaries, @digest scope rules, lifecycle integrity requirements, and deprecation policies.
+   - Explains public vs _private boundaries, @arg_digest scope rules, lifecycle integrity requirements, and deprecation policies.
