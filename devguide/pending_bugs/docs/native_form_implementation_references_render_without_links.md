@@ -462,3 +462,30 @@ notebook code, outputs, metadata, order and headings/anchors are preserved.
 Actual HTML and the final integrated/common receiving remain pending; #727
 stays partial. No scientific algorithm, provider floor or release requirement
 is added by this documentation correction.
+
+
+## Biopython actual-article receiving — 2026-11-12
+
+Clean 26b550f96 receives three selected pages without warnings. The final
+combined cohort passes 204 cases without warnings or omissions, including
+all 47 reviewed actual articles. Six real Bio.PDB cases preserve selected
+atom/model correspondence and lengths under nm/ps and pm/fs; existing sequence
+query/copy/extraction controls retain their full assertions. The
+[receipt](../../../devtools/data/biopython_form_reference_receiving_727_20261112.json)
+retains the nine-failure baseline, exact sources, unchanged input inventories
+and notebook payloads. No library runtime repair or provider-floor change is
+needed for this increment.
+
+Forty-seven reviewed pages now deliver 919 references to 836 source files.
+Of 47 other unchanged-source/byte-identical cached articles, 39 retain 765
+unlinked nodes, all in the remaining external class families. #727 stays
+partial. Preserve complete-source/nightly, original score, investigations,
+format/client, exact-pair and publication boundaries. Common-gate and public
+readback results remain separate fields in the receipt.
+
+
+Fifteen common fast gates, generated indexes and whole-repository Ruff pass.
+Five exact task-owned services are terminal/retired after MainPID-zero checks;
+foreign processes are untouched. Complete intake still has 653 issues, 94 open,
+no new issue after #734 and no open PRs. The source/report checkpoint is ready
+for batched publication and independent readback; heavy gates remain separate.

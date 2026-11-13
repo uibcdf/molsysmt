@@ -217,3 +217,15 @@ are unchanged. #731/#732's separate corrections preserve valid copying and
 refuse nonexistent-file success. A real model-aware export remains #733's
 post-1.0 capability. #727 stays partial for 42 external class cached articles.
 Broader indexing, comparisons, external-reader and installed acceptance remain.
+
+
+## Biopython reference delivery — 2026-11-12
+
+Three external-class pages add 42 intended references to 36 independently
+matched source files. The [receipt](../../../devtools/data/biopython_form_reference_receiving_727_20261112.json)
+receives clean three-page HTML and 204 combined source/provider/actual-article
+cases without warnings or omissions. All 47 reviewed articles retain their
+intended references; 39 other external class pages remain flagged under #727.
+Unavailable hooks, instance/metadata limits and native selection/unit semantics
+are explicit. This is neither broad discoverability acceptance nor complete
+scientific/provider/installed qualification.

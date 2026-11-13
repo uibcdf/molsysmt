@@ -35,7 +35,7 @@ promotions and publication remain paused pending the agreed resumption.**
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
 | Complete #723's comparable long campaign | The method/default-host baseline passes on `db1706f8a`; the concrete molecular integration passes 63 controls and one actual 5,000-structure cycle on clean `1a899f9f0`. Initial/recovered native targets and 3,720,000-byte buffers clear; the independent witness survives unchanged. Host growth and debugger errors remain explicit. Freeze the comparison composition before the long campaign; preserve original raw outcomes and #615/#713 scopes. |
-| Complete #727 and the admitted pre-1.0 polishing review | Forty-four reviewed native/file/string articles now deliver 877 intended implementation links to 800 verified source files. All flagged native/file/string debt in the census is received; 42 other articles retain 807 unlinked Python-role nodes. Continue the external class families. Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11) under the new handoff cutoff: fix admitted correctness, integrity, supported-workflow and documentation defects; review incoming reports without admitting optional expansion automatically. #728 remains owned but its implementation is deferred. Preserve original milestone accounting and qualification boundaries. |
+| Complete #727 and the admitted pre-1.0 polishing review | Forty-seven reviewed native/file/string/Biopython articles deliver 919 intended implementation links to 836 verified source files. All flagged native/file/string/Biopython debt in the census is received; 39 other external class articles retain 765 unlinked Python-role nodes. Continue those external class families. Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11) under the handoff cutoff: fix admitted correctness, integrity, supported-workflow and documentation defects; review incoming reports without admitting optional expansion automatically. #728 implementation stays deferred. Preserve original milestone accounting and qualification boundaries. |
 | Preserve #734's bounded contacts/SASA owner disposition | The [owner contract](native_interface_contacts_sasa_contract.md) and 104-case receiving offer existing public operations for the first Cartesian bundled-element-vdW profile. No concrete new operation gap is established. BindingMT #112 and TopoMT #197 retain application decisions and actual client acceptance; MolSysSuite #195 remains the coordination owner. This finite review adds no release prerequisite. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
 | Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
@@ -53,6 +53,31 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Biopython form reference receiving — 2026-11-12
+
+The three Biopython pages now deliver 42 intended references to 36 independently
+matched source files at published `723e9f292`. They distinguish sequence/group
+queries, undefined content, copied versus selected records, unavailable hooks,
+empty modules and explicit file-writing prerequisites. Bio.PDB first-model
+inventory, selected model/atom order, angstrom-origin coordinates and incomplete
+chemical/disorder/metadata transport are explicit. No library runtime changes.
+
+Clean `26b550f96` generates the three pages without warnings. The combined
+receiving passes 204 cases without warnings or omissions, including all 47
+actual reviewed articles and six new real Bio.PDB selection/unit controls.
+Notebook executable payloads, outputs, metadata, order and headings/anchors are
+unchanged. The [receipt](../devtools/data/biopython_form_reference_receiving_727_20261112.json)
+retains the original nine-failure baseline, exact staged inputs and resources.
+Fifteen common fast gates, generated indexes and whole-repository Ruff pass.
+All five terminal task-owned services are retired; publication readback follows
+the source/record checkpoint.
+
+#727 remains partial: the 47 reviewed pages deliver 919 references to 836
+files; 39 other external class pages retain 765 unlinked nodes among 47
+unchanged-source, byte-identical cached articles. No broader complete-source,
+scientific, installed, public-site or final-pair qualification is inferred.
+The original score, investigations, client/format decisions and pause remain.
 
 ## Bounded contacts/SASA owner receiving — 2026-11-12
 

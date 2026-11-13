@@ -430,3 +430,16 @@ across 44 pages. Notebook payloads and scientific/native-domain explanations
 remain. #727 still owns 42 external class pages with 807 unlinked nodes; #733
 defers a real model-aware writer. These are source/documentation increments,
 not original-score credit, live-service or installed/final-pair acceptance.
+
+
+## Biopython documentation increment — 2026-11-12
+
+The [receipt](../devtools/data/biopython_form_reference_receiving_727_20261112.json)
+receives three external-class pages on clean 26b550f96: 42 references to 36
+matched source files, zero-warning HTML and 204 combined source/provider/actual-
+article controls. All 47 reviewed pages retain their intended links, for totals
+of 919 references and 836 files. Notebook payloads and existing meaningful
+sequence tests remain; six new Bio.PDB cases check selected atom/model order
+and quantities under two unit policies. No runtime implementation is changed.
+#727 remains partial for 39 external class pages/765 unlinked cached nodes.
+This does not change original milestone credit or final-pair boundaries.
