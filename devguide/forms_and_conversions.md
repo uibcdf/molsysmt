@@ -1186,3 +1186,31 @@ hierarchy inference, parent bounds, projected selection conflict policy,
 interaction invalidation or multi-attribute transactions. Raw pandas writes
 retain their own responsibility. Guards:
 `tests/form/molsysmt_Topology/test_nullable_membership_assignment.py`.
+
+
+## Whole graph and molecular widget copies
+
+For a complete NetworkX molecular graph, unrestricted extraction copies graph
+structure/attribute dictionaries or explicitly reuses the source. Node keys are
+not element IDs. Selected atom/structure axes refuse with a catalogued error;
+there is no implicit molecular remapping of an arbitrary graph. Nested custom
+values retain the provider's shallow-copy semantics.
+
+A supported single-component NGL copy reconstructs molecular data through the
+existing native conversion seams, with missing-bond inference disabled. The
+new widget owns independent communication, topology and coordinate storage.
+Whole copied extraction uses the same route; explicit unrestricted reuse
+returns the original. Coordinates materialize in memory. Camera settings,
+representations and browser sessions are outside this molecular profile.
+
+Selected PDBFixer reconstruction obtains identities and coordinates using the
+same canonical source atom order and the PDBFixer-owned OpenMM topology bridge.
+It retains the existing single-pose capacity and PDB coordinate precision; it
+does not repair chemistry, solvate or minimize the system. Supported quantity
+policies still express the same physical positions.
+
+Guards: `tests/form/networkx_Graph/test_unrestricted_extraction.py`,
+`tests/form/nglview_NGLWidget/test_independent_copy.py` and
+`tests/form/pdbfixer_PDBFixer/test_selected_extraction.py`. Actual source/HTML
+receiving is recorded in the
+[remaining-form receipt](../devtools/data/remaining_form_reference_receiving_727_20261113.json).

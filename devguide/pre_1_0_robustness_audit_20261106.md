@@ -49,8 +49,8 @@ the release requirements.
 | --- | --- | --- |
 | P1 — strict API documentation, #334 | Complete HTML on clean `01c6266f6`, `8ada7fe24` and `3546267d0` passes with zero warnings. Eight RST files include the four expressly approved preexisting edits; the original six-title failure is retained. | This bounded correction is received. Recheck affected pages for later changes and run the exact final candidate's documentation gate. |
 | P2 — persistence/integration and source receiving, #334 / #256 / #709–#713 / #717 / #720 / #722 | Complete `6acad4f35` remains **33,850 passes, 16 skips, zero failures/errors**. Later iterator diagnostic/inventory and flag repairs have focused receiving: 166, then 377, then 526 overlapping cases pass. The native binary remains unchanged. | Preserve exact scopes and original failures. Later executable changes remain in the deliberate complete-source/nightly backlog; latest main is not fully qualified. #713 causality, hosted/platform/installed and exact-candidate gates stay separate. |
-| P3 — semantic documentation and discoverability, #727 / #378 | Seventy-seven reviewed actual articles deliver 1,502 intended implementation links to 1,366 verified source files. Five RDKit/OpenFF/ParmEd pages pass strict HTML receiving, 161 adapter cases and 278 joint source/HTML controls. | Continue nine flagged external-class pages / 178 nodes among seventeen unchanged-source/byte-identical cached articles: PyTraj, viewer and miscellaneous forms. Preserve provider/profile limits; [receipt](../devtools/data/chemical_form_reference_receiving_727_20261112.json). Optional post-1.0 #741 is not a new gate. |
-| P4 — incoming and remaining issues/PRs, owning issue / #334 | Complete intake has 660 issues, 96 open, no issue after #741 and no open PRs. #738/#739/#740 remain closed. #741 records measured undeclared OpenFF Topology geometry as an optional post-1.0 capability. | Continue #727 without adding #741 as a release prerequisite. Preserve #723/#615/#713, deferred work, full-source/nightly and all client/final-pair boundaries. |
+| P3 — semantic documentation and discoverability, #727 / #378 | The final 340-case receiving passes. All 86 reviewed adapter articles deliver 1,673 intended references to 1,528 verified source files; explicit guards cover all 95 form notebooks. Twenty-three selected pages build without warnings, preserving executable payloads and metadata. | Complete documented #727 closeout and preserve the three related adapter repairs #742–#744. Broader discoverability and final complete-site qualification remain separate; [receipt](../devtools/data/remaining_form_reference_receiving_727_20261113.json). |
+| P4 — incoming and remaining issues/PRs, owning issue / #334 | Complete intake has 663 issues, 99 open and no open PRs before the four closeouts. No external new issue follows #741; #742–#744 own the three reproduced and now corrected form defects. | Publish their records and guards, then verify board/queue closure. Continue #723/#615/#713 and stable-format/client/final-pair work; optional #741 remains after 1.0. |
 | P5 — client and final-candidate boundaries, #256 / #250 / #254 / #524 / #615 / #334 | Independent default-specific MolSysViewer source receiving is [reviewed and accepted](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-default-specific-molsysviewer-receiving--2026-11-11): 18 session cases and 151 boundary cases on the declared source. The final pair is not frozen; #615's original uncertainty and installed-package evidence remain open. | Complete the stable-format decision and final pair agreement. Keep the published dependency floor, installed matrix and publication decisions distinct from local polish and headless source receiving. |
 
 ### File-review correctness intake — 2026-11-12
@@ -2736,3 +2736,53 @@ cohort child exits 0, while its interrupted exterior service exits 120; both
 are preserved. Later detached receiving services terminate successfully. Public
 closeout/intake is next, then #727's remaining eighteen external-class pages.
 The original score and all source/nightly/client/final-pair boundaries remain.
+
+
+## Remaining form references and adapter repairs — 2026-11-13 (#727, #742–#744)
+
+[Receiving receipt](../devtools/data/remaining_form_reference_receiving_727_20261113.json).
+
+Published `b16c43a0d` receives the final nine previously flagged provider pages.
+They add 171 intended implementation references to 162 independently matched
+source files at published `6dd779adc`. All 86 reviewed adapter articles deliver
+1,673 references to 1,528 verified files. Nine already-linked form pages have
+separate receiving; an explicit coverage guard accounts for all 95 form
+notebooks, including compressed PDB. Five adjacent lifecycle, basic, Cookbook
+and course articles explain independent molecular data versus graphical scenes,
+explicit reuse/refusal, atom correspondence and reconstruction precision.
+
+Three observed defects are repaired: #742 rebuilds independent molecular NGL
+widgets rather than using unsupported ordinary widget copying; #743 preserves
+whole NetworkX graphs instead of treating the all sentinel as node labels,
+and explicitly refuses unsupported subsets; #744 aligns PDBFixer selected
+coordinates and identities in canonical source order through its owning bridge.
+The initial existing cohort passes 243 cases; the NGL/graph replay passes 257.
+Affected NGL, graph and PDBFixer cohorts pass 28, 22 and 41 cases respectively.
+
+The final combined source/actual-HTML/regression selection passes 340 cases
+without omissions or warnings. Twenty-three selected pages build with zero
+warnings; notebook code, outputs, metadata, existing headings and anchors are
+preserved. Original failed product controls, a failed test oracle, a harness
+failure before pytest, the JUnit route collision, a dirty-status focused run
+and the first joint run's three failures remain distinguished in the receipt.
+Two genuine unlinked Basic aliases exposed by that first joint run are fixed;
+the concept-page verifier separately receives intended section references.
+
+One CPU, 1.5 GiB test / 3 GiB HTML caps, zero own swap and a 6.5 GiB host
+reserve remain enforced. CuPy is absent; no CUDA claim follows. PyTraj's retained
+development provider and the frozen MolSysViewer source are not a final
+installed pair or minimum-provider/platform certificate. No complete-site,
+complete-source/nightly, scientific or final-pair qualification is supplied.
+Original score and the candidate/hosted/publication pause remain unchanged.
+
+The intended-link defect is ready for its documented #727 closeout. Continue
+#723's comparable memory work and bounded #615/#713 conclusions, then the
+#256 stable-format and #250/#254/#524 final-pair contracts. Optional improvements
+remain deferred under the technical-handoff scope cutoff.
+
+
+The final closeout also passes all fifteen offline fast gates, generated-index
+checks and Ruff check/format. An initial archival metadata/link failure is
+retained separately. All exact task-owned services are terminal, including
+failed baselines/harness/status attempts; their actual supervisor states and
+raw-log hashes are preserved. No hosted qualification or producer is launched.

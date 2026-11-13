@@ -21,8 +21,4 @@ Entries are filed and closed under [reporting_protocol.md](../../reporting_proto
 
 - [`course_modules_lack_paired_content_contracts.md`](course_modules_lack_paired_content_contracts.md) — [#512](https://github.com/uibcdf/molsysmt/issues/512) — Course modules lack paired content-protection contracts. *(low, measured)*
 
-### Partially resolved (1)
-
-- [`native_form_implementation_references_render_without_links.md`](native_form_implementation_references_render_without_links.md) — [#727](https://github.com/uibcdf/molsysmt/issues/727) — Form tutorial API roles render as unlinked code despite a warning-free build *(medium, reproduced)*
-
 <!-- /generated -->

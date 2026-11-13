@@ -623,3 +623,53 @@ Complete intake has 660 issues, 96 open, no issue after #741 and no open PRs.
 The new #741 proposal is explicitly optional after 1.0. Seven exact task-owned
 services are terminal/retired, preserving the failed initial probe. No hosted
 qualification, producer, tag or publication is run or authorized by this block.
+
+
+## Remaining form references and adapter repairs — 2026-11-13 (#727, #742–#744)
+
+[Receiving receipt](../devtools/data/remaining_form_reference_receiving_727_20261113.json).
+
+Published `b16c43a0d` receives the final nine previously flagged provider pages.
+They add 171 intended implementation references to 162 independently matched
+source files at published `6dd779adc`. All 86 reviewed adapter articles deliver
+1,673 references to 1,528 verified files. Nine already-linked form pages have
+separate receiving; an explicit coverage guard accounts for all 95 form
+notebooks, including compressed PDB. Five adjacent lifecycle, basic, Cookbook
+and course articles explain independent molecular data versus graphical scenes,
+explicit reuse/refusal, atom correspondence and reconstruction precision.
+
+Three observed defects are repaired: #742 rebuilds independent molecular NGL
+widgets rather than using unsupported ordinary widget copying; #743 preserves
+whole NetworkX graphs instead of treating the all sentinel as node labels,
+and explicitly refuses unsupported subsets; #744 aligns PDBFixer selected
+coordinates and identities in canonical source order through its owning bridge.
+The initial existing cohort passes 243 cases; the NGL/graph replay passes 257.
+Affected NGL, graph and PDBFixer cohorts pass 28, 22 and 41 cases respectively.
+
+The final combined source/actual-HTML/regression selection passes 340 cases
+without omissions or warnings. Twenty-three selected pages build with zero
+warnings; notebook code, outputs, metadata, existing headings and anchors are
+preserved. Original failed product controls, a failed test oracle, a harness
+failure before pytest, the JUnit route collision, a dirty-status focused run
+and the first joint run's three failures remain distinguished in the receipt.
+Two genuine unlinked Basic aliases exposed by that first joint run are fixed;
+the concept-page verifier separately receives intended section references.
+
+One CPU, 1.5 GiB test / 3 GiB HTML caps, zero own swap and a 6.5 GiB host
+reserve remain enforced. CuPy is absent; no CUDA claim follows. PyTraj's retained
+development provider and the frozen MolSysViewer source are not a final
+installed pair or minimum-provider/platform certificate. No complete-site,
+complete-source/nightly, scientific or final-pair qualification is supplied.
+Original score and the candidate/hosted/publication pause remain unchanged.
+
+The intended-link defect is ready for its documented #727 closeout. Continue
+#723's comparable memory work and bounded #615/#713 conclusions, then the
+#256 stable-format and #250/#254/#524 final-pair contracts. Optional improvements
+remain deferred under the technical-handoff scope cutoff.
+
+
+The final closeout also passes all fifteen offline fast gates, generated-index
+checks and Ruff check/format. An initial archival metadata/link failure is
+retained separately. All exact task-owned services are terminal, including
+failed baselines/harness/status attempts; their actual supervisor states and
+raw-log hashes are preserved. No hosted qualification or producer is launched.

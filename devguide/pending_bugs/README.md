@@ -25,12 +25,9 @@ that front matter -- edit the entries, not this list.
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`macos_py312_environment_download_failure.md`](macos_py312_environment_download_failure.md) — [#671](https://github.com/uibcdf/molsysmt/issues/671) — Track the macOS Python 3.12 Conda download failure separately from tests. *(medium, upstream)*
 
-### In progress (4)
+### In progress (1)
 
-- [`selected_pdbfixer_extraction_assigns_coordinates_to_the_wrong_atoms.md`](selected_pdbfixer_extraction_assigns_coordinates_to_the_wrong_atoms.md) — [#744](https://github.com/uibcdf/molsysmt/issues/744) — Selected PDBFixer extraction assigns coordinates to the wrong atoms *(high, reproduced)*
-- [`unrestricted_networkx_extraction_returns_an_empty_graph_when_reuse_is_requested.md`](unrestricted_networkx_extraction_returns_an_empty_graph_when_reuse_is_requested.md) — [#743](https://github.com/uibcdf/molsysmt/issues/743) — Unrestricted NetworkX extraction returns an empty graph when reuse is requested *(high, reproduced)*
 - [`intermittent_jupyter_initial_canvas_timeout.md`](intermittent_jupyter_initial_canvas_timeout.md) — [#615](https://github.com/uibcdf/molsysmt/issues/615) — Investigate intermittent Jupyter initialization before the first molecular canvas. *(medium, measured)*
-- [`nglview_copy_and_whole_extraction_invoke_unsupported_widget_copying.md`](nglview_copy_and_whole_extraction_invoke_unsupported_widget_copying.md) — [#742](https://github.com/uibcdf/molsysmt/issues/742) — NGLView copy and whole extraction invoke unsupported widget copying *(medium, reproduced)*
 
 ### Partially resolved (3)
 

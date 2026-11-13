@@ -1,13 +1,13 @@
 ---
 summary: Form tutorial API roles render as unlinked code despite a warning-free build
 issue: uibcdf/molsysmt#727
-status: partial
+status: resolved
 opened: 2026-11-12
-closed:
+closed: 2026-11-13
 severity: medium
 verification: reproduced
 area: [docs]
-guard:
+guard: tests/documentation/form_reference_receiving_guard.py::test_actual_native_tutorial_delivers_every_intended_reference
 normative:
 blocked_by: []
 supersedes: []
@@ -685,3 +685,19 @@ Complete intake has 660 issues, 96 open, no issue after #741 and no open PRs.
 The new #741 proposal is explicitly optional after 1.0. Seven exact task-owned
 services are terminal/retired, preserving the failed initial probe. No hosted
 qualification, producer, tag or publication is run or authorized by this block.
+
+
+## Completed receiving — 2026-11-13
+
+Published b16c43a0d and the immutable owning implementation 6dd779adc have
+independent public-tree verification. The final joint selection passes 340
+cases; all 95 form notebooks have explicit receiving ownership and actual HTML
+link checks. Twenty-three selected pages build without warnings, preserving
+code/output/metadata, headings and anchors. The affected runtime cohorts and
+original failed witnesses remain separately recorded.
+
+See the [receiving receipt](../../../devtools/data/remaining_form_reference_receiving_727_20261113.json)
+and [current form contract](../../forms_and_conversions.md). This closes the
+reported mechanism, not every conversion/scientific/performance capability.
+CuPy, complete-source/scientific gates, installed final-pair acceptance and
+publication remain outside this scope.

@@ -1,13 +1,13 @@
 ---
 summary: Selected PDBFixer extraction assigns coordinates to the wrong atoms
 issue: uibcdf/molsysmt#744
-status: active
+status: resolved
 opened: 2026-11-13
-closed:
+closed: 2026-11-13
 severity: high
 verification: reproduced
 area: [form, extract, structure, units]
-guard:
+guard: tests/form/pdbfixer_PDBFixer/test_selected_extraction.py
 normative:
 blocked_by: []
 supersedes: []
@@ -64,3 +64,19 @@ four true alignment failures. Both raw attempts are retained and distinguished.
   explanations, then receive the affected runtime and actual HTML articles.
 - Preserve baseline/oracle/harness failures and exact source/provider/resource
   scope. No installed, complete-source/scientific or final-pair gate is implied.
+
+
+## Completed receiving — 2026-11-13
+
+Published b16c43a0d and the immutable owning implementation 6dd779adc have
+independent public-tree verification. The final joint selection passes 340
+cases; all 95 form notebooks have explicit receiving ownership and actual HTML
+link checks. Twenty-three selected pages build without warnings, preserving
+code/output/metadata, headings and anchors. The affected runtime cohorts and
+original failed witnesses remain separately recorded.
+
+See the [receiving receipt](../../../devtools/data/remaining_form_reference_receiving_727_20261113.json)
+and [current form contract](../../forms_and_conversions.md). This closes the
+reported mechanism, not every conversion/scientific/performance capability.
+CuPy, complete-source/scientific gates, installed final-pair acceptance and
+publication remain outside this scope.
