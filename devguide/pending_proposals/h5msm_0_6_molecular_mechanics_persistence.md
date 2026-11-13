@@ -31,6 +31,12 @@ write/migration check under both unit policies remains to be received; no
 new preparation or docking run is requested. See the
 [client coordination receipt](../../devtools/data/h5msm_client_coordination_256_20261113.json).
 
+The pre-freeze reader review also identifies #745: coercion of malformed
+integral headers and unsafe declared-count enumeration. Its bounded correction
+and receiving are tracked in the
+[owning report](../pending_bugs/h5msm_readers_silently_coerce_malformed_integer_metadata.md).
+It preserves valid wire encodings; no new format version is required.
+
 The stable-format decision and exact coordinated installed-pair gates remain
 open. Neither source support, a default-setting change nor this clarification
 publishes H5MSM 1.0 or resumes candidate production/hosted qualification.

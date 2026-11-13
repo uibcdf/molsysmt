@@ -5,6 +5,7 @@ import json
 import h5py
 import numpy as np
 
+from molsysmt._private.hdf5_validation import schema_version
 from molsysmt._private.preparation_history import decode_history, encode_history
 
 
@@ -35,8 +36,7 @@ def read_history(group):
     if "preparation_history" not in group:
         return []
     history = group["preparation_history"]
-    if history.attrs.get("schema_version") != 1:
-        raise ValueError("Unsupported H5MSM preparation-history schema.")
+    schema_version(history, (1,), "H5MSM preparation-history")
     manifest = history["manifest"]
     if manifest.ndim != 1 or manifest.dtype != np.dtype("uint8"):
         raise ValueError("Preparation-history manifest must be a byte vector.")

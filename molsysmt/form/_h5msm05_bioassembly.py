@@ -5,6 +5,7 @@ from collections.abc import Mapping
 import numpy as np
 
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.hdf5_validation import numbered_group_count, schema_version
 
 
 def _chain_indices(values):
@@ -148,13 +149,10 @@ def read_bioassembly(group):
     if "bioassembly" not in group:
         return None
     collection = group["bioassembly"]
-    if collection.attrs.get("schema_version") != 1:
-        raise ValueError("Unsupported H5MSM 0.5 bioassembly schema.")
-    n_assemblies = int(collection.attrs.get("n_assemblies", -1))
-    if n_assemblies < 0 or set(collection) != {
-        str(index) for index in range(n_assemblies)
-    }:
-        raise ValueError("Bioassembly collection indices are inconsistent.")
+    schema_version(collection, (1,), "H5MSM 0.5 bioassembly")
+    n_assemblies = numbered_group_count(
+        collection, "n_assemblies", "Bioassembly collection"
+    )
     result = {}
     for index in range(n_assemblies):
         child = collection[str(index)]

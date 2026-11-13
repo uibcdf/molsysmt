@@ -1,9 +1,11 @@
 """Private selective queries over versioned HDF5 interaction groups."""
 
-import json
-
 import numpy as np
 
+from molsysmt._private.hdf5_validation import schema_version
+
+from ._hdf5_collection import _collection_count
+from ._hdf5_metadata import read_metadata
 from ._query_modes import validate_query_mode
 from .result import _indices, _software_versions, _unique_in_order
 
@@ -47,8 +49,7 @@ def _frame_bounds(group, frame, n_structures):
             _legacy_bounds(occurrences, frame, right=True),
         )
     index = group["query_index"]
-    if index.attrs.get("schema_version") != 1:
-        raise ValueError("Unsupported interaction query index version.")
+    schema_version(index, (1,), "interaction query index")
     offsets = index["frame_offsets"]
     mask = index["evaluated_mask"]
     if offsets.shape != (n_structures + 1,) or mask.shape != (n_structures,):
@@ -71,8 +72,7 @@ def _frame_bounds(group, frame, n_structures):
 def _coverage(group, requested, n_structures):
     if "query_index" in group:
         index = group["query_index"]
-        if index.attrs.get("schema_version") != 1:
-            raise ValueError("Unsupported interaction query index version.")
+        schema_version(index, (1,), "interaction query index")
         mask = index["evaluated_mask"]
         if mask.shape != (n_structures,):
             raise ValueError("Interaction evaluated mask has an invalid length.")
@@ -123,15 +123,10 @@ def query_interactions_group(
     _cache=None,
 ):
     """Read only requested frames and their relevant relation descriptions."""
-    if group.attrs.get("format") != "molsysmt.interactions" or group.attrs.get(
-        "schema_version"
-    ) not in (1, 2):
+    if group.attrs.get("format") != "molsysmt.interactions":
         raise ValueError("Unsupported Interactions group schema or version.")
-    metadata = (
-        _cache["metadata"]
-        if _cache is not None
-        else json.loads(group.attrs["metadata"])
-    )
+    schema_version(group, (1, 2), "Interactions group")
+    metadata = _cache["metadata"] if _cache is not None else read_metadata(group)
     from ._execution_provenance import legacy, normalize, project, read_group
 
     if _cache is not None and "execution_records" in _cache:
@@ -368,16 +363,7 @@ class HDF5InteractionsReader:
             if "interactions" not in self.file:
                 raise KeyError("The file has no interaction analyses.")
             collection = self.file["interactions"]
-            if (
-                collection.attrs.get("schema") != "molsysmt.interactions_collection"
-                or collection.attrs.get("schema_version") != 1
-            ):
-                raise ValueError(
-                    "Unsupported interaction collection schema or version."
-                )
-            count = int(collection.attrs["n_analyses"])
-            if count < 0 or set(collection) != {str(index) for index in range(count)}:
-                raise ValueError("Interaction collection groups are inconsistent.")
+            count = _collection_count(collection)
             for index in range(count):
                 group = collection[str(index)]
                 if group.attrs.get("name") == analysis_name:
@@ -385,13 +371,10 @@ class HDF5InteractionsReader:
                     break
             if self.group is None:
                 raise KeyError(f"Unknown interaction analysis {analysis_name!r}.")
-            if self.group.attrs.get(
-                "format"
-            ) != "molsysmt.interactions" or self.group.attrs.get(
-                "schema_version"
-            ) not in (1, 2):
+            if self.group.attrs.get("format") != "molsysmt.interactions":
                 raise ValueError("Unsupported Interactions group schema or version.")
-            metadata = json.loads(self.group.attrs["metadata"])
+            schema_version(self.group, (1, 2), "Interactions group")
+            metadata = read_metadata(self.group)
             self._cache = {
                 "metadata": metadata,
                 "type_labels": self.group["labels/relation_types"].asstr()[:],
@@ -406,8 +389,7 @@ class HDF5InteractionsReader:
             n_structures = int(metadata["n_structures"])
             if "query_index" in self.group and n_structures <= 200_000:
                 index = self.group["query_index"]
-                if index.attrs.get("schema_version") != 1:
-                    raise ValueError("Unsupported interaction query index version.")
+                schema_version(index, (1,), "interaction query index")
                 offsets = index["frame_offsets"][:]
                 mask = index["evaluated_mask"][:]
                 if (

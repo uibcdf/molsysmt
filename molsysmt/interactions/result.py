@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 from copy import deepcopy
 from pathlib import Path
 from types import MappingProxyType
@@ -10,6 +9,7 @@ from types import MappingProxyType
 import numpy as np
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.hdf5_validation import schema_version
 from molsysmt.native.queries import NativeQueries
 
 from ._query_modes import validate_query_mode
@@ -1979,11 +1979,17 @@ class Interactions(NativeQueries):
     @classmethod
     def _read_group(cls, group):
         """Read one versioned typed result from an HDF5 file or group."""
-        if group.attrs.get("format") != "molsysmt.interactions" or group.attrs.get(
-            "schema_version"
-        ) not in (1, 2):
+        if group.attrs.get("format") != "molsysmt.interactions":
             raise ValueError("unsupported Interactions file format or schema version")
-        metadata = json.loads(group.attrs["metadata"])
+        try:
+            schema_version(group, (1, 2), "Interactions group")
+        except ValueError as error:
+            raise ValueError(
+                "unsupported Interactions file format or schema version"
+            ) from error
+        from ._hdf5_metadata import read_metadata
+
+        metadata = read_metadata(group)
         from ._execution_provenance import legacy, read_group
 
         if group.attrs["schema_version"] == 1:

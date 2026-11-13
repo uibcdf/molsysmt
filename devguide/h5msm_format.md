@@ -49,6 +49,21 @@ with zero or `False`.
 
 ## Modular encoding controls
 
+Integral headers such as layer versions, axis sizes, row counts and numbered
+collection counts must be scalar integers in the supported signed-64 index
+range. Boolean, floating-point, string and array encodings are rejected rather
+than coerced. Field-specific negative sentinels retain their existing meaning.
+Numbered collections compare the declared count with actual stored membership
+before enumerating their indices. These checks do not change valid wire data
+or require a format-version increment.
+
+Resident readers validate the layer schemas they decode. Metadata-only axis
+queries and association checks inspect common integral headers without
+certifying an omitted layer's payload schema or loading its arrays. Selective
+reads do not become whole-file validation; byte-preserving copies need not
+decode or validate contents. The rejection regressions are in
+`tests/form/file_h5msm/test_integer_metadata.py`.
+
 Roots 0.5, 0.6 and 1.0 use field-specific dtypes rather than a global precision flag.
 Structural floating series use float64; structure IDs use int64 or explicit
 text encoding; topology/chemical/reference data follow their layer contracts;

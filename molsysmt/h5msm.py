@@ -36,8 +36,8 @@ def read(filename, skip_digestion=False):
     Raises
     ------
     ValueError
-        If the file has an unsupported version or its domains cannot be represented by
-        one native molecular system.
+        If the file has an unsupported version, invalid integral metadata, or
+        domains that cannot be represented by one native molecular system.
 
     Notes
     -----
@@ -169,6 +169,16 @@ def read_layers(filename, layers=None, analysis_names=None, skip_digestion=False
         Requested layers keyed by their schema names. An absent layer is None;
         a present but empty interaction layer is an empty dictionary.
 
+    Raises
+    ------
+    ValueError
+        If a requested layer has unsupported or malformed schema metadata.
+
+    Notes
+    -----
+    Integral headers are validated without numeric coercion. Selecting a layer
+    does not decode or establish compatibility of omitted domain payloads.
+
     .. versionadded:: 1.0.0
     """
     from molsysmt._private.h5msm_storage.versions import root_version
@@ -203,7 +213,7 @@ def read_axis_sizes(filename, skip_digestion=False):
     Raises
     ------
     ValueError
-        If the root version or declared cardinalities are unsupported.
+        If the root version or integral cardinality declarations are invalid.
 
     Notes
     -----
@@ -211,6 +221,9 @@ def read_axis_sizes(filename, skip_digestion=False):
     Equal sizes do not establish correspondence; inspect declared associations
     separately with read_layers. A mechanics-only layer retains its explicit atom
     count here even when its native parameter-only object has no atom table.
+    Counts and schema headers must be scalar integers, not booleans, floats,
+    strings or arrays. This query does not establish support for an unrequested
+    layer's payload schema.
 
     Examples
     --------

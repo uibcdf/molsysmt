@@ -6,6 +6,7 @@ import h5py
 import numpy as np
 
 from molsysmt import pyunitwizard as puw
+from molsysmt._private.hdf5_validation import schema_version
 
 _FIELDS = frozenset(
     {
@@ -201,7 +202,8 @@ def read_alternate_location(
     if "alternate_location" not in group:
         return None
     child = group["alternate_location"]
-    if child.attrs.get("schema_version") != 1 or set(child) != _FIELDS:
+    schema_version(child, (1,), "H5MSM 0.5 alternate-location")
+    if set(child) != _FIELDS:
         raise ValueError("Unsupported H5MSM 0.5 alternate-location schema.")
     frame_offsets = _check_dataset(
         child, "frame_offsets", "int64", (n_structures + 1,)

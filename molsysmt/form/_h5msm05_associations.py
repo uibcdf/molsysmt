@@ -1,8 +1,12 @@
 """Private explicit axis links between optional H5MSM 0.5 layers."""
 
-import json
-
 import numpy as np
+
+from molsysmt._private.hdf5_validation import (
+    integer_metadata,
+    numbered_group_count,
+    schema_version,
+)
 
 _LAYERS = frozenset({"topology", "chemical_states", "structures", "interactions"})
 _AXIS_PAIRS = {
@@ -35,29 +39,45 @@ def _axis_sizes(topology, chemical_states, structures, interactions):
 
 
 def _axis_sizes_from_file(root):
-    """Read axis cardinalities without loading any domain payload arrays."""
+    """Read common axis headers without decoding or admitting omitted layer schemas."""
     sizes = {}
     if "topology" in root:
-        sizes[("topology", None, "atom")] = int(root["topology/atoms"].attrs["n_rows"])
+        schema_version(root["topology"], None, "H5MSM topology layer")
+        sizes[("topology", None, "atom")] = integer_metadata(
+            root["topology/atoms"].attrs["n_rows"], "topology.atoms.n_rows"
+        )
     if "chemical_states" in root:
         group = root["chemical_states"]
-        sizes[("chemical_states", None, "atom")] = int(group.attrs["n_atoms"])
-        sizes[("chemical_states", None, "state")] = int(
-            group.attrs["n_chemical_states"]
+        schema_version(group, None, "H5MSM chemical-state layer")
+        sizes[("chemical_states", None, "atom")] = integer_metadata(
+            group.attrs["n_atoms"], "chemical_states.n_atoms"
+        )
+        sizes[("chemical_states", None, "state")] = numbered_group_count(
+            group, "n_chemical_states", "Chemical-state collection"
         )
     if "structures" in root:
         group = root["structures"]
-        sizes[("structures", None, "structure")] = int(group.attrs["n_structures"])
-        n_atoms = int(group.attrs["n_atoms"])
+        schema_version(group, None, "H5MSM structures layer")
+        sizes[("structures", None, "structure")] = integer_metadata(
+            group.attrs["n_structures"], "structures.n_structures"
+        )
+        n_atoms = integer_metadata(
+            group.attrs["n_atoms"], "structures.n_atoms", minimum=-1
+        )
         if n_atoms >= 0:
             sizes[("structures", None, "atom")] = n_atoms
     if "interactions" in root:
+        from molsysmt.interactions._hdf5_collection import _collection_count
+        from molsysmt.interactions._hdf5_metadata import read_metadata
+
         collection = root["interactions"]
+        _collection_count(collection, schema_versions=None)
         for child in collection.values():
+            schema_version(child, None, "Interactions group")
             name = child.attrs["name"]
-            metadata = json.loads(child.attrs["metadata"])
-            sizes[("interactions", name, "atom")] = int(metadata["n_atoms"])
-            sizes[("interactions", name, "structure")] = int(metadata["n_structures"])
+            metadata = read_metadata(child)
+            sizes[("interactions", name, "atom")] = metadata["n_atoms"]
+            sizes[("interactions", name, "structure")] = metadata["n_structures"]
     return sizes
 
 
@@ -290,11 +310,8 @@ def read_associations(root, sizes, *, axes=None, layers=_LAYERS):
     if "associations" not in root:
         return None
     group = root["associations"]
-    if group.attrs.get("schema_version") != 1:
-        raise ValueError("Unsupported H5MSM 0.5 association schema.")
-    count = int(group.attrs["n_links"])
-    if count < 0 or set(group) != {str(index) for index in range(count)}:
-        raise ValueError("Association link groups are inconsistent.")
+    schema_version(group, (1,), "H5MSM 0.5 association")
+    count = numbered_group_count(group, "n_links", "Association collection")
     links = []
     for index in range(count):
         child = group[str(index)]

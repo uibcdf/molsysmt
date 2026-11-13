@@ -354,3 +354,10 @@ destination must be absent. Whole-file migration is a resident operation.
 Selection, source naming overrides, and conversion reports use the usual native
 conversion route. Explicit `format_version="1.0"` selects the same output
 schema as the current default.
+
+Migration decodes the source before publishing the new destination. Malformed
+integral headers, such as a fractional atom count or a boolean layer version,
+are rejected without rounding; the source remains unchanged and no destination
+is published. Fix such metadata only from verified source information.
+`msm.copy(source)` preserves bytes and does not perform this validation.
+See {ref}`user-tools-form-h5msm-10` for the reader contract.

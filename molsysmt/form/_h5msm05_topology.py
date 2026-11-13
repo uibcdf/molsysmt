@@ -6,6 +6,7 @@ import h5py
 import numpy as np
 import pandas as pd
 
+from molsysmt._private.hdf5_validation import integer_metadata, schema_version
 from molsysmt.native.chemical_states_dict import _decode_series, _encode_series
 from molsysmt.native.topology import Topology
 
@@ -123,13 +124,7 @@ def read_independent_topology(root):
     if "topology" not in root:
         return None
     group = root["topology"]
-    version = group.attrs.get("schema_version")
-    if (
-        not isinstance(version, (int, np.integer))
-        or isinstance(version, (bool, np.bool_))
-        or version not in (1, 2, 3, 4)
-    ):
-        raise ValueError("Unsupported H5MSM 0.5 topology layer schema.")
+    version = schema_version(group, (1, 2, 3, 4), "H5MSM 0.5 topology layer")
     expected = set(_TABLES) | ({"chain_groups"} if version == 2 else set())
     if version == 3:
         expected |= {"atom_molecules"}
@@ -148,7 +143,9 @@ def read_independent_topology(root):
         table_group = group[name]
         if set(table_group) != set(columns):
             raise ValueError(f"Topology table {name!r} has missing or unknown columns.")
-        n_rows = int(table_group.attrs["n_rows"])
+        n_rows = integer_metadata(
+            table_group.attrs["n_rows"], f"topology.{name}.n_rows"
+        )
         if n_rows < 0:
             raise ValueError(f"Topology table {name!r} has an invalid row count.")
         table = pd.DataFrame(index=range(n_rows))

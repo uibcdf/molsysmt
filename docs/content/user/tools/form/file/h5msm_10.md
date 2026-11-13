@@ -52,6 +52,13 @@ atom axes. Equal counts establish correspondence only when declared in the
 file's associations. `read` assembles a MolSys when those declarations support
 one native system.
 
+Counts and layer-version headers must be scalar integers. Readers reject
+booleans, floats, numeric strings and arrays instead of rounding or parsing
+them. Numbered collections must agree with their stored members. These checks
+also apply to the metadata used by iteration and append. They leave valid
+files unchanged. A selected-layer read does not certify omitted payloads,
+and a byte-preserving file copy does not validate contents.
+
 The root stores the file writer's version and creation time. Named analyses
 retain their original scientific method, parameters, units, software versions,
 coverage, occurrence indices and periodic images. Query and geometry

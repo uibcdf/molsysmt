@@ -5,6 +5,7 @@ from math import gcd
 import h5py
 import numpy as np
 
+from molsysmt._private.hdf5_validation import integer_metadata, schema_version
 from molsysmt.native._structure_array import _StructureArray
 from molsysmt.native.structures import Structures
 
@@ -300,8 +301,7 @@ def append_independent_structures(root, structures, *, block_size=256):
         raise ValueError("block_size must be a positive integer.")
     count, n_atoms, values = _prepared_series(structures)
     group = root["structures"]
-    if group.attrs.get("schema_version") != 1:
-        raise ValueError("Unsupported H5MSM 0.5 structures layer schema.")
+    schema_version(group, (1,), "H5MSM 0.5 structures layer")
     stored_bioassembly = read_bioassembly(group)
     if structures.bioassembly is not None and not same_bioassembly(
         stored_bioassembly, structures.bioassembly
@@ -315,8 +315,10 @@ def append_independent_structures(root, structures, *, block_size=256):
         raise ValueError(
             "Appending structures requires matching alternate_location presence."
         )
-    old_count = int(group.attrs["n_structures"])
-    old_atoms = int(group.attrs["n_atoms"])
+    old_count = integer_metadata(group.attrs["n_structures"], "structures.n_structures")
+    old_atoms = integer_metadata(
+        group.attrs["n_atoms"], "structures.n_atoms", minimum=-1
+    )
     if old_count < 0 or old_atoms < -1 or old_atoms != n_atoms:
         raise ValueError("The appended structures have an incompatible atom axis.")
     fields = {name for name, value in values.items() if value is not None}
@@ -414,10 +416,11 @@ def validate_structures_metadata(root):
     if "structures" not in root:
         return None
     group = root["structures"]
-    if group.attrs.get("schema_version") != 1:
-        raise ValueError("Unsupported H5MSM 0.5 structures layer schema.")
-    n_structures = int(group.attrs["n_structures"])
-    n_atoms = int(group.attrs["n_atoms"])
+    schema_version(group, (1,), "H5MSM 0.5 structures layer")
+    n_structures = integer_metadata(
+        group.attrs["n_structures"], "structures.n_structures"
+    )
+    n_atoms = integer_metadata(group.attrs["n_atoms"], "structures.n_atoms", minimum=-1)
     if n_structures < 0 or n_atoms < -1:
         raise ValueError("Invalid structures layer axis cardinality.")
     unknown = set(group) - set(_FIELDS) - {"bioassembly", "alternate_location"}

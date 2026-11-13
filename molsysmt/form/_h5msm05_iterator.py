@@ -12,7 +12,7 @@ from ._h5msm05_structures import (
     _atom_rows,
     _rows,
     _selection,
-    _validate_structure_series,
+    validate_structures_metadata,
 )
 
 
@@ -37,20 +37,9 @@ class _StructuresIterator05:
             from molsysmt._private.h5msm_storage.modular import _header
 
             _header(self._file)
-            self._group = self._file["structures"]
-            if self._group.attrs.get("schema_version") != 1:
-                raise ValueError("Unsupported H5MSM 0.5 structures layer schema.")
-            n_frames = int(self._group.attrs["n_structures"])
-            n_atoms = int(self._group.attrs["n_atoms"])
-            if n_frames < 0 or n_atoms < -1:
-                raise ValueError("Invalid structures layer axis cardinality.")
-            unknown = (
-                set(self._group) - set(_FIELDS) - {"bioassembly", "alternate_location"}
-            )
-            if unknown:
-                raise ValueError(f"Unknown structural series {sorted(unknown)}.")
-            for name in set(self._group) & set(_FIELDS):
-                _validate_structure_series(self._group, name, n_frames, n_atoms)
+            if "structures" not in self._file:
+                raise KeyError("structures")
+            self._group, n_frames, n_atoms = validate_structures_metadata(self._file)
             self._attributes = [name for name, enabled in attributes.items() if enabled]
             if set(self._attributes) - {
                 "coordinates",

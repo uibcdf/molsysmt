@@ -112,6 +112,13 @@ See {ref}`user-tools-form-h5msm-05` for the supported boundary.
 
 ## Performance and Storage Invariants
 
+Modular counts and layer-version headers use scalar integer encodings.
+Readers refuse booleans, floating-point numbers, strings and arrays instead
+of silently converting them to counts. Numbered collections must match their
+stored members before enumeration. Metadata queries check common headers;
+they do not validate omitted domain payloads. See
+{ref}`user-tools-form-h5msm-10` for the current reader scope.
+
 Modular H5MSM 0.5, 0.6, and 1.0 use field-specific stored types. Structural floating
 series use float64; chemistry, topology, maps and mechanical payloads follow
 their declared encodings. The legacy global `float_precision` and `int_precision`

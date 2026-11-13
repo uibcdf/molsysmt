@@ -1,5 +1,7 @@
 """Private HDF5 group codec for named sparse interaction analyses."""
 
+from molsysmt._private.hdf5_validation import numbered_group_count, schema_version
+
 from .result import Interactions
 
 _SCHEMA = "molsysmt.interactions_collection"
@@ -27,17 +29,22 @@ def write_named_analyses(group, analyses):
         analyses[name]._write_group(child)
 
 
+def _collection_count(group, *, schema_versions=(_VERSION,)):
+    """Validate collection headers without interpreting analysis payloads."""
+    if group.attrs.get("schema") != _SCHEMA:
+        raise ValueError("unsupported interaction collection schema or version")
+    try:
+        schema_version(group, schema_versions, "interaction collection")
+    except ValueError as error:
+        raise ValueError(
+            "unsupported interaction collection schema or version"
+        ) from error
+    return numbered_group_count(group, "n_analyses", "interaction collection")
+
+
 def read_named_analyses(group, names=None):
     """Read selected named analyses from a versioned HDF5 collection."""
-
-    if (
-        group.attrs.get("schema") != _SCHEMA
-        or group.attrs.get("schema_version") != _VERSION
-    ):
-        raise ValueError("unsupported interaction collection schema or version")
-    count = int(group.attrs["n_analyses"])
-    if count < 0 or set(group) != {str(index) for index in range(count)}:
-        raise ValueError("interaction collection has inconsistent analysis groups")
+    count = _collection_count(group)
     requested = (
         None if names is None else ({names} if isinstance(names, str) else set(names))
     )

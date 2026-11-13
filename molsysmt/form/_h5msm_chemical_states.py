@@ -4,6 +4,11 @@ import h5py
 import numpy as np
 import pandas as pd
 
+from molsysmt._private.hdf5_validation import (
+    integer_metadata,
+    numbered_group_count,
+    schema_version,
+)
 from molsysmt._private.smonitor import StructuralInconsistencyError
 from molsysmt.native._chemical_state import (
     Bonds_DataFrame,
@@ -242,13 +247,18 @@ def read_chemical_states(topology_group, n_atoms):
 
 def _read_states_group(states_group, n_atoms):
     """Read state records from a group independent of its parent."""
-    n_states = int(states_group.attrs.get("n_chemical_states", len(states_group)))
-    expected_names = [str(index) for index in range(n_states)]
-    if sorted(states_group.keys(), key=int) != expected_names:
+    try:
+        n_states = numbered_group_count(
+            states_group,
+            "n_chemical_states",
+            "Chemical-state collection",
+            default=len(states_group),
+        )
+    except ValueError as error:
         raise StructuralInconsistencyError(
             reason="H5MSM chemical-state indices are not contiguous and ordered.",
             caller="molsysmt.form._h5msm_chemical_states",
-        )
+        ) from error
 
     output = []
     for state_index in range(n_states):
@@ -282,7 +292,11 @@ def _read_states_group(states_group, n_atoms):
         for name in bond_table.columns:
             bonds[name] = bond_table[name]
 
-        provenance_index = int(group.attrs.get("provenance_index", -1))
+        provenance_index = integer_metadata(
+            group.attrs.get("provenance_index", -1),
+            "chemical_state.provenance_index",
+            minimum=-(2**63),
+        )
         from ._h5msm_preparation_history import read_history
 
         state = _ChemicalStateStorage(
@@ -301,7 +315,11 @@ def _read_states_group(states_group, n_atoms):
         state._ensure_compatibility(n_atoms)
         output.append(state)
 
-    reference_index = int(states_group.attrs.get("reference_chemical_state_index", -1))
+    reference_index = integer_metadata(
+        states_group.attrs.get("reference_chemical_state_index", -1),
+        "chemical_states.reference_chemical_state_index",
+        minimum=-(2**63),
+    )
     if reference_index >= n_states:
         raise StructuralInconsistencyError(
             reason="H5MSM reference chemical-state index is out of range.",
@@ -335,13 +353,12 @@ def read_independent_chemical_states(root):
     if "chemical_states" not in root:
         return None
     group = root["chemical_states"]
-    if group.attrs.get("schema_version") not in {1, 2} or "n_atoms" not in group.attrs:
-        raise ValueError("Unsupported H5MSM 0.5 chemical-state layer schema.")
+    schema_version(group, (1, 2), "H5MSM 0.5 chemical-state layer")
     if group.attrs["schema_version"] == 1 and any(
         "preparation_history" in state for state in group.values()
     ):
         raise ValueError("Preparation history requires chemical-state layer schema 2.")
-    n_atoms = int(group.attrs["n_atoms"])
+    n_atoms = integer_metadata(group.attrs.get("n_atoms"), "chemical_states.n_atoms")
     if n_atoms < 0:
         raise ValueError("Chemical-state atom count must be nonnegative.")
     records, reference_index = _read_states_group(group, n_atoms)
