@@ -778,6 +778,46 @@ sections:
             agents_file: docs/content/user/tools/form/class/openmm/openmm_Topology.ipynb.AGENTS.md
             description: Received OpenMM declarations and implementation links with actual coordinate, chemistry, runtime and unavailable-operation limits.
             status: pending_review
+          - name: reviewed_mdtraj_AmberRestartFile_references
+            file: docs/content/user/tools/form/class/mdtraj/mdtraj_AmberRestartFile.ipynb
+            agents_file: docs/content/user/tools/form/class/mdtraj/mdtraj_AmberRestartFile.ipynb.AGENTS.md
+            description: Received MDTraj declarations and implementation links with coordinate units, reader ownership, chemical projection and supported iteration limits.
+            status: pending_review
+          - name: reviewed_mdtraj_DCDTrajectoryFile_references
+            file: docs/content/user/tools/form/class/mdtraj/mdtraj_DCDTrajectoryFile.ipynb
+            agents_file: docs/content/user/tools/form/class/mdtraj/mdtraj_DCDTrajectoryFile.ipynb.AGENTS.md
+            description: Received MDTraj declarations and implementation links with coordinate units, reader ownership, chemical projection and supported iteration limits.
+            status: pending_review
+          - name: reviewed_mdtraj_GroTrajectoryFile_references
+            file: docs/content/user/tools/form/class/mdtraj/mdtraj_GroTrajectoryFile.ipynb
+            agents_file: docs/content/user/tools/form/class/mdtraj/mdtraj_GroTrajectoryFile.ipynb.AGENTS.md
+            description: Received MDTraj declarations and implementation links with coordinate units, reader ownership, chemical projection and supported iteration limits.
+            status: pending_review
+          - name: reviewed_mdtraj_HDF5TrajectoryFile_references
+            file: docs/content/user/tools/form/class/mdtraj/mdtraj_HDF5TrajectoryFile.ipynb
+            agents_file: docs/content/user/tools/form/class/mdtraj/mdtraj_HDF5TrajectoryFile.ipynb.AGENTS.md
+            description: Received MDTraj declarations and implementation links with coordinate units, reader ownership, chemical projection and supported iteration limits.
+            status: pending_review
+          - name: reviewed_mdtraj_PDBTrajectoryFile_references
+            file: docs/content/user/tools/form/class/mdtraj/mdtraj_PDBTrajectoryFile.ipynb
+            agents_file: docs/content/user/tools/form/class/mdtraj/mdtraj_PDBTrajectoryFile.ipynb.AGENTS.md
+            description: Received MDTraj declarations and implementation links with coordinate units, reader ownership, chemical projection and supported iteration limits.
+            status: pending_review
+          - name: reviewed_mdtraj_Topology_references
+            file: docs/content/user/tools/form/class/mdtraj/mdtraj_Topology.ipynb
+            agents_file: docs/content/user/tools/form/class/mdtraj/mdtraj_Topology.ipynb.AGENTS.md
+            description: Received MDTraj declarations and implementation links with coordinate units, reader ownership, chemical projection and supported iteration limits.
+            status: pending_review
+          - name: reviewed_mdtraj_Trajectory_references
+            file: docs/content/user/tools/form/class/mdtraj/mdtraj_Trajectory.ipynb
+            agents_file: docs/content/user/tools/form/class/mdtraj/mdtraj_Trajectory.ipynb.AGENTS.md
+            description: Received MDTraj declarations and implementation links with coordinate units, reader ownership, chemical projection and supported iteration limits.
+            status: pending_review
+          - name: reviewed_mdtraj_XTCTrajectoryFile_references
+            file: docs/content/user/tools/form/class/mdtraj/mdtraj_XTCTrajectoryFile.ipynb
+            agents_file: docs/content/user/tools/form/class/mdtraj/mdtraj_XTCTrajectoryFile.ipynb.AGENTS.md
+            description: Received MDTraj declarations and implementation links with coordinate units, reader ownership, chemical projection and supported iteration limits.
+            status: pending_review
           - name: pdb_reader_context
             file: docs/content/user/tools/form/file/file_pdb.ipynb
             agents_file: docs/content/user/tools/form/file/file_pdb.ipynb.AGENTS.md

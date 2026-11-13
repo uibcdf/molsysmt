@@ -253,6 +253,17 @@ _OPENMM_CLASS_OPERATIONS = {
     "openmm_Topology": _FILE_HOOKS,
 }
 _EXTERNAL_CLASS_OPERATIONS.update(_OPENMM_CLASS_OPERATIONS)
+_MDTRAJ_CLASS_OPERATIONS = {
+    "mdtraj_AmberRestartFile": _FILE_HOOKS,
+    "mdtraj_DCDTrajectoryFile": _FILE_HOOKS,
+    "mdtraj_GroTrajectoryFile": _FILE_HOOKS,
+    "mdtraj_HDF5TrajectoryFile": _FILE_HOOKS,
+    "mdtraj_PDBTrajectoryFile": _FILE_HOOKS,
+    "mdtraj_Topology": _FILE_HOOKS,
+    "mdtraj_Trajectory": _FILE_HOOKS,
+    "mdtraj_XTCTrajectoryFile": _FILE_HOOKS,
+}
+_EXTERNAL_CLASS_OPERATIONS.update(_MDTRAJ_CLASS_OPERATIONS)
 
 
 def _declared_converters(adapter, directory):
