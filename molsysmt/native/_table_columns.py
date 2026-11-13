@@ -1,6 +1,23 @@
-"""Join native table columns with their declared nullable dtypes."""
+"""Preserve native table columns and their declared nullable storage."""
 
 import pandas as pd
+
+
+def assign_nullable_integer(table, column, values, indices=None):
+    """Stage a nullable integer column edit before publishing it to its table."""
+    if indices is None:
+        if pd.api.types.is_scalar(values):
+            values = [values] * len(table)
+        candidate = pd.array(values, dtype="Int64", copy=True)
+        if len(candidate) != len(table):
+            raise ValueError("Membership values must match the target row count.")
+    else:
+        candidate = pd.Series(
+            pd.array(table[column], dtype="Int64", copy=True), index=table.index
+        )
+        candidate.iloc[indices] = pd.array(values, dtype="Int64")
+        candidate = candidate.array
+    table[column] = candidate
 
 
 def equivalent(left, right):

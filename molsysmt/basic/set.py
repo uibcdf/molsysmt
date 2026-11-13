@@ -85,6 +85,13 @@ def set(
     system-level metadata, not a per-structure series. Attribute assignments in
     a multi-attribute call remain sequential rather than one transaction.
 
+    Direct native parent-column edits retain nullable integer storage:
+    group_index/chain_index on atoms, molecule_index on groups and entity_index
+    on molecules. A None entry in an aligned value vector denotes unknown
+    membership. Invalid lengths or noninteger values fail before that column
+    is published. This is per-column staging, not a transaction across several
+    attributes or a new hierarchy-projection capability.
+
     Native box assignment requires one matrix per addressed structure, with
     shape (n_selected_structures, 3, 3) and explicit length units. A single
     matrix is one structure, not an implicit broadcast. Incompatible full-axis

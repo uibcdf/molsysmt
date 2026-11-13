@@ -2,9 +2,26 @@ import numpy as np
 import pandas as pd
 
 from molsysmt._private.argdigest import arg_digest
+from molsysmt._private.smonitor import ArgumentError
 from molsysmt._private.variables import is_all
 
 form = "molsysmt.Topology"
+
+
+def _assign_membership(table, column, indices, value):
+    """Preserve the native nullable schema when assigning stable parents."""
+    from molsysmt.native._table_columns import assign_nullable_integer
+
+    try:
+        assign_nullable_integer(
+            table, column, value, indices=None if is_all(indices) else indices
+        )
+    except (TypeError, ValueError) as error:
+        raise ArgumentError(
+            argument="value",
+            caller=__name__,
+            message="Membership values must be nullable integers aligned with the selected rows.",
+        ) from error
 
 
 def _string_labels(value):
@@ -177,14 +194,26 @@ def set_group_index_to_atom(item, indices="all", value=None, skip_digestion=Fals
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    Notes
+    -----
+    Full and selected assignments retain nullable Int64 membership. A None
+    entry in the aligned value vector means unknown membership. Column edits
+    are staged before publication; invalid lengths or noninteger values do
+    not partially update that column. Existing projection and reconstruction
+    contracts remain separate.
+
+    Examples
+    --------
+    >>> from molsysmt.native import Topology
+    >>> topology = Topology(n_atoms=2, n_groups=1)
+    >>> set_group_index_to_atom(topology, value=[0, 0])
+    >>> set_group_index_to_atom(topology, indices=[0], value=[None])
+    >>> topology.atoms['group_index'].isna().tolist()
+    [True, False]
+
     .. versionadded:: 1.0.0
     """
-    if is_all(indices):
-        item.atoms.group_index = value
-    else:
-        item.atoms.loc[indices, "group_index"] = value
-
-    pass
+    _assign_membership(item.atoms, "group_index", indices, value)
 
 
 @arg_digest(form=form)
@@ -204,15 +233,26 @@ def set_chain_index_to_atom(item, indices="all", value=None, skip_digestion=Fals
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    Notes
+    -----
+    Full and selected assignments retain nullable Int64 membership. A None
+    entry in the aligned value vector means unknown membership. Column edits
+    are staged before publication; invalid lengths or noninteger values do
+    not partially update that column. Existing projection and reconstruction
+    contracts remain separate.
+
+    If any assigned chain membership is unknown, the declared chain inventory
+    is retained. Complete known assignments retain the existing rebuild policy.
+
     .. versionadded:: 1.0.0
     """
     if is_all(indices):
         if len(value) == 1:
-            item.atoms.chain_index = value[0]
-            n_chains = 1
-        else:
-            item.atoms.chain_index = value
-            n_chains = np.unique(value).shape[0]
+            value = [value[0]] * item.n_atoms
+        _assign_membership(item.atoms, "chain_index", indices, value)
+        if item.atoms["chain_index"].isna().any():
+            return
+        n_chains = item.atoms["chain_index"].nunique()
         if n_chains != item.chains.shape[0]:
             item.reset_chains(n_chains=n_chains)
             item.rebuild_chains(
@@ -222,8 +262,7 @@ def set_chain_index_to_atom(item, indices="all", value=None, skip_digestion=Fals
                 redefine_names=True,
             )
     else:
-        item.atoms["chain_index"] = item.atoms["chain_index"].astype("Int64")
-        item.atoms.loc[indices, "chain_index"] = value
+        _assign_membership(item.atoms, "chain_index", indices, value)
 
     pass
 
@@ -251,6 +290,17 @@ def _set_by_bridge(target_df, target_col, bridge_indices, value):
 
     Uses full column reassignment to avoid dtype enforcement of .at[].
     """
+    if target_col in {"molecule_index", "entity_index"}:
+        current = target_df[target_col].tolist()
+        seen = set()
+        for source_index, parent_index in enumerate(bridge_indices):
+            parent_index = int(parent_index)
+            if parent_index not in seen:
+                current[parent_index] = value[source_index]
+                seen.add(parent_index)
+        _assign_membership(target_df, target_col, "all", current)
+        return
+
     n_target = len(target_df)
     new_values = [None] * n_target
     for src_i, bi in enumerate(bridge_indices):
@@ -1554,15 +1604,17 @@ def set_molecule_index_to_group(item, indices="all", value=None, skip_digestion=
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    Notes
+    -----
+    Full and selected assignments retain nullable Int64 membership. A None
+    entry in the aligned value vector means unknown membership. Column edits
+    are staged before publication; invalid lengths or noninteger values do
+    not partially update that column. Existing projection and reconstruction
+    contracts remain separate.
+
     .. versionadded:: 1.0.0
     """
-    if is_all(indices):
-        item.groups["molecule_index"] = value
-    else:
-        for i, gi in enumerate(list(indices)):
-            item.groups.at[gi, "molecule_index"] = value[i]
-
-    pass
+    _assign_membership(item.groups, "molecule_index", indices, value)
 
 
 @arg_digest(form=form)
@@ -1646,15 +1698,17 @@ def set_entity_index_to_molecule(item, indices="all", value=None, skip_digestion
     skip_digestion : bool, default=False
         Whether to skip MolSysMT's internal argument digestion mechanism.
 
+    Notes
+    -----
+    Full and selected assignments retain nullable Int64 membership. A None
+    entry in the aligned value vector means unknown membership. Column edits
+    are staged before publication; invalid lengths or noninteger values do
+    not partially update that column. Existing projection and reconstruction
+    contracts remain separate.
+
     .. versionadded:: 1.0.0
     """
-    if is_all(indices):
-        item.molecules["entity_index"] = value
-    else:
-        for i, mi in enumerate(list(indices)):
-            item.molecules.at[mi, "entity_index"] = value[i]
-
-    pass
+    _assign_membership(item.molecules, "entity_index", indices, value)
 
 
 @arg_digest(form=form)
@@ -1869,7 +1923,7 @@ def set_chain_index_to_molecule(item, indices="all", value=None, skip_digestion=
 
     group_idx = item.atoms["group_index"].to_numpy()
     mol_idx_arr = item.groups["molecule_index"].to_numpy()
-    new_chain = item.atoms["chain_index"].to_numpy(copy=True)
+    new_chain = pd.array(item.atoms["chain_index"], dtype="Int64", copy=True)
 
     if is_all(indices):
         for ai in range(len(group_idx)):
@@ -1882,8 +1936,10 @@ def set_chain_index_to_molecule(item, indices="all", value=None, skip_digestion=
             if mi in idx_set:
                 new_chain[ai] = value[list(indices).index(mi)]
 
-    item.atoms["chain_index"] = new_chain
-    n_chains = len(np.unique(new_chain))
+    _assign_membership(item.atoms, "chain_index", "all", new_chain)
+    if item.atoms["chain_index"].isna().any():
+        return
+    n_chains = item.atoms["chain_index"].nunique()
     if n_chains != item.chains.shape[0]:
         item.reset_chains(n_chains=n_chains)
         item.rebuild_chains(
@@ -2033,7 +2089,7 @@ def set_molecule_index_to_chain(item, indices="all", value=None, skip_digestion=
             if ci in idx_set:
                 mol_idx_arr[int(group_idx[ai])] = value[idx_set[ci]]
 
-    item.groups["molecule_index"] = mol_idx_arr
+    _assign_membership(item.groups, "molecule_index", "all", mol_idx_arr)
 
     pass
 

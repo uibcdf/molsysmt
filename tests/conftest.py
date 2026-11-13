@@ -864,3 +864,18 @@ def mdtraj_hdf5_small_files(tmp_path, mdtraj_selection_ensemble):
             writer.topology = source.topology
         paths[mode] = path
     return paths
+
+
+@pytest.fixture()
+def nullable_membership_molsys():
+    """Supply a small, explicitly declared stable hierarchy for membership edits."""
+    import pandas as pd
+
+    from molsysmt.native import MolSys
+
+    molsys = MolSys(n_atoms=4, n_groups=2, n_molecules=2, n_entities=2, n_chains=2)
+    molsys.topology.atoms["group_index"] = pd.array([0, 0, 1, 1], dtype="Int64")
+    molsys.topology.atoms["chain_index"] = pd.array([0, 0, 1, 1], dtype="Int64")
+    molsys.topology.groups["molecule_index"] = pd.array([0, 1], dtype="Int64")
+    molsys.topology.molecules["entity_index"] = pd.array([0, 1], dtype="Int64")
+    return molsys

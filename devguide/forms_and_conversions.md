@@ -1157,3 +1157,22 @@ by root and retain explicitly requested mechanical context. These are bounded
 source/contract/parity checks, not installed-client acceptance or a stable 1.0
 schema declaration. See
 [receiving](../devtools/data/public_mechanics_receiving_256_20261108.json).
+
+
+## Nullable stable membership edits
+
+Direct native atom group/chain, group molecule and molecule entity assignments
+retain nullable Int64 storage after whole-column and selected edits. None entries
+in aligned vectors denote unknown parents. A staged column prevents invalid
+value types/lengths from partially publishing that edit. Public MolSys routes
+reuse the Topology owner; neither creates a chemical assignment or coordinate
+series. Full parent projections preserve the same stored nullable dtype and
+explicit missing values in their supported paths. Unsupported chain-to-molecule
+public assignment remains refused by its existing value boundary.
+
+Known full chain assignments retain the existing reconstruction policy; unknown
+chain membership preserves declared chain rows. This fix does not redesign
+hierarchy inference, parent bounds, projected selection conflict policy,
+interaction invalidation or multi-attribute transactions. Raw pandas writes
+retain their own responsibility. Guards:
+`tests/form/molsysmt_Topology/test_nullable_membership_assignment.py`.

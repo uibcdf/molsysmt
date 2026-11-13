@@ -80,7 +80,8 @@ sections:
           - name: topology
             file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md
             agents_file: docs/content/user/foundations/native_world/classes/molsysmt_Topology.md.AGENTS.md
-            description: Native hierarchy with compact group-name schemes, stable ungrouped atom/molecule declarations, ordered atom-free chain/group membership, alphabetic chain IDs, source-index covalent walks and FASTA correspondence, copy boundaries, controlled editing and analysis invalidation.
+            description: Native hierarchy with compact group-name schemes, stable ungrouped atom/molecule declarations, ordered atom-free chain/group membership, alphabetic chain IDs, source-index covalent walks and FASTA correspondence, copy boundaries, controlled editing and analysis invalidation. Includes nullable native parent-column editing limits.
+
           - name: molsys
             description: Independent native domains, explicit composition, chemical graph restriction, exact component labels, remapped references and staged ChemicalStates/Structures owner invalidation.
             file: docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md
@@ -204,7 +205,8 @@ sections:
           - name: set
             file: docs/content/user/tools/basic/set.ipynb
             agents_file: docs/content/user/tools/basic/set.ipynb.AGENTS.md
-            description: Attribute, coordinate and mechanics assignment, with nullable chemistry, partial component declarations, exact labels, aligned box edits and per-attribute staged publication.
+            description: Attribute, coordinate and mechanics assignment, with nullable chemistry, partial component declarations, exact labels, aligned box edits and per-attribute staged publication. Includes nullable native parent-column editing limits.
+
           - name: copy
             file: docs/content/user/tools/basic/copy.ipynb
             agents_file: docs/content/user/tools/basic/copy.ipynb.AGENTS.md
@@ -1090,7 +1092,7 @@ sections:
       - name: group_free_hierarchy
         file: docs/content/user/cookbook/group_free_hierarchy.ipynb
         agents_file: docs/content/user/cookbook/group_free_hierarchy.ipynb.AGENTS.md
-        description: Declaring stable molecules and partial components, absent-domain staging, exact-set labels, alternative-state chemistry, graph restriction and MDTraj selectors.
+        description: Declaring stable molecules and partial components, absent-domain staging, exact-set labels, alternative-state chemistry, graph restriction and MDTraj selectors. Includes nullable native parent-column editing limits.
       - name: molecular_descriptors
         file: docs/content/user/cookbook/molecular_descriptors.md
         agents_file: docs/content/user/cookbook/molecular_descriptors.md.AGENTS.md

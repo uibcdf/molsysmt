@@ -202,6 +202,13 @@ Query stable inventory and represented hierarchy with `topology.get(...)`. State
 
 ## Controlled Edits
 
+Native group/chain membership on atoms, molecule membership on groups and
+entity membership on molecules use nullable integer columns. Full replacement
+through public setters preserves unknown-value semantics for later selected
+edits. Invalid lengths/noninteger values are staged before publishing that
+column. Indices remain positions; ID columns retain their independent string
+labels. Missing chain assignments do not establish a new chain inventory.
+
 Stable membership edits on an attached Topology notify its MolSys owner.
 Atom-axis resizing must use a coordinated molecular edit. Chemical assignments
 instead use `msm.set(molsys, ...)` or `msm.set(molsys.chemical_states, ...)`;
