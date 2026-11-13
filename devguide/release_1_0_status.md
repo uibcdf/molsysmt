@@ -8293,3 +8293,16 @@ every observed PID/start identity is retired, and the two short task-owned
 browser temporary directories are removed. Original raw artifacts remain
 private with digests in the receipt. No foreign process is signalled and no
 hosted qualification, candidate production, tag or publication is started.
+
+
+#723 is independently confirmed closed after public `00316b86e`. Complete
+remote trees match all eleven changed closeout paths and 3,703 frozen tracked
+receiver-input files, with native/version extras explicit. Complete intake has
+663 issues, 94 open and no open PRs; board/queues agree. All five task units
+are terminal and unloaded, all 45 observed PID/start rows are retired and
+the two task-owned short browser temporary directories are removed. The
+[closeout receipt](../devtools/data/prolonged_memory_closeout_723_20261113.json)
+records those observations. #256's existing coordination issue now explicitly
+records accepted MolSysViewer default receiving and the remaining BindingMT
+handoff. Continue the finite stable-format/investigative/final-pair work;
+no new detector, optional redesign or publication operation is admitted.

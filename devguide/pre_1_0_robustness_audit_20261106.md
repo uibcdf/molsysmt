@@ -50,7 +50,7 @@ the release requirements.
 | P1 — strict API documentation, #334 | Complete HTML on clean `01c6266f6`, `8ada7fe24` and `3546267d0` passes with zero warnings. Eight RST files include the four expressly approved preexisting edits; the original six-title failure is retained. | This bounded correction is received. Recheck affected pages for later changes and run the exact final candidate's documentation gate. |
 | P2 — persistence/integration and source receiving, #334 / #256 / #709–#713 / #717 / #720 / #722 | Complete `6acad4f35` remains **33,850 passes, 16 skips, zero failures/errors**. Later iterator diagnostic/inventory and flag repairs have focused receiving: 166, then 377, then 526 overlapping cases pass. The native binary remains unchanged. | Preserve exact scopes and original failures. Later executable changes remain in the deliberate complete-source/nightly backlog; latest main is not fully qualified. #713 causality, hosted/platform/installed and exact-candidate gates stay separate. |
 | P3 — semantic documentation and discoverability, #727 / #378 | The final 340-case receiving passes. All 86 reviewed adapter articles deliver 1,673 intended references to 1,528 verified source files; explicit guards cover all 95 form notebooks. Twenty-three selected pages build without warnings, preserving executable payloads and metadata. | #727 and related adapter repairs #742–#744 are publicly closed. Preserve their guards and evidence. Broader discoverability and final complete-site qualification remain separate; [receipt](../devtools/data/remaining_form_reference_receiving_727_20261113.json). |
-| P4 — incoming and remaining issues/PRs, owning issue / #334 | Complete intake has 663 issues, 95 open and no open PRs. #727/#742/#743/#744 are independently closed; board and queues agree. Eighteen exact task-owned services are terminal and retired. | Continue #723/#615/#713 and stable-format/client/final-pair work. Preserve the current scope cutoff; optional #741 remains after 1.0. [Closeout](../devtools/data/remaining_form_reference_closeout_727_20261113.json). |
+| P4 — incoming and remaining issues/PRs, owning issue / #334 | Complete intake has 663 issues, 94 open and no open PRs. #723 and #727/#742/#743/#744 are independently closed; board and queues agree. The five new memory-task units and their observed process identities are retired. | Continue #256 stable-format/default-client receiving and bounded #615/#713 conclusions, then the exact final pair. Preserve the scope cutoff and existing publication pause. [Memory closeout](../devtools/data/prolonged_memory_closeout_723_20261113.json). |
 | P5 — client and final-candidate boundaries, #256 / #250 / #254 / #524 / #615 / #334 | Independent default-specific MolSysViewer source receiving is [reviewed and accepted](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-default-specific-molsysviewer-receiving--2026-11-11): 18 session cases and 151 boundary cases on the declared source. The final pair is not frozen; #615's original uncertainty and installed-package evidence remain open. | Complete the stable-format decision and final pair agreement. Keep the published dependency floor, installed matrix and publication decisions distinct from local polish and headless source receiving. |
 
 ### File-review correctness intake — 2026-11-12
@@ -2830,3 +2830,16 @@ every observed PID/start identity is retired, and the two short task-owned
 browser temporary directories are removed. Original raw artifacts remain
 private with digests in the receipt. No foreign process is signalled and no
 hosted qualification, candidate production, tag or publication is started.
+
+
+#723 is independently confirmed closed after public `00316b86e`. Complete
+remote trees match all eleven changed closeout paths and 3,703 frozen tracked
+receiver-input files, with native/version extras explicit. Complete intake has
+663 issues, 94 open and no open PRs; board/queues agree. All five task units
+are terminal and unloaded, all 45 observed PID/start rows are retired and
+the two task-owned short browser temporary directories are removed. The
+[closeout receipt](../devtools/data/prolonged_memory_closeout_723_20261113.json)
+records those observations. #256's existing coordination issue now explicitly
+records accepted MolSysViewer default receiving and the remaining BindingMT
+handoff. Continue the finite stable-format/investigative/final-pair work;
+no new detector, optional redesign or publication operation is admitted.

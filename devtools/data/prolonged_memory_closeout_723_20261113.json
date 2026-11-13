@@ -1,0 +1,136 @@
+{
+  "schema": "molsysmt.prolonged_memory_closeout/1",
+  "date": "2026-11-13",
+  "issue": "uibcdf/molsysmt#723",
+  "state": "CLOSED",
+  "receiving_receipt": "devtools/data/prolonged_memory_receiving_723_20261113.json",
+  "published_source_verification": {
+    "closeout": {
+      "commit": "00316b86e1588ace803a43b7b0cd0e8e1ea1f054",
+      "truncated": false,
+      "matched_changed_files": [
+        {
+          "path": "devguide/archive/resolved_bugs/prolonged_jupyter_memory_sampling_lacks_host_baseline_and_settled_controls.md",
+          "git_blob": "9d0875c2ceb1f6cc5d1a5a587f3a739d19fa248d"
+        },
+        {
+          "path": "devguide/jupyter_memory_sampling_method.md",
+          "git_blob": "ff6f0929c908a89f2898847bafb818981ccfab7f"
+        },
+        {
+          "path": "devguide/pending_bugs/README.md",
+          "git_blob": "9458533b1c1ff9139a52a2e061e6284ebc8925b2"
+        },
+        {
+          "path": "devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md",
+          "git_blob": "870f4e6213bc68e7c47fbbd2b18b3449476a7537"
+        },
+        {
+          "path": "devguide/pre_1_0_completion_handoffs_20261110.md",
+          "git_blob": "a6f81da80a98c01859427ffafdd2ee997cb6bafd"
+        },
+        {
+          "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+          "git_blob": "93b883b51afeff6334267ed7555d7c1fcd09a4ef"
+        },
+        {
+          "path": "devguide/release_1_0_status.md",
+          "git_blob": "21c1b3e86dbc747e9e3cf66c017b5ad206ef0564"
+        },
+        {
+          "path": "devtools/data/h5msm_client_coordination_256_20261113.json",
+          "git_blob": "54fad8c4fe638b7acd45db434b6a4ef581baaf3e"
+        },
+        {
+          "path": "devtools/data/prolonged_memory_receiving_723_20261113.json",
+          "git_blob": "e348bfa0b527dbf3dfda22616689e084a1237c21"
+        },
+        {
+          "path": "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py",
+          "git_blob": "e165528f404b30c2369c0e3e398ffdf2ed404d3a"
+        },
+        {
+          "path": "tests/molsysviewer_molsysmt/test_prolonged_memory_receipt.py",
+          "git_blob": "fd4d92e3b58fdee7ff03a3051bf2617a49bee4c9"
+        }
+      ]
+    },
+    "receiver": {
+      "commit": "429d7494b5ee053fd1ecdd644c1e8f71e6376062",
+      "truncated": false,
+      "matched_input_files": 3703,
+      "verified_file_manifest_sha256": "67d3de3379cdd3641a6d03fe4b55f5e6b5c7ed45d2218015181dc85306488f0a",
+      "untracked_extras": {
+        "molsysmt/_version.py": "3dc44314ff938836ee60a6875accc24cb6e7b79f7176f5ff22f6768384137fe9",
+        "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+      }
+    }
+  },
+  "complete_board": {
+    "issues": 663,
+    "open_issues": 94,
+    "open_pull_requests": 0,
+    "new_issues_after_744": []
+  },
+  "queue_board_sync": "passed",
+  "retired_task_units": [
+    {
+      "unit": "msm-memory723-controls-20261113.service",
+      "actions": [],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-memory723-oracle-20261113.service",
+      "actions": [],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-memory723-host-20261113.service",
+      "actions": [],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-memory723-campaign-20261113.service",
+      "actions": [],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-memory723-checks-20261113.service",
+      "actions": [],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    }
+  ],
+  "retired_observed_pid_birth_rows": 45,
+  "own_short_tmp_cleanup": [
+    {
+      "phase": "host",
+      "owned_short_tmp_removed": true
+    },
+    {
+      "phase": "campaign",
+      "owned_short_tmp_removed": true
+    }
+  ],
+  "h5msm_coordination_update": "https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6860664468",
+  "limits": "Metrology receiving, not complete-process leak attribution or final source/scientific/installed/platform qualification. Original score and candidate/hosted/publication pause remain unchanged."
+}
