@@ -820,6 +820,26 @@ sections:
             agents_file: docs/content/user/tools/form/class/mdtraj/mdtraj_XTCTrajectoryFile.ipynb.AGENTS.md
             description: Received MDTraj declarations and implementation links with coordinate units, reader ownership, chemical projection and supported iteration limits.
             status: pending_review
+          - name: reviewed_MDAnalysis_AtomGroup_references
+            file: docs/content/user/tools/form/class/mdanalysis/MDAnalysis_AtomGroup.ipynb
+            agents_file: docs/content/user/tools/form/class/mdanalysis/MDAnalysis_AtomGroup.ipynb.AGENTS.md
+            description: Reviewed MDAnalysis declarations and immutable implementation links, native chemical separation, source ownership, units, unavailable operations and materialization limits.
+            status: pending_review
+          - name: reviewed_MDAnalysis_Topology_references
+            file: docs/content/user/tools/form/class/mdanalysis/MDAnalysis_Topology.ipynb
+            agents_file: docs/content/user/tools/form/class/mdanalysis/MDAnalysis_Topology.ipynb.AGENTS.md
+            description: Reviewed MDAnalysis declarations and immutable implementation links, native chemical separation, source ownership, units, unavailable operations and materialization limits.
+            status: pending_review
+          - name: reviewed_MDAnalysis_Universe_references
+            file: docs/content/user/tools/form/class/mdanalysis/MDAnalysis_Universe.ipynb
+            agents_file: docs/content/user/tools/form/class/mdanalysis/MDAnalysis_Universe.ipynb.AGENTS.md
+            description: Reviewed MDAnalysis declarations and immutable implementation links, native chemical separation, source ownership, units, unavailable operations and materialization limits.
+            status: pending_review
+          - name: reviewed_MDAnalysis_topology_PDBParser_references
+            file: docs/content/user/tools/form/class/mdanalysis/MDAnalysis_topology_PDBParser.ipynb
+            agents_file: docs/content/user/tools/form/class/mdanalysis/MDAnalysis_topology_PDBParser.ipynb.AGENTS.md
+            description: Reviewed MDAnalysis declarations and immutable implementation links, native chemical separation, source ownership, units, unavailable operations and materialization limits.
+            status: pending_review
           - name: pdb_reader_context
             file: docs/content/user/tools/form/file/file_pdb.ipynb
             agents_file: docs/content/user/tools/form/file/file_pdb.ipynb.AGENTS.md
