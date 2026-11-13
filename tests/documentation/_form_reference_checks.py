@@ -339,12 +339,14 @@ def _assert_native_form_reference_contract(name):
         path = Path(*parts[5:])
         assert path in expected and (ROOT / path).is_file()
         source_lines = (ROOT / path).read_text().splitlines()
-        if not any(line.strip() for line in source_lines):
-            assert path not in converter_files, (
-                "An empty module cannot deliver a converter."
-            )
-            # An honestly empty module has no line to anchor. It must never
-            # stand in for a callable converter or implemented operation.
+        has_content = any(line.strip() for line in source_lines)
+        if path in converter_files:
+            assert has_content, "An empty module cannot deliver a converter."
+            module = importlib.import_module(".".join(path.with_suffix("").parts))
+            assert callable(getattr(module, path.stem, None))
+        if not source_lines or (not has_content and not parsed.fragment):
+            # Truly empty files have no line anchor. Whitespace-only metadata
+            # may also link to its header; an existing physical line stays valid.
             assert path.stem in {
                 "set",
                 "get_topological_attributes",
