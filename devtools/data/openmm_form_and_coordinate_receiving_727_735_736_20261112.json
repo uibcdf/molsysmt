@@ -4438,5 +4438,12 @@
     "open_issue_count": 95,
     "new_issues_after_737": [],
     "open_pull_request_count": 0
-  }
+  },
+  "dated_corrections": [
+    {
+      "date": "2026-11-12",
+      "field": "executions.*.scope",
+      "correction": "The inherited raw Biopython label is stale boilerplate. The executed commands, hashed inputs, OpenMM provider fingerprint and owning receipt scope establish OpenMM form/coordinate receiving. Original execution records and results are preserved; no additional qualification is claimed."
+    }
+  ]
 }

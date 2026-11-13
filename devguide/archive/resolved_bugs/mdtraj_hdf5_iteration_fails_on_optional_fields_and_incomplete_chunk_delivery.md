@@ -1,14 +1,14 @@
 ---
 summary: MDTraj HDF5 iteration fails on optional fields and incomplete chunk delivery
 issue: uibcdf/molsysmt#738
-status: active
+status: resolved
 opened: 2026-11-12
-closed:
+closed: 2026-11-12
 severity: high
 verification: reproduced
 area: [form, units]
-guard:
-normative:
+guard: tests/form/mdtraj_HDF5TrajectoryFile/test_iterator_contract.py
+normative: devguide/SCALABILITY.md
 blocked_by: []
 supersedes: []
 ---
@@ -110,3 +110,17 @@ runtime with PyUnitWizard 0.29.2, SMonitor 0.21.0, ArgDigest 0.15.0,
 DepDigest 0.15.1 and Pytest Receptor 1.2.1. Sequential tests are capped at one
 CPU, 1.5 GiB RAM and zero own swap, with a conservative 6.5 GiB host reserve.
 The final receiving record retains exact inputs, exits and provider identities.
+
+## Received outcome — 2026-11-12
+
+Implementation 083b7c166 and documentation 00590f26e are published on main.
+The complete selected MDTraj adapter cohort passes 836 cases with two retained
+provider warnings; the final 269-case source/runtime/doctest/actual-article
+receiving passes without warnings or omissions. Ten selected HTML pages build
+strictly without warnings, preserving protected notebook payloads. The initial
+fifteen offline gates and Ruff pass. This is source-level receiving, not a
+full-source/nightly or exact installed-pair certificate. The
+[receipt](../../../devtools/data/mdtraj_form_and_iterator_receiving_727_738_20261112.json)
+retains original failed drafts, interrupted execution, exact inputs, limits
+and independent published-source verification. #727 stays partial for other
+external class articles.

@@ -1,0 +1,3027 @@
+{
+  "schema": "molsysmt.documentation_and_adapter_receiving/1",
+  "date": "2026-11-12",
+  "issues": [
+    "uibcdf/molsysmt#727",
+    "uibcdf/molsysmt#738"
+  ],
+  "implementation_source": "083b7c166df256af8535c9f2d6b02622933ce357",
+  "documentation_source": "00590f26e2145979472cf7244f31e88d8c6ef58d",
+  "scope": "Eight MDTraj form articles and two course/Cookbook paragraphs, all 68 reviewed actual form articles, and bounded optional-field/unit/cursor-safe HDF5 iteration. Not full-source/scientific, full-site, minimum-provider, installed or final-pair qualification.",
+  "executions": {
+    "runtime-baseline": {
+      "phase": "runtime-baseline",
+      "source_commit": "47490e1eac84f993acc014b927988b9a374e5871",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded MDTraj documentation and selected coordinate/iterator receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.54 1.11 2.22 2/2622 807744",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=2.33 total=16233153493\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/mdtraj-reference-727-20261112/runtime-baseline.xml",
+        "tests/form/mdtraj_HDF5TrajectoryFile/test_iterator_contract.py",
+        "tests/form/mdtraj_Trajectory/test_selection_axes.py"
+      ],
+      "checked_inputs": 8149,
+      "seconds": 6.753730783937499,
+      "changed_inputs": [],
+      "memory_peak_bytes": 232288256,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15342297088,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "694729e500116fdcdf807d89498259d03256772bf5825d80f8655ccc382e25fd",
+      "log_sha256": "629aee0bab1ba5501db92ed637e6990281a076559384daadd17aca89105cd2f2",
+      "input_inventory_sha256": "9d50e5c4a084e330e5e0d46942b25cfbe4e978c62844dcbf5abccbb6fd910493",
+      "junit_counts": {
+        "tests": 8,
+        "failures": 8,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "junit_sha256": "407dc47a7f3585c29cf84ac255e6072ce88bec9eb140fb881424e853ef9a1084"
+    },
+    "runtime-contract-baseline": {
+      "phase": "runtime-contract-baseline",
+      "source_commit": "47490e1eac84f993acc014b927988b9a374e5871",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded MDTraj documentation and selected coordinate/iterator receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.52 0.94 1.55 3/2618 818076",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.27 total=16233868960\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/mdtraj-reference-727-20261112/runtime-contract-baseline.xml",
+        "tests/form/mdtraj_HDF5TrajectoryFile/test_iterator_contract.py",
+        "tests/form/mdtraj_Trajectory/test_selection_axes.py"
+      ],
+      "checked_inputs": 8149,
+      "seconds": 5.7086986161302775,
+      "changed_inputs": [],
+      "memory_peak_bytes": 228192256,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15335342080,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "0a872fcd67c7fd4986a13394a6ef262781d4742daf722713a0e8341fa7b20789",
+      "log_sha256": "15fc8650ed209a7ca22939caf2174012b12807be5a1f5f5706d99a8620b510d0",
+      "input_inventory_sha256": "dc88e8751b9074ca1c5acb06dfe97e8bea8811b8f69e40bbd01c53d0a746ef2b",
+      "junit_counts": {
+        "tests": 8,
+        "failures": 4,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 4
+      },
+      "junit_sha256": "85dc30359df57de1285e5afe0dedcae6e8212c62d00b2833168d837d58f9c448"
+    },
+    "runtime-corrected": {
+      "phase": "runtime-corrected",
+      "source_commit": "47490e1eac84f993acc014b927988b9a374e5871",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded MDTraj documentation and selected coordinate/iterator receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.03 0.68 1.11 2/2604 827053",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.02 total=16234492748\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/mdtraj-reference-727-20261112/runtime-corrected.xml",
+        "tests/form/mdtraj_HDF5TrajectoryFile/test_iterator_contract.py",
+        "tests/form/mdtraj_Trajectory/test_selection_axes.py"
+      ],
+      "checked_inputs": 8150,
+      "seconds": 5.725366950966418,
+      "changed_inputs": [],
+      "memory_peak_bytes": 221859840,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15432187904,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "0a872fcd67c7fd4986a13394a6ef262781d4742daf722713a0e8341fa7b20789",
+      "log_sha256": "2bb318be0d4813608d4022409b82641e7b5e4633b537f89efb4fa90b5e2ac7f4",
+      "input_inventory_sha256": "27e1d31dcce7e1bf45cb9aa36ab726c727856d6b0edcfd034885aef6eabe6b66",
+      "junit_counts": {
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 13
+      },
+      "junit_sha256": "9524bad03292624504e40004dc2c189f3f147c1f050abed2eacbc86a99800ac8"
+    },
+    "facts": {
+      "phase": "facts",
+      "source_commit": "47490e1eac84f993acc014b927988b9a374e5871",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded MDTraj documentation and selected coordinate/iterator receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.91 0.72 1.10 1/2593 827815",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.01 total=16234575263\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/mdtraj-reference-727-20261112/facts.py"
+      ],
+      "checked_inputs": 8150,
+      "seconds": 3.6740138940513134,
+      "changed_inputs": [],
+      "memory_peak_bytes": 148623360,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15620227072,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "0393e267c4621f7ccfb05009b8bb1f24362e4a236752cd0836389f7557625c2b",
+      "log_sha256": "c4cafd55700ba3598b9ea4d2dea4e31b5a47a2e7540504afee128fcb6cf4b796",
+      "input_inventory_sha256": "c21368d290d22f1f56f794c99f49f5d35543894e4ef6e6b3f947d12ae37eeb9b"
+    },
+    "runtime-integrated": {
+      "phase": "runtime-integrated",
+      "source_commit": "47490e1eac84f993acc014b927988b9a374e5871",
+      "state": "completed",
+      "native_exit": -15,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded MDTraj documentation and selected coordinate/iterator receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.55 0.65 1.04 1/2628 829261",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=16234698949\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/mdtraj-reference-727-20261112/runtime-integrated.xml",
+        "tests/form/mdtraj_DCDTrajectoryFile",
+        "tests/form/mdtraj_HDF5TrajectoryFile",
+        "tests/form/mdtraj_Topology",
+        "tests/form/mdtraj_Trajectory",
+        "tests/form/mdtraj_XTCTrajectoryFile",
+        "tests/form/test_mdtraj_coordinate_streams.py",
+        "--doctest-modules",
+        "molsysmt/form/mdtraj_HDF5TrajectoryFile/iterators.py"
+      ],
+      "checked_inputs": 8151,
+      "seconds": 181.79418761609122,
+      "changed_inputs": [],
+      "memory_peak_bytes": 229191680,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15382315008,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": "Host reserve/pressure or finite wall ceiling reached",
+      "driver_sha256": "0393e267c4621f7ccfb05009b8bb1f24362e4a236752cd0836389f7557625c2b",
+      "log_sha256": "22f73c51222749186c2c0decb884cb3a90ba0d7fb0f56cea35b027e278e357d2",
+      "input_inventory_sha256": "ee02bc2415b2689c2f42e384870e28c6a4912a1c4008ad4f76faf890efbbb43a"
+    },
+    "focused": {
+      "phase": "focused",
+      "source_commit": "47490e1eac84f993acc014b927988b9a374e5871",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded MDTraj documentation and selected coordinate/iterator receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.80 0.88 1.05 1/2634 832612",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=16234971834\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/mdtraj-reference-727-20261112/focused.xml",
+        "tests/form/mdtraj_HDF5TrajectoryFile/test_iterator_contract.py",
+        "tests/form/mdtraj_Trajectory/test_selection_axes.py",
+        "tests/form/test_mdtraj_coordinate_streams.py"
+      ],
+      "checked_inputs": 8151,
+      "seconds": 5.724956769030541,
+      "changed_inputs": [],
+      "memory_peak_bytes": 223789056,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15467712512,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d3179eda11740ba6db848e133890ebf6913fc382d3354f5e761b49fba6a5d950",
+      "log_sha256": "a674427b9c3a5515b56cc15771ef31adb2c55580933008efffbefbf4479a475a",
+      "input_inventory_sha256": "f2725cef443b0445094cdc293d63def0dd3c17de9dd9ee7998fb93c62ee6c1ee",
+      "junit_counts": {
+        "tests": 18,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 18
+      },
+      "junit_sha256": "85eabd2d66387e90abd7ea6308d41d1b35f4bddfe24dd7c95141791174383755"
+    },
+    "runtime-qualified": {
+      "phase": "runtime-qualified",
+      "source_commit": "47490e1eac84f993acc014b927988b9a374e5871",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded MDTraj documentation and selected coordinate/iterator receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.14 0.89 1.03 2/2619 834334",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=16235116780\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/mdtraj-reference-727-20261112/runtime-qualified.xml",
+        "tests/form/mdtraj_DCDTrajectoryFile",
+        "tests/form/mdtraj_HDF5TrajectoryFile",
+        "tests/form/mdtraj_Topology",
+        "tests/form/mdtraj_Trajectory",
+        "tests/form/mdtraj_XTCTrajectoryFile",
+        "tests/form/test_mdtraj_coordinate_streams.py",
+        "--doctest-modules",
+        "molsysmt/form/mdtraj_HDF5TrajectoryFile/iterators.py"
+      ],
+      "checked_inputs": 8151,
+      "seconds": 233.8592345409561,
+      "changed_inputs": [],
+      "memory_peak_bytes": 264335360,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15397597184,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d3179eda11740ba6db848e133890ebf6913fc382d3354f5e761b49fba6a5d950",
+      "log_sha256": "b7517a03fa29f651a2960083a43e2820ed684a40728c7d8657154dcf77284f30",
+      "input_inventory_sha256": "d2b9f167e8e6bc42b19bc7703f9c441fabcd73b2cdece56564a6c4cd767abc7f",
+      "junit_counts": {
+        "tests": 836,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 836
+      },
+      "junit_sha256": "9c000e5ef58d36e2140080a31bfd510e52c2c8359a050448004ab4a65ece10f6"
+    },
+    "checks": {
+      "phase": "checks",
+      "source_commit": "47490e1eac84f993acc014b927988b9a374e5871",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded MDTraj documentation and selected coordinate/iterator receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.72 1.00 1.05 1/2628 838357",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=16235451768\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/mdtraj-reference-727-20261112/final_checks.py"
+      ],
+      "checked_inputs": 8151,
+      "seconds": 28.73758143791929,
+      "changed_inputs": [],
+      "memory_peak_bytes": 453070848,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15085359104,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d3179eda11740ba6db848e133890ebf6913fc382d3354f5e761b49fba6a5d950",
+      "log_sha256": "f9a941497ed85446edd3005cd8ba7b383594fbbe9bf7f44cc08c895c562e8e4e",
+      "input_inventory_sha256": "db671c1ef5f6b8c127f00506f7b3a2a252d5e068837e56d2b0439f8cb2e6eef9"
+    },
+    "baseline": {
+      "phase": "baseline",
+      "source_commit": "083b7c166df256af8535c9f2d6b02622933ce357",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded MDTraj documentation and selected coordinate/iterator receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.60 0.89 1.00 1/2611 840035",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=16235601571\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/mdtraj-reference-727-20261112/baseline.xml",
+        "tests/documentation/test_mdtraj_form_references.py"
+      ],
+      "checked_inputs": 8152,
+      "seconds": 5.754402630031109,
+      "changed_inputs": [],
+      "memory_peak_bytes": 219574272,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15460769792,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d3179eda11740ba6db848e133890ebf6913fc382d3354f5e761b49fba6a5d950",
+      "log_sha256": "4e4f06d2608f4cd9a543478aa87d8b91c41894d8f12ee144a338a852d179d33f",
+      "input_inventory_sha256": "e727131664a8ed7868481c7598826b52607f0a3460642172bd9859bff645bbb8",
+      "junit_counts": {
+        "tests": 24,
+        "failures": 9,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 15
+      },
+      "junit_sha256": "a533cff517fb9b451f02ab59d8cb262faf8ec9ba9e407ba7e2a8b24b829abf7d"
+    },
+    "corrected": {
+      "phase": "corrected",
+      "source_commit": "083b7c166df256af8535c9f2d6b02622933ce357",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded MDTraj documentation and selected coordinate/iterator receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.92 0.94 1.01 3/2614 840573",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=16235658268\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/mdtraj-reference-727-20261112/corrected.xml",
+        "tests/documentation/test_mdtraj_form_references.py"
+      ],
+      "checked_inputs": 8152,
+      "seconds": 5.693163366056979,
+      "changed_inputs": [],
+      "memory_peak_bytes": 220385280,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15459983360,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d3179eda11740ba6db848e133890ebf6913fc382d3354f5e761b49fba6a5d950",
+      "log_sha256": "329595c37a9e73604c3e3bd021e3afc20a53a3ede9716e88f9c525d5fae57bb5",
+      "input_inventory_sha256": "a28e30983acdc86509219cb2ac4b2dfdfa1ae4c3c44be6fd87a9830e70bc6552",
+      "junit_counts": {
+        "tests": 24,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 23
+      },
+      "junit_sha256": "6f0f203a6dbb3ea205927482734d27777303708d09e8d2da5132ad95a277d6ed"
+    },
+    "corrected2": {
+      "phase": "corrected2",
+      "source_commit": "083b7c166df256af8535c9f2d6b02622933ce357",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded MDTraj documentation and selected coordinate/iterator receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.88 0.93 1.00 1/2605 841126",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=16235716879\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/mdtraj-reference-727-20261112/corrected2.xml",
+        "tests/documentation/test_mdtraj_form_references.py"
+      ],
+      "checked_inputs": 8152,
+      "seconds": 5.710683035198599,
+      "changed_inputs": [],
+      "memory_peak_bytes": 220323840,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15424114688,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "cb740e00ee4b57ceb44ed611132d25c9f98ad41b4a2a443d583a88817158cd43",
+      "log_sha256": "7b0304db4fd09bf9f7846af36365c7fe2bc0f976ad168674ce21b8eb0f3c2e00",
+      "input_inventory_sha256": "c0e767a31546bb98a6b059678809fa885f2f35847610be4bebc847039f1c01f0",
+      "junit_counts": {
+        "tests": 24,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 24
+      },
+      "junit_sha256": "708754535a76d7ca0c4a08a9c40ea6532ccbefa5ba20dcd59b253882a91cb3f1"
+    },
+    "html": {
+      "phase": "html",
+      "source_commit": "00590f26e2145979472cf7244f31e88d8c6ef58d",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded MDTraj documentation and selected coordinate/iterator receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.04 1.00 1.02 1/2605 842103",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=16235821220\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2818572288",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/mdtraj-reference-727-20261112/build_links.py"
+      ],
+      "checked_inputs": 8152,
+      "seconds": 13.707685033092275,
+      "changed_inputs": [],
+      "memory_peak_bytes": 380846080,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15298985984,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "cb740e00ee4b57ceb44ed611132d25c9f98ad41b4a2a443d583a88817158cd43",
+      "log_sha256": "d0064218a15c0a5ba8777b6a37481f8e3f3298d5e6b67c1fc66343d081f04dba",
+      "input_inventory_sha256": "c0e767a31546bb98a6b059678809fa885f2f35847610be4bebc847039f1c01f0"
+    },
+    "receiving": {
+      "phase": "receiving",
+      "source_commit": "00590f26e2145979472cf7244f31e88d8c6ef58d",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded MDTraj documentation and selected coordinate/iterator receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.54 1.16 1.08 1/2631 843155",
+        "cpu_pressure": "some avg10=0.64 avg60=1.47 avg300=0.45 total=16237457680\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/mdtraj-reference-727-20261112/receiving.xml",
+        "tests/documentation/test_biopython_form_references.py",
+        "tests/documentation/test_file_form_references.py",
+        "tests/documentation/test_mdtraj_form_references.py",
+        "tests/documentation/test_native_form_references.py",
+        "tests/documentation/test_openmm_form_references.py",
+        "tests/documentation/test_string_form_references.py",
+        "tests/documentation/form_reference_receiving_guard.py",
+        "tests/form/mdtraj_HDF5TrajectoryFile/test_iterator_contract.py",
+        "tests/form/mdtraj_Trajectory/test_selection_axes.py",
+        "tests/form/test_mdtraj_coordinate_streams.py",
+        "--doctest-modules",
+        "molsysmt/form/mdtraj_HDF5TrajectoryFile/iterators.py"
+      ],
+      "checked_inputs": 8268,
+      "seconds": 85.09182681702077,
+      "changed_inputs": [],
+      "memory_peak_bytes": 456974336,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 13667770368,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "cb740e00ee4b57ceb44ed611132d25c9f98ad41b4a2a443d583a88817158cd43",
+      "log_sha256": "d0dea5376292d68965229c7f75c66aa70d3a930fc2c29655de30df352b455eae",
+      "input_inventory_sha256": "b3d64a82345936510b4461809c965618d1ed7658abed1bd7ad7a89f447ff8925",
+      "junit_counts": {
+        "tests": 269,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 269
+      },
+      "junit_sha256": "f02182e01f93efba7a672a01f0b5afced3a6cd45ae4ca856ee7e403037fe8efd"
+    }
+  },
+  "final_receiving": {
+    "passed": 269,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "warnings": 0,
+    "actual_reviewed_articles": 68
+  },
+  "adapter_suite": {
+    "passed": 836,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "warnings": 2,
+    "warning_scope": "Existing MDTraj dummy PDB CRYST1 cell warnings are retained."
+  },
+  "notebook_preservation": [
+    {
+      "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_AmberRestartFile.ipynb",
+      "sha256": "82b53b8e77cf7edc78cb435a3f2d560c25279f30627d702a719eba96df140ab3",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_DCDTrajectoryFile.ipynb",
+      "sha256": "dd074bec55fe233c6e3d712ec07fe90408f41c0a86bc225de05f5de76efe6dc6",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_GroTrajectoryFile.ipynb",
+      "sha256": "c82dc617b42b41f19bf4d66b0ad76c36eaedbe947d2a29b424b731a327138d3e",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_HDF5TrajectoryFile.ipynb",
+      "sha256": "a01afff6e86d27f0dc7926283dbf2c1237a2d82b610ae58cca6a6fef30ec1cc3",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_PDBTrajectoryFile.ipynb",
+      "sha256": "0c6b84224fb017440450321f6f525ab9707103fce06d0332f997b1f16a3d757b",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_Topology.ipynb",
+      "sha256": "de9efb83df289c9a62d32ae3739376e916e37f9fa7ea005eddc0e59e349c21bf",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_Trajectory.ipynb",
+      "sha256": "e812e530d6204c345fc58da0409a68c10e023276a7d91af24a448d4b0a906bb1",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_XTCTrajectoryFile.ipynb",
+      "sha256": "9bf0e603862b5a114db38eac6ca29f9a3c6f9d409c435f57d098756cfa70df1d",
+      "cells": 6,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/course/Common_Core/11_Iterating_Systems.ipynb",
+      "sha256": "bfd543bffebc366e95a511411727e5f409fd560b059aa0b9df198a6318de4cf7",
+      "cells": 12,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    },
+    {
+      "page": "docs/content/user/cookbook/big_data_trajectories.ipynb",
+      "sha256": "79f1f4c0e3d05fbc22c5cf51a307722bd9463f245ceb2a32c134a6f89a622e90",
+      "cells": 21,
+      "code_outputs_metadata_order_headings_anchors_preserved": true
+    }
+  ],
+  "new_rendered_articles": [
+    {
+      "article": "content/user/tools/form/class/mdtraj/mdtraj_AmberRestartFile.html",
+      "sha256": "a570cd63693c7e708ad33b4914bb6b15dfc1fca1c9e1e200d9aeede9f8310eae"
+    },
+    {
+      "article": "content/user/tools/form/class/mdtraj/mdtraj_DCDTrajectoryFile.html",
+      "sha256": "bba8a33ba59e5ee051d44be938f6a28889d005000c2ea328d348d8e8d08f70ed"
+    },
+    {
+      "article": "content/user/tools/form/class/mdtraj/mdtraj_GroTrajectoryFile.html",
+      "sha256": "30f1220c95bc4cd55bf5ca8682dd201539cffb28ec9b5ba34480e831de928603"
+    },
+    {
+      "article": "content/user/tools/form/class/mdtraj/mdtraj_HDF5TrajectoryFile.html",
+      "sha256": "73ecb79e1fcb72246e02cc01d1002752ba903ffe7a008ed64531e7d06e0c6def"
+    },
+    {
+      "article": "content/user/tools/form/class/mdtraj/mdtraj_PDBTrajectoryFile.html",
+      "sha256": "85384c5716298f28f75674046777ec0c095793da0ae6d34fce6709133f8fd1f2"
+    },
+    {
+      "article": "content/user/tools/form/class/mdtraj/mdtraj_Topology.html",
+      "sha256": "ce03d92244e949c188080f61f5fd8c1efa6765bb3ac1cb503386e661654e4773"
+    },
+    {
+      "article": "content/user/tools/form/class/mdtraj/mdtraj_Trajectory.html",
+      "sha256": "596b9b2df09f14e26cc406f06ffa2de7194a0b698b56d097c472451dabb2e294"
+    },
+    {
+      "article": "content/user/tools/form/class/mdtraj/mdtraj_XTCTrajectoryFile.html",
+      "sha256": "c5339e6a8f9eff30512fb581dd2b53953afa0a4bd06077ebeb85b6639a7b5fc3"
+    },
+    {
+      "article": "content/course/Common_Core/11_Iterating_Systems.html",
+      "sha256": "d010dd783b278b9dd3c0d0706e7a33fc53533b4f8db9cf2ba8d468c262dd36c7"
+    },
+    {
+      "article": "content/user/cookbook/big_data_trajectories.html",
+      "sha256": "0f88266478d3739ddb2a66d52ae07ed972ae46b1a2298efb4e1091a0425a0223"
+    }
+  ],
+  "strict_targeted_html": {
+    "exit": 0,
+    "warnings": 0,
+    "full_site": false,
+    "selected_pages": 10,
+    "notebook_execution": "off",
+    "autosummary_generate": false,
+    "parallel": 1
+  },
+  "new_reference_occurrences": 161,
+  "new_independently_matched_source_files": 145,
+  "total_reviewed_articles": 68,
+  "total_reference_occurrences": 1338,
+  "total_verified_source_files": 1213,
+  "published_source_proof": {
+    "source_commit": "083b7c166df256af8535c9f2d6b02622933ce357",
+    "truncated": false,
+    "files": [
+      {
+        "path": "molsysmt/form/mdtraj_AmberRestartFile/__init__.py",
+        "git_blob": "e789cebf8789a464099059d130b20afe80b31ae8",
+        "sha256": "fbcb0171928c080bcfe918d55ffea5ca7535e9308f94daa7b95b0308ad3e328f"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_AmberRestartFile/add.py",
+        "git_blob": "115e0623c22a554b0c82e9c144a81deb9578f774",
+        "sha256": "3c6df6756ebbd44f017eb38e2952c64d4d19910d974b75b863493d8e59b549f0"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_AmberRestartFile/append_structures.py",
+        "git_blob": "b2828dd947902c5db9796bc742709b25573a0f79",
+        "sha256": "43e421289b22621a48c7b69c0dd98bacfe881eb49941d7a5e2989d227f55a843"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_AmberRestartFile/copy.py",
+        "git_blob": "13fc04d1ad779f7bf1ac560187d5a9c46fede5d3",
+        "sha256": "7cd6f6f03c31c19085d2fbde553ca0e15f2e5c0ac2cb431de73c170631d05d90"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_AmberRestartFile/extract.py",
+        "git_blob": "7a66318767bea99c235e72db793e940f672f8abd",
+        "sha256": "39616211080f8888305a8c7f905e31f43dd9dc34e9779163df11d64937000b27"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_AmberRestartFile/get_structural_attributes.py",
+        "git_blob": "73ba19e279fc055343e8b723bda3ffbc0cfb3339",
+        "sha256": "addedc82a04c09f1a16e71abc55d78bfb5251866050ecda1656873492b2f8589"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_AmberRestartFile/get_topological_attributes.py",
+        "git_blob": "ed4e5e5ac82c30d0d23e606e40b344d08bdf9307",
+        "sha256": "b821edc81ae0f1c716fdd23a7af4b06da8b6139755bbeec936e422532fc3be34"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_AmberRestartFile/has_attribute.py",
+        "git_blob": "1744e7f903581dd2c59932b32a7aceaf22d61b17",
+        "sha256": "4f68f7c4c621fbb3eb2dba5887cecb24281c12c55d1384f409c4d030ccb47858"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_AmberRestartFile/is_form.py",
+        "git_blob": "197c77128096b4e94004b51d8298e013ba42e1a6",
+        "sha256": "bccd3c6a1b4daeca2be63d74bbcc7bb926d0d551a1aa26c8d99f0cd9d037b278"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_AmberRestartFile/iterators.py",
+        "git_blob": "03c383ec071b8842f3150753615cd1b3b18c8f55",
+        "sha256": "35c75707707ece2d7ff427bbf5ea36a10e495147b5fd564361d17bfd61253fe2"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_AmberRestartFile/merge.py",
+        "git_blob": "936d638a5aad62d9e8329ab837eb618be4e4736b",
+        "sha256": "795377c393d161e3849ffab460ae3ef4b1d1b5c96cefa4edff7f891d04328b60"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_AmberRestartFile/set.py",
+        "git_blob": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_AmberRestartFile/to_mdtraj_AmberRestartFile.py",
+        "git_blob": "33870e732d7df3c9369c2db28e2da28cd02a73f3",
+        "sha256": "809f155b5c7439df19d49088b531f5553d647e32363b59cefc654a830a39f6e2"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_AmberRestartFile/to_molsysmt_MolSys.py",
+        "git_blob": "b53cb220edf6f0ad3f53184c34a7285c4d9037a4",
+        "sha256": "6887e93300036b531924552926a251e3acef44c5ca28c6523b71b456a48d30d0"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_AmberRestartFile/to_molsysmt_Structures.py",
+        "git_blob": "55c60e07e88f3e7b885011f037e5c9b4081ff500",
+        "sha256": "e1a1162c4cb6afcf6254dc368036261ab2f99a220ef11f362a004935301a85bc"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_DCDTrajectoryFile/__init__.py",
+        "git_blob": "db4df63674a1dc2f662247d3b1fda8267f9cc090",
+        "sha256": "be2a745bc0d3973991e97e3a7549ed0e50733706b15af5476862f7f11a4967f3"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_DCDTrajectoryFile/add.py",
+        "git_blob": "327e94ef748e77c7cb65e683e3ca3c248f64a9fb",
+        "sha256": "f2954f2c1954f125d6c0accdba8ef101ce113827a7e2b4a34a3ee380bfae2d6b"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_DCDTrajectoryFile/append_structures.py",
+        "git_blob": "38df9669b49664c5b078d8cb534767d606451560",
+        "sha256": "92a086de1c7596a6888b0da4b157863d9810b73dea99d5b3410e0160df762514"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_DCDTrajectoryFile/copy.py",
+        "git_blob": "84759a7d79434cc5275afee98665a5ca332f7804",
+        "sha256": "8d5b65315c6a9bbb8c7689fcede65714024f8ed1f92adf9c42ec89536b14031a"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_DCDTrajectoryFile/extract.py",
+        "git_blob": "0ac1b669bffa5fe88b2a91ae3a551caf14e98726",
+        "sha256": "d49cf99542a2a0fc9f10bad5c6bad89066ecb3372757b04de956aa3eeebe6ba6"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_DCDTrajectoryFile/get_structural_attributes.py",
+        "git_blob": "c9b46a2fbbdaf81fed8f55068d132d76d2be04aa",
+        "sha256": "9ab04e1fe861c98d2e0b6554779402caac4d74671aa10abc8099f6a72264be89"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_DCDTrajectoryFile/get_topological_attributes.py",
+        "git_blob": "b840bc9275c5e9c654aa8502305b815e88d2d49f",
+        "sha256": "522c7d1a25218ac936b553a16beceb31f747e0f58e27fcff8b46abec00e86c5e"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_DCDTrajectoryFile/has_attribute.py",
+        "git_blob": "2cf853b2502999571d95f055995f048e8d5e87c5",
+        "sha256": "878f628760279bdbdf58f7299d411e40616c620b5d842a4d3380022db22dd81c"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_DCDTrajectoryFile/is_form.py",
+        "git_blob": "76f257959411e955607fc3e37ef20398fa9b7c3d",
+        "sha256": "66a127394b03684314f22a875116bc6fc6a73265f617b74bcfabcb87bc0cb677"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_DCDTrajectoryFile/iterators.py",
+        "git_blob": "d57e42090028e2c13e01fc95dbd0e87d9a70758f",
+        "sha256": "da21a307a51284c757aa96f6e5d4f269e1639d8ef45c4a3022f0ba45d6d5e5ff"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_DCDTrajectoryFile/merge.py",
+        "git_blob": "a47d6ed57d793f5bcfd6ae05f659f7f3f7b58069",
+        "sha256": "78e66622e50680e895f75549317f6e6c7934f59c490e7b6d5b472a6b747e12f2"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_DCDTrajectoryFile/set.py",
+        "git_blob": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_DCDTrajectoryFile/to_mdtraj_DCDTrajectoryFile.py",
+        "git_blob": "7972a312da21804a7fa29176f19f4cf5029a9a15",
+        "sha256": "daaef8c7b383bad638342ca5dbf25e1a05e9412d711d13f559106a8c9e1ddff2"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_DCDTrajectoryFile/to_molsysmt_MolSys.py",
+        "git_blob": "0923640c7da5bf4c169a8a77f0ebeefc8c580506",
+        "sha256": "5b54a945dbeae0dc2ed33e38720b966d638941a3615fd258330fc7e42e8dc3db"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_DCDTrajectoryFile/to_molsysmt_Structures.py",
+        "git_blob": "eaf31d9a9a3a34c5793081f2db2ae6f4d0b35a73",
+        "sha256": "8e07d6387ccde513b9e1fee61face3b8fed07ce316ae9c445250e5b15fb72090"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_GroTrajectoryFile/__init__.py",
+        "git_blob": "a0d53ffca5efdfc5da2cbcd27e50c2ef1f9a0128",
+        "sha256": "47c737d21a0b652154c582b2fa2dec982f1d402b05800f36960225729c000405"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_GroTrajectoryFile/add.py",
+        "git_blob": "88c13e4e1e704908e6aab94767d9969d8bf523fc",
+        "sha256": "7feb06c6f7361b6ee2df3c9ab5e5061a8f592874d855bd7f1f0a64e4a97e7d0f"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_GroTrajectoryFile/append_structures.py",
+        "git_blob": "2e9516b8ab475e86bddc234e610a42d2d489fa5c",
+        "sha256": "64962a8756ff28fb4d26be2218943e8bdd94cdb7c95f6573ef7f57e1f009ed38"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_GroTrajectoryFile/copy.py",
+        "git_blob": "f2a8cebd4e9d21e045ec249100d1753c96296034",
+        "sha256": "7af92d85b5cdd932c4b1f10f1e35a6588f2f68520fcb8f73502eac5901bf9908"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_GroTrajectoryFile/extract.py",
+        "git_blob": "81f7c2b9ba3e04f2531fa66105756a4a19169e7d",
+        "sha256": "0cb1b5b86114277933604f119dc936a4ee1d08eb074575a460a6e9f4ea3c4c78"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_GroTrajectoryFile/get_structural_attributes.py",
+        "git_blob": "d80c6c9d5d29292aefa9572014429862f7a31ff2",
+        "sha256": "66114f5a2eaf2237174670a6ed6141e9f03aed20111f4b4807065c9bd88f67ba"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_GroTrajectoryFile/get_topological_attributes.py",
+        "git_blob": "5165565dc18b20f5541f4c1a099ddd16bf1edbaf",
+        "sha256": "5d34ab2a8801308d78090a02891ceccb44d55de263660755e4803162825ee1eb"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_GroTrajectoryFile/has_attribute.py",
+        "git_blob": "1fa7a461de6c5f64b50e3567c8651b7275901fef",
+        "sha256": "9f7d396f9a3ca878d7c45e1dc6ada1715452607f01c19bf7a5c9924ce0d0fc47"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_GroTrajectoryFile/is_form.py",
+        "git_blob": "125c328fa83f175cbde6e2d2e1981074f04b43e4",
+        "sha256": "1bf4d2e4126c467dd06541610bea4c722eb3965f6b0538e2592e78500abfd7c1"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_GroTrajectoryFile/iterators.py",
+        "git_blob": "4da40f0621128286ee9bc8a3d602f1fe7dc7580c",
+        "sha256": "48eb0def1653786cfb3be9ea6983af1e6af15e297bc5e1428d1c784f4edf1f24"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_GroTrajectoryFile/merge.py",
+        "git_blob": "7dd1f88bb544eb23c007880b8b18e20683b4ecd3",
+        "sha256": "6e8b662b3356c76c1d6352fc30d0fab823fe33541bfbd1b6df7de3c002fb3f1d"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_GroTrajectoryFile/set.py",
+        "git_blob": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_GroTrajectoryFile/to_mdtraj_GroTrajectoryFile.py",
+        "git_blob": "666a0bbea93d032ec33feebd1b3dc0a9a4826019",
+        "sha256": "0aa7b2680622553f7d81cb9ac614019e5c3c3e91ba2042106e62ee343d473275"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_GroTrajectoryFile/to_molsysmt_MolSys.py",
+        "git_blob": "c8d83c46576d02bf2f665b5ac607dbec3e1307c5",
+        "sha256": "ce7d255d32231056ffe2074bd45136ecbdfcbb72f2d3f89f1e7d39f9751bd2b7"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_GroTrajectoryFile/to_molsysmt_Structures.py",
+        "git_blob": "ba1a77ee84a3865e11d6018e93333e66b8a129b2",
+        "sha256": "def7905b52a010ff68a427701d1049bf0502cdde192ed502e246fd84392ecdd4"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/__init__.py",
+        "git_blob": "3f9232c045b92c3d62bfc77c30a25009ed60494f",
+        "sha256": "8a36c10cd606e8934fd232a5c9465b10478570569b3761576e75a83cc11e7f77"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/add.py",
+        "git_blob": "dead19a94962e8fd54bee29699e5ad8b585dc0fa",
+        "sha256": "165160aea29b499834181c6d1203811971153b66fd6c7e6d051076e83adaebcb"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/append_structures.py",
+        "git_blob": "1ee7d48f5896dedb3429cec4caed614be65a8e9b",
+        "sha256": "0a1b3d19edb2c22ced6ab7636c850e7b4c23617c8481c1aaaacc43e958075e8b"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/copy.py",
+        "git_blob": "73f8d60f7ab6d778b47a8a0108a5d2f235a676c9",
+        "sha256": "620ae8fb4221dd75f2e4886e0f88dadf3d6243dad3b6600661182e877cfa7479"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/extract.py",
+        "git_blob": "7b4fd4da7e5c52d92b6543a8bdcb8254793ae34b",
+        "sha256": "8a6ac96011b9e84850b9f865315fb2770b58d2c6a3185e9351157e266fcb2fd4"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/get_structural_attributes.py",
+        "git_blob": "52a84b88b9ec5dc9de37c35fc73fc9d77a2545b3",
+        "sha256": "d2bef47742d7f138554a4044f03c53daf77d0392d2ed1831d7cad9546e1114c1"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/get_topological_attributes.py",
+        "git_blob": "21c0f930d40c2e6c7563511b607094c6ebf28859",
+        "sha256": "01e17a35a68ad3f7ec6777a08282e02712c1dfad2cbd17cc23353336045d33af"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/has_attribute.py",
+        "git_blob": "75ecf22b96bb78e17b0431f3c5757d043078dc15",
+        "sha256": "95a5658c994e69a1101aa513ecaefbcb0883d9aa2cbf1b9a780bd0012697dcc2"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/is_form.py",
+        "git_blob": "9de10ced412ef2370f48e37d04461033b9ba26d9",
+        "sha256": "f5e52e1260cec2102b906340b93d58c45b80ba25dfb5873895e56cf214e46c0a"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/iterators.py",
+        "git_blob": "96fc9a244ea6b892e2f70218ef714b1b92085c49",
+        "sha256": "be62e456071366c528c4bf87da4adb5491723a553894d336af3aaf29baa9d6b6"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/merge.py",
+        "git_blob": "8543d2187099b6c2152585be902d61042bd679be",
+        "sha256": "009dc4d808cbe81bf2499451635b7e20620222a3b2232b2c5ca4c01dfef36cec"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/set.py",
+        "git_blob": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/to_mdtraj_HDF5TrajectoryFile.py",
+        "git_blob": "886eee7ce705429cc5b319c0a383be8a130ca778",
+        "sha256": "fc3da5d127cc0661442b7fb1fca27430a3e25c253a2bc117714f527ecd0f1304"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/to_mdtraj_Topology.py",
+        "git_blob": "6abad8759ea1f880a2e8a688fec4ca83e6b950ad",
+        "sha256": "97609b47590431e522c2f9deb81a81ccc8a952320405e7e64c3b9b3a4abb06f4"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/to_molsysmt_MolSys.py",
+        "git_blob": "46e3cf0b7c4701d9a292508d0ed53a78a321c728",
+        "sha256": "48c0057ca8a3026412e861d12fe827029a0cdf3dc9e87c2f15f52c606a61d45b"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/to_molsysmt_Structures.py",
+        "git_blob": "eca1a329b430a30ba801689c6110b88814494e8a",
+        "sha256": "6421aa02c58042ec2dde0a9099f9f0514939cbdbe2f2d23e6600e3701332859b"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/to_molsysmt_Topology.py",
+        "git_blob": "d3513a3bbfd0212a7eca06510a29fbf36e31defc",
+        "sha256": "80b8d8e8ad7be40f29851d34aa20532c9a2115ef941d9011a540a298e1a6e123"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_HDF5TrajectoryFile/to_openmm_Topology.py",
+        "git_blob": "91854a3d5669e0bd11e9a1b766d465d083745750",
+        "sha256": "17b8b0700c080f58db4c6878e176d733dcf278df7d48cc5edfaf0085cf11d3a9"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_PDBTrajectoryFile/__init__.py",
+        "git_blob": "16234f360d7a23ff9165dee21e90150e6ba42fdc",
+        "sha256": "481bb4e9073d0134013b8934cfbc789224c7c2d9d7a96110bb93b178503c35e5"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_PDBTrajectoryFile/add.py",
+        "git_blob": "59dab1ab71beb560819d21efcf8e7f981a9ed39f",
+        "sha256": "66a826ee7fe32edc7322400ca34a48aedd18313a9df451066ac4599e38eafdb9"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_PDBTrajectoryFile/append_structures.py",
+        "git_blob": "aeda16dfac226cb8f7fe8d67e4d9def4a0f7a6c9",
+        "sha256": "33ea12783c458dbc465b71b8397399dc62e890da39e3e13798e3a7b1ab27b1f8"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_PDBTrajectoryFile/copy.py",
+        "git_blob": "2deb9b1654ec6c3b7b352d796e1b4ef2190eb551",
+        "sha256": "0ea89882557dd096df4fc1e2709564599a4264e831ebd5861e7de4401150357c"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_PDBTrajectoryFile/extract.py",
+        "git_blob": "efd4c3e9d35d0959a966ac50b86f5b1079a7313e",
+        "sha256": "922788fab957791cf7e11125ca6ad1ce19b24c10fda1ca3697e899ff6fa76af6"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_PDBTrajectoryFile/get_structural_attributes.py",
+        "git_blob": "366e960211d11e0d021d737b1e8fef48351caacc",
+        "sha256": "2db27032122c2fae8855c5e4156980be996ab4ea3a400f61e0a2f305c930f5b4"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_PDBTrajectoryFile/get_topological_attributes.py",
+        "git_blob": "ec5929de4af119bef43e165385d76b4b050c358e",
+        "sha256": "a6a18f5b0eb20dea9b3e8ce7a800e3096379dd8053142e08827f40f5df4ced7f"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_PDBTrajectoryFile/has_attribute.py",
+        "git_blob": "d2fd8fd58be7144fb1c691718fbcea44454a676e",
+        "sha256": "ebf28420141a023dd23cd6a69b359427204f9727d9e1e94dec51cd37d9a442da"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_PDBTrajectoryFile/is_form.py",
+        "git_blob": "f8b11fdc93e0f1731b50ecc26a343b7db63ed132",
+        "sha256": "e9b45c7f101c82ceb173b91357b293d18c2f2e60127c54f31b92a6a75526a374"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_PDBTrajectoryFile/iterators.py",
+        "git_blob": "4697ead40ce407812426fb6aefd59ae88ade09d4",
+        "sha256": "f5b4d04ee2dff2811c85bb8bbd0dcf7eb14ec4571c1b71f66e891d68702cb522"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_PDBTrajectoryFile/merge.py",
+        "git_blob": "bcda950a8ecd267bca51f06b8ee2e5c140d774b9",
+        "sha256": "5538a6f49b6cc97fc53028bf28f0fe446db9dc6df736a85eacc7f16ae6b591e4"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_PDBTrajectoryFile/set.py",
+        "git_blob": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_PDBTrajectoryFile/to_mdtraj_PDBTrajectoryFile.py",
+        "git_blob": "a3a5545fb828dca289c90c178e0a83b79334bcc6",
+        "sha256": "ba5294822c4fe5e0953c90860c233ab8d086606b1f3a654aaf0c4088a6e35397"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_PDBTrajectoryFile/to_mdtraj_Topology.py",
+        "git_blob": "393858772704616c7e1b6960459a1118b3108c9c",
+        "sha256": "cd6e59bb4bf2cc759ccd072b0ad5b21090de0b3758fb62b5fd63c527c0b26c3d"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_PDBTrajectoryFile/to_molsysmt_MolSys.py",
+        "git_blob": "1e6abbba64d94da04846855a9e239b98158542d6",
+        "sha256": "1166d2cd996323e4c3c707498be86b50218758cf8c95e7007a49404386029ae6"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_PDBTrajectoryFile/to_molsysmt_Structures.py",
+        "git_blob": "117fe4da9fb7d3a1257f29e61714213ca5cc5d0f",
+        "sha256": "4e8186be52dc617a1d528d0026e28d84a560dea71f5941efefb8c0aa783c6b50"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/__init__.py",
+        "git_blob": "7211e6bdd86bc276828460778710e309633ec401",
+        "sha256": "b9efe13429c027820253dc9bac213c1d167aa20b3d9b2b7a7b7504401501587f"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/add.py",
+        "git_blob": "8bf013aa8c79769fadab34cc7836feb3bb5b7ff2",
+        "sha256": "2470a7ab036659f045f5adc149d18ed8c41b5c4a6c10196ff5dcd9fdda6fce6f"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/append_structures.py",
+        "git_blob": "b9fcfc26956ca021731ce05177bd7cd90160f64c",
+        "sha256": "4198f62588fa00c62601234120f2b1dcfe8865330d8c26152f3d90acf15bf7b0"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/copy.py",
+        "git_blob": "d2ed565412b0e49b0d5be29536c1edcde62839b9",
+        "sha256": "9cd72a0db7998c5cfdc0390067eafd4e92f8e69c4c04ee732bc183438b685c97"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/extract.py",
+        "git_blob": "6913ac0c6929319458ca3d27ae1512e816c6b3da",
+        "sha256": "5c03adf794c5e94f7295c7211390d4beae40e2e1b350eacab1d2b4062a4b683d"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/get_structural_attributes.py",
+        "git_blob": "1e7cb72997faced4910854cbdaa874e6ff0f48fa",
+        "sha256": "0a885b4a9ee047c1fff018ca42d7abc8c4c31ec6549aac340ebcc28b3dca0891"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/get_topological_attributes.py",
+        "git_blob": "df00163bafd6aa949ec6bfc1f4f649002ac8e5ec",
+        "sha256": "2141453984d5447bbb2afa38c0f13f838f0a119c9e95baaa7a89d8a8aad0c7f7"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/has_attribute.py",
+        "git_blob": "e0a11cd6e76396848fbaeb6eced9368d5e4a04e9",
+        "sha256": "56b3a60e7e99dfc676c5456229e7b3354f682593d970429cda1822def3acf8be"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/is_form.py",
+        "git_blob": "72a1162866f087f996870ed878a29d4951688866",
+        "sha256": "08bd1a6b2d1e648c7548a9cfa82a018481c772a8b1168462f9cf75876addf66f"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/iterators.py",
+        "git_blob": "e4e58aa06c5f7604c1fcf5807783cd86239ef57c",
+        "sha256": "fd69583fea48269fbbee48c9257bb993f6a3660b57f17a2d0d008509dd669ee8"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/merge.py",
+        "git_blob": "f3500ab85813ba8b6edfd5d3109b85f533d5f56c",
+        "sha256": "c7ee88573ab83860067280463d5ab4cb31b97f1609bed5dc33ef5395b09124ee"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/set.py",
+        "git_blob": "1de7fb6f4a71d1a4e46b09c6d180a644a524f4d7",
+        "sha256": "e43a0ecc34a2f3f117be24d18b601ef404e75d1b242a4d2f6d5378a2471a0128"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/to_file_top.py",
+        "git_blob": "d420da231b78f779b12d1bd4c4bc6b4937d45d9e",
+        "sha256": "d5e6ea6b9a51b55c80611af4bd542bebfe7a1e14557662c4559f346d7946a31c"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/to_mdtraj_Topology.py",
+        "git_blob": "1857e771d9b21eaab420be4a56629fee72582bd6",
+        "sha256": "b5f4f9470b4ce41f10384973d4e7f3f2d5e56ce1cfd3e949d95c1d011f19e68e"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/to_mdtraj_Trajectory.py",
+        "git_blob": "5ff316e2e8236665ed539a18eceb646464ca715b",
+        "sha256": "4cd99f965990caeb4cdf7e402bbea459440b559fb76abfa4d5f9affc39e92cf2"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/to_molsysmt_MolSys.py",
+        "git_blob": "4c0af6c238b7855a9c027aecd72ecd47eda5cd13",
+        "sha256": "930eef97f24812835fbb7f4e406dd1e3699a0ac5efe09b13c668e019778a159f"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/to_molsysmt_Topology.py",
+        "git_blob": "59a212f02e7712a0e1ba942fcd92ec1726658237",
+        "sha256": "ad528523af4d12e8a706fb69c8183109408af08cd3fc0eb5d2cd28c12f72190d"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/to_openmm_Topology.py",
+        "git_blob": "4e85cf9ff16736fa0a057e804b6f9b6cf9976994",
+        "sha256": "e61d1542e1ef1a64b2936ab11009660d33fc93e583afc22eabbe72c5ac2ec76a"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/to_parmed_GromacsTopologyFile.py",
+        "git_blob": "b488c2c6febff90ae2c99dbf4d054ce931bcb5d7",
+        "sha256": "da06330e7a205ad7b58070616ffc86b718cf9c9274757db4a7444483a997527a"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/to_parmed_Structure.py",
+        "git_blob": "883c2bed273ee26ecc86ab1aead10facaa9a06da",
+        "sha256": "de8e497ce25604397bf56d1546c96f9eb8a07c2539e33090c0da437383ec3fdc"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/to_string_amino_acids_1.py",
+        "git_blob": "5bdefeefa607f00408e4bebeadefe25cfcc764fc",
+        "sha256": "1e86d88d349b9477d50faf2b4ece78d17c4e4daf23113e2db6464837e2f7f6aa"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Topology/to_string_amino_acids_3.py",
+        "git_blob": "37e1855b0c0844492100eedba4abdeac7cf46ddb",
+        "sha256": "2988f88b2beca6693021d726a4d4854458ec0811c5161e33d7ee48147fde7226"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/__init__.py",
+        "git_blob": "df89eb4ec9d998c643565c069adaee946b1cbe81",
+        "sha256": "ea562019b71ff24b6f8ce550d19c25bca45ec20711e4388b4313cd042b49d0d8"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/add.py",
+        "git_blob": "3bcf6bce104ed4b46e9c210a1c360aaa2c746292",
+        "sha256": "dbd73ef9be80ca320cc56ac811561bdb04c49bc01586cacf10991627b2e74897"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/append_structures.py",
+        "git_blob": "80a2226552cd832964a60b4e76e1eb31041b3480",
+        "sha256": "181f1b9dd0d8fef76a77869531e21c043f6567336f359a11481131d961b3f4c8"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/copy.py",
+        "git_blob": "ec67f08e267e695b7fbde6407344937a681e74a5",
+        "sha256": "ffc68728d33ec22d844bbeeb65d044e007cafa7465b5a69710a166318d467887"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/extract.py",
+        "git_blob": "3fa06c7b21f3c9f6a798ed377dba8e1f3ca15635",
+        "sha256": "b6c2b8c89f716062bd2f8e95fd24790727479f05d484b80d8cd4e26669f10204"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/get_structural_attributes.py",
+        "git_blob": "edb65c019db281aa720a16ea15e35e80c38294b8",
+        "sha256": "d0032684fa4f5b8ddd19c75c545b38b9ca2a9221d7d43ecd9a05256a0ee1c129"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/get_topological_attributes.py",
+        "git_blob": "7efcf15b0c6ee1b0582b5bea996b9df4cdf7f2bf",
+        "sha256": "8d97d2b33a41f0bcd9a3a26ab7d921a975883902502a1dfc8207cf547660f886"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/has_attribute.py",
+        "git_blob": "d24bd1f0dcb8cd7ac06a57aea5d034d4471cfa7e",
+        "sha256": "65dd8adbcf31a4475b9326f7d4b1580e49648c3356a4db3f71c21c9b268fa561"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/is_form.py",
+        "git_blob": "3b31677013d548b254a860bea7247e18500184e1",
+        "sha256": "d936e91f1cd688101c917c1c7663fc41776f4ec148eb4bf388f241fe1028786d"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/iterators.py",
+        "git_blob": "8de2bd194cd329a9f80647ad71d95d31654c3987",
+        "sha256": "70701041f6d736590cc25d697e1b1baf3c5c4220f67188041721f2627eed941b"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/merge.py",
+        "git_blob": "dc01e884402b83397155bd1284bcefb31a16a89c",
+        "sha256": "5ab6530171dd9dfc77ac6fc9fda6e2d192d12996334f12ac1cff31a6592919f2"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/set.py",
+        "git_blob": "877a020f4126538470975d11d424b9b629306f1f",
+        "sha256": "8f96710e73a2cace1b47d91309e3b6a312c1f89800cfe8f2684d14a30fa19262"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/to_biopython_Seq.py",
+        "git_blob": "0d1d59210a7f03ed38119b51bab99e6562b20846",
+        "sha256": "175cd03e20f125117e6a7f2271e9e4c3494dec45b1dfdfc1f4eeda0138b17952"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/to_biopython_SeqRecord.py",
+        "git_blob": "353f8e4a1775b1a7232db3d800818ae0d694bd92",
+        "sha256": "38de84629c18c2c888a399cf6d145cf7109a1c8744749f995f0ab01ae81dcfd7"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/to_file_pdb.py",
+        "git_blob": "5ab38f8f6e6358a65c33ed11e44d4247840e2994",
+        "sha256": "547fc872970162978379092599aded50d409a75980231d1116f7a264b7ba1681"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/to_file_xtc.py",
+        "git_blob": "53938104bdd517ff4aff17ddc6169699f316de2f",
+        "sha256": "6eb947804240ce2728414b1fe50655e3382e214b4c3499f42f015f2aaf7f1150"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/to_mdtraj_Topology.py",
+        "git_blob": "1b3db733c4f37cb317921a8bdd636748a27357ca",
+        "sha256": "40e17ed17758c426ba0ffdadaf512820a5b47e979eb39e3b71e51ca7fa302ae7"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/to_mdtraj_Trajectory.py",
+        "git_blob": "2ec3d60acdcadd70891fcb98074755e80d3bdcaa",
+        "sha256": "ab88604fc8d9ee99b21dcef5565b7ccc6d6158b63110e3a97f48f18d6b12ae54"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/to_molsysmt_MolSys.py",
+        "git_blob": "3c5d9b506fcf003ab1d123464a934dd6c4663b4c",
+        "sha256": "c6e4046accb1ab7d692eb5d22b494cdb49165e5770de108c7b139576ec549cf5"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/to_molsysmt_Structures.py",
+        "git_blob": "99bec22781c60d950de5d36db39b5b447b7514f9",
+        "sha256": "88b1b1248e9298648c8a4a6eabae1ec966d63f36124ded4b14a9c4f1cd4eca17"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/to_molsysmt_Topology.py",
+        "git_blob": "741efa5cfd631a5e35d97b9363b6e1e1a9f26172",
+        "sha256": "f9c3f4ec5a79b4fed1fee513d887e76a30a98dcf6a24a3777ea88c4348f811cc"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/to_nglview_NGLWidget.py",
+        "git_blob": "79ef13bccde6945492590801a604231336b1314e",
+        "sha256": "3854bea5b87ae21eb9ed06c8e2452bbc07a75cd926f7a247bbf3b346c666f58d"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/to_openmm_Modeller.py",
+        "git_blob": "09a12f203bdf1cc713ebd8f2fe59acbc6a2a1b58",
+        "sha256": "161a198ea02f930f16f926c95945f80b7734b586d5d0e966b2c78e609903062d"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/to_openmm_Topology.py",
+        "git_blob": "c93cbb6e386466d17e2ccdfe0384edb69b785901",
+        "sha256": "009c298e9c8feb3fe5463a52e9ccde57f2060e235db99f48806e7190640c82f8"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/to_parmed_Structure.py",
+        "git_blob": "9ac144259425801909c9f4d8808b1e80f682815f",
+        "sha256": "2011729bab8226cdf38bb4fb4be4b36cba6f3a660bf714a07bbe4a2e0652e886"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/to_pdbfixer_PDBFixer.py",
+        "git_blob": "9ff3d33ad244f7ab17dddfdaf9db13fc5ae2c4d4",
+        "sha256": "228787f929f6810b47851ce236cc140f0f1cb8b71b72fd68aa3b83c12c4916e7"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/to_pytraj_Topology.py",
+        "git_blob": "1307b937f48db4d878e0d06d164740cf21849859",
+        "sha256": "6992f399b0f9135d090c38d8b44e5ab0b92c8ab5fdaa9745c4782c6bec758b72"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/to_pytraj_Trajectory.py",
+        "git_blob": "e6b3b5da9476845185673dcf6c41319f64436471",
+        "sha256": "4978311f629d0c75e582673f39575623cbb2f9c387cac45f7bf37bc12fa7131d"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/to_string_amino_acids_1.py",
+        "git_blob": "a1568b8be06e13b7cd380cbb2d3820b584fc47c6",
+        "sha256": "fae5dcf1439c33fed4c172d553e702a86c66e465b8092028e710f9a476b1d6a8"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_Trajectory/to_string_amino_acids_3.py",
+        "git_blob": "d0f9b6dbefab56d75089fa8bf5e9bd843694091a",
+        "sha256": "59a194114159c809d3fd22fd197db4696d635f7ceeddfabc1894b8a38dc0d945"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_XTCTrajectoryFile/__init__.py",
+        "git_blob": "490b72cc7b44d51ab2d73fb6f28d940df019cc37",
+        "sha256": "8fa56f4fc07c8a032e4710c0f675c172e07d51aa14c9f4310fba8efa80eafbe2"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_XTCTrajectoryFile/add.py",
+        "git_blob": "797f4a4c6884bea03a32adc2212b5b328e92b703",
+        "sha256": "d29ceb283fd1af39e28c078fb703cbc6f10a254e25cb2910601b5106b6e3f8f9"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_XTCTrajectoryFile/append_structures.py",
+        "git_blob": "eab4e94725edea1c010adc835186dd40fa8d1364",
+        "sha256": "6a750d555e7c679b61785f756eed8462ed6d510da067101ade7aee9413e16bed"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_XTCTrajectoryFile/copy.py",
+        "git_blob": "44c7f0e6988b2196c9aea6f0a4450bd9529db31d",
+        "sha256": "7e58d5c676d1600dc6a1d76b523c92c30b3366f522585c2ded2ad7b4c8a15dec"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_XTCTrajectoryFile/extract.py",
+        "git_blob": "1c2371e288e3212132a66264851925e3e3d9152a",
+        "sha256": "0a579787c7ea96d764ff223abbb9fa0a775e265ef332cca47aaf4cf695e9e45f"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_XTCTrajectoryFile/get_structural_attributes.py",
+        "git_blob": "6650ba1a398d3bff369fa703b29f239f2362de04",
+        "sha256": "7699d8c097b777479d64e674b82a7e882167eb09732ef0b3ef2399bcd433cc85"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_XTCTrajectoryFile/get_topological_attributes.py",
+        "git_blob": "2120f068c3418720e0dfe0dc6d4d31ed0c048cb9",
+        "sha256": "498ec3850b770bb28db08f98b2933214d213d4ba7d95916bc85edee24ad8a317"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_XTCTrajectoryFile/has_attribute.py",
+        "git_blob": "2e83feedddc206a435a078a9873e39348c8d1f03",
+        "sha256": "ebfc3c0255f507060f7420d044878581f85f3412024408d41e940cc6c146e8a3"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_XTCTrajectoryFile/is_form.py",
+        "git_blob": "dd7af5b9e7f39ee6ad946770505a91baad121413",
+        "sha256": "1155919d5aa4f5730e7c4c289a4958be2421d8fe6bbbfe7dcea3b0dcacd4d28d"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_XTCTrajectoryFile/iterators.py",
+        "git_blob": "636babe71043bcad5a8d51e132d61a18c31f7f5e",
+        "sha256": "0273f5ed0d0b1f0c0bf8f83258d62f3006a5d016f84acadb5588a78076a983dc"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_XTCTrajectoryFile/merge.py",
+        "git_blob": "dfe631b80ce296aaefcb07d84705e0946d5b80cb",
+        "sha256": "2d87fde53b3e20595fb3a01f4116a34b62c65fe059880c266eff76d5a9535fb7"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_XTCTrajectoryFile/set.py",
+        "git_blob": "8b137891791fe96927ad78e64b0aad7bded08bdc",
+        "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_XTCTrajectoryFile/to_mdtraj_XTCTrajectoryFile.py",
+        "git_blob": "c1544df49be2a89708aaf43551f49828b745ca51",
+        "sha256": "1fc8ba6f3142d53fa769e96d65a79048d248b50cfec417a09e5efbb1fa8049dc"
+      },
+      {
+        "path": "molsysmt/form/mdtraj_XTCTrajectoryFile/to_molsysmt_Structures.py",
+        "git_blob": "2d91762d0661cfab49e5be977dd21bc0c10ac167",
+        "sha256": "53492adb294b654239adccee96f4f181636b91fe22b349e5647a1b158a8a12b7"
+      }
+    ]
+  },
+  "adapter_facts": {
+    "mdtraj_AmberRestartFile": {
+      "attributes": [
+        "atom_index",
+        "n_atoms",
+        "structure_index",
+        "time",
+        "box",
+        "box_shape",
+        "box_angles",
+        "box_lengths",
+        "box_volume",
+        "coordinates",
+        "n_structures"
+      ],
+      "converters": {
+        "mdtraj.AmberRestartFile": "to_mdtraj_AmberRestartFile",
+        "molsysmt.MolSys": "to_molsysmt_MolSys",
+        "molsysmt.Structures": "to_molsysmt_Structures"
+      },
+      "piping": {
+        "piped_topological_attribute": null,
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    },
+    "mdtraj_DCDTrajectoryFile": {
+      "attributes": [
+        "n_atoms",
+        "structure_index",
+        "box",
+        "box_shape",
+        "box_angles",
+        "box_lengths",
+        "box_volume",
+        "coordinates",
+        "n_structures"
+      ],
+      "converters": {
+        "mdtraj.DCDTrajectoryFile": "to_mdtraj_DCDTrajectoryFile",
+        "molsysmt.MolSys": "to_molsysmt_MolSys",
+        "molsysmt.Structures": "to_molsysmt_Structures"
+      },
+      "piping": {
+        "piped_topological_attribute": null,
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    },
+    "mdtraj_GroTrajectoryFile": {
+      "attributes": [
+        "atom_index",
+        "n_atoms",
+        "structure_index",
+        "time",
+        "box",
+        "box_shape",
+        "box_angles",
+        "box_lengths",
+        "box_volume",
+        "coordinates",
+        "n_structures"
+      ],
+      "converters": {
+        "mdtraj.GroTrajectoryFile": "to_mdtraj_GroTrajectoryFile",
+        "molsysmt.MolSys": "to_molsysmt_MolSys",
+        "molsysmt.Structures": "to_molsysmt_Structures"
+      },
+      "piping": {
+        "piped_topological_attribute": null,
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    },
+    "mdtraj_HDF5TrajectoryFile": {
+      "attributes": [
+        "atom_index",
+        "atom_name",
+        "atom_id",
+        "atom_type",
+        "group_index",
+        "group_name",
+        "group_id",
+        "group_type",
+        "component_index",
+        "component_name",
+        "component_id",
+        "component_type",
+        "chain_index",
+        "chain_name",
+        "chain_id",
+        "chain_type",
+        "molecule_index",
+        "molecule_name",
+        "molecule_id",
+        "molecule_type",
+        "entity_index",
+        "entity_name",
+        "entity_id",
+        "entity_type",
+        "bond_index",
+        "bond_type",
+        "bond_order",
+        "bonded_atoms",
+        "n_atoms",
+        "n_groups",
+        "n_components",
+        "n_chains",
+        "n_molecules",
+        "n_entities",
+        "n_bonds",
+        "n_amino_acids",
+        "n_ions",
+        "n_waters",
+        "n_small_molecules",
+        "n_peptides",
+        "n_proteins",
+        "n_dnas",
+        "n_rnas",
+        "n_lipids",
+        "n_polysaccharides",
+        "n_saccharides",
+        "structure_index",
+        "time",
+        "box",
+        "box_shape",
+        "box_angles",
+        "box_lengths",
+        "box_volume",
+        "coordinates",
+        "velocities",
+        "potential_energy",
+        "kinetic_energy",
+        "total_energy",
+        "n_structures",
+        "temperature"
+      ],
+      "converters": {
+        "mdtraj.HDF5TrajectoryFile": "to_mdtraj_HDF5TrajectoryFile",
+        "mdtraj.Topology": "to_mdtraj_Topology",
+        "openmm.Topology": "to_openmm_Topology",
+        "molsysmt.MolSys": "to_molsysmt_MolSys",
+        "molsysmt.Topology": "to_molsysmt_Topology",
+        "molsysmt.Structures": "to_molsysmt_Structures"
+      },
+      "piping": {
+        "piped_topological_attribute": "molsysmt.MolSys",
+        "piped_structural_attribute": "molsysmt.Structures",
+        "piped_any_attribute": "molsysmt.MolSys"
+      }
+    },
+    "mdtraj_PDBTrajectoryFile": {
+      "attributes": [
+        "atom_index",
+        "n_atoms",
+        "structure_index",
+        "box",
+        "box_shape",
+        "box_angles",
+        "box_lengths",
+        "box_volume",
+        "coordinates",
+        "n_structures"
+      ],
+      "converters": {
+        "mdtraj.PDBTrajectoryFile": "to_mdtraj_PDBTrajectoryFile",
+        "mdtraj.Topology": "to_mdtraj_Topology",
+        "molsysmt.MolSys": "to_molsysmt_MolSys",
+        "molsysmt.Structures": "to_molsysmt_Structures"
+      },
+      "piping": {
+        "piped_topological_attribute": null,
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    },
+    "mdtraj_Topology": {
+      "attributes": [
+        "atom_index",
+        "atom_name",
+        "atom_id",
+        "atom_type",
+        "group_index",
+        "group_name",
+        "group_id",
+        "group_type",
+        "component_index",
+        "component_name",
+        "component_id",
+        "component_type",
+        "chain_index",
+        "chain_name",
+        "chain_id",
+        "chain_type",
+        "molecule_index",
+        "molecule_name",
+        "molecule_id",
+        "molecule_type",
+        "entity_index",
+        "entity_name",
+        "entity_id",
+        "entity_type",
+        "bond_index",
+        "bond_type",
+        "bond_order",
+        "bond_is_aromatic",
+        "bonded_atoms",
+        "bonded_atom_pairs",
+        "n_atoms",
+        "n_groups",
+        "n_components",
+        "n_chains",
+        "n_molecules",
+        "n_entities",
+        "n_bonds",
+        "n_amino_acids",
+        "n_ions",
+        "n_waters",
+        "n_small_molecules",
+        "n_peptides",
+        "n_proteins",
+        "n_dnas",
+        "n_rnas",
+        "n_lipids",
+        "n_polysaccharides",
+        "n_saccharides",
+        "formal_charge"
+      ],
+      "converters": {
+        "molsysmt.MolSys": "to_molsysmt_MolSys",
+        "mdtraj.Topology": "to_mdtraj_Topology",
+        "file:top": "to_file_top",
+        "string:amino_acids_1": "to_string_amino_acids_1",
+        "string:amino_acids_3": "to_string_amino_acids_3",
+        "mdtraj.Trajectory": "to_mdtraj_Trajectory",
+        "parmed.Structure": "to_parmed_Structure",
+        "parmed.GromacsTopologyFile": "to_parmed_GromacsTopologyFile",
+        "molsysmt.Topology": "to_molsysmt_Topology",
+        "openmm.Topology": "to_openmm_Topology"
+      },
+      "piping": {
+        "piped_topological_attribute": "molsysmt.MolSys",
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    },
+    "mdtraj_Trajectory": {
+      "attributes": [
+        "atom_index",
+        "atom_name",
+        "atom_id",
+        "atom_type",
+        "group_index",
+        "group_name",
+        "group_id",
+        "group_type",
+        "component_index",
+        "component_name",
+        "component_id",
+        "component_type",
+        "chain_index",
+        "chain_name",
+        "chain_id",
+        "chain_type",
+        "molecule_index",
+        "molecule_name",
+        "molecule_id",
+        "molecule_type",
+        "entity_index",
+        "entity_name",
+        "entity_id",
+        "entity_type",
+        "bond_index",
+        "bond_type",
+        "bond_order",
+        "bonded_atoms",
+        "n_atoms",
+        "n_groups",
+        "n_components",
+        "n_chains",
+        "n_molecules",
+        "n_entities",
+        "n_bonds",
+        "n_amino_acids",
+        "n_ions",
+        "n_waters",
+        "n_small_molecules",
+        "n_peptides",
+        "n_proteins",
+        "n_dnas",
+        "n_rnas",
+        "n_lipids",
+        "n_polysaccharides",
+        "n_saccharides",
+        "structure_index",
+        "structure_id",
+        "time",
+        "box",
+        "box_shape",
+        "box_angles",
+        "box_lengths",
+        "box_volume",
+        "coordinates",
+        "n_structures"
+      ],
+      "converters": {
+        "mdtraj.Trajectory": "to_mdtraj_Trajectory",
+        "file:pdb": "to_file_pdb",
+        "file:xtc": "to_file_xtc",
+        "biopython.Seq": "to_biopython_Seq",
+        "biopython.SeqRecord": "to_biopython_SeqRecord",
+        "mdtraj.Topology": "to_mdtraj_Topology",
+        "openmm.Topology": "to_openmm_Topology",
+        "openmm.Modeller": "to_openmm_Modeller",
+        "pdbfixer.PDBFixer": "to_pdbfixer_PDBFixer",
+        "molsysmt.MolSys": "to_molsysmt_MolSys",
+        "molsysmt.Structures": "to_molsysmt_Structures",
+        "molsysmt.Topology": "to_molsysmt_Topology",
+        "nglview.NGLWidget": "to_nglview_NGLWidget",
+        "parmed.Structure": "to_parmed_Structure",
+        "pytraj.Trajectory": "to_pytraj_Trajectory",
+        "pytraj.Topology": "to_pytraj_Topology",
+        "string:amino_acids_1": "to_string_amino_acids_1",
+        "string:amino_acids_3": "to_string_amino_acids_3"
+      },
+      "piping": {
+        "piped_topological_attribute": "mdtraj.Topology",
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    },
+    "mdtraj_XTCTrajectoryFile": {
+      "attributes": [
+        "n_atoms",
+        "structure_id",
+        "time",
+        "box",
+        "coordinates",
+        "n_structures"
+      ],
+      "converters": {
+        "mdtraj.XTCTrajectoryFile": "to_mdtraj_XTCTrajectoryFile",
+        "molsysmt.Structures": "to_molsysmt_Structures"
+      },
+      "piping": {
+        "piped_topological_attribute": null,
+        "piped_structural_attribute": null,
+        "piped_any_attribute": null
+      }
+    }
+  },
+  "remaining_census": {
+    "scope": "Unchanged-source and byte-identical cached HTML only. Sixty-eight reviewed native/file/string/Biopython/OpenMM/MDTraj articles have incremental receiving; this census is not a newly rebuilt full site or installed/scientific certificate.",
+    "source_matched_articles": 26,
+    "source_matched_articles_with_unlinked_python_roles": 18,
+    "unlinked_python_role_nodes_in_matched_articles": 350,
+    "newly_excluded_pages": [
+      {
+        "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_AmberRestartFile.ipynb",
+        "source_sha256": "18f3ca1ca58ad8407f330ea1901469d92ea9a7208190f6e0dcc8526f16f84ab8",
+        "syntax_role_occurrences_before": 19,
+        "status": "source_matched_cached_article",
+        "html_sha256": "7577dcf44e7cdc6fe1d50d20b788d0adc09075155dacd25bbd2b3674ae2f9b03",
+        "unlinked_python_role_count": 17,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.mdtraj_AmberRestartFile",
+          "molsysmt.form.mdtraj_AmberRestartFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.mdtraj_AmberRestartFile",
+          "to_mdtraj_AmberRestartFile()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_DCDTrajectoryFile.ipynb",
+        "source_sha256": "9d9a65e29755e0dc0829c5d079a479d74b8fdb72588a876a97171a6ba4b05a55",
+        "syntax_role_occurrences_before": 19,
+        "status": "source_matched_cached_article",
+        "html_sha256": "397c3c994694fa0a98f318a4197475e4a9a32b087b2f999e055efcc8dd473ee7",
+        "unlinked_python_role_count": 17,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.mdtraj_DCDTrajectoryFile",
+          "molsysmt.form.mdtraj_DCDTrajectoryFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.mdtraj_DCDTrajectoryFile",
+          "to_mdtraj_DCDTrajectoryFile()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_GroTrajectoryFile.ipynb",
+        "source_sha256": "7cb277e491fc98df335bc88eb8d3487e6d65a54690c5554f9f6435b909936f5e",
+        "syntax_role_occurrences_before": 19,
+        "status": "source_matched_cached_article",
+        "html_sha256": "e1d089af96a41368b26e35f91b5915575ddc85379ac7cb6719acc67c676acf9a",
+        "unlinked_python_role_count": 17,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.mdtraj_GroTrajectoryFile",
+          "molsysmt.form.mdtraj_GroTrajectoryFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.mdtraj_GroTrajectoryFile",
+          "to_mdtraj_GroTrajectoryFile()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_HDF5TrajectoryFile.ipynb",
+        "source_sha256": "4c3b1d6c3183e9799d1ae9168a82d729f41a3396582832fcb2825ea75ee2c33e",
+        "syntax_role_occurrences_before": 22,
+        "status": "source_matched_cached_article",
+        "html_sha256": "dba5e24c85e1f1ba33f7a3bfd70db5fcbcf1a7209a05cf41147ef48c629903a0",
+        "unlinked_python_role_count": 20,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.mdtraj_HDF5TrajectoryFile",
+          "molsysmt.form.mdtraj_HDF5TrajectoryFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.mdtraj_HDF5TrajectoryFile",
+          "to_mdtraj_HDF5TrajectoryFile()",
+          "to_mdtraj_Topology()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_openmm_Topology()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_PDBTrajectoryFile.ipynb",
+        "source_sha256": "f440b68bb38059b531df96513a856959b2aad91c8b83d713db0790978b7db981",
+        "syntax_role_occurrences_before": 20,
+        "status": "source_matched_cached_article",
+        "html_sha256": "502d712705d3c2f07755c80748b0ccacb17616422928cf405f796ce263990769",
+        "unlinked_python_role_count": 18,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.mdtraj_PDBTrajectoryFile",
+          "molsysmt.form.mdtraj_PDBTrajectoryFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.mdtraj_PDBTrajectoryFile",
+          "to_mdtraj_PDBTrajectoryFile()",
+          "to_mdtraj_Topology()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_Topology.ipynb",
+        "source_sha256": "c427867a6a53266925feb10047228ecdc9530c87c5906479194bf5c06bf2f3e7",
+        "syntax_role_occurrences_before": 25,
+        "status": "source_matched_cached_article",
+        "html_sha256": "c8c13cfdb68ae6693553d25345252323115cff1de98bb561aeb598e92eb42a18",
+        "unlinked_python_role_count": 23,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.mdtraj_Topology",
+          "molsysmt.form.mdtraj_Topology",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.mdtraj_Topology",
+          "to_file_top()",
+          "to_mdtraj_Topology()",
+          "to_mdtraj_Trajectory()",
+          "to_molsysmt_Topology()",
+          "to_openmm_Topology()",
+          "to_parmed_GromacsTopologyFile()",
+          "to_parmed_Structure()",
+          "to_string_amino_acids_1()",
+          "to_string_amino_acids_3()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_Trajectory.ipynb",
+        "source_sha256": "9de1edaf7632a368ea2b5c80280bcd80e96a17d4ae1b0e03988e7f8edf66ad68",
+        "syntax_role_occurrences_before": 34,
+        "status": "source_matched_cached_article",
+        "html_sha256": "e0c290832ec51447f7a4921013c111cbf9761a9c27ea69fdd8a8ddf3971cc798",
+        "unlinked_python_role_count": 32,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.mdtraj_Trajectory",
+          "molsysmt.form.mdtraj_Trajectory",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.mdtraj_Trajectory",
+          "to_biopython_Seq()",
+          "to_biopython_SeqRecord()",
+          "to_file_pdb()",
+          "to_file_xtc()",
+          "to_mdtraj_Topology()",
+          "to_mdtraj_Trajectory()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_nglview_NGLWidget()",
+          "to_openmm_Modeller()",
+          "to_openmm_Topology()",
+          "to_parmed_Structure()",
+          "to_pdbfixer_PDBFixer()",
+          "to_pytraj_Topology()",
+          "to_pytraj_Trajectory()",
+          "to_string_amino_acids_1()",
+          "to_string_amino_acids_3()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdtraj/mdtraj_XTCTrajectoryFile.ipynb",
+        "source_sha256": "fba9ba80e9231d00002e855b5a5e138f635297a4163856c21a5ff3df10ce0bf3",
+        "syntax_role_occurrences_before": 18,
+        "status": "source_matched_cached_article",
+        "html_sha256": "0fdc124095f9c4da2bd21fe2fc393a55123a5a813d5b67c4c7b78ba300ba0800",
+        "unlinked_python_role_count": 16,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.mdtraj_XTCTrajectoryFile",
+          "molsysmt.form.mdtraj_XTCTrajectoryFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.mdtraj_XTCTrajectoryFile",
+          "to_mdtraj_XTCTrajectoryFile()",
+          "to_molsysmt_Structures()"
+        ]
+      }
+    ],
+    "rows": [
+      {
+        "page": "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_AtomGroup.ipynb",
+        "source_sha256": "1a863ed839b35e7ec22f6c087a440039d83423b32add5823fd5817d402d50f62",
+        "syntax_role_occurrences_before": 15,
+        "status": "source_matched_cached_article",
+        "html_sha256": "4d182a818b5a3c7c3a82f1b9bc0ff0302ed230dcbc8cc152d1320efaabba555d",
+        "unlinked_python_role_count": 13,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.MDAnalysis_AtomGroup",
+          "molsysmt.form.MDAnalysis_AtomGroup",
+          "extract()",
+          "copy()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.MDAnalysis_AtomGroup",
+          "extract()",
+          "to_MDAnalysis_Universe()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Topology()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_Topology.ipynb",
+        "source_sha256": "f18726c7d805316cbbd30f869e75497ba228920062fe49555c6c72f68f036bc7",
+        "syntax_role_occurrences_before": 18,
+        "status": "source_matched_cached_article",
+        "html_sha256": "5469b05f5d663e02c0b3037ca673523e5c88350981dd15fb98c8f792809cfa17",
+        "unlinked_python_role_count": 16,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.MDAnalysis_Topology",
+          "molsysmt.form.MDAnalysis_Topology",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.MDAnalysis_Topology",
+          "to_MDAnalysis_Topology()",
+          "to_molsysmt_Topology()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_Universe.ipynb",
+        "source_sha256": "f07fa410ff96546cc31d5a9622ffb11e259336aa91d0505671c5c2751243405a",
+        "syntax_role_occurrences_before": 23,
+        "status": "source_matched_cached_article",
+        "html_sha256": "d699a7ed55e74adb495011ce13ac9a4e3dc155a1781041ceecc7fec524f202a2",
+        "unlinked_python_role_count": 21,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.MDAnalysis_Universe",
+          "molsysmt.form.MDAnalysis_Universe",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.MDAnalysis_Universe",
+          "to_MDAnalysis_Universe()",
+          "to_file_pdb()",
+          "to_mdtraj_Trajectory()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_nglview_NGLWidget()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/mdanalysis/MDAnalysis_topology_PDBParser.ipynb",
+        "source_sha256": "aedbc2cb78353c14aff9f688fc29c75fdc9fdffafa7d59d8a7d7b4c8355712b7",
+        "syntax_role_occurrences_before": 20,
+        "status": "source_matched_cached_article",
+        "html_sha256": "34f64285877a48d5d4ceb9dad64f83c7c3fc92a76298afe44dd50834b89a6af2",
+        "unlinked_python_role_count": 18,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.MDAnalysis_topology_PDBParser",
+          "molsysmt.form.MDAnalysis_topology_PDBParser",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.MDAnalysis_topology_PDBParser",
+          "to_MDAnalysis_Topology()",
+          "to_MDAnalysis_topology_PDBParser()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Topology()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/molsysmt/molsysmt_H5MSMFileHandler.ipynb",
+        "source_sha256": "7eb46e17edc7f7129984d6ebecedf6294fce45bbe2b839e13f917d7f0c11a11d",
+        "syntax_role_occurrences_before": 2,
+        "status": "source_matched_cached_article",
+        "html_sha256": "40a81ad7f29e4804e629d07f4aba3b1257c2709aee2b75f232abfca009c83df9",
+        "unlinked_python_role_count": 0,
+        "unlinked_python_role_labels": []
+      },
+      {
+        "page": "docs/content/user/tools/form/class/molsysmt/molsysmt_PDBFileHandler.ipynb",
+        "source_sha256": "621bed0e4cef733738026b85f1d25fe1a95d9430104db9d0d90510e6924180f0",
+        "syntax_role_occurrences_before": 2,
+        "status": "source_matched_cached_article",
+        "html_sha256": "2d3d8e63985941e9c17e81fa3817a905e247f4fbf562a606968a5379897fc221",
+        "unlinked_python_role_count": 0,
+        "unlinked_python_role_labels": []
+      },
+      {
+        "page": "docs/content/user/tools/form/class/openff/openff_Molecule.ipynb",
+        "source_sha256": "7d45a4105f754d4cfd12749a9933421dc35fcec0931780bcb70a16822b865392",
+        "syntax_role_occurrences_before": 23,
+        "status": "source_matched_cached_article",
+        "html_sha256": "dae6dd45097fab40874eb5d8841d7146e7cf298b166e23babdfc3f5158b103b9",
+        "unlinked_python_role_count": 21,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.openff_Molecule",
+          "molsysmt.form.openff_Molecule",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "get_mechanical_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.openff_Molecule",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_openff_Molecule()",
+          "to_openff_Topology()",
+          "to_rdkit_Mol()",
+          "to_string_smiles()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/openff/openff_Topology.ipynb",
+        "source_sha256": "42f586fbce18c15fbe8f27f2eb4eb95e4cb123d34bf30faab5b7087ffe3df034",
+        "syntax_role_occurrences_before": 21,
+        "status": "source_matched_cached_article",
+        "html_sha256": "3d5299edcff181c9108b3a107375b47dd11ff721f4b54e35cae4856b9929726e",
+        "unlinked_python_role_count": 19,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.openff_Topology",
+          "molsysmt.form.openff_Topology",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "get_mechanical_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.openff_Topology",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_openff_Molecule()",
+          "to_openmm_Topology()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/others/XYZ.ipynb",
+        "source_sha256": "03a9a35dcede1d3f7d6fd1383f1242be978492542890099551536c159d55fbfe",
+        "syntax_role_occurrences_before": 23,
+        "status": "source_matched_cached_article",
+        "html_sha256": "404de8ed210b6683e29a85e441de798ef9e55b47f9413ad4de03ce30a54d394b",
+        "unlinked_python_role_count": 21,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.XYZ",
+          "molsysmt.form.XYZ",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.XYZ",
+          "to_XYZ()",
+          "to_cupy_ndarray()",
+          "to_file_xyznpy()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_MolecularMechanics()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/others/cupy_ndarray.ipynb",
+        "source_sha256": "6cf5030e107a1f0dde76cfe2e2636d6a82b66b97c52814ce0465a70bb6fca290",
+        "syntax_role_occurrences_before": 18,
+        "status": "source_matched_cached_article",
+        "html_sha256": "3b772ca2b0f1a814c5bd6c9d1be692ea42b8bd27e8df2eab6899b77fb85b96d5",
+        "unlinked_python_role_count": 16,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.cupy_ndarray",
+          "molsysmt.form.cupy_ndarray",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.cupy_ndarray",
+          "to_XYZ()",
+          "to_molsysmt_Structures()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/others/mmcif_PdbxContainers_DataContainer.ipynb",
+        "source_sha256": "09f59c05c7e642c70360d546fda135d1d71e508350b3810971c16ebecf8e5c33",
+        "syntax_role_occurrences_before": 28,
+        "status": "source_matched_cached_article",
+        "html_sha256": "ec100099ea57806b218faf754612b2a9157ccad7edcccc6b16138d3e3bf194d9",
+        "unlinked_python_role_count": 26,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.mmcif_PdbxContainers_DataContainer",
+          "molsysmt.form.mmcif_PdbxContainers_DataContainer",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.mmcif_PdbxContainers_DataContainer",
+          "to_file_pdb()",
+          "to_mdtraj_Trajectory()",
+          "to_mmcif_PdbxContainers_DataContainer()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_MolecularMechanics()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_openmm_Topology()",
+          "to_string_amino_acids_1()",
+          "to_string_amino_acids_3()",
+          "to_string_pdb_id()",
+          "to_string_pdb_text()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/others/networkx_Graph.ipynb",
+        "source_sha256": "e3be07213682e279f85e0039926a992acc08db99d5a1eb3e87182b0c5c718916",
+        "syntax_role_occurrences_before": 17,
+        "status": "source_matched_cached_article",
+        "html_sha256": "52231fa0372e94773b6643e19a12e862b1a658c019e3d3d04f51bbc03ef5cfe5",
+        "unlinked_python_role_count": 15,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.networkx_Graph",
+          "molsysmt.form.networkx_Graph",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.networkx_Graph",
+          "to_networkx_Graph()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/others/pdbfixer_PDBFixer.ipynb",
+        "source_sha256": "b7204070258523e2e9f809b88f7d5d84b77e528f983efdfa14ec638edfb2e5f4",
+        "syntax_role_occurrences_before": 30,
+        "status": "source_matched_cached_article",
+        "html_sha256": "05ca10a7c60a03897611973eb82f6089c2f4d1041e437352c6c7952067caac4b",
+        "unlinked_python_role_count": 28,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.pdbfixer_PDBFixer",
+          "molsysmt.form.pdbfixer_PDBFixer",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.pdbfixer_PDBFixer",
+          "to_biopython_Seq()",
+          "to_biopython_SeqRecord()",
+          "to_file_pdb()",
+          "to_mdtraj_Topology()",
+          "to_mdtraj_Trajectory()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_nglview_NGLWidget()",
+          "to_openmm_Modeller()",
+          "to_openmm_Topology()",
+          "to_pdbfixer_PDBFixer()",
+          "to_string_amino_acids_1()",
+          "to_string_amino_acids_3()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/parmed/parmed_GromacsTopologyFile.ipynb",
+        "source_sha256": "8c4e7cc06f9772911110f2d8062c06478eb30a4040d3ef7628ec4889dc28c9df",
+        "syntax_role_occurrences_before": 23,
+        "status": "source_matched_cached_article",
+        "html_sha256": "0f5c958c5a5b0f4b162d9a624cdb1a47541b9629d3df0d5a0087c5990ed74e00",
+        "unlinked_python_role_count": 21,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.parmed_GromacsTopologyFile",
+          "molsysmt.form.parmed_GromacsTopologyFile",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.parmed_GromacsTopologyFile",
+          "to_file_top()",
+          "to_mdtraj_Topology()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Topology()",
+          "to_openmm_Topology()",
+          "to_parmed_GromacsTopologyFile()",
+          "to_parmed_Structure()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/parmed/parmed_Structure.ipynb",
+        "source_sha256": "53a6d1a608e2568cc6ef73c376bc1bd8e02c56c913dc804cf6a04265c0414917",
+        "syntax_role_occurrences_before": 30,
+        "status": "source_matched_cached_article",
+        "html_sha256": "e3e90da3558758d9cf47d254c4df779eb2c96cda62683fcddf1950edcd867a5b",
+        "unlinked_python_role_count": 28,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.parmed_Structure",
+          "molsysmt.form.parmed_Structure",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "get_mechanical_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.parmed_Structure",
+          "to_file_mol2()",
+          "to_file_pdb()",
+          "to_file_psf()",
+          "to_mdtraj_Topology()",
+          "to_mdtraj_Trajectory()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_nglview_NGLWidget()",
+          "to_openmm_Modeller()",
+          "to_openmm_Topology()",
+          "to_parmed_GromacsTopologyFile()",
+          "to_parmed_Structure()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/pytraj/pytraj_Topology.ipynb",
+        "source_sha256": "9ca02c32a642e362700568e5b2ad77524cf3146cb07c6318e86deaad8ec83a4c",
+        "syntax_role_occurrences_before": 19,
+        "status": "source_matched_cached_article",
+        "html_sha256": "2a808ba740306868262567a7fcf762dd0900e53e10e801ee29cf01f8131cb430",
+        "unlinked_python_role_count": 17,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.pytraj_Topology",
+          "molsysmt.form.pytraj_Topology",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.pytraj_Topology",
+          "to_molsysmt_Topology()",
+          "to_pytraj_Topology()",
+          "to_pytraj_Trajectory()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/pytraj/pytraj_Trajectory.ipynb",
+        "source_sha256": "de4633c8da78ee0a9a82f93a454d3ebd2916310edd758cfeb9d72ddddef6b109",
+        "syntax_role_occurrences_before": 22,
+        "status": "source_matched_cached_article",
+        "html_sha256": "34cb87fbe6dcc406f45e111bc01c8544d99f767d54f1c395e17fe8b93a6c22ae",
+        "unlinked_python_role_count": 20,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.pytraj_Trajectory",
+          "molsysmt.form.pytraj_Trajectory",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.pytraj_Trajectory",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_nglview_NGLWidget()",
+          "to_pytraj_Topology()",
+          "to_pytraj_Trajectory()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/rdkit/rdkit_Mol.ipynb",
+        "source_sha256": "37d3eb9bcd07d4c9d3df83e53b5ac207304bbaf3824a179330cc3d1882ab18f9",
+        "syntax_role_occurrences_before": 17,
+        "status": "source_matched_cached_article",
+        "html_sha256": "e15d4bfbd8e5678b651c6902ba932799ccf049057f3644c0573d260e6c3a9577",
+        "unlinked_python_role_count": 15,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.rdkit_Mol",
+          "molsysmt.form.rdkit_Mol",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "get_mechanical_attributes",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.rdkit_Mol",
+          "to_file_smi()",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_openff_Molecule()",
+          "to_rdkit_Mol()",
+          "to_string_smiles()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/viewers/molsysviewer_MolSysView.ipynb",
+        "source_sha256": "d4bafc6d8ac88592634ef2eee7a2ab86f8fe88b5920a886a36613f3b48cdad72",
+        "syntax_role_occurrences_before": 15,
+        "status": "source_matched_cached_article",
+        "html_sha256": "5af7a89bc921e42990e59ff4551ae3236c27ea1d2cab206d318a955817c5250e",
+        "unlinked_python_role_count": 13,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.molsysviewer_MolSysView",
+          "molsysmt.form.molsysviewer_MolSysView",
+          "extract()",
+          "copy()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "get_mechanical_attributes",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.molsysviewer_MolSysView",
+          "to_molsysmt_MolSys()",
+          "to_molsysviewer_MolSysView()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/class/viewers/nglview_NGLWidget.ipynb",
+        "source_sha256": "166fbd7ea8f323201a1a766a52b651123a11bd605d14690d85bec56642954e86",
+        "syntax_role_occurrences_before": 24,
+        "status": "source_matched_cached_article",
+        "html_sha256": "1dc5859a4ac144481cdf62817acfd922ae6fe94818e61d43131c6c02d39b9d5b",
+        "unlinked_python_role_count": 22,
+        "unlinked_python_role_labels": [
+          "molsysmt.form.nglview_NGLWidget",
+          "molsysmt.form.nglview_NGLWidget",
+          "extract()",
+          "copy()",
+          "add()",
+          "merge()",
+          "append_structures()",
+          "get_topological_attributes",
+          "get_structural_attributes",
+          "set",
+          "iterators",
+          "has_attribute()",
+          "is_form()",
+          "molsysmt.form.nglview_NGLWidget",
+          "to_molsysmt_MolSys()",
+          "to_molsysmt_Structures()",
+          "to_molsysmt_Topology()",
+          "to_nglview_NGLWidget()",
+          "to_openmm_Topology()",
+          "to_string_amino_acids_1()",
+          "to_string_amino_acids_3()",
+          "to_string_pdb_text()"
+        ]
+      },
+      {
+        "page": "docs/content/user/tools/form/close.ipynb",
+        "source_sha256": "b43b9d00bb046917fda823386dd714b9f13dd0780c2f17224bc8622ba925c59a",
+        "syntax_role_occurrences_before": 4,
+        "status": "source_matched_cached_article",
+        "html_sha256": "423660bf5fa0b82f25707c490c951d849b92979124b4a70f8b871d84f01969a1",
+        "unlinked_python_role_count": 0,
+        "unlinked_python_role_labels": []
+      },
+      {
+        "page": "docs/content/user/tools/form/get_attributes.ipynb",
+        "source_sha256": "44bfb93314abb0886b3fdae2c1e7d05b5d62e658ff244bb2052942929d74d4de",
+        "syntax_role_occurrences_before": 4,
+        "status": "source_matched_cached_article",
+        "html_sha256": "1c5e2c540804a5ad6f71cd5813fa6d48848f27e7ed7d28803c316b0c5c73e50d",
+        "unlinked_python_role_count": 0,
+        "unlinked_python_role_labels": []
+      },
+      {
+        "page": "docs/content/user/tools/form/has_attribute.ipynb",
+        "source_sha256": "4737367d051c0cd8c8ad3bdce8f3706b12db2531173d00928655ec8aff25d94f",
+        "syntax_role_occurrences_before": 4,
+        "status": "source_matched_cached_article",
+        "html_sha256": "9e4f071f4d65db42e6ea7b523774061e10b4164219f75a474fa09a7fcf0cd1c9",
+        "unlinked_python_role_count": 0,
+        "unlinked_python_role_labels": []
+      },
+      {
+        "page": "docs/content/user/tools/form/is_file.ipynb",
+        "source_sha256": "a1431fdd61f20d8b99163ba44b9a5e28ba6076b2ec0dd618b0f11884583793a0",
+        "syntax_role_occurrences_before": 4,
+        "status": "source_matched_cached_article",
+        "html_sha256": "0d18c6c4670fa782948777874a03cecccad9f68d36dc2043feae74322bcdb92e",
+        "unlinked_python_role_count": 0,
+        "unlinked_python_role_labels": []
+      },
+      {
+        "page": "docs/content/user/tools/form/is_item.ipynb",
+        "source_sha256": "65d0658b0af6b2e7224be33d79ef9f59e28ad8b53e1e9a891475922be52e4f3e",
+        "syntax_role_occurrences_before": 4,
+        "status": "source_matched_cached_article",
+        "html_sha256": "2fa9de94d064b37444c1929437fa8adde15442431a55ac8d7c79cb91c08beb0b",
+        "unlinked_python_role_count": 0,
+        "unlinked_python_role_labels": []
+      },
+      {
+        "page": "docs/content/user/tools/form/is_string.ipynb",
+        "source_sha256": "37ba57e035fd7ffa10b100a7ed0f04d43342b7e58e05c8c58dc3b241e610d737",
+        "syntax_role_occurrences_before": 4,
+        "status": "source_matched_cached_article",
+        "html_sha256": "636b5916e51888324c7fca0248883a4d2dc257b52df15458a6808a65d48c250e",
+        "unlinked_python_role_count": 0,
+        "unlinked_python_role_labels": []
+      }
+    ]
+  },
+  "provider": {
+    "version": "1.11.1",
+    "distribution": "1.11.1",
+    "hdf5_implementation": "<development-prefix>/lib/python3.14/site-packages/mdtraj/formats/hdf5.py",
+    "hdf5_sha256": "0cfb22ab9467409ff90a1ea9a49b8794e325514e6e4bba048f52386db61af769"
+  },
+  "runtime": {
+    "mdtraj": {
+      "imported_version": "1.11.1",
+      "distribution_version": "1.11.1",
+      "imported_file": "<development-prefix>/lib/python3.14/site-packages/mdtraj/__init__.py"
+    },
+    "pyunitwizard": {
+      "imported_version": "0.29.2",
+      "distribution_version": "0.29.2",
+      "imported_file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py"
+    },
+    "smonitor": {
+      "imported_version": "0.21.0",
+      "distribution_version": "0.21.0",
+      "imported_file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py"
+    },
+    "argdigest": {
+      "imported_version": "0.15.0",
+      "distribution_version": "0.15.0",
+      "imported_file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py"
+    },
+    "depdigest": {
+      "imported_version": "0.15.1",
+      "distribution_version": "0.15.1",
+      "imported_file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py"
+    },
+    "pytest_receptor": {
+      "imported_version": "1.2.1",
+      "distribution_version": "1.2.1",
+      "imported_file": "<checkout>/.pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py"
+    }
+  },
+  "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "resource_contract": {
+    "cpu_quota": 1,
+    "test_maximum_gib": 1.5,
+    "html_maximum_gib": 3,
+    "own_swap_bytes": 0,
+    "minimum_host_reserve_gib": 6.5,
+    "foreign_processes_signalled": false
+  },
+  "failure_disposition": [
+    "Initial eight failures include invalid duplicate inventory extraction assumptions and an incomplete test unit-policy fixture. These test-draft errors are retained, not relabelled as eight runtime defects.",
+    "The valid contract baseline has four failures and four passing trajectory controls: optional HDF5 cell_angles absence and missing requested structure_index. Strengthened later controls cover velocities/energies, stored unit metadata, all/empty traversal, bounded reads and failure cursor restoration.",
+    "Valid unsorted unique trajectory extraction already gives coherent source-sorted geometry. Passing the sorted query to the provider removes its unnecessary monotonicity warning without broadening duplicate inventory extraction.",
+    "The 835-case attempt stops at its 180-second wall limit with native -15, unchanged inputs and no OOM/pressure. It is incomplete, not a pass. The separate finite 360-second campaign completes 836 cases after the unavailable-inventory diagnostic guard is added.",
+    "Documentation baseline has eight intended-link failures plus one test-draft AttributeError: Topology exports its inventory iterator, not a structural iterator. First corrected source passes 23 cases and retains that one test error. The guard is repaired to exercise the real exported unavailable route; 24 cases pass.",
+    "The old OpenMM receipt has an inherited Biopython scope label in raw execution metadata. A dated append-only correction names the actual selected OpenMM commands as authoritative; original raw records and outcomes remain untouched."
+  ],
+  "limits": [
+    "MDTraj public read decodes available fields for one selected row, including unrequested fields. This establishes bounded coordinate reads, not optimal selective-column I/O or total-RSS benchmarking.",
+    "Eager HDF5 getters/converters keep their existing full-file behavior. Selection-index lists and retained chunks still consume memory. Outer attribute dictionaries are reusable; callers copy them if retaining results.",
+    "Query axes permit order/repeats; native inventory extraction retains its separate unique-atom contract. source structure positions are not authenticated source IDs.",
+    "DCD/XTC streaming controls receive geometry and output units, not a new reader-cursor guarantee. HDF5 iterator ownership and restoration are explicitly scoped.",
+    "Ten-page strict Sphinx receiving disables notebook execution and autosummary generation. Ten notebooks retain code/output/metadata/headings/anchors byte-equivalent in the protected fields; executable adapter/docstring controls run separately.",
+    "Remaining 18 flagged articles/350 nodes belong to 26 source-matched byte-identical cached articles, not a new full public-site build.",
+    "Original milestone credit, complete-source/nightly backlog, investigations, stable format/client decisions, exact installed pair and publication pause remain unchanged."
+  ],
+  "final_offline_checks": {
+    "execution": {
+      "phase": "final-checks",
+      "source_commit": "00590f26e2145979472cf7244f31e88d8c6ef58d",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded MDTraj documentation and selected coordinate/iterator receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "2.87 3.40 2.24 19/2753 847877",
+        "cpu_pressure": "some avg10=16.25 avg60=6.64 avg300=9.67 total=16292904285\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/mdtraj-reference-727-20261112/closeout_checks.py"
+      ],
+      "checked_inputs": 8153,
+      "seconds": 26.77675561211072,
+      "changed_inputs": [],
+      "memory_peak_bytes": 449425408,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14710661120,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "cb740e00ee4b57ceb44ed611132d25c9f98ad41b4a2a443d583a88817158cd43",
+      "log_sha256": "4986ef3f5b2db8333d3652f9e37d9a955093a6eb1acbce1553f4b16672a99b3f",
+      "input_inventory_sha256": "1d83a8f39d661594d416d2c88c967eeccb66db436b0da71302ce55bd68fb6ac2"
+    },
+    "results": {
+      "passed": true,
+      "commands": [
+        {
+          "command": [
+            "<development-prefix>/bin/python",
+            "devtools/scripts/release_gate.py"
+          ],
+          "native_exit": 0,
+          "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.9s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        5.4s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.3s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.3s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.1s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.4s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   1.9s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.3s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.1s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.3s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "<development-prefix>/bin/python",
+            "devtools/scripts/devguide_index.py",
+            "--check"
+          ],
+          "native_exit": 0,
+          "stdout": "Every queue index is up to date.\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "ruff",
+            "check",
+            "."
+          ],
+          "native_exit": 0,
+          "stdout": "All checks passed!\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "ruff",
+            "format",
+            "--check",
+            "."
+          ],
+          "native_exit": 0,
+          "stdout": "4713 files already formatted\n",
+          "stderr": ""
+        }
+      ]
+    }
+  },
+  "terminal_unit_cleanup": {
+    "units": [
+      {
+        "unit": "msm-mdt727-runtime-baseline-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-mdt727-runtime-contract-baseline-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-mdt727-runtime-corrected-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-mdt727-facts-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-mdt727-runtime-integrated-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "143"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-mdt727-focused-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-mdt727-runtime-qualified-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-mdt727-checks-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-mdt727-baseline-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-mdt727-corrected-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-mdt727-corrected2-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-mdt727-html-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-mdt727-receiving-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-mdt727-final-checks-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      }
+    ],
+    "foreign_processes_signalled": false
+  },
+  "complete_pre_closeout_intake": {
+    "issue_count": 657,
+    "open_issue_count": 96,
+    "new_issues_after_738": [],
+    "open_pull_request_count": 0
+  }
+}

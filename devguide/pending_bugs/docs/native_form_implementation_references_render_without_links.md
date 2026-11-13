@@ -553,3 +553,30 @@ passes. Complete intake has 656 issues, 95 open, no issue after #737 and no open
 PRs. #737 remains post-1.0. Continue the remaining 26 external class articles
 without converting this bounded source receiving into full-source, scientific,
 installed or final-pair acceptance. Original milestone weights are unchanged.
+
+
+## MDTraj form and iterator receiving — 2026-11-12
+
+[Receiving receipt](../../../devtools/data/mdtraj_form_and_iterator_receiving_727_738_20261112.json).
+
+Eight MDTraj articles on clean 00590f26e add 161 intended references to 145
+independently matched published files. Ten selected form/course/Cookbook pages
+build with zero warnings, preserving code, outputs, metadata, headings and
+anchors. All 68 reviewed actual form articles receive their intended links:
+1,338 occurrences and 1,213 source files. The final combined selection passes
+269 cases without warnings or omissions. The complete selected MDTraj adapter
+cohort separately passes 836 cases, retaining two dummy-CRYST1 provider warnings.
+
+The review also corrects #738's supported HDF5 iterator: optional fields,
+source positions, velocity/energy delivery, stored-unit decoding and cursor-safe
+bounded reads. The owning report and receipt preserve invalid test assumptions,
+all failures and the first wall-limited incomplete run. The generic Iterator,
+H5MSM and native binary are unchanged. Resident extraction still requires unique
+atom inventory; query order/repetitions have their distinct contract.
+
+#727 remains partial: 18 external class pages retain 350 unlinked role nodes
+among 26 unchanged-source, byte-identical cached articles. Continue with
+MDAnalysis, then the remaining provider families. This is bounded technical
+preparation, not full-site, complete-source, minimum-provider, installed or
+final-pair qualification. Original score, investigations and the publication
+pause are unchanged.
