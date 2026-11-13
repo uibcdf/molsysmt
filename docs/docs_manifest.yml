@@ -840,6 +840,31 @@ sections:
             agents_file: docs/content/user/tools/form/class/mdanalysis/MDAnalysis_topology_PDBParser.ipynb.AGENTS.md
             description: Reviewed MDAnalysis declarations and immutable implementation links, native chemical separation, source ownership, units, unavailable operations and materialization limits.
             status: pending_review
+          - name: reviewed_rdkit_Mol_references
+            file: docs/content/user/tools/form/class/rdkit/rdkit_Mol.ipynb
+            agents_file: docs/content/user/tools/form/class/rdkit/rdkit_Mol.ipynb.AGENTS.md
+            description: Reviewed RDKit/OpenFF/ParmEd declarations and immutable source links, native chemical/mechanical ownership, unit boundaries and explicit subset, copy, geometry and unavailable-hook limits.
+            status: pending_review
+          - name: reviewed_openff_Molecule_references
+            file: docs/content/user/tools/form/class/openff/openff_Molecule.ipynb
+            agents_file: docs/content/user/tools/form/class/openff/openff_Molecule.ipynb.AGENTS.md
+            description: Reviewed RDKit/OpenFF/ParmEd declarations and immutable source links, native chemical/mechanical ownership, unit boundaries and explicit subset, copy, geometry and unavailable-hook limits.
+            status: pending_review
+          - name: reviewed_openff_Topology_references
+            file: docs/content/user/tools/form/class/openff/openff_Topology.ipynb
+            agents_file: docs/content/user/tools/form/class/openff/openff_Topology.ipynb.AGENTS.md
+            description: Reviewed RDKit/OpenFF/ParmEd declarations and immutable source links, native chemical/mechanical ownership, unit boundaries and explicit subset, copy, geometry and unavailable-hook limits.
+            status: pending_review
+          - name: reviewed_parmed_Structure_references
+            file: docs/content/user/tools/form/class/parmed/parmed_Structure.ipynb
+            agents_file: docs/content/user/tools/form/class/parmed/parmed_Structure.ipynb.AGENTS.md
+            description: Reviewed RDKit/OpenFF/ParmEd declarations and immutable source links, native chemical/mechanical ownership, unit boundaries and explicit subset, copy, geometry and unavailable-hook limits.
+            status: pending_review
+          - name: reviewed_parmed_GromacsTopologyFile_references
+            file: docs/content/user/tools/form/class/parmed/parmed_GromacsTopologyFile.ipynb
+            agents_file: docs/content/user/tools/form/class/parmed/parmed_GromacsTopologyFile.ipynb.AGENTS.md
+            description: Reviewed RDKit/OpenFF/ParmEd declarations and immutable source links, native chemical/mechanical ownership, unit boundaries and explicit subset, copy, geometry and unavailable-hook limits.
+            status: pending_review
           - name: pdb_reader_context
             file: docs/content/user/tools/form/file/file_pdb.ipynb
             agents_file: docs/content/user/tools/form/file/file_pdb.ipynb.AGENTS.md

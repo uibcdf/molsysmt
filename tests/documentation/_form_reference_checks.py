@@ -272,6 +272,23 @@ _MDANALYSIS_CLASS_OPERATIONS = {
     "MDAnalysis_topology_PDBParser": _FILE_HOOKS,
 }
 _EXTERNAL_CLASS_OPERATIONS.update(_MDANALYSIS_CLASS_OPERATIONS)
+_CHEMICAL_CLASS_OPERATIONS = {
+    "rdkit_Mol": {
+        "__init__",
+        "get_topological_attributes",
+        "get_structural_attributes",
+        "get_mechanical_attributes",
+        "has_attribute",
+        "is_form",
+    },
+    "openff_Molecule": (_FILE_HOOKS - {"append_structures"})
+    | {"get_mechanical_attributes"},
+    "openff_Topology": (_FILE_HOOKS - {"append_structures"})
+    | {"get_mechanical_attributes"},
+    "parmed_Structure": _FILE_HOOKS | {"get_mechanical_attributes"},
+    "parmed_GromacsTopologyFile": _FILE_HOOKS,
+}
+_EXTERNAL_CLASS_OPERATIONS.update(_CHEMICAL_CLASS_OPERATIONS)
 
 
 def _declared_converters(adapter, directory):

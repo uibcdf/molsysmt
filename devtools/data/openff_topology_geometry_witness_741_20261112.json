@@ -1,0 +1,113 @@
+{
+  "schema": "molsysmt.openff_topology_geometry_witness/1",
+  "date": "2026-11-12",
+  "issue": "uibcdf/molsysmt#741",
+  "scope": "Measured current undeclared geometry limitation; optional post-1.0 proposal, not a release prerequisite.",
+  "source_commit": "058e28c0509676474908753d9ac8a0ede571924e",
+  "provider": {
+    "available": true,
+    "version": "0.19.0",
+    "imported_file": "<development-prefix>/lib/python3.14/site-packages/openff/toolkit/__init__.py",
+    "module_sha256": "701d0fc40fc72b73bbc53ea259d1a0389b0f9cada2ca8b93f79af9b91eb5c8c5"
+  },
+  "observed": {
+    "provider_has_positions": true,
+    "provider_position_shape": [
+      6,
+      3
+    ],
+    "declared_coordinates": false,
+    "native_n_atoms": 6,
+    "native_n_structures": 0,
+    "native_coordinates_present": false,
+    "structures_route_n_structures": 0,
+    "source_unchanged": true
+  },
+  "execution": {
+    "phase": "facts",
+    "source_commit": "058e28c0509676474908753d9ac8a0ede571924e",
+    "state": "completed",
+    "native_exit": 0,
+    "host_reserve_bytes": 6979321856,
+    "scope": "Bounded RDKit/OpenFF/ParmEd form documentation receiving; not complete scientific/source, installed, candidate or publication qualification.",
+    "host_cpu_at_admission": {
+      "load": "1.50 0.92 0.68 3/2597 966264",
+      "cpu_pressure": "some avg10=0.06 avg60=0.52 avg300=0.19 total=16450904549\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "online_cpus": 20
+    },
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "1610612736",
+      "memory.high": "1409286144",
+      "memory.swap.max": "0",
+      "pids.max": "128"
+    },
+    "command": [
+      "<development-prefix>/bin/python",
+      ".pytest_cache/chemical-forms-reference-727-20261112/openff_topology_scope.py"
+    ],
+    "checked_inputs": 8162,
+    "seconds": 3.6755337798967957,
+    "changed_inputs": [],
+    "memory_peak_bytes": 161546240,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 15672283136,
+    "maximum_memory_pressure_avg10": 0.0,
+    "pressure_transitions": [],
+    "stop_reason": null,
+    "driver_sha256": "fe10963e7cc4255f7c72d428093e9cdad62fa9cfdfb19d14122be38901cc4a16"
+  },
+  "initial_failed_probe": {
+    "execution": {
+      "phase": "inference-witness",
+      "source_commit": "058e28c0509676474908753d9ac8a0ede571924e",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded RDKit/OpenFF/ParmEd form documentation receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.61 0.57 0.56 3/2613 965246",
+        "cpu_pressure": "some avg10=0.01 avg60=0.02 avg300=0.00 total=16450065744\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/chemical-forms-reference-727-20261112/openff_topology_scope.py"
+      ],
+      "checked_inputs": 8162,
+      "seconds": 3.7212036880664527,
+      "changed_inputs": [],
+      "memory_peak_bytes": 162164736,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15684689920,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "fe10963e7cc4255f7c72d428093e9cdad62fa9cfdfb19d14122be38901cc4a16"
+    },
+    "observed": {
+      "provider_has_positions": true,
+      "provider_position_shape": [
+        6,
+        3
+      ],
+      "declared_coordinates": false,
+      "native_n_atoms": 6,
+      "native_n_structures": 0,
+      "native_coordinates_present": false,
+      "structures_route_n_structures": 0,
+      "source_unchanged": false
+    },
+    "disposition": "The first probe compares provider-converted positions with the original bare coordinates bit for bit. Its source-preservation assertion is invalid. Comparing actual provider values before/after establishes preservation; the conversion geometry limitation is unchanged."
+  },
+  "witness_sha256": "0a9f995718892f74535091592a8a700d710455d2ff168c4cc30d5dffa2efcf79",
+  "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "box_scope": "No box-loss runtime measurement; box-only and periodic transport remain proposed design questions."
+}
