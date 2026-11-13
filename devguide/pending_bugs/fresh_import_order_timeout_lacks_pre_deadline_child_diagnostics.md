@@ -131,11 +131,75 @@ publication boundaries remain separate. Do not repeat this passing complete
 session without a new diagnostic question, executable change or agreed gate.
 
 
-## Proposed completion disposition — 2026-11-13
-The [completion packet](../pre_1_0_completion_handoffs_20261110.md#remaining-technical-decision-for-615713--2026-11-13)
-owns the proposed options and conditions. The recommendation retains the
-original failed attempt and this open, causally unresolved operational risk while
-allowing exact-candidate qualification with all original checks and deadlines.
-Any recurrence stops acceptance of the affected gate. This requires an explicit
-maintainer revision of the current blocking criterion; no decision, risk
-acceptance, closure, score change or publication permission is inferred.
+## Discriminating current-source audit — 2026-11-13
+
+The maintainer requests an actual audit rather than adopting the proposed risk
+acceptance. On source `9ccd5e57b`, the three unchanged real fresh-process
+guards and two diagnostic-transport controls pass: five cases, 18.79 seconds.
+The historical failing JUnit case lasts 60.147 seconds; the same session's
+MolSysViewer-first case passes in 24.138 seconds. Those observations do not
+locate the stalled operation or prove a resource cause.
+
+Inspection establishes that the child is not an isolated import benchmark.
+After the selected first import it checks native element utilities, imports
+MolSysViewer, creates/enters a new View, discovers the MolSysMT addon, checks
+bound utilities and closes the View. The failing parameter
+`molsysmt.element.atom` identifies an input order, not the operation at which
+the 60-second child stopped.
+
+A declared bounded audit runs three separately instrumented fresh processes
+and the three original programs concurrently. Every original functional AST
+node, assertion and application import order survives the stage instrumentation;
+the original 60-second deadline and 45-second stack timer remain. All six
+programs complete with exit zero and the original success sentinel.
+Instrumented totals are 3.38–3.48 seconds; the original concurrent programs
+take 3.89–3.92 seconds. View construction/context entry accounts for
+1.66–1.75 seconds in these profiles. That identifies the largest measured
+current stage, not the historical cause. Instrumentation/cache/scheduling
+effects prevent treating these single measurements as a comparative benchmark.
+
+The maintained test now emits bounded phase labels and child-local monotonic
+times before/after imports, native checks, View entry, addon discovery and
+cleanup. It emits no molecular values, settings or credentials. The existing
+timeout handler forwards these partial streams and the stack, then re-raises
+the original TimeoutExpired object. Missing stages remain unavailable evidence,
+not proof that a particular operation never ran. No warm-up, deadline increase
+or scientific-assertion change is introduced.
+
+The complete updated utility module passes 134 cases without omissions,
+including all three actual fresh-process orders in 3.305, 3.271 and 3.283
+seconds. Its 59 warnings are expected legacy H5MSM deprecations. Static
+comparison restores every original child AST node after removing only the
+stage helper/calls and two standard-library imports.
+
+**Conclusion:** the timeout is not reproduced by the current bounded audit.
+The historical cause remains unestablished; this is not a causal repair or
+closure. Further recurrence under the original checks must retain its last
+stage, pre-deadline stack and original runner status. Do not run blind repeats
+or a full suite solely to seek a green result. The required final-candidate/
+nightly gates retain their own scope and preserve the old failed session.
+
+The [audit receipt](../../devtools/data/import_stage_and_owner_audit_615_713_20261113.json)
+retains commands, exact input/native/runtime identities, raw-artifact hashes,
+AST proofs, resource limits and measured stages.
+The [completion packet](../pre_1_0_completion_handoffs_20261110.md#maintainer-audit-direction-for-615713--2026-11-13)
+records the maintainer's audit direction. #615's separate lead handoff is
+uibcdf/molsysviewer#384; it is not evidence of #713's cause.
+
+
+## One contextual complete follow-up — planned 2026-11-13
+
+The new diagnostic increment justifies one deliberate complete-source receiving:
+does the original parallel suite context reproduce the timeout, and if so which
+last-completed stage and pre-deadline stack does it retain? This is a declared
+question, not repeat-until-green. Retain the existing default selection and
+three-worker/3-CPU/6-GiB/no-own-swap envelope from the previous complete session,
+the original import deadlines and a durable supervisor. Use owned disk-backed
+scratch and preserve the 6.5-GiB host-available reserve.
+
+Freeze the committed source and declared native/client/support inputs before
+execution. Record the actual native wait result independently of the submitting
+agent, complete JUnit and the receptor's bounded final record. Any failure,
+resource stop or incomplete evidence remains such. A passing session still
+cannot identify the historical cause or reclassify the original failed run.
+No installed, hosted, final-candidate or publication gate is authorized here.

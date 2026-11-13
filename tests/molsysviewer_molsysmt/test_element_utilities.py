@@ -331,20 +331,37 @@ def test_inherited_native_examples_execute(path):
 
 
 def _run_fresh_import_check(first_module):
+    """Run fresh-process imports, native utilities and View/addon startup."""
     program = f"""
 import importlib
+import sys
+import time
+def _import_stage(label):
+    print('explicit-element-startup-stage', label, time.monotonic(),
+          sep='\\t', file=sys.stderr, flush=True)
+_import_stage('child_started')
 importlib.import_module({first_module!r})
+_import_stage('first_module_imported')
 import molsysmt as msm
+_import_stage('native_imported')
 assert msm.element.atom.normalize_atom_types('D') == ('H', 2)
 assert msm.element.group.get_group_type_from_group_name('ALA') == 'amino acid'
+_import_stage('native_utilities_checked')
 import molsysviewer as msv
+_import_stage('viewer_imported')
+_import_stage('view_constructing')
 with msv.new_view() as view:
+    _import_stage('view_entered')
     tools = view.addons.molsysmt.element
+    _import_stage('addon_discovered')
     assert tools.atom.normalize_atom_types('D') == ('H', 2)
     assert tools.group.get_group_type_from_group_name('ALA') == 'amino acid'
     assert tools.is_composed_of('group', 'atom') is True
     assert view.molsys is None
+    _import_stage('addon_utilities_checked')
+_import_stage('view_closed')
 assert msm.element.atom.normalize_atom_types('D') == ('H', 2)
+_import_stage('complete')
 print('explicit-element-import-order-ok')
 """
     program = (
@@ -379,6 +396,26 @@ def test_fresh_import_orders_preserve_native_exports_and_discovery(first_module)
     result = _run_fresh_import_check(first_module)
     assert result.returncode == 0, result.stdout + result.stderr
     assert "explicit-element-import-order-ok" in result.stdout
+    stages = [
+        line.split("\t")
+        for line in result.stderr.splitlines()
+        if line.startswith("explicit-element-startup-stage\t")
+    ]
+    assert [row[1] for row in stages] == [
+        "child_started",
+        "first_module_imported",
+        "native_imported",
+        "native_utilities_checked",
+        "viewer_imported",
+        "view_constructing",
+        "view_entered",
+        "addon_discovered",
+        "addon_utilities_checked",
+        "view_closed",
+        "complete",
+    ]
+    times = [float(row[2]) for row in stages]
+    assert times == sorted(times)
 
 
 @pytest.mark.parametrize("as_bytes", [False, True])
@@ -386,7 +423,10 @@ def test_import_timeout_preserves_original_error_and_child_diagnostics(
     monkeypatch, capsys, as_bytes
 ):
     output = "controlled pre-timeout progress"
-    stderr = "Thread 123: controlled pre-deadline stack"
+    stderr = (
+        "explicit-element-startup-stage\tview_constructing\t42.0\n"
+        "Thread 123: controlled pre-deadline stack"
+    )
     if as_bytes:
         output, stderr = output.encode(), stderr.encode()
     error = subprocess.TimeoutExpired(
@@ -405,4 +445,5 @@ def test_import_timeout_preserves_original_error_and_child_diagnostics(
     assert deadlines == [60]
     captured = capsys.readouterr()
     assert "controlled pre-timeout progress" in captured.err
+    assert "explicit-element-startup-stage\tview_constructing\t42.0" in captured.err
     assert "Thread 123: controlled pre-deadline stack" in captured.err

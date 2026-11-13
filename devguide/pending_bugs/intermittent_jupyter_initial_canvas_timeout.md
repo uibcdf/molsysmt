@@ -1,7 +1,7 @@
 ---
 summary: Investigate intermittent Jupyter initialization before the first molecular canvas.
 issue: uibcdf/molsysmt#615
-status: active
+status: blocked
 opened: 2026-11-06
 closed:
 severity: medium
@@ -9,11 +9,26 @@ verification: measured
 area: [tests, jupyter, initialization, molsysviewer]
 guard: tests/molsysviewer_molsysmt/test_jupyter_stage_diagnostics.py
 normative:
-blocked_by: []
+blocked_by: [uibcdf/molsysviewer#384]
 supersedes: []
 ---
 
 # Initial molecular canvas timeout
+
+## Current lead and consumer dependency — 2026-11-13
+
+At the principal maintainer's request, uibcdf/molsysviewer#384 owns the lead
+audit and requested resolution. MolSysMT #615 stays open as a blocked consumer
+and coordinated-release dependency. Its accepted resolution is required before
+the MolSysMT 1.0.0 / MolSysViewer 1.0.0 pair.
+
+The handoff includes the original observations, all distinct subsequent stages,
+the owned cold initial-canvas guard and immutable diagnostic receipt.
+Assigning the audit lead does not establish a MolSysViewer production-code
+cause. If the evidence points to the kernel, MolSysMT or another provider,
+return that stage and bounded reproduction to the appropriate owner.
+MolSysMT retains its kernel-side support and checks the returned resolution
+and applicable final-pair receiving before clearing this dependency.
 
 ## Observation
 
@@ -319,11 +334,10 @@ exact click-relative latency. The wording above is corrected accordingly;
 the original captured values remain unchanged.
 
 
-## Proposed completion disposition — 2026-11-13
-The [completion packet](../pre_1_0_completion_handoffs_20261110.md#remaining-technical-decision-for-615713--2026-11-13)
-owns the proposed options and conditions. The recommendation retains the
-original failed attempt and this open, causally unresolved operational risk while
-allowing exact-candidate qualification with all original checks and deadlines.
-Any recurrence stops acceptance of the affected gate. This requires an explicit
-maintainer revision of the current blocking criterion; no decision, risk
-acceptance, closure, score change or publication permission is inferred.
+## Maintainer disposition — 2026-11-13
+
+The [completion packet](../pre_1_0_completion_handoffs_20261110.md#maintainer-audit-direction-for-615713--2026-11-13)
+records the requested owner handoff. The earlier risk-acceptance proposal
+was not adopted. This issue remains blocked on uibcdf/molsysviewer#384;
+no causal repair, environmental attribution, acceptance or score change follows
+from delegating its audit.

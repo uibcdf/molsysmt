@@ -1,0 +1,1253 @@
+{
+  "schema": "molsysmt.import_stage_and_owner_audit/1",
+  "date": "2026-11-13",
+  "issues": [
+    "uibcdf/molsysmt#615",
+    "uibcdf/molsysmt#713",
+    "uibcdf/molsysviewer#384"
+  ],
+  "base_source": "9ccd5e57bfd0772bc5c7d23686d4c76fbfe7404f",
+  "scope": "User-requested current #713 audit and #615 investigation-lead handoff. No historical causal attribution or resolution, complete-source/installed/final-candidate qualification or release authority.",
+  "handoff": {
+    "lead_issue": "https://github.com/uibcdf/molsysviewer/issues/384",
+    "consumer_tracker": "https://github.com/uibcdf/molsysmt/issues/615",
+    "coordination_comment": "https://github.com/uibcdf/molsysviewer/issues/315#issuecomment-6866408385",
+    "lead_requested_by_principal_maintainer": true,
+    "lead_team_resolution_received": false,
+    "accepted_resolution_required_before_joint_1_0_pair": true,
+    "cause_proved_to_be_in_molsysviewer": false,
+    "complete_provider_duplicate_inventory_issues": 354,
+    "duplicate_review_scope": "All non-PR issues, open and closed, through every REST page before creating #384."
+  },
+  "historical_artifact_review": [
+    {
+      "session": "full-polished-f0dbb58e0",
+      "junit_sha256": "3e9aad8df8300c74625b6b6f87f7f971bb0b1212e4453a3b0c0855e7d1f8cd2b",
+      "fresh_process_cases": [
+        {
+          "name": "test_fresh_import_orders_preserve_native_exports_and_discovery[molsysmt.element.atom]",
+          "seconds": 60.147,
+          "failed": true
+        },
+        {
+          "name": "test_fresh_import_orders_preserve_native_exports_and_discovery[molsysviewer]",
+          "seconds": 24.138,
+          "failed": false
+        },
+        {
+          "name": "test_fresh_import_orders_preserve_native_exports_and_discovery[molsysviewer_molsysmt.tools]",
+          "seconds": 4.358,
+          "failed": false
+        }
+      ]
+    },
+    {
+      "session": "full-durable-6acad4f35",
+      "junit_sha256": "57eabb12e938cce377df71b311f2e1502f07fbc4c56600021832c70965939992",
+      "fresh_process_cases": [
+        {
+          "name": "test_fresh_import_orders_preserve_native_exports_and_discovery[molsysmt.element.atom]",
+          "seconds": 13.494,
+          "failed": false
+        },
+        {
+          "name": "test_fresh_import_orders_preserve_native_exports_and_discovery[molsysviewer]",
+          "seconds": 4.522,
+          "failed": false
+        },
+        {
+          "name": "test_fresh_import_orders_preserve_native_exports_and_discovery[molsysviewer_molsysmt.tools]",
+          "seconds": 4.841,
+          "failed": false
+        }
+      ]
+    }
+  ],
+  "executions": {
+    "focused": {
+      "phase": "focused",
+      "source_commit": "9ccd5e57bfd0772bc5c7d23686d4c76fbfe7404f",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Discriminating current fresh-import audit for #713, with original deadlines; not a complete suite, causal disposition, installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "2.04 2.99 2.64 4/2967 1695958",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.91 total=19081675686\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1449549824",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--maxfail=1",
+        "--junitxml=<checkout>/.pytest_cache/import-timeout-owner-audit-713-20261113/focused.xml",
+        "tests/molsysviewer_molsysmt/test_element_utilities.py::test_fresh_import_orders_preserve_native_exports_and_discovery",
+        "tests/molsysviewer_molsysmt/test_element_utilities.py::test_import_timeout_preserves_original_error_and_child_diagnostics"
+      ],
+      "checked_inputs": 8187,
+      "seconds": 32.765527406241745,
+      "changed_inputs": [],
+      "memory_peak_bytes": 901324800,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15841112064,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "f1845cb832a4f95a350d8d716f15ca17f31636cb38930422a593a0efa8ec67eb",
+      "source_status_unchanged": true,
+      "log_sha256": "93d1c772f12313d81e35f688dac8859b6000f5878814e652ab1399e5ea21f6b9",
+      "input_manifest_sha256": "ebbdcd0c8c1a199cb7d48df6f4c40631be42cef2e437675d81c41a64893c2961",
+      "junit_counts": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 5
+      },
+      "junit_sha256": "a87f7382a099f8d7c605f4831f7c4c2aa0069071e9d6c93602b55fa3b487b2a6"
+    },
+    "cohort": {
+      "phase": "cohort",
+      "source_commit": "9ccd5e57bfd0772bc5c7d23686d4c76fbfe7404f",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Discriminating current fresh-import audit for #713, with original deadlines; not a complete suite, causal disposition, installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.90 2.15 2.38 4/2864 1697697",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.50 total=19081914268\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "300000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2899099648",
+        "memory.swap.max": "0",
+        "pids.max": "192"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/import-timeout-owner-audit-713-20261113/profile_import_stages.py"
+      ],
+      "checked_inputs": 8187,
+      "seconds": 22.74372960207984,
+      "changed_inputs": [],
+      "memory_peak_bytes": 714514432,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15300792320,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "6a575595fb5794522c6c4bbf0ea198b02f44a798d66731c5ec9d47523825f671",
+      "source_status_unchanged": true,
+      "log_sha256": "c0883fe90faacdaf9b4031a4d6047afcb43be28a7fbfdca0a7969a95e3a01407",
+      "input_manifest_sha256": "ebbdcd0c8c1a199cb7d48df6f4c40631be42cef2e437675d81c41a64893c2961"
+    },
+    "receiving": {
+      "phase": "receiving",
+      "source_commit": "9ccd5e57bfd0772bc5c7d23686d4c76fbfe7404f",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Discriminating current fresh-import audit for #713, with original deadlines; not a complete suite, causal disposition, installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.06 1.58 2.08 1/2879 1702005",
+        "cpu_pressure": "some avg10=0.12 avg60=0.02 avg300=0.12 total=19082466911\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1449549824",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--maxfail=1",
+        "--junitxml=<checkout>/.pytest_cache/import-timeout-owner-audit-713-20261113/receiving.xml",
+        "tests/molsysviewer_molsysmt/test_element_utilities.py"
+      ],
+      "checked_inputs": 8187,
+      "seconds": 36.75560596771538,
+      "changed_inputs": [],
+      "memory_peak_bytes": 1027371008,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15582556160,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "e497e617f556c3ea23d510b5ffb3c635b19774759f282a78a6d166bbfb651088",
+      "source_status_unchanged": true,
+      "log_sha256": "22c252430253d33131685a469598c05e17e3e24d4c32bae3e52f9ac6a1e71552",
+      "input_manifest_sha256": "bf46f95593a0561c8d59c9167003485e46c71714801464b58b82525efa3032e5",
+      "junit_counts": {
+        "tests": 134,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 134
+      },
+      "junit_sha256": "7a3554980eab4f5079b38374dcb1c2323dd1a7b4745e5045f62dcf39e43d368b"
+    }
+  },
+  "discriminating_stage_programs": {
+    "original_deadline_seconds": 60,
+    "original_program_sha256": {
+      "molsysmt.element.atom": "8568b18014236bdf4f5365d92ebda43526b43099fd46c1d8fa87e30654df3667",
+      "molsysviewer": "94af216d9ecd294d7eb3fc51e4e0ff0c743567c29c69ae2c556ce81baa79db47",
+      "molsysviewer_molsysmt.tools": "d0d9088a31d5e7fbf8a45f471fe112db70a5a77994d9f2959aee3a3e988a72d7"
+    },
+    "cases": [
+      {
+        "first_module": "molsysmt.element.atom",
+        "mode": "instrumented sequential",
+        "native_exit": 0,
+        "timed_out": false,
+        "seconds": 3.379259144421667,
+        "success_sentinel": true,
+        "functional_ast_preserved": true,
+        "stderr_file": "profile-molsysmt.element.atom.stderr",
+        "stages": [
+          {
+            "wall_seconds": 1.614e-06,
+            "process_cpu_seconds": 0.042874083,
+            "maximum_rss_kib": 22996,
+            "stage": "before import faulthandler"
+          },
+          {
+            "wall_seconds": 9.4356e-05,
+            "process_cpu_seconds": 0.042958758,
+            "maximum_rss_kib": 22996,
+            "stage": "after import faulthandler"
+          },
+          {
+            "wall_seconds": 0.000112424,
+            "process_cpu_seconds": 0.042974984,
+            "maximum_rss_kib": 22996,
+            "stage": "before faulthandler.dump_traceback_later(45)"
+          },
+          {
+            "wall_seconds": 0.000201288,
+            "process_cpu_seconds": 0.043064992,
+            "maximum_rss_kib": 22996,
+            "stage": "after faulthandler.dump_traceback_later(45)"
+          },
+          {
+            "wall_seconds": 0.00023034,
+            "process_cpu_seconds": 0.043092773,
+            "maximum_rss_kib": 22996,
+            "stage": "before import importlib"
+          },
+          {
+            "wall_seconds": 0.000239044,
+            "process_cpu_seconds": 0.043101696,
+            "maximum_rss_kib": 22996,
+            "stage": "after import importlib"
+          },
+          {
+            "wall_seconds": 0.000248464,
+            "process_cpu_seconds": 0.0431109,
+            "maximum_rss_kib": 22996,
+            "stage": "before importlib.import_module('molsysmt.element.atom')"
+          },
+          {
+            "wall_seconds": 1.054383009,
+            "process_cpu_seconds": 1.097461289,
+            "maximum_rss_kib": 157300,
+            "stage": "after importlib.import_module('molsysmt.element.atom')"
+          },
+          {
+            "wall_seconds": 1.05440819,
+            "process_cpu_seconds": 1.097481843,
+            "maximum_rss_kib": 157300,
+            "stage": "before import molsysmt as msm"
+          },
+          {
+            "wall_seconds": 1.054417207,
+            "process_cpu_seconds": 1.097490331,
+            "maximum_rss_kib": 157300,
+            "stage": "after import molsysmt as msm"
+          },
+          {
+            "wall_seconds": 1.054423606,
+            "process_cpu_seconds": 1.097496761,
+            "maximum_rss_kib": 157300,
+            "stage": "before assert msm.element.atom.normalize_atom_types('D') == ('H', 2)"
+          },
+          {
+            "wall_seconds": 1.055047352,
+            "process_cpu_seconds": 1.098123157,
+            "maximum_rss_kib": 157300,
+            "stage": "after assert msm.element.atom.normalize_atom_types('D') == ('H', 2)"
+          },
+          {
+            "wall_seconds": 1.055065447,
+            "process_cpu_seconds": 1.098138775,
+            "maximum_rss_kib": 157300,
+            "stage": "before assert msm.element.group.get_group_type_from_group_name('ALA') == 'amino acid'"
+          },
+          {
+            "wall_seconds": 1.173654468,
+            "process_cpu_seconds": 1.2119148,
+            "maximum_rss_kib": 169796,
+            "stage": "after assert msm.element.group.get_group_type_from_group_name('ALA') == 'amino acid'"
+          },
+          {
+            "wall_seconds": 1.173699398,
+            "process_cpu_seconds": 1.211953566,
+            "maximum_rss_kib": 169796,
+            "stage": "before import molsysviewer as msv"
+          },
+          {
+            "wall_seconds": 1.176376422,
+            "process_cpu_seconds": 1.214633117,
+            "maximum_rss_kib": 169796,
+            "stage": "after import molsysviewer as msv"
+          },
+          {
+            "wall_seconds": 1.176394026,
+            "process_cpu_seconds": 1.214648075,
+            "maximum_rss_kib": 169796,
+            "stage": "before with msv.new_view() as view:"
+          },
+          {
+            "wall_seconds": 2.833727149,
+            "process_cpu_seconds": 2.87172602,
+            "maximum_rss_kib": 331096,
+            "stage": "before tools = view.addons.molsysmt.element"
+          },
+          {
+            "wall_seconds": 2.833895555,
+            "process_cpu_seconds": 2.871890281,
+            "maximum_rss_kib": 331096,
+            "stage": "after tools = view.addons.molsysmt.element"
+          },
+          {
+            "wall_seconds": 2.833910801,
+            "process_cpu_seconds": 2.871904251,
+            "maximum_rss_kib": 331096,
+            "stage": "before assert tools.atom.normalize_atom_types('D') == ('H', 2)"
+          },
+          {
+            "wall_seconds": 2.834071147,
+            "process_cpu_seconds": 2.87206622,
+            "maximum_rss_kib": 331096,
+            "stage": "after assert tools.atom.normalize_atom_types('D') == ('H', 2)"
+          },
+          {
+            "wall_seconds": 2.834087242,
+            "process_cpu_seconds": 2.872080656,
+            "maximum_rss_kib": 331096,
+            "stage": "before assert tools.group.get_group_type_from_group_name('ALA') == 'amino acid'"
+          },
+          {
+            "wall_seconds": 2.834514884,
+            "process_cpu_seconds": 2.872510866,
+            "maximum_rss_kib": 331096,
+            "stage": "after assert tools.group.get_group_type_from_group_name('ALA') == 'amino acid'"
+          },
+          {
+            "wall_seconds": 2.834533828,
+            "process_cpu_seconds": 2.872527373,
+            "maximum_rss_kib": 331096,
+            "stage": "before assert tools.is_composed_of('group', 'atom') is True"
+          },
+          {
+            "wall_seconds": 2.83464336,
+            "process_cpu_seconds": 2.872652603,
+            "maximum_rss_kib": 331096,
+            "stage": "after assert tools.is_composed_of('group', 'atom') is True"
+          },
+          {
+            "wall_seconds": 2.834672261,
+            "process_cpu_seconds": 2.872665658,
+            "maximum_rss_kib": 331096,
+            "stage": "before assert view.molsys is None"
+          },
+          {
+            "wall_seconds": 2.834681126,
+            "process_cpu_seconds": 2.87267443,
+            "maximum_rss_kib": 331096,
+            "stage": "after assert view.molsys is None"
+          },
+          {
+            "wall_seconds": 2.835168678,
+            "process_cpu_seconds": 2.873164383,
+            "maximum_rss_kib": 331096,
+            "stage": "after with msv.new_view() as view:"
+          },
+          {
+            "wall_seconds": 2.835186552,
+            "process_cpu_seconds": 2.873179991,
+            "maximum_rss_kib": 331096,
+            "stage": "before assert msm.element.atom.normalize_atom_types('D') == ('H', 2)"
+          },
+          {
+            "wall_seconds": 2.835268475,
+            "process_cpu_seconds": 2.873262903,
+            "maximum_rss_kib": 331096,
+            "stage": "after assert msm.element.atom.normalize_atom_types('D') == ('H', 2)"
+          },
+          {
+            "wall_seconds": 2.835287647,
+            "process_cpu_seconds": 2.873280979,
+            "maximum_rss_kib": 331096,
+            "stage": "before print('explicit-element-import-order-ok')"
+          },
+          {
+            "wall_seconds": 2.835295966,
+            "process_cpu_seconds": 2.873289401,
+            "maximum_rss_kib": 331096,
+            "stage": "after print('explicit-element-import-order-ok')"
+          },
+          {
+            "wall_seconds": 2.835311795,
+            "process_cpu_seconds": 2.873305286,
+            "maximum_rss_kib": 331096,
+            "stage": "before faulthandler.cancel_dump_traceback_later()"
+          },
+          {
+            "wall_seconds": 2.835398098,
+            "process_cpu_seconds": 2.873325031,
+            "maximum_rss_kib": 331096,
+            "stage": "after faulthandler.cancel_dump_traceback_later()"
+          }
+        ],
+        "largest_stage_intervals": [
+          {
+            "stage": "before with msv.new_view() as view:",
+            "wall_seconds": 1.657333123,
+            "cpu_seconds": 1.6570779450000002
+          },
+          {
+            "stage": "before importlib.import_module('molsysmt.element.atom')",
+            "wall_seconds": 1.054134545,
+            "cpu_seconds": 1.0543503889999999
+          },
+          {
+            "stage": "before assert msm.element.group.get_group_type_from_group_name('ALA') == 'amino acid'",
+            "wall_seconds": 0.11858902100000002,
+            "cpu_seconds": 0.11377602499999995
+          },
+          {
+            "stage": "before import molsysviewer as msv",
+            "wall_seconds": 0.002677024000000028,
+            "cpu_seconds": 0.0026795509999999467
+          },
+          {
+            "stage": "before assert msm.element.atom.normalize_atom_types('D') == ('H', 2)",
+            "wall_seconds": 0.0006237460000000361,
+            "cpu_seconds": 0.0006263960000001401
+          }
+        ]
+      },
+      {
+        "first_module": "molsysviewer",
+        "mode": "instrumented sequential",
+        "native_exit": 0,
+        "timed_out": false,
+        "seconds": 3.4032719382084906,
+        "success_sentinel": true,
+        "functional_ast_preserved": true,
+        "stderr_file": "profile-molsysviewer.stderr",
+        "stages": [
+          {
+            "wall_seconds": 1.654e-06,
+            "process_cpu_seconds": 0.04353231,
+            "maximum_rss_kib": 25912,
+            "stage": "before import faulthandler"
+          },
+          {
+            "wall_seconds": 9.2811e-05,
+            "process_cpu_seconds": 0.043616685,
+            "maximum_rss_kib": 25912,
+            "stage": "after import faulthandler"
+          },
+          {
+            "wall_seconds": 0.00010795,
+            "process_cpu_seconds": 0.043629925,
+            "maximum_rss_kib": 25912,
+            "stage": "before faulthandler.dump_traceback_later(45)"
+          },
+          {
+            "wall_seconds": 0.000181313,
+            "process_cpu_seconds": 0.043720235,
+            "maximum_rss_kib": 25912,
+            "stage": "after faulthandler.dump_traceback_later(45)"
+          },
+          {
+            "wall_seconds": 0.00021139,
+            "process_cpu_seconds": 0.043733197,
+            "maximum_rss_kib": 25912,
+            "stage": "before import importlib"
+          },
+          {
+            "wall_seconds": 0.000220243,
+            "process_cpu_seconds": 0.043742257,
+            "maximum_rss_kib": 25912,
+            "stage": "after import importlib"
+          },
+          {
+            "wall_seconds": 0.000227584,
+            "process_cpu_seconds": 0.043749334,
+            "maximum_rss_kib": 25912,
+            "stage": "before importlib.import_module('molsysviewer')"
+          },
+          {
+            "wall_seconds": 0.637684828,
+            "process_cpu_seconds": 0.681199013,
+            "maximum_rss_kib": 73124,
+            "stage": "after importlib.import_module('molsysviewer')"
+          },
+          {
+            "wall_seconds": 0.637711661,
+            "process_cpu_seconds": 0.681220446,
+            "maximum_rss_kib": 73124,
+            "stage": "before import molsysmt as msm"
+          },
+          {
+            "wall_seconds": 0.64275966,
+            "process_cpu_seconds": 0.686270995,
+            "maximum_rss_kib": 73124,
+            "stage": "after import molsysmt as msm"
+          },
+          {
+            "wall_seconds": 0.642777517,
+            "process_cpu_seconds": 0.686286355,
+            "maximum_rss_kib": 73124,
+            "stage": "before assert msm.element.atom.normalize_atom_types('D') == ('H', 2)"
+          },
+          {
+            "wall_seconds": 1.068613256,
+            "process_cpu_seconds": 1.112312903,
+            "maximum_rss_kib": 157484,
+            "stage": "after assert msm.element.atom.normalize_atom_types('D') == ('H', 2)"
+          },
+          {
+            "wall_seconds": 1.06864145,
+            "process_cpu_seconds": 1.112335608,
+            "maximum_rss_kib": 157484,
+            "stage": "before assert msm.element.group.get_group_type_from_group_name('ALA') == 'amino acid'"
+          },
+          {
+            "wall_seconds": 1.181256938,
+            "process_cpu_seconds": 1.22059296,
+            "maximum_rss_kib": 170348,
+            "stage": "after assert msm.element.group.get_group_type_from_group_name('ALA') == 'amino acid'"
+          },
+          {
+            "wall_seconds": 1.181282739,
+            "process_cpu_seconds": 1.220613734,
+            "maximum_rss_kib": 170348,
+            "stage": "before import molsysviewer as msv"
+          },
+          {
+            "wall_seconds": 1.181296887,
+            "process_cpu_seconds": 1.220627842,
+            "maximum_rss_kib": 170348,
+            "stage": "after import molsysviewer as msv"
+          },
+          {
+            "wall_seconds": 1.181304456,
+            "process_cpu_seconds": 1.220635198,
+            "maximum_rss_kib": 170348,
+            "stage": "before with msv.new_view() as view:"
+          },
+          {
+            "wall_seconds": 2.876655478,
+            "process_cpu_seconds": 2.91565042,
+            "maximum_rss_kib": 331528,
+            "stage": "before tools = view.addons.molsysmt.element"
+          },
+          {
+            "wall_seconds": 2.876863341,
+            "process_cpu_seconds": 2.915846171,
+            "maximum_rss_kib": 331528,
+            "stage": "after tools = view.addons.molsysmt.element"
+          },
+          {
+            "wall_seconds": 2.876880577,
+            "process_cpu_seconds": 2.915861534,
+            "maximum_rss_kib": 331528,
+            "stage": "before assert tools.atom.normalize_atom_types('D') == ('H', 2)"
+          },
+          {
+            "wall_seconds": 2.877068955,
+            "process_cpu_seconds": 2.916066132,
+            "maximum_rss_kib": 331528,
+            "stage": "after assert tools.atom.normalize_atom_types('D') == ('H', 2)"
+          },
+          {
+            "wall_seconds": 2.877099288,
+            "process_cpu_seconds": 2.916080014,
+            "maximum_rss_kib": 331528,
+            "stage": "before assert tools.group.get_group_type_from_group_name('ALA') == 'amino acid'"
+          },
+          {
+            "wall_seconds": 2.877473704,
+            "process_cpu_seconds": 2.916456855,
+            "maximum_rss_kib": 331528,
+            "stage": "after assert tools.group.get_group_type_from_group_name('ALA') == 'amino acid'"
+          },
+          {
+            "wall_seconds": 2.87749176,
+            "process_cpu_seconds": 2.916472594,
+            "maximum_rss_kib": 331528,
+            "stage": "before assert tools.is_composed_of('group', 'atom') is True"
+          },
+          {
+            "wall_seconds": 2.87757899,
+            "process_cpu_seconds": 2.916561076,
+            "maximum_rss_kib": 331528,
+            "stage": "after assert tools.is_composed_of('group', 'atom') is True"
+          },
+          {
+            "wall_seconds": 2.877592939,
+            "process_cpu_seconds": 2.916573648,
+            "maximum_rss_kib": 331528,
+            "stage": "before assert view.molsys is None"
+          },
+          {
+            "wall_seconds": 2.877601203,
+            "process_cpu_seconds": 2.916581798,
+            "maximum_rss_kib": 331528,
+            "stage": "after assert view.molsys is None"
+          },
+          {
+            "wall_seconds": 2.878120654,
+            "process_cpu_seconds": 2.917103991,
+            "maximum_rss_kib": 331528,
+            "stage": "after with msv.new_view() as view:"
+          },
+          {
+            "wall_seconds": 2.878138871,
+            "process_cpu_seconds": 2.917119672,
+            "maximum_rss_kib": 331528,
+            "stage": "before assert msm.element.atom.normalize_atom_types('D') == ('H', 2)"
+          },
+          {
+            "wall_seconds": 2.878204113,
+            "process_cpu_seconds": 2.917186015,
+            "maximum_rss_kib": 331528,
+            "stage": "after assert msm.element.atom.normalize_atom_types('D') == ('H', 2)"
+          },
+          {
+            "wall_seconds": 2.878216355,
+            "process_cpu_seconds": 2.91719701,
+            "maximum_rss_kib": 331528,
+            "stage": "before print('explicit-element-import-order-ok')"
+          },
+          {
+            "wall_seconds": 2.878224051,
+            "process_cpu_seconds": 2.917204692,
+            "maximum_rss_kib": 331528,
+            "stage": "after print('explicit-element-import-order-ok')"
+          },
+          {
+            "wall_seconds": 2.878230175,
+            "process_cpu_seconds": 2.917210755,
+            "maximum_rss_kib": 331528,
+            "stage": "before faulthandler.cancel_dump_traceback_later()"
+          },
+          {
+            "wall_seconds": 2.878332107,
+            "process_cpu_seconds": 2.91722993,
+            "maximum_rss_kib": 331528,
+            "stage": "after faulthandler.cancel_dump_traceback_later()"
+          }
+        ],
+        "largest_stage_intervals": [
+          {
+            "stage": "before with msv.new_view() as view:",
+            "wall_seconds": 1.695351022,
+            "cpu_seconds": 1.6950152219999999
+          },
+          {
+            "stage": "before importlib.import_module('molsysviewer')",
+            "wall_seconds": 0.637457244,
+            "cpu_seconds": 0.6374496789999999
+          },
+          {
+            "stage": "before assert msm.element.atom.normalize_atom_types('D') == ('H', 2)",
+            "wall_seconds": 0.42583573899999994,
+            "cpu_seconds": 0.42602654800000006
+          },
+          {
+            "stage": "before assert msm.element.group.get_group_type_from_group_name('ALA') == 'amino acid'",
+            "wall_seconds": 0.11261548799999987,
+            "cpu_seconds": 0.10825735200000008
+          },
+          {
+            "stage": "before import molsysmt as msm",
+            "wall_seconds": 0.00504799899999997,
+            "cpu_seconds": 0.005050549000000015
+          }
+        ]
+      },
+      {
+        "first_module": "molsysviewer_molsysmt.tools",
+        "mode": "instrumented sequential",
+        "native_exit": 0,
+        "timed_out": false,
+        "seconds": 3.484313730150461,
+        "success_sentinel": true,
+        "functional_ast_preserved": true,
+        "stderr_file": "profile-molsysviewer_molsysmt.tools.stderr",
+        "stages": [
+          {
+            "wall_seconds": 1.639e-06,
+            "process_cpu_seconds": 0.042305966,
+            "maximum_rss_kib": 26876,
+            "stage": "before import faulthandler"
+          },
+          {
+            "wall_seconds": 9.4079e-05,
+            "process_cpu_seconds": 0.042391209,
+            "maximum_rss_kib": 26876,
+            "stage": "after import faulthandler"
+          },
+          {
+            "wall_seconds": 0.00010941,
+            "process_cpu_seconds": 0.042404712,
+            "maximum_rss_kib": 26876,
+            "stage": "before faulthandler.dump_traceback_later(45)"
+          },
+          {
+            "wall_seconds": 0.000184285,
+            "process_cpu_seconds": 0.042480722,
+            "maximum_rss_kib": 26876,
+            "stage": "after faulthandler.dump_traceback_later(45)"
+          },
+          {
+            "wall_seconds": 0.000214937,
+            "process_cpu_seconds": 0.042510084,
+            "maximum_rss_kib": 26876,
+            "stage": "before import importlib"
+          },
+          {
+            "wall_seconds": 0.000224097,
+            "process_cpu_seconds": 0.042519374,
+            "maximum_rss_kib": 26876,
+            "stage": "after import importlib"
+          },
+          {
+            "wall_seconds": 0.000231367,
+            "process_cpu_seconds": 0.042526424,
+            "maximum_rss_kib": 26876,
+            "stage": "before importlib.import_module('molsysviewer_molsysmt.tools')"
+          },
+          {
+            "wall_seconds": 0.661376991,
+            "process_cpu_seconds": 0.703660276,
+            "maximum_rss_kib": 73472,
+            "stage": "after importlib.import_module('molsysviewer_molsysmt.tools')"
+          },
+          {
+            "wall_seconds": 0.66140319,
+            "process_cpu_seconds": 0.703681624,
+            "maximum_rss_kib": 73472,
+            "stage": "before import molsysmt as msm"
+          },
+          {
+            "wall_seconds": 0.66141304,
+            "process_cpu_seconds": 0.70369095,
+            "maximum_rss_kib": 73472,
+            "stage": "after import molsysmt as msm"
+          },
+          {
+            "wall_seconds": 0.661420002,
+            "process_cpu_seconds": 0.703697797,
+            "maximum_rss_kib": 73472,
+            "stage": "before assert msm.element.atom.normalize_atom_types('D') == ('H', 2)"
+          },
+          {
+            "wall_seconds": 1.074647242,
+            "process_cpu_seconds": 1.116982956,
+            "maximum_rss_kib": 157424,
+            "stage": "after assert msm.element.atom.normalize_atom_types('D') == ('H', 2)"
+          },
+          {
+            "wall_seconds": 1.074673546,
+            "process_cpu_seconds": 1.11700406,
+            "maximum_rss_kib": 157424,
+            "stage": "before assert msm.element.group.get_group_type_from_group_name('ALA') == 'amino acid'"
+          },
+          {
+            "wall_seconds": 1.186114688,
+            "process_cpu_seconds": 1.22380908,
+            "maximum_rss_kib": 170260,
+            "stage": "after assert msm.element.group.get_group_type_from_group_name('ALA') == 'amino acid'"
+          },
+          {
+            "wall_seconds": 1.186141166,
+            "process_cpu_seconds": 1.223830505,
+            "maximum_rss_kib": 170260,
+            "stage": "before import molsysviewer as msv"
+          },
+          {
+            "wall_seconds": 1.188793967,
+            "process_cpu_seconds": 1.226485941,
+            "maximum_rss_kib": 170420,
+            "stage": "after import molsysviewer as msv"
+          },
+          {
+            "wall_seconds": 1.188812057,
+            "process_cpu_seconds": 1.226501231,
+            "maximum_rss_kib": 170420,
+            "stage": "before with msv.new_view() as view:"
+          },
+          {
+            "wall_seconds": 2.936378327,
+            "process_cpu_seconds": 2.973745937,
+            "maximum_rss_kib": 331236,
+            "stage": "before tools = view.addons.molsysmt.element"
+          },
+          {
+            "wall_seconds": 2.936573985,
+            "process_cpu_seconds": 2.973938015,
+            "maximum_rss_kib": 331236,
+            "stage": "after tools = view.addons.molsysmt.element"
+          },
+          {
+            "wall_seconds": 2.936589423,
+            "process_cpu_seconds": 2.973951912,
+            "maximum_rss_kib": 331236,
+            "stage": "before assert tools.atom.normalize_atom_types('D') == ('H', 2)"
+          },
+          {
+            "wall_seconds": 2.936746491,
+            "process_cpu_seconds": 2.974110531,
+            "maximum_rss_kib": 331236,
+            "stage": "after assert tools.atom.normalize_atom_types('D') == ('H', 2)"
+          },
+          {
+            "wall_seconds": 2.936761985,
+            "process_cpu_seconds": 2.97412457,
+            "maximum_rss_kib": 331236,
+            "stage": "before assert tools.group.get_group_type_from_group_name('ALA') == 'amino acid'"
+          },
+          {
+            "wall_seconds": 2.93717443,
+            "process_cpu_seconds": 2.974539348,
+            "maximum_rss_kib": 331236,
+            "stage": "after assert tools.group.get_group_type_from_group_name('ALA') == 'amino acid'"
+          },
+          {
+            "wall_seconds": 2.937193137,
+            "process_cpu_seconds": 2.974555818,
+            "maximum_rss_kib": 331236,
+            "stage": "before assert tools.is_composed_of('group', 'atom') is True"
+          },
+          {
+            "wall_seconds": 2.937287576,
+            "process_cpu_seconds": 2.97465144,
+            "maximum_rss_kib": 331236,
+            "stage": "after assert tools.is_composed_of('group', 'atom') is True"
+          },
+          {
+            "wall_seconds": 2.93730166,
+            "process_cpu_seconds": 2.974664291,
+            "maximum_rss_kib": 331236,
+            "stage": "before assert view.molsys is None"
+          },
+          {
+            "wall_seconds": 2.93731073,
+            "process_cpu_seconds": 2.974673205,
+            "maximum_rss_kib": 331236,
+            "stage": "after assert view.molsys is None"
+          },
+          {
+            "wall_seconds": 2.937829038,
+            "process_cpu_seconds": 2.975194051,
+            "maximum_rss_kib": 331236,
+            "stage": "after with msv.new_view() as view:"
+          },
+          {
+            "wall_seconds": 2.937847396,
+            "process_cpu_seconds": 2.97521003,
+            "maximum_rss_kib": 331236,
+            "stage": "before assert msm.element.atom.normalize_atom_types('D') == ('H', 2)"
+          },
+          {
+            "wall_seconds": 2.937931159,
+            "process_cpu_seconds": 2.975294964,
+            "maximum_rss_kib": 331236,
+            "stage": "after assert msm.element.atom.normalize_atom_types('D') == ('H', 2)"
+          },
+          {
+            "wall_seconds": 2.937944367,
+            "process_cpu_seconds": 2.975306821,
+            "maximum_rss_kib": 331236,
+            "stage": "before print('explicit-element-import-order-ok')"
+          },
+          {
+            "wall_seconds": 2.937952704,
+            "process_cpu_seconds": 2.9753152,
+            "maximum_rss_kib": 331236,
+            "stage": "after print('explicit-element-import-order-ok')"
+          },
+          {
+            "wall_seconds": 2.937959793,
+            "process_cpu_seconds": 2.97532221,
+            "maximum_rss_kib": 331236,
+            "stage": "before faulthandler.cancel_dump_traceback_later()"
+          },
+          {
+            "wall_seconds": 2.938045387,
+            "process_cpu_seconds": 2.975342854,
+            "maximum_rss_kib": 331236,
+            "stage": "after faulthandler.cancel_dump_traceback_later()"
+          }
+        ],
+        "largest_stage_intervals": [
+          {
+            "stage": "before with msv.new_view() as view:",
+            "wall_seconds": 1.7475662699999999,
+            "cpu_seconds": 1.7472447059999998
+          },
+          {
+            "stage": "before importlib.import_module('molsysviewer_molsysmt.tools')",
+            "wall_seconds": 0.661145624,
+            "cpu_seconds": 0.6611338520000001
+          },
+          {
+            "stage": "before assert msm.element.atom.normalize_atom_types('D') == ('H', 2)",
+            "wall_seconds": 0.41322724,
+            "cpu_seconds": 0.41328515899999996
+          },
+          {
+            "stage": "before assert msm.element.group.get_group_type_from_group_name('ALA') == 'amino acid'",
+            "wall_seconds": 0.11144114199999988,
+            "cpu_seconds": 0.10680502000000014
+          },
+          {
+            "stage": "before import molsysviewer as msv",
+            "wall_seconds": 0.0026528009999999824,
+            "cpu_seconds": 0.0026554359999999555
+          }
+        ]
+      },
+      {
+        "first_module": "molsysmt.element.atom",
+        "mode": "original concurrent",
+        "native_exit": 0,
+        "timed_out": false,
+        "seconds": 3.8885772433131933,
+        "success_sentinel": true,
+        "functional_ast_preserved": true,
+        "stderr_file": "parallel-molsysmt.element.atom.stderr",
+        "stages": [],
+        "largest_stage_intervals": []
+      },
+      {
+        "first_module": "molsysviewer",
+        "mode": "original concurrent",
+        "native_exit": 0,
+        "timed_out": false,
+        "seconds": 3.9189017419703305,
+        "success_sentinel": true,
+        "functional_ast_preserved": true,
+        "stderr_file": "parallel-molsysviewer.stderr",
+        "stages": [],
+        "largest_stage_intervals": []
+      },
+      {
+        "first_module": "molsysviewer_molsysmt.tools",
+        "mode": "original concurrent",
+        "native_exit": 0,
+        "timed_out": false,
+        "seconds": 3.9208673336543143,
+        "success_sentinel": true,
+        "functional_ast_preserved": true,
+        "stderr_file": "parallel-molsysviewer_molsysmt.tools.stderr",
+        "stages": [],
+        "largest_stage_intervals": []
+      }
+    ]
+  },
+  "functional_program_proof": {
+    "parent_source": "9ccd5e57bfd0772bc5c7d23686d4c76fbfe7404f",
+    "new_test_source_sha256": "3807e5ae54087e3be27b486a744d89f941643b14db7b124d262447c2236c7fb4",
+    "cases": [
+      {
+        "first_module": "molsysmt.element.atom",
+        "original_functional_ast_sha256": "ab319af169b18eac730f36d9b2610b842e0adf140149146a254c812ba7a8c560",
+        "all_original_assertions_calls_and_import_order_preserved": true,
+        "parent_deadline_seconds": 60,
+        "stack_timer_seconds": 45,
+        "added_imports": [
+          "sys",
+          "time"
+        ]
+      },
+      {
+        "first_module": "molsysviewer",
+        "original_functional_ast_sha256": "dc001126b15b0b0139422382cfa57d9cdf7d604941d177965503e191a299c300",
+        "all_original_assertions_calls_and_import_order_preserved": true,
+        "parent_deadline_seconds": 60,
+        "stack_timer_seconds": 45,
+        "added_imports": [
+          "sys",
+          "time"
+        ]
+      },
+      {
+        "first_module": "molsysviewer_molsysmt.tools",
+        "original_functional_ast_sha256": "16b932bc861b85b616fce9d2a802ec83b5422e3d895de25e903a83730e36444f",
+        "all_original_assertions_calls_and_import_order_preserved": true,
+        "parent_deadline_seconds": 60,
+        "stack_timer_seconds": 45,
+        "added_imports": [
+          "sys",
+          "time"
+        ]
+      }
+    ],
+    "scope": "Remove only diagnostic helper/calls and the two standard-library imports; compare every other original child AST node. Actual successful stage observations and scientific/utility outcomes are received separately by pytest."
+  },
+  "new_actual_import_times": [
+    {
+      "name": "test_fresh_import_orders_preserve_native_exports_and_discovery[molsysmt.element.atom]",
+      "seconds": 3.305,
+      "passed": true
+    },
+    {
+      "name": "test_fresh_import_orders_preserve_native_exports_and_discovery[molsysviewer]",
+      "seconds": 3.271,
+      "passed": true
+    },
+    {
+      "name": "test_fresh_import_orders_preserve_native_exports_and_discovery[molsysviewer_molsysmt.tools]",
+      "seconds": 3.283,
+      "passed": true
+    }
+  ],
+  "raw_child_artifacts": {
+    "profile-molsysmt.element.atom.stdout": {
+      "sha256": "a08c18f67dd7cfb814f1888acb09cd0e6a467a56f1c971c82e18b69c10ee39fa",
+      "bytes": 33
+    },
+    "profile-molsysmt.element.atom.stderr": {
+      "sha256": "8d1393592c7ac5bd8201454468f5fe669c9e90b2425cc9c529eda537fea12ec3",
+      "bytes": 622318
+    },
+    "parallel-molsysmt.element.atom.stdout": {
+      "sha256": "a08c18f67dd7cfb814f1888acb09cd0e6a467a56f1c971c82e18b69c10ee39fa",
+      "bytes": 33
+    },
+    "parallel-molsysmt.element.atom.stderr": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "profile-molsysviewer.stdout": {
+      "sha256": "a08c18f67dd7cfb814f1888acb09cd0e6a467a56f1c971c82e18b69c10ee39fa",
+      "bytes": 33
+    },
+    "profile-molsysviewer.stderr": {
+      "sha256": "1332c57bfe4d25f2913088da4ba53b608e674658c8ab0464dd80088ee3247841",
+      "bytes": 621676
+    },
+    "parallel-molsysviewer.stdout": {
+      "sha256": "a08c18f67dd7cfb814f1888acb09cd0e6a467a56f1c971c82e18b69c10ee39fa",
+      "bytes": 33
+    },
+    "parallel-molsysviewer.stderr": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "profile-molsysviewer_molsysmt.tools.stdout": {
+      "sha256": "a08c18f67dd7cfb814f1888acb09cd0e6a467a56f1c971c82e18b69c10ee39fa",
+      "bytes": 33
+    },
+    "profile-molsysviewer_molsysmt.tools.stderr": {
+      "sha256": "d5be045cbb94d6614297c80c5353de8afc6f9b00915d4f704f9f028ba0da6bac",
+      "bytes": 626553
+    },
+    "parallel-molsysviewer_molsysmt.tools.stdout": {
+      "sha256": "a08c18f67dd7cfb814f1888acb09cd0e6a467a56f1c971c82e18b69c10ee39fa",
+      "bytes": 33
+    },
+    "parallel-molsysviewer_molsysmt.tools.stderr": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  },
+  "loaded_module_count": 2197,
+  "complete_loaded_module_inventory_sha256": "faa13e9c4791e9f2fb62956226e5efb79f02121ebb51b537c0e6d0f2aa4883d6",
+  "selected_runtime_origins": {
+    "molsysmt": {
+      "path": "<checkout>/molsysmt/__init__.py",
+      "sha256": "dc89c5f21ab7ba4bb94b289927a19856d27cb670baf1b03d7f6fcb7fced03f90",
+      "recorded_distribution_version": "0.23.0+393.ge1facf624.dirty",
+      "recorded_imported_version": "0.23.0+393.ge1facf624.dirty"
+    },
+    "molsysviewer": {
+      "path": "<checkout>/.pytest_cache/pre1-review-20261110/viewer-5164f13b-ready-source/molsysviewer/__init__.py",
+      "sha256": "76c5968d9a66d9fe01a475166515f4e0f02c3784b135ec60319cb2bf83b17cd4",
+      "recorded_distribution_version": "0.24.0+97.gdf4bf477.dirty",
+      "recorded_imported_version": "0.24.0+97.gdf4bf477.dirty"
+    },
+    "numpy": {
+      "path": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+      "sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a",
+      "recorded_distribution_version": "2.4.6",
+      "recorded_imported_version": "2.4.6"
+    },
+    "pandas": {
+      "path": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+      "sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b",
+      "recorded_distribution_version": "2.3.3",
+      "recorded_imported_version": "2.3.3"
+    },
+    "smonitor": {
+      "path": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+      "sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800",
+      "recorded_distribution_version": "0.21.0",
+      "recorded_imported_version": "0.21.0"
+    },
+    "argdigest": {
+      "path": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+      "sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f",
+      "recorded_distribution_version": "0.15.0",
+      "recorded_imported_version": "0.15.0"
+    },
+    "depdigest": {
+      "path": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+      "sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1",
+      "recorded_distribution_version": "0.15.1",
+      "recorded_imported_version": "0.15.1"
+    },
+    "pyunitwizard": {
+      "path": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+      "sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc",
+      "recorded_distribution_version": "0.29.2",
+      "recorded_imported_version": "0.29.2"
+    },
+    "molsysviewer_molsysmt.tools": {
+      "path": "<checkout>/molsysviewer_molsysmt/tools.py",
+      "sha256": "bbb6138da9c34ae32137ddb53ca1d7e9933e7dbac01fc57415b01f9b47314819"
+    }
+  },
+  "python": "3.14.7",
+  "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "resource_contract": {
+    "focused_and_receiving_cpus": 1,
+    "focused_and_receiving_maximum_gib": 1.5,
+    "profile_scope_cpus": 3,
+    "profile_scope_maximum_gib": 3,
+    "concurrent_original_children": 3,
+    "own_swap_bytes": 0,
+    "host_reserve_gib": 6.5,
+    "foreign_processes_signalled": false
+  },
+  "conclusions": [
+    "No current timeout is observed in the three original fresh-process guards, three AST-preserving sequential profiles, three concurrent original programs or the updated module. These overlap and are not added as independent full-suite passes.",
+    "The original child is a combined import/native-utility/View/addon lifecycle. The parameter names its first import; it does not identify where the historical timeout occurred.",
+    "View construction/context entry is the largest measured current stage (1.66\u20131.75 seconds), not a demonstrated historical cause. Single profiled timings with uncontrolled file-cache/scheduling and added logging are diagnostic, not a comparable benchmark.",
+    "The original failed case (60.147 seconds) and its passing MolSysViewer-first neighbor (24.138 seconds) remain historical observations. Resource interference, I/O, import locking and addon/View initialization are not causally distinguished by those values.",
+    "The updated test adds bounded child-local stage/timestamp diagnostics, preserves all original functional AST nodes, application import orders, 60-second child limit and 45-second stack timer, and transports partial streams while preserving TimeoutExpired identity.",
+    "The updated complete element utility module passes 134 cases with 59 expected legacy H5MSM deprecations and no omissions. This receives diagnostics and actual current startup, not a causal correction or closure of #713.",
+    "#615 is delegated to MolSysViewer #384 as the requested audit lead, with MolSysMT retaining a blocked consumer dependency before the joint 1.0 pair. Delegation is not proof of the causal component.",
+    "The earlier unresolved-risk acceptance proposal was not adopted. Both original failures, the original weighted score, final-pair gates and candidate/hosted/publication pause remain."
+  ],
+  "limits": [
+    "No failed first-import child stack or original operation-stage trace exists to recover the historical causal transition.",
+    "No stress allocation or unrelated full-suite retry is used; the parallel audit controls CPU/memory and does not reproduce every historical suite or shared-host condition.",
+    "No scientific calculation, public API, runtime library, native binary or dependency floor is changed. Only test diagnostics and owning records change.",
+    "The selected development stamps do not identify a new published artifact. Exact source/runtime origins and hashes remain authoritative for this bounded audit."
+  ],
+  "final_fast_checks": {
+    "phase": "checks",
+    "source_commit": "9ccd5e57bfd0772bc5c7d23686d4c76fbfe7404f",
+    "state": "completed",
+    "native_exit": 0,
+    "host_reserve_bytes": 6979321856,
+    "scope": "Discriminating current fresh-import audit for #713, with original deadlines; not a complete suite, causal disposition, installed or final-pair qualification.",
+    "host_cpu_at_admission": {
+      "load": "2.05 3.56 2.93 2/2858 1706902",
+      "cpu_pressure": "some avg10=0.00 avg60=2.01 avg300=6.57 total=19125401837\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "online_cpus": 20
+    },
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "1610612736",
+      "memory.high": "1449549824",
+      "memory.swap.max": "0",
+      "pids.max": "128"
+    },
+    "command": [
+      "<development-prefix>/bin/python",
+      ".pytest_cache/import-timeout-owner-audit-713-20261113/final_checks.py"
+    ],
+    "checked_inputs": 8188,
+    "seconds": 33.77375339716673,
+    "changed_inputs": [],
+    "memory_peak_bytes": 441933824,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 15824470016,
+    "maximum_memory_pressure_avg10": 0.0,
+    "pressure_transitions": [],
+    "stop_reason": null,
+    "driver_sha256": "f1845cb832a4f95a350d8d716f15ca17f31636cb38930422a593a0efa8ec67eb"
+  },
+  "final_fast_results": {
+    "passed": true,
+    "commands": [
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.7s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                       10.7s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.4s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.5s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.1s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.5s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   2.0s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.5s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.5s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       3.6s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "native_exit": 0,
+        "stdout": "4726 files already formatted\n",
+        "stderr": ""
+      }
+    ]
+  }
+}

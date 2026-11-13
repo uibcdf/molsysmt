@@ -32,60 +32,33 @@ This supplies the current-source full-build increment in handoff stage 1;
 it does not satisfy the future exact-candidate documentation gate or replace
 the maintainer's scientific/editorial review and actual browser receiving.
 
-## Remaining technical decision for #615/#713 — 2026-11-13
+## Maintainer audit direction for #615/#713 — 2026-11-13
 
-This packet owns the proposal; the
-[initial-canvas report](pending_bugs/intermittent_jupyter_initial_canvas_timeout.md)
-and [fresh-import report](pending_bugs/fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md)
-own their separate failed observations and executed evidence.
+The maintainer requests a lead-owner handoff for the initial-canvas investigation
+and a current MolSysMT audit of the fresh-process timeout. The earlier proposal
+to accept unresolved operational risks has not been adopted. No original
+failure is reclassified or release criterion waived.
 
-**Decision pending; no acceptance or reclassification follows from this proposal.**
+- **#615:** uibcdf/molsysviewer#384 now owns the requested lead audit and
+  resolution. MolSysMT #615 remains a blocked consumer/release tracker.
+  The accepted resolution is required before the coordinated MolSysMT 1.0.0 /
+  MolSysViewer 1.0.0 pair. Assigning the lead does not prove a MolSysViewer
+  production-code cause; MolSysMT supplies kernel/provider evidence and fixes
+  if the audit identifies its boundary.
+- **#713:** MolSysMT retains the investigation. Current unchanged checks,
+  discriminating stage profiles and concurrent original programs do not
+  reproduce the historical timeout. The complete child includes native
+  utilities and View/addon startup, so its failing parameter alone cannot
+  identify the stalled operation. Original assertions/deadlines are preserved;
+  stage-only diagnostics now supplement the existing pre-deadline stack.
+  The historical cause remains unknown.
 
-The original failures are preserved and remain causally unexplained. Diagnostic
-transport and later successful exact-source sessions cannot establish an
-environmental cause or a product repair. The finite handoff now needs an
-explicit choice between continued causal blocking and acceptance of a bounded
-unresolved operational risk. This is a recommendation, not a new passing gate.
-
-### Option A: retain causal resolution as a pre-1.0 prerequisite
-
-Keep the current blocking criterion. Use a genuinely new diagnostic question
-or a recurrence on the already instrumented original workload; do not spend
-resources repeating passing runs merely to seek a green result. This retains
-the strongest investigative requirement, but an intermittent event may not
-recur or yield its historical cause, so no finite completion date follows.
-
-### Option B: keep the risk open while qualifying the candidate
-
-**Recommended for maintainer review:** preserve both issues and their historical
-failed attempts as acknowledged unresolved operational risks, without attributing
-it to the environment and without describing it as fixed. Permit final-candidate
-work to proceed only after the maintainer accepts this bounded disposition.
-
-Conditions:
-
-1. Every mandatory source, native, scientific, documentation, platform and
-   installed-pair gate still has to pass on its actual candidate. No failed
-   attempt is relabelled by a later run.
-2. The affected cold-start/import checks keep their original functional
-   assertions and deadlines: the 30-second canvas wait and 60-second import
-   child, with the 15-second kernel and 45-second import stack timers.
-   The existing pre-deadline observations must be
-   active and their availability recorded; no warm-up or missing-result waiver.
-3. Any recurrence on the chosen candidate stops acceptance of the affected
-   gate. Preserve the original failure, classify the observed stage and use
-   its captured evidence before proposing a correction or another attempt.
-4. MolSysMT owns the import/kernel/server investigation. MolSysViewer owns
-   its mount/scene/draw boundary when implicated. A responsibility handoff
-   requires evidence of the relevant stage, not a timeout label alone.
-5. The review packet lists the open risk and the original observations.
-   Reassess at candidate selection, on any recurrence, and at the first
-   post-1.0 stabilization review if it remains unresolved.
-
-This option accepts uncertainty rather than asserting an environmental
-limitation. It therefore requires an explicit maintainer revision of the
-present pre-1.0 acceptance criterion. Until that decision exists, keep the
-current status, original score, release gates and publication pause unchanged.
+The [initial-canvas report](pending_bugs/intermittent_jupyter_initial_canvas_timeout.md)
+and [fresh-process report](pending_bugs/fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md)
+own their evidence and acceptance. The
+[audit receipt](../devtools/data/import_stage_and_owner_audit_615_713_20261113.json)
+records the current receiving and handoff. Mandatory exact-candidate gates and
+the candidate/hosted/publication pause remain unchanged.
 
 ## Finite molecular-owner handoff — 2026-11-12
 
