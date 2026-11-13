@@ -1126,5 +1126,96 @@
       }
     ],
     "foreign_processes_signalled": false
-  }
+  },
+  "public_delivery": {
+    "published_main": "4702a71db51b2f0560f092b12c632ad13433cf0e",
+    "queried_source": "4702a71db51b2f0560f092b12c632ad13433cf0e",
+    "truncated": false,
+    "matched_changed_files": [
+      {
+        "path": "devguide/archive/resolved_bugs/public_group_index_assignment_loses_nullable_storage.md",
+        "git_blob": "da879b18a6d712e761b08406c6846181a8b1f2f1"
+      },
+      {
+        "path": "devguide/forms_and_conversions.md",
+        "git_blob": "75382f9f324f66a8fafbe937b38ace6aeb44d4bd"
+      },
+      {
+        "path": "devguide/pending_bugs/README.md",
+        "git_blob": "1c5d9b43da06841496a7c4a6b11dc53cc2dc6987"
+      },
+      {
+        "path": "devguide/pending_bugs/docs/native_form_implementation_references_render_without_links.md",
+        "git_blob": "de3ba12f07908f2b0f065f240e07625ef8fd129f"
+      },
+      {
+        "path": "devguide/pending_bugs/reading_native_molecule_counts_rebuilds_and_discards_declared_inventory.md",
+        "git_blob": "dc68e0d443662f7e4059b45e00e01f6863b48243"
+      },
+      {
+        "path": "devguide/pre_1_0_completion_handoffs_20261110.md",
+        "git_blob": "594500019e8a2f08dfe5bdcdff82a1afce6e53d7"
+      },
+      {
+        "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+        "git_blob": "0edc69f68b9fc6cef0a6fcb91f12744cb74166a9"
+      },
+      {
+        "path": "devguide/release_1_0_status.md",
+        "git_blob": "b9d472ae90278769dead2e96c607e697e2f81d02"
+      },
+      {
+        "path": "devtools/data/native_nullable_membership_receiving_739_20261112.json",
+        "git_blob": "4c610efbd82131e3440c4d8775ce5cc256de0f1b"
+      },
+      {
+        "path": "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb",
+        "git_blob": "a15ee2c66afcbfdc10abae83bef663d71ad7dff3"
+      },
+      {
+        "path": "docs/content/user/cookbook/group_free_hierarchy.ipynb",
+        "git_blob": "ba9025e5be0368c1f002c9069967519905f70d6e"
+      },
+      {
+        "path": "docs/content/user/foundations/native_world/classes/molsysmt_Topology.md",
+        "git_blob": "504faea6bf74855c0bd818f4d763cdab0fd9094b"
+      },
+      {
+        "path": "docs/content/user/tools/basic/set.ipynb",
+        "git_blob": "fdc589b624ff1e2376659e1957ecfb006b9d10ea"
+      },
+      {
+        "path": "docs/docs_manifest.yml",
+        "git_blob": "5d3b7eca4135a01ff0818fca066584f52ed3a0c4"
+      },
+      {
+        "path": "molsysmt/basic/set.py",
+        "git_blob": "b5519a6ec7a9651080dd9496d8c895ba2fb40262"
+      },
+      {
+        "path": "molsysmt/form/molsysmt_Topology/set.py",
+        "git_blob": "e3b2d0973cd6720b326b2df0c089cf5b1930f183"
+      },
+      {
+        "path": "molsysmt/native/_table_columns.py",
+        "git_blob": "620baa5e5f2b66be5d48321d916ed72f89574d79"
+      },
+      {
+        "path": "tests/conftest.py",
+        "git_blob": "b9ed76e5d417751068d26c8e96c96382cc15d966"
+      },
+      {
+        "path": "tests/form/molsysmt_Topology/test_nullable_membership_assignment.py",
+        "git_blob": "d0ba0ce9ddbf3b8b56eb7e9e19ca0b27b858cd94"
+      }
+    ],
+    "before_issue_closure": true
+  },
+  "complete_post_closeout_intake": {
+    "issue_count": 659,
+    "open_issue_count": 96,
+    "new_issues_after_740": [],
+    "open_pull_request_count": 0
+  },
+  "next_work": "Correct independently reproduced #740 read-side inventory loss, then resume the eighteen flagged external-class articles under #727."
 }

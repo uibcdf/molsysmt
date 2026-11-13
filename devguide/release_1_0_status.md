@@ -8079,3 +8079,10 @@ remaining eighteen #727 external-class articles. #739 is not a certification
 of that read-side behavior. No complete-source/nightly, pandas-3 reporter,
 installed, scientific or exact-pair qualification, score bonus or publication
 resumption is implied.
+
+
+The nullable-edit closeout is publicly verified on 4702a71db, including nineteen
+changed blobs; #739 is closed and queue/board synchronization passes. Complete
+intake has 659 issues, 96 open, no issue after #740 and no open PRs. #740 is the
+next correctness task. This dated source receipt does not clear the complete-
+source/nightly backlog or alter the exact-pair/publication pause.
