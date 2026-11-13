@@ -14,6 +14,29 @@ supersedes: []
 
 # H5MSM 0.6 MolecularMechanics persistence
 
+## Current state — reviewed 2026-11-13
+
+Development public writers already default to H5MSM 1.0, including the bounded
+experimental mechanics layer. The [maintained format contract](../h5msm_format.md)
+owns current behavior; the original design and dated increments below retain
+their historical 0.5/0.6/default-transition scope. The older scheduling and
+future-tense statements do not reverse the implemented 1.0 default.
+
+Independent MolSysViewer default-specific receiving is accepted below: eighteen
+session cases and 151 boundary cases. Historical DockingMT explicit 0.6 and
+1.0 receiving remains accepted on its recorded source/native compositions.
+The current canonical repository is BindingMT; its latest recorded #73 message
+reports a maintainer-requested pause. The already requested omitted-version
+write/migration check under both unit policies remains to be received; no
+new preparation or docking run is requested. See the
+[client coordination receipt](../../devtools/data/h5msm_client_coordination_256_20261113.json).
+
+The stable-format decision and exact coordinated installed-pair gates remain
+open. Neither source support, a default-setting change nor this clarification
+publishes H5MSM 1.0 or resumes candidate production/hosted qualification.
+
+## Original proposal and implementation history
+
 **Reported:** 2026-09-29, during the H5MSM 0.5 pre-1.0 scope review.
 **Status:** Active bounded pre-1.0 design, authorized by the maintainer on
 2026-11-08. The earlier post-1.0 calendar restriction is superseded; no new file

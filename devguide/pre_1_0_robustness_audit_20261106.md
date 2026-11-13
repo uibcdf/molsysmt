@@ -2796,3 +2796,37 @@ retired, with original failures and journals preserved. See the
 [public closeout receipt](../devtools/data/remaining_form_reference_closeout_727_20261113.json).
 Continue #723 and the bounded investigations/contracts; the final-pair pause
 and original weighted accounting remain unchanged.
+
+
+## Prolonged memory receiving — 2026-11-13 (#723)
+
+[Campaign receipt](../devtools/data/prolonged_memory_receiving_723_20261113.json).
+
+All thirty scientific cycles and final cleanup pass with actual native exit
+zero. Receiver 429d7494b uses the frozen 6f7fb24bc library/addon, c5115dff
+client, native 4ffb82e4 and retained providers. The 4,914 selected input hashes
+agree, and all eight after-use module hashes match on every cycle. Selected
+initial/recovered native targets and coordinate buffers retire throughout;
+the independent witness survives unchanged. Seventy-two controls, unchanged-
+pilot oracle replay and a fresh default-host baseline also pass.
+
+Peak charged memory is 2.39 GiB, minimum host available 10.04 GiB, with no
+pressure/OOM/resource stop. Recorded CPU transitions three/six/eight preserve
+the original memory cap, reserve and every deadline. Sampling median overhead
+is 890.11 ms. The 182 host-fingerprint debugger errors, aggregate heap/DOM
+growth and one closed Python view remain explicit; no universal leak-free,
+error-free-host, constant-resource or historical-latency claim follows.
+
+The #723 metrology correction is ready for published closeout. Continue #256's
+stable-format/default-client disposition, #615/#713 bounded conclusions and
+exact final-pair agreements/gates. BindingMT's latest recorded #73 message
+reports a maintainer-requested pause; no new preparation/docking is requested.
+Original score and candidate/hosted/publication pause remain unchanged.
+
+
+The closeout passes all fifteen offline fast gates, generated-index checks and
+whole-repository Ruff check/format. All five exact task units are terminal;
+every observed PID/start identity is retired, and the two short task-owned
+browser temporary directories are removed. Original raw artifacts remain
+private with digests in the receipt. No foreign process is signalled and no
+hosted qualification, candidate production, tag or publication is started.

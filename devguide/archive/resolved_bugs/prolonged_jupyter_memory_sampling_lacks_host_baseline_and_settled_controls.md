@@ -1,14 +1,14 @@
 ---
 summary: Prolonged Jupyter memory sampling lacks host baseline and settled controls
 issue: uibcdf/molsysmt#723
-status: partial
+status: resolved
 opened: 2026-11-11
-closed:
+closed: 2026-11-13
 severity: medium
 verification: measured
 area: [tests, diagnostics]
-guard: tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_plain_jupyter_memory_baseline
-normative:
+guard: tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_prolonged_memory_campaign
+normative: devguide/jupyter_memory_sampling_method.md
 blocked_by: []
 supersedes: []
 ---
@@ -99,7 +99,7 @@ control kernel or disable a routine extension.
 At this checkpoint the long scientific receiver and its original raw measurements
 are unchanged.
 The method is a bounded contract-tested increment, not full #723 acceptance.
-The [operational method](../jupyter_memory_sampling_method.md) records its
+The [operational method](../../jupyter_memory_sampling_method.md) records its
 sequence, sources, commands and remaining host/scientific/long-run boundaries.
 
 
@@ -123,7 +123,7 @@ not the cause of every prior molecular campaign delta.
 
 The host service has two CPUs/three GiB/no own swap, peaks near 695 MiB and
 keeps at least 12.32 GiB host available memory. The selected envelope is
-unchanged and source is clean before/after. The [method receipt](../../devtools/data/jupyter_memory_method_receiving_723_20261112.json)
+unchanged and source is clean before/after. The [method receipt](../../../devtools/data/jupyter_memory_method_receiving_723_20261112.json)
 owns all paired API windows, non-additive counts, oracle refinement, source
 and runtime identity, expected scope and raw diagnostic observations.
 
@@ -178,10 +178,41 @@ adds 1,003.314 ms. Eight No active debugger session page errors are retained;
 the baseline list overlaps them. Successful scientific assertions do not
 certify error-free Jupyter or identify the retaining chain.
 
-The [molecular receipt](../../devtools/data/molecular_memory_receiving_723_20261112.json)
+The [molecular receipt](../../../devtools/data/molecular_memory_receiving_723_20261112.json)
 owns observations, actual inputs, command/results, resources and the correction
 to the raw wrapper's inherited Chromium-only description. Its command actually
 selects the scientific prolonged-popup guard; the raw record remains preserved.
 #723 remains partial until a comparable long campaign with explicit frozen
 composition and comparison question. Retention attribution, #615/#713,
 installed/platform/final-candidate gates and publication pause keep their scope.
+
+
+## Completed owner metrology receiving — 2026-11-13
+
+Receiver 429d7494b freezes library/addon bytes at 6f7fb24bc, the matched
+c5115dff client, native 4ffb82e4 and the pilot's retained support composition.
+Seventy-two controls pass, including deliberate false-retirement, missing-cycle
+and mixed-kernel refusals. The new assertions accept the original unchanged
+pilot receipt; this offline check is not a new GUI execution.
+
+The fresh default-host control and thirty-cycle scientific campaign both pass
+with actual native/supervisor exit zero. Scientific assertions, original
+per-step and 2,400-second browser deadlines remain unchanged. All 4,914 selected
+input hashes agree, and eight actually loaded module hashes match on every
+cycle. The selected initial/recovered native targets and their 3,720,000-byte
+buffers retire in all thirty cycles while the 3,983-atom witness and its
+47,796-byte buffer/data survive. The observed two Python view instances include
+one closed instance; no claim of universal Python or renderer retirement follows.
+
+The deliberate CPU transitions from three to six/eight follow measured
+throttling and fresh host admission; the sidecar and existing per-cycle
+cgroup observations preserve the actual history. RAM stays capped at 3.5 GiB,
+with zero own swap and a 6.5-GiB host reserve. Peak scope memory is 2.39 GiB,
+minimum host available is 10.04 GiB, and full-memory pressure stays zero.
+The campaign's 182 host-fingerprint debugger errors remain explicit.
+
+See the [campaign receipt](../../../devtools/data/prolonged_memory_receiving_723_20261113.json)
+for all paired sampling windows, resource changes, exact source/provider hashes
+and original artifact digests. This closes the missing-baseline/qualified-
+sampling mechanism and its long receiving, not wider consumer retention
+attribution, #615/#713 causality, installed/final-pair or publication gates.

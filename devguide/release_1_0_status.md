@@ -36,10 +36,10 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
-| Complete #723's comparable long campaign | The method/default-host baseline passes on `db1706f8a`; the concrete molecular integration passes 63 controls and one actual 5,000-structure cycle on clean `1a899f9f0`. Initial/recovered native targets and 3,720,000-byte buffers clear; the independent witness survives unchanged. Host growth and debugger errors remain explicit. Freeze the comparison composition before the long campaign; preserve original raw outcomes and #615/#713 scopes. |
+| Preserve completed #723 memory receiving | Thirty scientific cycles, final cleanup, 72 controls, unchanged-pilot oracle replay and a fresh host baseline pass on frozen receiver 429d7494b / library-addon 6f7fb24bc / client c5115dff. All 4,914 selected inputs and eight after-use module hashes agree. Selected native targets/buffers retire while the witness survives. Actual CPU transitions, host errors and sampling limits remain explicit; no whole-process leak-free or final-pair claim follows. |
 | Preserve completed #727 receiving and continue admitted polishing | #727 and related #742–#744 are publicly closed at verified `6f7fb24bc`. All 95 form notebooks have explicit receiving owners; 86 adapter articles deliver 1,673 intended references to 1,528 independently verified source files. The 340-case joint cohort, 23 selected HTML pages and fifteen fast gates pass. Preserve the original failures, optional-provider limits and complete-source/nightly backlog; this is not final-pair qualification. |
 | Preserve #734's bounded contacts/SASA owner disposition | The [owner contract](native_interface_contacts_sasa_contract.md) and 104-case receiving offer existing public operations for the first Cartesian bundled-element-vdW profile. No concrete new operation gap is established. BindingMT #112 and TopoMT #197 retain application decisions and actual client acceptance; MolSysSuite #195 remains the coordination owner. This finite review adds no release prerequisite. |
-| Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
+| Complete #256's stable-format decision | Development writers default to H5MSM 1.0. Both historical clients received explicit 1.0 cases, and MolSysViewer default-specific receiving is accepted. BindingMT (historical DockingMT) still owes the omitted-version write/migration check under both unit policies; its latest recorded #73 message reports a maintainer-requested pause. Preserve earlier source/native acceptance without adding preparation/docking work. Format freeze and exact installed acceptance remain pending. |
 | Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
 | Retain #713's bounded import-timeout investigation | The complete durable `6acad4f35` session and all three original import orders pass. No cause for the earlier timeout is established; keep the diagnostics and original failure. A new full retry needs a new question or agreed gate. |
 | Preserve #250/#254 source agreement and experimental boundaries | MolSysViewer accepts the exercised sparse/native contracts. Detector profiles, inspection pages and Qt retain their experimental limits. Final-candidate agreement is still due. |
@@ -8259,3 +8259,37 @@ retired, with original failures and journals preserved. See the
 [public closeout receipt](../devtools/data/remaining_form_reference_closeout_727_20261113.json).
 Continue #723 and the bounded investigations/contracts; the final-pair pause
 and original weighted accounting remain unchanged.
+
+
+## Prolonged memory receiving — 2026-11-13 (#723)
+
+[Campaign receipt](../devtools/data/prolonged_memory_receiving_723_20261113.json).
+
+All thirty scientific cycles and final cleanup pass with actual native exit
+zero. Receiver 429d7494b uses the frozen 6f7fb24bc library/addon, c5115dff
+client, native 4ffb82e4 and retained providers. The 4,914 selected input hashes
+agree, and all eight after-use module hashes match on every cycle. Selected
+initial/recovered native targets and coordinate buffers retire throughout;
+the independent witness survives unchanged. Seventy-two controls, unchanged-
+pilot oracle replay and a fresh default-host baseline also pass.
+
+Peak charged memory is 2.39 GiB, minimum host available 10.04 GiB, with no
+pressure/OOM/resource stop. Recorded CPU transitions three/six/eight preserve
+the original memory cap, reserve and every deadline. Sampling median overhead
+is 890.11 ms. The 182 host-fingerprint debugger errors, aggregate heap/DOM
+growth and one closed Python view remain explicit; no universal leak-free,
+error-free-host, constant-resource or historical-latency claim follows.
+
+The #723 metrology correction is ready for published closeout. Continue #256's
+stable-format/default-client disposition, #615/#713 bounded conclusions and
+exact final-pair agreements/gates. BindingMT's latest recorded #73 message
+reports a maintainer-requested pause; no new preparation/docking is requested.
+Original score and candidate/hosted/publication pause remain unchanged.
+
+
+The closeout passes all fifteen offline fast gates, generated-index checks and
+whole-repository Ruff check/format. All five exact task units are terminal;
+every observed PID/start identity is retired, and the two short task-owned
+browser temporary directories are removed. Original raw artifacts remain
+private with digests in the receipt. No foreign process is signalled and no
+hosted qualification, candidate production, tag or publication is started.

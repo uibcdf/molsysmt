@@ -3,8 +3,8 @@
 **Role:** operational method under uibcdf/molsysmt#723, 2026-11-12.
 This is private receiving tooling, not a public molecular API or a claim that
 a memory leak has been identified or fixed. The scientific
-receiver preserves its original raw sampler and now has a separate integrated
-three-window observation received in one actual molecular pilot. Original
+receiver preserves its original raw sampler and has a separate integrated
+three-window observation received in the thirty-cycle campaign below. Original
 functional outcomes and diagnostic experiments keep their
 source/runtime scope.
 
@@ -199,3 +199,58 @@ without describing it as a new GUI run.
 
 This remains local source/metrology receiving under #723, not hosted or
 installed-candidate qualification, #615/#713 causality or publication approval.
+
+
+### Measured CPU adjustment during the admitted campaign
+
+The run starts with the pilot's three-CPU/3.5-GiB admission. After two accepted
+cycles the scope records 3,816 throttled periods out of 4,351, load 3.27 on
+twenty CPUs, about 13 GiB host available RAM and zero full-memory pressure.
+Under the maintainer's resource policy, only the task-owned CPU quota is raised
+to six; memory, reserve, scientific inputs/criteria and all deadlines stay fixed.
+The sidecar records the actual transition, and the scientific fixture's existing
+per-cycle cgroup observations preserve the real before/after quotas. The
+driver's original admission limit must not be described as the entire run's
+profile. This is adaptive-resource lifetime/metrology receiving, not a uniform-
+CPU latency benchmark or an exact-resource comparison with the old campaign.
+
+
+After four accepted cycles, the six-CPU cycle takes about 84 seconds and
+charged memory remains near 2 GiB. Fresh host admission preserves the reserve
+and reports zero full-memory pressure. A second recorded adjustment raises
+only the quota to the maintainer-discussed eight of twenty CPUs. The same
+3.5-GiB cap, input snapshot, scientific assertions and original deadlines
+remain; no further quota increase is planned. Both transitions and actual
+per-cycle limits belong in the final receipt, with no constant-resource
+performance or historical-latency claim.
+
+
+## Completed prolonged receiving — 2026-11-13
+
+The [campaign receipt](../devtools/data/prolonged_memory_receiving_723_20261113.json)
+receives all thirty real scientific cycles, final cleanup and the actual native
+exit zero in 2,364.08 seconds (2,358.65 seconds for pytest). The original
+2,400-second browser limit is unchanged. All 4,914 selected files agree before
+and after, including the source/native, client and provider envelope. Each of
+the eight after-use module hashes matches that envelope on every cycle.
+
+Both initial and recovered selected native targets and their coordinate buffers
+retire on every cycle; the independent witness and its data survive unchanged.
+Python RSS ranges from 496.61 to 569.82 MiB; two Python view instances are
+observed, with exactly one open. This is not a claim that every closed Python
+object, renderer allocation or popup realm has collected. The median sampling
+overhead is 890.11 ms, separately recorded from functional cycle time.
+
+Seventy-two controls, the unchanged-pilot assertion replay and the fresh
+nine-execution host control pass. The latter excludes molecular/addon/AnyWidget
+imports in its kernel and preserves observed settings and application files.
+The campaign records 182 No active debugger session errors with the original
+plain-host fingerprint match; it does not certify an error-free Jupyter host.
+Aggregate heap/DOM growth is retained without calling it a molecular leak or
+claiming that the host baseline is a matched causal subtraction.
+
+The recorded three/six/eight-CPU profile peaks at 2.39 GiB under its unchanged
+3.5-GiB/no-swap cap and keeps at least 10.04 GiB host available, with zero full-
+memory pressure and no resource stop. This is lifetime/metrology receiving,
+not a constant-resource benchmark. The original score and #615/#713 causes,
+consumer retaining-chain work and all final-pair/publication gates stay separate.

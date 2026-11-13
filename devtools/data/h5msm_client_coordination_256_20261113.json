@@ -1,0 +1,23 @@
+{
+  "schema": "molsysmt.h5msm_client_coordination/1",
+  "date": "2026-11-13",
+  "owner_issue": "uibcdf/molsysmt#256",
+  "historical_repository": "uibcdf/dockingmt",
+  "canonical_repository": {
+    "id": 1380446251,
+    "full_name": "uibcdf/bindingmt",
+    "html_url": "https://github.com/uibcdf/bindingmt",
+    "archived": false,
+    "default_branch": "main"
+  },
+  "coordination_thread": "uibcdf/bindingmt#73",
+  "complete_returned_comments": 43,
+  "latest_recorded_comment": {
+    "url": "https://github.com/uibcdf/bindingmt/issues/73#issuecomment-6806596249",
+    "created_at": "2026-11-11T20:37:29Z"
+  },
+  "observed_state": "Latest recorded #73 message reports a maintainer-requested pause. This does not establish the status of every other initiative or supersede a later maintainer instruction.",
+  "remaining_source_request": "Receive omitted-version H5MSM writing/migration with a 1.0 root and preserved supported data under ordinary and pm/fs policies, recording actual source/native identity. No repeated preparation, docking or reopening of historical #79/#88/#96 acceptance.",
+  "accepted_prior_scope": "Historical explicit 0.6 and explicit 1.0 receiving retain their exact source/native compositions. MolSysViewer default-specific 18 session and 151 boundary cases are independently accepted; no installed-pair certificate follows.",
+  "boundaries": "No sibling code, execution, issue state, candidate, hosted qualification or publication is changed or authorized by this read-only coordination review."
+}
