@@ -36,7 +36,7 @@ promotions and publication remain paused pending the agreed resumption.**
 | --- | --- |
 | Complete #723's comparable long campaign | The method/default-host baseline passes on `db1706f8a`; the concrete molecular integration passes 63 controls and one actual 5,000-structure cycle on clean `1a899f9f0`. Initial/recovered native targets and 3,720,000-byte buffers clear; the independent witness survives unchanged. Host growth and debugger errors remain explicit. Freeze the comparison composition before the long campaign; preserve original raw outcomes and #615/#713 scopes. |
 | Complete #727 and the admitted pre-1.0 polishing review | Forty-four reviewed native/file/string articles now deliver 877 intended implementation links to 800 verified source files. All flagged native/file/string debt in the census is received; 42 other articles retain 807 unlinked Python-role nodes. Continue the external class families. Follow the [tracked queue](pre_1_0_robustness_audit_20261106.md#pre-10-polishing-queue--2026-11-11) under the new handoff cutoff: fix admitted correctness, integrity, supported-workflow and documentation defects; review incoming reports without admitting optional expansion automatically. #728 remains owned but its implementation is deferred. Preserve original milestone accounting and qualification boundaries. |
-| Review #734 existing contacts/SASA handoff | BindingMT requests selected public-call, map, occluder/radius, units and numerical-boundary disposition under MolSysSuite #195, BindingMT #112 and TopoMT #197. Review current supported operations and reusable guards before identifying a concrete gap. No new kernel, provider floor, scientific campaign or release prerequisite is admitted by this intake. |
+| Preserve #734's bounded contacts/SASA owner disposition | The [owner contract](native_interface_contacts_sasa_contract.md) and 104-case receiving offer existing public operations for the first Cartesian bundled-element-vdW profile. No concrete new operation gap is established. BindingMT #112 and TopoMT #197 retain application decisions and actual client acceptance; MolSysSuite #195 remains the coordination owner. This finite review adds no release prerequisite. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
 | Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
 | Retain #713's bounded import-timeout investigation | The complete durable `6acad4f35` session and all three original import orders pass. No cause for the earlier timeout is established; keep the diagnostics and original failure. A new full retry needs a new question or agreed gate. |
@@ -53,6 +53,30 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Bounded contacts/SASA owner receiving — 2026-11-12
+
+[#734](archive/resolved_proposals/native_interface_contacts_and_sasa_owner_review.md)
+settles the finite molecular-owner review with a
+[maintained operation contract](native_interface_contacts_sasa_contract.md).
+Existing contacts/distances, extraction, permutation/map composition, radii and
+SASA tools cover the restricted first profile. The 104-case source cohort passes
+without omissions or warnings, including sixteen new controls, two unit policies,
+inclusive/predecessor cutoffs, nonidentity maps/state association, completed zero,
+all-input occlusion and independent equal/unequal sphere-cap losses.
+Fifteen common fast gates, indexes and whole-repository Ruff pass. The
+[receipt](../devtools/data/native_interface_handoff_receiving_734_20261112.json)
+retains original test-draft/launcher failures, exact provider/native/input scope
+and shared-host resource bounds. Runtime code and the native binary are unchanged.
+
+The review establishes no missing new operation for that first profile. It does
+not choose BindingMT's scientific defaults, convergence/membership tolerances,
+result persistence or qualification. Alternate radius/periodic/GPU/covalent/large
+profiles and actual composed/installed receiving retain their owners. MolSysSuite
+#195 and client agreement remain separate. The #473 property contract also now
+matches the already implemented provisional ISA quantity; primary verification
+remains open. This work does not clear the complete-source/nightly backlog or
+alter milestone credit, format decisions, investigations or final-pair gates.
 
 ## String reference and adapter-contract receiving — 2026-11-12
 

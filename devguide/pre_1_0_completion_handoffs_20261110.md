@@ -19,6 +19,19 @@ review changes. This target is not yet achieved and does not lift the existing
 candidate/hosted/publication pause. The ledger remains the single current-status
 owner; the dated intake and receiving below retain their original scope.
 
+## Finite molecular-owner handoff — 2026-11-12
+
+The [contacts/SASA contract](native_interface_contacts_sasa_contract.md) resolves
+MolSysMT #734's existing-operation review for MolSysSuite #195, BindingMT #112
+and TopoMT #197. Sixteen new controls and reused meaningful guards pass in a
+104-case source receiving, including independent unequal side losses and nm/ps
+versus pm/fs. The first Cartesian bundled-element-vdW profile needs no new
+general operation. Application defaults, numerical/membership acceptance,
+alternate profiles and actual composed/installed receiving remain client work.
+The [receipt](../devtools/data/native_interface_handoff_receiving_734_20261112.json)
+retains exact scope and original failed drafts. This is a bounded owner offer,
+not central agreement, a new release requirement or exact-pair qualification.
+
 ## Later 11 November polishing update
 
 The historical complete receiving below remains valid for its original source.

@@ -244,3 +244,13 @@ typed by the earlier maintainer decision. Original values, units, wrappers
 and aggregation are unchanged; original-paper verification is still pending.
 This closes no primary-reference question and promotes no scientific evidence
 classification. Scoped execution/documentation acceptance is recorded separately.
+
+
+## Maintained contract reconciliation — 2026-11-12
+
+The bounded #734 interface review finds that physchem_query_contract.md still
+describes the superseded raw-list output. That maintained contract now matches
+the already implemented provisional angstrom-squared PyUnitWizard quantity and
+standardization, without claiming primary-paper verification. The existing
+quantity guard is re-executed in the 102-case receiving cohort. Runtime ISA
+values/units and the pending primary-reference status are unchanged.

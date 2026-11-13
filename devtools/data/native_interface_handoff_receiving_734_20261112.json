@@ -1,0 +1,806 @@
+{
+  "schema": "molsysmt.owner_contract_receiving/1",
+  "date": "2026-11-12",
+  "issue": "uibcdf/molsysmt#734",
+  "coordinator": "uibcdf/molsyssuite#195",
+  "consumers": [
+    "uibcdf/bindingmt#112",
+    "uibcdf/topomt#197"
+  ],
+  "reviewed_source": "501e02b40e409ad08fda2885a143e8fda6897dbd",
+  "scope": "Existing Cartesian contacts/distances, explicit native extraction/permutation/map composition and fixed-input native SASA. Test and documentation changes only; no molecular kernel, API, provider floor or scientific campaign.",
+  "owner_inputs": [
+    {
+      "repository": "uibcdf/molsyssuite",
+      "commit": "af6bf75a2337d8a8bb7bf7137bb6f461098b1763",
+      "path": "devguide/native_interface_characterization.md",
+      "git_blob": "89c1c17b168e266a2cc6e7b9d9021a9ab4968d69",
+      "acquisition": "GitHub connector, immutable ref; full content returned"
+    },
+    {
+      "repository": "uibcdf/bindingmt",
+      "commit": "d69315dfebc49ddd8c2da1999955edc078fd8893",
+      "path": "devguide/binding_interface_implementation_plan.md",
+      "git_blob": "6a0a2bc33a6d597730ee02871080542b13b62bb8",
+      "sha256": "ce8950cac9df6e68d4e9dd9f735dfac81a48ea7d8e60ff1cc4a3d070e52807b0",
+      "scope": "Selected operation/fact/context obligations, not complete implementation or executed client compatibility"
+    },
+    {
+      "repository": "uibcdf/topomt",
+      "commit": "a13b9b2725bd8a4edd851441d1a5a53720e0f3ea",
+      "path": "devguide/binding_interface_native_catalogue_plan.md",
+      "git_blob": "722d7ea7f2b37cf257b7be0044b81a83433f3e26",
+      "sha256": "b369214b8478589ac4ddb1271b194d9de5e12d0f985e20f5a48c0f7b11cebec3",
+      "scope": "First native profile, owner boundaries and numerical obligations; not topographic qualification"
+    }
+  ],
+  "executions": {
+    "pilot": {
+      "phase": "pilot",
+      "source_commit": "501e02b40e409ad08fda2885a143e8fda6897dbd",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded full HTML or fast-governance receiving as selected; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.26 1.27 1.19 2/2725 611723",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=15902322888\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<python-3.14.7>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/interface-734-20261112/pilot.xml",
+        "tests/structure/get_contacts/test_native_interface_handoff.py",
+        "tests/physchem/get_sasa/test_native_interface_handoff.py"
+      ],
+      "checked_inputs": 7424,
+      "seconds": 4.683389818994328,
+      "changed_inputs": [],
+      "memory_peak_bytes": 145088512,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14624481280,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "3a1aeadaf8acbbf948940f46a1b7b0f75897a776dd4591f4419ccd0cfe2ee49f",
+      "junit_counts": {
+        "tests": 14,
+        "failures": 0,
+        "errors": 14,
+        "skipped": 0,
+        "passed": 0
+      },
+      "junit_sha256": "40849845a812109cee8aa9c6252a6f2b263ffbcac8ebeca103ec856802367810",
+      "log_sha256": "f9c4e576242ac042fe7fd2d8eaacbf4bad1fe78e5e2b952042d4c213c8ddc060",
+      "input_inventory_sha256": "97076c8b1ac550cc4257bcad8a5482fe30747f2d1d265a11babf979f5bb710b8"
+    },
+    "pilot2": {
+      "phase": "pilot2",
+      "source_commit": "501e02b40e409ad08fda2885a143e8fda6897dbd",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded full HTML or fast-governance receiving as selected; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.57 1.04 1.12 3/2689 613859",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=15902459977\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<python-3.14.7>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/interface-734-20261112/pilot2.xml",
+        "tests/structure/get_contacts/test_native_interface_handoff.py",
+        "tests/physchem/get_sasa/test_native_interface_handoff.py"
+      ],
+      "checked_inputs": 7424,
+      "seconds": 7.651470905169845,
+      "changed_inputs": [],
+      "memory_peak_bytes": 189157376,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14608433152,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "723784d8a87f45d379f7755879e9ebeaeaa0cb0f7758f113d73302f9f4bca1ec",
+      "junit_counts": {
+        "tests": 14,
+        "failures": 9,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 5
+      },
+      "junit_sha256": "6fb298f9784a5329aa84e09f047c4a8c0a5ca09177be95bc171444ab36937690",
+      "log_sha256": "72b935d665b0b417f0dfe43592322585bb553a78507da15e2d263a0def5b4496",
+      "input_inventory_sha256": "64d674ee5158a321a692040d90d99d09380f9576e2d2911f8bf5ec086e6cc8be"
+    },
+    "pilot3": {
+      "phase": "pilot3",
+      "source_commit": "501e02b40e409ad08fda2885a143e8fda6897dbd",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded full HTML or fast-governance receiving as selected; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.58 0.98 1.09 2/2701 615302",
+        "cpu_pressure": "some avg10=0.01 avg60=0.12 avg300=0.04 total=15902780036\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<python-3.14.7>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/interface-734-20261112/pilot3.xml",
+        "tests/structure/get_contacts/test_native_interface_handoff.py",
+        "tests/physchem/get_sasa/test_native_interface_handoff.py"
+      ],
+      "checked_inputs": 7424,
+      "seconds": 8.889734531985596,
+      "changed_inputs": [],
+      "memory_peak_bytes": 188006400,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14228418560,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "bc3676d9664caa7e87f10429e838a7c28751f8ecefe45e6e9b561aa18017c8dd",
+      "junit_counts": {
+        "tests": 14,
+        "failures": 8,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 6
+      },
+      "junit_sha256": "92247eee0aa3e161bfe1feeb55819f40b5b25a5050c8cbfbd75c446977776a23",
+      "log_sha256": "7b183faf3072ab9cc0ba73eebfd0bd4d5f5b1d2cd3e8d3addf128a5f96d55b57",
+      "input_inventory_sha256": "71acfb417ed3317a1019c308331acd1fddd4b279fadd583977390b404161841b"
+    },
+    "pilot4": {
+      "phase": "pilot4",
+      "source_commit": "501e02b40e409ad08fda2885a143e8fda6897dbd",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded full HTML or fast-governance receiving as selected; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.89 1.04 1.10 2/2711 617935",
+        "cpu_pressure": "some avg10=0.78 avg60=2.19 avg300=0.89 total=15906139575\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<python-3.14.7>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/interface-734-20261112/pilot4.xml",
+        "tests/structure/get_contacts/test_native_interface_handoff.py",
+        "tests/physchem/get_sasa/test_native_interface_handoff.py"
+      ],
+      "checked_inputs": 7424,
+      "seconds": 7.66992321703583,
+      "changed_inputs": [],
+      "memory_peak_bytes": 185958400,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14662160384,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "e7ca6bede2b749c39c0e5fb9c59af1cbe974f43a02dd215e7648a44ab2afbea5",
+      "junit_counts": {
+        "tests": 14,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 14
+      },
+      "junit_sha256": "eed3e46893f7fc689e822fa29890184e619177aa93566901b1d01b216f2d258c",
+      "log_sha256": "d235dcd9d94ab99b325dc8567675989ade77baa4f392c069d5da4f9bb6ea9ec6",
+      "input_inventory_sha256": "5fc087d63885200f987583d8aefc3c673ba0386da45e7d27074a531ec33eced6"
+    },
+    "receiving2": {
+      "phase": "receiving2",
+      "source_commit": "501e02b40e409ad08fda2885a143e8fda6897dbd",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded full HTML or fast-governance receiving as selected; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "2.43 1.69 1.34 5/2861 624991",
+        "cpu_pressure": "some avg10=19.73 avg60=6.96 avg300=3.90 total=15922127993\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<python-3.14.7>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/interface-734-20261112/receiving2.xml",
+        "tests/structure/get_contacts/test_native_interface_handoff.py",
+        "tests/physchem/get_sasa/test_native_interface_handoff.py",
+        "tests/structure/test_distance_family_contract.py::test_contact_cutoff_is_inclusive_and_self_map_contains_diagonal",
+        "tests/structure/test_distance_family_contract.py::test_equivalent_contact_cutoffs_keep_the_strict_predecessor",
+        "tests/physchem/get_sasa/test_get_sasa_units.py::test_grouped_overlap_and_isolated_area_keep_units_and_all_occluders",
+        "tests/physchem/get_sasa/test_course_interface_sasa.py",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+        "tests/basic/test_permute_atoms.py::test_all_domains_follow_literal_expected_axis_and_source_stays_unchanged",
+        "tests/native/test_molsys_chemical_state_association.py::test_public_get_set_and_capability_expose_resolved_structure_association",
+        "tests/physchem/get_surface_area/test_get_surface_area.py::test_provisional_isa_quantity_preserves_table_scale_and_standard_units"
+      ],
+      "checked_inputs": 7424,
+      "seconds": 16.906794887036085,
+      "changed_inputs": [],
+      "memory_peak_bytes": 312696832,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 13574602752,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "f6d042a8cab63fc5b55ae316c730f00ff3339d1d8ae2f2e4e6e6b3f98d1e3cbf",
+      "junit_counts": {
+        "tests": 102,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 102
+      },
+      "junit_sha256": "1ff6d73aba5ee9a7969b84ff508779b8e17903023e83667556a2dade260cbf8a",
+      "log_sha256": "cfa72e44e6ca8aae74cdbdd4f1ddb477c0f2985e7644a4c75b0300cd3b42a94c",
+      "input_inventory_sha256": "5fc087d63885200f987583d8aefc3c673ba0386da45e7d27074a531ec33eced6"
+    },
+    "receiving3": {
+      "phase": "receiving3",
+      "source_commit": "501e02b40e409ad08fda2885a143e8fda6897dbd",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded full HTML or fast-governance receiving as selected; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.67 2.24 1.92 3/2689 637273",
+        "cpu_pressure": "some avg10=0.00 avg60=2.06 avg300=4.73 total=15958699330\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<python-3.14.7>",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/interface-734-20261112/receiving3.xml",
+        "tests/structure/get_contacts/test_native_interface_handoff.py",
+        "tests/physchem/get_sasa/test_native_interface_handoff.py",
+        "tests/structure/test_distance_family_contract.py::test_contact_cutoff_is_inclusive_and_self_map_contains_diagonal",
+        "tests/structure/test_distance_family_contract.py::test_equivalent_contact_cutoffs_keep_the_strict_predecessor",
+        "tests/physchem/get_sasa/test_get_sasa_units.py::test_grouped_overlap_and_isolated_area_keep_units_and_all_occluders",
+        "tests/physchem/get_sasa/test_course_interface_sasa.py",
+        "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+        "tests/basic/test_permute_atoms.py::test_all_domains_follow_literal_expected_axis_and_source_stays_unchanged",
+        "tests/native/test_molsys_chemical_state_association.py::test_public_get_set_and_capability_expose_resolved_structure_association",
+        "tests/physchem/get_surface_area/test_get_surface_area.py::test_provisional_isa_quantity_preserves_table_scale_and_standard_units"
+      ],
+      "checked_inputs": 7424,
+      "seconds": 14.643049440113828,
+      "changed_inputs": [],
+      "memory_peak_bytes": 312901632,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14460248064,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "1684bbae15cc72e39cbe054404f7085b9884290faa98f303a6fa97dcae4d820c",
+      "junit_counts": {
+        "tests": 104,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 104
+      },
+      "junit_sha256": "45ce58f5d9bf938eedebd6b2444db28d139110f3f6a6b2d05e0fb000dfad61c3",
+      "log_sha256": "be4476d722184b3329fb931ca75839c0361901d71e05669286d18f9021562c03",
+      "input_inventory_sha256": "fd0ae7c9159bba7bae3c9608ece24c528582eea9dc3b53d06fbd25610636315c"
+    },
+    "checks": {
+      "phase": "checks",
+      "source_commit": "501e02b40e409ad08fda2885a143e8fda6897dbd",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded full HTML or fast-governance receiving as selected; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "2.89 2.03 1.75 15/2848 634128",
+        "cpu_pressure": "some avg10=38.96 avg60=11.75 avg300=4.67 total=15948024910\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<python-3.14.7>",
+        "<checkout>/.pytest_cache/interface-734-20261112/final_checks.py"
+      ],
+      "checked_inputs": 7427,
+      "seconds": 29.88851636601612,
+      "changed_inputs": [],
+      "memory_peak_bytes": 397148160,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 13346635776,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "c9d1e76ae0bd263a1f174d6127b0a062c3ecd8d605ef89a8aa03b8718646ee60",
+      "results": {
+        "passed": true,
+        "commands": [
+          {
+            "command": [
+              "<python-3.14.7>",
+              "devtools/scripts/release_gate.py"
+            ],
+            "native_exit": 0,
+            "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          4.1s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        6.3s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    6.1s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.3s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.4s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.6s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   2.3s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.3s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.1s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.6s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "<python-3.14.7>",
+              "devtools/scripts/devguide_index.py",
+              "--check"
+            ],
+            "native_exit": 0,
+            "stdout": "Every queue index is up to date.\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "ruff",
+              "check",
+              "."
+            ],
+            "native_exit": 0,
+            "stdout": "All checks passed!\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "ruff",
+              "format",
+              "--check",
+              "."
+            ],
+            "native_exit": 0,
+            "stdout": "4703 files already formatted\n",
+            "stderr": ""
+          }
+        ]
+      },
+      "results_sha256": "f4bc30952fcb109cd0edb1edbb8bc1968d72071703d3a08274273b3f45d5d115"
+    },
+    "checks-final": {
+      "phase": "checks-final",
+      "source_commit": "501e02b40e409ad08fda2885a143e8fda6897dbd",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded full HTML or fast-governance receiving as selected; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.52 1.88 1.82 2/2678 639508",
+        "cpu_pressure": "some avg10=0.00 avg60=0.24 avg300=3.06 total=15958861821\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1409286144",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<python-3.14.7>",
+        "<checkout>/.pytest_cache/interface-734-20261112/final_checks.py"
+      ],
+      "checked_inputs": 7427,
+      "seconds": 26.876664778916165,
+      "changed_inputs": [],
+      "memory_peak_bytes": 397336576,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14099550208,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "bf2e831e8f5ecb86ecc28d01b491e80756e661c32bb43938270b65ddb2d50d65",
+      "results": {
+        "passed": true,
+        "commands": [
+          {
+            "command": [
+              "<python-3.14.7>",
+              "devtools/scripts/release_gate.py"
+            ],
+            "native_exit": 0,
+            "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.6s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        5.4s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.3s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.3s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.1s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.5s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   2.1s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.2s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.1s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.5s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "<python-3.14.7>",
+              "devtools/scripts/devguide_index.py",
+              "--check"
+            ],
+            "native_exit": 0,
+            "stdout": "Every queue index is up to date.\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "ruff",
+              "check",
+              "."
+            ],
+            "native_exit": 0,
+            "stdout": "All checks passed!\n",
+            "stderr": ""
+          },
+          {
+            "command": [
+              "ruff",
+              "format",
+              "--check",
+              "."
+            ],
+            "native_exit": 0,
+            "stdout": "4703 files already formatted\n",
+            "stderr": ""
+          }
+        ]
+      },
+      "results_sha256": "126e94f336bc9e8419fe2839367246459ccf5bb56fdd729af4bb3a6cfd4dd9d8"
+    }
+  },
+  "launcher_failure": {
+    "unit": "msm-interface734-receiving-20261112.service",
+    "controller_exit": 1,
+    "pytest_started": false,
+    "cause": "Private input-fingerprint draft treated pytest node selectors as file paths; no scientific tests ran.",
+    "main_pid_after": 0,
+    "reported_peak_bytes_approx": 15518924
+  },
+  "final_passed": 104,
+  "warnings": 0,
+  "skipped": 0,
+  "new_profile_cases": 16,
+  "runtime_implementation_changed": false,
+  "critical_operation_files_match_inspected_ff25f120": true,
+  "resource_and_code": {
+    "files": [
+      {
+        "path": "molsysmt/structure/get_contacts.py",
+        "sha256": "2a33e3eb87cfd1b0a63d1a157e10f767d548a42714f0fdc291a75fdc067974ea",
+        "git_blob": "21346f07b044d1d4ff1ec7ec3905bb0eca1ce435"
+      },
+      {
+        "path": "molsysmt/structure/get_distances.py",
+        "sha256": "f4644c7fe138b831e284d17ddfba3942f0497db6d54ecdb916a4947b66ece866",
+        "git_blob": "a9b3345f2cc6414477920b13bee690b550a82159"
+      },
+      {
+        "path": "molsysmt/physchem/get_sasa.py",
+        "sha256": "2be3819737ed7c359c759363b23c1c945d150b5a4ae288bbf6027827304586c2",
+        "git_blob": "3686c5c2c03c184422912e4b689c3f69c2bc1824"
+      },
+      {
+        "path": "molsysmt/physchem/get_atomic_radius.py",
+        "sha256": "5b74e77f94ec7c8d9ecbe8dc6a2849d9b869c6f5744ed307181a4d254e8ccb08",
+        "git_blob": "ac8596aa38258ae14bc25240fcf94544c78fc2ff"
+      },
+      {
+        "path": "molsysmt/physchem/atoms/radius.py",
+        "sha256": "20f9268cc94d0a7979b9a56e767650e874a4b6fec30521b1e07d191ead138da3",
+        "git_blob": "9030819c0df707b616bea85ca14eb1050010e009"
+      },
+      {
+        "path": "molsysmt/lib/structure/sphere_points.py",
+        "sha256": "150d081483211d17b69521993514c2564a1393c05723c1a411f879cbf3333d3f",
+        "git_blob": "e6fbafc65c70fa8422c8b0d79306cc12ef1a7229"
+      },
+      {
+        "path": "molsysmt/_rust.abi3.so",
+        "sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+      }
+    ],
+    "radius_unit": "nm",
+    "radius_table_counts": {
+      "total": 120,
+      "unavailable": 15,
+      "positive": 103,
+      "zero_dummy": 2
+    }
+  },
+  "scientific_controls": {
+    "contact_positions_source_order": [
+      8,
+      2,
+      30,
+      10
+    ],
+    "contact_x_nm": [
+      0,
+      3,
+      3.5,
+      1
+    ],
+    "cutoff_nm": 1,
+    "expected_source_pairs": [
+      [
+        8,
+        10
+      ],
+      [
+        2,
+        30
+      ]
+    ],
+    "source_footprints": [
+      [
+        2,
+        8
+      ],
+      [
+        10,
+        30
+      ]
+    ],
+    "aligned_local_footprints": [
+      [
+        1,
+        0
+      ],
+      [
+        3,
+        2
+      ]
+    ],
+    "source_structure_to_local": [
+      2,
+      0
+    ],
+    "stored_state_index": 1,
+    "sasa_carbon_radius_nm": 0.17,
+    "sasa_probe_nm": 0.14,
+    "sasa_points": 960,
+    "cap_control_distance_nm": 0.31,
+    "one_cap_per_atom_area_atol_nm2": 0.0101,
+    "tolerance_scope": "Existing registry carbon fixtures only, not a universal rotation/convergence or biological threshold.",
+    "unit_policies": [
+      [
+        "nm",
+        "ps"
+      ],
+      [
+        "pm",
+        "fs"
+      ]
+    ],
+    "source_and_context_coordinates_assignments_and_radius_checks": true,
+    "asymmetric_control": {
+      "inflated_radii_nm": [
+        0.31,
+        0.25
+      ],
+      "distance_nm": 0.31,
+      "predeclared_per_side_budget": "8*4*pi*max(radius)**2/960 nm**2",
+      "scope": "This two-sphere fixture only; not a global quadrature or binding criterion."
+    }
+  },
+  "workspace_observation": {
+    "suite_status_exit": 1,
+    "molsysmt": "current and clean before test edits",
+    "bindingmt": "checkout absent; no installation or clone introduced",
+    "topomt": {
+      "head": "c3f72a9177ab",
+      "ahead": 1,
+      "behind": 202,
+      "worktree": "clean; preserved without merge or rewrite"
+    },
+    "molsyssuite": {
+      "head": "a3a829b8aede73fb07498358fde59855ec249b8c",
+      "worktree": "clean; source review uses immutable published ref"
+    },
+    "first_selector_draft": "suite_status rejects molsyssuite itself as an unregistered member selector; corrected to the three actual components, not a provider failure."
+  },
+  "resource_contract": {
+    "cpu_quota": 1,
+    "maximum_gib": 1.5,
+    "own_swap_bytes": 0,
+    "minimum_host_reserve_gib": 6.5,
+    "foreign_processes_signalled": false
+  },
+  "provider_basis": "Existing frozen controlled Python 3.14.7 composition: PyUnitWizard 0.29.2, SMonitor 0.21.0, ArgDigest 0.15.0, DepDigest 0.15.1 and Pytest Receptor 1.2.1; synchronized newer guides do not imply runtime adoption. No shared-prefix change.",
+  "disposition": {
+    "accepted": "Existing tools offer the restricted first contact and bundled-element-vdW SASA profile, with explicit maps, preconditions and scientific choices.",
+    "no_concrete_new_operation_gap": "Public extraction, full atom permutation, map composition, contact/distance, radius and SASA calls suffice.",
+    "deferred": "Consumer application defaults, convergence/rotation and positive-loss membership criteria, alternate radii, larger/periodic/GPU/covalent profiles, typed result/persistence and composed/installed receiving retain their owners.",
+    "473": "Reconciled stale raw-list wording in maintained property contract to the existing provisional ISA quantity. Primary verification remains open."
+  },
+  "limits": [
+    "Synthetic states/bonds test transport, not chemical valence or biological binding.",
+    "Numeric outputs are not source authentication or complete scientific receipts.",
+    "Only the received unit/geometry/backend/input scope is executed; no all-profile or all-platform certificate follows.",
+    "No newly qualified Ackredit attribution, live-service, BindingMT installation or TopoMT runtime is claimed.",
+    "Complete-source/nightly, exact final-pair, client and publication obligations remain."
+  ],
+  "terminal_unit_cleanup": {
+    "units": [
+      {
+        "unit": "msm-interface734-pilot-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-interface734-pilot2-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-interface734-pilot3-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-interface734-pilot4-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-interface734-receiving-20261112.service",
+        "state_before": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "action": "retired terminal task-owned unit"
+      },
+      {
+        "unit": "msm-interface734-receiving2-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-interface734-receiving3-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-interface734-checks-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      },
+      {
+        "unit": "msm-interface734-checks-final-20261112.service",
+        "state_before": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "action": "already collected"
+      }
+    ],
+    "foreign_processes_signalled": false
+  },
+  "complete_pre_closeout_intake": {
+    "issue_count": 653,
+    "open_issue_count": 95,
+    "new_issues_after_734": [],
+    "open_pull_request_count": 0
+  }
+}

@@ -709,3 +709,45 @@ def popc_membrane_structures(_base_popc_membrane_molsys):
 @pytest.fixture()
 def traj_pentalanine_h5_molsys(_base_traj_pentalanine_h5_molsys):
     return _base_traj_pentalanine_h5_molsys.copy()
+
+
+@pytest.fixture()
+def native_interface_molsys():
+    """Supply a small declared two-state source with nonidentity interface maps."""
+    import numpy as np
+
+    from molsysmt.native import MolSys, Structures
+
+    source = MolSys(n_atoms=31, n_groups=31, n_chains=1, n_molecules=1, n_entities=1)
+    source.topology.atoms["atom_type"] = ["C"] * 31
+    source.topology.atoms["atom_id"] = [f"atom-{ii}" for ii in range(31)]
+    source.topology.atoms["atom_name"] = [f"C{ii}" for ii in range(31)]
+    source.topology.atoms["group_index"] = np.arange(31)
+    source.topology.atoms["chain_index"] = [0] * 31
+    source.topology.groups["group_name"] = ["LIG"] * 31
+    source.topology.groups["molecule_index"] = [0] * 31
+    source.topology.molecules["entity_index"] = [0]
+    source.topology.chains["chain_id"] = ["A"]
+
+    xyz = np.zeros((3, 31, 3))
+    xyz[:, :, 0] = 100 + np.arange(31)
+    xyz[:, [8, 2, 30, 10], 0] = [0, 3, 3.5, 1]
+    xyz[0, [30, 10], 0] += 8
+    xyz[1, [30, 10], 0] += 4
+    # This third body must not enter the A-union-B surface environment.
+    xyz[:, 0] = [0, 0.05, 0]
+    source.structures = Structures(
+        coordinates=msm.pyunitwizard.quantity(xyz, "nm"),
+        time=msm.pyunitwizard.quantity([0, 1, 2], "ps"),
+    )
+    second = source.chemical_states.append_state()
+    for state_index in [0, second]:
+        source.chemical_states.add_bonds([[2, 8], [10, 30]], chemical_state=state_index)
+        charges = [0] * 31
+        if state_index == second:
+            charges[2], charges[30] = 1, -1
+        msm.set(
+            source, element="atom", chemical_state=state_index, formal_charge=charges
+        )
+    msm.set(source, element="system", structure_chemical_state_index=[0, 0, second])
+    return source
