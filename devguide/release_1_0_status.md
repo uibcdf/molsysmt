@@ -12,7 +12,7 @@ correction `9af9be18c` / guard `90aa8eae1`, native-domain guidance
 file extraction/identity corrections `7b607f638` / `7097f81c5`, string guidance
 `4b280fdcb`, string boundary corrections `ed12b039a`, Biopython guidance
 `26b550f96`, OpenMM coordinate repairs `3f034dbd0` and OpenMM guidance
-`9a261ebd5`, MDTraj iteration repair `083b7c166` and guidance `00590f26e`, nullable membership `8cc066c84` and alias link `83eb35cf1`, read-only inventory `a3cf6b3a5`, MDAnalysis guidance `7eacf1654` / receiving `9e8ef6d38`, plus the
+`9a261ebd5`, MDTraj iteration repair `083b7c166` and guidance `00590f26e`, nullable membership `8cc066c84` and alias link `83eb35cf1`, read-only inventory `a3cf6b3a5`, MDAnalysis guidance `7eacf1654` / receiving `9e8ef6d38`, chemical-form guidance `96c09a1e0`, plus the
 separately received earlier documentation/catalog slices.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
@@ -37,7 +37,7 @@ promotions and publication remain paused pending the agreed resumption.**
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
 | Complete #723's comparable long campaign | The method/default-host baseline passes on `db1706f8a`; the concrete molecular integration passes 63 controls and one actual 5,000-structure cycle on clean `1a899f9f0`. Initial/recovered native targets and 3,720,000-byte buffers clear; the independent witness survives unchanged. Host growth and debugger errors remain explicit. Freeze the comparison composition before the long campaign; preserve original raw outcomes and #615/#713 scopes. |
-| Complete #727 and the admitted pre-1.0 polishing review | Seventy-two actual reviewed form articles deliver 1,403 intended references to 1,273 independently matched source files. The MDAnalysis block passes 117 adapter cases and 263 combined source/HTML cases. Fourteen flagged external-class pages / 282 nodes remain among twenty-two unchanged-source cached articles; continue RDKit, then OpenFF/ParmEd. Preserve original failures, provider limits and the final-pair pause. |
+| Complete #727 and the admitted pre-1.0 polishing review | Seventy-seven reviewed actual form articles deliver 1,502 intended references to 1,366 independently matched source files. The RDKit/OpenFF/ParmEd block passes 161 adapter and 278 joint source/HTML cases. Nine flagged external-class pages / 178 nodes remain among seventeen unchanged-source cached articles. Continue PyTraj, viewer and miscellaneous forms with explicit optional-provider limits. Preserve original failures and final-pair pause; #741 is optional post-1.0 work. |
 | Preserve #734's bounded contacts/SASA owner disposition | The [owner contract](native_interface_contacts_sasa_contract.md) and 104-case receiving offer existing public operations for the first Cartesian bundled-element-vdW profile. No concrete new operation gap is established. BindingMT #112 and TopoMT #197 retain application decisions and actual client acceptance; MolSysSuite #195 remains the coordination owner. This finite review adds no release prerequisite. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
 | Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
@@ -8156,3 +8156,46 @@ The MDAnalysis closeout also passes all fifteen offline fast gates and Ruff.
 Complete intake remains 659 issues, 95 open, no issue after #740 and no open
 PRs. Seven terminal task-owned services are retired; the failed verifier
 attempt remains in the receipt. No hosted gate or candidate production runs.
+
+
+## RDKit OpenFF and ParmEd receiving — 2026-11-12 (#727)
+
+[Receiving receipt](../devtools/data/chemical_form_reference_receiving_727_20261112.json).
+
+Five form pages on 96c09a1e0 add 99 intended references to 93 independently
+matched files at published 058e28c05. RDKit's 82 declared attributes and actual
+extract-based identity route are corrected. ChemicalStates, stable inventory,
+conformer geometry and mechanical partial charges/type labels are distinct.
+OpenFF and ParmEd subset/copy, unavailable hooks, empty setters, placeholder
+iteration and geometry limitations are explicit; existing provider-floor,
+acquisition and bridge explanations survive.
+
+The retained RDKit 2025.09.5 / OpenFF Toolkit 0.19.0 / ParmEd 4.3.1 adapter
+cohort passes 161 cases without omissions or pytest warnings. Ten focused
+reference/declaration controls and all 278 joint source/actual-article cases
+pass. Five strict pages build without warnings, preserving code/output/metadata,
+six-cell layouts, headings and anchors. All 77 reviewed actual form articles
+deliver 1,502 intended references to 1,366 source files.
+
+A measured OpenFF Topology witness has provider positions but no advertised
+coordinate capability and no delivered native structures. Its source remains
+unchanged. Optional post-1.0 proposal #741 owns a future geometry/box contract;
+it is not an additional release prerequisite. The first probe's invalid
+comparison with the original bare array is retained separately from the correct
+before/after provider comparison. A generated Python-3.12-only f-string quote
+is caught and normalized by Ruff before commit/testing. No library runtime,
+native binary, dependency floor or scientific algorithm changes.
+
+#727 remains partial: nine flagged external-class pages / 178 unlinked role
+nodes remain among seventeen unchanged-source, byte-identical cached articles.
+Continue with PyTraj, viewer and miscellaneous forms, receiving only the
+provider/runtime profiles actually available. This is bounded preparation,
+not complete-site, complete-source/nightly, minimum-provider, scientific or
+installed/final-pair qualification. Original score and publication pause remain.
+
+
+The chemical-form closeout passes all fifteen offline fast gates and Ruff.
+Complete intake has 660 issues, 96 open, no issue after #741 and no open PRs.
+The new #741 proposal is explicitly optional after 1.0. Seven exact task-owned
+services are terminal/retired, preserving the failed initial probe. No hosted
+qualification, producer, tag or publication is run or authorized by this block.

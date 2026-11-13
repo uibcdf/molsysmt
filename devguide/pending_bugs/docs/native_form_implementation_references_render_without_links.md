@@ -642,3 +642,46 @@ The MDAnalysis closeout also passes all fifteen offline fast gates and Ruff.
 Complete intake remains 659 issues, 95 open, no issue after #740 and no open
 PRs. Seven terminal task-owned services are retired; the failed verifier
 attempt remains in the receipt. No hosted gate or candidate production runs.
+
+
+## RDKit OpenFF and ParmEd receiving — 2026-11-12 (#727)
+
+[Receiving receipt](../../../devtools/data/chemical_form_reference_receiving_727_20261112.json).
+
+Five form pages on 96c09a1e0 add 99 intended references to 93 independently
+matched files at published 058e28c05. RDKit's 82 declared attributes and actual
+extract-based identity route are corrected. ChemicalStates, stable inventory,
+conformer geometry and mechanical partial charges/type labels are distinct.
+OpenFF and ParmEd subset/copy, unavailable hooks, empty setters, placeholder
+iteration and geometry limitations are explicit; existing provider-floor,
+acquisition and bridge explanations survive.
+
+The retained RDKit 2025.09.5 / OpenFF Toolkit 0.19.0 / ParmEd 4.3.1 adapter
+cohort passes 161 cases without omissions or pytest warnings. Ten focused
+reference/declaration controls and all 278 joint source/actual-article cases
+pass. Five strict pages build without warnings, preserving code/output/metadata,
+six-cell layouts, headings and anchors. All 77 reviewed actual form articles
+deliver 1,502 intended references to 1,366 source files.
+
+A measured OpenFF Topology witness has provider positions but no advertised
+coordinate capability and no delivered native structures. Its source remains
+unchanged. Optional post-1.0 proposal #741 owns a future geometry/box contract;
+it is not an additional release prerequisite. The first probe's invalid
+comparison with the original bare array is retained separately from the correct
+before/after provider comparison. A generated Python-3.12-only f-string quote
+is caught and normalized by Ruff before commit/testing. No library runtime,
+native binary, dependency floor or scientific algorithm changes.
+
+#727 remains partial: nine flagged external-class pages / 178 unlinked role
+nodes remain among seventeen unchanged-source, byte-identical cached articles.
+Continue with PyTraj, viewer and miscellaneous forms, receiving only the
+provider/runtime profiles actually available. This is bounded preparation,
+not complete-site, complete-source/nightly, minimum-provider, scientific or
+installed/final-pair qualification. Original score and publication pause remain.
+
+
+The chemical-form closeout passes all fifteen offline fast gates and Ruff.
+Complete intake has 660 issues, 96 open, no issue after #741 and no open PRs.
+The new #741 proposal is explicitly optional after 1.0. Seven exact task-owned
+services are terminal/retired, preserving the failed initial probe. No hosted
+qualification, producer, tag or publication is run or authorized by this block.
