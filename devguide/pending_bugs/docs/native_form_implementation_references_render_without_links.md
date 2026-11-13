@@ -443,3 +443,22 @@ existing contacts/SASA contract review with BindingMT/TopoMT; it enters the
 operational queue without admitting new kernels, campaigns or release gates.
 #733 remains a separate post-1.0 capability. Continue the 42 external class
 articles and preserve the separate technical-handoff obligations.
+
+
+## Biopython source-reference increment — 2026-11-12
+
+Three external-class pages receive the next bounded review. The original
+baseline has nine failures and three passes: references lack actual targets
+and sequence add/merge/iterator rows describe unavailable hooks as implemented.
+No runtime implementation defect is established. The corrected cohort passes
+55 source/real-provider controls without warnings or omissions, including
+six new selected Bio.PDB atom/model conversions under nm/ps and pm/fs.
+Native inventory source order and Structures-only request order are distinct.
+
+The three pages deliver 42 intended links to 36 independently matched files
+at published 723e9f292. Empty modules, instance availability, unsupported record
+subsets and Bio.PDB model/metadata/chemistry boundaries are explicit. The source
+notebook code, outputs, metadata, order and headings/anchors are preserved.
+Actual HTML and the final integrated/common receiving remain pending; #727
+stays partial. No scientific algorithm, provider floor or release requirement
+is added by this documentation correction.

@@ -9,6 +9,40 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
 PAGES = Path("docs/content/user/tools/form/class/molsysmt")
+_EXTERNAL_CLASS_OPERATIONS = {
+    "biopython_Seq": {
+        "__init__",
+        "extract",
+        "copy",
+        "add",
+        "merge",
+        "get_topological_attributes",
+        "get_structural_attributes",
+        "set",
+        "iterators",
+        "has_attribute",
+        "is_form",
+    },
+    "biopython_SeqRecord": {
+        "__init__",
+        "extract",
+        "copy",
+        "add",
+        "merge",
+        "get_topological_attributes",
+        "get_structural_attributes",
+        "set",
+        "iterators",
+        "has_attribute",
+        "is_form",
+    },
+    "biopython_PDBStructure": {
+        "__init__",
+        "get_structural_attributes",
+        "has_attribute",
+        "is_form",
+    },
+}
 _OPERATIONS = {
     "MolSys": {
         "__init__",
@@ -232,11 +266,16 @@ def _declared_converters(adapter, directory):
 def _assert_native_form_reference_contract(name):
     is_file = name in _FILE_OPERATIONS
     is_string = name in _STRING_OPERATIONS
-    adapter_name = name if is_file or is_string else f"molsysmt_{name}"
+    is_external = name in _EXTERNAL_CLASS_OPERATIONS
+    adapter_name = name if is_file or is_string or is_external else f"molsysmt_{name}"
     if is_file or is_string:
         folder = "file" if is_file else "string"
         page = ROOT / f"docs/content/user/tools/form/{folder}/{name}.ipynb"
         operations = (_FILE_OPERATIONS if is_file else _STRING_OPERATIONS)[name]
+    elif is_external:
+        owner = name.split("_", 1)[0]
+        page = ROOT / f"docs/content/user/tools/form/class/{owner}/{name}.ipynb"
+        operations = _EXTERNAL_CLASS_OPERATIONS[name]
     else:
         page = ROOT / PAGES / f"{adapter_name}.ipynb"
         operations = _OPERATIONS[name]

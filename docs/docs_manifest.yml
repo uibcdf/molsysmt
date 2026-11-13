@@ -698,6 +698,21 @@ sections:
             agents_file: docs/content/user/tools/form/string/string_uniprot_id.ipynb.AGENTS.md
             description: 0 declarations and 3 registered routes with actual source references, immutable/group-only limits and explicit unavailable hooks.
             status: pending_review
+          - name: reviewed_biopython_Seq_references
+            file: docs/content/user/tools/form/class/biopython/biopython_Seq.ipynb
+            agents_file: docs/content/user/tools/form/class/biopython/biopython_Seq.ipynb.AGENTS.md
+            description: Actual declarations, conversion routes and optional Biopython operation limits with received implementation links.
+            status: pending_review
+          - name: reviewed_biopython_SeqRecord_references
+            file: docs/content/user/tools/form/class/biopython/biopython_SeqRecord.ipynb
+            agents_file: docs/content/user/tools/form/class/biopython/biopython_SeqRecord.ipynb.AGENTS.md
+            description: Actual declarations, conversion routes and optional Biopython operation limits with received implementation links.
+            status: pending_review
+          - name: reviewed_biopython_PDBStructure_references
+            file: docs/content/user/tools/form/class/biopython/biopython_PDBStructure.ipynb
+            agents_file: docs/content/user/tools/form/class/biopython/biopython_PDBStructure.ipynb.AGENTS.md
+            description: Actual declarations, conversion routes and optional Biopython operation limits with received implementation links.
+            status: pending_review
           - name: pdb_reader_context
             file: docs/content/user/tools/form/file/file_pdb.ipynb
             agents_file: docs/content/user/tools/form/file/file_pdb.ipynb.AGENTS.md

@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 from tests.documentation._form_reference_checks import (
+    _EXTERNAL_CLASS_OPERATIONS,
     _FILE_OPERATIONS,
     _STRING_OPERATIONS,
     _assert_rendered_native_form_references,
@@ -28,6 +29,7 @@ from tests.documentation._form_reference_checks import (
         "GROFileHandler",
         *_FILE_OPERATIONS,
         *_STRING_OPERATIONS,
+        *_EXTERNAL_CLASS_OPERATIONS,
     ],
 )
 def test_actual_native_tutorial_delivers_every_intended_reference(name):

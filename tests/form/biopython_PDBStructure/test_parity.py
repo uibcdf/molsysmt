@@ -13,6 +13,7 @@ Parity: the roundtrip preserves atom count, group count, chain count, atom
 names, and group names.
 """
 
+import numpy as np
 import pytest
 
 import molsysmt as msm
@@ -80,4 +81,51 @@ def test_parity_group_names(roundtrip_topology, source_topology):
     assert (
         roundtrip_topology.groups["group_name"].tolist()
         == source_topology.groups["group_name"].tolist()
+    )
+
+
+@pytest.mark.parametrize("length,time", [("nm", "ps"), ("pm", "fs")])
+@pytest.mark.parametrize(
+    "target", ["molsysmt.MolSys", "molsysmt.Topology", "molsysmt.Structures"]
+)
+def test_selected_native_conversion_keeps_model_and_atom_correspondence(
+    bio_structure, target, length, time
+):
+    source = bio_structure.copy()
+    shifted = source[0].copy()
+    shifted.id = 1
+    for atom in shifted.get_atoms():
+        atom.coord = atom.coord + np.array([10.0, 20.0, 30.0])
+    source.add(shifted)
+    source_xyz = np.array(
+        [[atom.coord.copy() for atom in model.get_atoms()] for model in source]
+    )
+    source_names = [atom.name for atom in source[0].get_atoms()]
+    arguments = {"selection": [3, 1]}
+    if target != "molsysmt.Topology":
+        arguments["structure_indices"] = [1, 0]
+    with msm.pyunitwizard.context(standard_units=[length, time, "radians"]):
+        result = msm.convert(source, to_form=target, **arguments)
+        assert msm.get_form(result) == target
+        # Native inventory is source-sorted; a Structures-only selection retains order.
+        selected = [3, 1] if target == "molsysmt.Structures" else [1, 3]
+        if target != "molsysmt.Structures":
+            topology = result.topology if target == "molsysmt.MolSys" else result
+            assert topology.atoms["atom_name"].tolist() == [
+                source_names[ii] for ii in selected
+            ]
+            assert all(isinstance(value, str) for value in topology.atoms["atom_id"])
+        if target != "molsysmt.Topology":
+            xyz = msm.get(result, element="atom", coordinates=True)
+            assert xyz.shape == (2, 2, 3)
+            assert msm.pyunitwizard.check(xyz, dimensionality={"[L]": 1})
+            np.testing.assert_allclose(
+                msm.pyunitwizard.get_value(xyz, to_unit="angstroms"),
+                source_xyz[[1, 0]][:, selected],
+                rtol=0,
+                atol=1e-12,
+            )
+    np.testing.assert_array_equal(
+        np.array([[atom.coord for atom in model.get_atoms()] for model in source]),
+        source_xyz,
     )
