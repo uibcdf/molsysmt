@@ -1,13 +1,13 @@
 ---
 summary: H5MSM readers silently coerce malformed integer metadata
 issue: uibcdf/molsysmt#745
-status: active
+status: resolved
 opened: 2026-11-13
-closed:
+closed: 2026-11-13
 severity: medium
 verification: reproduced
 area: [form, data]
-guard:
+guard: tests/form/file_h5msm/test_integer_metadata.py
 normative:
 blocked_by: []
 supersedes: []
@@ -16,7 +16,7 @@ supersedes: []
 # H5MSM readers silently coerce malformed integer metadata
 
 **Reported:** 2026-11-13 during #256's pre-freeze reader review.
-**Status:** The bounded correction is implemented; final source checks and publication of its record remain pending.
+**Status:** Resolved in source; the guarded correction, documentation and bounded receiving are recorded below.
 
 ## What
 
@@ -129,3 +129,31 @@ The receipt identifies NumPy, h5py, Pandas and support-provider versions and
 actual import origins. The existing native binary SHA-256 remains
 `4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345`.
 This is a bounded source composition, not an installed release artifact.
+
+
+## Resolution — 2026-11-13
+
+Implementation commit `f9a44bf342942ed18a5319fd346c18cbabca8ec1` validates
+integral metadata without coercion, checks stored collection counts before
+enumeration, shares structural validation with the iterator and retains
+selected-layer limits and established codec diagnostics.
+
+The guard exercises the actual public read, conversion, append and iteration
+boundaries, source-byte preservation, no failed destination publication,
+standalone/named sparse metadata, the existing selective-reader path and valid
+integer/unit/coverage controls. Its original rejection/enumeration baselines
+fail on the previous mechanism; it does not merely assert a helper's output.
+
+The final affected cohort and executable public docstrings pass 1,566 cases
+without omissions. All 684 warnings are expected legacy deprecations. The
+fifteen local fast gates, indexes and whole-repository Ruff pass. Four changed
+HTML articles rebuild without warnings and their explanations/links are
+received; the course's code, outputs, metadata, order, headings and anchors
+remain unchanged.
+
+The [execution receipt](../../../devtools/data/h5msm_integer_metadata_receiving_745_20261113.json)
+retains failed test drafts and patch regressions, native exits, exact inputs,
+provider origins, warnings and resource bounds. The
+[maintained format contract](../../h5msm_format.md) owns the reader rule.
+This resolves #745, not #256's stable-format/client decision or the final-pair
+qualification and publication requirements.

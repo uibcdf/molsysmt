@@ -32,9 +32,9 @@ new preparation or docking run is requested. See the
 [client coordination receipt](../../devtools/data/h5msm_client_coordination_256_20261113.json).
 
 The pre-freeze reader review also identifies #745: coercion of malformed
-integral headers and unsafe declared-count enumeration. Its bounded correction
-and receiving are tracked in the
-[owning report](../pending_bugs/h5msm_readers_silently_coerce_malformed_integer_metadata.md).
+integral headers and unsafe declared-count enumeration. Its bounded correction and 1,566-case receiving are complete in source;
+the evidence is tracked in the
+[resolved report](../archive/resolved_bugs/h5msm_readers_silently_coerce_malformed_integer_metadata.md).
 It preserves valid wire encodings; no new format version is required.
 
 The stable-format decision and exact coordinated installed-pair gates remain

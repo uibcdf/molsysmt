@@ -1,0 +1,993 @@
+{
+  "schema": "molsysmt.h5msm_integer_metadata_receiving/1",
+  "date": "2026-11-13",
+  "issue": "uibcdf/molsysmt#745",
+  "implementation_commit": "f9a44bf342942ed18a5319fd346c18cbabca8ec1",
+  "scope": "Bounded integral axis/count/schema metadata rejection, valid integer/unit receiving, and selective-layer compatibility. No new schema, scientific method, dependency, native binary, whole-source/scientific/installed final-pair qualification or publication.",
+  "baseline_observations": [
+    {
+      "root": "0.5",
+      "attribute": "n_atoms",
+      "stored_value": 2.5,
+      "route": "read_layers",
+      "outcome": "accepted",
+      "summary": "1"
+    },
+    {
+      "root": "0.5",
+      "attribute": "n_atoms",
+      "stored_value": 2.5,
+      "route": "read_axis_sizes",
+      "outcome": "accepted",
+      "summary": "{('structures', None, 'structure'): 1, ('structures', None, 'atom'): 2}"
+    },
+    {
+      "root": "0.5",
+      "attribute": "n_atoms",
+      "stored_value": 2.5,
+      "route": "read",
+      "outcome": "accepted",
+      "summary": "1"
+    },
+    {
+      "root": "0.5",
+      "attribute": "n_structures",
+      "stored_value": 1.5,
+      "route": "read_layers",
+      "outcome": "accepted",
+      "summary": "1"
+    },
+    {
+      "root": "0.5",
+      "attribute": "n_structures",
+      "stored_value": 1.5,
+      "route": "read_axis_sizes",
+      "outcome": "accepted",
+      "summary": "{('structures', None, 'structure'): 1, ('structures', None, 'atom'): 2}"
+    },
+    {
+      "root": "0.5",
+      "attribute": "n_structures",
+      "stored_value": 1.5,
+      "route": "read",
+      "outcome": "accepted",
+      "summary": "1"
+    },
+    {
+      "root": "0.5",
+      "attribute": "schema_version",
+      "stored_value": true,
+      "route": "read_layers",
+      "outcome": "accepted",
+      "summary": "1"
+    },
+    {
+      "root": "0.5",
+      "attribute": "schema_version",
+      "stored_value": true,
+      "route": "read_axis_sizes",
+      "outcome": "accepted",
+      "summary": "{('structures', None, 'structure'): 1, ('structures', None, 'atom'): 2}"
+    },
+    {
+      "root": "0.5",
+      "attribute": "schema_version",
+      "stored_value": true,
+      "route": "read",
+      "outcome": "accepted",
+      "summary": "1"
+    },
+    {
+      "root": "0.6",
+      "attribute": "n_atoms",
+      "stored_value": 2.5,
+      "route": "read_layers",
+      "outcome": "accepted",
+      "summary": "1"
+    },
+    {
+      "root": "0.6",
+      "attribute": "n_atoms",
+      "stored_value": 2.5,
+      "route": "read_axis_sizes",
+      "outcome": "accepted",
+      "summary": "{('structures', None, 'structure'): 1, ('structures', None, 'atom'): 2}"
+    },
+    {
+      "root": "0.6",
+      "attribute": "n_atoms",
+      "stored_value": 2.5,
+      "route": "read",
+      "outcome": "accepted",
+      "summary": "1"
+    },
+    {
+      "root": "0.6",
+      "attribute": "n_structures",
+      "stored_value": 1.5,
+      "route": "read_layers",
+      "outcome": "accepted",
+      "summary": "1"
+    },
+    {
+      "root": "0.6",
+      "attribute": "n_structures",
+      "stored_value": 1.5,
+      "route": "read_axis_sizes",
+      "outcome": "accepted",
+      "summary": "{('structures', None, 'structure'): 1, ('structures', None, 'atom'): 2}"
+    },
+    {
+      "root": "0.6",
+      "attribute": "n_structures",
+      "stored_value": 1.5,
+      "route": "read",
+      "outcome": "accepted",
+      "summary": "1"
+    },
+    {
+      "root": "0.6",
+      "attribute": "schema_version",
+      "stored_value": true,
+      "route": "read_layers",
+      "outcome": "accepted",
+      "summary": "1"
+    },
+    {
+      "root": "0.6",
+      "attribute": "schema_version",
+      "stored_value": true,
+      "route": "read_axis_sizes",
+      "outcome": "accepted",
+      "summary": "{('structures', None, 'structure'): 1, ('structures', None, 'atom'): 2}"
+    },
+    {
+      "root": "0.6",
+      "attribute": "schema_version",
+      "stored_value": true,
+      "route": "read",
+      "outcome": "accepted",
+      "summary": "1"
+    },
+    {
+      "root": "1.0",
+      "attribute": "n_atoms",
+      "stored_value": 2.5,
+      "route": "read_layers",
+      "outcome": "accepted",
+      "summary": "1"
+    },
+    {
+      "root": "1.0",
+      "attribute": "n_atoms",
+      "stored_value": 2.5,
+      "route": "read_axis_sizes",
+      "outcome": "accepted",
+      "summary": "{('structures', None, 'structure'): 1, ('structures', None, 'atom'): 2}"
+    },
+    {
+      "root": "1.0",
+      "attribute": "n_atoms",
+      "stored_value": 2.5,
+      "route": "read",
+      "outcome": "accepted",
+      "summary": "1"
+    },
+    {
+      "root": "1.0",
+      "attribute": "n_structures",
+      "stored_value": 1.5,
+      "route": "read_layers",
+      "outcome": "accepted",
+      "summary": "1"
+    },
+    {
+      "root": "1.0",
+      "attribute": "n_structures",
+      "stored_value": 1.5,
+      "route": "read_axis_sizes",
+      "outcome": "accepted",
+      "summary": "{('structures', None, 'structure'): 1, ('structures', None, 'atom'): 2}"
+    },
+    {
+      "root": "1.0",
+      "attribute": "n_structures",
+      "stored_value": 1.5,
+      "route": "read",
+      "outcome": "accepted",
+      "summary": "1"
+    },
+    {
+      "root": "1.0",
+      "attribute": "schema_version",
+      "stored_value": true,
+      "route": "read_layers",
+      "outcome": "accepted",
+      "summary": "1"
+    },
+    {
+      "root": "1.0",
+      "attribute": "schema_version",
+      "stored_value": true,
+      "route": "read_axis_sizes",
+      "outcome": "accepted",
+      "summary": "{('structures', None, 'structure'): 1, ('structures', None, 'atom'): 2}"
+    },
+    {
+      "root": "1.0",
+      "attribute": "schema_version",
+      "stored_value": true,
+      "route": "read",
+      "outcome": "accepted",
+      "summary": "1"
+    }
+  ],
+  "changed_python_files_match_executed_inputs": {
+    "molsysmt/_private/hdf5_validation.py": "92936c071f16cb0e160cdb413f0dc98abda30a4ea992c92bf031949a106591b4",
+    "molsysmt/form/_h5msm05_alternate_location.py": "6cdfb5166dedc583c95d4d3089fcea514054b318ff0bfcebe7cd2aaf329c61db",
+    "molsysmt/form/_h5msm05_associations.py": "a3aa99389d80d2dcc5ec303d36ee54a8176593592bbf7ece2672bc4e74336aab",
+    "molsysmt/form/_h5msm05_bioassembly.py": "1d9b7350a1ee33589d96acab2adcd3b4eb5149dfe8329e56609bf156e9526c81",
+    "molsysmt/form/_h5msm05_iterator.py": "6d04578ce2a32739b54aa2ad7bc19f33f63a7efe852d529cef97f8a0b3f9f95f",
+    "molsysmt/form/_h5msm05_structures.py": "927dd4eff833abc4c7e549736302ec85a6e89974fdd7650fe2d5900e5c580ce2",
+    "molsysmt/form/_h5msm05_topology.py": "55081aa2ba9662d9d7101daf2b2fb8b2ccc26cb21f2913347a174d18ad9fe3a2",
+    "molsysmt/form/_h5msm_chemical_states.py": "516792a31ce988906f269688a2e00b48afec97cb05e61e2ce816dba3dcde9b1d",
+    "molsysmt/form/_h5msm_preparation_history.py": "7700b4448c74f34776406b9cc963175e24335a35b3be2f96c59387ee7f80e590",
+    "molsysmt/h5msm.py": "0050db953867bf1490e890f4ce74f42bd27ec060e7404deda449a4959f6a8aee",
+    "molsysmt/interactions/_hdf5_collection.py": "e35187d8b3f0b4929ac7901cc9b833b661fb5bc655da335d13757643e2c88b38",
+    "molsysmt/interactions/_hdf5_metadata.py": "a9adc417356b99aa6e935b3d1059a7d083a1440ef991f145c2afd8ef715de7ec",
+    "molsysmt/interactions/_hdf5_query.py": "16afcffcb3fda62e0cbe71238f2da53d9f10c483daa7dfe1e3fbc87785616c79",
+    "molsysmt/interactions/result.py": "8bdf9d1741447b19a2738223944f11897d0da4703f12a0dc90069ef020141818",
+    "tests/form/file_h5msm/test_integer_metadata.py": "91a35e1b4612540a312d5b5f64cd5e43d52d233d007e0dbcae73e6c66e3584e5"
+  },
+  "executions": {
+    "facts": {
+      "phase": "facts",
+      "source_commit": "67ab624546728dba3a5e638a6c0edb3198283fc4",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded remaining external form documentation receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.90 3.77 3.78 1/2609 1625017",
+        "cpu_pressure": "some avg10=0.00 avg60=1.24 avg300=8.84 total=18793821382\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1449549824",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/h5msm-integer-metadata-20261113/probe.py"
+      ],
+      "checked_inputs": 8180,
+      "seconds": 5.739791391883045,
+      "changed_inputs": [],
+      "memory_peak_bytes": 157863936,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 16735354880,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "621372d5d60c3be0234ef929dbd141e84f3f16768c393d37ee8bcdebf88b54ce",
+      "source_status_unchanged": true,
+      "log_sha256": "3892686e57242ea6534a9e35edb3c6e0aba14924ee53612ec94684e35c916901",
+      "input_manifest_sha256": "251994e9c4f27c3902be3e7490ce3bd483cd21c881f3e8946107d33860b64f6d"
+    },
+    "valid-baseline": {
+      "phase": "valid-baseline",
+      "source_commit": "67ab624546728dba3a5e638a6c0edb3198283fc4",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded remaining external form documentation receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.99 3.22 3.59 2/2600 1625482",
+        "cpu_pressure": "some avg10=0.00 avg60=0.42 avg300=7.09 total=18793906510\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1449549824",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/h5msm-integer-metadata-20261113/probe_valid.py"
+      ],
+      "checked_inputs": 8180,
+      "seconds": 4.763547954149544,
+      "changed_inputs": [],
+      "memory_peak_bytes": 106180608,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 16697298944,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "621372d5d60c3be0234ef929dbd141e84f3f16768c393d37ee8bcdebf88b54ce",
+      "source_status_unchanged": true,
+      "log_sha256": "2b7d24941d384875861f09bebc4fd26c1945c009de56679c2e3a708ae1754315",
+      "input_manifest_sha256": "251994e9c4f27c3902be3e7490ce3bd483cd21c881f3e8946107d33860b64f6d"
+    },
+    "baseline": {
+      "phase": "baseline",
+      "source_commit": "67ab624546728dba3a5e638a6c0edb3198283fc4",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded remaining external form documentation receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.88 2.24 3.16 3/2622 1626515",
+        "cpu_pressure": "some avg10=0.00 avg60=0.02 avg300=4.22 total=18794122530\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1449549824",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/h5msm-integer-metadata-20261113/baseline.xml",
+        "tests/form/file_h5msm/test_integer_metadata.py"
+      ],
+      "checked_inputs": 8182,
+      "seconds": 8.732458575163037,
+      "changed_inputs": [],
+      "memory_peak_bytes": 215228416,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 16536723456,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "621372d5d60c3be0234ef929dbd141e84f3f16768c393d37ee8bcdebf88b54ce",
+      "source_status_unchanged": true,
+      "log_sha256": "5c5568ccbbc569f4faaf970dd3bed344a3396e5b71b74f92c3c5862ce684820b",
+      "input_manifest_sha256": "3584649e45949cbf8f85e3c5dec134b554e43a1227a7bc8c735592cbca42947f",
+      "junit_counts": {
+        "tests": 86,
+        "failures": 86,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "junit_sha256": "f5801383c68621d6a2da3bd1c1de92d6347df5d4823bdce1bb3d3221933fbb47"
+    },
+    "contract-baseline": {
+      "phase": "contract-baseline",
+      "source_commit": "67ab624546728dba3a5e638a6c0edb3198283fc4",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded remaining external form documentation receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.89 1.90 2.96 4/2596 1627039",
+        "cpu_pressure": "some avg10=0.00 avg60=0.01 avg300=3.16 total=18794244446\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1449549824",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/h5msm-integer-metadata-20261113/contract-baseline.xml",
+        "tests/form/file_h5msm/test_integer_metadata.py::test_inconsistent_counts_refuse_before_enumerating_declared_population"
+      ],
+      "checked_inputs": 8182,
+      "seconds": 7.775532510597259,
+      "changed_inputs": [],
+      "memory_peak_bytes": 159043584,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 16634724352,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "621372d5d60c3be0234ef929dbd141e84f3f16768c393d37ee8bcdebf88b54ce",
+      "source_status_unchanged": true,
+      "log_sha256": "c5c00e098651e348a77314a85181a8d33cae41897bb8c31e1f34d9414df87483",
+      "input_manifest_sha256": "910bb4d2d12578186b63b584483944b281d0b9602364734b2b0d818a133732bb",
+      "junit_counts": {
+        "tests": 2,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "junit_sha256": "ec5526e2ecc692b903ed15300b48e3d81973ce09b4b9fd9a5b4d751d482019c4"
+    },
+    "corrected": {
+      "phase": "corrected",
+      "source_commit": "67ab624546728dba3a5e638a6c0edb3198283fc4",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded remaining external form documentation receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.55 1.38 2.57 3/2595 1628107",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=1.70 total=18794474493\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1449549824",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/h5msm-integer-metadata-20261113/corrected.xml",
+        "tests/form/file_h5msm/test_integer_metadata.py"
+      ],
+      "checked_inputs": 8183,
+      "seconds": 8.770906157791615,
+      "changed_inputs": [],
+      "memory_peak_bytes": 216817664,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 16555462656,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "621372d5d60c3be0234ef929dbd141e84f3f16768c393d37ee8bcdebf88b54ce",
+      "source_status_unchanged": true,
+      "log_sha256": "6a2b9652ad28b79b15d4ea0db1d6a155afb4a2a7250f822bf5e385fd2de958b5",
+      "input_manifest_sha256": "cb6f28037130fa9ce147b3b601d58e77924c32719fa817f863164b3bf7127856",
+      "junit_counts": {
+        "tests": 86,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 86
+      },
+      "junit_sha256": "8a28561caecc2b51c4178e2a7cee201c781e010d063a5ff89b6be56940782e41"
+    },
+    "expanded": {
+      "phase": "expanded",
+      "source_commit": "67ab624546728dba3a5e638a6c0edb3198283fc4",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded H5MSM integer-metadata regression receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.40 0.79 1.72 2/2592 1631844",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.20 total=18795221204\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1449549824",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/h5msm-integer-metadata-20261113/expanded.xml",
+        "tests/form/file_h5msm/test_integer_metadata.py"
+      ],
+      "checked_inputs": 8184,
+      "seconds": 12.768350793980062,
+      "changed_inputs": [],
+      "memory_peak_bytes": 213688320,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 16539697152,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d565f997fb1753cfa4445be086619303704a956a51ad7804af3345c6140a5403",
+      "source_status_unchanged": true,
+      "log_sha256": "f3f9cd8d481e7aa7eda78bf6b1c88def6bd697ce449b96f23e12e00401a984b0",
+      "input_manifest_sha256": "47b9eb690908363efd8629f62828bb8cd137f88d32e0afeb353b7361e1afbcd7",
+      "junit_counts": {
+        "tests": 200,
+        "failures": 24,
+        "errors": 48,
+        "skipped": 0,
+        "passed": 128
+      },
+      "junit_sha256": "781e87b35c153c0b830a085ef69e10beede4bbea2f67be7d8eff650bea47fe99"
+    },
+    "expanded2": {
+      "phase": "expanded2",
+      "source_commit": "67ab624546728dba3a5e638a6c0edb3198283fc4",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded H5MSM integer-metadata regression receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.74 0.85 1.69 1/2595 1632235",
+        "cpu_pressure": "some avg10=0.00 avg60=0.01 avg300=0.17 total=18795313725\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1449549824",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/h5msm-integer-metadata-20261113/expanded2.xml",
+        "tests/form/file_h5msm/test_integer_metadata.py"
+      ],
+      "checked_inputs": 8184,
+      "seconds": 11.758809298276901,
+      "changed_inputs": [],
+      "memory_peak_bytes": 212377600,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 16411373568,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d565f997fb1753cfa4445be086619303704a956a51ad7804af3345c6140a5403",
+      "source_status_unchanged": true,
+      "log_sha256": "5b114c3fe666cf08f19c2dfe9fcdcd12f9f328f1953c5198dc9faee5795759e8",
+      "input_manifest_sha256": "6146dbfba44dac1ac3e0987e1ac2802119cf061d3fa62a8b70b8337c883897e0",
+      "junit_counts": {
+        "tests": 200,
+        "failures": 0,
+        "errors": 48,
+        "skipped": 0,
+        "passed": 152
+      },
+      "junit_sha256": "85b840d54d730a09e35ab31f55cf056bfaaaaebfdada2ae6b0c4e16e4057921a"
+    },
+    "focused": {
+      "phase": "focused",
+      "source_commit": "67ab624546728dba3a5e638a6c0edb3198283fc4",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded H5MSM integer-metadata regression receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.77 0.85 1.65 5/2603 1632629",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.14 total=18795395404\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1449549824",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/h5msm-integer-metadata-20261113/focused.xml",
+        "tests/form/file_h5msm/test_integer_metadata.py"
+      ],
+      "checked_inputs": 8184,
+      "seconds": 14.776249263901263,
+      "changed_inputs": [],
+      "memory_peak_bytes": 221167616,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 16531890176,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d565f997fb1753cfa4445be086619303704a956a51ad7804af3345c6140a5403",
+      "source_status_unchanged": true,
+      "log_sha256": "4f7d35945203a3334983924f5cddeefa2ec566eda7e092b03556087e30109374",
+      "input_manifest_sha256": "23d73da0f19239c62d9b410b152cd22210519f108759f2dca511d18c971420a6",
+      "junit_counts": {
+        "tests": 200,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 200
+      },
+      "junit_sha256": "fbf6dd51578e73f86a51821de18ca185cb9d77217c551fa1f8249a6a0031078b"
+    },
+    "cohort": {
+      "phase": "cohort",
+      "source_commit": "67ab624546728dba3a5e638a6c0edb3198283fc4",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded H5MSM integer-metadata regression receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.97 0.90 1.63 1/2610 1632932",
+        "cpu_pressure": "some avg10=0.00 avg60=0.01 avg300=0.12 total=18795456773\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1449549824",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/h5msm-integer-metadata-20261113/cohort.xml",
+        "tests/form/file_h5msm",
+        "tests/interactions/test_hdf5_collection.py",
+        "tests/interactions/test_evidence_catalog_persistence.py",
+        "tests/interactions/test_execution_provenance.py",
+        "tests/interactions/test_hdf5_query.py",
+        "tests/interactions/test_software_provenance.py",
+        "tests/interactions/test_bounded_hdf5_writer.py",
+        "tests/interactions/test_public_molsys_h5msm_workflow.py"
+      ],
+      "checked_inputs": 8184,
+      "seconds": 158.8577451580204,
+      "changed_inputs": [],
+      "memory_peak_bytes": 581410816,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 16187576320,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d565f997fb1753cfa4445be086619303704a956a51ad7804af3345c6140a5403",
+      "source_status_unchanged": true,
+      "log_sha256": "7073b89fb6b761c50933ede774b73166390ceaaf7cf46329cf2442ff8dc6ba51",
+      "input_manifest_sha256": "23d73da0f19239c62d9b410b152cd22210519f108759f2dca511d18c971420a6",
+      "junit_counts": {
+        "tests": 1563,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1560
+      },
+      "junit_sha256": "9eda10162daf4c28dcc23eff1c1f06ae1778312471ea2528fd71002b3824606f"
+    },
+    "runtime-qualified": {
+      "phase": "runtime-qualified",
+      "source_commit": "67ab624546728dba3a5e638a6c0edb3198283fc4",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded H5MSM integer-metadata regression receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.77 1.21 1.59 2/2604 1635248",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.01 total=18795868576\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1449549824",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/h5msm-integer-metadata-20261113/runtime-qualified.xml",
+        "tests/form/file_h5msm",
+        "tests/interactions/test_hdf5_collection.py",
+        "tests/interactions/test_evidence_catalog_persistence.py",
+        "tests/interactions/test_execution_provenance.py",
+        "tests/interactions/test_hdf5_query.py",
+        "tests/interactions/test_software_provenance.py",
+        "tests/interactions/test_bounded_hdf5_writer.py",
+        "tests/interactions/test_public_molsys_h5msm_workflow.py",
+        "--doctest-modules",
+        "molsysmt/h5msm.py"
+      ],
+      "checked_inputs": 8184,
+      "seconds": 146.81630250671878,
+      "changed_inputs": [],
+      "memory_peak_bytes": 534814720,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 16128544768,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d565f997fb1753cfa4445be086619303704a956a51ad7804af3345c6140a5403",
+      "source_status_unchanged": true,
+      "log_sha256": "1411ef6a78b8d75279d6cacfbc34e26fb550530c8f3ca580502388fc7af4306a",
+      "input_manifest_sha256": "24ed7a5cff320eab2788798556e4eb244f9c5f20888293ebfaffea243f264fbd",
+      "junit_counts": {
+        "tests": 1566,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1566
+      },
+      "junit_sha256": "54b53970c19ecd34475f1fa59be7b6a19d80fc11461d187c62c51ddfb57eceef"
+    },
+    "html": {
+      "phase": "html",
+      "source_commit": "f9a44bf342942ed18a5319fd346c18cbabca8ec1",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded H5MSM integer-metadata regression receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.92 1.20 1.52 2/2592 1636775",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=18796137812\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2899099648",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/h5msm-integer-metadata-20261113/build_pages.py"
+      ],
+      "checked_inputs": 8184,
+      "seconds": 31.833650356158614,
+      "changed_inputs": [],
+      "memory_peak_bytes": 869957632,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15928033280,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d565f997fb1753cfa4445be086619303704a956a51ad7804af3345c6140a5403",
+      "source_status_unchanged": true,
+      "log_sha256": "11f2e10d82b46a2a78fc5c25891d4bc46ef91956b39bed511acf8d59966946b9",
+      "input_manifest_sha256": "85c88e2be2972e96fc11f48f4c1089d6a4d19afaaffb24b6f7aaaf70e2ac0ead"
+    },
+    "checks": {
+      "phase": "checks",
+      "source_commit": "f9a44bf342942ed18a5319fd346c18cbabca8ec1",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Bounded H5MSM integer-metadata regression receiving; not complete scientific/source, installed, candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.24 1.26 1.53 3/2599 1636885",
+        "cpu_pressure": "some avg10=0.04 avg60=0.02 avg300=0.00 total=18796183136\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1449549824",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/h5msm-integer-metadata-20261113/final_checks.py"
+      ],
+      "checked_inputs": 8184,
+      "seconds": 35.77287417370826,
+      "changed_inputs": [],
+      "memory_peak_bytes": 470089728,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15928000512,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d565f997fb1753cfa4445be086619303704a956a51ad7804af3345c6140a5403",
+      "source_status_unchanged": true,
+      "log_sha256": "4986ef3f5b2db8333d3652f9e37d9a955093a6eb1acbce1553f4b16672a99b3f",
+      "input_manifest_sha256": "85c88e2be2972e96fc11f48f4c1089d6a4d19afaaffb24b6f7aaaf70e2ac0ead"
+    }
+  },
+  "actual_html_and_notebook_preservation": {
+    "articles": [
+      {
+        "page": "docs/content/user/tools/form/file/h5msm_10.md",
+        "source_sha256": "33e7ec4c7cf19fb806d8aaef4d49725f17cb1dbfeebe6015cec5c38c8443f18b",
+        "html_sha256": "da2b7bfa1fbc71508631c69bf6c8d24eb594a024c0558f2e07c99334c59b9469",
+        "reviewed_article_body": true,
+        "h5msm10_links": []
+      },
+      {
+        "page": "docs/content/user/foundations/native_world/files/file_h5msm.md",
+        "source_sha256": "d32a0ee75f04fe115672afac472bfacf39966971d6d14e18f1294f96e086c9ea",
+        "html_sha256": "8edf9aae02b2a5d4dd650d75043c1fcea769aadf03f4846959927be516aab1db",
+        "reviewed_article_body": true,
+        "h5msm10_links": [
+          "../../../tools/form/file/h5msm_10.html#user-tools-form-h5msm-10",
+          "../../../tools/form/file/h5msm_10.html#user-tools-form-h5msm-10",
+          "../../../tools/form/file/h5msm_10.html#user-tools-form-h5msm-10"
+        ]
+      },
+      {
+        "page": "docs/content/user/cookbook/migrating_h5msm.md",
+        "source_sha256": "f1fd8b92bcb5e80dccfe798c644ebd88718a20ad142c6dd2e29eb91d3d800d36",
+        "html_sha256": "27cb87c92b60e51802b6114c1e5eb67c011fab2966104c9701470c69d98df575",
+        "reviewed_article_body": true,
+        "h5msm10_links": [
+          "../tools/form/file/h5msm_10.html#user-tools-form-h5msm-10"
+        ]
+      },
+      {
+        "page": "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+        "source_sha256": "8b78ea5ee4a2093733c5b40e596ee16453e61526610ad3fe316446486e9fd165",
+        "html_sha256": "ab324ca07774bced7066def9259b1f9ba59de5dc74bab7e4870223147b9aa85d",
+        "reviewed_article_body": true,
+        "h5msm10_links": [
+          "../../user/tools/form/file/h5msm_10.html#user-tools-form-h5msm-10",
+          "../../user/tools/form/file/h5msm_10.html",
+          "../../user/tools/form/file/h5msm_10.html#user-tools-form-h5msm-10"
+        ]
+      }
+    ],
+    "notebook_code_outputs_metadata_order_headings_anchors_preserved": true,
+    "review_note": "The first ad-hoc text check required the word coercion on every page, but the H5MSM page correctly says rounding or parsing. The receiving review checks each page actual reader contract and local link destinations; no library/doc change was needed."
+  },
+  "sphinx": {
+    "exit": 0,
+    "warnings": 0,
+    "full_site": false,
+    "selected_pages": 4,
+    "notebook_execution": "off",
+    "autosummary_generate": false,
+    "parallel": 1
+  },
+  "fast_gates_and_ruff": {
+    "passed": true,
+    "commands": [
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.6s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                       10.3s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.4s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.4s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.1s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.5s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   2.0s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           2.1s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.4s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       3.1s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "native_exit": 0,
+        "stdout": "4726 files already formatted\n",
+        "stderr": ""
+      }
+    ]
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "providers": {
+      "numpy": {
+        "distribution_version": "2.4.6",
+        "imported_version": "2.4.6",
+        "module_file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+        "module_sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+      },
+      "h5py": {
+        "distribution_version": "3.16.0",
+        "imported_version": "3.16.0",
+        "module_file": "<development-prefix>/lib/python3.14/site-packages/h5py/__init__.py",
+        "module_sha256": "21f855ed8c945f3264e1375f0146c8095b703c6334a5fdda4af908f63c175a13"
+      },
+      "pandas": {
+        "distribution_version": "2.3.3",
+        "imported_version": "2.3.3",
+        "module_file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+        "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+      },
+      "pyunitwizard": {
+        "distribution_version": "0.29.2",
+        "imported_version": "0.29.2",
+        "module_file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+        "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+      },
+      "smonitor": {
+        "distribution_version": "0.21.0",
+        "imported_version": "0.21.0",
+        "module_file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+        "module_sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+      },
+      "argdigest": {
+        "distribution_version": "0.15.0",
+        "imported_version": "0.15.0",
+        "module_file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+        "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+      },
+      "depdigest": {
+        "distribution_version": "0.15.1",
+        "imported_version": "0.15.1",
+        "module_file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+        "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+      },
+      "pytest_receptor": {
+        "distribution_version": "1.2.1",
+        "imported_version": "1.2.1",
+        "module_file": "<checkout>/.pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+        "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+      }
+    }
+  },
+  "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "board_checkpoint": {
+    "issues": 664,
+    "open_issues": 95,
+    "open_pull_requests": 0,
+    "complete_local_acquisition_sha256": "534d5fc5d577081e0b0e24c2fbbe3523a3e97145e9231fc0cdc851fe22ad43f8",
+    "scope": "Complete paginated issues all states and open PRs before closing #745."
+  },
+  "resource_contract": {
+    "cpu_quota_each": 1,
+    "test_maximum_gib": 1.5,
+    "html_maximum_gib": 3,
+    "own_swap_bytes": 0,
+    "host_reserve_gib": 6.5,
+    "parallel_closeout_maximum_cpus": 2,
+    "parallel_closeout_maximum_gib": 4.5,
+    "foreign_processes_signalled": false
+  },
+  "failure_disposition": [
+    "The initial facts probe uses nonexistent root msm.Structures and fails before testing metadata. The corrected native import yields 27 observed malformed-header acceptances on unchanged parent source.",
+    "The first baseline has 84 real missing-rejection failures, one real enumeration trap and one invalid association-only fixture. Correcting that fixture without changing the collection mechanism exposes two enumeration failures. No huge allocation is executed.",
+    "The initial correction passes the original 86 cases. Expanded test drafts omit the required method (24 failures/48 setup errors), then attempt mappingproxy item mutation (48 setup errors). Correct public fixture construction yields 200 passes.",
+    "The first affected cohort has 1,560 passes and three patch regressions: schema validation intrudes into an omitted topology during association lookup; two established error messages change. The correction validates common integral headers without admitting omitted payload schemas and preserves existing codec diagnostics. No existing test is weakened.",
+    "The final affected cohort and H5MSM doctests pass all 1,566 cases. Its 684 warnings are explicit legacy H5MSM deprecations: 652 for 0.4 and 32 for 0.3.",
+    "The first ad-hoc article text check incorrectly demands one word on every page. Actual reader explanations and resolved link destinations pass a page-specific review; the document does not change to satisfy that check."
+  ],
+  "limits": [
+    "The observed integral counts and schemas are validated, including metadata required for append/iteration and existing private sparse queries; no blanket guarantee is made for every historical scalar field or arbitrary malformed dataset.",
+    "Metadata-only cardinalities and selected-layer reads do not validate omitted payload schemas or authenticate index identity. Byte-preserving copy can retain malformed bytes.",
+    "Four changed articles rebuild against a retained Sphinx cache with autosummary/notebook execution off; notebook executable cells, outputs, metadata, headings, anchors and order remain unchanged. This is not a new complete-site build.",
+    "Already strict mechanics/typed-tree readers are unchanged. Supported wire encodings, negative sentinels and scientific observations remain unchanged; no new H5MSM version is required.",
+    "#256 still needs the outstanding BindingMT default-specific receiving and stable-format decision. #615/#713 retain their historical unexplained failures. The original weighted score and mandatory final-pair gates remain separate; production/hosted qualification/publication stay paused."
+  ]
+}
