@@ -673,3 +673,13 @@ checks and Ruff check/format. An initial archival metadata/link failure is
 retained separately. All exact task-owned services are terminal, including
 failed baselines/harness/status attempts; their actual supervisor states and
 raw-log hashes are preserved. No hosted qualification or producer is launched.
+
+
+The four issues #727/#742/#743/#744 are independently confirmed closed. Public
+closeout `2543fc128` matches all 48 changed blobs in a complete remote tree.
+The complete intake now has 663 issues, 95 open and no open PRs; queue/board
+synchronization passes. All eighteen exact task-owned terminal services are
+retired, with original failures and journals preserved. See the
+[public closeout receipt](../devtools/data/remaining_form_reference_closeout_727_20261113.json).
+Continue #723 and the bounded investigations/contracts; the final-pair pause
+and original weighted accounting remain unchanged.

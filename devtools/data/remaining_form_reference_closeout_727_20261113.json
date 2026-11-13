@@ -1,0 +1,471 @@
+{
+  "schema": "molsysmt.remaining_form_reference_closeout/1",
+  "date": "2026-11-13",
+  "published_closeout": {
+    "published_main": "2543fc12887fff147011e35afc94508f1536a91c",
+    "queried_source": "2543fc12887fff147011e35afc94508f1536a91c",
+    "truncated": false,
+    "matched_changed_files": [
+      {
+        "path": "devguide/archive/resolved_bugs/native_form_implementation_references_render_without_links.md",
+        "git_blob": "ded0963aedbc42ae0347f4d3f915704782efb807"
+      },
+      {
+        "path": "devguide/archive/resolved_bugs/nglview_copy_and_whole_extraction_invoke_unsupported_widget_copying.md",
+        "git_blob": "909d5a9eb6f99cd54feda8308bb1ecfd1aa673d0"
+      },
+      {
+        "path": "devguide/archive/resolved_bugs/selected_pdbfixer_extraction_assigns_coordinates_to_the_wrong_atoms.md",
+        "git_blob": "88d6eb0a7b51bcc1f54e53dfd09bbe8259124aef"
+      },
+      {
+        "path": "devguide/archive/resolved_bugs/unrestricted_networkx_extraction_returns_an_empty_graph_when_reuse_is_requested.md",
+        "git_blob": "ff2b4ab3e4f2a23f9c880010af4552da8c4260c7"
+      },
+      {
+        "path": "devguide/forms_and_conversions.md",
+        "git_blob": "d2892f38fd9be82cce47f23704ff5b3fee283a01"
+      },
+      {
+        "path": "devguide/pending_bugs/docs/README.md",
+        "git_blob": "a906946fc2836a41c253157992d618453dd58d6f"
+      },
+      {
+        "path": "devguide/pending_proposals/docs/evidence_based_public_discoverability.md",
+        "git_blob": "91faaef53715f3aca2294ac10ce00bd57e42c2a6"
+      },
+      {
+        "path": "devguide/pre_1_0_completion_handoffs_20261110.md",
+        "git_blob": "6f9219472d9922f605e4e4ff4d061984cd2146e3"
+      },
+      {
+        "path": "devguide/pre_1_0_robustness_audit_20261106.md",
+        "git_blob": "b8cc1e4a6d2d681175ac71694cd771fa9725fe4b"
+      },
+      {
+        "path": "devguide/release_1_0_status.md",
+        "git_blob": "5d806637bb1b42b0be42fc3b8193f533f0ad38bb"
+      },
+      {
+        "path": "devtools/data/remaining_form_reference_receiving_727_20261113.json",
+        "git_blob": "032daa8edec93502233a55e1b61a8468e0934ace"
+      },
+      {
+        "path": "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb",
+        "git_blob": "0a5114596a770b26b05a7461051ff0d15ced161e"
+      },
+      {
+        "path": "docs/content/user/cookbook/form_teleportation.ipynb",
+        "git_blob": "7cb91bb47e7f57db2f99a7686f585aa397b3f9e8"
+      },
+      {
+        "path": "docs/content/user/foundations/governance/AGENTS.md",
+        "git_blob": "5b82fbd842b0313b7aea32b6960c41d2a1a0c782"
+      },
+      {
+        "path": "docs/content/user/foundations/governance/public_api_and_lifecycle.md",
+        "git_blob": "69a2e94711950f8770b7a14cd8c723bd7cbc7d42"
+      },
+      {
+        "path": "docs/content/user/foundations/governance/public_api_and_lifecycle.md.AGENTS.md",
+        "git_blob": "c17f1dc9897510b1f4a921302b7f9404212430ee"
+      },
+      {
+        "path": "docs/content/user/tools/basic/copy.ipynb",
+        "git_blob": "0a2de82717da1bb28075b342c67f5da1c2af632c"
+      },
+      {
+        "path": "docs/content/user/tools/basic/extract.ipynb",
+        "git_blob": "09dea1077d2e6f5d7ba8a41911425796de587f67"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/others/XYZ.ipynb",
+        "git_blob": "0925cb0d45019c3c4cbfa188483723a2bc79bdb6"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/others/XYZ.ipynb.AGENTS.md",
+        "git_blob": "e4cf2b5ee021a23e8d71da73b3fbcc54523102a4"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/others/cupy_ndarray.ipynb",
+        "git_blob": "0fc21f5b9990d7841a1c21ff953c68b75de2a490"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/others/cupy_ndarray.ipynb.AGENTS.md",
+        "git_blob": "4fa985fb5437d8359e51774fbb411d1a2a65a690"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/others/mmcif_PdbxContainers_DataContainer.ipynb",
+        "git_blob": "7e5712ddabda6fc0f2e1180caf3ea700a260c506"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/others/mmcif_PdbxContainers_DataContainer.ipynb.AGENTS.md",
+        "git_blob": "b38c436cbf8af767a207da54005dd1cc35b84341"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/others/networkx_Graph.ipynb",
+        "git_blob": "f74acaeafcc3ff3fa7652ce877c70141fbae59ba"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/others/networkx_Graph.ipynb.AGENTS.md",
+        "git_blob": "f83d153e677b13f15c0bf4d9d29001c32289fbf5"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/others/pdbfixer_PDBFixer.ipynb",
+        "git_blob": "9e76c6de1cb34971be7740d6a6890a18688f04fa"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/others/pdbfixer_PDBFixer.ipynb.AGENTS.md",
+        "git_blob": "b191efe7578bb05d6aca90257e745e4cc8351e60"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/pytraj/pytraj_Topology.ipynb",
+        "git_blob": "79b272e6e854f66e26fc28f5751896cb88628d83"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/pytraj/pytraj_Topology.ipynb.AGENTS.md",
+        "git_blob": "4c6ef9b2b8540723d82cf8a4852cf2d32db25ff6"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/pytraj/pytraj_Trajectory.ipynb",
+        "git_blob": "229640ac96458f630a547eda7fb37210cc6fe0d0"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/pytraj/pytraj_Trajectory.ipynb.AGENTS.md",
+        "git_blob": "908a8a071cb580a58d63acafa3579f9d7e3ef226"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/viewers/molsysviewer_MolSysView.ipynb",
+        "git_blob": "7f10cced2ab3ddb4c841b21ec1aaee44903d50d0"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/viewers/molsysviewer_MolSysView.ipynb.AGENTS.md",
+        "git_blob": "f779fd9c5142e513897504837254e513fb02eafa"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/viewers/nglview_NGLWidget.ipynb",
+        "git_blob": "0df96e8b879ae0ff4bd5738591abf62644efcc2c"
+      },
+      {
+        "path": "docs/content/user/tools/form/class/viewers/nglview_NGLWidget.ipynb.AGENTS.md",
+        "git_blob": "805da49c6844e8fce9640825957cad931aa30284"
+      },
+      {
+        "path": "docs/docs_manifest.yml",
+        "git_blob": "32c98376cf7f8c029ba6d84f761a04faab599f91"
+      },
+      {
+        "path": "molsysmt/form/networkx_Graph/extract.py",
+        "git_blob": "99f7465d884430273772fe1a5ce23d3520ef7054"
+      },
+      {
+        "path": "molsysmt/form/nglview_NGLWidget/copy.py",
+        "git_blob": "7d66ca589495f6c8e80cae9a7aaa539c534e17a2"
+      },
+      {
+        "path": "molsysmt/form/nglview_NGLWidget/extract.py",
+        "git_blob": "2bb7bc0f54f046e61e0036b2da9d1f1a6f29b80c"
+      },
+      {
+        "path": "molsysmt/form/pdbfixer_PDBFixer/extract.py",
+        "git_blob": "139794c419a5b8bd6dd99236000ab08bf693527b"
+      },
+      {
+        "path": "tests/conftest.py",
+        "git_blob": "646b92d727a4e5fe96de43a4f7af919313599d40"
+      },
+      {
+        "path": "tests/documentation/_form_reference_checks.py",
+        "git_blob": "78f0307fecd8ce935468e13626da6de9c9129e02"
+      },
+      {
+        "path": "tests/documentation/form_reference_auxiliary_receiving_guard.py",
+        "git_blob": "10aa0e9b311cc66526afd9ab3782e93d300404e7"
+      },
+      {
+        "path": "tests/documentation/test_remaining_form_references.py",
+        "git_blob": "1a68e4b74c67745dfa01ffa60da636b2f2642f7e"
+      },
+      {
+        "path": "tests/form/networkx_Graph/test_unrestricted_extraction.py",
+        "git_blob": "5036587d3bc9c1b790aa9ff56f5894f8d2952faf"
+      },
+      {
+        "path": "tests/form/nglview_NGLWidget/test_independent_copy.py",
+        "git_blob": "2eb290d809105cbf6151d9179178b40b77ff645c"
+      },
+      {
+        "path": "tests/form/pdbfixer_PDBFixer/test_selected_extraction.py",
+        "git_blob": "126b99781c595ba455b84e049ba61d08e8aa5cc5"
+      }
+    ],
+    "owning_issues_remain_open": true
+  },
+  "issue_states": {
+    "727": "CLOSED",
+    "742": "CLOSED",
+    "743": "CLOSED",
+    "744": "CLOSED"
+  },
+  "complete_board": {
+    "issues": 663,
+    "open_issues": 95,
+    "open_pull_requests": 0,
+    "unexpected_new_issues": []
+  },
+  "queue_board_sync": "passed",
+  "retired_task_units": [
+    {
+      "unit": "msm-remaining727-runtime-corrected-20261113.service",
+      "actions": [],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-remaining727-expanded-20261113.service",
+      "actions": [],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-remaining727-receiving-20261113.service",
+      "actions": [
+        {
+          "command": [
+            "systemctl",
+            "--user",
+            "reset-failed",
+            "msm-remaining727-receiving-20261113.service"
+          ],
+          "native_exit": 0,
+          "stderr": ""
+        }
+      ],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-remaining727-final-checks-20261113.service",
+      "actions": [],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-remaining727-runtime-baseline-20261113.service",
+      "actions": [
+        {
+          "command": [
+            "systemctl",
+            "--user",
+            "reset-failed",
+            "msm-remaining727-runtime-baseline-20261113.service"
+          ],
+          "native_exit": 0,
+          "stderr": ""
+        }
+      ],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-remaining727-corrected-20261113.service",
+      "actions": [],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-remaining727-runtime-integrated-20261113.service",
+      "actions": [],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-remaining727-focused-20261113.service",
+      "actions": [
+        {
+          "command": [
+            "systemctl",
+            "--user",
+            "reset-failed",
+            "msm-remaining727-focused-20261113.service"
+          ],
+          "native_exit": 0,
+          "stderr": ""
+        }
+      ],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-remaining727-runtime-contract-baseline-20261113.service",
+      "actions": [
+        {
+          "command": [
+            "systemctl",
+            "--user",
+            "reset-failed",
+            "msm-remaining727-runtime-contract-baseline-20261113.service"
+          ],
+          "native_exit": 0,
+          "stderr": ""
+        }
+      ],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-remaining727-html-20261113.service",
+      "actions": [],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-remaining727-cohort-20261113.service",
+      "actions": [],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-remaining727-baseline-20261113.service",
+      "actions": [
+        {
+          "command": [
+            "systemctl",
+            "--user",
+            "reset-failed",
+            "msm-remaining727-baseline-20261113.service"
+          ],
+          "native_exit": 0,
+          "stderr": ""
+        }
+      ],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-remaining727-runtime-qualified-20261113.service",
+      "actions": [],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-remaining727-articles-20261113.service",
+      "actions": [],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-remaining727-checks-20261113.service",
+      "actions": [
+        {
+          "command": [
+            "systemctl",
+            "--user",
+            "reset-failed",
+            "msm-remaining727-checks-20261113.service"
+          ],
+          "native_exit": 0,
+          "stderr": ""
+        }
+      ],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-remaining727-contract-baseline-20261113.service",
+      "actions": [
+        {
+          "command": [
+            "systemctl",
+            "--user",
+            "reset-failed",
+            "msm-remaining727-contract-baseline-20261113.service"
+          ],
+          "native_exit": 0,
+          "stderr": ""
+        }
+      ],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-remaining727-html2-20261113.service",
+      "actions": [],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    },
+    {
+      "unit": "msm-remaining727-corrected2-20261113.service",
+      "actions": [
+        {
+          "command": [
+            "systemctl",
+            "--user",
+            "reset-failed",
+            "msm-remaining727-corrected2-20261113.service"
+          ],
+          "native_exit": 0,
+          "stderr": ""
+        }
+      ],
+      "after": {
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "MainPID": "0"
+      }
+    }
+  ],
+  "receiving_receipt": "devtools/data/remaining_form_reference_receiving_727_20261113.json",
+  "scope": "Public verification and lifecycle closeout only. Original weighted score, complete-source/scientific/nightly, #723/#615/#713, stable-format/client and exact installed final-pair gates remain outstanding. Candidate production, hosted qualification and publication remain paused."
+}

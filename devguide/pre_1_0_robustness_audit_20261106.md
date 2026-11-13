@@ -49,8 +49,8 @@ the release requirements.
 | --- | --- | --- |
 | P1 — strict API documentation, #334 | Complete HTML on clean `01c6266f6`, `8ada7fe24` and `3546267d0` passes with zero warnings. Eight RST files include the four expressly approved preexisting edits; the original six-title failure is retained. | This bounded correction is received. Recheck affected pages for later changes and run the exact final candidate's documentation gate. |
 | P2 — persistence/integration and source receiving, #334 / #256 / #709–#713 / #717 / #720 / #722 | Complete `6acad4f35` remains **33,850 passes, 16 skips, zero failures/errors**. Later iterator diagnostic/inventory and flag repairs have focused receiving: 166, then 377, then 526 overlapping cases pass. The native binary remains unchanged. | Preserve exact scopes and original failures. Later executable changes remain in the deliberate complete-source/nightly backlog; latest main is not fully qualified. #713 causality, hosted/platform/installed and exact-candidate gates stay separate. |
-| P3 — semantic documentation and discoverability, #727 / #378 | The final 340-case receiving passes. All 86 reviewed adapter articles deliver 1,673 intended references to 1,528 verified source files; explicit guards cover all 95 form notebooks. Twenty-three selected pages build without warnings, preserving executable payloads and metadata. | Complete documented #727 closeout and preserve the three related adapter repairs #742–#744. Broader discoverability and final complete-site qualification remain separate; [receipt](../devtools/data/remaining_form_reference_receiving_727_20261113.json). |
-| P4 — incoming and remaining issues/PRs, owning issue / #334 | Complete intake has 663 issues, 99 open and no open PRs before the four closeouts. No external new issue follows #741; #742–#744 own the three reproduced and now corrected form defects. | Publish their records and guards, then verify board/queue closure. Continue #723/#615/#713 and stable-format/client/final-pair work; optional #741 remains after 1.0. |
+| P3 — semantic documentation and discoverability, #727 / #378 | The final 340-case receiving passes. All 86 reviewed adapter articles deliver 1,673 intended references to 1,528 verified source files; explicit guards cover all 95 form notebooks. Twenty-three selected pages build without warnings, preserving executable payloads and metadata. | #727 and related adapter repairs #742–#744 are publicly closed. Preserve their guards and evidence. Broader discoverability and final complete-site qualification remain separate; [receipt](../devtools/data/remaining_form_reference_receiving_727_20261113.json). |
+| P4 — incoming and remaining issues/PRs, owning issue / #334 | Complete intake has 663 issues, 95 open and no open PRs. #727/#742/#743/#744 are independently closed; board and queues agree. Eighteen exact task-owned services are terminal and retired. | Continue #723/#615/#713 and stable-format/client/final-pair work. Preserve the current scope cutoff; optional #741 remains after 1.0. [Closeout](../devtools/data/remaining_form_reference_closeout_727_20261113.json). |
 | P5 — client and final-candidate boundaries, #256 / #250 / #254 / #524 / #615 / #334 | Independent default-specific MolSysViewer source receiving is [reviewed and accepted](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-default-specific-molsysviewer-receiving--2026-11-11): 18 session cases and 151 boundary cases on the declared source. The final pair is not frozen; #615's original uncertainty and installed-package evidence remain open. | Complete the stable-format decision and final pair agreement. Keep the published dependency floor, installed matrix and publication decisions distinct from local polish and headless source receiving. |
 
 ### File-review correctness intake — 2026-11-12
@@ -2786,3 +2786,13 @@ checks and Ruff check/format. An initial archival metadata/link failure is
 retained separately. All exact task-owned services are terminal, including
 failed baselines/harness/status attempts; their actual supervisor states and
 raw-log hashes are preserved. No hosted qualification or producer is launched.
+
+
+The four issues #727/#742/#743/#744 are independently confirmed closed. Public
+closeout `2543fc128` matches all 48 changed blobs in a complete remote tree.
+The complete intake now has 663 issues, 95 open and no open PRs; queue/board
+synchronization passes. All eighteen exact task-owned terminal services are
+retired, with original failures and journals preserved. See the
+[public closeout receipt](../devtools/data/remaining_form_reference_closeout_727_20261113.json).
+Continue #723 and the bounded investigations/contracts; the final-pair pause
+and original weighted accounting remain unchanged.
