@@ -477,6 +477,16 @@ and native conversion. DCD coordinates cross the MDTraj boundary in angstroms;
 XTC coordinates cross it in nanometers. Both are normalized through
 PyUnitWizard and delivered in MolSysMT's canonical units.
 
+The MDTraj HDF5 structural iterator differs from its eager getters: it reads
+one selected structure per provider call, decodes stored units through MDTraj,
+and applies the active PyUnitWizard output policy. Missing optional series are
+None. Coordinates/velocities preserve query atom order and repetitions;
+structure_index retains the requested source positions. This positional axis
+is not an authenticated structure ID. Its reusable result mapping, explicit
+supported fields and cursor/handle ownership are described in
+[scalability](SCALABILITY.md#mdtraj-hdf5-structure-iteration). Guard:
+`tests/form/mdtraj_HDF5TrajectoryFile/test_iterator_contract.py`.
+
 This reduced contract does not claim that conversion back to an open reader
 object can materialize arbitrary subsets without creating a new file. Writing,
 append behavior, and reader-object subset materialization require separate

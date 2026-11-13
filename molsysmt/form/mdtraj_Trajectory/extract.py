@@ -49,7 +49,9 @@ def extract(
     else:
         tmp_item = item
         if not is_all(atom_indices):
-            tmp_item = tmp_item.atom_slice(atom_indices)
+            # MDTraj retains source-sorted inventory; submit that same order
+            # to its topology subsetter as well as its coordinate slicer.
+            tmp_item = tmp_item.atom_slice(sorted(atom_indices))
         if not is_all(structure_indices):
             tmp_item = tmp_item.slice(structure_indices)
 

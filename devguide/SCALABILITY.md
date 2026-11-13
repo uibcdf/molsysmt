@@ -104,6 +104,37 @@ Where a constructor already uses ArgDigest, its validation still runs before
 the refusal.
 Supported iterators keep their own chunk, ownership and exhaustion contracts.
 
+## MDTraj HDF5 structure iteration
+
+The form-specific StructuresIterator serves public basic.Iterator attribute
+queries over mdtraj.HDF5TrajectoryFile. Supported fields are coordinates,
+velocities, time, box, temperature, kinetic_energy, potential_energy,
+total_energy and structure_index. Absent optional series yield None. Other
+requested fields are refused explicitly; registration alone is not evidence
+that every structural getter is streamable. Inventory iteration is unavailable.
+
+None and 'all' select the whole structure axis. Explicit structure query
+positions preserve order and repetitions; start, exclusive stop and step
+traverse that selected sequence before chunking. Empty selections yield no
+results. Atom queries preserve requested order and repetitions for coordinates
+and velocities without duplicating the stored topology. The legacy structure_id
+fallback denotes source positions, not independent stored labels.
+
+Each provider read selects one structure and decodes stored unit metadata.
+PyUnitWizard applies the application's output-unit policy after that boundary.
+Coordinate/observable buffers depend on the selected chunk, rather than all
+structures. MDTraj may also read available unrequested fields for those rows;
+the selection index list and retained output need their own memory allowance.
+This is a bounded-read contract, not a total-RSS benchmark or reservation.
+
+The original reader cursor is restored after each chunk and failed read.
+The caller owns and closes the handle. Attribute dictionaries reuse their
+outer mapping; copy a dictionary if retaining it after advancing. Process and
+release chunks to preserve streaming. HDF5 eager getters/converters retain
+their existing full-file behavior; this contract does not extend to them or
+to other MDTraj readers. Guard:
+`tests/form/mdtraj_HDF5TrajectoryFile/test_iterator_contract.py`.
+
 ## Native inventory iteration
 
 The native Topology inventory iterator, also used by MolSys inventory queries,

@@ -821,3 +821,46 @@ def openmm_reference_context():
     yield context
     del context
     del integrator
+
+
+@pytest.fixture()
+def mdtraj_selection_ensemble(builder_pdb_molsys):
+    """Supply a tiny ensemble with distinguishable positions, times and boxes."""
+    import mdtraj as md
+    import numpy as np
+
+    topology = msm.convert(builder_pdb_molsys, to_form="mdtraj.Topology")
+    xyz = np.arange(60, dtype=np.float32).reshape(5, 4, 3) / 10
+    item = md.Trajectory(xyz, topology, time=np.array([1.0, 4.0, 9.0, 16.0, 25.0]))
+    item.unitcell_vectors = np.array([np.diag([2 + i, 3 + i, 4 + i]) for i in range(5)])
+    return item
+
+
+@pytest.fixture()
+def mdtraj_hdf5_small_files(tmp_path, mdtraj_selection_ensemble):
+    """Supply minimal and complete provider-written HDF5 records."""
+    import mdtraj as md
+    import numpy as np
+
+    source = mdtraj_selection_ensemble
+    paths = {}
+    for mode in ["minimal", "complete"]:
+        path = tmp_path / (mode + ".h5")
+        with md.formats.HDF5TrajectoryFile(str(path), "w") as writer:
+            arguments = dict(coordinates=source.xyz)
+            if mode == "complete":
+                arguments.update(
+                    time=np.array([1, 4, 9, 16, 25], dtype=np.float32),
+                    cell_lengths=source.unitcell_lengths,
+                    cell_angles=source.unitcell_angles,
+                    velocities=source.xyz / 2,
+                    temperature=np.array([270, 280, 290, 300, 310], dtype=np.float32),
+                    kineticEnergy=np.array([1, 2, 3, 4, 5], dtype=np.float32),
+                    potentialEnergy=np.array(
+                        [-10, -20, -30, -40, -50], dtype=np.float32
+                    ),
+                )
+            writer.write(**arguments)
+            writer.topology = source.topology
+        paths[mode] = path
+    return paths
