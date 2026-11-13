@@ -36,6 +36,7 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
+| Correct the two failures from the declared #713 contextual run | Clean `dec10b9d55` completes with 35,143 passes, two failures and 16 skips, native exit 1. #747 bypasses original provider traversal rejection before solvation; #748 omits `output_filename` for four converter targets. Both also fail in one isolated cohort. Receive focused corrections next; preserve the full failure and later deliberate complete-source/nightly obligation. |
 | Preserve completed #723 memory receiving | Thirty scientific cycles, final cleanup, 72 controls, unchanged-pilot oracle replay and a fresh host baseline pass on frozen receiver 429d7494b / library-addon 6f7fb24bc / client c5115dff. All 4,914 selected inputs and eight after-use module hashes agree. Selected native targets/buffers retire while the witness survives. Actual CPU transitions, host errors and sampling limits remain explicit; no whole-process leak-free or final-pair claim follows. |
 | Preserve completed #727 receiving and continue admitted polishing | #727 and related #742–#744 are publicly closed at verified `6f7fb24bc`. All 95 form notebooks have explicit receiving owners; 86 adapter articles deliver 1,673 intended references to 1,528 independently verified source files. The 340-case joint cohort, 23 selected HTML pages and fifteen fast gates pass. Preserve the original failures, optional-provider limits and complete-source/nightly backlog; this is not final-pair qualification. |
 | Preserve #734's bounded contacts/SASA owner disposition | The [owner contract](native_interface_contacts_sasa_contract.md) and 104-case receiving offer existing public operations for the first Cartesian bundled-element-vdW profile. No concrete new operation gap is established. BindingMT #112 and TopoMT #197 retain application decisions and actual client acceptance; MolSysSuite #195 remains the coordination owner. This finite review adds no release prerequisite. |
@@ -44,7 +45,8 @@ promotions and publication remain paused pending the agreed resumption.**
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0. Both historical clients received explicit 1.0 cases, and MolSysViewer default-specific receiving is accepted. BindingMT (historical DockingMT) still owes the omitted-version write/migration check under both unit policies; its latest recorded #73 message reports a maintainer-requested pause. Preserve earlier source/native acceptance without adding preparation/docking work. Format freeze and exact installed acceptance remain pending. |
 | Follow the requested #615/#713 audit ownership | The maintainer assigns the #615 lead audit/resolution to MolSysViewer #384, with MolSysMT tracking it as a blocked pre-pair dependency. #713 stays with MolSysMT; the current discriminating audit does not reproduce the timeout. The [completion packet](pre_1_0_completion_handoffs_20261110.md#maintainer-audit-direction-for-615713--2026-11-13) records this direction. The earlier risk proposal is not adopted; score and release gates are unchanged. |
 | Receive #615 from its MolSysViewer audit lead | MolSysViewer #384 leads the requested audit; MolSysMT #615 remains blocked. Require accepted resolution and applicable exact-pair receiving before MolSysMT 1.0.0 / MolSysViewer 1.0.0. Keep original failures and kernel/provider support; lead assignment does not prove the causal component. |
-| Preserve #713 audit and causal uncertainty | Five unchanged current guards, six discriminating program runs and the updated 134-case utility module pass. The child also creates a View and discovers its addon; current timings do not locate the historical stall. Stage metadata now supplements the unchanged 45-second stack timer/60-second child deadline. [Receipt](../devtools/data/import_stage_and_owner_audit_615_713_20261113.json). The cause remains unknown; do not relabel the old failure or run blind retries. |
+| Preserve #713 audit and causal uncertainty | Current focused/concurrent checks and the 134-case utility module pass. The one declared contextual full run also passes all three fresh-process orders in 4.417–4.463 seconds while failing the separate #747/#748 checks. Stage metadata supplements the unchanged 45-second stack timer/60-second limit. [Audit](../devtools/data/import_stage_and_owner_audit_615_713_20261113.json), [context receipt](../devtools/data/complete_context_import_receiving_713_20261113.json). The historical cause remains unknown; preserve failed sessions and avoid blind repeats. |
+| Review the finite new #746 owner request | BindingMT asks which existing counts, selection/expansion and extraction/permutation maps support declared BindingSite projection. Reuse #734's relevant facts and identify caller preconditions and refusals. No demonstrated new kernel, matcher, serialization gap or release prerequisite is established; schedule this bounded owner disposition after the two correctness fixes. |
 | Preserve #250/#254 source agreement and experimental boundaries | MolSysViewer accepts the exercised sparse/native contracts. Detector profiles, inspection pages and Qt retain their experimental limits. Final-candidate agreement is still due. |
 | Agree the exact clean pair and qualification scope with MolSysViewer | Select new producer commits and unused builds; share immutable files, channels and SHA-256 values when authorized. #524 still needs a published compatible host floor and clean minimum/newer installed workflows. |
 | Qualify and make the publication decision | Run the mandatory exact-source, native, scientific, documentation and sixteen-cell installed gates at the agreed checkpoint. Preserve failed attempts and inspect terminal results. Publication and archival require final authorization after qualification. |
@@ -58,6 +60,26 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Contextual #713 audit and new correctness intake — 2026-11-13
+
+One deliberate complete-source run on clean `dec10b9d55` asks whether the new
+startup stage capture localizes a recurrence in the original parallel context.
+The timeout does not recur: its three orders pass in 4.417, 4.382 and 4.463
+seconds. The whole session nevertheless **fails: 35,143 pass, two fail,
+16 skip**, with actual native exit 1. The supported receptor reader and the
+complete same-run JUnit agree; event detail and extensions retain their
+explicit caps. The [context receipt](../devtools/data/complete_context_import_receiving_713_20261113.json)
+records unchanged source/client/support inputs and bounded shared-host use.
+
+The two independently reproduced defects are now #747 and #748, both admitted
+correctness work before 1.0. #713 stays partial because passing current checks
+cannot establish the historical cause. #615 remains blocked on MolSysViewer
+#384's lead audit and accepted disposition before the final pair. The complete
+intake at this checkpoint contains 665 issues, 95 open, zero open PRs before
+filing #747/#748; new #746 requests a finite existing-tool ownership review.
+No runtime implementation is changed by this receipt. The original weighted
+score, exact-candidate gates and candidate/hosted/publication pause remain.
 
 ## OpenMM form and coordinate receiving — 2026-11-12
 

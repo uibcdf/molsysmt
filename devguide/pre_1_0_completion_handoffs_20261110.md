@@ -53,6 +53,18 @@ failure is reclassified or release criterion waived.
   stage-only diagnostics now supplement the existing pre-deadline stack.
   The historical cause remains unknown.
 
+The one declared contextual complete follow-up on clean `dec10b9d55` has now
+finished: 35,143 pass, two fail and 16 skip, native exit 1. #713 does not recur;
+its three orders pass in 4.417–4.463 seconds. The failures independently
+reproduce under #747 (original provider traversal before solvation) and #748
+(four missing converter destination keywords). Correct those finite defects
+next while preserving this failed run and #713's causal uncertainty. The
+[context receipt](../devtools/data/complete_context_import_receiving_713_20261113.json)
+retains complete JUnit recovery and explicit event/extension truncation.
+The complete board intake also receives #746's bounded BindingSite facts/maps
+review; no new kernel or independent release prerequisite is established by
+that request. Retain its separate owner review after correctness fixes.
+
 The [initial-canvas report](pending_bugs/intermittent_jupyter_initial_canvas_timeout.md)
 and [fresh-process report](pending_bugs/fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md)
 own their evidence and acceptance. The

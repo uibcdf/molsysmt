@@ -1,0 +1,502 @@
+{
+  "schema": "molsysmt.complete_context_import_receiving/1",
+  "date": "2026-11-13",
+  "owner_issue": "uibcdf/molsysmt#713",
+  "related_issues": [
+    "uibcdf/molsysmt#334",
+    "uibcdf/molsysmt#615",
+    "uibcdf/molsysviewer#384",
+    "uibcdf/molsysmt#747",
+    "uibcdf/molsysmt#748"
+  ],
+  "source_commit": "dec10b9d55be137a7fe3978bbdf6f031e99bbdcb",
+  "scope": "One declared contextual complete local source run to test recurrence and retain stage diagnostics. Not a causal repair, installed/platform/final-pair or publication qualification.",
+  "execution": {
+    "label": "full-context-dec10b9d5",
+    "source_commit": "dec10b9d55be137a7fe3978bbdf6f031e99bbdcb",
+    "phase": "completed",
+    "native_exit": 1,
+    "scope": "Local complete Linux/Python source receiving with diagnostics; no installed/candidate/platform or publication qualification.",
+    "supervisor": "Persistent systemd user service, independent of agent application lifecycle; native wait status is recorded immediately, before post-run hashing.",
+    "limits": {
+      "cpu.max": "300000 100000",
+      "memory.max": "6442450944",
+      "memory.high": "5905580032",
+      "memory.swap.max": "0",
+      "memory.oom.group": "1",
+      "pids.max": "512"
+    },
+    "host_reserve_bytes": 6979321856,
+    "finite_native_wall_budget_seconds": 4200,
+    "stop_reason": null,
+    "starting_available_bytes": 14443982848,
+    "starting_memory_pressure_avg10": 0.0,
+    "starting_io_pressure_avg10": 0.03,
+    "command": [
+      "<development-prefix>/bin/python",
+      "-m",
+      "pytest",
+      "--receptor=llm",
+      "-n3",
+      "--junitxml=<checkout>/.pytest_cache/import-timeout-owner-audit-713-20261113/full-context-dec10b9d5.xml",
+      "--receptor-events=<checkout>/.pytest_cache/import-timeout-owner-audit-713-20261113/full-context-dec10b9d5.events.jsonl",
+      "--basetemp=<checkout>/.pytest_cache/import-timeout-owner-audit-713-20261113/full-tmp/full-context-dec10b9d5-tests"
+    ],
+    "checked_source_inputs": 9002,
+    "checked_viewer_inputs": 2581,
+    "checked_support_inputs": 231,
+    "minimum_observed_host_available_bytes": 10682761216,
+    "maximum_memory_pressure_avg10": 0.18,
+    "maximum_io_pressure_avg10": 24.07,
+    "warning_transitions": [
+      {
+        "native_seconds": 0.0012539359740912914,
+        "warning": false,
+        "memory_pressure_avg10": 0.0,
+        "io_pressure_avg10": 5.14,
+        "available_bytes": 15451353088,
+        "own_memory_bytes": 101453824
+      }
+    ],
+    "native_pid": 1711662,
+    "native_start_ticks": 216086761,
+    "native_seconds": 2466.9120149421506,
+    "own_memory_bytes": 5230854144,
+    "kernel_memory_peak_bytes": 5906202624,
+    "kernel_memory_events": "low 0\nhigh 1785\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "changed_source_inputs": [],
+    "changed_viewer_inputs": [],
+    "changed_support_inputs": [],
+    "ending_source_status": "",
+    "resource_driver_sha256": "c3a3158a588eda435edf38c6cbac730a7b53f2571434cea5f650b4e987ec3ff8",
+    "total_supervisor_seconds": 2501.7268559993245
+  },
+  "complete_artifact": true,
+  "canonical_final_record": {
+    "artifact_policy": {
+      "dropped_records": 18578,
+      "max_bytes": 52428800,
+      "truncated": true
+    },
+    "complete": true,
+    "counts": {
+      "collected": 35161,
+      "deselected": 0,
+      "errors": 0,
+      "executed": 35161,
+      "failed": 2,
+      "not_executed": 0,
+      "passed": 35143,
+      "reruns": 0,
+      "skipped": 16,
+      "subtests": {},
+      "warnings": 6778,
+      "xfailed": 0,
+      "xpassed": 0
+    },
+    "duration": 2460.164731707424,
+    "exitstatus": 1,
+    "extensions": {
+      "dropped": 2658,
+      "incomplete": true,
+      "recorded": 7205
+    },
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "79398d10b8e4778286cfe324dc4f9bcbad970708015db14c83605e40d80d7696",
+      "records": 101871
+    },
+    "invalid_selections": [],
+    "note": "",
+    "outcome": "FAIL",
+    "root_causes": 2,
+    "run_id": "33fa0efac7d64595b1daddff51550b34",
+    "schema": "pytest-receptor.events@1",
+    "stop_reason": "",
+    "type": "session_finish"
+  },
+  "same_run_complete_junit_counts": {
+    "executed": 35161,
+    "passed": 35143,
+    "failed": 2,
+    "errors": 0,
+    "skipped": 16
+  },
+  "import_cases": [
+    {
+      "name": "test_fresh_import_orders_preserve_native_exports_and_discovery[molsysmt.element.atom]",
+      "seconds": 4.417,
+      "state": "passed"
+    },
+    {
+      "name": "test_fresh_import_orders_preserve_native_exports_and_discovery[molsysviewer]",
+      "seconds": 4.382,
+      "state": "passed"
+    },
+    {
+      "name": "test_fresh_import_orders_preserve_native_exports_and_discovery[molsysviewer_molsysmt.tools]",
+      "seconds": 4.463,
+      "state": "passed"
+    }
+  ],
+  "original_child_deadline_seconds": 60,
+  "pre_deadline_stack_timer_seconds": 45,
+  "scientific_and_functional_assertions_preserved": true,
+  "failed_selectors": [
+    "tests/build/solvate/test_source_identifiers.py::test_noncanonical_provider_indices_are_rejected_before_solvent",
+    "tests/test_argument_contract.py::test_the_converter_table_still_matches_the_converters"
+  ],
+  "failed_cases": [
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_noncanonical_provider_indices_are_rejected_before_solvent",
+      "state": "failed",
+      "message": "AssertionError: Invalid source traversal reached solvent construction"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_the_converter_table_still_matches_the_converters",
+      "state": "failed",
+      "message": "AssertionError: the committed table no longer matches the converters. Run:\n      python devtools/scripts/generate_converter_arguments.py --write\nassert {'MDAnalysis....s', ...), ...} == {'MDAnalysis....s', ...), ...}\n  \n  Omitting 92 identical items, use -vv to show\n  Differing items:\n  {'file:inpcrd': ('atom_indices', 'compression', 'compression_opts', 'copy_if_all', 'float_precision', 'get_missing_bonds', ...)} != {'file:inpcrd': ('atom_indices', 'compression', 'compression_opts', 'copy_if_all', 'float_precision', 'get_missing_bonds', ...)}\n  {'file:prmtop': ('atom_indices', 'compression', 'compression_opts', 'copy_if_all', 'float_precision', 'get_missing_bonds', ...)} != {'file:prmtop': ('atom_indices', 'compression', 'compression_opts', 'copy_if_all', 'float_precision', 'get_missing_bonds', ....\n  \n  ...Full output truncated (4 lines hidden), use '-vv' to show"
+    }
+  ],
+  "same_run_junit_skip_reasons": [
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_context_free_constructor_candidate_needs_an_explicit_owner[None-MolSys]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_context_free_constructor_candidate_needs_an_explicit_owner[None-Topology]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_context_free_constructor_candidate_needs_an_explicit_owner[None-ChemicalStates]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_context_free_constructor_candidate_needs_an_explicit_owner[definition-MolSys]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_context_free_constructor_candidate_needs_an_explicit_owner[definition-Topology]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_context_free_constructor_candidate_needs_an_explicit_owner[definition-ChemicalStates]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_context_free_constructor_candidate_needs_an_explicit_owner[exact-MolSys]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_context_free_constructor_candidate_needs_an_explicit_owner[exact-Topology]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_context_free_constructor_candidate_needs_an_explicit_owner[exact-ChemicalStates]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_ownership_preserves_aliases_standardizer_domain_and_value_checks[definition]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_ownership_preserves_aliases_standardizer_domain_and_value_checks[exact]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_separately_decorated_override_needs_its_own_logical_contract[definition]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_separately_decorated_override_needs_its_own_logical_contract[exact]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_mixin_runtime_and_definition_ownership_select_distinct_contracts",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests.form.string_smiles.test_is_form",
+      "name": "test_is_form_cco_without_rdkit",
+      "reason": "with rdkit CCO is recognized as valid SMILES"
+    },
+    {
+      "classname": "tests.form.test_cupy_ndarray",
+      "name": "test_cupy_ndarray_form_detection_and_conversion",
+      "reason": "CuPy is not available."
+    }
+  ],
+  "input_invariance": {
+    "source_native_and_version_inputs": 9002,
+    "viewer_inputs": 2581,
+    "support_inputs": 231,
+    "all_unchanged": true
+  },
+  "viewer_source_commit": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+  "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "runtime_composition_receipt": "devtools/data/import_stage_and_owner_audit_615_713_20261113.json",
+  "isolated_failure_check": {
+    "execution": {
+      "phase": "baseline",
+      "source_commit": "dec10b9d55be137a7fe3978bbdf6f031e99bbdcb",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Discriminating current fresh-import audit for #713, with original deadlines; not a complete suite, causal disposition, installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.30 1.15 2.65 2/2851 1749224",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.58 total=19294953670\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": "",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1449549824",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/import-timeout-owner-audit-713-20261113/baseline.xml",
+        "tests/build/solvate/test_source_identifiers.py::test_noncanonical_provider_indices_are_rejected_before_solvent",
+        "tests/test_argument_contract.py::test_the_converter_table_still_matches_the_converters"
+      ],
+      "checked_inputs": 8188,
+      "seconds": 28.63609043788165,
+      "ending_status": "",
+      "changed_inputs": [],
+      "memory_peak_bytes": 489172992,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18004877312,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "f1845cb832a4f95a350d8d716f15ca17f31636cb38930422a593a0efa8ec67eb"
+    },
+    "counts": {
+      "passed": 0,
+      "failed": 2,
+      "errors": 0,
+      "skipped": 0
+    },
+    "same_two_failures_recur": true,
+    "scope": "Failure classification, not an import-timeout reproduction or full-session rerun."
+  },
+  "registry_derivation": {
+    "execution": {
+      "phase": "expanded",
+      "source_commit": "dec10b9d55be137a7fe3978bbdf6f031e99bbdcb",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Discriminating current fresh-import audit for #713, with original deadlines; not a complete suite, causal disposition, installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.56 1.08 2.51 2/2844 1749446",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.45 total=19295081822\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": "",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1449549824",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/import-timeout-owner-audit-713-20261113/triage_new_failures.py"
+      ],
+      "checked_inputs": 8188,
+      "seconds": 7.668598217889667,
+      "ending_status": "",
+      "changed_inputs": [],
+      "memory_peak_bytes": 397713408,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18075176960,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "f1845cb832a4f95a350d8d716f15ca17f31636cb38930422a593a0efa8ec67eb"
+    },
+    "result": {
+      "unreadable": [],
+      "differences": {
+        "file:inpcrd": {
+          "missing_from_committed_table": [
+            "output_filename"
+          ],
+          "stale_in_committed_table": []
+        },
+        "file:crd": {
+          "missing_from_committed_table": [
+            "output_filename"
+          ],
+          "stale_in_committed_table": []
+        },
+        "file:prmtop": {
+          "missing_from_committed_table": [
+            "output_filename"
+          ],
+          "stale_in_committed_table": []
+        },
+        "file:h5": {
+          "missing_from_committed_table": [
+            "output_filename"
+          ],
+          "stale_in_committed_table": []
+        }
+      }
+    }
+  },
+  "artifact_reader": {
+    "name": "pytest_receptor.read_artifact",
+    "version": "1.2.1",
+    "execution": {
+      "phase": "facts",
+      "source_commit": "dec10b9d55be137a7fe3978bbdf6f031e99bbdcb",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Discriminating current fresh-import audit for #713, with original deadlines; not a complete suite, causal disposition, installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.31 1.93 3.22 2/2847 1748603",
+        "cpu_pressure": "some avg10=0.00 avg60=0.05 avg300=1.22 total=19294756600\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": "",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1449549824",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/import-timeout-owner-audit-713-20261113/read_full_context.py"
+      ],
+      "checked_inputs": 8188,
+      "seconds": 4.66849992563948,
+      "ending_status": "",
+      "changed_inputs": [],
+      "memory_peak_bytes": 816185344,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18102919168,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "f1845cb832a4f95a350d8d716f15ca17f31636cb38930422a593a0efa8ec67eb"
+    },
+    "junit_reconciliation": "Every same-run JUnit testcase is enumerated and counted; all final counters and actual native exit are checked. Three target import cases are required. Phase/extension truncation is retained, not interpreted as missing cases."
+  },
+  "raw_artifacts": {
+    "full-context-dec10b9d5.log": {
+      "sha256": "1e270d7f7cc76b7a68688983c0888bed6bdadf11f145e08fb4517a9f7c7295a2",
+      "bytes": 16630
+    },
+    "full-context-dec10b9d5.xml": {
+      "sha256": "572830ceff97aca8c6ac13df2b36292502878178582ef6935c73f3c2741a20d7",
+      "bytes": 6040762
+    },
+    "full-context-dec10b9d5.events.jsonl": {
+      "sha256": "aa296b39ab51b3375f3d693f8ec34aa1d594d93ab3e5cff0b4930dfed8f575fd",
+      "bytes": 52396556
+    },
+    "full-context-dec10b9d5-execution.json": {
+      "sha256": "76fe0de61ee36003b53c3ba9956a676780ed9f88c17a4231b34d1ca27d53ccab",
+      "bytes": 2498
+    },
+    "full-context-dec10b9d5-artifact-status.json": {
+      "sha256": "5fd6d0cf9ae8e8070cd3f825f34eef52d4a3698070ba1f407f61d2ec44bf73c5",
+      "bytes": 13026
+    },
+    "full-context-dec10b9d5-inputs-before.json": {
+      "sha256": "1436c3b19c4adefb0717295b918baecec0a4c1a26c5667926e916088776494ee",
+      "bytes": 1159412
+    },
+    "full-context-dec10b9d5-inputs-after.json": {
+      "sha256": "1436c3b19c4adefb0717295b918baecec0a4c1a26c5667926e916088776494ee",
+      "bytes": 1159412
+    },
+    "full-context-dec10b9d5-support-before.json": {
+      "sha256": "f31f80b032850611b2c7e595a5733a330a8419701a901619bdd2e1984b7d24fe",
+      "bytes": 27140
+    },
+    "full-context-dec10b9d5-support-after.json": {
+      "sha256": "f31f80b032850611b2c7e595a5733a330a8419701a901619bdd2e1984b7d24fe",
+      "bytes": 27140
+    },
+    "run_full_context.py": {
+      "sha256": "c3a3158a588eda435edf38c6cbac730a7b53f2571434cea5f650b4e987ec3ff8",
+      "bytes": 7858
+    },
+    "read_full_context.py": {
+      "sha256": "b9f52032e2d6c9317e806b89d8e64d99f0f499685334d2a6b2bce6b8b94e6c3f",
+      "bytes": 2737
+    },
+    "facts-execution.json": {
+      "sha256": "589110cc5fd9c911a330df978488d946e3929bee81f0e4fb0f28b54086679555",
+      "bytes": 1402
+    },
+    "baseline.log": {
+      "sha256": "c6d96d20122234df297c5dd846829a3782c0f46bdacf42b2a1832fc5e0d5f778",
+      "bytes": 2271
+    },
+    "baseline.xml": {
+      "sha256": "b52b6b19f5968320a80675faf89581d13d3f9d77bb8615056154d0aeda26b31f",
+      "bytes": 6980
+    },
+    "baseline-execution.json": {
+      "sha256": "f641bc1b930159bf87e8a15e1cf20e08de5e2b594addc03b98a3abbe67ba18c3",
+      "bytes": 1712
+    },
+    "triage_new_failures.py": {
+      "sha256": "3936f71b48ab1b0ce4573dd20d4ce4a75ec28f4d7ae0b510a521df3bcafca9b5",
+      "bytes": 927
+    },
+    "new_failure_triage.json": {
+      "sha256": "4bb00be9fc6fb9c588229066e18fae8fd158eca3d264209fc5ec1bfaf2565bcc",
+      "bytes": 599
+    },
+    "expanded-execution.json": {
+      "sha256": "0c4ade85eec91726a1fdc18dca9ec05ededbe96ea79ba912baa0c05d66d71a0c",
+      "bytes": 1408
+    }
+  },
+  "conclusions": [
+    "The historical import timeout does not recur: all three actual fresh-process orders pass in the complete parallel suite. The historical cause remains unestablished and #713 stays partial.",
+    "The complete session is failed, with actual native exit 1, 35143 passes, two failures and 16 skips. Focused successes and nonrecurrence do not relabel it.",
+    "#747 and #748 separately own the two reproducible current-source correctness defects. Both fail in one isolated sequential cohort; they do not need xdist or full-suite interference.",
+    "Stage metadata and the existing stack timer are retained with the original child limit and assertions. No failed child stage/stack exists to recover from this passing import cohort.",
+    "All declared source/native, client and support inputs remain unchanged. Scope memory-high events are explicit; there are no max/OOM events or reserve stop. These observations do not attribute the old failure to resource pressure.",
+    "#615 remains blocked on MolSysViewer #384 before the coordinated 1.0 pair; no claim that its production-code cause has been proved is introduced."
+  ],
+  "limits": [
+    "The event stream final record is complete and validated, but phase detail is truncated and the extension channel incomplete. Same-run complete JUnit supplies exhaustive case/skip recovery.",
+    "The source composition is frozen for this receiving. Development version stamps and the old native build do not identify newly built or installed public artifacts.",
+    "No current library/runtime/native/dependency implementation is modified by this receipt. The two newly recorded failures remain open and need focused correction.",
+    "The original failed sessions, formal weighted accounting, deliberate complete-source/nightly backlog, exact-candidate gates and candidate/hosted/publication pause remain. Do not use blind full repeats to infer repair."
+  ]
+}

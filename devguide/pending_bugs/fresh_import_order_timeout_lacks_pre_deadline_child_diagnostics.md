@@ -187,7 +187,7 @@ records the maintainer's audit direction. #615's separate lead handoff is
 uibcdf/molsysviewer#384; it is not evidence of #713's cause.
 
 
-## One contextual complete follow-up — planned 2026-11-13
+## One contextual complete follow-up — received 2026-11-13
 
 The new diagnostic increment justifies one deliberate complete-source receiving:
 does the original parallel suite context reproduce the timeout, and if so which
@@ -203,3 +203,35 @@ agent, complete JUnit and the receptor's bounded final record. Any failure,
 resource stop or incomplete evidence remains such. A passing session still
 cannot identify the historical cause or reclassify the original failed run.
 No installed, hosted, final-candidate or publication gate is authorized here.
+
+The declared run on clean `dec10b9d55` completes with **35,143 passes, two
+failures and 16 skips**, native exit 1, in 2,466.91 seconds including native
+process startup/shutdown. The durable supervisor, complete JUnit and supported
+receptor artifact reader agree. The phase-detail stream reaches its declared
+50-MiB cap and the extension channel is incomplete; complete case recovery
+comes from the same-run JUnit, not absent event records.
+
+**#713 does not recur.** All three real fresh-process orders pass in 4.417,
+4.382 and 4.463 seconds with the original assertions and 60-second limit.
+There is therefore no failed child stack or stalled phase to diagnose in this
+session. This is additional contextual negative evidence, not proof of repair
+or a historical causal attribution. #713 stays partial.
+
+The two failures are independent current-source defects: #747's original
+provider-index validation before solvation and #748's four missing
+`output_filename` registry entries. Both also fail in one isolated sequential
+cohort; they do not require xdist or full-suite interference. Preserve this
+failed complete session while those separate corrections proceed. Do not
+repeat the full suite merely to seek recurrence or obtain a green result.
+
+All 9,002 source/native, 2,581 client and 231 support input hashes remain
+unchanged and the source ends clean. Charged peak scope memory is about
+5.50 GiB; 1,785 memory-high events occur, with no max/OOM/OOM-kill event or
+reserve stop. Minimum observed host available memory is about 9.95 GiB.
+Those measurements neither reserve shared resources nor establish the cause
+of the original timeout.
+
+The [context receipt](../../devtools/data/complete_context_import_receiving_713_20261113.json)
+retains exact source/provider inputs, command, final counters, per-order times,
+skip reasons, original failed status, raw-artifact hashes and isolated triage.
+The existing audit receipt above remains unchanged.
