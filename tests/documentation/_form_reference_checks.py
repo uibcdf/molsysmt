@@ -264,6 +264,14 @@ _MDTRAJ_CLASS_OPERATIONS = {
     "mdtraj_XTCTrajectoryFile": _FILE_HOOKS,
 }
 _EXTERNAL_CLASS_OPERATIONS.update(_MDTRAJ_CLASS_OPERATIONS)
+_MDANALYSIS_CLASS_OPERATIONS = {
+    "MDAnalysis_AtomGroup": _FILE_HOOKS
+    - {"add", "merge", "append_structures", "set", "iterators"},
+    "MDAnalysis_Topology": _FILE_HOOKS,
+    "MDAnalysis_Universe": _FILE_HOOKS,
+    "MDAnalysis_topology_PDBParser": _FILE_HOOKS,
+}
+_EXTERNAL_CLASS_OPERATIONS.update(_MDANALYSIS_CLASS_OPERATIONS)
 
 
 def _declared_converters(adapter, directory):
@@ -300,7 +308,7 @@ def _assert_native_form_reference_contract(name):
         page = ROOT / f"docs/content/user/tools/form/{folder}/{name}.ipynb"
         operations = (_FILE_OPERATIONS if is_file else _STRING_OPERATIONS)[name]
     elif is_external:
-        owner = name.split("_", 1)[0]
+        owner = name.split("_", 1)[0].lower()
         page = ROOT / f"docs/content/user/tools/form/class/{owner}/{name}.ipynb"
         operations = _EXTERNAL_CLASS_OPERATIONS[name]
     else:
@@ -331,7 +339,10 @@ def _assert_native_form_reference_contract(name):
         path = Path(*parts[5:])
         assert path in expected and (ROOT / path).is_file()
         source_lines = (ROOT / path).read_text().splitlines()
-        if not source_lines:
+        if not any(line.strip() for line in source_lines):
+            assert path not in converter_files, (
+                "An empty module cannot deliver a converter."
+            )
             # An honestly empty module has no line to anchor. It must never
             # stand in for a callable converter or implemented operation.
             assert path.stem in {
