@@ -1,0 +1,251 @@
+{
+  "schema": "molsysmt.complete_documentation_source_receiving/1",
+  "date": "2026-11-13",
+  "owner_issue": "uibcdf/molsysmt#334",
+  "source_commit": "8f04a1a88bd8bd2c2c5ea33296e8f05f7f063188",
+  "scope": "Fresh complete Sphinx compilation of every admitted source and real form/article reference receiving. Not notebook execution, all-page visual/browser review, complete scientific/source tests, installed-platform/final-pair or public-site qualification.",
+  "executions": {
+    "html": {
+      "phase": "html",
+      "source_commit": "8f04a1a88bd8bd2c2c5ea33296e8f05f7f063188",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Complete strict Sphinx source compilation, without notebook execution; not complete scientific/source tests, installed/final-candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.89 2.06 2.58 2/2894 1658795",
+        "cpu_pressure": "some avg10=0.00 avg60=0.01 avg300=2.39 total=18916113195\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2899099648",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/full-documentation-handoff-334-20261113/build_full_site.py"
+      ],
+      "checked_inputs": 8186,
+      "seconds": 158.7172541609034,
+      "changed_inputs": [],
+      "memory_peak_bytes": 1330765824,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14169239552,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "141e749d89dd431163e52a80714e5226906b646ee40bf1c8fe8f650bb1a56fc2",
+      "source_status_unchanged": true,
+      "raw_log_sha256": "b81edc6c1bf2cc8fbe9aaf5d43957984cf6b5bb9d8970cc43328a0b5d58be557",
+      "input_manifest_sha256": "d7d97cf17fb696a546c947ff1c9f5fa92f566a655935eb693e540b873960fee7"
+    },
+    "receiving": {
+      "phase": "receiving",
+      "source_commit": "8f04a1a88bd8bd2c2c5ea33296e8f05f7f063188",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Complete strict Sphinx source compilation, without notebook execution; not complete scientific/source tests, installed/final-candidate or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.90 2.07 2.45 8/3060 1660998",
+        "cpu_pressure": "some avg10=0.01 avg60=1.18 avg300=1.77 total=18920795358\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "1610612736",
+        "memory.high": "1449549824",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/full-documentation-handoff-334-20261113/receiving.xml",
+        "tests/documentation/form_reference_receiving_guard.py",
+        "tests/documentation/form_reference_auxiliary_receiving_guard.py"
+      ],
+      "checked_inputs": 9586,
+      "seconds": 177.0265897992067,
+      "changed_inputs": [],
+      "memory_peak_bytes": 945504256,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 12495134720,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "9c7d5eccb70cd7b140a268972fb32f3213bfff03f323a261142b8e4cfdc4f933",
+      "source_status_unchanged": true,
+      "raw_log_sha256": "5d7cdaed000295bb01a5091754b75927f1a8fd8fa887998bac77ad6f73b3ffa3",
+      "input_manifest_sha256": "96e183c5f6102894f6cd878526d5436e61747a83114cadf8bae620688b51eda8",
+      "junit_counts": {
+        "tests": 101,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "junit_sha256": "f320a051a13cd2064855ae9c3df508b7cee7a048f3daf88c2ba8a2ab860eaeeb"
+    }
+  },
+  "sphinx": {
+    "native_builder_exit": 0,
+    "warnings": 0,
+    "full_site": true,
+    "fresh_environment": true,
+    "force_all": true,
+    "found_documents": 1034,
+    "found_notebooks": 499,
+    "html_files": 1400,
+    "notebook_execution": "off",
+    "autosummary_generate": false,
+    "parallel": 1
+  },
+  "compiled_source_count": 1034,
+  "compiled_sources_sha256": "2465073245a6969086a4228fa0209970e7fe9ae58daf01b662c273440f1e7a18",
+  "all_compiled_source_hashes_preserved_through_article_receiving": true,
+  "found_sources_inventory_sha256": "329311f3164319ef44dd6db4320ee8bc27a084323fc5307ddd96b4442cab0ca3",
+  "complete_html_inventory_sha256": "5170d781541c46c3ce30cdddb3852bfa295c070ed585f669abf90b9143e8ca02",
+  "warning_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "form_receiving": {
+    "tests": 101,
+    "adapter_articles": 86,
+    "all_form_notebooks": 95,
+    "adjacent_lifecycle_articles": 5,
+    "explicit_ownership_check": true,
+    "scope": "The existing guards require intended references, actual article placement, implementation files, resolved local documents/fragments and no unlinked Python roles. Not every possible link or molecular scene across the site."
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "providers": {
+      "sphinx": {
+        "distribution_version": "9.1.0",
+        "imported_version": "9.1.0",
+        "module_file": "<development-prefix>/lib/python3.14/site-packages/sphinx/__init__.py",
+        "module_sha256": "fada23b3d8a37b33e6be588058f369668b81f5cf7bd61527a0a5474d7b72882b"
+      },
+      "myst_nb": {
+        "distribution_version": "1.4.0",
+        "imported_version": "1.4.0",
+        "module_file": "<development-prefix>/lib/python3.14/site-packages/myst_nb/__init__.py",
+        "module_sha256": "ebb1fdc4f0f282184cdce2aadaa7fdfcc3bae6a0f700f4c79531215ab333b68b"
+      },
+      "molsysmt": {
+        "distribution_version": "0.23.0+393.ge1facf624.dirty",
+        "imported_version": "0.23.0+393.ge1facf624.dirty",
+        "module_file": "<checkout>/molsysmt/__init__.py",
+        "module_sha256": "dc89c5f21ab7ba4bb94b289927a19856d27cb670baf1b03d7f6fcb7fced03f90"
+      },
+      "molsysviewer": {
+        "distribution_version": "0.24.0+97.gdf4bf477.dirty",
+        "imported_version": "0.24.0+97.gdf4bf477.dirty",
+        "module_file": "<checkout>/.pytest_cache/pre1-review-20261110/viewer-5164f13b-ready-source/molsysviewer/__init__.py",
+        "module_sha256": "76c5968d9a66d9fe01a475166515f4e0f02c3784b135ec60319cb2bf83b17cd4"
+      },
+      "pyunitwizard": {
+        "distribution_version": "0.29.2",
+        "imported_version": "0.29.2",
+        "module_file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+        "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+      },
+      "numpy": {
+        "distribution_version": "2.4.6",
+        "imported_version": "2.4.6",
+        "module_file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+        "module_sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+      },
+      "h5py": {
+        "distribution_version": "3.16.0",
+        "imported_version": "3.16.0",
+        "module_file": "<development-prefix>/lib/python3.14/site-packages/h5py/__init__.py",
+        "module_sha256": "21f855ed8c945f3264e1375f0146c8095b703c6334a5fdda4af908f63c175a13"
+      },
+      "pandas": {
+        "distribution_version": "2.3.3",
+        "imported_version": "2.3.3",
+        "module_file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+        "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+      },
+      "smonitor": {
+        "distribution_version": "0.21.0",
+        "imported_version": "0.21.0",
+        "module_file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+        "module_sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+      },
+      "argdigest": {
+        "distribution_version": "0.15.0",
+        "imported_version": "0.15.0",
+        "module_file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+        "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+      },
+      "depdigest": {
+        "distribution_version": "0.15.1",
+        "imported_version": "0.15.1",
+        "module_file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+        "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+      }
+    }
+  },
+  "generated_viewer_asset": {
+    "path": "_static/viewer.js",
+    "bytes": 6871572,
+    "sha256": "11bf63f596cb9e2454c6ba4886387339b6c5f8a918adf0ae78e0733401e95735"
+  },
+  "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "resource_contract": {
+    "execution": "sequential detached systemd user services",
+    "cpu_quota_each": 1,
+    "html_maximum_gib": 3,
+    "reference_receiving_maximum_gib": 1.5,
+    "own_swap_bytes": 0,
+    "host_reserve_gib": 6.5,
+    "foreign_processes_signalled": false
+  },
+  "limits": [
+    "Compilation uses nb_execution_mode=off and preserves stored outputs; it does not run notebook kernels or qualify the scientific correctness of every example.",
+    "The Sphinx environment is fresh and all admitted sources are built with warnings as errors; autosummary generation is disabled to use existing maintained API sources without rewriting them.",
+    "The provider stamps retained in metadata describe the development composition. Exact commits/import origins/input hashes identify the executed source; no final package, compatible floor or installed closure is certified.",
+    "The temporary build includes generated assets but is not deployed. Final exact-candidate documentation and all mandatory release gates remain due.",
+    "The original weighted score is unchanged. The proposed #615/#713 risk disposition still needs the maintainer decision; their original failure causes are not established. New candidate/hosted/tag/promotion/publication operations remain paused."
+  ],
+  "generated_version_stamp": {
+    "path": "molsysmt/_version.py",
+    "sha256": "3dc44314ff938836ee60a6875accc24cb6e7b79f7176f5ff22f6768384137fe9",
+    "scope": "Retained generated development stamp; not an assertion that its embedded build reference identifies this source commit."
+  },
+  "supervisor_retirement": {
+    "known_units": 2,
+    "states": [
+      {
+        "Id": "msm-pre1-full-docsite-html-20261113.service",
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "SubState": "dead",
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ControlGroup": ""
+      },
+      {
+        "Id": "msm-pre1-full-docsite-receiving-20261113.service",
+        "LoadState": "not-found",
+        "ActiveState": "inactive",
+        "SubState": "dead",
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainStatus": "0",
+        "ControlGroup": ""
+      }
+    ],
+    "all_main_pids_retired": true,
+    "all_control_groups_empty": true,
+    "foreign_processes_signalled": false,
+    "raw_journals_retained": true
+  }
+}

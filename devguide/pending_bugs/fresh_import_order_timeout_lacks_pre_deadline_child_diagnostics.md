@@ -129,3 +129,13 @@ causal correction or an evidenced bounded disposition. The earlier failed
 session is not relabelled, and the #615, installed/platform/final-candidate and
 publication boundaries remain separate. Do not repeat this passing complete
 session without a new diagnostic question, executable change or agreed gate.
+
+
+## Proposed completion disposition — 2026-11-13
+The [completion packet](../pre_1_0_completion_handoffs_20261110.md#remaining-technical-decision-for-615713--2026-11-13)
+owns the proposed options and conditions. The recommendation retains the
+original failed attempt and this open, causally unresolved operational risk while
+allowing exact-candidate qualification with all original checks and deadlines.
+Any recurrence stops acceptance of the affected gate. This requires an explicit
+maintainer revision of the current blocking criterion; no decision, risk
+acceptance, closure, score change or publication permission is inferred.

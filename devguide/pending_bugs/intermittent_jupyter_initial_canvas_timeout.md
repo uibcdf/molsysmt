@@ -317,3 +317,13 @@ receiving case, not the complete default Analysis, installed-pair or Qt gate.
 Earlier 8.05/12.83-second observations are arming-relative, not a verified
 exact click-relative latency. The wording above is corrected accordingly;
 the original captured values remain unchanged.
+
+
+## Proposed completion disposition — 2026-11-13
+The [completion packet](../pre_1_0_completion_handoffs_20261110.md#remaining-technical-decision-for-615713--2026-11-13)
+owns the proposed options and conditions. The recommendation retains the
+original failed attempt and this open, causally unresolved operational risk while
+allowing exact-candidate qualification with all original checks and deadlines.
+Any recurrence stops acceptance of the affected gate. This requires an explicit
+maintainer revision of the current blocking criterion; no decision, risk
+acceptance, closure, score change or publication permission is inferred.
