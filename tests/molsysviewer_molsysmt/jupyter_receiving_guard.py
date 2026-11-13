@@ -113,54 +113,54 @@ def test_molecular_import_snapshot_uses_actual_imported_files(tmp_path):
         assert row["module_version"] == vars(module).get("__version__")
 
 
-def test_actual_jupyter_prolonged_popup_controls(tmp_path):
-    """Activate Next from fully hidden controls before receiving a real cycle."""
-    viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
-    output = tmp_path / "jupyter-prolonged-controls"
-    command = [
-        sys.executable,
-        str(Path(__file__).with_name("system_panel_jupyter.py")),
-        "--viewer-root",
-        str(viewer),
-        "--scenario",
-        "prolonged-session",
-        "--cycles",
-        "1",
-        "--active-seconds",
-        "10",
-        "--output",
-        str(output),
-    ]
-    if provider := os.environ.get("MOLSYSVIEWER_PROVIDER_ROOT"):
-        command.extend(["--provider-root", provider])
-    subprocess.run(command, check=True, timeout=360)
+def _assert_prolonged_memory_result(output, *, cycles, active_seconds, source, viewer):
+    """Check the known workload and independent positive/negative lifetime controls."""
     result = json.loads((output / "full-result.json").read_text())
-    assert result["cycles"] == len(result["records"]) == len(result["native"]) == 1
-    assert result["records"][0]["controls"] == {
-        "started_hidden": True,
-        "next_focused": True,
-    }
-    assert result["records"][0]["activity"]["distinct_frames"] >= 2
-    assert result["active_seconds_per_cycle"] == 10
-    sample = result["records"][0]["retirement_memory"]
-    assert sample["after_collection"]["subjects"]["witness_data_unchanged"] is True
-    rows = sample["after_collection"]["subjects"]["rows"]
-    assert [row["label"] for row in rows] == [
-        "witness",
-        "cycle-1-created",
-        "cycle-1-recovered",
-    ]
-    for row in rows:
-        assert all(alive is row["witness"] for alive in row["targets"].values())
-        assert row["buffers"]
-        assert all(buffer["alive"] is row["witness"] for buffer in row["buffers"])
-    after_imports = json.loads(
-        (output / "kernel-molecular-imports-after-cycle-1.json").read_text()
+    assert result["cycles"] == len(result["records"]) == len(result["native"]) == cycles
+    assert result["active_seconds_per_cycle"] == active_seconds
+    assert len({row["kernel_identity"] for row in result["native"]}) == 1
+    assert (
+        len({(row["kernel_pid"], row["kernel_birth"]) for row in result["native"]}) == 1
     )
-    assert after_imports["modules"]["molsysmt._rust"]["loaded"] is True
-    assert after_imports["modules"]["molsysviewer_molsysmt"]["loaded"] is True
+    for cycle, (record, native) in enumerate(
+        zip(result["records"], result["native"]), 1
+    ):
+        assert record["cycle"] == native["cycle"] == cycle
+        assert native["open_views"] == 1 and native["interaction_occurrences"] > 0
+        assert record["controls"] == {"started_hidden": True, "next_focused": True}
+        assert record["activity"]["distinct_frames"] >= 2
+        assert record["activity"]["seconds"] >= active_seconds
+        sample = record["retirement_memory"]
+        assert sample["cdp_collections"] == 2
+        assert sample["after_collection"]["subjects"]["witness_data_unchanged"] is True
+        rows = sample["after_collection"]["subjects"]["rows"]
+        assert [row["label"] for row in rows] == [
+            "witness",
+            f"cycle-{cycle}-created",
+            f"cycle-{cycle}-recovered",
+        ]
+        for index, row in enumerate(rows):
+            witness = index == 0
+            assert row["witness"] is witness
+            assert row["atoms"] == (3983 if witness else 62)
+            assert set(row["targets"]) == {
+                "controller",
+                "structure",
+                "model",
+                "x",
+                "y",
+                "z",
+            }
+            assert all(alive is witness for alive in row["targets"].values())
+            assert row["buffers"] == [
+                {"bytes": 47796 if witness else 3720000, "alive": witness}
+            ]
+        imports = json.loads(
+            (output / f"kernel-molecular-imports-after-cycle-{cycle}.json").read_text()
+        )
+        assert imports["modules"]["molsysmt._rust"]["loaded"] is True
+        assert imports["modules"]["molsysviewer_molsysmt"]["loaded"] is True
     imports = json.loads((output / "kernel-molecular-imports.json").read_text())
-    source = Path(__file__).resolve().parents[2]
     assert (
         Path(imports["modules"]["molsysmt"]["origin"])
         == source / "molsysmt/__init__.py"
@@ -171,6 +171,47 @@ def test_actual_jupyter_prolonged_popup_controls(tmp_path):
     )
     assert not (output / "settings.json").exists()
     assert not (output / "config/jupyter_server_config.py").exists()
+
+
+def _receive_prolonged_memory(tmp_path, *, cycles):
+    viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
+    output = tmp_path / "jupyter-prolonged-controls"
+    command = [
+        sys.executable,
+        str(Path(__file__).with_name("system_panel_jupyter.py")),
+        "--viewer-root",
+        str(viewer),
+        "--scenario",
+        "prolonged-session",
+        "--cycles",
+        str(cycles),
+        "--active-seconds",
+        "10",
+        "--output",
+        str(output),
+    ]
+    if provider := os.environ.get("MOLSYSVIEWER_PROVIDER_ROOT"):
+        command.extend(["--provider-root", provider])
+    # Preserve the 2,400-second browser deadline and its original step deadlines.
+    # The controller's extra minute covers server teardown, not more browser work.
+    subprocess.run(command, check=True, timeout=360 if cycles == 1 else 2460)
+    _assert_prolonged_memory_result(
+        output,
+        cycles=cycles,
+        active_seconds=10,
+        source=Path(__file__).resolve().parents[2],
+        viewer=viewer,
+    )
+
+
+def test_actual_jupyter_prolonged_popup_controls(tmp_path):
+    """Activate Next from hidden controls before receiving one real molecular cycle."""
+    _receive_prolonged_memory(tmp_path, cycles=1)
+
+
+def test_actual_jupyter_prolonged_memory_campaign(tmp_path):
+    """Receive thirty real cycles without replacing the kernel or widening deadlines."""
+    _receive_prolonged_memory(tmp_path, cycles=30)
 
 
 def test_actual_jupyter_initial_canvas_diagnostics(tmp_path):

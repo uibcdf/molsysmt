@@ -163,3 +163,39 @@ fixture and observations. The three-CPU/3.5-GiB/no-own-swap service peaks at
 2.18 GiB, keeping at least 11.20 GiB host available memory. #723 remains partial
 until the comparable long campaign; original #615/#713 causality, installed
 qualification and the final-pair publication pause are unchanged.
+
+
+## Frozen prolonged receiving question — 2026-11-13
+
+The next execution asks whether the selected initial/recovered native owners
+and coordinate buffers retire on every cycle, while the independent molecular
+witness remains unchanged, and how paired raw/task-separated/collected API
+observations evolve across thirty cycles. It does not infer a retaining chain
+from aggregate heap growth or subtract a plain-host delta as molecular leakage.
+
+Freeze MolSysMT library/addon bytes at `6f7fb24bc`, the already independently
+matched MolSysViewer `c5115dff7f94fe17b5724e4863465a803c76f60e`, published
+PyUnitWizard 0.29.2 and the retained support snapshot used in the pilot. Record
+the new explicit campaign guard's exact commit separately. The scientific
+fixture, original per-step and 2,400-second browser deadline stay unchanged.
+Request thirty cycles with ten seconds of actual playback each. Do not relabel
+the earlier aee7aa65/PyUnitWizard-development contribution or its thirty-cycle
+result as this composition. The existing plain-host control uses three groups
+of three executions: it establishes non-molecular host growth, not an equal-
+workload or equal-duration counterfactual.
+
+Use a clean immutable local source snapshot, the existing environment/browser
+and no dependency or extension changes. Check the selected envelope and all
+after-use provider hashes. The molecular cap remains three CPUs/3.5 GiB, no
+own swap and a 6.5 GiB host reserve, following the measured 2.18 GiB pilot.
+The original browser deadline is not widened to obtain a pass; a deadline or
+resource stop preserves partial per-cycle evidence and remains incomplete.
+The explicit receiving node is
+`jupyter_receiving_guard.py::test_actual_jupyter_prolonged_memory_campaign`.
+Its independent controls reject missing cycles, mixed kernels, an absent
+witness, retained subjects/buffers, wrong buffer sizes and absent scientific
+occurrences. A replay of the original pilot receipt tests the new assertions
+without describing it as a new GUI run.
+
+This remains local source/metrology receiving under #723, not hosted or
+installed-candidate qualification, #615/#713 causality or publication approval.

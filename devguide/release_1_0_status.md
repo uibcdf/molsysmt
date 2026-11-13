@@ -2,7 +2,7 @@
 
 ## Resume from here
 
-**Reviewed 2026-11-12 against complete-source checkpoint `6acad4f35`,
+**Reviewed 2026-11-13 against complete-source checkpoint `6acad4f35`,
 GRO documentation `bc2db775d`, iterator diagnostics `9adad50d1`,
 native inventory/query corrections `b0ae02b22` / `4280a8d42`, Jupyter
 receiving `687220ac9` / `67a094749`, memory-method `db1706f8a`, molecular pilot `1a899f9f0`, label-inventory
@@ -12,7 +12,7 @@ correction `9af9be18c` / guard `90aa8eae1`, native-domain guidance
 file extraction/identity corrections `7b607f638` / `7097f81c5`, string guidance
 `4b280fdcb`, string boundary corrections `ed12b039a`, Biopython guidance
 `26b550f96`, OpenMM coordinate repairs `3f034dbd0` and OpenMM guidance
-`9a261ebd5`, MDTraj iteration repair `083b7c166` and guidance `00590f26e`, nullable membership `8cc066c84` and alias link `83eb35cf1`, read-only inventory `a3cf6b3a5`, MDAnalysis guidance `7eacf1654` / receiving `9e8ef6d38`, chemical-form guidance `96c09a1e0`, plus the
+`9a261ebd5`, MDTraj iteration repair `083b7c166` and guidance `00590f26e`, nullable membership `8cc066c84` and alias link `83eb35cf1`, read-only inventory `a3cf6b3a5`, MDAnalysis guidance `7eacf1654` / receiving `9e8ef6d38`, chemical-form guidance `96c09a1e0`, final form guidance/alias receiving `cbab86631` / `b16c43a0d`, NGL/NetworkX repairs `52fb74297`, PDBFixer correspondence `6dd779adc`, verified form closeout `6f7fb24bc`, plus the
 separately received earlier documentation/catalog slices.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
@@ -37,7 +37,7 @@ promotions and publication remain paused pending the agreed resumption.**
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
 | Complete #723's comparable long campaign | The method/default-host baseline passes on `db1706f8a`; the concrete molecular integration passes 63 controls and one actual 5,000-structure cycle on clean `1a899f9f0`. Initial/recovered native targets and 3,720,000-byte buffers clear; the independent witness survives unchanged. Host growth and debugger errors remain explicit. Freeze the comparison composition before the long campaign; preserve original raw outcomes and #615/#713 scopes. |
-| Complete #727 and the admitted pre-1.0 polishing review | Seventy-seven reviewed actual form articles deliver 1,502 intended references to 1,366 independently matched source files. The RDKit/OpenFF/ParmEd block passes 161 adapter and 278 joint source/HTML cases. Nine flagged external-class pages / 178 nodes remain among seventeen unchanged-source cached articles. Continue PyTraj, viewer and miscellaneous forms with explicit optional-provider limits. Preserve original failures and final-pair pause; #741 is optional post-1.0 work. |
+| Preserve completed #727 receiving and continue admitted polishing | #727 and related #742–#744 are publicly closed at verified `6f7fb24bc`. All 95 form notebooks have explicit receiving owners; 86 adapter articles deliver 1,673 intended references to 1,528 independently verified source files. The 340-case joint cohort, 23 selected HTML pages and fifteen fast gates pass. Preserve the original failures, optional-provider limits and complete-source/nightly backlog; this is not final-pair qualification. |
 | Preserve #734's bounded contacts/SASA owner disposition | The [owner contract](native_interface_contacts_sasa_contract.md) and 104-case receiving offer existing public operations for the first Cartesian bundled-element-vdW profile. No concrete new operation gap is established. BindingMT #112 and TopoMT #197 retain application decisions and actual client acceptance; MolSysSuite #195 remains the coordination owner. This finite review adds no release prerequisite. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0; both clients received explicit 1.0 cases. Independent MolSysViewer default-specific receiving is now accepted, including ordinary mechanics save/reopen. Format freeze and exact installed acceptance remain pending. |
 | Resolve #615's original uncertainty | The #707 diagnostics pass Python/Node controls and one cold real-Jupyter initial-canvas guard. The historical failure did not recur; its causal stage or an evidenced bounded environmental disposition remains open. Do not repeat a passing workflow without a new diagnostic question. |
