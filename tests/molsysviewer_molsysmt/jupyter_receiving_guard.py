@@ -15,6 +15,134 @@ from pathlib import Path
 import pytest
 
 
+def _assert_cell_error_result(output):
+    """Require real cell outcomes and independently scoped controller evidence."""
+    result = json.loads((output / "cell-error-result.json").read_text())
+    assert result["schema"] == "molsysmt.jupyter_cell_receiving@1"
+    assert result["outcome"] == "passed", result.get("failure")
+    controls = result["controls"]
+    error = controls["python_error"]
+    assert error["name"] == "JupyterCellError"
+    receiving = error["receiving"]
+    assert receiving["cell_index"] == 1
+    assert receiving["cell_id"] == "receiving-1"
+    assert receiving["phase"] == "python_cell_error"
+    assert receiving["binding_stage"] == "not_started"
+    assert receiving["marker_received"] is False
+    assert receiving["timeout_ms"] == 30000
+    original = receiving["execution"]["python_error"]
+    assert original["name"] == "AssertionError"
+    assert "SYNTHETIC_PRE_SAVE_STRUCTURE_EXPECTED_1_GOT_0" in original["value"]["text"]
+    assert "[redacted]" in original["value"]["text"]
+    missing = controls["absent_marker"]
+    assert missing["name"] == "JupyterMarkerTimeoutError"
+    assert missing["receiving"]["cell_index"] == 3
+    assert missing["receiving"]["phase"] == "cell_marker_missing"
+    assert missing["receiving"]["execution"]["reply_status"] == "ok"
+    for name in [
+        "setup",
+        "success_after_error",
+        "same_cell_second_execution",
+        "warning_stderr",
+        "complete",
+    ]:
+        successful = controls[name]
+        assert successful["marker_received"] is True
+        assert successful["execution"]["request_observed"] is True
+        assert successful["execution"]["reply_status"] == "ok"
+        assert successful["execution"]["idle_received"] is True
+        assert successful["execution"]["python_error"] is None
+    large = controls["bounded_error"]["receiving"]["execution"]["python_error"]
+    assert large["name"] == "RuntimeError"
+    assert large["value"]["truncated"] and large["traceback"]["truncated"]
+    assert len(json.dumps(large)) < 13000
+    assert len(result["synthetic_controllers"]) == 6
+    assert [
+        row["snapshot"]["ownership"] for row in result["synthetic_controllers"]
+    ] == [
+        "previous_or_other",
+        "previous_or_other",
+        "previous_or_other",
+        "unbound",
+        "bound_expected",
+        "unbound",
+    ]
+    bound = result["synthetic_controllers"][4]["snapshot"]
+    assert bound["observed_viewer_id"] == bound["receiving"]["expected_viewer_id"]
+    assert bound["inside_expected_surface"] is True
+    assert bound["receiving"]["binding_stage"] == "bound"
+    unknown = result["synthetic_controllers"][5]["snapshot"]
+    assert unknown["observed_viewer_id"] is None
+    assert unknown["identity_matches"] is None
+    assert result["error_dom"]
+    assert result["kernel"]["forbidden_imports"] == []
+    assert not (output / "settings.json").exists()
+    assert not (output / "config/jupyter_server_config.py").exists()
+    return result
+
+
+def test_actual_cell_error_receiving(tmp_path):
+    """Run actual Jupyter controls explicitly, outside the default unit suite."""
+    viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
+    output = tmp_path / "cell-error-receiving"
+    subprocess.run(
+        [
+            sys.executable,
+            str(Path(__file__).with_name("system_panel_jupyter.py")),
+            "--viewer-root",
+            str(viewer),
+            "--scenario",
+            "cell-errors",
+            "--output",
+            str(output),
+        ],
+        check=True,
+        timeout=240,
+    )
+    _assert_cell_error_result(output)
+
+
+def test_actual_prolonged_python_error_before_binding(tmp_path):
+    """Drive the real prolonged entry point without starting molecular work."""
+    viewer = Path(os.environ["MOLSYSVIEWER_ROOT"]).resolve()
+    output = tmp_path / "prolonged-cell-error"
+    completed = subprocess.run(
+        [
+            sys.executable,
+            str(Path(__file__).with_name("system_panel_jupyter.py")),
+            "--viewer-root",
+            str(viewer),
+            "--scenario",
+            "prolonged-cell-error",
+            "--output",
+            str(output),
+        ],
+        capture_output=True,
+        text=True,
+        timeout=240,
+    )
+    assert completed.returncode == 1, completed.stdout + completed.stderr
+    failure = json.loads((output / "full-failure.json").read_text())
+    assert failure["schema"] == "molsysmt.prolonged_failure@2"
+    assert failure["cell_failure"]["phase"] == "python_cell_error"
+    assert failure["cell_failure"]["cell_index"] == 0
+    assert failure["cell_failure"]["binding_stage"] == "not_started"
+    assert failure["cell_failure"]["timeout_ms"] == 30000
+    assert failure["execution_observation"]["python_error"]["name"] == "AssertionError"
+    assert "SYNTHETIC_INITIAL_CELL_FAILURE_BEFORE_BINDING" in failure["error"]
+    assert failure["native_observation"]["ownership"] == "no_controller"
+    assert (
+        failure["native_observation"]["receiving"]["expected_surface_cell_index"] == 0
+    )
+    assert (
+        json.loads((output / "plain-kernel.json").read_text())["forbidden_imports"]
+        == []
+    )
+    assert not (output / "full-result.json").exists()
+    assert not (output / "settings.json").exists()
+    assert not (output / "config/jupyter_server_config.py").exists()
+
+
 def test_chromium_memory_sampling_retained_and_released_controls(tmp_path):
     """Distinguish retained witnesses from retired objects and backing buffers."""
     output = tmp_path / "memory-sampling.json"

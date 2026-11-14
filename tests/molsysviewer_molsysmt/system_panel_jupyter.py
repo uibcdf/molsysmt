@@ -381,6 +381,8 @@ def main():
             "continuous-session",
             "prolonged-session",
             "host-memory",
+            "cell-errors",
+            "prolonged-cell-error",
         ),
         default="system",
     )
@@ -1216,6 +1218,14 @@ def main():
         from host_memory_fixture import notebook_cells
 
         cells = notebook_cells(output)
+    if args.scenario == "cell-errors":
+        from cell_error_fixture import notebook_cells
+
+        cells = notebook_cells(output)
+    if args.scenario == "prolonged-cell-error":
+        from cell_error_fixture import prolonged_error_cells
+
+        cells = prolonged_error_cells(output)
     (output / "notebooks/system.ipynb").write_text(json.dumps(_notebook(cells)))
     (output / "notebooks/plain.ipynb").write_text(
         json.dumps(_notebook(["print('PLAIN_JUPYTER_CONTROL_OK', 1 + 1)\n"]))
@@ -1316,9 +1326,12 @@ def main():
                         args.node,
                         str(
                             Path(__file__).with_name("prolonged_session_jupyter.mjs")
-                            if args.scenario == "prolonged-session"
+                            if args.scenario
+                            in {"prolonged-session", "prolonged-cell-error"}
                             else Path(__file__).with_name("host_memory_jupyter.mjs")
                             if args.scenario == "host-memory"
+                            else Path(__file__).with_name("cell_error_jupyter.mjs")
+                            if args.scenario == "cell-errors"
                             else Path(__file__).with_name("construction_jupyter.mjs")
                             if args.scenario == "construction"
                             else Path(__file__).with_name(

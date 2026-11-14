@@ -86,6 +86,56 @@ campaign remains pending; these overlapping cohorts are not additive coverage.
 
 ## Technical basis and remaining work
 
+### Receiving Python failures and controller ownership
+
+The prolonged receiver uses the typed cell-execution boundary introduced under
+uibcdf/molsysmt#754. It arms the cell ID from the actual generated notebook,
+matches the observed `execute_request` metadata and its parent message ID on
+the same kernel socket, and retains typed Python errors. A successful cell
+requires an `ok` reply, its matching idle notification and the exact output
+marker line in that cell. Repeated executions do not reuse an earlier reply.
+Unobserved or ambiguous execution evidence is distinct from a completed cell
+whose marker is missing. The default marker deadline remains 30 seconds.
+
+Jupyter's rendered error can use the same stderr MIME type as ordinary stream
+output. Neither a guessed error CSS class nor traceback-like text is a reliable
+exception classifier. The observer supports JSON, legacy binary and v1 kernel
+messages; it does not deserialize widget buffers or retain executed cell code.
+Unrecognized or oversized transport evidence is counted explicitly. This is
+passive test instrumentation, not a public molecular API or a kernel repair.
+
+Failure records name the executing cell, first observed failing phase,
+expected surface/viewer, binding stage and observed controller identity.
+Connected geometry is not attributed to the expected output without both
+identity and containment evidence and a completed bind. Unknown identity
+remains unbound. A prior controller outside the expected surface is labelled
+as such even if its ID happens to match. Original successful cycle records
+retain their separate file. Failure diagnostics redact known credentials,
+bound text and trace/window counts, and do not dump the whole notebook DOM
+or screenshots containing arbitrary Python output.
+
+With the same frozen prerequisites, run the fast protocol controls and explicit
+plain-Jupyter guards:
+
+```bash
+python -m pytest --receptor=llm -n0 \
+  tests/molsysviewer_molsysmt/test_jupyter_cell_receiving.py
+python -m pytest --receptor=llm -n0 \
+  tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_cell_error_receiving \
+  tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_prolonged_python_error_before_binding
+```
+
+The first real guard includes exceptions, successful/repeated execution,
+ordinary stderr, absent markers, redaction and bounded long errors. Its
+controller identities are explicitly synthetic controls in the real Jupyter
+document. The second drives the actual prolonged entry point and expects a
+nonzero producer result from an intentional plain-cell assertion before any
+molecular import, canvas or binding. Neither constitutes a scientific
+save/recovery test, a rerun of the thirty-cycle campaign below, resolution of
+the underlying historical Python/structure disagreement, or #615 acceptance.
+
+### Memory-method references
+
 The task/lifetime reasoning follows the
 [ECMAScript WeakRef rules](https://tc39.es/ecma262/multipage/managing-memory.html#sec-weakrefderef).
 The existing MolSysViewer lifecycle guard supplies prior receiving practice

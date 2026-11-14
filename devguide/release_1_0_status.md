@@ -30,7 +30,7 @@ promotions and publication remain paused pending the agreed resumption.**
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
 | Preserve executed essential examples and #753/#755 repairs | Eleven notebooks receive actual fresh-kernel execution (178 distinct code cells), including native get/info, selection/extraction, ChemicalStates, rings and named hydrogen-bond/H5MSM workflows. Four query tutorials now load bundled snapshots without network; one group-selection predicate is corrected against an independent 80-atom expectation. Fifteen focused controls pass with no skips. Fresh strict Sphinx renders 1,400 pages; all eleven changed articles, plot assets and new catalog links are received. [Receipt](../devtools/data/documentation_examples_receiving_334_20261114.json) preserves original failures and runtime/resource boundaries. This is not the complete notebook corpus, browser or final-pair qualification. |
-| Receive #754 before interpreting the next prolonged Jupyter campaign | The new MolSysViewer report identifies an original pre-save Python assertion masked as a marker timeout, followed by a controller snapshot without verified binding ownership. Current source inspection confirms that diagnostic pattern. The [owning record](pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md) requires real-Jupyter exception/marker and stale-controller controls, first-reached phase, and bounded token-safe attribution. Original private evidence is upstream-reported, not replayed here. This is a receiver correction, distinct from #615 and without assigning its causal component. |
+| Preserve #754 diagnostic correction and receive #756 next | The [#754 record](archive/resolved_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md) reproduces the original marker's 30.008-second misclassification and receives typed execution/phase/binding diagnostics. Seventy-two selected pytest cases pass, including 13 nested Node controls and two actual plain-Jupyter guards. The latter drive the real prolonged entry point before molecular work; six controller cases are synthetic. [Receipt](../devtools/data/jupyter_cell_diagnostics_receiving_754_20261114.json). Incoming [#756](pending_bugs/selection_expression_evaluation_wraps_resource_failures_as_argument_errors.md) now takes priority: preserve MemoryError/OS ENOMEM identity at public selection boundaries using injected exceptions, without actual allocation pressure. Neither correction assigns #615's cause or qualifies the final pair. |
 | Preserve the completed current local source checkpoint | Clean `27ba3d4c8` completes the default selection: **35,191 pass, 16 documented optional skips, zero failures/errors**. The actual native exit is zero and the official receptor reader agrees with the complete same-run JUnit. All 9,012 checked source, 2,581 MolSysViewer and 231 support inputs remain unchanged. The separate registered evidence execution passes 116 cases for 74 nodes with zero skips. [Receipt](../devtools/data/pre_1_0_source_checkpoint_334_20261114.json). Event-detail/extension caps remain explicit; hosted/nightly/platform/final-pair gates are still due. |
 | Preserve #751/#752's bounded corrections | `939e9c1b4` repairs retired topology chemistry in the developer copy probe; 170 selected cases and both literal historical-TopoMT copy modes pass. `df91501ae` preserves maintained API stubs while still generating missing pages; 40 selected rendering/source cases and the actual complete configuration pass. The 1,034-document site produces 1,400 HTML files with zero warnings, unchanged disposable sources, both real ProtonationAssessment method entries and 101 passing intended-reference controls. Original failures and the incomplete first copy's missing-asset warning remain in their receipts. No production molecular code, scientific method, dependency or native binary changes. |
 | Preserve completed #747/#748 correction receiving | Original provider traversal is checked before copying/querying under `54c38f4b8`; `a049a45f9` restores exactly four canonical destination keywords. The 331-case selected cohort, solvate doctest, fifteen fast gates, generator check and full Ruff pass. [Receipt](../devtools/data/source_axis_converter_receiving_747_748_20261113.json). The earlier broad 1,615-case attempt is incomplete at its operational wall limit; original complete failures and later full/nightly qualification remain. |
@@ -59,6 +59,36 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Jupyter error/phase ownership receiving — 2026-11-14
+
+The admitted #754 correction is received against `86efc9fec` plus its recorded
+private receiver/test delta. Actual DOM observation and the original function
+reproduce a Python assertion hidden behind a 30.008-second marker timeout.
+The shared passive observer instead binds typed errors to the manifest cell,
+request and socket. Failure records separate Python execution, canvas and
+controller-binding phases, preserve original errors/deadlines, and bound/redact
+their diagnostics. Unknown identity remains unbound. The original scientific
+fixture, assertions and raw sampler are unchanged.
+
+The final selected command passes **72 pytest cases with no skips**. Thirteen
+Node controls are nested in one case, not additional pytest coverage. Two real
+plain-Jupyter guards receive exception/marker/stderr/long-error behavior and
+the actual prolonged entry point failing before molecular imports or binding.
+Six controller cases in the real document remain explicitly synthetic. The
+[receipt](../devtools/data/jupyter_cell_diagnostics_receiving_754_20261114.json)
+retains the initial locator-only harness failure, the genuine original-function
+failure, exact source/runtime hashes and same-invocation receptor/JUnit results.
+The one-CPU/two-GiB session peaks at 848.34 MiB and preserves more than 16 GiB
+host-available memory. This is not a new molecular session/memory campaign,
+original historical-cause resolution, #615 acceptance or installed qualification.
+
+The complete phase inventory adds incoming #756 from BindingMT: a public
+selection resource error is wrapped as an argument error. Its source handler
+is inspected and the finite synthetic-error owner correction is next, without
+restarting client preparations or held populations. There are 675 non-PR issues
+and no open PRs at this review. Original weighted credit and all paused
+candidate/hosted/tag/publication operations remain unchanged.
 
 ## Executed essential documentation examples — 2026-11-14
 

@@ -4,24 +4,48 @@ import {createRequire} from 'node:module';
 import {readFile,writeFile} from 'node:fs/promises';
 import {dirname,resolve} from 'node:path';
 import {sampleRetirementMemory} from './jupyter_memory_sampling.mjs';
+import {activeControllerSnapshot,observeCellExecutions,receiveCellMarker,receivingText} from './jupyter_cell_receiving.mjs';
 import {installNativeLifetimeObservation,registerNativeSnapshot,receiveNativeDisposal,inspectNativeLifetimes,assertNativeRetirement,retireObservedRows} from './prolonged_native_lifetimes.mjs';
 const config=JSON.parse(await readFile(process.env.MOLSYSVIEWER_JUPYTER_SETTINGS,'utf8'));
 const output=dirname(resolve(process.env.MOLSYSVIEWER_JUPYTER_SETTINGS));
+const notebook=JSON.parse(await readFile(output+'/notebooks/system.ipynb','utf8'));
+const secrets=[config.token];
+const safeDiagnostic=value=>JSON.parse(JSON.stringify(value,(_,item)=>typeof item==='string'?receivingText(item,secrets).text:item));
 const {chromium}=createRequire(config.viewer_root+'/molsysviewer/js/package.json')('playwright');
 const cycles=Number(process.env.MSV_LONG_CYCLES??30),activeSeconds=Number(process.env.MSV_LONG_ACTIVE_SECONDS??30);
 assert.ok(Number.isInteger(cycles)&&cycles>0&&cycles<=30&&activeSeconds>=.5&&activeSeconds<=90);
-let browser,page,cdp,stage='start';const errors=[],baselineErrors=[],records=[],started=Date.now();
+let browser,page,cdp,cellObserver,observationPage,stage='start';
+let receiving={phase:'start',binding_stage:'not_started',expected_viewer_id:null};
+const errors=[],baselineErrors=[],records=[],started=Date.now();
 const cell=(i,p=page)=>p.locator('.jp-NotebookPanel:visible .jp-Cell').nth(i);
 const surface=i=>cell(i).locator('[data-molsysviewer-canvas-output]').first();
-async function execute(i,p=page){await p.getByText(/Isolated molecular tools receiving\s*\|\s*Idle/).waitFor();await cell(i,p).locator('.cm-content').click();await p.getByRole('button',{name:/Run this cell and advance/}).click();}
-async function marker(s){await page.waitForFunction(s=>document.querySelector('.jp-OutputArea-error')||[...document.querySelectorAll('.jp-OutputArea-output')].some(n=>n.textContent.trim()===s),s);assert.equal(await page.locator('.jp-OutputArea-error').count(),0,'Notebook cell reported a Python exception');await page.getByText(s,{exact:true}).waitFor();}
+async function execute(i,p=page){
+ observationPage=p;
+ const freshSurface=p===page&&[0,1,3].includes(i);
+ receiving={...receiving,operation:stage,phase:'waiting_for_kernel_idle',cell_index:i,
+  cell_id:notebook.cells[i]?.id,marker:null,marker_received:false,
+  ...(freshSurface?{surface_kind:'notebook',expected_surface_cell_index:i,expected_viewer_id:null,binding_stage:'not_started'}:{})};
+ await p.getByText(/Isolated molecular tools receiving\s*\|\s*Idle/).waitFor();
+ if(p===page)cellObserver.arm(receiving.cell_id);
+ receiving.phase='requesting_cell_execution';
+ await cell(i,p).locator('.cm-content').click();await p.getByRole('button',{name:/Run this cell and advance/}).click();
+ receiving.phase='cell_execution_requested';
+}
+async function marker(s){receiving.marker=s;await receiveCellMarker(page,cellObserver,receiving);}
+async function canvasReady(i,viewerId){
+ receiving={...receiving,phase:'waiting_for_canvas',surface_kind:'notebook',expected_surface_cell_index:i,
+  expected_viewer_id:viewerId,binding_stage:'not_started'};
+ await surface(i).locator('canvas').waitFor();receiving.phase='canvas_received';
+}
 async function controls(p,scope=p){
+ observationPage=p;receiving.phase='opening_canvas_controls';
  await scope.getByRole('button',{name:'Show canvas controls',exact:true}).focus();
  await p.keyboard.press('Enter');
  // Enter initiates an asynchronous visibility/focus transfer. focus() on a
  // hidden descendant can silently leave the hotspot active. Receive the real
  // transfer in this canvas before the caller targets another button.
  await scope.locator('.molsysviewer-controls button:focus').waitFor({state:'visible'});
+ receiving.phase='canvas_controls_received';
 }
 async function installObservation(p){
  await p.addInitScript(()=>{
@@ -43,20 +67,24 @@ async function installObservation(p){
  });
 }
 async function bind(p,i,viewerId){
+ observationPage=p;receiving={...receiving,phase:'waiting_for_controller_binding',
+  surface_kind:p===page?'notebook':'popup',expected_surface_cell_index:p===page?i:null,
+  expected_viewer_id:viewerId??receiving.expected_viewer_id,binding_stage:'waiting'};
  if(p===page){await surface(i).scrollIntoViewIfNeeded();const handle=await surface(i).elementHandle();try{const ready=await p.waitForFunction(({root,viewerId})=>{
   const c=(window.__longRefs??[]).map(r=>r.deref()).find(c=>c?.canvasHost?.isConnected&&root.contains(c.canvasHost)&&(!viewerId||c.initOptions?.model?.get('runtime_viewer_id')===viewerId));
   if(c){window.__longActive=c;return true;}return false;
  },{root:handle,viewerId});await ready.dispose();}finally{await handle.dispose();}}
  else {const ready=await p.waitForFunction(()=>{const c=(window.__longRefs??[]).map(r=>r.deref()).find(c=>c?.canvasHost?.isConnected);if(c){window.__longActive=c;return true;}return false;});await ready.dispose();}
+ receiving.binding_stage='bound';receiving.phase='controller_bound';
 }
-async function frame(p,index){await p.waitForFunction(index=>window.__longActive?.trajectory.getTrajectoryState().currentFrame===index,index);}
+async function frame(p,index){observationPage=p;receiving.phase='waiting_for_structure_index';receiving.expected_structure_index=index;await p.waitForFunction(index=>window.__longActive?.trajectory.getTrajectoryState().currentFrame===index,index);receiving.phase='structure_index_received';}
 const recordPage=p=>p.on('pageerror',e=>errors.push({stage,error:String(e),stack:e.stack}));
 try{
  browser=await chromium.launch({headless:true,executablePath:config.chromium,args:['--no-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--enable-precise-memory-info','--js-flags=--expose-gc']});
  const plain=await browser.newPage();plain.on('pageerror',e=>baselineErrors.push({error:String(e),stack:e.stack}));await plain.goto(`http://127.0.0.1:${config.port}/lab/workspaces/long-plain-${Date.now()}/tree/plain.ipynb?token=${config.token}`,{waitUntil:'domcontentloaded'});await plain.locator('.jp-Cell').first().filter({hasText:'PLAIN_JUPYTER_CONTROL_OK'}).waitFor();await execute(0,plain);await plain.getByText('PLAIN_JUPYTER_CONTROL_OK 2',{exact:true}).waitFor();await plain.close();
- page=await browser.newPage({viewport:{width:1500,height:1200}});page.setDefaultTimeout(30000);recordPage(page);await installObservation(page);
+ page=await browser.newPage({viewport:{width:1500,height:1200}});page.setDefaultTimeout(30000);recordPage(page);cellObserver=observeCellExecutions(page,{secrets});await installObservation(page);
  await installNativeLifetimeObservation(page);cdp=await page.context().newCDPSession(page);
- await page.goto(`http://127.0.0.1:${config.port}/lab/workspaces/long-${Date.now()}/tree/system.ipynb?token=${config.token}`,{waitUntil:'domcontentloaded'});await cell(0).filter({hasText:'import molsysviewer as msv'}).waitFor();const no=page.getByRole('button',{name:'No',exact:true});if(await no.isVisible())await no.click();await execute(0);await marker('LONG_SETUP_READY');await surface(0).locator('canvas').waitFor();await bind(page,0,JSON.parse(await readFile(output+'/witness-expected.json','utf8')).viewer_id);
+ await page.goto(`http://127.0.0.1:${config.port}/lab/workspaces/long-${Date.now()}/tree/system.ipynb?token=${config.token}`,{waitUntil:'domcontentloaded'});await cell(0).filter({hasText:'import molsysviewer as msv'}).waitFor();const no=page.getByRole('button',{name:'No',exact:true});if(await no.isVisible())await no.click();await execute(0);await marker('LONG_SETUP_READY');receiving.phase='reading_witness_identity';const witnessId=JSON.parse(await readFile(output+'/witness-expected.json','utf8')).viewer_id;await canvasReady(0,witnessId);await bind(page,0,witnessId);
  const witnessInitialization=await page.evaluate(async()=>{
   const c=window.__longActive,canvas=c.plugin.canvas3d;const before=canvas.camera.getSnapshot(),initialAtoms=c.getStructureData()?.elementCount??0;
   const snapshot=await new Promise((resolve,reject)=>{let subscription,requested=false;const timer=setTimeout(()=>{subscription?.unsubscribe();reject(new Error('Witness did not complete its initial molecular framing'));},30000);
@@ -69,7 +97,7 @@ try{
  });await writeFile(output+'/witness-initialization.json',JSON.stringify(witnessInitialization,null,2));
  await registerNativeSnapshot(page,{label:'witness',witness:true});
  for(let n=1;n<=cycles;n++){
-  const cycleStart=Date.now(),cycleStages=[];const stamp=()=>{cycleStages.push({phase:stage,elapsed_ms:Date.now()-cycleStart});console.log('PHASE '+stage);};stage='cycle '+n+' load/edit/calculate';stamp();console.log('CYCLE '+n+' create');await execute(1);await marker('LONG_CREATED_'+n);await surface(1).locator('canvas').waitFor();const expected=JSON.parse(await readFile(output+'/cycle-expected.json','utf8'));await bind(page,1,expected.viewer_id);await frame(page,4999);await page.waitForFunction(expected=>{
+  const cycleStart=Date.now(),cycleStages=[];const stamp=()=>{cycleStages.push({phase:stage,elapsed_ms:Date.now()-cycleStart});console.log('PHASE '+stage);};stage='cycle '+n+' load/edit/calculate';stamp();console.log('CYCLE '+n+' create');await execute(1);await marker('LONG_CREATED_'+n);receiving.phase='reading_created_identity';const expected=JSON.parse(await readFile(output+'/cycle-expected.json','utf8'));await canvasReady(1,expected.viewer_id);await bind(page,1,expected.viewer_id);await frame(page,4999);await page.waitForFunction(expected=>{
    const c=window.__longActive,s=c?.getStructureData();if(s?.elementCount!==expected.atoms)return false;const found={};for(const u of s.units)for(const a of u.elements){const k=u.model.atomicHierarchy.atomSourceIndex.value(a);if(Object.hasOwn(expected.positions,k))found[k]=Array.from(u.conformation.position(a,[0,0,0]));}
    return Object.entries(expected.positions).every(([k,v])=>found[k]?.every((x,i)=>x===Math.fround(v[i])));
   },expected);
@@ -86,7 +114,7 @@ try{
   assert.equal(nextFocused,true,'Next needs actual focus before keyboard activation');
   await canvas.keyboard.press('Enter');await frame(canvas,1);await frame(page,1);
   await controls(canvas);const toggle=canvas.getByTitle('Panel mode (N / W)',{exact:true});if(!await canvas.getByTitle('Popout panel to external window',{exact:true}).isVisible())await toggle.click();const detached=canvas.waitForEvent('popup');await canvas.getByTitle('Popout panel to external window',{exact:true}).click();const studio=await detached;recordPage(studio);await studio.locator('#molsysviewer-loading').waitFor({state:'detached'});await studio.close();await canvas.close();
-  stage='cycle '+n+' coherent save/recovery';stamp();await execute(3);await marker('LONG_RECOVERED_'+n);const recovered=JSON.parse(await readFile(output+'/cycle-recovered.json','utf8'));assert.equal(recovered.structure,1);await surface(3).locator('canvas').waitFor();await bind(page,3,recovered.viewer_id);await frame(page,1);
+  stage='cycle '+n+' coherent save/recovery';stamp();await execute(3);await marker('LONG_RECOVERED_'+n);receiving.phase='reading_recovered_identity';const recovered=JSON.parse(await readFile(output+'/cycle-recovered.json','utf8'));assert.equal(recovered.structure,1);await canvasReady(3,recovered.viewer_id);await bind(page,3,recovered.viewer_id);await frame(page,1);
   await registerNativeSnapshot(page,{label:`cycle-${n}-recovered`});
 
   await execute(4);await marker('LONG_PLAYING_'+n);await surface(3).scrollIntoViewIfNeeded();await bind(page,3,recovered.viewer_id);await page.waitForFunction(()=>window.__longActive.trajectory.getTrajectoryState().isPlaying);
@@ -106,9 +134,23 @@ try{
  const fingerprint=e=>e.error+'|'+(e.stack?.split('\n')[1]||'');assert.ok(errors.every(e=>baselineErrors.some(b=>fingerprint(e)===fingerprint(b))));
  const blocks=[];for(let start=0;start<cycles;start+=10)blocks.push({first_cycle:start+1,last_cycle:Math.min(cycles,start+10),seconds:records.slice(start,start+10).reduce((sum,r)=>sum+r.seconds,0)});
  const result={cycles,active_seconds_per_cycle:activeSeconds,seconds:(Date.now()-started)/1000,blocks,records,native,frame_trace:await page.evaluate(()=>window.__longFrameTrace??[]),errors,baseline_errors:baselineErrors,scope:'One unchanged scientific Jupyter kernel, real source APIs/widgets/Mol*, both popups, coherent session recovery and independent witness. Active playback is observed by native draws and changing structures, not idle waits. Automated source receiving only.'};await writeFile(output+'/full-result.json',JSON.stringify(result,null,2));console.log(JSON.stringify({cycles,result:'passed',seconds:result.seconds,blocks}));
-}catch(error){await writeFile(output+'/full-failure.json',JSON.stringify({stage,error:String(error),stack:error.stack,records,errors,frame_trace:page&&!page.isClosed()?await page.evaluate(()=>window.__longFrameTrace??[]).catch(()=>null):null,native_observation:page&&!page.isClosed()?await page.evaluate(()=>{const c=window.__longActive,s=window.__longPlayback,r=c?.canvasHost?.getBoundingClientRect();return {trajectory:c?.trajectory?.getTrajectoryState(),disposed:c?.disposed,connected:c?.canvasHost?.isConnected,rect:r?{x:r.x,y:r.y,width:r.width,height:r.height}:null,viewport:{width:innerWidth,height:innerHeight},playback:s?{draws:s.draws,distinct_frames:s.frames.size,seconds:(performance.now()-s.started)/1000,last_draw_seconds:(s.lastDraw-s.started)/1000}:null};}).catch(()=>null):null},null,2));if(browser)for(const [i,p] of browser.contexts().flatMap(c=>c.pages()).entries()){try{await writeFile(output+'/window-'+i+'-failure-dom.txt',await p.locator('body').innerText());await p.screenshot({path:output+'/window-'+i+'-failure.png',fullPage:true});}catch{}}
+}catch(error){
+ const snapshots=[];const windows=browser?browser.contexts().flatMap(c=>c.pages()):[];
+ for(const [index,p] of windows.slice(0,8).entries()){
+  const expected=p===observationPage?receiving:{phase:'other_window_at_failure',binding_stage:'not_started',expected_viewer_id:null,surface_kind:'unbound'};
+  snapshots.push({window_index:index,observation:await activeControllerSnapshot(p,expected,{secrets}).catch(()=>({available:false,reason:'snapshot_failed'}))});
+ }
+ const native=await activeControllerSnapshot(observationPage,receiving,{secrets}).catch(()=>({available:false,reason:'snapshot_failed'}));
+ const frameTrace=page&&!page.isClosed()?await page.evaluate(()=>(window.__longFrameTrace??[]).slice(-200)).catch(()=>null):null;
+ const failure={schema:'molsysmt.prolonged_failure@2',stage,error:String(error),stack:error.stack,
+  receiving,cell_failure:error.receiving??null,execution_observation:cellObserver?.snapshot()??null,
+  records,errors:errors.slice(-32),frame_trace:frameTrace,native_observation:native,
+  windows:snapshots,window_count:windows.length,windows_truncated:windows.length>8,
+  diagnostics_scope:'Bounded execution/phase/controller evidence. No whole-notebook DOM or screenshot is collected; original successful cycle records remain in browser-cycles.json.'};
+ await writeFile(output+'/full-failure.json',JSON.stringify(safeDiagnostic(failure),null,2));
  console.error('FAIL '+stage+' '+(error.name??'Error')+'; original diagnostics retained privately');process.exitCode=1;
 }finally{
+ cellObserver?.dispose();
  try{if(cdp)try{await cdp.detach();}catch(error){await writeFile(output+'/cdp-cleanup-error.json',JSON.stringify({name:error.name,message:error.message}));process.exitCode=1;}}
  finally{if(browser)await browser.close();}
 }

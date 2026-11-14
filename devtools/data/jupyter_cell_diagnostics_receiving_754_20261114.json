@@ -1,0 +1,1915 @@
+{
+  "schema": "molsysmt.jupyter_cell_diagnostics_receiving/1",
+  "date": "2026-11-14",
+  "owner_issue": "uibcdf/molsysmt#754",
+  "source_basis": "86efc9fec02781603cb9f6a970b662fad14bc5f0",
+  "state": "Bounded correction and diagnostic receiving complete; original scientific cause, #615 and final-pair requirements remain separate.",
+  "scope": "Passive receiver diagnostics only. Actual plain Jupyter exception/marker/redaction controls, synthetic controller ownership controls, and the actual prolonged entry point failing before molecular work. No original cycle-9 causal replay, molecular algorithms, thirty-cycle memory receiving, installed/platform or final-pair qualification.",
+  "reviewed_delta_sha256": {
+    "tests/molsysviewer_molsysmt/jupyter_cell_receiving.mjs": "8e46ac49ae439c406454f538385cb2a644fcb5dd98b53e69c702872c1856b07d",
+    "tests/molsysviewer_molsysmt/jupyter_cell_receiving.test.mjs": "4d41e5d74d72e612565076e2157248d886bf6a6e9ba499f974b71edcd98846d1",
+    "tests/molsysviewer_molsysmt/cell_error_jupyter.mjs": "9b8493bf792e0dddc31421bdbc39467378dc60a36c69201390ff7bb7b19adffb",
+    "tests/molsysviewer_molsysmt/cell_error_fixture.py": "7af971b78a4831817a4f9832ad18d4b0816eb1ad1c6a8938d2e194bb0c8788c4",
+    "tests/molsysviewer_molsysmt/test_jupyter_cell_receiving.py": "24afb0370476550aaf7a9bc7ea7b8b8e2925e704e867617c23520c3164c496f6",
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "b84b15fa27827ac7d0c8e8ce600e93ef6dff4e809b88e3c84a7dc1c8835c48ec",
+    "tests/molsysviewer_molsysmt/prolonged_session_jupyter.mjs": "5abae21ddd5b950525721073568ccfe56ac630f7cd7481b23c360dccda68e61a",
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "f2d050b95eefe573a8722e6b5cd36d8ad6994089d2c9253cd2b3b6b353d456be",
+    "devguide/jupyter_memory_sampling_method.md": "cfffc90f8806458b47fbad1be5b4eaff0c470b05393061346d14da08cad7579b"
+  },
+  "executions": {
+    "baseline": {
+      "phase": "baseline",
+      "source_commit": "86efc9fec02781603cb9f6a970b662fad14bc5f0",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive #754 Jupyter Python-error/phase/controller diagnostics; no molecular algorithms, original engine-cause, full long-campaign or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.43 0.73 0.88 3/2730 2192970",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.06 total=20376954784\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n M tests/molsysviewer_molsysmt/system_panel_jupyter.py\n?? tests/molsysviewer_molsysmt/cell_error_fixture.py\n?? tests/molsysviewer_molsysmt/cell_error_jupyter.mjs\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "tests/molsysviewer_molsysmt/system_panel_jupyter.py",
+        "--viewer-root",
+        "<checkout>/.pytest_cache/pre1-review-20261110/viewer-5164f13b-ready-source",
+        "--scenario",
+        "cell-errors",
+        "--output",
+        "<checkout>/.pytest_cache/jupyter-errors-754-20261114/baseline-jupyter"
+      ],
+      "checked_inputs": 8213,
+      "seconds": 52.78079145308584,
+      "ending_status": " M devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n M tests/molsysviewer_molsysmt/system_panel_jupyter.py\n?? tests/molsysviewer_molsysmt/cell_error_fixture.py\n?? tests/molsysviewer_molsysmt/cell_error_jupyter.mjs\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 612335616,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17572532224,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "618e007d2849ee7248de07ab36b19b3602a088b1b53a1b3732bd2c06d484f6b1"
+    },
+    "contract-baseline": {
+      "phase": "contract-baseline",
+      "source_commit": "86efc9fec02781603cb9f6a970b662fad14bc5f0",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive #754 Jupyter Python-error/phase/controller diagnostics; no molecular algorithms, original engine-cause, full long-campaign or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.67 0.76 0.87 3/2715 2194043",
+        "cpu_pressure": "some avg10=0.00 avg60=0.89 avg300=0.97 total=20381456004\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n M tests/molsysviewer_molsysmt/system_panel_jupyter.py\n?? tests/molsysviewer_molsysmt/cell_error_fixture.py\n?? tests/molsysviewer_molsysmt/cell_error_jupyter.mjs\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "tests/molsysviewer_molsysmt/system_panel_jupyter.py",
+        "--viewer-root",
+        "<checkout>/.pytest_cache/pre1-review-20261110/viewer-5164f13b-ready-source",
+        "--scenario",
+        "cell-errors",
+        "--output",
+        "<checkout>/.pytest_cache/jupyter-errors-754-20261114/original-jupyter"
+      ],
+      "checked_inputs": 8213,
+      "seconds": 53.74110110476613,
+      "ending_status": " M devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n M tests/molsysviewer_molsysmt/system_panel_jupyter.py\n?? tests/molsysviewer_molsysmt/cell_error_fixture.py\n?? tests/molsysviewer_molsysmt/cell_error_jupyter.mjs\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 607977472,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17594564608,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "618e007d2849ee7248de07ab36b19b3602a088b1b53a1b3732bd2c06d484f6b1"
+    },
+    "facts": {
+      "phase": "facts",
+      "source_commit": "86efc9fec02781603cb9f6a970b662fad14bc5f0",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive #754 Jupyter Python-error/phase/controller diagnostics; no molecular algorithms, original engine-cause, full long-campaign or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.73 0.69 0.81 2/2704 2195988",
+        "cpu_pressure": "some avg10=0.00 avg60=0.05 avg300=0.81 total=20385697916\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n M tests/molsysviewer_molsysmt/system_panel_jupyter.py\n?? tests/molsysviewer_molsysmt/cell_error_fixture.py\n?? tests/molsysviewer_molsysmt/cell_error_jupyter.mjs\n?? tests/molsysviewer_molsysmt/jupyter_cell_receiving.mjs\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "tests/molsysviewer_molsysmt/system_panel_jupyter.py",
+        "--viewer-root",
+        "<checkout>/.pytest_cache/pre1-review-20261110/viewer-5164f13b-ready-source",
+        "--scenario",
+        "cell-errors",
+        "--output",
+        "<checkout>/.pytest_cache/jupyter-errors-754-20261114/protocol-jupyter"
+      ],
+      "checked_inputs": 8214,
+      "seconds": 23.740660426206887,
+      "ending_status": " M devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n M tests/molsysviewer_molsysmt/system_panel_jupyter.py\n?? tests/molsysviewer_molsysmt/cell_error_fixture.py\n?? tests/molsysviewer_molsysmt/cell_error_jupyter.mjs\n?? tests/molsysviewer_molsysmt/jupyter_cell_receiving.mjs\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 607703040,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17648308224,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "618e007d2849ee7248de07ab36b19b3602a088b1b53a1b3732bd2c06d484f6b1"
+    },
+    "corrected": {
+      "phase": "corrected",
+      "source_commit": "86efc9fec02781603cb9f6a970b662fad14bc5f0",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive #754 Jupyter Python-error/phase/controller diagnostics; no molecular algorithms, original engine-cause, full long-campaign or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "7.93 5.69 3.10 5/2878 2199589",
+        "cpu_pressure": "some avg10=24.82 avg60=24.27 avg300=15.42 total=20462453177\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n M tests/molsysviewer_molsysmt/system_panel_jupyter.py\n?? tests/molsysviewer_molsysmt/cell_error_fixture.py\n?? tests/molsysviewer_molsysmt/cell_error_jupyter.mjs\n?? tests/molsysviewer_molsysmt/jupyter_cell_receiving.mjs\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "tests/molsysviewer_molsysmt/system_panel_jupyter.py",
+        "--viewer-root",
+        "<checkout>/.pytest_cache/pre1-review-20261110/viewer-5164f13b-ready-source",
+        "--scenario",
+        "cell-errors",
+        "--output",
+        "<checkout>/.pytest_cache/jupyter-errors-754-20261114/corrected-jupyter"
+      ],
+      "checked_inputs": 8214,
+      "seconds": 26.18990536266938,
+      "ending_status": " M devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n M tests/molsysviewer_molsysmt/system_panel_jupyter.py\n?? tests/molsysviewer_molsysmt/cell_error_fixture.py\n?? tests/molsysviewer_molsysmt/cell_error_jupyter.mjs\n?? tests/molsysviewer_molsysmt/jupyter_cell_receiving.mjs\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 627273728,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15906623488,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "618e007d2849ee7248de07ab36b19b3602a088b1b53a1b3732bd2c06d484f6b1"
+    },
+    "cohort": {
+      "phase": "cohort",
+      "source_commit": "86efc9fec02781603cb9f6a970b662fad14bc5f0",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive #754 Jupyter Python-error/phase/controller diagnostics; no molecular algorithms, original engine-cause, full long-campaign or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "10.94 9.72 6.34 14/2895 2203470",
+        "cpu_pressure": "some avg10=40.51 avg60=39.55 avg300=30.61 total=20626500151\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n M tests/molsysviewer_molsysmt/jupyter_receiving_guard.py\n M tests/molsysviewer_molsysmt/prolonged_session_jupyter.mjs\n M tests/molsysviewer_molsysmt/system_panel_jupyter.py\n?? tests/molsysviewer_molsysmt/cell_error_fixture.py\n?? tests/molsysviewer_molsysmt/cell_error_jupyter.mjs\n?? tests/molsysviewer_molsysmt/jupyter_cell_receiving.mjs\n?? tests/molsysviewer_molsysmt/jupyter_cell_receiving.test.mjs\n?? tests/molsysviewer_molsysmt/test_jupyter_cell_receiving.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--basetemp=<checkout>/.pytest_cache/jupyter-errors-754-20261114/pytest-temporary",
+        "--junitxml=<checkout>/.pytest_cache/jupyter-errors-754-20261114/cohort.xml",
+        "--receptor-events=<checkout>/.pytest_cache/jupyter-errors-754-20261114/cohort.events.jsonl",
+        "tests/molsysviewer_molsysmt/test_jupyter_cell_receiving.py",
+        "tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py",
+        "tests/molsysviewer_molsysmt/test_jupyter_stage_diagnostics.py",
+        "tests/molsysviewer_molsysmt/test_prolonged_memory_receipt.py",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_cell_error_receiving",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_prolonged_python_error_before_binding"
+      ],
+      "checked_inputs": 8216,
+      "seconds": 89.51850946201012,
+      "ending_status": " M devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n M tests/molsysviewer_molsysmt/jupyter_receiving_guard.py\n M tests/molsysviewer_molsysmt/prolonged_session_jupyter.mjs\n M tests/molsysviewer_molsysmt/system_panel_jupyter.py\n?? tests/molsysviewer_molsysmt/cell_error_fixture.py\n?? tests/molsysviewer_molsysmt/cell_error_jupyter.mjs\n?? tests/molsysviewer_molsysmt/jupyter_cell_receiving.mjs\n?? tests/molsysviewer_molsysmt/jupyter_cell_receiving.test.mjs\n?? tests/molsysviewer_molsysmt/test_jupyter_cell_receiving.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 892796928,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15487401984,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "618e007d2849ee7248de07ab36b19b3602a088b1b53a1b3732bd2c06d484f6b1",
+      "receptor_finish": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 72,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 72,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 72,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 82.88604269595817,
+        "exitstatus": 0,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 0
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "9c87ac3b7f18fe9bb844367e4f3e5fc1954eb554e9406e36f9b2b4e545368603",
+          "records": 217
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "PASS",
+        "root_causes": 0,
+        "run_id": "b16d539901f24c36960af4c09f5ac40a",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "same_invocation_junit": {
+        "tests": 72,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "runtime-corrected": {
+      "phase": "runtime-corrected",
+      "source_commit": "86efc9fec02781603cb9f6a970b662fad14bc5f0",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive #754 Jupyter Python-error/phase/controller diagnostics; no molecular algorithms, original engine-cause, full long-campaign or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.85 3.98 5.13 3/2709 2207067",
+        "cpu_pressure": "some avg10=0.00 avg60=0.14 avg300=10.65 total=20669515929\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/jupyter_memory_sampling_method.md\n M devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n M tests/molsysviewer_molsysmt/jupyter_receiving_guard.py\n M tests/molsysviewer_molsysmt/prolonged_session_jupyter.mjs\n M tests/molsysviewer_molsysmt/system_panel_jupyter.py\n?? tests/molsysviewer_molsysmt/cell_error_fixture.py\n?? tests/molsysviewer_molsysmt/cell_error_jupyter.mjs\n?? tests/molsysviewer_molsysmt/jupyter_cell_receiving.mjs\n?? tests/molsysviewer_molsysmt/jupyter_cell_receiving.test.mjs\n?? tests/molsysviewer_molsysmt/test_jupyter_cell_receiving.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--basetemp=<checkout>/.pytest_cache/jupyter-errors-754-20261114/pytest-final",
+        "--junitxml=<checkout>/.pytest_cache/jupyter-errors-754-20261114/runtime-corrected.xml",
+        "--receptor-events=<checkout>/.pytest_cache/jupyter-errors-754-20261114/runtime-corrected.events.jsonl",
+        "tests/molsysviewer_molsysmt/test_jupyter_cell_receiving.py",
+        "tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py",
+        "tests/molsysviewer_molsysmt/test_jupyter_stage_diagnostics.py",
+        "tests/molsysviewer_molsysmt/test_prolonged_memory_receipt.py",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_cell_error_receiving",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_prolonged_python_error_before_binding"
+      ],
+      "checked_inputs": 8220,
+      "seconds": 96.2134771910496,
+      "ending_status": " M devguide/jupyter_memory_sampling_method.md\n M devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n M tests/molsysviewer_molsysmt/jupyter_receiving_guard.py\n M tests/molsysviewer_molsysmt/prolonged_session_jupyter.mjs\n M tests/molsysviewer_molsysmt/system_panel_jupyter.py\n?? tests/molsysviewer_molsysmt/cell_error_fixture.py\n?? tests/molsysviewer_molsysmt/cell_error_jupyter.mjs\n?? tests/molsysviewer_molsysmt/jupyter_cell_receiving.mjs\n?? tests/molsysviewer_molsysmt/jupyter_cell_receiving.test.mjs\n?? tests/molsysviewer_molsysmt/test_jupyter_cell_receiving.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 889544704,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17373765632,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "6303f0c4b3c05443327f055c70a91554e299c7c69d608c85563bd366b1dcd296",
+      "receptor_finish": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 72,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 72,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 72,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 92.42125984234735,
+        "exitstatus": 0,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 0
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "2ee36ebab1970edfd36cc2c3d5ece14e017a294c9b53d2cb8149d88eafa6c595",
+          "records": 217
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "PASS",
+        "root_causes": 0,
+        "run_id": "7f2c469f484c4cf0946def924f5ffa53",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "same_invocation_junit": {
+        "tests": 72,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "initial_probe_disposition": {
+    "scope": "The initial probe failed in its own exact-text locator before invoking the original marker on the raising cell. Preserve its failure and do not count it as a reproduced receiver bug. The next probe waits within the actual output container without assuming a particular traceback text-node layout."
+  },
+  "original_receiver_witness": {
+    "scope": "Original receiver error witness in plain Jupyter; no molecular imports or recovered session.",
+    "marker_source_sha256": "c8a8fb7e93d1c4033b8b616402def6150d4ee115690bca426cc214963ce81dfd",
+    "outcome": "failed",
+    "message_shapes": [
+      {
+        "event": "framesent",
+        "transport": "binary",
+        "bytes": 281,
+        "header": [
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          56,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          61,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          19,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "event": "framesent",
+        "transport": "binary",
+        "bytes": 281,
+        "header": [
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          56,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          61,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          19,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "event": "framereceived",
+        "transport": "binary",
+        "bytes": 520,
+        "header": [
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          56,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          61,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          11,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "event": "framesent",
+        "transport": "binary",
+        "bytes": 281,
+        "header": [
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          56,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          61,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          19,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "event": "framereceived",
+        "transport": "binary",
+        "bytes": 520,
+        "header": [
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          56,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          61,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          11,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "event": "framereceived",
+        "transport": "binary",
+        "bytes": 520,
+        "header": [
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          56,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          61,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          11,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "event": "framereceived",
+        "transport": "binary",
+        "bytes": 520,
+        "header": [
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          56,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          61,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          11,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "event": "framereceived",
+        "transport": "binary",
+        "bytes": 520,
+        "header": [
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          56,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          61,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          11,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "event": "framereceived",
+        "transport": "binary",
+        "bytes": 520,
+        "header": [
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          56,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          61,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          11,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "event": "framereceived",
+        "transport": "binary",
+        "bytes": 1817,
+        "header": [
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          56,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          61,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          22,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "event": "framereceived",
+        "transport": "binary",
+        "bytes": 520,
+        "header": [
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          56,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          61,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          11,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "event": "framereceived",
+        "transport": "binary",
+        "bytes": 526,
+        "header": [
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          56,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          61,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          11,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "error_dom": [
+      {
+        "tag": "DIV",
+        "classes": "lm-Widget jp-OutputArea jp-Cell-outputArea",
+        "mime_type": null,
+        "text": "---------------------------------------------------------------------------\nAssertionError                            Traceback (most recent call last)\nCell In[2], line 1\n----> 1 raise AssertionError('SYNTHETIC_PRE_SAVE_STRUCTURE_EXPECTED_1_GOT_0')\n      2 print('UNREACHED_RECOVERED_MARKER')\n\nAssertionError: SYNTHETIC_PRE_SAVE_STRUCTURE_EXPECTED_1_GOT_0",
+        "children": [
+          {
+            "tag": "DIV",
+            "classes": "lm-Widget lm-Panel jp-OutputArea-child",
+            "mime_type": null
+          },
+          {
+            "tag": "DIV",
+            "classes": "jp-OutputArea-promptOverlay",
+            "mime_type": null
+          }
+        ]
+      },
+      {
+        "tag": "DIV",
+        "classes": "lm-Widget lm-Panel jp-OutputArea-child",
+        "mime_type": null,
+        "text": "---------------------------------------------------------------------------\nAssertionError                            Traceback (most recent call last)\nCell In[2], line 1\n----> 1 raise AssertionError('SYNTHETIC_PRE_SAVE_STRUCTURE_EXPECTED_1_GOT_0')\n      2 print('UNREACHED_RECOVERED_MARKER')\n\nAssertionError: SYNTHETIC_PRE_SAVE_STRUCTURE_EXPECTED_1_GOT_0",
+        "children": [
+          {
+            "tag": "DIV",
+            "classes": "lm-Widget jp-OutputPrompt jp-OutputArea-prompt",
+            "mime_type": null
+          },
+          {
+            "tag": "DIV",
+            "classes": "lm-Widget jp-RenderedText jp-mod-trusted jp-OutputArea-output",
+            "mime_type": "application/vnd.jupyter.stderr"
+          }
+        ]
+      },
+      {
+        "tag": "DIV",
+        "classes": "lm-Widget jp-RenderedText jp-mod-trusted jp-OutputArea-output",
+        "mime_type": "application/vnd.jupyter.stderr",
+        "text": "---------------------------------------------------------------------------\nAssertionError                            Traceback (most recent call last)\nCell In[2], line 1\n----> 1 raise AssertionError('SYNTHETIC_PRE_SAVE_STRUCTURE_EXPECTED_1_GOT_0')\n      2 print('UNREACHED_RECOVERED_MARKER')\n\nAssertionError: SYNTHETIC_PRE_SAVE_STRUCTURE_EXPECTED_1_GOT_0",
+        "children": [
+          {
+            "tag": "PRE",
+            "classes": "",
+            "mime_type": null
+          }
+        ]
+      }
+    ],
+    "original_selector_matches": 0,
+    "observed_error": {
+      "name": "TimeoutError",
+      "message": "page.waitForFunction: Timeout 30000ms exceeded."
+    },
+    "wait_seconds": 30.008,
+    "failure": {
+      "name": "AssertionError",
+      "message": "A Python exception must not become a missing-marker timeout\n+ actual - expected\n\n+ 'TimeoutError'\n- 'JupyterCellError'\n"
+    }
+  },
+  "actual_plain_receiving": {
+    "schema": "molsysmt.jupyter_cell_receiving@1",
+    "outcome": "passed",
+    "scope": "Real plain Jupyter execution/error/marker controls and synthetic controller identity controls; no molecular imports, Mol* canvas or recovered scientific session.",
+    "controls": {
+      "setup": {
+        "operation": "synthetic cell receiving control",
+        "cell_index": 0,
+        "cell_id": "receiving-0",
+        "marker": "CELL_ERROR_READY",
+        "surface_kind": "notebook",
+        "expected_surface_cell_index": 0,
+        "expected_viewer_id": null,
+        "binding_stage": "not_started",
+        "phase": "cell_marker_received",
+        "marker_received": true,
+        "timeout_ms": 30000,
+        "execution": {
+          "cell_id": "receiving-0",
+          "request_observed": true,
+          "ambiguous": false,
+          "reply_status": "ok",
+          "idle_received": true,
+          "python_error": null,
+          "unreadable_messages": 0
+        }
+      },
+      "python_error": {
+        "name": "JupyterCellError",
+        "receiving": {
+          "operation": "synthetic cell receiving control",
+          "cell_index": 1,
+          "cell_id": "receiving-1",
+          "marker": "UNREACHED_RECOVERED_MARKER",
+          "surface_kind": "notebook",
+          "expected_surface_cell_index": 1,
+          "expected_viewer_id": null,
+          "binding_stage": "not_started",
+          "phase": "python_cell_error",
+          "marker_received": false,
+          "timeout_ms": 30000,
+          "execution": {
+            "cell_id": "receiving-1",
+            "request_observed": true,
+            "ambiguous": false,
+            "reply_status": "error",
+            "idle_received": true,
+            "python_error": {
+              "name": "AssertionError",
+              "value": {
+                "text": "SYNTHETIC_PRE_SAVE_STRUCTURE_EXPECTED_1_GOT_0 ?token=[redacted]",
+                "truncated": false,
+                "characters": 63
+              },
+              "traceback": {
+                "text": "---------------------------------------------------------------------------\nAssertionError                            Traceback (most recent call last)\nCell In[2], line 1\n----> 1 raise AssertionError('SYNTHETIC_PRE_SAVE_STRUCTURE_EXPECTED_1_GOT_0 ?token='+_diagnostic_secret)\n      2 print('UNREACHED_RECOVERED_MARKER')\n\nAssertionError: SYNTHETIC_PRE_SAVE_STRUCTURE_EXPECTED_1_GOT_0 ?token=[redacted]",
+                "truncated": false,
+                "characters": 400
+              }
+            },
+            "unreadable_messages": 0
+          }
+        },
+        "elapsed_ms": 422.7651340000011
+      },
+      "success_after_error": {
+        "operation": "synthetic cell receiving control",
+        "cell_index": 2,
+        "cell_id": "receiving-2",
+        "marker": "CELL_ERROR_SUCCESS",
+        "surface_kind": "notebook",
+        "expected_surface_cell_index": 2,
+        "expected_viewer_id": null,
+        "binding_stage": "not_started",
+        "phase": "cell_marker_received",
+        "marker_received": true,
+        "timeout_ms": 30000,
+        "execution": {
+          "cell_id": "receiving-2",
+          "request_observed": true,
+          "ambiguous": false,
+          "reply_status": "ok",
+          "idle_received": true,
+          "python_error": null,
+          "unreadable_messages": 0
+        }
+      },
+      "same_cell_second_execution": {
+        "operation": "synthetic cell receiving control",
+        "cell_index": 2,
+        "cell_id": "receiving-2",
+        "marker": "CELL_ERROR_SUCCESS",
+        "surface_kind": "notebook",
+        "expected_surface_cell_index": 2,
+        "expected_viewer_id": null,
+        "binding_stage": "not_started",
+        "phase": "cell_marker_received",
+        "marker_received": true,
+        "timeout_ms": 30000,
+        "execution": {
+          "cell_id": "receiving-2",
+          "request_observed": true,
+          "ambiguous": false,
+          "reply_status": "ok",
+          "idle_received": true,
+          "python_error": null,
+          "unreadable_messages": 0
+        }
+      },
+      "absent_marker": {
+        "name": "JupyterMarkerTimeoutError",
+        "receiving": {
+          "operation": "synthetic cell receiving control",
+          "cell_index": 3,
+          "cell_id": "receiving-3",
+          "marker": "CELL_ERROR_READY",
+          "surface_kind": "notebook",
+          "expected_surface_cell_index": 3,
+          "expected_viewer_id": null,
+          "binding_stage": "not_started",
+          "phase": "cell_marker_missing",
+          "marker_received": false,
+          "timeout_ms": 2000,
+          "execution": {
+            "cell_id": "receiving-3",
+            "request_observed": true,
+            "ambiguous": false,
+            "reply_status": "ok",
+            "idle_received": true,
+            "python_error": null,
+            "unreadable_messages": 0
+          }
+        }
+      },
+      "warning_stderr": {
+        "operation": "synthetic cell receiving control",
+        "cell_index": 4,
+        "cell_id": "receiving-4",
+        "marker": "CELL_WARNING_SUCCESS",
+        "surface_kind": "notebook",
+        "expected_surface_cell_index": 4,
+        "expected_viewer_id": null,
+        "binding_stage": "not_started",
+        "phase": "cell_marker_received",
+        "marker_received": true,
+        "timeout_ms": 30000,
+        "execution": {
+          "cell_id": "receiving-4",
+          "request_observed": true,
+          "ambiguous": false,
+          "reply_status": "ok",
+          "idle_received": true,
+          "python_error": null,
+          "unreadable_messages": 0
+        }
+      },
+      "bounded_error": {
+        "name": "JupyterCellError",
+        "receiving": {
+          "operation": "synthetic cell receiving control",
+          "cell_index": 5,
+          "cell_id": "receiving-5",
+          "marker": "LONG_ERROR_UNREACHED",
+          "surface_kind": "notebook",
+          "expected_surface_cell_index": 5,
+          "expected_viewer_id": null,
+          "binding_stage": "not_started",
+          "phase": "python_cell_error",
+          "marker_received": false,
+          "timeout_ms": 30000,
+          "execution": {
+            "cell_id": "receiving-5",
+            "request_observed": true,
+            "ambiguous": false,
+            "reply_status": "error",
+            "idle_received": true,
+            "python_error": {
+              "name": "RuntimeError",
+              "value": {
+                "text": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n[truncated]\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX[redacted] END_OF_LONG_EXCEPTION",
+                "truncated": true,
+                "characters": 20032
+              },
+              "traceback": {
+                "text": "---------------------------------------------------------------------------\nRuntimeError                              Traceback (most recent call last)\nCell In[7], line 1\n----> 1 raise RuntimeError('X'*20000+_diagnostic_secret+' END_OF_LONG_EXCEPTION')\n\nRuntimeError: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n[truncated]\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX[redacted] END_OF_LONG_EXCEPTION",
+                "truncated": true,
+                "characters": 20300
+              }
+            },
+            "unreadable_messages": 0
+          }
+        }
+      },
+      "complete": {
+        "operation": "synthetic cell receiving control",
+        "cell_index": 6,
+        "cell_id": "receiving-6",
+        "marker": "CELL_ERROR_COMPLETE",
+        "surface_kind": "notebook",
+        "expected_surface_cell_index": 6,
+        "expected_viewer_id": null,
+        "binding_stage": "not_started",
+        "phase": "cell_marker_received",
+        "marker_received": true,
+        "timeout_ms": 30000,
+        "execution": {
+          "cell_id": "receiving-6",
+          "request_observed": true,
+          "ambiguous": false,
+          "reply_status": "ok",
+          "idle_received": true,
+          "python_error": null,
+          "unreadable_messages": 0
+        }
+      }
+    },
+    "error_dom": [
+      {
+        "classes": "lm-Widget jp-RenderedText jp-mod-trusted jp-OutputArea-output",
+        "mime_type": "application/vnd.jupyter.stderr"
+      }
+    ],
+    "synthetic_controllers": [
+      {
+        "input": {
+          "cellIndex": 0,
+          "id": "previous-controller",
+          "bindingStage": "not_started"
+        },
+        "expected_ownership": "previous_or_other",
+        "snapshot": {
+          "available": true,
+          "observed_viewer_id": "previous-controller",
+          "ownership": "previous_or_other",
+          "inside_expected_surface": false,
+          "identity_matches": false,
+          "connected": true,
+          "disposed": false,
+          "trajectory": {
+            "currentFrame": 0,
+            "isPlaying": false
+          },
+          "rect": {
+            "x": 306,
+            "y": -3777.3125,
+            "width": 840,
+            "height": 0
+          },
+          "viewport": {
+            "width": 1200,
+            "height": 900
+          },
+          "receiving": {
+            "operation": "synthetic cell receiving control",
+            "cell_index": 1,
+            "cell_id": "receiving-1",
+            "marker": "UNREACHED_RECOVERED_MARKER",
+            "surface_kind": "notebook",
+            "expected_surface_cell_index": 1,
+            "expected_viewer_id": "expected-recovered-controller",
+            "binding_stage": "not_started",
+            "phase": "python_cell_error",
+            "marker_received": false,
+            "timeout_ms": 30000
+          }
+        }
+      },
+      {
+        "input": {
+          "cellIndex": 0,
+          "id": "expected-recovered-controller",
+          "bindingStage": "bound"
+        },
+        "expected_ownership": "previous_or_other",
+        "snapshot": {
+          "available": true,
+          "observed_viewer_id": "expected-recovered-controller",
+          "ownership": "previous_or_other",
+          "inside_expected_surface": false,
+          "identity_matches": true,
+          "connected": true,
+          "disposed": false,
+          "trajectory": {
+            "currentFrame": 0,
+            "isPlaying": false
+          },
+          "rect": {
+            "x": 306,
+            "y": -3777.3125,
+            "width": 840,
+            "height": 0
+          },
+          "viewport": {
+            "width": 1200,
+            "height": 900
+          },
+          "receiving": {
+            "operation": "synthetic cell receiving control",
+            "cell_index": 1,
+            "cell_id": "receiving-1",
+            "marker": "UNREACHED_RECOVERED_MARKER",
+            "surface_kind": "notebook",
+            "expected_surface_cell_index": 1,
+            "expected_viewer_id": "expected-recovered-controller",
+            "binding_stage": "bound",
+            "phase": "python_cell_error",
+            "marker_received": false,
+            "timeout_ms": 30000
+          }
+        }
+      },
+      {
+        "input": {
+          "cellIndex": 1,
+          "id": "previous-controller",
+          "bindingStage": "bound"
+        },
+        "expected_ownership": "previous_or_other",
+        "snapshot": {
+          "available": true,
+          "observed_viewer_id": "previous-controller",
+          "ownership": "previous_or_other",
+          "inside_expected_surface": true,
+          "identity_matches": false,
+          "connected": true,
+          "disposed": false,
+          "trajectory": {
+            "currentFrame": 0,
+            "isPlaying": false
+          },
+          "rect": {
+            "x": 306,
+            "y": -3539.75,
+            "width": 840,
+            "height": 0
+          },
+          "viewport": {
+            "width": 1200,
+            "height": 900
+          },
+          "receiving": {
+            "operation": "synthetic cell receiving control",
+            "cell_index": 1,
+            "cell_id": "receiving-1",
+            "marker": "UNREACHED_RECOVERED_MARKER",
+            "surface_kind": "notebook",
+            "expected_surface_cell_index": 1,
+            "expected_viewer_id": "expected-recovered-controller",
+            "binding_stage": "bound",
+            "phase": "python_cell_error",
+            "marker_received": false,
+            "timeout_ms": 30000
+          }
+        }
+      },
+      {
+        "input": {
+          "cellIndex": 1,
+          "id": "expected-recovered-controller",
+          "bindingStage": "not_started"
+        },
+        "expected_ownership": "unbound",
+        "snapshot": {
+          "available": true,
+          "observed_viewer_id": "expected-recovered-controller",
+          "ownership": "unbound",
+          "inside_expected_surface": true,
+          "identity_matches": true,
+          "connected": true,
+          "disposed": false,
+          "trajectory": {
+            "currentFrame": 0,
+            "isPlaying": false
+          },
+          "rect": {
+            "x": 306,
+            "y": -3539.75,
+            "width": 840,
+            "height": 0
+          },
+          "viewport": {
+            "width": 1200,
+            "height": 900
+          },
+          "receiving": {
+            "operation": "synthetic cell receiving control",
+            "cell_index": 1,
+            "cell_id": "receiving-1",
+            "marker": "UNREACHED_RECOVERED_MARKER",
+            "surface_kind": "notebook",
+            "expected_surface_cell_index": 1,
+            "expected_viewer_id": "expected-recovered-controller",
+            "binding_stage": "not_started",
+            "phase": "python_cell_error",
+            "marker_received": false,
+            "timeout_ms": 30000
+          }
+        }
+      },
+      {
+        "input": {
+          "cellIndex": 1,
+          "id": "expected-recovered-controller",
+          "bindingStage": "bound"
+        },
+        "expected_ownership": "bound_expected",
+        "snapshot": {
+          "available": true,
+          "observed_viewer_id": "expected-recovered-controller",
+          "ownership": "bound_expected",
+          "inside_expected_surface": true,
+          "identity_matches": true,
+          "connected": true,
+          "disposed": false,
+          "trajectory": {
+            "currentFrame": 0,
+            "isPlaying": false
+          },
+          "rect": {
+            "x": 306,
+            "y": -3539.75,
+            "width": 840,
+            "height": 0
+          },
+          "viewport": {
+            "width": 1200,
+            "height": 900
+          },
+          "receiving": {
+            "operation": "synthetic cell receiving control",
+            "cell_index": 1,
+            "cell_id": "receiving-1",
+            "marker": "UNREACHED_RECOVERED_MARKER",
+            "surface_kind": "notebook",
+            "expected_surface_cell_index": 1,
+            "expected_viewer_id": "expected-recovered-controller",
+            "binding_stage": "bound",
+            "phase": "python_cell_error",
+            "marker_received": false,
+            "timeout_ms": 30000
+          }
+        }
+      },
+      {
+        "input": {
+          "cellIndex": 1,
+          "id": null,
+          "bindingStage": "bound"
+        },
+        "expected_ownership": "unbound",
+        "snapshot": {
+          "available": true,
+          "observed_viewer_id": null,
+          "ownership": "unbound",
+          "inside_expected_surface": true,
+          "identity_matches": null,
+          "connected": true,
+          "disposed": false,
+          "trajectory": {
+            "currentFrame": 0,
+            "isPlaying": false
+          },
+          "rect": {
+            "x": 306,
+            "y": -3539.75,
+            "width": 840,
+            "height": 0
+          },
+          "viewport": {
+            "width": 1200,
+            "height": 900
+          },
+          "receiving": {
+            "operation": "synthetic cell receiving control",
+            "cell_index": 1,
+            "cell_id": "receiving-1",
+            "marker": "UNREACHED_RECOVERED_MARKER",
+            "surface_kind": "notebook",
+            "expected_surface_cell_index": 1,
+            "expected_viewer_id": "expected-recovered-controller",
+            "binding_stage": "bound",
+            "phase": "python_cell_error",
+            "marker_received": false,
+            "timeout_ms": 30000
+          }
+        }
+      }
+    ],
+    "kernel": {
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "forbidden_imports": []
+    }
+  },
+  "actual_prolonged_failure": {
+    "schema": "molsysmt.prolonged_failure@2",
+    "stage": "start",
+    "error": "JupyterCellError: AssertionError: SYNTHETIC_INITIAL_CELL_FAILURE_BEFORE_BINDING",
+    "stack": "JupyterCellError: AssertionError: SYNTHETIC_INITIAL_CELL_FAILURE_BEFORE_BINDING\n    at fail (file://<checkout>/tests/molsysviewer_molsysmt/jupyter_cell_receiving.mjs:136:23)\n    at receiveCellMarker (file://<checkout>/tests/molsysviewer_molsysmt/jupyter_cell_receiving.mjs:144:36)\n    at async marker (file://<checkout>/tests/molsysviewer_molsysmt/prolonged_session_jupyter.mjs:34:45)\n    at async file://<checkout>/tests/molsysviewer_molsysmt/prolonged_session_jupyter.mjs:87:344",
+    "receiving": {
+      "phase": "python_cell_error",
+      "binding_stage": "not_started",
+      "expected_viewer_id": null,
+      "operation": "start",
+      "cell_index": 0,
+      "cell_id": "receiving-0",
+      "marker": "LONG_SETUP_READY",
+      "marker_received": false,
+      "surface_kind": "notebook",
+      "expected_surface_cell_index": 0,
+      "timeout_ms": 30000
+    },
+    "cell_failure": {
+      "phase": "python_cell_error",
+      "binding_stage": "not_started",
+      "expected_viewer_id": null,
+      "operation": "start",
+      "cell_index": 0,
+      "cell_id": "receiving-0",
+      "marker": "LONG_SETUP_READY",
+      "marker_received": false,
+      "surface_kind": "notebook",
+      "expected_surface_cell_index": 0,
+      "timeout_ms": 30000,
+      "execution": {
+        "cell_id": "receiving-0",
+        "request_observed": true,
+        "ambiguous": false,
+        "reply_status": "error",
+        "idle_received": true,
+        "python_error": {
+          "name": "AssertionError",
+          "value": {
+            "text": "SYNTHETIC_INITIAL_CELL_FAILURE_BEFORE_BINDING",
+            "truncated": false,
+            "characters": 45
+          },
+          "traceback": {
+            "text": "---------------------------------------------------------------------------\nAssertionError                            Traceback (most recent call last)\nCell In[1], line 8\n      4 _forbidden=('molsysmt','molsysviewer','molsysviewer_molsysmt','anywidget')\n      5 _loaded=sorted(name for name in sys.modules if any(name==p or name.startswith(p+'.') for p in _forbidden))\n      6 assert _loaded==[], _loaded\n      7 Path('<checkout>/.pytest_cache/jupyter-errors-754-20261114/pytest-final/test_actual_prolonged_python_e0/prolonged-cell-error/plain-kernel.json').write_text(json.dumps({'python':sys.version,'forbidden_imports':_loaded}))\n----> 8 raise AssertionError('SYNTHETIC_INITIAL_CELL_FAILURE_BEFORE_BINDING')\n\nAssertionError: SYNTHETIC_INITIAL_CELL_FAILURE_BEFORE_BINDING",
+            "truncated": false,
+            "characters": 796
+          }
+        },
+        "unreadable_messages": 0
+      }
+    },
+    "execution_observation": {
+      "cell_id": "receiving-0",
+      "request_observed": true,
+      "ambiguous": false,
+      "reply_status": "error",
+      "idle_received": true,
+      "python_error": {
+        "name": "AssertionError",
+        "value": {
+          "text": "SYNTHETIC_INITIAL_CELL_FAILURE_BEFORE_BINDING",
+          "truncated": false,
+          "characters": 45
+        },
+        "traceback": {
+          "text": "---------------------------------------------------------------------------\nAssertionError                            Traceback (most recent call last)\nCell In[1], line 8\n      4 _forbidden=('molsysmt','molsysviewer','molsysviewer_molsysmt','anywidget')\n      5 _loaded=sorted(name for name in sys.modules if any(name==p or name.startswith(p+'.') for p in _forbidden))\n      6 assert _loaded==[], _loaded\n      7 Path('<checkout>/.pytest_cache/jupyter-errors-754-20261114/pytest-final/test_actual_prolonged_python_e0/prolonged-cell-error/plain-kernel.json').write_text(json.dumps({'python':sys.version,'forbidden_imports':_loaded}))\n----> 8 raise AssertionError('SYNTHETIC_INITIAL_CELL_FAILURE_BEFORE_BINDING')\n\nAssertionError: SYNTHETIC_INITIAL_CELL_FAILURE_BEFORE_BINDING",
+          "truncated": false,
+          "characters": 796
+        }
+      },
+      "unreadable_messages": 0
+    },
+    "records": [],
+    "errors": [
+      {
+        "stage": "start",
+        "error": "Error: No active debugger session",
+        "stack": "Error: No active debugger session\n    at h.displayModules (http://127.0.0.1:56349/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:58713)\n    at d (http://127.0.0.1:56349/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:56349/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:56349/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l (http://127.0.0.1:56349/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13261:41332)\n    at d (http://127.0.0.1:56349/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)\n    at e.emit (http://127.0.0.1:56349/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213088)\n    at o.emit (http://127.0.0.1:56349/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:211075)\n    at l.onAnyMessage (http://127.0.0.1:56349/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13627:75238)\n    at d (http://127.0.0.1:56349/static/lab/jlab_core.2320aca330a6fa6c.js?v=2320aca330a6fa6c:13664:213355)"
+      }
+    ],
+    "frame_trace": [],
+    "native_observation": {
+      "available": true,
+      "observed_viewer_id": null,
+      "ownership": "no_controller",
+      "inside_expected_surface": null,
+      "identity_matches": null,
+      "connected": null,
+      "disposed": null,
+      "trajectory": null,
+      "rect": null,
+      "viewport": {
+        "width": 1500,
+        "height": 1200
+      },
+      "receiving": {
+        "phase": "python_cell_error",
+        "binding_stage": "not_started",
+        "expected_viewer_id": null,
+        "operation": "start",
+        "cell_index": 0,
+        "cell_id": "receiving-0",
+        "marker": "LONG_SETUP_READY",
+        "marker_received": false,
+        "surface_kind": "notebook",
+        "expected_surface_cell_index": 0,
+        "timeout_ms": 30000
+      }
+    },
+    "windows": [
+      {
+        "window_index": 0,
+        "observation": {
+          "available": true,
+          "observed_viewer_id": null,
+          "ownership": "no_controller",
+          "inside_expected_surface": null,
+          "identity_matches": null,
+          "connected": null,
+          "disposed": null,
+          "trajectory": null,
+          "rect": null,
+          "viewport": {
+            "width": 1500,
+            "height": 1200
+          },
+          "receiving": {
+            "phase": "python_cell_error",
+            "binding_stage": "not_started",
+            "expected_viewer_id": null,
+            "operation": "start",
+            "cell_index": 0,
+            "cell_id": "receiving-0",
+            "marker": "LONG_SETUP_READY",
+            "marker_received": false,
+            "surface_kind": "notebook",
+            "expected_surface_cell_index": 0,
+            "timeout_ms": 30000
+          }
+        }
+      }
+    ],
+    "window_count": 1,
+    "windows_truncated": false,
+    "diagnostics_scope": "Bounded execution/phase/controller evidence. No whole-notebook DOM or screenshot is collected; original successful cycle records remain in browser-cycles.json."
+  },
+  "original_marker_deadline_ms": 30000,
+  "node_controls": {
+    "passed": 13,
+    "failed": 0,
+    "tap_sha256": "76ac7e3067b65a3b6dfe188726b69c235d14af89b77598d32bf6f1140a45fd74",
+    "scope": "Nested under one of the 72 pytest cases; not additive pytest coverage."
+  },
+  "actual_runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "plain_host_environment": {
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "packages": {
+        "jupyterlab": "4.6.4",
+        "ipykernel": "7.3.0",
+        "anywidget": "0.11.0",
+        "ipywidgets": "8.1.9"
+      },
+      "node": "v22.22.1"
+    },
+    "prolonged_host_environment": {
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "packages": {
+        "jupyterlab": "4.6.4",
+        "ipykernel": "7.3.0",
+        "anywidget": "0.11.0",
+        "ipywidgets": "8.1.9"
+      },
+      "node": "v22.22.1"
+    },
+    "jupyter_server": "2.21.1",
+    "reference": {
+      "playwright": {
+        "package": "/home/diego/repos@uibcdf/molsysviewer/molsysviewer/js/node_modules/playwright/package.json",
+        "entry": "/home/diego/repos@uibcdf/molsysviewer/molsysviewer/js/node_modules/playwright/index.js",
+        "version": "1.57.0"
+      },
+      "reference_input_sha256": {
+        "/home/diego/repos@uibcdf/molsysviewer/molsysviewer/js/node_modules/playwright/package.json": "07726a5a20b29123d85311af7d11b7de6bf00ddd03121d3c9061995043ebd261",
+        "/home/diego/repos@uibcdf/molsysviewer/molsysviewer/js/node_modules/playwright/index.js": "4e98f65f0a9d9bcab8cffc0c5cfdd87fd3f5b0be74fc494ff166a466b204cd44",
+        "<development-prefix>/lib/python3.14/site-packages/jupyter_server/services/kernels/connection/base.py": "11bf1e6417089d161d13251ba9e0a70ea409539648048187ddc78bbe98ff7132",
+        "<checkout>/tests/molsysviewer_molsysmt/prolonged_session_fixture.py": "eed4e644e216499cd75d495e5ac252d68e54384af685e32ce7a5f86516081a4f"
+      }
+    }
+  },
+  "evidence_policy": {
+    "private_server_logs": "Retained locally; no credential-bearing settings/config/log bytes are published. Runtime files are retired by the tested launcher.",
+    "source_and_native_qualification": "The package/native binary are fingerprinted, not executed in the plain kernels. No new molecular/native qualification is claimed."
+  },
+  "new_board_state": {
+    "non_pr_issues": 675,
+    "open_before_754_closure": 96,
+    "open_prs": 0,
+    "new_issue": "uibcdf/molsysmt#756",
+    "next_scope": "Preserve actual MemoryError and OS ENOMEM objects at public selection boundaries using synthetic exceptions, without allocation pressure."
+  },
+  "original_weighted_progress_change": 0,
+  "publication": "Candidate construction, hosted qualification, tags, promotion and publication remain paused.",
+  "retained_evidence_sha256": {
+    ".pytest_cache/jupyter-errors-754-20261114/quality_commands.json": "c3c465eb7ec1bebd2149b2202df347e939751e4c42863fb7d49a513bf565d50a",
+    ".pytest_cache/jupyter-errors-754-20261114/runtime-corrected-execution.json": "f583a76179b260f1f76ebdce0c698353646daf0c62ebe20f223a5d9768c6f981",
+    ".pytest_cache/jupyter-errors-754-20261114/contract-baseline-driver.py": "618e007d2849ee7248de07ab36b19b3602a088b1b53a1b3732bd2c06d484f6b1",
+    ".pytest_cache/jupyter-errors-754-20261114/runtime-corrected.log": "b5f9a052f9dea52245fe7022586075e8c92d285a7432807a4066d6b6cd9d075f",
+    ".pytest_cache/jupyter-errors-754-20261114/commands.json": "3b0cea571e0b1b9a78d80dd091ba91ca2f1f30cd5e1e88b8988a66c98647da44",
+    ".pytest_cache/jupyter-errors-754-20261114/baseline-cell_error_fixture.py": "934caa3bc6d03a4ae441f54ccd3fdced77484fd80064a3c0de6f8c9054ac4f30",
+    ".pytest_cache/jupyter-errors-754-20261114/cohort.events.jsonl": "f444063f89627a7a3a6a3a51d41ec6f686a8f1a7771a063aa4e44408b1cc9cfb",
+    ".pytest_cache/jupyter-errors-754-20261114/runtime-corrected.events.jsonl": "f8e6c2d62663a9edfafcb80b80c6169e80d82b9ee3eae3836b6561801e297075",
+    ".pytest_cache/jupyter-errors-754-20261114/corrected-jupyter_cell_receiving.mjs": "a9b4d9b02027a95dbc52a9b3bced53a70ca7e34fed02c5d88f95f17c3925b265",
+    ".pytest_cache/jupyter-errors-754-20261114/phase-prs.json": "93a632246f28a39eedc6577fda8be826f662ca408592e96b1b2b26b4256eea3d",
+    ".pytest_cache/jupyter-errors-754-20261114/runtime-corrected-inputs-before.json": "75f143c2a23c67e97bd99badeebbec2739c0ba99a85d685a1c497c69277fe6b8",
+    ".pytest_cache/jupyter-errors-754-20261114/cohort.log": "1d8ab80d9a5466efbcd2661f5efec463fb3c217028456e23eb0ac2ff887babb9",
+    ".pytest_cache/jupyter-errors-754-20261114/final-checks-execution.json": "20dfb29fc22a5deaf74470d38fc8b93c73048efc4c530419813519092ea8fcae",
+    ".pytest_cache/jupyter-errors-754-20261114/owned-service-retirement.json": "e7921b0fb998b976e12da08dec16124fc836d16887d20b51d11697c14fc1e482",
+    ".pytest_cache/jupyter-errors-754-20261114/contract-baseline-inputs-after.json": "a062d98c3882d6cb5cef3a54ebe291f484256d3774a6634be0a024675cfae132",
+    ".pytest_cache/jupyter-errors-754-20261114/corrected-execution.json": "bc9c7f82349294504413f1fc2215b98d47711305172c46dffa0da7b2e4b902be",
+    ".pytest_cache/jupyter-errors-754-20261114/runtime-corrected-driver.py": "6303f0c4b3c05443327f055c70a91554e299c7c69d608c85563bd366b1dcd296",
+    ".pytest_cache/jupyter-errors-754-20261114/baseline.log": "b5b0904015ff5a9fee3689a81ed05f1b21ba2e86378b18f99e5a72b2cb04e1ed",
+    ".pytest_cache/jupyter-errors-754-20261114/quality-results.json": "e908e914800d4654b2e2f765b6a8a42c377297ac13efc050f2b1477e2455a4f9",
+    ".pytest_cache/jupyter-errors-754-20261114/baseline-system_panel_jupyter.py": "92c3e62a566d3f6b3871050afbc6bc015978b248e5b1d756f3ac8c76341473c3",
+    ".pytest_cache/jupyter-errors-754-20261114/baseline-prolonged_session_jupyter.mjs": "e0cfbbbcc45cf5b3c1b0e556254e8b8a932d2f2b567dfaff3672f9aa31c429a5",
+    ".pytest_cache/jupyter-errors-754-20261114/corrected.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".pytest_cache/jupyter-errors-754-20261114/facts.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".pytest_cache/jupyter-errors-754-20261114/facts-execution.json": "9adf01345132895b2d27b13f560528411db9a8c8a5fe475fa5077eb6ddcb8a3a",
+    ".pytest_cache/jupyter-errors-754-20261114/baseline-driver.py": "618e007d2849ee7248de07ab36b19b3602a088b1b53a1b3732bd2c06d484f6b1",
+    ".pytest_cache/jupyter-errors-754-20261114/corrected-inputs-before.json": "6945b472af08ce72d0178c2caba3cde6841861f37b600a9c69f526e981bd2521",
+    ".pytest_cache/jupyter-errors-754-20261114/receive_evidence.py": "c4b62bb4d91478a5836f9d35a83039a6892c6486484b5e7158306f316663b9b5",
+    ".pytest_cache/jupyter-errors-754-20261114/runtime-corrected-inputs-after.json": "75f143c2a23c67e97bd99badeebbec2739c0ba99a85d685a1c497c69277fe6b8",
+    ".pytest_cache/jupyter-errors-754-20261114/final-checks.log": "e5b463d45398796e57725a287e6b03d1f2e7850caf22e063e2d36248aae49674",
+    ".pytest_cache/jupyter-errors-754-20261114/final-checks-inputs-before.json": "68b421244e63c87741bb783ba75ba334cecf2c0eab11d8f0304265d4808aa8a3",
+    ".pytest_cache/jupyter-errors-754-20261114/cohort.xml": "b703ecb1f7e86424d08117588abe38d1bd3af80c6e72aa5a05f25540b9d0795b",
+    ".pytest_cache/jupyter-errors-754-20261114/observed-original-marker-probe.mjs": "a0879f4f35cfc0394c3594c1d52fd4b8107a711d7995072ea00b6abbd08e4a08",
+    ".pytest_cache/jupyter-errors-754-20261114/contract-baseline-inputs-before.json": "a062d98c3882d6cb5cef3a54ebe291f484256d3774a6634be0a024675cfae132",
+    ".pytest_cache/jupyter-errors-754-20261114/corrected-cell_error_jupyter.mjs": "99be1bf1bd5e2eeb13977af5038ad130363a4794807c681081c099bba0a4e514",
+    ".pytest_cache/jupyter-errors-754-20261114/cohort-execution.json": "161551393cd3ce5bbc49a9ab3c256b6f8b61ad0187d75d0241b53068d3e6bb4f",
+    ".pytest_cache/jupyter-errors-754-20261114/contract-baseline.log": "b5b0904015ff5a9fee3689a81ed05f1b21ba2e86378b18f99e5a72b2cb04e1ed",
+    ".pytest_cache/jupyter-errors-754-20261114/final-checks-inputs-after.json": "68b421244e63c87741bb783ba75ba334cecf2c0eab11d8f0304265d4808aa8a3",
+    ".pytest_cache/jupyter-errors-754-20261114/initial-probe-disposition.json": "6d702bc9c3b05879063f12b72bb848a680632705d161fa3870d4c6fd9d8d4146",
+    ".pytest_cache/jupyter-errors-754-20261114/baseline-execution.json": "5d9159653919a9e55752f878f2b931c52eb1c9add51a9879830f925bbd925419",
+    ".pytest_cache/jupyter-errors-754-20261114/facts-driver.py": "618e007d2849ee7248de07ab36b19b3602a088b1b53a1b3732bd2c06d484f6b1",
+    ".pytest_cache/jupyter-errors-754-20261114/baseline-inputs-after.json": "9e3ca1e88fdcde0166a65fafe8d27dd1a1ea62183f5155aa4a1957fea1e8fb7e",
+    ".pytest_cache/jupyter-errors-754-20261114/corrected-driver.py": "618e007d2849ee7248de07ab36b19b3602a088b1b53a1b3732bd2c06d484f6b1",
+    ".pytest_cache/jupyter-errors-754-20261114/cohort-inputs-before.json": "77df9de66ccb9e05869809250b597922d22ddc61669d3a53d2627d49547d4bd1",
+    ".pytest_cache/jupyter-errors-754-20261114/phase-board.json": "8c6e4b6c85e3d5309534055abf0b6e09f85628cf8ce87a13532d80a940cb9b82",
+    ".pytest_cache/jupyter-errors-754-20261114/protocol-observation-probe.mjs": "6259be705fded7e005709514f100e2b6a403b752b107631372b53fb44fb538c3",
+    ".pytest_cache/jupyter-errors-754-20261114/facts-inputs-before.json": "fb2e3d75cc2873b18141d11f7214c46f500383667a906b8212249de92e685fc3",
+    ".pytest_cache/jupyter-errors-754-20261114/cohort-inputs-after.json": "77df9de66ccb9e05869809250b597922d22ddc61669d3a53d2627d49547d4bd1",
+    ".pytest_cache/jupyter-errors-754-20261114/facts-inputs-after.json": "fb2e3d75cc2873b18141d11f7214c46f500383667a906b8212249de92e685fc3",
+    ".pytest_cache/jupyter-errors-754-20261114/baseline-inputs-before.json": "9e3ca1e88fdcde0166a65fafe8d27dd1a1ea62183f5155aa4a1957fea1e8fb7e",
+    ".pytest_cache/jupyter-errors-754-20261114/runtime-corrected.xml": "6c7f5c59a53471186543175748b034b5c8989d0d182bd022188fa14f14c0e080",
+    ".pytest_cache/jupyter-errors-754-20261114/corrected-inputs-after.json": "6945b472af08ce72d0178c2caba3cde6841861f37b600a9c69f526e981bd2521",
+    ".pytest_cache/jupyter-errors-754-20261114/extra-inputs.json": "3ba1de06cbf6a5480172ecf6b9c31e7d851dbbe633c0e118cc6c98304dd40053",
+    ".pytest_cache/jupyter-errors-754-20261114/quality.py": "168af7be28a3a841fe92feed978bef56dafec0e1a1c0fee24904ee701cba831c",
+    ".pytest_cache/jupyter-errors-754-20261114/driver.py": "6303f0c4b3c05443327f055c70a91554e299c7c69d608c85563bd366b1dcd296",
+    ".pytest_cache/jupyter-errors-754-20261114/cohort-driver.py": "618e007d2849ee7248de07ab36b19b3602a088b1b53a1b3732bd2c06d484f6b1",
+    ".pytest_cache/jupyter-errors-754-20261114/baseline-cell_error_jupyter.mjs": "c8eb409e3106761ae8cc8f0f04de8e00f976d098c37bf8c18401dc3e8f65dc23",
+    ".pytest_cache/jupyter-errors-754-20261114/contract-baseline-execution.json": "377dcfcbdabcf786b0ef8fad7433fc2f400ba255342c14dac3e607794f95129d",
+    ".pytest_cache/jupyter-errors-754-20261114/runtime-reference.json": "657e2ffb6a8f55a063551594523113bbc066a53ba0d502ed4aecf2de31296af2",
+    ".pytest_cache/jupyter-errors-754-20261114/final-checks-driver.py": "6303f0c4b3c05443327f055c70a91554e299c7c69d608c85563bd366b1dcd296",
+    ".pytest_cache/jupyter-errors-754-20261114/corrected-cell_error_fixture.py": "3e2b0ebe05e75092ef25e1829e7a8c03a3a4a8056593f9a16c2f42163de075e5"
+  },
+  "owned_service_retirement": {
+    "retired_completed_own_services": 7,
+    "scope": "Only this #754 checkpoint; no foreign processes touched. The controlled prolonged producer failure is required negative evidence, not a successful scientific session.",
+    "services": [
+      {
+        "unit": "msm-jupyter-errors-754-baseline-20261114",
+        "previous": {
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "retired": true
+      },
+      {
+        "unit": "msm-jupyter-errors-754-original-20261114",
+        "previous": {
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "retired": true
+      },
+      {
+        "unit": "msm-jupyter-errors-754-protocol-20261114",
+        "previous": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "retired": true
+      },
+      {
+        "unit": "msm-jupyter-errors-754-corrected-20261114",
+        "previous": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "retired": true
+      },
+      {
+        "unit": "msm-jupyter-errors-754-cohort-20261114",
+        "previous": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "retired": true
+      },
+      {
+        "unit": "msm-jupyter-errors-754-final-cohort-20261114",
+        "previous": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "retired": true
+      },
+      {
+        "unit": "msm-jupyter-errors-754-checks-20261114",
+        "previous": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "retired": true
+      }
+    ]
+  },
+  "quality_checks": {
+    "passed": true,
+    "commands": [
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "seconds": 23.071230431087315,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.4s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        5.4s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.3s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.3s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.0s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.5s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   1.9s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.2s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.1s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.3s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/generate_converter_arguments.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 6.410511048976332,
+        "stdout": "OK: the committed table matches the converters.\nTarget forms: 96 | keywords per target: min 6, max 23, mean 10.3\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.0945558687672019,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.10503214690834284,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.09220928139984608,
+        "stdout": "4733 files already formatted\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.034214052837342024,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/node",
+          "--check",
+          "tests/molsysviewer_molsysmt/prolonged_session_jupyter.mjs"
+        ],
+        "native_exit": 0,
+        "seconds": 0.1471798662096262,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/node",
+          "--check",
+          "tests/molsysviewer_molsysmt/jupyter_cell_receiving.mjs"
+        ],
+        "native_exit": 0,
+        "seconds": 0.13643972110003233,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/node",
+          "--check",
+          "tests/molsysviewer_molsysmt/cell_error_jupyter.mjs"
+        ],
+        "native_exit": 0,
+        "seconds": 0.13562291720882058,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/usr/bin/node",
+          "--check",
+          "tests/molsysviewer_molsysmt/jupyter_cell_receiving.test.mjs"
+        ],
+        "native_exit": 0,
+        "seconds": 0.1282003028318286,
+        "stdout": "",
+        "stderr": ""
+      }
+    ]
+  },
+  "quality_execution": {
+    "phase": "final-checks",
+    "source_commit": "86efc9fec02781603cb9f6a970b662fad14bc5f0",
+    "state": "completed",
+    "native_exit": 0,
+    "host_reserve_bytes": 6979321856,
+    "scope": "Receive #754 Jupyter Python-error/phase/controller diagnostics; no molecular algorithms, original engine-cause, full long-campaign or final-pair qualification.",
+    "host_cpu_at_admission": {
+      "load": "10.20 4.28 4.23 2/2760 2211244",
+      "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=3.54 total=20703219267\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "online_cpus": 20
+    },
+    "starting_status": " M devguide/jupyter_memory_sampling_method.md\n M devguide/pending_bugs/README.md\n D devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n M devguide/release_1_0_status.md\n M tests/molsysviewer_molsysmt/jupyter_receiving_guard.py\n M tests/molsysviewer_molsysmt/prolonged_session_jupyter.mjs\n M tests/molsysviewer_molsysmt/system_panel_jupyter.py\n?? devguide/archive/resolved_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n?? devguide/pending_bugs/selection_expression_evaluation_wraps_resource_failures_as_argument_errors.md\n?? devtools/data/jupyter_cell_diagnostics_receiving_754_20261114.json\n?? tests/molsysviewer_molsysmt/cell_error_fixture.py\n?? tests/molsysviewer_molsysmt/cell_error_jupyter.mjs\n?? tests/molsysviewer_molsysmt/jupyter_cell_receiving.mjs\n?? tests/molsysviewer_molsysmt/jupyter_cell_receiving.test.mjs\n?? tests/molsysviewer_molsysmt/test_jupyter_cell_receiving.py\n",
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "2147483648",
+      "memory.high": "1887436800",
+      "memory.swap.max": "0",
+      "pids.max": "256"
+    },
+    "command": [
+      "<development-prefix>/bin/python",
+      "<checkout>/.pytest_cache/jupyter-errors-754-20261114/quality.py"
+    ],
+    "checked_inputs": 8222,
+    "seconds": 32.73395095905289,
+    "ending_status": " M devguide/jupyter_memory_sampling_method.md\n M devguide/pending_bugs/README.md\n D devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n M devguide/release_1_0_status.md\n M tests/molsysviewer_molsysmt/jupyter_receiving_guard.py\n M tests/molsysviewer_molsysmt/prolonged_session_jupyter.mjs\n M tests/molsysviewer_molsysmt/system_panel_jupyter.py\n?? devguide/archive/resolved_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n?? devguide/pending_bugs/selection_expression_evaluation_wraps_resource_failures_as_argument_errors.md\n?? devtools/data/jupyter_cell_diagnostics_receiving_754_20261114.json\n?? tests/molsysviewer_molsysmt/cell_error_fixture.py\n?? tests/molsysviewer_molsysmt/cell_error_jupyter.mjs\n?? tests/molsysviewer_molsysmt/jupyter_cell_receiving.mjs\n?? tests/molsysviewer_molsysmt/jupyter_cell_receiving.test.mjs\n?? tests/molsysviewer_molsysmt/test_jupyter_cell_receiving.py\n",
+    "changed_inputs": [],
+    "memory_peak_bytes": 405954560,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 17737129984,
+    "maximum_memory_pressure_avg10": 0.0,
+    "pressure_transitions": [],
+    "stop_reason": null,
+    "driver_sha256": "6303f0c4b3c05443327f055c70a91554e299c7c69d608c85563bd366b1dcd296"
+  }
+}
