@@ -1,9 +1,9 @@
 ---
 summary: Fresh import-order timeout lacks pre-deadline child diagnostics
 issue: uibcdf/molsysmt#713
-status: partial
+status: resolved
 opened: 2026-11-11
-closed:
+closed: 2026-11-13
 severity: medium
 verification: reproduced
 area: [tests, api]
@@ -14,6 +14,32 @@ supersedes: []
 ---
 
 # Diagnosing the bounded fresh-import timeout
+
+## Accepted closure — 2026-11-13
+
+After receiving the complete current-source audit, the principal maintainer
+explicitly requests closure of #713. The missing diagnostic evidence is
+corrected and contract-tested: bounded stage markers, a 45-second child stack
+timer and transport of partial text/byte streams preserve the original
+exception, functional assertions and 60-second deadline. The 134-case utility
+module passes; the three actual import orders also pass within both later
+complete source sessions.
+
+Close the investigation on that received evidence and maintainer disposition.
+**The historical timeout cause is still unknown; this is not a demonstrated
+causal repair.** Preserve the original failed run, the later contextual run's
+two separate #747/#748 failures, and their immutable receipts. No incorrect
+export or query result was observed. The named diagnostic guard protects
+partial-stream/error preservation; the actual fresh-process guard continues
+to fail if the unchanged deadline is exceeded again.
+
+The partial/open conclusions below describe the preceding investigative
+checkpoints and are superseded only as lifecycle state by this explicit
+closure. A recurrence must retain its last stage, stack and genuine runner
+status and be investigated with that new evidence. #615/MolSysViewer #384,
+#747/#748, the complete-source/nightly obligation and final installed/platform/
+exact-candidate gates remain separate. This decision authorizes no candidate,
+hosted run, tag, promotion or publication.
 
 ## What
 
@@ -114,7 +140,7 @@ import orders pass, in 13.494, 4.522 and 4.841 seconds, with the unchanged child
 deadline. The 8,883 source/native, 2,581 client and 231 support input hashes
 remain unchanged, and the source ends clean.
 
-The [complete-source receipt](../../devtools/data/complete_durable_source_receiving_334_20261111.json)
+The [complete-source receipt](../../../devtools/data/complete_durable_source_receiving_334_20261111.json)
 retains explicit bounded phase/extension truncation, all 16 skip reasons,
 resource pressure and the earlier failed sessions. Peak charged scope memory
 is about 5.50 GiB, with soft memory-high events and no observed max/OOM events;
@@ -179,10 +205,10 @@ stage, pre-deadline stack and original runner status. Do not run blind repeats
 or a full suite solely to seek a green result. The required final-candidate/
 nightly gates retain their own scope and preserve the old failed session.
 
-The [audit receipt](../../devtools/data/import_stage_and_owner_audit_615_713_20261113.json)
+The [audit receipt](../../../devtools/data/import_stage_and_owner_audit_615_713_20261113.json)
 retains commands, exact input/native/runtime identities, raw-artifact hashes,
 AST proofs, resource limits and measured stages.
-The [completion packet](../pre_1_0_completion_handoffs_20261110.md#maintainer-audit-direction-for-615713--2026-11-13)
+The [completion packet](../../pre_1_0_completion_handoffs_20261110.md#maintainer-audit-direction-for-615713--2026-11-13)
 records the maintainer's audit direction. #615's separate lead handoff is
 uibcdf/molsysviewer#384; it is not evidence of #713's cause.
 
@@ -231,7 +257,7 @@ reserve stop. Minimum observed host available memory is about 9.95 GiB.
 Those measurements neither reserve shared resources nor establish the cause
 of the original timeout.
 
-The [context receipt](../../devtools/data/complete_context_import_receiving_713_20261113.json)
+The [context receipt](../../../devtools/data/complete_context_import_receiving_713_20261113.json)
 retains exact source/provider inputs, command, final counters, per-order times,
 skip reasons, original failed status, raw-artifact hashes and isolated triage.
 The existing audit receipt above remains unchanged.

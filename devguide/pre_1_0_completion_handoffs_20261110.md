@@ -32,6 +32,19 @@ This supplies the current-source full-build increment in handoff stage 1;
 it does not satisfy the future exact-candidate documentation gate or replace
 the maintainer's scientific/editorial review and actual browser receiving.
 
+## Maintainer closure of #713 — 2026-11-13
+
+After reviewing the completed audit, the principal maintainer explicitly asks
+to close #713. The diagnostic gap is corrected and tested; the timeout does
+not recur in the focused, concurrent or later complete-source checks. The
+[archived report](archive/resolved_bugs/fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md#accepted-closure--2026-11-13)
+records the accepted disposition and retained guards. Its historical cause
+is still unknown; no causal repair or reclassification of failed sessions is
+claimed. This supersedes the earlier partial lifecycle state below, without
+accepting #615's separate uncertainty, clearing #747/#748 or waiving any
+complete-source/nightly or final-pair gate. No new execution is needed solely
+to perform this evidence-based administrative closeout.
+
 ## Maintainer audit direction for #615/#713 — 2026-11-13
 
 The maintainer requests a lead-owner handoff for the initial-canvas investigation
@@ -66,7 +79,7 @@ review; no new kernel or independent release prerequisite is established by
 that request. Retain its separate owner review after correctness fixes.
 
 The [initial-canvas report](pending_bugs/intermittent_jupyter_initial_canvas_timeout.md)
-and [fresh-process report](pending_bugs/fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md)
+and [fresh-process report](archive/resolved_bugs/fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md)
 own their evidence and acceptance. The
 [audit receipt](../devtools/data/import_stage_and_owner_audit_615_713_20261113.json)
 records the current receiving and handoff. Mandatory exact-candidate gates and

@@ -43,9 +43,9 @@ promotions and publication remain paused pending the agreed resumption.**
 | Preserve the complete documentation source build | Clean 8f04a1a88 compiles all 1,034 admitted documents, including 499 stored notebooks, into 1,400 HTML files with zero warnings. All 101 actual-reference guards pass on that new site, covering every form notebook and adjacent lifecycle pages. Source/HTML hashes remain unchanged. [Receipt](../devtools/data/complete_documentation_source_receiving_334_20261113.json). No notebook execution, full-site browser review, deployment or final-candidate acceptance is claimed. |
 | Preserve completed #745 reader receiving | Source f9a44bf34 rejects malformed integral headers and checks numbered counts before enumeration. Valid encodings, unit policies and selected-layer limits survive. All 1,566 affected persistence cases/doctests, four strict HTML articles, fifteen local fast gates, indexes and Ruff pass. [Receipt](../devtools/data/h5msm_integer_metadata_receiving_745_20261113.json). This adds no schema or publication claim. |
 | Complete #256's stable-format decision | Development writers default to H5MSM 1.0. Both historical clients received explicit 1.0 cases, and MolSysViewer default-specific receiving is accepted. BindingMT (historical DockingMT) still owes the omitted-version write/migration check under both unit policies; its latest recorded #73 message reports a maintainer-requested pause. Preserve earlier source/native acceptance without adding preparation/docking work. Format freeze and exact installed acceptance remain pending. |
-| Follow the requested #615/#713 audit ownership | The maintainer assigns the #615 lead audit/resolution to MolSysViewer #384, with MolSysMT tracking it as a blocked pre-pair dependency. #713 stays with MolSysMT; the current discriminating audit does not reproduce the timeout. The [completion packet](pre_1_0_completion_handoffs_20261110.md#maintainer-audit-direction-for-615713--2026-11-13) records this direction. The earlier risk proposal is not adopted; score and release gates are unchanged. |
+| Follow the requested #615/#713 audit ownership | The maintainer assigns the #615 lead audit/resolution to MolSysViewer #384, with MolSysMT tracking it as a blocked pre-pair dependency. After reviewing MolSysMT's nonreproducing audit, he explicitly requests #713's closure. The [completion packet](pre_1_0_completion_handoffs_20261110.md#maintainer-closure-of-713--2026-11-13) records the bounded disposition; it does not accept #615's uncertainty or waive release gates. |
 | Receive #615 from its MolSysViewer audit lead | MolSysViewer #384 leads the requested audit; MolSysMT #615 remains blocked. Require accepted resolution and applicable exact-pair receiving before MolSysMT 1.0.0 / MolSysViewer 1.0.0. Keep original failures and kernel/provider support; lead assignment does not prove the causal component. |
-| Preserve #713 audit and causal uncertainty | Current focused/concurrent checks and the 134-case utility module pass. The one declared contextual full run also passes all three fresh-process orders in 4.417–4.463 seconds while failing the separate #747/#748 checks. Stage metadata supplements the unchanged 45-second stack timer/60-second limit. [Audit](../devtools/data/import_stage_and_owner_audit_615_713_20261113.json), [context receipt](../devtools/data/complete_context_import_receiving_713_20261113.json). The historical cause remains unknown; preserve failed sessions and avoid blind repeats. |
+| Preserve #713's accepted closure and diagnostics | The maintainer explicitly accepts closure after the current audit. The diagnostic gap is corrected/tested, and all three actual import orders pass in the contextual full run (4.417–4.463 seconds). The [archived disposition](archive/resolved_bugs/fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md#accepted-closure--2026-11-13) preserves the unknown historical cause, original failures and unchanged stage/stack/deadline guards. #747/#748 and mandatory qualification remain separate. |
 | Review the finite new #746 owner request | BindingMT asks which existing counts, selection/expansion and extraction/permutation maps support declared BindingSite projection. Reuse #734's relevant facts and identify caller preconditions and refusals. No demonstrated new kernel, matcher, serialization gap or release prerequisite is established; schedule this bounded owner disposition after the two correctness fixes. |
 | Preserve #250/#254 source agreement and experimental boundaries | MolSysViewer accepts the exercised sparse/native contracts. Detector profiles, inspection pages and Qt retain their experimental limits. Final-candidate agreement is still due. |
 | Agree the exact clean pair and qualification scope with MolSysViewer | Select new producer commits and unused builds; share immutable files, channels and SHA-256 values when authorized. #524 still needs a published compatible host floor and clean minimum/newer installed workflows. |
@@ -60,6 +60,18 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Accepted #713 closure — 2026-11-13
+
+The principal maintainer explicitly requests closure after receiving the audit
+below. The corrected diagnostic boundary, existing real-process guards and
+nonrecurrence in the later complete source sessions support that disposition.
+The [archived report](archive/resolved_bugs/fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md#accepted-closure--2026-11-13)
+retains exact evidence and states that the original timeout cause is unknown.
+This supersedes earlier partial lifecycle statements, not their observations.
+No historical failure becomes passing; #615/MolSysViewer #384, #747/#748 and
+mandatory final-pair gates remain. Formal weighted accounting and the
+candidate/hosted/publication pause are unchanged.
 
 ## Contextual #713 audit and new correctness intake — 2026-11-13
 
@@ -536,7 +548,7 @@ truncation and this custody gap; neither a recovered monitor nor a valid final
 record turns the session green.
 
 The unchanged three import orders pass once in isolation. The subsequent
-[diagnostic increment](pending_bugs/fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md)
+[diagnostic increment](archive/resolved_bugs/fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md)
 passes 134 element-utility cases, retaining the original functional program,
 assertions and 60-second deadline while exposing a stack at 45 seconds and
 partial streams on timeout. **#713 stays partial**: the next deliberate
