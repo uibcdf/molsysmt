@@ -198,7 +198,10 @@ native-query, state-association and #734 controls. Synthetic chemical values
 test transport and scope, not realistic valence or binding science. No new
 third-party scientific method or attribution boundary is introduced.
 
-BindingMT must review and qualify its real composition on compatible source/
-native/runtime inputs. Its existing `e1e6a337` declaration-only receiving is
-not molecular adoption of these facts. MolSysMT's local tests are not clean
-installed/platform/final-pair qualification or a publication authorization.
+BindingMT must qualify its actual public composition on compatible source/
+native/runtime inputs. Its earlier `e1e6a337` declaration-only receiving is
+not molecular adoption. The [14 November client review](release_1_0_status.md#bounded-bindingmt-facts-received-and-next-external-scope--2026-11-14)
+records the later bounded owner-module receiving; actual public C1 projection
+and C2/M2 application remain separate consumer work. MolSysMT's local tests and
+that finite client profile are not clean installed/platform/final-pair
+qualification or a publication authorization.

@@ -1,0 +1,131 @@
+{
+  "schema": "molsysmt.binding_membership_client_review/1",
+  "date": "2026-11-14",
+  "owner_issue": "uibcdf/molsysmt#746",
+  "consumer_issue": "uibcdf/bindingmt#111",
+  "evidence_level": "Upstream reported execution, independently inspected immutable published source records and owner guard identity; not local replay or independent receipt of private raw logs/XML.",
+  "client_source": "7b11bab5989a60f9bab530530826fa59f7acdfc8",
+  "provider_source_received": "27ba3d4c8d63a6a40a2d77f0190309ff15f4deef",
+  "current_separate_source_checkpoint": "14c984a0b1198dbde3ef43a302dba70e4da8173c",
+  "production_and_default_test_paths_changed_since_received_source": [],
+  "source_documents": [
+    {
+      "path": "devguide/binding_site_molecular_contract_receiving.md",
+      "sha": "8001bd2bbb130957b5ca67adb6e1b9312c3f1379",
+      "encoding": "utf-8",
+      "commit": "7b11bab5989a60f9bab530530826fa59f7acdfc8",
+      "sha256": "e8e1e2532ce3baf074175b796e49fa409cd3c15f5c61a30029916ee808e2c7e5",
+      "bytes": 11663,
+      "git_blob_verified": true
+    },
+    {
+      "path": "devguide/binding_site_implementation_plan.md",
+      "sha": "d9196bb6dab9d2cfed61ec0df8fe1fa66f4825f6",
+      "encoding": "utf-8",
+      "commit": "7b11bab5989a60f9bab530530826fa59f7acdfc8",
+      "sha256": "75db3b2381c8d9c07e9a0db447f19a73e2d2cc589deb55b959abc091854e34e5",
+      "bytes": 54264,
+      "git_blob_verified": true
+    }
+  ],
+  "owner_guard_git_blobs_verified": {
+    "tests/basic/test_binding_site_membership_handoff.py": "991f943b2f17d0cfab2dc53cc4ba542117ad636b",
+    "tests/basic/select/test_structure_scope.py": "58e2018284a7139472e8904f0112a1b4b67bcb6d"
+  },
+  "reported_client_execution": {
+    "membership_module_cases": 18,
+    "selection_bounds_module_cases": 18,
+    "owner_assertions_unchanged": true,
+    "membership_roundtrip_policies": [
+      "nm/ps",
+      "pm/fs"
+    ],
+    "bindingmt_complete_software_cases_per_policy": 500,
+    "software_policies": [
+      "normal",
+      "pm/fs"
+    ],
+    "source_and_native_bytes_unchanged_during_each_profile": "reported by client",
+    "original_scientific_producers_and_held_evaluations": "preserved; not replayed"
+  },
+  "client_native_sha256": "2dbcf13d148cb3ae13a5908707fcdd61c75a2de5027e50c566ce07de81bdb038",
+  "owner_reference_native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "native_limit": "Only exercised operations are received in the client composition; digest difference alone does not prove incompatibility. Builder/source authenticity, the complete native ABI and installed/platform qualification are unassessed by this review.",
+  "reported_resource_bounds": {
+    "serial_cpu": 0,
+    "native_workers": 1,
+    "nice": 10,
+    "available_reserve_gib": 13,
+    "group_rss_stop_mib": 512,
+    "observed_group_peak_mib": "below 301",
+    "resource_interruption": false
+  },
+  "raw_evidence_custody": {
+    "owner": "uibcdf/bindingmt#50",
+    "review_date": "2026-11-21",
+    "private_raw_evidence_received_here": false
+  },
+  "h5msm_scope_inspection": {
+    "guard_calls_convert_without_format_version": true,
+    "guard_asserts_exact_root_version": false,
+    "original_prepared_mechanical_fixtures_exercised": false,
+    "old_file_default_migration_exercised": false,
+    "conclusion": "The successful membership roundtrip does not settle #256 original mechanics-bearing default writing/migration or stable-format freeze."
+  },
+  "still_pending": [
+    "Actual BindingMT resolve_region/public C1 output and C2/M2 adoption",
+    "The separately scheduled original-file default write/migration profile under #256",
+    "MolSysViewer #384 accepted #615 disposition",
+    "#250/#254/#524 exact-final-pair and installed acceptance"
+  ],
+  "workspace_inspection": [
+    {
+      "repository": "uibcdf/molsysmt",
+      "initiative": "stabilization",
+      "branch": "main",
+      "head": "14c984a0b119",
+      "upstream": "origin/main",
+      "ahead": 0,
+      "behind": 0,
+      "error": "",
+      "healthy": true,
+      "state": "current",
+      "dirty_paths": 0,
+      "worktree_preserved": true
+    },
+    {
+      "repository": "uibcdf/molsysviewer",
+      "initiative": "stabilization",
+      "branch": "main",
+      "head": "1a8d630d6416",
+      "upstream": "origin/main",
+      "ahead": 0,
+      "behind": 0,
+      "error": "",
+      "healthy": false,
+      "state": "attention",
+      "dirty_paths": 33,
+      "worktree_preserved": true
+    },
+    {
+      "repository": "uibcdf/bindingmt",
+      "initiative": "",
+      "branch": "",
+      "head": "",
+      "upstream": "",
+      "ahead": 0,
+      "behind": 0,
+      "error": "repository checkout is missing",
+      "healthy": false,
+      "state": "error",
+      "dirty_paths": 0,
+      "worktree_preserved": true
+    }
+  ],
+  "intake": {
+    "complete_issue_count": 671,
+    "complete_open_pr_count": 0
+  },
+  "execution_or_release_authority": "No sibling source edit, new test/build/install/CI, restart of paused work, candidate/tag/promotion or publication is authorized or performed by this review.",
+  "original_weighted_progress_change": 0
+}

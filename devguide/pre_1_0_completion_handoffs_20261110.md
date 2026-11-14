@@ -59,6 +59,23 @@ now supplies the review-packet contents and reader route. The final pair still
 needs agreed exact identities and every mandatory gate after resumption;
 this checkpoint does not lift that pause or alter milestone weights.
 
+## BindingMT finite molecular receiving — 2026-11-14
+
+BindingMT #111 reports actual client receiving on `27ba3d4c8` with its existing
+native `2dbcf13d`: the complete 18-case membership and 18-case selection-bounds
+owner modules pass, together with 500 software cases per normal/pm-fs policy.
+The [published-source review](../devtools/data/binding_membership_client_review_746_20261114.json)
+verifies the immutable `7b11bab5` source records and both owner guard blobs;
+private raw XML/receipts remain consumer-owned and are not replayed here.
+Finite molecular facts are received in that composition. Public C1/resolve_region
+and C2/M2 are still consumer work, not additional MolSysMT 1.0 features.
+
+The membership roundtrip omits format_version, but it neither asserts the
+stored root version nor migrates the original prepared mechanical files.
+It therefore does not settle the separately requested #256 profile below.
+Current source/package acceptance, native build authenticity and final-pair
+qualification retain their own evidence and scope.
+
 ## #746 finite owner disposition and #750 correction — 2026-11-13
 
 The [membership/correspondence contract](native_binding_site_membership_contract.md)
@@ -454,6 +471,50 @@ campaign is needed. Confirm scheduling with that team before execution. This
 is not an additional 1.0 gate or permission to resume their work. The
 [coordination receipt](../devtools/data/h5msm_client_coordination_256_20261113.json)
 records the canonical owner and the bounded read-only observation.
+
+#### Finite default-write and migration receiving
+
+**Scheduling clarification — 2026-11-14:** BindingMT #111 has received #746's
+finite molecular facts. That work does not establish that #73's earlier scope
+has resumed, and its membership-only roundtrip does not replace this existing
+#256 request. Ask the consumer to confirm whether the following storage-only
+profile fits its current maintainer-authorized scope, or remains paused.
+
+Use the same three immutable complete/projected/merged 0.6 files in the
+[existing fixture manifest](../devtools/data/h5msm_p5_review_20261110/manifest.json).
+Retain their accepted original preparation, producer and P5/P6 evidence.
+For each file under the consumer's ordinary and pm/fs policies:
+
+1. Read its native system through the public route and save to a fresh
+   destination with `msm.h5msm.write(molsys, destination)`, omitting
+   format_version.
+2. Migrate the original file to a different fresh destination with
+   `msm.convert(source, to_form=destination)`, also omitting format_version.
+
+Check the actual stored root is H5MSM 1.0 and both outputs reopen. Use the
+existing expected snapshots/client comparisons to check supported mechanical
+tables/reports and parameters, chemical states, maps, coordinates, named sparse
+observations, coverage and original scientific producers. Compare physical
+quantities with explicit units; keep the field-specific dtype and provenance
+contracts rather than treating a displayed magnitude as unit-free. The
+whole-file migration must retain its original-root migration metadata; an
+ordinary resident save does not acquire that file-history claim automatically.
+Verify all source file hashes remain unchanged.
+
+Record actual imported source/native identities, unit policies, commands,
+input/output hashes and complete outcomes, including omissions or failures.
+The owner reference is `27ba3d4c8`; production package and default-test bytes
+are unchanged through the separate `14c984a0b` source checkpoint. A different
+native digest needs the consumer's actual bounded compatibility evidence,
+not an automatic rebuild or a general ABI claim. Keep the producer's actual
+version label, even if it is a development stamp.
+
+This is the remaining default-writing/migration receiving, not a new
+preparation, minimization, docking, C1/resolve_region or scientific campaign.
+Earlier explicit-version and P5 controls remain accepted and are not reopened.
+No new test count, package build, hosted matrix or publication is prescribed;
+schedule confirmation is not permission to restart paused work. The format
+decision and exact installed final pair retain their own acceptance.
 
 
 **Owner:** uibcdf/molsysmt#256 with the DockingMT team.

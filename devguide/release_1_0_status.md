@@ -41,7 +41,8 @@ promotions and publication remain paused pending the agreed resumption.**
 | Follow the requested #615/#713 audit ownership | The maintainer assigns the #615 lead audit/resolution to MolSysViewer #384, with MolSysMT tracking it as a blocked pre-pair dependency. After reviewing MolSysMT's nonreproducing audit, he explicitly requests #713's closure. The [completion packet](pre_1_0_completion_handoffs_20261110.md#maintainer-closure-of-713--2026-11-13) records the bounded disposition; it does not accept #615's uncertainty or waive release gates. |
 | Receive #615 from its MolSysViewer audit lead | MolSysViewer #384 leads the requested audit; MolSysMT #615 remains blocked. Require accepted resolution and applicable exact-pair receiving before MolSysMT 1.0.0 / MolSysViewer 1.0.0. Keep original failures and kernel/provider support; lead assignment does not prove the causal component. |
 | Preserve #713's accepted closure and diagnostics | The maintainer explicitly accepts closure after the current audit. The diagnostic gap is corrected/tested, and all three actual import orders pass in the contextual full run (4.417–4.463 seconds). The [archived disposition](archive/resolved_bugs/fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md#accepted-closure--2026-11-13) preserves the unknown historical cause, original failures and unchanged stage/stack/deadline guards. #747/#748 and mandatory qualification remain separate. |
-| Preserve #746's finite owner offer and #750 correction | The [membership contract](native_binding_site_membership_contract.md) supplies checked native facts, group/atom correspondence, repeated structure occurrences, explicit state scope and caller refusals. #750 repairs branch-dependent structure bounds with the existing validator. The 356-case selected cohort and final overlapping 18-case owner module pass without omissions, plus the select doctest, fifteen fast gates and Ruff. Actual BindingMT composition/adoption remains under its #111. |
+| Preserve #746's finite owner offer, #750 correction and bounded client receiving | The [membership contract](native_binding_site_membership_contract.md) and owner regressions retain their source scope. BindingMT `7b11bab5` reports 18 membership and 18 selection-bounds cases passing on the actual `27ba3d4c8` source with its existing native `2dbcf13d`, plus 500 software controls per normal/pm-fs policy. Immutable published records and both guard blobs are inspected in the [client review](../devtools/data/binding_membership_client_review_746_20261114.json); private raw receipts are not received here. This receives finite exercised facts, not the actual pending `resolve_region`/C1 operation, the complete native ABI or #256's separate original-file migration/default profile. |
+| Receive #671 at the agreed matrix checkpoint | The original macOS/Python 3.12 Conda download failed before science or pytest. Its required provisioning/scientific/full-suite receiving belongs to the already mandated eight-cell corrected-source matrix; no extra matrix, local molecular repair or passing disposition is supplied by the Linux source checkpoint. |
 | Keep the new #749 investigation deferred | PharmacophoreMT explicitly requests a future Pandas alternatives/complements study, not replacement or a current defect claim. Preserve that request and its workload/compatibility criteria for post-1.0; it does not block current molecular-contract delivery or add a release prerequisite. |
 | Preserve #250/#254 source agreement and experimental boundaries | MolSysViewer accepts the exercised sparse/native contracts. Detector profiles, inspection pages and Qt retain their experimental limits. Final-candidate agreement is still due. |
 | Agree the exact clean pair and qualification scope with MolSysViewer | Select new producer commits and unused builds; share immutable files, channels and SHA-256 values when authorized. #524 still needs a published compatible host floor and clean minimum/newer installed workflows. |
@@ -56,6 +57,31 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Bounded BindingMT facts received and next external scope — 2026-11-14
+
+BindingMT #111 publishes client receiving at `7b11bab5989a60f9bab530530826fa59f7acdfc8`.
+Its exact MolSysMT source is `27ba3d4c8`; the client retains native `2dbcf13d`.
+The published account reports both complete owner modules passing: 18 native
+membership/map/state/H5MSM cases and 18 native/file selection-bounds cases.
+The same 500 complete software controls pass per normal/pm-fs policy. This
+review verifies the immutable source-document bytes and both published guard
+Git blobs. Private XML/resource/source receipts remain in the consumer's
+custody; they are not independently received or rerun here. The
+[review receipt](../devtools/data/binding_membership_client_review_746_20261114.json)
+retains those evidence boundaries and the different native identities.
+
+The finite facts are received in that client composition. Actual public C1
+projection, current-finding/check-use guarantees and C2/M2 remain BindingMT
+work. This adds no pre-1.0 feature or scorecard credit. The membership guard's
+default H5MSM roundtrip neither asserts the root version nor migrates the
+original prepared mechanical files; it does not replace #256's remaining
+default-writing/migration profile. Its bounded scheduling request is in the
+[completion packet](pre_1_0_completion_handoffs_20261110.md#finite-default-write-and-migration-receiving).
+The latest recorded #73 pause is preserved for that earlier scope, rather
+than inferred to stop every other BindingMT initiative. MolSysViewer #384
+still has no returned comment at this review; its accepted #615 disposition,
+the exact pair and all applicable qualification remain pending.
 
 ## Complete local source and actual documentation checkpoint — 2026-11-14
 
