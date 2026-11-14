@@ -1,9 +1,9 @@
 ---
 summary: OpenMM solvation checks reconstructed indices instead of source traversal
 issue: uibcdf/molsysmt#747
-status: open
+status: resolved
 opened: 2026-11-13
-closed:
+closed: 2026-11-13
 severity: medium
 verification: reproduced
 area: [build, form]
@@ -16,7 +16,7 @@ supersedes: []
 # Solvation validates a reconstructed provider axis
 
 **Reported:** 2026-11-13, during the contextual complete-source audit for #713.
-**Status:** open; current-source failure independently reproduced.
+**Status:** Resolved in `54c38f4b8`; original provider axes are validated before any reconstruction.
 
 ## What
 
@@ -50,7 +50,7 @@ No incorrect result for a valid canonical input is demonstrated by this test.
 The isolated two-failure cohort reproduces this assertion with unchanged source
 and providers. The source/copy validation order is distinct from any claim
 about the unobserved cause of #713. See the
-[context receipt](../../devtools/data/complete_context_import_receiving_713_20261113.json).
+[context receipt](../../../devtools/data/complete_context_import_receiving_713_20261113.json).
 
 ## What was refuted
 
@@ -78,3 +78,32 @@ unchanged native ABI3 `4ffb82e4`, frozen client/support composition documented
 in the context receipt. Full execution: three workers/3 CPUs/6 GiB; isolated
 receiving: sequential, 1 CPU/1.5 GiB. Both retain a 6.5-GiB host reserve and
 zero own swap. No resource stop or own OOM occurs.
+
+## Resolution and receiving — 2026-11-13
+
+Implementation `54c38f4b8` validates the original represented OpenMM topologies
+before structural queries or conversion. This includes an OpenMM Modeller and
+a combined topology/structures input; native and file inputs keep their general
+conversion routes. Atom, group and chain traversal use one private linear,
+iterator-based check, reused on the working modeller. Source coordinates and
+labels are not copied or modified by validation. The optional import remains
+lazy and DepDigest-guarded; the public ArgDigest boundary and catalogued
+SMonitor error remain in force.
+
+The named guard covers all six axis/form combinations and forbids both working
+Modeller construction and solvent construction after malformed input. It checks
+that the invalid original index and coordinates stay unchanged. A real canonical
+combined input, retained labels/relative coordinates, valid native/provider
+sources, ion replacement and H5MSM persistence also pass. The User Guide,
+solvated-box recipe and common course explain the original-axis refusal; all
+notebook executable cells, outputs and metadata are preserved.
+
+The joint selected receiving passes 331 cases without omissions, including
+solvation, affected public conversions, copy/extraction, addon parity,
+scientific attribution and the solvate doctest. Fifteen fast gates, generator
+consistency and full Ruff checks pass on byte-matched committed source
+`a049a45f9`. The [receiving receipt](../../../devtools/data/source_axis_converter_receiving_747_748_20261113.json)
+retains exact inputs, original negative results, expected warnings and resource
+measurements. A prior oversized 1,615-case attempt stops at its operational
+wall ceiling and remains incomplete; it is not a passed full suite. Original
+complete failures, nightly/exact-candidate gates and the publication pause remain.

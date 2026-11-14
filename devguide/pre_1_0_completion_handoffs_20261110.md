@@ -32,6 +32,21 @@ This supplies the current-source full-build increment in handoff stage 1;
 it does not satisfy the future exact-candidate documentation gate or replace
 the maintainer's scientific/editorial review and actual browser receiving.
 
+## #747/#748 correctness closeout — 2026-11-13
+
+The two failures found by the contextual #713 audit now have source corrections:
+`54c38f4b8` validates original represented OpenMM axes before copying/querying;
+`a049a45f9` restores exactly four destination keywords through regeneration.
+The 331-case selected cohort has zero omissions; it includes real preparation,
+public copy/conversion, addon, attribution and doctest checks. Fifteen fast
+gates, generator consistency and full Ruff pass. The
+[receipt](../devtools/data/source_axis_converter_receiving_747_748_20261113.json)
+preserves exact bytes, providers, negative controls and the separate oversized
+1,615-case attempt, which remains incomplete at its operational wall limit.
+No original full session is relabelled, and mandatory complete/nightly and final
+installed-pair gates remain due. The next finite owner task is #746's existing
+facts/maps review; publication/execution pauses are unchanged.
+
 ## Maintainer closure of #713 — 2026-11-13
 
 After reviewing the completed audit, the principal maintainer explicitly asks

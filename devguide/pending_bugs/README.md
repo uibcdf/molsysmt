@@ -20,12 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (4)
+### Open (2)
 
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
-- [`conversion_keyword_registry_omits_output_filename_for_four_writable_file_forms.md`](conversion_keyword_registry_omits_output_filename_for_four_writable_file_forms.md) — [#748](https://github.com/uibcdf/molsysmt/issues/748) — Conversion keyword registry omits output_filename for four writable file forms *(medium, reproduced)*
 - [`macos_py312_environment_download_failure.md`](macos_py312_environment_download_failure.md) — [#671](https://github.com/uibcdf/molsysmt/issues/671) — Track the macOS Python 3.12 Conda download failure separately from tests. *(medium, upstream)*
-- [`openmm_solvation_checks_reconstructed_indices_instead_of_source_traversal.md`](openmm_solvation_checks_reconstructed_indices_instead_of_source_traversal.md) — [#747](https://github.com/uibcdf/molsysmt/issues/747) — OpenMM solvation checks reconstructed indices instead of source traversal *(medium, reproduced)*
 
 ### Blocked (1)
 

@@ -36,7 +36,7 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
-| Correct the two failures from the declared #713 contextual run | Clean `dec10b9d55` completes with 35,143 passes, two failures and 16 skips, native exit 1. #747 bypasses original provider traversal rejection before solvation; #748 omits `output_filename` for four converter targets. Both also fail in one isolated cohort. Receive focused corrections next; preserve the full failure and later deliberate complete-source/nightly obligation. |
+| Preserve completed #747/#748 correction receiving | Original provider traversal is checked before copying/querying under `54c38f4b8`; `a049a45f9` restores exactly four canonical destination keywords. The 331-case selected cohort, solvate doctest, fifteen fast gates, generator check and full Ruff pass. [Receipt](../devtools/data/source_axis_converter_receiving_747_748_20261113.json). The earlier broad 1,615-case attempt is incomplete at its operational wall limit; original complete failures and later full/nightly qualification remain. |
 | Preserve completed #723 memory receiving | Thirty scientific cycles, final cleanup, 72 controls, unchanged-pilot oracle replay and a fresh host baseline pass on frozen receiver 429d7494b / library-addon 6f7fb24bc / client c5115dff. All 4,914 selected inputs and eight after-use module hashes agree. Selected native targets/buffers retire while the witness survives. Actual CPU transitions, host errors and sampling limits remain explicit; no whole-process leak-free or final-pair claim follows. |
 | Preserve completed #727 receiving and continue admitted polishing | #727 and related #742–#744 are publicly closed at verified `6f7fb24bc`. All 95 form notebooks have explicit receiving owners; 86 adapter articles deliver 1,673 intended references to 1,528 independently verified source files. The 340-case joint cohort, 23 selected HTML pages and fifteen fast gates pass. Preserve the original failures, optional-provider limits and complete-source/nightly backlog; this is not final-pair qualification. |
 | Preserve #734's bounded contacts/SASA owner disposition | The [owner contract](native_interface_contacts_sasa_contract.md) and 104-case receiving offer existing public operations for the first Cartesian bundled-element-vdW profile. No concrete new operation gap is established. BindingMT #112 and TopoMT #197 retain application decisions and actual client acceptance; MolSysSuite #195 remains the coordination owner. This finite review adds no release prerequisite. |
@@ -60,6 +60,36 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Completed #747/#748 source corrections — 2026-11-13
+
+`54c38f4b8` restores refusal of original OpenMM atom/group/chain traversal
+disagreement before structural queries or copying, including combined input.
+The six malformed-source controls forbid both working-copy and solvent
+construction and retain unchanged source data. Canonical combined input,
+labels, relative coordinates and the existing preparation routes pass.
+`a049a45f9` regenerates exactly four missing `output_filename` entries. All
+four public identity-copy routes reach their explicit destinations and retain
+source independence and typo rejection.
+
+The selected source receiving passes **331 cases, zero omissions**, including
+the solvate doctest, relevant solvation, copy/extraction, addon and attribution
+paths. Fifteen fast gates, generator consistency and full Ruff pass. The
+[receipt](../devtools/data/source_axis_converter_receiving_747_748_20261113.json)
+matches the tested selected bytes to clean committed source and independently
+checks frozen provider/native identities. It retains the nine-failure/one-pass
+negative cohort and the broader 1,615-case run stopped at its declared
+operational time ceiling: that attempt has no complete final verdict and is
+not counted as passed. Peak scope memory stays below 0.65 GiB; no own OOM or
+host-reserve stop occurs. Only notebook prose changes; code/outputs/metadata
+remain intact. No new whole-site/browser or notebook-kernel receiving is claimed.
+
+The complete intake still has 667 issues, 96 open and no open PRs before this
+two-issue closeout. No newer report changes the current order. The next finite
+owner work is #746's existing facts/maps review, while #615/MolSysViewer #384,
+stable-format/client decisions and the final installed pair retain their
+dependencies. Weighted accounting, full/nightly/exact-candidate obligations and
+the candidate/hosted/publication pause remain unchanged.
 
 ## Accepted #713 closure — 2026-11-13
 

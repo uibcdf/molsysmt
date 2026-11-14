@@ -1,0 +1,2317 @@
+{
+  "schema": "molsysmt.source_axis_and_converter_registry_receiving/1",
+  "date": "2026-11-13",
+  "owner_issues": [
+    "uibcdf/molsysmt#747",
+    "uibcdf/molsysmt#748"
+  ],
+  "related_issue": "uibcdf/molsysmt#334",
+  "code_source_commit": "a049a45f9eb4581799e142a677440cc26973e217",
+  "implementation_commits": {
+    "747": "54c38f4b802427945de0027a8e977507cd2455fb",
+    "748": "a049a45f9eb4581799e142a677440cc26973e217"
+  },
+  "scope": "Focused source correction receiving of original OpenMM source-axis refusal and four public identity-conversion destination keywords; not a complete suite, final installed pair or publication qualification.",
+  "executions": {
+    "baseline": {
+      "phase": "baseline",
+      "source_commit": "cccadb7d45db9b589c7fb67bdaae3b56cd30aa59",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Focused #747/#748 source correction receiving; not a complete suite or installed/final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.42 0.40 0.39 3/2702 1765883",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=19306357863\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M tests/build/solvate/test_source_identifiers.py\n M tests/test_argument_contract.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1932734464",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/stabilization-747-748-20261113/baseline.xml",
+        "tests/build/solvate/test_source_identifiers.py::test_noncanonical_provider_indices_are_rejected_before_solvent",
+        "tests/test_argument_contract.py::test_public_file_identity_conversion_accepts_canonical_destination"
+      ],
+      "checked_inputs": 8191,
+      "seconds": 11.764110404066741,
+      "ending_status": " M tests/build/solvate/test_source_identifiers.py\n M tests/test_argument_contract.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 296484864,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18293886976,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "8e8d3dbe8107c399ee125eec17db8b14a7f082d7a8c8723c2d8573a3d9f31ee2"
+    },
+    "corrected": {
+      "phase": "corrected",
+      "source_commit": "cccadb7d45db9b589c7fb67bdaae3b56cd30aa59",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Focused #747/#748 source correction receiving; not a complete suite or installed/final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.04 0.60 0.46 3/2706 1766534",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=19306454044\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M molsysmt/build/_solvation_ids.py\n M molsysmt/build/solvate.py\n M tests/build/solvate/test_source_identifiers.py\n M tests/test_argument_contract.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1932734464",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/stabilization-747-748-20261113/corrected.xml",
+        "tests/build/solvate/test_source_identifiers.py"
+      ],
+      "checked_inputs": 8191,
+      "seconds": 25.71112246485427,
+      "ending_status": " M molsysmt/build/_solvation_ids.py\n M molsysmt/build/solvate.py\n M tests/build/solvate/test_source_identifiers.py\n M tests/test_argument_contract.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 332292096,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18303340544,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "2b21ba917fec7c952bf8c647e1a86aec019037a94115eb379b19eeab42028355"
+    },
+    "generate": {
+      "phase": "generate",
+      "source_commit": "cccadb7d45db9b589c7fb67bdaae3b56cd30aa59",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Focused #747/#748 source correction receiving; not a complete suite or installed/final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.69 0.62 0.48 3/2727 1767093",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=19306547485\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M molsysmt/build/_solvation_ids.py\n M molsysmt/build/solvate.py\n M tests/build/solvate/test_source_identifiers.py\n M tests/test_argument_contract.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1932734464",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "devtools/scripts/generate_converter_arguments.py",
+        "--write"
+      ],
+      "checked_inputs": 8191,
+      "seconds": 8.717893609777093,
+      "ending_status": " M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/build/_solvation_ids.py\n M molsysmt/build/solvate.py\n M tests/build/solvate/test_source_identifiers.py\n M tests/test_argument_contract.py\n",
+      "changed_inputs": [
+        "molsysmt/_private/argdigest/domain/converter_arguments.py"
+      ],
+      "memory_peak_bytes": 399458304,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18174124032,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "c5857b0db5ab0b2d4f6c5d9b586640b4ba246a5310793a848d58ed69df33b0e5",
+      "permitted_source_mutation": "molsysmt/_private/argdigest/domain/converter_arguments.py",
+      "only_expected_mutation": true
+    },
+    "receiving": {
+      "phase": "receiving",
+      "source_commit": "cccadb7d45db9b589c7fb67bdaae3b56cd30aa59",
+      "state": "completed",
+      "native_exit": -15,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Focused #747/#748 source correction receiving; not a complete suite or installed/final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.42 0.56 0.48 3/2705 1768544",
+        "cpu_pressure": "some avg10=0.00 avg60=0.01 avg300=0.00 total=19306765059\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/tools/build/solvate.ipynb\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/build/_solvation_ids.py\n M molsysmt/build/solvate.py\n M tests/build/solvate/test_source_identifiers.py\n M tests/test_argument_contract.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1932734464",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/stabilization-747-748-20261113/receiving.xml",
+        "--receptor-events=<checkout>/.pytest_cache/stabilization-747-748-20261113/receiving.events.jsonl",
+        "--doctest-modules",
+        "molsysmt/build/solvate.py",
+        "tests/build/solvate",
+        "tests/test_argument_contract.py",
+        "tests/form/test_whole_file_extraction.py",
+        "tests/form/test_raw_file_copy.py",
+        "tests/form/openmm_Modeller",
+        "tests/form/openmm_Topology",
+        "tests/molsysviewer_molsysmt/test_solvation_tools.py"
+      ],
+      "checked_inputs": 8191,
+      "seconds": 361.96136974263936,
+      "ending_status": " M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/tools/build/solvate.ipynb\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/build/_solvation_ids.py\n M molsysmt/build/solvate.py\n M tests/build/solvate/test_source_identifiers.py\n M tests/test_argument_contract.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 526499840,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 16502259712,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": "Host reserve/pressure or finite wall ceiling reached",
+      "driver_sha256": "7aa98153d0f12b1e527c4f34162a7c2dc0260a4cd099fc88d811ab7cec119801"
+    },
+    "corrected2": {
+      "phase": "corrected2",
+      "source_commit": "cccadb7d45db9b589c7fb67bdaae3b56cd30aa59",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Focused #747/#748 source correction receiving; not a complete suite or installed/final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.65 1.45 1.04 3/2726 1771438",
+        "cpu_pressure": "some avg10=0.00 avg60=0.34 avg300=1.42 total=19317526348\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/tools/build/solvate.ipynb\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/build/_solvation_ids.py\n M molsysmt/build/solvate.py\n M tests/build/solvate/test_source_identifiers.py\n M tests/test_argument_contract.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1932734464",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/stabilization-747-748-20261113/corrected2.xml",
+        "--receptor-events=<checkout>/.pytest_cache/stabilization-747-748-20261113/corrected2.events.jsonl",
+        "--doctest-modules",
+        "molsysmt/build/solvate.py",
+        "tests/build/solvate",
+        "tests/test_argument_contract.py",
+        "tests/form/test_whole_file_extraction.py",
+        "tests/form/test_raw_file_copy.py",
+        "tests/form/openmm_Modeller/test_extraction_axes.py",
+        "tests/form/openmm_Topology/test_copy_and_extract_metadata.py",
+        "tests/molsysviewer_molsysmt/test_solvation_tools.py"
+      ],
+      "checked_inputs": 8191,
+      "seconds": 103.80230397405103,
+      "ending_status": " M docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb\n M docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb\n M docs/content/user/tools/build/solvate.ipynb\n M molsysmt/_private/argdigest/domain/converter_arguments.py\n M molsysmt/build/_solvation_ids.py\n M molsysmt/build/solvate.py\n M tests/build/solvate/test_source_identifiers.py\n M tests/test_argument_contract.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 690434048,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17728466944,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "7aa98153d0f12b1e527c4f34162a7c2dc0260a4cd099fc88d811ab7cec119801"
+    },
+    "checks": {
+      "phase": "checks",
+      "source_commit": "a049a45f9eb4581799e142a677440cc26973e217",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Focused #747/#748 source correction receiving; not a complete suite or installed/final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "4.27 2.50 1.51 3/2705 1773394",
+        "cpu_pressure": "some avg10=2.03 avg60=7.38 avg300=3.25 total=19326763019\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": "",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1932734464",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/stabilization-747-748-20261113/final_checks.py"
+      ],
+      "checked_inputs": 8191,
+      "seconds": 36.73609393602237,
+      "ending_status": "",
+      "changed_inputs": [],
+      "memory_peak_bytes": 491696128,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18035146752,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "7aa98153d0f12b1e527c4f34162a7c2dc0260a4cd099fc88d811ab7cec119801"
+    }
+  },
+  "original_product_regression_counts": {
+    "passed": 1,
+    "failed": 9,
+    "errors": 0,
+    "skipped": 0
+  },
+  "complete_focused_junit_counts": {
+    "executed": 331,
+    "passed": 331,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "complete_focused_canonical_final": {
+    "artifact_policy": {
+      "dropped_records": 0,
+      "max_bytes": 52428800,
+      "truncated": false
+    },
+    "complete": true,
+    "counts": {
+      "collected": 331,
+      "deselected": 0,
+      "errors": 0,
+      "executed": 331,
+      "failed": 0,
+      "not_executed": 0,
+      "passed": 331,
+      "reruns": 0,
+      "skipped": 0,
+      "subtests": {},
+      "warnings": 54,
+      "xfailed": 0,
+      "xpassed": 0
+    },
+    "duration": 97.05260204710066,
+    "exitstatus": 0,
+    "extensions": {
+      "dropped": 0,
+      "incomplete": false,
+      "recorded": 29
+    },
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "0f2fa8ab057c831bdd69a287a1bedddfc18dee511a6714850fb930233a5e590b",
+      "records": 1077
+    },
+    "invalid_selections": [],
+    "note": "",
+    "outcome": "PASS",
+    "root_causes": 0,
+    "run_id": "c281a7cb706e4cf29247b1a32b5c1d52",
+    "schema": "pytest-receptor.events@1",
+    "stop_reason": "",
+    "type": "session_finish"
+  },
+  "focused_cases": [
+    {
+      "classname": "molsysmt.build.solvate",
+      "name": "molsysmt.build.solvate.solvate",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_openmm_applies_explicit_ion_counts[0-0]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_openmm_applies_explicit_ion_counts[2-2]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_openmm_applies_explicit_ion_counts[1-0]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_openmm_applies_explicit_ion_counts[0-1]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_openmm_mixed_neutralization_uses_parameterized_charge[AlaLysPro-1]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_openmm_mixed_neutralization_uses_parameterized_charge[AlaAspPro--1]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_openmm_native_placement_shapes_and_equivalent_units[cubic]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_openmm_native_placement_shapes_and_equivalent_units[truncated octahedral]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_openmm_native_placement_shapes_and_equivalent_units[rhombic dodecahedral]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_openmm_explicit_counts_and_salt_are_additive",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_four_site_waters_are_replaced_completely",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_native_default_charge_approximation_is_explicit",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_pdbfixer_default_route_still_constructs_solvent",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_pdbfixer_rejects_unsupported_controls_before_construction[counts0]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_pdbfixer_rejects_unsupported_controls_before_construction[counts1]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_pdbfixer_rejects_unsupported_controls_before_construction[counts2]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_invalid_requests_fail_before_openmm_construction[counts0]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_invalid_requests_fail_before_openmm_construction[counts1]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_invalid_requests_fail_before_openmm_construction[counts2]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_explicit_ion_counts",
+      "name": "test_invalid_requests_fail_before_openmm_construction[counts3]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_scientific_attribution",
+      "name": "test_alternative_models_share_software_but_keep_separate_uses[OBC1-order0]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_scientific_attribution",
+      "name": "test_alternative_models_share_software_but_keep_separate_uses[OBC1-order1]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_scientific_attribution",
+      "name": "test_alternative_models_share_software_but_keep_separate_uses[OBC2-order0]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_scientific_attribution",
+      "name": "test_alternative_models_share_software_but_keep_separate_uses[OBC2-order1]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_scientific_attribution",
+      "name": "test_optional_tracking_preserves_solvation_and_detached_provenance[absent]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_scientific_attribution",
+      "name": "test_optional_tracking_preserves_solvation_and_detached_provenance[broken]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_tiled_water_uses_authoritative_bond_table",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_rejects_multiple_structures_before_engine_work[MolSysMT]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_rejects_multiple_structures_before_engine_work[OpenMM]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_rejects_multiple_structures_before_engine_work[PDBFixer]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_returns_molsys",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_atom_count_increases",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_has_water_molecules",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_cubic_box_is_cube",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_clearance_respected",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_box_orthogonal",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_no_overlap_with_solute",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_spce_water_model",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_spc_water_model",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_truncated_octahedral_has_water",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_rhombic_dodecahedral_has_water",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_truncated_octahedral_no_overlap",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_truncated_octahedral_box_has_nonzero_offdiag",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_explicit_cation",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_explicit_anion",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_ion_min_distance_from_solute",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_engine_MolSysMT",
+      "name": "test_solvate_raises_for_unsupported_water_model",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_molsysmt_MolSys",
+      "name": "test_solvate_molsysmt_MolSys_1",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_molsysmt_MolSys",
+      "name": "test_solvate_molsysmt_MolSys_2",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_solvate_molsysmt_MolSys",
+      "name": "test_solvate_molsysmt_MolSys_3",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_source_atom_and_group_ids_are_preserved[False-numeric]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_source_atom_and_group_ids_are_preserved[False-nonconsecutive]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_source_atom_and_group_ids_are_preserved[False-arbitrary]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_source_atom_and_group_ids_are_preserved[False-missing]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_source_atom_and_group_ids_are_preserved[False-duplicates]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_source_atom_and_group_ids_are_preserved[False-literal_sentinels]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_source_atom_and_group_ids_are_preserved[True-numeric]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_source_atom_and_group_ids_are_preserved[True-nonconsecutive]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_source_atom_and_group_ids_are_preserved[True-arbitrary]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_source_atom_and_group_ids_are_preserved[True-missing]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_source_atom_and_group_ids_are_preserved[True-duplicates]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_source_atom_and_group_ids_are_preserved[True-literal_sentinels]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_bundled_missing_ids_no_longer_prevent_solvation",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_h5msm_preserves_missing_and_literal_ids",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_foreign_input_and_output_keep_present_labels",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_original_water_replacement_uses_ion_map_instead_of_prefix",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_noncanonical_provider_indices_are_rejected_before_solvent[atom-modeller]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_noncanonical_provider_indices_are_rejected_before_solvent[atom-combined]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_noncanonical_provider_indices_are_rejected_before_solvent[group-modeller]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_noncanonical_provider_indices_are_rejected_before_solvent[group-combined]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_noncanonical_provider_indices_are_rejected_before_solvent[chain-modeller]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_noncanonical_provider_indices_are_rejected_before_solvent[chain-combined]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.build.solvate.test_source_identifiers",
+      "name": "test_canonical_combined_provider_source_keeps_labels_and_coordinates",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_the_typo_that_silently_read_a_whole_trajectory_now_raises",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_the_diagnostic_suggests_the_intended_name",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_a_closed_function_rejects_a_keyword_it_does_not_declare",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_an_attribute_that_does_not_exist_is_refused",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_the_attribute_domain_still_passes_through[<lambda>0]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_the_attribute_domain_still_passes_through[<lambda>1]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_the_attribute_domain_still_passes_through[<lambda>2]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_the_attribute_domain_still_passes_through[<lambda>3]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_no_public_function_raises_an_uncatalogued_error_for_a_typo",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_every_open_signature_declares_its_domain",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_the_attribute_domain_points_at_the_catalogue",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_get_neighbors_refuses_both_search_criteria",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_get_neighbors_refuses_neither_search_criterion",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_get_neighbors_accepts_exactly_one_criterion[criterion0]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_get_neighbors_accepts_exactly_one_criterion[criterion1]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_convert_admits_what_the_target_converter_accepts",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_convert_refuses_a_mistyped_converter_keyword",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_public_file_identity_conversion_accepts_canonical_destination[crd]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_public_file_identity_conversion_accepts_canonical_destination[inpcrd]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_public_file_identity_conversion_accepts_canonical_destination[prmtop]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_public_file_identity_conversion_accepts_canonical_destination[h5]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_an_unknown_target_form_is_reported_as_such",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_the_converter_table_is_plain_data",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.test_argument_contract",
+      "name": "test_the_converter_table_still_matches_the_converters",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_default_whole_file_extraction_is_independent[file_bcif]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_default_whole_file_extraction_is_independent[file_bcif_gz]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_default_whole_file_extraction_is_independent[file_cif]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_default_whole_file_extraction_is_independent[file_cif_gz]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_default_whole_file_extraction_is_independent[file_crd]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_default_whole_file_extraction_is_independent[file_fasta]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_default_whole_file_extraction_is_independent[file_gro]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_default_whole_file_extraction_is_independent[file_h5]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_default_whole_file_extraction_is_independent[file_inpcrd]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_default_whole_file_extraction_is_independent[file_mdcrd]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_default_whole_file_extraction_is_independent[file_pdb]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_default_whole_file_extraction_is_independent[file_pir]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_default_whole_file_extraction_is_independent[file_prmtop]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_default_whole_file_extraction_is_independent[file_psf]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_default_whole_file_extraction_is_independent[file_smi]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_default_whole_file_extraction_is_independent[file_top]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_default_whole_file_extraction_is_independent[file_xyz]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_default_whole_file_extraction_is_independent[file_xyznpy]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_no_copy_retains_source[file_bcif]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_no_copy_retains_source[file_bcif_gz]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_no_copy_retains_source[file_cif]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_no_copy_retains_source[file_cif_gz]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_no_copy_retains_source[file_crd]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_no_copy_retains_source[file_fasta]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_no_copy_retains_source[file_gro]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_no_copy_retains_source[file_h5]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_no_copy_retains_source[file_inpcrd]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_no_copy_retains_source[file_mdcrd]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_no_copy_retains_source[file_pdb]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_no_copy_retains_source[file_pir]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_no_copy_retains_source[file_prmtop]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_no_copy_retains_source[file_psf]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_no_copy_retains_source[file_smi]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_no_copy_retains_source[file_top]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_no_copy_retains_source[file_xyz]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_no_copy_retains_source[file_xyznpy]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_bcif-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_bcif-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_bcif_gz-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_bcif_gz-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_cif-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_cif-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_cif_gz-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_cif_gz-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_crd-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_crd-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_fasta-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_fasta-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_gro-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_gro-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_h5-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_h5-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_inpcrd-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_inpcrd-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_mdcrd-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_mdcrd-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_pdb-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_pdb-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_pir-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_pir-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_prmtop-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_prmtop-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_psf-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_psf-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_smi-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_smi-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_top-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_top-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_xyz-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_xyz-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_xyznpy-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_explicit_destination_is_honored[file_xyznpy-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_bcif-same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_bcif-symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_bcif-hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_bcif_gz-same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_bcif_gz-symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_bcif_gz-hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_cif-same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_cif-symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_cif-hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_cif_gz-same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_cif_gz-symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_cif_gz-hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_crd-same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_crd-symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_crd-hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_fasta-same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_fasta-symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_fasta-hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_gro-same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_gro-symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_gro-hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_h5-same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_h5-symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_h5-hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_inpcrd-same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_inpcrd-symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_inpcrd-hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_mdcrd-same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_mdcrd-symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_mdcrd-hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_pdb-same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_pdb-symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_pdb-hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_pir-same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_pir-symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_pir-hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_prmtop-same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_prmtop-symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_prmtop-hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_psf-same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_psf-symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_psf-hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_smi-same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_smi-symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_smi-hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_top-same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_top-symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_top-hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_xyz-same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_xyz-symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_xyz-hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_xyznpy-same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_xyznpy-symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_copying_onto_source_alias_is_rejected[file_xyznpy-hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_public_default_whole_file_extraction[gro]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_public_default_whole_file_extraction[xyz]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_public_xyz_subset_keeps_source_and_requested_axes",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_xyz_subset_rejects_source_alias[same]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_xyz_subset_rejects_source_alias[symlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_xyz_subset_rejects_source_alias[hardlink]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_hdf5_subset_requires_distinct_destination_before_opening",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_hdf5_subset_preserves_values_order_and_source[adapter]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_hdf5_subset_preserves_values_order_and_source[public]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_hdf5_destination_alias_conflict_precedes_writing",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_public_identity_conversion_has_canonical_destination[file_bcif]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_public_identity_conversion_has_canonical_destination[file_bcif_gz]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_public_identity_conversion_has_canonical_destination[file_cif]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_public_identity_conversion_has_canonical_destination[file_cif_gz]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_public_identity_conversion_has_canonical_destination[file_crd]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_public_identity_conversion_has_canonical_destination[file_inpcrd]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_public_identity_conversion_has_canonical_destination[file_mol2]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_public_identity_conversion_has_canonical_destination[file_prmtop]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_public_identity_conversion_has_canonical_destination[file_xyznpy]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_legacy_identity_alias_and_conflict[file_bcif]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_legacy_identity_alias_and_conflict[file_bcif_gz]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_legacy_identity_alias_and_conflict[file_cif]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_legacy_identity_alias_and_conflict[file_cif_gz]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_legacy_identity_alias_and_conflict[file_crd]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_legacy_identity_alias_and_conflict[file_inpcrd]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_legacy_identity_alias_and_conflict[file_mol2]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_legacy_identity_alias_and_conflict[file_prmtop]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_legacy_identity_alias_and_conflict[file_xyznpy]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_whole_file_extraction",
+      "name": "test_legacy_identity_alias_and_conflict[file_h5]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_raw_adapters_copy_opaque_bytes_and_reject_source_aliases[crd]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_raw_adapters_copy_opaque_bytes_and_reject_source_aliases[dcd]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_raw_adapters_copy_opaque_bytes_and_reject_source_aliases[fasta]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_raw_adapters_copy_opaque_bytes_and_reject_source_aliases[gro]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_raw_adapters_copy_opaque_bytes_and_reject_source_aliases[h5]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_raw_adapters_copy_opaque_bytes_and_reject_source_aliases[h5msm]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_raw_adapters_copy_opaque_bytes_and_reject_source_aliases[inpcrd]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_raw_adapters_copy_opaque_bytes_and_reject_source_aliases[mdcrd]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_raw_adapters_copy_opaque_bytes_and_reject_source_aliases[pdb]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_raw_adapters_copy_opaque_bytes_and_reject_source_aliases[pir]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_raw_adapters_copy_opaque_bytes_and_reject_source_aliases[prmtop]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_raw_adapters_copy_opaque_bytes_and_reject_source_aliases[psf]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_raw_adapters_copy_opaque_bytes_and_reject_source_aliases[smi]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_raw_adapters_copy_opaque_bytes_and_reject_source_aliases[top]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_raw_adapters_copy_opaque_bytes_and_reject_source_aliases[trjpk]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_raw_adapters_copy_opaque_bytes_and_reject_source_aliases[xtc]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_raw_adapters_copy_opaque_bytes_and_reject_source_aliases[xyz]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_raw_adapters_copy_opaque_bytes_and_reject_source_aliases[xyznpy]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_validating_adapters_check_destination_before_decoding[same-sdf]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_validating_adapters_check_destination_before_decoding[same-pdbqt]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_validating_adapters_check_destination_before_decoding[hardlink-sdf]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_validating_adapters_check_destination_before_decoding[hardlink-pdbqt]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_validating_adapter_failure_retires_its_automatic_reservation[sdf]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_validating_adapter_failure_retires_its_automatic_reservation[pdbqt]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_validated_automatic_copies_keep_real_source_bytes[sdf]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.test_raw_file_copy",
+      "name": "test_validated_automatic_copies_keep_real_source_bytes[pdbqt]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Modeller.test_extraction_axes",
+      "name": "test_modeller_subset_matches_source_sorted_unique_inventory[extract-nm-ps]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Modeller.test_extraction_axes",
+      "name": "test_modeller_subset_matches_source_sorted_unique_inventory[extract-pm-fs]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Modeller.test_extraction_axes",
+      "name": "test_modeller_subset_matches_source_sorted_unique_inventory[convert-nm-ps]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Modeller.test_extraction_axes",
+      "name": "test_modeller_subset_matches_source_sorted_unique_inventory[convert-pm-fs]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Modeller.test_extraction_axes",
+      "name": "test_modeller_copy_is_independent_and_full_extract_can_reuse",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_copy_and_subset_preserve_chemical_labels_box_and_dense_axes[nm-copy-all]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_copy_and_subset_preserve_chemical_labels_box_and_dense_axes[nm-extract-all]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_copy_and_subset_preserve_chemical_labels_box_and_dense_axes[nm-identity-all]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_copy_and_subset_preserve_chemical_labels_box_and_dense_axes[nm-extract-selection3]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_copy_and_subset_preserve_chemical_labels_box_and_dense_axes[nm-extract-selection4]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_copy_and_subset_preserve_chemical_labels_box_and_dense_axes[nm-identity-selection5]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_copy_and_subset_preserve_chemical_labels_box_and_dense_axes[nm-extract-selection6]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_copy_and_subset_preserve_chemical_labels_box_and_dense_axes[nm-structure_compatibility-all]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_copy_and_subset_preserve_chemical_labels_box_and_dense_axes[nm-structure_compatibility-selection8]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_copy_and_subset_preserve_chemical_labels_box_and_dense_axes[angstrom-copy-all]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_copy_and_subset_preserve_chemical_labels_box_and_dense_axes[angstrom-extract-all]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_copy_and_subset_preserve_chemical_labels_box_and_dense_axes[angstrom-identity-all]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_copy_and_subset_preserve_chemical_labels_box_and_dense_axes[angstrom-extract-selection3]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_copy_and_subset_preserve_chemical_labels_box_and_dense_axes[angstrom-extract-selection4]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_copy_and_subset_preserve_chemical_labels_box_and_dense_axes[angstrom-identity-selection5]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_copy_and_subset_preserve_chemical_labels_box_and_dense_axes[angstrom-extract-selection6]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_copy_and_subset_preserve_chemical_labels_box_and_dense_axes[angstrom-structure_compatibility-all]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_copy_and_subset_preserve_chemical_labels_box_and_dense_axes[angstrom-structure_compatibility-selection8]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_full_topology_copy_preserves_empty_inventory_parents[copy]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_full_topology_copy_preserves_empty_inventory_parents[extract]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_full_topology_copy_preserves_empty_inventory_parents[identity]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_full_topology_copy_preserves_empty_inventory_parents[structure_compatibility]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_full_topology_copy_preserves_empty_inventory_parents[alias]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_unrestricted_topology_alias_policy_does_not_depend_on_structure_compatibility[nm]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.form.openmm_Topology.test_copy_and_extract_metadata",
+      "name": "test_unrestricted_topology_alias_policy_does_not_depend_on_structure_compatibility[angstrom]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_native_signature_help_discovery_and_forwarded_control",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_cube_matches_direct_openmm_geometry_units_and_independent_ownership[nm-0.35 nm-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_cube_matches_direct_openmm_geometry_units_and_independent_ownership[nm-0.35 nm-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_cube_matches_direct_openmm_geometry_units_and_independent_ownership[nm-3.5 angstroms-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_cube_matches_direct_openmm_geometry_units_and_independent_ownership[nm-3.5 angstroms-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_cube_matches_direct_openmm_geometry_units_and_independent_ownership[angstrom-0.35 nm-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_cube_matches_direct_openmm_geometry_units_and_independent_ownership[angstrom-0.35 nm-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_cube_matches_direct_openmm_geometry_units_and_independent_ownership[angstrom-3.5 angstroms-False]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_cube_matches_direct_openmm_geometry_units_and_independent_ownership[angstrom-3.5 angstroms-True]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_declared_triclinic_geometry_keeps_solute_distances_and_water_geometry[truncated octahedral]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_declared_triclinic_geometry_keeps_solute_distances_and_water_geometry[rhombic dodecahedral]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_native_failures_keep_diagnostics_and_source[False-parameters0]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_native_failures_keep_diagnostics_and_source[False-parameters1]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_native_failures_keep_diagnostics_and_source[False-parameters2]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_native_failures_keep_diagnostics_and_source[True-parameters0]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_native_failures_keep_diagnostics_and_source[True-parameters1]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_native_failures_keep_diagnostics_and_source[True-parameters2]",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_multistructure_input_keeps_native_rejection_before_preparation",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_nonnumeric_identifier_is_preserved_without_source_changes",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_explicit_openmm_counts_are_forwarded_without_hidden_compensation",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_pending_edits_are_used_without_synchronization_or_source_adoption",
+      "state": "passed"
+    },
+    {
+      "classname": "tests.molsysviewer_molsysmt.test_solvation_tools",
+      "name": "test_cached_method_rebinds_and_rejects_closed_empty_views",
+      "state": "passed"
+    }
+  ],
+  "committed_source_byte_proof": {
+    "code_source_commit": "a049a45f9eb4581799e142a677440cc26973e217",
+    "receiving_parent_commit": "cccadb7d45db9b589c7fb67bdaae3b56cd30aa59",
+    "selected_source_native_inputs": 8191,
+    "all_selected_bytes_match_committed_source": true,
+    "viewer_commit": "5164f13bb503625dbe65f3b657ab5260feadcb65",
+    "verified_viewer_files": 2581,
+    "verified_frozen_support_files": 231,
+    "scope": "The receiving ran on the recorded parent plus exact reviewed delta. Its selected file bytes now match this clean committed source; this is not an exact-candidate or installed-package qualification."
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "modules": {
+      "molsysmt": {
+        "distribution_version": "0.23.0+393.ge1facf624.dirty",
+        "imported_version": "0.23.0+393.ge1facf624.dirty",
+        "module_file": "<checkout>/molsysmt/__init__.py",
+        "module_sha256": "dc89c5f21ab7ba4bb94b289927a19856d27cb670baf1b03d7f6fcb7fced03f90"
+      },
+      "molsysviewer": {
+        "distribution_version": "0.24.0+97.gdf4bf477.dirty",
+        "imported_version": "0.24.0+97.gdf4bf477.dirty",
+        "module_file": "<checkout>/.pytest_cache/pre1-review-20261110/viewer-5164f13b-ready-source/molsysviewer/__init__.py",
+        "module_sha256": "76c5968d9a66d9fe01a475166515f4e0f02c3784b135ec60319cb2bf83b17cd4"
+      },
+      "pyunitwizard": {
+        "distribution_version": "0.29.2",
+        "imported_version": "0.29.2",
+        "module_file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+        "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+      },
+      "smonitor": {
+        "distribution_version": "0.21.0",
+        "imported_version": "0.21.0",
+        "module_file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+        "module_sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+      },
+      "argdigest": {
+        "distribution_version": "0.15.0",
+        "imported_version": "0.15.0",
+        "module_file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+        "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+      },
+      "depdigest": {
+        "distribution_version": "0.15.1",
+        "imported_version": "0.15.1",
+        "module_file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+        "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+      },
+      "openmm": {
+        "distribution_version": "8.6.1",
+        "imported_version": "8.6.1",
+        "module_file": "<development-prefix>/lib/python3.14/site-packages/openmm/__init__.py",
+        "module_sha256": "c513bcdf3407fb0efdffc8f2f4e61d4de40b0a6612c3017af948e0245bf319ab"
+      },
+      "mdtraj": {
+        "distribution_version": "1.11.1",
+        "imported_version": "1.11.1",
+        "module_file": "<development-prefix>/lib/python3.14/site-packages/mdtraj/__init__.py",
+        "module_sha256": "5223f8af5a0257a8d25313683eb4b1823074feaf66753b01e9ec9e08b8a67b80"
+      },
+      "pytest": {
+        "distribution_version": "9.1.1",
+        "imported_version": "9.1.1",
+        "module_file": "<development-prefix>/lib/python3.14/site-packages/pytest/__init__.py",
+        "module_sha256": "ee37885c9583f843390684dfb496907f87a0905128e7a3cf4ad227f49ff34c2d"
+      },
+      "pytest_receptor": {
+        "distribution_version": "1.2.1",
+        "imported_version": "1.2.1",
+        "module_file": "<checkout>/.pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+        "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+      }
+    },
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "generated_version_file_sha256": "3dc44314ff938836ee60a6875accc24cb6e7b79f7176f5ff22f6768384137fe9"
+  },
+  "fast_gates_and_quality": {
+    "passed": true,
+    "commands": [
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.9s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        5.5s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.2s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.4s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.0s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.4s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   3.0s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.5s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.4s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.3s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/generate_converter_arguments.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "stdout": "OK: the committed table matches the converters.\nTarget forms: 96 | keywords per target: min 6, max 23, mean 10.3\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "native_exit": 0,
+        "stdout": "4726 files already formatted\n",
+        "stderr": ""
+      }
+    ],
+    "artifact_and_source_proofs": true
+  },
+  "notebook_prose_proof": [
+    {
+      "path": "docs/content/user/tools/build/solvate.ipynb",
+      "changed_markdown_cells": 1,
+      "all_code_outputs_cell_metadata_and_notebook_metadata_unchanged": true
+    },
+    {
+      "path": "docs/content/user/cookbook/from_pdb_to_solvated_box.ipynb",
+      "changed_markdown_cells": 1,
+      "all_code_outputs_cell_metadata_and_notebook_metadata_unchanged": true
+    },
+    {
+      "path": "docs/content/course/Common_Core/12_Building_Repairing_and_Auditing_Systems.ipynb",
+      "changed_markdown_cells": 1,
+      "all_code_outputs_cell_metadata_and_notebook_metadata_unchanged": true
+    }
+  ],
+  "broad_incomplete_artifact": {
+    "complete": false,
+    "integrity_valid": null,
+    "issue": "missing session_finish",
+    "final": null,
+    "readable_records": 4060,
+    "observed_failed_records": [],
+    "scope": "Partial readable observations only, not exhaustive verdict or passed-case inventory. The supervisor terminated native pytest at its declared finite operational wall limit."
+  },
+  "raw_artifacts": {
+    "baseline.log": {
+      "sha256": "2448bede99fffef654022e078ccfa5aba895e901243a1047a5871d9da3195435",
+      "bytes": 3780
+    },
+    "baseline.xml": {
+      "sha256": "56acc86ceac913722dba273d6d022a14add5781cb44ed34ca7f4252463dbe916",
+      "bytes": 51359
+    },
+    "corrected.log": {
+      "sha256": "b2a8649ae3c68da9677611087fe9060ba0603d6073bc3c58066b4a32d18899c1",
+      "bytes": 479
+    },
+    "corrected.xml": {
+      "sha256": "fc6e05806a0940e80a74ef02b1db3e313a44d4757d24e74c9db3cc362ed87087",
+      "bytes": 3777
+    },
+    "generate.log": {
+      "sha256": "c81106a615ae66d57aab2f381a6980b5b3c6965189099ce264cc89e50b297510",
+      "bytes": 132
+    },
+    "receiving.log": {
+      "sha256": "580947173f009708f2a6e5dfe14611b7c77601472747c8e4a59f1e07d4b83981",
+      "bytes": 112
+    },
+    "receiving.events.jsonl": {
+      "sha256": "c96db9cdf5b5b4132af57458de444a54908ea7e88d3ec7e64931b61977d59fdd",
+      "bytes": 1689747
+    },
+    "incomplete-receiving-artifact-status.json": {
+      "sha256": "6202b1ec32b2463c66e2e0d3c24ac8844498d600095ac2eaf9182bd9c5975ed5",
+      "bytes": 352
+    },
+    "corrected2.log": {
+      "sha256": "4edd384b2ad47b311779ebcc36439eb2f80357c4d8e43a6c21b5f8413c30a0d0",
+      "bytes": 848
+    },
+    "corrected2.xml": {
+      "sha256": "8cc2d2d98c477c7bac9218153b8c5f1c48a325697515ce7e9eb8d5057fb5fb3e",
+      "bytes": 48862
+    },
+    "corrected2.events.jsonl": {
+      "sha256": "b17e452032d189c2e6459e6c4a59c6d3ac52d318603ced78ef87993e3279079a",
+      "bytes": 458770
+    },
+    "focused-artifact-status.json": {
+      "sha256": "a0f05a2e72d0b26e4db7692cb4e5b4c68f8b983fed35427e1680b8403e4c7d7b",
+      "bytes": 60399
+    },
+    "check-results.json": {
+      "sha256": "dde1ab44cd8287f7e26ddae8c6ab899b9cd85a0a539d6dc6291ee82ef5c26321",
+      "bytes": 3679
+    },
+    "committed-source-byte-proof.json": {
+      "sha256": "26d5961aab93ab1e8807e4b390ac51071ff43b356ac4dca987ed869923169846",
+      "bytes": 586
+    },
+    "runtime.json": {
+      "sha256": "a5cc4adb8112a9c07eaac80cda553672b297a0ff6c3f938608a11555b26580c9",
+      "bytes": 3649
+    },
+    "notebook-prose-proof.json": {
+      "sha256": "2d1991d064b8704505760cea0278f921427542f400edfb811cd6914548d0196f",
+      "bytes": 582
+    },
+    "initial-receiving-launch-note.txt": {
+      "sha256": "be138dc9d7d37ab0125f98ead6176aca5f9f6f0a77503c5c88256b2de7accadc",
+      "bytes": 397
+    },
+    "initial-receiving-driver-before-native.py": {
+      "sha256": "c5857b0db5ab0b2d4f6c5d9b586640b4ba246a5310793a848d58ed69df33b0e5",
+      "bytes": 6512
+    },
+    "baseline-inputs-before.json": {
+      "sha256": "e71446492b7e0e1182bef99272c1c13d4d12dffd6d67e873945408615fe85fe2",
+      "bytes": 1040042
+    },
+    "corrected-inputs-before.json": {
+      "sha256": "e0bf186563bf5ebdbec4951006aff8b18f0f53f0d3c9a58482bbc734337d8f76",
+      "bytes": 1040042
+    },
+    "generate-inputs-before.json": {
+      "sha256": "e0bf186563bf5ebdbec4951006aff8b18f0f53f0d3c9a58482bbc734337d8f76",
+      "bytes": 1040042
+    },
+    "receiving-inputs-before.json": {
+      "sha256": "7e354844ef63cb553c8699ac07dc389dd8c4f8b6f4416bf6f847cbf5c693af09",
+      "bytes": 1040042
+    },
+    "corrected2-inputs-before.json": {
+      "sha256": "f18dde9e5df2ab6692b85a360318a4fb695321766ca3a37a3250baac7495b58b",
+      "bytes": 1040042
+    },
+    "checks-inputs-before.json": {
+      "sha256": "f18dde9e5df2ab6692b85a360318a4fb695321766ca3a37a3250baac7495b58b",
+      "bytes": 1040042
+    },
+    "baseline-inputs-after.json": {
+      "sha256": "e71446492b7e0e1182bef99272c1c13d4d12dffd6d67e873945408615fe85fe2",
+      "bytes": 1040042
+    },
+    "corrected-inputs-after.json": {
+      "sha256": "e0bf186563bf5ebdbec4951006aff8b18f0f53f0d3c9a58482bbc734337d8f76",
+      "bytes": 1040042
+    },
+    "generate-inputs-after.json": {
+      "sha256": "393898022b223572f32e925dacb62e52e0f8021f64946f9d367dc174797b4271",
+      "bytes": 1040042
+    },
+    "receiving-inputs-after.json": {
+      "sha256": "7e354844ef63cb553c8699ac07dc389dd8c4f8b6f4416bf6f847cbf5c693af09",
+      "bytes": 1040042
+    },
+    "corrected2-inputs-after.json": {
+      "sha256": "f18dde9e5df2ab6692b85a360318a4fb695321766ca3a37a3250baac7495b58b",
+      "bytes": 1040042
+    },
+    "checks-inputs-after.json": {
+      "sha256": "f18dde9e5df2ab6692b85a360318a4fb695321766ca3a37a3250baac7495b58b",
+      "bytes": 1040042
+    },
+    "baseline-execution.json": {
+      "sha256": "00d95680cd7be3452b1d6dc9692af49f020c3217ea8263dea55ca6da801495d3",
+      "bytes": 1840
+    },
+    "corrected-execution.json": {
+      "sha256": "9f357a6ed8cca8d0d696e7567d2dc2a60b1328f4c7951c32a2a44050df4ddb26",
+      "bytes": 1804
+    },
+    "generate-execution.json": {
+      "sha256": "a40129f6fc2bed27277550f77dbd7a539c4a620cc742b1834570d62bd013c971",
+      "bytes": 1907
+    },
+    "receiving-execution.json": {
+      "sha256": "1057d5079a4c55265ea4ce9253c2a3ef6a73e468932cefe987f9a97ed90a0912",
+      "bytes": 2783
+    },
+    "corrected2-execution.json": {
+      "sha256": "bf40d577f246513788062fa29c21c4ede9571996c64d6192589f48cb021bfd71",
+      "bytes": 2792
+    },
+    "checks-execution.json": {
+      "sha256": "6afb5a0cd4ba640a5fdb7289f5e18b71cf7dfca6d55a60b5a37bba825eaa6976",
+      "bytes": 1339
+    }
+  },
+  "implementation": {
+    "747": "Before any structural query or copy, validate original atom/group/chain traversal on represented OpenMM topologies, including combined inputs. Reuse the private traversal check for the final working modeller. No coordinate copying or scientific-criterion change is added by validation. Existing ArgDigest, conditional DepDigest and catalogued SMonitor paths are retained.",
+    "748": "Regenerate the reviewed converter keyword table with its existing tool: exactly output_filename for file:crd, file:inpcrd, file:prmtop and file:h5. No runtime-derived domain or broad keyword bypass. Public tests perform independent destination copies and reject typos.",
+    "attribution": "No new third-party method or scientific attribution boundary is introduced. Existing executed OpenMM/Ackredit solvation attribution tests are retained in the complete focused selection."
+  },
+  "resource_contract": {
+    "cpu_quota": 1,
+    "maximum_gib": 2,
+    "own_swap_bytes": 0,
+    "host_reserve_gib": 6.5,
+    "foreign_processes_signalled": false
+  },
+  "limits": [
+    "The baseline has nine failures and one pass. The original combined atom/group/chain negative controls and four file destination tests detect the old behavior; the final source guard also forbids construction of the working Modeller. These scopes are not counted as independent full suites.",
+    "The first broad service fails in its private harness before native pytest due to an unrelated HTML-cache reference. That failure and original launcher are retained. It is not a product failure or passing run.",
+    "The corrected broad 1615-case selection ends incomplete at its declared 360-second operational ceiling (actual native SIGTERM). There is no final receptor record or complete verdict. Readable records show no failed phase, without certifying unobserved/unfinished cases. This remains incomplete.",
+    "The subsequent deliberate focused selection retains all affected solvation/conversion/copy/addon/doctest paths and replaces unrelated full topology-query matrices with their specific copy/extraction controls. It passes 331 cases with zero omissions; it does not clear complete-source/nightly or exact-candidate gates.",
+    "Notebook changes affect one Markdown cell per page only. Executable cells, outputs, cell/notebook metadata and order are unchanged. Fast notebook/course/source checks pass; no new notebook-kernel or complete-site/browser qualification is claimed.",
+    "The code receiving ran on the recorded parent plus the reviewed delta. Selected bytes match the subsequent clean committed source; frozen provider/native identity is checked separately. Development stamps are not public release artifact identities.",
+    "Original complete-session failures, #615/MolSysViewer #384, stable-format/client agreements and the coordinated final installed pair retain their own scope. Formal weighted accounting and the candidate/hosted/tag/promotion/publication pause are unchanged."
+  ]
+}
