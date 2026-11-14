@@ -46,7 +46,7 @@
     {
       "repository": "uibcdf/bindingmt",
       "initiative": "",
-      "root": "/home/diego/repos@uibcdf/bindingmt",
+      "root": "<workspace>/bindingmt",
       "branch": "",
       "head": "",
       "upstream": "",
