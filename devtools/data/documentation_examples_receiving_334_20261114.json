@@ -1,0 +1,2159 @@
+{
+  "schema": "molsysmt.documentation_examples_receiving/1",
+  "date": "2026-11-14",
+  "owner_issue": "uibcdf/molsysmt#334",
+  "corrected_issues": [
+    "uibcdf/molsysmt#753",
+    "uibcdf/molsysmt#755"
+  ],
+  "source_commit": "baedf4c702e6b9438a63b097e1b048bf1ab3df6d",
+  "scope": "Eleven actually executed notebooks, corrected offline setup/group-filter guidance, selected native/chemical/storage examples and strict full-site rendering. No final candidate, scientific-profile certification, browser/installed/platform receiving or publication authorization.",
+  "state": "Bounded documentation receiving complete; #753/#755 corrected and guarded. #754 and final-pair obligations remain.",
+  "notebooks": {
+    "docs/content/course/Common_Core/07_Selection_Basics.ipynb": {
+      "path": "docs/content/course/Common_Core/07_Selection_Basics.ipynb",
+      "code_cells": 7,
+      "content_unchanged": false,
+      "executed_cells": 7,
+      "error_outputs": [],
+      "sha256": "c250551ba6c92dca1aecae83c820e673e58108252248d526ed8114c04acacf58",
+      "run_mark": {
+        "code_sha256": "3367b5d044e363051bf82651e0a0b929f3f7f4db5f9fe716bc0b50abaf1cf1c8",
+        "executed_at": "2026-11-14T22:38:35+00:00"
+      },
+      "log_sha256": "787751cf7ea8328e65ba6005e5c698e1f5c04d8381f100bff81bfd6b052cdb4a"
+    },
+    "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb": {
+      "path": "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb",
+      "code_cells": 10,
+      "content_unchanged": true,
+      "executed_cells": 10,
+      "error_outputs": [],
+      "sha256": "84051a989fee2d9539ef13824586f534ad7034f00fd2ec3cbe411f83a380a091",
+      "run_mark": {
+        "code_sha256": "6aeaf5685694803beca9f743196acd2414c6d3e3649ab9ba035a180ec06d4f5e",
+        "executed_at": "2026-11-14T22:38:44+00:00"
+      },
+      "log_sha256": "45b35e609ef34e09603a3b7cbd103eb08a5596445dffb4671e47c3edfa2a686f"
+    },
+    "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb": {
+      "path": "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb",
+      "code_cells": 9,
+      "content_unchanged": false,
+      "executed_cells": 9,
+      "error_outputs": [],
+      "sha256": "3095e960b0548caae35bf1224958eb0f9930e224386636b0b1e24297e3412a3f",
+      "run_mark": {
+        "code_sha256": "99eff39590e129a35ac06d5e4b3f69a97a048cd87aedb88fb71859831a746cae",
+        "executed_at": "2026-11-14T22:38:55+00:00"
+      },
+      "log_sha256": "670dacd6ea6c4b07de1c47b996ea679b706543b025e5d3f3bac009f870d4f11d"
+    },
+    "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb": {
+      "path": "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb",
+      "code_cells": 4,
+      "content_unchanged": true,
+      "executed_cells": 4,
+      "error_outputs": [],
+      "sha256": "d321b5c57d4f61a17548ebbfa5a526f7f31b3bd6f3ee1d17a6c5d789111e0f09",
+      "run_mark": {
+        "code_sha256": "fa186621c2dd38711c73516dd86a322bcd86d76dabfc91c98e3453aeea44c6cc",
+        "executed_at": "2026-11-14T22:39:03+00:00"
+      },
+      "log_sha256": "17043654aae0d29a2d9e17c55f177c23484f94204d4a0763e613df607cd4748d"
+    },
+    "docs/content/user/tools/basic/get.ipynb": {
+      "path": "docs/content/user/tools/basic/get.ipynb",
+      "code_cells": 59,
+      "content_unchanged": true,
+      "executed_cells": 59,
+      "error_outputs": [],
+      "sha256": "5ae2f5a0cf29d18d82bd6ac83724d624c890e10a06a713008ab5fe59c91ab978",
+      "run_mark": {
+        "code_sha256": "7c2761581612a51b3ae7ad658d3d25810ad82f4712fa1ece08315070cd3951d7",
+        "executed_at": "2026-11-14T22:43:59+00:00"
+      },
+      "log_sha256": "3f0f8e34d9043a056018a0fb269176b64dcc30e5d225fc3ee962c92d657f1def"
+    },
+    "docs/content/user/tools/basic/info.ipynb": {
+      "path": "docs/content/user/tools/basic/info.ipynb",
+      "code_cells": 14,
+      "content_unchanged": true,
+      "executed_cells": 14,
+      "error_outputs": [],
+      "sha256": "09108c3f211195718774bb2771a9ce4f0633b6d3574c18f08e937d25e3bb66b6",
+      "run_mark": {
+        "code_sha256": "ab0219bd9b821efb4f144770cd60c4ed1a084513c3d7cbdc0d21339e90af7228",
+        "executed_at": "2026-11-14T22:44:08+00:00"
+      },
+      "log_sha256": "d91152fb8f7a82ebb33405ce5880748689b1efa8ef212b743c22a9ff7631cc1e"
+    },
+    "docs/content/user/tools/basic/select.ipynb": {
+      "path": "docs/content/user/tools/basic/select.ipynb",
+      "code_cells": 47,
+      "content_unchanged": true,
+      "executed_cells": 47,
+      "error_outputs": [],
+      "sha256": "effd44952dd85f1d60ab3a21e11f624f719ec7f6dfd692af78b9dc3f8ed96c47",
+      "run_mark": {
+        "code_sha256": "fb65c4fbfd9cfd2840c36ade43b2707b4a4694d09499003861b99c6e7cf4adda",
+        "executed_at": "2026-11-14T22:46:46+00:00"
+      },
+      "log_sha256": "eb36560c7347460151268f7d58a591619a9e3eac59f8d0821a47e61841cfec57"
+    },
+    "docs/content/user/tools/basic/extract.ipynb": {
+      "path": "docs/content/user/tools/basic/extract.ipynb",
+      "code_cells": 7,
+      "content_unchanged": true,
+      "executed_cells": 7,
+      "error_outputs": [],
+      "sha256": "e2c4e4b55b93b43cf78594740ebdbd4f2bdc27b848843cfa3f2b53cd0e168b22",
+      "run_mark": {
+        "code_sha256": "51f46079896c804c5a7aa5052d24c7b7503a81a503a751cdc963b7be5d8b8f94",
+        "executed_at": "2026-11-14T22:44:24+00:00"
+      },
+      "log_sha256": "108589fa75f99c4ee7eaecdef08d7335e9302e78ab068fe62c8d9c8bc6f1b143"
+    },
+    "docs/content/user/tools/chemical_states/get_bondgraph.ipynb": {
+      "path": "docs/content/user/tools/chemical_states/get_bondgraph.ipynb",
+      "code_cells": 8,
+      "content_unchanged": true,
+      "executed_cells": 8,
+      "error_outputs": [],
+      "sha256": "2556f66215d1584affa08e7dd5df3ab0e7249a2eaf83dd5eb6c628d976cce8ae",
+      "run_mark": {
+        "code_sha256": "5c4bc0c7dabc5b0e2e5e20b197fc3747ab8f20c7ee942ee9eb9b3a01a68e00e3",
+        "executed_at": "2026-11-14T22:44:57+00:00"
+      },
+      "log_sha256": "4a8b7987186a7dab9e5840299d66c69e671fecb9b170ed41594eccda324baf82"
+    },
+    "docs/content/user/tools/chemical_states/get_rings.ipynb": {
+      "path": "docs/content/user/tools/chemical_states/get_rings.ipynb",
+      "code_cells": 5,
+      "content_unchanged": true,
+      "executed_cells": 5,
+      "error_outputs": [],
+      "sha256": "63cdbda1b765ed349056ecc656e0e48b95cc958ac6b2aa6dad9cdeed70223715",
+      "run_mark": {
+        "code_sha256": "b340bb89055a4da5ad76a3aafbf6096cf9baca56fdea17142d3c4a0239f4d730",
+        "executed_at": "2026-11-14T22:45:03+00:00"
+      },
+      "log_sha256": "304b2e2d4e085172b497be34dee050117edba313dc053bea13d9e7f3b43ac2bc"
+    },
+    "docs/content/user/cookbook/saving_hbond_interactions.ipynb": {
+      "path": "docs/content/user/cookbook/saving_hbond_interactions.ipynb",
+      "code_cells": 8,
+      "content_unchanged": true,
+      "executed_cells": 8,
+      "error_outputs": [],
+      "sha256": "5e6573483b30fa77422157c1f0e796718437bb88cbc0eca121af7d112ce252bc",
+      "run_mark": {
+        "code_sha256": "ed32c23fdcf32062f738cf6ec2d04ea59d71bd5a60d7159167a6c23fcd23c0d3",
+        "executed_at": "2026-11-14T22:45:10+00:00"
+      },
+      "log_sha256": "d1948aff84f190dfacc729614d241ff976c1b6395a52da584c736a681a00ce65"
+    }
+  },
+  "unique_notebooks": 11,
+  "unique_code_cells": 178,
+  "complete_notebook_executions": 12,
+  "executed_cells_including_selection_rerun": 225,
+  "executions": {
+    "common": {
+      "phase": "common",
+      "source_commit": "baedf4c702e6b9438a63b097e1b048bf1ab3df6d",
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "state": "completed",
+      "command": [
+        "<development-prefix>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "docs/content/course/Common_Core/07_Selection_Basics.ipynb",
+        "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb",
+        "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb",
+        "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [
+        "docs/content/course/Common_Core/07_Selection_Basics.ipynb",
+        "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb",
+        "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb",
+        "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb"
+      ],
+      "python": "<development-prefix>/bin/python",
+      "load": "1.25 0.76 0.61 3/2729 2176800",
+      "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=20355902059\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4906,
+      "seconds": 38.01909077912569,
+      "notebooks": [
+        {
+          "path": "docs/content/course/Common_Core/07_Selection_Basics.ipynb",
+          "code_cells": 7,
+          "content_unchanged": false,
+          "executed_cells": 7,
+          "error_outputs": [],
+          "sha256": "c250551ba6c92dca1aecae83c820e673e58108252248d526ed8114c04acacf58",
+          "run_mark": {
+            "code_sha256": "3367b5d044e363051bf82651e0a0b929f3f7f4db5f9fe716bc0b50abaf1cf1c8",
+            "executed_at": "2026-11-14T22:38:35+00:00"
+          },
+          "log_sha256": "787751cf7ea8328e65ba6005e5c698e1f5c04d8381f100bff81bfd6b052cdb4a"
+        },
+        {
+          "path": "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb",
+          "code_cells": 10,
+          "content_unchanged": true,
+          "executed_cells": 10,
+          "error_outputs": [],
+          "sha256": "84051a989fee2d9539ef13824586f534ad7034f00fd2ec3cbe411f83a380a091",
+          "run_mark": {
+            "code_sha256": "6aeaf5685694803beca9f743196acd2414c6d3e3649ab9ba035a180ec06d4f5e",
+            "executed_at": "2026-11-14T22:38:44+00:00"
+          },
+          "log_sha256": "45b35e609ef34e09603a3b7cbd103eb08a5596445dffb4671e47c3edfa2a686f"
+        },
+        {
+          "path": "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb",
+          "code_cells": 9,
+          "content_unchanged": false,
+          "executed_cells": 9,
+          "error_outputs": [],
+          "sha256": "3095e960b0548caae35bf1224958eb0f9930e224386636b0b1e24297e3412a3f",
+          "run_mark": {
+            "code_sha256": "99eff39590e129a35ac06d5e4b3f69a97a048cd87aedb88fb71859831a746cae",
+            "executed_at": "2026-11-14T22:38:55+00:00"
+          },
+          "log_sha256": "670dacd6ea6c4b07de1c47b996ea679b706543b025e5d3f3bac009f870d4f11d"
+        },
+        {
+          "path": "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb",
+          "code_cells": 4,
+          "content_unchanged": true,
+          "executed_cells": 4,
+          "error_outputs": [],
+          "sha256": "d321b5c57d4f61a17548ebbfa5a526f7f31b3bd6f3ee1d17a6c5d789111e0f09",
+          "run_mark": {
+            "code_sha256": "fa186621c2dd38711c73516dd86a322bcd86d76dabfc91c98e3453aeea44c6cc",
+            "executed_at": "2026-11-14T22:39:03+00:00"
+          },
+          "log_sha256": "17043654aae0d29a2d9e17c55f177c23484f94204d4a0763e613df607cd4748d"
+        }
+      ],
+      "changed_inputs": [],
+      "memory_peak_bytes": 363847680,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17916030976,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "bcd9c0a4b7083f86964c663fba245e4f9e6885a1df66cf38e15a8d06fdc4e1ca"
+    },
+    "user": {
+      "phase": "user",
+      "source_commit": "baedf4c702e6b9438a63b097e1b048bf1ab3df6d",
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "state": "completed",
+      "command": [
+        "<development-prefix>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "docs/content/user/tools/basic/get.ipynb",
+        "docs/content/user/tools/basic/info.ipynb",
+        "docs/content/user/tools/basic/select.ipynb",
+        "docs/content/user/tools/basic/extract.ipynb"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [
+        "docs/content/user/tools/basic/get.ipynb",
+        "docs/content/user/tools/basic/info.ipynb",
+        "docs/content/user/tools/basic/select.ipynb",
+        "docs/content/user/tools/basic/extract.ipynb"
+      ],
+      "python": "<development-prefix>/bin/python",
+      "load": "0.90 1.30 0.94 2/2748 2179856",
+      "cpu_pressure": "some avg10=0.00 avg60=0.96 avg300=2.64 total=20371823279\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4906,
+      "seconds": 35.02020073495805,
+      "notebooks": [
+        {
+          "path": "docs/content/user/tools/basic/get.ipynb",
+          "code_cells": 59,
+          "content_unchanged": true,
+          "executed_cells": 59,
+          "error_outputs": [],
+          "sha256": "5ae2f5a0cf29d18d82bd6ac83724d624c890e10a06a713008ab5fe59c91ab978",
+          "run_mark": {
+            "code_sha256": "7c2761581612a51b3ae7ad658d3d25810ad82f4712fa1ece08315070cd3951d7",
+            "executed_at": "2026-11-14T22:43:59+00:00"
+          },
+          "log_sha256": "3f0f8e34d9043a056018a0fb269176b64dcc30e5d225fc3ee962c92d657f1def"
+        },
+        {
+          "path": "docs/content/user/tools/basic/info.ipynb",
+          "code_cells": 14,
+          "content_unchanged": true,
+          "executed_cells": 14,
+          "error_outputs": [],
+          "sha256": "09108c3f211195718774bb2771a9ce4f0633b6d3574c18f08e937d25e3bb66b6",
+          "run_mark": {
+            "code_sha256": "ab0219bd9b821efb4f144770cd60c4ed1a084513c3d7cbdc0d21339e90af7228",
+            "executed_at": "2026-11-14T22:44:08+00:00"
+          },
+          "log_sha256": "d91152fb8f7a82ebb33405ce5880748689b1efa8ef212b743c22a9ff7631cc1e"
+        },
+        {
+          "path": "docs/content/user/tools/basic/select.ipynb",
+          "code_cells": 47,
+          "content_unchanged": true,
+          "executed_cells": 47,
+          "error_outputs": [],
+          "sha256": "ffc630a9a45f718f7f661840f769710d6c14759d8260f674c5230ba7291d7012",
+          "run_mark": {
+            "code_sha256": "50521b26cd5abbc1ffa9beee1ba9daa33f3ae08b4060407e40ae2328fd7cf576",
+            "executed_at": "2026-11-14T22:44:17+00:00"
+          },
+          "log_sha256": "8c5cb59a85acd75ea40cf74e8e20aee5a3c655c829958448df3e9834cbaace1f"
+        },
+        {
+          "path": "docs/content/user/tools/basic/extract.ipynb",
+          "code_cells": 7,
+          "content_unchanged": true,
+          "executed_cells": 7,
+          "error_outputs": [],
+          "sha256": "e2c4e4b55b93b43cf78594740ebdbd4f2bdc27b848843cfa3f2b53cd0e168b22",
+          "run_mark": {
+            "code_sha256": "51f46079896c804c5a7aa5052d24c7b7503a81a503a751cdc963b7be5d8b8f94",
+            "executed_at": "2026-11-14T22:44:24+00:00"
+          },
+          "log_sha256": "108589fa75f99c4ee7eaecdef08d7335e9302e78ab068fe62c8d9c8bc6f1b143"
+        }
+      ],
+      "changed_inputs": [],
+      "memory_peak_bytes": 434429952,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17816363008,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "a929fdb132d329908b6e57d0cdeb2acc5a6a814cb3c684b2bc3ef5ef58d4c18d"
+    },
+    "domains": {
+      "phase": "domains",
+      "source_commit": "baedf4c702e6b9438a63b097e1b048bf1ab3df6d",
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "state": "completed",
+      "command": [
+        "<development-prefix>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "docs/content/user/tools/chemical_states/get_bondgraph.ipynb",
+        "docs/content/user/tools/chemical_states/get_rings.ipynb",
+        "docs/content/user/cookbook/saving_hbond_interactions.ipynb"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [
+        "docs/content/user/tools/chemical_states/get_bondgraph.ipynb",
+        "docs/content/user/tools/chemical_states/get_rings.ipynb",
+        "docs/content/user/cookbook/saving_hbond_interactions.ipynb"
+      ],
+      "python": "<development-prefix>/bin/python",
+      "load": "0.92 1.26 0.95 3/2737 2180320",
+      "cpu_pressure": "some avg10=0.02 avg60=0.46 avg300=2.19 total=20372150686\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4906,
+      "seconds": 21.011320660822093,
+      "notebooks": [
+        {
+          "path": "docs/content/user/tools/chemical_states/get_bondgraph.ipynb",
+          "code_cells": 8,
+          "content_unchanged": true,
+          "executed_cells": 8,
+          "error_outputs": [],
+          "sha256": "2556f66215d1584affa08e7dd5df3ab0e7249a2eaf83dd5eb6c628d976cce8ae",
+          "run_mark": {
+            "code_sha256": "5c4bc0c7dabc5b0e2e5e20b197fc3747ab8f20c7ee942ee9eb9b3a01a68e00e3",
+            "executed_at": "2026-11-14T22:44:57+00:00"
+          },
+          "log_sha256": "4a8b7987186a7dab9e5840299d66c69e671fecb9b170ed41594eccda324baf82"
+        },
+        {
+          "path": "docs/content/user/tools/chemical_states/get_rings.ipynb",
+          "code_cells": 5,
+          "content_unchanged": true,
+          "executed_cells": 5,
+          "error_outputs": [],
+          "sha256": "63cdbda1b765ed349056ecc656e0e48b95cc958ac6b2aa6dad9cdeed70223715",
+          "run_mark": {
+            "code_sha256": "b340bb89055a4da5ad76a3aafbf6096cf9baca56fdea17142d3c4a0239f4d730",
+            "executed_at": "2026-11-14T22:45:03+00:00"
+          },
+          "log_sha256": "304b2e2d4e085172b497be34dee050117edba313dc053bea13d9e7f3b43ac2bc"
+        },
+        {
+          "path": "docs/content/user/cookbook/saving_hbond_interactions.ipynb",
+          "code_cells": 8,
+          "content_unchanged": true,
+          "executed_cells": 8,
+          "error_outputs": [],
+          "sha256": "5e6573483b30fa77422157c1f0e796718437bb88cbc0eca121af7d112ce252bc",
+          "run_mark": {
+            "code_sha256": "ed32c23fdcf32062f738cf6ec2d04ea59d71bd5a60d7159167a6c23fcd23c0d3",
+            "executed_at": "2026-11-14T22:45:10+00:00"
+          },
+          "log_sha256": "d1948aff84f190dfacc729614d241ff976c1b6395a52da584c736a681a00ce65"
+        }
+      ],
+      "changed_inputs": [],
+      "memory_peak_bytes": 338386944,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17923547136,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "a929fdb132d329908b6e57d0cdeb2acc5a6a814cb3c684b2bc3ef5ef58d4c18d"
+    },
+    "user-corrected": {
+      "phase": "user-corrected",
+      "source_commit": "baedf4c702e6b9438a63b097e1b048bf1ab3df6d",
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "state": "completed",
+      "command": [
+        "<development-prefix>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "docs/content/user/tools/basic/select.ipynb"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [
+        "docs/content/user/tools/basic/select.ipynb"
+      ],
+      "python": "<development-prefix>/bin/python",
+      "load": "0.78 1.12 0.94 4/2754 2181165",
+      "cpu_pressure": "some avg10=0.00 avg60=0.07 avg300=1.50 total=20372352042\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4906,
+      "seconds": 9.018388296943158,
+      "notebooks": [
+        {
+          "path": "docs/content/user/tools/basic/select.ipynb",
+          "code_cells": 47,
+          "content_unchanged": true,
+          "executed_cells": 47,
+          "error_outputs": [],
+          "sha256": "effd44952dd85f1d60ab3a21e11f624f719ec7f6dfd692af78b9dc3f8ed96c47",
+          "run_mark": {
+            "code_sha256": "fb65c4fbfd9cfd2840c36ade43b2707b4a4694d09499003861b99c6e7cf4adda",
+            "executed_at": "2026-11-14T22:46:46+00:00"
+          },
+          "log_sha256": "eb36560c7347460151268f7d58a591619a9e3eac59f8d0821a47e61841cfec57"
+        }
+      ],
+      "changed_inputs": [],
+      "memory_peak_bytes": 433258496,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17876684800,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "a929fdb132d329908b6e57d0cdeb2acc5a6a814cb3c684b2bc3ef5ef58d4c18d"
+    }
+  },
+  "first_content_check_review": {
+    "note": "The first driver compared source-list chunking and rejected nbconvert reserialization in two Markdown cells. Normalized text comparison below preserves every code and Markdown character. Original native_exit=0 and harness rejection are retained.",
+    "notebooks": {
+      "docs/content/course/Common_Core/07_Selection_Basics.ipynb": {
+        "same_cell_types_and_text": true,
+        "all_code_cells_executed": true
+      },
+      "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb": {
+        "same_cell_types_and_text": true,
+        "all_code_cells_executed": true
+      },
+      "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb": {
+        "same_cell_types_and_text": true,
+        "all_code_cells_executed": true
+      },
+      "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb": {
+        "same_cell_types_and_text": true,
+        "all_code_cells_executed": true
+      }
+    }
+  },
+  "original_socket_only_baseline": {
+    "phase": "baseline",
+    "source_commit": "baedf4c702e6b9438a63b097e1b048bf1ab3df6d",
+    "state": "completed",
+    "native_exit": -15,
+    "host_reserve_bytes": 6979321856,
+    "scope": "Receive offline tutorial setup and documentation checks for #753; no installed/scientific/final-pair qualification.",
+    "host_cpu_at_admission": {
+      "load": "3.39 1.81 1.02 2/2732 2178493",
+      "cpu_pressure": "some avg10=2.82 avg60=12.21 avg300=4.48 total=20371613478\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "online_cpus": 20
+    },
+    "starting_status": "?? devguide/pending_bugs/docs/core_query_tutorials_depend_on_live_pdb_downloads_instead_of_bundled_systems.md\n?? devtools/tests/test_basic_tutorial_data.py\n",
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "2147483648",
+      "memory.high": "1887436800",
+      "memory.swap.max": "0",
+      "pids.max": "256"
+    },
+    "command": [
+      "<development-prefix>/bin/python",
+      "-m",
+      "pytest",
+      "--receptor=llm",
+      "-n0",
+      "--junitxml=<checkout>/.pytest_cache/essential-doc-examples-334-20261114/baseline.xml",
+      "--receptor-events=<checkout>/.pytest_cache/essential-doc-examples-334-20261114/baseline.events.jsonl",
+      "devtools/tests/test_basic_tutorial_data.py"
+    ],
+    "checked_inputs": 8208,
+    "seconds": 86.75962958112359,
+    "ending_status": "?? devguide/pending_bugs/docs/core_query_tutorials_depend_on_live_pdb_downloads_instead_of_bundled_systems.md\n?? devtools/tests/test_basic_tutorial_data.py\n",
+    "changed_inputs": [],
+    "memory_peak_bytes": 284188672,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 17915023360,
+    "maximum_memory_pressure_avg10": 0.0,
+    "pressure_transitions": [],
+    "stop_reason": null,
+    "driver_sha256": "24618591a6069aa61cd9389572e22a2cc891bb129965828bbabb70551e8ae573"
+  },
+  "socket_baseline_disposition": {
+    "reason": "Stopped only the owned pytest process after confirming the download fallback sleeps between attempts; preserving the original native signal result. The focused guard will also reject the download boundary immediately, without returning fake data.",
+    "signal": "SIGTERM"
+  },
+  "focused_executions": {
+    "contract-baseline": {
+      "phase": "contract-baseline",
+      "source_commit": "baedf4c702e6b9438a63b097e1b048bf1ab3df6d",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive offline tutorial setup and documentation checks for #753; no installed/scientific/final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.72 1.32 0.93 2/2722 2179565",
+        "cpu_pressure": "some avg10=0.00 avg60=1.82 avg300=3.02 total=20371766767\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": "?? devguide/pending_bugs/docs/core_query_tutorials_depend_on_live_pdb_downloads_instead_of_bundled_systems.md\n?? devtools/tests/test_basic_tutorial_data.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/essential-doc-examples-334-20261114/contract-baseline.xml",
+        "--receptor-events=<checkout>/.pytest_cache/essential-doc-examples-334-20261114/contract-baseline.events.jsonl",
+        "devtools/tests/test_basic_tutorial_data.py"
+      ],
+      "checked_inputs": 8208,
+      "seconds": 7.771608656737953,
+      "ending_status": "?? devguide/pending_bugs/docs/core_query_tutorials_depend_on_live_pdb_downloads_instead_of_bundled_systems.md\n?? devtools/tests/test_basic_tutorial_data.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 301420544,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17988702208,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "24618591a6069aa61cd9389572e22a2cc891bb129965828bbabb70551e8ae573"
+    },
+    "runtime-baseline": {
+      "phase": "runtime-baseline",
+      "source_commit": "baedf4c702e6b9438a63b097e1b048bf1ab3df6d",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive offline tutorial setup and documentation checks for #753; no installed/scientific/final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.87 1.20 0.95 2/2748 2180819",
+        "cpu_pressure": "some avg10=0.00 avg60=0.17 avg300=1.77 total=20372278081\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M docs/content/user/tools/basic/extract.ipynb\n M docs/content/user/tools/basic/get.ipynb\n M docs/content/user/tools/basic/info.ipynb\n M docs/content/user/tools/basic/select.ipynb\n?? devguide/pending_bugs/docs/core_query_tutorials_depend_on_live_pdb_downloads_instead_of_bundled_systems.md\n?? devguide/pending_bugs/docs/selection_tutorial_filters_atom_positions_while_describing_group_positions.md\n?? devtools/tests/test_basic_tutorial_data.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/essential-doc-examples-334-20261114/runtime-baseline.xml",
+        "--receptor-events=<checkout>/.pytest_cache/essential-doc-examples-334-20261114/runtime-baseline.events.jsonl",
+        "devtools/tests/test_basic_tutorial_data.py"
+      ],
+      "checked_inputs": 8209,
+      "seconds": 6.7041596178896725,
+      "ending_status": " M docs/content/user/tools/basic/extract.ipynb\n M docs/content/user/tools/basic/get.ipynb\n M docs/content/user/tools/basic/info.ipynb\n M docs/content/user/tools/basic/select.ipynb\n?? devguide/pending_bugs/docs/core_query_tutorials_depend_on_live_pdb_downloads_instead_of_bundled_systems.md\n?? devguide/pending_bugs/docs/selection_tutorial_filters_atom_positions_while_describing_group_positions.md\n?? devtools/tests/test_basic_tutorial_data.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 220119040,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17987829760,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "24618591a6069aa61cd9389572e22a2cc891bb129965828bbabb70551e8ae573"
+    },
+    "corrected": {
+      "phase": "corrected",
+      "source_commit": "baedf4c702e6b9438a63b097e1b048bf1ab3df6d",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive offline tutorial setup and documentation checks for #753; no installed/scientific/final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.50 0.95 0.90 2/2715 2182045",
+        "cpu_pressure": "some avg10=0.00 avg60=0.02 avg300=1.06 total=20372547406\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/course/Common_Core/07_Selection_Basics.nbconvert.last_run\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.nbconvert.last_run\n M docs/content/user/cookbook/saving_hbond_interactions.ipynb\n M docs/content/user/tools/basic/extract.ipynb\n M docs/content/user/tools/basic/extract.nbconvert.last_run\n M docs/content/user/tools/basic/get.ipynb\n M docs/content/user/tools/basic/get.nbconvert.last_run\n M docs/content/user/tools/basic/info.ipynb\n M docs/content/user/tools/basic/info.nbconvert.last_run\n M docs/content/user/tools/basic/select.ipynb\n M docs/content/user/tools/basic/select.nbconvert.last_run\n M docs/content/user/tools/chemical_states/get_bondgraph.ipynb\n M docs/content/user/tools/chemical_states/get_rings.ipynb\n?? devguide/pending_bugs/docs/core_query_tutorials_depend_on_live_pdb_downloads_instead_of_bundled_systems.md\n?? devguide/pending_bugs/docs/selection_tutorial_filters_atom_positions_while_describing_group_positions.md\n?? devtools/tests/test_basic_tutorial_data.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/essential-doc-examples-334-20261114/corrected.xml",
+        "--receptor-events=<checkout>/.pytest_cache/essential-doc-examples-334-20261114/corrected.events.jsonl",
+        "devtools/tests/test_basic_tutorial_data.py"
+      ],
+      "checked_inputs": 8209,
+      "seconds": 5.693704917095602,
+      "ending_status": " M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/course/Common_Core/07_Selection_Basics.nbconvert.last_run\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.nbconvert.last_run\n M docs/content/user/cookbook/saving_hbond_interactions.ipynb\n M docs/content/user/tools/basic/extract.ipynb\n M docs/content/user/tools/basic/extract.nbconvert.last_run\n M docs/content/user/tools/basic/get.ipynb\n M docs/content/user/tools/basic/get.nbconvert.last_run\n M docs/content/user/tools/basic/info.ipynb\n M docs/content/user/tools/basic/info.nbconvert.last_run\n M docs/content/user/tools/basic/select.ipynb\n M docs/content/user/tools/basic/select.nbconvert.last_run\n M docs/content/user/tools/chemical_states/get_bondgraph.ipynb\n M docs/content/user/tools/chemical_states/get_rings.ipynb\n?? devguide/pending_bugs/docs/core_query_tutorials_depend_on_live_pdb_downloads_instead_of_bundled_systems.md\n?? devguide/pending_bugs/docs/selection_tutorial_filters_atom_positions_while_describing_group_positions.md\n?? devtools/tests/test_basic_tutorial_data.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 219090944,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18082668544,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "24618591a6069aa61cd9389572e22a2cc891bb129965828bbabb70551e8ae573"
+    },
+    "cohort": {
+      "phase": "cohort",
+      "source_commit": "baedf4c702e6b9438a63b097e1b048bf1ab3df6d",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive offline tutorial setup and documentation checks for #753; no installed/scientific/final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.73 0.96 0.91 2/2726 2182766",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.76 total=20372655587\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/course/Common_Core/07_Selection_Basics.nbconvert.last_run\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.nbconvert.last_run\n M docs/content/user/cookbook/saving_hbond_interactions.ipynb\n M docs/content/user/tools/basic/extract.ipynb\n M docs/content/user/tools/basic/extract.nbconvert.last_run\n M docs/content/user/tools/basic/get.ipynb\n M docs/content/user/tools/basic/get.nbconvert.last_run\n M docs/content/user/tools/basic/info.ipynb\n M docs/content/user/tools/basic/info.nbconvert.last_run\n M docs/content/user/tools/basic/select.ipynb\n M docs/content/user/tools/basic/select.nbconvert.last_run\n M docs/content/user/tools/chemical_states/get_bondgraph.ipynb\n M docs/content/user/tools/chemical_states/get_rings.ipynb\n?? devguide/pending_bugs/docs/core_query_tutorials_depend_on_live_pdb_downloads_instead_of_bundled_systems.md\n?? devguide/pending_bugs/docs/selection_tutorial_filters_atom_positions_while_describing_group_positions.md\n?? devtools/tests/test_basic_tutorial_data.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/essential-doc-examples-334-20261114/cohort.xml",
+        "--receptor-events=<checkout>/.pytest_cache/essential-doc-examples-334-20261114/cohort.events.jsonl",
+        "devtools/tests/test_basic_tutorial_data.py",
+        "tests/chemical_states/test_public_graph_tutorials.py",
+        "tests/documentation/test_native_domain_examples.py",
+        "tests/documentation/test_h5msm_06_examples.py"
+      ],
+      "checked_inputs": 8209,
+      "seconds": 8.729370492976159,
+      "ending_status": " M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/course/Common_Core/07_Selection_Basics.nbconvert.last_run\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.nbconvert.last_run\n M docs/content/user/cookbook/saving_hbond_interactions.ipynb\n M docs/content/user/tools/basic/extract.ipynb\n M docs/content/user/tools/basic/extract.nbconvert.last_run\n M docs/content/user/tools/basic/get.ipynb\n M docs/content/user/tools/basic/get.nbconvert.last_run\n M docs/content/user/tools/basic/info.ipynb\n M docs/content/user/tools/basic/info.nbconvert.last_run\n M docs/content/user/tools/basic/select.ipynb\n M docs/content/user/tools/basic/select.nbconvert.last_run\n M docs/content/user/tools/chemical_states/get_bondgraph.ipynb\n M docs/content/user/tools/chemical_states/get_rings.ipynb\n?? devguide/pending_bugs/docs/core_query_tutorials_depend_on_live_pdb_downloads_instead_of_bundled_systems.md\n?? devguide/pending_bugs/docs/selection_tutorial_filters_atom_positions_while_describing_group_positions.md\n?? devtools/tests/test_basic_tutorial_data.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 249073664,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17995071488,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "24618591a6069aa61cd9389572e22a2cc891bb129965828bbabb70551e8ae573"
+    },
+    "runtime-corrected": {
+      "phase": "runtime-corrected",
+      "source_commit": "baedf4c702e6b9438a63b097e1b048bf1ab3df6d",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive offline tutorial setup and documentation checks for #753; no installed/scientific/final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.85 0.92 0.94 2/2751 2186186",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.12 total=20373210219\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/release_1_0_status.md\n M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/course/Common_Core/07_Selection_Basics.nbconvert.last_run\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.nbconvert.last_run\n M docs/content/user/cookbook/saving_hbond_interactions.ipynb\n M docs/content/user/tools/basic/extract.ipynb\n M docs/content/user/tools/basic/extract.nbconvert.last_run\n M docs/content/user/tools/basic/get.ipynb\n M docs/content/user/tools/basic/get.nbconvert.last_run\n M docs/content/user/tools/basic/info.ipynb\n M docs/content/user/tools/basic/info.nbconvert.last_run\n M docs/content/user/tools/basic/select.ipynb\n M docs/content/user/tools/basic/select.nbconvert.last_run\n M docs/content/user/tools/chemical_states/get_bondgraph.ipynb\n M docs/content/user/tools/chemical_states/get_rings.ipynb\n?? devguide/archive/resolved_bugs/core_query_tutorials_depend_on_live_pdb_downloads_instead_of_bundled_systems.md\n?? devguide/archive/resolved_bugs/selection_tutorial_filters_atom_positions_while_describing_group_positions.md\n?? devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n?? devtools/data/documentation_examples_receiving_334_20261114.json\n?? devtools/tests/test_basic_tutorial_data.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/essential-doc-examples-334-20261114/runtime-corrected.xml",
+        "--receptor-events=<checkout>/.pytest_cache/essential-doc-examples-334-20261114/runtime-corrected.events.jsonl",
+        "devtools/tests/test_basic_tutorial_data.py",
+        "tests/chemical_states/test_public_graph_tutorials.py",
+        "tests/documentation/test_native_domain_examples.py",
+        "tests/documentation/test_h5msm_06_examples.py"
+      ],
+      "checked_inputs": 8211,
+      "seconds": 8.70981175173074,
+      "ending_status": " M devguide/release_1_0_status.md\n M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/course/Common_Core/07_Selection_Basics.nbconvert.last_run\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.nbconvert.last_run\n M docs/content/user/cookbook/saving_hbond_interactions.ipynb\n M docs/content/user/tools/basic/extract.ipynb\n M docs/content/user/tools/basic/extract.nbconvert.last_run\n M docs/content/user/tools/basic/get.ipynb\n M docs/content/user/tools/basic/get.nbconvert.last_run\n M docs/content/user/tools/basic/info.ipynb\n M docs/content/user/tools/basic/info.nbconvert.last_run\n M docs/content/user/tools/basic/select.ipynb\n M docs/content/user/tools/basic/select.nbconvert.last_run\n M docs/content/user/tools/chemical_states/get_bondgraph.ipynb\n M docs/content/user/tools/chemical_states/get_rings.ipynb\n?? devguide/archive/resolved_bugs/core_query_tutorials_depend_on_live_pdb_downloads_instead_of_bundled_systems.md\n?? devguide/archive/resolved_bugs/selection_tutorial_filters_atom_positions_while_describing_group_positions.md\n?? devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n?? devtools/data/documentation_examples_receiving_334_20261114.json\n?? devtools/tests/test_basic_tutorial_data.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 248049664,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17921040384,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "24618591a6069aa61cd9389572e22a2cc891bb129965828bbabb70551e8ae573"
+    }
+  },
+  "kernel_runtime_receipts": {
+    "07_Selection_Basics": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/docs/content/course/Common_Core",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "openmm": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/openmm/__init__.py",
+          "version": "8.6.1"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    },
+    "08_Extracting_Molecular_Attributes": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/docs/content/course/Common_Core",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "openmm": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/openmm/__init__.py",
+          "version": "8.6.1"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    },
+    "10_Modifying_Molecular_Attributes": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/docs/content/course/Common_Core",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "openmm": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/openmm/__init__.py",
+          "version": "8.6.1"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    },
+    "18_Extracting_and_Removing_Elements": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/docs/content/course/Common_Core",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    },
+    "extract": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/docs/content/user/tools/basic",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    },
+    "get": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/docs/content/user/tools/basic",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "openmm": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/openmm/__init__.py",
+          "version": "8.6.1"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    },
+    "get_bondgraph": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/docs/content/user/tools/chemical_states",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    },
+    "get_rings": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/docs/content/user/tools/chemical_states",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    },
+    "info": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/docs/content/user/tools/basic",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "openmm": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/openmm/__init__.py",
+          "version": "8.6.1"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    },
+    "saving_hbond_interactions": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/docs/content/user/cookbook",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    },
+    "select": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/docs/content/user/tools/basic",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "openmm": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/openmm/__init__.py",
+          "version": "8.6.1"
+        },
+        "mdtraj": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/mdtraj/__init__.py",
+          "version": "1.11.1"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    }
+  },
+  "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "checkpoint_inventory": {
+    "issues": 674,
+    "open_before_753_755_closure": 97,
+    "open_prs": 0,
+    "new_external_issue": "uibcdf/molsysmt#754",
+    "external_issue_disposition": "Admitted as receiver diagnostic correction with original phase and ownership uncertainty preserved.",
+    "external_replies": "No new team response to MolSysViewer #384 or BindingMT #73 at this review; last comments remain 6885057522 / 6885046648."
+  },
+  "original_weighted_progress_change": 0,
+  "publication": "Paused; no candidate construction, hosted qualification, tag, package, promotion or release selected.",
+  "focused_outcomes": {
+    "contract-baseline": {
+      "receptor": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 4,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 4,
+          "failed": 4,
+          "not_executed": 0,
+          "passed": 0,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 2.6815631450153887,
+        "exitstatus": 1,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 0
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "08a832493bb9988fa94e05b0b6371557e213e9c5a1b21fb033d532d508fc7792",
+          "records": 14
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "FAIL",
+        "root_causes": 1,
+        "run_id": "6952a35854564607985de180d7d955c5",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "same_invocation_junit": {
+        "tests": 4,
+        "failures": 4,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "runtime-baseline": {
+      "receptor": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 5,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 5,
+          "failed": 1,
+          "not_executed": 0,
+          "passed": 4,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 2.4917814964428544,
+        "exitstatus": 1,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 0
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "3c870629c31068280f28e6a0a5ae6f1f441606e482b2ad366d0369f9e8751d5d",
+          "records": 17
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "FAIL",
+        "root_causes": 1,
+        "run_id": "652b4e527caf4b21914d33e74be97854",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "same_invocation_junit": {
+        "tests": 5,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "corrected": {
+      "receptor": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 5,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 5,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 5,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 1.819625609088689,
+        "exitstatus": 0,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 0
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "cfa3fdd53dce3c2337516beb0f19571f78759a28d010841d065b722bee60e588",
+          "records": 16
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "PASS",
+        "root_causes": 0,
+        "run_id": "baa0bf11f20d42b682a69bdc377e91f3",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "same_invocation_junit": {
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "cohort": {
+      "receptor": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 15,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 15,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 15,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 4.372844917234033,
+        "exitstatus": 0,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 0
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "123ea44a58c151f43727c37287d53dc77bcc6da258b472849fce489ddb45c04c",
+          "records": 46
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "PASS",
+        "root_causes": 0,
+        "run_id": "c8dd36d80096404fb9179b5228ac31a0",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "same_invocation_junit": {
+        "tests": 15,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "runtime-corrected": {
+      "receptor": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 15,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 15,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 15,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 3.7882814570330083,
+        "exitstatus": 0,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 0
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "084d401448decbe1a00f7798b4f58f3ccf251a049f976f5f9b3c2058b698a63f",
+          "records": 46
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "PASS",
+        "root_causes": 0,
+        "run_id": "c00bb289761e4d27a581e7cd3951641c",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "same_invocation_junit": {
+        "tests": 15,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "strict_full_site_execution": {
+    "phase": "render",
+    "source_commit": "baedf4c702e6b9438a63b097e1b048bf1ab3df6d",
+    "scope": "Fresh strict full Sphinx build of the executed notebooks and current actual configuration. Notebook execution was received separately. No browser, installed, final-candidate or scientific-profile qualification.",
+    "state": "completed",
+    "command": [
+      "<development-prefix>/bin/python",
+      "-m",
+      "sphinx",
+      "-W",
+      "--keep-going",
+      "-E",
+      "-a",
+      "-b",
+      "html",
+      "-q",
+      "-j",
+      "1",
+      "docs",
+      "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/html"
+    ],
+    "native_exit": 0,
+    "host_reserve_bytes": 6979321856,
+    "paths": [],
+    "python": "<development-prefix>/bin/python",
+    "load": "0.82 0.97 0.91 4/2720 2182986",
+    "cpu_pressure": "some avg10=0.01 avg60=0.02 avg300=0.70 total=20372721474\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "2147483648",
+      "memory.high": "1887436800",
+      "memory.swap.max": "0",
+      "pids.max": "256"
+    },
+    "input_count": 7134,
+    "seconds": 153.0775717399083,
+    "notebooks": [],
+    "changed_inputs": [],
+    "memory_peak_bytes": 1378959360,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 17434435584,
+    "maximum_memory_pressure_avg10": 8.05,
+    "stop_reason": null,
+    "driver_sha256": "cf5ce6debd35dd80fb094abda9d3a3fedcc22050493ed7705704411dddcc8e9a"
+  },
+  "actual_html_receiving": {
+    "pages_received": 11,
+    "all_assertions_passed": true,
+    "html_files": 1400,
+    "strict_log": "version 0.23.0, release 0.23.0\n",
+    "pages": [
+      {
+        "path": "content/course/Common_Core/07_Selection_Basics.html",
+        "sha256": "151ec1e67333ee5389ff7e60800d5b2c800bebba3aa67b0e569c1041bd474cf0",
+        "images": [
+          {
+            "path": "_static/logo.svg",
+            "sha256": "9179bbf00364152ab7871d2b915563473d761590b97f91a8ee169a346723b1c0"
+          },
+          {
+            "path": "_static/logo_dark.svg",
+            "sha256": "d6a9c2806b8123c88c363e51f81649aae42d319217a5fe0892c66cb709604ad4"
+          }
+        ],
+        "new_catalog_links_verified": []
+      },
+      {
+        "path": "content/course/Common_Core/08_Extracting_Molecular_Attributes.html",
+        "sha256": "3bd92e5c3f5f738ae3d962bc7d74932671039b9d557a64af815c16b9d60efdd3",
+        "images": [
+          {
+            "path": "_static/logo.svg",
+            "sha256": "9179bbf00364152ab7871d2b915563473d761590b97f91a8ee169a346723b1c0"
+          },
+          {
+            "path": "_static/logo_dark.svg",
+            "sha256": "d6a9c2806b8123c88c363e51f81649aae42d319217a5fe0892c66cb709604ad4"
+          }
+        ],
+        "new_catalog_links_verified": []
+      },
+      {
+        "path": "content/course/Common_Core/10_Modifying_Molecular_Attributes.html",
+        "sha256": "071c081169c451d908d0ee4d0fcf3a165185990a1883ef808942af01ed065122",
+        "images": [
+          {
+            "path": "_static/logo.svg",
+            "sha256": "9179bbf00364152ab7871d2b915563473d761590b97f91a8ee169a346723b1c0"
+          },
+          {
+            "path": "_static/logo_dark.svg",
+            "sha256": "d6a9c2806b8123c88c363e51f81649aae42d319217a5fe0892c66cb709604ad4"
+          }
+        ],
+        "new_catalog_links_verified": []
+      },
+      {
+        "path": "content/course/Common_Core/18_Extracting_and_Removing_Elements.html",
+        "sha256": "9fdd9719c8eb9e959d6b79335921521b23ee1203f71c9c78d764edd1e8261a99",
+        "images": [
+          {
+            "path": "_static/logo.svg",
+            "sha256": "9179bbf00364152ab7871d2b915563473d761590b97f91a8ee169a346723b1c0"
+          },
+          {
+            "path": "_static/logo_dark.svg",
+            "sha256": "d6a9c2806b8123c88c363e51f81649aae42d319217a5fe0892c66cb709604ad4"
+          }
+        ],
+        "new_catalog_links_verified": []
+      },
+      {
+        "path": "content/user/tools/basic/get.html",
+        "sha256": "1d2475f78aceca2fdad41df965ab24fd08d95ec3c09eba6499662b39595799ed",
+        "images": [
+          {
+            "path": "_static/logo.svg",
+            "sha256": "9179bbf00364152ab7871d2b915563473d761590b97f91a8ee169a346723b1c0"
+          },
+          {
+            "path": "_static/logo_dark.svg",
+            "sha256": "d6a9c2806b8123c88c363e51f81649aae42d319217a5fe0892c66cb709604ad4"
+          }
+        ],
+        "new_catalog_links_verified": [
+          "../../foundations/entrance/demo_systems.html",
+          "../../foundations/entrance/demo_systems.html#user-foundations-entrance-demo-systems",
+          "../../foundations/entrance/demo_systems.html#user-foundations-entrance-demo-systems",
+          "../../foundations/entrance/demo_systems.html#user-foundations-entrance-demo-systems"
+        ]
+      },
+      {
+        "path": "content/user/tools/basic/info.html",
+        "sha256": "228d440642b333c1e4c273fd68e1e5d0e287c9dc9db0e4044f1a860577cc1c6f",
+        "images": [
+          {
+            "path": "_static/logo.svg",
+            "sha256": "9179bbf00364152ab7871d2b915563473d761590b97f91a8ee169a346723b1c0"
+          },
+          {
+            "path": "_static/logo_dark.svg",
+            "sha256": "d6a9c2806b8123c88c363e51f81649aae42d319217a5fe0892c66cb709604ad4"
+          }
+        ],
+        "new_catalog_links_verified": [
+          "../../foundations/entrance/demo_systems.html",
+          "../../foundations/entrance/demo_systems.html#user-foundations-entrance-demo-systems"
+        ]
+      },
+      {
+        "path": "content/user/tools/basic/select.html",
+        "sha256": "4a70bd33a43e48a1c469949917637d7115d1027d043b6fe4a5aa18d6d6b0aa4c",
+        "images": [
+          {
+            "path": "_static/logo.svg",
+            "sha256": "9179bbf00364152ab7871d2b915563473d761590b97f91a8ee169a346723b1c0"
+          },
+          {
+            "path": "_static/logo_dark.svg",
+            "sha256": "d6a9c2806b8123c88c363e51f81649aae42d319217a5fe0892c66cb709604ad4"
+          }
+        ],
+        "new_catalog_links_verified": [
+          "../../foundations/entrance/demo_systems.html",
+          "../../foundations/entrance/demo_systems.html#user-foundations-entrance-demo-systems"
+        ]
+      },
+      {
+        "path": "content/user/tools/basic/extract.html",
+        "sha256": "c2f23c7f26b6f6dbb012b44c76611fe4d040c553c8a502c2a6160392ca4e8e5b",
+        "images": [
+          {
+            "path": "_static/logo.svg",
+            "sha256": "9179bbf00364152ab7871d2b915563473d761590b97f91a8ee169a346723b1c0"
+          },
+          {
+            "path": "_static/logo_dark.svg",
+            "sha256": "d6a9c2806b8123c88c363e51f81649aae42d319217a5fe0892c66cb709604ad4"
+          }
+        ],
+        "new_catalog_links_verified": [
+          "../../foundations/entrance/demo_systems.html",
+          "../../foundations/entrance/demo_systems.html#user-foundations-entrance-demo-systems"
+        ]
+      },
+      {
+        "path": "content/user/tools/chemical_states/get_bondgraph.html",
+        "sha256": "b7075b23f74588c1a730bfd500c620902f9ce669c2dada7da0ac9924e068d860",
+        "images": [
+          {
+            "path": "_static/logo.svg",
+            "sha256": "9179bbf00364152ab7871d2b915563473d761590b97f91a8ee169a346723b1c0"
+          },
+          {
+            "path": "_static/logo_dark.svg",
+            "sha256": "d6a9c2806b8123c88c363e51f81649aae42d319217a5fe0892c66cb709604ad4"
+          }
+        ],
+        "new_catalog_links_verified": []
+      },
+      {
+        "path": "content/user/tools/chemical_states/get_rings.html",
+        "sha256": "875fcd4f759608531ae2b4e00a7a7d13fc0bd62b6df3317754937e1c7d8ca66e",
+        "images": [
+          {
+            "path": "_static/logo.svg",
+            "sha256": "9179bbf00364152ab7871d2b915563473d761590b97f91a8ee169a346723b1c0"
+          },
+          {
+            "path": "_static/logo_dark.svg",
+            "sha256": "d6a9c2806b8123c88c363e51f81649aae42d319217a5fe0892c66cb709604ad4"
+          }
+        ],
+        "new_catalog_links_verified": []
+      },
+      {
+        "path": "content/user/cookbook/saving_hbond_interactions.html",
+        "sha256": "321c26428e944e48409284bcaaddfd66bdd04aa859e4af953513cb5ef6c1977d",
+        "images": [
+          {
+            "path": "_static/logo.svg",
+            "sha256": "9179bbf00364152ab7871d2b915563473d761590b97f91a8ee169a346723b1c0"
+          },
+          {
+            "path": "_static/logo_dark.svg",
+            "sha256": "d6a9c2806b8123c88c363e51f81649aae42d319217a5fe0892c66cb709604ad4"
+          }
+        ],
+        "new_catalog_links_verified": []
+      }
+    ]
+  },
+  "authored_delta_sha256": {
+    "devtools/tests/test_basic_tutorial_data.py": "8bd40c0e78ffcee520f47061de6bda53164884069bfd8dcc92802563a20fc95c",
+    "docs/content/course/Common_Core/07_Selection_Basics.ipynb": "1939a50d94dfd083360e059f3b886f3a2ce95b17cd039f5e94cfbca27ed11631",
+    "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb": "b521fde32f3de46ae8ce5485a476747ba8916f879f302a87240169c570f6bf2c",
+    "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb": "f84150bc96c9553270ced0053ef17ad362ee433dbc448041db5f06e8a16fa314",
+    "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb": "d321b5c57d4f61a17548ebbfa5a526f7f31b3bd6f3ee1d17a6c5d789111e0f09",
+    "docs/content/user/tools/basic/get.ipynb": "e7f698e68c36bbd2190bf15f6c7559a7c3c501892779dc09699390b51e4b972d",
+    "docs/content/user/tools/basic/info.ipynb": "b8b3e3f53689e029345282d057e5dbe022300bcaddaddfde764839de8805ea97",
+    "docs/content/user/tools/basic/select.ipynb": "087329dd2db2a72ae66d3e43ccc41b26590d1c7eb1245b4c4c306c88b07f7fd4",
+    "docs/content/user/tools/basic/extract.ipynb": "e2c4e4b55b93b43cf78594740ebdbd4f2bdc27b848843cfa3f2b53cd0e168b22",
+    "docs/content/user/tools/chemical_states/get_bondgraph.ipynb": "2556f66215d1584affa08e7dd5df3ab0e7249a2eaf83dd5eb6c628d976cce8ae",
+    "docs/content/user/tools/chemical_states/get_rings.ipynb": "63cdbda1b765ed349056ecc656e0e48b95cc958ac6b2aa6dad9cdeed70223715",
+    "docs/content/user/cookbook/saving_hbond_interactions.ipynb": "5e6573483b30fa77422157c1f0e796718437bb88cbc0eca121af7d112ce252bc"
+  },
+  "retained_evidence_sha256": {
+    ".pytest_cache/essential-doc-examples-334-20261114/baseline-driver.py": "24618591a6069aa61cd9389572e22a2cc891bb129965828bbabb70551e8ae573",
+    ".pytest_cache/essential-doc-examples-334-20261114/baseline-execution.json": "6fa4def2561ae5e5245dd7c03752da2985d008ce137b74690a24e0d225c971c6",
+    ".pytest_cache/essential-doc-examples-334-20261114/baseline-inputs-after.json": "40a9c20fc2ce9923b06296add99149676f3a4d02426d30af96ebd7a6a68c3c96",
+    ".pytest_cache/essential-doc-examples-334-20261114/baseline-inputs-before.json": "40a9c20fc2ce9923b06296add99149676f3a4d02426d30af96ebd7a6a68c3c96",
+    ".pytest_cache/essential-doc-examples-334-20261114/baseline-interruption.json": "312b973c9469a1773b8c92ccbf5cdc57b71ad3697d884c7486866e8b68df2118",
+    ".pytest_cache/essential-doc-examples-334-20261114/baseline.events.jsonl": "faf0cbdb5b5ff728310bce5c4dbd9498acb8e1db5e52346b3c2506223176e5ff",
+    ".pytest_cache/essential-doc-examples-334-20261114/baseline.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".pytest_cache/essential-doc-examples-334-20261114/batches.json": "d51b353e3664f7d93ddffbd9116fe7dcee9020a073c96eb45bd5208fcbfbc6b7",
+    ".pytest_cache/essential-doc-examples-334-20261114/board-after-incoming.json": "29cad922522e84388f5edd68c22a23c680ddaed8a83ea12b429a3e776b1ed8c3",
+    ".pytest_cache/essential-doc-examples-334-20261114/board-before.json": "08709bc9d5b78ab3d410220946eab24e1c1f48cd767c41b9d75cd49eb5aa6efa",
+    ".pytest_cache/essential-doc-examples-334-20261114/check_driver.py": "24618591a6069aa61cd9389572e22a2cc891bb129965828bbabb70551e8ae573",
+    ".pytest_cache/essential-doc-examples-334-20261114/checks-driver.py": "24618591a6069aa61cd9389572e22a2cc891bb129965828bbabb70551e8ae573",
+    ".pytest_cache/essential-doc-examples-334-20261114/checks-execution.json": "9009743477e61af8f43058ff1c65e2250f6f241942efcf521650508a703a152e",
+    ".pytest_cache/essential-doc-examples-334-20261114/checks-inputs-after.json": "b6861ff5759bae7c73eae6d942c47dd6130d435e0288580d56bf937efcb976b4",
+    ".pytest_cache/essential-doc-examples-334-20261114/checks-inputs-before.json": "b6861ff5759bae7c73eae6d942c47dd6130d435e0288580d56bf937efcb976b4",
+    ".pytest_cache/essential-doc-examples-334-20261114/checks.log": "181f91a6a6bb421f1fe81267da8aa5317d8a8a0d5c0c73e83ebae1a160161c74",
+    ".pytest_cache/essential-doc-examples-334-20261114/cohort-driver.py": "24618591a6069aa61cd9389572e22a2cc891bb129965828bbabb70551e8ae573",
+    ".pytest_cache/essential-doc-examples-334-20261114/cohort-execution.json": "995f90c15972cb1c658e2bd05352192218e1702d555a85376d4820e82ae8a317",
+    ".pytest_cache/essential-doc-examples-334-20261114/cohort-inputs-after.json": "ad210b571b41a9690ddb320a88ed6076c8a27e9222ffb5f1f63b9266346d7ae7",
+    ".pytest_cache/essential-doc-examples-334-20261114/cohort-inputs-before.json": "ad210b571b41a9690ddb320a88ed6076c8a27e9222ffb5f1f63b9266346d7ae7",
+    ".pytest_cache/essential-doc-examples-334-20261114/cohort.events.jsonl": "a8be69f13aca72efd57f8dbcfeee47ac37bb5d80403e248ff0819b24ffa811ca",
+    ".pytest_cache/essential-doc-examples-334-20261114/cohort.log": "df4565e864e96eef51587bbab9fcd05e3561b9b5d17abd05238694e66af112a0",
+    ".pytest_cache/essential-doc-examples-334-20261114/cohort.xml": "9302ad3f12e04eb0bd54867800c893a2442636dc9615de7c59105edebc577dbc",
+    ".pytest_cache/essential-doc-examples-334-20261114/commands.json": "e30e7b02205d17e564266683afcd7026122c9b8ce189c661c59dc5a1d34b1f1d",
+    ".pytest_cache/essential-doc-examples-334-20261114/common-content-review.json": "26a9e2180076a450430de74c445e04a2bb4fd99e86f7b1f5730ac0f86cd60876",
+    ".pytest_cache/essential-doc-examples-334-20261114/common-execution.json": "e3f4d463ee9be7ec8a7790974d99f13bec1b59c3de6cb6cfaf044d30022703c3",
+    ".pytest_cache/essential-doc-examples-334-20261114/common-inputs-after.json": "4556938ca01e41a7a20afb62b817f173894df64e0dcdcf23a271835461ac70d3",
+    ".pytest_cache/essential-doc-examples-334-20261114/common-inputs-before.json": "4556938ca01e41a7a20afb62b817f173894df64e0dcdcf23a271835461ac70d3",
+    ".pytest_cache/essential-doc-examples-334-20261114/common.log": "2d459b7172c4e89fee899b63dcb69045899b61b69da0fbb605b6bdb0e937b287",
+    ".pytest_cache/essential-doc-examples-334-20261114/contract-baseline-driver.py": "24618591a6069aa61cd9389572e22a2cc891bb129965828bbabb70551e8ae573",
+    ".pytest_cache/essential-doc-examples-334-20261114/contract-baseline-execution.json": "4b83e7109239e8f01d6537e5d6751a7b7f8dd7291679795a0bbcf9be4089ffc1",
+    ".pytest_cache/essential-doc-examples-334-20261114/contract-baseline-inputs-after.json": "9033ced65201f09d240a8e381e92e4b2e6874212575b892b4cdc2c16496ebf06",
+    ".pytest_cache/essential-doc-examples-334-20261114/contract-baseline-inputs-before.json": "9033ced65201f09d240a8e381e92e4b2e6874212575b892b4cdc2c16496ebf06",
+    ".pytest_cache/essential-doc-examples-334-20261114/contract-baseline.events.jsonl": "ede7760ece2a79f24daa831710aeff28354958a38c940162a7279810919f86a1",
+    ".pytest_cache/essential-doc-examples-334-20261114/contract-baseline.log": "9bbe1ad0224df80282953f775536620e29f8d1db074c6a5100b0551f6e97532b",
+    ".pytest_cache/essential-doc-examples-334-20261114/contract-baseline.xml": "d412b1341a786b36eda179fe7b5503271d892301f0c707d457b5323aba4a68dc",
+    ".pytest_cache/essential-doc-examples-334-20261114/corrected-driver.py": "24618591a6069aa61cd9389572e22a2cc891bb129965828bbabb70551e8ae573",
+    ".pytest_cache/essential-doc-examples-334-20261114/corrected-execution.json": "6109bd5b3c482618c5a6c330a9f8f7b962347edd324b5e44798c55e045a97ea5",
+    ".pytest_cache/essential-doc-examples-334-20261114/corrected-inputs-after.json": "92859c18c9d7891cee4b0c93ae64f5daefa7898976ec2c6d6046bf50bd555c2e",
+    ".pytest_cache/essential-doc-examples-334-20261114/corrected-inputs-before.json": "92859c18c9d7891cee4b0c93ae64f5daefa7898976ec2c6d6046bf50bd555c2e",
+    ".pytest_cache/essential-doc-examples-334-20261114/corrected.events.jsonl": "097257be1daaf2567ff51b48d300022e2b2259abcd12a8c52485f00fee2b81ab",
+    ".pytest_cache/essential-doc-examples-334-20261114/corrected.log": "26aca96e12ae7ae2353c6125d829c36d8ce89e74ff53fa403378819b1489637c",
+    ".pytest_cache/essential-doc-examples-334-20261114/corrected.xml": "9ba07d0c5f821241b2c9185e8aab75ce606be6c7c285c85709c31309a8dc359c",
+    ".pytest_cache/essential-doc-examples-334-20261114/domains-execution.json": "62a639eb27671aface1584d28ebbd0dcbdb05881a4c721a581220fac72eb541f",
+    ".pytest_cache/essential-doc-examples-334-20261114/domains-inputs-after.json": "4556938ca01e41a7a20afb62b817f173894df64e0dcdcf23a271835461ac70d3",
+    ".pytest_cache/essential-doc-examples-334-20261114/domains-inputs-before.json": "4556938ca01e41a7a20afb62b817f173894df64e0dcdcf23a271835461ac70d3",
+    ".pytest_cache/essential-doc-examples-334-20261114/domains.log": "1dfb61434f1fa112bffc794008c94eef62f371c255cecd30d221f7747ee5e3ba",
+    ".pytest_cache/essential-doc-examples-334-20261114/driver.py": "a929fdb132d329908b6e57d0cdeb2acc5a6a814cb3c684b2bc3ef5ef58d4c18d",
+    ".pytest_cache/essential-doc-examples-334-20261114/final-checks-driver.py": "24618591a6069aa61cd9389572e22a2cc891bb129965828bbabb70551e8ae573",
+    ".pytest_cache/essential-doc-examples-334-20261114/final-checks-execution.json": "05906a9a2e84be182937f317e04c14ca28edfefe360d3b52b64facdad8dc94f0",
+    ".pytest_cache/essential-doc-examples-334-20261114/final-checks-inputs-after.json": "7be57755b53193a11ed6976b396808edafb57b95eee9b43761c7f7d487ce7a1f",
+    ".pytest_cache/essential-doc-examples-334-20261114/final-checks-inputs-before.json": "7be57755b53193a11ed6976b396808edafb57b95eee9b43761c7f7d487ce7a1f",
+    ".pytest_cache/essential-doc-examples-334-20261114/final-checks.log": "d6a847c2875addb5b66bfe51b47ce4dc002db7aa1891fc41ff9c62abd0689b97",
+    ".pytest_cache/essential-doc-examples-334-20261114/inventory.json": "90211ea12183adf4df93f5b5e301091f7ade2286c5587d2b57fe2b2df1a1d5b7",
+    ".pytest_cache/essential-doc-examples-334-20261114/pulls-after-incoming.json": "93a632246f28a39eedc6577fda8be826f662ca408592e96b1b2b26b4256eea3d",
+    ".pytest_cache/essential-doc-examples-334-20261114/pulls-before.json": "93a632246f28a39eedc6577fda8be826f662ca408592e96b1b2b26b4256eea3d",
+    ".pytest_cache/essential-doc-examples-334-20261114/quality-corrected-results.json": "cfe41e381a725dba213886806f03047f5ab221031c7c0458af80a9d927132ded",
+    ".pytest_cache/essential-doc-examples-334-20261114/quality-corrected.py": "da760c4d0e389768320d802b83b9d71e6d9eaff85ad10d4de8852b06bf123d0c",
+    ".pytest_cache/essential-doc-examples-334-20261114/quality-original-results.json": "69398a7ca0cbd5b0104c2f1567806946227508029231aecf037d96754b008b2c",
+    ".pytest_cache/essential-doc-examples-334-20261114/quality-results.json": "69398a7ca0cbd5b0104c2f1567806946227508029231aecf037d96754b008b2c",
+    ".pytest_cache/essential-doc-examples-334-20261114/quality.py": "cf5ca510e50a95b11ed9901cdca5961903a005504a68b22421466e94c916367f",
+    ".pytest_cache/essential-doc-examples-334-20261114/quality_commands.json": "90524e1ac66e8908aa9bb4eb025cd6054a962228541a7cc20f8a655f378763ae",
+    ".pytest_cache/essential-doc-examples-334-20261114/render-execution.json": "d4c1a1c144c5c195e6ed4953d00598c7afe28cac7c439b06f72dde4adaf9390f",
+    ".pytest_cache/essential-doc-examples-334-20261114/render-inputs-after.json": "c18b62a8c3022798089b4e642157c4c19c5e8a62e2bb021d27afd6986e705e93",
+    ".pytest_cache/essential-doc-examples-334-20261114/render-inputs-before.json": "c18b62a8c3022798089b4e642157c4c19c5e8a62e2bb021d27afd6986e705e93",
+    ".pytest_cache/essential-doc-examples-334-20261114/render-receiving.json": "308b95cbda8966e90f731704736e1781b584c450d8fecc3239433ca681b8f211",
+    ".pytest_cache/essential-doc-examples-334-20261114/render.log": "382f82536b1648d7d2520d3a06b0ab3e720a4d958f7a2bbe24e74fa0f0f39b2f",
+    ".pytest_cache/essential-doc-examples-334-20261114/render_driver.py": "cf5ce6debd35dd80fb094abda9d3a3fedcc22050493ed7705704411dddcc8e9a",
+    ".pytest_cache/essential-doc-examples-334-20261114/runtime-baseline-driver.py": "24618591a6069aa61cd9389572e22a2cc891bb129965828bbabb70551e8ae573",
+    ".pytest_cache/essential-doc-examples-334-20261114/runtime-baseline-execution.json": "a24acf649ce0804ee7a135b1587392b42f5c259e06f8ae77785e459e3ea57ff3",
+    ".pytest_cache/essential-doc-examples-334-20261114/runtime-baseline-inputs-after.json": "78d533a7e0087fa607ba92cbcc12915d52fa1ed75a79b969e0114ce5ee7b2f49",
+    ".pytest_cache/essential-doc-examples-334-20261114/runtime-baseline-inputs-before.json": "78d533a7e0087fa607ba92cbcc12915d52fa1ed75a79b969e0114ce5ee7b2f49",
+    ".pytest_cache/essential-doc-examples-334-20261114/runtime-baseline.events.jsonl": "bd034b45dae419671a7541aaddbb8e8dd90ba945a0af483509e9e14dec2a33bb",
+    ".pytest_cache/essential-doc-examples-334-20261114/runtime-baseline.log": "6c585d211db53ec11d3d4bf226301151150ba9b239da15baf75babc8cddd6bfe",
+    ".pytest_cache/essential-doc-examples-334-20261114/runtime-baseline.xml": "11705e3ba0b0cd150647d4c2053823000d5f8d9a97f248847defa7ef08dd327d",
+    ".pytest_cache/essential-doc-examples-334-20261114/runtime-corrected-driver.py": "24618591a6069aa61cd9389572e22a2cc891bb129965828bbabb70551e8ae573",
+    ".pytest_cache/essential-doc-examples-334-20261114/runtime-corrected-execution.json": "7849d68dbf9a35829bd38cdc4ffef891a9ab9735948328b9b1bf855539052712",
+    ".pytest_cache/essential-doc-examples-334-20261114/runtime-corrected-inputs-after.json": "8c2b56a019d1431a90c0bd3ddb2031a240943a3dbbcc67297b828e67ca4e881a",
+    ".pytest_cache/essential-doc-examples-334-20261114/runtime-corrected-inputs-before.json": "8c2b56a019d1431a90c0bd3ddb2031a240943a3dbbcc67297b828e67ca4e881a",
+    ".pytest_cache/essential-doc-examples-334-20261114/runtime-corrected.events.jsonl": "d6a5c1859337cd7518fe9e2fcfed18becbd740120c733a3646c186ced098fdc4",
+    ".pytest_cache/essential-doc-examples-334-20261114/runtime-corrected.log": "f73fcdc72422499f4f74e081635f762544f77870e98d9bd7001f45f9d3918add",
+    ".pytest_cache/essential-doc-examples-334-20261114/runtime-corrected.xml": "0cf81cfad9563528b971d6ba6ab28e42e2db4593a36790b7a997c4e0f0ad1333",
+    ".pytest_cache/essential-doc-examples-334-20261114/socket-baseline-test.py": "438cbd0fcc92bc75cba9418b91d8319d6ff46ea58089f760e19c2379e16cd10b",
+    ".pytest_cache/essential-doc-examples-334-20261114/user-corrected-execution.json": "88d346dd592868c26195fbbe9b1f855cc77b381cfc183c7d6606a6b6291beab3",
+    ".pytest_cache/essential-doc-examples-334-20261114/user-corrected-inputs-after.json": "4556938ca01e41a7a20afb62b817f173894df64e0dcdcf23a271835461ac70d3",
+    ".pytest_cache/essential-doc-examples-334-20261114/user-corrected-inputs-before.json": "4556938ca01e41a7a20afb62b817f173894df64e0dcdcf23a271835461ac70d3",
+    ".pytest_cache/essential-doc-examples-334-20261114/user-corrected.log": "37495755569f97cc8ba2a29bdf2b0337ca9feb20031d351459f33512aa7918d3",
+    ".pytest_cache/essential-doc-examples-334-20261114/user-execution.json": "1dc79ea4786a4c1659a6f06e0b239de0b16be5d3b0dd44b7a0b2ceb9deb9ec3e",
+    ".pytest_cache/essential-doc-examples-334-20261114/user-inputs-after.json": "4556938ca01e41a7a20afb62b817f173894df64e0dcdcf23a271835461ac70d3",
+    ".pytest_cache/essential-doc-examples-334-20261114/user-inputs-before.json": "4556938ca01e41a7a20afb62b817f173894df64e0dcdcf23a271835461ac70d3",
+    ".pytest_cache/essential-doc-examples-334-20261114/user.log": "dc511aa7bffe6eb792b7838e4f650df0dfa02a9cee03f4ee92ec0d124cefaf9f"
+  },
+  "original_quality_checks": {
+    "passed": false,
+    "commands": [
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 1,
+        "seconds": 23.07403767388314,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.4s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        5.4s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.2s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.3s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.0s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.4s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [FAIL] Stored notebook schemas (no repairs)                   2.0s  \n  [PASS] Demo assets / H5MSM fixtures                           0.2s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.1s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.4s  public-API smoke OK\n=======================================================================\nFast gates: 14/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE: FAIL \u2014 fix the gates above before proceeding.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/generate_converter_arguments.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 6.108256783802062,
+        "stdout": "OK: the committed table matches the converters.\nTarget forms: 96 | keywords per target: min 6, max 23, mean 10.3\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.09704073891043663,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.30435500014573336,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.10334443300962448,
+        "stdout": "4731 files already formatted\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.050608390010893345,
+        "stdout": "",
+        "stderr": ""
+      }
+    ]
+  },
+  "original_quality_execution": {
+    "phase": "final-checks",
+    "source_commit": "baedf4c702e6b9438a63b097e1b048bf1ab3df6d",
+    "state": "completed",
+    "native_exit": 1,
+    "host_reserve_bytes": 6979321856,
+    "scope": "Receive offline tutorial setup and documentation checks for #753; no installed/scientific/final-pair qualification.",
+    "host_cpu_at_admission": {
+      "load": "0.34 0.70 0.86 2/2715 2187007",
+      "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.06 total=20373378966\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "online_cpus": 20
+    },
+    "starting_status": " M devguide/pending_bugs/README.md\n M devguide/release_1_0_status.md\n M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/course/Common_Core/07_Selection_Basics.nbconvert.last_run\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.nbconvert.last_run\n M docs/content/user/cookbook/saving_hbond_interactions.ipynb\n M docs/content/user/tools/basic/extract.ipynb\n M docs/content/user/tools/basic/extract.nbconvert.last_run\n M docs/content/user/tools/basic/get.ipynb\n M docs/content/user/tools/basic/get.nbconvert.last_run\n M docs/content/user/tools/basic/info.ipynb\n M docs/content/user/tools/basic/info.nbconvert.last_run\n M docs/content/user/tools/basic/select.ipynb\n M docs/content/user/tools/basic/select.nbconvert.last_run\n M docs/content/user/tools/chemical_states/get_bondgraph.ipynb\n M docs/content/user/tools/chemical_states/get_rings.ipynb\n?? devguide/archive/resolved_bugs/core_query_tutorials_depend_on_live_pdb_downloads_instead_of_bundled_systems.md\n?? devguide/archive/resolved_bugs/selection_tutorial_filters_atom_positions_while_describing_group_positions.md\n?? devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n?? devtools/data/documentation_examples_receiving_334_20261114.json\n?? devtools/tests/test_basic_tutorial_data.py\n",
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "2147483648",
+      "memory.high": "1887436800",
+      "memory.swap.max": "0",
+      "pids.max": "256"
+    },
+    "command": [
+      "<development-prefix>/bin/python",
+      "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/quality.py"
+    ],
+    "checked_inputs": 8211,
+    "seconds": 31.722105815075338,
+    "ending_status": " M devguide/pending_bugs/README.md\n M devguide/release_1_0_status.md\n M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/course/Common_Core/07_Selection_Basics.nbconvert.last_run\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.nbconvert.last_run\n M docs/content/user/cookbook/saving_hbond_interactions.ipynb\n M docs/content/user/tools/basic/extract.ipynb\n M docs/content/user/tools/basic/extract.nbconvert.last_run\n M docs/content/user/tools/basic/get.ipynb\n M docs/content/user/tools/basic/get.nbconvert.last_run\n M docs/content/user/tools/basic/info.ipynb\n M docs/content/user/tools/basic/info.nbconvert.last_run\n M docs/content/user/tools/basic/select.ipynb\n M docs/content/user/tools/basic/select.nbconvert.last_run\n M docs/content/user/tools/chemical_states/get_bondgraph.ipynb\n M docs/content/user/tools/chemical_states/get_rings.ipynb\n?? devguide/archive/resolved_bugs/core_query_tutorials_depend_on_live_pdb_downloads_instead_of_bundled_systems.md\n?? devguide/archive/resolved_bugs/selection_tutorial_filters_atom_positions_while_describing_group_positions.md\n?? devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n?? devtools/data/documentation_examples_receiving_334_20261114.json\n?? devtools/tests/test_basic_tutorial_data.py\n",
+    "changed_inputs": [],
+    "memory_peak_bytes": 406409216,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 17815764992,
+    "maximum_memory_pressure_avg10": 0.0,
+    "pressure_transitions": [],
+    "stop_reason": null,
+    "driver_sha256": "24618591a6069aa61cd9389572e22a2cc891bb129965828bbabb70551e8ae573"
+  },
+  "schema_correction": "The first fast gate correctly rejects missing IDs on new Markdown cell 5 in get/info (nbformat 4.5). Their IDs are restored from the actual executed notebooks. No code/output/mark is changed; the strict site already used those valid executed notebooks. The unsuccessful original gate is retained.",
+  "quality_checks": {
+    "passed": true,
+    "commands": [
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "seconds": 26.039095640648156,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          4.2s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        6.2s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    6.2s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.4s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.4s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.5s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   1.9s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.2s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.0s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.3s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/generate_converter_arguments.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 5.896964653860778,
+        "stdout": "OK: the committed table matches the converters.\nTarget forms: 96 | keywords per target: min 6, max 23, mean 10.3\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.10066086100414395,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.09406344778835773,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.09902132069692016,
+        "stdout": "4731 files already formatted\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.05868459027260542,
+        "stdout": "",
+        "stderr": ""
+      }
+    ]
+  },
+  "quality_execution": {
+    "phase": "checks",
+    "source_commit": "baedf4c702e6b9438a63b097e1b048bf1ab3df6d",
+    "state": "completed",
+    "native_exit": 0,
+    "host_reserve_bytes": 6979321856,
+    "scope": "Receive offline tutorial setup and documentation checks for #753; no installed/scientific/final-pair qualification.",
+    "host_cpu_at_admission": {
+      "load": "1.37 0.88 0.90 4/2911 2188108",
+      "cpu_pressure": "some avg10=2.43 avg60=0.45 avg300=0.14 total=20373843198\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "online_cpus": 20
+    },
+    "starting_status": " M devguide/pending_bugs/README.md\n M devguide/release_1_0_status.md\n M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/course/Common_Core/07_Selection_Basics.nbconvert.last_run\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.nbconvert.last_run\n M docs/content/user/cookbook/saving_hbond_interactions.ipynb\n M docs/content/user/tools/basic/extract.ipynb\n M docs/content/user/tools/basic/extract.nbconvert.last_run\n M docs/content/user/tools/basic/get.ipynb\n M docs/content/user/tools/basic/get.nbconvert.last_run\n M docs/content/user/tools/basic/info.ipynb\n M docs/content/user/tools/basic/info.nbconvert.last_run\n M docs/content/user/tools/basic/select.ipynb\n M docs/content/user/tools/basic/select.nbconvert.last_run\n M docs/content/user/tools/chemical_states/get_bondgraph.ipynb\n M docs/content/user/tools/chemical_states/get_rings.ipynb\n?? devguide/archive/resolved_bugs/core_query_tutorials_depend_on_live_pdb_downloads_instead_of_bundled_systems.md\n?? devguide/archive/resolved_bugs/selection_tutorial_filters_atom_positions_while_describing_group_positions.md\n?? devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n?? devtools/data/documentation_examples_receiving_334_20261114.json\n?? devtools/tests/test_basic_tutorial_data.py\n",
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "2147483648",
+      "memory.high": "1887436800",
+      "memory.swap.max": "0",
+      "pids.max": "256"
+    },
+    "command": [
+      "<development-prefix>/bin/python",
+      "<checkout>/.pytest_cache/essential-doc-examples-334-20261114/quality-corrected.py"
+    ],
+    "checked_inputs": 8211,
+    "seconds": 34.73083708388731,
+    "ending_status": " M devguide/pending_bugs/README.md\n M devguide/release_1_0_status.md\n M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/course/Common_Core/07_Selection_Basics.nbconvert.last_run\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb\n M docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.nbconvert.last_run\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb\n M docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.nbconvert.last_run\n M docs/content/user/cookbook/saving_hbond_interactions.ipynb\n M docs/content/user/tools/basic/extract.ipynb\n M docs/content/user/tools/basic/extract.nbconvert.last_run\n M docs/content/user/tools/basic/get.ipynb\n M docs/content/user/tools/basic/get.nbconvert.last_run\n M docs/content/user/tools/basic/info.ipynb\n M docs/content/user/tools/basic/info.nbconvert.last_run\n M docs/content/user/tools/basic/select.ipynb\n M docs/content/user/tools/basic/select.nbconvert.last_run\n M docs/content/user/tools/chemical_states/get_bondgraph.ipynb\n M docs/content/user/tools/chemical_states/get_rings.ipynb\n?? devguide/archive/resolved_bugs/core_query_tutorials_depend_on_live_pdb_downloads_instead_of_bundled_systems.md\n?? devguide/archive/resolved_bugs/selection_tutorial_filters_atom_positions_while_describing_group_positions.md\n?? devguide/pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md\n?? devtools/data/documentation_examples_receiving_334_20261114.json\n?? devtools/tests/test_basic_tutorial_data.py\n",
+    "changed_inputs": [],
+    "memory_peak_bytes": 405405696,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 16190513152,
+    "maximum_memory_pressure_avg10": 0.0,
+    "pressure_transitions": [],
+    "stop_reason": null,
+    "driver_sha256": "24618591a6069aa61cd9389572e22a2cc891bb129965828bbabb70551e8ae573"
+  },
+  "owned_service_retirement": {
+    "retired": 13,
+    "units": [
+      {
+        "unit": "msm-doc-examples-334-common-20261114",
+        "previous": {
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": "ActiveState=failed\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-doc-examples-753-baseline-20261114",
+        "previous": {
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "143"
+        },
+        "after": "ActiveState=failed\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-doc-examples-753-contract-baseline-20261114",
+        "previous": {
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": "ActiveState=failed\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-doc-examples-334-user-20261114",
+        "previous": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-doc-examples-334-domains-20261114",
+        "previous": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-doc-examples-754-baseline-20261114",
+        "previous": {
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": "ActiveState=failed\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-doc-examples-755-corrected-20261114",
+        "previous": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-doc-examples-753-755-corrected-20261114",
+        "previous": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-doc-examples-334-cohort-20261114",
+        "previous": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-doc-examples-334-render-20261114",
+        "previous": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-doc-examples-334-final-cohort-20261114",
+        "previous": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-doc-examples-334-checks-20261114",
+        "previous": {
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": "ActiveState=failed\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-doc-examples-334-checks-corrected-20261114",
+        "previous": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      }
+    ],
+    "scope": "Only the thirteen completed services created for this documentation checkpoint. No foreign processes touched. The service name containing 754 was assigned before issue allocation; it ran the #755 group-selection negative cohort, not a #754 browser experiment."
+  }
+}

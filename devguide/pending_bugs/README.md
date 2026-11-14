@@ -20,10 +20,11 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (2)
+### Open (3)
 
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`macos_py312_environment_download_failure.md`](macos_py312_environment_download_failure.md) — [#671](https://github.com/uibcdf/molsysmt/issues/671) — Track the macOS Python 3.12 Conda download failure separately from tests. *(medium, upstream)*
+- [`prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md`](prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md) — [#754](https://github.com/uibcdf/molsysmt/issues/754) — Prolonged Jupyter receiver masks Python errors and controller ownership. *(medium, inspected)*
 
 ### Blocked (1)
 

@@ -29,6 +29,8 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
+| Preserve executed essential examples and #753/#755 repairs | Eleven notebooks receive actual fresh-kernel execution (178 distinct code cells), including native get/info, selection/extraction, ChemicalStates, rings and named hydrogen-bond/H5MSM workflows. Four query tutorials now load bundled snapshots without network; one group-selection predicate is corrected against an independent 80-atom expectation. Fifteen focused controls pass with no skips. Fresh strict Sphinx renders 1,400 pages; all eleven changed articles, plot assets and new catalog links are received. [Receipt](../devtools/data/documentation_examples_receiving_334_20261114.json) preserves original failures and runtime/resource boundaries. This is not the complete notebook corpus, browser or final-pair qualification. |
+| Receive #754 before interpreting the next prolonged Jupyter campaign | The new MolSysViewer report identifies an original pre-save Python assertion masked as a marker timeout, followed by a controller snapshot without verified binding ownership. Current source inspection confirms that diagnostic pattern. The [owning record](pending_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md) requires real-Jupyter exception/marker and stale-controller controls, first-reached phase, and bounded token-safe attribution. Original private evidence is upstream-reported, not replayed here. This is a receiver correction, distinct from #615 and without assigning its causal component. |
 | Preserve the completed current local source checkpoint | Clean `27ba3d4c8` completes the default selection: **35,191 pass, 16 documented optional skips, zero failures/errors**. The actual native exit is zero and the official receptor reader agrees with the complete same-run JUnit. All 9,012 checked source, 2,581 MolSysViewer and 231 support inputs remain unchanged. The separate registered evidence execution passes 116 cases for 74 nodes with zero skips. [Receipt](../devtools/data/pre_1_0_source_checkpoint_334_20261114.json). Event-detail/extension caps remain explicit; hosted/nightly/platform/final-pair gates are still due. |
 | Preserve #751/#752's bounded corrections | `939e9c1b4` repairs retired topology chemistry in the developer copy probe; 170 selected cases and both literal historical-TopoMT copy modes pass. `df91501ae` preserves maintained API stubs while still generating missing pages; 40 selected rendering/source cases and the actual complete configuration pass. The 1,034-document site produces 1,400 HTML files with zero warnings, unchanged disposable sources, both real ProtonationAssessment method entries and 101 passing intended-reference controls. Original failures and the incomplete first copy's missing-asset warning remain in their receipts. No production molecular code, scientific method, dependency or native binary changes. |
 | Preserve completed #747/#748 correction receiving | Original provider traversal is checked before copying/querying under `54c38f4b8`; `a049a45f9` restores exactly four canonical destination keywords. The 331-case selected cohort, solvate doctest, fifteen fast gates, generator check and full Ruff pass. [Receipt](../devtools/data/source_axis_converter_receiving_747_748_20261113.json). The earlier broad 1,615-case attempt is incomplete at its operational wall limit; original complete failures and later full/nightly qualification remain. |
@@ -57,6 +59,51 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Executed essential documentation examples — 2026-11-14
+
+A bounded #334 review executes eleven complete notebooks against source
+`baedf4c70` and the explicitly recorded documentation delta: four Common Core
+modules, four basic-query tutorials and three chemical/interaction recipes.
+All **178 distinct code cells** execute; the intentional corrected selection
+rerun makes 225 actual cell executions across twelve notebook invocations.
+The kernel receipts identify the real import origins, including public
+PyUnitWizard 0.29.2 and the unchanged native `4ffb82e4` binary. No dependency
+upgrade or native rebuild occurs.
+
+[#753](archive/resolved_bugs/core_query_tutorials_depend_on_live_pdb_downloads_instead_of_bundled_systems.md)
+replaces four unnecessary live PDB downloads with their included structure
+snapshots. Four setup guards fail before correction and pass with actual
+molecular data while refusing external data services. The first socket-only
+experiment is explicitly interrupted during retry backoff, not counted as a
+completed failure cohort. [#755](archive/resolved_bugs/selection_tutorial_filters_atom_positions_while_describing_group_positions.md)
+corrects an atom-axis filter that claimed to select groups: independent stored
+name/membership arrays require eighty atoms, while the original cell returns
+eleven. Its original failure and the complete corrected Jupyter execution
+remain separate evidence. The final 15-case selected cohort has no failures,
+errors or skips; its supported receptor receipt agrees with complete JUnit.
+
+The strict fresh full-site build renders 1,400 HTML files without Sphinx
+warnings, using actual configuration and the executed outputs. Eleven article
+checks receive saved results, local plot assets and the new catalog-link
+anchors. The [dated receipt](../devtools/data/documentation_examples_receiving_334_20261114.json)
+retains all source/runtime/resource identities and the first harness's
+source-list-chunking rejection: normalized code and Markdown text was unchanged,
+so no code or prose change is hidden as output regeneration. This receives the
+selected examples, not all 499 notebooks, browser execution, new scientific
+profiles, installed packages or the final pair. All fifteen local fast gates,
+converter generation, indexes, full Ruff and whitespace checks pass. The first
+14/15 fast-gate result correctly catches two missing Markdown-cell IDs during
+output adoption; the valid IDs are restored from the executed notebooks and
+the original failed check remains in the receipt. Original weighted credit and
+the construction/hosted/tag/publication pause are unchanged.
+
+The complete phase-checkpoint inventory has 674 non-PR issues and zero open
+PRs before closing the two documentation reports. New incoming #754 is admitted
+as a receiver diagnostic correction with its own record and real-Jupyter/error,
+missing-marker and stale-controller acceptance controls. It remains open;
+#615's initial-cell lead audit and #256's remaining client default-profile
+request still have no new team response at this review.
 
 ## Bounded BindingMT facts received and next external scope — 2026-11-14
 
