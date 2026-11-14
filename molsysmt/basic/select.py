@@ -95,6 +95,7 @@ def select(
       ``not bonded to`` such an operand retains the left selection. Missing
       chemical information and malformed expressions still raise diagnostics.
     - Explicit element and structure indices are non-negative and range checked.
+      Structure bounds are checked for numeric and all-element selections too.
       Supported parser failures are exposed as :class:`molsysmt.ArgumentError`
       while retaining the original exception as their cause.
     - An active mask returns the sorted set intersection with selection.
@@ -173,6 +174,10 @@ def select(
             caller="molsysmt.select",
         )
 
+    structure_indices = validate_structure_indices(
+        molecular_system, structure_indices, "molsysmt.select"
+    )
+
     if is_all(selection):
         attribute = "n_" + _singular_element_to_plural[element]
         aux_item, aux_form = where_is_attribute(
@@ -220,9 +225,6 @@ def select(
     else:
         if syntax in _dict_select:
             try:
-                structure_indices = validate_structure_indices(
-                    molecular_system, structure_indices, "molsysmt.select"
-                )
                 direct_bond_selection = False
                 direct_group_selection = False
                 if syntax == "MolSysMT" and element in {
