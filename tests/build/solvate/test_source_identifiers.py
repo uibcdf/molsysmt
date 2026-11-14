@@ -206,18 +206,63 @@ def test_original_water_replacement_uses_ion_map_instead_of_prefix():
     assert msm.get(source, n_atoms=True, n_waters=True) == [3, 1]
 
 
-def test_noncanonical_provider_indices_are_rejected_before_solvent(solute, monkeypatch):
+@pytest.mark.parametrize("source_form", ["modeller", "combined"])
+@pytest.mark.parametrize("axis", ["atom", "group", "chain"])
+def test_noncanonical_provider_indices_are_rejected_before_solvent(
+    solute, monkeypatch, source_form, axis
+):
     from openmm.app import Modeller
 
     source = msm.convert(solute, to_form="openmm.Modeller")
-    atom = list(source.topology.atoms())[0]
-    atom.index = 9
+    elements = {
+        "atom": source.topology.atoms,
+        "group": source.topology.residues,
+        "chain": source.topology.chains,
+    }
+    element = next(elements[axis]())
+    element.index = 9
+    before_positions = np.array(source.positions.value_in_unit(source.positions.unit))
+    input_system = (
+        source
+        if source_form == "modeller"
+        else [source.topology, solute.structures.copy()]
+    )
 
     def forbidden(*args, **kwargs):
         raise AssertionError("Invalid source traversal reached solvent construction")
 
     monkeypatch.setattr(Modeller, "addSolvent", forbidden)
-    with pytest.raises(StructuralInconsistencyError, match="traversal"):
+    monkeypatch.setattr(Modeller, "__init__", forbidden)
+    with pytest.raises(StructuralInconsistencyError, match=axis + " traversal"):
         msm.build.solvate(
-            source, engine="OpenMM", box_shape="cubic", clearance="0.35 nm"
+            input_system, engine="OpenMM", box_shape="cubic", clearance="0.35 nm"
         )
+    assert element.index == 9
+    np.testing.assert_array_equal(
+        source.positions.value_in_unit(source.positions.unit), before_positions
+    )
+
+
+def test_canonical_combined_provider_source_keeps_labels_and_coordinates(solute):
+    source = msm.convert(solute, to_form="openmm.Modeller")
+    atoms = list(source.topology.atoms())
+    atoms[0].id = "original-atom"
+    before_xyz = puw.get_value(solute.structures.coordinates, to_unit="nm").copy()
+    output = msm.build.solvate(
+        [source.topology, solute.structures],
+        engine="OpenMM",
+        box_shape="cubic",
+        clearance="0.35 nm",
+        to_form="molsysmt.MolSys",
+    )
+    assert output.topology.atoms.atom_id.iloc[0] == "original-atom"
+    assert msm.get(output, n_waters=True) > 0
+    output_xyz = puw.get_value(output.structures.coordinates, to_unit="nm")
+    retained = output_xyz[:, : len(atoms)]
+    np.testing.assert_allclose(
+        retained - retained[:, :1], before_xyz - before_xyz[:, :1], atol=1e-12
+    )
+    assert atoms[0].id == "original-atom"
+    np.testing.assert_array_equal(
+        puw.get_value(solute.structures.coordinates, to_unit="nm"), before_xyz
+    )

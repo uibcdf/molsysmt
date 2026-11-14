@@ -284,6 +284,8 @@ def solvate(
         charge-dependent request is inconsistent.
     NotImplementedError
         Raised if the requested ``engine`` or ``water_model`` is not supported.
+    StructuralInconsistencyError
+        If original OpenMM atom, group or chain indices disagree with traversal.
 
 
     Notes
@@ -296,8 +298,9 @@ def solvate(
     in their atom or group namespace. IDs are never parsed as integer indices.
     Native finalization precedes the requested output conversion; foreign forms
     and file formats retain their own label/serial representation constraints.
-    Provider traversal must agree with positional atom/group indices; a
-    noncanonical source is rejected before solvent construction.
+    Original OpenMM atom, group and chain traversal must agree with positional
+    indices. These source axes are checked before copying, querying chemistry
+    or constructing solvent, including in combined-form inputs.
 
     The forcefield used for solvation is read from the molecular system when
     available; otherwise the MolSysMT default forcefield is used.
@@ -380,6 +383,11 @@ def solvate(
             caller="molsysmt.build.solvate",
             message="PDBFixer supports only default neutralization with no seed control. Use engine='OpenMM' or 'MolSysMT' for explicit counts or seeded native placement.",
         )
+
+    if engine == "OpenMM":
+        from ._solvation_ids import validate_source
+
+        validate_source(molecular_system)
 
     n_structures = get(molecular_system, n_structures=True)
     if n_structures != 1:

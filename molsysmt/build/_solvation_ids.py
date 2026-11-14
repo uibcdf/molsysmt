@@ -2,29 +2,48 @@
 
 import numpy as np
 import pandas as pd
+from depdigest import dep_digest
 
 from molsysmt._private.smonitor import StructuralInconsistencyError
 
 
-def capture(source, modeller):
-    """Retain original nullable labels without interpreting them as integers."""
-    from molsysmt.basic import get
-
-    atom_ids, group_indices = get(
-        source, element="atom", atom_id=True, group_index=True
-    )
-    group_ids = get(source, element="group", group_id=True)
-    # The provider copies the source by chain/group traversal. Its canonical
-    # indexing must agree with positions before relying on the retained prefix.
+def _validate_traversal(topology):
+    """Check the provider axis before relying on positional correspondence."""
     for elements, kind in (
-        (modeller.topology.atoms(), "atom"),
-        (modeller.topology.residues(), "group"),
+        (topology.atoms(), "atom"),
+        (topology.residues(), "group"),
+        (topology.chains(), "chain"),
     ):
         if any(element.index != index for index, element in enumerate(elements)):
             raise StructuralInconsistencyError(
                 reason=f"OpenMM solvation requires {kind} traversal to agree with its positional indices; explicitly reorder the source before solvation.",
                 caller="molsysmt.build.solvate",
             )
+
+
+@dep_digest("openmm")
+def validate_source(source):
+    """Check original provider topologies before queries or copying normalize them."""
+    from openmm.app import Topology
+
+    items = source if isinstance(source, (list, tuple)) else (source,)
+    for item in items:
+        topology = (
+            item if isinstance(item, Topology) else getattr(item, "topology", None)
+        )
+        if isinstance(topology, Topology):
+            _validate_traversal(topology)
+
+
+def capture(source, modeller):
+    """Retain original nullable labels without interpreting them as integers."""
+    from molsysmt.basic import get
+
+    _validate_traversal(modeller.topology)
+    atom_ids, group_indices = get(
+        source, element="atom", atom_id=True, group_index=True
+    )
+    group_ids = get(source, element="group", group_id=True)
     return dict(
         atom_ids=list(atom_ids),
         group_ids=list(group_ids),
