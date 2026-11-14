@@ -1,0 +1,276 @@
+{
+  "schema": "molsysmt.native_copy_probe_receiving/1",
+  "date": "2026-11-14",
+  "owner_issue": "uibcdf/molsysmt#751",
+  "scope": "Developer ownership probe repair; production molecular-copy code and scientific methods unchanged. Not current-remote TopoMT scientific, installed/platform or final-pair qualification.",
+  "tested_source_basis": "27ba3d4c8d63a6a40a2d77f0190309ff15f4deef",
+  "tested_development_delta_sha256": {
+    "devtools/scripts/qualify_topomt_native_copy.py": "bdc22443a1aa34acd761a22c2485f4ce9c088f3b36664374a03029a0bf5f91dd",
+    "devtools/tests/test_qualify_topomt_native_copy.py": "342d5153573ff101de74a6e9328ecfac6f1e33f42a06c9377791b2f054614512"
+  },
+  "original_clause_failure": {
+    "tests": 7,
+    "failures": 6,
+    "errors": 0,
+    "skipped": 0
+  },
+  "corrected_selected_cohort": {
+    "tests": 170,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "literal_client_scope": {
+    "measured_at_utc": "2026-11-14T16:37:08.636483+00:00",
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "probe_sha256": "bdc22443a1aa34acd761a22c2485f4ce9c088f3b36664374a03029a0bf5f91dd",
+    "scope": "source-client registry/native copy route; no installed-package or scientific-engine qualification",
+    "molsysmt": {
+      "reported_version": "0.23.0+393.ge1facf624.dirty",
+      "import_path": "<checkout>/molsysmt/__init__.py",
+      "head": "27ba3d4c8d63a6a40a2d77f0190309ff15f4deef",
+      "worktree_status": "M devguide/benchmarking/native_copy.md\n M devguide/technical_handoff_for_1_0_documentation_review.md\n M devtools/scripts/qualify_topomt_native_copy.py\n?? devguide/pending_bugs/native_copy_client_probe_still_requires_chemical_storage_on_topology.md\n?? devtools/tests/test_qualify_topomt_native_copy.py",
+      "ahead_behind_origin_main": "0\t0",
+      "sha256": {
+        "molsysmt/native/_copy.py": "6adc1738727097c2ed474b8a4d14792bfe724bce1969e3ddb6f305fad6c05994",
+        "molsysmt/native/molsys.py": "a1f8107bbf2cd2605df15d9210da349e73e6ab43cf0ed65e0484b5b82d85f388",
+        "molsysmt/native/structures.py": "07b14f9f874261028d77a1f553e60b540f3f0668f2db88a3120fde91101bd1f3",
+        "molsysmt/native/topology.py": "5700b06a007dd672ef7137694b3213e3e8aa9f37b07baa3696158fca0db127f3",
+        "molsysmt/native/chemical_states.py": "17ef7220772cf8d53d2686546df786986a8c55bc67d2a5254e3b92266d3ca515",
+        "devtools/scripts/benchmark_native_copy.py": "b904f435acb9c38c7efb875735262089d962d36bf643bf146c1b4586d08f2da8"
+      }
+    },
+    "topomt": {
+      "reported_version": "1.0.0+70.g303bd33.dirty",
+      "import_path": "<workspace>/topomt/topomt/__init__.py",
+      "head": "c3f72a9177ab8a205b69fefc2963800a2d0b4feb",
+      "worktree_status": "",
+      "ahead_behind_origin_main": "1\t227",
+      "sha256": {
+        "topomt/topography/Topography.py": "60764f532abd8c3a9faa01c6b42c5d77743b2b2b8247fa8a141b52792aa1ba70",
+        "topomt/features/BaseFeature.py": "37b58873a03ffc29198d8c7f56eb2edf2865ca6b935c6ac36dbfa95728bad42b",
+        "topomt/features/Pocket.py": "fa4e4c61c3e261ae8a2c32b9efcc59a8f337a8908487dd6ca60a196ec6b25854",
+        "topomt/features/Channel.py": "2bddc23b81abc60734b8433409161b75e99ff538666daecc59d9707d1e0764cd"
+      }
+    },
+    "version_note": "Reported development version strings may reflect an earlier editable build; source commits, status and hashes identify the tested code.",
+    "results": [
+      {
+        "deep": false,
+        "ownership_metadata_registry_geometry_and_coverage": "passed"
+      },
+      {
+        "deep": true,
+        "ownership_metadata_registry_geometry_and_coverage": "passed"
+      }
+    ]
+  },
+  "executions": {
+    "baseline": {
+      "phase": "baseline",
+      "source_commit": "27ba3d4c8d63a6a40a2d77f0190309ff15f4deef",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Repair #751 native-domain expectations in a developer client-copy probe; not current TopoMT scientific or installed qualification.",
+      "host_cpu_at_admission": {
+        "load": "4.76 4.35 2.70 6/2797 2024046",
+        "cpu_pressure": "some avg10=1.35 avg60=1.72 avg300=1.19 total=19443228769\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devtools/scripts/qualify_topomt_native_copy.py\n?? devguide/pending_bugs/native_copy_client_probe_still_requires_chemical_storage_on_topology.md\n?? devtools/tests/test_qualify_topomt_native_copy.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/native-copy-probe-751-20261114/baseline.xml",
+        "--receptor-events=<checkout>/.pytest_cache/native-copy-probe-751-20261114/baseline.events.jsonl",
+        "devtools/tests/test_qualify_topomt_native_copy.py"
+      ],
+      "checked_inputs": 8200,
+      "seconds": 4.9504376468248665,
+      "ending_status": " M devtools/scripts/qualify_topomt_native_copy.py\n?? devguide/pending_bugs/native_copy_client_probe_still_requires_chemical_storage_on_topology.md\n?? devtools/tests/test_qualify_topomt_native_copy.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 150949888,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14516097024,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "2f1839ca7d902693d930c26a56df682f33bce9df1fc31377306901e9543d04a9"
+    },
+    "corrected": {
+      "phase": "corrected",
+      "source_commit": "27ba3d4c8d63a6a40a2d77f0190309ff15f4deef",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Repair #751 native-domain expectations in a developer client-copy probe; not current TopoMT scientific or installed qualification.",
+      "host_cpu_at_admission": {
+        "load": "4.74 4.43 2.81 6/2806 2024495",
+        "cpu_pressure": "some avg10=1.49 avg60=1.44 avg300=1.19 total=19443973482\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devtools/scripts/qualify_topomt_native_copy.py\n?? devguide/pending_bugs/native_copy_client_probe_still_requires_chemical_storage_on_topology.md\n?? devtools/tests/test_qualify_topomt_native_copy.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/native-copy-probe-751-20261114/corrected.xml",
+        "--receptor-events=<checkout>/.pytest_cache/native-copy-probe-751-20261114/corrected.events.jsonl",
+        "devtools/tests/test_qualify_topomt_native_copy.py",
+        "devtools/tests/test_benchmark_native_copy.py",
+        "tests/native/test_copy_boundaries.py",
+        "tests/native/test_molsys_copy.py",
+        "tests/native/test_group_inventory_hierarchy.py"
+      ],
+      "checked_inputs": 8200,
+      "seconds": 26.969944932032377,
+      "ending_status": " M devtools/scripts/qualify_topomt_native_copy.py\n?? devguide/pending_bugs/native_copy_client_probe_still_requires_chemical_storage_on_topology.md\n?? devtools/tests/test_qualify_topomt_native_copy.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 245800960,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14816817152,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "2f1839ca7d902693d930c26a56df682f33bce9df1fc31377306901e9543d04a9"
+    },
+    "client": {
+      "phase": "client",
+      "source_commit": "27ba3d4c8d63a6a40a2d77f0190309ff15f4deef",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Repair #751 native-domain expectations in a developer client-copy probe; not current TopoMT scientific or installed qualification.",
+      "host_cpu_at_admission": {
+        "load": "3.96 4.28 2.99 6/2789 2025399",
+        "cpu_pressure": "some avg10=1.65 avg60=1.59 avg300=1.32 total=19446669479\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/benchmarking/native_copy.md\n M devguide/technical_handoff_for_1_0_documentation_review.md\n M devtools/scripts/qualify_topomt_native_copy.py\n?? devguide/pending_bugs/native_copy_client_probe_still_requires_chemical_storage_on_topology.md\n?? devtools/tests/test_qualify_topomt_native_copy.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "devtools.scripts.qualify_topomt_native_copy",
+        "--output",
+        "<checkout>/.pytest_cache/native-copy-probe-751-20261114/historical-topomt-client.json"
+      ],
+      "checked_inputs": 8200,
+      "seconds": 5.073817557189614,
+      "ending_status": " M devguide/benchmarking/native_copy.md\n M devguide/technical_handoff_for_1_0_documentation_review.md\n M devtools/scripts/qualify_topomt_native_copy.py\n?? devguide/pending_bugs/native_copy_client_probe_still_requires_chemical_storage_on_topology.md\n?? devtools/tests/test_qualify_topomt_native_copy.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 173355008,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 14210383872,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "2f1839ca7d902693d930c26a56df682f33bce9df1fc31377306901e9543d04a9"
+    }
+  },
+  "retained_evidence_sha256": {
+    "baseline-execution.json": "c726680c107fc409d52d2383b76750a70db9d788d02f2f69997eea55c6bf94a2",
+    "baseline.log": "f8fae41c24552f9a2e768d7c67fc500b766fee26246c20108eba1153adb2e988",
+    "baseline-inputs-before.json": "ea3082199e356d8d6e7baa0d4bf1b3078fe09c33b32332c349e7639efa465fd8",
+    "baseline-inputs-after.json": "ea3082199e356d8d6e7baa0d4bf1b3078fe09c33b32332c349e7639efa465fd8",
+    "corrected-execution.json": "1a069f463d35dec6bbfb7b0d6b35f1e53199585bb18771e53341309c94a2b8f8",
+    "corrected.log": "610bd8938ee8e9e89ecafb47d75635df47a97504a832007ee4224ed0d40cb454",
+    "corrected-inputs-before.json": "d90fa700a817185143ffebf09134fb4586fa33fc577b15fb76c528eefa910a19",
+    "corrected-inputs-after.json": "d90fa700a817185143ffebf09134fb4586fa33fc577b15fb76c528eefa910a19",
+    "client-execution.json": "3dd979693c997a91c1c3f8a3b12d3ff7a8372b725f3e80860d9ebd5a41f0859a",
+    "client.log": "a3143cefc185ecec8ba2380cc28fc9b2579f76613f0aebd466ea8ccb2068abdc",
+    "client-inputs-before.json": "e5151e9e75c475280a6101513f7fd84ff57b1df9a2ff957c015a18c8ae6300b2",
+    "client-inputs-after.json": "e5151e9e75c475280a6101513f7fd84ff57b1df9a2ff957c015a18c8ae6300b2"
+  },
+  "runtime_reference": "devtools/data/binding_membership_receiving_746_750_20261113.json",
+  "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "quality_checks": {
+    "passed": true,
+    "commands": [
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "seconds": 27.8507126159966,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          4.0s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        6.5s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    6.1s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.4s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.5s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.7s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   2.3s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.5s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.4s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.7s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/generate_converter_arguments.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 7.070614437106997,
+        "stdout": "OK: the committed table matches the converters.\nTarget forms: 96 | keywords per target: min 6, max 23, mean 10.3\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.10708178300410509,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.36090131709352136,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.10177546087652445,
+        "stdout": "4729 files already formatted\n",
+        "stderr": ""
+      }
+    ]
+  },
+  "publication": "pending; no release authorization",
+  "original_weighted_progress_change": 0
+}

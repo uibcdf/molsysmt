@@ -247,6 +247,13 @@ must not be presented as the total cost of making and editing a molecular copy.
 
 ## Source client qualification
 
+The maintained probe checks the current independent-domain contract:
+`MolSys.chemical_states` is independently copied and bound to the copied system;
+Topology retains only inventory and hierarchy. It rejects a copied domain
+bound to another owner or a restored chemical store on Topology. These
+ownership assertions have molecular regression controls independent of a
+particular TopoMT checkout.
+
 ```bash
 python -m devtools.scripts.qualify_topomt_native_copy \
     --output /tmp/topomt-native-copy.json

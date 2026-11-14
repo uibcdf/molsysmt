@@ -38,6 +38,23 @@ def _source(root, files):
     }
 
 
+def _check_domain_ownership(source, system, copied):
+    """Reject copied domains retaining a different molecular-system owner."""
+    assert source.topology._molsys_owner_ref() is source
+    assert system.topology._molsys_owner_ref() is system
+    assert copied.topology._molsys_owner_ref() is copied
+    assert copied.chemical_states is not system.chemical_states
+    for attribute in (
+        "chemical_states",
+        "bonds",
+        "components",
+        "_chemical_states_domain",
+    ):
+        assert not hasattr(copied.topology, attribute)
+    assert copied.chemical_states._molsys_owner_ref() is copied
+    assert copied.structures._molsys_owner_ref() is copied
+
+
 def qualify():
     import topomt
     from topomt import Topography
@@ -75,12 +92,7 @@ def qualify():
         before = puw.get_value(system.structures.coordinates, to_unit="nm").copy()
         duplicate = original.copy(deep=deep)
         copied = duplicate._molsys
-        assert source.topology._molsys_owner_ref() is source
-        assert system.topology._molsys_owner_ref() is system
-        assert copied.topology._molsys_owner_ref() is copied
-        assert copied.chemical_states is copied.topology._chemical_states_domain
-        assert copied.chemical_states._molsys_owner_ref() is copied
-        assert copied.structures._molsys_owner_ref() is copied
+        _check_domain_ownership(source, system, copied)
         assert np.shares_memory(
             system.structures._coordinates._blocks[0],
             copied.structures._coordinates._blocks[0],
