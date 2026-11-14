@@ -88,6 +88,8 @@ autodoc_class_signature = "mixed"
 # Autosummary options
 
 autosummary_generate = True
+# Preserve maintained API pages, including their explicit method documentation.
+autosummary_generate_overwrite = False
 
 # Napoleon settings
 napoleon_include_special_with_doc = True

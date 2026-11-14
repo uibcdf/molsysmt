@@ -50,7 +50,11 @@ python docs/execute_notebooks.py -q -n 12 -r docs/content/user
 ## Directory overview
 
 - `content/`: Source pages for user guides, tutorials, and conceptual explanations.
-- `api/` and `old_api/`: Auto-generated API references; the `clean_api.py` script keeps entries tidy.
+- `api/`: API reference stubs with maintained member lists and context. Sphinx
+  generates missing autosummary pages and preserves existing files; review
+  existing stubs explicitly when changing their documented members. The
+  [synchronization contract](../devguide/documentation_sync.md#api-stub-generation)
+  describes this boundary. `old_api/` retains the excluded historical reference.
 - `_templates/` and `_static/`: Custom theme assets and layout overrides that create the MolSysMT visual style.
 - `_bibtex/` and `bibliography.bib`: Citation management for scientific references.
 - `docs_manifest.yml`: Inventory tracking file for sections, pages, and metadata outside the course.

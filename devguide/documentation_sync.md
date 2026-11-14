@@ -41,6 +41,21 @@ outputs can be stale even when links resolve.
 
 Link to the authoritative surface instead of copying large tables or signatures.
 
+## API stub generation
+
+Sphinx generates missing autosummary pages while preserving existing maintained
+RST files. `docs/conf.py` keeps `autosummary_generate=True` and
+`autosummary_generate_overwrite=False`. Existing pages can contain deliberate
+member lists and contextual explanations; replacing them with a default stub
+can remove complete method documentation from an otherwise warning-clean site.
+
+Review and edit an existing stub explicitly when changing its documented
+members or structure. New entries with an autosummary `:toctree:` still receive
+missing pages. The real Sphinx rendering controls in
+`devtools/tests/test_autosummary_owned_pages.py` verify preservation of authored
+content and method entries together with generation of a new public page.
+Strict full-site compilation and receiving of the actual HTML remain separate.
+
 ## Current limitation
 
 The repository does not yet have a machine-readable mapping from public symbols

@@ -1,0 +1,547 @@
+{
+  "schema": "molsysmt.autosummary_preservation_receiving/1",
+  "date": "2026-11-14",
+  "owner_issue": "uibcdf/molsysmt#752",
+  "scope": "Maintained API page preservation with real Sphinx, actual full-site generation and HTML receiving; no new scientific/runtime API, notebook execution, browser/deployment, installed/platform or final-pair qualification.",
+  "tested_source_basis": "27ba3d4c8d63a6a40a2d77f0190309ff15f4deef",
+  "reviewed_development_delta_sha256": {
+    "docs/conf.py": "8f189e927051a91f2c6ac0cca84d9cd5870bc093c536b90d5d244a3bd5735cc5",
+    "devtools/tests/test_autosummary_owned_pages.py": "2391084309a44074ce2dcf674eddf1429312d1023b86f8853bd1dcb6cab5ca96",
+    "docs/README.md": "d5aca874df53ef785d42b3529f8637474ff28aefd110380fecbfdf06cb049645",
+    "devguide/documentation_sync.md": "7ef5afd53a6c5ee1dd664fde22e924fcee746bb30b54601155fa679497c84c85"
+  },
+  "focused_executions": {
+    "baseline": {
+      "phase": "baseline",
+      "source_commit": "939e9c1b4ca5c741d3a82ea81863268630705434",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive #752 preservation of maintained API pages with real Sphinx generation; no installed/scientific/final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "3.74 3.90 3.59 6/2863 2041801",
+        "cpu_pressure": "some avg10=1.91 avg60=2.02 avg300=2.11 total=19473710071\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/technical_handoff_for_1_0_documentation_review.md\n?? devguide/pending_bugs/docs/sphinx_api_regeneration_drops_maintained_class_method_documentation.md\n?? devtools/tests/test_autosummary_owned_pages.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/autosummary-owner-752-20261114/baseline.xml",
+        "--receptor-events=<checkout>/.pytest_cache/autosummary-owner-752-20261114/baseline.events.jsonl",
+        "devtools/tests/test_autosummary_owned_pages.py"
+      ],
+      "checked_inputs": 8203,
+      "seconds": 18.04538720101118,
+      "ending_status": " M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/technical_handoff_for_1_0_documentation_review.md\n?? devguide/pending_bugs/docs/sphinx_api_regeneration_drops_maintained_class_method_documentation.md\n?? devtools/tests/test_autosummary_owned_pages.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 279220224,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 13710151680,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "a92b07ce4bd4049bc44e2aad3ca1aa44d9539e22b4a7072ba1b9ae7e97477c19"
+    },
+    "corrected": {
+      "phase": "corrected",
+      "source_commit": "939e9c1b4ca5c741d3a82ea81863268630705434",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive #752 preservation of maintained API pages with real Sphinx generation; no installed/scientific/final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "3.97 3.94 3.63 6/2865 2043078",
+        "cpu_pressure": "some avg10=2.97 avg60=2.41 avg300=2.18 total=19475820898\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/documentation_sync.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/technical_handoff_for_1_0_documentation_review.md\n M docs/README.md\n M docs/conf.py\n?? devguide/pending_bugs/docs/sphinx_api_regeneration_drops_maintained_class_method_documentation.md\n?? devtools/tests/test_autosummary_owned_pages.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/autosummary-owner-752-20261114/corrected.xml",
+        "--receptor-events=<checkout>/.pytest_cache/autosummary-owner-752-20261114/corrected.events.jsonl",
+        "devtools/tests/test_autosummary_owned_pages.py",
+        "devtools/tests/test_documentation_source_boundary.py",
+        "devtools/tests/test_public_api_docs.py"
+      ],
+      "checked_inputs": 8203,
+      "seconds": 32.51794902794063,
+      "ending_status": " M devguide/documentation_sync.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/technical_handoff_for_1_0_documentation_review.md\n M docs/README.md\n M docs/conf.py\n?? devguide/pending_bugs/docs/sphinx_api_regeneration_drops_maintained_class_method_documentation.md\n?? devtools/tests/test_autosummary_owned_pages.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 414216192,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 13181124608,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "a92b07ce4bd4049bc44e2aad3ca1aa44d9539e22b4a7072ba1b9ae7e97477c19"
+    }
+  },
+  "focused_native_pytest_final": {
+    "baseline": {
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "complete": true,
+      "counts": {
+        "collected": 3,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 3,
+        "failed": 2,
+        "not_executed": 0,
+        "passed": 1,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 0,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "duration": 1.217407158575952,
+      "exitstatus": 1,
+      "extensions": {
+        "dropped": 0,
+        "incomplete": false,
+        "recorded": 0
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "digest": "6ad0ed845f1a5ee3080d9524573e5e419ad4bacbe35b5d29083be315cce31d9d",
+        "records": 12
+      },
+      "invalid_selections": [],
+      "note": "",
+      "outcome": "FAIL",
+      "root_causes": 2,
+      "run_id": "f7bc4fd0d5914bc394485340b5859aac",
+      "schema": "pytest-receptor.events@1",
+      "stop_reason": "",
+      "type": "session_finish"
+    },
+    "corrected": {
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "complete": true,
+      "counts": {
+        "collected": 40,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 40,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 40,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 591,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "duration": 21.502675733994693,
+      "exitstatus": 0,
+      "extensions": {
+        "dropped": 0,
+        "incomplete": false,
+        "recorded": 3
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "digest": "764104d03702db269397063712028034d38bdfc902ad96cc367f12aac5e41449",
+        "records": 715
+      },
+      "invalid_selections": [],
+      "note": "",
+      "outcome": "PASS",
+      "root_causes": 0,
+      "run_id": "e5b92cc245dd4a4ab49abc6f437cf358",
+      "schema": "pytest-receptor.events@1",
+      "stop_reason": "",
+      "type": "session_finish"
+    }
+  },
+  "original_full_configuration_failure": {
+    "native_builder_exit": 1,
+    "warnings": 1,
+    "full_site": true,
+    "fresh_environment": true,
+    "force_all": true,
+    "found_documents": 1034,
+    "html_files": 1400,
+    "notebook_execution": "off",
+    "autosummary_generate": true,
+    "parallel": 1,
+    "confoverrides": {},
+    "changed_disposable_sources": [
+      "api/build/autosummary/molsysmt.build.add_ions.rst",
+      "api/topology/autosummary/molsysmt.topology.get_atom_name_correspondence.rst",
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_rigid_fragments.rst",
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_rings.rst",
+      "api/structure/autosummary/molsysmt.structure.get_distance_clusters.rst",
+      "api/structure/autosummary/molsysmt.structure.get_pairwise_rmsd.rst",
+      "api/physchem/autosummary/molsysmt.physchem.get_chemical_template.rst",
+      "api/element/atom/autosummary/molsysmt.element.atom.get_atom_type_from_atom_ff_type.rst",
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_atom_correspondences.rst",
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_covalent_paths.rst",
+      "api/element/group/autosummary/molsysmt.element.group.get_1_letter_code_from_name.rst",
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_peptide_termini.rst",
+      "api/structure/autosummary/molsysmt.structure.get_rotation_matrix_from_axis_angle.rst",
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_substructure_matches.rst",
+      "api/molecular_mechanics/autosummary/molsysmt.molecular_mechanics.get_model_recipe.rst",
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_covalent_blocks.rst",
+      "api/build/autosummary/molsysmt.build.reconcile_protonation.rst",
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_rotatable_bonds.rst",
+      "api/element/group/terminal_capping/autosummary/molsysmt.element.group.terminal_capping.is_n_terminal_capping.rst",
+      "api/build/autosummary/molsysmt.build.ProtonationAssessment.rst",
+      "api/build/autosummary/molsysmt.build.infer_covalent_bonds.rst",
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_dihedral_quartets.rst",
+      "api/element/group/terminal_capping/autosummary/molsysmt.element.group.terminal_capping.is_c_terminal_capping.rst",
+      "api/chemical_states/autosummary/molsysmt.chemical_states.normalize_indexed_hydrogen_policy.rst",
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_bondgraph.rst",
+      "api/build/autosummary/molsysmt.build.assess_protonation.rst"
+    ],
+    "changed_source_witnesses": {
+      "api/build/autosummary/molsysmt.build.add_ions.rst": {
+        "before_sha256": "a5dd4e2ca3d979bf78e8ff7682c4d17a53c9ed97210d94dc5cff648225542387",
+        "after_sha256": "334aa12ac1b08d78c9bd28e36fe308fd6146a58076ed786d88f6c8c95046aa76"
+      },
+      "api/topology/autosummary/molsysmt.topology.get_atom_name_correspondence.rst": {
+        "before_sha256": "f7b61f0aa38d65eef9212d19fb9fb612c9eb530e8605b9463b9d3799ca5a0612",
+        "after_sha256": "c59743080fe7dc1165f322d0755dcc5dd87f63e0224ad920acefe749b3f2397a"
+      },
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_rigid_fragments.rst": {
+        "before_sha256": "3b1a12e3d522733c057222a160330988389c5d29c3950f736429a9f80f8ad79a",
+        "after_sha256": "9560c6c1877de6046a639947c87eaa72bac19eeee56826e7cfa4a74c1edc1658"
+      },
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_rings.rst": {
+        "before_sha256": "c5d689781c8394b2f9c10645c0225792b2c9bea5eedb65f37c8730163c267723",
+        "after_sha256": "b2fd1e502619206bef08863c9f54a677d58cb0cfdb4cdca62835a2f7f95b3c63"
+      },
+      "api/structure/autosummary/molsysmt.structure.get_distance_clusters.rst": {
+        "before_sha256": "f046e76fa7f19e0d64606c022c18a159fba502ceae582a5304a25b60d51cd3f8",
+        "after_sha256": "d81f73e9ca7db7993466b7202fa193bf0fa4a5b6218cb0b79c89c43c45c302fd"
+      },
+      "api/structure/autosummary/molsysmt.structure.get_pairwise_rmsd.rst": {
+        "before_sha256": "fb2e22a06ece48296f56353c4764c618d82ebe5c134c9411daa651d0a6f81517",
+        "after_sha256": "3cf715c955789905615375b6fdfd8e8d885dee607e23d22f614458dcd44073e8"
+      },
+      "api/physchem/autosummary/molsysmt.physchem.get_chemical_template.rst": {
+        "before_sha256": "38c5493d225a5efadb6d69a4aad20f50863fd131e39d906205bce2e070dc6304",
+        "after_sha256": "96c1cf2871fea9133b416e6ea2660a4512be70efb6d0a317a6a7a9d16e72b972"
+      },
+      "api/element/atom/autosummary/molsysmt.element.atom.get_atom_type_from_atom_ff_type.rst": {
+        "before_sha256": "83f6fc23f262252d10719b69191df81213ca0b42a7db79733f94628be571fa08",
+        "after_sha256": "cb4f72e5fb4b9eff477d50711683ecab02838f858d588f4fc43fea172f9cc6bb"
+      },
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_atom_correspondences.rst": {
+        "before_sha256": "09ef4a36ebd0be587cb26afaa64dc1228e593c2a88e66d2b33f3d38693dc00ea",
+        "after_sha256": "9f992e06e5a6d90182db6c9cca8df9a7e1755bf7f99df01316f71c0147779ebe"
+      },
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_covalent_paths.rst": {
+        "before_sha256": "8b8cc7465dbc7506a1fe4894df054335258cd63848df887be46767c9ec32032d",
+        "after_sha256": "68f4d19cd07df201d7bea1c348ee6af8b6f9edf552ac94c1fcf67d4ba89f05ed"
+      },
+      "api/element/group/autosummary/molsysmt.element.group.get_1_letter_code_from_name.rst": {
+        "before_sha256": "7faad4a759e426a960064ead3154fccc90afcf4703a7b72f7ba43ec66d81cba4",
+        "after_sha256": "f0abf536397705624f3e46b6d1fe6b5339e50f92a89f014a97c1e2afa7f954de"
+      },
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_peptide_termini.rst": {
+        "before_sha256": "4b1a8cb0f5cffca137f45ed36efb9c217b4ad8ee2cf494655df1fc6c8a074eac",
+        "after_sha256": "90dab4121822c2d6b59cf0c6e161f1aa96c92e9a451b7e74e1e600c08f03f952"
+      },
+      "api/structure/autosummary/molsysmt.structure.get_rotation_matrix_from_axis_angle.rst": {
+        "before_sha256": "4abd66341f2b96b1b8e69ef88a8907153375a1c9aada3f5d61e592b4018772fd",
+        "after_sha256": "5b7787cb11af76fc30e85b0d97fd899f42e3075c914a09927e42434ca38cf711"
+      },
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_substructure_matches.rst": {
+        "before_sha256": "869c27225663420e540d72b6c08a53240bdab167b9ea33d3d930a18b4d5b4432",
+        "after_sha256": "54401dd40f610f411d45177de9cf6d882e1bb708c007688f66da8878105a3dba"
+      },
+      "api/molecular_mechanics/autosummary/molsysmt.molecular_mechanics.get_model_recipe.rst": {
+        "before_sha256": "e5491b15eef7a51e5f4be01e593d20cc17e2f002a55555ddada7f17e4bc6e9c0",
+        "after_sha256": "59a93ba7e8af6c47cf66c04bc6826bc84eaa4c21a6ba9a7ca8c639dfd4d88f36"
+      },
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_covalent_blocks.rst": {
+        "before_sha256": "247bbb414f48235c750130ffdfd0f6b90b1c44a7a1419baf1eed15adda8969b9",
+        "after_sha256": "c33b3ea89c8fca5c50c16e143945f1bee17c16b1ebd648c7427cd0eb7e5617fb"
+      },
+      "api/build/autosummary/molsysmt.build.reconcile_protonation.rst": {
+        "before_sha256": "207a9da6c981bb9539ee460c72d3a8e50474a61557659c76ee1f3ea5d7627814",
+        "after_sha256": "4ac0991b9f7cbbf375e4ce9b16a741887cde3f17f9bc3eef8881f64cae85de70"
+      },
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_rotatable_bonds.rst": {
+        "before_sha256": "f7a259ae0df2aaf8e87663094d525aea3691b0703d79892b959084ea0571a7c0",
+        "after_sha256": "c1ebf94dc2ee9ea806f40a219a303ee336b6b0a2e93dd2aac2a0ad0f99a82879"
+      },
+      "api/element/group/terminal_capping/autosummary/molsysmt.element.group.terminal_capping.is_n_terminal_capping.rst": {
+        "before_sha256": "c5bb43610d1979898ba537f0ab708dda859f5f3603ff70a2f320694cf7fa0e63",
+        "after_sha256": "cabc3681f4b81c2c5ea3593fcecf7da21c34ed74ab28d40c52a6cf79e2bb484b"
+      },
+      "api/build/autosummary/molsysmt.build.ProtonationAssessment.rst": {
+        "before_sha256": "0cf6e288ed5274ec949140a320324480fe9e8f406c510c4954d9af2aae03db1d",
+        "after_sha256": "05fc9a1c0944580a8aa4fcd709cb08bddf84ccb40f37e056e793456ea85407ca"
+      },
+      "api/build/autosummary/molsysmt.build.infer_covalent_bonds.rst": {
+        "before_sha256": "74c735370bbe488cc86efa998d1ac83f89a7ccfbcc9dde716b3137c58f02ec3f",
+        "after_sha256": "033814bb683cac4d27d6c0f493ce39d2ba8d804377398d14e9f99ff971e1ce91"
+      },
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_dihedral_quartets.rst": {
+        "before_sha256": "8adc308996b3324aa032b5d42a75e04e31b40ad1853dc7d8c8cdaaaf01552cdc",
+        "after_sha256": "2699f1abd05a176e9656422b61b4f4cd7c32367bf385e26fed014b06f11573c2"
+      },
+      "api/element/group/terminal_capping/autosummary/molsysmt.element.group.terminal_capping.is_c_terminal_capping.rst": {
+        "before_sha256": "e0fb687c1dc335267fc35e6043fee4235024e80934c525319d271691c13361fe",
+        "after_sha256": "8c418f6ecda6314c579bf87ca130ec23ed549b5ef3b7b0fc7060148d7947744a"
+      },
+      "api/chemical_states/autosummary/molsysmt.chemical_states.normalize_indexed_hydrogen_policy.rst": {
+        "before_sha256": "1c09bf950e7e6c8f5d51c0c4bc5169d6602fb7070edc3086746ffe00da2a13c4",
+        "after_sha256": "8f742ccbec3e363fe3e27cb8e7a4a60cb53c90082eca50e164e2c1e7705cd538"
+      },
+      "api/chemical_states/autosummary/molsysmt.chemical_states.get_bondgraph.rst": {
+        "before_sha256": "d9ec8df7c4a7a629d973b55918c55c2ae06ae3d9b23ec11fc53accdb1bf5e8f9",
+        "after_sha256": "4f95f017010b48349ea421153021682fb2758bc47227cde1e93e8484b6fd5a5b"
+      },
+      "api/build/autosummary/molsysmt.build.assess_protonation.rst": {
+        "before_sha256": "bae674164863d54b008d2d98241bf4503eb2719474572681ff09e35340e4304d",
+        "after_sha256": "e0f887d01c3c2206715f3fd39dfd2f56dd01df7fc50aeecb651d015f2c3edbb5"
+      }
+    }
+  },
+  "original_missing_asset_warning": "\u001b[91m<checkout>/.pytest_cache/full-source-closeout-334-20261114/default-docs-source/docs/content/user/tools/form/file/h5msm_06.md:161: WARNING: download file not readable: <checkout>/.pytest_cache/full-source-closeout-334-20261114/default-docs-source/devtools/data/h5msm_mechanics_storage_benchmark_256_20261108.json [download.not_readable]\u001b[39;49;00m\n",
+  "corrected_site": {
+    "native_builder_exit": 0,
+    "warnings": 0,
+    "full_site": true,
+    "fresh_environment": true,
+    "force_all": true,
+    "found_documents": 1034,
+    "html_files": 1400,
+    "notebook_execution": "off",
+    "autosummary_generate": true,
+    "autosummary_generate_overwrite": false,
+    "reviewed_delta_sha256": {
+      "docs/conf.py": "8f189e927051a91f2c6ac0cca84d9cd5870bc093c536b90d5d244a3bd5735cc5",
+      "docs/README.md": "d5aca874df53ef785d42b3529f8637474ff28aefd110380fecbfdf06cb049645"
+    },
+    "external_asset_sha256": "8c52b074a5c9672babc559ce78102e469ca134304c4c1baeb00f512bb6fffe7c",
+    "parallel": 1,
+    "confoverrides": {},
+    "changed_disposable_sources": [],
+    "changed_source_witnesses": {}
+  },
+  "corrected_site_execution": {
+    "label": "docs-corrected",
+    "source_commit": "27ba3d4c8d63a6a40a2d77f0190309ff15f4deef",
+    "phase": "completed",
+    "native_exit": 0,
+    "scope": "Fresh full Sphinx build with reviewed #752 configuration delta and default API generation in a complete disposable docs copy; actual method entries and intended links are received. No notebook execution/browser/final-pair claim.",
+    "supervisor": "Persistent systemd user service, independent of agent application lifecycle; native wait status is recorded immediately, before post-run hashing.",
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "3221225472",
+      "memory.high": "2831155200",
+      "memory.swap.max": "0",
+      "memory.oom.group": "1",
+      "pids.max": "256"
+    },
+    "host_reserve_bytes": 6979321856,
+    "finite_native_wall_budget_seconds": 1200,
+    "stop_reason": null,
+    "starting_available_bytes": 13793349632,
+    "starting_memory_pressure_avg10": 0.0,
+    "starting_io_pressure_avg10": 1.52,
+    "command": [
+      "<development-prefix>/bin/python",
+      "<checkout>/.pytest_cache/full-source-closeout-334-20261114/corrected_docs_pipeline.py"
+    ],
+    "checked_source_inputs": 9012,
+    "checked_viewer_inputs": 2581,
+    "checked_support_inputs": 231,
+    "minimum_observed_host_available_bytes": 12044574720,
+    "maximum_memory_pressure_avg10": 0.18,
+    "maximum_io_pressure_avg10": 23.3,
+    "warning_transitions": [
+      {
+        "native_seconds": 0.0017209621146321297,
+        "warning": false,
+        "memory_pressure_avg10": 0.0,
+        "io_pressure_avg10": 7.21,
+        "available_bytes": 13820952576,
+        "own_memory_bytes": 98267136
+      }
+    ],
+    "native_pid": 2045617,
+    "native_start_ticks": 222620948,
+    "native_seconds": 340.5048833801411,
+    "own_memory_bytes": 1224192000,
+    "kernel_memory_peak_bytes": 1512226816,
+    "kernel_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "changed_source_inputs": [],
+    "changed_viewer_inputs": [],
+    "changed_support_inputs": [],
+    "ending_source_status": "",
+    "resource_driver_sha256": "9b2eab51e2aa34aebde48d0c468d873095f8a94d2b11f5f94a8f40f3db08c5ba",
+    "total_supervisor_seconds": 381.0091820047237
+  },
+  "actual_method_entries": {
+    "apply": true,
+    "to_dict": true
+  },
+  "actual_intended_reference_final": {
+    "artifact_policy": {
+      "dropped_records": 0,
+      "max_bytes": 52428800,
+      "truncated": false
+    },
+    "complete": true,
+    "counts": {
+      "collected": 101,
+      "deselected": 0,
+      "errors": 0,
+      "executed": 101,
+      "failed": 0,
+      "not_executed": 0,
+      "passed": 101,
+      "reruns": 0,
+      "skipped": 0,
+      "subtests": {},
+      "warnings": 0,
+      "xfailed": 0,
+      "xpassed": 0
+    },
+    "duration": 118.75346967717633,
+    "exitstatus": 0,
+    "extensions": {
+      "dropped": 0,
+      "incomplete": false,
+      "recorded": 0
+    },
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "bc7affdb8b69b3a038b4f09f561cf9b0caf6ec51bc801216b8414da1daa3e114",
+      "records": 304
+    },
+    "invalid_selections": [],
+    "note": "",
+    "outcome": "PASS",
+    "root_causes": 0,
+    "run_id": "d10efdaa933749a1ab2d6cf97efa56d2",
+    "schema": "pytest-receptor.events@1",
+    "stop_reason": "",
+    "type": "session_finish"
+  },
+  "runtime_reference": "devtools/data/binding_membership_receiving_746_750_20261113.json",
+  "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "quality_checks": {
+    "passed": true,
+    "commands": [
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "seconds": 44.15132841002196,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          4.4s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                       16.9s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    6.2s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.6s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.5s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.8s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   3.1s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           2.5s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.2s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.6s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       4.7s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/generate_converter_arguments.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 10.392866538837552,
+        "stdout": "OK: the committed table matches the converters.\nTarget forms: 96 | keywords per target: min 6, max 23, mean 10.3\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.10511833010241389,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.17539775697514415,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.10884477384388447,
+        "stdout": "4730 files already formatted\n",
+        "stderr": ""
+      }
+    ]
+  },
+  "publication": "pending; no release authority",
+  "original_weighted_progress_change": 0,
+  "retained_evidence_sha256": {
+    ".pytest_cache/autosummary-owner-752-20261114/baseline-execution.json": "ea159adef37cd7e7ee0e489bf539dd3b77693dd04c5e7da466638fe52ae0ea7b",
+    ".pytest_cache/autosummary-owner-752-20261114/baseline.events.jsonl": "5721856d961f38ae09337dcd60b03ee163d57d59f189db504ea500dccb26ea8e",
+    ".pytest_cache/autosummary-owner-752-20261114/baseline.xml": "7b75280d022f4a6917a97bd6ad5a1af537cd51c070c677e8daa4ac931ae2f3d2",
+    ".pytest_cache/autosummary-owner-752-20261114/baseline.log": "e93e968d6ec546b88ce8bf2bdafe5f70eb7088eddb194051f1a1362807bcfaac",
+    ".pytest_cache/autosummary-owner-752-20261114/baseline-inputs-before.json": "ce2431945424b9b65b1d498493a508f5c31e2ee4bcc0b7e2ec2a07f33da9b8e6",
+    ".pytest_cache/autosummary-owner-752-20261114/baseline-inputs-after.json": "ce2431945424b9b65b1d498493a508f5c31e2ee4bcc0b7e2ec2a07f33da9b8e6",
+    ".pytest_cache/autosummary-owner-752-20261114/corrected-execution.json": "9296d001bad810bee7e812b7e627073db809f31a59c3483544adc9b83f6a2763",
+    ".pytest_cache/autosummary-owner-752-20261114/corrected.events.jsonl": "a70335c5ee38b6ec8a76663643179dc33450a0bba1affbe759dfa598604ee714",
+    ".pytest_cache/autosummary-owner-752-20261114/corrected.xml": "1325a09aef7dd711b6b9070926828176ec59f080ab8a2b96374683926eefcbb3",
+    ".pytest_cache/autosummary-owner-752-20261114/corrected.log": "7e3f5641018db413895d5b826da0565b158cefa64b2aa539cd9be4785c64f6c6",
+    ".pytest_cache/autosummary-owner-752-20261114/corrected-inputs-before.json": "431dd0225e6bdfcf3497eae1b1e42eacf97a8ef508197929d6bfda997e6ecc3a",
+    ".pytest_cache/autosummary-owner-752-20261114/corrected-inputs-after.json": "431dd0225e6bdfcf3497eae1b1e42eacf97a8ef508197929d6bfda997e6ecc3a",
+    ".pytest_cache/full-source-closeout-334-20261114/default-sphinx-result.json": "5814b9ebc3d56ff2d5455bfc26deb138149bc8b527df3df4df0002c515a898bf",
+    ".pytest_cache/full-source-closeout-334-20261114/default-sphinx-warnings.log": "92208ee65fcf83a4e37766a86373233273c48e77fb511c06a112e3377e392a45",
+    ".pytest_cache/full-source-closeout-334-20261114/default-docs-inputs-before.json": "91dac5315d5908f7e9c682c818144b98845d0807225ab0b5f6f25c7a498b0497",
+    ".pytest_cache/full-source-closeout-334-20261114/default-docs-inputs-after.json": "a0edb8d48d2407bb34361bd4a68fe1560cb7ba51d1a25de4337edccba3725432",
+    ".pytest_cache/full-source-closeout-334-20261114/corrected-sphinx-result.json": "be7a8084eb6f953361469cb35c3788b34d0d2c79e8c45a30caaa26024e44a5ca",
+    ".pytest_cache/full-source-closeout-334-20261114/corrected-docs-inputs-before.json": "e2b5107b13b803e7d24d503000fa0e77c300f764aca4e9af46165561e0977203",
+    ".pytest_cache/full-source-closeout-334-20261114/corrected-docs-inputs-after.json": "e2b5107b13b803e7d24d503000fa0e77c300f764aca4e9af46165561e0977203",
+    ".pytest_cache/full-source-closeout-334-20261114/corrected-doc-references.events.jsonl": "71bcae30792a85e621a3e65585c830ea872ea2c77f812922f31f0a539962eb03",
+    ".pytest_cache/full-source-closeout-334-20261114/corrected-doc-references.xml": "776e147243e5c1f0df7eddaa84791186d456a1c791f8f5c003c00fa6c3de7fe4",
+    ".pytest_cache/full-source-closeout-334-20261114/corrected-method-presence.json": "5d8abf4afcabc348c367ea3a0453ca5e12b14cd6c14d8c84b390b51c747ed01a"
+  }
+}
