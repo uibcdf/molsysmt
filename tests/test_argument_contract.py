@@ -177,6 +177,39 @@ def test_convert_refuses_a_mistyped_converter_keyword(alanine_molsys):
         msm.convert(alanine_molsys, to_form="file:pdb", output_filenam="x.pdb")
 
 
+@pytest.mark.parametrize("suffix", ["crd", "inpcrd", "prmtop", "h5"])
+def test_public_file_identity_conversion_accepts_canonical_destination(
+    tmp_path, suffix
+):
+    from pathlib import Path
+
+    pytest.importorskip("mdtraj" if suffix == "h5" else "openmm")
+    source = tmp_path / ("source." + suffix)
+    destination = tmp_path / ("copy." + suffix)
+    # Unselected identity conversions copy bytes; this does not certify that
+    # opaque payloads are valid molecular input for a decoder.
+    payload = b"Source-safe identity conversion\x00\xff\n"
+    source.write_bytes(payload)
+
+    output = msm.convert(
+        str(source),
+        to_form="file:" + suffix,
+        output_filename=str(destination),
+        copy_if_all=False,
+    )
+
+    assert Path(output) == destination
+    assert output != str(source)
+    assert destination.read_bytes() == source.read_bytes() == payload
+    destination.write_bytes(b"independent destination")
+    assert source.read_bytes() == payload
+    with pytest.raises(UnknownArgumentError, match="output_filenam"):
+        msm.convert(
+            str(source), to_form="file:" + suffix, output_filenam=str(destination)
+        )
+    assert destination.read_bytes() == b"independent destination"
+
+
 def test_an_unknown_target_form_is_reported_as_such(alanine_molsys):
     from molsysmt._private.smonitor import ArgumentError
 
