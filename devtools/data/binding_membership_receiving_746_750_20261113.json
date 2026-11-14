@@ -1,0 +1,1181 @@
+{
+  "schema": "molsysmt.binding_membership_owner_receiving/1",
+  "date": "2026-11-13",
+  "owner_issue": "uibcdf/molsysmt#746",
+  "related_issues": [
+    "uibcdf/molsysmt#750",
+    "uibcdf/bindingmt#111",
+    "uibcdf/molsysmt#734",
+    "uibcdf/molsysmt#334"
+  ],
+  "scope": "Finite native membership, explicit occurrence/state and declared atom-map owner facts. Not BindingMT resolve_region implementation/adoption or current binding-finding qualification.",
+  "owner_review_base": "0dc250bb993aba0f0910c51607afb1224df76dba",
+  "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "frozen_runtime_reference": "devtools/data/source_axis_converter_receiving_747_748_20261113.json",
+  "consumer_source_documents": [
+    {
+      "path": "devguide/binding_site_membership.md",
+      "commit": "e1e6a337dbf487d1b2e36809cc72ea46a7639f60",
+      "public_git_blob": "b451d8b2550327c447f83d0998dd847387027a39",
+      "sha256": "efd5dea4effd2b3030b6e9e4036259b3890c3e706ac75712af64429f807fd9f8",
+      "source_bytes_verified": true
+    },
+    {
+      "path": "devguide/binding_site_data_core.md",
+      "commit": "e1e6a337dbf487d1b2e36809cc72ea46a7639f60",
+      "public_git_blob": "1de15f491579ab52f629e2a4ab5979f3b8d3ac46",
+      "sha256": "5e9550fe964ea02c6eca215b8969c5071ab1709f6fedf80bc49e8a60260ea915",
+      "source_bytes_verified": true
+    }
+  ],
+  "suite_status": [
+    {
+      "repository": "uibcdf/molsysmt",
+      "initiative": "stabilization",
+      "root": "<checkout>",
+      "branch": "main",
+      "head": "0dc250bb993a",
+      "upstream": "origin/main",
+      "ahead": 0,
+      "behind": 0,
+      "worktree": [],
+      "error": "",
+      "healthy": true,
+      "state": "current"
+    },
+    {
+      "repository": "uibcdf/bindingmt",
+      "initiative": "",
+      "root": "/home/diego/repos@uibcdf/bindingmt",
+      "branch": "",
+      "head": "",
+      "upstream": "",
+      "ahead": 0,
+      "behind": 0,
+      "worktree": [],
+      "error": "repository checkout is missing",
+      "healthy": false,
+      "state": "error"
+    }
+  ],
+  "executions": {
+    "focused": {
+      "phase": "focused",
+      "source_commit": "0dc250bb993aba0f0910c51607afb1224df76dba",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #746 native membership/map owner receiving, not BindingMT resolve_region, a complete suite or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.25 0.86 1.06 3/2725 1782414",
+        "cpu_pressure": "some avg10=0.00 avg60=0.02 avg300=1.21 total=19343904571\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": "?? tests/basic/test_binding_site_membership_handoff.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1932734464",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--maxfail=3",
+        "--junitxml=<checkout>/.pytest_cache/binding-region-owner-746-20261113/focused.xml",
+        "--receptor-events=<checkout>/.pytest_cache/binding-region-owner-746-20261113/focused.events.jsonl",
+        "tests/basic/test_binding_site_membership_handoff.py"
+      ],
+      "checked_inputs": 8193,
+      "seconds": 4.664112695958465,
+      "ending_status": "?? tests/basic/test_binding_site_membership_handoff.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 143196160,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18434506752,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "a864d8061a538ccd225ac88c8266755a36590f31f65fbb9aca82125469fd0959"
+    },
+    "corrected": {
+      "phase": "corrected",
+      "source_commit": "0dc250bb993aba0f0910c51607afb1224df76dba",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #746 native membership/map owner receiving, not BindingMT resolve_region, a complete suite or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "6.35 2.55 1.63 16/2906 1783584",
+        "cpu_pressure": "some avg10=32.59 avg60=17.29 avg300=5.94 total=19361366098\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": "?? tests/basic/test_binding_site_membership_handoff.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1932734464",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--maxfail=3",
+        "--junitxml=<checkout>/.pytest_cache/binding-region-owner-746-20261113/corrected.xml",
+        "--receptor-events=<checkout>/.pytest_cache/binding-region-owner-746-20261113/corrected.events.jsonl",
+        "tests/basic/test_binding_site_membership_handoff.py"
+      ],
+      "checked_inputs": 8193,
+      "seconds": 7.023701543919742,
+      "ending_status": "?? tests/basic/test_binding_site_membership_handoff.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 208924672,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17020903424,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "a864d8061a538ccd225ac88c8266755a36590f31f65fbb9aca82125469fd0959"
+    },
+    "receiving": {
+      "phase": "receiving",
+      "source_commit": "0dc250bb993aba0f0910c51607afb1224df76dba",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #746 native membership/map owner receiving, not BindingMT resolve_region, a complete suite or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.18 2.65 1.97 2/2714 1785097",
+        "cpu_pressure": "some avg10=0.00 avg60=1.93 avg300=6.37 total=19381219778\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": "?? tests/basic/test_binding_site_membership_handoff.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1932734464",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/binding-region-owner-746-20261113/receiving.xml",
+        "--receptor-events=<checkout>/.pytest_cache/binding-region-owner-746-20261113/receiving.events.jsonl",
+        "tests/basic/test_binding_site_membership_handoff.py",
+        "tests/basic/test_permute_atoms.py",
+        "tests/native/test_molsys_chemical_state_association.py",
+        "tests/native/test_native_queries.py",
+        "tests/basic/test_compose_atom_maps.py::test_generation_reordering_omission_and_no_negative_index_lookup",
+        "tests/basic/test_compose_atom_maps.py::test_reject_inconsistent_typed_maps",
+        "tests/basic/test_compose_atom_maps.py::test_adjacent_counts_labels_and_pose_export_binding_are_checked",
+        "tests/basic/test_compose_atom_maps.py::test_empty_original_source_can_have_declared_generated_outputs",
+        "tests/structure/get_contacts/test_native_interface_handoff.py::test_extraction_permutation_and_footprints_keep_source_structure_and_state"
+      ],
+      "checked_inputs": 8193,
+      "seconds": 13.708642228040844,
+      "ending_status": "?? tests/basic/test_binding_site_membership_handoff.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 259117056,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18293866496,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "a864d8061a538ccd225ac88c8266755a36590f31f65fbb9aca82125469fd0959"
+    },
+    "cohort": {
+      "phase": "cohort",
+      "source_commit": "0dc250bb993aba0f0910c51607afb1224df76dba",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #746 native membership/map owner receiving, not BindingMT resolve_region, a complete suite or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.39 1.86 1.76 2/2716 1785891",
+        "cpu_pressure": "some avg10=0.00 avg60=0.21 avg300=4.07 total=19381406797\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": "?? tests/basic/test_binding_site_membership_handoff.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1932734464",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/binding-region-owner-746-20261113/probe_structure_scope.py"
+      ],
+      "checked_inputs": 8193,
+      "seconds": 3.6579483873210847,
+      "ending_status": "?? tests/basic/test_binding_site_membership_handoff.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 148983808,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18406891520,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "a864d8061a538ccd225ac88c8266755a36590f31f65fbb9aca82125469fd0959"
+    },
+    "baseline": {
+      "phase": "baseline",
+      "source_commit": "0dc250bb993aba0f0910c51607afb1224df76dba",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #746 native membership/map owner receiving, not BindingMT resolve_region, a complete suite or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.36 1.21 1.53 4/2738 1787269",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=2.10 total=19381627968\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": "?? devguide/pending_bugs/select_ignores_invalid_structure_indices_for_numeric_and_all_selections.md\n?? tests/basic/select/test_structure_scope.py\n?? tests/basic/test_binding_site_membership_handoff.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1932734464",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/binding-region-owner-746-20261113/baseline.xml",
+        "tests/basic/select/test_structure_scope.py"
+      ],
+      "checked_inputs": 8195,
+      "seconds": 5.696424501948059,
+      "ending_status": "?? devguide/pending_bugs/select_ignores_invalid_structure_indices_for_numeric_and_all_selections.md\n?? tests/basic/select/test_structure_scope.py\n?? tests/basic/test_binding_site_membership_handoff.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 204136448,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18336161792,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "a864d8061a538ccd225ac88c8266755a36590f31f65fbb9aca82125469fd0959"
+    },
+    "corrected2": {
+      "phase": "corrected2",
+      "source_commit": "0dc250bb993aba0f0910c51607afb1224df76dba",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #746 native membership/map owner receiving, not BindingMT resolve_region, a complete suite or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.93 1.19 1.50 2/2718 1787735",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=1.71 total=19381698834\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M molsysmt/basic/select.py\n?? devguide/pending_bugs/select_ignores_invalid_structure_indices_for_numeric_and_all_selections.md\n?? tests/basic/select/test_structure_scope.py\n?? tests/basic/test_binding_site_membership_handoff.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1932734464",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/binding-region-owner-746-20261113/corrected2.xml",
+        "--receptor-events=<checkout>/.pytest_cache/binding-region-owner-746-20261113/corrected2.events.jsonl",
+        "tests/basic/test_binding_site_membership_handoff.py",
+        "tests/basic/test_permute_atoms.py",
+        "tests/native/test_molsys_chemical_state_association.py",
+        "tests/native/test_native_queries.py",
+        "tests/basic/test_compose_atom_maps.py::test_generation_reordering_omission_and_no_negative_index_lookup",
+        "tests/basic/test_compose_atom_maps.py::test_reject_inconsistent_typed_maps",
+        "tests/basic/test_compose_atom_maps.py::test_adjacent_counts_labels_and_pose_export_binding_are_checked",
+        "tests/basic/test_compose_atom_maps.py::test_empty_original_source_can_have_declared_generated_outputs",
+        "tests/structure/get_contacts/test_native_interface_handoff.py::test_extraction_permutation_and_footprints_keep_source_structure_and_state",
+        "tests/basic/select",
+        "tests/basic/get/test_selection_structure_scope.py"
+      ],
+      "checked_inputs": 8195,
+      "seconds": 34.69954197388142,
+      "ending_status": " M molsysmt/basic/select.py\n?? devguide/pending_bugs/select_ignores_invalid_structure_indices_for_numeric_and_all_selections.md\n?? tests/basic/select/test_structure_scope.py\n?? tests/basic/test_binding_site_membership_handoff.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 495390720,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18142703616,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "a864d8061a538ccd225ac88c8266755a36590f31f65fbb9aca82125469fd0959"
+    },
+    "runtime-corrected": {
+      "phase": "runtime-corrected",
+      "source_commit": "0dc250bb993aba0f0910c51607afb1224df76dba",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #746 native membership/map owner receiving, not BindingMT resolve_region, a complete suite or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.16 1.16 1.43 4/2898 1789407",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.90 total=19382020111\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M molsysmt/basic/select.py\n?? devguide/pending_bugs/select_ignores_invalid_structure_indices_for_numeric_and_all_selections.md\n?? tests/basic/select/test_structure_scope.py\n?? tests/basic/test_binding_site_membership_handoff.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1932734464",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/binding-region-owner-746-20261113/runtime-corrected.xml",
+        "tests/basic/test_binding_site_membership_handoff.py"
+      ],
+      "checked_inputs": 8195,
+      "seconds": 7.956161591224372,
+      "ending_status": " M molsysmt/basic/select.py\n?? devguide/pending_bugs/select_ignores_invalid_structure_indices_for_numeric_and_all_selections.md\n?? tests/basic/select/test_structure_scope.py\n?? tests/basic/test_binding_site_membership_handoff.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 208744448,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17577107456,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "a864d8061a538ccd225ac88c8266755a36590f31f65fbb9aca82125469fd0959"
+    },
+    "checks": {
+      "phase": "checks",
+      "source_commit": "0dc250bb993aba0f0910c51607afb1224df76dba",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #746 native membership/map owner receiving, not BindingMT resolve_region, a complete suite or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.71 0.94 1.34 2/2702 1793281",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.67 total=19396761025\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/README.md\n M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/user/tools/basic/select.ipynb\n M molsysmt/basic/select.py\n?? devguide/archive/resolved_bugs/select_ignores_invalid_structure_indices_for_numeric_and_all_selections.md\n?? devguide/archive/resolved_proposals/binding_site_membership_owner_review.md\n?? devguide/native_binding_site_membership_contract.md\n?? devtools/data/binding_membership_receiving_746_750_20261113.json\n?? tests/basic/select/test_structure_scope.py\n?? tests/basic/test_binding_site_membership_handoff.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1932734464",
+        "memory.swap.max": "0",
+        "pids.max": "128"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        ".pytest_cache/binding-region-owner-746-20261113/final_checks.py"
+      ],
+      "checked_inputs": 8198,
+      "seconds": 33.714149858336896,
+      "ending_status": " M devguide/README.md\n M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/user/tools/basic/select.ipynb\n M molsysmt/basic/select.py\n?? devguide/archive/resolved_bugs/select_ignores_invalid_structure_indices_for_numeric_and_all_selections.md\n?? devguide/archive/resolved_proposals/binding_site_membership_owner_review.md\n?? devguide/native_binding_site_membership_contract.md\n?? devtools/data/binding_membership_receiving_746_750_20261113.json\n?? tests/basic/select/test_structure_scope.py\n?? tests/basic/test_binding_site_membership_handoff.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 412389376,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18074370048,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "a864d8061a538ccd225ac88c8266755a36590f31f65fbb9aca82125469fd0959"
+    }
+  },
+  "artifacts": {
+    "focused": {
+      "complete_transport": true,
+      "integrity_valid": true,
+      "final": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": false,
+        "counts": {
+          "collected": 16,
+          "deselected": 0,
+          "errors": 3,
+          "executed": 3,
+          "failed": 0,
+          "not_executed": 13,
+          "passed": 0,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 0.32996593602001667,
+        "exitstatus": 1,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 0
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "a2131f0f1ec15a77e3231daa63930df3e6f615cf7c3858165f8e65ea25ae3953",
+          "records": 8
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "FAIL",
+        "root_causes": 1,
+        "run_id": "dbfeddc346594db9ae4cf8aa8b5da02b",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "incomplete (maxfail): 3 of 16 executed",
+        "type": "session_finish"
+      }
+    },
+    "corrected": {
+      "complete_transport": true,
+      "integrity_valid": true,
+      "final": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 16,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 16,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 16,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 2.13594076782465,
+        "exitstatus": 0,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 0
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "a86cc99c7fdab354c63bf5ff7945b3ab95b87503034a636e7994053b984c1bf7",
+          "records": 49
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "PASS",
+        "root_causes": 0,
+        "run_id": "97d92f6df46c4861a2733c31c4668931",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      }
+    },
+    "receiving": {
+      "complete_transport": true,
+      "integrity_valid": true,
+      "final": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 156,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 156,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 156,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 9.263263593893498,
+        "exitstatus": 0,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 0
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "e8163204c9f9617c62a9ae865d0a2e473ce8c7e41f676721aefd5618109cf9ac",
+          "records": 469
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "PASS",
+        "root_causes": 0,
+        "run_id": "79775e16d0054373bd20618c66ff1ee1",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      }
+    },
+    "corrected2": {
+      "complete_transport": true,
+      "integrity_valid": true,
+      "final": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 356,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 356,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 356,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 3,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 29.536800771951675,
+        "exitstatus": 0,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 3
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "19ca529d07404b95e68a779e742af693df52ceac6a953bfa315fe75d5bf08bd3",
+          "records": 1075
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "PASS",
+        "root_causes": 0,
+        "run_id": "8a71f12462034469bc151a6312a7994b",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      }
+    }
+  },
+  "junit": {
+    "focused": {
+      "counts": {
+        "executed": 3,
+        "passed": 0,
+        "failed": 0,
+        "errors": 3,
+        "skipped": 0
+      }
+    },
+    "corrected": {
+      "counts": {
+        "executed": 16,
+        "passed": 16,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "receiving": {
+      "counts": {
+        "executed": 156,
+        "passed": 156,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "baseline": {
+      "counts": {
+        "executed": 18,
+        "passed": 6,
+        "failed": 12,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "corrected2": {
+      "counts": {
+        "executed": 356,
+        "passed": 356,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "runtime-corrected": {
+      "counts": {
+        "executed": 18,
+        "passed": 18,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "cases": [
+        {
+          "classname": "tests.basic.test_binding_site_membership_handoff",
+          "name": "test_explicit_queries_keep_entry_order_without_using_ids_as_indices",
+          "state": "passed"
+        },
+        {
+          "classname": "tests.basic.test_binding_site_membership_handoff",
+          "name": "test_group_expansion_preserves_declared_group_order_and_atom_relationships",
+          "state": "passed"
+        },
+        {
+          "classname": "tests.basic.test_binding_site_membership_handoff",
+          "name": "test_public_selection_refuses_indices_outside_the_declared_axis[atom-selection0]",
+          "state": "passed"
+        },
+        {
+          "classname": "tests.basic.test_binding_site_membership_handoff",
+          "name": "test_public_selection_refuses_indices_outside_the_declared_axis[atom-selection1]",
+          "state": "passed"
+        },
+        {
+          "classname": "tests.basic.test_binding_site_membership_handoff",
+          "name": "test_public_selection_refuses_indices_outside_the_declared_axis[group-selection2]",
+          "state": "passed"
+        },
+        {
+          "classname": "tests.basic.test_binding_site_membership_handoff",
+          "name": "test_public_selection_refuses_indices_outside_the_declared_axis[group-selection3]",
+          "state": "passed"
+        },
+        {
+          "classname": "tests.basic.test_binding_site_membership_handoff",
+          "name": "test_known_empty_groups_and_unknown_parentage_are_distinct",
+          "state": "passed"
+        },
+        {
+          "classname": "tests.basic.test_binding_site_membership_handoff",
+          "name": "test_structure_state_queries_are_explicit_and_mixed_or_unknown_states_refuse",
+          "state": "passed"
+        },
+        {
+          "classname": "tests.basic.test_binding_site_membership_handoff",
+          "name": "test_structure_queries_and_extraction_refuse_out_of_range_occurrences[structures0]",
+          "state": "passed"
+        },
+        {
+          "classname": "tests.basic.test_binding_site_membership_handoff",
+          "name": "test_structure_queries_and_extraction_refuse_out_of_range_occurrences[structures1]",
+          "state": "passed"
+        },
+        {
+          "classname": "tests.basic.test_binding_site_membership_handoff",
+          "name": "test_extraction_permutation_saved_axes_and_repeated_occurrences[nm-ps]",
+          "state": "passed"
+        },
+        {
+          "classname": "tests.basic.test_binding_site_membership_handoff",
+          "name": "test_extraction_permutation_saved_axes_and_repeated_occurrences[pm-fs]",
+          "state": "passed"
+        },
+        {
+          "classname": "tests.basic.test_binding_site_membership_handoff",
+          "name": "test_contradictory_or_out_of_range_maps_refuse_without_partial_success[output_to_source_atom_indices-value0]",
+          "state": "passed"
+        },
+        {
+          "classname": "tests.basic.test_binding_site_membership_handoff",
+          "name": "test_contradictory_or_out_of_range_maps_refuse_without_partial_success[source_to_output_atom_indices-value1]",
+          "state": "passed"
+        },
+        {
+          "classname": "tests.basic.test_binding_site_membership_handoff",
+          "name": "test_omitted_members_are_exposed_and_missing_maps_are_not_identity",
+          "state": "passed"
+        },
+        {
+          "classname": "tests.basic.test_binding_site_membership_handoff",
+          "name": "test_generated_current_group_member_has_no_original_atom_index",
+          "state": "passed"
+        },
+        {
+          "classname": "tests.basic.test_binding_site_membership_handoff",
+          "name": "test_counts_and_labels_do_not_establish_unchanged_coordinates",
+          "state": "passed"
+        },
+        {
+          "classname": "tests.basic.test_binding_site_membership_handoff",
+          "name": "test_native_domain_attachment_refuses_mismatched_atoms_before_publication",
+          "state": "passed"
+        }
+      ]
+    }
+  },
+  "source_byte_proof": {
+    "selected_python_and_native_files": 4729,
+    "all_match_final_tested_bytes": true,
+    "manifest_sha256": "bcbf9842d58939bd45182d26781c49230d37f2d3e3d1e8c0371a3f0c648d5f52",
+    "executed_on_parent_plus_reviewed_delta": "0dc250bb993aba0f0910c51607afb1224df76dba",
+    "source_identity_scope": "This byte proof is not an installed/final-candidate qualification."
+  },
+  "quality_checks": {
+    "passed": true,
+    "commands": [
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "-m",
+          "pytest",
+          "--receptor=llm",
+          "-n0",
+          "--doctest-modules",
+          "molsysmt/basic/select.py",
+          "--junitxml=.pytest_cache/binding-region-owner-746-20261113/doctest.xml"
+        ],
+        "native_exit": 0,
+        "stdout": "PASS exit=0 | 1 passed | 1.15s | 6 warnings\n\nwarnings: 6 in 1 groups\n  LegacyH5MSMWarning x6 | molsysmt/form/file_h5msm/to_molsysmt_H5MSMFileHandler.py:28 | H5MSM 0.4 is deprecated; reading remains supported. Convert a copy to H5MSM 1.0 with molsysmt.convert(source,...\n\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.3s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        5.4s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.1s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.3s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.0s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.4s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   1.9s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.2s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.1s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.3s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/generate_converter_arguments.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "stdout": "OK: the committed table matches the converters.\nTarget forms: 96 | keywords per target: min 6, max 23, mean 10.3\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "native_exit": 0,
+        "stdout": "4728 files already formatted\n",
+        "stderr": ""
+      }
+    ]
+  },
+  "notebook_prose_proof": [
+    {
+      "path": "docs/content/user/tools/basic/select.ipynb",
+      "markdown_cell": 16,
+      "code_outputs_order_and_metadata_preserved": true
+    },
+    {
+      "path": "docs/content/course/Common_Core/07_Selection_Basics.ipynb",
+      "markdown_cell": 3,
+      "code_outputs_order_and_metadata_preserved": true
+    }
+  ],
+  "selection_scope_probe": [
+    {
+      "selection": [
+        0
+      ],
+      "structures": [
+        9
+      ],
+      "result": [
+        0
+      ]
+    },
+    {
+      "selection": [
+        0
+      ],
+      "structures": [
+        -1
+      ],
+      "result": [
+        0
+      ]
+    },
+    {
+      "selection": "all",
+      "structures": [
+        9
+      ],
+      "result": [
+        0,
+        1
+      ]
+    },
+    {
+      "selection": "all",
+      "structures": [
+        -1
+      ],
+      "result": [
+        0,
+        1
+      ]
+    },
+    {
+      "selection": "atom_index==0",
+      "structures": [
+        9
+      ],
+      "error": "ArgumentError",
+      "message": "'structure_indices' contains out-of-range structure indices [9]; valid indices are in [0, 3). Check the API for the expected argument format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+    },
+    {
+      "selection": "atom_index==0",
+      "structures": [
+        -1
+      ],
+      "error": "ArgumentError",
+      "message": "'structure_indices' contains out-of-range structure indices [-1]; valid indices are in [0, 3). Check the API for the expected argument format. Docs: https://www.uibcdf.org/MolSysMT | Issues: https://github.com/uibcdf/MolSysMT/issues"
+    }
+  ],
+  "raw_artifacts": {
+    "focused-execution.json": {
+      "sha256": "3255fa3741f760400e23cbc9ca575c6fca7acfbe425d50b07e9f96b41f8d5734",
+      "bytes": 1779
+    },
+    "focused-inputs-before.json": {
+      "sha256": "8aad8791ba1cb7d56fbabb74b6fed0b31912f97bb9ff7b84f30cc9d40b36a0b8",
+      "bytes": 1040322
+    },
+    "focused-inputs-after.json": {
+      "sha256": "8aad8791ba1cb7d56fbabb74b6fed0b31912f97bb9ff7b84f30cc9d40b36a0b8",
+      "bytes": 1040322
+    },
+    "focused.log": {
+      "sha256": "c086ddf9f22e7fd8120a8e701dea4f57ef9b0e5a5ae30f532d8642ea4948abd0",
+      "bytes": 890
+    },
+    "focused.xml": {
+      "sha256": "a7ad3ba554733ab76839554f8c47eb56a6610e8a1fa1befa649f3c3802dae706",
+      "bytes": 4755
+    },
+    "focused.events.jsonl": {
+      "sha256": "951c3c944eae350762410030cefef521cbd3899c18179ffae5a98d7f65547612",
+      "bytes": 9397
+    },
+    "focused-driver.py": {
+      "sha256": "a864d8061a538ccd225ac88c8266755a36590f31f65fbb9aca82125469fd0959",
+      "bytes": 5966
+    },
+    "corrected-execution.json": {
+      "sha256": "bccc74738587caf9f2a56a42e71843ef2fea177827c5e30c0a6c57ec89ddf4be",
+      "bytes": 1788
+    },
+    "corrected-inputs-before.json": {
+      "sha256": "8270cea526a734b574f3da79f1172c96ca7e0549cabf9a55afa86eb5c91aaaee",
+      "bytes": 1040322
+    },
+    "corrected-inputs-after.json": {
+      "sha256": "8270cea526a734b574f3da79f1172c96ca7e0549cabf9a55afa86eb5c91aaaee",
+      "bytes": 1040322
+    },
+    "corrected.log": {
+      "sha256": "31c726c7dc5f067e4488fb2411e9e7290d248c5b6822376a8d94258678f613f6",
+      "bytes": 33
+    },
+    "corrected.xml": {
+      "sha256": "3d06a9e11396753219beba54faaa2ca4d24e2b5866ce48d944d1b57b6a46271b",
+      "bytes": 2961
+    },
+    "corrected.events.jsonl": {
+      "sha256": "cb9363ee23a5dcbced3fde18ec78d7cc2e5c32c75e02cfcfa6e631ef0746a891",
+      "bytes": 20948
+    },
+    "corrected-driver.py": {
+      "sha256": "a864d8061a538ccd225ac88c8266755a36590f31f65fbb9aca82125469fd0959",
+      "bytes": 5966
+    },
+    "receiving-execution.json": {
+      "sha256": "ae20d1415da5ced77f80430608a7637937ebddc83bbe0636a0581f5e4660ae6e",
+      "bytes": 2470
+    },
+    "receiving-inputs-before.json": {
+      "sha256": "5d3bac4d4a6437dd7a267af6b72971f4d018fa03b3db74be202d6b3727d867e7",
+      "bytes": 1040322
+    },
+    "receiving-inputs-after.json": {
+      "sha256": "5d3bac4d4a6437dd7a267af6b72971f4d018fa03b3db74be202d6b3727d867e7",
+      "bytes": 1040322
+    },
+    "receiving.log": {
+      "sha256": "cbc38f1b30adfcc9a2da3c8b3f0102e3f6612a9dd437ed1d8945310aa45c37d9",
+      "bytes": 34
+    },
+    "receiving.xml": {
+      "sha256": "46a552d563c0efc3c0d73b91f2a1c178ff80e9eface225f79c46aa4fd974cd5a",
+      "bytes": 22836
+    },
+    "receiving.events.jsonl": {
+      "sha256": "11af01ed4185096f823912836acfc382030f70c11d53586494707e1a4d07d5ce",
+      "bytes": 182794
+    },
+    "receiving-driver.py": {
+      "sha256": "a864d8061a538ccd225ac88c8266755a36590f31f65fbb9aca82125469fd0959",
+      "bytes": 5966
+    },
+    "cohort-execution.json": {
+      "sha256": "30c8eb0563c2253cfac6f176e3cc013f0190d50f312544223b01ffa647e62b5e",
+      "bytes": 1484
+    },
+    "cohort-inputs-before.json": {
+      "sha256": "5d3bac4d4a6437dd7a267af6b72971f4d018fa03b3db74be202d6b3727d867e7",
+      "bytes": 1040322
+    },
+    "cohort-inputs-after.json": {
+      "sha256": "5d3bac4d4a6437dd7a267af6b72971f4d018fa03b3db74be202d6b3727d867e7",
+      "bytes": 1040322
+    },
+    "cohort.log": {
+      "sha256": "5ab8a74c503c2e38a9252217a467c71e13ea7fce342deffeabfa8325f48505fb",
+      "bytes": 877
+    },
+    "cohort-driver.py": {
+      "sha256": "a864d8061a538ccd225ac88c8266755a36590f31f65fbb9aca82125469fd0959",
+      "bytes": 5966
+    },
+    "baseline-execution.json": {
+      "sha256": "c88f61aec7b4fdb1860a74791b17d2488c3176d8533d863058d599a2c92e37f8",
+      "bytes": 1921
+    },
+    "baseline-inputs-before.json": {
+      "sha256": "c0db9ecb27e3aafe80ab88ed01c4e7a3ef85a5241a7bdc832b2fac5d37c252d3",
+      "bytes": 1040604
+    },
+    "baseline-inputs-after.json": {
+      "sha256": "c0db9ecb27e3aafe80ab88ed01c4e7a3ef85a5241a7bdc832b2fac5d37c252d3",
+      "bytes": 1040604
+    },
+    "baseline.log": {
+      "sha256": "da568d2c33fdc14118e6a07713bfae858c877f9cf2637041629219dc54a1c618",
+      "bytes": 705
+    },
+    "baseline.xml": {
+      "sha256": "4c14229bbe62dc88eed15141d4eff1fe79b8187689c1487e037b4918ac865a5e",
+      "bytes": 12986
+    },
+    "baseline-driver.py": {
+      "sha256": "a864d8061a538ccd225ac88c8266755a36590f31f65fbb9aca82125469fd0959",
+      "bytes": 5966
+    },
+    "corrected2-execution.json": {
+      "sha256": "cc9a31eb060240139bea3190a28add52f11cb36f49fe1dbbc314683cba23ca24",
+      "bytes": 2909
+    },
+    "corrected2-inputs-before.json": {
+      "sha256": "f3794078fc0a8a2f9f9f30117da3c833df826696233573890b7a0f5e94b36a18",
+      "bytes": 1040604
+    },
+    "corrected2-inputs-after.json": {
+      "sha256": "f3794078fc0a8a2f9f9f30117da3c833df826696233573890b7a0f5e94b36a18",
+      "bytes": 1040604
+    },
+    "corrected2.log": {
+      "sha256": "34bfd6dde92addf55bca7f4b13f1955e6e99a3359f2ca5e923ae384d74e80d1d",
+      "bytes": 342
+    },
+    "corrected2.xml": {
+      "sha256": "e34e87c8c78d51762bfb266c56813768e9bb5181ef2f0f3e9185e5bf4f9fe2e1",
+      "bytes": 52655
+    },
+    "corrected2.events.jsonl": {
+      "sha256": "141767b3a5388eaeaddf71fb0b5308c5ad15d6fbb78781411c3502e373efae17",
+      "bytes": 424009
+    },
+    "corrected2-driver.py": {
+      "sha256": "a864d8061a538ccd225ac88c8266755a36590f31f65fbb9aca82125469fd0959",
+      "bytes": 5966
+    },
+    "runtime-corrected-execution.json": {
+      "sha256": "835e4de1f0c80813354bafa9acc28ed1cae71a82688ef95e38676ed9745ccc9f",
+      "bytes": 2006
+    },
+    "runtime-corrected-inputs-before.json": {
+      "sha256": "9065f3674b9fb570be5002ff5d25f64c754b350a771a1e3f435d9b97fc8a9659",
+      "bytes": 1040604
+    },
+    "runtime-corrected-inputs-after.json": {
+      "sha256": "9065f3674b9fb570be5002ff5d25f64c754b350a771a1e3f435d9b97fc8a9659",
+      "bytes": 1040604
+    },
+    "runtime-corrected.log": {
+      "sha256": "69ef2096a5464362f07252c5e8b6957ec3a738c114cd6e4eb9e6fb93bec46cc4",
+      "bytes": 33
+    },
+    "runtime-corrected.xml": {
+      "sha256": "514c4de484853f93928235b20595a5c8e34ae95e41c44c20efe69f50829ec250",
+      "bytes": 3313
+    },
+    "runtime-corrected-driver.py": {
+      "sha256": "a864d8061a538ccd225ac88c8266755a36590f31f65fbb9aca82125469fd0959",
+      "bytes": 5966
+    }
+  },
+  "checked_expectations": {
+    "source_atom_groups": [
+      0,
+      1,
+      0,
+      2,
+      1,
+      2
+    ],
+    "ordered_group_expansion": [
+      [
+        3,
+        5
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    "native_extracted_atom_source_indices": [
+      1,
+      2,
+      5
+    ],
+    "native_extracted_group_source_indices": [
+      1,
+      0,
+      2
+    ],
+    "after_permutation_atom_source_indices": [
+      5,
+      1,
+      2
+    ],
+    "source_to_target_atom_indices": [
+      -1,
+      1,
+      2,
+      -1,
+      -1,
+      0
+    ],
+    "structure_source_indices": [
+      2,
+      0,
+      2
+    ],
+    "target_structure_indices": [
+      0,
+      1,
+      2
+    ],
+    "associated_state_indices": [
+      0,
+      1,
+      0
+    ],
+    "source_to_target_structure_occurrences": [
+      [
+        1
+      ],
+      [],
+      [
+        0,
+        2
+      ]
+    ],
+    "generated_member_inverse": [
+      0,
+      -1
+    ],
+    "units_policies": [
+      [
+        "nm",
+        "ps"
+      ],
+      [
+        "pm",
+        "fs"
+      ]
+    ]
+  },
+  "resource_contract": {
+    "cpu_quota": 1,
+    "maximum_gib": 2,
+    "own_swap_bytes": 0,
+    "host_reserve_gib": 6.5,
+    "later_services_nice": 10,
+    "foreign_processes_signalled": false
+  },
+  "disposition": [
+    "Existing public get/select/extract/permute/compose routes express the admitted declared-membership facts; #750 fixes the concrete branch-dependent structure-boundary defect found by review.",
+    "Counts and IDs are not global model validation, source authentication or proof of unchanged scientific applicability. Client source/revision association and a consistent check/use context remain preconditions.",
+    "Extraction returns source-sorted unique atom axes but no general correspondence report. The caller retains the known atom/occurrence map and derives group correspondence from aligned surviving atom parents or supplies explicit admitted group maps.",
+    "Repeated structure references have an occurrence relation, not a one-to-one atom-like inverse. Explicit associated state queries and unknown/mixed-state refusals are retained.",
+    "Missing and contradictory maps refuse. Partial/generation facts remain explicit and the client decides complete/partial/source-member/current-group semantics without inherited evidence.",
+    "BindingMT still owns and qualifies its actual molecular resolution, saved result and C2/other consumer profiles. No new universal API or scientific algorithm is commissioned."
+  ],
+  "limits": [
+    "The initial three setup errors are an incomplete test-author draft using nonexistent root constructors. Public molsysmt.native constructors correct the draft; no root API change is made.",
+    "The original #750 regression genuinely fails 12 cases and passes six. It is preserved, not relabelled.",
+    "The 156-, 356- and final 18-case selections overlap and are not added as independent full suites. Only the declared selections and exact public facts are received.",
+    "The immutable public BindingMT declaration documents are inspected and Git-blob verified. Its registered checkout is missing; historical DockingMT files stay untouched. No client code is installed, modified or executed.",
+    "Synthetic chemical assignments test scope/transport, not physical valence or biological binding. No new scientific attribution boundary is introduced.",
+    "Notebook changes affect Markdown only. No new full-site/browser or notebook-kernel qualification is claimed.",
+    "Complete-source/nightly, installed/platform/final-pair and publication gates remain separate; all candidate/hosted/tag/promotion/publication pauses remain."
+  ]
+}

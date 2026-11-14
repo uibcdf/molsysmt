@@ -82,6 +82,8 @@ Read these documents in order when first working on MolSysMT:
 - [declarative_serialization_forms.md](declarative_serialization_forms.md)
 - [h5msm_format.md](h5msm_format.md)
 - [forms_and_conversions.md](forms_and_conversions.md)
+- [native_binding_site_membership_contract.md](native_binding_site_membership_contract.md)
+  — checked molecular membership/maps offered to BindingMT and caller preconditions.
 - [form_adapter_implementation.md](form_adapter_implementation.md)
 
 ### Scientific construction and analysis
