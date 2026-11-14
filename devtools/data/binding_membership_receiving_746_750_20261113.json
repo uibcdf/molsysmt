@@ -1177,5 +1177,9 @@
     "Synthetic chemical assignments test scope/transport, not physical valence or biological binding. No new scientific attribution boundary is introduced.",
     "Notebook changes affect Markdown only. No new full-site/browser or notebook-kernel qualification is claimed.",
     "Complete-source/nightly, installed/platform/final-pair and publication gates remain separate; all candidate/hosted/tag/promotion/publication pauses remain."
-  ]
+  ],
+  "published_code_source": {
+    "selection_fix": "6deed142d222605a8f1b1f6baee634523372b243",
+    "membership_contract_and_controls": "f9f384412c209089dc591c9e484b1ab985cebe70"
+  }
 }

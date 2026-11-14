@@ -46,7 +46,8 @@ promotions and publication remain paused pending the agreed resumption.**
 | Follow the requested #615/#713 audit ownership | The maintainer assigns the #615 lead audit/resolution to MolSysViewer #384, with MolSysMT tracking it as a blocked pre-pair dependency. After reviewing MolSysMT's nonreproducing audit, he explicitly requests #713's closure. The [completion packet](pre_1_0_completion_handoffs_20261110.md#maintainer-closure-of-713--2026-11-13) records the bounded disposition; it does not accept #615's uncertainty or waive release gates. |
 | Receive #615 from its MolSysViewer audit lead | MolSysViewer #384 leads the requested audit; MolSysMT #615 remains blocked. Require accepted resolution and applicable exact-pair receiving before MolSysMT 1.0.0 / MolSysViewer 1.0.0. Keep original failures and kernel/provider support; lead assignment does not prove the causal component. |
 | Preserve #713's accepted closure and diagnostics | The maintainer explicitly accepts closure after the current audit. The diagnostic gap is corrected/tested, and all three actual import orders pass in the contextual full run (4.417–4.463 seconds). The [archived disposition](archive/resolved_bugs/fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md#accepted-closure--2026-11-13) preserves the unknown historical cause, original failures and unchanged stage/stack/deadline guards. #747/#748 and mandatory qualification remain separate. |
-| Review the finite new #746 owner request | BindingMT asks which existing counts, selection/expansion and extraction/permutation maps support declared BindingSite projection. Reuse #734's relevant facts and identify caller preconditions and refusals. No demonstrated new kernel, matcher, serialization gap or release prerequisite is established; schedule this bounded owner disposition after the two correctness fixes. |
+| Preserve #746's finite owner offer and #750 correction | The [membership contract](native_binding_site_membership_contract.md) supplies checked native facts, group/atom correspondence, repeated structure occurrences, explicit state scope and caller refusals. #750 repairs branch-dependent structure bounds with the existing validator. The 356-case selected cohort and final overlapping 18-case owner module pass without omissions, plus the select doctest, fifteen fast gates and Ruff. Actual BindingMT composition/adoption remains under its #111. |
+| Keep the new #749 investigation deferred | PharmacophoreMT explicitly requests a future Pandas alternatives/complements study, not replacement or a current defect claim. Preserve that request and its workload/compatibility criteria for post-1.0; it does not block current molecular-contract delivery or add a release prerequisite. |
 | Preserve #250/#254 source agreement and experimental boundaries | MolSysViewer accepts the exercised sparse/native contracts. Detector profiles, inspection pages and Qt retain their experimental limits. Final-candidate agreement is still due. |
 | Agree the exact clean pair and qualification scope with MolSysViewer | Select new producer commits and unused builds; share immutable files, channels and SHA-256 values when authorized. #524 still needs a published compatible host floor and clean minimum/newer installed workflows. |
 | Qualify and make the publication decision | Run the mandatory exact-source, native, scientific, documentation and sixteen-cell installed gates at the agreed checkpoint. Preserve failed attempts and inspect terminal results. Publication and archival require final authorization after qualification. |
@@ -60,6 +61,35 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## BindingSite owner handoff and selection-boundary repair — 2026-11-13
+
+The finite [#746 contract](native_binding_site_membership_contract.md) offers
+existing public molecular facts for BindingMT's declared-membership profile.
+It distinguishes ordered group expansion from source-sorted extraction,
+derives supported group correspondence from aligned surviving atoms, and keeps
+repeated structure occurrences and explicit associated states separate from
+one-to-one atom maps. Missing/contradictory/partial/generated membership and
+source/revision/current-finding preconditions remain explicit. No new molecular
+matcher, serializer, observer, scientific method or universal receipt is added.
+
+The review discovers #750: numeric/all selections silently accept known
+out-of-range structure scopes. The original native/H5MSM cohort has 12 failures
+and six passes. Moving the existing bounds check before all branches corrects
+the defect without a new API. The selected query/map/selection cohort passes
+**356 cases with zero omissions**; the final overlapping owner module passes
+**18 cases**, including state-sensitive readback under nm/ps and pm/fs. The
+select doctest, fifteen fast gates, generator consistency and full Ruff pass.
+The [receipt](../devtools/data/binding_membership_receiving_746_750_20261113.json)
+retains actual native statuses, original draft errors/failures and exact source,
+provider and bounded-resource evidence. These are not independent full suites
+and do not qualify BindingMT's actual implementation or installed/native pair.
+
+The new complete intake has 668 issues, 95 open and no open PRs before filing
+#750. New #749 explicitly defers the Pandas study to future evidence-based work;
+it adds no pre-1.0 implementation. #615/MolSysViewer #384, stable-format/client
+decisions, full/nightly/final-pair gates and the candidate/hosted/publication
+pause remain separate. Original weighted accounting is unchanged.
 
 ## Completed #747/#748 source corrections — 2026-11-13
 

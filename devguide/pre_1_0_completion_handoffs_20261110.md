@@ -32,6 +32,22 @@ This supplies the current-source full-build increment in handoff stage 1;
 it does not satisfy the future exact-candidate documentation gate or replace
 the maintainer's scientific/editorial review and actual browser receiving.
 
+## #746 finite owner disposition and #750 correction — 2026-11-13
+
+The [membership/correspondence contract](native_binding_site_membership_contract.md)
+settles the bounded MolSysMT facts/checks/preconditions requested by BindingMT
+#111. Existing calls express the profile; #750 fixes the concrete static-selection
+structure-boundary defect found during review. The 356-case receiving and final
+overlapping 18-case state/persistence module pass without omissions; the select
+doctest, fifteen fast gates, generator and Ruff also pass. The
+[receipt](../devtools/data/binding_membership_receiving_746_750_20261113.json)
+retains exact inputs, original negative controls and shared-resource limits.
+No new kernel, universal receipt, client implementation or adoption is claimed.
+BindingMT still qualifies its actual C1 composition; current-finding guarantees
+and C2/other consumers remain separate. #749 is an explicitly deferred Pandas
+study, with no implementation or new pre-1.0 prerequisite. Mandatory final-pair
+and publication scopes and all existing pauses remain unchanged.
+
 ## #747/#748 correctness closeout — 2026-11-13
 
 The two failures found by the contextual #713 audit now have source corrections:
