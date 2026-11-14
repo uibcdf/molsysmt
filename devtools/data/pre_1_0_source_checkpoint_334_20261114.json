@@ -1,0 +1,645 @@
+{
+  "schema": "molsysmt.pre1_local_source_checkpoint/1",
+  "date": "2026-11-14",
+  "owner_issue": "uibcdf/molsysmt#334",
+  "scope": "One complete default local Linux/Python source session after #747/#748/#750, separate zero-skip registered evidence execution and bounded developer/documentation corrections. Not hosted/nightly, exact-candidate/native-build, installed/platform or publication qualification.",
+  "source_execution": {
+    "label": "full",
+    "source_commit": "27ba3d4c8d63a6a40a2d77f0190309ff15f4deef",
+    "phase": "completed",
+    "native_exit": 0,
+    "scope": "Complete local Linux/Python source regression after #747/#748/#750; no installed/candidate/platform or publication qualification.",
+    "supervisor": "Persistent systemd user service, independent of agent application lifecycle; native wait status is recorded immediately, before post-run hashing.",
+    "limits": {
+      "cpu.max": "300000 100000",
+      "memory.max": "6442450944",
+      "memory.high": "5905580032",
+      "memory.swap.max": "0",
+      "memory.oom.group": "1",
+      "pids.max": "512"
+    },
+    "host_reserve_bytes": 6979321856,
+    "finite_native_wall_budget_seconds": 4200,
+    "stop_reason": null,
+    "starting_available_bytes": 18449555456,
+    "starting_memory_pressure_avg10": 0.0,
+    "starting_io_pressure_avg10": 11.97,
+    "command": [
+      "<development-prefix>/bin/python",
+      "-m",
+      "pytest",
+      "--receptor=llm",
+      "-n3",
+      "--junitxml=<checkout>/.pytest_cache/full-source-closeout-334-20261114/full.xml",
+      "--receptor-events=<checkout>/.pytest_cache/full-source-closeout-334-20261114/full.events.jsonl",
+      "--basetemp=<checkout>/.pytest_cache/full-source-closeout-334-20261114/tmp/full-tests"
+    ],
+    "checked_source_inputs": 9012,
+    "checked_viewer_inputs": 2581,
+    "checked_support_inputs": 231,
+    "minimum_observed_host_available_bytes": 12044914688,
+    "maximum_memory_pressure_avg10": 0.19,
+    "maximum_io_pressure_avg10": 28.2,
+    "warning_transitions": [
+      {
+        "native_seconds": 0.001119071152061224,
+        "warning": false,
+        "memory_pressure_avg10": 0.0,
+        "io_pressure_avg10": 10.16,
+        "available_bytes": 18460237824,
+        "own_memory_bytes": 17145856
+      }
+    ],
+    "native_pid": 2020057,
+    "native_start_ticks": 222443802,
+    "native_seconds": 2420.2029315819964,
+    "own_memory_bytes": 5441859584,
+    "kernel_memory_peak_bytes": 5906202624,
+    "kernel_memory_events": "low 0\nhigh 599\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "changed_source_inputs": [],
+    "changed_viewer_inputs": [],
+    "changed_support_inputs": [],
+    "ending_source_status": "",
+    "resource_driver_sha256": "75d8a0cc5973d28f45837c20c1c4fb8431cd8a9884ed8e132f0713a5dc8abd81",
+    "total_supervisor_seconds": 2436.0753761827946
+  },
+  "native_pytest_final": {
+    "artifact_policy": {
+      "dropped_records": 18827,
+      "max_bytes": 52428800,
+      "truncated": true
+    },
+    "complete": true,
+    "counts": {
+      "collected": 35207,
+      "deselected": 0,
+      "errors": 0,
+      "executed": 35207,
+      "failed": 0,
+      "not_executed": 0,
+      "passed": 35191,
+      "reruns": 0,
+      "skipped": 16,
+      "subtests": {},
+      "warnings": 6778,
+      "xfailed": 0,
+      "xpassed": 0
+    },
+    "duration": 2414.304759128019,
+    "exitstatus": 0,
+    "extensions": {
+      "dropped": 2638,
+      "incomplete": true,
+      "recorded": 7234
+    },
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "9ab010009bfa94deeea4211bf70407bfc95cc0d3b9411f4b5568a1ec1fe40c4d",
+      "records": 101766
+    },
+    "invalid_selections": [],
+    "note": "",
+    "outcome": "PASS",
+    "root_causes": 0,
+    "run_id": "9e61f4a5f45c48f28cab2d3a499bd057",
+    "schema": "pytest-receptor.events@1",
+    "stop_reason": "",
+    "type": "session_finish"
+  },
+  "same_invocation_complete_junit": {
+    "executed": 35207,
+    "passed": 35191,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 16
+  },
+  "junit_skip_reasons": [
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_context_free_constructor_candidate_needs_an_explicit_owner[None-MolSys]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_context_free_constructor_candidate_needs_an_explicit_owner[None-Topology]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_context_free_constructor_candidate_needs_an_explicit_owner[None-ChemicalStates]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_context_free_constructor_candidate_needs_an_explicit_owner[definition-MolSys]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_context_free_constructor_candidate_needs_an_explicit_owner[definition-Topology]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_context_free_constructor_candidate_needs_an_explicit_owner[definition-ChemicalStates]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_context_free_constructor_candidate_needs_an_explicit_owner[exact-MolSys]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_context_free_constructor_candidate_needs_an_explicit_owner[exact-Topology]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_context_free_constructor_candidate_needs_an_explicit_owner[exact-ChemicalStates]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_ownership_preserves_aliases_standardizer_domain_and_value_checks[definition]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_ownership_preserves_aliases_standardizer_domain_and_value_checks[exact]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_separately_decorated_override_needs_its_own_logical_contract[definition]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_separately_decorated_override_needs_its_own_logical_contract[exact]",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests._private.argdigest.test_contract_ownership_receiving",
+      "name": "test_mixin_runtime_and_definition_ownership_select_distinct_contracts",
+      "reason": "The optional ownership study requires ArgDigest >=0.17.0."
+    },
+    {
+      "classname": "tests.form.string_smiles.test_is_form",
+      "name": "test_is_form_cco_without_rdkit",
+      "reason": "with rdkit CCO is recognized as valid SMILES"
+    },
+    {
+      "classname": "tests.form.test_cupy_ndarray",
+      "name": "test_cupy_ndarray_form_detection_and_conversion",
+      "reason": "CuPy is not available."
+    }
+  ],
+  "fresh_import_cases": [
+    {
+      "name": "test_fresh_import_orders_preserve_native_exports_and_discovery[molsysmt.element.atom]",
+      "seconds": 4.438,
+      "state": "passed",
+      "stderr": null
+    },
+    {
+      "name": "test_fresh_import_orders_preserve_native_exports_and_discovery[molsysviewer]",
+      "seconds": 4.428,
+      "state": "passed",
+      "stderr": null
+    },
+    {
+      "name": "test_fresh_import_orders_preserve_native_exports_and_discovery[molsysviewer_molsysmt.tools]",
+      "seconds": 4.401,
+      "state": "passed",
+      "stderr": null
+    }
+  ],
+  "registered_scientific_certificate": {
+    "schema_version": "molsysmt.scientific-evidence-execution@1",
+    "verdict": "pass",
+    "commit": "27ba3d4c8d63a6a40a2d77f0190309ff15f4deef",
+    "tracked_source_dirty": false,
+    "source_before": {
+      "commit": "27ba3d4c8d63a6a40a2d77f0190309ff15f4deef",
+      "tracked_source_dirty": false,
+      "untracked_source_paths": [],
+      "untracked_workflow_artifacts": []
+    },
+    "source_after": {
+      "commit": "27ba3d4c8d63a6a40a2d77f0190309ff15f4deef",
+      "tracked_source_dirty": false,
+      "untracked_source_paths": [],
+      "untracked_workflow_artifacts": []
+    },
+    "source_correspondence": true,
+    "release_eligible": true,
+    "created_at": "2026-11-14T16:28:35.550015+00:00",
+    "python": "3.14.7",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "registered_nodes": 74,
+    "collected_cases": 116,
+    "passed": 116,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_exit_code": 0,
+    "nodes": [
+      "tests/scientific_truth/build/test_ion_replacement.py::test_neutralization_preserves_literal_charge_balance",
+      "tests/scientific_truth/build/test_ion_replacement.py::test_tilted_exclusion_against_explicit_lattice_images",
+      "tests/scientific_truth/chemical_states/test_peptide_termini.py::test_a_missing_declared_link_is_unknown_not_new_terminal_chemistry",
+      "tests/scientific_truth/chemical_states/test_peptide_termini.py::test_closing_the_declared_path_gives_no_free_endpoints",
+      "tests/scientific_truth/chemical_states/test_peptide_termini.py::test_declared_path_endpoints_are_not_inventory_or_id_order",
+      "tests/scientific_truth/external/ambertools/test_peptide_construction.py::test_native_peptide_graph_agrees_with_independent_leap",
+      "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_angles_agree_with_mdanalysis",
+      "tests/scientific_truth/external/mdanalysis/test_geometry.py::test_raw_and_least_rmsd_agree_with_mdanalysis",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_dihedrals_agree_with_mdtraj",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_least_rmsd_agrees_with_mdtraj_for_a_rigid_transform",
+      "tests/scientific_truth/external/mdtraj/test_geometry.py::test_triclinic_minimum_image_distance_agrees_with_mdtraj",
+      "tests/scientific_truth/molecular_mechanics/test_model_recipe.py::test_recipe_constraints_match_independent_engine_construction",
+      "tests/scientific_truth/molecular_mechanics/test_model_recipe.py::test_recipe_retains_a_known_triclinic_physical_box",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_angles_match_closed_form_dot_products",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_lengths_match_row_vector_norms",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_box_shape_constructors_match_canonical_vectors",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_has_pbc_reports_box_presence_exactly",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_exact_angle_signatures",
+      "tests/scientific_truth/pbc/test_box_classification.py::test_shape_classification_matches_explicit_box_vectors",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_box_constructor_matches_the_canonical_triclinic_matrix",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_orthorhombic_box_has_exact_geometry",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_box_has_exact_lengths_angles_and_volume",
+      "tests/scientific_truth/pbc/test_box_geometry.py::test_triclinic_volume_from_lengths_and_angles_matches_closed_form",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_changing_cells_follow_the_previous_transition_basis",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_explicit_small_origin_keeps_the_requested_primary_cell",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_rotated_row_cell_wrapping_matches_explicit_images",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_temporal_unwrap_recovers_continuous_triclinic_motion",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_mic_reconstructs_a_triclinic_covalent_block",
+      "tests/scientific_truth/pbc/test_wrapping.py::test_wrap_to_pbc_reconstructs_a_boundary_spanning_covalent_block",
+      "tests/scientific_truth/physchem/test_bulkiness.py::test_bulkiness_reference_areas_match_curated_amino_acids",
+      "tests/scientific_truth/physchem/test_lipophilicity.py::test_primary_methane_atomic_values_and_nonindexed_hydrogen_attribution",
+      "tests/scientific_truth/physchem/test_lipophilicity.py::test_wildman_crippen_primary_atomic_sums",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_elemental_vdw_radii_match_reference_values",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_charges_preserve_explicit_nonbonded_parameters",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_openmm_masses_preserve_explicit_particle_values",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_ph7_group_charges_match_reference_ionization_states",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_physical_masses_match_standard_atomic_weights_and_aggregation",
+      "tests/scientific_truth/physchem/test_reference_properties.py::test_protor_radii_match_typed_alanine_heavy_atoms",
+      "tests/scientific_truth/physchem/test_sasa.py::test_isolated_carbon_spheres_match_closed_form",
+      "tests/scientific_truth/physchem/test_sasa.py::test_native_sasa_agrees_with_independently_constructed_mdtraj",
+      "tests/scientific_truth/physchem/test_sasa.py::test_opposite_faces_match_independent_spherical_cap",
+      "tests/scientific_truth/physchem/test_sasa.py::test_overlap_matches_spherical_cap_area",
+      "tests/scientific_truth/physchem/test_secondary_structure_propensity.py::test_levitt_detailed_primary_tables_match_all_standard_groups",
+      "tests/scientific_truth/physchem/test_tpsa.py::test_primary_oxygen_fragment_is_retained_in_atomic_context",
+      "tests/scientific_truth/physchem/test_tpsa.py::test_tpsa_matches_primary_ertl_fragment_sums",
+      "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_align_recovers_homologous_rigid_transform",
+      "tests/scientific_truth/structure/test_alignment.py::test_least_rmsd_fit_recovers_reference_after_rigid_transform",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_constructed_matrix_drives_public_row_vector_rotation",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_extreme_finite_axis_still_produces_the_analytic_rotation",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_positive_body_diagonal_turn_cycles_cartesian_axes",
+      "tests/scientific_truth/structure/test_axis_angle_rotation.py::test_signed_cartesian_quarter_turns_match_literal_matrices",
+      "tests/scientific_truth/structure/test_dihedral_editing.py::test_set_dihedral_reaches_target_and_rigidly_rotates_moving_block",
+      "tests/scientific_truth/structure/test_dihedral_editing.py::test_shift_dihedral_adds_signed_increment_modulo_branch_cut",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_geometric_and_weighted_centers_match_closed_form",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_radius_of_gyration_matches_closed_form_and_rigid_invariance",
+      "tests/scientific_truth/structure/test_ensemble_observables.py::test_rmsf_matches_explicit_population_variance",
+      "tests/scientific_truth/structure/test_neighbor_cell_bounds.py::test_sparse_small_cutoff_retains_known_pairs_and_periodic_images",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_contacts_apply_an_inclusive_exact_cutoff",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_maximum_distance_selects_the_closed_form_pair",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_minimum_distance_selects_the_closed_form_pair",
+      "tests/scientific_truth/structure/test_pair_reductions.py::test_neighbors_are_sorted_by_closed_form_distance",
+      "tests/scientific_truth/structure/test_principal_axes.py::test_align_principal_axes_maps_unique_axes_to_target",
+      "tests/scientific_truth/structure/test_principal_axes.py::test_inertia_axes_and_moments_match_closed_form",
+      "tests/scientific_truth/structure/test_principal_component_analysis.py::test_pca_matches_closed_form_diagonal_covariance",
+      "tests/scientific_truth/structure/test_principal_component_analysis.py::test_weighted_pca_matches_closed_form_diagonal_covariance",
+      "tests/scientific_truth/structure/test_rigid_transformations.py::test_rotate_applies_distinct_matrices_per_frame",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_center_moves_a_known_centroid_to_the_target",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_flip_reflects_points_across_an_explicit_plane",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_move_away_applies_the_requested_outward_displacement",
+      "tests/scientific_truth/structure/test_structural_transformations.py::test_translate_applies_known_per_frame_displacements",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_bondgraph_matches_explicit_nodes_and_edges",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_blocks_match_closed_form_connected_components",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_covalent_paths_match_explicit_named_paths",
+      "tests/scientific_truth/topology/test_graph_topology.py::test_dihedral_quartets_match_explicit_phi_paths"
+    ]
+  },
+  "scientific_certificate_limit": "The producer release_eligible flag only states clean source correspondence and passed registered nodes, not completion of the coordinated release gates.",
+  "scientific_execution": {
+    "label": "scientific",
+    "source_commit": "27ba3d4c8d63a6a40a2d77f0190309ff15f4deef",
+    "phase": "completed",
+    "native_exit": 0,
+    "scope": "Execute every registered scientific evidence node on the current clean local source; not installed/platform/final-pair qualification.",
+    "supervisor": "Persistent systemd user service, independent of agent application lifecycle; native wait status is recorded immediately, before post-run hashing.",
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "2147483648",
+      "memory.high": "1887436800",
+      "memory.swap.max": "0",
+      "memory.oom.group": "1",
+      "pids.max": "256"
+    },
+    "host_reserve_bytes": 6979321856,
+    "finite_native_wall_budget_seconds": 900,
+    "stop_reason": null,
+    "starting_available_bytes": 15468580864,
+    "starting_memory_pressure_avg10": 0.0,
+    "starting_io_pressure_avg10": 5.64,
+    "command": [
+      "<development-prefix>/bin/python",
+      "devtools/scripts/execute_scientific_evidence.py",
+      "--receptor=llm",
+      "--require-clean",
+      "--certificate",
+      "<checkout>/.pytest_cache/full-source-closeout-334-20261114/scientific-certificate.json"
+    ],
+    "checked_source_inputs": 9012,
+    "checked_viewer_inputs": 2581,
+    "checked_support_inputs": 231,
+    "minimum_observed_host_available_bytes": 14753046528,
+    "maximum_memory_pressure_avg10": 0.0,
+    "maximum_io_pressure_avg10": 7.88,
+    "warning_transitions": [
+      {
+        "native_seconds": 0.0198786030523479,
+        "warning": false,
+        "memory_pressure_avg10": 0.0,
+        "io_pressure_avg10": 4.98,
+        "available_bytes": 15477252096,
+        "own_memory_bytes": 19214336
+      }
+    ],
+    "native_pid": 2021100,
+    "native_start_ticks": 222455955,
+    "native_seconds": 22.04866523714736,
+    "own_memory_bytes": 442966016,
+    "kernel_memory_peak_bytes": 443006976,
+    "kernel_memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "changed_source_inputs": [],
+    "changed_viewer_inputs": [],
+    "changed_support_inputs": [],
+    "ending_source_status": "",
+    "resource_driver_sha256": "e9a5ae0594ee445e34b7f8a7d481302e712cb54d9f3d5f7b529e2c53e82576ee",
+    "total_supervisor_seconds": 27.865821345709264
+  },
+  "current_separate_developer_documentation_receiving": {
+    "through_commit": "df91501aecfd55e64f835db9ea5a7e278ce560b2",
+    "production_package_and_default_test_source_delta_since_full_run": [],
+    "copy_probe": "devtools/data/native_copy_probe_receiving_751_20261114.json",
+    "actual_sphinx_configuration": "devtools/data/autosummary_preservation_receiving_752_20261114.json"
+  },
+  "runtime_reference": "devtools/data/binding_membership_receiving_746_750_20261113.json",
+  "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "owned_service_retirement": [
+    {
+      "unit": "molsysmt-science-closeout-334-20261114",
+      "before_retirement": {
+        "ActiveState": "active",
+        "SubState": "exited",
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainCode": "1",
+        "ExecMainStatus": "0",
+        "MemoryPeak": "443006976",
+        "CPUUsageNSec": "26851744000"
+      },
+      "retired": true
+    },
+    {
+      "unit": "molsysmt-docs-closeout-334-20261114",
+      "before_retirement": {
+        "ActiveState": "active",
+        "SubState": "exited",
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainCode": "1",
+        "ExecMainStatus": "0",
+        "MemoryPeak": "1386409984",
+        "CPUUsageNSec": "289832494000"
+      },
+      "retired": true
+    },
+    {
+      "unit": "molsysmt-copy-probe-751-baseline",
+      "before_retirement": {
+        "ActiveState": "failed",
+        "SubState": "failed",
+        "MainPID": "0",
+        "Result": "exit-code",
+        "ExecMainCode": "1",
+        "ExecMainStatus": "1",
+        "MemoryPeak": "150949888",
+        "CPUUsageNSec": "6929649000"
+      },
+      "retired": true
+    },
+    {
+      "unit": "molsysmt-copy-probe-751-corrected",
+      "before_retirement": {
+        "ActiveState": "active",
+        "SubState": "exited",
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainCode": "1",
+        "ExecMainStatus": "0",
+        "MemoryPeak": "245800960",
+        "CPUUsageNSec": "28648644000"
+      },
+      "retired": true
+    },
+    {
+      "unit": "molsysmt-copy-probe-751-client",
+      "before_retirement": {
+        "ActiveState": "active",
+        "SubState": "exited",
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainCode": "1",
+        "ExecMainStatus": "0",
+        "MemoryPeak": "173355008",
+        "CPUUsageNSec": "7238195000"
+      },
+      "retired": true
+    },
+    {
+      "unit": "molsysmt-full-closeout-334-20261114",
+      "before_retirement": {
+        "ActiveState": "active",
+        "SubState": "exited",
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainCode": "1",
+        "ExecMainStatus": "0",
+        "MemoryPeak": "5906202624",
+        "CPUUsageNSec": "7154379683000"
+      },
+      "retired": true,
+      "journal_sha256": "b489529a6fe5ef505edfd7d0e4777ea7fed653b327c1ba6f6409a34587dd232e"
+    },
+    {
+      "unit": "molsysmt-copy-probe-751-checks",
+      "before_retirement": {
+        "ActiveState": "active",
+        "SubState": "exited",
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainCode": "1",
+        "ExecMainStatus": "0",
+        "MemoryPeak": "406401024",
+        "CPUUsageNSec": "39046981000"
+      },
+      "retired": true,
+      "journal_sha256": "398280b895a153472d14d43511fcd3ac119aaff05b41c0f277f6c89599e4abeb"
+    },
+    {
+      "unit": "molsysmt-docs-default-334-20261114",
+      "before_retirement": {
+        "ActiveState": "failed",
+        "SubState": "failed",
+        "MainPID": "0",
+        "Result": "exit-code",
+        "ExecMainCode": "1",
+        "ExecMainStatus": "1",
+        "MemoryPeak": "1843183616",
+        "CPUUsageNSec": "175809371000"
+      },
+      "retired": true,
+      "journal_sha256": "b3fca9f729010a478b37fb85a82fee12f2f579b1b3f5a165b6990eeaa43f747b"
+    },
+    {
+      "unit": "molsysmt-doc-owner-752-baseline",
+      "before_retirement": {
+        "ActiveState": "failed",
+        "SubState": "failed",
+        "MainPID": "0",
+        "Result": "exit-code",
+        "ExecMainCode": "1",
+        "ExecMainStatus": "1",
+        "MemoryPeak": "279220224",
+        "CPUUsageNSec": "9307361000"
+      },
+      "retired": true,
+      "journal_sha256": "a4665514c3fe81fd1773ea905735d95be228c755819514eba31db6f69a987f7f"
+    },
+    {
+      "unit": "molsysmt-doc-owner-752-corrected",
+      "before_retirement": {
+        "ActiveState": "active",
+        "SubState": "exited",
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainCode": "1",
+        "ExecMainStatus": "0",
+        "MemoryPeak": "414216192",
+        "CPUUsageNSec": "28794720000"
+      },
+      "retired": true,
+      "journal_sha256": "0af6a5385b86afd26f47ddd4392e290de5c1a7e4ab79f72215f44329cad72b34"
+    },
+    {
+      "unit": "molsysmt-docs-corrected-752-20261114",
+      "before_retirement": {
+        "ActiveState": "active",
+        "SubState": "exited",
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainCode": "1",
+        "ExecMainStatus": "0",
+        "MemoryPeak": "1512226816",
+        "CPUUsageNSec": "305766734000"
+      },
+      "retired": true,
+      "journal_sha256": "1b8473585b125f25b0142f8968d89b9e5d26003ed62da55a5168fd96e93e88f0"
+    },
+    {
+      "unit": "molsysmt-doc-owner-752-checks",
+      "before_retirement": {
+        "ActiveState": "active",
+        "SubState": "exited",
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainCode": "1",
+        "ExecMainStatus": "0",
+        "MemoryPeak": "477614080",
+        "CPUUsageNSec": "42962473000"
+      },
+      "retired": true,
+      "journal_sha256": "1e12d878198b7884f2073f9fb4398bff4e1b1190f03242220e2466b0476836e4"
+    },
+    {
+      "unit": "molsysmt-full-reader-334-20261114",
+      "before_retirement": {
+        "ActiveState": "active",
+        "SubState": "exited",
+        "MainPID": "0",
+        "Result": "success",
+        "ExecMainCode": "1",
+        "ExecMainStatus": "0",
+        "MemoryPeak": "461160448",
+        "CPUUsageNSec": "7725435000"
+      },
+      "retired": true,
+      "journal_sha256": "03405ca8fa71ef6f2a7eedbce3e3c59ec0878c79cb65b5d0c3e0c373aa13e016"
+    }
+  ],
+  "board_checkpoint": {
+    "complete_issues": 671,
+    "open_before_751_752_closeout": 96,
+    "complete_open_prs": 0,
+    "new_after_752": []
+  },
+  "retained_launcher_rejection": {
+    "attempt": {
+      "unit": "molsysmt-full-closeout-334-20261114",
+      "command": [
+        "systemd-run",
+        "--user",
+        "--unit=molsysmt-full-closeout-334-20261114",
+        "--property=Type=exec",
+        "--property=RemainAfterExit=yes",
+        "--property=CPUQuota=300%",
+        "--property=MemoryMax=6G",
+        "--property=MemoryHigh=5632M",
+        "--property=MemorySwapMax=0",
+        "--property=MemoryOOMGroup=yes",
+        "--property=TasksMax=512",
+        "--property=Nice=10",
+        "--property=RuntimeMaxSec=4500",
+        "--property=TimeoutStopSec=15",
+        "--property=KillMode=control-group",
+        "--working-directory=<checkout>",
+        "<development-prefix>/bin/python",
+        "<checkout>/.pytest_cache/full-source-closeout-334-20261114/driver.py"
+      ]
+    },
+    "exit": 1,
+    "reason": "systemd rejected unsupported MemoryOOMGroup property before execution"
+  },
+  "original_failures_preserved": [
+    "devtools/data/complete_context_import_receiving_713_20261113.json",
+    "devtools/data/source_axis_converter_receiving_747_748_20261113.json",
+    "devtools/data/native_copy_probe_receiving_751_20261114.json",
+    "devtools/data/autosummary_preservation_receiving_752_20261114.json"
+  ],
+  "pending": [
+    "Accepted #615 disposition from MolSysViewer #384",
+    "BindingMT omitted-version default write/migration receiving under both unit policies and stable H5MSM decision #256",
+    "Published compatible MolSysViewer floor and clean minimum/newer installed closure #524",
+    "Exact coordinated pair, all mandatory qualification and later publication decision; existing pause unchanged"
+  ],
+  "original_weighted_progress_change": 0,
+  "retained_evidence_sha256": {
+    ".pytest_cache/full-source-closeout-334-20261114/full-execution.json": "33eabac30902e1497f769cf1e62207083e9718386689cc5e8378a55e50f9ea73",
+    ".pytest_cache/full-source-closeout-334-20261114/full-artifact-status.json": "e59d28161b39bebdb7529a3f3d26761976bd88817220969c47f072678b700a1c",
+    ".pytest_cache/full-source-closeout-334-20261114/full.events.jsonl": "49ae2f4df3343aae996d0f0cb7ac50736e82dbd9ce3f8d0ff5a940f3d80f04ac",
+    ".pytest_cache/full-source-closeout-334-20261114/full.xml": "c1c4de6c02ed3ee3c360968a05be38af2a8b1965046b2782b70d62a95a4b24b4",
+    ".pytest_cache/full-source-closeout-334-20261114/full.log": "fbd56ceb110c882a31d8900cb9516a78876919982d9aca95630f8c07a502d316",
+    ".pytest_cache/full-source-closeout-334-20261114/full-inputs-before.json": "efb16f8d7b97fb49f9d0d46e69396dc6c02d39806141884010fa5a5da9a2ee31",
+    ".pytest_cache/full-source-closeout-334-20261114/full-inputs-after.json": "efb16f8d7b97fb49f9d0d46e69396dc6c02d39806141884010fa5a5da9a2ee31",
+    ".pytest_cache/full-source-closeout-334-20261114/full-support-before.json": "f31f80b032850611b2c7e595a5733a330a8419701a901619bdd2e1984b7d24fe",
+    ".pytest_cache/full-source-closeout-334-20261114/full-support-after.json": "f31f80b032850611b2c7e595a5733a330a8419701a901619bdd2e1984b7d24fe",
+    ".pytest_cache/full-source-closeout-334-20261114/scientific-certificate.json": "bb3fd8ae534e9d5e83756e6565db482ffe6246c501ed681fc1a61fa024a98f1b",
+    ".pytest_cache/full-source-closeout-334-20261114/scientific-execution.json": "7bebf094ad0ea25e4fbadb6f2052935cb4a28c6925139eacb97dbbe7d591aa86",
+    ".pytest_cache/full-source-closeout-334-20261114/scientific.events.jsonl": "dc1ea835f5e2ccf4d16dbe396748364f7c99f1cfa0d183854197f51be5075ab4",
+    ".pytest_cache/full-source-closeout-334-20261114/all-service-retirement.json": "1b5a90b748d42836269405d41358d87354d72198675f8e1b4ff72c0537c18aab",
+    ".pytest_cache/full-source-closeout-334-20261114/board-after-receiving.json": "ea6aa51c47c582a4cbc2aed5d3c4f5a8904f857227aa6988b39c217a4131d09b"
+  }
+}

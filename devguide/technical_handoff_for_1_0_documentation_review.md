@@ -30,7 +30,7 @@ operations; routine source correction and bounded local checks can continue.
 | Stage | Required work | Exit evidence and owner |
 | --- | --- | --- |
 | 1. Finish technical correction and documentation preparation | Finish admitted correctness/data-integrity repairs and misleading documentation, including #727's intended references. Reconcile docstrings, User Guide, Cookbook and course with actual contracts, units, domain ownership and scientific limits. Review relevant new issues and PRs at phase checkpoints. | Focused regressions, relevant executable examples and actual rendered-article/link receiving; strict full documentation build; no unresolved blocker in the promised stable scope. #334 / #727 and the existing polishing queue own evidence. |
-| 2. Conclude the remaining investigations and contract decisions | Receive #723's comparable long campaign with frozen composition and safe resources. Resolve or explicitly disposition #615/#713 using evidence without inventing causality or blindly repeating passing runs. Finish #256's stable H5MSM decision and #250/#254/#524 compatibility, profile and dependency agreements. | Linked owner conclusions, supported limitations and required maintainer/client acceptance. A deferral or uncertainty is not a passing result; outstanding blocking scope must be resolved or explicitly accepted through its applicable policy. |
+| 2. Conclude the remaining investigations and contract decisions | Preserve #723's completed bounded memory campaign and #713's accepted closure, including their original limits and failures. Obtain #615's accepted disposition from the MolSysViewer audit lead. Finish #256's stable H5MSM decision and #250/#254/#524 compatibility, profile and dependency agreements. | Linked owner conclusions, supported limitations and required maintainer/client acceptance. A deferral or uncertainty is not a passing result; outstanding blocking scope must be resolved or explicitly accepted through its applicable policy. |
 | 3. Freeze and qualify the exact coordinated pair | Agree producer commits, unused builds, immutable filenames, channels and SHA-256 values with MolSysViewer. After the agreed resumption, run all mandatory exact-source/native/scientific/documentation and installed-pair gates. Qualify supported dependency bounds and retain the declared experimental-platform limits. | The complete evidence set required by release_gate.md: scientific certificate without skipped registered nodes, eight-cell full-source matrix, applicable native artifacts and sixteen-cell installed Conda pair. Source-only or earlier package results cannot substitute. |
 | 4. Deliver the review packet | Present the qualified reference, reproducible documentation site, reader route, remaining documented experimental limits, evidence links and explicit deferred-work list. | Diego receives documentation to review with no separate unresolved engineering or client-acceptance task required to establish readiness. The live ledger explicitly records the handoff decision and qualified identities. |
 
@@ -78,6 +78,37 @@ changes that decision. The existing supported public composition remains usable.
 These are evidence criteria, not percentage credit. The original scorecard
 keeps its weights and acceptance conditions; polishing does not manufacture
 progress or establish a reliable completion date.
+
+## Review packet and reader route
+
+Prepare this packet as the preceding stages complete. Its presence does not
+establish that the technical handoff has been accepted:
+
+- Exact source and package identities for both libraries, including actual
+  import origins, platform/Python scope and immutable artifact hashes.
+- The corresponding documentation build and its reproduction route, with
+  stored-notebook rendering, executed examples and actual browser receiving
+  distinguished explicitly.
+- Links to terminal technical evidence, accepted scientific/profile limits
+  and the owned deferred-work list. Failed attempts retain their original
+  outcomes; pending required gates remain visible.
+- The reading sequence below, so the maintainer can review the public
+  explanation before checking specialist API details.
+
+| Review area | Starting pages and main question |
+| --- | --- |
+| Installation and supported scope | [Installation](../docs/content/about/installation.md) and [support](../docs/content/user/foundations/support/index.md): can the stated installation deliver the claimed platform, provider and form capabilities? |
+| Molecular model and ownership | [Molecular systems](../docs/content/user/foundations/molecular_system/index.md) and [native domains](../docs/content/user/foundations/native_world/index.md): are stable inventory, chemical states, structures, mechanics and named analyses explained with their actual ownership and absence semantics? |
+| Language and physical quantities | [Query language](../docs/content/user/foundations/language/index.md) and [units](../docs/content/user/foundations/governance/quantities_and_units.md): are indices versus IDs, groups, structure selections and configurable units unambiguous? |
+| Everyday operations | [Basic tools](../docs/content/user/tools/basic/index.md) and [Cookbook](../docs/content/user/cookbook/index.md): do examples explain the relevant copy, extraction, mutation and conversion boundaries? |
+| Geometry and scientific observables | [Structure](../docs/content/user/tools/structure/index.md), [PBC](../docs/content/user/tools/pbc/index.md) and [physchem](../docs/content/user/tools/physchem/index.md): do methods, units, periodic conventions, references and limitations support the stated interpretation? |
+| Preparation and mechanical models | [Build](../docs/content/user/tools/build/index.md) and [molecular mechanics](../docs/content/user/tools/molecular_mechanics/index.md): are chemical-state assumptions, terminal/hydrogen policies, engine/model choices and assignment coverage explicit? |
+| Interactions and persistence | [Interaction tools](../docs/content/user/tools/interactions/index.md) and [H5MSM 1.0](../docs/content/user/tools/form/file/h5msm_10.md): are sparse observations, coverage, provenance, maps and edit invalidation distinguished from scientific classification and format stability? |
+| Learning path and public promises | [Four Paths course](../docs/content/course/index.md) and [API lifecycle](../docs/content/user/foundations/governance/public_api_and_lifecycle.md): do the teaching sequence and stability labels agree with the qualified release scope? |
+
+Keep this route tied to the exact received site in the final packet. A local
+source preview is useful during preparation; it does not identify the final
+published documentation or qualified installed pair.
 
 ## Review, manuscript and publication
 

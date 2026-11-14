@@ -32,6 +32,33 @@ This supplies the current-source full-build increment in handoff stage 1;
 it does not satisfy the future exact-candidate documentation gate or replace
 the maintainer's scientific/editorial review and actual browser receiving.
 
+## Current local source and documentation receiving — 2026-11-14
+
+The [current checkpoint](../devtools/data/pre_1_0_source_checkpoint_334_20261114.json)
+receives clean source `27ba3d4c8`: 35,191 default passes, sixteen documented
+optional skips, zero failures/errors, plus 116 cases for all 74 registered
+scientific-evidence nodes without skips. The actual native exit and complete
+same-run JUnit agree with the supported receptor reader; phase and extension
+caps remain explicit. Checked inputs stay unchanged and all thirteen own
+services are retired. This is one local Linux/Python receiving, not the hosted
+nightly or exact coordinated candidate.
+
+The separately tested developer-probe and actual Sphinx corrections under
+#751/#752 change no production molecular code or native binary. Their preserved
+negative controls, 170/40-case cohorts, 1,034-document warning-clean build and
+101 actual-link controls retain their own identities and overlapping scope.
+The earlier default-configuration docs copy omitted one external download;
+that original failed attempt remains failed. Corrected configuration preserves
+both real ProtonationAssessment method entries and all disposable source bytes.
+
+Continue with the existing external/decision boundaries: MolSysViewer #384's
+accepted #615 disposition, the paused BindingMT default-write/migration scope,
+#256's stable-format decision and #524's compatible host/installed closure.
+The [technical handoff plan](technical_handoff_for_1_0_documentation_review.md#review-packet-and-reader-route)
+now supplies the review-packet contents and reader route. The final pair still
+needs agreed exact identities and every mandatory gate after resumption;
+this checkpoint does not lift that pause or alter milestone weights.
+
 ## #746 finite owner disposition and #750 correction — 2026-11-13
 
 The [membership/correspondence contract](native_binding_site_membership_contract.md)

@@ -2,18 +2,11 @@
 
 ## Resume from here
 
-**Reviewed 2026-11-13 against complete-source checkpoint `6acad4f35`,
-GRO documentation `bc2db775d`, iterator diagnostics `9adad50d1`,
-native inventory/query corrections `b0ae02b22` / `4280a8d42`, Jupyter
-receiving `687220ac9` / `67a094749`, memory-method `db1706f8a`, molecular pilot `1a899f9f0`, label-inventory
-correction `9af9be18c` / guard `90aa8eae1`, native-domain guidance
-`1b98c2b1d` / `2bf21835f` / `115ebe335`, dictionary guidance
-`bdcd326ae`, remaining native guidance `61e0a24ba`, file guidance `022460c14`,
-file extraction/identity corrections `7b607f638` / `7097f81c5`, string guidance
-`4b280fdcb`, string boundary corrections `ed12b039a`, Biopython guidance
-`26b550f96`, OpenMM coordinate repairs `3f034dbd0` and OpenMM guidance
-`9a261ebd5`, MDTraj iteration repair `083b7c166` and guidance `00590f26e`, nullable membership `8cc066c84` and alias link `83eb35cf1`, read-only inventory `a3cf6b3a5`, MDAnalysis guidance `7eacf1654` / receiving `9e8ef6d38`, chemical-form guidance `96c09a1e0`, final form guidance/alias receiving `cbab86631` / `b16c43a0d`, NGL/NetworkX repairs `52fb74297`, PDBFixer correspondence `6dd779adc`, verified form closeout `6f7fb24bc`, plus the
-separately received earlier documentation/catalog slices.**
+**Reviewed 2026-11-14 against complete local source checkpoint
+`27ba3d4c8`, developer-probe correction `939e9c1b4` and Sphinx page-preservation
+correction `df91501ae`. The full local source result and the separately received
+documentation/developer deltas retain their actual identities; this is not a
+frozen or qualified final package pair.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
 does not select today's candidate or authorize new execution.
@@ -36,6 +29,8 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
+| Preserve the completed current local source checkpoint | Clean `27ba3d4c8` completes the default selection: **35,191 pass, 16 documented optional skips, zero failures/errors**. The actual native exit is zero and the official receptor reader agrees with the complete same-run JUnit. All 9,012 checked source, 2,581 MolSysViewer and 231 support inputs remain unchanged. The separate registered evidence execution passes 116 cases for 74 nodes with zero skips. [Receipt](../devtools/data/pre_1_0_source_checkpoint_334_20261114.json). Event-detail/extension caps remain explicit; hosted/nightly/platform/final-pair gates are still due. |
+| Preserve #751/#752's bounded corrections | `939e9c1b4` repairs retired topology chemistry in the developer copy probe; 170 selected cases and both literal historical-TopoMT copy modes pass. `df91501ae` preserves maintained API stubs while still generating missing pages; 40 selected rendering/source cases and the actual complete configuration pass. The 1,034-document site produces 1,400 HTML files with zero warnings, unchanged disposable sources, both real ProtonationAssessment method entries and 101 passing intended-reference controls. Original failures and the incomplete first copy's missing-asset warning remain in their receipts. No production molecular code, scientific method, dependency or native binary changes. |
 | Preserve completed #747/#748 correction receiving | Original provider traversal is checked before copying/querying under `54c38f4b8`; `a049a45f9` restores exactly four canonical destination keywords. The 331-case selected cohort, solvate doctest, fifteen fast gates, generator check and full Ruff pass. [Receipt](../devtools/data/source_axis_converter_receiving_747_748_20261113.json). The earlier broad 1,615-case attempt is incomplete at its operational wall limit; original complete failures and later full/nightly qualification remain. |
 | Preserve completed #723 memory receiving | Thirty scientific cycles, final cleanup, 72 controls, unchanged-pilot oracle replay and a fresh host baseline pass on frozen receiver 429d7494b / library-addon 6f7fb24bc / client c5115dff. All 4,914 selected inputs and eight after-use module hashes agree. Selected native targets/buffers retire while the witness survives. Actual CPU transitions, host errors and sampling limits remain explicit; no whole-process leak-free or final-pair claim follows. |
 | Preserve completed #727 receiving and continue admitted polishing | #727 and related #742–#744 are publicly closed at verified `6f7fb24bc`. All 95 form notebooks have explicit receiving owners; 86 adapter articles deliver 1,673 intended references to 1,528 independently verified source files. The 340-case joint cohort, 23 selected HTML pages and fifteen fast gates pass. Preserve the original failures, optional-provider limits and complete-source/nightly backlog; this is not final-pair qualification. |
@@ -61,6 +56,48 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Complete local source and actual documentation checkpoint — 2026-11-14
+
+The complete default session on clean `27ba3d4c8` finishes with native exit
+zero: **35,191 passes, 16 skips and no failures/errors**, over 35,207 cases.
+The skips are fourteen optional ArgDigest ownership-study cases, the deliberately
+without-RDKit CCO branch when RDKit is installed, and unavailable CuPy. The
+supported receptor reader and complete same-invocation JUnit agree. Its event
+stream is integrity-valid and finalized, but phase detail and the extension
+channel reach their declared caps; the complete JUnit supplies skipped-node
+receiving. All checked source/client/support bytes are unchanged. Three fresh
+import orders pass in 4.401–4.438 seconds without altering their deadlines.
+This does not establish the unknown historical timeout cause or resolve #615.
+
+The independent registered-evidence command passes **116 cases for 74 nodes,
+zero skips** on the same clean source. Its source-eligible certificate has only
+that tool's local meaning. The [checkpoint receipt](../devtools/data/pre_1_0_source_checkpoint_334_20261114.json)
+retains the actual source/native/runtime composition, original unsuccessful
+sessions and all thirteen owned service retirements. The full run takes about
+40 minutes, peaks at 5.501 GiB under its 6-GiB cap and retains at least 11.218 GiB
+host-available memory. No own OOM, swap use or resource-limit interruption occurs.
+
+The finite developer/documentation review also repairs two demonstrated defects:
+[#751](archive/resolved_bugs/native_copy_client_probe_still_requires_chemical_storage_on_topology.md)
+and [#752](archive/resolved_bugs/sphinx_api_regeneration_drops_maintained_class_method_documentation.md).
+Their 170-case copy and 40-case Sphinx cohorts are separate, overlapping source
+receiving, not additions to the full-suite count. Literal eager/deferred copying
+passes on the preserved historical TopoMT checkout, without receiving its newer
+upstream. The actual full Sphinx configuration preserves existing method pages
+and generates missing stubs; all 1,034 documents produce 1,400 HTML files with
+zero warnings and 101 actual-reference guards pass. The original missing-input
+copy experiment and both negative cohorts remain unsuccessful evidence. No
+notebook execution, browser, scientific-profile or installed-pair claim follows.
+
+Production package and default test sources are unchanged by these two later
+fixes. They do not turn the earlier source run into an exact-new-head or final
+candidate result. Relevant fast gates and full Ruff pass on the reviewed
+working delta. The updated technical handoff includes a concrete reader route;
+#524 now names its finite remaining host/installed conclusions. #615/MolSysViewer
+#384, #256's default-client/stable-format decision, #250/#254/#524 and mandatory
+final-pair qualification remain. Original weighted accounting and the agreed
+candidate/hosted/tag/publication pause are unchanged.
 
 ## BindingSite owner handoff and selection-boundary repair — 2026-11-13
 

@@ -18,9 +18,9 @@ supersedes: []
 **Status:** partial; numerical, rendering and support-provider floors have actual
 source API/ABI receiving. Pandas 3.1 summary and native-placement compatibility
 are repaired. MDTraj/PyParsing constraints, the NumPy ceiling disposition and
-optional-route auditing are received below. Other optional-provider review,
-Viewer acquisition and clean installed closure remain open; no MolSysMT
-candidate artifact is qualified here.
+optional-route auditing are received below. The final non-host provider source
+review is delivered. MolSysViewer's public minimum and clean installed closure
+remain open; no MolSysMT candidate artifact is qualified here.
 
 ## What
 
@@ -671,10 +671,10 @@ Viewer floor and clean installed closure. Accepted plan progress remains 40%.
 
 The [coordinated release plan](../pre_1_0_completion_handoffs_20261110.md#molsysviewer-contract-feedback-startup-evidence-and-artifact-plan)
 records **MolSysMT 1.0.0 and MolSysViewer 1.0.0** for final clean installed
-qualification. MolSysViewer 0.25.0 is a possible earlier milestone. The
-published addon floor still requires evidence from compatible published
-artifacts and clean minimum/newer installed receiving. Keep the older
-published pair in its tested scope.
+qualification. The maintainer defers an intermediate release and chooses to
+wait for that final pair. The published addon floor still requires evidence
+from compatible artifacts and clean minimum/newer installed receiving. Keep
+the older published pair in its tested scope.
 
 The latest local profiles pass 385/385 for Biopython minimum/newer, 86/86 for
 OpenFF minimum/newer and 146 for PyTraj acquisition/native/diagnostic/auditor
@@ -685,15 +685,11 @@ OpenFF floors stay unchanged. PyTraj acquisition is Conda-forge AmberTools with
 explicitly disabled pip routing, guarded native ABI and no invented bundle-to-
 provider version equivalence. Static route checking does not qualify a resolver.
 
-The NGLView review additionally owns #630 (internal validation keyword leak,
-locally corrected in `e5d1dd0f8`, minimum receiving 95 passes) and #631 (HTML
-includes an independent molecular widget's initial structure; implementation
-and receiving in progress). They are included-operation corrections rather than
-new graphical features. Complete their delivery/guards before this provider's
-review closes, preserving frontend and installed-artifact limits. OpenFF's
-declared installation commands are also being checked against actual official
-distribution routes; exact-version metadata absence alone is not treated as
-proof that a project does not exist.
+The completed NGLView source review includes #630's internal validation keyword
+leak and #631's independent widget initial structure. Their delivery and guards
+are recorded above; frontend and installed-artifact limits remain. The OpenFF
+acquisition review likewise retains its delivered Conda-only route. Those
+completed source corrections are not additional outstanding implementation.
 
 Public checkpoint `f5c909e75d786a20d92f4b57e6fa2875a3ba651e` independently
 matches all 32 checked source/test/documentation/receiving blobs. #623 is
@@ -715,9 +711,27 @@ retains these boundaries. This report stays partial.
 - For each retained bound/exclusion, record exact provider behavior, owner and
   reassessment condition. The NumPy version/ABI disposition above is complete;
   preserve exact development/build/release pins and any demonstrated restrictions.
-- Continue the pertinent route/runtime checks for the remaining providers and
-  retain the central #137 source/graph handoff as adoption advances. Keep #524
-  open until the whole review and installed closure are complete.
+- Retain the central #137 source/graph handoff as adoption advances. Reopen a
+  non-host provider review if actual changed usage, metadata or receiving
+  exposes a concrete gap. Keep #524 open until the host and installed closure
+  are complete.
+
+### Finite exit at the coordinated pair — 2026-11-14
+
+The remaining work is the following existing compatibility boundary, rather
+than another general optional-provider audit:
+
+| Required conclusion | Evidence needed to close it |
+| --- | --- |
+| Public MolSysViewer minimum | Agree the version carrying the consumed addon/lifecycle APIs; verify its actual compatible package and record the inclusive minimum in pyproject.toml and the audited secondary surfaces. A source SHA or future version label alone is insufficient. |
+| Clean installed runtime closure | Receive the exact coordinated packages outside checkouts, recording import origins, artifact identity and resolver/dependency consistency. Exercise ordinary public/native get/info, conversion, addon lifecycle and the agreed persistence/session workflows. Preserve failures and unsupported scopes. |
+| Minimum and newer provider profiles | Exercise the declared compatible bounds using real artifacts and record the actual solved versions for each admitted Python lane. API probes and development overlays remain supporting source evidence. An old provider build unavailable for a newer Python minor is not a tested minimum environment. |
+
+The existing dependency auditor and installed-pair tooling own these checks;
+this table adds no installer, speculative floor, compatibility cap or separate
+release matrix. Candidate construction, hosted qualification and publication
+retain the agreed pause. Final producer selection and the same exact artifacts
+remain prerequisites for the installed conclusion.
 
 ## Provenance
 
