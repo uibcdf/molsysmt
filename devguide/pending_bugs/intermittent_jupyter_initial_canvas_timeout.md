@@ -503,3 +503,35 @@ This is a jointly agreed recommendation, not a claimed pass or authorization
 to close. #615 remains open under the maintainer's current decision pending
 that finite result and review. No shared-prefix modification, new matrix,
 package build or publication is requested by this agreement.
+
+## Agreed normal-source startup received — 2026-11-15
+
+MolSysViewer `7d88b56a6514dc1509ae0cfb85bb77ca1b12c0c9` publishes normal
+control 928. The [owner review](../../devtools/data/initial_canvas_disposition_review_615_20261115.json)
+verifies the public Git blob, custody manifest and all 37 retained file hashes,
+then independently checks the actual kernel-origin record, nine correlated
+kernel stages, scene/draw observations and unchanged receiver source bytes.
+
+The loaded kernel is original isolated 7.4.0. Normal TcTIM preparation produces
+3,983 atoms and a fresh native draw **10.7884 seconds after observed Run**,
+after observer arming and scene registration and within the original 30-second
+allowance. Receiver files match `bc5a9297a`; actual MolSysViewer source is
+`6f80cc915`, with unchanged native `4ffb82e4`. The private driver changes only
+the isolated kernel path and passive post-preparation module provenance. There
+is no history-reply barrier, scheduler/server/comm delegate, molecular import
+warm-up, deadline increase or identical retry. One actual page error matches
+the plain-Jupyter control; output and observer errors are zero.
+
+The native driver exits 0, records unchanged inputs and retires all 27 tracked
+processes without a resource stop. Setup 927 failed before browser/kernel and
+remains separate. This owner review does not execute another molecular case,
+independently requalify the complete kernel archive or every client package
+source, or turn a source result into an installed/platform/human acceptance.
+
+**The jointly prescribed normal-source startup condition is satisfied.** Both
+teams' conditional recommendation is now ready for maintainer review: adopt
+the corrected Jupyter minimum and close the technical host-profile defect,
+retaining the original event's unproven exact cause. #615 remains open under
+the existing explicit decision; closure is not inferred from the agreement or
+this pass. Final exact-candidate/installed checks, controlled legacy-prefix
+adoption and publication retain their separate owners and gates.
