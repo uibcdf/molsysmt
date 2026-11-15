@@ -203,5 +203,35 @@
     },
     "state": "Controlled initial-scene symptom reproduced; no confirmed spontaneous recurrence or identification of the original missing transition. #615 remains open under the explicit maintainer decision.",
     "next_boundary": "Lead review of the demonstrated mechanism and historical applicability, then the already required uninstrumented exact final-pair startup on the corrected notebook-host profile. No blind repetition or new candidate execution is authorized by this receipt."
+  },
+  "joint_recommendation": {
+    "date": "2026-11-15",
+    "requested_by_principal_maintainer": true,
+    "teams_agree": true,
+    "notebook_minimum": "ipykernel>=7.4.0",
+    "core_headless_or_qt_dependency_change": false,
+    "upstream_primary_references_checked": [
+      "https://github.com/ipython/ipykernel/pull/1529",
+      "https://github.com/ipython/ipykernel/releases/tag/v7.4.0"
+    ],
+    "finite_normal_startup": {
+      "owner": "uibcdf/molsysviewer#384",
+      "state": "promised_within_existing_local_checkpoint_not_received",
+      "receiver": "Original #762 initial-canvas guard without experimental scheduling barrier or scheduling/server delegates. Passive actual-kernel provenance retained.",
+      "system": "TcTIM, 3983 atoms",
+      "fresh_draw_deadline_seconds": 30,
+      "pre_deadline_stack_seconds": 15,
+      "molsysmt_duplicate_run": false
+    },
+    "existing_controls_not_substituted": {
+      "845_847": "3983 atoms but older kernel profile.",
+      "916": "Normal corrected 7.4.0 profile but 62-atom pentalanine.",
+      "923": "Corrected kernel and 3983 atoms, but controlled scheduling barrier."
+    },
+    "closure_recommendation": "If the normal corrected-profile case passes, recommend documented technical closure without claiming the exact historical cause, subject to review with the principal maintainer. Final exact-candidate/installed/platform/publication gates remain mandatory.",
+    "issue_state": "open",
+    "closure_authorized": false,
+    "new_matrix_build_or_publication_authorized": false,
+    "original_weighted_progress_change": 0
   }
 }

@@ -468,3 +468,38 @@ no spontaneous recurrence or exact historical cause is established. Retain
 lead review of applicability and the already required uninstrumented final-pair
 startup on the corrected host profile. No extra blind retry, new matrix,
 shared-prefix change, candidate, progress credit or publication is authorized.
+
+## Joint recommendation requested by the maintainer — 2026-11-15
+
+The maintainer asks both teams to agree whether a corrected kernel minimum
+is sufficient or further causal investigation is required. MolSysMT and
+MolSysViewer agree on a conditional technical recommendation:
+
+1. Require ipykernel >=7.4.0 for the Jupyter host profile, without adding a
+   mandatory dependency to the scientific core or headless/Qt profiles. The
+   [upstream correction](https://github.com/ipython/ipykernel/pull/1529) and
+   [7.4.0 release notes](https://github.com/ipython/ipykernel/releases/tag/v7.4.0)
+   identify the shell-message transport repair; paired controls 919/923
+   demonstrate its applicability to a controlled initial-execute failure.
+2. Receive one normal TcTIM initial startup through the original #762 guard,
+   without the experimental history-reply barrier or scheduling/server
+   delegates. Require the recorded loaded kernel version/source, initial-cell
+   ownership, 3,983 atoms and a fresh native draw within the original 30-second
+   limit, retaining pre-deadline diagnostics. MolSysViewer will receive this
+   finite case in its existing local checkpoint; MolSysMT will not duplicate it.
+3. If that normal case passes, recommend a documented technical closure on
+   the corrected supported host profile. Preserve the uncertainty about the
+   exact original event; reconstructing its unobserved transition indefinitely
+   would not be an additional technical prerequisite of this recommendation.
+   The exact final-candidate, installed, platform and publication gates remain
+   separate and mandatory.
+
+No existing result is substituted for step 2: startup controls 845/847 receive
+3,983 atoms with the older host, while normal 7.4.0 Movie control 916 uses a
+62-atom pentalanine system. The controlled 923 startup adds a scheduling
+barrier. None is the requested normal corrected-kernel TcTIM case.
+
+This is a jointly agreed recommendation, not a claimed pass or authorization
+to close. #615 remains open under the maintainer's current decision pending
+that finite result and review. No shared-prefix modification, new matrix,
+package build or publication is requested by this agreement.

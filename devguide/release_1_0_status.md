@@ -65,6 +65,20 @@ have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
 
+## Joint #615 recommendation, normal-startup check pending — 2026-11-15
+
+At the maintainer's request both teams agree that the demonstrated upstream
+transport repair supports ipykernel >=7.4.0 for the Jupyter host profile.
+They recommend technical closure if one normal corrected-kernel TcTIM startup
+passes the original 3,983-atom/new-draw/30-second guard without the scheduling
+barrier. MolSysViewer owns that finite local check; MolSysMT will not duplicate
+it. Existing old-host controls and the 62-atom corrected-host Movie case do
+not substitute for it. The [owning agreement](pending_bugs/intermittent_jupyter_initial_canvas_timeout.md#joint-recommendation-requested-by-the-maintainer--2026-11-15)
+retains historical uncertainty and every final-candidate/installed gate.
+This recommendation does not close #615 or lift the current package/matrix/
+publication pause. The normal result is not yet received; no progress credit
+or new core runtime dependency follows.
+
 ## #615 controlled mechanism review — 2026-11-15
 
 The maintainer's decision to keep #615 open is unchanged. MolSysViewer
