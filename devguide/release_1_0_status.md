@@ -65,6 +65,22 @@ have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
 
+## #615 controlled mechanism review — 2026-11-15
+
+The maintainer's decision to keep #615 open is unchanged. MolSysViewer
+`3aff1d48` now reports a controlled initial-execute overlap with real
+Jupyter/TcTIM: 7.3.0 admits the request about 30.52 seconds after server send
+and misses the original initial-draw allowance; 7.4.0 admits it about 1.6 ms
+after send and draws the 3,983-atom system after 6.547 seconds. The
+[bounded owner review](../devtools/data/initial_canvas_disposition_review_615_20261115.json)
+checks the public blob, eight diagnostic sources and 28 original-record hashes,
+then independently checks correlated observations without molecular execution.
+The original combined driver remains failed; separate offline receiving does
+not rewrite that verdict. This is a controlled reproduction of the symptom,
+not spontaneous recurrence, historical-cause proof or final-pair acceptance.
+The lead investigation, corrected host profile and existing exact-pair gates
+remain; no additional matrix, build or weighted credit follows.
+
 ## Three-closeout work and necessary startup-guard repair — 2026-11-15
 
 The principal maintainer requests consecutive work on #615/#256/#524. The

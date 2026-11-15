@@ -97,5 +97,111 @@
     "next_step": "Review original-path evidence and select a bounded control that distinguishes preparation/import, kernel/comm admission, widget/runtime bootstrap and fresh native drawing. Preserve original deadlines, failed evidence and actual loaded origins; later passes or a shared installed version do not establish the historical cause.",
     "publication_or_new_hosted_execution_authorized": false,
     "original_weighted_progress_change": 0
+  },
+  "controlled_initial_execute_review": {
+    "public_commit": "3aff1d48a5a38fb9854efe2c95a9a8f35cadbccb",
+    "public_file": "devguide/initial_canvas_edge_receiving_20261115.json",
+    "git_blob": "7b96b1fec5c839bd97a5466e267d6769296498d4",
+    "bytes": 11915,
+    "sha256": "2f2c59a3daa5c71267cd3330fbfdffa5e384c95ddd7736698655d9901464ec0d",
+    "git_blob_verified": true,
+    "diagnostic_sources": {
+      "kernel_initial_edge_launcher.py": {
+        "sha256": "0a861ed4e512229f519eafff6282c7ed31f207fd2830492ec1397a5ed3276ba0",
+        "bytes": 2481,
+        "matches_published_digest": true
+      },
+      "probe_kernel_initial_dispatch.py": {
+        "sha256": "409abd4260b3d04b0e5dcc1f3408a9dfbc1d4df95d9b343c79510acbfd75b99a",
+        "bytes": 3691,
+        "matches_published_digest": true
+      },
+      "initial_canvas_edge_node.py": {
+        "sha256": "af291025b013b5c7b7a6ae36296cd83dfd1907a6dd069c12b5975e8f13494e28",
+        "bytes": 4279,
+        "matches_published_digest": true
+      },
+      "initial_canvas_edge_launcher.py": {
+        "sha256": "0b4cffb39458ff69fed3f3049859614b9527425573a2ed5e745f9fd27b86f2ce",
+        "bytes": 2272,
+        "matches_published_digest": true
+      },
+      "initial_canvas_owner_observer.py": {
+        "sha256": "b4c99b141b2b54983f4ecc544982ac8c844ad527a2df3c071a93635a1fab21fc",
+        "bytes": 731,
+        "matches_published_digest": true
+      },
+      "receive_initial_canvas_edge.py": {
+        "sha256": "490a0154845fb43c647b53c9bf47c55dcd8de5db81fe39decfec593dcfe96c1f",
+        "bytes": 4411,
+        "matches_published_digest": true
+      },
+      "verify_initial_canvas_edge_offline.py": {
+        "sha256": "62cb9fccab2a1ce22b39306f858cc579ab219c21bfafe4a1dec9aa31aed6e556",
+        "bytes": 5394,
+        "matches_published_digest": true
+      },
+      "observe_jupyter_server.py": {
+        "sha256": "3b98f01ee0bce4fcb05e76b8ce3dd33e33754bc2e6935dced92e61817d441d45",
+        "bytes": 2003,
+        "matches_published_digest": true
+      }
+    },
+    "scope": "Read-only independent integrity/timestamp/source review of retained controlled molecular records; no molecular/browser execution. No spontaneous recurrence, historical-cause or final-candidate claim.",
+    "verified_original_files": 28,
+    "arms": [
+      {
+        "provider": "7.3.0",
+        "owner_native_exit": 1,
+        "canvas_outcome": "canvas_wait_failed",
+        "observed_atoms": null,
+        "single_correlated_execute": true,
+        "controlled_fd_transition_confirmed": true,
+        "recorded_kernel_version": "7.3.0",
+        "recorded_reply_source_sha256": "a14d5cbf71d93cba067d60108fa8e8805ff29cbe2b2f278a26b7c80f4f23c7b0",
+        "server_return_to_kernel_dispatch_ms": 30523.916259765625,
+        "first_line_before_original_deadline": false,
+        "original_provider_archive_sha256": "305ad9226363ff5f259c404dd9a7508183a2e150739b2adc43db7d817234da66",
+        "pre_deadline_stack_has_waiting_shell": true
+      },
+      {
+        "provider": "7.4.0",
+        "owner_native_exit": 0,
+        "canvas_outcome": "canvas_visible",
+        "observed_atoms": 3983,
+        "single_correlated_execute": true,
+        "controlled_fd_transition_confirmed": true,
+        "recorded_kernel_version": "7.4.0",
+        "recorded_reply_source_sha256": "6c3fc05cdcd7ca3defa86264d24c38e66b3ba297a38bc4c8ebd03356e24cc4ce",
+        "server_return_to_kernel_dispatch_ms": 1.601318359375,
+        "first_line_before_original_deadline": true,
+        "original_provider_archive_sha256": "9ea2c55f4a9aa9146f614f827412716c6f53cd08eace21297b687301b804bb97",
+        "run_to_fresh_native_draw_ms": 6547.0
+      }
+    ],
+    "original_combined_driver_exit": 1,
+    "reported_distinct_offline_verifier_exit": 0,
+    "combined_exit_is_not_rewritten": true,
+    "diagnostic_modification": "One bounded history-reply scheduling hold before actual Run; native sends/dispatch delegate once. It arranges a protocol overlap, not a 30-second artificial sleep or failed scientific algorithm. An initial-cell marker and passive transport observations are added.",
+    "timing_limit": "Compare matched server/kernel epochs to classify the large admission stall; do not treat a negative first-line/click difference as latency or synchronized sub-millisecond causal proof.",
+    "source_scope": {
+      "receiver_source": "bc5a9297a762d451742734f9e11c7f54c6a832a0",
+      "scientific_source": "aee7aa65da56e896d1cb2d655bf73736f6453a43",
+      "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+      "route": "Original isolated Linux kernel providers through a private per-attempt kernelspec/PYTHONPATH. Shared environment unchanged; not clean solver or final installed qualification."
+    },
+    "read_only_probe_note": "Initial inspection assumed one kernel directory per arm and refused that condition; corrected lookup uses the recorded armed molecular kernel and correlated request, excluding plain-Jupyter control kernels. No original file, molecular execution or test verdict was changed.",
+    "original_weighted_progress_change": 0,
+    "date": "2026-11-15",
+    "provider_archives_independently_requalified": false,
+    "all_private_custody_files_verified": false,
+    "lead_custody_manifest_sha256": "8be2ca80b51d8b9851fd82c6164b4d3b1fa0c4565052be57e5c00609fcac9fd9",
+    "reviewed_private_receipt_digests": {
+      ".pytest_cache/three-closeouts-20261115/edge-3aff-public-receipt.json": "2f2c59a3daa5c71267cd3330fbfdffa5e384c95ddd7736698655d9901464ec0d",
+      ".pytest_cache/three-closeouts-20261115/edge-3aff-source-review.json": "9ea4d39b5cbf5c9ec061c749528561a81f0ca19c1b35f20eed36e8b1681e5b24",
+      ".pytest_cache/three-closeouts-20261115/edge-3aff-raw-review.json": "58b8cdc192697ab30c881f0fe2edb3fdaf8c7b62e9f66b916ad05cb47920ce5c"
+    },
+    "state": "Controlled initial-scene symptom reproduced; no confirmed spontaneous recurrence or identification of the original missing transition. #615 remains open under the explicit maintainer decision.",
+    "next_boundary": "Lead review of the demonstrated mechanism and historical applicability, then the already required uninstrumented exact final-pair startup on the corrected notebook-host profile. No blind repetition or new candidate execution is authorized by this receipt."
   }
 }

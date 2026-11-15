@@ -428,3 +428,43 @@ current notebook-host baseline is ipykernel >=7.4.0, with controlled shared-host
 adoption owned by uibcdf/molsyssuite#200. No shared prefix, dependency floor or
 candidate is changed here. The causal investigation and applicable exact-pair
 startup receiving remain required; this supplement adds no progress credit.
+
+## Controlled initial-execute mechanism received — 2026-11-15
+
+MolSysViewer `3aff1d48a5a38fb9854efe2c95a9a8f35cadbccb` publishes paired
+native-kernel and actual-Jupyter/TcTIM diagnostics under its lead #384.
+The [owner review](../../devtools/data/initial_canvas_disposition_review_615_20261115.json)
+verifies the public receipt's Git blob, all eight retained diagnostic-program
+hashes and all 28 listed original molecular-record hashes. Read-only inspection
+of the correlated request, recorded kernel version, transport timestamps,
+first-line marker and new-draw observations confirms these scoped facts:
+
+| Controlled arm | Observed result |
+| --- | --- |
+| ipykernel 7.3.0 | A native execute reaches the server promptly but is admitted by the kernel about 30.52 seconds after its send. The first line is later than the original allowance; no molecular canvas appears before the unchanged timeout. The 15-second stack records a waiting shell. |
+| ipykernel 7.4.0 | The corresponding execute is admitted about 1.6 milliseconds after server send. The actual initial cell presents 3,983 atoms and a fresh native draw 6.547 seconds after observed Run. |
+
+The diagnostic deliberately overlaps one real history reply and initial execute
+using a bounded scheduling hold. Native send/dispatch functions delegate once;
+it does not insert a 30-second artificial sleep, fabricate a reply or warm
+molecular imports. A first-line marker and transport observations are added.
+This demonstrates a mechanism capable of producing the initial-scene symptom,
+not a spontaneous recurrence or proof of that schedule in the original event.
+Cross-process click/first-line clock offsets are not interpreted as latency.
+
+Original combined driver 923 remains exit 1: its final assertion checked marker
+absence after retiring the host, when the old kernel had entered late. The
+separate offline verifier 924 is reported exit 0. This review independently
+checks the retained observations without re-running either molecular arm or
+rewriting either original verdict. The reviewed sources use receiver tests
+`bc5a9297a` with scientific source `aee7aa65`, native `4ffb82e4` and isolated
+original kernel providers; this is not current/final installed qualification.
+Provider archives and all private custody files are not independently
+requalified by the selected read-only review.
+
+**#615 stays open under the maintainer's decision.** The answer to recurrence
+is now precise: the symptom has been reproduced under controlled scheduling;
+no spontaneous recurrence or exact historical cause is established. Retain
+lead review of applicability and the already required uninstrumented final-pair
+startup on the corrected host profile. No extra blind retry, new matrix,
+shared-prefix change, candidate, progress credit or publication is authorized.
