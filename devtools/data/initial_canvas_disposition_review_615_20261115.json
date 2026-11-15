@@ -231,7 +231,7 @@
     },
     "closure_recommendation": "If the normal corrected-profile case passes, recommend documented technical closure without claiming the exact historical cause, subject to review with the principal maintainer. Final exact-candidate/installed/platform/publication gates remain mandatory.",
     "issue_state": "open",
-    "closure_authorized": false,
+    "closure_authorized": true,
     "new_matrix_build_or_publication_authorized": false,
     "original_weighted_progress_change": 0
   },
@@ -282,5 +282,186 @@
     "minimum_guard_reported_by_lead": "tests/test_source_workflow_coverage.py::test_notebook_environments_require_the_corrected_native_shell_transport",
     "retained_setup_failure_927": "Preparation/executable-wrapper failure before any browser/kernel; preserved and not counted as a molecular attempt or pass.",
     "closure_recommendation": "The jointly prescribed normal-source startup condition is now satisfied. Recommend technical host-profile closure when the corrected Jupyter minimum is adopted and the principal maintainer reviews the evidence. The explicit keep-open decision remains in force; no closure or final qualification is inferred."
+  },
+  "accepted_technical_closeout": {
+    "date": "2026-11-15",
+    "principal_maintainer_authorized": true,
+    "decision": "Close #615 through the jointly reviewed supported-Jupyter profile resolution, with the exact original historical cause unproven and evidence retained.",
+    "notebook_requirement": "ipykernel>=7.4.0",
+    "development_environment": "devtools/conda-envs/development_env.yaml",
+    "public_installation_guidance": "docs/content/about/installation.md",
+    "guard": "devtools/tests/test_jupyter_host_contract.py",
+    "original_receiving_guard": "tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py",
+    "archive": "devguide/archive/resolved_bugs/intermittent_jupyter_initial_canvas_timeout.md",
+    "core_or_shared_prefix_change": false,
+    "normal_source_condition_satisfied": true,
+    "final_candidate_installed_platform_gates_waived": false,
+    "new_gui_or_hosted_run": false,
+    "original_weighted_progress_change": 0,
+    "supersedes_previous_keep_open_direction": true,
+    "local_receiving": {
+      "baseline": {
+        "native_exit": 1,
+        "seconds": 53.44060786208138,
+        "checked_inputs": 8246,
+        "changed_inputs": [],
+        "limits": {
+          "cpu.max": "100000 100000",
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "pids.max": "256"
+        },
+        "memory_peak_bytes": 311095296,
+        "minimum_host_available_bytes": 18490806272,
+        "stop_reason": null,
+        "pytest": {
+          "outcome": "FAIL",
+          "counts": {
+            "collected": 2,
+            "deselected": 0,
+            "errors": 0,
+            "executed": 2,
+            "failed": 1,
+            "not_executed": 0,
+            "passed": 1,
+            "reruns": 0,
+            "skipped": 0,
+            "subtests": {},
+            "warnings": 0,
+            "xfailed": 0,
+            "xpassed": 0
+          },
+          "exitstatus": 1,
+          "artifact_policy": {
+            "dropped_records": 0,
+            "max_bytes": 52428800,
+            "truncated": false
+          },
+          "integrity": {
+            "algorithm": "sha256",
+            "digest": "ace2779d18b1b1fba2cc71b399c7bbe82cf7986d81e4b29aa4d032f7e67e487f",
+            "records": 8
+          }
+        },
+        "junit": {
+          "tests": 2,
+          "failed": 1,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "cohort": {
+        "native_exit": 0,
+        "seconds": 40.303588445298374,
+        "checked_inputs": 3551,
+        "changed_inputs": [],
+        "limits": {
+          "cpu.max": "100000 100000",
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "pids.max": "256"
+        },
+        "memory_peak_bytes": 242675712,
+        "minimum_host_available_bytes": 18430099456,
+        "stop_reason": null,
+        "pytest": {
+          "outcome": "PASS",
+          "counts": {
+            "collected": 135,
+            "deselected": 0,
+            "errors": 0,
+            "executed": 135,
+            "failed": 0,
+            "not_executed": 0,
+            "passed": 135,
+            "reruns": 0,
+            "skipped": 0,
+            "subtests": {},
+            "warnings": 0,
+            "xfailed": 0,
+            "xpassed": 0
+          },
+          "exitstatus": 0,
+          "artifact_policy": {
+            "dropped_records": 0,
+            "max_bytes": 52428800,
+            "truncated": false
+          },
+          "integrity": {
+            "algorithm": "sha256",
+            "digest": "afdb4d2a604ed06b4bb5043fd3d85c33108e06736dd54b8b9403144505c39ef6",
+            "records": 406
+          }
+        },
+        "junit": {
+          "tests": 135,
+          "failed": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "quality": {
+        "native_exit": 0,
+        "seconds": 72.25644035916775,
+        "checked_inputs": 3558,
+        "changed_inputs": [],
+        "limits": {
+          "cpu.max": "100000 100000",
+          "memory.max": "2147483648",
+          "memory.high": "1887436800",
+          "memory.swap.max": "0",
+          "pids.max": "256"
+        },
+        "memory_peak_bytes": 657604608,
+        "minimum_host_available_bytes": 17947860992,
+        "stop_reason": null,
+        "checks": [
+          "15 offline fast gates",
+          "Converter argument agreement",
+          "Developer-guide index agreement",
+          "Repository Ruff lint and formatting",
+          "Actual isolated installation-article HTML and required visible minimum",
+          "Git diff whitespace check"
+        ],
+        "full_documentation_site_build": false
+      }
+    },
+    "resource_cleanup": {
+      "owned_services_retired": 3,
+      "original_failed_baseline_retained": true,
+      "shared_environment_modified": false
+    },
+    "guarded_sources_sha256": {
+      "devtools/tests/test_jupyter_host_contract.py": "dfd80112bfa7903374bf0646876ce0473a660e9e4560096c3d701141efeb09da",
+      "devtools/conda-envs/development_env.yaml": "a4f563ae72fad4ca74556d5f0220cace0f56efd82aeb25243558e8ead0df6e0c",
+      "docs/content/about/installation.md": "c4a7c87b578b78d1e5a370820f51fb66a90c012842844265e328b0131ea7dd5d"
+    },
+    "retained_private_evidence_sha256": {
+      ".pytest_cache/pre1-priorities-615-20261115/baseline-execution.json": "3982fb5ff90377bf715d25c98f55fba4a99846a64a30de46bbd9300b54b639ed",
+      ".pytest_cache/pre1-priorities-615-20261115/baseline.events.jsonl": "c07c5addeb4dc333f07c5042f0a498f686e90e86d753603b602dd11603ba02ca",
+      ".pytest_cache/pre1-priorities-615-20261115/baseline.xml": "a45179b8c07effe5435d0e1814ef8f21c7bdeea8568f2dac13ebcf887efdeb87",
+      ".pytest_cache/pre1-priorities-615-20261115/baseline-inputs-before.json": "94d38b39708505499472b59ca22796fb408e922b01b323d8cb83621d1f6e1012",
+      ".pytest_cache/pre1-priorities-615-20261115/baseline-inputs-after.json": "94d38b39708505499472b59ca22796fb408e922b01b323d8cb83621d1f6e1012",
+      ".pytest_cache/pre1-priorities-615-20261115/baseline-driver.py": "97de4a647f4b4688a845aea47e0598ff3aa40a5c288f7457590bf541fedff3e5",
+      ".pytest_cache/pre1-priorities-615-20261115/cohort-execution.json": "e003425ea02f0d8d5a62ea69e5763a6b9286888883d0ad5356a91d7c837e5e42",
+      ".pytest_cache/pre1-priorities-615-20261115/cohort.events.jsonl": "a0a433d12252ac6a5c39508434dec8ea0cd16224741726e13fc0e3f7208817a7",
+      ".pytest_cache/pre1-priorities-615-20261115/cohort.xml": "a9e848cc9bced9784630fb93db8023fa2a5ebf0e8086b2615eacaf5cba1559a1",
+      ".pytest_cache/pre1-priorities-615-20261115/cohort-inputs-before.json": "3d91321060be98068e4ae8714c2a2679953099c3120ce27f84950da930415279",
+      ".pytest_cache/pre1-priorities-615-20261115/cohort-inputs-after.json": "3d91321060be98068e4ae8714c2a2679953099c3120ce27f84950da930415279",
+      ".pytest_cache/pre1-priorities-615-20261115/cohort-driver.py": "8dbf32b5052517089e5e763a234353893efade375f8c973728400f0c4c5226c7",
+      ".pytest_cache/pre1-priorities-615-20261115/checks-execution.json": "60055b11a5326d086e4f7f7236badbb2378ada0f021830212baa084541e8e106",
+      ".pytest_cache/pre1-priorities-615-20261115/checks-inputs-before.json": "a32fc187c37b7b332d6f6c54c88b16c2a259a5debc3d837b1731073e5b76afc1",
+      ".pytest_cache/pre1-priorities-615-20261115/checks-inputs-after.json": "a32fc187c37b7b332d6f6c54c88b16c2a259a5debc3d837b1731073e5b76afc1",
+      ".pytest_cache/pre1-priorities-615-20261115/checks-driver.py": "1ce3e23824c80e8876a56d9a5d80ba121bd48e32931a98178b97a4a8e86ca4a5",
+      ".pytest_cache/pre1-priorities-615-20261115/quality-results.json": "192e7a3d72be9e835090da3d9fc05f123afb1784ff18c8c37bfa6dc7b261673b",
+      ".pytest_cache/pre1-priorities-615-20261115/pytest-reader-review.json": "49e2e18481dd8391a4a21910c3a728961b4c7737a1fab58f2f5aea04cbf79df6",
+      ".pytest_cache/pre1-priorities-615-20261115/cleanup.json": "31a4df6fc35db7bad6132c6646b228353bbd56865151a2a7a3120ff9b02f9f88",
+      ".pytest_cache/pre1-priorities-615-20261115/complete-issue-state.json": "58286a4ab254b55b108cabefaa6e912ab1983d3abb097a3cd03b5d40f95345a0",
+      ".pytest_cache/pre1-priorities-615-20261115/complete-open-issues.json": "e871177f417e9872a1d0ab68a1240e05f43a281180bf0dbe0e10d88073bce210",
+      ".pytest_cache/pre1-priorities-615-20261115/complete-open-prs.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      ".pytest_cache/pre1-priorities-615-20261115/installation-html/index.html": "04cd88e4e216e5123c7b00e32f061ee7f4d754e20527240d3d855ec5db6e7e19"
+    }
   }
 }

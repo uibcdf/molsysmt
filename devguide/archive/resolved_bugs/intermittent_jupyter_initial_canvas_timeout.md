@@ -1,19 +1,27 @@
 ---
 summary: Investigate intermittent Jupyter initialization before the first molecular canvas.
 issue: uibcdf/molsysmt#615
-status: blocked
+status: resolved
 opened: 2026-11-06
-closed:
+closed: 2026-11-15
 severity: medium
 verification: measured
 area: [tests, jupyter, initialization, molsysviewer]
-guard: tests/molsysviewer_molsysmt/test_jupyter_stage_diagnostics.py
+guard: devtools/tests/test_jupyter_host_contract.py
 normative:
-blocked_by: [uibcdf/molsysviewer#384]
+blocked_by: []
 supersedes: []
 ---
 
 # Initial molecular canvas timeout
+
+**Resolved — 2026-11-15:** the principal maintainer accepts the jointly
+recommended technical host-profile closure after controlled causal and normal
+startup receiving. Jupyter visualization requires ipykernel >=7.4.0; the exact
+cause of the original historical event remains unproven. The dated sections
+below preserve the investigation and earlier keep-open decisions. The final
+resolution at the end supersedes their open-status statements without
+rewriting original failures or accepting the final release pair.
 
 ## Current lead and consumer dependency — 2026-11-13
 
@@ -115,7 +123,7 @@ stack is importing JupyterLab extension code. A same-input repeat starts the
 server and advances through numeric geometry and PCA, then exhausts the
 unchanged 300-second browser deadline during PCA popups. The two-CPU attempt
 also reaches a later workflow deadline. Host pressure stays zero and no own OOM
-or reserve stop occurs. See the [native receipt](../../devtools/data/native_neighbor_allocation_receiving_690_20261110.json).
+or reserve stop occurs. See the [native receipt](../../../devtools/data/native_neighbor_allocation_receiving_690_20261110.json).
 These distinguish stages and preserve failures; they do not establish the cause
 or repair of this report's original first-canvas timeout. No warm-up, increased
 deadline or acceptance waiver is introduced; #615 remains open.
@@ -162,7 +170,7 @@ criteria remain unchanged. The scope peaks at 2.50 GiB and retains at least
 9.04 GiB of host available memory; no own OOM or reserve stop occurs. Global
 full-memory pressure briefly peaks at 3.24 in the shared host; that observation
 does not establish a product or timing cause. See the
-[combined receiving record](../../devtools/data/construction_native_owner_receiving_421_695_696_697_698_699_20261110.json).
+[combined receiving record](../../../devtools/data/construction_native_owner_receiving_421_695_696_697_698_699_20261110.json).
 
 This is additional exact-source receiving, not a causal repair or closure of
 #615. The original executing-cell, later pre-execution, cold-server and final
@@ -203,7 +211,7 @@ All three bounded snapshots are available and report two post-attempt idle
 kernels with zero connections after browser retirement. That is valid diagnostic
 receiving, not a causal explanation for the original executing-cell timeout.
 
-The [owner receipt](../../devtools/data/figure_context_owner_receiving_701_702_615_20261110.json)
+The [owner receipt](../../../devtools/data/figure_context_owner_receiving_701_702_615_20261110.json)
 retains the failed first campaign, exact generated-harness provenance, all three
 sanitized snapshots and the passing scoped follow-up. Actual native Wayland Qt
 receiving passes four reported steps with embedded stored-context checks.
@@ -315,7 +323,7 @@ Existing readiness, canvas and browser verdicts remain separate.
 
 ### Exact-source actual Jupyter receiving
 
-The [bounded receipt](../../devtools/data/initial_canvas_diagnostic_receiving_615_20261111.json)
+The [bounded receipt](../../../devtools/data/initial_canvas_diagnostic_receiving_615_20261111.json)
 records source `7ccb00b93` with all 2,581 published MolSysViewer `5164f13b`
 files verified against the earlier Git-object manifest. The generated test
 harness is identified separately. The first actual attempt fails before browser
@@ -368,7 +376,7 @@ the original captured values remain unchanged.
 
 ## Maintainer disposition — 2026-11-13
 
-The [completion packet](../pre_1_0_completion_handoffs_20261110.md#maintainer-audit-direction-for-615713--2026-11-13)
+The [completion packet](../../pre_1_0_completion_handoffs_20261110.md#maintainer-audit-direction-for-615713--2026-11-13)
 records the requested owner handoff. The earlier risk-acceptance proposal
 was not adopted. This issue remains blocked on uibcdf/molsysviewer#384;
 no causal repair, environmental attribution, acceptance or score change follows
@@ -378,7 +386,7 @@ from delegating its audit.
 
 The lead publishes its audit, original-data reinspection, separate #392 causal
 fix and normal/contended startup controls in immutable MolSysViewer `342e6309`.
-The [bounded owner review](../../devtools/data/initial_canvas_disposition_review_615_20261115.json)
+The [bounded owner review](../../../devtools/data/initial_canvas_disposition_review_615_20261115.json)
 verifies all three public Git blobs. The historical executing-cell timeout has
 no usable pre-deadline trace; neither a different fixture exception, #392 nor
 later successful draws establishes its cause.
@@ -401,7 +409,7 @@ controls. One actual fresh-Jupyter invocation receives all nine kernel stages,
 the expected 3,983-atom scene and a new draw 16.38 seconds after observed Run.
 Its frozen source/support composition and ipykernel 7.3.0 remain explicit.
 One page error matches the plain-Jupyter control; no zero-error claim follows.
-See the [source receipt](../../devtools/data/three_closeout_receiving_615_256_524_762_20261115.json).
+See the [source receipt](../../../devtools/data/three_closeout_receiving_615_256_524_762_20261115.json).
 
 This qualifies the repaired receiver on those inputs, not the final pair or
 historical causality. MolSysViewer's separate #396 kernel-communication study
@@ -415,7 +423,7 @@ checklist; principal acceptance of a disposition cannot replace that check.
 MolSysViewer `f6765f6c680b82f47de0ae94dcd459ac32a79138` publishes the
 preserved original environment supplement and its separate #396 provider
 study. All three public report blobs are verified in the same
-[bounded review](../../devtools/data/initial_canvas_disposition_review_615_20261115.json).
+[bounded review](../../../devtools/data/initial_canvas_disposition_review_615_20261115.json).
 The historical inventory reports ipykernel 7.3.0 and the neighbouring failure
 matches the original digest. This is associated distribution metadata, not
 an observation of the module loaded in that kernel or its missing transition.
@@ -433,7 +441,7 @@ startup receiving remain required; this supplement adds no progress credit.
 
 MolSysViewer `3aff1d48a5a38fb9854efe2c95a9a8f35cadbccb` publishes paired
 native-kernel and actual-Jupyter/TcTIM diagnostics under its lead #384.
-The [owner review](../../devtools/data/initial_canvas_disposition_review_615_20261115.json)
+The [owner review](../../../devtools/data/initial_canvas_disposition_review_615_20261115.json)
 verifies the public receipt's Git blob, all eight retained diagnostic-program
 hashes and all 28 listed original molecular-record hashes. Read-only inspection
 of the correlated request, recorded kernel version, transport timestamps,
@@ -507,7 +515,7 @@ package build or publication is requested by this agreement.
 ## Agreed normal-source startup received — 2026-11-15
 
 MolSysViewer `7d88b56a6514dc1509ae0cfb85bb77ca1b12c0c9` publishes normal
-control 928. The [owner review](../../devtools/data/initial_canvas_disposition_review_615_20261115.json)
+control 928. The [owner review](../../../devtools/data/initial_canvas_disposition_review_615_20261115.json)
 verifies the public Git blob, custody manifest and all 37 retained file hashes,
 then independently checks the actual kernel-origin record, nine correlated
 kernel stages, scene/draw observations and unchanged receiver source bytes.
@@ -535,3 +543,38 @@ retaining the original event's unproven exact cause. #615 remains open under
 the existing explicit decision; closure is not inferred from the agreement or
 this pass. Final exact-candidate/installed checks, controlled legacy-prefix
 adoption and publication retain their separate owners and gates.
+
+## Accepted technical resolution — 2026-11-15
+
+Diego explicitly directs closure after reviewing the joint recommendation and
+normal control 928. The supported Jupyter profile now requires
+`ipykernel>=7.4.0` in the actual notebook kernel. The development environment
+and public installation instructions declare that floor. Core production
+requirements remain unchanged; headless calculations do not acquire a kernel
+dependency. The shared legacy prefix is not modified: its controlled adoption
+remains owned by uibcdf/molsyssuite#200.
+
+The demonstrated shell-transport mechanism and the upstream correction,
+controlled 919/923 counterexamples and the received normal 928 startup support
+this technical resolution. They do not prove the missing transition in the
+original event. Its failure, empty late stack and uncertainty are retained.
+The final exact-candidate initial-scene guard, installed/platform qualification
+and publication decisions remain required under #334.
+
+The local guard `devtools/tests/test_jupyter_host_contract.py` semantically
+checks that the notebook route excludes affected older versions, admits the
+corrected minimum and keeps ipykernel out of core/headless requirements. It
+fails on the prior environment (one failed/one passed) and passes after the
+floor is added. The selected dependency/receiver cohort passes 135 cases,
+including existing missing/stale/late-draw counterexamples and Node controls.
+This is a declaration/receiver regression, not another molecular/browser run.
+The immutable normal-source startup receipt remains the live evidence for
+3,983 atoms and a fresh draw in 10.7884 seconds with loaded original 7.4.0.
+
+All fifteen offline fast gates, dependency audit, converter/index agreement,
+repository-wide Ruff lint/format and actual isolated installation-article HTML
+receiving pass. This selected rendering is not a new complete-site build.
+Same-run official Pytest Receptor events and JUnit agree on the original
+one-failure/one-pass baseline and corrected 135-pass cohort, without omissions
+or warnings. Three owned limited services are retired with original outcomes
+and evidence retained. No shared environment or molecular runtime is changed.

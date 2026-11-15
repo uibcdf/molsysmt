@@ -25,7 +25,7 @@ The maintainer explicitly chooses to keep #615 open and investigate the cause.
 The proposed closure with the historical cause unknown is not accepted; no
 approval of that proposal remains pending. MolSysViewer #384 keeps the lead,
 with MolSysMT's kernel-side support and blocked pre-pair tracker unchanged.
-The [owning report](pending_bugs/intermittent_jupyter_initial_canvas_timeout.md#maintainer-decision-continue-the-investigation--2026-11-15)
+The [owning report](archive/resolved_bugs/intermittent_jupyter_initial_canvas_timeout.md#maintainer-decision-continue-the-investigation--2026-11-15)
 specifies the next bounded evidence review and discriminating-control criteria.
 Later startup passes, the repaired #762 guard and the distinct #396 provider
 study are retained without substituting for that investigation. Original
@@ -165,7 +165,7 @@ The complete board intake also receives #746's bounded BindingSite facts/maps
 review; no new kernel or independent release prerequisite is established by
 that request. Retain its separate owner review after correctness fixes.
 
-The [initial-canvas report](pending_bugs/intermittent_jupyter_initial_canvas_timeout.md)
+The [initial-canvas report](archive/resolved_bugs/intermittent_jupyter_initial_canvas_timeout.md)
 and [fresh-process report](archive/resolved_bugs/fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md)
 own their evidence and acceptance. The
 [audit receipt](../devtools/data/import_stage_and_owner_audit_615_713_20261113.json)
@@ -352,7 +352,7 @@ publication acceptance is inferred.
 
 The format obligations remain owned by [#256's plan](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md).
 Dependency closure remains owned by [#524](pending_proposals/runtime_dependency_api_floors.md),
-and the uncertain startup stage by [#615](pending_bugs/intermittent_jupyter_initial_canvas_timeout.md).
+and the uncertain startup stage by [#615](archive/resolved_bugs/intermittent_jupyter_initial_canvas_timeout.md).
 
 ## External handoffs for maintainer coordination
 
@@ -461,7 +461,7 @@ migration paths. Mechanics visualization remains outside the receiving scope.
 
 **#615 ownership.** MolSysMT accepts the Analysis runner and matching notebook,
 kernel and server samples. Viewer owns the widget mount, scene registration and
-first new native draw observations. The [diagnostic disposition](pending_bugs/intermittent_jupyter_initial_canvas_timeout.md#joint-pre-timeout-capture-disposition--2026-11-10)
+first new native draw observations. The [diagnostic disposition](archive/resolved_bugs/intermittent_jupyter_initial_canvas_timeout.md#joint-pre-timeout-capture-disposition--2026-11-10)
 defines the bounded capture and verdict. Candidate selection, new qualification
 runs and publication remain paused.
 

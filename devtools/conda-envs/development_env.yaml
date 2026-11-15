@@ -44,6 +44,8 @@ dependencies:
 - pytest-xdist
 - ruff=0.16.5
 - jupyterlab
+# Corrected shell-message transport for notebook molecular visualization.
+- ipykernel>=7.4.0
 - sphinx
 - pydata-sphinx-theme
 - sphinxcontrib-bibtex

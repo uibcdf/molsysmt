@@ -46,7 +46,7 @@ promotions and publication remain paused pending the agreed resumption.**
 | Preserve completed #745 reader receiving | Source f9a44bf34 rejects malformed integral headers and checks numbered counts before enumeration. Valid encodings, unit policies and selected-layer limits survive. All 1,566 affected persistence cases/doctests, four strict HTML articles, fifteen local fast gates, indexes and Ruff pass. [Receipt](../devtools/data/h5msm_integer_metadata_receiving_745_20261113.json). This adds no schema or publication claim. |
 | Complete #256's stable-format decision | Development writers default to 1.0. Twelve new owner regressions on the three unchanged original 0.6 files pass through omitted-version native saves and whole-file migration under two unit policies. The [receipt](../devtools/data/three_closeout_receiving_615_256_524_762_20261115.json) preserves original data/producers and hashes. MolSysViewer receiving remains accepted in scope. BindingMT #73 has a renewed scheduling/evidence request; its independent default/migration response, format decision and exact installed acceptance remain pending. |
 | Follow the requested #615/#713 audit ownership | The maintainer assigns the #615 lead audit/resolution to MolSysViewer #384, with MolSysMT tracking it as a blocked pre-pair dependency. After reviewing MolSysMT's nonreproducing audit, he explicitly requests #713's closure. The [completion packet](pre_1_0_completion_handoffs_20261110.md#maintainer-closure-of-713--2026-11-13) records the bounded disposition; it does not accept #615's uncertainty or waive release gates. |
-| Continue #615's causal investigation | The maintainer explicitly chooses to keep #615 open; closure with the historical cause unknown is not accepted. MolSysViewer #384 retains the lead. The [review](../devtools/data/initial_canvas_disposition_review_615_20261115.json) records this decision and the [investigation plan](pending_bugs/intermittent_jupyter_initial_canvas_timeout.md#maintainer-decision-continue-the-investigation--2026-11-15) separates preparation, kernel/transport, bootstrap and native drawing. #762's repaired guard and passing controls do not resolve #615 or qualify the final pair. |
+| Preserve #615's accepted technical host-profile resolution | The maintainer authorizes closure after controlled 919/923 and normal 928 receiving. The development notebook environment requires ipykernel >=7.4.0, with public installation guidance and a semantic floor/core-optionality guard. The [archived record](archive/resolved_bugs/intermittent_jupyter_initial_canvas_timeout.md#accepted-technical-resolution--2026-11-15) preserves the original unknown exact cause and failed attempts. Final exact-pair startup, installed/platform qualification and shared-prefix adoption remain separate. |
 | Preserve #713's accepted closure and diagnostics | The maintainer explicitly accepts closure after the current audit. The diagnostic gap is corrected/tested, and all three actual import orders pass in the contextual full run (4.417–4.463 seconds). The [archived disposition](archive/resolved_bugs/fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md#accepted-closure--2026-11-13) preserves the unknown historical cause, original failures and unchanged stage/stack/deadline guards. #747/#748 and mandatory qualification remain separate. |
 | Preserve #746's finite owner offer, #750 correction and bounded client receiving | The [membership contract](native_binding_site_membership_contract.md) and owner regressions retain their source scope. BindingMT `7b11bab5` reports 18 membership and 18 selection-bounds cases passing on the actual `27ba3d4c8` source with its existing native `2dbcf13d`, plus 500 software controls per normal/pm-fs policy. Immutable published records and both guard blobs are inspected in the [client review](../devtools/data/binding_membership_client_review_746_20261114.json); private raw receipts are not received here. This receives finite exercised facts, not the actual pending `resolve_region`/C1 operation, the complete native ABI or #256's separate original-file migration/default profile. |
 | Receive #671 at the agreed matrix checkpoint | The original macOS/Python 3.12 Conda download failed before science or pytest. Its required provisioning/scientific/full-suite receiving belongs to the already mandated eight-cell corrected-source matrix; no extra matrix, local molecular repair or passing disposition is supplied by the Linux source checkpoint. |
@@ -65,6 +65,45 @@ have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
 
+## #615 accepted closeout and complete-board priority review — 2026-11-15
+
+The principal maintainer directs the agreed technical closure. The supported
+notebook environment and public installation guidance now require ipykernel
+>=7.4.0; no core dependency or shared prefix changes. The semantic guard fails
+on the old declaration and the corrected dependency/receiver cohort passes
+135 cases. Controlled and normal-source receipts retain their exact scope;
+no new GUI run or final-candidate acceptance is inferred. The original #615
+failure and unknown exact cause remain in the archived resolution.
+
+A complete paginated board review receives 682 non-PR issues, including
+95 open issues before this closure, and zero open PRs. Newly reported #763
+matches the current mmCIF entity-counter control flow by source inspection;
+its real-file reproductions are reporter evidence, not yet owner execution.
+It is the next admitted correctness investigation. The following priority
+order is a work proposal under #334, not ten new implementation requirements:
+
+| Priority | Issue | Finite next outcome |
+| --- | --- | --- |
+| 1 | #763 | Reproduce and repair mmCIF entity-index reuse with independent synthetic identity expectations and unchanged real-input receiving. |
+| 2 | #256 | Conclude stable H5MSM 1.0 semantics and the existing original-file/default-write/migration client exit; retain final installed acceptance. |
+| 3 | #524 | Agree and apply evidence-based host floors before freezing producers; qualify the actual compatible artifacts and minimum/newer installed closure. |
+| 4 | #421 | Finish the already offered toolbox's remaining final-pair/host/lifecycle receiving and experimental disclosures; no new scientific tools are added. |
+| 5 | #250 | Reconcile final interaction result/detector contracts and consumer acceptance, retaining method-specific experimental limits. |
+| 6 | #254 | Receive the existing independent ChemicalStates/native lifecycle/persistence contract on the final candidate. |
+| 7 | #671 | Obtain actual macOS/Python 3.12 provisioning, scientific and full-suite receiving at the agreed matrix checkpoint, preserving the original download failure. |
+| 8 | #475 | Review the pre-1.0 ECI dimensional/aggregation disposition; either verify primary evidence or explicitly retain experimental legacy semantics with owned later verification. |
+| 9 | #473 | Reconcile provisional ISA units, quantities and published limits; primary-paper certification is not invented or required solely to reach a count of closed issues. |
+| 10 | #334 | Complete exact-source/native/scientific/documentation/installed gates and hand off the qualified documentation for the maintainer's review. |
+
+#473/#475 already have accepted provisional experimental conventions. Reviewing
+them before the final scientific documentation pass does not automatically
+make original-paper access a new release blocker or authorize changed numeric
+values. Their unresolved primary-reference work can remain owned later debt
+when the documented supported scope is explicitly accepted. Post-1.0 course
+contract expansion #512, new detectors/parsers and optional performance work
+are not pulled forward to fill this list. The original weights and current
+candidate/hosted/tag/publication pause remain unchanged.
+
 ## Joint #615 recommendation, normal-source check received — 2026-11-15
 
 At the maintainer's request both teams agree that the demonstrated upstream
@@ -73,7 +112,7 @@ They recommend technical closure if one normal corrected-kernel TcTIM startup
 passes the original 3,983-atom/new-draw/30-second guard without the scheduling
 barrier. MolSysViewer owns that finite local check; MolSysMT will not duplicate
 it. Existing old-host controls and the 62-atom corrected-host Movie case do
-not substitute for it. The [owning agreement](pending_bugs/intermittent_jupyter_initial_canvas_timeout.md#joint-recommendation-requested-by-the-maintainer--2026-11-15)
+not substitute for it. The [owning agreement](archive/resolved_bugs/intermittent_jupyter_initial_canvas_timeout.md#joint-recommendation-requested-by-the-maintainer--2026-11-15)
 retains historical uncertainty and every final-candidate/installed gate.
 The later immutable `7d88b56a` normal control is now received: the original
 receiver observes all nine correlated kernel stages, 3,983 atoms and a new draw
@@ -1281,7 +1320,7 @@ decision remain due. #615's intermittent original failure remains open.
 The [contact panel source pilot](archive/resolved_bugs/contact_cutoff_equality_changes_across_equivalent_length_units.md#contact-panel-source-and-browser-receiving--2026-11-10)
 passes 264 Python and preflight cases and twelve cutoff decisions in Jupyter.
 Its local branch awaits the compatible PyUnitWizard publication and installed
-receiving. [The #615 diagnostic](pending_bugs/intermittent_jupyter_initial_canvas_timeout.md#owner-kernel-and-live-session-diagnostics-received--2026-11-10)
+receiving. [The #615 diagnostic](archive/resolved_bugs/intermittent_jupyter_initial_canvas_timeout.md#owner-kernel-and-live-session-diagnostics-received--2026-11-10)
 records the kernel and first native draw in the same attempt. The intermittent
 failure remains open. The [local H5MSM P6 reference](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#local-p6-provider-reference-ready--2026-11-10)
 passes six migration cases with the exact source and native binary for the

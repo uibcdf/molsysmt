@@ -164,6 +164,12 @@ Do not substitute a partial or single-platform run.
 
 ## Initial Jupyter scene receiving
 
+Use ipykernel >=7.4.0 in the actual selected notebook-kernel environment.
+This supported Jupyter profile adopts the corrected shell-message transport;
+it does not make ipykernel a core/headless dependency. The #615 technical
+resolution preserves the unknown exact historical cause and does not waive
+this final-pair receiving.
+
 The already agreed #615 final-pair startup requirement remains independent of
 its historical-investigation disposition. Receive the exact final candidate
 composition with its recorded source/runtime/native identities and execution

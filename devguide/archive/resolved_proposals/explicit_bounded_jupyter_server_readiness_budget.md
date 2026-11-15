@@ -44,7 +44,7 @@ the explicitly selected scale profile. Changing a preparation profile does
 not turn the earlier failed attempt green or establish #615 causality. No
 scientific assertion, browser/cell timeout or missing-canvas acceptance may
 be silently relaxed. The initial-canvas report remains separately owned by
-[the #615 investigation](../../pending_bugs/intermittent_jupyter_initial_canvas_timeout.md).
+[the #615 investigation](../resolved_bugs/intermittent_jupyter_initial_canvas_timeout.md).
 
 ## Plan disposition
 
