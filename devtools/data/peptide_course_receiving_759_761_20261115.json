@@ -1,0 +1,2048 @@
+{
+  "schema": "molsysmt.peptide-course-receiving@1",
+  "date": "2026-11-15",
+  "owner_issues": [
+    "uibcdf/molsysmt#759",
+    "uibcdf/molsysmt#760",
+    "uibcdf/molsysmt#761"
+  ],
+  "source_basis": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+  "scope": "Bounded documentation/source receiving on Linux/Python 3.14.7 with an existing frozen runtime; not an installed, full-suite, final-candidate, #615 cold-Jupyter or scientific-profile qualification.",
+  "executions": {
+    "baseline": {
+      "phase": "baseline",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual peptide course correction for #759; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "2.75 4.02 2.17 1/2723 2349837",
+        "cpu_pressure": "some avg10=0.00 avg60=7.22 avg300=11.91 total=20959622951\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n?? tests/documentation/test_peptide_synthesis_course.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/peptide-course-759-20261115/baseline.xml",
+        "--receptor-events=./.pytest_cache/peptide-course-759-20261115/baseline.events.jsonl",
+        "tests/documentation/test_peptide_synthesis_course.py"
+      ],
+      "checked_inputs": 8231,
+      "seconds": 12.751941051334143,
+      "ending_status": " M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n?? tests/documentation/test_peptide_synthesis_course.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 335302656,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17509437440,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27"
+    },
+    "corrected": {
+      "phase": "corrected",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual peptide course correction for #759; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.96 1.74 1.73 2/2718 2352363",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=3.32 total=20960022225\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_peptide_synthesis_course.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/peptide-course-759-20261115/corrected.xml",
+        "--receptor-events=./.pytest_cache/peptide-course-759-20261115/corrected.events.jsonl",
+        "tests/documentation/test_peptide_synthesis_course.py"
+      ],
+      "checked_inputs": 8232,
+      "seconds": 7.691503796726465,
+      "ending_status": " M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_peptide_synthesis_course.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 246022144,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17622642688,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27"
+    },
+    "corrected2": {
+      "phase": "corrected2",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual peptide course correction for #759; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.70 1.20 1.51 2/2706 2354119",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=1.47 total=20960318889\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_peptide_synthesis_course.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/peptide-course-759-20261115/corrected2.xml",
+        "--receptor-events=./.pytest_cache/peptide-course-759-20261115/corrected2.events.jsonl",
+        "tests/documentation/test_peptide_synthesis_course.py"
+      ],
+      "checked_inputs": 8232,
+      "seconds": 6.731078295968473,
+      "ending_status": " M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_peptide_synthesis_course.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 242561024,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17653882880,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27"
+    },
+    "contract-baseline": {
+      "phase": "contract-baseline",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual peptide course correction for #759; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.53 1.03 1.42 4/2737 2354996",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=1.05 total=20960422715\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n?? devguide/pending_bugs/docs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/peptide-course-759-20261115/contract-baseline.xml",
+        "--receptor-events=./.pytest_cache/peptide-course-759-20261115/contract-baseline.events.jsonl",
+        "tests/documentation/test_structure_scene_quartets.py"
+      ],
+      "checked_inputs": 8235,
+      "seconds": 6.74188984464854,
+      "ending_status": " M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n?? devguide/pending_bugs/docs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 215502848,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17620217856,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27"
+    },
+    "focused": {
+      "phase": "focused",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual peptide course correction for #759; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.69 0.99 1.37 2/2725 2355722",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.78 total=20960552207\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/README.md\n M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/pending_bugs/docs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/peptide-course-759-20261115/focused.xml",
+        "--receptor-events=./.pytest_cache/peptide-course-759-20261115/focused.events.jsonl",
+        "tests/documentation/test_structure_scene_quartets.py"
+      ],
+      "checked_inputs": 8235,
+      "seconds": 5.679856954608113,
+      "ending_status": " M devguide/pending_bugs/docs/README.md\n M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/pending_bugs/docs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 218370048,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17667592192,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27"
+    },
+    "expanded": {
+      "phase": "expanded",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual peptide course correction for #759; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.43 0.88 1.31 2/2723 2356289",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.65 total=20960630526\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/README.md\n M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/pending_bugs/docs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/_static/views/course_alzheimer_peptide_helix.html\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/peptide-course-759-20261115/expanded.xml",
+        "--receptor-events=./.pytest_cache/peptide-course-759-20261115/expanded.events.jsonl",
+        "tests/documentation/test_structure_scene_quartets.py",
+        "tests/documentation/test_peptide_synthesis_course.py"
+      ],
+      "checked_inputs": 8236,
+      "seconds": 7.737902935128659,
+      "ending_status": " M devguide/pending_bugs/docs/README.md\n M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/pending_bugs/docs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/_static/views/course_alzheimer_peptide_helix.html\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 274718720,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17591582720,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27"
+    },
+    "expanded2": {
+      "phase": "expanded2",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual peptide course correction for #759; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "2.70 1.48 1.48 3/2746 2357089",
+        "cpu_pressure": "some avg10=0.77 avg60=0.46 avg300=0.59 total=20961184683\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/README.md\n M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/pending_bugs/docs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/_static/views/course_alzheimer_peptide_helix.html\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/peptide-course-759-20261115/expanded2.xml",
+        "--receptor-events=./.pytest_cache/peptide-course-759-20261115/expanded2.events.jsonl",
+        "tests/documentation/test_structure_scene_quartets.py",
+        "tests/documentation/test_peptide_synthesis_course.py"
+      ],
+      "checked_inputs": 8236,
+      "seconds": 9.823936678934842,
+      "ending_status": " M devguide/pending_bugs/docs/README.md\n M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/pending_bugs/docs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/_static/views/course_alzheimer_peptide_helix.html\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 276668416,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17489760256,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27"
+    },
+    "cohort": {
+      "phase": "cohort",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual peptide course correction for #759; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.90 1.45 1.47 3/2749 2357949",
+        "cpu_pressure": "some avg10=0.00 avg60=0.06 avg300=0.39 total=20961376404\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/README.md\n M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/pending_bugs/docs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/_static/views/course_alzheimer_peptide_helix.html\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/peptide-course-759-20261115/cohort.xml",
+        "--receptor-events=./.pytest_cache/peptide-course-759-20261115/cohort.events.jsonl",
+        "tests/documentation/test_peptide_synthesis_course.py",
+        "tests/documentation/test_structure_scene_quartets.py",
+        "tests/documentation/test_conformational_engineering_course.py",
+        "tests/documentation/test_alzheimer_preparation_examples.py::test_candidate_cell_builds_caps_and_measured_extended_torsions",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_1",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_2",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_3",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_4"
+      ],
+      "checked_inputs": 8236,
+      "seconds": 21.34980770992115,
+      "ending_status": " M devguide/pending_bugs/docs/README.md\n M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/pending_bugs/docs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/_static/views/course_alzheimer_peptide_helix.html\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 340054016,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17042132992,
+      "maximum_memory_pressure_avg10": 0.18,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27"
+    },
+    "valid-baseline": {
+      "phase": "valid-baseline",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual peptide course correction for #759; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.80 1.36 1.44 2/2714 2360381",
+        "cpu_pressure": "some avg10=0.00 avg60=2.94 avg300=3.15 total=20975385054\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/README.md\n M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/pending_bugs/docs/copyright_footer_points_to_a_retired_relative_author_page.md\n?? devguide/pending_bugs/docs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/_static/views/course_alzheimer_peptide_helix.html\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_copyright_footer.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/peptide-course-759-20261115/valid-baseline.xml",
+        "--receptor-events=./.pytest_cache/peptide-course-759-20261115/valid-baseline.events.jsonl",
+        "tests/documentation/test_copyright_footer.py"
+      ],
+      "checked_inputs": 8238,
+      "seconds": 8.716180589981377,
+      "ending_status": " M devguide/pending_bugs/docs/README.md\n M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/pending_bugs/docs/copyright_footer_points_to_a_retired_relative_author_page.md\n?? devguide/pending_bugs/docs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/_static/views/course_alzheimer_peptide_helix.html\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_copyright_footer.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 194682880,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17839304704,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27"
+    },
+    "final-checks": {
+      "phase": "final-checks",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual peptide course correction for #759; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.84 1.29 1.41 2/2715 2360812",
+        "cpu_pressure": "some avg10=0.00 avg60=1.12 avg300=2.58 total=20975484985\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/README.md\n M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/_templates/copyright.html\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/pending_bugs/docs/copyright_footer_points_to_a_retired_relative_author_page.md\n?? devguide/pending_bugs/docs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/_static/views/course_alzheimer_peptide_helix.html\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_copyright_footer.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/peptide-course-759-20261115/final-checks.xml",
+        "--receptor-events=./.pytest_cache/peptide-course-759-20261115/final-checks.events.jsonl",
+        "tests/documentation/test_peptide_synthesis_course.py",
+        "tests/documentation/test_structure_scene_quartets.py",
+        "tests/documentation/test_conformational_engineering_course.py",
+        "tests/documentation/test_alzheimer_preparation_examples.py::test_candidate_cell_builds_caps_and_measured_extended_torsions",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_1",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_2",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_3",
+        "tests/build/build_peptide/test_build_peptide_molsysmt_MolSys.py::test_build_peptide_molsysmt_MolSys_4",
+        "tests/documentation/test_copyright_footer.py"
+      ],
+      "checked_inputs": 8238,
+      "seconds": 16.808894969988614,
+      "ending_status": " M devguide/pending_bugs/docs/README.md\n M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/_templates/copyright.html\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/pending_bugs/docs/copyright_footer_points_to_a_retired_relative_author_page.md\n?? devguide/pending_bugs/docs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/_static/views/course_alzheimer_peptide_helix.html\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_copyright_footer.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 367882240,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17341566976,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27"
+    },
+    "facts": {
+      "phase": "facts",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual peptide course correction for #759; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.58 1.01 1.41 5/2710 2355195",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.97 total=20960471022\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n?? devguide/pending_bugs/docs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "docs/generate_static_views/course_alzheimer_peptide.py",
+        "--output",
+        "./.pytest_cache/peptide-course-759-20261115/generated/_static/views/course_alzheimer_peptide_helix.html"
+      ],
+      "checked_inputs": 8235,
+      "seconds": 8.700765790883452,
+      "ending_status": " M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n?? devguide/pending_bugs/docs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 331448320,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17597116416,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27"
+    },
+    "lesson-corrected": {
+      "phase": "lesson-corrected",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "state": "completed",
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [
+        "docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb"
+      ],
+      "python": "<existing-development-environment>/bin/python",
+      "load": "2.70 1.48 1.48 3/2746 2357088",
+      "cpu_pressure": "some avg10=0.77 avg60=0.46 avg300=0.59 total=20961184681\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4905,
+      "seconds": 15.009012581780553,
+      "notebooks": [
+        {
+          "path": "docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb",
+          "code_cells": 7,
+          "content_unchanged": true,
+          "executed_cells": 7,
+          "error_outputs": [],
+          "sha256": "6f2592bf458e6e29510fa9f3115176b7c93b9a9cefc53f99820e241a924b81f4",
+          "run_mark": {
+            "code_sha256": "5db5d3b14ded8b9a9e496871511f56dd7fe885a85da2f3fc4af9b9657a0997e4",
+            "executed_at": "2026-11-15T06:47:49+00:00"
+          },
+          "log_sha256": "33448dc1216532a63ee4261f6b520773a63849bebc9dc08f9d4b3e23385d483f"
+        }
+      ],
+      "changed_inputs": [],
+      "memory_peak_bytes": 411295744,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17490968576,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "4433c3ca3b91029c8e382bbebd94a739e02ea5c00da86f4eb748ec5707eba3fa"
+    },
+    "render": {
+      "phase": "render",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "scope": "Fresh strict full Sphinx build of the executed notebooks and current actual configuration. Notebook execution was received separately. No browser, installed, final-candidate or scientific-profile qualification.",
+      "state": "completed",
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "sphinx",
+        "-W",
+        "--keep-going",
+        "-E",
+        "-a",
+        "-b",
+        "html",
+        "-q",
+        "-j",
+        "1",
+        "docs",
+        "./.pytest_cache/peptide-course-759-20261115/html"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [],
+      "python": "<existing-development-environment>/bin/python",
+      "load": "1.47 1.36 1.44 2/2742 2357595",
+      "cpu_pressure": "some avg10=0.00 avg60=0.17 avg300=0.47 total=20961318657\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 7131,
+      "seconds": 151.07924521388486,
+      "notebooks": [],
+      "changed_inputs": [],
+      "memory_peak_bytes": 1358499840,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17041424384,
+      "maximum_memory_pressure_avg10": 0.18,
+      "stop_reason": null,
+      "driver_sha256": "448a9a362e9958ed72adfd17123d663c307afc675d583864a0b6e4d39b1a522f"
+    },
+    "receiving": {
+      "phase": "receiving",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual peptide course correction for #759; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.92 1.30 1.41 2/2720 2358939",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.21 total=20961543538\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/README.md\n M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/pending_bugs/docs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/_static/views/course_alzheimer_peptide_helix.html\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        ".pytest_cache/peptide-course-759-20261115/browser.py"
+      ],
+      "checked_inputs": 8236,
+      "seconds": 35.82840987294912,
+      "ending_status": " M devguide/pending_bugs/docs/README.md\n M devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/pending_bugs/docs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/_static/views/course_alzheimer_peptide_helix.html\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 623009792,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17418874880,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27"
+    },
+    "render-footer": {
+      "phase": "render-footer",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "scope": "Fresh strict full Sphinx build of the executed notebooks and current actual configuration. Notebook execution was received separately. No browser, installed, final-candidate or scientific-profile qualification.",
+      "state": "completed",
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "sphinx",
+        "-W",
+        "--keep-going",
+        "-E",
+        "-a",
+        "-b",
+        "html",
+        "-q",
+        "-j",
+        "1",
+        "docs",
+        "./.pytest_cache/peptide-course-759-20261115/html"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [],
+      "python": "<existing-development-environment>/bin/python",
+      "load": "0.84 1.29 1.41 2/2716 2360812",
+      "cpu_pressure": "some avg10=0.00 avg60=1.12 avg300=2.58 total=20975484985\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 7131,
+      "seconds": 150.07748282700777,
+      "notebooks": [],
+      "changed_inputs": [],
+      "memory_peak_bytes": 1337790464,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17333784576,
+      "maximum_memory_pressure_avg10": 1.63,
+      "stop_reason": null,
+      "driver_sha256": "448a9a362e9958ed72adfd17123d663c307afc675d583864a0b6e4d39b1a522f"
+    },
+    "articles": {
+      "phase": "articles",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual peptide course correction for #759; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.76 1.17 1.35 1/2723 2362710",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.99 total=20975804185\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/README.md\n D devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/_templates/copyright.html\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/archive/resolved_bugs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n?? devguide/archive/resolved_bugs/copyright_footer_points_to_a_retired_relative_author_page.md\n?? devguide/archive/resolved_bugs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/_static/views/course_alzheimer_peptide_helix.html\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_copyright_footer.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        ".pytest_cache/peptide-course-759-20261115/article_receive.py"
+      ],
+      "checked_inputs": 8238,
+      "seconds": 2.68467635801062,
+      "ending_status": " M devguide/pending_bugs/docs/README.md\n D devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/_templates/copyright.html\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/archive/resolved_bugs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n?? devguide/archive/resolved_bugs/copyright_footer_points_to_a_retired_relative_author_page.md\n?? devguide/archive/resolved_bugs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/_static/views/course_alzheimer_peptide_helix.html\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_copyright_footer.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 103133184,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18182197248,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27"
+    },
+    "articles-corrected": {
+      "phase": "articles-corrected",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual peptide course correction for #759; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.80 1.06 1.28 5/2716 2363556",
+        "cpu_pressure": "some avg10=0.01 avg60=0.02 avg300=0.61 total=20976019452\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/README.md\n D devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/_templates/copyright.html\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/archive/resolved_bugs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n?? devguide/archive/resolved_bugs/copyright_footer_points_to_a_retired_relative_author_page.md\n?? devguide/archive/resolved_bugs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/_static/views/course_alzheimer_peptide_helix.html\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_copyright_footer.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        ".pytest_cache/peptide-course-759-20261115/article_receive.py"
+      ],
+      "checked_inputs": 8238,
+      "seconds": 16.70458112610504,
+      "ending_status": " M devguide/pending_bugs/docs/README.md\n D devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M docs/_templates/copyright.html\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/archive/resolved_bugs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n?? devguide/archive/resolved_bugs/copyright_footer_points_to_a_retired_relative_author_page.md\n?? devguide/archive/resolved_bugs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? docs/_static/views/course_alzheimer_peptide_helix.html\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_copyright_footer.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 31473664,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18077192192,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "ad5e5a9ac9be00d985118561514042747bc5de203098ceba82010b5ca86fdf9c"
+    },
+    "lesson-alternate": {
+      "phase": "lesson-alternate",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "state": "completed",
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "./.pytest_cache/peptide-course-759-20261115/alternate/docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [
+        "./.pytest_cache/peptide-course-759-20261115/alternate/docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb"
+      ],
+      "python": "<existing-development-environment>/bin/python",
+      "load": "0.65 1.06 1.29 2/2698 2363264",
+      "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.70 total=20975947096\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4905,
+      "seconds": 20.010906472802162,
+      "notebooks": [
+        {
+          "path": "./.pytest_cache/peptide-course-759-20261115/alternate/docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb",
+          "code_cells": 7,
+          "content_unchanged": true,
+          "executed_cells": 7,
+          "error_outputs": [],
+          "sha256": "1be0efe43bf65cb0b53d94b8b051a8394e3f4bf46d9f02103a8f1e39f4c571b4",
+          "run_mark": {
+            "code_sha256": "5db5d3b14ded8b9a9e496871511f56dd7fe885a85da2f3fc4af9b9657a0997e4",
+            "executed_at": "2026-11-15T07:02:34+00:00"
+          },
+          "log_sha256": "9858e2bd7332c317ae881e5603bb48e0283904551feace91b1dc9e047e1a812d"
+        }
+      ],
+      "changed_inputs": [],
+      "memory_peak_bytes": 474681344,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17767903232,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "921e2bab270b5c7ee32addcce751cbf97dbd576a80a7db643a4e3c79c5dcd0de"
+    },
+    "lesson-policy": {
+      "phase": "lesson-policy",
+      "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "state": "completed",
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "./.pytest_cache/peptide-course-759-20261115/alternate/docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [
+        "./.pytest_cache/peptide-course-759-20261115/alternate/docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb"
+      ],
+      "python": "<existing-development-environment>/bin/python",
+      "load": "0.31 0.81 1.16 1/2729 2364275",
+      "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.40 total=20976167666\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4905,
+      "seconds": 9.004918891005218,
+      "notebooks": [
+        {
+          "path": "./.pytest_cache/peptide-course-759-20261115/alternate/docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb",
+          "code_cells": 7,
+          "content_unchanged": true,
+          "executed_cells": 7,
+          "error_outputs": [],
+          "sha256": "81bcf6ba6d694075dc1a39d1da4e41516ee6441a0d667b52aea3e239255c8957",
+          "run_mark": {
+            "code_sha256": "5db5d3b14ded8b9a9e496871511f56dd7fe885a85da2f3fc4af9b9657a0997e4",
+            "executed_at": "2026-11-15T07:04:58+00:00"
+          },
+          "log_sha256": "9858e2bd7332c317ae881e5603bb48e0283904551feace91b1dc9e047e1a812d"
+        }
+      ],
+      "changed_inputs": [],
+      "memory_peak_bytes": 394285056,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17779945472,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "94e4ad7fcc30d751b9c728b75f89311de7bd93886b9c34eb40e434741c2e203e"
+    }
+  },
+  "pytest_receiving": {
+    "baseline": {
+      "complete": true,
+      "outcome": "FAIL",
+      "counts": {
+        "collected": 4,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 4,
+        "failed": 4,
+        "not_executed": 0,
+        "passed": 0,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 0,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "junit_reconciled": true,
+      "producer": "published Pytest Receptor 1.2.1"
+    },
+    "corrected": {
+      "complete": true,
+      "outcome": "FAIL",
+      "counts": {
+        "collected": 4,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 4,
+        "failed": 2,
+        "not_executed": 0,
+        "passed": 2,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 0,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "junit_reconciled": true,
+      "producer": "published Pytest Receptor 1.2.1"
+    },
+    "corrected2": {
+      "complete": true,
+      "outcome": "PASS",
+      "counts": {
+        "collected": 4,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 4,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 4,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 0,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "junit_reconciled": true,
+      "producer": "published Pytest Receptor 1.2.1"
+    },
+    "contract-baseline": {
+      "complete": true,
+      "outcome": "FAIL",
+      "counts": {
+        "collected": 2,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 2,
+        "failed": 2,
+        "not_executed": 0,
+        "passed": 0,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 2,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "junit_reconciled": true,
+      "producer": "published Pytest Receptor 1.2.1"
+    },
+    "focused": {
+      "complete": true,
+      "outcome": "FAIL",
+      "counts": {
+        "collected": 2,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 2,
+        "failed": 2,
+        "not_executed": 0,
+        "passed": 0,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 2,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "junit_reconciled": true,
+      "producer": "published Pytest Receptor 1.2.1"
+    },
+    "expanded": {
+      "complete": true,
+      "outcome": "FAIL",
+      "counts": {
+        "collected": 8,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 8,
+        "failed": 1,
+        "not_executed": 0,
+        "passed": 7,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 2,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "junit_reconciled": true,
+      "producer": "published Pytest Receptor 1.2.1"
+    },
+    "expanded2": {
+      "complete": true,
+      "outcome": "PASS",
+      "counts": {
+        "collected": 8,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 8,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 8,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 2,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "junit_reconciled": true,
+      "producer": "published Pytest Receptor 1.2.1"
+    },
+    "cohort": {
+      "complete": true,
+      "outcome": "PASS",
+      "counts": {
+        "collected": 22,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 22,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 22,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 4,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "junit_reconciled": true,
+      "producer": "published Pytest Receptor 1.2.1"
+    },
+    "valid-baseline": {
+      "complete": true,
+      "outcome": "FAIL",
+      "counts": {
+        "collected": 1,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 1,
+        "failed": 1,
+        "not_executed": 0,
+        "passed": 0,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 0,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "junit_reconciled": true,
+      "producer": "published Pytest Receptor 1.2.1"
+    },
+    "final-checks": {
+      "complete": true,
+      "outcome": "PASS",
+      "counts": {
+        "collected": 23,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 23,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 23,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 4,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "junit_reconciled": true,
+      "producer": "published Pytest Receptor 1.2.1"
+    }
+  },
+  "notebook": {
+    "path": "docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb",
+    "code_cells": 7,
+    "content_unchanged": true,
+    "executed_cells": 7,
+    "error_outputs": [],
+    "sha256": "6f2592bf458e6e29510fa9f3115176b7c93b9a9cefc53f99820e241a924b81f4",
+    "run_mark": {
+      "code_sha256": "5db5d3b14ded8b9a9e496871511f56dd7fe885a85da2f3fc4af9b9657a0997e4",
+      "executed_at": "2026-11-15T06:47:49+00:00"
+    },
+    "log_sha256": "33448dc1216532a63ee4261f6b520773a63849bebc9dc08f9d4b3e23385d483f"
+  },
+  "actual_kernel_runtime": {
+    "python": "<existing-development-environment>/bin/python",
+    "cwd": "./.pytest_cache/peptide-course-759-20261115/source/docs/content/course/Path_Alzheimer",
+    "loaded_modules": {
+      "molsysmt": {
+        "file": "./.pytest_cache/peptide-course-759-20261115/source/molsysmt/__init__.py",
+        "version": "0+unknown"
+      },
+      "molsysviewer": {
+        "file": "./.pytest_cache/pre1-review-20261110/viewer-5164f13b-ready-source/molsysviewer/__init__.py",
+        "version": "0.24.0+97.gdf4bf477.dirty"
+      },
+      "pyunitwizard": {
+        "file": "./.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+        "version": "0.29.2"
+      },
+      "argdigest": {
+        "file": "./.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+        "version": "0.15.0"
+      },
+      "depdigest": {
+        "file": "./.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+        "version": "0.15.1"
+      },
+      "smonitor": {
+        "file": "./.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+        "version": "0.21.0"
+      },
+      "numpy": {
+        "file": "<existing-development-environment>/lib/python3.14/site-packages/numpy/__init__.py",
+        "version": "2.4.6"
+      },
+      "pandas": {
+        "file": "<existing-development-environment>/lib/python3.14/site-packages/pandas/__init__.py",
+        "version": "2.3.3"
+      }
+    }
+  },
+  "initial_alternate_kernel_runtime": {
+    "python": "<existing-development-environment>/bin/python",
+    "cwd": "./.pytest_cache/peptide-course-759-20261115/alternate/docs/content/course/Path_Alzheimer",
+    "loaded_modules": {
+      "molsysmt": {
+        "file": "./.pytest_cache/peptide-course-759-20261115/source/molsysmt/__init__.py",
+        "version": "0+unknown"
+      },
+      "molsysviewer": {
+        "file": "./.pytest_cache/pre1-review-20261110/viewer-5164f13b-ready-source/molsysviewer/__init__.py",
+        "version": "0.24.0+97.gdf4bf477.dirty"
+      },
+      "pyunitwizard": {
+        "file": "./.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+        "version": "0.29.2"
+      },
+      "argdigest": {
+        "file": "./.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+        "version": "0.15.0"
+      },
+      "depdigest": {
+        "file": "./.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+        "version": "0.15.1"
+      },
+      "smonitor": {
+        "file": "./.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+        "version": "0.21.0"
+      },
+      "numpy": {
+        "file": "<existing-development-environment>/lib/python3.14/site-packages/numpy/__init__.py",
+        "version": "2.4.6"
+      },
+      "pandas": {
+        "file": "<existing-development-environment>/lib/python3.14/site-packages/pandas/__init__.py",
+        "version": "2.3.3"
+      }
+    },
+    "declared_application_policy": "[\"pm\",\"fs\",\"degrees\"]",
+    "coordinate_unit": "nanometer"
+  },
+  "alternate_kernel_runtime": {
+    "python": "<existing-development-environment>/bin/python",
+    "cwd": "./.pytest_cache/peptide-course-759-20261115/alternate/docs/content/course/Path_Alzheimer",
+    "loaded_modules": {
+      "molsysmt": {
+        "file": "./.pytest_cache/peptide-course-759-20261115/source/molsysmt/__init__.py",
+        "version": "0+unknown"
+      },
+      "molsysviewer": {
+        "file": "./.pytest_cache/pre1-review-20261110/viewer-5164f13b-ready-source/molsysviewer/__init__.py",
+        "version": "0.24.0+97.gdf4bf477.dirty"
+      },
+      "pyunitwizard": {
+        "file": "./.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+        "version": "0.29.2"
+      },
+      "argdigest": {
+        "file": "./.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+        "version": "0.15.0"
+      },
+      "depdigest": {
+        "file": "./.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+        "version": "0.15.1"
+      },
+      "smonitor": {
+        "file": "./.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+        "version": "0.21.0"
+      },
+      "numpy": {
+        "file": "<existing-development-environment>/lib/python3.14/site-packages/numpy/__init__.py",
+        "version": "2.4.6"
+      },
+      "pandas": {
+        "file": "<existing-development-environment>/lib/python3.14/site-packages/pandas/__init__.py",
+        "version": "2.3.3"
+      }
+    },
+    "declared_application_policy": "[\"pm\",\"fs\",\"degrees\"]",
+    "measured_phi_unit": "degree",
+    "coordinate_unit": "nanometer"
+  },
+  "actual_scene_browser": {
+    "scope": "Local saved documentation scene only; not #615 prolonged Jupyter or installed-pair qualification.",
+    "errors": [],
+    "failedRequests": [
+      {
+        "url": "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js",
+        "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js",
+        "error": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      }
+    ],
+    "scene": {
+      "atomCount": 109,
+      "maxDifferenceAngstroms": 4.5939301962505397e-07,
+      "canvas": [
+        691,
+        480
+      ],
+      "camera": {
+        "mode": "perspective",
+        "fov": 0.7853981633974483,
+        "position": [
+          4.2865196160220265,
+          2.2436884858934985,
+          29.349798816662876
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "target": [
+          4.2865196160220265,
+          2.2436884858934985,
+          2.276229376343116
+        ],
+        "radius": 10.360606479796168,
+        "radiusMax": 10.360606479796168,
+        "fog": 15,
+        "clipFar": true,
+        "minNear": 1,
+        "minFar": 0
+      },
+      "url": "http://127.0.0.1:36737/molsysmt/_static/views/course_alzheimer_peptide_helix.html"
+    },
+    "article": {
+      "title": "Path A - Module 24: Peptide Synthesis \u2013 MolSysMT 0",
+      "url": "http://127.0.0.1:36737/molsysmt/content/course/Path_Alzheimer/24_Peptide_Synthesis.html",
+      "iframe": "../../../_static/views/course_alzheimer_peptide_helix.html"
+    },
+    "passed": true
+  },
+  "actual_html_receiving": {
+    "article": "html/content/course/Path_Alzheimer/24_Peptide_Synthesis.html",
+    "article_sha256": "82a801328035176bb78aed99d28abe3822714286b3d3630ef02a81b3484a9cc7",
+    "html_pages": 1401,
+    "iframe": "../../../_static/views/course_alzheimer_peptide_helix.html",
+    "scene_sha256": "df775e43f63f2ba513a89663b5eeb4b20e4ff385652e887661da2602e49145a6",
+    "runtime_sha256": "11bf63f596cb9e2454c6ba4886387339b6c5f8a918adf0ae78e0733401e95735",
+    "received_local_html_links": 607,
+    "all_article_local_html_targets_and_fragments_exist": true,
+    "hidden_target_assignment_not_published": true,
+    "received_authors_links": 713,
+    "footer_depth_examples": [
+      {
+        "document": "index.html",
+        "href": "content/about/who.html"
+      },
+      {
+        "document": "content/course/Path_Alzheimer/24_Peptide_Synthesis.html",
+        "href": "../../about/who.html"
+      }
+    ]
+  },
+  "scientific_boundary": {
+    "sequence": "KLVFF",
+    "capped_sequence": "AceLysLeuValPhePheNme",
+    "capped_atoms": 109,
+    "capped_groups": [
+      "ACE",
+      "LYS",
+      "LEU",
+      "VAL",
+      "PHE",
+      "PHE",
+      "NME"
+    ],
+    "returned_quartets": {
+      "phi": 5,
+      "psi": 5,
+      "omega": 5
+    },
+    "declared_targets_degrees": {
+      "phi": -60,
+      "psi": -45,
+      "omega": 180
+    },
+    "independent_guards": "Signed NumPy torsions modulo branch cut, cap connectivity, source independence and all bond lengths; scene coordinates and atom/group axes under nm/ps and pm/fs policies.",
+    "coordinate_tolerance_angstroms": 5e-07,
+    "limits": "Declared initial geometry on returned quartets; not a complete chemical-state preparation, predicted stable helix, force-field minimum, binding or therapeutic result."
+  },
+  "negative_and_precondition_dispositions": {
+    "baseline": "All four original actual-cell cases reject unsupported capping/conformation keywords.",
+    "corrected": "Two authored guards assumed six omega quartets. Actual named selector returns five; independent target/bond tests remain.",
+    "contract-baseline": "Both real structure-generator statements fail at retired topology namespace.",
+    "focused": "Authored atom_name oracle omitted element=atom. Public validation correctly rejects it; corrected explicit axis.",
+    "expanded": "One cross-policy scene comparison exceeded an unjustified 1e-10 angstrom tolerance; maximum difference 1.04991547e-7 angstrom. Explicit tolerance remains below 5e-8 nm, while independent torsion/bond guards stay unchanged.",
+    "alternate_policy_receiving": "Two complete alternate kernels pass. The later explicit application-configuration run also records measured phi in degrees. Stored native coordinates remain nanometers by contract; that storage unit does not indicate loss of application policy.",
+    "lesson_start": {
+      "native_exit": 2,
+      "scope": "Operator started the notebook service before its isolated-source setup completed; no scientific cell ran. Fresh invocation required.",
+      "unit": "msm-peptide-course-759-lesson-20261115.service"
+    },
+    "authored_article_probe": "Initial global footer receiver incorrectly treated the author page self-link # as a directory. Resolve empty paths to the current document; no production or expectation relaxation for other pages.",
+    "global_link_probe": "Original complete build passed but the rendered footer linked to retired contents/about/who.html. Original failed global-link probe and real focused guard lead to #761; final full-site link receiving passes.",
+    "valid-baseline": "Real Sphinx/PyData footer regression fails on the original author route.",
+    "warnings": "Final cohort retains two bundled H5MSM 0.4 deprecation warnings and two existing terminal-cap atoms_ff-drop warnings; zero skips.",
+    "browser_external_requests": "Two pre-existing legacy require.js/nglview CDN scripts are deliberately blocked; the peptide scene loads solely local viewer.js, with zero page errors."
+  },
+  "support_and_attribution_boundary": "No dependency/provider API or scientific attribution boundary changes. Existing public validated builder, chemical-state and geometry paths are reused. Only documentation orchestration and regression helpers are new.",
+  "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "existing_structure_exports_unchanged": true,
+  "screenshot_inspected": true,
+  "original_weighted_progress_change": 0,
+  "lead_audit_review": {
+    "issue": "uibcdf/molsysviewer#384",
+    "date": "2026-11-15",
+    "state": "open",
+    "complete_comment_count": 1,
+    "latest_comment_id": 6885057522,
+    "disposition": "No lead reply beyond the already delivered MolSysMT coordination request; static-scene receiving does not resolve #615."
+  },
+  "publication": "New candidate construction, hosted qualification, tags, promotions and publication remain paused; no artifact is produced or dependency installed.",
+  "quality_checks": {
+    "passed": true,
+    "commands": [
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "seconds": 36.54756481805816,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.5s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                       13.6s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.3s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.4s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.0s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.4s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   1.9s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.5s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.1s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       7.2s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/generate_converter_arguments.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 9.33134222496301,
+        "stdout": "OK: the committed table matches the converters.\nTarget forms: 96 | keywords per target: min 6, max 23, mean 10.3\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.09762299293652177,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.23028544196859002,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.10174448974430561,
+        "stdout": "4740 files already formatted\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.023628917057067156,
+        "stdout": "",
+        "stderr": ""
+      }
+    ]
+  },
+  "quality_execution": {
+    "phase": "checks",
+    "source_commit": "1b3b16191f6a916dccaaa21b26b4b16f480ce970",
+    "state": "completed",
+    "native_exit": 0,
+    "host_reserve_bytes": 6979321856,
+    "scope": "Receive actual peptide course correction for #759; no installed or final-pair qualification.",
+    "host_cpu_at_admission": {
+      "load": "0.47 0.63 1.03 3/2748 2365629",
+      "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.21 total=20976370597\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "online_cpus": 20
+    },
+    "starting_status": " M devguide/pending_bugs/docs/README.md\n D devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M devguide/release_1_0_status.md\n M docs/_templates/copyright.html\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/archive/resolved_bugs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n?? devguide/archive/resolved_bugs/copyright_footer_points_to_a_retired_relative_author_page.md\n?? devguide/archive/resolved_bugs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? devtools/data/peptide_course_receiving_759_761_20261115.json\n?? docs/_static/views/course_alzheimer_peptide_helix.html\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_copyright_footer.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "2147483648",
+      "memory.high": "1887436800",
+      "memory.swap.max": "0",
+      "pids.max": "256"
+    },
+    "command": [
+      "<existing-development-environment>/bin/python",
+      ".pytest_cache/peptide-course-759-20261115/quality.py"
+    ],
+    "checked_inputs": 8239,
+    "seconds": 48.75366602698341,
+    "ending_status": " M devguide/pending_bugs/docs/README.md\n D devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n M devguide/release_1_0_status.md\n M docs/_templates/copyright.html\n M docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb\n M docs/generate_static_views/tools_structure.py\n?? devguide/archive/resolved_bugs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n?? devguide/archive/resolved_bugs/copyright_footer_points_to_a_retired_relative_author_page.md\n?? devguide/archive/resolved_bugs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md\n?? devtools/data/peptide_course_receiving_759_761_20261115.json\n?? docs/_static/views/course_alzheimer_peptide_helix.html\n?? docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md\n?? docs/generate_static_views/course_alzheimer_peptide.py\n?? tests/documentation/test_copyright_footer.py\n?? tests/documentation/test_peptide_synthesis_course.py\n?? tests/documentation/test_structure_scene_quartets.py\n",
+    "changed_inputs": [],
+    "memory_peak_bytes": 493449216,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 17537769472,
+    "maximum_memory_pressure_avg10": 0.0,
+    "pressure_transitions": [],
+    "stop_reason": null,
+    "driver_sha256": "ad5e5a9ac9be00d985118561514042747bc5de203098ceba82010b5ca86fdf9c"
+  },
+  "owned_service_retirement": {
+    "scope": "Only these 21 known owned completed services. Original native and failed invocations remain in their receipts. No foreign process or service is modified.",
+    "retired": 21,
+    "units": [
+      {
+        "unit": "msm-peptide-course-759-baseline-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-corrected-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-corrected2-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-contract-baseline-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-facts-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-focused-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-expanded-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-lesson-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "2"
+        },
+        "after": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "2"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-lesson-corrected-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-expanded2-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-render-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-cohort-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-receiving-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-footer-baseline-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-render-footer-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-final-checks-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-articles-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-lesson-alternate-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-articles-corrected-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-lesson-policy-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        }
+      },
+      {
+        "unit": "msm-peptide-course-759-quality-20261115.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        }
+      }
+    ]
+  },
+  "retained_evidence_sha256": {
+    ".pytest_cache/peptide-course-759-20261115/archive-link-receiving.json": "1c62cb0ba66db6256c4611d1a339af1390ec9981f3e709c979c72866eb7060fa",
+    ".pytest_cache/peptide-course-759-20261115/article-receiving.json": "fffb1f30c610a0b32a9bf465f341f60290323616003987c05d0e0dbcdf0b2ba5",
+    ".pytest_cache/peptide-course-759-20261115/article_receive.py": "3e6ccba767b56304427de9d40bc47cd6629adda514448c030eb236adb7b0b376",
+    ".pytest_cache/peptide-course-759-20261115/articles-corrected-driver.py": "ad5e5a9ac9be00d985118561514042747bc5de203098ceba82010b5ca86fdf9c",
+    ".pytest_cache/peptide-course-759-20261115/articles-corrected-execution.json": "d9a7055b5002fe45f916926d49dffc657a7a367541991be24087a51dfdc6bf6d",
+    ".pytest_cache/peptide-course-759-20261115/articles-corrected-inputs-after.json": "feefef5bf5e732a0ceff1bce3cca26542254ac581fe9e93acc476868b04740a2",
+    ".pytest_cache/peptide-course-759-20261115/articles-corrected-inputs-before.json": "feefef5bf5e732a0ceff1bce3cca26542254ac581fe9e93acc476868b04740a2",
+    ".pytest_cache/peptide-course-759-20261115/articles-corrected.log": "6b04abb5b057523c3919c2e4092ea158dabaa8b24d2c92a99835666d910b4e19",
+    ".pytest_cache/peptide-course-759-20261115/articles-driver.py": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27",
+    ".pytest_cache/peptide-course-759-20261115/articles-execution.json": "3af20492b4b1a6c65012c7123730da700d5c9ec20ea9001c6f76c86c90d51ea6",
+    ".pytest_cache/peptide-course-759-20261115/articles-inputs-after.json": "feefef5bf5e732a0ceff1bce3cca26542254ac581fe9e93acc476868b04740a2",
+    ".pytest_cache/peptide-course-759-20261115/articles-inputs-before.json": "feefef5bf5e732a0ceff1bce3cca26542254ac581fe9e93acc476868b04740a2",
+    ".pytest_cache/peptide-course-759-20261115/articles.log": "7bab8cc3cfb87d27a9335805660429457bb77cfcf6176102f2f154aba65102a5",
+    ".pytest_cache/peptide-course-759-20261115/baseline-driver.py": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27",
+    ".pytest_cache/peptide-course-759-20261115/baseline-execution.json": "0d401a1fa53304523424bff6b3ce7bf19089e349aa0fcccc1d897a22bfb99a1d",
+    ".pytest_cache/peptide-course-759-20261115/baseline-inputs-after.json": "81e4b6c5db94f4d37c41f3a83591f5ae9b3e4d4319f9a4e72b5c44fb3015983a",
+    ".pytest_cache/peptide-course-759-20261115/baseline-inputs-before.json": "81e4b6c5db94f4d37c41f3a83591f5ae9b3e4d4319f9a4e72b5c44fb3015983a",
+    ".pytest_cache/peptide-course-759-20261115/baseline.events.jsonl": "f18ecc3158917bb9f58974bf17d4d9e0ca7d8f22459f1433c6d760a239a5b2ff",
+    ".pytest_cache/peptide-course-759-20261115/baseline.log": "015b031386e42080fafcf121262ba46322b13c3f7bf3ce0e67e922cc7fdc990a",
+    ".pytest_cache/peptide-course-759-20261115/baseline.xml": "63cf9dc7e3adc9bb8e1f11d5fd020a66272d695be4cfe2ec164a4560dd1507ca",
+    ".pytest_cache/peptide-course-759-20261115/batches.json": "d4d78f96eee9623bbae21fa9cdac0f304f554e92355cd57c7ca1a97b3e46f905",
+    ".pytest_cache/peptide-course-759-20261115/board-before.json": "c3e77389576786e33f091dda7a7b2fc4d71c74c4fa06874a6b0b8c82656e2f92",
+    ".pytest_cache/peptide-course-759-20261115/browser-result.json": "6508adfe65ad0e76c8957205a6d1a06b88faffa5464fe71e005d7938b663b4d7",
+    ".pytest_cache/peptide-course-759-20261115/browser.mjs": "6dec7f207e00246d5d5a4cb6972023e1730906c5fb4520aac284043c88e75955",
+    ".pytest_cache/peptide-course-759-20261115/browser.py": "89e89a71895ce7106a96a795ce74ecf8896e76de49a45eadbce1aae6afe19185",
+    ".pytest_cache/peptide-course-759-20261115/check_driver.py": "ad5e5a9ac9be00d985118561514042747bc5de203098ceba82010b5ca86fdf9c",
+    ".pytest_cache/peptide-course-759-20261115/checks-driver.py": "ad5e5a9ac9be00d985118561514042747bc5de203098ceba82010b5ca86fdf9c",
+    ".pytest_cache/peptide-course-759-20261115/checks-execution.json": "bc7177e0bd2c8385dc5184102093087a8723f139b88fd1b0009bc746bf6b3319",
+    ".pytest_cache/peptide-course-759-20261115/checks-inputs-after.json": "80de3f52529fa3de3a7de301afe40f13b4c7265e5b5d489540a1d5e0adf97c2f",
+    ".pytest_cache/peptide-course-759-20261115/checks-inputs-before.json": "80de3f52529fa3de3a7de301afe40f13b4c7265e5b5d489540a1d5e0adf97c2f",
+    ".pytest_cache/peptide-course-759-20261115/checks.log": "181f91a6a6bb421f1fe81267da8aa5317d8a8a0d5c0c73e83ebae1a160161c74",
+    ".pytest_cache/peptide-course-759-20261115/cohort-driver.py": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27",
+    ".pytest_cache/peptide-course-759-20261115/cohort-execution.json": "058171d80d1f14c74f6c270bb43a194204136425b82f0ae6b1b0e2553abe83fc",
+    ".pytest_cache/peptide-course-759-20261115/cohort-inputs-after.json": "aca85c269abf9549c515f35808deee241fbfd3d90ffc963f3ac3204a53ad47c4",
+    ".pytest_cache/peptide-course-759-20261115/cohort-inputs-before.json": "aca85c269abf9549c515f35808deee241fbfd3d90ffc963f3ac3204a53ad47c4",
+    ".pytest_cache/peptide-course-759-20261115/cohort.events.jsonl": "f0e2d4f57b539ba8775f6f1459644f87fa41ed9f066b2342861d5f407f65ad4f",
+    ".pytest_cache/peptide-course-759-20261115/cohort.log": "a82ced82c0d141304358cf1e0a2af0169961260e653bac3220f762702f6f3731",
+    ".pytest_cache/peptide-course-759-20261115/cohort.xml": "3124ed56bc8130ace9c0811b53fbbdac07cb403dc7d03d35c7b4cb4116384d53",
+    ".pytest_cache/peptide-course-759-20261115/commands.json": "1eeafcb0ed8241bc070ec312eac56ba93a3026b07105f3629d991a0f436da544",
+    ".pytest_cache/peptide-course-759-20261115/contract-baseline-driver.py": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27",
+    ".pytest_cache/peptide-course-759-20261115/contract-baseline-execution.json": "09eea89b62ac34d684c1e85f6a728484f836ac81066f244996adc5423bcc0092",
+    ".pytest_cache/peptide-course-759-20261115/contract-baseline-inputs-after.json": "5adadba5c53545edf70e6edb1e56f9eae9c4717d43bf6068aa7d83a7352e1fc6",
+    ".pytest_cache/peptide-course-759-20261115/contract-baseline-inputs-before.json": "5adadba5c53545edf70e6edb1e56f9eae9c4717d43bf6068aa7d83a7352e1fc6",
+    ".pytest_cache/peptide-course-759-20261115/contract-baseline.events.jsonl": "4186526bce7433199e35744fc39708e898907e03f1b5e1d849e9ddcfea4e924b",
+    ".pytest_cache/peptide-course-759-20261115/contract-baseline.log": "07efa7be619a0aa8e263cb4cba2e1888c3d171c36aeaeabc94772e6ee7fec2f8",
+    ".pytest_cache/peptide-course-759-20261115/contract-baseline.xml": "9d318dc19ca09e40df214c15f38aec2bcdaf6e2dfb02d83c5c76095bb9f343cf",
+    ".pytest_cache/peptide-course-759-20261115/corrected-driver.py": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27",
+    ".pytest_cache/peptide-course-759-20261115/corrected-execution.json": "5d5f9cb1d1fb36cc17b2549994bd5f13911d4277309c9c371133e7ce3c3582f8",
+    ".pytest_cache/peptide-course-759-20261115/corrected-inputs-after.json": "4e4a6a1cd4af542c0559e708b983c7486e09343f58ac79898a932281ed6e4e3a",
+    ".pytest_cache/peptide-course-759-20261115/corrected-inputs-before.json": "4e4a6a1cd4af542c0559e708b983c7486e09343f58ac79898a932281ed6e4e3a",
+    ".pytest_cache/peptide-course-759-20261115/corrected.events.jsonl": "517b2e26206dc2ddf2718793bb33ab88c1448f9ed289f9f0b971826e9fcee6fd",
+    ".pytest_cache/peptide-course-759-20261115/corrected.log": "33af8150d799fc35cfd1015800b215d4b83484139cbd5a4855d74934aaea963b",
+    ".pytest_cache/peptide-course-759-20261115/corrected.xml": "2c75835d360b4cbd16bb746a9ecc1ffad6e93af126910639d57eea936b9374ce",
+    ".pytest_cache/peptide-course-759-20261115/corrected2-driver.py": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27",
+    ".pytest_cache/peptide-course-759-20261115/corrected2-execution.json": "9928362dd7ce1b6978235dc35960e452418738df1a33fe42eec5a5ffd00b9f13",
+    ".pytest_cache/peptide-course-759-20261115/corrected2-inputs-after.json": "b6dc9787cd3657db9f74e92262e5308d96e361b7be10715a2ed18164e84061dc",
+    ".pytest_cache/peptide-course-759-20261115/corrected2-inputs-before.json": "b6dc9787cd3657db9f74e92262e5308d96e361b7be10715a2ed18164e84061dc",
+    ".pytest_cache/peptide-course-759-20261115/corrected2.events.jsonl": "b1befd11c2b832451bd68d3034a581b174d6d8044b032583d31b1568c02b977c",
+    ".pytest_cache/peptide-course-759-20261115/corrected2.log": "e80282ad461894519491da39d2226aa0566356c93855cd1e22b6f0ac365159e2",
+    ".pytest_cache/peptide-course-759-20261115/corrected2.xml": "d1b8316823a1aac8258715388b9d868cb40753e5a8f8e5929551fae6e3331384",
+    ".pytest_cache/peptide-course-759-20261115/expanded-driver.py": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27",
+    ".pytest_cache/peptide-course-759-20261115/expanded-execution.json": "8fc2f6300b016ebab43f73a4bf839a7a38bd5a65ecc0155aa1f676f7b9a4928c",
+    ".pytest_cache/peptide-course-759-20261115/expanded-inputs-after.json": "7c2838d001d3ce182031cf7fa90b459a3e0be646607d4eed9ff77691cf8d964c",
+    ".pytest_cache/peptide-course-759-20261115/expanded-inputs-before.json": "7c2838d001d3ce182031cf7fa90b459a3e0be646607d4eed9ff77691cf8d964c",
+    ".pytest_cache/peptide-course-759-20261115/expanded.events.jsonl": "4bead9260b619718566b09b1836f5eb84e8e849abb61ac0d180e0e91fb6b9637",
+    ".pytest_cache/peptide-course-759-20261115/expanded.log": "6ef4f5bdcc790fc50b9d933a22aabb0f3cc664b879e3caef6e639cfd8e26014a",
+    ".pytest_cache/peptide-course-759-20261115/expanded.xml": "e70c4b5d77dd30978f4b8f54dc2e2d79c4e10ef6d617c6782c67d8eb5c704f7d",
+    ".pytest_cache/peptide-course-759-20261115/expanded2-driver.py": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27",
+    ".pytest_cache/peptide-course-759-20261115/expanded2-execution.json": "b42e7a7c5d555b89d5d31dedee8e2f0b6527534fc898ddeddb056b6ab2a33f1f",
+    ".pytest_cache/peptide-course-759-20261115/expanded2-inputs-after.json": "e3f8fdf6ac3293058ce755891c4976053630b0b961813bb6559438024f8c9444",
+    ".pytest_cache/peptide-course-759-20261115/expanded2-inputs-before.json": "e3f8fdf6ac3293058ce755891c4976053630b0b961813bb6559438024f8c9444",
+    ".pytest_cache/peptide-course-759-20261115/expanded2.events.jsonl": "79a4683a18517a29f8906371375d9286e7f1b995d578f6e718034fe1995b2aa0",
+    ".pytest_cache/peptide-course-759-20261115/expanded2.log": "f4337219ea936724ce273762bb690b0fab4da424fee9899f4eb008643fb15fcb",
+    ".pytest_cache/peptide-course-759-20261115/expanded2.xml": "9a14019da68294d3b28304aac2403ad60ce8db87c9908fad87409cde6cbae5f7",
+    ".pytest_cache/peptide-course-759-20261115/facts-driver.py": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27",
+    ".pytest_cache/peptide-course-759-20261115/facts-execution.json": "154950b6976fd43a051254a434079364939c452844b1865343263af4f4fbcdd6",
+    ".pytest_cache/peptide-course-759-20261115/facts-inputs-after.json": "5adadba5c53545edf70e6edb1e56f9eae9c4717d43bf6068aa7d83a7352e1fc6",
+    ".pytest_cache/peptide-course-759-20261115/facts-inputs-before.json": "5adadba5c53545edf70e6edb1e56f9eae9c4717d43bf6068aa7d83a7352e1fc6",
+    ".pytest_cache/peptide-course-759-20261115/facts.log": "496f1e9e385b059e140af18823a58d2b1c6a41afa58f0c2ddfb1902d904e1082",
+    ".pytest_cache/peptide-course-759-20261115/final-checks-driver.py": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27",
+    ".pytest_cache/peptide-course-759-20261115/final-checks-execution.json": "9f99076203828f926dfbbd06c6edeb6ea1f290adf864c9b544479ae9436e55ec",
+    ".pytest_cache/peptide-course-759-20261115/final-checks-inputs-after.json": "3e673d3acfa9d828df7647198c73d4904b3ffa1d277a462af0ab2e71d1329635",
+    ".pytest_cache/peptide-course-759-20261115/final-checks-inputs-before.json": "3e673d3acfa9d828df7647198c73d4904b3ffa1d277a462af0ab2e71d1329635",
+    ".pytest_cache/peptide-course-759-20261115/final-checks.events.jsonl": "9891c459bf70c28287fcca2badef60fbfb59efb7bf81cb08e51822b835ee2687",
+    ".pytest_cache/peptide-course-759-20261115/final-checks.log": "3270390bc4075ddf83deb97587ecaf07f24e2e46a6fe5f69920ce404aba398b3",
+    ".pytest_cache/peptide-course-759-20261115/final-checks.xml": "7824a1011d8ad252d2d6143d8b0db41b2f5f4e606af17f9264036da61dcacb9c",
+    ".pytest_cache/peptide-course-759-20261115/focused-driver.py": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27",
+    ".pytest_cache/peptide-course-759-20261115/focused-execution.json": "313f144fa456571221a3a80ca4f5f2dd56e3ae375c009af004c82c5b53227e34",
+    ".pytest_cache/peptide-course-759-20261115/focused-inputs-after.json": "db8f9ab41c122a109ec7bb327602fe49e3527e16006251d1f1d0a12706a67bd0",
+    ".pytest_cache/peptide-course-759-20261115/focused-inputs-before.json": "db8f9ab41c122a109ec7bb327602fe49e3527e16006251d1f1d0a12706a67bd0",
+    ".pytest_cache/peptide-course-759-20261115/focused.events.jsonl": "99750d97009763b2a8f24dfc70be9940c500856a7d778209dbceadc813ae73a2",
+    ".pytest_cache/peptide-course-759-20261115/focused.log": "471e982af2f1bb60e002239596cdc9e7f9b84db79de19c4fd5a94801733b24a5",
+    ".pytest_cache/peptide-course-759-20261115/focused.xml": "adc5768fc05681cf9d924f9ac275d41618460109e065da066e62c8aa216de9cc",
+    ".pytest_cache/peptide-course-759-20261115/footer-links.json": "e52eb7e4c8899165716cc81bb3ba23dc2b1325342db41bd1010dca01283f8051",
+    ".pytest_cache/peptide-course-759-20261115/inline_driver.py": "94e4ad7fcc30d751b9c728b75f89311de7bd93886b9c34eb40e434741c2e203e",
+    ".pytest_cache/peptide-course-759-20261115/lesson-alternate-execution.json": "247d5132c4ad0c53cfae8a4a618a7fb4bf3afd51df412c6b956fc5d8ff186ed9",
+    ".pytest_cache/peptide-course-759-20261115/lesson-alternate-inputs-after.json": "6798cab59d7ec2dc9174233d9a0179079fa4043354ecca8882dab3e68f7f2f76",
+    ".pytest_cache/peptide-course-759-20261115/lesson-alternate-inputs-before.json": "6798cab59d7ec2dc9174233d9a0179079fa4043354ecca8882dab3e68f7f2f76",
+    ".pytest_cache/peptide-course-759-20261115/lesson-alternate.log": "d6b7b46c8e604ccb7ac5821747a978458f6395bf6d5a51318c28d41325cb143e",
+    ".pytest_cache/peptide-course-759-20261115/lesson-corrected-execution.json": "9d7a0f35d4f44befdfc24b1becd923530a97aeabf2075de96fc2348664434498",
+    ".pytest_cache/peptide-course-759-20261115/lesson-corrected-inputs-after.json": "6798cab59d7ec2dc9174233d9a0179079fa4043354ecca8882dab3e68f7f2f76",
+    ".pytest_cache/peptide-course-759-20261115/lesson-corrected-inputs-before.json": "6798cab59d7ec2dc9174233d9a0179079fa4043354ecca8882dab3e68f7f2f76",
+    ".pytest_cache/peptide-course-759-20261115/lesson-corrected.log": "46d3b4f1fe301cf355bdbd8f168d67e2651701d142606ef732a82a3e92774592",
+    ".pytest_cache/peptide-course-759-20261115/lesson-original-driver.py": "4433c3ca3b91029c8e382bbebd94a739e02ea5c00da86f4eb748ec5707eba3fa",
+    ".pytest_cache/peptide-course-759-20261115/lesson-policy-execution.json": "8854240de594fc592d77bd1d924ea5f65cae8122e459810a6c34d86cbf4c96ed",
+    ".pytest_cache/peptide-course-759-20261115/lesson-policy-inputs-after.json": "6798cab59d7ec2dc9174233d9a0179079fa4043354ecca8882dab3e68f7f2f76",
+    ".pytest_cache/peptide-course-759-20261115/lesson-policy-inputs-before.json": "6798cab59d7ec2dc9174233d9a0179079fa4043354ecca8882dab3e68f7f2f76",
+    ".pytest_cache/peptide-course-759-20261115/lesson-policy.log": "4c0ca6a8569c8bb672bf19005fac12d0bf79dc50161598daae1456254a665097",
+    ".pytest_cache/peptide-course-759-20261115/lesson-start-failure.json": "2cad8b2e86c23c1ec6503647f591862d67b80ee9134845de1009014b685b1341",
+    ".pytest_cache/peptide-course-759-20261115/make_receipt.py": "73e785fa23ac044139259edfc8317a5f766a137c544359bf572b4274c780af99",
+    ".pytest_cache/peptide-course-759-20261115/peptide-scene.png": "1c1bb0e94eeaf1beadd2f9c060253a26f612fdf76d65529af84a2629aef8e8dc",
+    ".pytest_cache/peptide-course-759-20261115/prs-before.json": "cf1cbb66a638b4860a516671fb74850e6ccf787fe6c4c8d29e9c04efe880bd05",
+    ".pytest_cache/peptide-course-759-20261115/quality-corrected-results.json": "38cd5e40700fe46baa8abd5c947d3f76cea1074e86f1d6ffbe6ced05b40b6fe1",
+    ".pytest_cache/peptide-course-759-20261115/quality.py": "da760c4d0e389768320d802b83b9d71e6d9eaff85ad10d4de8852b06bf123d0c",
+    ".pytest_cache/peptide-course-759-20261115/quality_commands.json": "90524e1ac66e8908aa9bb4eb025cd6054a962228541a7cc20f8a655f378763ae",
+    ".pytest_cache/peptide-course-759-20261115/receiving-driver.py": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27",
+    ".pytest_cache/peptide-course-759-20261115/receiving-execution.json": "9f86049f5d1c1cdce7cc33f777bda8ec54a0f92ee2de7c1dce0926558d96fadb",
+    ".pytest_cache/peptide-course-759-20261115/receiving-inputs-after.json": "aca85c269abf9549c515f35808deee241fbfd3d90ffc963f3ac3204a53ad47c4",
+    ".pytest_cache/peptide-course-759-20261115/receiving-inputs-before.json": "aca85c269abf9549c515f35808deee241fbfd3d90ffc963f3ac3204a53ad47c4",
+    ".pytest_cache/peptide-course-759-20261115/receiving.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".pytest_cache/peptide-course-759-20261115/render-execution.json": "decad0f8a624b8088e87501b34fbdcc27dff81f1e8d8561729fb6c279fb9120a",
+    ".pytest_cache/peptide-course-759-20261115/render-footer-execution.json": "e749c442840037661c73a2c4f854edfb88d5ade94d4b3e6341f926834c84d974",
+    ".pytest_cache/peptide-course-759-20261115/render-footer-inputs-after.json": "110b192c7a7cec3fb4acf1f895ac5aba53c6c10130c9511c3c1898413141fdd1",
+    ".pytest_cache/peptide-course-759-20261115/render-footer-inputs-before.json": "110b192c7a7cec3fb4acf1f895ac5aba53c6c10130c9511c3c1898413141fdd1",
+    ".pytest_cache/peptide-course-759-20261115/render-footer.log": "8d89e528fc25e92a1a8d710fb8fecdfc3dd97fb7cc673821579f10de0776c4a5",
+    ".pytest_cache/peptide-course-759-20261115/render-inputs-after.json": "257e470308721adc082fca34d67d4b6919498bb3d5749eac9e79f14319ca81d7",
+    ".pytest_cache/peptide-course-759-20261115/render-inputs-before.json": "257e470308721adc082fca34d67d4b6919498bb3d5749eac9e79f14319ca81d7",
+    ".pytest_cache/peptide-course-759-20261115/render.log": "8d89e528fc25e92a1a8d710fb8fecdfc3dd97fb7cc673821579f10de0776c4a5",
+    ".pytest_cache/peptide-course-759-20261115/render_driver.py": "448a9a362e9958ed72adfd17123d663c307afc675d583864a0b6e4d39b1a522f",
+    ".pytest_cache/peptide-course-759-20261115/service-retirement.json": "6f2449fd1ea88f24fec988a5f2d391ab82f7691983b210ee8aba5fffd9ab316b",
+    ".pytest_cache/peptide-course-759-20261115/valid-baseline-driver.py": "b7d5e84c94fb6192717d954e3c986e00b1853b03ce45b97e7a65afcf2bfd3f27",
+    ".pytest_cache/peptide-course-759-20261115/valid-baseline-execution.json": "0a0d544261b3d2788108190961bc1e097530ea9649d0cfe0b70500c745bf7053",
+    ".pytest_cache/peptide-course-759-20261115/valid-baseline-inputs-after.json": "9c54c4d70bc0ef49f17dc3bf2dc19633c66716208f372ecf326aab6ea6bf2bac",
+    ".pytest_cache/peptide-course-759-20261115/valid-baseline-inputs-before.json": "9c54c4d70bc0ef49f17dc3bf2dc19633c66716208f372ecf326aab6ea6bf2bac",
+    ".pytest_cache/peptide-course-759-20261115/valid-baseline.events.jsonl": "54ef74d098dd15e970022d5346b91c272089c9b7a30b1f2347b445ae02164ada",
+    ".pytest_cache/peptide-course-759-20261115/valid-baseline.log": "5e1dde7e5fad1ae6a2c6a0a80bf8763c40527686d3949888c3ae9dde049281f8",
+    ".pytest_cache/peptide-course-759-20261115/valid-baseline.xml": "a5c331ec59ab80ef4f52b330385a58dbc424205b794b64db0d3c10fcf33d5786"
+  },
+  "reviewed_delta_sha256": {
+    "devguide/pending_bugs/docs/README.md": "67b7bdeebd82cd769f3f08508c82493bd1216b5603d1ca753fb1ce14da5da5b4",
+    "devguide/release_1_0_status.md": "ddcc344976c296e0b7adad15ed271f0fd7daad0f4216b34bebdf9dcfad61d2b3",
+    "docs/_templates/copyright.html": "f186c7209833093311f7cefdf0a892766a7a535975a359267f05f9ce193a2b54",
+    "docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.ipynb": "6f2592bf458e6e29510fa9f3115176b7c93b9a9cefc53f99820e241a924b81f4",
+    "docs/generate_static_views/tools_structure.py": "a8a6a189868ffce3d4196b214a001b85a2ebdd97f1f1b6a3870e873b8f648f08",
+    "devguide/archive/resolved_bugs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md": "028a0b9bf3d1757ef88e893eef58dbaa9f259ca5562e8d8cdbc8e23d783d2a8a",
+    "devguide/archive/resolved_bugs/copyright_footer_points_to_a_retired_relative_author_page.md": "062278e4b033e56bf1f3bb0e5403961ea8c06283302db818674f2edea13641de",
+    "devguide/archive/resolved_bugs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md": "73aa9158a8cadde53702a73c24904cdf68ebb32fb74bfda8db2d2c2f5d52c8d0",
+    "docs/_static/views/course_alzheimer_peptide_helix.html": "df775e43f63f2ba513a89663b5eeb4b20e4ff385652e887661da2602e49145a6",
+    "docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.AGENTS.md": "cf81add478ce9b6d24404a2267e117638e69a42a4d5e68f380e2d1d302333c6a",
+    "docs/generate_static_views/course_alzheimer_peptide.py": "cd7464162d6df091074db0815ab859c4110a16af7a3c7d9c391e1c765538d750",
+    "tests/documentation/test_copyright_footer.py": "6d86ca058a07b3834686b15a85444dd54db0fc29f9363a0d11db7ebc95dc1e76",
+    "tests/documentation/test_peptide_synthesis_course.py": "df20b1761b9f3a7a81e08d5c5a3977e0f53377b8f47c47e69135cb060295e93c",
+    "tests/documentation/test_structure_scene_quartets.py": "681eb5934f0ca53f5211d52ccf03ed696bd7975ca3cdee66b040345618f1c315",
+    "docs/content/course/Path_Alzheimer/24_Peptide_Synthesis.nbconvert.last_run": "52f794a556dd4fed5c3e6b1f2163b4b39ee2de2bf44b825f7036c374195a08e4"
+  },
+  "reviewed_delta_deleted_paths": [
+    "devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md"
+  ]
+}

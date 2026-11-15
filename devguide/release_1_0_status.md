@@ -2,11 +2,11 @@
 
 ## Resume from here
 
-**Reviewed 2026-11-14 against the complete local source checkpoint
-`27ba3d4c8`, the later documentation/developer receiver corrections, and #756's
-public selection resource-error delta based on `c4fa8552e`. The full source
-checkpoint remains evidence for its original identity. The runtime change has
-its own 244-case selected/strict-documentation receiving; exact-new-head and
+**Reviewed 2026-11-15 against the complete local source checkpoint
+`27ba3d4c8`, #756's public resource-error correction and the later documentation
+receiving through parent `1b3b16191` plus #759–#761. The complete source run
+retains its original identity; these documentation-only changes have their own
+selected, kernel, strict-site and saved-scene checks. Exact-new-head and
 final-package-pair qualification remain due.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
@@ -30,7 +30,7 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
-| Finish #759's neighboring peptide-synthesis correction | Source inspection finds unsupported capping/conformation keywords in Alzheimer Module 24. The [report](pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md) preserves KLVFF, explicit caps, measured helical geometry and static visualization as the next finite course correction. No new builder API is requested. |
+| Preserve #759–#761 peptide and documentation receiving | The [peptide report](archive/resolved_bugs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md) retains explicit caps and measured initial torsions without new builder APIs. The final selected cohort passes 23 cases without skips; the full seven-cell lesson executes under ordinary and explicit pm/fs/degrees policies. Strict Sphinx renders 1,401 HTML files without warnings, and the local browser receives the 109-atom saved model. The [receipt](../devtools/data/peptide_course_receiving_759_761_20261115.json) also retains the supported structure-generator namespace and 713 corrected author links. No production/native/dependency change or #615/final-pair disposition follows. |
 | Preserve #758's actual complete geometry lesson | The [resolved report](archive/resolved_bugs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md) uses an unchanged, documented local 2BEG snapshot, one selected structure and explicit KLVFF placement/populations. Thirty-one selected cases pass, including ten new independent unit/coordinate/membership/plot controls. A real kernel executes five code cells and retains one figure; strict Sphinx renders 1,400 pages without warnings. The article, figure and both exact downloads are received in the [receipt](../devtools/data/alzheimer_geometry_receiving_758_20261114.json). Original alias failures and initial authored path/element/group-axis errors remain separate. No runtime/native/dependency or binding-affinity claim follows. |
 | Preserve #757 and the executed geometry examples | Nine tool notebooks execute 81 distinct code cells and retain twelve actual figures. Local reduction positions are explicitly mapped to source atom/group indices; chosen groups are no longer assumed to be peptide termini. Twenty-one selected cases pass, including ten numerical cases over nm/ps and pm/fs, seven figure controls and four existing course/pose cases. Strict Sphinx renders 1,400 pages without warnings; all nine articles and twelve identical PNG payloads are received. The [receipt](../devtools/data/geometry_documentation_receiving_334_757_20261114.json) retains five original wrong-index failures, seven operator-Agg figure failures, the pre-kernel receipt-name collision and intentionally interrupted first build. Molecular runtime/native/dependency bytes are unchanged. |
 | Preserve executed essential examples and #753/#755 repairs | Eleven notebooks receive actual fresh-kernel execution (178 distinct code cells), including native get/info, selection/extraction, ChemicalStates, rings and named hydrogen-bond/H5MSM workflows. Four query tutorials now load bundled snapshots without network; one group-selection predicate is corrected against an independent 80-atom expectation. Fifteen focused controls pass with no skips. Fresh strict Sphinx renders 1,400 pages; all eleven changed articles, plot assets and new catalog links are received. [Receipt](../devtools/data/documentation_examples_receiving_334_20261114.json) preserves original failures and runtime/resource boundaries. This is not the complete notebook corpus, browser or final-pair qualification. |
@@ -63,6 +63,49 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Peptide construction, saved scene and author routes — 2026-11-15
+
+[#759](archive/resolved_bugs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md)
+repairs the actual Alzheimer Module 24 cells using the existing public builder,
+explicit cap sequence, graph-derived quartets, independent copying and torsion
+editors. It preserves the KLVFF and KLVFFAL scenarios while making initial
+geometry, chemical preparation and predicted behavior distinct. No new builder
+keyword or scientific method is introduced. Five phi, five psi and five omega
+quartets returned by the selector reach their declared teaching targets.
+
+The overlapping final selected cohort passes **23 cases with zero skips**.
+Independent geometry, inventory, source ownership and bond lengths are checked
+under ordinary and non-default application units. A fresh kernel executes all
+seven cells; complete alternate executions also pass, with the explicitly
+configured pm/fs/degrees run recording measured phi in degrees. Native stored
+coordinates remain nanometers by contract. The committed scene matches the
+computed molecular coordinates and axes. A local-only browser under the
+/molsysmt/ prefix receives all 109 Mol* atoms, a correct initial camera and the
+inspected ball-and-stick image. Two legacy site CDN declarations are deliberately
+blocked; this scene uses only the received local runtime.
+
+[#760](archive/resolved_bugs/structure_scene_generator_still_calls_the_retired_topology_quartet_api.md)
+repairs one retired namespace in the existing geometry-scene generator. Its
+actual quartet/set/shift statements pass with independent angle checks; existing
+scene exports are unchanged.
+[#761](archive/resolved_bugs/copyright_footer_points_to_a_retired_relative_author_page.md)
+replaces a broken literal author route with Sphinx's document-relative resolver.
+Fresh full strict compilation produces **1,401 HTML files without warnings**;
+607 local article links/fragments and 713 actual author links across the root
+and content pages are received. A real three-page Sphinx guard covers root and
+nested contributor links. The original successful build alone did not protect
+link integrity.
+
+The [receipt](../devtools/data/peptide_course_receiving_759_761_20261115.json)
+retains the original builder/generator failures, authored guard and operator
+precondition mistakes, structured pytest/JUnit agreement, frozen source/runtime,
+unchanged native identity and bounded-resource observations. It supplies no
+installed-candidate, full-source-suite or scientific-profile qualification.
+MolSysViewer #384 still has no lead reply beyond the already delivered request;
+this saved scene does not close #615. Stable-format/client/final-pair agreements,
+mandatory exact-candidate gates, original weighted accounting and the agreed
+candidate/hosted/tag/publication pause remain unchanged.
 
 ## Complete course geometry and finite client receiving — 2026-11-14
 

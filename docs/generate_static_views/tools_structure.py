@@ -71,7 +71,7 @@ molsys_dih = msm.convert(
     msm.systems["chicken villin HP35"]["chicken_villin_HP35.h5msm"],
     to_form="molsysmt.MolSys",
 )
-phi_quartets = msm.topology.get_dihedral_quartets(molsys_dih, phi=True)
+phi_quartets = msm.chemical_states.get_dihedral_quartets(molsys_dih, phi=True)
 v6 = msm.view(molsys_dih)
 v6.export.html(
     str(views_dir / "tools_structure_set_dihedral_angles_1.html"),
