@@ -42,5 +42,49 @@
   "diagnostic_guard": "tests/molsysviewer_molsysmt/test_jupyter_stage_diagnostics.py",
   "new_execution_here": false,
   "publication_authorized": false,
-  "original_weighted_progress_change": 0
+  "original_weighted_progress_change": 0,
+  "later_public_supplement": {
+    "date": "2026-11-15",
+    "public_commit": "f6765f6c680b82f47de0ae94dcd459ac32a79138",
+    "public_files": {
+      "devguide/molstar_closeout_three_blocks_20261115.json": {
+        "git_blob": "053b68d724b8db8ddcc8a6ad73836817790332db",
+        "bytes": 49287,
+        "sha256": "f5fd56666eed7540b0cc3181aca21abd5b15189e9d155f54fc62314fd07523f0",
+        "git_blob_verified": true
+      },
+      "devguide/pending_bugs/jupyter_movie_seek_pending.md": {
+        "git_blob": "a64a0e5c1e93ea6e135a0bec689da84a7f88e627",
+        "bytes": 10768,
+        "sha256": "e105cf273de7c20366d518ce8c1169cdbd20844204f167d7e1cdd2b010cae406",
+        "git_blob_verified": true
+      },
+      "devguide/pending_bugs/initial_jupyter_canvas_timeout_audit.md": {
+        "git_blob": "0500919e653b7783a79f88f6669286f38a5dd5f9",
+        "bytes": 7858,
+        "sha256": "6f4eb97ddae9f9c3bcb7848881bee9c86d420c7694342ad2da90ed05f1937b61",
+        "git_blob_verified": true
+      }
+    },
+    "verification": "Immutable public report bytes and Git blob identities inspected; private original receipts, JUnit and provider package are not independently received. No new execution or environment change here.",
+    "historical_environment": {
+      "manifest_sha256": "5729f47a8695f4daa939fcbf97fc916eb1dc8efc7a6214c3ce5aa7497e913545",
+      "originals_retained": true,
+      "ipykernel_distribution_version": "7.3.0",
+      "environment_sha256": "f460e8b970e9c71c6fb6ec32a3b9f6b51ff9144e8584002b13b0ddc1a14f6b98",
+      "failure_sha256": "f7bfe46f2da867e9768cf031a37b503fe3413d5d43af16e0ce2270957455701d",
+      "causal_limit": "Associated installed-environment inventory, not original actual-kernel module identity or proof of the missing phase."
+    },
+    "separate_movie_scope": {
+      "owner_issue": "uibcdf/molsysviewer#396",
+      "reported_controls": "The lead reports a matching pre-handler comm stall in a molecular-free 7.3.0 control, 30 completed native comm cycles with original isolated 7.4.0, and canonical real Movie pytest 916 with ten edit/seeks and eight phases passing in 95.76 seconds. The public interpretation and immutable bytes are received; original private execution/provider evidence is not independently reproduced here.",
+      "upstream_correction_reported_by_lead": "https://github.com/ipython/ipykernel/pull/1529",
+      "notebook_host_requirement_declared_by_lead": "ipykernel>=7.4.0",
+      "host_adoption_owner": "uibcdf/molsyssuite#200",
+      "shared_prefix_unchanged": true
+    },
+    "consequence": "The associated historical distribution inventory does not identify the actual loaded module or missing transition. #615 cause and explicit principal-maintainer disposition remain unchanged. The new notebook host profile belongs to applicable final-pair qualification, not a core runtime dependency change or an extra matrix.",
+    "candidate_or_installed_acceptance": false,
+    "original_weighted_progress_change": 0
+  }
 }

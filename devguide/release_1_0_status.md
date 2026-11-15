@@ -104,6 +104,14 @@ lint/format and changed JavaScript syntax checks pass. No guarded input changes
 during execution. Owned services and the one owned browser temporary root are
 retired; original failed invocations and required evidence are retained.
 
+Later immutable MolSysViewer `f6765f6c` evidence adds the historical 7.3.0
+installed-environment inventory and its distinct #396 comm-transport study.
+The [review](../devtools/data/initial_canvas_disposition_review_615_20261115.json)
+verifies three public blobs while retaining the private-evidence boundary.
+Its current notebook-host requirement is >=7.4.0, with legacy-host adoption
+owned by MolSysSuite #200. No historical #615 cause, maintainer acceptance,
+new runtime floor, installed/candidate pass or weighted credit follows.
+
 ## Additional current-source client review — 2026-11-15
 
 MolSysViewer publishes its selected profile `897` in `28147339`, with original

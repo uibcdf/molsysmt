@@ -377,3 +377,22 @@ must retain its own causal/provider evidence; this passing check neither
 attributes #615 to that cause nor qualifies an older kernel for final use.
 The unchanged startup requirement is explicit in the authoritative release
 checklist; principal acceptance of a disposition cannot replace that check.
+
+### Later immutable environment supplement — 2026-11-15
+
+MolSysViewer `f6765f6c680b82f47de0ae94dcd459ac32a79138` publishes the
+preserved original environment supplement and its separate #396 provider
+study. All three public report blobs are verified in the same
+[bounded review](../../devtools/data/initial_canvas_disposition_review_615_20261115.json).
+The historical inventory reports ipykernel 7.3.0 and the neighbouring failure
+matches the original digest. This is associated distribution metadata, not
+an observation of the module loaded in that kernel or its missing transition.
+
+The lead separately reports a molecular-free comm counterexample and original
+isolated 7.4.0 receiving, including one canonical ten-edit/eight-phase Movie
+pytest. These published scoped claims do not reconstruct #615; their private
+execution/provider evidence is not independently reproduced here. The lead's
+current notebook-host baseline is ipykernel >=7.4.0, with controlled shared-host
+adoption owned by uibcdf/molsyssuite#200. No shared prefix, dependency floor or
+candidate is changed here. Principal acceptance and the applicable exact-pair
+startup receiving remain pending; this supplement adds no progress credit.

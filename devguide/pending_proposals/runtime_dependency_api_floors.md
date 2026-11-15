@@ -810,6 +810,18 @@ public verification; neither is waived or described as already passed. Today
 minimum/newer closure. Construction, hosted qualification, tags and promotion
 remain paused. No speculative runtime dependency or version floor is adopted.
 
+### Notebook-host receiving supplement — 2026-11-15
+
+The verified public MolSysViewer `f6765f6c` lead record declares
+ipykernel >=7.4.0 for its current notebook-host profile after a separately
+reproduced comm-transport fault. Its legacy shared-prefix adoption belongs to
+uibcdf/molsyssuite#200; headless/Qt requirements remain separate. The
+[bounded review](../../devtools/data/initial_canvas_disposition_review_615_20261115.json)
+retains source identities and the limits of reported private receiving.
+This informs the applicable final-candidate host composition, without changing
+MolSysMT's runtime floors, repeating a source matrix or crediting installed
+qualification. #615's original cause/disposition remains separate.
+
 ## Provenance
 
 Local Linux source checkout, shared Python 3.14.7 development environment and
