@@ -1,0 +1,167 @@
+{
+  "schema": "molsysmt.viewer_current_source_client_review@1",
+  "date": "2026-11-15",
+  "owner_issues": [
+    "uibcdf/molsysmt#250",
+    "uibcdf/molsysmt#254",
+    "uibcdf/molsysmt#256",
+    "uibcdf/molsysmt#524"
+  ],
+  "client_report_commit": "28147339afe0315c1b252095c1442a1674fc5c9e",
+  "client_report_path": "devguide/molstar_closeout_three_blocks_20261115.json",
+  "client_supplement": {
+    "commit": "342e6309be736dc802b6c2642133649f188d847d",
+    "git_blob": "2a751fcd02c9ecda901ff530add932734333aba1",
+    "sha256": "8f26b7c456fdc3f2dd11ef402a05d00693a7fc4c286a0278a5c94040921c746e",
+    "bytes": 32585,
+    "git_blob_verified": true
+  },
+  "owner_source_received": "96988b6ea42fb02a662fa3dda5eb2f7659f28c56",
+  "client_reported_execution_source": "21474b8cd4703ee54ed570733e4dbefdeea465ea",
+  "verification": "Immutable public reports, five actual consumer guards and three scientific/fixture helpers inspected. Ten public files plus supplemental report independently verified against Git blob IDs. Private JUnit/invocation/origin/input-manifest bytes were not received or replayed; their hashes are published client assertions.",
+  "public_files": {
+    "devguide/molstar_closeout_three_blocks_20261115.json": {
+      "git_blob": "9a5aeb6177bc7491227892d2faa2c56f51ec3b5a",
+      "sha256": "5d3f5083952e5f5ec43a912373c00e8674e529511dd2cc9104631f9fccee00d5",
+      "bytes": 29771,
+      "git_blob_verified": true
+    },
+    "tests/test_session_h5msm_migration.py": {
+      "git_blob": "2a582b39e2e865ee33faf7020e5a5ef7bd229610",
+      "sha256": "d50353d5feccd9155de5f1dae9a210215b85e7355ffa41a804ff38766c44b7f9",
+      "bytes": 18198,
+      "git_blob_verified": true
+    },
+    "tests/test_interactions_public_completion.py": {
+      "git_blob": "b2a71fe2e747b183dbf54ffb21cf8017f3cb1e0c",
+      "sha256": "38d8851990874523eccc3cb268b3bab2b324030a35fe00e049955da2ea600379",
+      "bytes": 12525,
+      "git_blob_verified": true
+    },
+    "tests/test_recovered_interaction_append.py": {
+      "git_blob": "00273ad70d76f0c646ee5236335f350b7fe1ebda",
+      "sha256": "157c03b1156ac657fbeba71402da8a95308551c5b8d62bc8424ff55f4afb4a16",
+      "bytes": 4306,
+      "git_blob_verified": true
+    },
+    "tests/test_interactions_projection_batching.py": {
+      "git_blob": "8350fe53dfa3811fe07e378642fafc2eec4fd763",
+      "sha256": "55185ca9280bb0bb557ed95f8e9e8fe9b49d163c37d02a67f143dbd010b0b1b2",
+      "bytes": 12594,
+      "git_blob_verified": true
+    },
+    "tests/test_interactions_qualification.py": {
+      "git_blob": "c0c6dbaf315e87604e7629dce9ee59182501af40",
+      "sha256": "369c6bb4a7fbbb3cc0eaa9912433597fe04dbb03b7ac92c2dc0c69d0bcc09a4b",
+      "bytes": 1165,
+      "git_blob_verified": true
+    },
+    "devtools/qualify_interactions.py": {
+      "git_blob": "87aa0ed71b97429b9991ebdf7edc318df4761b25",
+      "sha256": "5c6a991d43d2cadd6d07b1e50304b57eb0dddb83a9635c27e91762d34609e865",
+      "bytes": 16102,
+      "git_blob_verified": true
+    },
+    "devtools/interaction_family_fixtures.py": {
+      "git_blob": "a226412ed6e1793a23127a986065f6d73ab54fd0",
+      "sha256": "e866e82688da5cd98953a945a0750c13a88ea4dcf8947344c702c7948a31c21c",
+      "bytes": 5442,
+      "git_blob_verified": true
+    },
+    "devtools/benchmarks/interactions_residency.py": {
+      "git_blob": "49e8684be405b3e3bb96ba6090f9add8d7fb0deb",
+      "sha256": "9a8761462138155282ac3165ae622dd34e124a367f75bc49aaca37e9b1b8b230",
+      "bytes": 15460,
+      "git_blob_verified": true
+    },
+    "pyproject.toml": {
+      "git_blob": "f5b05811ad4ca3c8cf04ee59bed9843091eda932",
+      "sha256": "0389427568457cd5fd08dff3a23032e82ce103ed4ec6ee8954ead419ff949b4f",
+      "bytes": 4352,
+      "git_blob_verified": true
+    }
+  },
+  "reported_results": {
+    "profile": "mt-review-session-interactions-897",
+    "tests_passed": 55,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "warnings": "51 explicit LegacyH5MSMWarning for supported legacy 0.4 demo reads; not suppressed.",
+    "native_exit": 0,
+    "seconds": 62.6080921292305,
+    "selected_inputs": 9820,
+    "inputs_unchanged": true,
+    "peak_owned_rss_mib": 869.4,
+    "resource_stop": null
+  },
+  "independent_source_checks": {
+    "selected_defined_cases": {
+      "tests/test_session_h5msm_migration.py": 10,
+      "tests/test_interactions_public_completion.py": 20,
+      "tests/test_recovered_interaction_append.py": 2,
+      "tests/test_interactions_projection_batching.py": 19,
+      "tests/test_interactions_qualification.py": 4
+    },
+    "total_defined_cases": 55,
+    "owner_package_entry_counts": {
+      "molsysmt": 3491,
+      "molsysviewer_molsysmt": 53
+    },
+    "reported_package_entries": 3544,
+    "owner_module_and_native_hashes_match": true,
+    "changed_rust_inputs": [],
+    "client_execution_source_to_report_commit": {
+      "base": "21474b8cd4703ee54ed570733e4dbefdeea465ea",
+      "head": "28147339afe0315c1b252095c1442a1674fc5c9e",
+      "complete_changed_file_count": 15,
+      "production_python_runtime_changes": [],
+      "scope": "Published comparison has documentation and test/receiver changes only. This verifies published source relationships, not every byte of the privately retained dirty execution tree."
+    }
+  },
+  "inspected_guarantees": {
+    "sessions": "Real pentalanine coordinates, boxes, reference bonds, named sparse analyses, parallel observations, source maps, coverage and scene state survive explicit 0.5/1.0 migrations and default saves. Original molecular/session payloads remain independent.",
+    "queries_and_actions": "Explicit nonconsecutive source/local structures and atom scopes, evaluated-empty versus unevaluated coverage, composite roles, bounded pages and occurrence identities; stale/mismatched picks reject before changing selection.",
+    "editing_and_append": "Real setters invalidate only affected coverage; detached analyses and unrelated evaluated coverage remain intact. Recovered append preserves old coverage and adds unevaluated structures; incompatible analysis merges refuse without changing the live system.",
+    "geometry_and_units": "Profiler observes real get_center/get_distances calls without substituting them. Independent NumPy centroids, distances and row-box image reconstruction receive ionic/pi-pi/cation-pi projection and periodic Buch/disulfide-candidate geometry; nm/angstrom policies and supported batch bounds remain explicit.",
+    "scientific_limits": "Synthetic relation/parallel/large-membership fixtures exercise storage and display, not aromaticity/detector truth. Actual Buch and sulfur-proximity routes are checked against coordinates; candidates remain distinct from covalent bonds. This selection does not validate every detector family or profile."
+  },
+  "execution_composition": {
+    "molsysmt_version": "0+unknown",
+    "molsysviewer_reported_version": "0.24.0+97.gdf4bf477.dirty",
+    "pyunitwizard_reported_version": "0.29.4+2.g9bb4f5f",
+    "native_build_source": "aee7aa65da56e896d1cb2d655bf73736f6453a43",
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "scope": "Source export plus existing native file, working client checkout and support source overlay. No installed release or solver compatibility is inferred."
+  },
+  "reported_private_custody": {
+    "state": "preserved_and_hash_verified",
+    "files": 217,
+    "bytes": 60369992,
+    "manifest_sha256": "11c1eb2245bed4b098ef0498f3d676055285d8ddaf1ce5b16a351b97234a6cff",
+    "originals_retained": true,
+    "retained_result_sha256": {
+      "junit.xml": "c2936d0973f5412f5b8e605368ecc7d5dd060536817966ed972c1905a4cdc501",
+      "invocation.json": "39c899a5e50df8a8fe774a99f8751d8f926fe178ccb7c3ceda8432027e91bc03",
+      "producer-origin.json": "71726a88ea4bdd6226555004cd893a30f87ddd8f1117fe88d1d69e24fa53fabd",
+      "inputs-before.json": "b51a73f1bfa76c802ec08a001129043e2414de426506c745ebe929cb2062f7ad"
+    },
+    "independently_received_private_bytes": false
+  },
+  "accepted_scope": "Bounded public-source client account and semantic guard review for the selected current-owner contracts. Reported 55-case execution is consistent with the reviewed definitions. It is not a rerun, complete native ABI/scientific-profile acceptance, frozen producer, installed pair, platform matrix or release qualification.",
+  "dependency_planning": {
+    "owner_public_manifest": "MolSysMT depends on molsysviewer without an inclusive minimum yet.",
+    "client_public_manifest": "At the reviewed report commit MolSysViewer depends on molsysmt>=0.23.0.",
+    "required_followup": "Agree actual compatible published floors and coordinated public availability; joint staging alone does not prove a public solver closure. No floor, producer or promotion order is changed by this review."
+  },
+  "remaining_boundaries": [
+    "#256 stable-format acceptance and BindingMT #73 omitted-version native-write/whole-file migration under both unit policies remain separate.",
+    "#524 actual compatible public host minimum and clean installed minimum/newer closure remain open.",
+    "#615/MolSysViewer #384 retains the unclassified original initial-canvas failure and requires accepted causal/regression or evidenced maintainer disposition.",
+    "MolSysViewer #396/#397 and complete current core receiving belong to its team; the selected source profile does not close those host/workflow scopes.",
+    "Exact final producers, new artifacts, mandatory qualification and publication remain subject to the existing authorization pauses."
+  ],
+  "original_weighted_progress_change": 0,
+  "new_execution_here": false,
+  "publication_authorized": false
+}

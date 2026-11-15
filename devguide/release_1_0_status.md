@@ -30,6 +30,7 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
+| Preserve MolSysViewer's current-source client receiving | Its published profile `897` reports 55 selected cases passing on exact owner `96988b6ea`, reused native `4ffb82e4` and its recorded client/support-source composition. The [bounded review](../devtools/data/viewer_current_source_client_review_256_524_20261115.json) verifies eleven public Git blobs, the actual five guard modules/helpers and source identities; private raw execution records are not replayed. Session persistence, maps, coverage, edit invalidation, append and independent geometric projection remain exercised source contracts. This does not close #256/BindingMT #73, #524, #615 or final installed acceptance. |
 | Preserve #759–#761 peptide and documentation receiving | The [peptide report](archive/resolved_bugs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md) retains explicit caps and measured initial torsions without new builder APIs. The final selected cohort passes 23 cases without skips; the full seven-cell lesson executes under ordinary and explicit pm/fs/degrees policies. Strict Sphinx renders 1,401 HTML files without warnings, and the local browser receives the 109-atom saved model. The [receipt](../devtools/data/peptide_course_receiving_759_761_20261115.json) also retains the supported structure-generator namespace and 713 corrected author links. No production/native/dependency change or #615/final-pair disposition follows. |
 | Preserve #758's actual complete geometry lesson | The [resolved report](archive/resolved_bugs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md) uses an unchanged, documented local 2BEG snapshot, one selected structure and explicit KLVFF placement/populations. Thirty-one selected cases pass, including ten new independent unit/coordinate/membership/plot controls. A real kernel executes five code cells and retains one figure; strict Sphinx renders 1,400 pages without warnings. The article, figure and both exact downloads are received in the [receipt](../devtools/data/alzheimer_geometry_receiving_758_20261114.json). Original alias failures and initial authored path/element/group-axis errors remain separate. No runtime/native/dependency or binding-affinity claim follows. |
 | Preserve #757 and the executed geometry examples | Nine tool notebooks execute 81 distinct code cells and retain twelve actual figures. Local reduction positions are explicitly mapped to source atom/group indices; chosen groups are no longer assumed to be peptide termini. Twenty-one selected cases pass, including ten numerical cases over nm/ps and pm/fs, seven figure controls and four existing course/pose cases. Strict Sphinx renders 1,400 pages without warnings; all nine articles and twelve identical PNG payloads are received. The [receipt](../devtools/data/geometry_documentation_receiving_334_757_20261114.json) retains five original wrong-index failures, seven operator-Agg figure failures, the pre-kernel receipt-name collision and intentionally interrupted first build. Molecular runtime/native/dependency bytes are unchanged. |
@@ -63,6 +64,38 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Additional current-source client review — 2026-11-15
+
+MolSysViewer publishes its selected profile `897` in `28147339`, with original
+result/origin/input hashes added in `342e6309`. The
+[owner review](../devtools/data/viewer_current_source_client_review_256_524_20261115.json)
+verifies eleven immutable public Git blobs and inspects five actual test modules
+plus three scientific/fixture helpers. Their parametrized definitions contain
+55 cases, matching the client's reported 55 passes, no failures/skips and 51
+explicit legacy-file warnings. This is semantic source review of that public
+account, not an independent execution or access to the private original JUnit.
+
+The actual owner input is `96988b6ea`; its 3,544 package entries comprise 3,491
+MolSysMT entries and 53 addon entries. The reported module/native hashes match
+here, and no Rust inputs change from the native build source `aee7aa65`.
+The client's declared execution base `21474b8c` and report commit `28147339`
+have identical published production Python/runtime files; later changes there
+are documentation and receivers. Its dirty version string and newer support
+source overlay remain explicit; those source relationships do not certify a
+frozen producer or every private execution byte.
+
+Real default/explicit H5MSM sessions, named/parallel results, source maps,
+evaluated-empty coverage, selective invalidation, recovered append and actual
+periodic/compound-participant geometry have concrete guards and independent
+oracles. Synthetic participant fixtures are not detector truth; this selection
+does not validate every interaction family. Earlier receiving is overlapping,
+not additive release credit. BindingMT #73, the stable-format decision, #524's
+actual public host floor and clean installed closure, #615's accepted audit
+outcome and final exact-pair gates remain due. Current two-way manifests also
+require checking public availability before agreeing a promotion order; no
+metadata, floor or publication authorization changes. Original weighted
+accounting and all owner execution/publication pauses remain unchanged.
 
 ## Peptide construction, saved scene and author routes — 2026-11-15
 

@@ -733,6 +733,35 @@ release matrix. Candidate construction, hosted qualification and publication
 retain the agreed pause. Final producer selection and the same exact artifacts
 remain prerequisites for the installed conclusion.
 
+## Current-client source receiving and public availability — 2026-11-15
+
+MolSysViewer publishes source review profile `897` in `28147339`, supplemented
+by exact retained-result hashes in `342e6309`. Its reported 55-case command
+passes on owner source `96988b6ea` and reused native `4ffb82e4`. The
+[owner review](../../devtools/data/viewer_current_source_client_review_256_524_20261115.json)
+independently verifies eleven public Git blobs and inspects the five real test
+modules and their scientific/fixture helpers. The reviewed definitions contain
+55 selected cases. The execution report identifies a working client checkout
+and a newer PyUnitWizard source overlay; private JUnit/invocation/origin/input
+bytes are not independently received. Source counts and hashes do not supply a
+clean installed closure or a published compatible minimum.
+
+The actual reviewed manifests have a two-way runtime dependency: MolSysMT lists
+`molsysviewer`, while MolSysViewer lists `molsysmt>=0.23.0`. Neither declaration
+alone proves compatibility with every newer optional capability. Once the
+actual compatible host floor and exact artifacts are agreed, review public
+availability against both manifests before deciding a promotion order. Joint
+staging can qualify a staged pair but cannot establish that a missing public
+counterpart is already installable. Preserve existing artifacts and keep
+construction, tags, promotions and publication under their separate approvals.
+No floor, dependency, recipe, producer or release sequence changes here.
+
+This account receives only the exercised current-source contracts. The finite
+exit above still requires real compatible artifacts, clean minimum/newer
+installed workflows and their actual origins/resolved versions. It adds no
+extra matrix and does not close #256, #615 or the client's separate Movie and
+complete-core investigations.
+
 ## Provenance
 
 Local Linux source checkout, shared Python 3.14.7 development environment and

@@ -14,7 +14,7 @@ supersedes: []
 
 # H5MSM 0.6 MolecularMechanics persistence
 
-## Current state — reviewed 2026-11-13
+## Current state — reviewed 2026-11-15
 
 Development public writers already default to H5MSM 1.0, including the bounded
 experimental mechanics layer. The [maintained format contract](../h5msm_format.md)
@@ -36,6 +36,16 @@ integral headers and unsafe declared-count enumeration. Its bounded correction a
 the evidence is tracked in the
 [resolved report](../archive/resolved_bugs/h5msm_readers_silently_coerce_malformed_integer_metadata.md).
 It preserves valid wire encodings; no new format version is required.
+
+The additional MolSysViewer profile `897` reports 55 passing selected cases
+against exact MolSysMT `96988b6ea`, reusing native `4ffb82e4`. The
+[bounded owner review](../../devtools/data/viewer_current_source_client_review_256_524_20261115.json)
+verifies the immutable public report, supplemental hashes and actual guard/helper
+blobs. It receives concrete session/default/explicit-format, sparse-query,
+coverage, append and coordinate-edit semantics; independent geometry remains
+visible in the tests. Private raw JUnit and origin/input manifests are not
+received or rerun. The overlapping selection is not 55 new acceptance cases,
+a package/ABI qualification or BindingMT's omitted-version migration exit.
 
 The stable-format decision and exact coordinated installed-pair gates remain
 open. Neither source support, a default-setting change nor this clarification
