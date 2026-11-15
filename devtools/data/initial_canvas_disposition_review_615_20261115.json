@@ -32,7 +32,7 @@
     "reported_current_controls": "Normal and contended actual Jupyter controls observe the expected 3983-atom initial scene and new native draws at 6.3947 and 6.8883 seconds after observed Run. Exact inputs and scope remain those in the lead receipt; no final-candidate or universal latency claim."
   },
   "proposed_disposition": {
-    "state": "awaiting_explicit_principal_maintainer_decision",
+    "state": "not_accepted_keep_investigation_open",
     "claim": "Close historical investigation by a documented bounded disposition, preserving unknown cause and all original failures; do not call it a causal repair.",
     "candidate_requirement": "The exact final pair must pass the original initial-canvas guard before acceptance. Require initial-cell ownership, all nine kernel stages, expected 3983 atoms, scene registration and a new native draw, retaining the 30-second canvas deadline and 15-second pre-deadline stack capture.",
     "recurrence": "Block candidate acceptance, preserve the correlated timeline and classify the missing transition; do not retry blindly or accept a passing rerun as a repair.",
@@ -83,8 +83,19 @@
       "host_adoption_owner": "uibcdf/molsyssuite#200",
       "shared_prefix_unchanged": true
     },
-    "consequence": "The associated historical distribution inventory does not identify the actual loaded module or missing transition. #615 cause and explicit principal-maintainer disposition remain unchanged. The new notebook host profile belongs to applicable final-pair qualification, not a core runtime dependency change or an extra matrix.",
+    "consequence": "The associated historical distribution inventory does not identify the actual loaded module or missing transition. The maintainer explicitly retains #615 as an open investigation and does not accept the proposed closure. The new notebook host profile belongs to applicable final-pair qualification, not a core runtime dependency change or an extra matrix.",
     "candidate_or_installed_acceptance": false,
+    "original_weighted_progress_change": 0
+  },
+  "maintainer_decision": {
+    "date": "2026-11-15",
+    "decision": "Keep #615 open and continue investigating; do not close on the proposed unknown-cause disposition.",
+    "owner_issue_state": "open",
+    "local_report_state": "blocked",
+    "lead_issue": "uibcdf/molsysviewer#384",
+    "pending_approval_of_proposed_disposition": false,
+    "next_step": "Review original-path evidence and select a bounded control that distinguishes preparation/import, kernel/comm admission, widget/runtime bootstrap and fresh native drawing. Preserve original deadlines, failed evidence and actual loaded origins; later passes or a shared installed version do not establish the historical cause.",
+    "publication_or_new_hosted_execution_authorized": false,
     "original_weighted_progress_change": 0
   }
 }

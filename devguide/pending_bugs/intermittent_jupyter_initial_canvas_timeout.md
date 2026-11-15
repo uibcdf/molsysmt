@@ -30,6 +30,38 @@ return that stage and bounded reproduction to the appropriate owner.
 MolSysMT retains its kernel-side support and checks the returned resolution
 and applicable final-pair receiving before clearing this dependency.
 
+## Maintainer decision: continue the investigation — 2026-11-15
+
+Diego explicitly chooses to keep #615 open and investigate it. The proposed
+closure with an unknown historical cause is **not accepted**. There is no
+outstanding request to approve that proposal. MolSysViewer #384 retains the
+lead; this report remains a blocked consumer and pre-pair dependency.
+
+The next work must distinguish causes rather than accumulate passing retries:
+
+1. Review the retained original fixture/source path and available records to
+   identify which initialization transitions are observable and which are
+   missing. Keep preparation/import, kernel message admission, widget/runtime
+   bootstrap, scene registration and native drawing distinct.
+2. Use that review to select a bounded discriminating control. The separate
+   #392 scene-lock defect and #396 kernel comm stall are hypotheses for this
+   path only if their required conditions and missing transition can be
+   demonstrated. A shared installed version or a later passing run is not
+   sufficient. Any provider comparison must retain actual loaded origins and
+   change one relevant input without modifying the shared prefix.
+3. On a reproduced initial-scene failure, preserve the correlated kernel,
+   transport and draw timeline and the pre-deadline stack. Keep the original
+   30-second allowance and 15-second stack capture; do not force drawing,
+   warm imports, enlarge deadlines or retry blindly to obtain a pass.
+4. Return the demonstrated cause, applicable correction and regression, or
+   the precise remaining uncertainty and next discriminating control. If the
+   historical record cannot establish a cause, report that limit to the
+   maintainer; it does not authorize closure.
+
+The repaired #762 guard and later successful startup controls remain useful
+receiving evidence. They do not resolve this investigation. Existing final-pair
+checks and the build/hosted/tag/publication pause remain unchanged.
+
 ## Observation
 
 One actual Jupyter Analysis case times out after the existing 30 s canvas wait,
@@ -356,8 +388,8 @@ failure, receive the exact final composition through the phase-observed guard,
 and block acceptance on recurrence. This closes only the historical
 investigation by an explicitly accepted disposition; it does not describe a
 causal repair or mark the candidate/installed gates as passed. The principal
-maintainer has been asked to decide this specific resolution. **No affirmative
-decision has yet been received; #615 remains open and blocked.**
+maintainer was asked to decide this specific resolution. **He chooses to keep
+#615 open and investigate it; the proposed closure is not accepted.**
 
 The guard review finds #762: the original opt-in pytest admits absent first-draw
 evidence and checks ordering only when a mark is present. Its actual synthetic
@@ -394,5 +426,5 @@ pytest. These published scoped claims do not reconstruct #615; their private
 execution/provider evidence is not independently reproduced here. The lead's
 current notebook-host baseline is ipykernel >=7.4.0, with controlled shared-host
 adoption owned by uibcdf/molsyssuite#200. No shared prefix, dependency floor or
-candidate is changed here. Principal acceptance and the applicable exact-pair
-startup receiving remain pending; this supplement adds no progress credit.
+candidate is changed here. The causal investigation and applicable exact-pair
+startup receiving remain required; this supplement adds no progress credit.

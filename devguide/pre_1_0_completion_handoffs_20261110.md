@@ -19,6 +19,18 @@ review changes. This target is not yet achieved and does not lift the existing
 candidate/hosted/publication pause. The ledger remains the single current-status
 owner; the dated intake and receiving below retain their original scope.
 
+## #615 investigation retained by the maintainer — 2026-11-15
+
+The maintainer explicitly chooses to keep #615 open and investigate the cause.
+The proposed closure with the historical cause unknown is not accepted; no
+approval of that proposal remains pending. MolSysViewer #384 keeps the lead,
+with MolSysMT's kernel-side support and blocked pre-pair tracker unchanged.
+The [owning report](pending_bugs/intermittent_jupyter_initial_canvas_timeout.md#maintainer-decision-continue-the-investigation--2026-11-15)
+specifies the next bounded evidence review and discriminating-control criteria.
+Later startup passes, the repaired #762 guard and the distinct #396 provider
+study are retained without substituting for that investigation. Original
+weights, exact-pair gates and the execution/publication pause are unchanged.
+
 ## Complete current-source documentation receiving — 2026-11-13
 
 Clean `8f04a1a88` builds the entire admitted site from a fresh Sphinx
