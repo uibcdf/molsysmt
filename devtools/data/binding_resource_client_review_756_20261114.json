@@ -1,0 +1,58 @@
+{
+  "schema": "molsysmt.binding_resource_client_review@1",
+  "date": "2026-11-14",
+  "owner_issue": "uibcdf/molsysmt#756",
+  "client_issue": "uibcdf/bindingmt#111",
+  "client_commit": "8ebca138486f374d6530431c0486ef4f7c36039c",
+  "owner_source_received": "6deb0200cd7e384128eded46caaf751a57e65bc6",
+  "original_owner_source": "27ba3d4c8d63a6a40a2d77f0190309ff15f4deef",
+  "verification": "Inspected immutable published client account and actual public consumer guard; Git blob IDs independently verified. Private raw test/origin/resource artifacts were not received or replayed.",
+  "public_files": {
+    "binding_site_selection.md": {
+      "git_blob": "f29b1d84a7a82e495297aa224efc1159ab05b4a1",
+      "sha256": "8df0195ac04106d62daa0f111a51db825585603c0160ae7748e923666f78351f",
+      "bytes": 19714
+    },
+    "test_site_selection.py": {
+      "git_blob": "8975b86858a9065cb7c885e298e700daa686e53a",
+      "sha256": "391d1d9377849c11852562461b32f1a9e2bfdf904017f15cf29921dcf8d7895c",
+      "bytes": 21005
+    }
+  },
+  "reported_results": {
+    "original_module": {
+      "passed": 109,
+      "failed": 20,
+      "native_exit": 1
+    },
+    "fixed_module": {
+      "passed_per_policy": 129,
+      "policies": [
+        "ordinary",
+        "pm/fs"
+      ],
+      "skipped": 0
+    },
+    "selected_consumer_cases": {
+      "passed_per_policy": 1118,
+      "skipped": 0
+    },
+    "new_controls": {
+      "total": 48,
+      "annotated_expression_identity": 32,
+      "actual_pandas_resource_identity": 4,
+      "ordinary_parse_failures": 12
+    }
+  },
+  "inspected_guarantee": "BindingSite.from_selection calls the unwrapped public MolSysMT selector. Tests inject resource/process-control objects only in evaluators, on first/recheck calls and native inventory/structure/atom/group routes. Identity, causes and notes survive; unrelated parser causes retain owner diagnostics. No real exhaustion or consumer unwrapping is added.",
+  "client_native_sha256": "2dbcf13d148cb3ae13a5908707fcdd61c75a2de5027e50c566ce07de81bdb038",
+  "owner_native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "accepted_scope": "Finite exact-source public consumer receiving of the Python-only #756 resource-error correction. Different unchanged native files are explicit; no complete native ABI, scientific-engine, installed/platform/final-pair or publication acceptance is inferred.",
+  "remaining_boundaries": [
+    "#256 original-file omitted-version native write/whole-file migration remains separate under BindingMT #73.",
+    "#615 lead audit remains MolSysViewer #384; no response at this review.",
+    "The exact final MolSysMT/MolSysViewer 1.0 pair and mandatory qualification remain pending."
+  ],
+  "reported_private_custody": "BindingMT #50, .molsyssuite/selection-resource-756-20261114/, review 2026-11-21",
+  "original_weighted_progress_change": 0
+}

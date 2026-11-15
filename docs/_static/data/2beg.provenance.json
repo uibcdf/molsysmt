@@ -1,0 +1,15 @@
+{
+  "url": "https://files.rcsb.org/download/2BEG.pdb.gz",
+  "retrieved": "2026-11-14",
+  "compressed_bytes": 308428,
+  "compressed_sha256": "6d7286857ef8f879b189b4841be9c6305402fd9af1749d927cebc25bdbc51b09",
+  "decompressed_bytes": 1534302,
+  "decompressed_sha256": "f5fcd55bdcd86c25dbca6bdb4baebb1627cef80259aadcd66356e92fa24c64c0",
+  "model_records": 10,
+  "atom_records": 18550,
+  "entry_url": "https://www.rcsb.org/structure/2BEG",
+  "entry_doi": "10.2210/pdb2BEG/pdb",
+  "primary_citation_doi": "10.1073/pnas.0506723102",
+  "transformation": "None. Exact gzip bytes retrieved from the source URL. The lesson selects structure index 0 at read time.",
+  "scope": "Deposited coordinate snapshot for an offline geometry lesson; not a prepared target, optimized complex or docking reference."
+}

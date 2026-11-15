@@ -119,3 +119,25 @@ rebuild or environment change is required by this Python-only correction. The
 original source qualification and final-pair gates keep their actual identities;
 the new runtime delta does not inherit exact-head qualification from an older
 source. Candidate, hosted, tag and publication operations remain paused.
+
+## Client receiving — 2026-11-14
+
+BindingMT #111 publishes actual public-consumer receiving at
+`8ebca138486f374d6530431c0486ef4f7c36039c`, against exact owner fix
+`6deb0200cd7e384128eded46caaf751a57e65bc6`. The published account reports 20
+failures/109 passes on original 27ba3d4c and 129 passes under each ordinary and
+pm/fs policy on the correction. Its 48 additional controls leave the public
+selector intact and exercise first/recheck failures, inventory/one structure,
+atom/group outputs, actual Pandas evaluation and unchanged parser diagnostics.
+The selected consumer cohort reports 1118 passes per policy with no skips.
+
+The [owner review](../../../devtools/data/binding_resource_client_review_756_20261114.json)
+independently verifies both published document/test Git blob identities and
+inspects the actual BindingSite.from_selection guard. Raw XML, origin and
+resource receipts remain in the client's custody and are not replayed here.
+This accepts that finite public-resource boundary. The client's unchanged
+2dbcf13d native file differs from the owner's 4ffb82e4 reference; neither this
+Python-only receiving nor the account authenticates the whole native ABI.
+#256's distinct storage/default profile, #615, installed/platform qualification
+and the final coordinated pair remain separate. No held work or publication is
+resumed by this receiving.

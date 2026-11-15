@@ -1,0 +1,1181 @@
+{
+  "schema": "molsysmt.alzheimer_geometry_receiving@1",
+  "date": "2026-11-14",
+  "owner_issue": "uibcdf/molsysmt#758",
+  "source_basis": "cc58c051274a6c86989645390464ea42d5b00a44",
+  "state": "Completed local source/documentation and finite client-review checkpoint; final candidate/installed/platform qualification remains pending.",
+  "scope": "Course correctness and a bounded offline documentation fixture. No public molecular API, scientific algorithm, dependency, native or installed/final-candidate change.",
+  "fixture": {
+    "url": "https://files.rcsb.org/download/2BEG.pdb.gz",
+    "retrieved": "2026-11-14",
+    "compressed_bytes": 308428,
+    "compressed_sha256": "6d7286857ef8f879b189b4841be9c6305402fd9af1749d927cebc25bdbc51b09",
+    "decompressed_bytes": 1534302,
+    "decompressed_sha256": "f5fcd55bdcd86c25dbca6bdb4baebb1627cef80259aadcd66356e92fa24c64c0",
+    "model_records": 10,
+    "atom_records": 18550,
+    "entry_url": "https://www.rcsb.org/structure/2BEG",
+    "entry_doi": "10.2210/pdb2BEG/pdb",
+    "primary_citation_doi": "10.1073/pnas.0506723102",
+    "transformation": "None. Exact gzip bytes retrieved from the source URL. The lesson selects structure index 0 at read time.",
+    "scope": "Deposited coordinate snapshot for an offline geometry lesson; not a prepared target, optimized complex or docking reference."
+  },
+  "notebook": {
+    "path": "docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb",
+    "code_cells": 5,
+    "figure_count": 1,
+    "content_and_ids_preserved": true,
+    "sha256": "304f76de520a88c940fd30c44bfdfad819e48ab9b4c4d61a8d431b6b7ac2fbbd"
+  },
+  "executions": {
+    "baseline": {
+      "phase": "baseline",
+      "source_commit": "cc58c051274a6c86989645390464ea42d5b00a44",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual Alzheimer geometry tutorial correction for #758; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.55 0.85 0.61 3/2732 2303536",
+        "cpu_pressure": "some avg10=0.00 avg60=1.34 avg300=1.46 total=20787052479\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n?? docs/_static/data/\n?? tests/documentation/test_alzheimer_geometry_examples.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/alzheimer-geometry-758-20261114/baseline.xml",
+        "--receptor-events=<checkout>/.pytest_cache/alzheimer-geometry-758-20261114/baseline.events.jsonl",
+        "tests/documentation/test_alzheimer_geometry_examples.py"
+      ],
+      "checked_inputs": 8228,
+      "seconds": 9.750215370208025,
+      "ending_status": " M devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n?? docs/_static/data/\n?? tests/documentation/test_alzheimer_geometry_examples.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 220844032,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17554358272,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "ce065188b202125856afb28affe4da791ef7a92f88107f94b95e460801d2ca00"
+    },
+    "corrected": {
+      "phase": "corrected",
+      "source_commit": "cc58c051274a6c86989645390464ea42d5b00a44",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual Alzheimer geometry tutorial correction for #758; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.86 0.78 0.64 1/2727 2305847",
+        "cpu_pressure": "some avg10=0.00 avg60=0.18 avg300=0.59 total=20788136776\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n M docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb\n M docs/content/course/function_inventory.yml\n?? docs/_static/data/\n?? docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.AGENTS.md\n?? tests/documentation/test_alzheimer_geometry_examples.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/alzheimer-geometry-758-20261114/corrected.xml",
+        "--receptor-events=<checkout>/.pytest_cache/alzheimer-geometry-758-20261114/corrected.events.jsonl",
+        "tests/documentation/test_alzheimer_geometry_examples.py",
+        "-k",
+        "not saved_group_distance_matrix"
+      ],
+      "checked_inputs": 8229,
+      "seconds": 7.856590401381254,
+      "ending_status": " M devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n M docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb\n M docs/content/course/function_inventory.yml\n?? docs/_static/data/\n?? docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.AGENTS.md\n?? tests/documentation/test_alzheimer_geometry_examples.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 241610752,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17386676224,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "ce065188b202125856afb28affe4da791ef7a92f88107f94b95e460801d2ca00"
+    },
+    "lesson": {
+      "phase": "lesson",
+      "source_commit": "cc58c051274a6c86989645390464ea42d5b00a44",
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "state": "completed",
+      "command": [
+        "<development-prefix>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb"
+      ],
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "paths": [
+        "docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb"
+      ],
+      "python": "<development-prefix>/bin/python",
+      "load": "0.86 0.78 0.64 5/2725 2305888",
+      "cpu_pressure": "some avg10=0.00 avg60=0.17 avg300=0.58 total=20788143207\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4906,
+      "seconds": 10.006035664118826,
+      "notebooks": [
+        {
+          "path": "docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb",
+          "code_cells": 5,
+          "content_unchanged": true,
+          "executed_cells": 0,
+          "error_outputs": [],
+          "sha256": "9ccda188459da9b9d6c29fefe4256aa5adf56a98ce6b609fec2fe5f6bc87163a",
+          "run_mark": null,
+          "log_sha256": "4d23ce64592fb116494bd42c121cfa97b72a18752b8a72129f8660b6ea31d07d"
+        }
+      ],
+      "changed_inputs": [],
+      "memory_peak_bytes": 277147648,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17373917184,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "24c6d85fc16853acd1c5189fc0134004c54fa17fb41291e711a2ee7584312f72"
+    },
+    "corrected2": {
+      "phase": "corrected2",
+      "source_commit": "cc58c051274a6c86989645390464ea42d5b00a44",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual Alzheimer geometry tutorial correction for #758; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.54 0.73 0.63 3/2738 2306352",
+        "cpu_pressure": "some avg10=0.00 avg60=0.04 avg300=0.45 total=20788231835\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n M docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb\n M docs/content/course/function_inventory.yml\n?? docs/_static/data/\n?? docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.AGENTS.md\n?? tests/documentation/test_alzheimer_geometry_examples.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/alzheimer-geometry-758-20261114/corrected2.xml",
+        "--receptor-events=<checkout>/.pytest_cache/alzheimer-geometry-758-20261114/corrected2.events.jsonl",
+        "tests/documentation/test_alzheimer_geometry_examples.py",
+        "-k",
+        "not saved_group_distance_matrix"
+      ],
+      "checked_inputs": 8229,
+      "seconds": 7.8182369181886315,
+      "ending_status": " M devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n M docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb\n M docs/content/course/function_inventory.yml\n?? docs/_static/data/\n?? docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.AGENTS.md\n?? tests/documentation/test_alzheimer_geometry_examples.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 267468800,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17284730880,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "ce065188b202125856afb28affe4da791ef7a92f88107f94b95e460801d2ca00"
+    },
+    "lesson-corrected": {
+      "phase": "lesson-corrected",
+      "source_commit": "cc58c051274a6c86989645390464ea42d5b00a44",
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "state": "completed",
+      "command": [
+        "<development-prefix>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb"
+      ],
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "paths": [
+        "docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb"
+      ],
+      "python": "<development-prefix>/bin/python",
+      "load": "0.54 0.73 0.63 4/2740 2306391",
+      "cpu_pressure": "some avg10=0.00 avg60=0.04 avg300=0.44 total=20788247653\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4906,
+      "seconds": 9.004986746236682,
+      "notebooks": [
+        {
+          "path": "docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb",
+          "code_cells": 5,
+          "content_unchanged": true,
+          "executed_cells": 0,
+          "error_outputs": [],
+          "sha256": "232a63824e87bb9dba1ad0a7eb875ad74ba8f7d2176f2f7ef1afffd690e945f4",
+          "run_mark": null,
+          "log_sha256": "6cfc8bd6c1fc84842f3a682a7582f856e023ad1b7168c7ad2031106bfba62bb7"
+        }
+      ],
+      "changed_inputs": [],
+      "memory_peak_bytes": 331489280,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17276309504,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "24c6d85fc16853acd1c5189fc0134004c54fa17fb41291e711a2ee7584312f72"
+    },
+    "expanded": {
+      "phase": "expanded",
+      "source_commit": "cc58c051274a6c86989645390464ea42d5b00a44",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual Alzheimer geometry tutorial correction for #758; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.12 0.95 0.72 3/2731 2307278",
+        "cpu_pressure": "some avg10=0.01 avg60=0.44 avg300=0.48 total=20789197238\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n M docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb\n M docs/content/course/function_inventory.yml\n?? docs/_static/data/\n?? docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.AGENTS.md\n?? tests/documentation/test_alzheimer_geometry_examples.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/alzheimer-geometry-758-20261114/expanded.xml",
+        "--receptor-events=<checkout>/.pytest_cache/alzheimer-geometry-758-20261114/expanded.events.jsonl",
+        "tests/documentation/test_alzheimer_geometry_examples.py",
+        "-k",
+        "not saved_group_distance_matrix"
+      ],
+      "checked_inputs": 8229,
+      "seconds": 7.819505617022514,
+      "ending_status": " M devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n M docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb\n M docs/content/course/function_inventory.yml\n?? docs/_static/data/\n?? docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.AGENTS.md\n?? tests/documentation/test_alzheimer_geometry_examples.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 268824576,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17333600256,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "ce065188b202125856afb28affe4da791ef7a92f88107f94b95e460801d2ca00"
+    },
+    "lesson-memberships": {
+      "phase": "lesson-memberships",
+      "source_commit": "cc58c051274a6c86989645390464ea42d5b00a44",
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "state": "completed",
+      "command": [
+        "<development-prefix>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [
+        "docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb"
+      ],
+      "python": "<development-prefix>/bin/python",
+      "load": "1.12 0.95 0.72 3/2731 2307316",
+      "cpu_pressure": "some avg10=0.01 avg60=0.42 avg300=0.48 total=20789202528\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4906,
+      "seconds": 9.005364715121686,
+      "notebooks": [
+        {
+          "path": "docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb",
+          "code_cells": 5,
+          "content_unchanged": true,
+          "executed_cells": 5,
+          "error_outputs": [],
+          "sha256": "304f76de520a88c940fd30c44bfdfad819e48ab9b4c4d61a8d431b6b7ac2fbbd",
+          "run_mark": {
+            "code_sha256": "b7635d35774766a8de111afbc98a68fff5b4763b4bfaa5a21cc90401101e566d",
+            "executed_at": "2026-11-15T04:26:56+00:00"
+          },
+          "log_sha256": "0c234c4f5bd42d65165102e77359c739674a051f28630e66e5dc64decec5036c"
+        }
+      ],
+      "changed_inputs": [],
+      "memory_peak_bytes": 329052160,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17341857792,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "24c6d85fc16853acd1c5189fc0134004c54fa17fb41291e711a2ee7584312f72"
+    },
+    "cohort": {
+      "phase": "cohort",
+      "source_commit": "cc58c051274a6c86989645390464ea42d5b00a44",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual Alzheimer geometry tutorial correction for #758; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.66 0.84 0.71 4/2729 2308031",
+        "cpu_pressure": "some avg10=0.00 avg60=0.04 avg300=0.30 total=20789388007\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n M docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb\n M docs/content/course/function_inventory.yml\n?? docs/_static/data/\n?? docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.AGENTS.md\n?? tests/documentation/test_alzheimer_geometry_examples.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/alzheimer-geometry-758-20261114/cohort.xml",
+        "--receptor-events=<checkout>/.pytest_cache/alzheimer-geometry-758-20261114/cohort.events.jsonl",
+        "tests/documentation/test_alzheimer_geometry_examples.py",
+        "tests/documentation/test_distance_extrema_tutorials.py",
+        "tests/documentation/test_pairwise_geometry_tutorials.py"
+      ],
+      "checked_inputs": 8229,
+      "seconds": 9.796365714631975,
+      "ending_status": " M devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n M docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb\n M docs/content/course/function_inventory.yml\n?? docs/_static/data/\n?? docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.AGENTS.md\n?? tests/documentation/test_alzheimer_geometry_examples.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 324272128,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17345642496,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "ce065188b202125856afb28affe4da791ef7a92f88107f94b95e460801d2ca00"
+    },
+    "render": {
+      "phase": "render",
+      "source_commit": "cc58c051274a6c86989645390464ea42d5b00a44",
+      "scope": "Fresh strict full Sphinx build of the executed notebooks and current actual configuration. Notebook execution was received separately. No browser, installed, final-candidate or scientific-profile qualification.",
+      "state": "completed",
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "sphinx",
+        "-W",
+        "--keep-going",
+        "-E",
+        "-a",
+        "-b",
+        "html",
+        "-q",
+        "-j",
+        "1",
+        "docs",
+        "<checkout>/.pytest_cache/alzheimer-geometry-758-20261114/html"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [],
+      "python": "<development-prefix>/bin/python",
+      "load": "0.68 0.84 0.72 3/2717 2308082",
+      "cpu_pressure": "some avg10=0.00 avg60=0.04 avg300=0.29 total=20789404395\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 7127,
+      "seconds": 161.07940460601822,
+      "notebooks": [],
+      "changed_inputs": [],
+      "memory_peak_bytes": 1274064896,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15992152064,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "72ee412e271f1c452d66e34c2edaa9795c399b9c13117d965d774ab321fed06b"
+    },
+    "receiving": {
+      "phase": "receiving",
+      "source_commit": "cc58c051274a6c86989645390464ea42d5b00a44",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual Alzheimer geometry tutorial correction for #758; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.71 1.47 1.00 4/2709 2309604",
+        "cpu_pressure": "some avg10=0.09 avg60=1.65 avg300=0.89 total=20792429716\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n M docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb\n M docs/content/course/function_inventory.yml\n?? docs/_static/data/\n?? docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.AGENTS.md\n?? tests/documentation/test_alzheimer_geometry_examples.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/alzheimer-geometry-758-20261114/receiving.xml",
+        "--receptor-events=<checkout>/.pytest_cache/alzheimer-geometry-758-20261114/receiving.events.jsonl",
+        "tests/documentation/test_alzheimer_geometry_examples.py",
+        "tests/documentation/test_distance_extrema_tutorials.py",
+        "tests/documentation/test_pairwise_geometry_tutorials.py"
+      ],
+      "checked_inputs": 8229,
+      "seconds": 20.728285858873278,
+      "ending_status": " M devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n M docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb\n M docs/content/course/function_inventory.yml\n?? docs/_static/data/\n?? docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.AGENTS.md\n?? tests/documentation/test_alzheimer_geometry_examples.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 420732928,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17390567424,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "ce065188b202125856afb28affe4da791ef7a92f88107f94b95e460801d2ca00"
+    }
+  },
+  "pytest_receiving": {
+    "baseline": {
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "complete": true,
+      "counts": {
+        "collected": 6,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 6,
+        "failed": 6,
+        "not_executed": 0,
+        "passed": 0,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 1,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "duration": 4.558969690930098,
+      "exitstatus": 1,
+      "extensions": {
+        "dropped": 0,
+        "incomplete": false,
+        "recorded": 1
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "digest": "f99b01c12bb307824dda887ff3af818bd9db1f8369fd3b8067f297122cf94c99",
+        "records": 22
+      },
+      "invalid_selections": [],
+      "note": "",
+      "outcome": "FAIL",
+      "root_causes": 1,
+      "run_id": "06dfa64cf094456fb218280bc0e17719",
+      "schema": "pytest-receptor.events@1",
+      "stop_reason": "",
+      "type": "session_finish"
+    },
+    "corrected": {
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "complete": true,
+      "counts": {
+        "collected": 9,
+        "deselected": 1,
+        "errors": 0,
+        "executed": 9,
+        "failed": 4,
+        "not_executed": 0,
+        "passed": 5,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 1,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "duration": 2.615859383251518,
+      "exitstatus": 1,
+      "extensions": {
+        "dropped": 0,
+        "incomplete": false,
+        "recorded": 1
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "digest": "fd91de8b09b6d706d2feea671098f1bb156393f1a0c26169d0c1b9d95dc5617f",
+        "records": 32
+      },
+      "invalid_selections": [],
+      "note": "",
+      "outcome": "FAIL",
+      "root_causes": 2,
+      "run_id": "8737010b17674ea897b5690404b47a78",
+      "schema": "pytest-receptor.events@1",
+      "stop_reason": "",
+      "type": "session_finish"
+    },
+    "corrected2": {
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "complete": true,
+      "counts": {
+        "collected": 9,
+        "deselected": 1,
+        "errors": 0,
+        "executed": 9,
+        "failed": 2,
+        "not_executed": 0,
+        "passed": 7,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 3,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "duration": 3.2883527036756277,
+      "exitstatus": 1,
+      "extensions": {
+        "dropped": 0,
+        "incomplete": false,
+        "recorded": 3
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "digest": "95479a914ecc148cf6ddbc6b02718bd5fc3f68fa6220a685b0c5de31b4f46381",
+        "records": 35
+      },
+      "invalid_selections": [],
+      "note": "",
+      "outcome": "FAIL",
+      "root_causes": 1,
+      "run_id": "63f1fb1cda134383b5f7e1ba920b0690",
+      "schema": "pytest-receptor.events@1",
+      "stop_reason": "",
+      "type": "session_finish"
+    },
+    "expanded": {
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "complete": true,
+      "counts": {
+        "collected": 9,
+        "deselected": 1,
+        "errors": 0,
+        "executed": 9,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 9,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 5,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "duration": 3.321209677029401,
+      "exitstatus": 0,
+      "extensions": {
+        "dropped": 0,
+        "incomplete": false,
+        "recorded": 3
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "digest": "70f86a766ca1ab82afc0a327297f29c37f5fce8e192414f053e50c37ffa85644",
+        "records": 36
+      },
+      "invalid_selections": [],
+      "note": "",
+      "outcome": "PASS",
+      "root_causes": 0,
+      "run_id": "77a68ee5d3d44dd4a2e1d024c82b36f1",
+      "schema": "pytest-receptor.events@1",
+      "stop_reason": "",
+      "type": "session_finish"
+    },
+    "cohort": {
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "complete": true,
+      "counts": {
+        "collected": 31,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 31,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 31,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 10,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "duration": 5.206875381991267,
+      "exitstatus": 0,
+      "extensions": {
+        "dropped": 0,
+        "incomplete": false,
+        "recorded": 8
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "digest": "45351cb265d85d645a5ba2be98696b6bf43b187a617ef2d9e9dba6946dc7471d",
+        "records": 112
+      },
+      "invalid_selections": [],
+      "note": "",
+      "outcome": "PASS",
+      "root_causes": 0,
+      "run_id": "62d0e834de0d4b2dbceeec128d2396b3",
+      "schema": "pytest-receptor.events@1",
+      "stop_reason": "",
+      "type": "session_finish"
+    },
+    "receiving": {
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "complete": true,
+      "counts": {
+        "collected": 31,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 31,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 31,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 10,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "duration": 9.04851275589317,
+      "exitstatus": 0,
+      "extensions": {
+        "dropped": 0,
+        "incomplete": false,
+        "recorded": 8
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "digest": "cef938857870219a0342226bcfde6949c0c9be7dbd8d706bf028a8e6fb7c7bba",
+        "records": 112
+      },
+      "invalid_selections": [],
+      "note": "",
+      "outcome": "PASS",
+      "root_causes": 0,
+      "run_id": "0f4a7b4e8566486697b7e4e21cb30c41",
+      "schema": "pytest-receptor.events@1",
+      "stop_reason": "",
+      "type": "session_finish"
+    }
+  },
+  "actual_html_receiving": {
+    "html_files": 1400,
+    "article": "content/course/Path_Alzheimer/30_Geometrical_Measurements.html",
+    "article_sha256": "5cf153519e8c8f35923fff5119735367dcc95217ae1b27f6ca2c3f22fac8fdf1",
+    "figure_sha256": "d6f05c4299c100cb62ebcb5f5692f290265b0922c20e8452ba7017ff6b0b7a63",
+    "figure_href": "../../../_images/d6f05c4299c100cb62ebcb5f5692f290265b0922c20e8452ba7017ff6b0b7a63.png",
+    "downloadable_assets": {
+      "2beg.pdb.gz": {
+        "href": "../../../_downloads/e51d2a14233dd7149cb6caf8748e4cf7/2beg.pdb.gz",
+        "sha256": "6d7286857ef8f879b189b4841be9c6305402fd9af1749d927cebc25bdbc51b09"
+      },
+      "2beg.provenance.json": {
+        "href": "../../../_downloads/a2944e2b4912014d993eb35d94231a3b/2beg.provenance.json",
+        "sha256": "ad7d3b779679b2c9deac545267770da9e33860e5a052468ea0e2bedeab310fc9"
+      }
+    },
+    "anchors": [
+      "course-alzheimer-geometrical-measurements",
+      "course-alzheimer-geometrical-measurements-centers",
+      "course-alzheimer-geometrical-measurements-closest",
+      "course-alzheimer-geometrical-measurements-angle",
+      "course-alzheimer-geometrical-measurements-challenge",
+      "course-alzheimer-geometrical-measurements-see-also"
+    ],
+    "scope": "Actual HTML, local downloads and identical PNG payload receiving. No browser or final-candidate qualification."
+  },
+  "actual_kernel_runtime": {
+    "30_Geometrical_Measurements.json": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/alzheimer-geometry-758-20261114/source/docs/content/course/Path_Alzheimer",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/alzheimer-geometry-758-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    }
+  },
+  "negative_and_precondition_dispositions": {
+    "baseline": "Six genuine isolated original-cell failures on the three removed root aliases. A local coordinate control bypasses the old live-download setup; this is not a full original-notebook execution.",
+    "first_correction": "Five cases pass and four fail. Two complete-lesson cases expose our incorrect relative fixture path; two angle oracles request atom_name at system level instead of atom level. These are authored lesson/test errors, not new library defects.",
+    "second_correction": "Seven pass and two complete-lesson cases reject atom indices supplied to get(element=group). The authored matrix is corrected by obtaining atom-to-group correspondence first.",
+    "notebook_attempts": "Two original failed fresh-kernel attempts remain retained: missing local path, then invalid group-axis selection. The final complete notebook executes five code cells and saves one actual figure.",
+    "expanded_selection": "Nine pass with one explicitly deselected saved-figure case before output adoption. This is not a complete final gate.",
+    "final_selection": "31 passes with zero skips/errors/failures. Ten new cases include independent coordinate/angle/plot-data receiving under both unit policies and saved-PNG/provenance checks; 21 existing geometry/course cases retain their own scope.",
+    "warnings": "Final pytest retains five legacy H5MSM, three uneven atom_ff_type merge and two Agg-in-test warnings. The actual notebook uses inline output; its merge warning remains visible and explained."
+  },
+  "scientific_boundary": "Preserves the deposited 2BEG coordinates/one selected structure and explicitly translates a native-built KLVFF model for teaching. Independent NumPy/PDB field references receive values, axes and source memberships. No affinity, docking, optimized pose, complete chemical state or preparation accuracy is claimed.",
+  "support_and_attribution_boundary": "Existing validated public calls, lazy/native providers and PyUnitWizard quantity boundaries are used unchanged. No new ArgDigest, DepDigest, SMonitor or Ackredit runtime surface is introduced. Dataset entry/original-study DOIs and source hashes are explicit; native construction keeps its existing optional attribution.",
+  "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "retained_evidence_sha256": {
+    ".pytest_cache/alzheimer-geometry-758-20261114/quality_commands.json": "90524e1ac66e8908aa9bb4eb025cd6054a962228541a7cc20f8a655f378763ae",
+    ".pytest_cache/alzheimer-geometry-758-20261114/checks.log": "181f91a6a6bb421f1fe81267da8aa5317d8a8a0d5c0c73e83ebae1a160161c74",
+    ".pytest_cache/alzheimer-geometry-758-20261114/batches.json": "ad0f7684ed195392078009944e8c651f3a05d7dba37fa966c12463eae0b5aa07",
+    ".pytest_cache/alzheimer-geometry-758-20261114/inline_driver.py": "24c6d85fc16853acd1c5189fc0134004c54fa17fb41291e711a2ee7584312f72",
+    ".pytest_cache/alzheimer-geometry-758-20261114/expanded-execution.json": "bf5b9d8eb61711c167bf4f7db35d6dac5106c6cb75822a3766152c1c57af8ed5",
+    ".pytest_cache/alzheimer-geometry-758-20261114/check_driver.py": "ce065188b202125856afb28affe4da791ef7a92f88107f94b95e460801d2ca00",
+    ".pytest_cache/alzheimer-geometry-758-20261114/render_driver.py": "72ee412e271f1c452d66e34c2edaa9795c399b9c13117d965d774ab321fed06b",
+    ".pytest_cache/alzheimer-geometry-758-20261114/commands.json": "443e972d01c4570690d3aecda43fbe07fc91fe9561c039ca1dee7911e8985940",
+    ".pytest_cache/alzheimer-geometry-758-20261114/baseline.xml": "f90e7b967fbf8afc3ff2b0bad52ba2089817f5905b2e29a8ec312984566f29dd",
+    ".pytest_cache/alzheimer-geometry-758-20261114/cohort.events.jsonl": "01ecd2e329dd421344c083df1b33aaed3a33ae8f60a27bfccf4e973f855cb7a5",
+    ".pytest_cache/alzheimer-geometry-758-20261114/receiving-execution.json": "ea3d83e9e0801c1bce8159d9be2d48f6de96710ec2410f3dccb780a4601b7ea9",
+    ".pytest_cache/alzheimer-geometry-758-20261114/receiving.events.jsonl": "3f2f8ca7af8338832dcc36bbc2f3328bb6fac8f630cf67b8f631262ec9e231e4",
+    ".pytest_cache/alzheimer-geometry-758-20261114/notebook-adoption.json": "0cebf55a6c5af12ccfede6cf8d03a0a00222a72ff3cb62bf78d06b6729a9bf05",
+    ".pytest_cache/alzheimer-geometry-758-20261114/render-execution.json": "0ef2dde8c42d90280b7584aef1f3500492d6a74ab4e3bafcdbf9bbd20c4c1e18",
+    ".pytest_cache/alzheimer-geometry-758-20261114/cohort.log": "46ded7f046937430007d3cc38b8f4a91e4f26ff22b1ef222ab5ff99a67350c95",
+    ".pytest_cache/alzheimer-geometry-758-20261114/owned-service-retirement.json": "1fa61b21d04955c9f61e23a62a857330da08e35b3424c102fd60d8ca70bebc58",
+    ".pytest_cache/alzheimer-geometry-758-20261114/corrected-execution.json": "ff985c90aa980b8328097238b386edb12f37864d0a806340b9f08382d39bb201",
+    ".pytest_cache/alzheimer-geometry-758-20261114/lesson-corrected-inputs-before.json": "ae5af1a9be3759bbd331efd30c77a07bd0e7b4ee28e18c1a17c1d93c77beed11",
+    ".pytest_cache/alzheimer-geometry-758-20261114/corrected2-execution.json": "922507e00d824e213a4a7889b394fea778982e082df2c0cb2776550feef0af9a",
+    ".pytest_cache/alzheimer-geometry-758-20261114/corrected2.xml": "6045849ed14daaf14d343381b02e0daf6eb66a5396fb40c8d0819ecf38f8cc5c",
+    ".pytest_cache/alzheimer-geometry-758-20261114/baseline.log": "db186cf774d57b9c0f8568d6008e0a52b5f648b97b0e131174d50f3022f087ba",
+    ".pytest_cache/alzheimer-geometry-758-20261114/lesson.log": "9eba6896ec4d6a212d84734e4b6236c4df69794ffd12f5f9ad176afec49a55ec",
+    ".pytest_cache/alzheimer-geometry-758-20261114/receiving-inputs-after.json": "7e515630c982778ce750392959122059295e4a0779364d3cecd3f4e1a109ea76",
+    ".pytest_cache/alzheimer-geometry-758-20261114/quality-corrected-results.json": "1212df34aa41a1a40b9d07f7f5095b5599a8c791a88b9ec112abee2ab8487bc5",
+    ".pytest_cache/alzheimer-geometry-758-20261114/corrected.xml": "60e13d75c0056e6016d04b293fed66793ec64872cd566c158b18fe65d25de060",
+    ".pytest_cache/alzheimer-geometry-758-20261114/corrected2-inputs-after.json": "40d9b28335461ceb5be1856e29141a57f0fc63217cb65fdb5020e377c73f84b9",
+    ".pytest_cache/alzheimer-geometry-758-20261114/corrected.log": "701e07c1002d76ba1e8c8716d2ccc2d49baa117c4553b5bce73c8a4baffeff86",
+    ".pytest_cache/alzheimer-geometry-758-20261114/render-inputs-after.json": "8b94e1b1b47ef5e82efefe32e355084f3d287124e94f6e6a870bb1cf9400b1b1",
+    ".pytest_cache/alzheimer-geometry-758-20261114/fixture-retrieval.json": "807c4ce70d549af38000e4fd00861a8c560d0ec515f09e3d6c6a808881bda18e",
+    ".pytest_cache/alzheimer-geometry-758-20261114/lesson-corrected-inputs-after.json": "ae5af1a9be3759bbd331efd30c77a07bd0e7b4ee28e18c1a17c1d93c77beed11",
+    ".pytest_cache/alzheimer-geometry-758-20261114/baseline-driver.py": "ce065188b202125856afb28affe4da791ef7a92f88107f94b95e460801d2ca00",
+    ".pytest_cache/alzheimer-geometry-758-20261114/corrected-inputs-before.json": "8a61352bbb5ac54b0b882e1b208c7685f5da39b52641ce6244cb0caedb909e85",
+    ".pytest_cache/alzheimer-geometry-758-20261114/lesson-memberships-inputs-after.json": "ae5af1a9be3759bbd331efd30c77a07bd0e7b4ee28e18c1a17c1d93c77beed11",
+    ".pytest_cache/alzheimer-geometry-758-20261114/expanded.log": "572953da870ea21e8bb45fd0fbb18a32630dc00efa44542b7d2f52f1c948d220",
+    ".pytest_cache/alzheimer-geometry-758-20261114/milestones.json": "867a3c0ff14b0d2f1e5369a344fabbf874142f602da1ffee06548c14a896f21f",
+    ".pytest_cache/alzheimer-geometry-758-20261114/checks-inputs-after.json": "ac1fcc2e307209d1195f6b5eaac106ad0a07dd63804f014dfdd8c0d169fc566d",
+    ".pytest_cache/alzheimer-geometry-758-20261114/lesson-corrected.log": "b91fbd6df03f4f97ce6c8810bca24fbba74550f838843128d51a8548163b388b",
+    ".pytest_cache/alzheimer-geometry-758-20261114/cohort.xml": "d6ef26e45321b1a0fc834346fc5d7bfdb778a31c5d639825be1f993ecbd3f1d3",
+    ".pytest_cache/alzheimer-geometry-758-20261114/cohort-execution.json": "ce4611192f13c4b64f0023de4189c115d35f72c646325e5e70e6ac6b2b39f458",
+    ".pytest_cache/alzheimer-geometry-758-20261114/corrected2.log": "e9624825a206331a0c4355f55a3e21d67e452f3a1584e7e18f6a30793a51da0a",
+    ".pytest_cache/alzheimer-geometry-758-20261114/receptor-receiving.json": "ef61c286da487c5660d9847986526d8f635b24af026fad00f87e8d0eb6621441",
+    ".pytest_cache/alzheimer-geometry-758-20261114/corrected2-inputs-before.json": "40d9b28335461ceb5be1856e29141a57f0fc63217cb65fdb5020e377c73f84b9",
+    ".pytest_cache/alzheimer-geometry-758-20261114/expanded-driver.py": "ce065188b202125856afb28affe4da791ef7a92f88107f94b95e460801d2ca00",
+    ".pytest_cache/alzheimer-geometry-758-20261114/lesson-inputs-after.json": "ae5af1a9be3759bbd331efd30c77a07bd0e7b4ee28e18c1a17c1d93c77beed11",
+    ".pytest_cache/alzheimer-geometry-758-20261114/lesson-execution.json": "ed90b38aa2204ae48d2472437c53203d32ebcdeb4a24b6be3b998f79371a66c0",
+    ".pytest_cache/alzheimer-geometry-758-20261114/corrected2.events.jsonl": "a228d10d825768b26ffa2277ca1b235024df8e4734c8fd5a1bd35c79a6682481",
+    ".pytest_cache/alzheimer-geometry-758-20261114/expanded-inputs-after.json": "1ece5ffc01dc1663fad51134ba7ca27e0aad2638455f83be2daac24aa5ec030f",
+    ".pytest_cache/alzheimer-geometry-758-20261114/baseline-execution.json": "1a34749f8cd9689066950a427dc133e3d6eb8c408bec690e8eb5a6fe01b7f53a",
+    ".pytest_cache/alzheimer-geometry-758-20261114/receiving-inputs-before.json": "7e515630c982778ce750392959122059295e4a0779364d3cecd3f4e1a109ea76",
+    ".pytest_cache/alzheimer-geometry-758-20261114/baseline-inputs-after.json": "3619afe2e6bf1b131b46594241c28f64fc75f86928d3844e54f907cbdd9b606d",
+    ".pytest_cache/alzheimer-geometry-758-20261114/corrected-driver.py": "ce065188b202125856afb28affe4da791ef7a92f88107f94b95e460801d2ca00",
+    ".pytest_cache/alzheimer-geometry-758-20261114/cohort-inputs-before.json": "326fdf5ebc9eaa6306b9960411eac3f603cef3345b1b74d7985b4d16317192c3",
+    ".pytest_cache/alzheimer-geometry-758-20261114/checks-driver.py": "ce065188b202125856afb28affe4da791ef7a92f88107f94b95e460801d2ca00",
+    ".pytest_cache/alzheimer-geometry-758-20261114/baseline.events.jsonl": "095a7c322db38d5fb1963835e45c07dfb4834a0aea5002c45a58688cb3cd67d1",
+    ".pytest_cache/alzheimer-geometry-758-20261114/lesson-memberships.log": "4c0ca6a8569c8bb672bf19005fac12d0bf79dc50161598daae1456254a665097",
+    ".pytest_cache/alzheimer-geometry-758-20261114/cohort-inputs-after.json": "326fdf5ebc9eaa6306b9960411eac3f603cef3345b1b74d7985b4d16317192c3",
+    ".pytest_cache/alzheimer-geometry-758-20261114/baseline-inputs-before.json": "3619afe2e6bf1b131b46594241c28f64fc75f86928d3844e54f907cbdd9b606d",
+    ".pytest_cache/alzheimer-geometry-758-20261114/receiving.xml": "60430330b00a836c98ceca0ca5983b4514ed14c21ca309306a3ba3040a4e36d9",
+    ".pytest_cache/alzheimer-geometry-758-20261114/corrected2-driver.py": "ce065188b202125856afb28affe4da791ef7a92f88107f94b95e460801d2ca00",
+    ".pytest_cache/alzheimer-geometry-758-20261114/expanded-inputs-before.json": "1ece5ffc01dc1663fad51134ba7ca27e0aad2638455f83be2daac24aa5ec030f",
+    ".pytest_cache/alzheimer-geometry-758-20261114/corrected-inputs-after.json": "8a61352bbb5ac54b0b882e1b208c7685f5da39b52641ce6244cb0caedb909e85",
+    ".pytest_cache/alzheimer-geometry-758-20261114/corrected.events.jsonl": "c40fae2356123aa8f277d448715dfe0344cd7b962d405977b3447d5e7f04dd93",
+    ".pytest_cache/alzheimer-geometry-758-20261114/expanded.xml": "22c04eeb5a1ba618a358abda134443d32f5c095f115b5d71f0e549d068b0b6d8",
+    ".pytest_cache/alzheimer-geometry-758-20261114/quality.py": "da760c4d0e389768320d802b83b9d71e6d9eaff85ad10d4de8852b06bf123d0c",
+    ".pytest_cache/alzheimer-geometry-758-20261114/lesson-memberships-execution.json": "468dbfe99c339f218e6df4e137f4defc83c2a3ccf20be66fe690d052cc6e8beb",
+    ".pytest_cache/alzheimer-geometry-758-20261114/receiving.log": "37325d3cae2700c92c3fb1e19793dbf361b5b5174a7e2ea21b2447bfb9dc1157",
+    ".pytest_cache/alzheimer-geometry-758-20261114/render.log": "382f82536b1648d7d2520d3a06b0ab3e720a4d958f7a2bbe24e74fa0f0f39b2f",
+    ".pytest_cache/alzheimer-geometry-758-20261114/expanded.events.jsonl": "2560a45163328d9b699eb598f66e0ff9d5511ed029987f5f68c64be260196800",
+    ".pytest_cache/alzheimer-geometry-758-20261114/cohort-driver.py": "ce065188b202125856afb28affe4da791ef7a92f88107f94b95e460801d2ca00",
+    ".pytest_cache/alzheimer-geometry-758-20261114/checks-execution.json": "868ff5df243077d35df7644f9c2b7314d3c37c21ba2b77f705e98773c1e17221",
+    ".pytest_cache/alzheimer-geometry-758-20261114/receiving-driver.py": "ce065188b202125856afb28affe4da791ef7a92f88107f94b95e460801d2ca00",
+    ".pytest_cache/alzheimer-geometry-758-20261114/lesson-inputs-before.json": "ae5af1a9be3759bbd331efd30c77a07bd0e7b4ee28e18c1a17c1d93c77beed11",
+    ".pytest_cache/alzheimer-geometry-758-20261114/html-receiving.json": "559606a6896e599fff32b2f4cb3117f64b6fa6f0e6b14c636edf7b2778fd0857",
+    ".pytest_cache/alzheimer-geometry-758-20261114/lesson-corrected-execution.json": "9767f8d3ac0f226cb4120f4b6155f515d3d4713270e098c039106be7276c0108",
+    ".pytest_cache/alzheimer-geometry-758-20261114/lesson-memberships-inputs-before.json": "ae5af1a9be3759bbd331efd30c77a07bd0e7b4ee28e18c1a17c1d93c77beed11",
+    ".pytest_cache/alzheimer-geometry-758-20261114/checks-inputs-before.json": "ac1fcc2e307209d1195f6b5eaac106ad0a07dd63804f014dfdd8c0d169fc566d",
+    ".pytest_cache/alzheimer-geometry-758-20261114/render-inputs-before.json": "8b94e1b1b47ef5e82efefe32e355084f3d287124e94f6e6a870bb1cf9400b1b1"
+  },
+  "client_receiving": "BindingMT #111 exact-source #756 account/guard is reviewed separately in binding_resource_client_review_756_20261114.json; private raw receipts are not replayed.",
+  "next_owner_correction": "uibcdf/molsysmt#759: unsupported capping/conformation keywords in Alzheimer peptide-synthesis Module 24.",
+  "original_weighted_progress_change": 0,
+  "publication": {
+    "new_candidate_construction": "paused",
+    "hosted_qualification": "paused",
+    "tags": "paused",
+    "package_publication": "paused"
+  },
+  "quality_checks": {
+    "passed": true,
+    "commands": [
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "seconds": 50.652582701761276,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.9s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                       17.5s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)   15.5s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.6s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.1s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.5s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            1.2s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   2.6s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.6s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.3s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       4.2s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/generate_converter_arguments.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 10.011095803231001,
+        "stdout": "OK: the committed table matches the converters.\nTarget forms: 96 | keywords per target: min 6, max 23, mean 10.3\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.0951707111671567,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.4496822417713702,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.09678502380847931,
+        "stdout": "4736 files already formatted\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.03611006587743759,
+        "stdout": "",
+        "stderr": ""
+      }
+    ]
+  },
+  "quality_execution": {
+    "phase": "checks",
+    "source_commit": "cc58c051274a6c86989645390464ea42d5b00a44",
+    "state": "completed",
+    "native_exit": 0,
+    "host_reserve_bytes": 6979321856,
+    "scope": "Receive actual Alzheimer geometry tutorial correction for #758; no installed or final-pair qualification.",
+    "host_cpu_at_admission": {
+      "load": "3.69 1.33 1.00 16/2898 2313239",
+      "cpu_pressure": "some avg10=8.47 avg60=2.70 avg300=0.73 total=20795372655\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "online_cpus": 20
+    },
+    "starting_status": " M devguide/archive/resolved_bugs/selection_expression_evaluation_wraps_resource_failures_as_argument_errors.md\n M devguide/pending_bugs/docs/README.md\n D devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb\n M docs/content/course/function_inventory.yml\n?? devguide/archive/resolved_bugs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n?? devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n?? devtools/data/alzheimer_geometry_receiving_758_20261114.json\n?? devtools/data/binding_resource_client_review_756_20261114.json\n?? docs/_static/data/\n?? docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.AGENTS.md\n?? tests/documentation/test_alzheimer_geometry_examples.py\n",
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "2147483648",
+      "memory.high": "1887436800",
+      "memory.swap.max": "0",
+      "pids.max": "256"
+    },
+    "command": [
+      "<development-prefix>/bin/python",
+      "<checkout>/.pytest_cache/alzheimer-geometry-758-20261114/quality.py"
+    ],
+    "checked_inputs": 8232,
+    "seconds": 70.77348660910502,
+    "ending_status": " M devguide/archive/resolved_bugs/selection_expression_evaluation_wraps_resource_failures_as_argument_errors.md\n M devguide/pending_bugs/docs/README.md\n D devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb\n M docs/content/course/function_inventory.yml\n?? devguide/archive/resolved_bugs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n?? devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md\n?? devtools/data/alzheimer_geometry_receiving_758_20261114.json\n?? devtools/data/binding_resource_client_review_756_20261114.json\n?? docs/_static/data/\n?? docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.AGENTS.md\n?? tests/documentation/test_alzheimer_geometry_examples.py\n",
+    "changed_inputs": [],
+    "memory_peak_bytes": 535752704,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 15422382080,
+    "maximum_memory_pressure_avg10": 0.0,
+    "pressure_transitions": [],
+    "stop_reason": null,
+    "driver_sha256": "ce065188b202125856afb28affe4da791ef7a92f88107f94b95e460801d2ca00"
+  },
+  "owned_service_retirement": {
+    "retired": 11,
+    "scope": "Only these eleven known completed services created for #758. Original native outcomes remain in the per-invocation receipts; no foreign process or service is changed.",
+    "units": [
+      {
+        "unit": "msm-alzheimer-geometry-758-baseline-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": "ActiveState=failed\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-alzheimer-geometry-758-corrected-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": "ActiveState=failed\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-alzheimer-geometry-758-lesson-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": "ActiveState=failed\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-alzheimer-geometry-758-corrected2-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": "ActiveState=failed\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-alzheimer-geometry-758-lesson-corrected-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": "ActiveState=failed\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-alzheimer-geometry-758-memberships-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-alzheimer-geometry-758-lesson-memberships-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-alzheimer-geometry-758-cohort-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-alzheimer-geometry-758-render-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-alzheimer-geometry-758-receiving-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-alzheimer-geometry-758-quality-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      }
+    ]
+  },
+  "reviewed_delta_sha256": {
+    "devguide/archive/resolved_bugs/selection_expression_evaluation_wraps_resource_failures_as_argument_errors.md": "c8b7409fa00c1319091711407c3ce226805abfa8417ea4afd5e44543544dd935",
+    "devguide/pending_bugs/docs/README.md": "0f2441a667b7f97d40b75034baf6ab175587e6f5bb263d733cb401cbd8eb4524",
+    "devguide/release_1_0_status.md": "48257253d4b41cdc64e2db332eae02a15370e247f337d29b8380e890e0780bdc",
+    "docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.ipynb": "304f76de520a88c940fd30c44bfdfad819e48ab9b4c4d61a8d431b6b7ac2fbbd",
+    "docs/content/course/function_inventory.yml": "2e6067c53f88656c2f3b6be61a3294608de9fa5acf71e093cdf5ca0282b8b09d",
+    "devguide/archive/resolved_bugs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md": "003c7b31a6a99bc75462fd8c1c2a83fa1556563add71d7f01812309f579ddace",
+    "devguide/pending_bugs/docs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md": "e91875c281560eaa2e69959330a536d733807a0db0ecd268086a88b4d3eec56a",
+    "devtools/data/binding_resource_client_review_756_20261114.json": "9ba4a134a5e6e8e84c78af7b3764a1624fee4734fe262b2269ddaff94fe9cbe5",
+    "docs/_static/data/2beg.pdb.gz": "6d7286857ef8f879b189b4841be9c6305402fd9af1749d927cebc25bdbc51b09",
+    "docs/_static/data/2beg.provenance.json": "ad7d3b779679b2c9deac545267770da9e33860e5a052468ea0e2bedeab310fc9",
+    "docs/_static/data/README.txt": "46f334b139543cc5332506e021466cc8a5e113c319a9c096e38c9f98c36093fe",
+    "docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.AGENTS.md": "ad6892e1f4f0099c381d4984a5bec2ce243918aa7471d0f278e909c3edb2319e",
+    "tests/documentation/test_alzheimer_geometry_examples.py": "48e490c7a4d9be7326a17a0a1a6b087cf771df0182b8db1a164092d88e602f25",
+    "docs/content/course/Path_Alzheimer/30_Geometrical_Measurements.nbconvert.last_run": "4944eee054890ebad067b79eedf2730c80bb681ad508a05d5682feb1946be29e"
+  },
+  "reviewed_delta_deleted_paths": [
+    "devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md"
+  ]
+}
