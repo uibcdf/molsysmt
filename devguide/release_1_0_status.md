@@ -30,6 +30,8 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
+| Finish the newly identified #758 course correction | The Alzheimer geometry module still calls unavailable root aliases and an unsupported center keyword, and its setup/fit explanation needs a bounded scientific correction. The [source-inspected report](pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md) is admitted documentation correctness work. Preserve its fibril/peptide scenarios and anchors, choose explicit reproducible inputs/placement, execute the actual lesson and compare its reported measurements with independent coordinates. It is not received by the separate tool-notebook cohort. |
+| Preserve #757 and the executed geometry examples | Nine tool notebooks execute 81 distinct code cells and retain twelve actual figures. Local reduction positions are explicitly mapped to source atom/group indices; chosen groups are no longer assumed to be peptide termini. Twenty-one selected cases pass, including ten numerical cases over nm/ps and pm/fs, seven figure controls and four existing course/pose cases. Strict Sphinx renders 1,400 pages without warnings; all nine articles and twelve identical PNG payloads are received. The [receipt](../devtools/data/geometry_documentation_receiving_334_757_20261114.json) retains five original wrong-index failures, seven operator-Agg figure failures, the pre-kernel receipt-name collision and intentionally interrupted first build. Molecular runtime/native/dependency bytes are unchanged. |
 | Preserve executed essential examples and #753/#755 repairs | Eleven notebooks receive actual fresh-kernel execution (178 distinct code cells), including native get/info, selection/extraction, ChemicalStates, rings and named hydrogen-bond/H5MSM workflows. Four query tutorials now load bundled snapshots without network; one group-selection predicate is corrected against an independent 80-atom expectation. Fifteen focused controls pass with no skips. Fresh strict Sphinx renders 1,400 pages; all eleven changed articles, plot assets and new catalog links are received. [Receipt](../devtools/data/documentation_examples_receiving_334_20261114.json) preserves original failures and runtime/resource boundaries. This is not the complete notebook corpus, browser or final-pair qualification. |
 | Preserve completed #754/#756 owner corrections and request finite client receiving | [#754](archive/resolved_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md) retains 72 selected pytest cases and actual plain-Jupyter phase/error controls, with six explicitly synthetic controller cases. [#756](archive/resolved_bugs/selection_expression_evaluation_wraps_resource_failures_as_argument_errors.md) now preserves the original MemoryError/OS ENOMEM objects: 244 selection/doctest cases pass with zero skips and the full strict site/five changed articles are received. [Receipt](../devtools/data/selection_resource_receiving_756_20261114.json). BindingMT #111 still owes its exact-source end-to-end resource-identity acceptance; no cause-unwrapping, new selector, held population or native rebuild is requested. Original failed probes and missing-route test preconditions remain separate evidence. |
 | Preserve the completed current local source checkpoint | Clean `27ba3d4c8` completes the default selection: **35,191 pass, 16 documented optional skips, zero failures/errors**. The actual native exit is zero and the official receptor reader agrees with the complete same-run JUnit. All 9,012 checked source, 2,581 MolSysViewer and 231 support inputs remain unchanged. The separate registered evidence execution passes 116 cases for 74 nodes with zero skips. [Receipt](../devtools/data/pre_1_0_source_checkpoint_334_20261114.json). Event-detail/extension caps remain explicit; hosted/nightly/platform/final-pair gates are still due. |
@@ -60,6 +62,39 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Executed geometry examples and #757 source-index correction — 2026-11-14
+
+The owner review executes nine complete structure/box tool notebooks on frozen
+6deb0200c plus the reviewed documentation delta: **81 distinct code cells and
+twelve saved figures**. Five original actual-cell controls fail because local
+endpoint positions are printed as source atoms/groups. Corrected examples map
+each endpoint separately and no longer imply that a purely geometric extremum
+filters bonds, proves an interaction or aligns a trajectory. The neighboring
+distance lesson describes its actual selected groups rather than peptide termini.
+
+The final selection passes **21 cases with no skips**: ten independent numerical
+cases across nm/ps and pm/fs, seven actual saved-plot controls and four existing
+bounded-pose/Common Core cases. The official published receptor reader and
+complete same-invocation JUnit agree; five legacy-H5MSM warnings remain explicit.
+A forced complete strict Sphinx build produces 1,400 HTML pages with zero warnings.
+All nine actual articles and twelve byte-identical figure payloads are received.
+The [receipt](../devtools/data/geometry_documentation_receiving_334_757_20261114.json)
+retains source/native/kernel identities, resource limits and unsuccessful attempts.
+
+The initial operator Agg configuration produced numerical output without figures;
+seven controls reject those outputs. A receipt-name collision starts no kernel,
+and the first Sphinx child is intentionally interrupted rather than accepted.
+All nine notebooks are then rerun with Jupyter's inline backend. No runtime API,
+method, native binary, provider, environment, package or hosted job changes.
+This receives the finite examples, not all notebooks, browser or final pair.
+
+The same source review identifies #758's broken Alzheimer geometry module as
+the next finite owner correction. BindingMT receives #756's exact-source handoff
+in [its #111](https://github.com/uibcdf/bindingmt/issues/111#issuecomment-6886793137);
+client resource-identity acceptance remains pending. Existing #615/#256 requests
+are not repeated or treated as accepted. Original scorecard weights and the
+candidate/hosted/tag/publication pause are unchanged.
 
 ## Public selection resource identity receiving — 2026-11-14
 

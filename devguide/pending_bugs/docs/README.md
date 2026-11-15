@@ -17,8 +17,9 @@ Entries are filed and closed under [reporting_protocol.md](../../reporting_proto
 
 <!-- generated: devguide_index -->
 
-### Open (1)
+### Open (2)
 
+- [`alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md`](alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md) — [#758](https://github.com/uibcdf/molsysmt/issues/758) — Alzheimer geometry module uses unavailable aliases and unsupported center arguments *(medium, inspected)*
 - [`course_modules_lack_paired_content_contracts.md`](course_modules_lack_paired_content_contracts.md) — [#512](https://github.com/uibcdf/molsysmt/issues/512) — Course modules lack paired content-protection contracts. *(low, measured)*
 
 <!-- /generated -->

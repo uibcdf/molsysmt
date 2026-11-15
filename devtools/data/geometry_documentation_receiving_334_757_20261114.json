@@ -1,0 +1,1963 @@
+{
+  "schema": "molsysmt.geometry_documentation_receiving@1",
+  "date": "2026-11-14",
+  "owner_issue": "uibcdf/molsysmt#334",
+  "corrected_issue": "uibcdf/molsysmt#757",
+  "source_basis": "6deb0200cd7e384128eded46caaf751a57e65bc6",
+  "state": "Completed local documentation receiving; final candidate, installed, platform and client gates remain pending.",
+  "scope": "Documentation corrections and actual executed examples only. No molecular runtime/API/scientific algorithm, native, dependency or final-candidate change.",
+  "notebooks": [
+    {
+      "path": "docs/content/user/tools/structure/get_distances.ipynb",
+      "code_cells": 14,
+      "content_preserved": true,
+      "figures": 3
+    },
+    {
+      "path": "docs/content/user/tools/structure/get_vectors.ipynb",
+      "code_cells": 9,
+      "content_preserved": true,
+      "figures": 2
+    },
+    {
+      "path": "docs/content/user/tools/structure/center.ipynb",
+      "code_cells": 14,
+      "content_preserved": true,
+      "figures": 2
+    },
+    {
+      "path": "docs/content/user/tools/structure/get_contacts.ipynb",
+      "code_cells": 9,
+      "content_preserved": true,
+      "figures": 2
+    },
+    {
+      "path": "docs/content/user/tools/structure/get_neighbors.ipynb",
+      "code_cells": 8,
+      "content_preserved": true,
+      "figures": 1
+    },
+    {
+      "path": "docs/content/user/tools/structure/get_minimum_distances.ipynb",
+      "code_cells": 10,
+      "content_preserved": true,
+      "figures": 1
+    },
+    {
+      "path": "docs/content/user/tools/structure/get_maximum_distances.ipynb",
+      "code_cells": 9,
+      "content_preserved": true,
+      "figures": 1
+    },
+    {
+      "path": "docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb",
+      "code_cells": 3,
+      "content_preserved": true,
+      "figures": 0
+    },
+    {
+      "path": "docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb",
+      "code_cells": 5,
+      "content_preserved": true,
+      "figures": 0
+    }
+  ],
+  "unique_notebooks": 9,
+  "unique_code_cells": 81,
+  "figures": 12,
+  "notebook_invocations_including_superseded_agg_runs": 21,
+  "executed_cells_including_superseded_agg_runs": 195,
+  "executions": {
+    "geometry": {
+      "phase": "geometry",
+      "source_commit": "6deb0200cd7e384128eded46caaf751a57e65bc6",
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "state": "completed",
+      "command": [
+        "<development-prefix>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "docs/content/user/tools/structure/get_distances.ipynb",
+        "docs/content/user/tools/structure/get_vectors.ipynb",
+        "docs/content/user/tools/structure/center.ipynb"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [
+        "docs/content/user/tools/structure/get_distances.ipynb",
+        "docs/content/user/tools/structure/get_vectors.ipynb",
+        "docs/content/user/tools/structure/center.ipynb"
+      ],
+      "python": "<development-prefix>/bin/python",
+      "load": "1.62 0.82 0.82 1/2719 2232758",
+      "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=20716278125\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4906,
+      "seconds": 32.01681816391647,
+      "notebooks": [
+        {
+          "path": "docs/content/user/tools/structure/get_distances.ipynb",
+          "code_cells": 14,
+          "content_unchanged": true,
+          "executed_cells": 14,
+          "error_outputs": [],
+          "sha256": "4e84417129e51c68fdb157ccff1ebc32f7f28aee16dd27151476e053db48d672",
+          "run_mark": {
+            "code_sha256": "9730e99759bcae6fd4a62bc288cba3af86d199f8b66c6e95f9a78c7cd0cb6d13",
+            "executed_at": "2026-11-15T00:46:23+00:00"
+          },
+          "log_sha256": "06900abb45a387b59c5ea99786d7f3f23250ac3cafa6eec8a65802eb66ed820c"
+        },
+        {
+          "path": "docs/content/user/tools/structure/get_vectors.ipynb",
+          "code_cells": 9,
+          "content_unchanged": true,
+          "executed_cells": 9,
+          "error_outputs": [],
+          "sha256": "7019f0df47e80bab6a9cbf5206a74a18167d8096d1fb165cb270b92726378113",
+          "run_mark": {
+            "code_sha256": "0cbbdaa2b6fa3e0f8b21a12e349ff708fc3b6eedf3c0c2d7b957ad4c5bcaa3bc",
+            "executed_at": "2026-11-15T00:46:33+00:00"
+          },
+          "log_sha256": "6c1b848bf3ef30fbbea9d4b7ce2814ea80e51bed3e8d1e21d412ab591fe62052"
+        },
+        {
+          "path": "docs/content/user/tools/structure/center.ipynb",
+          "code_cells": 14,
+          "content_unchanged": true,
+          "executed_cells": 14,
+          "error_outputs": [],
+          "sha256": "b3281f573c7a3a980a08ddafb09d1a51fa666e65c88aa7b96d1de8b905a039e5",
+          "run_mark": {
+            "code_sha256": "5e67061bf99eec9229fa71b96762898d8e95ac089439168787e8b5b43f8f0000",
+            "executed_at": "2026-11-15T00:46:41+00:00"
+          },
+          "log_sha256": "3863ef35c6596c19bad5b66c88578ae33fd5ca0ca09dcbba18947f2d31eef86d"
+        }
+      ],
+      "changed_inputs": [],
+      "memory_peak_bytes": 464703488,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17328848896,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "7539512c9ebad2ddb79192d5e7a93d6d4d51b319ea45d07b7418c527a77745bf"
+    },
+    "sets": {
+      "phase": "sets",
+      "source_commit": "6deb0200cd7e384128eded46caaf751a57e65bc6",
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "state": "completed",
+      "command": [
+        "<development-prefix>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "docs/content/user/tools/structure/get_contacts.ipynb",
+        "docs/content/user/tools/structure/get_neighbors.ipynb",
+        "docs/content/user/tools/structure/get_minimum_distances.ipynb",
+        "docs/content/user/tools/structure/get_maximum_distances.ipynb"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [
+        "docs/content/user/tools/structure/get_contacts.ipynb",
+        "docs/content/user/tools/structure/get_neighbors.ipynb",
+        "docs/content/user/tools/structure/get_minimum_distances.ipynb",
+        "docs/content/user/tools/structure/get_maximum_distances.ipynb"
+      ],
+      "python": "<development-prefix>/bin/python",
+      "load": "1.62 0.92 0.85 2/2734 2233034",
+      "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=20716406879\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4906,
+      "seconds": 32.01598011609167,
+      "notebooks": [
+        {
+          "path": "docs/content/user/tools/structure/get_contacts.ipynb",
+          "code_cells": 9,
+          "content_unchanged": true,
+          "executed_cells": 9,
+          "error_outputs": [],
+          "sha256": "6ff89d70ad7af0563cabb05ea4c4273df33c322d4bdb9fb2c636bfc27bf48ffe",
+          "run_mark": {
+            "code_sha256": "5c499146b34b3668e7d04376ccca82ec708570f997428d0027ef0ed374ca4e89",
+            "executed_at": "2026-11-15T00:46:55+00:00"
+          },
+          "log_sha256": "b567b8b39f325c87c49a3168e7aecb0e03c174b2937e2f403863bfb4574ccaa6"
+        },
+        {
+          "path": "docs/content/user/tools/structure/get_neighbors.ipynb",
+          "code_cells": 8,
+          "content_unchanged": true,
+          "executed_cells": 8,
+          "error_outputs": [],
+          "sha256": "fb5fbfd28b2b2a588babd27ce2a6a1a35d10ba6b1dc15f3a57461e4814137d2b",
+          "run_mark": {
+            "code_sha256": "c7c8faf41c7f1704b623eacdbadda0af4037ffd4282b673690e82d14b34d31ad",
+            "executed_at": "2026-11-15T00:47:02+00:00"
+          },
+          "log_sha256": "e03d5f1a6120337141791c0bd1d9e95dbdfddcd31965c569c078e38bb90278cc"
+        },
+        {
+          "path": "docs/content/user/tools/structure/get_minimum_distances.ipynb",
+          "code_cells": 10,
+          "content_unchanged": true,
+          "executed_cells": 10,
+          "error_outputs": [],
+          "sha256": "fdd3ce13511dce015061554f0c55e46611b6957874bb331d6c6741f6561d2d0a",
+          "run_mark": {
+            "code_sha256": "1f1037ff4b00a1ea93b26e8ec1b1da78a40dcd84711b0e0240544fe446cbaa23",
+            "executed_at": "2026-11-15T00:47:10+00:00"
+          },
+          "log_sha256": "f6b6aa9a462ac9a473ab018eabe30d677d2c98bec411c938155418479573b665"
+        },
+        {
+          "path": "docs/content/user/tools/structure/get_maximum_distances.ipynb",
+          "code_cells": 9,
+          "content_unchanged": true,
+          "executed_cells": 9,
+          "error_outputs": [],
+          "sha256": "4c4a1dff0eae95c9edbce158648c2ffad195c056ebe98a6ead7bf38083eaf020",
+          "run_mark": {
+            "code_sha256": "5e52171c241d533f11e578faa071cfefe4aa66a7d7d6f778f669b23be4ced500",
+            "executed_at": "2026-11-15T00:47:18+00:00"
+          },
+          "log_sha256": "b19bc270d67f37bfe4d2a580a43731141ca03be7a7c9969a676b83892b2e93d2"
+        }
+      ],
+      "changed_inputs": [],
+      "memory_peak_bytes": 582832128,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17418649600,
+      "maximum_memory_pressure_avg10": 0.36,
+      "stop_reason": null,
+      "driver_sha256": "7539512c9ebad2ddb79192d5e7a93d6d4d51b319ea45d07b7418c527a77745bf"
+    },
+    "box": {
+      "phase": "box",
+      "source_commit": "6deb0200cd7e384128eded46caaf751a57e65bc6",
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "state": "completed",
+      "command": [
+        "<development-prefix>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb",
+        "docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [
+        "docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb",
+        "docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb"
+      ],
+      "python": "<development-prefix>/bin/python",
+      "load": "1.27 0.97 0.88 2/2720 2233957",
+      "cpu_pressure": "some avg10=0.53 avg60=0.46 avg300=0.12 total=20717057798\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4906,
+      "seconds": 10.005243252962828,
+      "notebooks": [
+        {
+          "path": "docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb",
+          "code_cells": 3,
+          "content_unchanged": true,
+          "executed_cells": 3,
+          "error_outputs": [],
+          "sha256": "77dff0a0162f89c628a0a2a2cee7035727ba83bf9e36326092513c2a705dc9dc",
+          "run_mark": {
+            "code_sha256": "3870377a9a72809d801a30e9dd1fe6df0795135b4f08146034c412842c72086f",
+            "executed_at": "2026-11-15T00:48:33+00:00"
+          },
+          "log_sha256": "d6e9e0a4db985dc25a78cabbaeeefa47e60b40694ab3f7163feae5a07c8df8a9"
+        },
+        {
+          "path": "docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb",
+          "code_cells": 5,
+          "content_unchanged": true,
+          "executed_cells": 5,
+          "error_outputs": [],
+          "sha256": "4d131837a15f62891f897c0b8d0f094703a1c54c8ed27dc3d6feb29ce1fbbebd",
+          "run_mark": {
+            "code_sha256": "b60551921edab6a5f60c64bf36f53e74143e5351e509ec4f5454c6b8cb8055bd",
+            "executed_at": "2026-11-15T00:48:38+00:00"
+          },
+          "log_sha256": "32d4f69ad7d9b487d36c98079542da4c33f5a9f54aedfc070cd5be80885305d9"
+        }
+      ],
+      "changed_inputs": [],
+      "memory_peak_bytes": 184725504,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17585135616,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "7539512c9ebad2ddb79192d5e7a93d6d4d51b319ea45d07b7418c527a77745bf"
+    },
+    "baseline": {
+      "phase": "baseline",
+      "source_commit": "6deb0200cd7e384128eded46caaf751a57e65bc6",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual geometry tutorial interpretation for #757; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.62 0.80 0.82 3/2748 2234868",
+        "cpu_pressure": "some avg10=0.00 avg60=0.04 avg300=0.06 total=20717237185\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/README.md\n?? devguide/pending_bugs/docs/distance_extrema_tutorials_present_local_endpoint_positions_as_source_atom_and_g.md\n?? tests/documentation/test_distance_extrema_tutorials.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/baseline.xml",
+        "--receptor-events=<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/baseline.events.jsonl",
+        "tests/documentation/test_distance_extrema_tutorials.py"
+      ],
+      "checked_inputs": 8222,
+      "seconds": 7.932373661082238,
+      "ending_status": " M devguide/pending_bugs/docs/README.md\n?? devguide/pending_bugs/docs/distance_extrema_tutorials_present_local_endpoint_positions_as_source_atom_and_g.md\n?? tests/documentation/test_distance_extrema_tutorials.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 281223168,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17080111104,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "eb2f4b12161694ba77b359e8e24884349d757df7e8bfeb201b819268d442a040"
+    },
+    "corrected": {
+      "phase": "corrected",
+      "source_commit": "6deb0200cd7e384128eded46caaf751a57e65bc6",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual geometry tutorial interpretation for #757; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "4.67 2.18 1.32 2/2714 2236106",
+        "cpu_pressure": "some avg10=9.53 avg60=13.11 avg300=4.41 total=20732551481\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/README.md\n M docs/content/user/tools/structure/get_distances.ipynb\n M docs/content/user/tools/structure/get_maximum_distances.ipynb\n M docs/content/user/tools/structure/get_minimum_distances.ipynb\n?? devguide/pending_bugs/docs/distance_extrema_tutorials_present_local_endpoint_positions_as_source_atom_and_g.md\n?? tests/documentation/test_distance_extrema_tutorials.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/corrected.xml",
+        "--receptor-events=<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/corrected.events.jsonl",
+        "tests/documentation/test_distance_extrema_tutorials.py"
+      ],
+      "checked_inputs": 8222,
+      "seconds": 7.762567615136504,
+      "ending_status": " M devguide/pending_bugs/docs/README.md\n M docs/content/user/tools/structure/get_distances.ipynb\n M docs/content/user/tools/structure/get_maximum_distances.ipynb\n M docs/content/user/tools/structure/get_minimum_distances.ipynb\n?? devguide/pending_bugs/docs/distance_extrema_tutorials_present_local_endpoint_positions_as_source_atom_and_g.md\n?? tests/documentation/test_distance_extrema_tutorials.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 293715968,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17487364096,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "eb2f4b12161694ba77b359e8e24884349d757df7e8bfeb201b819268d442a040"
+    },
+    "lessons-corrected": {
+      "phase": "lessons-corrected",
+      "source_commit": "6deb0200cd7e384128eded46caaf751a57e65bc6",
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "state": "completed",
+      "command": [
+        "<development-prefix>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "docs/content/user/tools/structure/get_distances.ipynb",
+        "docs/content/user/tools/structure/get_minimum_distances.ipynb",
+        "docs/content/user/tools/structure/get_maximum_distances.ipynb"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [
+        "docs/content/user/tools/structure/get_distances.ipynb",
+        "docs/content/user/tools/structure/get_minimum_distances.ipynb",
+        "docs/content/user/tools/structure/get_maximum_distances.ipynb"
+      ],
+      "python": "<development-prefix>/bin/python",
+      "load": "1.19 1.71 1.25 2/2739 2236887",
+      "cpu_pressure": "some avg10=0.00 avg60=2.03 avg300=3.00 total=20732691150\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4906,
+      "seconds": 25.013125505764037,
+      "notebooks": [
+        {
+          "path": "docs/content/user/tools/structure/get_distances.ipynb",
+          "code_cells": 14,
+          "content_unchanged": true,
+          "executed_cells": 14,
+          "error_outputs": [],
+          "sha256": "62d88401ff01f59d341473c2d06a13b84e9bd5a57da102e6a960c2868d43ed0e",
+          "run_mark": {
+            "code_sha256": "f9b4032307a4ead5ad1c74482786f7c1b74d0fddc5a98d3591189b8df0ddff2f",
+            "executed_at": "2026-11-15T00:55:03+00:00"
+          },
+          "log_sha256": "2f5c432cb869c3509a95aba2be44c8c807425d50db918b3c2d71ee4f4c567a25"
+        },
+        {
+          "path": "docs/content/user/tools/structure/get_minimum_distances.ipynb",
+          "code_cells": 10,
+          "content_unchanged": true,
+          "executed_cells": 10,
+          "error_outputs": [],
+          "sha256": "02c06d44946e67b9ef89bd657bf9b4e31e3dfae46fdd53a9e0e42ca7577f2679",
+          "run_mark": {
+            "code_sha256": "6be66c2324f0970cc809141384071724e3e916203b68ef26b20e610468947550",
+            "executed_at": "2026-11-15T00:55:12+00:00"
+          },
+          "log_sha256": "59030889dc524295de8efa7a49556a628a423b1963a8ea591058efca1d87de15"
+        },
+        {
+          "path": "docs/content/user/tools/structure/get_maximum_distances.ipynb",
+          "code_cells": 9,
+          "content_unchanged": true,
+          "executed_cells": 9,
+          "error_outputs": [],
+          "sha256": "6f25ef8eff4690e29df0a7a14b3d83bea37ac66b0f2db95c9fa99290034551c2",
+          "run_mark": {
+            "code_sha256": "6f48ca30ac50f5b80739ece14864b9492fdbc458818ce268de9f345398d120b1",
+            "executed_at": "2026-11-15T00:55:19+00:00"
+          },
+          "log_sha256": "11280c854a5ad8d8854ecd9a10dd1320c6258eee45c5471bc3607e3e9c2c1180"
+        }
+      ],
+      "changed_inputs": [],
+      "memory_peak_bytes": 584228864,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17113378816,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "7539512c9ebad2ddb79192d5e7a93d6d4d51b319ea45d07b7418c527a77745bf"
+    },
+    "render": {
+      "phase": "render",
+      "source_commit": "6deb0200cd7e384128eded46caaf751a57e65bc6",
+      "scope": "Fresh strict full Sphinx build of the executed notebooks and current actual configuration. Notebook execution was received separately. No browser, installed, final-candidate or scientific-profile qualification.",
+      "state": "completed",
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "sphinx",
+        "-W",
+        "--keep-going",
+        "-E",
+        "-a",
+        "-b",
+        "html",
+        "-q",
+        "-j",
+        "1",
+        "docs",
+        "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/html"
+      ],
+      "native_exit": -15,
+      "host_reserve_bytes": 6979321856,
+      "paths": [],
+      "python": "<development-prefix>/bin/python",
+      "load": "0.79 1.49 1.21 2/2715 2237414",
+      "cpu_pressure": "some avg10=0.00 avg60=0.60 avg300=2.33 total=20732824173\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 7130,
+      "seconds": 74.03847687877715,
+      "notebooks": [],
+      "changed_inputs": [],
+      "memory_peak_bytes": 1261858816,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17097326592,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "1b29adb33f4b5195cb4e5fe4780714c37de3ad7d7e7510cef093cb2899c0a4f2"
+    },
+    "cohort": {
+      "phase": "cohort",
+      "source_commit": "6deb0200cd7e384128eded46caaf751a57e65bc6",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual geometry tutorial interpretation for #757; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.81 1.48 1.21 4/2709 2237434",
+        "cpu_pressure": "some avg10=0.00 avg60=0.56 avg300=2.30 total=20732827729\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/README.md\n M docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb\n M docs/content/user/tools/pbc/get_box_from_lengths_and_angles.nbconvert.last_run\n M docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb\n M docs/content/user/tools/pbc/get_lengths_and_angles_from_box.nbconvert.last_run\n M docs/content/user/tools/structure/center.ipynb\n M docs/content/user/tools/structure/center.nbconvert.last_run\n M docs/content/user/tools/structure/get_contacts.ipynb\n M docs/content/user/tools/structure/get_contacts.nbconvert.last_run\n M docs/content/user/tools/structure/get_distances.ipynb\n M docs/content/user/tools/structure/get_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_maximum_distances.ipynb\n M docs/content/user/tools/structure/get_maximum_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_minimum_distances.ipynb\n M docs/content/user/tools/structure/get_minimum_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_neighbors.ipynb\n M docs/content/user/tools/structure/get_neighbors.nbconvert.last_run\n M docs/content/user/tools/structure/get_vectors.ipynb\n M docs/docs_manifest.yml\n?? devguide/pending_bugs/docs/distance_extrema_tutorials_present_local_endpoint_positions_as_source_atom_and_g.md\n?? tests/documentation/test_distance_extrema_tutorials.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/cohort.xml",
+        "--receptor-events=<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/cohort.events.jsonl",
+        "tests/documentation/test_distance_extrema_tutorials.py",
+        "tests/documentation/test_pairwise_geometry_tutorials.py"
+      ],
+      "checked_inputs": 8222,
+      "seconds": 6.800832012202591,
+      "ending_status": " M devguide/pending_bugs/docs/README.md\n M docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb\n M docs/content/user/tools/pbc/get_box_from_lengths_and_angles.nbconvert.last_run\n M docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb\n M docs/content/user/tools/pbc/get_lengths_and_angles_from_box.nbconvert.last_run\n M docs/content/user/tools/structure/center.ipynb\n M docs/content/user/tools/structure/center.nbconvert.last_run\n M docs/content/user/tools/structure/get_contacts.ipynb\n M docs/content/user/tools/structure/get_contacts.nbconvert.last_run\n M docs/content/user/tools/structure/get_distances.ipynb\n M docs/content/user/tools/structure/get_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_maximum_distances.ipynb\n M docs/content/user/tools/structure/get_maximum_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_minimum_distances.ipynb\n M docs/content/user/tools/structure/get_minimum_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_neighbors.ipynb\n M docs/content/user/tools/structure/get_neighbors.nbconvert.last_run\n M docs/content/user/tools/structure/get_vectors.ipynb\n M docs/docs_manifest.yml\n?? devguide/pending_bugs/docs/distance_extrema_tutorials_present_local_endpoint_positions_as_source_atom_and_g.md\n?? tests/documentation/test_distance_extrema_tutorials.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 279683072,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17284677632,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "eb2f4b12161694ba77b359e8e24884349d757df7e8bfeb201b819268d442a040"
+    },
+    "facts": {
+      "phase": "facts",
+      "source_commit": "6deb0200cd7e384128eded46caaf751a57e65bc6",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual geometry tutorial interpretation for #757; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.29 1.51 1.25 2/2727 2238370",
+        "cpu_pressure": "some avg10=0.00 avg60=0.09 avg300=1.60 total=20732956340\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/README.md\n M docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb\n M docs/content/user/tools/pbc/get_box_from_lengths_and_angles.nbconvert.last_run\n M docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb\n M docs/content/user/tools/pbc/get_lengths_and_angles_from_box.nbconvert.last_run\n M docs/content/user/tools/structure/center.ipynb\n M docs/content/user/tools/structure/center.nbconvert.last_run\n M docs/content/user/tools/structure/get_contacts.ipynb\n M docs/content/user/tools/structure/get_contacts.nbconvert.last_run\n M docs/content/user/tools/structure/get_distances.ipynb\n M docs/content/user/tools/structure/get_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_maximum_distances.ipynb\n M docs/content/user/tools/structure/get_maximum_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_minimum_distances.ipynb\n M docs/content/user/tools/structure/get_minimum_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_neighbors.ipynb\n M docs/content/user/tools/structure/get_neighbors.nbconvert.last_run\n M docs/content/user/tools/structure/get_vectors.ipynb\n M docs/docs_manifest.yml\n?? devguide/pending_bugs/docs/distance_extrema_tutorials_present_local_endpoint_positions_as_source_atom_and_g.md\n?? tests/documentation/test_distance_extrema_tutorials.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/facts.xml",
+        "--receptor-events=<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/facts.events.jsonl",
+        "tests/documentation/test_distance_extrema_tutorials.py::test_geometry_tutorial_preserves_each_executed_plot"
+      ],
+      "checked_inputs": 8222,
+      "seconds": 4.66733753727749,
+      "ending_status": " M devguide/pending_bugs/docs/README.md\n M docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb\n M docs/content/user/tools/pbc/get_box_from_lengths_and_angles.nbconvert.last_run\n M docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb\n M docs/content/user/tools/pbc/get_lengths_and_angles_from_box.nbconvert.last_run\n M docs/content/user/tools/structure/center.ipynb\n M docs/content/user/tools/structure/center.nbconvert.last_run\n M docs/content/user/tools/structure/get_contacts.ipynb\n M docs/content/user/tools/structure/get_contacts.nbconvert.last_run\n M docs/content/user/tools/structure/get_distances.ipynb\n M docs/content/user/tools/structure/get_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_maximum_distances.ipynb\n M docs/content/user/tools/structure/get_maximum_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_minimum_distances.ipynb\n M docs/content/user/tools/structure/get_minimum_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_neighbors.ipynb\n M docs/content/user/tools/structure/get_neighbors.nbconvert.last_run\n M docs/content/user/tools/structure/get_vectors.ipynb\n M docs/docs_manifest.yml\n?? devguide/pending_bugs/docs/distance_extrema_tutorials_present_local_endpoint_positions_as_source_atom_and_g.md\n?? tests/documentation/test_distance_extrema_tutorials.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 143171584,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17725718528,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "eb2f4b12161694ba77b359e8e24884349d757df7e8bfeb201b819268d442a040"
+    },
+    "inline": {
+      "phase": "inline",
+      "source_commit": "6deb0200cd7e384128eded46caaf751a57e65bc6",
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "state": "completed",
+      "command": [
+        "<development-prefix>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "docs/content/user/tools/structure/get_distances.ipynb",
+        "docs/content/user/tools/structure/get_vectors.ipynb",
+        "docs/content/user/tools/structure/center.ipynb",
+        "docs/content/user/tools/structure/get_contacts.ipynb",
+        "docs/content/user/tools/structure/get_neighbors.ipynb",
+        "docs/content/user/tools/structure/get_minimum_distances.ipynb",
+        "docs/content/user/tools/structure/get_maximum_distances.ipynb",
+        "docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb",
+        "docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [
+        "docs/content/user/tools/structure/get_distances.ipynb",
+        "docs/content/user/tools/structure/get_vectors.ipynb",
+        "docs/content/user/tools/structure/center.ipynb",
+        "docs/content/user/tools/structure/get_contacts.ipynb",
+        "docs/content/user/tools/structure/get_neighbors.ipynb",
+        "docs/content/user/tools/structure/get_minimum_distances.ipynb",
+        "docs/content/user/tools/structure/get_maximum_distances.ipynb",
+        "docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb",
+        "docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb"
+      ],
+      "python": "<development-prefix>/bin/python",
+      "load": "1.22 1.48 1.25 2/2715 2238595",
+      "cpu_pressure": "some avg10=0.00 avg60=0.05 avg300=1.45 total=20732987424\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4906,
+      "seconds": 68.03549948288128,
+      "notebooks": [
+        {
+          "path": "docs/content/user/tools/structure/get_distances.ipynb",
+          "code_cells": 14,
+          "content_unchanged": true,
+          "executed_cells": 14,
+          "error_outputs": [],
+          "sha256": "ff3297db068023199ec2aa3b545fb7f9002f7bfc4a0d1f21a12cc464109a5568",
+          "run_mark": {
+            "code_sha256": "f9b4032307a4ead5ad1c74482786f7c1b74d0fddc5a98d3591189b8df0ddff2f",
+            "executed_at": "2026-11-15T00:58:32+00:00"
+          },
+          "log_sha256": "e0b812439e07382ecdf7697689e1318f3aee48383dc9fe1c2be89d23d402064c"
+        },
+        {
+          "path": "docs/content/user/tools/structure/get_vectors.ipynb",
+          "code_cells": 9,
+          "content_unchanged": true,
+          "executed_cells": 9,
+          "error_outputs": [],
+          "sha256": "cf931ac279157bccd524fbfb9593a16b479e29548cfaa0d7e8243cadae52a256",
+          "run_mark": {
+            "code_sha256": "0cbbdaa2b6fa3e0f8b21a12e349ff708fc3b6eedf3c0c2d7b957ad4c5bcaa3bc",
+            "executed_at": "2026-11-15T00:58:41+00:00"
+          },
+          "log_sha256": "84254187c48e9008391d93fd423e284650a600982f80d974fc0a787418957d52"
+        },
+        {
+          "path": "docs/content/user/tools/structure/center.ipynb",
+          "code_cells": 14,
+          "content_unchanged": true,
+          "executed_cells": 14,
+          "error_outputs": [],
+          "sha256": "caf60aa79af75493e3cc4f87e1bda1b2815f8c7431083a0817f329235915fb01",
+          "run_mark": {
+            "code_sha256": "5e67061bf99eec9229fa71b96762898d8e95ac089439168787e8b5b43f8f0000",
+            "executed_at": "2026-11-15T00:58:50+00:00"
+          },
+          "log_sha256": "1048fce606322c6cd2c58f975709532dff2ebb9084c9064c6e9ad71d739d6a99"
+        },
+        {
+          "path": "docs/content/user/tools/structure/get_contacts.ipynb",
+          "code_cells": 9,
+          "content_unchanged": true,
+          "executed_cells": 9,
+          "error_outputs": [],
+          "sha256": "d7d1086d13918ab187a51160c95c87247622457c720be9ef166edf28e671c810",
+          "run_mark": {
+            "code_sha256": "5c499146b34b3668e7d04376ccca82ec708570f997428d0027ef0ed374ca4e89",
+            "executed_at": "2026-11-15T00:58:58+00:00"
+          },
+          "log_sha256": "aa1f9c862f149f5c8bb0d1121902883eb9d48d03b3c3ddec70ab20561fd8418f"
+        },
+        {
+          "path": "docs/content/user/tools/structure/get_neighbors.ipynb",
+          "code_cells": 8,
+          "content_unchanged": true,
+          "executed_cells": 8,
+          "error_outputs": [],
+          "sha256": "0c17e3278c991af1c7ccb942ae152f9117c4f7280c3e0a8c7e6d6a74ee22b3d9",
+          "run_mark": {
+            "code_sha256": "c7c8faf41c7f1704b623eacdbadda0af4037ffd4282b673690e82d14b34d31ad",
+            "executed_at": "2026-11-15T00:59:05+00:00"
+          },
+          "log_sha256": "a98a60bb1600e2970bc71764fa077720ed90cc4d893262a79c7c008b3f61b9ba"
+        },
+        {
+          "path": "docs/content/user/tools/structure/get_minimum_distances.ipynb",
+          "code_cells": 10,
+          "content_unchanged": true,
+          "executed_cells": 10,
+          "error_outputs": [],
+          "sha256": "b9c85826935434fb7ba41029b37085ab44dee3bb2f940503f7a8f2c6e91acde4",
+          "run_mark": {
+            "code_sha256": "6be66c2324f0970cc809141384071724e3e916203b68ef26b20e610468947550",
+            "executed_at": "2026-11-15T00:59:14+00:00"
+          },
+          "log_sha256": "dddd407cbaefd07d11060a11adb9c638b64dd4e2ed784e4bdeb90277883cb7b1"
+        },
+        {
+          "path": "docs/content/user/tools/structure/get_maximum_distances.ipynb",
+          "code_cells": 9,
+          "content_unchanged": true,
+          "executed_cells": 9,
+          "error_outputs": [],
+          "sha256": "a85f5f726453fef4fe420ddbeafb36e17f96c9e8828ed746c8211cf5f50eccdc",
+          "run_mark": {
+            "code_sha256": "6f48ca30ac50f5b80739ece14864b9492fdbc458818ce268de9f345398d120b1",
+            "executed_at": "2026-11-15T00:59:22+00:00"
+          },
+          "log_sha256": "ae10c5c7a3736f1aa53694df7f00e3cba1b0bcf573fd4fb7bc26246b4d0c0103"
+        },
+        {
+          "path": "docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb",
+          "code_cells": 3,
+          "content_unchanged": true,
+          "executed_cells": 3,
+          "error_outputs": [],
+          "sha256": "e470c5c81dd079846807631de4e476ace240d3e5737b4882d790b08bd7e34d24",
+          "run_mark": {
+            "code_sha256": "3870377a9a72809d801a30e9dd1fe6df0795135b4f08146034c412842c72086f",
+            "executed_at": "2026-11-15T00:59:27+00:00"
+          },
+          "log_sha256": "d6e9e0a4db985dc25a78cabbaeeefa47e60b40694ab3f7163feae5a07c8df8a9"
+        },
+        {
+          "path": "docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb",
+          "code_cells": 5,
+          "content_unchanged": true,
+          "executed_cells": 5,
+          "error_outputs": [],
+          "sha256": "40b2561cce0fd01e40d1297afbd816143b9a6ca5068d96737407e37ece935e26",
+          "run_mark": {
+            "code_sha256": "b60551921edab6a5f60c64bf36f53e74143e5351e509ec4f5454c6b8cb8055bd",
+            "executed_at": "2026-11-15T00:59:31+00:00"
+          },
+          "log_sha256": "32d4f69ad7d9b487d36c98079542da4c33f5a9f54aedfc070cd5be80885305d9"
+        }
+      ],
+      "changed_inputs": [],
+      "memory_peak_bytes": 583925760,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17323651072,
+      "maximum_memory_pressure_avg10": 0.18,
+      "stop_reason": null,
+      "driver_sha256": "2da55c86e45299834b504a8d8eaeb58559c5bfb44662e1ce7aa512839e32e260"
+    },
+    "corrected2": {
+      "phase": "corrected2",
+      "source_commit": "6deb0200cd7e384128eded46caaf751a57e65bc6",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive actual geometry tutorial interpretation for #757; no installed or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.80 1.32 1.22 3/2692 2239556",
+        "cpu_pressure": "some avg10=0.00 avg60=0.02 avg300=1.00 total=20733304346\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/docs/README.md\n M docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb\n M docs/content/user/tools/pbc/get_box_from_lengths_and_angles.nbconvert.last_run\n M docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb\n M docs/content/user/tools/pbc/get_lengths_and_angles_from_box.nbconvert.last_run\n M docs/content/user/tools/structure/center.ipynb\n M docs/content/user/tools/structure/center.nbconvert.last_run\n M docs/content/user/tools/structure/get_contacts.ipynb\n M docs/content/user/tools/structure/get_contacts.nbconvert.last_run\n M docs/content/user/tools/structure/get_distances.ipynb\n M docs/content/user/tools/structure/get_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_maximum_distances.ipynb\n M docs/content/user/tools/structure/get_maximum_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_minimum_distances.ipynb\n M docs/content/user/tools/structure/get_minimum_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_neighbors.ipynb\n M docs/content/user/tools/structure/get_neighbors.nbconvert.last_run\n M docs/content/user/tools/structure/get_vectors.ipynb\n M docs/docs_manifest.yml\n?? devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n?? devguide/pending_bugs/docs/distance_extrema_tutorials_present_local_endpoint_positions_as_source_atom_and_g.md\n?? tests/documentation/test_distance_extrema_tutorials.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/corrected2.xml",
+        "--receptor-events=<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/corrected2.events.jsonl",
+        "tests/documentation/test_distance_extrema_tutorials.py",
+        "tests/documentation/test_pairwise_geometry_tutorials.py"
+      ],
+      "checked_inputs": 8223,
+      "seconds": 6.85692072333768,
+      "ending_status": " M devguide/pending_bugs/docs/README.md\n M docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb\n M docs/content/user/tools/pbc/get_box_from_lengths_and_angles.nbconvert.last_run\n M docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb\n M docs/content/user/tools/pbc/get_lengths_and_angles_from_box.nbconvert.last_run\n M docs/content/user/tools/structure/center.ipynb\n M docs/content/user/tools/structure/center.nbconvert.last_run\n M docs/content/user/tools/structure/get_contacts.ipynb\n M docs/content/user/tools/structure/get_contacts.nbconvert.last_run\n M docs/content/user/tools/structure/get_distances.ipynb\n M docs/content/user/tools/structure/get_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_maximum_distances.ipynb\n M docs/content/user/tools/structure/get_maximum_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_minimum_distances.ipynb\n M docs/content/user/tools/structure/get_minimum_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_neighbors.ipynb\n M docs/content/user/tools/structure/get_neighbors.nbconvert.last_run\n M docs/content/user/tools/structure/get_vectors.ipynb\n M docs/docs_manifest.yml\n?? devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n?? devguide/pending_bugs/docs/distance_extrema_tutorials_present_local_endpoint_positions_as_source_atom_and_g.md\n?? tests/documentation/test_distance_extrema_tutorials.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 279629824,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17472671744,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "eb2f4b12161694ba77b359e8e24884349d757df7e8bfeb201b819268d442a040"
+    },
+    "render-inline": {
+      "phase": "render-inline",
+      "source_commit": "6deb0200cd7e384128eded46caaf751a57e65bc6",
+      "scope": "Fresh strict full Sphinx build of the executed notebooks and current actual configuration. Notebook execution was received separately. No browser, installed, final-candidate or scientific-profile qualification.",
+      "state": "completed",
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "sphinx",
+        "-W",
+        "--keep-going",
+        "-E",
+        "-a",
+        "-b",
+        "html",
+        "-q",
+        "-j",
+        "1",
+        "docs",
+        "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/html"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [],
+      "python": "<development-prefix>/bin/python",
+      "load": "0.90 1.33 1.22 2/2695 2239593",
+      "cpu_pressure": "some avg10=0.00 avg60=0.02 avg300=1.00 total=20733310029\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 7131,
+      "seconds": 143.07528356136754,
+      "notebooks": [],
+      "changed_inputs": [],
+      "memory_peak_bytes": 886202368,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17104470016,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "1b29adb33f4b5195cb4e5fe4780714c37de3ad7d7e7510cef093cb2899c0a4f2"
+    }
+  },
+  "pytest_receiving": {
+    "baseline": {
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "complete": true,
+      "counts": {
+        "collected": 5,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 5,
+        "failed": 5,
+        "not_executed": 0,
+        "passed": 0,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 4,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "duration": 1.9569747671484947,
+      "exitstatus": 1,
+      "extensions": {
+        "dropped": 0,
+        "incomplete": false,
+        "recorded": 4
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "digest": "8d96636769fa7f1103b04bb9dcc1f397789cc833b1ae802d0f8943d32d46215f",
+        "records": 28
+      },
+      "invalid_selections": [],
+      "note": "",
+      "outcome": "FAIL",
+      "root_causes": 4,
+      "run_id": "8d216bcbbd974e968a2aae86c668079f",
+      "schema": "pytest-receptor.events@1",
+      "stop_reason": "",
+      "type": "session_finish"
+    },
+    "corrected": {
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "complete": true,
+      "counts": {
+        "collected": 10,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 10,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 10,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 5,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "duration": 2.8538539679721,
+      "exitstatus": 0,
+      "extensions": {
+        "dropped": 0,
+        "incomplete": false,
+        "recorded": 5
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "digest": "26a72f5f9c4fe5876c17cd62e50fabeacd63008b745077f0a5cd55227e003a20",
+        "records": 41
+      },
+      "invalid_selections": [],
+      "note": "",
+      "outcome": "PASS",
+      "root_causes": 0,
+      "run_id": "e9198cd10f3648719e1153820be4ebb1",
+      "schema": "pytest-receptor.events@1",
+      "stop_reason": "",
+      "type": "session_finish"
+    },
+    "cohort": {
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "complete": true,
+      "counts": {
+        "collected": 14,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 14,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 14,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 5,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "duration": 2.2171454741619527,
+      "exitstatus": 0,
+      "extensions": {
+        "dropped": 0,
+        "incomplete": false,
+        "recorded": 5
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "digest": "60faf6c9b2d99e6e6e2c7ad31b8210d8942960e79b72ff08774301cfbaab333f",
+        "records": 53
+      },
+      "invalid_selections": [],
+      "note": "",
+      "outcome": "PASS",
+      "root_causes": 0,
+      "run_id": "bec7628ffdc44850b66a548f0fdfaf14",
+      "schema": "pytest-receptor.events@1",
+      "stop_reason": "",
+      "type": "session_finish"
+    },
+    "facts": {
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "complete": true,
+      "counts": {
+        "collected": 7,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 7,
+        "failed": 7,
+        "not_executed": 0,
+        "passed": 0,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 0,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "duration": 0.2970343357883394,
+      "exitstatus": 1,
+      "extensions": {
+        "dropped": 0,
+        "incomplete": false,
+        "recorded": 0
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "digest": "9e1ca367989c34c9948c083e68d3fab141006e9c0257bba8aeea8079b197428a",
+        "records": 23
+      },
+      "invalid_selections": [],
+      "note": "",
+      "outcome": "FAIL",
+      "root_causes": 1,
+      "run_id": "d0c7e88a6b3643529377aae56163b2e9",
+      "schema": "pytest-receptor.events@1",
+      "stop_reason": "",
+      "type": "session_finish"
+    },
+    "corrected2": {
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "complete": true,
+      "counts": {
+        "collected": 21,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 21,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 21,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 5,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "duration": 2.2171548400074244,
+      "exitstatus": 0,
+      "extensions": {
+        "dropped": 0,
+        "incomplete": false,
+        "recorded": 5
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "digest": "bc393bc6a519c341ca9be1e070b25a59df567c132476a3ed7b6c3e6868f89c41",
+        "records": 74
+      },
+      "invalid_selections": [],
+      "note": "",
+      "outcome": "PASS",
+      "root_causes": 0,
+      "run_id": "40e426f98c324ce0b9dd3d2e587896c7",
+      "schema": "pytest-receptor.events@1",
+      "stop_reason": "",
+      "type": "session_finish"
+    }
+  },
+  "html_receiving": {
+    "html_files": 1400,
+    "articles": [
+      {
+        "notebook": "docs/content/user/tools/structure/get_distances.ipynb",
+        "article": "content/user/tools/structure/get_distances.html",
+        "html_sha256": "323573fcc75c3b0e1c1aecee7a2dd0f90a821e606002bdf5694b7f11a3ada80d",
+        "expected_figures": 3,
+        "delivered_figure_sha256": {
+          "8520ebf7be92bb8b4671b8fda23665cf75441efd573cd0136d91bfbd3f011499": "_images/8520ebf7be92bb8b4671b8fda23665cf75441efd573cd0136d91bfbd3f011499.png",
+          "f17acaac54e404971391ec6be23d442584b083930e049b9a538d1514b80ae932": "_images/f17acaac54e404971391ec6be23d442584b083930e049b9a538d1514b80ae932.png",
+          "98b94a910902f8abe1cd6fbf7ad25595817af950001273eb5539f211c0a5c574": "_images/98b94a910902f8abe1cd6fbf7ad25595817af950001273eb5539f211c0a5c574.png"
+        }
+      },
+      {
+        "notebook": "docs/content/user/tools/structure/get_vectors.ipynb",
+        "article": "content/user/tools/structure/get_vectors.html",
+        "html_sha256": "c780f946117f876138b8c470742bca9550bac5f7eab98a02b3ec9a47b496cda5",
+        "expected_figures": 2,
+        "delivered_figure_sha256": {
+          "2f924e0caa644ad679e190b87ce5232d400def20b4d67c726b44decc68a202f2": "_images/2f924e0caa644ad679e190b87ce5232d400def20b4d67c726b44decc68a202f2.png",
+          "d64198336762f1dc3e059122cd4161e373b846e483bcb818a24de4ac39f3b7ef": "_images/d64198336762f1dc3e059122cd4161e373b846e483bcb818a24de4ac39f3b7ef.png"
+        }
+      },
+      {
+        "notebook": "docs/content/user/tools/structure/center.ipynb",
+        "article": "content/user/tools/structure/center.html",
+        "html_sha256": "14f6fda5f5f4f9f3c205c82b7773abbfd283e2e4817513d978c8694e8a45cf6b",
+        "expected_figures": 2,
+        "delivered_figure_sha256": {
+          "a4df5bcc3f4a2686cf9a33b9a334cd343e091b80644d2441ce1fb2976c01758c": "_images/a4df5bcc3f4a2686cf9a33b9a334cd343e091b80644d2441ce1fb2976c01758c.png",
+          "c9bb07824e1f4cdad94a1d7db024915eefc97f7ebd1b426a901d0ca567875a06": "_images/c9bb07824e1f4cdad94a1d7db024915eefc97f7ebd1b426a901d0ca567875a06.png"
+        }
+      },
+      {
+        "notebook": "docs/content/user/tools/structure/get_contacts.ipynb",
+        "article": "content/user/tools/structure/get_contacts.html",
+        "html_sha256": "96e70134a3881bbf23c284ea31e514b638d34867e1c2207d6abba6a57aab9e74",
+        "expected_figures": 2,
+        "delivered_figure_sha256": {
+          "27c8790edb4684fab829de3fd831f9666c5096fe578a3b3e65fd2eee9288b946": "_images/27c8790edb4684fab829de3fd831f9666c5096fe578a3b3e65fd2eee9288b946.png",
+          "f278e441a81ed562fa02abeb384e3ecee54e418d1326bb22d49c10b61e1bf765": "_images/f278e441a81ed562fa02abeb384e3ecee54e418d1326bb22d49c10b61e1bf765.png"
+        }
+      },
+      {
+        "notebook": "docs/content/user/tools/structure/get_neighbors.ipynb",
+        "article": "content/user/tools/structure/get_neighbors.html",
+        "html_sha256": "8cbb8e58f65eef13a22ee3caaaf0caed5a20247dfb507415e37c95d61236f14f",
+        "expected_figures": 1,
+        "delivered_figure_sha256": {
+          "02617c1b16156c52187322379d16e09d27b1631b43b0851966fee2c8c82e3c4a": "_images/02617c1b16156c52187322379d16e09d27b1631b43b0851966fee2c8c82e3c4a.png"
+        }
+      },
+      {
+        "notebook": "docs/content/user/tools/structure/get_minimum_distances.ipynb",
+        "article": "content/user/tools/structure/get_minimum_distances.html",
+        "html_sha256": "0bea7f521782d3f7eb6f6805a644cf6617c1742357addea815397c0eda6cfe88",
+        "expected_figures": 1,
+        "delivered_figure_sha256": {
+          "935655402f1e72ccd9b276197a2cc7109826622b80679f3bf763d89924ba8d18": "_images/935655402f1e72ccd9b276197a2cc7109826622b80679f3bf763d89924ba8d18.png"
+        }
+      },
+      {
+        "notebook": "docs/content/user/tools/structure/get_maximum_distances.ipynb",
+        "article": "content/user/tools/structure/get_maximum_distances.html",
+        "html_sha256": "a9001e6367cc7f8bc879f6fa9a5646be6fccadef15b279decc5f9d73c4383b7c",
+        "expected_figures": 1,
+        "delivered_figure_sha256": {
+          "e6a736d0b6eac43164dc0b4991b93a6097c5f4d2fa3b468f2de2e0f2b28d2c82": "_images/e6a736d0b6eac43164dc0b4991b93a6097c5f4d2fa3b468f2de2e0f2b28d2c82.png"
+        }
+      },
+      {
+        "notebook": "docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb",
+        "article": "content/user/tools/pbc/get_lengths_and_angles_from_box.html",
+        "html_sha256": "53b555789ea7c954ff2e02da2aa3ffe2d21517a11b1980bf798322bd5b660867",
+        "expected_figures": 0,
+        "delivered_figure_sha256": {}
+      },
+      {
+        "notebook": "docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb",
+        "article": "content/user/tools/pbc/get_box_from_lengths_and_angles.html",
+        "html_sha256": "7d8969465056b21cabdc8578321146277195dd5bd86fafff074542c73947f9c4",
+        "expected_figures": 0,
+        "delivered_figure_sha256": {}
+      }
+    ],
+    "scope": "Actual rendered articles and identical PNG payload delivery, not browser, whole-corpus notebook or installed/final-pair qualification."
+  },
+  "unsuccessful_attempts": {
+    "original_endpoint_reports": "Five complete genuine assertion failures; no numerical routine repair is needed.",
+    "receipt_name_collision": {
+      "unit": "msm-geometry-docs-334-corrected-20261114.service",
+      "native_service": "ActiveState=failed\nMainPID=0\nResult=exit-code\nExecMainStatus=1\n",
+      "disposition": "The notebook runner refused an already existing receipt name before starting any kernel. Original completed pytest receipt is unchanged. Rerun uses a distinct phase name."
+    },
+    "agg_outputs": "The noninteractive operator environment omits figures. Seven complete saved-plot controls fail. All nine notebooks are then rerun with the real inline backend; those outputs replace the Agg outputs.",
+    "initial_render": {
+      "unit": "msm-geometry-docs-334-render-20261114.service",
+      "reason": "Notebook Agg configuration omitted figures; stop this own build before accepting its outputs. This is an operator/harness interruption, not a library failure or qualified documentation result.",
+      "child": {
+        "pid": 2237423,
+        "args": [
+          "<development-prefix>/bin/python",
+          "-m",
+          "sphinx",
+          "-W",
+          "--keep-going",
+          "-E",
+          "-a",
+          "-b",
+          "html",
+          "-q",
+          "-j",
+          "1",
+          "docs",
+          "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/html"
+        ]
+      }
+    }
+  },
+  "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+  "actual_kernel_runtimes": {
+    "get_vectors.json": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/source/docs/content/user/tools/structure",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "openmm": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/openmm/__init__.py",
+          "version": "8.6.1"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    },
+    "get_contacts.json": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/source/docs/content/user/tools/structure",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    },
+    "get_minimum_distances.json": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/source/docs/content/user/tools/structure",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    },
+    "get_neighbors.json": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/source/docs/content/user/tools/structure",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    },
+    "get_lengths_and_angles_from_box.json": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/source/docs/content/user/tools/pbc",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        }
+      }
+    },
+    "center.json": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/source/docs/content/user/tools/structure",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "openmm": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/openmm/__init__.py",
+          "version": "8.6.1"
+        },
+        "mdtraj": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/mdtraj/__init__.py",
+          "version": "1.11.1"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    },
+    "get_distances.json": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/source/docs/content/user/tools/structure",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "openmm": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/openmm/__init__.py",
+          "version": "8.6.1"
+        },
+        "mdtraj": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/mdtraj/__init__.py",
+          "version": "1.11.1"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    },
+    "get_maximum_distances.json": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/source/docs/content/user/tools/structure",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      }
+    },
+    "get_box_from_lengths_and_angles.json": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/source/docs/content/user/tools/pbc",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/source/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        }
+      }
+    }
+  },
+  "retained_evidence_sha256": {
+    ".pytest_cache/geometry-doc-examples-334-20261114/quality_commands.json": "90524e1ac66e8908aa9bb4eb025cd6054a962228541a7cc20f8a655f378763ae",
+    ".pytest_cache/geometry-doc-examples-334-20261114/inline-execution.json": "115729f8635d93fb54383764224d4a6e836f6a45f1f4a8ecf4a863fafd5993e3",
+    ".pytest_cache/geometry-doc-examples-334-20261114/checks.log": "181f91a6a6bb421f1fe81267da8aa5317d8a8a0d5c0c73e83ebae1a160161c74",
+    ".pytest_cache/geometry-doc-examples-334-20261114/batches.json": "1475b43274bf71bfcb6a7a0a4b087eef7d976ece7639aa439052e749260260f4",
+    ".pytest_cache/geometry-doc-examples-334-20261114/inline_driver.py": "2da55c86e45299834b504a8d8eaeb58559c5bfb44662e1ce7aa512839e32e260",
+    ".pytest_cache/geometry-doc-examples-334-20261114/geometry.log": "8d760a09a49e90c4ef38c4f4dada859a993452ea688ee5f525d16fc9864be786",
+    ".pytest_cache/geometry-doc-examples-334-20261114/check_driver.py": "eb2f4b12161694ba77b359e8e24884349d757df7e8bfeb201b819268d442a040",
+    ".pytest_cache/geometry-doc-examples-334-20261114/render_driver.py": "1b29adb33f4b5195cb4e5fe4780714c37de3ad7d7e7510cef093cb2899c0a4f2",
+    ".pytest_cache/geometry-doc-examples-334-20261114/commands.json": "ba27aa88d78866d4854a370c505ced163a7519db466baba51dccbf1ccebcb330",
+    ".pytest_cache/geometry-doc-examples-334-20261114/baseline.xml": "f2db2930d580568d7fb176cbd0d103254565b30688a4472868de044052777610",
+    ".pytest_cache/geometry-doc-examples-334-20261114/cohort.events.jsonl": "8c3a4f941ccccc04dc136631598f8fb988aa196eaf93ecae8ed4b5f57a935c02",
+    ".pytest_cache/geometry-doc-examples-334-20261114/sets-inputs-before.json": "1357617ae7f78915d993035cec918f63cedd399c3644d2c4451679e28521c96e",
+    ".pytest_cache/geometry-doc-examples-334-20261114/render-execution.json": "7059f5fada6ed07a9218178f4dc3339aee1fd94d1374e907c57ffa92b8bd1503",
+    ".pytest_cache/geometry-doc-examples-334-20261114/cohort.log": "9a2a07635fbdd2530b1a62afc57869e76748662e309f43e3bdc615b527505770",
+    ".pytest_cache/geometry-doc-examples-334-20261114/owned-service-retirement.json": "23e470593e1cc8e0449d56f9dd7d22877d27a2a7dafe9df60101cf2ecd958de9",
+    ".pytest_cache/geometry-doc-examples-334-20261114/geometry-execution.json": "99d1d902fe7d16f74e0e5227f2bdba96fa84c08910e83a5badb344511be61ee1",
+    ".pytest_cache/geometry-doc-examples-334-20261114/sets-inputs-after.json": "1357617ae7f78915d993035cec918f63cedd399c3644d2c4451679e28521c96e",
+    ".pytest_cache/geometry-doc-examples-334-20261114/corrected-execution.json": "0a29e5e4eb89158c0b043caa0780a4639a33fad33c773da6e8dfe489a9b03c9a",
+    ".pytest_cache/geometry-doc-examples-334-20261114/adopted-notebooks.json": "b707f6226dbcd916beb90f6f4fa2c278ead9a1d6f9d29ac7345991aaf9aa0be7",
+    ".pytest_cache/geometry-doc-examples-334-20261114/corrected2-execution.json": "ef4153f1ebf07f768a1eaecbcd83b2ca21d3f1b322a6de9496782359ba3f5517",
+    ".pytest_cache/geometry-doc-examples-334-20261114/corrected2.xml": "f49a697e3e7f76969d9181cf008954dd403a60f3c06215d9d6ad89da3c737a3f",
+    ".pytest_cache/geometry-doc-examples-334-20261114/baseline.log": "74b4da43f25a082a8cf2b09540add9e4683ab39ccb7c8686d7329990a1f8b192",
+    ".pytest_cache/geometry-doc-examples-334-20261114/lessons-corrected.log": "c57b52f7cff9b0b727b5e70ad94ebd32d33881234c0b770a80812ec8a8e8fbdd",
+    ".pytest_cache/geometry-doc-examples-334-20261114/quality-corrected-results.json": "1df6a72d571388c66edde3a4b9f4f34bbad2d70ab1daf799c5b77a784151d8fb",
+    ".pytest_cache/geometry-doc-examples-334-20261114/initial-services-retired.json": "731670350030e403a3a91f6446a1d886cd0c549f13c61a7eccf7be76c9583dbb",
+    ".pytest_cache/geometry-doc-examples-334-20261114/corrected.xml": "db32be8c781c16af27a902f0712e7e7e3f6b266a7765432eb0e44fcd3b83a123",
+    ".pytest_cache/geometry-doc-examples-334-20261114/lessons-invocation-collision.json": "8601d3a911883843080ac8b3375b8522f8c058c7518e1dd67e393b3bff09e26a",
+    ".pytest_cache/geometry-doc-examples-334-20261114/corrected2-inputs-after.json": "52cbd3d00142cd92f93a9cdab381cef37015cb465c4af6dd7ff0b8c850765b5f",
+    ".pytest_cache/geometry-doc-examples-334-20261114/corrected.log": "cf1a6595108316ecea7004c43f888ff4f062970ce45a8216850b298abc7b359d",
+    ".pytest_cache/geometry-doc-examples-334-20261114/render-inputs-after.json": "324c8d2b760603fca671a69ab9a5bd2b9c1e8eea600ff254ae5555994c3fd9aa",
+    ".pytest_cache/geometry-doc-examples-334-20261114/sets.log": "beae1c0267d76fb4ff59d597ca5e86c9c2684e0bd404a6f0878bf1dc1697118b",
+    ".pytest_cache/geometry-doc-examples-334-20261114/geometry-inputs-after.json": "1357617ae7f78915d993035cec918f63cedd399c3644d2c4451679e28521c96e",
+    ".pytest_cache/geometry-doc-examples-334-20261114/facts.log": "15563045c43535d642abfed67c93e87821a8dd31ca84923625ab137b3303aa7b",
+    ".pytest_cache/geometry-doc-examples-334-20261114/facts-execution.json": "ec942d35cbcfe4778f0010206305462109f487615e15d79b5ee998b72da29ad6",
+    ".pytest_cache/geometry-doc-examples-334-20261114/geometry-inputs-before.json": "1357617ae7f78915d993035cec918f63cedd399c3644d2c4451679e28521c96e",
+    ".pytest_cache/geometry-doc-examples-334-20261114/baseline-driver.py": "eb2f4b12161694ba77b359e8e24884349d757df7e8bfeb201b819268d442a040",
+    ".pytest_cache/geometry-doc-examples-334-20261114/box-inputs-before.json": "1357617ae7f78915d993035cec918f63cedd399c3644d2c4451679e28521c96e",
+    ".pytest_cache/geometry-doc-examples-334-20261114/corrected-inputs-before.json": "5dcee23feed4add66aa4e04e31c8389c32c81a42a7026e03bdc071c9da6d3c94",
+    ".pytest_cache/geometry-doc-examples-334-20261114/inline-inputs-after.json": "1357617ae7f78915d993035cec918f63cedd399c3644d2c4451679e28521c96e",
+    ".pytest_cache/geometry-doc-examples-334-20261114/checks-inputs-after.json": "19fb5bda48a9b22b8cd3586e618ebb6cadf66adfce31852f007fa27590b27f64",
+    ".pytest_cache/geometry-doc-examples-334-20261114/render-inline.log": "382f82536b1648d7d2520d3a06b0ab3e720a4d958f7a2bbe24e74fa0f0f39b2f",
+    ".pytest_cache/geometry-doc-examples-334-20261114/lessons-corrected-inputs-before.json": "1357617ae7f78915d993035cec918f63cedd399c3644d2c4451679e28521c96e",
+    ".pytest_cache/geometry-doc-examples-334-20261114/cohort.xml": "1db3d1a4dc2151462a37314910233336aefe42e8e447afc4812d3a291aefd010",
+    ".pytest_cache/geometry-doc-examples-334-20261114/cohort-execution.json": "0519e462765f49a54a1648227068fd1b28732d628e1f25924493c830be4b16b1",
+    ".pytest_cache/geometry-doc-examples-334-20261114/render-inline-execution.json": "8aa0170bad57d77be3f194e219eb42932a0313f2241dbcb9a5430b785d016d33",
+    ".pytest_cache/geometry-doc-examples-334-20261114/corrected2.log": "7bad229b5a42ee76fbf16d355931e11d82cdf06ddbde6cc1917c362bf919d6e5",
+    ".pytest_cache/geometry-doc-examples-334-20261114/box.log": "870ba374bd268f2761cc1ed2b029e9944f0e15c138b31c31e85804236ccea9d7",
+    ".pytest_cache/geometry-doc-examples-334-20261114/corrected2-inputs-before.json": "52cbd3d00142cd92f93a9cdab381cef37015cb465c4af6dd7ff0b8c850765b5f",
+    ".pytest_cache/geometry-doc-examples-334-20261114/box-execution.json": "4c15c51e838117c0318c6e99963d91c6d68d086279d54d2634c66c870beeb9d8",
+    ".pytest_cache/geometry-doc-examples-334-20261114/official-receptor-receiving.json": "2f20a8f602bfc69c9fc66a367e0e8adc3967f89740486692d9983997d7444bde",
+    ".pytest_cache/geometry-doc-examples-334-20261114/corrected2.events.jsonl": "d1ed96683df859802f2420a2c281b69657cf949848fca728033888b25ef8606a",
+    ".pytest_cache/geometry-doc-examples-334-20261114/baseline-execution.json": "34ab5cd1041c70296fb1d952ea03123fe239dfbff3b04ab7876873235c3418f0",
+    ".pytest_cache/geometry-doc-examples-334-20261114/facts-driver.py": "eb2f4b12161694ba77b359e8e24884349d757df7e8bfeb201b819268d442a040",
+    ".pytest_cache/geometry-doc-examples-334-20261114/baseline-inputs-after.json": "c65c1514dbff27d7c04a0fc50a0684dc69181e705d7d1a729c3b564171eb8278",
+    ".pytest_cache/geometry-doc-examples-334-20261114/corrected-driver.py": "eb2f4b12161694ba77b359e8e24884349d757df7e8bfeb201b819268d442a040",
+    ".pytest_cache/geometry-doc-examples-334-20261114/agg-adopted-notebooks.json": "605783f8947304bb949fc99cdf2ada32db4fa1670adcda51dac4afb945d5d901",
+    ".pytest_cache/geometry-doc-examples-334-20261114/cohort-inputs-before.json": "0c48ac08e9d6bdfbf59173ec8977f16973d990e082d53e0c6a1d7abe86f9fd8f",
+    ".pytest_cache/geometry-doc-examples-334-20261114/checks-driver.py": "eb2f4b12161694ba77b359e8e24884349d757df7e8bfeb201b819268d442a040",
+    ".pytest_cache/geometry-doc-examples-334-20261114/baseline.events.jsonl": "8eb654db91b18eb7a534c43482a2fb9250634622634a2bb80437edbb2fd34f88",
+    ".pytest_cache/geometry-doc-examples-334-20261114/render-inline-inputs-after.json": "cfcf4a84f5be922dbf349e7a87f69b18ee130384a320c1d7143b11c691611fb8",
+    ".pytest_cache/geometry-doc-examples-334-20261114/inline.log": "afa99b275d7f9f0938339f447685e24097fce9bee0116330621f8a554083c950",
+    ".pytest_cache/geometry-doc-examples-334-20261114/facts-inputs-before.json": "095f31e4ad7f65e73020f2b475b12083fab5e249ea2b987a0c60b14174ec1cca",
+    ".pytest_cache/geometry-doc-examples-334-20261114/cohort-inputs-after.json": "0c48ac08e9d6bdfbf59173ec8977f16973d990e082d53e0c6a1d7abe86f9fd8f",
+    ".pytest_cache/geometry-doc-examples-334-20261114/facts-inputs-after.json": "095f31e4ad7f65e73020f2b475b12083fab5e249ea2b987a0c60b14174ec1cca",
+    ".pytest_cache/geometry-doc-examples-334-20261114/baseline-inputs-before.json": "c65c1514dbff27d7c04a0fc50a0684dc69181e705d7d1a729c3b564171eb8278",
+    ".pytest_cache/geometry-doc-examples-334-20261114/box-inputs-after.json": "1357617ae7f78915d993035cec918f63cedd399c3644d2c4451679e28521c96e",
+    ".pytest_cache/geometry-doc-examples-334-20261114/sets-execution.json": "a617708d685804b54a9012c726664ce9108339a42782f84584dfab2b202e5370",
+    ".pytest_cache/geometry-doc-examples-334-20261114/facts.xml": "95270e05740dd461006095d7a152a35a2a8f66f4bfe4f35ac228b9b4f14eabda",
+    ".pytest_cache/geometry-doc-examples-334-20261114/corrected2-driver.py": "eb2f4b12161694ba77b359e8e24884349d757df7e8bfeb201b819268d442a040",
+    ".pytest_cache/geometry-doc-examples-334-20261114/lessons-invocation-collision.log": "51ad0307b5f5c4882b67ba09fb66c8a07ea562fe840e01b59b2e6323556ba924",
+    ".pytest_cache/geometry-doc-examples-334-20261114/corrected-inputs-after.json": "5dcee23feed4add66aa4e04e31c8389c32c81a42a7026e03bdc071c9da6d3c94",
+    ".pytest_cache/geometry-doc-examples-334-20261114/corrected.events.jsonl": "0aa1d9afed394b02dbd7b7f3766bdf041d5d02a4955f17e7fe592e24e7cd7466",
+    ".pytest_cache/geometry-doc-examples-334-20261114/quality.py": "da760c4d0e389768320d802b83b9d71e6d9eaff85ad10d4de8852b06bf123d0c",
+    ".pytest_cache/geometry-doc-examples-334-20261114/first-render-interruption.json": "1751bd560bb058b9e744fa5d908f8dc1d56e594c6f53b90da583602fcca6d889",
+    ".pytest_cache/geometry-doc-examples-334-20261114/driver.py": "7539512c9ebad2ddb79192d5e7a93d6d4d51b319ea45d07b7418c527a77745bf",
+    ".pytest_cache/geometry-doc-examples-334-20261114/render.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".pytest_cache/geometry-doc-examples-334-20261114/inline-inputs-before.json": "1357617ae7f78915d993035cec918f63cedd399c3644d2c4451679e28521c96e",
+    ".pytest_cache/geometry-doc-examples-334-20261114/cohort-driver.py": "eb2f4b12161694ba77b359e8e24884349d757df7e8bfeb201b819268d442a040",
+    ".pytest_cache/geometry-doc-examples-334-20261114/checks-execution.json": "4ab001296d1392c1a2481b8c36fb7931e7a551e82e6d506b44cb68fd759d7774",
+    ".pytest_cache/geometry-doc-examples-334-20261114/lessons-corrected-execution.json": "8d741609b1ba4b00e6717e228f4d3b0e57eb4207d2a3030c952a951ee3bc9a9a",
+    ".pytest_cache/geometry-doc-examples-334-20261114/html-receiving.json": "ac64d9f465a30b3c42abe34b3bd637396493554439945f81d09782cf9ef47628",
+    ".pytest_cache/geometry-doc-examples-334-20261114/facts.events.jsonl": "564967bb8c22803b6e607ee0f0b6c612787ee01f7cd21a849a0088c51fa3819e",
+    ".pytest_cache/geometry-doc-examples-334-20261114/lessons-corrected-inputs-after.json": "1357617ae7f78915d993035cec918f63cedd399c3644d2c4451679e28521c96e",
+    ".pytest_cache/geometry-doc-examples-334-20261114/render-inline-inputs-before.json": "cfcf4a84f5be922dbf349e7a87f69b18ee130384a320c1d7143b11c691611fb8",
+    ".pytest_cache/geometry-doc-examples-334-20261114/checks-inputs-before.json": "19fb5bda48a9b22b8cd3586e618ebb6cadf66adfce31852f007fa27590b27f64",
+    ".pytest_cache/geometry-doc-examples-334-20261114/render-inputs-before.json": "324c8d2b760603fca671a69ab9a5bd2b9c1e8eea600ff254ae5555994c3fd9aa"
+  },
+  "external_coordination": {
+    "bindingmt_resource_identity_handoff": "https://github.com/uibcdf/bindingmt/issues/111#issuecomment-6886793137",
+    "source": "6deb0200cd7e384128eded46caaf751a57e65bc6",
+    "receiving": "Pending exact-source public client acceptance; no paused preparation or storage work is resumed."
+  },
+  "next_owner_correction": "uibcdf/molsysmt#758: actual Alzheimer geometry course module; not qualified by this cohort.",
+  "original_weighted_progress_change": 0,
+  "publication": {
+    "candidate_construction": "paused",
+    "hosted_qualification": "paused",
+    "tags": "paused",
+    "package_publication": "paused"
+  },
+  "quality_checks": {
+    "passed": true,
+    "commands": [
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "seconds": 28.684907507151365,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.3s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                       10.2s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.1s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.4s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.1s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.5s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   1.9s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.7s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.4s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.5s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/generate_converter_arguments.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 9.902114945929497,
+        "stdout": "OK: the committed table matches the converters.\nTarget forms: 96 | keywords per target: min 6, max 23, mean 10.3\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.10359535599127412,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.2226573619991541,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.09597052307799459,
+        "stdout": "4735 files already formatted\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.07548877503722906,
+        "stdout": "",
+        "stderr": ""
+      }
+    ]
+  },
+  "quality_execution": {
+    "phase": "checks",
+    "source_commit": "6deb0200cd7e384128eded46caaf751a57e65bc6",
+    "state": "completed",
+    "native_exit": 0,
+    "host_reserve_bytes": 6979321856,
+    "scope": "Receive actual geometry tutorial interpretation for #757; no installed or final-pair qualification.",
+    "host_cpu_at_admission": {
+      "load": "0.62 1.14 1.20 3/2709 2241467",
+      "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.32 total=20733634931\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "online_cpus": 20
+    },
+    "starting_status": " M devguide/pending_bugs/docs/README.md\n M devguide/release_1_0_status.md\n M docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb\n M docs/content/user/tools/pbc/get_box_from_lengths_and_angles.nbconvert.last_run\n M docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb\n M docs/content/user/tools/pbc/get_lengths_and_angles_from_box.nbconvert.last_run\n M docs/content/user/tools/structure/center.ipynb\n M docs/content/user/tools/structure/center.nbconvert.last_run\n M docs/content/user/tools/structure/get_contacts.ipynb\n M docs/content/user/tools/structure/get_contacts.nbconvert.last_run\n M docs/content/user/tools/structure/get_distances.ipynb\n M docs/content/user/tools/structure/get_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_maximum_distances.ipynb\n M docs/content/user/tools/structure/get_maximum_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_minimum_distances.ipynb\n M docs/content/user/tools/structure/get_minimum_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_neighbors.ipynb\n M docs/content/user/tools/structure/get_neighbors.nbconvert.last_run\n M docs/content/user/tools/structure/get_vectors.ipynb\n M docs/docs_manifest.yml\n?? devguide/archive/resolved_bugs/distance_extrema_tutorials_present_local_endpoint_positions_as_source_atom_and_g.md\n?? devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n?? devtools/data/geometry_documentation_receiving_334_757_20261114.json\n?? tests/documentation/test_distance_extrema_tutorials.py\n",
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "2147483648",
+      "memory.high": "1887436800",
+      "memory.swap.max": "0",
+      "pids.max": "256"
+    },
+    "command": [
+      "<development-prefix>/bin/python",
+      "<checkout>/.pytest_cache/geometry-doc-examples-334-20261114/quality.py"
+    ],
+    "checked_inputs": 8224,
+    "seconds": 41.71202603401616,
+    "ending_status": " M devguide/pending_bugs/docs/README.md\n M devguide/release_1_0_status.md\n M docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb\n M docs/content/user/tools/pbc/get_box_from_lengths_and_angles.nbconvert.last_run\n M docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb\n M docs/content/user/tools/pbc/get_lengths_and_angles_from_box.nbconvert.last_run\n M docs/content/user/tools/structure/center.ipynb\n M docs/content/user/tools/structure/center.nbconvert.last_run\n M docs/content/user/tools/structure/get_contacts.ipynb\n M docs/content/user/tools/structure/get_contacts.nbconvert.last_run\n M docs/content/user/tools/structure/get_distances.ipynb\n M docs/content/user/tools/structure/get_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_maximum_distances.ipynb\n M docs/content/user/tools/structure/get_maximum_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_minimum_distances.ipynb\n M docs/content/user/tools/structure/get_minimum_distances.nbconvert.last_run\n M docs/content/user/tools/structure/get_neighbors.ipynb\n M docs/content/user/tools/structure/get_neighbors.nbconvert.last_run\n M docs/content/user/tools/structure/get_vectors.ipynb\n M docs/docs_manifest.yml\n?? devguide/archive/resolved_bugs/distance_extrema_tutorials_present_local_endpoint_positions_as_source_atom_and_g.md\n?? devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md\n?? devtools/data/geometry_documentation_receiving_334_757_20261114.json\n?? tests/documentation/test_distance_extrema_tutorials.py\n",
+    "changed_inputs": [],
+    "memory_peak_bytes": 418652160,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 17337364480,
+    "maximum_memory_pressure_avg10": 0.0,
+    "pressure_transitions": [],
+    "stop_reason": null,
+    "driver_sha256": "eb2f4b12161694ba77b359e8e24884349d757df7e8bfeb201b819268d442a040"
+  },
+  "owned_service_retirement": {
+    "scope": "Only the fourteen known completed services created for this geometry-documentation checkpoint. No foreign processes or service state is changed. Original native outcomes are preserved.",
+    "retired": 14,
+    "initial_retirement_retry": "A first cleanup retried stop on an already unloaded geometry service and returned exit 5. This second inventory reuses its earlier actual retirement proof; no running task was stopped by that failed administrative command.",
+    "units": [
+      {
+        "unit": "msm-geometry-docs-334-geometry-20261114.service",
+        "previous": {
+          "ActiveState": "active",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "disposition": "Already retired earlier in this checkpoint; no second stop is required."
+      },
+      {
+        "unit": "msm-geometry-docs-334-sets-20261114.service",
+        "previous": {
+          "ActiveState": "active",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": {
+          "LoadState": "not-found",
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "disposition": "Already retired earlier in this checkpoint; no second stop is required."
+      },
+      {
+        "unit": "msm-geometry-docs-334-box-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-geometry-docs-757-baseline-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": "ActiveState=failed\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-geometry-docs-757-corrected-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-geometry-docs-334-corrected-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": "ActiveState=failed\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-geometry-docs-334-lessons-corrected-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-geometry-docs-334-render-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "143"
+        },
+        "after": "ActiveState=failed\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-geometry-docs-757-cohort-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-geometry-docs-334-plots-baseline-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "after": "ActiveState=failed\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-geometry-docs-334-inline-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-geometry-docs-757-final-cohort-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-geometry-docs-334-render-inline-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      },
+      {
+        "unit": "msm-geometry-docs-334-quality-20261114.service",
+        "previous": {
+          "LoadState": "loaded",
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "after": "ActiveState=inactive\nMainPID=0\n"
+      }
+    ]
+  },
+  "reviewed_delta_sha256": {
+    "devguide/pending_bugs/docs/README.md": "e6740713021ad26ee49bd2522670d53b1810c2104479c8d0f709f5e3938ad6f0",
+    "devguide/release_1_0_status.md": "99605ea18d27e293c86591247526bcf7cb272138245fe35d11583dbde0442330",
+    "docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb": "40b2561cce0fd01e40d1297afbd816143b9a6ca5068d96737407e37ece935e26",
+    "docs/content/user/tools/pbc/get_box_from_lengths_and_angles.nbconvert.last_run": "77cca9bb85cd8b0e00449170aa5de213bb862a20ffd4246ad10c9e33a2295063",
+    "docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb": "e470c5c81dd079846807631de4e476ace240d3e5737b4882d790b08bd7e34d24",
+    "docs/content/user/tools/pbc/get_lengths_and_angles_from_box.nbconvert.last_run": "f1dd1361f1101562e74d03e797fbb8273dbdfbe3bdc2aefff46e90e1163ccb9a",
+    "docs/content/user/tools/structure/center.ipynb": "caf60aa79af75493e3cc4f87e1bda1b2815f8c7431083a0817f329235915fb01",
+    "docs/content/user/tools/structure/center.nbconvert.last_run": "4c4710e1f7c449c04ddf2b1871288979b4b7451d8ba300d6ba1f46627be95b1e",
+    "docs/content/user/tools/structure/get_contacts.ipynb": "d7d1086d13918ab187a51160c95c87247622457c720be9ef166edf28e671c810",
+    "docs/content/user/tools/structure/get_contacts.nbconvert.last_run": "5fa48420a02fd26d8874ed90b818d78a73ae1d3a09884f42a5998639b096f565",
+    "docs/content/user/tools/structure/get_distances.ipynb": "ff3297db068023199ec2aa3b545fb7f9002f7bfc4a0d1f21a12cc464109a5568",
+    "docs/content/user/tools/structure/get_distances.nbconvert.last_run": "620a538726cfbcfe99594c6ff25b0e804fad0267bdabe3a4e3635f54be770087",
+    "docs/content/user/tools/structure/get_maximum_distances.ipynb": "a85f5f726453fef4fe420ddbeafb36e17f96c9e8828ed746c8211cf5f50eccdc",
+    "docs/content/user/tools/structure/get_maximum_distances.nbconvert.last_run": "f538a29a0eed32923ba9f83a0fd1f9bab0e2d384cb7ed9229624033fb3ef5e21",
+    "docs/content/user/tools/structure/get_minimum_distances.ipynb": "b9c85826935434fb7ba41029b37085ab44dee3bb2f940503f7a8f2c6e91acde4",
+    "docs/content/user/tools/structure/get_minimum_distances.nbconvert.last_run": "ddfb78fb7e695cae41fa5a913d519f0afe887df957438b82b8c906a529265f79",
+    "docs/content/user/tools/structure/get_neighbors.ipynb": "0c17e3278c991af1c7ccb942ae152f9117c4f7280c3e0a8c7e6d6a74ee22b3d9",
+    "docs/content/user/tools/structure/get_neighbors.nbconvert.last_run": "52207ace470b77d8b884a84c8bb26821c719c8731d572097ab27e738257cdce4",
+    "docs/content/user/tools/structure/get_vectors.ipynb": "cf931ac279157bccd524fbfb9593a16b479e29548cfaa0d7e8243cadae52a256",
+    "docs/docs_manifest.yml": "b0377ef3576e5ba892d457e620d03523226bf6e34eb7fa7dd7dba8140f3b24d8",
+    "devguide/archive/resolved_bugs/distance_extrema_tutorials_present_local_endpoint_positions_as_source_atom_and_g.md": "a988f3aa4faa6333ba8ab7cb642e8d44d95e49e8ce1d36aea1c0998154403983",
+    "devguide/pending_bugs/docs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md": "66fc8bbf92e04bf1200ef928ca067271df66b28564c0d405638a7bfc8cd5de06",
+    "tests/documentation/test_distance_extrema_tutorials.py": "a377920c14de4d8261a90dc87a85b0d0086f1d9bcf9dacbcc470d0f882205e8e",
+    "docs/content/user/tools/structure/get_vectors.nbconvert.last_run": "01b23c6f5c99090f72cb9b005af5b572a7cba98d3264ce7554dc806352bdf852"
+  }
+}

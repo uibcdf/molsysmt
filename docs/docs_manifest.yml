@@ -442,6 +442,18 @@ sections:
             file: docs/content/user/tools/structure/get_symmetry_corrected_rmsd.ipynb
             agents_file: docs/content/user/tools/structure/get_symmetry_corrected_rmsd.ipynb.AGENTS.md
             description: Declared-state correspondence, anchors and validated proposed maps, source axes, bounded pose geometry and attribution.
+          - name: get_distances
+            file: docs/content/user/tools/structure/get_distances.ipynb
+            agents_file: docs/content/user/tools/structure/get_distances.ipynb.AGENTS.md
+            description: Atom/center distances, selected groups rather than assumed termini, aligned endpoint/structure maps and executed time-series/heatmaps.
+          - name: get_minimum_distances
+            file: docs/content/user/tools/structure/get_minimum_distances.ipynb
+            agents_file: docs/content/user/tools/structure/get_minimum_distances.ipynb.AGENTS.md
+            description: Explicit mapping of local atom/center reduction positions to source indices, independent endpoint populations and direct displacement limits.
+          - name: get_maximum_distances
+            file: docs/content/user/tools/structure/get_maximum_distances.ipynb
+            agents_file: docs/content/user/tools/structure/get_maximum_distances.ipynb.AGENTS.md
+            description: Maximum spatial spans, local endpoint correspondence, single/multiple group centers and direct coordinate displacement without alignment.
           - name: get_vectors
             file: docs/content/user/tools/structure/get_vectors.ipynb
             agents_file: docs/content/user/tools/structure/get_vectors.ipynb.AGENTS.md
