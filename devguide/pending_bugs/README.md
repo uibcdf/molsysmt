@@ -20,11 +20,10 @@ that front matter -- edit the entries, not this list.
 
 <!-- generated: devguide_index -->
 
-### Open (3)
+### Open (2)
 
 - [`collantes_eci_charge_semantics.md`](collantes_eci_charge_semantics.md) — [#475](https://github.com/uibcdf/molsysmt/issues/475) — Review the Collantes ECI electric-charge and aggregation contract. *(medium, reproduced)*
 - [`macos_py312_environment_download_failure.md`](macos_py312_environment_download_failure.md) — [#671](https://github.com/uibcdf/molsysmt/issues/671) — Track the macOS Python 3.12 Conda download failure separately from tests. *(medium, upstream)*
-- [`selection_expression_evaluation_wraps_resource_failures_as_argument_errors.md`](selection_expression_evaluation_wraps_resource_failures_as_argument_errors.md) — [#756](https://github.com/uibcdf/molsysmt/issues/756) — Selection expression evaluation wraps resource failures as argument errors. *(medium, inspected)*
 
 ### Blocked (1)
 

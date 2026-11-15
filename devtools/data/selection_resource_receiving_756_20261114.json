@@ -1,0 +1,1003 @@
+{
+  "schema": "molsysmt.selection_resource_receiving/1",
+  "date": "2026-11-14",
+  "owner_issue": "uibcdf/molsysmt#756",
+  "source_basis": "c4fa8552e9696ee225dd9abd51be4e2e441228c4",
+  "state": "Owner correction, full selection/doctest, strict documentation and quality receiving complete; exact-source client and final-pair acceptance remain separate.",
+  "scope": "Preserve original MemoryError and OS ENOMEM objects through real public selection evaluation while retaining parser/catalog/process-control behavior. Synthetic failures only, no allocation pressure, new dependency, native build or client/installed/final-pair qualification.",
+  "reviewed_delta_sha256": {
+    "molsysmt/basic/select.py": "2443c7a6f75d932439addb032837b920285f765f0f2747d170468b581887f8a8",
+    "tests/basic/select/test_resource_failures.py": "d8d46f98f1bfe4b0c3de28d080eb493eeca6705301d056038783736322efa47e",
+    "docs/content/user/foundations/language/selection_grammar.ipynb": "66c1c8f13d3cbb0143acfd2757086219d8d8b132d047589e7f92c9c56e05f743",
+    "docs/content/user/tools/basic/select.ipynb": "0eb29914cee182dbb8da7f8caaf88ff4b2ec1ffb884f18f8e8d31575f4c39b9e",
+    "docs/content/user/cookbook/big_data_trajectories.ipynb": "402a5eb85aba270d33399b088b620c00021516ec94a5ee6c74ac137025309efb",
+    "docs/content/course/Common_Core/07_Selection_Basics.ipynb": "f11441f4e2f5237a7cf9fe19aa1a7e354f63482a344fcc21b8565125d664bfbc"
+  },
+  "executions": {
+    "baseline": {
+      "phase": "baseline",
+      "source_commit": "c4fa8552e9696ee225dd9abd51be4e2e441228c4",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive #756 public selection resource-exception identity with synthetic failures, without allocation pressure; no client or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.66 1.99 3.26 2/2736 2214134",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.90 total=20703677506\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": "?? tests/basic/select/test_resource_failures.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/selection-resources-756-20261114/baseline.xml",
+        "--receptor-events=<checkout>/.pytest_cache/selection-resources-756-20261114/baseline.events.jsonl",
+        "tests/basic/select/test_resource_failures.py"
+      ],
+      "checked_inputs": 8219,
+      "seconds": 7.711076830048114,
+      "ending_status": "?? tests/basic/select/test_resource_failures.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 209399808,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18047025152,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "6478e92bfaf844589b099b0081a9ef9679bb09ae7faefc066d800e8911751e89",
+      "receptor_finish": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 37,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 37,
+          "failed": 16,
+          "not_executed": 0,
+          "passed": 21,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 3.414291040971875,
+        "exitstatus": 1,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 0
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "6e085bc5f6e83734b3318a08d8cb1891e4442eaf979c9b17c4551f71ea519b21",
+          "records": 115
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "FAIL",
+        "root_causes": 3,
+        "run_id": "1aab4c8150974336a49c2ba36e462d79",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "same_invocation_junit": {
+        "tests": 37,
+        "failures": 16,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "expanded": {
+      "phase": "expanded",
+      "source_commit": "c4fa8552e9696ee225dd9abd51be4e2e441228c4",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive #756 public selection resource-exception identity with synthetic failures, without allocation pressure; no client or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.61 1.11 2.51 2/2699 2216088",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.28 total=20704046992\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": "?? tests/basic/select/test_resource_failures.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/selection-resources-756-20261114/expanded.xml",
+        "--receptor-events=<checkout>/.pytest_cache/selection-resources-756-20261114/expanded.events.jsonl",
+        "tests/basic/select/test_resource_failures.py",
+        "-k",
+        "actual_evaluator"
+      ],
+      "checked_inputs": 8219,
+      "seconds": 9.728886098135263,
+      "ending_status": "?? tests/basic/select/test_resource_failures.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 295030784,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17879654400,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "6478e92bfaf844589b099b0081a9ef9679bb09ae7faefc066d800e8911751e89",
+      "receptor_finish": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 6,
+          "deselected": 37,
+          "errors": 0,
+          "executed": 6,
+          "failed": 6,
+          "not_executed": 0,
+          "passed": 0,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 1,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 4.797629238571972,
+        "exitstatus": 1,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 1
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "28e6dfc5ba1df4da2d15c244df614ca55aa3debd9292570f194e2262301ec4ff",
+          "records": 23
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "FAIL",
+        "root_causes": 2,
+        "run_id": "793d6de0adeb47af9c36ef3a033b6a24",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "same_invocation_junit": {
+        "tests": 6,
+        "failures": 6,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "corrected": {
+      "phase": "corrected",
+      "source_commit": "c4fa8552e9696ee225dd9abd51be4e2e441228c4",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive #756 public selection resource-exception identity with synthetic failures, without allocation pressure; no client or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.30 0.69 2.06 2/2733 2217408",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.13 total=20704300659\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/user/cookbook/big_data_trajectories.ipynb\n M docs/content/user/foundations/language/selection_grammar.ipynb\n M docs/content/user/tools/basic/select.ipynb\n M molsysmt/basic/select.py\n?? tests/basic/select/test_resource_failures.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/selection-resources-756-20261114/corrected.xml",
+        "--receptor-events=<checkout>/.pytest_cache/selection-resources-756-20261114/corrected.events.jsonl",
+        "--doctest-modules",
+        "tests/basic/select",
+        "molsysmt/basic/select.py"
+      ],
+      "checked_inputs": 8219,
+      "seconds": 26.735138149000704,
+      "ending_status": " M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/user/cookbook/big_data_trajectories.ipynb\n M docs/content/user/foundations/language/selection_grammar.ipynb\n M docs/content/user/tools/basic/select.ipynb\n M molsysmt/basic/select.py\n?? tests/basic/select/test_resource_failures.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 439988224,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17667420160,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "6478e92bfaf844589b099b0081a9ef9679bb09ae7faefc066d800e8911751e89",
+      "receptor_finish": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 242,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 242,
+          "failed": 2,
+          "not_executed": 0,
+          "passed": 240,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 9,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 22.029880401678383,
+        "exitstatus": 1,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 10
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "dae328b29b50844c554c135b543c1899edb4563e8df7ec8f9d5bac8aff0fd867",
+          "records": 747
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "FAIL",
+        "root_causes": 1,
+        "run_id": "f847a006c67c43e183af6018b6f6309c",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "same_invocation_junit": {
+        "tests": 242,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "facts": {
+      "phase": "facts",
+      "source_commit": "c4fa8552e9696ee225dd9abd51be4e2e441228c4",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive #756 public selection resource-exception identity with synthetic failures, without allocation pressure; no client or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "2.49 1.35 2.05 27/2903 2219146",
+        "cpu_pressure": "some avg10=3.34 avg60=1.65 avg300=0.84 total=20707625469\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/user/cookbook/big_data_trajectories.ipynb\n M docs/content/user/foundations/language/selection_grammar.ipynb\n M docs/content/user/tools/basic/select.ipynb\n M molsysmt/basic/select.py\n?? tests/basic/select/test_resource_failures.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/selection-resources-756-20261114/facts.xml",
+        "--receptor-events=<checkout>/.pytest_cache/selection-resources-756-20261114/facts.events.jsonl",
+        "tests/basic/select/test_resource_failures.py",
+        "-k",
+        "actual_evaluator and MDAnalysis"
+      ],
+      "checked_inputs": 8219,
+      "seconds": 7.344264816027135,
+      "ending_status": " M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/user/cookbook/big_data_trajectories.ipynb\n M docs/content/user/foundations/language/selection_grammar.ipynb\n M docs/content/user/tools/basic/select.ipynb\n M molsysmt/basic/select.py\n?? tests/basic/select/test_resource_failures.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 248020992,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 16650817536,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "6478e92bfaf844589b099b0081a9ef9679bb09ae7faefc066d800e8911751e89",
+      "receptor_finish": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 2,
+          "deselected": 41,
+          "errors": 0,
+          "executed": 2,
+          "failed": 2,
+          "not_executed": 0,
+          "passed": 0,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 1,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 1.9761104150675237,
+        "exitstatus": 1,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 1
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "cac73b816608c573d0af5e24de2ffda0f86b651ab27b65702390712484a779ea",
+          "records": 10
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "FAIL",
+        "root_causes": 1,
+        "run_id": "7c4c8d7c3bb641c3839c937e923ddba0",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "same_invocation_junit": {
+        "tests": 2,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "corrected2": {
+      "phase": "corrected2",
+      "source_commit": "c4fa8552e9696ee225dd9abd51be4e2e441228c4",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive #756 public selection resource-exception identity with synthetic failures, without allocation pressure; no client or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.25 1.37 1.97 2/2713 2220422",
+        "cpu_pressure": "some avg10=0.15 avg60=2.05 avg300=1.51 total=20711780459\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/user/cookbook/big_data_trajectories.ipynb\n M docs/content/user/foundations/language/selection_grammar.ipynb\n M docs/content/user/tools/basic/select.ipynb\n M molsysmt/basic/select.py\n?? tests/basic/select/test_resource_failures.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/selection-resources-756-20261114/corrected2.xml",
+        "--receptor-events=<checkout>/.pytest_cache/selection-resources-756-20261114/corrected2.events.jsonl",
+        "--doctest-modules",
+        "tests/basic/select",
+        "molsysmt/basic/select.py"
+      ],
+      "checked_inputs": 8219,
+      "seconds": 25.83972570905462,
+      "ending_status": " M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/user/cookbook/big_data_trajectories.ipynb\n M docs/content/user/foundations/language/selection_grammar.ipynb\n M docs/content/user/tools/basic/select.ipynb\n M molsysmt/basic/select.py\n?? tests/basic/select/test_resource_failures.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 434155520,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17425768448,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "6478e92bfaf844589b099b0081a9ef9679bb09ae7faefc066d800e8911751e89",
+      "receptor_finish": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 242,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 242,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 242,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 9,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 21.16268207412213,
+        "exitstatus": 0,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 10
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "06af84dc4254207c52d25cd05937911093401d3d005d405c1d2fad8ee1de8526",
+          "records": 746
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "PASS",
+        "root_causes": 0,
+        "run_id": "02c2f30c502f4acbaa15a5f1118458e9",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "same_invocation_junit": {
+        "tests": 242,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "runtime-corrected": {
+      "phase": "runtime-corrected",
+      "source_commit": "c4fa8552e9696ee225dd9abd51be4e2e441228c4",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Receive #756 public selection resource-exception identity with synthetic failures, without allocation pressure; no client or final-pair qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.70 1.07 1.67 3/2712 2223489",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.51 total=20714655093\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/user/cookbook/big_data_trajectories.ipynb\n M docs/content/user/foundations/language/selection_grammar.ipynb\n M docs/content/user/tools/basic/select.ipynb\n M molsysmt/basic/select.py\n?? tests/basic/select/test_resource_failures.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=<checkout>/.pytest_cache/selection-resources-756-20261114/runtime-corrected.xml",
+        "--receptor-events=<checkout>/.pytest_cache/selection-resources-756-20261114/runtime-corrected.events.jsonl",
+        "--doctest-modules",
+        "tests/basic/select",
+        "molsysmt/basic/select.py"
+      ],
+      "checked_inputs": 8219,
+      "seconds": 35.76613182388246,
+      "ending_status": " M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/user/cookbook/big_data_trajectories.ipynb\n M docs/content/user/foundations/language/selection_grammar.ipynb\n M docs/content/user/tools/basic/select.ipynb\n M molsysmt/basic/select.py\n?? tests/basic/select/test_resource_failures.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 495214592,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17817726976,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "6478e92bfaf844589b099b0081a9ef9679bb09ae7faefc066d800e8911751e89",
+      "receptor_finish": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 244,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 244,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 244,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 9,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 25.28488476993516,
+        "exitstatus": 0,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 10
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "430f9389cee86c9edf0c2ef76cdf4e907747ebf9e49cc79b4d58fc69d58d43d7",
+          "records": 752
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "PASS",
+        "root_causes": 0,
+        "run_id": "3d5a0b3a734f4c6bb28fa85bb461c750",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "same_invocation_junit": {
+        "tests": 244,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "precondition_disposition": {
+    "expanded_baseline": "Four native/MDTraj evaluator guards genuinely reproduce the resource wrapper. Two MDAnalysis cases fail before evaluation because the chosen native MolSys to Universe conversion is not implemented; they do not reproduce the resource route.",
+    "first_corrected_cohort": "240 pass and two unsupported-input evaluator fixtures fail; the targeted two-case probe identifies NotImplementedConversionError.",
+    "corrected_fixture": "Construct MDAnalysis.Universe from the bundled PDB before injecting the evaluator failure. This uses a supported input form and leaves the resource-identity assertion intact. No new conversion route is implemented or claimed."
+  },
+  "documentation_change": {
+    "docs/content/user/foundations/language/selection_grammar.ipynb": {
+      "code_cells_unchanged": true,
+      "markdown_cell": 0
+    },
+    "docs/content/user/tools/basic/select.ipynb": {
+      "code_cells_unchanged": true,
+      "markdown_cell": 1
+    },
+    "docs/content/user/cookbook/big_data_trajectories.ipynb": {
+      "code_cells_unchanged": true,
+      "markdown_cell": 1
+    },
+    "docs/content/course/Common_Core/07_Selection_Basics.ipynb": {
+      "code_cells_unchanged": true,
+      "markdown_cell": 1
+    }
+  },
+  "html_receiving": {
+    "actual_pages_received": 5,
+    "pages": [
+      {
+        "path": "content/user/foundations/language/selection_grammar.html",
+        "sha256": "921a72fba522911da019e6a33e0b453ae5f6fb699a1fa8195a6afed750048674",
+        "memory_contract_received": true
+      },
+      {
+        "path": "content/user/tools/basic/select.html",
+        "sha256": "04568767af175922adff703dea3e3a45164e0b2aba3e1cd54c313af3f53e1c03",
+        "memory_contract_received": true
+      },
+      {
+        "path": "content/user/cookbook/big_data_trajectories.html",
+        "sha256": "10877ac1fbfc9994c5d5ea9f7176e5d9fc7796e1fb62168523dd39ba6a29a336",
+        "memory_contract_received": true
+      },
+      {
+        "path": "content/course/Common_Core/07_Selection_Basics.html",
+        "sha256": "506b32092a8a4fe27fa464bafb7e1f45f9b948cb2006fe56b68dc75663311301",
+        "memory_contract_received": true
+      },
+      {
+        "path": "api/basic/autosummary/molsysmt.basic.select.html",
+        "sha256": "5acd86c2f9ac1bd9856462373ad79c90cad54ff0f6c70660e26c514af45ac006",
+        "memory_contract_received": true
+      }
+    ],
+    "html_files": 1400,
+    "strict_log": "version 0.23.0, release 0.23.0\n",
+    "scope": "Actual newly rendered API/foundations/tool/cookbook/course text; stored notebook outputs, no new notebook or browser execution."
+  },
+  "render_execution": {
+    "phase": "render",
+    "source_commit": "c4fa8552e9696ee225dd9abd51be4e2e441228c4",
+    "scope": "Fresh strict full Sphinx build of the #756 public exception contract, with unchanged notebook code and stored outputs. No notebook/browser, installed, final-candidate or scientific-profile qualification.",
+    "state": "completed",
+    "command": [
+      "<development-prefix>/bin/python",
+      "-m",
+      "sphinx",
+      "-W",
+      "--keep-going",
+      "-E",
+      "-a",
+      "-b",
+      "html",
+      "-q",
+      "-j",
+      "1",
+      "docs",
+      "<checkout>/.pytest_cache/selection-resources-756-20261114/html"
+    ],
+    "native_exit": 0,
+    "host_reserve_bytes": 6979321856,
+    "paths": [],
+    "python": "<development-prefix>/bin/python",
+    "load": "1.23 1.37 1.96 3/2715 2220466",
+    "cpu_pressure": "some avg10=0.10 avg60=1.91 avg300=1.49 total=20711789655\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "2147483648",
+      "memory.high": "1887436800",
+      "memory.swap.max": "0",
+      "pids.max": "256"
+    },
+    "input_count": 7119,
+    "seconds": 153.0765066551976,
+    "notebooks": [],
+    "changed_inputs": [],
+    "memory_peak_bytes": 1351311360,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 15933112320,
+    "maximum_memory_pressure_avg10": 0.0,
+    "stop_reason": null,
+    "driver_sha256": "bc16a2f2c1f324cb3abc371883ebc6cf3b8f038bcf69d976763192d753a42e67"
+  },
+  "actual_runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "platform": "linux",
+    "machine": "x86_64",
+    "modules": {
+      "molsysmt": {
+        "version": "0.23.0+393.ge1facf624.dirty",
+        "origin": "<checkout>/molsysmt/__init__.py",
+        "initializer_sha256": "dc89c5f21ab7ba4bb94b289927a19856d27cb670baf1b03d7f6fcb7fced03f90"
+      },
+      "argdigest": {
+        "version": "0.15.0",
+        "origin": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+        "initializer_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+      },
+      "depdigest": {
+        "version": "0.15.1",
+        "origin": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+        "initializer_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+      },
+      "smonitor": {
+        "version": "0.21.0",
+        "origin": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+        "initializer_sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+      },
+      "pyunitwizard": {
+        "version": "0.29.2",
+        "origin": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+        "initializer_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+      },
+      "numpy": {
+        "version": "2.4.6",
+        "origin": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+        "initializer_sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+      },
+      "pandas": {
+        "version": "2.3.3",
+        "origin": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+        "initializer_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+      },
+      "mdtraj": {
+        "version": "1.11.1",
+        "origin": "<development-prefix>/lib/python3.14/site-packages/mdtraj/__init__.py",
+        "initializer_sha256": "5223f8af5a0257a8d25313683eb4b1823074feaf66753b01e9ec9e08b8a67b80"
+      },
+      "MDAnalysis": {
+        "version": "2.10.0",
+        "origin": "<development-prefix>/lib/python3.14/site-packages/MDAnalysis/__init__.py",
+        "initializer_sha256": "174efc72f77fd700b60b6633f61c5ffa1140935a05ff389d8f907f2233a264f7"
+      }
+    },
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+  },
+  "client_boundary": {
+    "consumer": "uibcdf/bindingmt#111",
+    "prior_notice_commit": "468ed09859a78b30388941fc0e01d3b87231aa44",
+    "receiving": "The requester still owns exact-source end-to-end acceptance with its recorded existing native composition. Owner tests do not qualify that client path or restart held larger populations.",
+    "published_minimum": "No newly published package is claimed; this is a source correction."
+  },
+  "source_and_science_boundary": "Only the selector exception branch/docstring, focused guards and narrative change. Valid query behavior, selector syntax/ordering, chemistry, units and native kernels are unchanged; final exact-source/native/installed gates remain required.",
+  "original_weighted_progress_change": 0,
+  "publication": "Candidate construction, hosted qualification, tags, promotion and publication remain paused.",
+  "retained_evidence_sha256": {
+    ".pytest_cache/selection-resources-756-20261114/quality_commands.json": "90524e1ac66e8908aa9bb4eb025cd6054a962228541a7cc20f8a655f378763ae",
+    ".pytest_cache/selection-resources-756-20261114/runtime-corrected-execution.json": "b914b1f145b0b4fdb47809564aaed2c5bff1c80eee049e3e369a41eaed141cad",
+    ".pytest_cache/selection-resources-756-20261114/expanded-execution.json": "14732b3249db4830f9618261a4f03e93ab96f4b19ab2e3a1cc306fca04bff23a",
+    ".pytest_cache/selection-resources-756-20261114/runtime-corrected.log": "b91831fa87e78376f73125c15767d6e9add37bc5e6a0c704d62bd0bc088dfd86",
+    ".pytest_cache/selection-resources-756-20261114/render_driver.py": "bc16a2f2c1f324cb3abc371883ebc6cf3b8f038bcf69d976763192d753a42e67",
+    ".pytest_cache/selection-resources-756-20261114/commands.json": "cd90347ede7174a1ff2aaa106e2e151c7aedec0508aa31e16fc04eb7c3aabb37",
+    ".pytest_cache/selection-resources-756-20261114/baseline.xml": "daa8c953b337336b47c81b3e9ae10ff065f8d88e2559722d47f2ca73da97f7e1",
+    ".pytest_cache/selection-resources-756-20261114/runtime-corrected.events.jsonl": "4f453c3472e91697a971353bc4c1ce1bdbae739e37c05b019ab84c5d355f61fe",
+    ".pytest_cache/selection-resources-756-20261114/runtime-corrected-inputs-before.json": "e40b5812ea2359390a60c130c38ff4b9a4e18b447b25974474e9c12114d46461",
+    ".pytest_cache/selection-resources-756-20261114/render-execution.json": "a987e2d1f750a086c54fa006abdf05faf66a1cd4f08b5be7fb10d50616fd71d6",
+    ".pytest_cache/selection-resources-756-20261114/final-checks-execution.json": "5c4c539a2bafb00dafe84345ee0947c37f8f7767165fb3cb9d3603022bd29667",
+    ".pytest_cache/selection-resources-756-20261114/owned-service-retirement.json": "644c748d48475e82a1c97084a9c667475d0b114027610c6194aba8cc66728162",
+    ".pytest_cache/selection-resources-756-20261114/corrected-execution.json": "ecc44bf0167e42f0d5ea83abca4769bcbe1fd42948501fa50c151622c9852a70",
+    ".pytest_cache/selection-resources-756-20261114/runtime-corrected-driver.py": "6478e92bfaf844589b099b0081a9ef9679bb09ae7faefc066d800e8911751e89",
+    ".pytest_cache/selection-resources-756-20261114/corrected2-execution.json": "daa52de2095dff4acc09bd156d86fd5cbd7ca5727aa1fb8c953fb36a0877ba0b",
+    ".pytest_cache/selection-resources-756-20261114/corrected2.xml": "091a846f2b5c5d24dcffbb4455bbb434ff7c8c43f940ec29daf89af9880031b9",
+    ".pytest_cache/selection-resources-756-20261114/baseline.log": "0f192f18802eb5db97504f016e5fa6282f9d16adc67105a73b678dff3b67dceb",
+    ".pytest_cache/selection-resources-756-20261114/quality-results.json": "7927b0a7d7cb76bfe7ae3ee0ad5b386c0b20f57669e415eba77bdf24a2f536ac",
+    ".pytest_cache/selection-resources-756-20261114/corrected.xml": "57c873f60596109dc5d7535327ab426c331537c38cb0825245594591638c1e1f",
+    ".pytest_cache/selection-resources-756-20261114/corrected2-inputs-after.json": "11a789c3c61021d480d3ad675331a7276f4aa428981a5b5986a8dd366037b6a0",
+    ".pytest_cache/selection-resources-756-20261114/corrected.log": "c0b957c0bcfb5d8b27c395a82006c4efb49d169cee53bfd65902f324db95b0c4",
+    ".pytest_cache/selection-resources-756-20261114/render-inputs-after.json": "278d07afb599ddcacb98a5ecc89f412278ce5a77ca1f447d6d7e93b4e28a8f8c",
+    ".pytest_cache/selection-resources-756-20261114/facts.log": "bce9b644dd07896b3560416217eeba110517332efe1c8bd8c6e3b899580e23a2",
+    ".pytest_cache/selection-resources-756-20261114/facts-execution.json": "a89678f0ecf61099d541cacf7c0bf8437045feb6e97e5aed42c09c708920d26d",
+    ".pytest_cache/selection-resources-756-20261114/baseline-driver.py": "6478e92bfaf844589b099b0081a9ef9679bb09ae7faefc066d800e8911751e89",
+    ".pytest_cache/selection-resources-756-20261114/corrected-inputs-before.json": "5d17f71df031e85061a37f1afeec24dae8dd53088cf2b72247e164e3f301ef92",
+    ".pytest_cache/selection-resources-756-20261114/expanded.log": "24ff2c31959221d5a1f793789dd15be42172bb51738f7e9bbe265dce843b52a6",
+    ".pytest_cache/selection-resources-756-20261114/receive_evidence.py": "67d545a14809b2f0699e285bebd12c336307aef54abd845b790a15a0f8a1489c",
+    ".pytest_cache/selection-resources-756-20261114/runtime-corrected-inputs-after.json": "e40b5812ea2359390a60c130c38ff4b9a4e18b447b25974474e9c12114d46461",
+    ".pytest_cache/selection-resources-756-20261114/final-checks.log": "181f91a6a6bb421f1fe81267da8aa5317d8a8a0d5c0c73e83ebae1a160161c74",
+    ".pytest_cache/selection-resources-756-20261114/final-checks-inputs-before.json": "9cab36a4dfc7b908682bd6cb3fe78f9e36ba81cc79e183d6feecdd84eef1e4ef",
+    ".pytest_cache/selection-resources-756-20261114/corrected2.log": "716d0016ade43d4d8b152fcf433d97d3eeb89f00d55deb0457a966982d3a2aa7",
+    ".pytest_cache/selection-resources-756-20261114/corrected2-inputs-before.json": "11a789c3c61021d480d3ad675331a7276f4aa428981a5b5986a8dd366037b6a0",
+    ".pytest_cache/selection-resources-756-20261114/expanded-driver.py": "6478e92bfaf844589b099b0081a9ef9679bb09ae7faefc066d800e8911751e89",
+    ".pytest_cache/selection-resources-756-20261114/final-checks-inputs-after.json": "9cab36a4dfc7b908682bd6cb3fe78f9e36ba81cc79e183d6feecdd84eef1e4ef",
+    ".pytest_cache/selection-resources-756-20261114/corrected2.events.jsonl": "135610d92b72bb02bee71bc271f3a3ca296829bbd67d35b571aaa110d2162969",
+    ".pytest_cache/selection-resources-756-20261114/expanded-inputs-after.json": "71eaef1c368f8c7dcde2c5dff3d5ee4b16b6819c86bc473ea48e843bbc70ab47",
+    ".pytest_cache/selection-resources-756-20261114/baseline-execution.json": "bb4366400b45288174c7eda6e03023d3b36c65c6e151ca74de9d85672377b4f1",
+    ".pytest_cache/selection-resources-756-20261114/facts-driver.py": "6478e92bfaf844589b099b0081a9ef9679bb09ae7faefc066d800e8911751e89",
+    ".pytest_cache/selection-resources-756-20261114/precondition-disposition.json": "5678e8fdeabeb77e1912d83546aea0b849f840627a857e28436740ed787eaf0f",
+    ".pytest_cache/selection-resources-756-20261114/baseline-inputs-after.json": "0ab7b1c7ee4df500b64acc0cb54e62d6bada29d11cb85fe7bc1d403d735d6534",
+    ".pytest_cache/selection-resources-756-20261114/corrected-driver.py": "6478e92bfaf844589b099b0081a9ef9679bb09ae7faefc066d800e8911751e89",
+    ".pytest_cache/selection-resources-756-20261114/baseline.events.jsonl": "85c2a7fd57e026a43aeedcc004687af490c22a2f93390928121ddb2189040e59",
+    ".pytest_cache/selection-resources-756-20261114/documentation-change.json": "33d4d2caf21b38c0ce3ef49025e19657d34ff7d1807e473682ae5c561a88bf52",
+    ".pytest_cache/selection-resources-756-20261114/facts-inputs-before.json": "56ed6ad7199ce5da52b2d005d09739847d9892e762062e0036483facd3779b30",
+    ".pytest_cache/selection-resources-756-20261114/facts-inputs-after.json": "56ed6ad7199ce5da52b2d005d09739847d9892e762062e0036483facd3779b30",
+    ".pytest_cache/selection-resources-756-20261114/baseline-inputs-before.json": "0ab7b1c7ee4df500b64acc0cb54e62d6bada29d11cb85fe7bc1d403d735d6534",
+    ".pytest_cache/selection-resources-756-20261114/runtime-corrected.xml": "b60a78f494f9e2b2cd073a60d663f26c7af5fd528b56aebdedb04316ea28ce93",
+    ".pytest_cache/selection-resources-756-20261114/facts.xml": "a5374ae33dc3d658fc14318fc0457c819a2814a8e2b06b0604a4020ea19904b3",
+    ".pytest_cache/selection-resources-756-20261114/corrected2-driver.py": "6478e92bfaf844589b099b0081a9ef9679bb09ae7faefc066d800e8911751e89",
+    ".pytest_cache/selection-resources-756-20261114/expanded-inputs-before.json": "71eaef1c368f8c7dcde2c5dff3d5ee4b16b6819c86bc473ea48e843bbc70ab47",
+    ".pytest_cache/selection-resources-756-20261114/corrected-inputs-after.json": "5d17f71df031e85061a37f1afeec24dae8dd53088cf2b72247e164e3f301ef92",
+    ".pytest_cache/selection-resources-756-20261114/corrected.events.jsonl": "c61c0548c52b37a084c75ee7ae67f64ff789a584c1433cdfe577075d546e33d2",
+    ".pytest_cache/selection-resources-756-20261114/expanded.xml": "8d01efb41a4c870bf4a3a2e0fb964878be94954225c2c8f2882eda077889d01a",
+    ".pytest_cache/selection-resources-756-20261114/quality.py": "168af7be28a3a841fe92feed978bef56dafec0e1a1c0fee24904ee701cba831c",
+    ".pytest_cache/selection-resources-756-20261114/driver.py": "6478e92bfaf844589b099b0081a9ef9679bb09ae7faefc066d800e8911751e89",
+    ".pytest_cache/selection-resources-756-20261114/render.log": "382f82536b1648d7d2520d3a06b0ab3e720a4d958f7a2bbe24e74fa0f0f39b2f",
+    ".pytest_cache/selection-resources-756-20261114/expanded.events.jsonl": "1a6cefe101cd69e27e8230208780ae44f597710fcfd526ea1486efe738c4f88e",
+    ".pytest_cache/selection-resources-756-20261114/html-receiving.json": "366cd3e58bc272aae3b91219f488d48572c72a6df89e741baa04d7da32b149c4",
+    ".pytest_cache/selection-resources-756-20261114/facts.events.jsonl": "00cf4b931863a658a0f14b5d477704732519a2c9bd0d2819d1929c8c9a541ca7",
+    ".pytest_cache/selection-resources-756-20261114/render-inputs-before.json": "278d07afb599ddcacb98a5ecc89f412278ce5a77ca1f447d6d7e93b4e28a8f8c",
+    ".pytest_cache/selection-resources-756-20261114/final-checks-driver.py": "6478e92bfaf844589b099b0081a9ef9679bb09ae7faefc066d800e8911751e89"
+  },
+  "owned_service_retirement": {
+    "retired_completed_own_services": 8,
+    "scope": "Only this #756 checkpoint; no other users or agents affected. Original unsuccessful runs remain unsuccessful.",
+    "services": [
+      {
+        "unit": "msm-selection-resources-756-baseline-20261114",
+        "previous": {
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "retired": true
+      },
+      {
+        "unit": "msm-selection-resources-756-evaluators-20261114",
+        "previous": {
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "retired": true
+      },
+      {
+        "unit": "msm-selection-resources-756-corrected-20261114",
+        "previous": {
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "retired": true
+      },
+      {
+        "unit": "msm-selection-resources-756-mda-probe-20261114",
+        "previous": {
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "Result": "exit-code",
+          "ExecMainStatus": "1"
+        },
+        "retired": true
+      },
+      {
+        "unit": "msm-selection-resources-756-final-20261114",
+        "previous": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "retired": true
+      },
+      {
+        "unit": "msm-selection-resources-756-render-20261114",
+        "previous": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "retired": true
+      },
+      {
+        "unit": "msm-selection-resources-756-receiving-20261114",
+        "previous": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "retired": true
+      },
+      {
+        "unit": "msm-selection-resources-756-checks-20261114",
+        "previous": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "Result": "success",
+          "ExecMainStatus": "0"
+        },
+        "retired": true
+      }
+    ]
+  },
+  "quality_checks": {
+    "passed": true,
+    "commands": [
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "seconds": 29.09661653218791,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.5s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        9.9s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.3s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.7s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.0s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.4s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   2.4s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.6s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.4s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.3s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/generate_converter_arguments.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 9.396177401766181,
+        "stdout": "OK: the committed table matches the converters.\nTarget forms: 96 | keywords per target: min 6, max 23, mean 10.3\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-prefix>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.09315658174455166,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.18882260099053383,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.09809225564822555,
+        "stdout": "4734 files already formatted\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.02686254493892193,
+        "stdout": "",
+        "stderr": ""
+      }
+    ]
+  },
+  "quality_execution": {
+    "phase": "final-checks",
+    "source_commit": "c4fa8552e9696ee225dd9abd51be4e2e441228c4",
+    "state": "completed",
+    "native_exit": 0,
+    "host_reserve_bytes": 6979321856,
+    "scope": "Receive #756 public selection resource-exception identity with synthetic failures, without allocation pressure; no client or final-pair qualification.",
+    "host_cpu_at_admission": {
+      "load": "0.56 0.52 1.01 2/2730 2227707",
+      "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.01 total=20715406822\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "online_cpus": 20
+    },
+    "starting_status": " M devguide/pending_bugs/README.md\n D devguide/pending_bugs/selection_expression_evaluation_wraps_resource_failures_as_argument_errors.md\n M devguide/release_1_0_status.md\n M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/user/cookbook/big_data_trajectories.ipynb\n M docs/content/user/foundations/language/selection_grammar.ipynb\n M docs/content/user/tools/basic/select.ipynb\n M molsysmt/basic/select.py\n?? devguide/archive/resolved_bugs/selection_expression_evaluation_wraps_resource_failures_as_argument_errors.md\n?? devtools/data/selection_resource_receiving_756_20261114.json\n?? tests/basic/select/test_resource_failures.py\n",
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "2147483648",
+      "memory.high": "1887436800",
+      "memory.swap.max": "0",
+      "pids.max": "256"
+    },
+    "command": [
+      "<development-prefix>/bin/python",
+      "<checkout>/.pytest_cache/selection-resources-756-20261114/quality.py"
+    ],
+    "checked_inputs": 8220,
+    "seconds": 40.71133879199624,
+    "ending_status": " M devguide/pending_bugs/README.md\n D devguide/pending_bugs/selection_expression_evaluation_wraps_resource_failures_as_argument_errors.md\n M devguide/release_1_0_status.md\n M docs/content/course/Common_Core/07_Selection_Basics.ipynb\n M docs/content/user/cookbook/big_data_trajectories.ipynb\n M docs/content/user/foundations/language/selection_grammar.ipynb\n M docs/content/user/tools/basic/select.ipynb\n M molsysmt/basic/select.py\n?? devguide/archive/resolved_bugs/selection_expression_evaluation_wraps_resource_failures_as_argument_errors.md\n?? devtools/data/selection_resource_receiving_756_20261114.json\n?? tests/basic/select/test_resource_failures.py\n",
+    "changed_inputs": [],
+    "memory_peak_bytes": 418783232,
+    "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "minimum_host_available_bytes": 17713229824,
+    "maximum_memory_pressure_avg10": 0.0,
+    "pressure_transitions": [],
+    "stop_reason": null,
+    "driver_sha256": "6478e92bfaf844589b099b0081a9ef9679bb09ae7faefc066d800e8911751e89"
+  },
+  "external_coordination": "No new team response at this review to MolSysViewer #384 or BindingMT #73; last comments remain 6885057522 / 6885046648. The #756 requester owns exact-source consumer receiving after publication of this source checkpoint."
+}

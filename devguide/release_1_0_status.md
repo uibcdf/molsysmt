@@ -2,11 +2,12 @@
 
 ## Resume from here
 
-**Reviewed 2026-11-14 against complete local source checkpoint
-`27ba3d4c8`, developer-probe correction `939e9c1b4` and Sphinx page-preservation
-correction `df91501ae`. The full local source result and the separately received
-documentation/developer deltas retain their actual identities; this is not a
-frozen or qualified final package pair.**
+**Reviewed 2026-11-14 against the complete local source checkpoint
+`27ba3d4c8`, the later documentation/developer receiver corrections, and #756's
+public selection resource-error delta based on `c4fa8552e`. The full source
+checkpoint remains evidence for its original identity. The runtime change has
+its own 244-case selected/strict-documentation receiving; exact-new-head and
+final-package-pair qualification remain due.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
 does not select today's candidate or authorize new execution.
@@ -30,7 +31,7 @@ promotions and publication remain paused pending the agreed resumption.**
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
 | Preserve executed essential examples and #753/#755 repairs | Eleven notebooks receive actual fresh-kernel execution (178 distinct code cells), including native get/info, selection/extraction, ChemicalStates, rings and named hydrogen-bond/H5MSM workflows. Four query tutorials now load bundled snapshots without network; one group-selection predicate is corrected against an independent 80-atom expectation. Fifteen focused controls pass with no skips. Fresh strict Sphinx renders 1,400 pages; all eleven changed articles, plot assets and new catalog links are received. [Receipt](../devtools/data/documentation_examples_receiving_334_20261114.json) preserves original failures and runtime/resource boundaries. This is not the complete notebook corpus, browser or final-pair qualification. |
-| Preserve #754 diagnostic correction and receive #756 next | The [#754 record](archive/resolved_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md) reproduces the original marker's 30.008-second misclassification and receives typed execution/phase/binding diagnostics. Seventy-two selected pytest cases pass, including 13 nested Node controls and two actual plain-Jupyter guards. The latter drive the real prolonged entry point before molecular work; six controller cases are synthetic. [Receipt](../devtools/data/jupyter_cell_diagnostics_receiving_754_20261114.json). Incoming [#756](pending_bugs/selection_expression_evaluation_wraps_resource_failures_as_argument_errors.md) now takes priority: preserve MemoryError/OS ENOMEM identity at public selection boundaries using injected exceptions, without actual allocation pressure. Neither correction assigns #615's cause or qualifies the final pair. |
+| Preserve completed #754/#756 owner corrections and request finite client receiving | [#754](archive/resolved_bugs/prolonged_jupyter_receiver_masks_python_errors_and_controller_ownership.md) retains 72 selected pytest cases and actual plain-Jupyter phase/error controls, with six explicitly synthetic controller cases. [#756](archive/resolved_bugs/selection_expression_evaluation_wraps_resource_failures_as_argument_errors.md) now preserves the original MemoryError/OS ENOMEM objects: 244 selection/doctest cases pass with zero skips and the full strict site/five changed articles are received. [Receipt](../devtools/data/selection_resource_receiving_756_20261114.json). BindingMT #111 still owes its exact-source end-to-end resource-identity acceptance; no cause-unwrapping, new selector, held population or native rebuild is requested. Original failed probes and missing-route test preconditions remain separate evidence. |
 | Preserve the completed current local source checkpoint | Clean `27ba3d4c8` completes the default selection: **35,191 pass, 16 documented optional skips, zero failures/errors**. The actual native exit is zero and the official receptor reader agrees with the complete same-run JUnit. All 9,012 checked source, 2,581 MolSysViewer and 231 support inputs remain unchanged. The separate registered evidence execution passes 116 cases for 74 nodes with zero skips. [Receipt](../devtools/data/pre_1_0_source_checkpoint_334_20261114.json). Event-detail/extension caps remain explicit; hosted/nightly/platform/final-pair gates are still due. |
 | Preserve #751/#752's bounded corrections | `939e9c1b4` repairs retired topology chemistry in the developer copy probe; 170 selected cases and both literal historical-TopoMT copy modes pass. `df91501ae` preserves maintained API stubs while still generating missing pages; 40 selected rendering/source cases and the actual complete configuration pass. The 1,034-document site produces 1,400 HTML files with zero warnings, unchanged disposable sources, both real ProtonationAssessment method entries and 101 passing intended-reference controls. Original failures and the incomplete first copy's missing-asset warning remain in their receipts. No production molecular code, scientific method, dependency or native binary changes. |
 | Preserve completed #747/#748 correction receiving | Original provider traversal is checked before copying/querying under `54c38f4b8`; `a049a45f9` restores exactly four canonical destination keywords. The 331-case selected cohort, solvate doctest, fifteen fast gates, generator check and full Ruff pass. [Receipt](../devtools/data/source_axis_converter_receiving_747_748_20261113.json). The earlier broad 1,615-case attempt is incomplete at its operational wall limit; original complete failures and later full/nightly qualification remain. |
@@ -59,6 +60,35 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Public selection resource identity receiving — 2026-11-14
+
+The #756 runtime correction uses bare raises for MemoryError and OS ENOMEM
+while preserving ordinary parser/catalog/process-control diagnostics and
+causes. The original 37-case cohort genuinely fails sixteen resource cases;
+21 other controls already pass. Native Pandas and MDTraj evaluator probes
+confirm the mechanism. Two initial MDAnalysis probes choose an unimplemented
+conversion and are retained as unsupported test inputs, not resource-route
+proof. The final probe uses an actual supported Universe input.
+
+The final complete selection suite and public doctest pass **244 cases with
+no skips**, including 45 focused exception controls. The nine legacy-H5MSM
+warnings remain explicit. Exact plain exceptions, existing notes/causes,
+explicit state/structure requests, three syntax dispatches, native/file/direct
+paths and actual evaluator calls are received through the normal public
+validation boundary. A fresh strict full-site build produces 1,400 pages
+without Sphinx warnings, and five actual API/foundations/tool/cookbook/course
+articles contain the contract. Notebook code/output and execution marks are
+unchanged. The [receipt](../devtools/data/selection_resource_receiving_756_20261114.json)
+keeps original unsuccessful attempts, final receptor/JUnit agreement, actual
+source/runtime/native hashes and conservative shared-host resource bounds.
+
+This is a new public-runtime error-propagation delta, separate from the earlier
+complete-source checkpoint. BindingMT #111 still owns exact-source receiving
+through its public consumer boundary; its prior 468ed098 account does not
+qualify this previously failing path. No new binary, package, hosted matrix,
+tag or publication is selected. #615, #256 and final-pair obligations and
+original weighted accounting remain outstanding within their recorded scope.
 
 ## Jupyter error/phase ownership receiving — 2026-11-14
 

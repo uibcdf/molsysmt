@@ -1,3 +1,5 @@
+import errno
+
 import numpy as np
 from smonitor import signal
 
@@ -79,6 +81,12 @@ def select(
     ArgumentError
         Raised if a selection cannot be parsed or if an element, mask, or
         structure index is outside the valid range.
+    MemoryError
+        Raised when selection evaluation exhausts available memory. The original
+        exception object and its existing cause are preserved.
+    OSError
+        Raised unchanged when selection evaluation reports ``errno.ENOMEM``.
+        Other parser failures retain the ordinary argument-error diagnostic.
 
 
     Notes
@@ -98,6 +106,8 @@ def select(
       Structure bounds are checked for numeric and all-element selections too.
       Supported parser failures are exposed as :class:`molsysmt.ArgumentError`
       while retaining the original exception as their cause.
+      Memory exhaustion retains its original ``MemoryError`` or OS ``ENOMEM``
+      exception so callers can handle capacity independently of invalid input.
     - An active mask returns the sorted set intersection with selection.
       Repeated indices in either input do not duplicate or introduce members.
     - When using the MolSysMT syntax, numeric comparisons on `*_id` fields (for example,
@@ -256,9 +266,11 @@ def select(
                     atom_indices = _dict_select[syntax](
                         molecular_system, selection, structure_indices
                     )
-            except ArgumentError:
+            except (ArgumentError, MemoryError):
                 raise
             except Exception as exc:
+                if isinstance(exc, OSError) and exc.errno == errno.ENOMEM:
+                    raise
                 from smonitor.integrations import CatalogException
 
                 if isinstance(exc, CatalogException):
