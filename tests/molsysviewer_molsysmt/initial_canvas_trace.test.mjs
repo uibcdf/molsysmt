@@ -8,6 +8,7 @@ import test from 'node:test';
 import vm from 'node:vm';
 import {
     installInitialCanvasTrace, initialCanvasSessionTrace, saveInitialCanvasTrace,
+    waitForInitialCanvasDraw,
 } from './jupyter_initial_canvas_trace.mjs';
 
 async function fixture(observedAtoms = 3983) {
@@ -52,7 +53,7 @@ async function fixture(observedAtoms = 3983) {
         },
     };
     await installInitialCanvasTrace(page, 3983, 'synthetic-attempt');
-    return {state, trace: context.window.__initialCanvasTrace, cell, wrapper, target, controller};
+    return {state, trace: context.window.__initialCanvasTrace, cell, wrapper, target, controller, context};
 }
 
 test('mount before attachment is retained; cached draws do not count', async () => {
@@ -66,8 +67,10 @@ test('mount before attachment is retained; cached draws do not count', async () 
     f.state.clock = 4;
     f.trace.controllerReady(f.controller, f.target);
     assert.equal(f.state.unsubscribed, 0);
+    assert.equal(f.trace.hasFirstNativeDraw(), false);
     f.state.clock = 5;
     f.state.draw();
+    assert.equal(f.trace.hasFirstNativeDraw(), true);
     const result = f.trace.finish();
     assert.equal(result.attempt, 'synthetic-attempt');
     assert.equal(result.belongs_to_initial_cell, true);
@@ -87,12 +90,37 @@ test('a wrong scene cannot supply the expected-scene draw milestone', async () =
     f.trace.controllerStarted(f.target);
     f.trace.controllerReady(f.controller, f.target);
     f.state.draw();
+    assert.equal(f.trace.hasFirstNativeDraw(), false);
     const result = f.trace.finish();
     assert.equal(result.observed_atoms, 24);
     assert.equal(result.marks.scene_registered, undefined);
     assert.equal(result.marks.first_native_draw, undefined);
     assert.equal(result.belongs_to_initial_cell, false);
     assert.equal(f.state.unsubscribed, 2);
+});
+
+test('draw wait refuses missing or wrong scenes and uses one original time budget', async () => {
+    for (const [atoms, draw, accepted] of [[3983, false, false], [24, true, false], [3983, true, true]]) {
+        const f = await fixture(atoms);
+        f.trace.arm(f.cell, 'synthetic-wait');
+        f.trace.runClicked();
+        f.trace.controllerStarted(f.target);
+        f.wrapper.parentElement = f.cell;
+        f.trace.controllerReady(f.controller, f.target);
+        if (draw) f.state.draw();
+        let calls = 0;
+        const timeout = new Error('synthetic missing fresh draw');
+        const page = {async waitForFunction(predicate, argument, options) {
+            calls++;
+            assert.equal(argument, null);
+            assert.deepEqual(options, {timeout: 30000, polling: 100});
+            if (!vm.runInContext(`(${predicate})()`, f.context)) throw timeout;
+        }};
+        if (accepted) await waitForInitialCanvasDraw(page);
+        else await assert.rejects(waitForInitialCanvasDraw(page), error => error === timeout);
+        assert.equal(calls, 1);
+        f.trace.finish();
+    }
 });
 
 test('unarmed, unavailable and failed writes remain diagnostic outcomes', async () => {

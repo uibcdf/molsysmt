@@ -162,6 +162,28 @@ Do not substitute a partial or single-platform run.
   course structure statically; source/rendering tests and the strict HTML build
   confirm the full documentation boundary without re-executing notebooks.
 
+## Initial Jupyter scene receiving
+
+The already agreed #615 final-pair startup requirement remains independent of
+its historical-investigation disposition. Receive the exact final candidate
+composition with its recorded source/runtime/native identities and execution
+origins in the qualified GUI environment through:
+
+```bash
+python -m pytest --receptor=llm -n 0 tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_initial_canvas_diagnostics
+```
+
+Use the owning guard's documented environment and resource admission; the fast
+aggregator does not start a GUI run. Require initial-cell ownership, the same
+attempt across all nine kernel stages, 3,983 observed atoms and a connected
+positive canvas. A newly observed native draw must follow the observer and
+expected scene within the original 30-second Run-to-draw allowance. Keep the
+15-second stack capture; imports, a canvas element or a cached draw cannot
+satisfy this condition. Retain a failed attempt and its phase/comm/draw evidence;
+recurrence blocks candidate acceptance until its disposition is reviewed.
+A later passing retry is not a historical causal repair. This source/host
+receiving does not replace the separate installed-pair or platform gates.
+
 ## 6. Sign-off checklist (all must hold on the tag commit)
 
 - [ ] Working tree clean; the exact tag candidate has every mandatory gate
@@ -183,6 +205,8 @@ Do not substitute a partial or single-platform run.
       3.14 is claimed. Retain the full-matrix run ID and SHA-256 coordinates for
       exact-file promotion.
 - [ ] Docs build → green, course toctree warning-clean.
+- [ ] Final-pair initial Jupyter scene → actual phase-correlated native draw
+      within the unchanged deadline; #615 has an explicitly accepted outcome.
 - [ ] No open **blocker** in `pending_bugs/`; open items are accepted debt or post-1.0.
 - [ ] **Citation metadata prepared for the tag.** `CITATION.cff` carries the stable
       concept DOI, intended version and release date; `.zenodo.json` agrees on shared

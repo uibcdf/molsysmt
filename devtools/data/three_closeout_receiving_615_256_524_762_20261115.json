@@ -1,0 +1,1237 @@
+{
+  "schema": "molsysmt.three_closeout_receiving@1",
+  "date": "2026-11-15",
+  "owner_issues": [
+    "uibcdf/molsysmt#615",
+    "uibcdf/molsysmt#256",
+    "uibcdf/molsysmt#524"
+  ],
+  "necessary_correction": "uibcdf/molsysmt#762",
+  "source_basis": "2801677bcceb6f1b9c9bb64405c8e0bab8a04443",
+  "scope": "Finite original-storage and startup-receiver source checks plus read-only registry/archive and unapplied metadata preparation. No final-candidate, hosted, installed-pair or publication qualification.",
+  "executions": {
+    "focused": {
+      "phase": "focused",
+      "source_commit": "2801677bcceb6f1b9c9bb64405c8e0bab8a04443",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite source receiving for #615/#256/#524 closeout; no installed/final-pair, new host execution or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.36 1.93 1.07 4/2734 2552799",
+        "cpu_pressure": "some avg10=0.00 avg60=2.11 avg300=4.49 total=21456927021\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": "?? tests/form/file_h5msm/test_original_packet_default_migration.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/three-closeouts-20261115/focused.xml",
+        "--receptor-events=./.pytest_cache/three-closeouts-20261115/focused.events.jsonl",
+        "tests/form/file_h5msm/test_original_packet_default_migration.py"
+      ],
+      "checked_inputs": 8241,
+      "seconds": 16.745538104791194,
+      "ending_status": "?? tests/form/file_h5msm/test_original_packet_default_migration.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 307105792,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18547261440,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b0962124930ea2ada997fcd11e8a9185b9065ed146e6b77e851a57560888d7b5"
+    },
+    "baseline": {
+      "phase": "baseline",
+      "source_commit": "2801677bcceb6f1b9c9bb64405c8e0bab8a04443",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite source receiving for #615/#256/#524 closeout; no installed/final-pair, new host execution or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "7.14 4.11 2.51 2/2719 2558254",
+        "cpu_pressure": "some avg10=4.85 avg60=12.04 avg300=7.00 total=21505424782\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": "?? devguide/pending_bugs/initial_canvas_acceptance_permits_missing_fresh_native_draw_evidence.md\n?? devtools/data/initial_canvas_disposition_review_615_20261115.json\n?? tests/form/file_h5msm/test_original_packet_default_migration.py\n?? tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/three-closeouts-20261115/baseline.xml",
+        "--receptor-events=./.pytest_cache/three-closeouts-20261115/baseline.events.jsonl",
+        "tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py"
+      ],
+      "checked_inputs": 8244,
+      "seconds": 4.659586000721902,
+      "ending_status": "?? devguide/pending_bugs/initial_canvas_acceptance_permits_missing_fresh_native_draw_evidence.md\n?? devtools/data/initial_canvas_disposition_review_615_20261115.json\n?? tests/form/file_h5msm/test_original_packet_default_migration.py\n?? tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 145784832,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18601979904,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b0962124930ea2ada997fcd11e8a9185b9065ed146e6b77e851a57560888d7b5"
+    },
+    "corrected": {
+      "phase": "corrected",
+      "source_commit": "2801677bcceb6f1b9c9bb64405c8e0bab8a04443",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite source receiving for #615/#256/#524 closeout; no installed/final-pair, new host execution or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "2.78 3.09 2.34 5/2888 2559398",
+        "cpu_pressure": "some avg10=2.58 avg60=1.54 avg300=4.33 total=21505947582\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs\n M tests/molsysviewer_molsysmt/initial_canvas_trace.test.mjs\n M tests/molsysviewer_molsysmt/jupyter_initial_canvas_trace.mjs\n M tests/molsysviewer_molsysmt/jupyter_receiving_guard.py\n?? devguide/pending_bugs/initial_canvas_acceptance_permits_missing_fresh_native_draw_evidence.md\n?? devtools/data/initial_canvas_disposition_review_615_20261115.json\n?? tests/form/file_h5msm/test_original_packet_default_migration.py\n?? tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/three-closeouts-20261115/corrected.xml",
+        "--receptor-events=./.pytest_cache/three-closeouts-20261115/corrected.events.jsonl",
+        "tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py"
+      ],
+      "checked_inputs": 8244,
+      "seconds": 4.9785709218122065,
+      "ending_status": " M tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs\n M tests/molsysviewer_molsysmt/initial_canvas_trace.test.mjs\n M tests/molsysviewer_molsysmt/jupyter_initial_canvas_trace.mjs\n M tests/molsysviewer_molsysmt/jupyter_receiving_guard.py\n?? devguide/pending_bugs/initial_canvas_acceptance_permits_missing_fresh_native_draw_evidence.md\n?? devtools/data/initial_canvas_disposition_review_615_20261115.json\n?? tests/form/file_h5msm/test_original_packet_default_migration.py\n?? tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 144257024,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17539788800,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b0962124930ea2ada997fcd11e8a9185b9065ed146e6b77e851a57560888d7b5"
+    },
+    "facts": {
+      "phase": "facts",
+      "source_commit": "2801677bcceb6f1b9c9bb64405c8e0bab8a04443",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite source receiving for #615/#256/#524 closeout; no installed/final-pair, new host execution or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "2.78 3.09 2.34 5/2888 2559398",
+        "cpu_pressure": "some avg10=2.58 avg60=1.54 avg300=4.33 total=21505947582\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs\n M tests/molsysviewer_molsysmt/initial_canvas_trace.test.mjs\n M tests/molsysviewer_molsysmt/jupyter_initial_canvas_trace.mjs\n M tests/molsysviewer_molsysmt/jupyter_receiving_guard.py\n?? devguide/pending_bugs/initial_canvas_acceptance_permits_missing_fresh_native_draw_evidence.md\n?? devtools/data/initial_canvas_disposition_review_615_20261115.json\n?? tests/form/file_h5msm/test_original_packet_default_migration.py\n?? tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-c",
+        "import subprocess; subprocess.run([\"node\", \"--test\", \"tests/molsysviewer_molsysmt/initial_canvas_trace.test.mjs\"], check=True)"
+      ],
+      "checked_inputs": 8244,
+      "seconds": 3.0435964460484684,
+      "ending_status": " M tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs\n M tests/molsysviewer_molsysmt/initial_canvas_trace.test.mjs\n M tests/molsysviewer_molsysmt/jupyter_initial_canvas_trace.mjs\n M tests/molsysviewer_molsysmt/jupyter_receiving_guard.py\n?? devguide/pending_bugs/initial_canvas_acceptance_permits_missing_fresh_native_draw_evidence.md\n?? devtools/data/initial_canvas_disposition_review_615_20261115.json\n?? tests/form/file_h5msm/test_original_packet_default_migration.py\n?? tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 68304896,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17802940416,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b0962124930ea2ada997fcd11e8a9185b9065ed146e6b77e851a57560888d7b5"
+    },
+    "cohort": {
+      "phase": "cohort",
+      "source_commit": "2801677bcceb6f1b9c9bb64405c8e0bab8a04443",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite source receiving for #615/#256/#524 closeout; no installed/final-pair, new host execution or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.05 2.33 2.26 3/2728 2561055",
+        "cpu_pressure": "some avg10=0.00 avg60=0.29 avg300=2.94 total=21513341250\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/README.md\n M tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs\n M tests/molsysviewer_molsysmt/initial_canvas_trace.test.mjs\n M tests/molsysviewer_molsysmt/jupyter_initial_canvas_trace.mjs\n M tests/molsysviewer_molsysmt/jupyter_receiving_guard.py\n?? devguide/pending_bugs/initial_canvas_acceptance_permits_missing_fresh_native_draw_evidence.md\n?? devtools/data/initial_canvas_disposition_review_615_20261115.json\n?? tests/form/file_h5msm/test_original_packet_default_migration.py\n?? tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/three-closeouts-20261115/cohort.xml",
+        "--receptor-events=./.pytest_cache/three-closeouts-20261115/cohort.events.jsonl",
+        "tests/form/file_h5msm/test_original_packet_default_migration.py",
+        "tests/form/file_h5msm/test_public_migration_v10.py",
+        "tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py",
+        "tests/molsysviewer_molsysmt/test_jupyter_stage_diagnostics.py"
+      ],
+      "checked_inputs": 8244,
+      "seconds": 12.890692768152803,
+      "ending_status": " M devguide/pending_bugs/README.md\n M tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs\n M tests/molsysviewer_molsysmt/initial_canvas_trace.test.mjs\n M tests/molsysviewer_molsysmt/jupyter_initial_canvas_trace.mjs\n M tests/molsysviewer_molsysmt/jupyter_receiving_guard.py\n?? devguide/pending_bugs/initial_canvas_acceptance_permits_missing_fresh_native_draw_evidence.md\n?? devtools/data/initial_canvas_disposition_review_615_20261115.json\n?? tests/form/file_h5msm/test_original_packet_default_migration.py\n?? tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 249962496,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17782837248,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b0962124930ea2ada997fcd11e8a9185b9065ed146e6b77e851a57560888d7b5"
+    },
+    "actual": {
+      "phase": "actual",
+      "source_commit": "2801677bcceb6f1b9c9bb64405c8e0bab8a04443",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite source receiving for #615/#256/#524 closeout; no installed/final-pair, new host execution or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.05 2.33 2.26 4/2728 2561056",
+        "cpu_pressure": "some avg10=0.00 avg60=0.29 avg300=2.94 total=21513341253\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/README.md\n M tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs\n M tests/molsysviewer_molsysmt/initial_canvas_trace.test.mjs\n M tests/molsysviewer_molsysmt/jupyter_initial_canvas_trace.mjs\n M tests/molsysviewer_molsysmt/jupyter_receiving_guard.py\n?? devguide/pending_bugs/initial_canvas_acceptance_permits_missing_fresh_native_draw_evidence.md\n?? devtools/data/initial_canvas_disposition_review_615_20261115.json\n?? tests/form/file_h5msm/test_original_packet_default_migration.py\n?? tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py\n",
+      "limits": {
+        "cpu.max": "200000 100000",
+        "memory.max": "4294967296",
+        "memory.high": "3774873600",
+        "memory.swap.max": "0",
+        "pids.max": "768"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/three-closeouts-20261115/actual.xml",
+        "--receptor-events=./.pytest_cache/three-closeouts-20261115/actual.events.jsonl",
+        "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_initial_canvas_diagnostics",
+        "--basetemp=./.pytest_cache/three-closeouts-20261115/actual-jupyter"
+      ],
+      "checked_inputs": 8244,
+      "seconds": 67.88279659394175,
+      "ending_status": " M devguide/pending_bugs/README.md\n M tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs\n M tests/molsysviewer_molsysmt/initial_canvas_trace.test.mjs\n M tests/molsysviewer_molsysmt/jupyter_initial_canvas_trace.mjs\n M tests/molsysviewer_molsysmt/jupyter_receiving_guard.py\n?? devguide/pending_bugs/initial_canvas_acceptance_permits_missing_fresh_native_draw_evidence.md\n?? devtools/data/initial_canvas_disposition_review_615_20261115.json\n?? tests/form/file_h5msm/test_original_packet_default_migration.py\n?? tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 1432481792,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17217511424,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "a650d7fa33252ac41a41d6652fa37b411f4da11de9fa5115cd33c59ae622f314"
+    },
+    "corrected2": {
+      "phase": "corrected2",
+      "source_commit": "2801677bcceb6f1b9c9bb64405c8e0bab8a04443",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite source receiving for #615/#256/#524 closeout; no installed/final-pair, new host execution or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.71 1.70 2.03 4/2716 2562619",
+        "cpu_pressure": "some avg10=0.00 avg60=5.41 avg300=6.54 total=21534360998\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/README.md\n M tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs\n M tests/molsysviewer_molsysmt/initial_canvas_trace.test.mjs\n M tests/molsysviewer_molsysmt/jupyter_initial_canvas_trace.mjs\n M tests/molsysviewer_molsysmt/jupyter_receiving_guard.py\n?? devguide/pending_bugs/initial_canvas_acceptance_permits_missing_fresh_native_draw_evidence.md\n?? devtools/data/initial_canvas_disposition_review_615_20261115.json\n?? tests/form/file_h5msm/test_original_packet_default_migration.py\n?? tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/three-closeouts-20261115/corrected2.xml",
+        "--receptor-events=./.pytest_cache/three-closeouts-20261115/corrected2.events.jsonl",
+        "tests/form/file_h5msm/test_original_packet_default_migration.py",
+        "tests/form/file_h5msm/test_public_migration_v10.py",
+        "tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py",
+        "tests/molsysviewer_molsysmt/test_jupyter_stage_diagnostics.py"
+      ],
+      "checked_inputs": 8244,
+      "seconds": 28.764705320820212,
+      "ending_status": " M devguide/pending_bugs/README.md\n M tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs\n M tests/molsysviewer_molsysmt/initial_canvas_trace.test.mjs\n M tests/molsysviewer_molsysmt/jupyter_initial_canvas_trace.mjs\n M tests/molsysviewer_molsysmt/jupyter_receiving_guard.py\n?? devguide/pending_bugs/initial_canvas_acceptance_permits_missing_fresh_native_draw_evidence.md\n?? devtools/data/initial_canvas_disposition_review_615_20261115.json\n?? tests/form/file_h5msm/test_original_packet_default_migration.py\n?? tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 262721536,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18357514240,
+      "maximum_memory_pressure_avg10": 0.18,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "b0962124930ea2ada997fcd11e8a9185b9065ed146e6b77e851a57560888d7b5"
+    }
+  },
+  "pytest_receiving": {
+    "focused": {
+      "complete": true,
+      "outcome": "PASS",
+      "counts": {
+        "collected": 12,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 12,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 12,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 0,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "same_invocation_junit_reconciled": true
+    },
+    "baseline": {
+      "complete": true,
+      "outcome": "FAIL",
+      "counts": {
+        "collected": 5,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 5,
+        "failed": 3,
+        "not_executed": 0,
+        "passed": 2,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 0,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "same_invocation_junit_reconciled": true
+    },
+    "corrected": {
+      "complete": true,
+      "outcome": "PASS",
+      "counts": {
+        "collected": 5,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 5,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 5,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 0,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "same_invocation_junit_reconciled": true
+    },
+    "cohort": {
+      "complete": true,
+      "outcome": "FAIL",
+      "counts": {
+        "collected": 44,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 44,
+        "failed": 1,
+        "not_executed": 0,
+        "passed": 43,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 0,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "same_invocation_junit_reconciled": true
+    },
+    "actual": {
+      "complete": true,
+      "outcome": "PASS",
+      "counts": {
+        "collected": 1,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 1,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 1,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 0,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "same_invocation_junit_reconciled": true
+    },
+    "corrected2": {
+      "complete": true,
+      "outcome": "PASS",
+      "counts": {
+        "collected": 44,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 44,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 44,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 0,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "same_invocation_junit_reconciled": true
+    }
+  },
+  "h5msm_original_packet": {
+    "manifest": "devtools/data/h5msm_p5_review_20261110/manifest.json",
+    "manifest_sha256": "8987b47ba43ad53219edc2f79a97130dff84d7eae3be75811c7bed725e494c52",
+    "scopes": [
+      "complete",
+      "projected",
+      "merged"
+    ],
+    "routes": [
+      "native read/default write",
+      "public whole-file conversion"
+    ],
+    "version_argument": "omitted",
+    "policies": [
+      [
+        "nm",
+        "ps",
+        "radians"
+      ],
+      [
+        "pm",
+        "fs",
+        "degrees"
+      ]
+    ],
+    "passed_cases": 12,
+    "source_version": "0.6",
+    "actual_output_version": "1.0",
+    "data_and_producer_snapshots_preserved": true,
+    "original_file_hashes_unchanged": true,
+    "scope": "Owner regression on the original immutable files. Independent BindingMT client acceptance is still separate."
+  },
+  "actual_jupyter_receiver": {
+    "outcome": "canvas_visible",
+    "capture": "available",
+    "expected_atoms": 3983,
+    "observed_atoms": 3983,
+    "belongs_to_initial_cell": true,
+    "observer_errors": 0,
+    "marks_ms_since_arm": {
+      "run_clicked": 1122,
+      "runtime_available": 11118.39999961853,
+      "widget_mount_started": 11121.299999713898,
+      "controller_ready": 12475.39999961853,
+      "canvas_connected": 12475.5,
+      "draw_observer_armed": 12475.5,
+      "scene_registered": 12798.799999713898,
+      "first_native_draw": 17504.89999961853
+    },
+    "run_to_first_native_draw_ms": 16382.89999961853,
+    "all_attempt_correlations_match": true,
+    "kernel_stages": [
+      "cell_started",
+      "viewer_import_started",
+      "viewer_imported",
+      "molsysmt_import_started",
+      "molsysmt_imported",
+      "demo_load_started",
+      "demo_loaded",
+      "display_expression",
+      "cell_completed"
+    ],
+    "sampling_checkpoints": [
+      {
+        "stage": "while_waiting",
+        "available": true,
+        "reason": null
+      }
+    ],
+    "page_errors": 1,
+    "plain_jupyter_errors": 1,
+    "error_scope": "One actual error matches the plain-Jupyter fingerprint; not a zero-page-error claim.",
+    "environment": {
+      "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+      "packages": {
+        "jupyterlab": "4.6.4",
+        "ipykernel": "7.3.0",
+        "anywidget": "0.11.0",
+        "ipywidgets": "8.1.9"
+      },
+      "node": "v22.22.1"
+    },
+    "configured_viewer_source": "./.pytest_cache/pre1-review-20261110/viewer-5164f13b-ready-source",
+    "configured_support_paths": [
+      "./.pytest_cache/pre1-90-20261111/support-overlay",
+      "./.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages",
+      "./.pytest_cache/stabilization-551/tooling/published"
+    ],
+    "native_file_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "native_origin_scope": "Configured source/native file identity and unchanged input manifests. This guard receipt does not independently authenticate every actual kernel-imported file or qualify a native ABI.",
+    "initial_canvas_deadline_ms": 30000,
+    "stack_capture_ms": 15000,
+    "cold_scope": "Fresh Jupyter server/kernel without scientific warm-up; existing OS/disk caches are not cleared. No universal latency or historical-cause conclusion.",
+    "temporary_server_settings_retired": true
+  },
+  "public_registry_snapshot": {
+    "molsysmt": {
+      "endpoint": "https://api.anaconda.org/package/uibcdf/molsysmt",
+      "observed_at": "2026-11-15T16:57:40.689555+00:00",
+      "response_bytes": 183573,
+      "response_sha256": "3a75be089c63a5cd483896b456a43ee14cd6302a936a7928e3291580eae17c8e",
+      "listed_files": 107,
+      "public_versions": [
+        "0.11.2",
+        "0.11.3",
+        "0.12.0",
+        "0.22.4",
+        "0.23.0"
+      ],
+      "v1_0_0_files": [
+        {
+          "basename": "linux-64/molsysmt-1.0.0-pyabi3h03bb3b7_0.conda",
+          "version": "1.0.0",
+          "build_number": 0,
+          "labels": [
+            "staging"
+          ],
+          "sha256": "f3354b2d34ed9152d41c71119b46b13f064b40e076af20e97771891e032640dd",
+          "size": 55853839
+        },
+        {
+          "basename": "linux-aarch64/molsysmt-1.0.0-pyabi3hecc93d8_0.conda",
+          "version": "1.0.0",
+          "build_number": 0,
+          "labels": [
+            "staging"
+          ],
+          "sha256": "f90ef186b72e4433d1946068c5cbde4fe17cc6d10dc8bb80d00c8de25b4572aa",
+          "size": 55581603
+        },
+        {
+          "basename": "win-64/molsysmt-1.0.0-pyabi3h2d2bc06_0.conda",
+          "version": "1.0.0",
+          "build_number": 0,
+          "labels": [
+            "staging"
+          ],
+          "sha256": "4a0bbbc974c463edd610f5eb701f44c7be77e9b4368f3d631224afb5128da518",
+          "size": 55872762
+        },
+        {
+          "basename": "osx-arm64/molsysmt-1.0.0-pyabi3ha0bc463_0.conda",
+          "version": "1.0.0",
+          "build_number": 0,
+          "labels": [
+            "staging"
+          ],
+          "sha256": "dcc711e5c93049d2ddd33176b37b8f847651d386c21ad5ad1e507db48e4212b9",
+          "size": 55346266
+        }
+      ],
+      "original_host": []
+    },
+    "molsysviewer": {
+      "endpoint": "https://api.anaconda.org/package/uibcdf/molsysviewer",
+      "observed_at": "2026-11-15T16:57:40.858892+00:00",
+      "response_bytes": 82370,
+      "response_sha256": "0f823e46fd03eca155a8795b99ffa314629e145134248458bd99ecd9be3cb6bc",
+      "listed_files": 61,
+      "public_versions": [
+        "0.23.4",
+        "0.24.0",
+        "0.5.3",
+        "0.6.0",
+        "0.6.1",
+        "0.7.0"
+      ],
+      "v1_0_0_files": [],
+      "original_host": [
+        {
+          "basename": "noarch/molsysviewer-0.24.0-py_1.tar.bz2",
+          "version": "0.24.0",
+          "build_number": 1,
+          "labels": [
+            "staging",
+            "main"
+          ],
+          "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa",
+          "size": 1514120
+        }
+      ]
+    }
+  },
+  "original_public_host_archive_review": {
+    "url": "https://conda.anaconda.org/uibcdf/noarch/molsysviewer-0.24.0-py_1.tar.bz2",
+    "sha256": "e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa",
+    "bytes": 1514120,
+    "package_index": {
+      "arch": null,
+      "build": "py_1",
+      "build_number": 1,
+      "depends": [
+        "aiohttp >=3.10",
+        "anywidget >=0.9.15",
+        "argdigest >=0.13.0",
+        "depdigest",
+        "molsysmt >=0.23.0",
+        "numpy",
+        "packaging >=23",
+        "python >=3.11,<3.15",
+        "pyunitwizard >=0.25.0",
+        "smonitor >=0.13.0",
+        "traitlets >=5"
+      ],
+      "license": "MIT",
+      "name": "molsysviewer",
+      "noarch": "python",
+      "platform": null,
+      "subdir": "noarch",
+      "timestamp": 1791326155965,
+      "version": "0.24.0"
+    },
+    "python_files_inspected": 616,
+    "closed_function_declarations": [],
+    "core": {
+      "path": "site-packages/molsysviewer/viewer/core.py",
+      "sha256": "2cda2d9debeefb5968be1843c9c545c112e165d61be6952ba14f18ecf816e703",
+      "bytes": 161320
+    },
+    "MolSysView_direct_methods": [
+      "_repr_mimebundle_",
+      "__enter__",
+      "__exit__",
+      "close",
+      "__init__",
+      "attributed_to",
+      "_current_scene_owner",
+      "_apply_view_modes",
+      "set_dimensions",
+      "set_canvas_visibility",
+      "_send_backend_error_ack",
+      "_parse_selection_query_indices",
+      "_copy_selection_recipe",
+      "_selection_recipe_step",
+      "_set_active_selection_recipe",
+      "_selection_recipe_after_step",
+      "_resolve_selection_recipe_step",
+      "_replay_selection_recipe",
+      "_apply_selection_query_action",
+      "_apply_active_selection_operation",
+      "_preview_selection_query_action",
+      "_active_selection_query_system",
+      "_flatten_atom_index_result",
+      "_expand_selection_action",
+      "_expand_selection_spatial_action",
+      "_binary_structure_transport_limit",
+      "_new_lazy_molecular_projection",
+      "_materialize_molecular_projection",
+      "_structure_transfer_manager",
+      "_iter_structure_transfer_managers",
+      "_try_send_array_native_molsys",
+      "_check_binary_structure_ack_timeout",
+      "_cancel_binary_structure_stream",
+      "_transmit_binary_structure_cancel",
+      "_transmit_binary_structure_chunk",
+      "_fallback_binary_structure_stream",
+      "_deliver_binary_structure_fallback",
+      "_handle_binary_structure_event",
+      "_send_widget_message",
+      "_transmit_widget_message",
+      "_flush_deferred_widget_messages",
+      "_handle_inbound_message",
+      "_handle_connector_runtime_request",
+      "_answer_popup_scene_snapshot",
+      "_deliver_transport_message",
+      "_handle_frontend_event",
+      "current_structure_index",
+      "regions",
+      "js_logs",
+      "layers",
+      "selections_registry",
+      "molsys",
+      "wait_for_transaction",
+      "_enrich_interaction_payload",
+      "_next_region_tag",
+      "_next_annotation_tag",
+      "_next_layer_tag",
+      "_next_measurement_tag",
+      "_next_shape_tag",
+      "_get_tag_counter",
+      "_set_tag_counter",
+      "_remap_indices",
+      "_remap_atom_pairs",
+      "_remap_frame_atom_indices",
+      "_remap_frame_atom_pairs",
+      "_remap_shape_message",
+      "_remap_annotation_message",
+      "_remap_measurement_message",
+      "_remap_selection_message",
+      "_remap_atom_color_map",
+      "_next_region_order",
+      "_bump_region_order",
+      "_emit_region_order",
+      "_recompute_atom_colors_for_order_change",
+      "_raise_region_to_front",
+      "_send_region_to_back",
+      "_resolved_atom_color_map",
+      "_send_resolved_atom_colors",
+      "_send_atom_color_delta",
+      "_set_atom_color_layer",
+      "_update_atom_color_layer",
+      "_clear_atom_color_layer",
+      "_drop_atom_color_layer",
+      "_rename_atom_color_layer",
+      "_copy_atom_color_layer",
+      "_rebuild_view_from_current_molsys",
+      "apply_system_edit",
+      "_local_structure_index_for_player",
+      "_trajectory_summary_message",
+      "_sync_trajectory_summary_runtime",
+      "_player_replay_messages",
+      "_reset_load_blocks",
+      "load_blocks",
+      "visible_structure_indices",
+      "scene_style_name",
+      "reset_all_colors",
+      "_write_html_impl",
+      "_resolve_shared_runtime_urls",
+      "_scene_version",
+      "_shared_runtime_cdn_url",
+      "_request_camera_snapshot",
+      "_request_image_export",
+      "_request_remote_image_download",
+      "_project_remote_context_target",
+      "_consume_remote_upload",
+      "_request_remote_html_download",
+      "_complete_remote_image_download",
+      "_export_image_headless",
+      "_export_image_headless_qt",
+      "_export_image_headless_playwright",
+      "_export_image_impl",
+      "_export_figure_impl",
+      "_build_lite_html"
+    ],
+    "scope": "Verified original public archive and parsed declarations; no installation, runtime/MRO behavior or full compatible-floor qualification."
+  },
+  "unapplied_candidate_proposal": {
+    "scope": "Unapplied source/metadata review only, not a frozen producer, package, installed floor, reserved coordinate or permission to build/publish.",
+    "source_basis": "2801677bcceb6f1b9c9bb64405c8e0bab8a04443",
+    "proposed_host_minimum": "molsysviewer>=1.0.0",
+    "version": "1.0.0",
+    "provisional_date": "2026-11-15; replace at the authorized freeze",
+    "proposed_molsysmt_build": 1,
+    "selected_recipe": "devtools/conda-build/meta.yaml via explicit build_number=1",
+    "rattler_not_selected": true,
+    "changed_surfaces": [
+      "devtools/conda-envs/development_env.yaml",
+      "devtools/conda-envs/production_env.yaml",
+      "pyproject.toml",
+      "devtools/conda-build/meta.yaml",
+      "devtools/rattler-build/recipe.yaml",
+      "CITATION.cff",
+      "docs/_bibtex/software.bib"
+    ],
+    "patch_sha256": "52b5e5bb7ddc18940c00102ad17d8840a76f121e6f705b7e3e7c3b5e466a3057",
+    "checks": [
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/audit_dependency_contract.py",
+          "--root",
+          "./.pytest_cache/three-closeouts-20261115/candidate-proposal"
+        ],
+        "native_exit": 0,
+        "stdout": "Dependency contract audit: PASS (public requirements and declared routes agree)\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/prepare_release.py",
+          "1.0.0",
+          "--date",
+          "2026-11-15",
+          "--repo-root",
+          "./.pytest_cache/three-closeouts-20261115/candidate-proposal"
+        ],
+        "native_exit": 0,
+        "stdout": "Release citation preparation: PASS \u2014 1.0.0 (2026-11-15)\n",
+        "stderr": ""
+      }
+    ],
+    "real_compatible_artifact_still_required": true,
+    "main_manifests_unchanged": true
+  },
+  "negative_dispositions": {
+    "baseline": "Three actual-guard synthetic counterexamples wrongly accepted; baseline 3 failed/2 passed.",
+    "facts": "Direct Node run omitted INITIAL_CANVAS_TEST_PYTHON; six controls passed and the sampler refused its missing declared prerequisite.",
+    "cohort": "First pytest bridge used PYTHON instead of the required INITIAL_CANVAS_TEST_PYTHON; 43 passed/1 failed. The explicit corrected-key bridge passes in the final cohort. These are operator/guard-authoring errors, not provider defects.",
+    "actual": "One real host invocation after the changed observer/acceptance; no identical retry, forced native draw or enlarged canvas deadline."
+  },
+  "closeout_states": {
+    "615": "Public lead review and concrete disposition prepared; explicit principal-maintainer decision is pending. Original cause remains unknown.",
+    "256": "Original-file owner/default routes now guarded and pass; independent BindingMT response plus stable-format decision remain.",
+    "524": "Registry/original archive verified and target metadata patch passes static audit/citation preparation in an isolated copy. Real compatible artifacts and minimum/newer installed closure remain unavailable under the execution pause."
+  },
+  "new_candidate_or_hosted_execution": false,
+  "publication_authorized": false,
+  "original_weighted_progress_change": 0,
+  "retained_private_evidence_sha256": {
+    ".pytest_cache/three-closeouts-20261115/actual.xml": "2d90e4c0bd50b1242096490d6ed79c2d3c9abd03532308151e71ccb3ad26eab7",
+    ".pytest_cache/three-closeouts-20261115/actual-owned-tmp.json": "ce78d90010efd031a5db89fedcab6f6e5b6e13081ab152cef542fbfd4175818f",
+    ".pytest_cache/three-closeouts-20261115/focused-inputs-before.json": "98fe316f52a8cb3bc43a94f418c1e2461554bea7d53fa6e931e4fb00efd52e02",
+    ".pytest_cache/three-closeouts-20261115/focused-inputs-after.json": "98fe316f52a8cb3bc43a94f418c1e2461554bea7d53fa6e931e4fb00efd52e02",
+    ".pytest_cache/three-closeouts-20261115/check_driver.py": "b0962124930ea2ada997fcd11e8a9185b9065ed146e6b77e851a57560888d7b5",
+    ".pytest_cache/three-closeouts-20261115/commands.json": "782a9608469d625d6a895de1727ed19aa6377b211fad1e2697c986b10e276220",
+    ".pytest_cache/three-closeouts-20261115/baseline.xml": "5d332fb7953ea5315ca141bbb18c8078e39259cbad3ddb68d4b411751546bf02",
+    ".pytest_cache/three-closeouts-20261115/cohort.events.jsonl": "607487a793c45b13e02ca0521b9e0273070f8770bf08967181738bc4bb7b18cf",
+    ".pytest_cache/three-closeouts-20261115/cohort.log": "d2a901af7ddaa69280c7ee7b9985752353659d87f544f6d5236289d609d92dc6",
+    ".pytest_cache/three-closeouts-20261115/actual-execution.json": "367813635f2bf51a82701c51c24864ed75ddcb3981a8550abc909289ad359309",
+    ".pytest_cache/three-closeouts-20261115/corrected-execution.json": "777990fe6e295edc4514466c90c36a489c95665166f0fe9fe2a980622ea1ffcb",
+    ".pytest_cache/three-closeouts-20261115/corrected2-execution.json": "28d3e45c44fd87c9b31c2616bb0cfbfa3d45b8b0170369af9ba997b637d92f6f",
+    ".pytest_cache/three-closeouts-20261115/corrected2.xml": "7a4442896db5d071ab7119dc0ea85c824d3b708e719cf22aab10f98ff89d8826",
+    ".pytest_cache/three-closeouts-20261115/registry-molsysviewer.json": "0f823e46fd03eca155a8795b99ffa314629e145134248458bd99ecd9be3cb6bc",
+    ".pytest_cache/three-closeouts-20261115/baseline.log": "d143d1b83c79dee849035bc39d3de41e4c1c2c5f91bcb0c1659eb5642b575047",
+    ".pytest_cache/three-closeouts-20261115/startup-public-files.json": "c8e22d396feed8309994169c5c451800b0bce7ac5010d6ccfa0dd473d6b11394",
+    ".pytest_cache/three-closeouts-20261115/corrected.xml": "58efea2d9ac03ae1341eae87a2fdd2b656e04c2a45f6f5a443997b9463b56a1c",
+    ".pytest_cache/three-closeouts-20261115/actual.events.jsonl": "207aedb72c5e66193c01a50f7acebbbeefa179ce97ef996ff05a6d4cccb643cc",
+    ".pytest_cache/three-closeouts-20261115/registry-molsysmt.json": "3a75be089c63a5cd483896b456a43ee14cd6302a936a7928e3291580eae17c8e",
+    ".pytest_cache/three-closeouts-20261115/corrected2-inputs-after.json": "6986b412a9b4e8526b33e275d50c8af83e36213c4c07a3b94e59c09dd02f0381",
+    ".pytest_cache/three-closeouts-20261115/corrected.log": "81690849f87d12aa77079cdf19beece6c8ed163b521ac40995a30850ec2257eb",
+    ".pytest_cache/three-closeouts-20261115/focused-driver.py": "b0962124930ea2ada997fcd11e8a9185b9065ed146e6b77e851a57560888d7b5",
+    ".pytest_cache/three-closeouts-20261115/focused-execution.json": "01e08f2cac10a4cb5491a080fc8dbbd15c21ba5167d023ba207652a3431799be",
+    ".pytest_cache/three-closeouts-20261115/facts.log": "0c7d13b19953c5a259ddc819a8ff8247858e1a7ef9bbfad10615d0db55c9259b",
+    ".pytest_cache/three-closeouts-20261115/actual_driver.py": "a650d7fa33252ac41a41d6652fa37b411f4da11de9fa5115cd33c59ae622f314",
+    ".pytest_cache/three-closeouts-20261115/facts-execution.json": "f2be2cf7ef23852ed344328f25f86739a591692808fdb1ffd8ad1480b7f461de",
+    ".pytest_cache/three-closeouts-20261115/baseline-driver.py": "b0962124930ea2ada997fcd11e8a9185b9065ed146e6b77e851a57560888d7b5",
+    ".pytest_cache/three-closeouts-20261115/corrected-inputs-before.json": "de74549d2150850a586ae17b1c98158b83bbc86f2d3723b3fce2d2e195b61956",
+    ".pytest_cache/three-closeouts-20261115/actual-inputs-before.json": "1511b52e46444438fde3674f753345c678c56d45d4d467e778b8ce955bb62741",
+    ".pytest_cache/three-closeouts-20261115/registry-review.json": "d70e94ee9ced8097a543d4109781e8f70ba4ce72c0a157ecdf72f60eb7c3819b",
+    ".pytest_cache/three-closeouts-20261115/cohort.xml": "c1e52a217b03fe5623e26ebb1d707391f4d4032ccd00ce52f338494c2f5fa1be",
+    ".pytest_cache/three-closeouts-20261115/cohort-execution.json": "469608dc11a493e927b76077f07b7fd7ceaa4087022c8b80675d14999623517b",
+    ".pytest_cache/three-closeouts-20261115/corrected2.log": "04cc5692901c39a0130fbdb6c1c75e1c9a90629f181f95a0306897a29a4f2e2b",
+    ".pytest_cache/three-closeouts-20261115/corrected2-inputs-before.json": "6986b412a9b4e8526b33e275d50c8af83e36213c4c07a3b94e59c09dd02f0381",
+    ".pytest_cache/three-closeouts-20261115/focused.xml": "d5512c22c4eca6498f0df3f67783d00787202d3bde3e054dd01a892eedbda593",
+    ".pytest_cache/three-closeouts-20261115/candidate-proposal.patch": "52b5e5bb7ddc18940c00102ad17d8840a76f121e6f705b7e3e7c3b5e466a3057",
+    ".pytest_cache/three-closeouts-20261115/corrected2.events.jsonl": "3d9e9290d0def20d9af7e40996b78caf826f6a3abfbc3db62346d45e74044bd0",
+    ".pytest_cache/three-closeouts-20261115/baseline-execution.json": "4ea89abda8d5390cacfeb79d141537aa260f6bc12fad457d8ac1aa8060ecaf18",
+    ".pytest_cache/three-closeouts-20261115/facts-driver.py": "b0962124930ea2ada997fcd11e8a9185b9065ed146e6b77e851a57560888d7b5",
+    ".pytest_cache/three-closeouts-20261115/focused.events.jsonl": "e69a4ec7568fec87b3710558f8183db9a9a121bda358671c16fc78e4aa0c7f8d",
+    ".pytest_cache/three-closeouts-20261115/baseline-inputs-after.json": "d0b9a1fd9f275296c97b5e36bddde9d451e322a112e67c26303dc707e8de3bdc",
+    ".pytest_cache/three-closeouts-20261115/corrected-driver.py": "b0962124930ea2ada997fcd11e8a9185b9065ed146e6b77e851a57560888d7b5",
+    ".pytest_cache/three-closeouts-20261115/cohort-inputs-before.json": "1511b52e46444438fde3674f753345c678c56d45d4d467e778b8ce955bb62741",
+    ".pytest_cache/three-closeouts-20261115/baseline.events.jsonl": "34a382997c38c8d7e62c6da8751f57fe8a3edb089a49713bb77e5f60de87a60a",
+    ".pytest_cache/three-closeouts-20261115/candidate-proposal.json": "930796d539502b3f1930194ccce553d25d4fe3d17d50b9405daceb5fea548f8c",
+    ".pytest_cache/three-closeouts-20261115/facts-inputs-before.json": "de74549d2150850a586ae17b1c98158b83bbc86f2d3723b3fce2d2e195b61956",
+    ".pytest_cache/three-closeouts-20261115/cohort-inputs-after.json": "1511b52e46444438fde3674f753345c678c56d45d4d467e778b8ce955bb62741",
+    ".pytest_cache/three-closeouts-20261115/facts-inputs-after.json": "de74549d2150850a586ae17b1c98158b83bbc86f2d3723b3fce2d2e195b61956",
+    ".pytest_cache/three-closeouts-20261115/baseline-inputs-before.json": "d0b9a1fd9f275296c97b5e36bddde9d451e322a112e67c26303dc707e8de3bdc",
+    ".pytest_cache/three-closeouts-20261115/corrected2-driver.py": "b0962124930ea2ada997fcd11e8a9185b9065ed146e6b77e851a57560888d7b5",
+    ".pytest_cache/three-closeouts-20261115/corrected-inputs-after.json": "de74549d2150850a586ae17b1c98158b83bbc86f2d3723b3fce2d2e195b61956",
+    ".pytest_cache/three-closeouts-20261115/corrected.events.jsonl": "213acd7f44783ca09290d5ce14a508f8484ffe5e49e74bf8d61e320204c63ab4",
+    ".pytest_cache/three-closeouts-20261115/actual-driver.py": "a650d7fa33252ac41a41d6652fa37b411f4da11de9fa5115cd33c59ae622f314",
+    ".pytest_cache/three-closeouts-20261115/public-host-original-review.json": "e5ea76ede4c3ba641fafaa964ce85c5dfcca939d9b65a30990a25cbd6afcdb85",
+    ".pytest_cache/three-closeouts-20261115/cohort-driver.py": "b0962124930ea2ada997fcd11e8a9185b9065ed146e6b77e851a57560888d7b5",
+    ".pytest_cache/three-closeouts-20261115/actual.log": "d024e68e1284c24ba9598ba010632599e03759103dc3136954c402347e7c9d2b",
+    ".pytest_cache/three-closeouts-20261115/focused.log": "36f92fefb7694bcdab36b161ef015b2060c085f6cbd8439fb0a974305ef9a9c4",
+    ".pytest_cache/three-closeouts-20261115/actual-inputs-after.json": "1511b52e46444438fde3674f753345c678c56d45d4d467e778b8ce955bb62741",
+    ".pytest_cache/three-closeouts-20261115/quality_driver.py": "0303f5e4fc72017343b7fa1a50d757e232d6164d3e2eec177b1af1a20b142dc6",
+    ".pytest_cache/three-closeouts-20261115/commands-quality.json": "28e2b9965b0ceea95f42cffbfd70e9996b3bb634e69be1d4f225178b4ae2e987",
+    ".pytest_cache/three-closeouts-20261115/quality.py": "cf5ca510e50a95b11ed9901cdca5961903a005504a68b22421466e94c916367f",
+    ".pytest_cache/three-closeouts-20261115/quality_commands.json": "633a56bac3d5a89cb65e883153a05d8b77d9321b47c2aebb34b8af176da9b997",
+    ".pytest_cache/three-closeouts-20261115/quality-results.json": "e1a39be76fea5e8d2343b8396d9d95ad3eb928d9d37bf3ab59c628eaa6375f98",
+    ".pytest_cache/three-closeouts-20261115/checks-execution.json": "9c6c15ca0303d76de94bbd2c8b59969bfa5d8d88e91b3ca10e87bec106b20ce5",
+    ".pytest_cache/three-closeouts-20261115/checks-inputs-before.json": "c7d2d94bb940f3c80162e2f59478e267943e5ee51ad9d7a64b2b7b8cca2ab4c1",
+    ".pytest_cache/three-closeouts-20261115/checks-inputs-after.json": "c7d2d94bb940f3c80162e2f59478e267943e5ee51ad9d7a64b2b7b8cca2ab4c1",
+    ".pytest_cache/three-closeouts-20261115/cleanup.json": "ddc690549090c6c20de84e34633de7fe535f7084e73be3f3beb4697f404cac03"
+  },
+  "final_quality": {
+    "execution": {
+      "phase": "checks",
+      "source_commit": "2801677bcceb6f1b9c9bb64405c8e0bab8a04443",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite source receiving for #615/#256/#524 closeout; no installed/final-pair, new host execution or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.58 1.02 1.71 3/2712 2571314",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.78 total=21589839489\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/pending_bugs/intermittent_jupyter_initial_canvas_timeout.md\n M devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M devguide/release_gate.md\n M tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs\n M tests/molsysviewer_molsysmt/initial_canvas_trace.test.mjs\n M tests/molsysviewer_molsysmt/jupyter_initial_canvas_trace.mjs\n M tests/molsysviewer_molsysmt/jupyter_receiving_guard.py\n?? devguide/archive/resolved_bugs/initial_canvas_acceptance_permits_missing_fresh_native_draw_evidence.md\n?? devtools/data/initial_canvas_disposition_review_615_20261115.json\n?? devtools/data/three_closeout_receiving_615_256_524_762_20261115.json\n?? tests/form/file_h5msm/test_original_packet_default_migration.py\n?? tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<existing-development-environment>/bin/python",
+        ".pytest_cache/three-closeouts-20261115/quality.py"
+      ],
+      "checked_inputs": 8245,
+      "seconds": 54.75498377997428,
+      "ending_status": " M devguide/pending_bugs/intermittent_jupyter_initial_canvas_timeout.md\n M devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M devguide/release_gate.md\n M tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs\n M tests/molsysviewer_molsysmt/initial_canvas_trace.test.mjs\n M tests/molsysviewer_molsysmt/jupyter_initial_canvas_trace.mjs\n M tests/molsysviewer_molsysmt/jupyter_receiving_guard.py\n?? devguide/archive/resolved_bugs/initial_canvas_acceptance_permits_missing_fresh_native_draw_evidence.md\n?? devtools/data/initial_canvas_disposition_review_615_20261115.json\n?? devtools/data/three_closeout_receiving_615_256_524_762_20261115.json\n?? tests/form/file_h5msm/test_original_packet_default_migration.py\n?? tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 571572224,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18322669568,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "0303f5e4fc72017343b7fa1a50d757e232d6164d3e2eec177b1af1a20b142dc6"
+    },
+    "commands": [
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "seconds": 40.48347339592874,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.6s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                       12.1s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.4s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.4s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.0s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.5s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   2.4s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.8s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.4s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                      11.3s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/generate_converter_arguments.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 10.648914439138025,
+        "stdout": "OK: the committed table matches the converters.\nTarget forms: 96 | keywords per target: min 6, max 23, mean 10.3\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.09264588123187423,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.3397383880801499,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.10432136012241244,
+        "stdout": "4742 files already formatted\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.02640467183664441,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "node",
+          "--check",
+          "tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs"
+        ],
+        "native_exit": 0,
+        "seconds": 0.15185789205133915,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "node",
+          "--check",
+          "tests/molsysviewer_molsysmt/jupyter_initial_canvas_trace.mjs"
+        ],
+        "native_exit": 0,
+        "seconds": 0.11197504214942455,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "node",
+          "--check",
+          "tests/molsysviewer_molsysmt/initial_canvas_trace.test.mjs"
+        ],
+        "native_exit": 0,
+        "seconds": 0.12843944784253836,
+        "stdout": "",
+        "stderr": ""
+      }
+    ],
+    "scope": "All fifteen offline fast gates, converter/index agreement, repository-wide Ruff lint/format, changed JavaScript syntax and diff checks; not heavy candidate/installed gates."
+  },
+  "resource_cleanup": {
+    "scope": "Only the eight named owned services after MainPID=0 and the recorded owned Chromium temporary root; original failed outcomes retained.",
+    "units": [
+      {
+        "unit": "msm-three-closeouts-focused-20261115.service",
+        "before": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "ExecMainStatus": "0",
+          "MemoryCurrent": "[not set]",
+          "MemoryPeak": "307105792"
+        },
+        "after": {
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "ExecMainStatus": "0",
+          "MemoryCurrent": "[not set]",
+          "MemoryPeak": "[not set]"
+        }
+      },
+      {
+        "unit": "msm-three-closeouts-draw-baseline-20261115.service",
+        "before": {
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "ExecMainStatus": "1",
+          "MemoryCurrent": "[not set]",
+          "MemoryPeak": "145784832"
+        },
+        "after": {
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "ExecMainStatus": "1",
+          "MemoryCurrent": "[not set]",
+          "MemoryPeak": "145784832"
+        }
+      },
+      {
+        "unit": "msm-three-closeouts-draw-corrected-20261115.service",
+        "before": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "ExecMainStatus": "0",
+          "MemoryCurrent": "[not set]",
+          "MemoryPeak": "144257024"
+        },
+        "after": {
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "ExecMainStatus": "0",
+          "MemoryCurrent": "[not set]",
+          "MemoryPeak": "[not set]"
+        }
+      },
+      {
+        "unit": "msm-three-closeouts-trace-node-20261115.service",
+        "before": {
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "ExecMainStatus": "1",
+          "MemoryCurrent": "[not set]",
+          "MemoryPeak": "68304896"
+        },
+        "after": {
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "ExecMainStatus": "1",
+          "MemoryCurrent": "[not set]",
+          "MemoryPeak": "68304896"
+        }
+      },
+      {
+        "unit": "msm-three-closeouts-cohort-20261115.service",
+        "before": {
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "ExecMainStatus": "1",
+          "MemoryCurrent": "[not set]",
+          "MemoryPeak": "249962496"
+        },
+        "after": {
+          "ActiveState": "failed",
+          "SubState": "failed",
+          "MainPID": "0",
+          "ExecMainStatus": "1",
+          "MemoryCurrent": "[not set]",
+          "MemoryPeak": "249962496"
+        }
+      },
+      {
+        "unit": "msm-three-closeouts-actual-20261115.service",
+        "before": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "ExecMainStatus": "0",
+          "MemoryCurrent": "[not set]",
+          "MemoryPeak": "1432481792"
+        },
+        "after": {
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "ExecMainStatus": "0",
+          "MemoryCurrent": "[not set]",
+          "MemoryPeak": "[not set]"
+        }
+      },
+      {
+        "unit": "msm-three-closeouts-cohort-corrected-20261115.service",
+        "before": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "ExecMainStatus": "0",
+          "MemoryCurrent": "[not set]",
+          "MemoryPeak": "262721536"
+        },
+        "after": {
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "ExecMainStatus": "0",
+          "MemoryCurrent": "[not set]",
+          "MemoryPeak": "[not set]"
+        }
+      },
+      {
+        "unit": "msm-three-closeouts-quality-20261115.service",
+        "before": {
+          "ActiveState": "active",
+          "SubState": "exited",
+          "MainPID": "0",
+          "ExecMainStatus": "0",
+          "MemoryCurrent": "[not set]",
+          "MemoryPeak": "571572224"
+        },
+        "after": {
+          "ActiveState": "inactive",
+          "SubState": "dead",
+          "MainPID": "0",
+          "ExecMainStatus": "0",
+          "MemoryCurrent": "[not set]",
+          "MemoryPeak": "[not set]"
+        }
+      }
+    ],
+    "temporary_root_removed": true,
+    "temporary_root_entry_count": 72
+  },
+  "reviewed_guard_sources": {
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "77bd39eedbfc27adf0352fc3a2e36f89c5b4b01fb216eea0ccc7ba5ef97d3e0c",
+    "tests/molsysviewer_molsysmt/jupyter_initial_canvas_trace.mjs": "a95cd1f8c54606bf4d734f29e323f72539fe1e572f049f9ec39b9c173055c988",
+    "tests/molsysviewer_molsysmt/analysis_panel_jupyter.mjs": "061cc7301b5a1d8fb12fa92da9f943602a634b2b11719b144dcc17422da316a4",
+    "tests/molsysviewer_molsysmt/initial_canvas_trace.test.mjs": "7b9eb921da3dc4d85afdd70358199ff39eceefb3f94094d5df5f3968af27d7bf",
+    "tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py": "a68142911d8e19bc57077bdf90196a9f7fb1ef78d8b04cb56a03cb871c8fd8e0",
+    "tests/form/file_h5msm/test_original_packet_default_migration.py": "c9b20ccedd8e8ba264ca91111ebe834a308a8f55630f2ca611e2923b854de7be"
+  }
+}

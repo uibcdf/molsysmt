@@ -762,6 +762,54 @@ installed workflows and their actual origins/resolved versions. It adds no
 extra matrix and does not close #256, #615 or the client's separate Movie and
 complete-core investigations.
 
+## Concrete minimum-host preparation and phase order — 2026-11-15
+
+The complete public package endpoints list 107 MolSysMT files and 61
+MolSysViewer files at the recorded observation. The four existing MolSysMT
+1.0.0 build-0 files remain staging-only; MolSysViewer has no listed 1.0.0 file.
+The original public 0.24.0 build-1 archive independently matches SHA-256
+`e31dfb114ab2e49f22b372992d0201455b91849f2631d0165b802069e13abeaa`.
+Declaration inspection of its 616 Python files finds no `closed` function;
+its original core hash matches the client review. This is source/declaration
+inspection, not a full runtime/MRO or installed compatibility qualification.
+
+MolSysViewer confirms that its next intended public host is 1.0.0 with the
+consumed lifecycle/addon APIs. No producer or artifact is frozen. A disposable
+review copy now proposes `molsysviewer>=1.0.0` consistently in pyproject.toml,
+both recipes and the two literal runtime environments; the actual dependency
+auditor passes. The existing citation preparer also validates provisional
+1.0.0 metadata there. The [receipt](../../devtools/data/three_closeout_receiving_615_256_524_762_20261115.json)
+records the unapplied seven-surface patch and its digest. Main's manifests,
+citation date, recipes and public floors remain unchanged. A proposed future
+version is not an established compatible minimum.
+
+The finite closure sequence is:
+
+1. Agree clean final sources, review the proposed dependency floor and apply
+   all consistent candidate metadata before freezing either producer. After
+   the scoped resumption, build actual candidate files from those exact sources.
+   Preserve old build-0 files; proposed new coordinates remain MolSysMT ABI3
+   build 1 / MolSysViewer build 0. A proposed floor is not yet qualified.
+2. Inspect those actual packages and receive the minimum/newer installed
+   profiles and exact coordinated closure. This qualifies or rejects the
+   candidate's declared floor; it does not edit metadata after testing. A
+   required change selects a new producer/build and reopens the affected gates.
+   Staging does not establish that a future package is already public.
+3. Use the already required exact-candidate/source/native/installed gates
+   before release authorization. Do not demand publication of the pair as a
+   prerequisite for producing or testing that same candidate pair.
+4. On separately authorized publication, verify public availability and solver
+   closure after the required counterparts are available. The two-way runtime
+   dependency means that the promotion order must follow both actual tested
+   floors; the historical MolSysMT-first sequence is not assumed. Retain the
+   existing public verification routes and original artifact digests.
+
+This separates pre-publication artifact qualification from post-promotion
+public verification; neither is waived or described as already passed. Today
+#524 stays partial because there is no new host artifact or complete installed
+minimum/newer closure. Construction, hosted qualification, tags and promotion
+remain paused. No speculative runtime dependency or version floor is adopted.
+
 ## Provenance
 
 Local Linux source checkout, shared Python 3.14.7 development environment and

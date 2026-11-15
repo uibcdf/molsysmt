@@ -1,7 +1,7 @@
 /** Native Analysis through actual Jupyter, with independent coordinate oracles. */
 import assert from 'node:assert/strict';
 import {openMolecularPanel,observeMolecularControllers} from './jupyter_panel_controls.mjs';
-import {installInitialCanvasTrace,saveInitialCanvasTrace,initialCanvasSessionTrace} from './jupyter_initial_canvas_trace.mjs';
+import {installInitialCanvasTrace,saveInitialCanvasTrace,initialCanvasSessionTrace,waitForInitialCanvasDraw} from './jupyter_initial_canvas_trace.mjs';
 import {createRequire} from 'node:module';
 import {readFile,writeFile,appendFile} from 'node:fs/promises';
 import {dirname,resolve} from 'node:path';
@@ -88,7 +88,8 @@ try{
    } : undefined);
    try {
     outcome='canvas_wait_failed';
-    await page.locator('canvas').waitFor();
+    if(config.initial_canvas_only)await waitForInitialCanvasDraw(page);
+    else await page.locator('canvas').waitFor();
     outcome='canvas_visible';
    } finally {
     sessionTrace=sessions?.finish(outcome);

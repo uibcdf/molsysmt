@@ -341,3 +341,39 @@ records the requested owner handoff. The earlier risk-acceptance proposal
 was not adopted. This issue remains blocked on uibcdf/molsysviewer#384;
 no causal repair, environmental attribution, acceptance or score change follows
 from delegating its audit.
+
+## Lead review and proposed disposition — 2026-11-15
+
+The lead publishes its audit, original-data reinspection, separate #392 causal
+fix and normal/contended startup controls in immutable MolSysViewer `342e6309`.
+The [bounded owner review](../../devtools/data/initial_canvas_disposition_review_615_20261115.json)
+verifies all three public Git blobs. The historical executing-cell timeout has
+no usable pre-deadline trace; neither a different fixture exception, #392 nor
+later successful draws establishes its cause.
+
+The concrete lead proposal is to retain that unknown cause and the original
+failure, receive the exact final composition through the phase-observed guard,
+and block acceptance on recurrence. This closes only the historical
+investigation by an explicitly accepted disposition; it does not describe a
+causal repair or mark the candidate/installed gates as passed. The principal
+maintainer has been asked to decide this specific resolution. **No affirmative
+decision has yet been received; #615 remains open and blocked.**
+
+The guard review finds #762: the original opt-in pytest admits absent first-draw
+evidence and checks ordering only when a mark is present. Its actual synthetic
+counterexamples expose three false acceptances. The corrected receiver requires
+a new eligible native draw in the original single 30-second window, after the
+observer and expected scene, without forced state, retries or warmed imports.
+The final selected cohort passes 44 cases, including all seven Node observer
+controls. One actual fresh-Jupyter invocation receives all nine kernel stages,
+the expected 3,983-atom scene and a new draw 16.38 seconds after observed Run.
+Its frozen source/support composition and ipykernel 7.3.0 remain explicit.
+One page error matches the plain-Jupyter control; no zero-error claim follows.
+See the [source receipt](../../devtools/data/three_closeout_receiving_615_256_524_762_20261115.json).
+
+This qualifies the repaired receiver on those inputs, not the final pair or
+historical causality. MolSysViewer's separate #396 kernel-communication study
+must retain its own causal/provider evidence; this passing check neither
+attributes #615 to that cause nor qualifies an older kernel for final use.
+The unchanged startup requirement is explicit in the authoritative release
+checklist; principal acceptance of a disposition cannot replace that check.

@@ -1,0 +1,46 @@
+{
+  "schema": "molsysmt.initial_canvas_disposition_review@1",
+  "date": "2026-11-15",
+  "owner_issue": "uibcdf/molsysmt#615",
+  "lead_issue": "uibcdf/molsysviewer#384",
+  "public_commit": "342e6309be736dc802b6c2642133649f188d847d",
+  "public_files": {
+    "devguide/pending_bugs/initial_jupyter_canvas_timeout_audit.md": {
+      "git_blob": "ba27bb4b80420ce7b45a16df40b2283cde4597af",
+      "bytes": 7012,
+      "sha256": "cc66e52b5f02cd0593f29efe9e759f7616e35e773c69cfebdaa99714d331b7e4",
+      "git_blob_verified": true
+    },
+    "devguide/molstar_closeout_decisions_20261115.md": {
+      "git_blob": "8377efb7df8370eb76e1e768419fb221867ca583",
+      "bytes": 8246,
+      "sha256": "762f6ae1ede9da005bdb109616830ab3de89e48b8a61ba4338748b732b79bf03",
+      "git_blob_verified": true
+    },
+    "devguide/initial_canvas_audit_receiving_20261114.json": {
+      "git_blob": "661fca29641472e252dd2c2f3fbea21991132ce8",
+      "bytes": 13150,
+      "sha256": "f11bd4edc7f0958075d243806ded5ec1adef6910ac0cd5c8634ccb820cd41a0d",
+      "git_blob_verified": true
+    }
+  },
+  "verification": "Immutable public audit, proposed disposition and receiving receipt inspected; Git blob identities verified. Private original DOM/stack/JUnit files are not independently received and no new host run is performed.",
+  "facts": {
+    "original_failure": "Initial cell observed executing, no visible molecular canvas at 30 seconds, no explanatory captured Python error, and an empty stack file whose 45-second timer was later than the failure. No causal stage can be recovered from that record.",
+    "separate_fixture_error": "An earlier broadcasting ValueError is a different pre-display fixture failure, not the original executing-cell timeout.",
+    "separate_causal_fix": "MolSysViewer #392 reproduces a runtime-source response blocked by a worker-owned scene lock. Its causal guard does not establish the missing historical contention or the cause of #615.",
+    "reported_current_controls": "Normal and contended actual Jupyter controls observe the expected 3983-atom initial scene and new native draws at 6.3947 and 6.8883 seconds after observed Run. Exact inputs and scope remain those in the lead receipt; no final-candidate or universal latency claim."
+  },
+  "proposed_disposition": {
+    "state": "awaiting_explicit_principal_maintainer_decision",
+    "claim": "Close historical investigation by a documented bounded disposition, preserving unknown cause and all original failures; do not call it a causal repair.",
+    "candidate_requirement": "The exact final pair must pass the original initial-canvas guard before acceptance. Require initial-cell ownership, all nine kernel stages, expected 3983 atoms, scene registration and a new native draw, retaining the 30-second canvas deadline and 15-second pre-deadline stack capture.",
+    "recurrence": "Block candidate acceptance, preserve the correlated timeline and classify the missing transition; do not retry blindly or accept a passing rerun as a repair.",
+    "remaining_gate_owner": "uibcdf/molsysmt#334; the candidate/installed/host qualification is not counted as passed by accepting the historical disposition."
+  },
+  "actual_guard": "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_initial_canvas_diagnostics",
+  "diagnostic_guard": "tests/molsysviewer_molsysmt/test_jupyter_stage_diagnostics.py",
+  "new_execution_here": false,
+  "publication_authorized": false,
+  "original_weighted_progress_change": 0
+}

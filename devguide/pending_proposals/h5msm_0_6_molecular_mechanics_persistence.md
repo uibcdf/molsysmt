@@ -1249,3 +1249,35 @@ Jupyter, Qt, installed files or another platform. Stable-format freeze and the
 exact final MolSysMT 1.0.0 / MolSysViewer 1.0.0 installed qualification remain
 pending. #615's original cause is still unknown. No new client detector,
 mechanics visualization or DockingMT integration gate follows from this review.
+
+### Original packet default-route owner receiving — 2026-11-15
+
+The twelve cases in
+`tests/form/file_h5msm/test_original_packet_default_migration.py` use the same
+immutable complete/projected/merged 0.6 files and their original typed expected
+snapshots. Both native read/default write and public whole-file conversion
+omit `format_version`, under nm/ps/radians and pm/fs/degrees policies. Actual
+outputs declare root 1.0, reopen with unchanged data/producers/coverage, and
+leave every original fixture/oracle hash unchanged. Whole-file migration alone
+retains the original root's migration metadata. Assignment recalculation is
+forbidden; no preparation, parameterization or docking is repeated.
+
+The [receipt](../../devtools/data/three_closeout_receiving_615_256_524_762_20261115.json)
+retains the 12-case focused pass and overlapping 44-case storage/diagnostic
+cohort. These are new owner regressions, not independent BindingMT execution.
+A renewed scheduling/evidence request is published in BindingMT #73; it does
+not resume that team's earlier maintainer pause or substitute another profile
+for its original-file default/migration exit.
+
+| Stable-format conclusion | Current state |
+| --- | --- |
+| Wire representation, partial domains, units and maps | Implemented and contract-tested; the normative H5MSM contract owns the stored schema. |
+| Original-file omitted-version owner paths | Twelve immutable-reference cases pass with source/data provenance preserved. |
+| Independent explicit/default MolSysViewer semantics | Previously accepted receiving and the overlapping 55-case current-source account retain their declared limits. |
+| Independent BindingMT original-file/default migration | Still awaits its explicit status/receiving response; earlier explicit-version acceptance remains valid. |
+| Stable-format decision and exact installed pair | Not inferred from source tests; remain separate required closeout and candidate gates. |
+
+No new schema revision is needed for these checks. Neither mechanical transport
+nor a stored assignment certifies a force field or the scientific correctness
+of an unknown report. Source-format readiness does not authorize package
+construction or publish H5MSM 1.0.

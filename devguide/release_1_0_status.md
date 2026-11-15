@@ -44,15 +44,15 @@ promotions and publication remain paused pending the agreed resumption.**
 | Preserve #734's bounded contacts/SASA owner disposition | The [owner contract](native_interface_contacts_sasa_contract.md) and 104-case receiving offer existing public operations for the first Cartesian bundled-element-vdW profile. No concrete new operation gap is established. BindingMT #112 and TopoMT #197 retain application decisions and actual client acceptance; MolSysSuite #195 remains the coordination owner. This finite review adds no release prerequisite. |
 | Preserve the complete documentation source build | Clean 8f04a1a88 compiles all 1,034 admitted documents, including 499 stored notebooks, into 1,400 HTML files with zero warnings. All 101 actual-reference guards pass on that new site, covering every form notebook and adjacent lifecycle pages. Source/HTML hashes remain unchanged. [Receipt](../devtools/data/complete_documentation_source_receiving_334_20261113.json). No notebook execution, full-site browser review, deployment or final-candidate acceptance is claimed. |
 | Preserve completed #745 reader receiving | Source f9a44bf34 rejects malformed integral headers and checks numbered counts before enumeration. Valid encodings, unit policies and selected-layer limits survive. All 1,566 affected persistence cases/doctests, four strict HTML articles, fifteen local fast gates, indexes and Ruff pass. [Receipt](../devtools/data/h5msm_integer_metadata_receiving_745_20261113.json). This adds no schema or publication claim. |
-| Complete #256's stable-format decision | Development writers default to H5MSM 1.0. Both historical clients received explicit 1.0 cases, and MolSysViewer default-specific receiving is accepted. BindingMT (historical DockingMT) still owes the omitted-version write/migration check under both unit policies; its latest recorded #73 message reports a maintainer-requested pause. Preserve earlier source/native acceptance without adding preparation/docking work. Format freeze and exact installed acceptance remain pending. |
+| Complete #256's stable-format decision | Development writers default to 1.0. Twelve new owner regressions on the three unchanged original 0.6 files pass through omitted-version native saves and whole-file migration under two unit policies. The [receipt](../devtools/data/three_closeout_receiving_615_256_524_762_20261115.json) preserves original data/producers and hashes. MolSysViewer receiving remains accepted in scope. BindingMT #73 has a renewed scheduling/evidence request; its independent default/migration response, format decision and exact installed acceptance remain pending. |
 | Follow the requested #615/#713 audit ownership | The maintainer assigns the #615 lead audit/resolution to MolSysViewer #384, with MolSysMT tracking it as a blocked pre-pair dependency. After reviewing MolSysMT's nonreproducing audit, he explicitly requests #713's closure. The [completion packet](pre_1_0_completion_handoffs_20261110.md#maintainer-closure-of-713--2026-11-13) records the bounded disposition; it does not accept #615's uncertainty or waive release gates. |
-| Receive #615 from its MolSysViewer audit lead | MolSysViewer #384 leads the requested audit; MolSysMT #615 remains blocked. Require accepted resolution and applicable exact-pair receiving before MolSysMT 1.0.0 / MolSysViewer 1.0.0. Keep original failures and kernel/provider support; lead assignment does not prove the causal component. |
+| Decide #615's reviewed historical disposition | MolSysViewer's immutable lead audit and proposal are received in the [review](../devtools/data/initial_canvas_disposition_review_615_20261115.json). The original cause remains unknown; explicit principal acceptance is pending. Necessary #762 guard repair now rejects absent/stale/late draws: 44 selected cases and one actual Jupyter startup pass, observing 3,983 atoms and a new draw after 16.38 seconds under the unchanged deadline. This receiver-only result does not close #615 or qualify the final pair; its exact candidate startup check remains mandatory. |
 | Preserve #713's accepted closure and diagnostics | The maintainer explicitly accepts closure after the current audit. The diagnostic gap is corrected/tested, and all three actual import orders pass in the contextual full run (4.417–4.463 seconds). The [archived disposition](archive/resolved_bugs/fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md#accepted-closure--2026-11-13) preserves the unknown historical cause, original failures and unchanged stage/stack/deadline guards. #747/#748 and mandatory qualification remain separate. |
 | Preserve #746's finite owner offer, #750 correction and bounded client receiving | The [membership contract](native_binding_site_membership_contract.md) and owner regressions retain their source scope. BindingMT `7b11bab5` reports 18 membership and 18 selection-bounds cases passing on the actual `27ba3d4c8` source with its existing native `2dbcf13d`, plus 500 software controls per normal/pm-fs policy. Immutable published records and both guard blobs are inspected in the [client review](../devtools/data/binding_membership_client_review_746_20261114.json); private raw receipts are not received here. This receives finite exercised facts, not the actual pending `resolve_region`/C1 operation, the complete native ABI or #256's separate original-file migration/default profile. |
 | Receive #671 at the agreed matrix checkpoint | The original macOS/Python 3.12 Conda download failed before science or pytest. Its required provisioning/scientific/full-suite receiving belongs to the already mandated eight-cell corrected-source matrix; no extra matrix, local molecular repair or passing disposition is supplied by the Linux source checkpoint. |
 | Keep the new #749 investigation deferred | PharmacophoreMT explicitly requests a future Pandas alternatives/complements study, not replacement or a current defect claim. Preserve that request and its workload/compatibility criteria for post-1.0; it does not block current molecular-contract delivery or add a release prerequisite. |
 | Preserve #250/#254 source agreement and experimental boundaries | MolSysViewer accepts the exercised sparse/native contracts. Detector profiles, inspection pages and Qt retain their experimental limits. Final-candidate agreement is still due. |
-| Agree the exact clean pair and qualification scope with MolSysViewer | Select new producer commits and unused builds; share immutable files, channels and SHA-256 values when authorized. #524 still needs a published compatible host floor and clean minimum/newer installed workflows. |
+| Agree the exact clean pair and #524 artifact closure | Complete registries and the original public 0.24.0 build-1 host archive are independently inspected. A seven-surface unapplied 1.0 candidate/minimum-host metadata proposal passes static dependency/citation checks. Main floors remain unchanged: real compatible candidate artifacts, minimum/newer installed closure and exact producer agreement are still required. Existing staging qualification precedes authorization; public solver verification follows counterpart availability. No new matrix or build is started. |
 | Qualify and make the publication decision | Run the mandatory exact-source, native, scientific, documentation and sixteen-cell installed gates at the agreed checkpoint. Preserve failed attempts and inspect terminal results. Publication and archival require final authorization after qualification. |
 
 The [completion packet](pre_1_0_completion_handoffs_20261110.md) owns detailed
@@ -64,6 +64,45 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Three-closeout work and necessary startup-guard repair — 2026-11-15
+
+The principal maintainer requests consecutive work on #615/#256/#524. The
+[combined receipt](../devtools/data/three_closeout_receiving_615_256_524_762_20261115.json)
+separates completed owner work from the remaining human/client/artifact exits.
+No original weighted-score credit is manufactured from preparation.
+
+For #256, all twelve actual original-file cases pass: three immutable 0.6
+fixtures, native default save and whole-file default migration, each under two
+application unit policies. Root 1.0, typed data/producers/maps/coverage and
+source hashes remain correct; only whole-file migration adds original-root
+migration history. BindingMT's distinct independent acceptance is still due.
+
+Reviewing #615's proposed disposition finds #762: the previous guard can accept
+absent first-draw evidence. The corrected actual guard refuses missing, cached,
+pre-scene and late evidence. Its 44-case selected cohort passes, including the
+bridge to seven Node controls. One real fresh-Jupyter invocation observes the
+expected 3,983 atoms and new native draw 16.38 seconds after Run, with the
+original 30-second limit and no forced state/warm-up/retry. Original negative
+controls and the two wrong-sampler-environment invocations remain failed. The
+scope peaks at 1.34 GiB under its 4-GiB/no-swap cap. Its frozen host/support
+and ipykernel 7.3.0 are explicit; no all-host or final-candidate claim follows.
+Principal acceptance of #615's historical disposition is still pending. The
+unchanged candidate scene requirement is explicit in the release checklist.
+
+For #524, complete package inventories and the exact original public host
+archive are verified. The proposed 1.0 host minimum and provisional citation
+metadata are checked only in a disposable copy; its seven-surface patch remains
+unapplied. The real compatible packages and minimum/newer installed closure do
+not exist at this checkpoint. Staging and post-promotion public verification
+have a concrete order without treating future publication as a prerequisite
+for testing those same artifacts. Shared environments, actual dependency floors,
+producer selection and the candidate/hosted/tag/publication pause are unchanged.
+
+All fifteen offline fast gates, converter/index agreement, repository-wide Ruff
+lint/format and changed JavaScript syntax checks pass. No guarded input changes
+during execution. Owned services and the one owned browser temporary root are
+retired; original failed invocations and required evidence are retained.
 
 ## Additional current-source client review — 2026-11-15
 

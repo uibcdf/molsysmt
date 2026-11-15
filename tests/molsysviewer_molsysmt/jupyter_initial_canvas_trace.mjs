@@ -51,6 +51,9 @@ export async function installInitialCanvasTrace(page, expectedAtoms, attempt) {
             runClicked() {
                 mark('run_clicked');
             },
+            hasFirstNativeDraw() {
+                return marks.first_native_draw !== undefined;
+            },
             controllerStarted(element) {
                 observe(() => {
                     if (!cell || target || !element.parentElement?.hasAttribute('data-molsysviewer-canvas-output')) return;
@@ -126,9 +129,18 @@ export async function installInitialCanvasTrace(page, expectedAtoms, attempt) {
                 'click', () => window.__initialCanvasTrace?.runClicked(), { once: true, capture: true },
             ), undefined, { timeout: 750 });
         } catch {
-            // A missing observer does not alter the Run or canvas verdict.
+            // Preserve Run; the opt-in acceptance guard refuses missing evidence.
         }
     };
+}
+
+/** Keep the original one-window deadline while requiring an observed new draw. */
+export async function waitForInitialCanvasDraw(page) {
+    await page.waitForFunction(
+        () => window.__initialCanvasTrace?.hasFirstNativeDraw() === true,
+        null,
+        {timeout: 30000, polling: 100},
+    );
 }
 
 /** Sample the existing authenticated session endpoint while the browser is connected. */

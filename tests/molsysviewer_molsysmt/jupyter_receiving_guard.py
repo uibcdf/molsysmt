@@ -372,10 +372,24 @@ def test_actual_jupyter_initial_canvas_diagnostics(tmp_path):
     assert trace["canvas"]["connected"] and trace["observer_errors"] == 0
     assert trace["run_clicked_epoch_ms"] is not None
     assert trace["anchor"] == "observer_arm_before_run_click"
-    if "first_native_draw" in trace["marks"]:
-        assert (
-            trace["marks"]["first_native_draw"] >= trace["marks"]["draw_observer_armed"]
-        )
+    marks = trace["marks"]
+    for stage in (
+        "run_clicked",
+        "controller_ready",
+        "draw_observer_armed",
+        "scene_registered",
+        "first_native_draw",
+    ):
+        assert stage in marks, f"Missing required initial-draw milestone: {stage}"
+        assert type(marks[stage]) in (int, float) and math.isfinite(marks[stage])
+    assert 0 <= marks["run_clicked"] <= marks["controller_ready"]
+    assert marks["controller_ready"] <= marks["draw_observer_armed"]
+    assert marks["first_native_draw"] >= max(
+        marks["draw_observer_armed"], marks["scene_registered"]
+    )
+    assert 0 <= marks["first_native_draw"] - marks["run_clicked"] <= 30000
+    assert trace["elapsed_ms"] >= marks["first_native_draw"]
+    assert trace["canvas"]["width"] > 0 and trace["canvas"]["height"] > 0
     kernel = [
         json.loads(line)
         for line in (output / "initial-canvas-kernel.jsonl").read_text().splitlines()
