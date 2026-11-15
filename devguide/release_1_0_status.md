@@ -79,20 +79,25 @@ A complete paginated board review receives 682 non-PR issues, including
 95 open issues before this closure, and zero open PRs. Newly reported #763
 matches the current mmCIF entity-counter control flow by source inspection;
 its real-file reproductions are reporter evidence, not yet owner execution.
-It is the next admitted correctness investigation. The following priority
-order is a work proposal under #334, not ten new implementation requirements:
+It is the next admitted correctness investigation. A final complete refresh
+after closing #615 receives 683 issues and 95 open issues: new #764 requests
+policy-v1.5.12 adoption under MolSysSuite #201. The actual member caller still
+selects policy-v1.5.9. That administrative/conformance receiving replaces the
+already qualified provisional ISA review in the immediate ten-item order.
+The following priority order is a work proposal under #334, not ten new
+implementation requirements:
 
 | Priority | Issue | Finite next outcome |
 | --- | --- | --- |
 | 1 | #763 | Reproduce and repair mmCIF entity-index reuse with independent synthetic identity expectations and unchanged real-input receiving. |
-| 2 | #256 | Conclude stable H5MSM 1.0 semantics and the existing original-file/default-write/migration client exit; retain final installed acceptance. |
-| 3 | #524 | Agree and apply evidence-based host floors before freezing producers; qualify the actual compatible artifacts and minimum/newer installed closure. |
-| 4 | #421 | Finish the already offered toolbox's remaining final-pair/host/lifecycle receiving and experimental disclosures; no new scientific tools are added. |
-| 5 | #250 | Reconcile final interaction result/detector contracts and consumer acceptance, retaining method-specific experimental limits. |
-| 6 | #254 | Receive the existing independent ChemicalStates/native lifecycle/persistence contract on the final candidate. |
-| 7 | #671 | Obtain actual macOS/Python 3.12 provisioning, scientific and full-suite receiving at the agreed matrix checkpoint, preserving the original download failure. |
-| 8 | #475 | Review the pre-1.0 ECI dimensional/aggregation disposition; either verify primary evidence or explicitly retain experimental legacy semantics with owned later verification. |
-| 9 | #473 | Reconcile provisional ISA units, quantities and published limits; primary-paper certification is not invented or required solely to reach a count of closed issues. |
+| 2 | #764 | Review and adopt MolSysSuite policy-v1.5.12 through the official owner route, preserving separately qualified pins and pending scientific/installed gates. |
+| 3 | #256 | Conclude stable H5MSM 1.0 semantics and the existing original-file/default-write/migration client exit; retain final installed acceptance. |
+| 4 | #524 | Agree and apply evidence-based host floors before freezing producers; qualify the actual compatible artifacts and minimum/newer installed closure. |
+| 5 | #421 | Finish the already offered toolbox's remaining final-pair/host/lifecycle receiving and experimental disclosures; no new scientific tools are added. |
+| 6 | #250 | Reconcile final interaction result/detector contracts and consumer acceptance, retaining method-specific experimental limits. |
+| 7 | #254 | Receive the existing independent ChemicalStates/native lifecycle/persistence contract on the final candidate. |
+| 8 | #671 | Obtain actual macOS/Python 3.12 provisioning, scientific and full-suite receiving at the agreed matrix checkpoint, preserving the original download failure. |
+| 9 | #475 | Review the pre-1.0 ECI dimensional/aggregation disposition; either verify primary evidence or explicitly retain experimental legacy semantics with owned later verification. |
 | 10 | #334 | Complete exact-source/native/scientific/documentation/installed gates and hand off the qualified documentation for the maintainer's review. |
 
 #473/#475 already have accepted provisional experimental conventions. Reviewing
