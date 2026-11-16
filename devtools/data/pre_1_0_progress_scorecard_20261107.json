@@ -9,8 +9,8 @@
   "gui_scope": "Tracking packages make the previously accepted workflow inventory explicit. They are user intents, not a GUI promise for every expert argument or a new scientific feature request. Native/expert APIs remain available and retain their own qualification.",
   "publication": "The existing pause remains. #640/#641/#642 and all other required correctness work retain owning acceptance. Exact candidate/platform/installed and final sign-off gates are not scored as passed by source tests.",
   "legacy_phase_exit_percent": 40,
-  "weighted_milestone_percent": 77.73809523809524,
-  "reported_approximate_percent": 77.7,
+  "weighted_milestone_percent": 80.23809523809524,
+  "reported_approximate_percent": 80.2,
   "phases": [
     {
       "id": "phase1",
@@ -223,9 +223,13 @@
         {
           "id": "initial-canvas",
           "requirement": "Resolve #615 causal stage or receive an evidenced bounded environment disposition",
-          "state": "pending",
-          "evidence": [],
-          "review": "MolSysMT owns pre-timeout kernel/server sampling and Viewer owns mount/scene/draw observations. The coordinated diagnostic and causal disposition are pending."
+          "state": "verified_source",
+          "evidence": [
+            "devguide/archive/resolved_bugs/intermittent_jupyter_initial_canvas_timeout.md",
+            "devtools/data/initial_canvas_disposition_review_615_20261115.json",
+            "devtools/data/policy_notebook_adoption_764_765_20261115.json"
+          ],
+          "review": "The principal maintainer explicitly accepts the bounded corrected-kernel disposition and closes #615. Published 5afa582f8 requires ipykernel>=7.4.0 in the selected notebook host. The received normal 928 control retains loaded-provider provenance, 3,983 atoms and fresh draw at 10.7884 seconds under the original allowance; 135 selected guards and later #765 receiving retain scope. This satisfies the original alternative criterion without proving the unknown historical cause. Exact final-pair startup/platform/installed qualification remains pending in phase 6."
         },
         {
           "id": "navigation-authority",
@@ -775,8 +779,8 @@
           ]
         }
       ],
-      "verified_fraction": 0.9,
-      "credited_points": 22.5
+      "verified_fraction": 1.0,
+      "credited_points": 25.0
     },
     {
       "id": "phase5",
@@ -1040,7 +1044,7 @@
       "record": "devguide/archive/resolved_proposals/explicit_bounded_jupyter_server_readiness_budget.md"
     }
   },
-  "last_updated": "2026-11-11",
+  "last_updated": "2026-11-15",
   "last_scientific_claim_disposition": {
     "issues": [
       "uibcdf/molsysmt#473",
@@ -1578,5 +1582,32 @@
     "credited_points": 1.4285714285714306,
     "current_percent": 77.73809523809524,
     "scope": "Current source claims and work navigation only. Weights, science classifications, fifty GUI intents, candidate and installed/publication requirements unchanged."
+  },
+  "last_initial_canvas_milestone_reconciliation": {
+    "date": "2026-11-15",
+    "owner_issue": "uibcdf/molsysmt#334",
+    "source_basis": "7e47262506afa33c7371523b2fc875ad5ff03fcd",
+    "original_leaf": "phase4/initial-canvas",
+    "accepted_owner_issue": "uibcdf/molsysmt#615",
+    "accepted_delivery_commit": "5afa582f8cbd4b7c59c7be1fb05fb5063141ece4",
+    "public_adoption_followup": "7e47262506afa33c7371523b2fc875ad5ff03fcd",
+    "previous_percent": 77.73809523809524,
+    "credited_points": 2.5,
+    "current_percent": 80.23809523809524,
+    "scope": "Reconcile the previously accepted bounded environment disposition with its existing original leaf. No weight, leaf, GUI intent, runtime/scientific result, candidate or publication criterion is added. Earlier receipts with zero accounting change remain unchanged historical snapshots.",
+    "evidence": [
+      "devguide/archive/resolved_bugs/intermittent_jupyter_initial_canvas_timeout.md",
+      "devtools/data/initial_canvas_disposition_review_615_20261115.json",
+      "devtools/data/policy_notebook_adoption_764_765_20261115.json"
+    ],
+    "pending_weighted_leaves": [
+      "phase3/actual-installed-defaults",
+      "phase5/250-254",
+      "phase6/agree-pair",
+      "phase6/freeze-qualify",
+      "phase6/artifacts-clients",
+      "phase6/failed-gate-disposition",
+      "phase6/authorize-publish-archive"
+    ]
   }
 }

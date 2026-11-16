@@ -46,7 +46,6 @@ promotions and publication remain paused pending the agreed resumption.**
 | Preserve the complete documentation source build | Clean 8f04a1a88 compiles all 1,034 admitted documents, including 499 stored notebooks, into 1,400 HTML files with zero warnings. All 101 actual-reference guards pass on that new site, covering every form notebook and adjacent lifecycle pages. Source/HTML hashes remain unchanged. [Receipt](../devtools/data/complete_documentation_source_receiving_334_20261113.json). No notebook execution, full-site browser review, deployment or final-candidate acceptance is claimed. |
 | Preserve completed #745 reader receiving | Source f9a44bf34 rejects malformed integral headers and checks numbered counts before enumeration. Valid encodings, unit policies and selected-layer limits survive. All 1,566 affected persistence cases/doctests, four strict HTML articles, fifteen local fast gates, indexes and Ruff pass. [Receipt](../devtools/data/h5msm_integer_metadata_receiving_745_20261113.json). This adds no schema or publication claim. |
 | Complete #256's stable-format decision | Development writers default to 1.0. Twelve new owner regressions on the three unchanged original 0.6 files pass through omitted-version native saves and whole-file migration under two unit policies. The [receipt](../devtools/data/three_closeout_receiving_615_256_524_762_20261115.json) preserves original data/producers and hashes. MolSysViewer receiving remains accepted in scope. BindingMT #73 has a renewed scheduling/evidence request; its independent default/migration response, format decision and exact installed acceptance remain pending. |
-| Follow the requested #615/#713 audit ownership | The maintainer assigns the #615 lead audit/resolution to MolSysViewer #384, with MolSysMT tracking it as a blocked pre-pair dependency. After reviewing MolSysMT's nonreproducing audit, he explicitly requests #713's closure. The [completion packet](pre_1_0_completion_handoffs_20261110.md#maintainer-closure-of-713--2026-11-13) records the bounded disposition; it does not accept #615's uncertainty or waive release gates. |
 | Preserve #615's accepted technical host-profile resolution | The maintainer authorizes closure after controlled 919/923 and normal 928 receiving. The development notebook environment requires ipykernel >=7.4.0, with public installation guidance and a semantic floor/core-optionality guard. The [archived record](archive/resolved_bugs/intermittent_jupyter_initial_canvas_timeout.md#accepted-technical-resolution--2026-11-15) preserves the original unknown exact cause and failed attempts. Final exact-pair startup, installed/platform qualification and shared-prefix adoption remain separate. |
 | Preserve #713's accepted closure and diagnostics | The maintainer explicitly accepts closure after the current audit. The diagnostic gap is corrected/tested, and all three actual import orders pass in the contextual full run (4.417–4.463 seconds). The [archived disposition](archive/resolved_bugs/fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md#accepted-closure--2026-11-13) preserves the unknown historical cause, original failures and unchanged stage/stack/deadline guards. #747/#748 and mandatory qualification remain separate. |
 | Preserve #746's finite owner offer, #750 correction and bounded client receiving | The [membership contract](native_binding_site_membership_contract.md) and owner regressions retain their source scope. BindingMT `7b11bab5` reports 18 membership and 18 selection-bounds cases passing on the actual `27ba3d4c8` source with its existing native `2dbcf13d`, plus 500 software controls per normal/pm-fs policy. Immutable published records and both guard blobs are inspected in the [client review](../devtools/data/binding_membership_client_review_746_20261114.json); private raw receipts are not received here. This receives finite exercised facts, not the actual pending `resolve_region`/C1 operation, the complete native ABI or #256's separate original-file migration/default profile. |
@@ -63,8 +62,32 @@ public statements and navigation, without certifying new science or artifacts.
 The [original scorecard](../devtools/data/pre_1_0_progress_scorecard_20261107.json)
 keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
-The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
+The accepted initial-canvas disposition now gives **80.2381% (approximately 80.2%)**.
 The dated percentages below remain historical, not the current score.
+
+## Original milestone accounting reconciled — 2026-11-15
+
+A review for the maintainer's status question finds a stale original scorecard:
+`phase4/initial-canvas` still says pending after #615's explicitly accepted
+technical closure. Its original criterion permits either causal resolution or
+an evidenced bounded environment disposition. The accepted corrected-kernel
+profile and reviewed normal 928 control satisfy the latter. Unknown exact
+historical cause, failed attempts and final-pair startup obligations remain.
+
+Receive that existing leaf, without changing weights, inventing another task
+or adding a repair bonus: phase 4 becomes 25/25 points and the original total
+moves **77.7381% → 80.2381%**, a **2.5-point** change. Earlier zero-change
+receipts remain historical snapshots; no scientific/kernel/browser run is
+repeated by this accounting correction. The
+[scorecard](../devtools/data/pre_1_0_progress_scorecard_20261107.json)
+records the accepted evidence and all remaining original leaves.
+
+The remaining 19.7619 points concern actual installed defaults (3.3333),
+#250/#254 final acceptance (1.4286) and the exact-candidate/qualification/
+publication stage (15). This is milestone accounting, not remaining engineering
+time or a claim that only documentation review is left. H5MSM #256's required
+client/format agreement remains an operational prerequisite even though its
+implemented source work already has bounded credit elsewhere.
 
 ## Next external exits and retained scientific limit — 2026-11-15
 

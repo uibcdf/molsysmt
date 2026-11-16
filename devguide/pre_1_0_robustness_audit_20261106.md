@@ -4,6 +4,17 @@ The [Viewer source agreement checkpoint](release_1_0_status.md#viewer-source-agr
 receives #250/#254 source feedback and sets the remaining installed, format and
 diagnostic work. The composite milestones retain their final acceptance criteria.
 
+## Accepted initial-canvas milestone reconciliation — 2026-11-15
+
+The [live ledger](release_1_0_status.md#original-milestone-accounting-reconciled--2026-11-15)
+receives #615's already accepted bounded environment disposition against its
+existing original milestone. The unchanged-weight score is now **80.2381%**
+(about **80.2%**), with 50/50 original source graphical intents unchanged.
+This corrects stale tracking; it is not new code, historical-cause proof or
+final installed/candidate qualification. The source/runtime corrections and
+administrative adoptions retain their own scoped receipts. The later exact
+pair and maintainer-review handoff remain pending.
+
 ## Pre-1.0 polishing queue — 2026-11-11
 
 **Owner:** uibcdf/molsysmt#334. **Role:** supplemental operational queue under
@@ -87,7 +98,7 @@ well as output shape; retain failing and interrupted attempts. Select checks by
 the actual affected scope, avoid redundant broad runs without a new reason and
 monitor shared resources during expensive validation.
 
-**Accounting and release boundary:** the original score remains **77.7381%**
+**Accounting and release boundary (reviewed 2026-11-15):** the original score is **80.2381%** after receiving the existing #615 milestone
 with unchanged weights and **50/50 source graphical intents**. Supplemental
 polishing does not earn invented percentage credit or replace an outstanding
 candidate/installed milestone. The user has not authorized an intermediate
