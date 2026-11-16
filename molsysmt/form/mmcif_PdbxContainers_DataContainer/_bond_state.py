@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import pandas as pd
 
+from molsysmt._private.smonitor import FormatError
+
 _ORDER_CODES = {
     "SING": {"bond_order": 1},
     "DOUB": {"bond_order": 2},
@@ -20,6 +22,83 @@ _MERGED_FIELDS = (
     "is_conjugated",
     "evidence",
 )
+
+
+def covalent_pairs_from_struct_conn(container, model_indices):
+    """Join admitted covalent declarations to source atoms within each model.
+
+    Index only endpoints requested by struct_conn. Keep author sequence labels,
+    insertion codes and label atom names in their original source namespaces;
+    native numeric group IDs and author atom names are not lookup keys.
+    """
+    if not container.exists("struct_conn"):
+        return []
+    connections = container.getObj("struct_conn")
+    fields = {name: i for i, name in enumerate(connections.getAttributeList())}
+    records = [
+        row for row in connections.data if row[fields["conn_type_id"]] == "covale"
+    ]
+    if not records:
+        return []
+    atoms = container.getObj("atom_site")
+    atom_fields = {name: i for i, name in enumerate(atoms.getAttributeList())}
+
+    def optional(row, columns, name):
+        value = row[columns[name]] if name in columns else None
+        return "" if value is None or str(value) in {"", ".", "?"} else str(value)
+
+    def partner_key(row, partner):
+        return (
+            str(row[fields[f"ptnr{partner}_label_asym_id"]]),
+            str(row[fields[f"ptnr{partner}_auth_seq_id"]]),
+            optional(row, fields, f"pdbx_ptnr{partner}_PDB_ins_code"),
+            str(row[fields[f"ptnr{partner}_label_atom_id"]]),
+        )
+
+    requested = {partner_key(row, p) for row in records for p in (1, 2)}
+    candidates = {key: [] for key in requested}
+    for index, (row, model) in enumerate(zip(atoms.data, model_indices, strict=True)):
+        key = (
+            str(row[atom_fields["label_asym_id"]]),
+            str(row[atom_fields["auth_seq_id"]]),
+            optional(row, atom_fields, "pdbx_PDB_ins_code"),
+            str(row[atom_fields["label_atom_id"]]),
+        )
+        if key in candidates:
+            candidates[key].append(
+                (
+                    index,
+                    int(model),
+                    optional(row, atom_fields, "label_alt_id"),
+                    optional(row, atom_fields, "label_comp_id"),
+                )
+            )
+
+    def resolve(row, partner):
+        alternate = optional(row, fields, f"pdbx_ptnr{partner}_label_alt_id")
+        component = optional(row, fields, f"ptnr{partner}_label_comp_id")
+        by_model = {}
+        for index, model, atom_alternate, atom_component in candidates[
+            partner_key(row, partner)
+        ]:
+            if alternate and alternate != atom_alternate:
+                continue
+            if component and component != atom_component:
+                continue
+            by_model.setdefault(model, index)
+        return by_model
+
+    pairs = []
+    for row in records:
+        first, second = resolve(row, 1), resolve(row, 2)
+        common_models = sorted(first.keys() & second.keys())
+        if not common_models:
+            raise FormatError(
+                "A struct_conn covalent declaration has no matching source atom endpoints in a common model.",
+                caller="molsysmt.form.mmcif_PdbxContainers_DataContainer.to_molsysmt_MolSys",
+            )
+        pairs.extend([first[model], second[model]] for model in common_models)
+    return pairs
 
 
 def metadata_from_chem_comp_bond(record, attributes):

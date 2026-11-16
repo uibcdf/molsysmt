@@ -1,0 +1,24 @@
+{
+  "schema": "molsysmt.original_entry_receiving@1",
+  "issue": "uibcdf/molsysmt#763",
+  "source_license": "wwPDB/RCSB public entry coordinates (CC0)",
+  "files": [
+    {
+      "entry": "3WU2",
+      "url": "https://files.rcsb.org/download/3WU2.cif.gz",
+      "encoded_bytes": 1403413,
+      "decoded_bytes": 6185581,
+      "sha256": "308668f3ad989ce025b310e9693e47668df6504c8b0809151c383f23f29989b6",
+      "decoded_sha256": "8e35691e2a2d36091fda27311ea2bf8ff938af2f1971309cb660ad4840380cca"
+    },
+    {
+      "entry": "5XNL",
+      "url": "https://files.rcsb.org/download/5XNL.cif.gz",
+      "encoded_bytes": 2529055,
+      "decoded_bytes": 11380481,
+      "sha256": "c8e32cae7b6b6950784560b49be64f6c0e343de88183ae235ddde602777c357e",
+      "decoded_sha256": "c63cb1d6a39eea135b7513d99c2fd66b8123316ebfa86ec0bad4514b8ab8f556"
+    }
+  ],
+  "receiving": "tests/form/mmcif_PdbxContainers_DataContainer/real_entry_receiving.py; explicit local originals only, no test-time network."
+}

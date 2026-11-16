@@ -65,6 +65,27 @@ have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
 
+## mmCIF identity and explicit-link receiving — 2026-11-15
+
+The next correctness block repairs #763 and independent #766, without cleaning
+or subsetting the reporter's original 3WU2/5XNL inputs. The
+[entity report](archive/resolved_bugs/mmcif_entity_indices_reused_after_revisits.md)
+and [declared-link report](archive/resolved_bugs/mmcif_declared_covalent_links_lose_their_source_identifier_correspondence.md)
+retain the causal failures and independent expectations. All 961 affected
+CIF/BinaryCIF cases and all eight original-file policy/unit cases pass without
+skips. Original IDs, memberships, names, coordinates and explicit links are
+verified; source hashes and native 4ffb82e4 remain unchanged. The
+[receipt](../devtools/data/mmcif_entity_identity_receiving_763_766_20261115.json)
+separates original and intermediate failures, the wrong-path operator attempt,
+source receiving, documentation and quality checks. This is not an installed
+or final-source-matrix qualification and adds no original weighted-plan credit.
+
+Continue with #764's latest-policy adoption and #765's bounded notebook-host
+receiving, then #256's existing BindingMT original-file/default-migration exit.
+The refreshed #73 thread still ends with our status request; silence does not
+resume its maintainer-paused work or establish acceptance. No new candidate,
+hosted qualification or publication is authorized by these repairs.
+
 ## #615 accepted closeout and complete-board priority review — 2026-11-15
 
 The principal maintainer directs the agreed technical closure. The supported

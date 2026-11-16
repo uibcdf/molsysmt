@@ -1,0 +1,1255 @@
+{
+  "schema": "molsysmt.mmcif-identity-receiving@1",
+  "date": "2026-11-15",
+  "state": "bounded source and strict documentation receiving complete",
+  "owner_issues": [
+    "uibcdf/molsysmt#763",
+    "uibcdf/molsysmt#766"
+  ],
+  "source_basis": {
+    "parent": "ca3071960af3c9da27694dcf46056f772b604bf2",
+    "qualification": "Reviewed working-source delta; not a clean installed or final candidate claim",
+    "material_sha256": {
+      "molsysmt/form/mmcif_PdbxContainers_DataContainer/_bond_state.py": "4276d565586acf2ddadcb39e24b01ea55e7d1f552f5abf3a32723f039090b5b3",
+      "molsysmt/form/mmcif_PdbxContainers_DataContainer/to_molsysmt_MolSys.py": "9736baa93dc0e633d4f41cf1f52c055b5a9144fd84e76cf8e853bcea0cc1d524",
+      "tests/form/mmcif_PdbxContainers_DataContainer/test_entity_identity.py": "f0e1172424243c97ee4cd59c5b538c3878d97d14a47c23af6c9d7cea89852e02",
+      "tests/form/mmcif_PdbxContainers_DataContainer/test_declared_covalent_links.py": "e71bc7b20403fc4c1659542510a7e8b87813a29ba4118d5c0d822ff403e1bf9e",
+      "tests/form/mmcif_PdbxContainers_DataContainer/real_entry_receiving.py": "b3a4e35f9a25a42e6716493b6eecfb4b0490bdb511fb728ea18c34dfe8df697c",
+      "devtools/data/mmcif_entity_identity_763_manifest.json": "b81bb72c4be1b70ba82d9c22f1402b7cbab87034919701ee8ae2c84080ab7265"
+    },
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+  },
+  "original_inputs": {
+    "schema": "molsysmt.original_entry_receiving@1",
+    "issue": "uibcdf/molsysmt#763",
+    "source_license": "wwPDB/RCSB public entry coordinates (CC0)",
+    "files": [
+      {
+        "entry": "3WU2",
+        "url": "https://files.rcsb.org/download/3WU2.cif.gz",
+        "encoded_bytes": 1403413,
+        "decoded_bytes": 6185581,
+        "sha256": "308668f3ad989ce025b310e9693e47668df6504c8b0809151c383f23f29989b6",
+        "decoded_sha256": "8e35691e2a2d36091fda27311ea2bf8ff938af2f1971309cb660ad4840380cca"
+      },
+      {
+        "entry": "5XNL",
+        "url": "https://files.rcsb.org/download/5XNL.cif.gz",
+        "encoded_bytes": 2529055,
+        "decoded_bytes": 11380481,
+        "sha256": "c8e32cae7b6b6950784560b49be64f6c0e343de88183ae235ddde602777c357e",
+        "decoded_sha256": "c63cb1d6a39eea135b7513d99c2fd66b8123316ebfa86ec0bad4514b8ab8f556"
+      }
+    ],
+    "receiving": "tests/form/mmcif_PdbxContainers_DataContainer/real_entry_receiving.py; explicit local originals only, no test-time network."
+  },
+  "executions": [
+    {
+      "phase": "baseline",
+      "source_commit": "ca3071960af3c9da27694dcf46056f772b604bf2",
+      "native_exit": 1,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/mmcif-763-20261115/baseline.xml",
+        "--receptor-events=./.pytest_cache/mmcif-763-20261115/baseline.events.jsonl",
+        "tests/form/mmcif_PdbxContainers_DataContainer/test_entity_identity.py::test_repeated_entity_visit_does_not_reuse_an_existing_entity_index"
+      ],
+      "seconds": 9.2582558398135,
+      "checked_inputs": 3931,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 217341952,
+      "minimum_host_available_bytes": 16722935808,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+      "pytest": {
+        "counts": {
+          "collected": 1,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 1,
+          "failed": 1,
+          "not_executed": 0,
+          "passed": 0,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "exitstatus": 1,
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "9d96a3577218475d612868852585033a0ddc515d73894fe82fb40495179822a4",
+          "records": 5
+        }
+      },
+      "same_run_junit": {
+        "failed": 1,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "retained_artifacts_sha256": {
+        ".pytest_cache/mmcif-763-20261115/baseline-execution.json": "65286920dbf7c70e4493f0adf9d7406fbfe69a458c4229ab1d7dfbaf41f493a8",
+        ".pytest_cache/mmcif-763-20261115/baseline-inputs-before.json": "8cbccee2ddf10901d086312a8350aaca8a3999ae1126e96d950875b96ebfe554",
+        ".pytest_cache/mmcif-763-20261115/baseline-inputs-after.json": "8cbccee2ddf10901d086312a8350aaca8a3999ae1126e96d950875b96ebfe554",
+        ".pytest_cache/mmcif-763-20261115/baseline-driver.py": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+        ".pytest_cache/mmcif-763-20261115/baseline.log": "d8c0f3ca918936aa184fc8531edad0f765b18833ff836da171259e659b23e6dc",
+        ".pytest_cache/mmcif-763-20261115/baseline.events.jsonl": "4711332a18b9f6dfda182eb045dd43372025a88b0a965e2b8d7e49dec44792de",
+        ".pytest_cache/mmcif-763-20261115/baseline.xml": "16534ea01beb8e51f869ce13bbb89c29dd332412bee1ff52682d4e4b22905443"
+      }
+    },
+    {
+      "phase": "facts",
+      "source_commit": "ca3071960af3c9da27694dcf46056f772b604bf2",
+      "native_exit": 1,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/mmcif-763-20261115/facts.xml",
+        "--receptor-events=./.pytest_cache/mmcif-763-20261115/facts.events.jsonl",
+        "tests/form/mmcif_PdbxContainers_DataContainer/real_entry_receiving.py",
+        "-k",
+        "default and not pm"
+      ],
+      "seconds": 17.253803370986134,
+      "checked_inputs": 3931,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 489218048,
+      "minimum_host_available_bytes": 16633917440,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+      "pytest": {
+        "counts": {
+          "collected": 2,
+          "deselected": 6,
+          "errors": 0,
+          "executed": 2,
+          "failed": 2,
+          "not_executed": 0,
+          "passed": 0,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "exitstatus": 1,
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "f489749eeb9bb02349481afbbaf5e70b52d07e43f2f428af10029265a1363ad8",
+          "records": 9
+        }
+      },
+      "same_run_junit": {
+        "failed": 2,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "retained_artifacts_sha256": {
+        ".pytest_cache/mmcif-763-20261115/facts-execution.json": "7d45e7ccc55d1f94ef512a5f05d83f216c61e995e1b6d871d5ee3d0c7deb2d2e",
+        ".pytest_cache/mmcif-763-20261115/facts-inputs-before.json": "8cbccee2ddf10901d086312a8350aaca8a3999ae1126e96d950875b96ebfe554",
+        ".pytest_cache/mmcif-763-20261115/facts-inputs-after.json": "8cbccee2ddf10901d086312a8350aaca8a3999ae1126e96d950875b96ebfe554",
+        ".pytest_cache/mmcif-763-20261115/facts-driver.py": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+        ".pytest_cache/mmcif-763-20261115/facts.log": "5af1e4caff3162b1814f68c8f6909f18a721ebf3905d802dc5cd7c87547ffe12",
+        ".pytest_cache/mmcif-763-20261115/facts.events.jsonl": "1640bfbac3f3c90a1f2add3a20f801c675e4a2e201a56ecea4198ba8f5ab0dad",
+        ".pytest_cache/mmcif-763-20261115/facts.xml": "1dc520f39ca80ebdf13ccf272564afc700c8e7d477ec4f55957735d9fb2ebc6d"
+      }
+    },
+    {
+      "phase": "corrected",
+      "source_commit": "ca3071960af3c9da27694dcf46056f772b604bf2",
+      "native_exit": 0,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/mmcif-763-20261115/corrected.xml",
+        "--receptor-events=./.pytest_cache/mmcif-763-20261115/corrected.events.jsonl",
+        "tests/form/mmcif_PdbxContainers_DataContainer/test_entity_identity.py"
+      ],
+      "seconds": 8.25856428174302,
+      "checked_inputs": 3931,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 212385792,
+      "minimum_host_available_bytes": 16907874304,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+      "pytest": {
+        "counts": {
+          "collected": 74,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 74,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 74,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "exitstatus": 0,
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "b52c6f9b789886fb1dc401333d9e21d660e6bda377c0d81242d2d54445e947a7",
+          "records": 223
+        }
+      },
+      "same_run_junit": {
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 74
+      },
+      "retained_artifacts_sha256": {
+        ".pytest_cache/mmcif-763-20261115/corrected-execution.json": "9e6cc99fd00ede0e10c21554599dba47184a1955b9996f387f8b5ba0b2b0a908",
+        ".pytest_cache/mmcif-763-20261115/corrected-inputs-before.json": "20ddcccbe1807af3f9de171d611e4001ff08ead27287d9fc341769181c7dcb72",
+        ".pytest_cache/mmcif-763-20261115/corrected-inputs-after.json": "20ddcccbe1807af3f9de171d611e4001ff08ead27287d9fc341769181c7dcb72",
+        ".pytest_cache/mmcif-763-20261115/corrected-driver.py": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+        ".pytest_cache/mmcif-763-20261115/corrected.log": "381cb2f6618862ec37866034d7162747f1e7319163f0e0c3613e6ae0bf6f30ff",
+        ".pytest_cache/mmcif-763-20261115/corrected.events.jsonl": "bec29afe192e2829c431e91c4a6e6dc0b52b9d2eec8685f3443839d03bb51510",
+        ".pytest_cache/mmcif-763-20261115/corrected.xml": "9e1aca61a85f9146185563305623c6b9ccc7877e4bffb8d79866890bdd8f0973"
+      }
+    },
+    {
+      "phase": "receiving",
+      "source_commit": "ca3071960af3c9da27694dcf46056f772b604bf2",
+      "native_exit": 1,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/mmcif-763-20261115/receiving.xml",
+        "--receptor-events=./.pytest_cache/mmcif-763-20261115/receiving.events.jsonl",
+        "tests/form/mmcif_PdbxContainers_DataContainer/real_entry_receiving.py"
+      ],
+      "seconds": 53.2835838990286,
+      "checked_inputs": 3933,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 530546688,
+      "minimum_host_available_bytes": 16239210496,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+      "pytest": {
+        "counts": {
+          "collected": 8,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 8,
+          "failed": 4,
+          "not_executed": 0,
+          "passed": 4,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "exitstatus": 1,
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "e247cfbc41f6ca2c73af8571a3085bf23e4cde2ac7c2f13f49a930e6652558e3",
+          "records": 26
+        }
+      },
+      "same_run_junit": {
+        "failed": 4,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 4
+      },
+      "retained_artifacts_sha256": {
+        ".pytest_cache/mmcif-763-20261115/receiving-execution.json": "2c3be5226ee4d94acdc207eb088c29e8979b385a6bd5b14e1b193c19421e1819",
+        ".pytest_cache/mmcif-763-20261115/receiving-inputs-before.json": "1ea1854832a5ce6e99dec9dd656a70326f876f7726cc1f2c34007f034e8728de",
+        ".pytest_cache/mmcif-763-20261115/receiving-inputs-after.json": "1ea1854832a5ce6e99dec9dd656a70326f876f7726cc1f2c34007f034e8728de",
+        ".pytest_cache/mmcif-763-20261115/receiving-driver.py": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+        ".pytest_cache/mmcif-763-20261115/receiving.log": "c9848eaccfd6e6cb9fd1f1ac758fd8e30fe0b83f4e9a498aba06f8eba1d3bcaf",
+        ".pytest_cache/mmcif-763-20261115/receiving.events.jsonl": "12f43e0f111809a562d9cd34335ef84d0ad04468d284db544d63318856489806",
+        ".pytest_cache/mmcif-763-20261115/receiving.xml": "585ea67646f1299f468033eb9b664b9adb0fe51183d41c9ca0827b1e4694a9a1"
+      }
+    },
+    {
+      "phase": "cohort",
+      "source_commit": "ca3071960af3c9da27694dcf46056f772b604bf2",
+      "native_exit": 0,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/mmcif-763-20261115/cohort.xml",
+        "--receptor-events=./.pytest_cache/mmcif-763-20261115/cohort.events.jsonl",
+        "tests/form/mmcif_PdbxContainers_DataContainer",
+        "tests/form/file_cif",
+        "tests/form/file_cif_gz",
+        "tests/form/file_bcif",
+        "tests/form/file_bcif_gz"
+      ],
+      "seconds": 131.3260384290479,
+      "checked_inputs": 3933,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 390094848,
+      "minimum_host_available_bytes": 16239210496,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+      "pytest": {
+        "counts": {
+          "collected": 929,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 929,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 929,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "exitstatus": 0,
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "856b4c0803a837e06f4a8117228fc81bb33978552ae865094956698f2d487c4e",
+          "records": 2792
+        }
+      },
+      "same_run_junit": {
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 929
+      },
+      "retained_artifacts_sha256": {
+        ".pytest_cache/mmcif-763-20261115/cohort-execution.json": "0a3f4b18b2acfd608b969ab2379d0c806a341eb8a520a561da04a48edc466501",
+        ".pytest_cache/mmcif-763-20261115/cohort-inputs-before.json": "1ea1854832a5ce6e99dec9dd656a70326f876f7726cc1f2c34007f034e8728de",
+        ".pytest_cache/mmcif-763-20261115/cohort-inputs-after.json": "1ea1854832a5ce6e99dec9dd656a70326f876f7726cc1f2c34007f034e8728de",
+        ".pytest_cache/mmcif-763-20261115/cohort-driver.py": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+        ".pytest_cache/mmcif-763-20261115/cohort.log": "5d6c1c4b7755dd68d1f1159f75517697b89ec7cad530f1632308500fd48f6725",
+        ".pytest_cache/mmcif-763-20261115/cohort.events.jsonl": "3451a32363fcbf9ce53fd62d2ae96d0e2e0df1d71d9f36664c2f4c43b4557305",
+        ".pytest_cache/mmcif-763-20261115/cohort.xml": "96a9f6ad9fefdf8e2c8440564f9a24a47e7090284c047857e2650e63c24d1419"
+      }
+    },
+    {
+      "phase": "declared-baseline",
+      "source_commit": "ca3071960af3c9da27694dcf46056f772b604bf2",
+      "native_exit": 1,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/mmcif-763-20261115/declared-baseline.xml",
+        "--receptor-events=./.pytest_cache/mmcif-763-20261115/declared-baseline.events.jsonl",
+        "tests/form/mmcif_PdbxContainers_DataContainer/test_declared_covalent_links.py::test_numeric_native_group_ids_do_not_lose_declared_covalent_links"
+      ],
+      "seconds": 9.24088923027739,
+      "checked_inputs": 3935,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 221237248,
+      "minimum_host_available_bytes": 17011912704,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+      "pytest": {
+        "counts": {
+          "collected": 1,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 1,
+          "failed": 1,
+          "not_executed": 0,
+          "passed": 0,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "exitstatus": 1,
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "5ec231cc47c021b2abb63a57e9d7d884c0befe49e689cbc2108a140f10d648ab",
+          "records": 5
+        }
+      },
+      "same_run_junit": {
+        "failed": 1,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "retained_artifacts_sha256": {
+        ".pytest_cache/mmcif-763-20261115/declared-baseline-execution.json": "9da8ab2a3b0427eb9786c15e7bd34a701a0adb953f5abb4bc4b8dd9d706b4cb6",
+        ".pytest_cache/mmcif-763-20261115/declared-baseline-inputs-before.json": "f10196658899828a7c01f1fbc7899d45360deda1829ff724a35744d364587e64",
+        ".pytest_cache/mmcif-763-20261115/declared-baseline-inputs-after.json": "f10196658899828a7c01f1fbc7899d45360deda1829ff724a35744d364587e64",
+        ".pytest_cache/mmcif-763-20261115/declared-baseline-driver.py": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+        ".pytest_cache/mmcif-763-20261115/declared-baseline.log": "9b5c5c2b365c498d664a1a5ce6087e04f65ff9b43706326c15add622e01b3ef5",
+        ".pytest_cache/mmcif-763-20261115/declared-baseline.events.jsonl": "113665be1925286081562f80bfe26fb19cf2770aa25d837750fe4b3a2dee3e82",
+        ".pytest_cache/mmcif-763-20261115/declared-baseline.xml": "4374ce3836d2c3b2182e4a8848ecd4a8bd5e347b9a2dda69fcfea7e294321c00"
+      }
+    },
+    {
+      "phase": "runtime-corrected",
+      "source_commit": "ca3071960af3c9da27694dcf46056f772b604bf2",
+      "native_exit": 1,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/mmcif-763-20261115/runtime-corrected.xml",
+        "--receptor-events=./.pytest_cache/mmcif-763-20261115/runtime-corrected.events.jsonl",
+        "tests/form/mmcif_PdbxContainers_DataContainer/test_declared_covalent_links.py",
+        "tests/form/mmcif_PdbxContainers_DataContainer/test_entity_identity.py"
+      ],
+      "seconds": 23.23221238423139,
+      "checked_inputs": 3935,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 311767040,
+      "minimum_host_available_bytes": 17113387008,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+      "pytest": {
+        "counts": {
+          "collected": 106,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 106,
+          "failed": 15,
+          "not_executed": 0,
+          "passed": 91,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 16,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "exitstatus": 1,
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "879ce3b890c975c46be48daffbee7eb463994f29c5f154d8ea1ef7a8b32f1d44",
+          "records": 352
+        }
+      },
+      "same_run_junit": {
+        "failed": 15,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 91
+      },
+      "retained_artifacts_sha256": {
+        ".pytest_cache/mmcif-763-20261115/runtime-corrected-execution.json": "947923c1ae0e3fac5417f2bed22364cba83fe4cd45c95bf86acdf4fedebbfa4c",
+        ".pytest_cache/mmcif-763-20261115/runtime-corrected-inputs-before.json": "7a4152105527b488efbe3a7377f4c582d8db2e320bd134ab0bbcec49108b62e6",
+        ".pytest_cache/mmcif-763-20261115/runtime-corrected-inputs-after.json": "7a4152105527b488efbe3a7377f4c582d8db2e320bd134ab0bbcec49108b62e6",
+        ".pytest_cache/mmcif-763-20261115/runtime-corrected-driver.py": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+        ".pytest_cache/mmcif-763-20261115/runtime-corrected.log": "f873c8214856f4a1b086cbc1157b4c6c76952cb258b5aa6c1cb4b2acfb3f2cb7",
+        ".pytest_cache/mmcif-763-20261115/runtime-corrected.events.jsonl": "8cdecbb565368530dc424e43d2792dbd53852467bca88480d37c46304b96b253",
+        ".pytest_cache/mmcif-763-20261115/runtime-corrected.xml": "ac1a56946ef6ccb88e146a436cbbd1ceaa3ceb499c22f87dd5ba88888b5a36e9"
+      }
+    },
+    {
+      "phase": "corrected2",
+      "source_commit": "ca3071960af3c9da27694dcf46056f772b604bf2",
+      "native_exit": 0,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/mmcif-763-20261115/corrected2.xml",
+        "--receptor-events=./.pytest_cache/mmcif-763-20261115/corrected2.events.jsonl",
+        "tests/form/mmcif_PdbxContainers_DataContainer/test_declared_covalent_links.py",
+        "tests/form/mmcif_PdbxContainers_DataContainer/test_entity_identity.py"
+      ],
+      "seconds": 17.264657348860055,
+      "checked_inputs": 3935,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 226004992,
+      "minimum_host_available_bytes": 17135771648,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+      "pytest": {
+        "counts": {
+          "collected": 106,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 106,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 106,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 31,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "exitstatus": 0,
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "739e699e7d19edc03dfb38d8bd64e363814d41015a544877e8875439993e438e",
+          "records": 381
+        }
+      },
+      "same_run_junit": {
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 106
+      },
+      "retained_artifacts_sha256": {
+        ".pytest_cache/mmcif-763-20261115/corrected2-execution.json": "3d0418ea1fea846aa65183beed49f229b79a62475872c85614be8c6256bb74b6",
+        ".pytest_cache/mmcif-763-20261115/corrected2-inputs-before.json": "7925f0ef86c44b27b2d7b12b14324779a7727d5d0c405a24a67b4c66f677f3c2",
+        ".pytest_cache/mmcif-763-20261115/corrected2-inputs-after.json": "7925f0ef86c44b27b2d7b12b14324779a7727d5d0c405a24a67b4c66f677f3c2",
+        ".pytest_cache/mmcif-763-20261115/corrected2-driver.py": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+        ".pytest_cache/mmcif-763-20261115/corrected2.log": "c0d8750f5220b46a471f0f7e1059901ce1ebfd82deb87edef08148b151967615",
+        ".pytest_cache/mmcif-763-20261115/corrected2.events.jsonl": "8d9850e43ddc0c0675bb16ed471cf4640573afcc128a126a14fe21daa81519cf",
+        ".pytest_cache/mmcif-763-20261115/corrected2.xml": "1af2bce56b1e618eaeb845ef8cbb6ef4fca7cfb8c90eca96be2e39c7653810b5"
+      }
+    },
+    {
+      "phase": "runtime-qualified",
+      "source_commit": "ca3071960af3c9da27694dcf46056f772b604bf2",
+      "native_exit": 4,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/mmcif-763-20261115/runtime-qualified.xml",
+        "--receptor-events=./.pytest_cache/mmcif-763-20261115/runtime-qualified.events.jsonl",
+        "tests/form/mmcif_PdbxContainers_DataContainer/real_entry_runtime-qualified.py"
+      ],
+      "seconds": 6.28927535424009,
+      "checked_inputs": 3935,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 142168064,
+      "minimum_host_available_bytes": 17144209408,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+      "pytest": {
+        "counts": {
+          "collected": 0,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 0,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 0,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "exitstatus": 4,
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "758cb6fa23f9f69122c7982aae76b091e9d57686a54a087598c9263f20169c56",
+          "records": 1
+        }
+      },
+      "same_run_junit": {
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      },
+      "retained_artifacts_sha256": {
+        ".pytest_cache/mmcif-763-20261115/runtime-qualified-execution.json": "bbc74447aa7dfc9fc970e530f833d9d41f9f99ae2e41cd28ea4e3c6739cc06fa",
+        ".pytest_cache/mmcif-763-20261115/runtime-qualified-inputs-before.json": "7925f0ef86c44b27b2d7b12b14324779a7727d5d0c405a24a67b4c66f677f3c2",
+        ".pytest_cache/mmcif-763-20261115/runtime-qualified-inputs-after.json": "7925f0ef86c44b27b2d7b12b14324779a7727d5d0c405a24a67b4c66f677f3c2",
+        ".pytest_cache/mmcif-763-20261115/runtime-qualified-driver.py": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+        ".pytest_cache/mmcif-763-20261115/runtime-qualified.log": "02d0e73a85106161865905ba7fd1654d7e91c01005e4cd2a0bab819c78bc944b",
+        ".pytest_cache/mmcif-763-20261115/runtime-qualified.events.jsonl": "8506f2131fc3ea2d7977775a6dfa97dd08c7f51779651192d156265ebb7b7f4f",
+        ".pytest_cache/mmcif-763-20261115/runtime-qualified.xml": "c4d0501313fe8aff65bbb6faea5a99ccdea69f77d0c5cea0efd6490e4d8248b6"
+      }
+    },
+    {
+      "phase": "runtime-integrated",
+      "source_commit": "ca3071960af3c9da27694dcf46056f772b604bf2",
+      "native_exit": 0,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/mmcif-763-20261115/runtime-integrated.xml",
+        "--receptor-events=./.pytest_cache/mmcif-763-20261115/runtime-integrated.events.jsonl",
+        "tests/form/mmcif_PdbxContainers_DataContainer/real_entry_receiving.py"
+      ],
+      "seconds": 68.04225220577791,
+      "checked_inputs": 3935,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 528887808,
+      "minimum_host_available_bytes": 15676506112,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+      "pytest": {
+        "counts": {
+          "collected": 8,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 8,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 8,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 4,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "exitstatus": 0,
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "ca68d32ad42e8e925b7c95f7fbe0b594f918c909d22e0b68a77a6e747ca54e26",
+          "records": 33
+        }
+      },
+      "same_run_junit": {
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 8
+      },
+      "retained_artifacts_sha256": {
+        ".pytest_cache/mmcif-763-20261115/runtime-integrated-execution.json": "7400653902fae3a580b48f001dfb43e5e3104b5fcde7da3ef9ea9e1a1c58526e",
+        ".pytest_cache/mmcif-763-20261115/runtime-integrated-inputs-before.json": "7925f0ef86c44b27b2d7b12b14324779a7727d5d0c405a24a67b4c66f677f3c2",
+        ".pytest_cache/mmcif-763-20261115/runtime-integrated-inputs-after.json": "7925f0ef86c44b27b2d7b12b14324779a7727d5d0c405a24a67b4c66f677f3c2",
+        ".pytest_cache/mmcif-763-20261115/runtime-integrated-driver.py": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+        ".pytest_cache/mmcif-763-20261115/runtime-integrated.log": "1a34d5f5709312bcbb2157c3853c7d67fb49deffcd807accf93b21d4a0781a20",
+        ".pytest_cache/mmcif-763-20261115/runtime-integrated.events.jsonl": "322635adddf0635d6e428e55d277231c36984cbe1238824b1257718894256eb9",
+        ".pytest_cache/mmcif-763-20261115/runtime-integrated.xml": "d9d953cf8175039917c9d8ea13305ae21a88afcdf09ba2bb6a22f3318d10d8f4"
+      }
+    },
+    {
+      "phase": "expanded",
+      "source_commit": "ca3071960af3c9da27694dcf46056f772b604bf2",
+      "native_exit": 0,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/mmcif-763-20261115/expanded.xml",
+        "--receptor-events=./.pytest_cache/mmcif-763-20261115/expanded.events.jsonl",
+        "tests/form/mmcif_PdbxContainers_DataContainer",
+        "tests/form/file_cif",
+        "tests/form/file_cif_gz",
+        "tests/form/file_bcif",
+        "tests/form/file_bcif_gz"
+      ],
+      "seconds": 142.33682164316997,
+      "checked_inputs": 3935,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 524193792,
+      "minimum_host_available_bytes": 15677997056,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+      "pytest": {
+        "counts": {
+          "collected": 961,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 961,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 961,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 31,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "exitstatus": 0,
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "daa81381d193cbf7d51f845ea7b8fd1e409856310beb7584cfbf5e3cc44356c5",
+          "records": 2950
+        }
+      },
+      "same_run_junit": {
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 961
+      },
+      "retained_artifacts_sha256": {
+        ".pytest_cache/mmcif-763-20261115/expanded-execution.json": "eb338ec92354ca5ee0fa0e464266252db2d0b30b1d1609619799566f735e422b",
+        ".pytest_cache/mmcif-763-20261115/expanded-inputs-before.json": "7925f0ef86c44b27b2d7b12b14324779a7727d5d0c405a24a67b4c66f677f3c2",
+        ".pytest_cache/mmcif-763-20261115/expanded-inputs-after.json": "7925f0ef86c44b27b2d7b12b14324779a7727d5d0c405a24a67b4c66f677f3c2",
+        ".pytest_cache/mmcif-763-20261115/expanded-driver.py": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+        ".pytest_cache/mmcif-763-20261115/expanded.log": "2c086be8918d57549ba7fecd8e6e171c094414b506f479fa50253178082b6c64",
+        ".pytest_cache/mmcif-763-20261115/expanded.events.jsonl": "a5161e78003b7297f547a44e3b6003dbaa780fcda19d7395e287fb6ac023e74b",
+        ".pytest_cache/mmcif-763-20261115/expanded.xml": "8efec8268a06794b5b979c07e8a37afb69e89373f8a6a55d7a34bd886cccfd0f"
+      }
+    },
+    {
+      "phase": "checks",
+      "source_commit": "ca3071960af3c9da27694dcf46056f772b604bf2",
+      "native_exit": 1,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "./.pytest_cache/mmcif-763-20261115/quality.py"
+      ],
+      "seconds": 55.281753852032125,
+      "checked_inputs": 3936,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 418836480,
+      "minimum_host_available_bytes": 16591675392,
+      "maximum_memory_pressure_avg10": 0.07,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+      "retained_artifacts_sha256": {
+        ".pytest_cache/mmcif-763-20261115/checks-execution.json": "a45584c637d410faab3ed536640267df14640f97faa420dfab1996653caa5716",
+        ".pytest_cache/mmcif-763-20261115/checks-inputs-before.json": "0b082b4b423e259cd8a9ef323ced45003925cccfccdec8e4b0c23e9b55c29257",
+        ".pytest_cache/mmcif-763-20261115/checks-inputs-after.json": "0b082b4b423e259cd8a9ef323ced45003925cccfccdec8e4b0c23e9b55c29257",
+        ".pytest_cache/mmcif-763-20261115/checks-driver.py": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+        ".pytest_cache/mmcif-763-20261115/checks.log": "2332872812496ae0a6b92076051c0ebfcc19ed3aa0fc37106f114a981914ebfd"
+      }
+    },
+    {
+      "phase": "final-checks",
+      "source_commit": "ca3071960af3c9da27694dcf46056f772b604bf2",
+      "native_exit": 0,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-c",
+        "import subprocess,sys; raise SystemExit(subprocess.call([\"ruff\",\"format\",\"--check\",\"--extend-exclude\",\".aws\",\".\"]))"
+      ],
+      "seconds": 5.300258920993656,
+      "checked_inputs": 3936,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 50327552,
+      "minimum_host_available_bytes": 16752484352,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+      "retained_artifacts_sha256": {
+        ".pytest_cache/mmcif-763-20261115/final-checks-execution.json": "ec7d76fbe5409a193836f5fcf4e6ec9f54e4e2ca2763146ef42a82a31cbcaf33",
+        ".pytest_cache/mmcif-763-20261115/final-checks-inputs-before.json": "0b082b4b423e259cd8a9ef323ced45003925cccfccdec8e4b0c23e9b55c29257",
+        ".pytest_cache/mmcif-763-20261115/final-checks-inputs-after.json": "0b082b4b423e259cd8a9ef323ced45003925cccfccdec8e4b0c23e9b55c29257",
+        ".pytest_cache/mmcif-763-20261115/final-checks-driver.py": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+        ".pytest_cache/mmcif-763-20261115/final-checks.log": "97b5d75eb57a2ea477c1709cdb7218725e30333da447191e2c777da0c9feb7fe"
+      }
+    },
+    {
+      "phase": "html",
+      "source_commit": "ca3071960af3c9da27694dcf46056f772b604bf2",
+      "native_exit": 0,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "sphinx",
+        "-W",
+        "--keep-going",
+        "-E",
+        "-a",
+        "-b",
+        "html",
+        "-q",
+        "-j",
+        "1",
+        "docs",
+        "./.pytest_cache/mmcif-763-20261115/html"
+      ],
+      "seconds": 183.36927900882438,
+      "checked_inputs": 3936,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2726297600",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 1440591872,
+      "minimum_host_available_bytes": 16582094848,
+      "maximum_memory_pressure_avg10": 0.05,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+      "retained_artifacts_sha256": {
+        ".pytest_cache/mmcif-763-20261115/html-execution.json": "3e6e9db7539286a30b148d3d9964b069a2c5f7e13630bb87a06e2769bc2b9111",
+        ".pytest_cache/mmcif-763-20261115/html-inputs-before.json": "0b082b4b423e259cd8a9ef323ced45003925cccfccdec8e4b0c23e9b55c29257",
+        ".pytest_cache/mmcif-763-20261115/html-inputs-after.json": "0b082b4b423e259cd8a9ef323ced45003925cccfccdec8e4b0c23e9b55c29257",
+        ".pytest_cache/mmcif-763-20261115/html-driver.py": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+        ".pytest_cache/mmcif-763-20261115/html.log": "382f82536b1648d7d2520d3a06b0ab3e720a4d958f7a2bbe24e74fa0f0f39b2f"
+      }
+    },
+    {
+      "phase": "articles",
+      "source_commit": "ca3071960af3c9da27694dcf46056f772b604bf2",
+      "native_exit": 0,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "./.pytest_cache/mmcif-763-20261115/articles.py"
+      ],
+      "seconds": 106.30667938524857,
+      "checked_inputs": 3936,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 520470528,
+      "minimum_host_available_bytes": 16759832576,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+      "pytest": {
+        "counts": {
+          "collected": 101,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 101,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 101,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "exitstatus": 0,
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "e91b9a3680ec554c296abb824ff598acbf87e995679eb9d57a03ffd44994e000",
+          "records": 304
+        }
+      },
+      "same_run_junit": {
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 101
+      },
+      "retained_artifacts_sha256": {
+        ".pytest_cache/mmcif-763-20261115/articles-execution.json": "4728872ecc9e466f62408646d0b0dae574dc8adcff7ff44574a80ad501d1c55a",
+        ".pytest_cache/mmcif-763-20261115/articles-inputs-before.json": "0b082b4b423e259cd8a9ef323ced45003925cccfccdec8e4b0c23e9b55c29257",
+        ".pytest_cache/mmcif-763-20261115/articles-inputs-after.json": "0b082b4b423e259cd8a9ef323ced45003925cccfccdec8e4b0c23e9b55c29257",
+        ".pytest_cache/mmcif-763-20261115/articles-driver.py": "1821ea73ddda4ea43807df8cc0fa9279cca02070871ce0513c4c1321e53226ce",
+        ".pytest_cache/mmcif-763-20261115/articles.log": "128c935e294dbb37cdaeac35287dd652b62beb9e87d19b9b86849cecee242b23",
+        ".pytest_cache/mmcif-763-20261115/articles.events.jsonl": "6a2735cfc00eb3a1fa530fbd323e1277d66d634e956760633a0742dd919ad104",
+        ".pytest_cache/mmcif-763-20261115/articles.xml": "68b5f7d102f473392623981610b76ed7a18d18cba17d65dad419bf9b1759c55a"
+      }
+    }
+  ],
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "modules": {
+      "molsysmt": {
+        "version": "0.23.0+393.ge1facf624.dirty",
+        "origin": "./molsysmt/__init__.py"
+      },
+      "molsysviewer": {
+        "version": "0.24.0+97.gdf4bf477.dirty",
+        "origin": "./.pytest_cache/pre1-review-20261110/viewer-5164f13b-ready-source/molsysviewer/__init__.py"
+      },
+      "argdigest": {
+        "version": "0.15.0",
+        "origin": "./.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py"
+      },
+      "depdigest": {
+        "version": "0.15.1",
+        "origin": "./.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py"
+      },
+      "smonitor": {
+        "version": "0.21.0",
+        "origin": "./.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py"
+      },
+      "pyunitwizard": {
+        "version": "0.29.2",
+        "origin": "./.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py"
+      },
+      "pytest_receptor": {
+        "version": "1.2.1",
+        "origin": "./.pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py"
+      }
+    }
+  },
+  "documentation": {
+    "html_count": 1401,
+    "articles": [
+      {
+        "path": ".pytest_cache/mmcif-763-20261115/html/content/user/tools/form/class/others/mmcif_PdbxContainers_DataContainer.html",
+        "sha256": "dac5a9ab47368f25deee25480e5df133d793b05d9ac1ea9992e8bccafd953094",
+        "headings_preserved": true,
+        "anchors_preserved": true,
+        "new_contract_rendered": true
+      },
+      {
+        "path": ".pytest_cache/mmcif-763-20261115/html/content/course/Common_Core/03_Molecular_Elements.html",
+        "sha256": "0caeb7498fa650439e90ed41e7edb7f7f7a4408aeed4bed344b00c4f66357597",
+        "headings_preserved": true,
+        "anchors_preserved": true,
+        "new_contract_rendered": true
+      }
+    ],
+    "notebooks": [
+      {
+        "path": "docs/content/user/tools/form/class/others/mmcif_PdbxContainers_DataContainer.ipynb",
+        "code_outputs_metadata_unchanged": true,
+        "sha256": "339e6bcc45d68d9b55d52eeaf01b530fc3a56ab13f76088887b3c16eeb5b6e33"
+      },
+      {
+        "path": "docs/content/course/Common_Core/03_Molecular_Elements.ipynb",
+        "code_outputs_metadata_unchanged": true,
+        "sha256": "6c6271ee1f6bd32a939110ce656f7eaefcfdfa460e7c02f52bdda13e7ba507d8"
+      }
+    ],
+    "strict_full_site_exit": 0,
+    "same_run_reference_guards": 101,
+    "notebook_execution": "Not repeated: only prose changed; all code cells, outputs and metadata preserved.",
+    "browser": "Not run or claimed."
+  },
+  "quality": {
+    "initial_native_exit": 1,
+    "initial_commands": [
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "seconds": 41.120568946003914,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.7s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                       20.5s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.3s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.5s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.8s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.2s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.7s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   2.1s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.8s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.4s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.6s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/generate_converter_arguments.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 11.752198128029704,
+        "stdout": "OK: the committed table matches the converters.\nTarget forms: 96 | keywords per target: min 6, max 23, mean 10.3\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.0994801209308207,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.8421516539528966,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        "native_exit": 2,
+        "seconds": 0.11188088497146964,
+        "stdout": "io: ./.aws: No such file or directory (os error 2)\n\n4746 files already formatted\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.05887574562802911,
+        "stdout": "",
+        "stderr": ""
+      }
+    ],
+    "initial_format_error": "Ruff format . attempted the protected non-source .aws path and returned exit 2; no code-format finding. This failure remains failed.",
+    "received_format_route": [
+      "ruff",
+      "format",
+      "--check",
+      "--extend-exclude",
+      ".aws",
+      "."
+    ],
+    "received_format_exit": 0,
+    "received_formatted_files": 4746,
+    "fast_gates": "15/15, native exit 0",
+    "final_required_local_checks_received": true
+  },
+  "independent_oracles": [
+    "Four-atom explicit entity sequence catches silent wrong entity 2 in place of entity 42.",
+    "Source metadata order and arbitrary/zero-padded labels independent of converter output.",
+    "Tiny covalent pair [0,1], explicit evidence, insertion codes, author/label namespaces and model-compatible atom axis.",
+    "Every retained original atom joins deposited ID, entity/name/chain and angstrom coordinates.",
+    "Every admitted original covalent source link joins retained source labels independently and retains explicit evidence."
+  ],
+  "negative_dispositions": {
+    "baseline": "Original causal silent identity corruption; 1 failed.",
+    "facts": "Original unchanged originals: KeyError 31 and KeyError 9; 2 failed.",
+    "receiving": "Entity-only fix exposes independent #766: 3WU2 four failures, 5XNL four passes.",
+    "declared-baseline": "Original explicit-link two-atom IndexError; 1 failed.",
+    "runtime-corrected": "Intermediate two-model stale warning axis: 15 failed / 91 passed.",
+    "runtime-qualified": "Operator replaced the test filename while naming output artifacts: nonexistent module, native usage exit 4, zero tests. Correct path received separately in runtime-integrated.",
+    "checks": "Initial aggregate remains failed due solely to protected non-source path access; equivalent source formatter route received separately.",
+    "automatic_admission": "One attempt to launch two additional jobs was rejected while an earlier job still appeared active. No rejected job ran. Confirmed MainPID=0 first, then launched at most two bounded jobs."
+  },
+  "scope_limits": [
+    "Only existing covale declared-link policy; no new inferred chemistry, periodic or alternate-location scientific definition.",
+    "No new optional dependency, public API, force field, native rebuild, shared-prefix installation, GUI run or hosted matrix.",
+    "No final installed pair, stable scientific-profile, release or publication qualification.",
+    "Later exact-source/full/platform/nightly and final-pair gates remain under #334."
+  ],
+  "original_weighted_progress_change": 0,
+  "owned_process_retirement": {
+    "units_inspected": 17,
+    "all_main_pids_zero": true,
+    "active_exited_services_stopped": [
+      "msm-763-synthetic-corrected-20261115.service",
+      "msm-763-entry-cohort-20261115.service"
+    ],
+    "original_success_and_failure_outcomes_preserved": true,
+    "retained_state_sha256": {
+      ".pytest_cache/mmcif-763-20261115/owned-unit-final-state.txt": "2fad19794dc759b0fd63b295e515105c81a3c3a119e4219d427da20997f5dddc",
+      ".pytest_cache/mmcif-763-20261115/retired-active-exited-units.txt": "41b1051be44ef8a690c0b898de9d85f7b663bd4ff98dd9a94c3b11ac0db487df"
+    }
+  }
+}

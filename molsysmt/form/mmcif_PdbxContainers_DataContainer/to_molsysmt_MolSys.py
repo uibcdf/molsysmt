@@ -73,6 +73,12 @@ def to_molsysmt_MolSys(
     labels raise FormatError. Incompatible model inventories retain the existing
     warning and separate-system result, each with its own deposited label.
 
+    Entity and chain indices follow their first occurrence among represented
+    atom sites. Revisiting an earlier label does not affect allocation of the
+    next index. Entity metadata is joined by the declared entity ID, independently
+    of category row order. Textual and zero-padded entity IDs remain labels;
+    entity declarations without represented atom sites do not add empty axes.
+
     All generator rows for an assembly ID are retained in source order,
     including repeated operations. Distinct chain sets are stored per operation;
     ``build.make_bioassembly`` currently refuses to construct those heterogeneous
@@ -113,7 +119,11 @@ def to_molsysmt_MolSys(
     )
     from molsysmt.native import MolSys
 
-    from ._bond_state import BondAccumulator, metadata_from_chem_comp_bond
+    from ._bond_state import (
+        BondAccumulator,
+        covalent_pairs_from_struct_conn,
+        metadata_from_chem_comp_bond,
+    )
     from ._model_axis import model_axis
 
     if isinstance(item, str):
@@ -197,7 +207,7 @@ def to_molsysmt_MolSys(
         aux_group_name = atom_record[index_att["auth_comp_id"]]
         aux_chain_id = atom_record[index_att["label_asym_id"]]
         aux_chain_name = atom_record[index_att["auth_asym_id"]]
-        aux_entity_id = atom_record[index_att["label_entity_id"]]
+        aux_entity_id = str(atom_record[index_att["label_entity_id"]])
 
         if atom_record[index_att["pdbx_PDB_ins_code"]] not in ["?", "."]:
             aux_group_id = (
@@ -206,7 +216,7 @@ def to_molsysmt_MolSys(
             with_insertions = True
 
         if aux_entity_id not in entity_id_to_entity_index:
-            entity_index += 1
+            entity_index = len(entity_id)
             entity_id.append(aux_entity_id)
             entity_id_to_entity_index[aux_entity_id] = entity_index
 
@@ -214,7 +224,7 @@ def to_molsysmt_MolSys(
             entity_index = entity_id_to_entity_index[aux_entity_id]
 
         if aux_chain_id not in chain_id_to_chain_index:
-            chain_index += 1
+            chain_index = len(chain_id)
             chain_name.append(aux_chain_name)
             chain_id.append(aux_chain_id)
             chain_id_to_chain_index[aux_chain_id] = chain_index
@@ -250,9 +260,29 @@ def to_molsysmt_MolSys(
         group_id = np.array(group_id, dtype=int)
     chain_name = np.array(chain_name, dtype="object")
     chain_id = np.array(chain_id, dtype="object")
-    entity_id = np.array(entity_id, dtype=int)
+    entity_id = np.array(entity_id, dtype=object)
 
     # entities
+
+    entity_category = item.getObj("entity")
+    entity_attributes = {
+        name: index for index, name in enumerate(entity_category.getAttributeList())
+    }
+    entity_records = {}
+    for record in entity_category.data:
+        source_entity_id = str(record[entity_attributes["id"]])
+        if source_entity_id in entity_records:
+            raise FormatError(
+                "The entity category contains duplicate entity IDs.",
+                caller="molsysmt.form.mmcif_PdbxContainers_DataContainer.to_molsysmt_MolSys",
+            )
+        entity_records[source_entity_id] = record
+    if any(label not in entity_records for label in entity_id):
+        raise FormatError(
+            "atom_site references entity IDs absent from the entity category.",
+            caller="molsysmt.form.mmcif_PdbxContainers_DataContainer.to_molsysmt_MolSys",
+        )
+    represented_entity_records = [entity_records[label] for label in entity_id]
 
     ## entity_poly
 
@@ -265,7 +295,9 @@ def to_molsysmt_MolSys(
         }
 
         for record in item.getObj("entity_poly").data:
-            entity_id_value = record[index_att["entity_id"]]
+            entity_id_value = str(record[index_att["entity_id"]])
+            if entity_id_value not in entity_id_to_entity_index:
+                continue
             entity_index = entity_id_to_entity_index[entity_id_value]
 
             aux_dict = {}
@@ -281,7 +313,9 @@ def to_molsysmt_MolSys(
         }
 
         for record in item.getObj("entity_poly_seq").data:
-            entity_id_value = record[index_att["entity_id"]]
+            entity_id_value = str(record[index_att["entity_id"]])
+            if entity_id_value not in entity_id_to_entity_index:
+                continue
             entity_index = entity_id_to_entity_index[entity_id_value]
 
             aux_entity_polymer_type[entity_index]["seq"].append(
@@ -313,7 +347,9 @@ def to_molsysmt_MolSys(
         }
 
         for record in item.getObj("pdbx_entity_nonpoly").data:
-            entity_id_value = record[index_att["entity_id"]]
+            entity_id_value = str(record[index_att["entity_id"]])
+            if entity_id_value not in entity_id_to_entity_index:
+                continue
             entity_index = entity_id_to_entity_index[entity_id_value]
 
             aux_dict = {}
@@ -328,20 +364,16 @@ def to_molsysmt_MolSys(
         jj: ii for ii, jj in enumerate(item.getObj("entity").getAttributeList())
     }
 
-    for entity_index, record in enumerate(item.getObj("entity").data):
+    for entity_index, record in enumerate(represented_entity_records):
         if record[index_att["type"]] == "branched":
             aux_dict = {}
-            num_of_molecules = record[index_att["pdbx_number_of_molecules"]]
-            aux_group_indices = chain_index_to_group_indices[entity_index]
-            num_of_groups = len(aux_group_indices)
-            num_of_groups_per_molecule = num_of_groups // num_of_molecules
-            aux_dict["group_indices_per_molecule"] = [
-                aux_group_indices[ii : ii + num_of_groups_per_molecule]
-                for ii in range(0, num_of_groups, num_of_groups_per_molecule)
-            ]
-            aux_dict["seq"] = list(
-                group_name[chain_index_to_group_indices[entity_index]]
+            represented_chain = next(
+                index
+                for index, linked_entity in enumerate(chain_index_to_entity_index)
+                if linked_entity == entity_index
             )
+            aux_group_indices = chain_index_to_group_indices[represented_chain]
+            aux_dict["seq"] = list(group_name[aux_group_indices])
             aux_dict["comp_types"] = [aux_chem_comp_dict[ii] for ii in aux_dict["seq"]]
             aux_entity_branched_type[entity_index] = aux_dict
 
@@ -356,7 +388,7 @@ def to_molsysmt_MolSys(
         jj: ii for ii, jj in enumerate(item.getObj("entity").getAttributeList())
     }
 
-    for entity_index, record in enumerate(item.getObj("entity").data):
+    for entity_index, record in enumerate(represented_entity_records):
         aux_entity_name = record[index_att["pdbx_description"]]
 
         match record[index_att["type"]]:
@@ -675,54 +707,10 @@ def to_molsysmt_MolSys(
 
     atom_pairs_bonded_by_struct_conn = []
 
-    if item.exists("struct_conn"):
-        index_att = {
-            jj: ii
-            for ii, jj in enumerate(item.getObj("struct_conn").getAttributeList())
-        }
-
-        for record in item.getObj("struct_conn").data:
-            if record[index_att["conn_type_id"]] == "covale":
-                chain_id_1 = record[index_att["ptnr1_label_asym_id"]]
-                group_id_1 = record[index_att["ptnr1_auth_seq_id"]]
-                atom_name_1 = record[index_att["ptnr1_label_atom_id"]]
-                chain_id_2 = record[index_att["ptnr2_label_asym_id"]]
-                group_id_2 = record[index_att["ptnr2_auth_seq_id"]]
-                atom_name_2 = record[index_att["ptnr2_label_atom_id"]]
-
-                chain_index_1 = chain_id_to_chain_index[chain_id_1]
-                group_indices_1 = chain_index_to_group_indices[chain_index_1]
-                group_index_1 = [
-                    ii for ii in group_indices_1 if group_id[ii] == group_id_1
-                ]
-                group_index_1 = group_index_1[0]
-                atom_indices_1 = group_index_to_atom_indices[group_index_1]
-                atom_index_1 = [
-                    ii for ii in atom_indices_1 if atom_name[ii] == atom_name_1
-                ]
-                atom_index_1 = atom_index_1[0]
-
-                chain_index_2 = chain_id_to_chain_index[chain_id_2]
-                group_indices_2 = chain_index_to_group_indices[chain_index_2]
-                group_index_2 = [
-                    ii for ii in group_indices_2 if group_id[ii] == group_id_2
-                ]
-                group_index_2 = group_index_2[0]
-                atom_indices_2 = group_index_to_atom_indices[group_index_2]
-                atom_index_2 = [
-                    ii for ii in atom_indices_2 if atom_name[ii] == atom_name_2
-                ]
-                atom_index_2 = atom_index_2[0]
-
-                if [atom_index_1, atom_index_2] not in bond_accumulator:
-                    atom_pairs_bonded_by_struct_conn.append(
-                        sorted([atom_index_1, atom_index_2])
-                    )
-                bond_accumulator.add(
-                    [atom_index_1, atom_index_2],
-                    bond_type="covalent",
-                    evidence="explicit",
-                )
+    for pair in covalent_pairs_from_struct_conn(item, atom_num_model):
+        if pair not in bond_accumulator:
+            atom_pairs_bonded_by_struct_conn.append(sorted(pair))
+        bond_accumulator.add(pair, bond_type="covalent", evidence="explicit")
 
     # alternate locations
 
@@ -1098,6 +1086,16 @@ def to_molsysmt_MolSys(
         redefine_names=False,
     )
 
+    # Warnings on struct conn new covalent bonds
+    if len(atom_pairs_bonded_by_struct_conn):
+        warn(
+            CrossChainCovalentBondsWarning(
+                molecular_system=tmp_item,
+                atom_pairs=atom_pairs_bonded_by_struct_conn,
+                caller="molsysmt.form.mmcif_PdbxContainers_DataContainer.to_molsysmt_MolSys",
+            )
+        )
+
     # Models
 
     models = np.unique(atom_num_model)
@@ -1175,16 +1173,6 @@ def to_molsysmt_MolSys(
     del (molecule_name, molecule_type, entity_index)
     del (chain_name, chain_id)
     del (entity_name, entity_id, entity_type)
-    # Warnings on struct conn new covalent bonds
-    if len(atom_pairs_bonded_by_struct_conn):
-        warn(
-            CrossChainCovalentBondsWarning(
-                molecular_system=tmp_item,
-                atom_pairs=atom_pairs_bonded_by_struct_conn,
-                caller="molsysmt.form.mmcif_PdbxContainers_DataContainer.to_molsysmt_MolSys",
-            )
-        )
-
     # Extract
 
     tmp_item.topology._molecules_dirty = False
