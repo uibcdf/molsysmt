@@ -22,6 +22,12 @@ Or using `mamba`:
 mamba install -c uibcdf -c conda-forge molsysmt
 ```
 
+For notebooks, select a kernel with `ipykernel>=7.4.0`. Inspect
+`sys.executable` and `ipykernel.__version__` inside that notebook: the Jupyter
+server can run in a different environment. See {doc}`the notebook installation
+notes </content/about/installation>` for the host requirement. Headless
+calculations do not require Jupyter.
+
 ---
 
 ## Development Version from Source

@@ -2,12 +2,13 @@
 
 ## Resume from here
 
-**Reviewed 2026-11-15 against the complete local source checkpoint
-`27ba3d4c8`, #756's public resource-error correction and the later documentation
-receiving through parent `1b3b16191` plus #759–#761. The complete source run
-retains its original identity; these documentation-only changes have their own
-selected, kernel, strict-site and saved-scene checks. Exact-new-head and
-final-package-pair qualification remain due.**
+**Reviewed 2026-11-15 against complete local source checkpoint `27ba3d4c8`
+and the subsequent scoped corrections. Documentation receiving through
+#759–#761 and #615 retains its own source/kernel/site boundaries. Published
+`b8c798474` now repairs #763/#766's mmCIF identity and declared-link defects;
+#764/#765 receive the current policy and notebook-host contract. The earlier
+complete-source run retains its original identity and is not qualification of
+these later changes. Exact-new-head and final-package-pair gates remain due.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
 does not select today's candidate or authorize new execution.
@@ -64,6 +65,49 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The completed source ledger/claim leaf gives **77.7381% (approximately 78%)**.
 The dated percentages below remain historical, not the current score.
+
+## Next external exits and retained scientific limit — 2026-11-15
+
+With #763/#766 delivered and #764/#765 received, the next active item is #256:
+BindingMT #73 must return its existing finite default-write/migration acceptance
+or an explicit scheduling/paused disposition. The complete thread still ends
+with our earlier request; no repeat request, execution or acceptance is inferred.
+Then resolve #524's real compatible host floors/artifacts with the final
+MolSysViewer candidate. #421/#250/#254 retain final-client/pair receiving;
+#671 and #334 retain exact supported-platform/source/scientific/installed gates.
+Their required construction and hosted work remain paused.
+
+The bounded #475 pre-1.0 review confirms explicit legacy ECI qualifications in
+the docstring, Tool, course and maintained evidence contract. Physical dimension
+and charge additivity remain unverified; no values, units, sums or validation
+classification change. #475 remains the owned primary-reference question;
+access to that paper is not silently added as a new release blocker. No new
+literature verification or scientific execution is claimed by this source review.
+
+The latest complete paginated checkpoint receives 685 non-PR issues, including
+95 open issues before the #764/#765 closeouts, and zero open PRs. #766 is the
+latest issue; no additional untriaged report is omitted at that observation.
+Counts are dated observations, not a new progress denominator.
+
+## Latest policy and corrected notebook-host adoption — 2026-11-15
+
+#764 adopts the actual policy-v1.5.12 caller and current common-guide bytes
+through the official published-owner synchronizer. The
+[owner report](archive/resolved_proposals/adopt_policy_v1_5_12_and_review_current_common_guidance.md)
+records independent guide/caller checks, unchanged qualified SDK pins, semantic
+instruction/resource review and preservation of all reported workspace state.
+#765 receives the already declared ipykernel >=7.4.0 baseline and actual
+selected-interpreter contract, adding a direct note in the main installation
+entry. Its [report](archive/resolved_proposals/receive_the_corrected_notebook_kernel_baseline.md)
+reuses accepted startup 928 with explicit provenance and historical-cause limits;
+there is no new kernel/scientific execution or shared-prefix mutation.
+
+The [receipt](../devtools/data/policy_notebook_adoption_764_765_20261115.json)
+separates local/static, selected-test, rendered-documentation and published
+adoption outcomes. New-policy hosted receiving and the original complete-source,
+scientific/platform/nightly and final installed-pair gates remain due under
+the unchanged execution/publication pause. These bounded adoptions do not add
+original weighted-plan credit or resolve BindingMT's separate #73 handoff.
 
 ## mmCIF identity and explicit-link receiving — 2026-11-15
 

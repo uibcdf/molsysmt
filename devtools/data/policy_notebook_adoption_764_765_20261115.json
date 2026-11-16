@@ -1,0 +1,492 @@
+{
+  "schema": "molsysmt.policy-notebook-adoption@1",
+  "date": "2026-11-15",
+  "state": "local conformance, selected tests and strict site received; published source adoption verified separately in owner closeout",
+  "owner_issues": [
+    "uibcdf/molsysmt#764",
+    "uibcdf/molsysmt#765"
+  ],
+  "source_basis": {
+    "parent": "b8c7984748f2ca87d19911f4cc3bf63b688d3641",
+    "source_scope": "Administrative caller/guide, two owning records, main installation note and live plan; no production, scientific, native or environment mutation.",
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345"
+  },
+  "policy": {
+    "previous": "policy-v1.5.9",
+    "adopted": "policy-v1.5.12",
+    "actual_caller": ".github/workflows/molsyssuite-policy.yml",
+    "required_input_change": null,
+    "admission": "Already registered in frozen policy; no admission_sha needed.",
+    "published_target": {
+      "release": "policy-v1.5.12",
+      "tag_sha": "7294f684dbaf3f0267c6e978937475d3deb8f633",
+      "commit": "bb641488bc22b262549f795857d6ede529b14ca1"
+    },
+    "canonical_guide_source": "f13e3fe18f2331252d67d6dd5a0c6035cc6c5958",
+    "canonical_guide_sha256": "0150f8bd618f9c1029af31b8b9171609ee1693b7c5dc431b223e6b00423b7b8a",
+    "canonical_route": "Official sync_vendored_guides.py with exact --guide and --repository selectors, clean owned canonical checkout, committed published-main verification enabled. Shared owner worktree not modified.",
+    "local_native_conformance_before_exit": 1,
+    "local_native_conformance_before": [
+      {
+        "code": "GUIDE_DRIFT",
+        "message": "MOLSYSSUITE_GUIDE.md differs from the canonical suite guide"
+      },
+      {
+        "code": "LATEST_POLICY",
+        "message": "adopt latest published policy policy-v1.5.12; observed policy-v1.5.9"
+      }
+    ],
+    "local_native_conformance_after_exit": 0,
+    "local_native_conformance_after": [],
+    "local_authoritative_adoption_check_exit": 0,
+    "local_authoritative_adoption": [
+      {
+        "kind": "policy",
+        "repository": "uibcdf/molsysmt",
+        "item": "policy-caller",
+        "state": "current",
+        "owner": "uibcdf/molsysmt",
+        "expected": "policy-v1.5.12",
+        "observed": "policy-v1.5.12",
+        "source_revision": "policy-v1.5.12",
+        "consumer_revision": "policy-v1.5.12",
+        "exception": "",
+        "next_action": "none"
+      }
+    ],
+    "other_sdk_and_reusable_pins": "Unchanged; whole workflow delta is only the actual policy caller.",
+    "instruction_review": [
+      "Root/common precedence and task-relevant nested AGENTS routes.",
+      "Latest-policy and separate guide/runtime adoption rule.",
+      "Accepted allostery ownership addition does not add a MolSysMT scientific API.",
+      "Actual session operator policy, central resource rule/workload guidance, explicit measured own-child cgroup budgets and host-reserve monitoring.",
+      "Support-library boundaries and lazy/unit/provenance behavior remain owned separately; no newer runtime provider adoption inferred."
+    ]
+  },
+  "workspace": {
+    "official_inventory_native_exit": 1,
+    "native_exit_meaning": "Attention/missing/behind/dirty worktree observations, not transport failure or permission to modify those repositories.",
+    "registered_member_count": 18,
+    "all_reported_state_preserved_by_this_work": true,
+    "members": [
+      {
+        "repository": "uibcdf/smonitor",
+        "head": "c401281af15f",
+        "ahead": 0,
+        "behind": 3,
+        "dirty_path_count": 0,
+        "error": "",
+        "disposition": "Preserve all unrelated work; no merge, update, stash, install, deletion or execution in this checkout."
+      },
+      {
+        "repository": "uibcdf/argdigest",
+        "head": "7e92a06ebbfe",
+        "ahead": 0,
+        "behind": 3,
+        "dirty_path_count": 0,
+        "error": "",
+        "disposition": "Preserve all unrelated work; no merge, update, stash, install, deletion or execution in this checkout."
+      },
+      {
+        "repository": "uibcdf/depdigest",
+        "head": "032d345becf8",
+        "ahead": 0,
+        "behind": 3,
+        "dirty_path_count": 0,
+        "error": "",
+        "disposition": "Preserve all unrelated work; no merge, update, stash, install, deletion or execution in this checkout."
+      },
+      {
+        "repository": "uibcdf/pyunitwizard",
+        "head": "cc51c8e600f7",
+        "ahead": 0,
+        "behind": 1,
+        "dirty_path_count": 0,
+        "error": "",
+        "disposition": "Preserve all unrelated work; no merge, update, stash, install, deletion or execution in this checkout."
+      },
+      {
+        "repository": "uibcdf/molsysmt",
+        "head": "ca3071960af3",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_path_count": 11,
+        "error": "",
+        "disposition": "Only authorized MolSysMT source work."
+      },
+      {
+        "repository": "uibcdf/molsysviewer",
+        "head": "9bc3f2f687b3",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_path_count": 15,
+        "error": "",
+        "disposition": "Preserve all unrelated work; no merge, update, stash, install, deletion or execution in this checkout."
+      },
+      {
+        "repository": "uibcdf/pytest-receptor",
+        "head": "f57a569f132a",
+        "ahead": 0,
+        "behind": 3,
+        "dirty_path_count": 0,
+        "error": "",
+        "disposition": "Preserve all unrelated work; no merge, update, stash, install, deletion or execution in this checkout."
+      },
+      {
+        "repository": "uibcdf/gh-run-receptor",
+        "head": "ecf2881ae0a3",
+        "ahead": 0,
+        "behind": 3,
+        "dirty_path_count": 0,
+        "error": "",
+        "disposition": "Preserve all unrelated work; no merge, update, stash, install, deletion or execution in this checkout."
+      },
+      {
+        "repository": "uibcdf/topomt",
+        "head": "c3f72a9177ab",
+        "ahead": 1,
+        "behind": 254,
+        "dirty_path_count": 0,
+        "error": "",
+        "disposition": "Preserve all unrelated work; no merge, update, stash, install, deletion or execution in this checkout."
+      },
+      {
+        "repository": "uibcdf/pharmacophoremt",
+        "head": "a1ea9cc4025f",
+        "ahead": 0,
+        "behind": 319,
+        "dirty_path_count": 0,
+        "error": "",
+        "disposition": "Preserve all unrelated work; no merge, update, stash, install, deletion or execution in this checkout."
+      },
+      {
+        "repository": "uibcdf/elastnetmt",
+        "head": "8a54148945fa",
+        "ahead": 0,
+        "behind": 14,
+        "dirty_path_count": 0,
+        "error": "",
+        "disposition": "Preserve all unrelated work; no merge, update, stash, install, deletion or execution in this checkout."
+      },
+      {
+        "repository": "uibcdf/bindingmt",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_path_count": 0,
+        "error": "repository checkout is missing",
+        "disposition": "Preserve all unrelated work; no merge, update, stash, install, deletion or execution in this checkout."
+      },
+      {
+        "repository": "uibcdf/ackredit",
+        "head": "6421d573600a",
+        "ahead": 0,
+        "behind": 3,
+        "dirty_path_count": 0,
+        "error": "",
+        "disposition": "Preserve all unrelated work; no merge, update, stash, install, deletion or execution in this checkout."
+      },
+      {
+        "repository": "uibcdf/lindelint",
+        "head": "1d418e2f7a2d",
+        "ahead": 0,
+        "behind": 14,
+        "dirty_path_count": 0,
+        "error": "",
+        "disposition": "Preserve all unrelated work; no merge, update, stash, install, deletion or execution in this checkout."
+      },
+      {
+        "repository": "uibcdf/molsys-ai",
+        "head": "477f96defff5",
+        "ahead": 0,
+        "behind": 60,
+        "dirty_path_count": 0,
+        "error": "",
+        "disposition": "Preserve all unrelated work; no merge, update, stash, install, deletion or execution in this checkout."
+      },
+      {
+        "repository": "uibcdf/opencastp",
+        "head": "3a8f2508a5bf",
+        "ahead": 0,
+        "behind": 164,
+        "dirty_path_count": 0,
+        "error": "",
+        "disposition": "Preserve all unrelated work; no merge, update, stash, install, deletion or execution in this checkout."
+      },
+      {
+        "repository": "uibcdf/peptidemt",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_path_count": 0,
+        "error": "repository checkout is missing",
+        "disposition": "Preserve all unrelated work; no merge, update, stash, install, deletion or execution in this checkout."
+      },
+      {
+        "repository": "uibcdf/allomt",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_path_count": 0,
+        "error": "repository checkout is missing",
+        "disposition": "Preserve all unrelated work; no merge, update, stash, install, deletion or execution in this checkout."
+      }
+    ],
+    "shared_central_worktree": "Active unrelated edits observed and preserved; clean owned published source used for synchronization. Other teams can change their own work concurrently; no claim of global worktree immutability."
+  },
+  "notebook": {
+    "existing_delivery": "5afa582f8cbd4b7c59c7be1fb05fb5063141ece4",
+    "development_floor": "ipykernel>=7.4.0",
+    "core_or_production_dependency_change": false,
+    "new_shared_prefix_or_kernel_execution": false,
+    "new_public_note": "docs/content/user/foundations/entrance/installation.md",
+    "already_public_notes": "docs/content/about/installation.md",
+    "routes_inspected": {
+      "owned_receiver": "Explicit selected sys.executable in private kernelspec argv; actual loaded origin retained after bootstrap.",
+      "documentation": "Jupyter nbconvert resolves the notebook-selected kernelspec; server and kernel prefixes can differ. No global kernel upgraded or guessed from parent metadata."
+    },
+    "reused_accepted_normal_startup": {
+      "public_commit": "7d88b56a6514dc1509ae0cfb85bb77ca1b12c0c9",
+      "public_file": "devguide/initial_canvas_edge_receiving_20261115.json",
+      "sha256": "9aa8f06b5d7c29bb6b2a9c320141a2a11da9899ff119628d1136c446d8691ec9",
+      "custody_files_hash_verified": 37,
+      "recorded_loaded_kernel_version": "7.4.0",
+      "recorded_loaded_kernel_init_sha256": "ec5345c0a0d8b78de253fb60e1b15173c0c344a7c5ca2d4c7d0bb9978964c07a",
+      "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+      "molsysmt_source": "bc5a9297a762d451742734f9e11c7f54c6a832a0",
+      "viewer_source": "6f80cc915a9f44b6eb47ace336fa543c9e0b35e1",
+      "owner_native_exit": 0,
+      "atom_count": 3983,
+      "run_to_new_draw_ms": 10788.400000095367,
+      "original_deadline_seconds": 30,
+      "inputs_unchanged": true
+    },
+    "historical_cause": "The original #615 timeout remains unproven; accepted controlled/normal evidence is not rewritten.",
+    "selected_guards": {
+      "selector": "devtools/tests/test_jupyter_host_contract.py",
+      "native_exit": 0,
+      "counts": {
+        "collected": 2,
+        "deselected": 0,
+        "errors": 0,
+        "executed": 2,
+        "failed": 0,
+        "not_executed": 0,
+        "passed": 2,
+        "reruns": 0,
+        "skipped": 0,
+        "subtests": {},
+        "warnings": 0,
+        "xfailed": 0,
+        "xpassed": 0
+      },
+      "same_run_junit_passed": 2,
+      "artifact_policy": {
+        "dropped_records": 0,
+        "max_bytes": 52428800,
+        "truncated": false
+      },
+      "integrity": {
+        "algorithm": "sha256",
+        "digest": "3e6f60b538d2e8df8ef78c1a4d35c2cff6b8bb1030bba55703cd263851f28266",
+        "records": 7
+      }
+    },
+    "central_baseline": "Owner-reported central 4ba79c9562716fc05e8040e1be8c387799a96e19; not independently rerun or substituted for MolSysMT source/browser/installed qualification."
+  },
+  "executions": [
+    {
+      "phase": "checks",
+      "source_commit": "b8c7984748f2ca87d19911f4cc3bf63b688d3641",
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "./.pytest_cache/policy-764-20261115/selected.py"
+      ],
+      "native_exit": 0,
+      "seconds": 35.26007782435045,
+      "checked_inputs": 3934,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 412602368,
+      "minimum_host_available_bytes": 16255864832,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null
+    },
+    {
+      "phase": "html",
+      "source_commit": "b8c7984748f2ca87d19911f4cc3bf63b688d3641",
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "sphinx",
+        "-W",
+        "--keep-going",
+        "-E",
+        "-a",
+        "-b",
+        "html",
+        "-q",
+        "-j",
+        "1",
+        "docs",
+        "./.pytest_cache/policy-764-20261115/html"
+      ],
+      "native_exit": 0,
+      "seconds": 157.0486919931136,
+      "checked_inputs": 3934,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2726297600",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 1277448192,
+      "minimum_host_available_bytes": 13422100480,
+      "maximum_memory_pressure_avg10": 2.96,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null
+    }
+  ],
+  "quality": {
+    "passed": true,
+    "commands": [
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "seconds": 25.517976481933147,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          4.0s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        6.2s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.7s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.3s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.2s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.6s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            0.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   2.0s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.2s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.1s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.4s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/generate_converter_arguments.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 6.332082240842283,
+        "stdout": "OK: the committed table matches the converters.\nTarget forms: 96 | keywords per target: min 6, max 23, mean 10.3\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.10525170806795359,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.0961720091290772,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "--extend-exclude",
+          ".aws",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.09449978685006499,
+        "stdout": "4746 files already formatted\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.033256910275667906,
+        "stdout": "",
+        "stderr": ""
+      }
+    ]
+  },
+  "actual_documentation": {
+    "html_count": 1401,
+    "articles": [
+      {
+        "path": ".pytest_cache/policy-764-20261115/html/content/user/foundations/entrance/installation.html",
+        "sha256": "0b46f999b4c72faeefc738ab00e49098e59944364069b77dc1eef96898aab315",
+        "existing_headings_and_anchors_preserved": true,
+        "corrected_kernel_requirement_rendered": true,
+        "intended_notebook_notes_link_received": true
+      },
+      {
+        "path": ".pytest_cache/policy-764-20261115/html/content/about/installation.html",
+        "sha256": "ec7b170b78524cbbd09f883ea89d11b88a44f192725def0ada921f06d1c361d2",
+        "existing_headings_and_anchors_preserved": true,
+        "corrected_kernel_requirement_rendered": true,
+        "intended_notebook_notes_link_received": false
+      }
+    ]
+  },
+  "board_checkpoint": {
+    "complete_paginated_non_pr_issues": 685,
+    "open_issues_before_adoption_closeouts": 95,
+    "open_prs": 0,
+    "latest_issue": 766,
+    "new_correctness_reports_after_766": []
+  },
+  "retained_artifacts_sha256": {
+    ".pytest_cache/policy-764-20261115/conformance-before.json": "73b551ce6fedc14c7b9cb2ff02ba2bf9f42c2b7c43f4e4f059c9901a203054d6",
+    ".pytest_cache/policy-764-20261115/conformance-after.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    ".pytest_cache/policy-764-20261115/policy-adoption-local.json": "ce73ece5f3e347fbc72f675afb39b75251e04ba6f2875cc98d9c14d80512c495",
+    ".pytest_cache/policy-764-20261115/quality-results.json": "e6ec1f00f79b082c5dd93b172cd3596ae9b2a4df4bacccfdc4a9d0313d67b05f",
+    ".pytest_cache/policy-764-20261115/focused.events.jsonl": "a1f653aa5952a7c457c6d9356aec150f0e138478797656ce77ee27abd516aae1",
+    ".pytest_cache/policy-764-20261115/focused.xml": "0c9eb10050958cb45d590c4bd06b625820567a299c7da5e1033a8f4cecfc745c",
+    ".pytest_cache/policy-764-20261115/actual-installation-html.json": "e0542ec9ab517ab774c943a7665662515c4498afc1c85cd6f9e45f3c9227aa94",
+    ".pytest_cache/policy-764-20261115/complete-issues.json": "41a6d68525d0b86ebb4153b30cae1fffd7c6f40909f7a7dc096d208035b4e651",
+    ".pytest_cache/policy-764-20261115/complete-open-prs.json": "a930ec39e7339fde7af6a7f1009d621c595aab52ec9324dde1e8387212ae64aa",
+    ".pytest_cache/mmcif-763-20261115/client.log": "424677079701ef5f08305b598bc7c6a4a64d6fd348e4a3a4965f1b567b6b8490",
+    ".pytest_cache/mmcif-763-20261115/client-execution.json": "e1de76bb124696c28bae911bfca40fb00ac1abdfd19edd815169c89c153c9a3c",
+    ".pytest_cache/mmcif-763-20261115/focused.log": "a42916fba3303b17f841a038b30f6654386424e83c48ed0ed290ea499163ae34",
+    ".pytest_cache/policy-764-20261115/checks-execution.json": "4f3fc52331d88facb64f729c655e5ddea3fb124e0d318261fa536c5c6ad5322b",
+    ".pytest_cache/policy-764-20261115/checks-inputs-before.json": "d491018ab27b0a3c2e07a8d14945016e817da35b349928950746a0e25d52cc2c",
+    ".pytest_cache/policy-764-20261115/checks-inputs-after.json": "d491018ab27b0a3c2e07a8d14945016e817da35b349928950746a0e25d52cc2c",
+    ".pytest_cache/policy-764-20261115/checks-driver.py": "239d1237665fc66373ff3314e2bb8b7d8c1e11ee903d20859adfdcf76c49b3c0",
+    ".pytest_cache/policy-764-20261115/checks.log": "6d79e240ffc1af0dd8bf5ad1a082daf228a7ae719ab77b84d50228a29854718d",
+    ".pytest_cache/policy-764-20261115/html-execution.json": "51b6fa2da5f23820d14cbde183e28e4f1d0c712d98fb2ea9ffe9b83f2b991dbd",
+    ".pytest_cache/policy-764-20261115/html-inputs-before.json": "d491018ab27b0a3c2e07a8d14945016e817da35b349928950746a0e25d52cc2c",
+    ".pytest_cache/policy-764-20261115/html-inputs-after.json": "d491018ab27b0a3c2e07a8d14945016e817da35b349928950746a0e25d52cc2c",
+    ".pytest_cache/policy-764-20261115/html-driver.py": "239d1237665fc66373ff3314e2bb8b7d8c1e11ee903d20859adfdcf76c49b3c0",
+    ".pytest_cache/policy-764-20261115/html.log": "382f82536b1648d7d2520d3a06b0ab3e720a4d958f7a2bbe24e74fa0f0f39b2f"
+  },
+  "limits": [
+    "No new kernel/scientific/browser/installed qualification.",
+    "No new candidate construction, hosted dispatch, tag, promotion or publication.",
+    "New-policy hosted receiving, complete-source/nightly and exact coordinated final-pair gates remain separately pending.",
+    "BindingMT #73 default-write/migration receipt still required or explicitly paused; absence of reply is not acceptance.",
+    "ECI #475 keeps its accepted explicit legacy/experimental scope and unresolved primary-reference work."
+  ],
+  "original_weighted_progress_change": 0
+}
