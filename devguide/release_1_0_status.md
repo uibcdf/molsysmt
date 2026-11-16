@@ -81,8 +81,10 @@ for this documentation/contract preparation; no molecular implementation changes
 
 The nineteen-case provider smoke passes without skips, including all twelve
 original-packet combinations. Client profile 949's 114-pass public report is
-now received by exact Git blob; its raw JUnit/input manifest and the separate
-952 load receipt are not independently received. These scopes remain separate.
+received by exact Git blob. The later 5f6fc2a5 public 952 report receives two
+complete-file headless loads, with 53,592/98,986 atoms and 51,770/102,708
+canonical bonds, matching original input digests. Private raw JUnit/custody
+remain unreceived; rendering and installed/candidate gates remain separate.
 
 MolSysViewer has been asked to confirm the consumption agreement or concrete
 remaining incompatibilities before final producer selection, preserving its

@@ -468,6 +468,48 @@
     ".pytest_cache/pre1-contract-closeout-334-20261115/checks-inputs-before.json": "09a01936f93109fde89f2bdcc1faedb8f56bcdd7407e899f08ca78e88f40799b",
     ".pytest_cache/pre1-contract-closeout-334-20261115/checks-inputs-after.json": "09a01936f93109fde89f2bdcc1faedb8f56bcdd7407e899f08ca78e88f40799b",
     ".pytest_cache/pre1-contract-closeout-334-20261115/checks-driver.py": "f8e8bc871e51247ca142ded90a1b4c8b31cb5c18c613829ab3ee17248d350cbf",
-    ".pytest_cache/pre1-contract-closeout-334-20261115/checks.log": "1d7049179029900de655d2fa9e94d62da1d2dae10bc1ab200eec945a0361f929"
+    ".pytest_cache/pre1-contract-closeout-334-20261115/checks.log": "1d7049179029900de655d2fa9e94d62da1d2dae10bc1ab200eec945a0361f929",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/viewer-public-5f6fc2a5.json": "2d4d1553ad8c7dcbfe807f9c3a5eb1c8c80b66c3e2f1e1d3e22111a339a77849"
+  },
+  "later_public_client_952": {
+    "public_commit": "5f6fc2a5fe3d4466f5a2cd4f608afeaecb23a2f6",
+    "public_path": "devguide/residual_four_issues_receiving_20261116.json",
+    "git_blob": "e643d2704c2f08eb4a0ddba057302ffc8072ceeb",
+    "sha256": "2d4d1553ad8c7dcbfe807f9c3a5eb1c8c80b66c3e2f1e1d3e22111a339a77849",
+    "bytes": 30271,
+    "public_blob_verified": true,
+    "profile": "viewer-complete-cif-load-952",
+    "reported_native_exit": 0,
+    "reported_passed": 2,
+    "reported_failures": 0,
+    "reported_errors": 0,
+    "reported_skipped": 0,
+    "reported_observations": [
+      {
+        "entry": "3WU2",
+        "n_atoms": 53592,
+        "n_entities": 41,
+        "n_structures": 1,
+        "n_bonds": 51770,
+        "frame": 0,
+        "input_sha256": "308668f3ad989ce025b310e9693e47668df6504c8b0809151c383f23f29989b6",
+        "scope": "Whole complete file loaded by public new_view(path), compared with the independently received canonical source conversion. Headless source/data integration, not actual browser or native Qt rendering."
+      },
+      {
+        "entry": "5XNL",
+        "n_atoms": 98986,
+        "n_entities": 42,
+        "n_structures": 1,
+        "n_bonds": 102708,
+        "frame": 0,
+        "input_sha256": "c8e32cae7b6b6950784560b49be64f6c0e343de88183ae235ddde602777c357e",
+        "scope": "Whole complete file loaded by public new_view(path), compared with the independently received canonical source conversion. Headless source/data integration, not actual browser or native Qt rendering."
+      }
+    ],
+    "provider_source": "b8c7984748f2ca87d19911f4cc3bf63b688d3641",
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "private_raw_junit_received": false,
+    "private_custody_replayed": false,
+    "scope": "Public report received with Git-blob and source-input digest checks; client-reported headless complete-file msv.new_view loading compared with canonical conversion. Not actual rendering, an independent chemistry oracle, installed/platform or final candidate acceptance."
   }
 }

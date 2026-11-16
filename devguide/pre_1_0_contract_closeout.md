@@ -21,8 +21,12 @@ identical implementation bytes. This is a Git-tree comparison, not new runtime
 or installed compatibility evidence. The mmCIF correction has its own original-
 file guards and client profile 949 (114 passing cases). Its immutable public
 report is received and Git-blob verified; private raw JUnit/input manifests
-are not replayed. Reported complete MolSysViewer loading 952 remains separate
-until its public receipt is available.
+are not replayed. The later public receipt
+5f6fc2a5 receives 952's two complete-file msv.new_view loads: 53,592 atoms /
+51,770 canonical bonds for 3WU2 and 98,986 atoms / 102,708 bonds for 5XNL.
+Both original input digests match the owner manifest. These are reported
+headless data-integration outcomes, not rendered or installed qualification;
+private raw JUnit and custody files are not replayed here.
 
 The [contract receipt](../devtools/data/pre_1_0_contract_closeout_334_20261115.json)
 records that comparison, current scoped smoke/quality checks and exact source
