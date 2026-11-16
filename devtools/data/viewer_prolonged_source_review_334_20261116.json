@@ -1,0 +1,412 @@
+{
+  "schema": "molsysmt.viewer_prolonged_source_review@1",
+  "date": "2026-11-16",
+  "owner_issue": "uibcdf/molsysmt#334",
+  "related_issues": [
+    "uibcdf/molsysmt#615",
+    "uibcdf/molsysmt#767",
+    "uibcdf/molsysmt#524"
+  ],
+  "consumer_commit": "303c9152c968a92732589d026798b6b0ae73f550",
+  "molecular_runtime_base": "b84615763867b6f3833c54a516615599503af51f",
+  "provider_source_reported": "4b0b1f8a17e010e5ea9f28a8032a1bb06a1daa69",
+  "owner_source_reviewed": "8e1c6403d04cb5e207366f7b3ecc85c36b6784ce",
+  "public_report": {
+    "path": "devguide/residual_four_issues_receiving_20261116.json",
+    "git_blob": "15e5be38b4ec6c71af0a14f1f855f8d9344f36cf",
+    "sha256": "87416fa9db67e917fe3c7e0ca9cb91820ea8b377976f357de7caae9e81fcfb1a",
+    "bytes": 87074,
+    "git_blob_verified": true
+  },
+  "source_comparison": {
+    "ahead_by": 1,
+    "total_commits": 1,
+    "files_returned": 10,
+    "changed_files": [
+      {
+        "path": ".github/workflows/ci-python-314-source-pair.yaml",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 1
+      },
+      {
+        "path": "devguide/README.md",
+        "status": "modified",
+        "additions": 11,
+        "deletions": 1
+      },
+      {
+        "path": "devguide/archive/README.md",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "path": "devguide/archive/source_workflow_pytest_inventory.md",
+        "status": "added",
+        "additions": 56,
+        "deletions": 0
+      },
+      {
+        "path": "devguide/checkpoints.md",
+        "status": "modified",
+        "additions": 17,
+        "deletions": 1
+      },
+      {
+        "path": "devguide/molstar_closeout_three_blocks_20261115.json",
+        "status": "modified",
+        "additions": 25,
+        "deletions": 15
+      },
+      {
+        "path": "devguide/pending_bugs/recovered_canvas_initial_structure_observation.md",
+        "status": "modified",
+        "additions": 35,
+        "deletions": 0
+      },
+      {
+        "path": "devguide/pending_proposals/pre_1_0_robustness_audit_and_action_plan_20261106.md",
+        "status": "modified",
+        "additions": 14,
+        "deletions": 0
+      },
+      {
+        "path": "devguide/residual_four_issues_receiving_20261116.json",
+        "status": "modified",
+        "additions": 303,
+        "deletions": 2
+      },
+      {
+        "path": "tests/test_python_ecosystem_contract.py",
+        "status": "modified",
+        "additions": 1,
+        "deletions": 1
+      }
+    ],
+    "runtime_changes": [],
+    "owner_molecular_addon_rust_build_input_changes_from_provider": [],
+    "limit": "Immutable Git comparison, not new native/ABI or installed qualification."
+  },
+  "workflow_guard_sources": {
+    ".github/workflows/ci-python-314-source-pair.yaml": {
+      "git_blob": "2a89841c416b2fd4d16747679f6f9f278e1f17a8",
+      "sha256": "edd2aeb66f85f50e667d81cda9d023f218eab244f82fb469cdecba73519633bb",
+      "bytes": 23151,
+      "git_blob_verified": true,
+      "matches_client_digest": true
+    },
+    "tests/test_python_ecosystem_contract.py": {
+      "git_blob": "bd6d27af9b11c634cf6d13fe38621ef7196ed8cc",
+      "sha256": "a9b17c40bd7937d05f2a61db038c910eeae90eb1ff58d52bc6d24f56b76a45c0",
+      "bytes": 5318,
+      "git_blob_verified": true,
+      "matches_client_digest": true
+    }
+  },
+  "workflow_correction_inspected": "Count the fifth actual hosted pytest command and give that command the same executable rerun override; preserve every existing command assertion.",
+  "thirty_cycle_consumer_report": {
+    "profile": "thirty_cycles_987",
+    "seconds": 2051.5941971889697,
+    "selected_inputs": 9997,
+    "inputs_unchanged": true,
+    "peak_owned_rss_mib": 3581.5,
+    "cleanup": {
+      "tracked": 27,
+      "survivors": [],
+      "errors": []
+    },
+    "resource_stop": null,
+    "native_exit": 0,
+    "cycles": 30,
+    "same_kernel": true,
+    "browser_seconds": 2039.586,
+    "active_seconds_min": 10.071800000190734,
+    "distinct_native_frames_min": 6,
+    "pre_save_authority_sequence": [
+      4999,
+      0,
+      1
+    ],
+    "pre_save_index_one_in_every_cycle": true,
+    "result_sha256": "cd1e62128b67dfcffd7a8a8a5c3e214d99b5514ba8896219f14768a81e4b7ac6",
+    "baseline_page_errors": {
+      "classification": "plain_jupyter_debugger_session_baseline",
+      "plain_control_observations": 1,
+      "molecular_campaign_observations": 182,
+      "exact_owner_fingerprint_match": true,
+      "zero_page_error_claim": false
+    },
+    "kernel_provenance": {
+      "launcher_metadata": "ipykernel 7.3.0 in the legacy prefix",
+      "actual_kernel": "original isolated ipykernel 7.4.0, independently verified in every pre-save trace",
+      "node_version": "22.23.4",
+      "physical_node_sha256": "94efd062ed066c1a0b332e18249859c905e920eeada5df55d24c99b919629a90"
+    },
+    "instrumentation": "Original owner browser/predicates/assertions and deadlines. Only isolated kernel selection, bounded public weak callbacks and pre-assert authority observation; no waiting for authority, seek repair, retry, held communication or timing delegate.",
+    "driver_sha256": {
+      "test_prolonged_current_4b0_authority_20261116.py": "a4dad4237637693546fbb62dd438a55d038dfb51a3dfa615b60d7471be023686",
+      "test_prolonged_30_current_4b0_authority_20261116.py": "3309c76efa8c3e666da26d9e7d0b455bb6956b8803c06451ba54f5551bfef938",
+      "prolonged_current_4b0_740_node_20261116.py": "c8539b197430068f4ae6decfcfd0cdbeba7469a03164da2f19fbf94e9a675c49"
+    },
+    "scope": "Automated source composition, actual isolated 7.4.0 kernel, real anywidget/Mol*/Chromium SwiftShader, retained support. Not a shared-prefix upgrade, clean installed pair, native Qt, human or final-candidate acceptance.",
+    "historical_disposition": "Current thirty-cycle non-recurrence received; original pre-save zero cause remains unknown. Keep issue partial. No reconstruction or production repair claim."
+  },
+  "single_cycle_limit": "The preceding admission repeats one of the cohort conditions and is not an additional disjoint thirty-cycle campaign.",
+  "consumer_workflow_controls_reported": {
+    "passed": 518,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "native_exit": 0,
+    "seconds": 7.733125022612512,
+    "selected_inputs": 9996,
+    "inputs_unchanged": true,
+    "resource_stop": null,
+    "cleanup": {
+      "tracked": 2,
+      "survivors": [],
+      "errors": []
+    },
+    "limit": "1 logical CPU / 1 GiB, no swap; seven affected cases are included, not additional disjoint passes",
+    "junit_sha256": "d6f29a53525d8fcf29246a112892f43a8ab3a7b4aaf6ca2db851ea690e2141b3"
+  },
+  "previous_attempts_retained": {
+    "517_pass_one_failure": "The client archive-link check originally failed while its new archive record was untracked; the later staged check does not erase that attempt.",
+    "earlier_counterfactual": "The initial private failure-message assertion was wrong for Python 3.14; the corrected real guard negatives and positive retain separate scope.",
+    "source_43796373853": "The earlier mixed browser/notebook diagnostic remains failed."
+  },
+  "source_ci": {
+    "failed_run": {
+      "id": 43816742412,
+      "attempt": 1,
+      "head_sha": "b84615763867b6f3833c54a516615599503af51f",
+      "status": "completed",
+      "conclusion": "failure",
+      "verification": "GH Run Receptor 1.1.1 metadata capture complete; offline CI replay reports FAIL and all three jobs fail at Run MolSysViewer Python tests. No log/scientific replay.",
+      "replay_native_exit": 1,
+      "replay_exit_meaning": "Expected receptor FAIL classification for the original unsuccessful source run, not a new local test failure.",
+      "reported_failing_test": "tests/test_python_ecosystem_contract.py::test_every_hosted_pytest_command_selects_ci_and_an_executable_rerun[ci-python-314-source-pair.yaml]",
+      "reported_browser_and_notebook_scope": "not reached",
+      "cause_limit": "Exact metatest failure and published JUnit totals are consumer assertions; the owner independently verified source patches and official failed job/step metadata."
+    },
+    "replacement_observed_utc": "2026-11-16T07:27:20.374169+00:00",
+    "replacement": {
+      "id": 43823224361,
+      "head_sha": "303c9152c968a92732589d026798b6b0ae73f550",
+      "status": "in_progress",
+      "conclusion": null,
+      "jobs": [
+        {
+          "name": "Source pair on ubuntu-latest, Python 3.14",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "name": "Source pair on windows-2025, Python 3.14",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "name": "Source pair on macos-15, Python 3.14",
+          "status": "in_progress",
+          "conclusion": null
+        }
+      ],
+      "url": "https://github.com/uibcdf/molsysviewer/actions/runs/43823224361",
+      "scope": "Already dispatched by the consumer; one status-only native query, no dispatch/rerun/cancel. No terminal or final-pair acceptance."
+    }
+  },
+  "verification_limits": [
+    "Report and two actual guard/workflow sources authenticated against Git blobs and client SHA-256 declarations.",
+    "The 30-cycle summary is an immutable consumer report; private per-cycle traces, raw browser files and execution receipts were not independently replayed or received.",
+    "Current same-kernel non-recurrence does not establish the original pre-save-zero cause. The plain-Jupyter debugger fingerprint remains observed; no zero-page-error claim.",
+    "Three-platform Python 3.14 source CI is not the required exact final source/scientific/native/documentation and sixteen-cell installed-pair qualification."
+  ],
+  "remaining": {
+    "molsysviewer_354": "Partial historical issue; current thirty-cycle non-recurrence reported, exact original cause unknown.",
+    "molsysviewer_400": "Consumer-owned multicanvas HTML startup; no demonstrated MolSysMT scientific defect.",
+    "molsysmt": "#768 governance receiving and #524 final compatible producer/artifact closure, then mandatory #334 gates. No candidate/publication pause lifted."
+  },
+  "original_weighted_progress_percent": 80.23809523809524,
+  "original_weighted_progress_change": 0,
+  "workspace": {
+    "official_tool_source": "8f76336c25f2974ae632fd486b65c9ddd10fd4bd",
+    "members": 19,
+    "states": [
+      {
+        "repository": "uibcdf/smonitor",
+        "head": "c401281af15f",
+        "ahead": 0,
+        "behind": 4,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/argdigest",
+        "head": "7e92a06ebbfe",
+        "ahead": 0,
+        "behind": 4,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/depdigest",
+        "head": "032d345becf8",
+        "ahead": 0,
+        "behind": 4,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/pyunitwizard",
+        "head": "cc51c8e600f7",
+        "ahead": 0,
+        "behind": 2,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/molsysmt",
+        "head": "8e1c6403d04c",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/molsysviewer",
+        "head": "303c9152c968",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 7,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/pytest-receptor",
+        "head": "f57a569f132a",
+        "ahead": 0,
+        "behind": 4,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/gh-run-receptor",
+        "head": "ecf2881ae0a3",
+        "ahead": 0,
+        "behind": 4,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/topomt",
+        "head": "c3f72a9177ab",
+        "ahead": 1,
+        "behind": 257,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/pharmacophoremt",
+        "head": "a1ea9cc4025f",
+        "ahead": 0,
+        "behind": 326,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/elastnetmt",
+        "head": "8a54148945fa",
+        "ahead": 0,
+        "behind": 15,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/bindingmt",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      },
+      {
+        "repository": "uibcdf/ackredit",
+        "head": "6421d573600a",
+        "ahead": 0,
+        "behind": 4,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/lindelint",
+        "head": "1d418e2f7a2d",
+        "ahead": 0,
+        "behind": 15,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/molsys-ai",
+        "head": "477f96defff5",
+        "ahead": 0,
+        "behind": 61,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/opencastp",
+        "head": "3a8f2508a5bf",
+        "ahead": 0,
+        "behind": 174,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/peptidemt",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      },
+      {
+        "repository": "uibcdf/allomt",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      },
+      {
+        "repository": "uibcdf/molsyssketcher",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      }
+    ],
+    "disposition": "Every dirty/ahead/behind/missing state preserved. No other worktree, shared prefix, host configuration or native artifact modified."
+  },
+  "local_custody": {
+    "path": ".pytest_cache/viewer-303-prolonged-334-20261116",
+    "review_date": "2026-11-23",
+    "public_inputs_recoverable": true,
+    "sha256": {
+      "public-report.json": "87416fa9db67e917fe3c7e0ca9cb91820ea8b377976f357de7caae9e81fcfb1a",
+      "source-comparison.json": "7c1731592807a7c695317827d122ccdd23851b42fbe1c8d8fd4e0de9832dfa43",
+      "replacement-status.json": "9bca36789e2c5c7fba8272b4bc8e8771c90ad7f15aca544220c818655b1a65c4",
+      "failed-source-receptor.txt": "0442d3452e6528fef6193257192938be49ba4e6b4ca2f92472833e0fae1d26b2",
+      "guard-sources.json": "ae1200d7120bc8f03322155e5866d72dd12179bf2d520331d51d1aee6f2ee9dc",
+      "workspace-status.json": "6437d7e26ac2d0169c423f7277b71618263640913a7d1a1976d5af624043cc72",
+      "failed-source-bundle/jobs.json": "b4c04ffca91c8a315a46393d9950f2c4a1d44cfa231bdd2a39cf7fe41237b2ad",
+      "failed-source-bundle/config.json": "58c4554df6a9951121ede5bcb24c48d7d4972a7291c289c44bc403a4b10b33be",
+      "failed-source-bundle/run.json": "457f0840ab3ab62d31ca4132795e316c7266bfa303255c33460d6e411f39760c",
+      "failed-source-bundle/workflow.json": "c27cebaf6f0a84c61cf1f516294f48e9939de63ba0cde72d2e340582ac9e20e6",
+      "failed-source-bundle/checks.json": "66b7266b23bc4e6c4169252bd330fb10d7eedc5adef146031be3cfcd737e0f05",
+      "failed-source-bundle/artifacts.json": "1a3026b1e5de5d0badcb0be1c06a26c6a82d5a17298a5d0b69001fba43991b30",
+      "failed-source-bundle/manifest.json": "f6dc6ebc98af776df148d90823c6112cf3272790939f6137cc0681e24d23f2e8"
+    }
+  }
+}

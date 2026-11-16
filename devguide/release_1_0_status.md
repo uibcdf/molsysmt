@@ -66,6 +66,38 @@ have source receiving, separate from human/installed/platform qualification.
 The accepted initial-canvas disposition now gives **80.2381% (approximately 80.2%)**.
 The dated percentages below remain historical, not the current score.
 
+## MolSysViewer thirty-cycle report and workflow correction — 2026-11-16
+
+MolSysViewer's immutable `303c9152c968a92732589d026798b6b0ae73f550`
+report completes the previously pending same-kernel campaign: **30/30 cycles**,
+Python structure indices **4999 → 0 → 1** before saving in every cycle, both
+popups, recovery, at least ten seconds of playback and retirement. The team
+reports 2,051.59 seconds under four CPU/four GiB, unchanged 9,997 inputs,
+27 retired processes and no resource stop. The
+[bounded owner review](../devtools/data/viewer_prolonged_source_review_334_20261116.json)
+authenticates the public report; private per-cycle traces and execution records
+are not replayed. The plain-Jupyter debugger fingerprint remains observed.
+Current non-recurrence supports the recorded source/kernel composition, while
+the original #354 pre-save-zero cause remains unknown and that issue partial.
+
+GH Run Receptor independently receives **43816742412 as FAIL**: all three
+jobs fail at the Python-test step. The reported metatest expected four hosted
+pytest commands after a fifth was added; the fifth also lacked its executable
+rerun override. Both published guard/workflow hashes and the actual two-line
+correction are verified. The ten-file immutable comparison contains those two
+code lines and documentation; MolSysViewer runtime bytes are unchanged from
+`b8461576`. The team reports 518 corrected controls passing; the earlier failed
+attempts remain preserved.
+
+The unique replacement **43823224361** is still running in the single acquired
+status observation, at exact consumer `303c9152`, on Linux/macOS/Windows and
+Python 3.14. The reported MolSysMT pin remains `4b0b1f8a1`, whose molecular,
+addon, Rust and build-input bytes remain identical through owner `8e1c6403d`.
+No new MolSysMT runtime change or scientific defect is requested. #400 remains
+consumer-owned. Final exact-pair gates and the construction/publication pause
+remain; original weighted progress stays **80.2381%**. Earlier pending snapshots
+below retain their original observation times and conclusions.
+
 ## MolSysViewer source delivery received — 2026-11-16
 
 MolSysViewer publishes `b84615763867b6f3833c54a516615599503af51f`
