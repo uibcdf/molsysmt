@@ -12,7 +12,9 @@ import importlib.metadata
 import json
 import math
 import os
+import re
 import secrets
+import shutil
 import socket
 import subprocess
 import sys
@@ -23,6 +25,42 @@ from urllib.error import URLError
 from urllib.request import Request, urlopen
 
 _PROLONGED_BROWSER_TIMEOUT_SECONDS = 2400
+
+
+def _resolve_node_executable(requested):
+    """Resolve exactly the CLI/environment choice, or Node from PATH."""
+    if requested is not None and not requested:
+        raise ValueError("The selected Node executable must not be empty.")
+    executable = shutil.which("node" if requested is None else requested)
+    if executable is None:
+        raise ValueError(
+            "Node executable was not found or is not executable; use --node, "
+            "MOLSYSVIEWER_NODE or the receiving environment's PATH."
+        )
+    return str(Path(executable).resolve())
+
+
+def _node_version(executable):
+    """Probe only the selected executable with a finite preparation timeout."""
+    try:
+        version = subprocess.check_output(
+            [executable, "--version"], text=True, stderr=subprocess.STDOUT, timeout=10
+        ).strip()
+    except (OSError, subprocess.CalledProcessError, subprocess.TimeoutExpired) as error:
+        raise ValueError(
+            f"Cannot obtain the selected Node executable's version: {executable}."
+        ) from error
+    if (
+        re.fullmatch(
+            r"v[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?",
+            version,
+        )
+        is None
+    ):
+        raise ValueError(
+            f"Selected executable did not report a Node version: {executable}."
+        )
+    return version
 
 
 def _record_molecular_imports(output):
@@ -387,7 +425,10 @@ def main():
         default="system",
     )
     parser.add_argument("--length-standard", choices=("nm", "pm"), default="nm")
-    parser.add_argument("--node", default="/usr/bin/node")
+    parser.add_argument(
+        "--node",
+        help="Node executable; overrides MOLSYSVIEWER_NODE, then node on PATH.",
+    )
     parser.add_argument(
         "--chromium",
         default=os.environ.get("PW_CHROMIUM_BIN", "/usr/bin/google-chrome"),
@@ -409,6 +450,15 @@ def main():
             "Requested active playback must leave time within the "
             f"{_PROLONGED_BROWSER_TIMEOUT_SECONDS}-second browser deadline."
         )
+    node_request = args.node
+    node_selection = "CLI"
+    if node_request is None:
+        node_request = os.environ.get("MOLSYSVIEWER_NODE")
+        node_selection = "environment" if node_request is not None else "PATH"
+    try:
+        args.node = _resolve_node_executable(node_request)
+    except ValueError as error:
+        parser.error(str(error))
     source = Path(__file__).resolve().parents[2]
     viewer = args.viewer_root.resolve()
     output = args.output.resolve()
@@ -1230,6 +1280,10 @@ def main():
     (output / "notebooks/plain.ipynb").write_text(
         json.dumps(_notebook(["print('PLAIN_JUPYTER_CONTROL_OK', 1 + 1)\n"]))
     )
+    try:
+        node_version = _node_version(args.node)
+    except ValueError as error:
+        parser.error(str(error))
     (output / "environment.json").write_text(
         json.dumps(
             {
@@ -1238,9 +1292,13 @@ def main():
                     name: importlib.metadata.version(name)
                     for name in ("jupyterlab", "ipykernel", "anywidget", "ipywidgets")
                 },
-                "node": subprocess.check_output(
-                    [args.node, "--version"], text=True
-                ).strip(),
+                "node": node_version,
+                "node_runtime": {
+                    "selection": node_selection,
+                    "requested": "node" if node_request is None else node_request,
+                    "executable": args.node,
+                    "version": node_version,
+                },
             },
             indent=2,
         )

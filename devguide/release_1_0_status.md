@@ -65,6 +65,18 @@ have source receiving, separate from human/installed/platform qualification.
 The accepted initial-canvas disposition now gives **80.2381% (approximately 80.2%)**.
 The dated percentages below remain historical, not the current score.
 
+## Incoming actual-Jupyter executable portability — 2026-11-15
+
+#767 is an admitted receiving blocker reported by MolSysViewer: the opt-in
+owner pytest wrapper reaches a hardcoded /usr/bin/node before any Jupyter
+cycle. The [owner report](archive/resolved_bugs/jupyter_receiver_assumes_a_global_node_path.md)
+retains the independently reproduced original failure and bounded correction.
+The portable CLI/environment/PATH selection and path/version record now pass
+94 controls, with a separately received real Node version/prefix probe. Keep
+the current consumer's actual one-cycle receiving separate. No symlink,
+shared-prefix mutation, product/scientific change, new GUI execution or
+historical #354 cause is supplied by this launcher repair.
+
 ## Finite contract offer for the final review handoff — 2026-11-15
 
 The [single closeout packet](pre_1_0_contract_closeout.md) now maps current

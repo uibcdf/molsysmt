@@ -1,0 +1,436 @@
+{
+  "schema": "molsysmt.jupyter-node-selection@1",
+  "date": "2026-11-15",
+  "owner_issue": "uibcdf/molsysmt#767",
+  "consumer_issues": [
+    "uibcdf/molsysviewer#315",
+    "uibcdf/molsysviewer#354",
+    "uibcdf/molsysviewer#399"
+  ],
+  "source_basis": "08442cb1496c8f6698ccc17ae1f7d21566d8713b",
+  "scope": "Receiving-only standard-library CLI/runtime selection. No production/API/dependency/native/environment change.",
+  "changed_guard_sha256": {
+    "tests/molsysviewer_molsysmt/system_panel_jupyter.py": "8932a621a4dea719839873194d2a7dac4d1d937427773c92ce7f3f9d81bf88e1",
+    "tests/molsysviewer_molsysmt/jupyter_receiving_guard.py": "0b2d07fe45d8f66c14130263c76b8dd6bc8d9039c3f814edb37296f3dd0254bc",
+    "tests/molsysviewer_molsysmt/test_jupyter_node_selection.py": "d810af08dbbc072217a8cd789840bc10643d8a2ce4eb2664302a5cb94340d160",
+    "tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py": "fbce8ff0a3b4ff7e6ade982286b2226dd9f9e1c02a5d240d54cde5abea310233"
+  },
+  "policy": {
+    "priority": [
+      "explicit --node",
+      "MOLSYSVIEWER_NODE",
+      "node from selected PATH"
+    ],
+    "invalid_explicit_choice": "Clear failure without fallback. Missing/nonexecutable selections reject before creating output.",
+    "version_probe": "Selected executable only, timeout10 seconds, require Node version syntax; errors reject before Jupyter starts.",
+    "record": "Retain node version string; additive node_runtime selection/requested/executable/version.",
+    "same_executable": "Resolved absolute executable drives both the version probe and JavaScript entry.",
+    "qualified_version": "Selected host profile remains responsible for supported Node versions; no universal-version GUI acceptance."
+  },
+  "executions": [
+    {
+      "phase": "baseline",
+      "source_commit": "08442cb1496c8f6698ccc17ae1f7d21566d8713b",
+      "native_exit": 1,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/node-767-20261115/baseline.xml",
+        "--receptor-events=./.pytest_cache/node-767-20261115/baseline.events.jsonl",
+        "tests/molsysviewer_molsysmt/test_jupyter_node_selection.py"
+      ],
+      "seconds": 7.350086034275591,
+      "checked_inputs": 3928,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 152866816,
+      "minimum_host_available_bytes": 18258190336,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "afdff8058fc09f76563f1e1b33b15dca9c90049817de211c630dd4e9ae2791f3",
+      "pytest": {
+        "counts": {
+          "collected": 1,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 1,
+          "failed": 1,
+          "not_executed": 0,
+          "passed": 0,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "exitstatus": 1,
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "0a8a0dda18bad313aa22674d72316b284490409427936325fa839cebd8940691",
+          "records": 5
+        }
+      },
+      "same_invocation_junit": {
+        "failed": 1,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 0
+      }
+    },
+    {
+      "phase": "corrected",
+      "source_commit": "08442cb1496c8f6698ccc17ae1f7d21566d8713b",
+      "native_exit": 0,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/node-767-20261115/corrected.xml",
+        "--receptor-events=./.pytest_cache/node-767-20261115/corrected.events.jsonl",
+        "tests/molsysviewer_molsysmt/test_jupyter_node_selection.py",
+        "tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py"
+      ],
+      "seconds": 4.233084432315081,
+      "checked_inputs": 3928,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 146182144,
+      "minimum_host_available_bytes": 17353437184,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "afdff8058fc09f76563f1e1b33b15dca9c90049817de211c630dd4e9ae2791f3",
+      "pytest": {
+        "counts": {
+          "collected": 56,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 56,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 56,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "exitstatus": 0,
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "87f35e833b5451a9fc7ae45e5ee3216ac78dd4d9dcd9ffcffc05cb8d9500d800",
+          "records": 169
+        }
+      },
+      "same_invocation_junit": {
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 56
+      }
+    },
+    {
+      "phase": "cohort",
+      "source_commit": "08442cb1496c8f6698ccc17ae1f7d21566d8713b",
+      "native_exit": 0,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/node-767-20261115/cohort.xml",
+        "--receptor-events=./.pytest_cache/node-767-20261115/cohort.events.jsonl",
+        "tests/molsysviewer_molsysmt/test_jupyter_node_selection.py",
+        "tests/molsysviewer_molsysmt/test_jupyter_runtime_files.py",
+        "tests/molsysviewer_molsysmt/test_jupyter_stage_diagnostics.py",
+        "tests/molsysviewer_molsysmt/test_jupyter_import_observer.py",
+        "tests/molsysviewer_molsysmt/test_initial_canvas_acceptance.py",
+        "tests/molsysviewer_molsysmt/test_prolonged_memory_receipt.py"
+      ],
+      "seconds": 22.24891522480175,
+      "checked_inputs": 3932,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 196100096,
+      "minimum_host_available_bytes": 17529032704,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "afdff8058fc09f76563f1e1b33b15dca9c90049817de211c630dd4e9ae2791f3",
+      "pytest": {
+        "counts": {
+          "collected": 94,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 94,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 94,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "exitstatus": 0,
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "8a94d631f5023877f9b7a32966324e7d57673d3ffdc26f13a6ee3fde44968637",
+          "records": 283
+        }
+      },
+      "same_invocation_junit": {
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 94
+      }
+    },
+    {
+      "phase": "receiving",
+      "source_commit": "08442cb1496c8f6698ccc17ae1f7d21566d8713b",
+      "native_exit": 0,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "./.pytest_cache/node-767-20261115/real_probe.py"
+      ],
+      "seconds": 1.228620977140963,
+      "checked_inputs": 3932,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 30085120,
+      "minimum_host_available_bytes": 17152241664,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "afdff8058fc09f76563f1e1b33b15dca9c90049817de211c630dd4e9ae2791f3"
+    },
+    {
+      "phase": "checks",
+      "source_commit": "08442cb1496c8f6698ccc17ae1f7d21566d8713b",
+      "native_exit": 0,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "./.pytest_cache/node-767-20261115/quality.py"
+      ],
+      "seconds": 56.26953707262874,
+      "checked_inputs": 3932,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 559906816,
+      "minimum_host_available_bytes": 16767442944,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "afdff8058fc09f76563f1e1b33b15dca9c90049817de211c630dd4e9ae2791f3"
+    }
+  ],
+  "real_node_probe": {
+    "scope": "Actual Linux Node selection/version and owned-prefix alias, no kernel/server/browser/JavaScript workload or universal-version qualification.",
+    "node_executable": "<existing-development-environment>/bin/node",
+    "node_version": "v24.21.0",
+    "node_sha256": "0b1f75449159b4921c65422b5a4841d0fce573a869a6006ec28a7f6ad7a6516d",
+    "owned_prefix_resolves_to_same_binary": true,
+    "owned_alias_removed": true,
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]"
+  },
+  "quality": {
+    "passed": true,
+    "commands": [
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "seconds": 45.54073646571487,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          4.1s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                       12.1s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    6.0s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.4s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.4s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.8s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            1.1s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   6.1s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           1.6s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.2s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.3s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       8.9s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/generate_converter_arguments.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 9.358172790147364,
+        "stdout": "OK: the committed table matches the converters.\nTarget forms: 96 | keywords per target: min 6, max 23, mean 10.3\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.09695246908813715,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.26616401225328445,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "--extend-exclude",
+          ".aws",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.35525156185030937,
+        "stdout": "4747 files already formatted\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.027823918964713812,
+        "stdout": "",
+        "stderr": ""
+      }
+    ]
+  },
+  "guard_scope": {
+    "causal": "Real launcher with custom PATH prefix, synthetic executable protocol and stop before server; original baseline fails.",
+    "selection": "Name/path/space cases, CLI/environment priority, invalid/missing/empty programs, failed/timed/wrong/empty version output.",
+    "wrapper": "Calls the actual prolonged pytest wrapper and launcher to the selected server boundary; preserves360-second wrapper limit. No real Jupyter starts.",
+    "version": "Real Python binary refuses as non-Node; separately receives the actual existing Node --version and owned-prefix alias resolution.",
+    "adjacent": "Runtime-file ownership/cleanup, server budgets, kernel diagnostics, import observation, initial-canvas negative evidence and retirement assertions remain checked.",
+    "counts": "56-case intermediate cohort overlaps final94; do not sum them.",
+    "new_tests": "18 causal/selection/probe/wrapper cases; 76 adjacent controls in final cohort."
+  },
+  "original_remote_attempt": {
+    "reported_run": 43791283994,
+    "reported_provider": "b8c7984748f2ca87d19911f4cc3bf63b688d3641",
+    "reported_client": "84da6b603422fa5f591f34210f3337319e17d71a",
+    "owner_reproduced": "Same forced global path before server startup.",
+    "native_hosted_receiving_repeated_here": false,
+    "original_failure_preserved": true
+  },
+  "limits": [
+    "No molecular/product behavior, science unit/criteria or native kernel change.",
+    "No shared environment or global filesystem link; owned alias removed.",
+    "No Jupyter/kernel/browser/Qt or installed/candidate execution here.",
+    "Consumer actual one-cycle receiving remains separately due; this fixes preparation only.",
+    "No historical #354 cause or final pair qualification claimed.",
+    "Candidate construction/hosted qualification/publication pause remains."
+  ],
+  "original_weighted_progress_change": 0,
+  "retained_artifacts_sha256": {
+    ".pytest_cache/node-767-20261115/baseline.xml": "518144d902f20aecc6b50f1d4f11d3ab673d22364a28ca656059f1a7be710257",
+    ".pytest_cache/node-767-20261115/baseline.events.jsonl": "bf24cb9c90a51011a3d58af241128412f77ea673b76cd884c636b2a96fe78857",
+    ".pytest_cache/node-767-20261115/baseline-execution.json": "f0100ee8bc840fa047101dd7016878fee634680423d6c950076cc17932952f5e",
+    ".pytest_cache/node-767-20261115/baseline-inputs-before.json": "6c8aebc0257d6505c9c44b3b5f05981df13443ff7d101fc1e3dbbe6c6cbc3d78",
+    ".pytest_cache/node-767-20261115/baseline-inputs-after.json": "6c8aebc0257d6505c9c44b3b5f05981df13443ff7d101fc1e3dbbe6c6cbc3d78",
+    ".pytest_cache/node-767-20261115/baseline-driver.py": "afdff8058fc09f76563f1e1b33b15dca9c90049817de211c630dd4e9ae2791f3",
+    ".pytest_cache/node-767-20261115/baseline.log": "84fdf4eacc427a2cff7c4c16c82ec5d5d03569c0c840a38bafa3891d2e837759",
+    ".pytest_cache/node-767-20261115/corrected.xml": "1882177fb0bac30a3c147472c4f2683d0d1d80328acf232195007350223f5d85",
+    ".pytest_cache/node-767-20261115/corrected.events.jsonl": "96cd336960f528cdf19b263064f4e5375ed37d53f9e811b2bbc372a52e324a08",
+    ".pytest_cache/node-767-20261115/corrected-execution.json": "7629d9efd908c01eb8612e9898cc55ee4691098be0c3b0d18710f62f839528fc",
+    ".pytest_cache/node-767-20261115/corrected-inputs-before.json": "515d6f53dae296ba884cdc899410930d58598bfc82fabd35ecb709ab5440f141",
+    ".pytest_cache/node-767-20261115/corrected-inputs-after.json": "515d6f53dae296ba884cdc899410930d58598bfc82fabd35ecb709ab5440f141",
+    ".pytest_cache/node-767-20261115/corrected-driver.py": "afdff8058fc09f76563f1e1b33b15dca9c90049817de211c630dd4e9ae2791f3",
+    ".pytest_cache/node-767-20261115/corrected.log": "f191c8ef684a9490a38d35499874fee0bc1a70b2aa79cfe17bc0dce6e9c31610",
+    ".pytest_cache/node-767-20261115/cohort.xml": "2bc27a7cbdd7e94610e0055892b6385656471f7ee75e962377848fb1510954f7",
+    ".pytest_cache/node-767-20261115/cohort.events.jsonl": "dbbf9487a32673848680cbcf79a90a54541e77f7f850c3be0e96b39afbd22d6f",
+    ".pytest_cache/node-767-20261115/cohort-execution.json": "767c9d654138642f9330b6c6469fc41ddc4b7d8cb48761a6fffc3da88028b237",
+    ".pytest_cache/node-767-20261115/cohort-inputs-before.json": "3556bcab02970f56d0ab8b6b0923b1f8e37e1837a60eeda186170ee6ae65f858",
+    ".pytest_cache/node-767-20261115/cohort-inputs-after.json": "3556bcab02970f56d0ab8b6b0923b1f8e37e1837a60eeda186170ee6ae65f858",
+    ".pytest_cache/node-767-20261115/cohort-driver.py": "afdff8058fc09f76563f1e1b33b15dca9c90049817de211c630dd4e9ae2791f3",
+    ".pytest_cache/node-767-20261115/cohort.log": "c447d7cc989f262e0adc06117f220cf2467d84dfcdf768220a27793ef9d2df9a",
+    ".pytest_cache/node-767-20261115/receiving-execution.json": "85712b8c45f9cafbbed62b71619efe07cba834eee9c2b1d0e8bbba13aa225316",
+    ".pytest_cache/node-767-20261115/receiving-inputs-before.json": "3556bcab02970f56d0ab8b6b0923b1f8e37e1837a60eeda186170ee6ae65f858",
+    ".pytest_cache/node-767-20261115/receiving-inputs-after.json": "3556bcab02970f56d0ab8b6b0923b1f8e37e1837a60eeda186170ee6ae65f858",
+    ".pytest_cache/node-767-20261115/receiving-driver.py": "afdff8058fc09f76563f1e1b33b15dca9c90049817de211c630dd4e9ae2791f3",
+    ".pytest_cache/node-767-20261115/receiving.log": "d0efaa10be4bd9305b362cc219ddeae90133054b36b418450d896e4f0b02a440",
+    ".pytest_cache/node-767-20261115/checks-execution.json": "c8b95b1be051c8d45a72e692b71530b3eb05ec7b3a9cf5178a4293c01e13d9c7",
+    ".pytest_cache/node-767-20261115/checks-inputs-before.json": "9123771d5392e939161d52992610924faa2c8019f15d859abb26cc646b70d9ef",
+    ".pytest_cache/node-767-20261115/checks-inputs-after.json": "9123771d5392e939161d52992610924faa2c8019f15d859abb26cc646b70d9ef",
+    ".pytest_cache/node-767-20261115/checks-driver.py": "afdff8058fc09f76563f1e1b33b15dca9c90049817de211c630dd4e9ae2791f3",
+    ".pytest_cache/node-767-20261115/checks.log": "1d7049179029900de655d2fa9e94d62da1d2dae10bc1ab200eec945a0361f929",
+    ".pytest_cache/node-767-20261115/real-node.json": "0f51447793f328c9f11662d30b745f48ee2b1594b4a8b7600ceedd6b12707bbb"
+  },
+  "owned_process_retirement": {
+    "units": 5,
+    "all_main_pids_zero": true,
+    "native_results_retained": true,
+    "retained_state_sha256": "9ccdacd7bcd321287ce631e9ea241b4c349791dabe0ca81ff7fd1ac27d0fef0f"
+  }
+}

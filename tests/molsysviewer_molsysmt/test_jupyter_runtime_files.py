@@ -13,6 +13,12 @@ import pytest
 from tests.molsysviewer_molsysmt import system_panel_jupyter as launcher
 
 
+@pytest.fixture(autouse=True)
+def unit_executable_selection(monkeypatch):
+    """Keep setup tests independent of an installed Node; probes are stubbed."""
+    monkeypatch.setenv("MOLSYSVIEWER_NODE", sys.executable)
+
+
 @pytest.mark.parametrize("groups", ["-1", "0", "8"])
 def test_host_memory_groups_are_bounded_before_creating_runtime_files(
     tmp_path, monkeypatch, groups
@@ -321,8 +327,8 @@ def test_actual_launcher_preserves_foreign_replacements_after_startup_failure(
         raise RuntimeError("synthetic startup failure after replacement")
 
     def node_version(command, **kwargs):
-        assert command == ["/usr/bin/node", "--version"]
-        return "synthetic-node-version"
+        assert command == [str(Path(sys.executable).resolve()), "--version"]
+        return "v22.14.0"
 
     monkeypatch.setattr(launcher.subprocess, "check_output", node_version)
     monkeypatch.setattr(launcher.subprocess, "Popen", fail_startup)
@@ -402,7 +408,7 @@ def test_launcher_readiness_obeys_deadline_and_retires_owned_files(
     monkeypatch.setattr(launcher, "urlopen", urlopen)
     monkeypatch.setattr(launcher.subprocess, "Popen", lambda *args, **kwargs: server)
     monkeypatch.setattr(
-        launcher.subprocess, "check_output", lambda *args, **kwargs: "node"
+        launcher.subprocess, "check_output", lambda *args, **kwargs: "v22.14.0"
     )
     monkeypatch.setattr(
         launcher.subprocess,
@@ -426,6 +432,8 @@ def test_launcher_readiness_obeys_deadline_and_retires_owned_files(
     if probes:
         assert requests[0] == pytest.approx(min(1.0, limit))
     assert bool(browser_calls) is ready
+    if ready:
+        assert browser_calls[0][0] == str(Path(sys.executable).resolve())
     if response == "exit":
         assert startup["native_exit_observed"] == 7
     if response == "timeout":
@@ -465,7 +473,7 @@ def test_prolonged_cli_rejects_playback_exhausting_browser_deadline(
 
     monkeypatch.setattr(launcher.subprocess, "Popen", forbidden)
     monkeypatch.setattr(
-        launcher.subprocess, "check_output", lambda *args, **kwargs: "node"
+        launcher.subprocess, "check_output", lambda *args, **kwargs: "v22.14.0"
     )
     with pytest.raises(SystemExit) as caught:
         launcher.main()

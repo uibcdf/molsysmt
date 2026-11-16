@@ -179,6 +179,12 @@ origins in the qualified GUI environment through:
 python -m pytest --receptor=llm -n 0 tests/molsysviewer_molsysmt/jupyter_receiving_guard.py::test_actual_jupyter_initial_canvas_diagnostics
 ```
 
+The receiving launcher selects Node from explicit `--node`, then
+`MOLSYSVIEWER_NODE` (also inherited by the pytest wrappers), then `node` on
+PATH. Use the qualified host's Node version; the resolver does not certify
+other versions. The private environment receipt records the actual executable
+and version. An unusable explicit choice fails without a global fallback.
+
 Use the owning guard's documented environment and resource admission; the fast
 aggregator does not start a GUI run. Require initial-cell ownership, the same
 attempt across all nine kernel stages, 3,983 observed atoms and a connected

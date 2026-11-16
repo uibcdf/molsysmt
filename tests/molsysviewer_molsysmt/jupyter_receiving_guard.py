@@ -2,7 +2,9 @@
 
 Select this node with pytest in the qualified GUI environment. Set
 MOLSYSVIEWER_ROOT and, for the recorded overlay, MOLSYSVIEWER_PROVIDER_ROOT.
-Missing browser/Jupyter prerequisites fail; they are not silently skipped.
+Node is selected by --node in the launcher, MOLSYSVIEWER_NODE for these
+wrappers, or node on PATH. Missing browser/Jupyter prerequisites fail; they
+are not silently skipped.
 """
 
 import json
