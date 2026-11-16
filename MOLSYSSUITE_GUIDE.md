@@ -662,6 +662,7 @@ an implementation because its owner is incubating or the needed API is absent.
 | Molecular binding modeling and characterization: docking, complex prediction/refinement, binding free-energy calculation/prediction and interfaces | BindingMT; current implementations and future scope remain distinguished in its scientific contract |
 | Peptide-specific design and functional evaluation | PeptideMT |
 | Allostery-specific prediction, characterization and interpretation | AlloMT; initial source foundation, scientific methods pending qualification |
+| Molecular 2D exploration and interaction-diagram presentation | MolSysSketcher; two primary views over delegated provider science, with independent product/artifact qualification |
 | Interpolation support | LinDelINT |
 | Scientific/AI subsystem understanding and operation of the suite | MolSys-AI, preserving its subsystem/platform boundary |
 | Public argument constraints and normalization | ArgDigest |
@@ -1031,6 +1032,7 @@ release continues to own frozen automated values.
 | `resource-aware-execution` | [devguide/resource_aware_execution.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/resource_aware_execution.md) |
 | `component-dependencies` | [devguide/dependency_graph_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/dependency_graph_policy.md) |
 | `python` | [devguide/python_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_policy.md) |
+| `typescript` | [devguide/typescript_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/typescript_policy.md) |
 | `python-ci` | [devguide/python_ci_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_ci_policy.md) |
 | `python-quality` | [devguide/python_tooling_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_tooling_policy.md) |
 | `python-support-libraries` | [devguide/python_ecosystem_policy.md](https://github.com/uibcdf/molsyssuite/blob/main/devguide/python_ecosystem_policy.md) |
