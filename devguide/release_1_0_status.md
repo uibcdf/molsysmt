@@ -66,6 +66,31 @@ have source receiving, separate from human/installed/platform qualification.
 The accepted initial-canvas disposition now gives **80.2381% (approximately 80.2%)**.
 The dated percentages below remain historical, not the current score.
 
+## MolSysViewer source delivery received — 2026-11-16
+
+MolSysViewer publishes `b84615763867b6f3833c54a516615599503af51f`
+with reported source closures #305/#321/#325 and #344/#399. The
+[bounded review](../devtools/data/viewer_source_delivery_review_334_20261116.json)
+authenticates its immutable public report and distinguishes the completed local
+reduced-capture controls from earlier failed attempts. The reported current
+local cohort restores all eight moving captures, leaves no pending saves and
+rejects late writes; private execution records are not replayed by MolSysMT.
+Earlier #763/#766 original-file and #767 portability receiving remain accepted.
+
+One read-only status query observes source workflow **43816742412** still
+running on Linux, macOS and Windows with Python 3.14 at that exact consumer
+commit. The consumer reports MolSysMT pinned to `4b0b1f8a1`; package, addon,
+Rust and build-input bytes remain identical through owner `501937780`.
+Neither source correspondence nor an active workflow is terminal qualification.
+
+The team reports one current prolonged cycle with Python indices 4999 → 0 → 1
+and index one before saving. Its thirty-cycle same-kernel cohort remains in
+progress; no completion or historical-cause claim is made. #400's multicanvas
+HTML initialization remains consumer-owned, with no MolSysMT scientific defect
+demonstrated. Preserve the earlier **43796373853 failure**, final exact-pair
+requirements and the construction/publication pause. Original weighted progress
+is unchanged at **80.2381%**; these consumer closures add no new weighted leaves.
+
 ## Incoming actual-Jupyter executable portability — 2026-11-15
 
 #767 is an admitted receiving blocker reported by MolSysViewer: the opt-in

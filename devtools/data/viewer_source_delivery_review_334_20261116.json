@@ -1,0 +1,286 @@
+{
+  "schema": "molsysmt.viewer_source_delivery_review@1",
+  "date": "2026-11-16",
+  "owner_issue": "uibcdf/molsysmt#334",
+  "related_issues": [
+    "uibcdf/molsysmt#250",
+    "uibcdf/molsysmt#254",
+    "uibcdf/molsysmt#524",
+    "uibcdf/molsysmt#615",
+    "uibcdf/molsysmt#767"
+  ],
+  "consumer_source": "b84615763867b6f3833c54a516615599503af51f",
+  "consumer_report": {
+    "repository": "uibcdf/molsysviewer",
+    "path": "devguide/residual_four_issues_receiving_20261116.json",
+    "git_blob": "18c9332fb9c22aa03abda3be2098838d7f6024aa",
+    "sha256": "99a5a6ad33fb11e67b619842e99dae147ff9a39a716ca64d2d3fae5f2f15bd1a",
+    "bytes": 73875,
+    "git_blob_verified": true
+  },
+  "owner_source_reviewed": "5019377802f85993265a6029ae9264fdb52e8ab5",
+  "provider_source_requested_by_client": "4b0b1f8a17e010e5ea9f28a8032a1bb06a1daa69",
+  "production_continuity": {
+    "changed_package_addon_rust_build_input_paths": [],
+    "scope": "Git source correspondence only. Documentation-only owner acceptance and canonical-guide delivery do not establish new runtime/installed qualification."
+  },
+  "source_closures_reported": {
+    "305": "Causal unchanged-frame metadata dismissal fixed, with matched old-source control and complete hosted controls/scientific mirror. Original event order unknown.",
+    "325": "Native pending-read class corrected under389 and received on actual updated annotation/endpoint markers. Old tag natural caller correspondence inspected; original exact event order unknown.",
+    "321": "Numerical correction and 15 independent Decimal controls received in complete source 43748320908 and unchanged full local entry960. Atomic current-SVG/retired-SVG receiving passes. Distinct native HTML startup remains active as #400; no overall/candidate pass or original-count gain.",
+    "344": "Primary ready-frame/native-draw race class corrected using the existing clock; independent scientific queue remains runnable. Full local default/delayed Jupyter, hidden/Movie, native geometry and lifecycle guards pass. Prior exact event orders remain unproved.",
+    "399": "Preparation/provenance and safe actual failure diagnostics received; prior whole hosted failure remains preserved, residual HTML/history scopes stay distinct."
+  },
+  "local_reduced_capture_receiving_reported": {
+    "profile": "final_reduced_984",
+    "native_exit": 0,
+    "node": "22.23.4",
+    "kernel": "Isolated original ipykernel7.4.0",
+    "counts": {
+      "capture_restore_cases": 6,
+      "strong_restore_cases": 6,
+      "studio_cases": 4,
+      "moving_capture_cases": 8
+    },
+    "all_eight_files_independently_restored": true,
+    "pending_captures_and_saves_zero": true,
+    "late_writes_refused": true,
+    "inputs_unchanged": 9997,
+    "limit": "Complete current controlled local source/support receiving. Not the newer hosted support, installed artifact, native desktop or human acceptance."
+  },
+  "offline_receiving_reported": {
+    "profile": "final_offline_985",
+    "passed": 600,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "live_cases_deselected": 3,
+    "limit": "Consumer-reported control population, not owner execution or final installed/candidate acceptance."
+  },
+  "source_ci_observation": {
+    "acquired_utc": "2026-11-16T06:39:24.041644+00:00",
+    "tool": "native gh run view --json, status-only inspection under GH_RUN_RECEPTOR_GUIDE.md",
+    "run_id": 43816742412,
+    "url": "https://github.com/uibcdf/molsysviewer/actions/runs/43816742412",
+    "head_sha": "b84615763867b6f3833c54a516615599503af51f",
+    "event": "workflow_dispatch",
+    "status": "in_progress",
+    "conclusion": null,
+    "jobs": [
+      {
+        "name": "Source pair on windows-2025, Python 3.14",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "name": "Source pair on ubuntu-latest, Python 3.14",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "name": "Source pair on macos-15, Python 3.14",
+        "status": "in_progress",
+        "conclusion": null
+      }
+    ],
+    "source_report_molsysmt_pin": "4b0b1f8a17e010e5ea9f28a8032a1bb06a1daa69",
+    "provider_origins_for_this_run_received": false,
+    "terminal_receiving": false,
+    "scope": "Already running consumer-owned three-platform Python 3.14 source workflow. No dispatch, rerun or cancellation. Not the final eight-cell source or sixteen-cell installed pair."
+  },
+  "current_cycle_coordination": {
+    "reported_single_cycle_pass": true,
+    "reported_python_index_sequence": [
+      4999,
+      0,
+      1
+    ],
+    "reported_pre_save_index": 1,
+    "thirty_same_kernel_cycles": "in progress; zero completed-cohort credit",
+    "verification": "Authorized consumer message. New raw single/thirty-cycle records were not independently received in this review.",
+    "historical_cause_established": false
+  },
+  "retained_previous_failure": {
+    "run_id": 43796373853,
+    "conclusion": "failure",
+    "scope": "Earlier mixed source diagnostic remains unsuccessful; later local/source partial passes do not erase it."
+  },
+  "remaining_ownership": {
+    "molsysviewer_354": "Historical event remains unexplained; current thirty-cycle receiving not yet complete.",
+    "molsysviewer_400": "Multicanvas HTML/native initialization is consumer-owned; no MolSysMT scientific defect demonstrated.",
+    "334_524": "Exact clean producers/artifacts, mandatory source/native/scientific/docs/platform and installed-pair qualification, authorized publication remain pending."
+  },
+  "verification_limit": "Immutable public report authenticated and selected source-receiving statements inspected; status/job metadata acquired once. Private raw controls, browser files and execution receipts were not replayed. No provider scientific/API/ABI qualification is added.",
+  "original_weighted_progress_percent": 80.23809523809524,
+  "original_weighted_progress_change": 0,
+  "execution": "Read-only report/metadata review and lightweight documentation validation only. No molecular computation, browser/kernel run, dependency install, native rebuild, package, tag or release.",
+  "workspace": {
+    "official_tool_source": "8f76336c25f2974ae632fd486b65c9ddd10fd4bd",
+    "registered_member_snapshot_count": 19,
+    "disposition": "All recorded dirty/ahead/behind/missing states preserved. Clean own main fast-forwarded to the published two-line canonical-guide delivery 501937780; MolSysViewer dirty work belongs to its team. No other checkout changed.",
+    "observed_members": [
+      {
+        "repository": "uibcdf/smonitor",
+        "head": "c401281af15f",
+        "ahead": 0,
+        "behind": 4,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/argdigest",
+        "head": "7e92a06ebbfe",
+        "ahead": 0,
+        "behind": 4,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/depdigest",
+        "head": "032d345becf8",
+        "ahead": 0,
+        "behind": 4,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/pyunitwizard",
+        "head": "cc51c8e600f7",
+        "ahead": 0,
+        "behind": 2,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/molsysmt",
+        "head": "b6ff55e06656",
+        "ahead": 0,
+        "behind": 1,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/molsysviewer",
+        "head": "b84615763867",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 7,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/pytest-receptor",
+        "head": "f57a569f132a",
+        "ahead": 0,
+        "behind": 4,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/gh-run-receptor",
+        "head": "ecf2881ae0a3",
+        "ahead": 0,
+        "behind": 4,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/topomt",
+        "head": "c3f72a9177ab",
+        "ahead": 1,
+        "behind": 257,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/pharmacophoremt",
+        "head": "a1ea9cc4025f",
+        "ahead": 0,
+        "behind": 326,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/elastnetmt",
+        "head": "8a54148945fa",
+        "ahead": 0,
+        "behind": 15,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/bindingmt",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      },
+      {
+        "repository": "uibcdf/ackredit",
+        "head": "6421d573600a",
+        "ahead": 0,
+        "behind": 4,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/lindelint",
+        "head": "1d418e2f7a2d",
+        "ahead": 0,
+        "behind": 15,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/molsys-ai",
+        "head": "477f96defff5",
+        "ahead": 0,
+        "behind": 61,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/opencastp",
+        "head": "3a8f2508a5bf",
+        "ahead": 0,
+        "behind": 174,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/peptidemt",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      },
+      {
+        "repository": "uibcdf/allomt",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      },
+      {
+        "repository": "uibcdf/molsyssketcher",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      }
+    ]
+  },
+  "local_custody": {
+    "path": ".pytest_cache/viewer-b846-receiving-334-20261116",
+    "review_date": "2026-11-23",
+    "public_inputs_recoverable": true,
+    "sha256": {
+      "public-report.json": "99a5a6ad33fb11e67b619842e99dae147ff9a39a716ca64d2d3fae5f2f15bd1a",
+      "ci-status.json": "acaf02cc1dcca914c88a7784dff105737443b02e8aa07ef8f75cd9f579ebd8e3",
+      "workspace-status.json": "9ac6f28fbea09601d5e17dcaa2c86692f305a9a2bacb1cd7c599885099484984"
+    }
+  }
+}
