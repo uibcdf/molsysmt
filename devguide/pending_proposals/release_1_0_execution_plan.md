@@ -526,7 +526,7 @@ The minimal pre-1.0 `MolecularMechanics` object is experimental. H5MSM 0.5
 does not store it; nonempty mechanics data must fail conversion rather than
 be silently discarded. Mechanics persistence is deferred to a separately
 designed H5MSM 0.6 after MolSysMT 1.0, as tracked by
-[its proposal](h5msm_0_6_molecular_mechanics_persistence.md)
+[its proposal](../archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md)
 (`uibcdf/molsysmt#256`). That codec is outside the 1.0 release gate.
 
 The prerequisite provider handoff to `uibcdf/molsysviewer#114` has been met:

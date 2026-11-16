@@ -300,7 +300,7 @@ its parameterization contract is not mature enough to freeze in this schema.
 Persisting that domain is deferred to H5MSM 0.6, after MolSysMT 1.0. It is
 not an acceptance condition for the 0.5 release or the 1.0 candidate.
 The later design is tracked separately in the
-[H5MSM 0.6 mechanics proposal](h5msm_0_6_molecular_mechanics_persistence.md)
+[H5MSM 0.6 mechanics proposal](../archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md)
 (`uibcdf/molsysmt#256`).
 
 The 0.5 writer must reject nonempty mechanics data before creating a file,

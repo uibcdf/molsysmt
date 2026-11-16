@@ -1,0 +1,528 @@
+{
+  "schema": "molsysmt.binding_default_h5msm_acceptance@1",
+  "date": "2026-11-15",
+  "owner_issue": "uibcdf/molsysmt#256",
+  "consumer_issue": "uibcdf/bindingmt#73",
+  "decision": "Accepted finite original-packet default native-write and default whole-file-migration receiving; stable 1.0 source/wire scope selected. Exact final artifacts and release remain unqualified.",
+  "client_report_commit": "2b761a84d698c1bbe44adb947c8919f08c8d1c78",
+  "client_report_path": "devguide/validation/h5msm_default_client_receiving_2026-11-15.md",
+  "client_comment": "https://github.com/uibcdf/bindingmt/issues/73#issuecomment-6906085364",
+  "owner_source_reviewed": "4b0b1f8a17e010e5ea9f28a8032a1bb06a1daa69",
+  "client_provider_source": "6deb0200cd7e384128eded46caaf751a57e65bc6",
+  "requested_owner_reference": "08442cb1496c8f6698ccc17ae1f7d21566d8713b",
+  "client_native_sha256": "2dbcf13d148cb3ae13a5908707fcdd61c75a2de5027e50c566ce07de81bdb038",
+  "client_native_scope": "Mapped digest checked by the published worker; public callables blocked after normal import and no selected-call guard reached. Bootstrap/build-source/general ABI authenticity unassessed. Not the owner 4ffb82e4 native or a final candidate binary.",
+  "public_files": {
+    "report.md": {
+      "git_blob": "cd8795087651804e123dadb8039c55b3333683ec",
+      "sha256": "ccc3dc508a732c0f7ceb5bf1ef12ade6c1c04d43702152a268398aa26ed2a186",
+      "bytes": 10256,
+      "git_blob_verified": true
+    },
+    "primary/manifest.json": {
+      "git_blob": "0bd36988b9a3e18c2eef6923b4d98d503c2ba9f4",
+      "sha256": "5addb125362b9b3462ee98ab5b034fec157f4cd2dc1aee8b0b3e0885e445a849",
+      "bytes": 28488,
+      "git_blob_verified": true
+    },
+    "companion/manifest.json": {
+      "git_blob": "62449c25a2002f927e53076ff646e7805f73961f",
+      "sha256": "09c07f8e1d11ca91091e576af83f6a50f3b2a498ae454a8615b960c96814d0e1",
+      "bytes": 6090,
+      "git_blob_verified": true
+    }
+  },
+  "archive_authentication": {
+    "primary": {
+      "members": 76,
+      "compressed_bytes": 1345998,
+      "decoded_bytes": 8856909,
+      "manifest_sha256": "5addb125362b9b3462ee98ab5b034fec157f4cd2dc1aee8b0b3e0885e445a849"
+    },
+    "companion": {
+      "members": 16,
+      "compressed_bytes": 10671,
+      "decoded_bytes": 23693,
+      "manifest_sha256": "09c07f8e1d11ca91091e576af83f6a50f3b2a498ae454a8615b960c96814d0e1"
+    }
+  },
+  "owner_independent_checks": {
+    "reviewed_source": "4b0b1f8a17e010e5ea9f28a8032a1bb06a1daa69",
+    "package_and_rust_changed_paths": [
+      "molsysmt/form/mmcif_PdbxContainers_DataContainer/_bond_state.py",
+      "molsysmt/form/mmcif_PdbxContainers_DataContainer/to_molsysmt_MolSys.py"
+    ],
+    "packet_checks": [
+      {
+        "name": "complete.h5msm",
+        "sha256": "188d077fcc036218e7ca1e873ff257d368dfa2b81b3965b70b714692de665ff5"
+      },
+      {
+        "name": "complete-expected.json",
+        "sha256": "7a0debca774c15a04a24043e2d1a7191f7b7639bb3a80fcedac9d88689b7b7e8"
+      },
+      {
+        "name": "complete-pdbqt.json",
+        "sha256": "8f630d72a3a7fb6dc48645d210dfe6ec33325f1336b225f431251a52ac30f459"
+      },
+      {
+        "name": "merged.h5msm",
+        "sha256": "55d33285b688021eb72749b8fe60f76f6dbeb0f7c7ec6f922688e83e4563ca5f"
+      },
+      {
+        "name": "merged-expected.json",
+        "sha256": "c5c88382467301037a2d45e2749b262efc2b8acacb1c73d68f5fa6359c97416e"
+      },
+      {
+        "name": "merged-pdbqt.json",
+        "sha256": "4ec8cab7018c3237075f4dfdf8b80d8f3d62e2b71d981b4770566a3cd0aec0a5"
+      },
+      {
+        "name": "projected.h5msm",
+        "sha256": "7440d9d237d9fa57672ce6fd2afedba3f73096c31419dd99ee1d4d2132c86160"
+      },
+      {
+        "name": "projected-expected.json",
+        "sha256": "25e30f44b8910b21aaec746fbccfcefa75ef444b829d13374659bdfa2a248f48"
+      },
+      {
+        "name": "projected-pdbqt.json",
+        "sha256": "31b2c4d6d3487b2bd335b46c978966b591f9c6a1a89e9864145d3f34e492d52c"
+      }
+    ],
+    "operations": [
+      {
+        "scope": "complete",
+        "route": "default-write",
+        "policy": "normal",
+        "source_sha256": "188d077fcc036218e7ca1e873ff257d368dfa2b81b3965b70b714692de665ff5",
+        "target_sha256": "d95000c0083ce306e6701daec18010fac185c10f425faab434fa7c7cc3ec14ea",
+        "raw_layer_comparison": {
+          "nodes": 157,
+          "datasets": 107
+        }
+      },
+      {
+        "scope": "complete",
+        "route": "default-convert",
+        "policy": "normal",
+        "source_sha256": "188d077fcc036218e7ca1e873ff257d368dfa2b81b3965b70b714692de665ff5",
+        "target_sha256": "0f06c19e2b9b39524c5bba34e4feeacc29084902d85ca169accc7d5e0e9f7f08",
+        "raw_layer_comparison": {
+          "nodes": 157,
+          "datasets": 107
+        }
+      },
+      {
+        "scope": "projected",
+        "route": "default-write",
+        "policy": "normal",
+        "source_sha256": "7440d9d237d9fa57672ce6fd2afedba3f73096c31419dd99ee1d4d2132c86160",
+        "target_sha256": "ef66f8299ebd02678d491ab3ab423eff6abff3fa35587d03c95514848e60f646",
+        "raw_layer_comparison": {
+          "nodes": 157,
+          "datasets": 107
+        }
+      },
+      {
+        "scope": "projected",
+        "route": "default-convert",
+        "policy": "normal",
+        "source_sha256": "7440d9d237d9fa57672ce6fd2afedba3f73096c31419dd99ee1d4d2132c86160",
+        "target_sha256": "fed18de9fa4276723b13e73aecebd32c8ed0a458b4cb32b6171df00b4048d7b9",
+        "raw_layer_comparison": {
+          "nodes": 157,
+          "datasets": 107
+        }
+      },
+      {
+        "scope": "merged",
+        "route": "default-write",
+        "policy": "normal",
+        "source_sha256": "55d33285b688021eb72749b8fe60f76f6dbeb0f7c7ec6f922688e83e4563ca5f",
+        "target_sha256": "f548bcc2a839d031779d4ff6a8e50d1952be3ebf96d123b9c3b7e12a7989a19a",
+        "raw_layer_comparison": {
+          "nodes": 167,
+          "datasets": 117
+        }
+      },
+      {
+        "scope": "merged",
+        "route": "default-convert",
+        "policy": "normal",
+        "source_sha256": "55d33285b688021eb72749b8fe60f76f6dbeb0f7c7ec6f922688e83e4563ca5f",
+        "target_sha256": "f6b854e60c351569a1055f22581dc01a7f29f621924b06bce75d98e06077c7ae",
+        "raw_layer_comparison": {
+          "nodes": 167,
+          "datasets": 117
+        }
+      },
+      {
+        "scope": "complete",
+        "route": "default-write",
+        "policy": "pmfs",
+        "source_sha256": "188d077fcc036218e7ca1e873ff257d368dfa2b81b3965b70b714692de665ff5",
+        "target_sha256": "167addb806b62aa1e5982c201ce9f6365a18acbffb0940432c53723d6eb6fa37",
+        "raw_layer_comparison": {
+          "nodes": 157,
+          "datasets": 107
+        }
+      },
+      {
+        "scope": "complete",
+        "route": "default-convert",
+        "policy": "pmfs",
+        "source_sha256": "188d077fcc036218e7ca1e873ff257d368dfa2b81b3965b70b714692de665ff5",
+        "target_sha256": "fbc48ba8ebb952592d973cf3666a7f22036eaa9979b6f956f7042f0530f96879",
+        "raw_layer_comparison": {
+          "nodes": 157,
+          "datasets": 107
+        }
+      },
+      {
+        "scope": "projected",
+        "route": "default-write",
+        "policy": "pmfs",
+        "source_sha256": "7440d9d237d9fa57672ce6fd2afedba3f73096c31419dd99ee1d4d2132c86160",
+        "target_sha256": "720186d9f93baca2adb8c94c665318bda141732d23e00337194ad2ad58b8c85e",
+        "raw_layer_comparison": {
+          "nodes": 157,
+          "datasets": 107
+        }
+      },
+      {
+        "scope": "projected",
+        "route": "default-convert",
+        "policy": "pmfs",
+        "source_sha256": "7440d9d237d9fa57672ce6fd2afedba3f73096c31419dd99ee1d4d2132c86160",
+        "target_sha256": "ac7351791218758c94c103f940ca705bb22c0c4c5b1d81ed1e96e990a4cb45b7",
+        "raw_layer_comparison": {
+          "nodes": 157,
+          "datasets": 107
+        }
+      },
+      {
+        "scope": "merged",
+        "route": "default-write",
+        "policy": "pmfs",
+        "source_sha256": "55d33285b688021eb72749b8fe60f76f6dbeb0f7c7ec6f922688e83e4563ca5f",
+        "target_sha256": "8cd58e9bbe78da90e423b4b1b32261889bdf8842e6dbd1cfaa3426da1e2e462c",
+        "raw_layer_comparison": {
+          "nodes": 167,
+          "datasets": 117
+        }
+      },
+      {
+        "scope": "merged",
+        "route": "default-convert",
+        "policy": "pmfs",
+        "source_sha256": "55d33285b688021eb72749b8fe60f76f6dbeb0f7c7ec6f922688e83e4563ca5f",
+        "target_sha256": "da501f74cf6c8714c696e364569803d203cb9510f314d11882e418ffd183a4db",
+        "raw_layer_comparison": {
+          "nodes": 167,
+          "datasets": 117
+        }
+      }
+    ],
+    "overlapping_admission": {
+      "overlap_only": true,
+      "events": 2
+    },
+    "h5py": "3.16.0",
+    "hdf5": "1.14.6",
+    "molsysmt_imported": false,
+    "scope": "Owner byte, AST, record and raw HDF5 layer verification; no molecular replay or native qualification."
+  },
+  "client_provenance_limits": {
+    "generated_creator_version": "0.23.0+904.gff25f1202",
+    "version_label_is_live_git": false,
+    "original_scientific_producers_preserved": true,
+    "whole_file_migration_retains_all_original_root_attributes": true,
+    "native_save_implies_original_file_history": false
+  },
+  "verification_scope": [
+    "Owner downloaded and Git-blob authenticated the public report, both manifests and all 92 compressed members; compressed and decoded SHA-256/length checks passed.",
+    "Nine original packet files match unchanged current owner data and manifest; all twelve actual output roots, hashes and migration-source fields are inspected directly with h5py.",
+    "All complete original and recovered typed snapshots match the original expected JSON under both policies; literal public call ASTs omit format_version.",
+    "All 1,324 raw HDF5 dataset instances and non-root object attributes match the original source, including shape and dtype; fourteen stored outputs include two admission operations overlapping the normal cohort.",
+    "Actual worker/oracle/reader/native and optional-engine guards inspected; public resource/terminal receipts checked. No third-party worker, molecular calculation or native kernel was replayed by the owner.",
+    "Owner Git comparison confirms only two mmCIF reader files differ in the full selected package/Rust/build-input scope."
+  ],
+  "existing_owner_guard": "tests/form/file_h5msm/test_original_packet_default_migration.py",
+  "normative": "devguide/h5msm_format.md#first-stable-schema-decision--2026-11-15",
+  "archived_record": "devguide/archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md",
+  "quality": {
+    "state": "passed",
+    "fast_release_gates": 15,
+    "fast_gate_scope": "Local administrative/contracts plus the existing bounded public smoke, not the heavy scientific/full-source/installed gates.",
+    "commands": [
+      {
+        "command": [
+          "python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0
+      },
+      {
+        "command": [
+          "python",
+          "devtools/scripts/generate_converter_arguments.py",
+          "--check"
+        ],
+        "native_exit": 0
+      },
+      {
+        "command": [
+          "python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "--extend-exclude",
+          ".aws",
+          "."
+        ],
+        "native_exit": 0
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "native_exit": 0
+      }
+    ],
+    "seconds": 30.270748414099216,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "2147483648",
+      "memory.high": "1887436800",
+      "memory.swap.max": "0",
+      "pids.max": "256"
+    },
+    "memory_peak_bytes": 402796544,
+    "minimum_host_available_bytes": 18318610432,
+    "maximum_memory_pressure_avg10": 0.0,
+    "changed_inputs": [],
+    "resource_stop": null,
+    "owned_family_retired": {
+      "ActiveState": "inactive",
+      "MainPID": 0,
+      "Result": "success",
+      "ExecMainStatus": 0
+    },
+    "final_declarative_updates": "The incoming #768 queue note and receipt metadata are checked again with the devguide/index/whitespace validators before commit.",
+    "command_rendering": "Development interpreter rendered as python; exact executable and frozen support-source composition retained in the local execution receipt."
+  },
+  "workspace": {
+    "official_inventory": "Published suite_status.py .. --format json at 8f76336c25f2974ae632fd486b65c9ddd10fd4bd; all 19 registered member checkouts fetched/inspected; exit 1 preserves attention states. The prior 18-member snapshot remains a distinct historical input.",
+    "entries": [
+      {
+        "repository": "uibcdf/smonitor",
+        "head": "c401281af15f",
+        "ahead": 0,
+        "behind": 3,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/argdigest",
+        "head": "7e92a06ebbfe",
+        "ahead": 0,
+        "behind": 3,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/depdigest",
+        "head": "032d345becf8",
+        "ahead": 0,
+        "behind": 3,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/pyunitwizard",
+        "head": "cc51c8e600f7",
+        "ahead": 0,
+        "behind": 1,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/molsysmt",
+        "head": "4b0b1f8a17e0",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 14,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/molsysviewer",
+        "head": "e3fefadc2e35",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 19,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/pytest-receptor",
+        "head": "f57a569f132a",
+        "ahead": 0,
+        "behind": 3,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/gh-run-receptor",
+        "head": "ecf2881ae0a3",
+        "ahead": 0,
+        "behind": 3,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/topomt",
+        "head": "c3f72a9177ab",
+        "ahead": 1,
+        "behind": 256,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/pharmacophoremt",
+        "head": "a1ea9cc4025f",
+        "ahead": 0,
+        "behind": 325,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/elastnetmt",
+        "head": "8a54148945fa",
+        "ahead": 0,
+        "behind": 14,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/bindingmt",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      },
+      {
+        "repository": "uibcdf/ackredit",
+        "head": "6421d573600a",
+        "ahead": 0,
+        "behind": 3,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/lindelint",
+        "head": "1d418e2f7a2d",
+        "ahead": 0,
+        "behind": 14,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/molsys-ai",
+        "head": "477f96defff5",
+        "ahead": 0,
+        "behind": 60,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/opencastp",
+        "head": "3a8f2508a5bf",
+        "ahead": 0,
+        "behind": 168,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/peptidemt",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      },
+      {
+        "repository": "uibcdf/allomt",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      },
+      {
+        "repository": "uibcdf/molsyssketcher",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      }
+    ],
+    "disposition": "Preserve all dirty/ahead/behind/missing states. MolSysMT dirty paths belong to this receiving; MolSysViewer work belongs to its team. No other worktree, dependency prefix, merge or native changes.",
+    "registry_source": "8f76336c25f2974ae632fd486b65c9ddd10fd4bd"
+  },
+  "original_weighted_milestone_percent": 80.23809523809524,
+  "original_weighted_milestone_change": 0,
+  "remaining_owners": {
+    "334_524": "Exact producer/build/artifact identities, compatible installed host/dependency closure, mandatory source/native/scientific/docs/platform/installed gates; construction/publication pause retained.",
+    "250_254_421": "Final candidate/consumer acceptance remains distinct from completed storage receiving.",
+    "671": "Retain required final supported macOS/Python lane and original provisioning failure; no substitute matrix dispatched."
+  },
+  "scope_limits": [
+    "No production/API/dependency/codec/native or shared-environment change.",
+    "No new schema encoding, scientific detector/profile promotion or general arbitrary-file certification.",
+    "No package construction, installed-pair acceptance, new hosted matrix, tag, release or promotion.",
+    "Earlier P5/P6 and MolSysViewer reports and unsuccessful attempts retain their original identities and verdicts."
+  ],
+  "local_custody": {
+    "path": ".pytest_cache/binding-default-256-20261115",
+    "review_date": "2026-11-22",
+    "public_inputs_recoverable_from_immutable_commit": true,
+    "review_program_sha256": "276e92e3df497b7c96f491f4dc084eff0bd946f33d256d502ef2340d0a3503f3",
+    "owner_review_sha256": "bdfee9f151b2a4cd8084b9efd76c9cac2571ec3de29e538ece78b00dd19f950c",
+    "byte_verification_sha256": "8be8943c32fd5f95f794dbaf62538cea987a78a806eac24984a158541c821f60",
+    "workspace_status_sha256": "899d3a6da71e740a3592bb0d2de86f6a0e9276d44a785743dd255eaecda7f8c2",
+    "current-workspace-status.json_sha256": "4428a4b12ac403336db03cb75f9a4d53eb96883c83fb165d6bafc0c3c73e6b40",
+    "complete-issues-before-close.json_sha256": "742a70f32da143f84bd6a7e8e4b1be80597febfa002f77f789dabda42b96cb8f",
+    "quality-results.json_sha256": "56f8082158befefcc9c81c878cd2284027316e943a2764c021c5ac082d9eb883",
+    "checks-execution.json_sha256": "6d98fa6e87bacb97783cf9e9a9bd5012be6349dda8433b75f901d23cb2db5abd",
+    "checks-inputs-before.json_sha256": "68101eced82db73c1fb85130ff06d8b6dd496dce6032ead51d43a3df81222029",
+    "checks-inputs-after.json_sha256": "68101eced82db73c1fb85130ff06d8b6dd496dce6032ead51d43a3df81222029",
+    "check_driver.py_sha256": "b33e220958bb8afb41543b2d50e8e00124fa8000f02145a015cbbf274e740435",
+    "checks.log_sha256": "1d7049179029900de655d2fa9e94d62da1d2dae10bc1ab200eec945a0361f929"
+  },
+  "incoming_checkpoint": {
+    "inventory": "Complete paginated all-state owning issue endpoint, PRs excluded",
+    "issues": 687,
+    "open_before_256_close": 94,
+    "new_issue": "uibcdf/molsysmt#768",
+    "disposition": "Receive new policy-v1.6.0/current resource guidance through its own bounded administrative adoption next; preserve #764 and paused scientific/installed/publication scopes."
+  }
+}

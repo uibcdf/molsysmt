@@ -360,7 +360,7 @@ publication acceptance is inferred.
    receiving. Close only the accepted owning scopes, retain original failures
    and select exact candidate work only after the relevant agreements.
 
-The format obligations remain owned by [#256's plan](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md).
+The format obligations remain owned by [#256's plan](archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md).
 Dependency closure remains owned by [#524](pending_proposals/runtime_dependency_api_floors.md),
 and the uncertain startup stage by [#615](archive/resolved_bugs/intermittent_jupyter_initial_canvas_timeout.md).
 
@@ -483,6 +483,14 @@ retains receiving scopes and the original unsuccessful attempts.
 
 ### DockingMT: agree only the remaining stable-format client scope
 
+**Receiving accepted — 2026-11-15:** BindingMT #73 now completes this finite
+default-write/migration request in immutable `2b761a84`. The
+[owner review](../devtools/data/binding_default_h5msm_acceptance_256_20261115.json)
+authenticates the report, both manifests and 92 archived members, all twelve
+ordinary/pm-fs operations and actual stored roots/data. #256's first-stable
+source/wire decision is complete; final candidate/installed gates remain under
+#334/#524. Earlier scheduling notes below are historical; no rerun is needed.
+
 **Current owner note — 2026-11-13:** GitHub redirects the historical repository
 to `uibcdf/bindingmt`. The complete returned #73 thread ends with the
 [11 November maintainer-requested pause](https://github.com/uibcdf/bindingmt/issues/73#issuecomment-6806596249).
@@ -549,7 +557,7 @@ No new docking, preparation, scientific search or reopening is requested.
 DockingMT completes the three additional controls on experimental 0.6 with
 seven passing cases per unit policy. Its isolated `5e7d65a6` source uses the
 previously qualified `5715bda2` ABI3 only for one-atom topology bookkeeping.
-The [P5 acceptance and 1.0 handoff](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-experimental-06-p5-acceptance--2026-11-10)
+The [P5 acceptance and 1.0 handoff](archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-experimental-06-p5-acceptance--2026-11-10)
 identifies the scope and reference inputs. DockingMT then completes ten cases
 per policy on the explicit 1.0 route with local ABI3 `2dbcf13d`. The
 [accepted P6 receipt](../devtools/data/docking_h5msm_p6_client_receiving_256_20261110.json)
@@ -604,7 +612,7 @@ This checklist describes the stages before the H5MSM 1.0 format freeze. Explicit
 1.0 reading, default writing and modular migration are implemented in development
 source. Client feedback on that default and coordinated release gates remain due.
 
-The [P6 wire catalog and public-route audit](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#p6-wire-catalog-and-public-route-audit--2026-11-10)
+The [P6 wire catalog and public-route audit](archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md#p6-wire-catalog-and-public-route-audit--2026-11-10)
 identifies the existing codecs, independent-layer migration, version dispatch,
 source-root preservation and explicit stable-root acceptance sequence.
 

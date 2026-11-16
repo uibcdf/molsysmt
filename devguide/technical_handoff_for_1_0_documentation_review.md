@@ -40,6 +40,13 @@ declared complete merely because all currently selected local tests pass.
 Record external prerequisites with owner and requested deliverable; do not
 silently treat waiting as acceptance.
 
+**Stage-2 receiving — 2026-11-15:** #256's finite BindingMT default-write/
+migration return is accepted and its first-stable H5MSM 1.0 source/wire decision
+is complete. The [owner receipt](../devtools/data/binding_default_h5msm_acceptance_256_20261115.json)
+retains source/native limits and independent raw-file checks. Preserve that
+conclusion; continue #524 and #250/#254/#421, then the exact coordinated gates.
+This does not complete stage 2 or lift the stage-3 execution/publication pause.
+
 The [finite contract closeout packet](pre_1_0_contract_closeout.md) supplies
 the current stage-2 guarantee-to-guard mapping and exact owner returns. Its
 presence is preparation, not evidence that client or candidate acceptance has

@@ -70,12 +70,20 @@ mechanical model. Scientific classifications remain owned by the maintained
 
 ## Exact returns needed from each owner
 
+BindingMT's finite #73 return is now accepted in the
+[owner review](../devtools/data/binding_default_h5msm_acceptance_256_20261115.json).
+All twelve omitted-version operations pass on the original packet; the owner
+also verifies the 92 published archived members and actual HDF5 data. #256's
+source/wire decision is complete in the [format contract](h5msm_format.md#first-stable-schema-decision--2026-11-15).
+The remaining returns below concern the final consumer/candidate composition;
+do not ask BindingMT to repeat this storage profile.
+
 | Owner / issue | Return required | Work not being requested |
 | --- | --- | --- |
-| BindingMT #73 / MolSysMT #256 | Return the existing default-write/migration report with immutable source/native/input identities and outcomes, or explicitly confirm the maintainer pause/scheduling condition. Preserve earlier P5/P6 acceptances. | No preparation, minimization, docking, C1/resolve_region, new model, package or new matrix. |
+| BindingMT #73 / MolSysMT #256 | Received and accepted: immutable 2b761a84, twelve default operations, original data/maps/provenance and hashes. Preserve earlier P5/P6 acceptance and the bounded old-native decision. | No repeat receiving, preparation, minimization, docking, C1/resolve_region, new model, package or new matrix. |
 | MolSysViewer / #250, #254, #421 | Confirm these current consumption semantics or name the concrete remaining incompatibility; retain Experimental scientific/API scope. Identify remaining work before selecting the final host source. Existing source evidence need not be rerun just to acknowledge the contract. | No new detector, lazy-file API, broad matrix, candidate build or promotion. Current owner-authorized UI diagnosis remains separate. |
 | Both maintainers / #524, #334 | Agree exact clean producer commits, versions, unused builds, artifact coordinates and applicable runtime composition. Review the already prepared compatible minimum-host metadata before freezing. | A future version label is not an already qualified/public compatible package; no floor changes or release authorization by this packet. |
-| MolSysMT / #256 | Receive the pending client return, resolve concrete discrepancies if any and record the stable-format decision with its supported schema and limits. | No wholesale format redesign or acceptance inferred from silence. |
+| MolSysMT / #256 | Completed: client return reviewed, no exercised-scope discrepancy found, first-stable 1.0 source/wire contract recorded with admitted schema revisions and explicit limits. | No publication, general scientific/ABI certification or final installed-pair acceptance. |
 | Both release owners / #334 | After agreed resumption, qualify the exact same artifacts and sources under existing source/native/scientific/documentation and installed-pair gates, including the retained #671 lane. Then hand off the review packet. | Historical or scoped source passes do not replace final installed/platform qualification. |
 
 ## Publication order and completion boundary

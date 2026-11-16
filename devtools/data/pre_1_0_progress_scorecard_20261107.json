@@ -1084,17 +1084,19 @@
   "h5msm_stable_format_target": {
     "owner_issue": "uibcdf/molsysmt#256",
     "milestone": "1.0.0",
-    "state": "source_default_1_0_and_bounded_clients_received_stable_freeze_pending",
+    "state": "stable_1_0_source_wire_scope_and_finite_default_clients_accepted",
     "first_stable_format": "1.0",
     "coordinated_library_release": "1.0",
     "development_version": "0.6 may precede the stable freeze",
     "evolution": "Independent library and format versions; incompatible format changes require a new format major.",
     "normative": "devguide/h5msm_format.md#version-identities",
-    "plan": "devguide/pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md",
+    "plan": "devguide/archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md",
     "owner_decision": "https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6730428162",
     "weighted_milestone_change": 0,
     "scope_addition": "Track before release without silently changing the original audit weights or declaring the new format implemented.",
-    "default_format": "1.0"
+    "default_format": "1.0",
+    "acceptance": "devtools/data/binding_default_h5msm_acceptance_256_20261115.json",
+    "remaining": "Exact coordinated artifact/source/platform/installed qualification and authorized publication remain under #334/#524; no weight change."
   },
   "last_mechanics_codec_receiving": {
     "owner_issue": "uibcdf/molsysmt#256",

@@ -1,23 +1,65 @@
 ---
 summary: Design H5MSM 0.6 persistence for MolecularMechanics
 issue: uibcdf/molsysmt#256
-status: active
+status: resolved
 opened: 2026-09-29
-closed:
+closed: 2026-11-15
 verification: measured
 area: [form, data]
-guard:
-normative:
+guard: tests/form/file_h5msm/test_original_packet_default_migration.py
+normative: devguide/h5msm_format.md
 blocked_by: []
 supersedes: []
 ---
 
 # H5MSM 0.6 MolecularMechanics persistence
 
+## Resolution — 2026-11-15
+
+Accepted and completed in source: bounded mechanics persistence and the first-
+stable H5MSM 1.0 wire contract. The [normative format decision](../../h5msm_format.md#first-stable-schema-decision--2026-11-15)
+records the admitted root/layer revisions, units, presence, associations and
+legacy policy. The original 0.6 proposal and dated implementation steps below
+retain their historical decisions, failures and evidence scopes.
+
+BindingMT #73's immutable `2b761a84d698c1bbe44adb947c8919f08c8d1c78`
+completes the last prescribed default-argument client profile. The
+[owner acceptance receipt](../../../devtools/data/binding_default_h5msm_acceptance_256_20261115.json)
+verifies its report and both manifests by Git blob, all 92 archived members by
+compressed/decoded hashes, nine original packet files against the owner data,
+and all twelve actual output roots, migration metadata and typed snapshots.
+An additional direct h5py comparison finds all 1,324 compared dataset instances
+and every non-root layer attribute unchanged from the original files. The two-
+operation admission overlaps the normal cohort and adds no acceptance credit.
+
+The actual client provider is `6deb0200cd7e384128eded46caaf751a57e65bc6`,
+using mapped native digest `2dbcf13d148cb3ae13a5908707fcdd61c75a2de5027e50c566ce07de81bdb038`.
+Owner Git comparison independently confirms only two mmCIF reader files differ
+from `08442cb14` and the reviewed `4b0b1f8a1` checkpoint. The actual worker
+blocks public Rust calls after import, optional molecular engines, preparation,
+subprocesses and network; none is reached in the selected operations. This
+accepts finite storage/source behavior, not general ABI authenticity. The old
+generated creator version remains distinct from live Git and scientific producers.
+
+All five proposal criteria have bounded source evidence: the documented native
+parameter/observation boundary; typed schema/units/presence/associations; public
+round trips and rejection guards; legacy and partial-domain routes; and aligned
+schema, User Guide, Cookbook, API and course material. Existing P5/P6, MolSysViewer
+and original failure records remain valid within their recorded scopes. The
+selected guard protects the omitted-version public routes on the original three
+files under both unit policies, including preserved data, roots, provenance and
+unchanged input hashes; related boundary guards remain linked below.
+
+No tag, package, installed/platform qualification or release follows from this
+closure. #334/#524 retain exact-candidate and final installed MolSysMT 1.0.0 /
+MolSysViewer 1.0.0 gates and the construction/publication pause. Scientific models
+and public native APIs retain their own Experimental classifications. This
+additional acceptance changes no original milestone weight or percentage.
+
 ## Current state — reviewed 2026-11-15
 
 Development public writers already default to H5MSM 1.0, including the bounded
-experimental mechanics layer. The [maintained format contract](../h5msm_format.md)
+experimental mechanics layer. The [maintained format contract](../../h5msm_format.md)
 owns current behavior; the original design and dated increments below retain
 their historical 0.5/0.6/default-transition scope. The older scheduling and
 future-tense statements do not reverse the implemented 1.0 default.
@@ -25,21 +67,21 @@ future-tense statements do not reverse the implemented 1.0 default.
 Independent MolSysViewer default-specific receiving is accepted below: eighteen
 session cases and 151 boundary cases. Historical DockingMT explicit 0.6 and
 1.0 receiving remains accepted on its recorded source/native compositions.
-The current canonical repository is BindingMT; its latest recorded #73 message
-reports a maintainer-requested pause. The already requested omitted-version
-write/migration check under both unit policies remains to be received; no
-new preparation or docking run is requested. See the
-[client coordination receipt](../../devtools/data/h5msm_client_coordination_256_20261113.json).
+The current canonical repository is BindingMT. Its omitted-version save/migration
+receiving is now accepted in the resolution above. The earlier
+[client coordination receipt](../../../devtools/data/h5msm_client_coordination_256_20261113.json)
+retains the original scheduling pause; the client subsequently authorized and
+completed this finite storage profile without resuming preparation or docking.
 
 The pre-freeze reader review also identifies #745: coercion of malformed
 integral headers and unsafe declared-count enumeration. Its bounded correction and 1,566-case receiving are complete in source;
 the evidence is tracked in the
-[resolved report](../archive/resolved_bugs/h5msm_readers_silently_coerce_malformed_integer_metadata.md).
+[resolved report](../resolved_bugs/h5msm_readers_silently_coerce_malformed_integer_metadata.md).
 It preserves valid wire encodings; no new format version is required.
 
 The additional MolSysViewer profile `897` reports 55 passing selected cases
 against exact MolSysMT `96988b6ea`, reusing native `4ffb82e4`. The
-[bounded owner review](../../devtools/data/viewer_current_source_client_review_256_524_20261115.json)
+[bounded owner review](../../../devtools/data/viewer_current_source_client_review_256_524_20261115.json)
 verifies the immutable public report, supplemental hashes and actual guard/helper
 blobs. It receives concrete session/default/explicit-format, sparse-query,
 coverage, append and coordinate-edit semantics; independent geometry remains
@@ -47,9 +89,10 @@ visible in the tests. Private raw JUnit and origin/input manifests are not
 received or rerun. The overlapping selection is not 55 new acceptance cases,
 a package/ABI qualification or BindingMT's omitted-version migration exit.
 
-The stable-format decision and exact coordinated installed-pair gates remain
-open. Neither source support, a default-setting change nor this clarification
-publishes H5MSM 1.0 or resumes candidate production/hosted qualification.
+The stable source/schema decision is complete. Exact coordinated installed-pair
+gates remain open under #334/#524. Neither source support, this decision nor
+the default-setting change publishes H5MSM 1.0 or resumes candidate production/
+hosted qualification.
 
 ## Original proposal and implementation history
 
@@ -62,7 +105,7 @@ schema or release is made public by that authorization alone.
 
 Design a versioned H5MSM 0.6 representation for the native
 `MolecularMechanics` domain with an explicitly bounded parameter model.
-The [H5MSM 0.5 contract](h5msm_0_5_modular_layers.md) intentionally contains
+The [H5MSM 0.5 contract](../../pending_proposals/h5msm_0_5_modular_layers.md) intentionally contains
 no mechanics layer. The maintainer now permits this work before MolSysMT 1.0.
 
 ## How
@@ -432,7 +475,7 @@ No runtime implementation, registered file form or 0.6 schema is added. This
 answers the public-composition question for a trusted local object checkpoint;
 it does not make that checkpoint portable or accept the client's H5MSM gate.
 The maintained scope is in
-[Trusted native object checkpoints](../forms_and_conversions.md#trusted-native-object-checkpoints)
+[Trusted native object checkpoints](../../forms_and_conversions.md#trusted-native-object-checkpoints)
 and the User Guide links the same contract.
 
 `tests/native/test_prepared_system_checkpoint.py` builds actual AutoDock4 and
@@ -491,7 +534,7 @@ HTML warnings remain. Existing code, execution counts and outputs in both edited
 notebooks are unchanged. The library runtime, dependencies and Rust binary are
 unchanged by this receiving work.
 
-The [portable receiving record](../../devtools/data/native_checkpoint_receiving_256_20261108.json)
+The [portable receiving record](../../../devtools/data/native_checkpoint_receiving_256_20261108.json)
 retains every original attempt and ten distinct reader records (excluding pytest
 symlink aliases). Six positive readers preserve full public observation trees,
 original producer labels and byte-identical selected exports. Four adverse
@@ -543,7 +586,7 @@ baseline warnings are unchanged. The original 13/14 fast failure on that source
 is retained and does not become passing evidence. The new source has its own
 passing fast and complete selected-test runs.
 
-[Receiving](../../devtools/data/mechanics_layer_receiving_256_20261108.json)
+[Receiving](../../../devtools/data/mechanics_layer_receiving_256_20261108.json)
 retains all twelve original attempts, three fresh-reader payload hashes and
 expected observation hashes, actual pandas/Pint/provider versions, unchanged
 input manifests and resource limits. Tests use two measured workers with a
@@ -562,7 +605,7 @@ capability is public in this source checkpoint. #256 remains open.
 
 Public `2cca126fe25ecf8f8d40e77acd8fb930e7e34f87` independently matches all ten
 changed paths and preserves the four human root files. The
-[delivery record](../../devtools/data/mechanics_layer_delivery_256_20261108.json)
+[delivery record](../../../devtools/data/mechanics_layer_delivery_256_20261108.json)
 links the qualified private layer and
 [owner response](https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6731162300).
 #438 receives the new placement evidence without closing its original audit.
@@ -619,7 +662,7 @@ separately; P4–P6 and the full consumer qualification remain open.
 
 Clean `b184e9d181513f50580aa8243f13d9f8941acdd7` passes the same **1,229**
 affected cases, fourteen fast gates and a fresh HTML build. The
-[composition receiving record](../../devtools/data/mechanics_composition_receiving_256_20261108.json)
+[composition receiving record](../../../devtools/data/mechanics_composition_receiving_256_20261108.json)
 retains three actual fresh-reader whole-file outcomes, twelve public #661
 overflow controls, the corrected #660 presence fixture, original failed attempts,
 all source/runtime hashes and resource caps. Three rendered public pages are
@@ -637,7 +680,7 @@ public-input correction; #438's seven-module placement audit remains open.
 
 Public `1d033b65693dc0db84e594efccd2bf8651a19dda` independently matches all
 21 changed paths and preserves the four human files. The
-[delivery record](../../devtools/data/mechanics_composition_delivery_256_20261108.json)
+[delivery record](../../../devtools/data/mechanics_composition_delivery_256_20261108.json)
 and [owner response](https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6731932749)
 retain its bounded source scope. #661 is closed through its public twelve-case
 guard; #256 and the separate #438 placement review remain open. No format,
@@ -654,7 +697,7 @@ inspection, selected file extraction, byte copying and bounded topology-free
 append now dispatch the two modular roots. The old 0.3/0.4 adapter retains its
 actual legacy scope. Conversion upgrades use a distinct output and preserve the
 source; the version-specific 0.5 migration helpers/warnings are unchanged.
-The [experimental public contract](../../docs/content/user/tools/form/file/h5msm_06.md)
+The [experimental public contract](../../../docs/content/user/tools/form/file/h5msm_06.md)
 documents supported types/units, explicit identities and presence limits.
 
 `read_axis_sizes` exposes independent declared cardinalities without payloads;
@@ -714,7 +757,7 @@ Clean `69f9389479036044fd5a3c01fbfb75b07f4c2735` passes **1,843 affected
 cases without omissions**, **14/14 fast gates** and fresh HTML. Five rendered
 pages and the new public API anchor are inspected; six baseline warnings remain.
 Course code, execution counts and outputs are unchanged. The
-[public receiving record](../../devtools/data/public_mechanics_receiving_256_20261108.json)
+[public receiving record](../../../devtools/data/public_mechanics_receiving_256_20261108.json)
 retains original failed attempts, twelve independent unknown-report controls,
 three public and three private fresh-reader variants, typed unit/provenance
 observations, original exports and actual edit invalidation. It also qualifies
@@ -732,7 +775,7 @@ review and H5MSM 1.0 freeze. No package, tag, release or hosted matrix is create
 
 Public `52df76db2e9e29cc4812493e1cf3ca984e9fd57f` independently matches all
 58 changed paths and preserves the four human files. The
-[delivery record](../../devtools/data/public_mechanics_delivery_256_20261108.json)
+[delivery record](../../../devtools/data/public_mechanics_delivery_256_20261108.json)
 and [owner handoff](https://github.com/uibcdf/molsysmt/issues/256#issuecomment-6732726967)
 provide the exact qualified source and explicit 0.6 invocation. This makes the
 experimental public provider routes available from source, while the default
@@ -783,7 +826,7 @@ The new portable handoff is source availability, not client E3 acceptance.
 The exact preregistered three-case campaign completes on clean
 `b7269b77ec8140c88aca217fcc928e17849275f0`, with six public operations and three
 untraced samples each. The
-[measurements and environment](../../devtools/data/h5msm_mechanics_storage_benchmark_256_20261108.json)
+[measurements and environment](../../../devtools/data/h5msm_mechanics_storage_benchmark_256_20261108.json)
 retain every sample, the actual per-dataset layout/allocation, scripts, whole-source
 hash evidence and shared-host limits. Linux x86-64 / Intel Xeon E5-2630 v4 / Python
 3.14 uses published PyUnitWizard 0.28.1 and unchanged native bytes.
@@ -824,11 +867,11 @@ is separate from this successful benchmark and its 23 directed controls.
 
 Clean `990474db05f09b853cc470d9e9f14e3b37d0af82` receives the #662 correction
 and storage tooling with 1,869 affected cases, fourteen fast gates and fresh
-HTML. The [record](../../devtools/data/mechanics_storage_and_nullable_receiving_256_662_20261108.json)
+HTML. The [record](../../../devtools/data/mechanics_storage_and_nullable_receiving_256_662_20261108.json)
 retains original failures, all clean identities, resource counters, warning
 baselines and four inspected pages, including the exact downloadable benchmark
 JSON. Fourteen course code cells/execution counts/outputs remain unchanged.
-The [nullable-charge defect](../archive/resolved_bugs/nullable_stored_partial_charges_fail_public_numeric_queries.md)
+The [nullable-charge defect](../resolved_bugs/nullable_stored_partial_charges_fail_public_numeric_queries.md)
 is resolved in source; the benchmark completes all three preregistered cases.
 The first final-record extractor inserted spaces before inline-code punctuation;
 normalizing those parser-introduced spaces confirms the actual rendered prose.
@@ -884,7 +927,7 @@ weakened or reassigned to a modular codec.
 
 Clean `f03288768` receives the #663 option-boundary repair with 1,907 affected
 cases, fourteen fast gates and six inspected HTML pages, including the public
-conversion API. The [record](../../devtools/data/h5msm_encoding_review_receiving_663_20261109.json)
+conversion API. The [record](../../../devtools/data/h5msm_encoding_review_receiving_663_20261109.json)
 preserves the original 28 failures/four passes, directed 64-case receipt and clean
 source/runtime/resource identities. Thirty-two new guards protect actual default
 field values/dtypes and refusal before publication; five unchanged legacy cases
@@ -900,7 +943,7 @@ independent P5 plus final stable-root/default/candidate gates are unaccepted.
 its completed original reference prerequisite and bounded three-P59-pose E3
 workflow on 9b077fabf41e19ffdfb945bc7aa3fb6c53265e0f, using editable MolSysMT
 efbe67e1c6042078144bce1db24aa80bb565dbd2 and its own unchanged native backend.
-The [receipt](../../devtools/data/docking_h5msm06_client_receiving_256_20261109.json)
+The [receipt](../../../devtools/data/docking_h5msm06_client_receiving_256_20261109.json)
 records immutable source documents and authenticated compressed/decoded reader
 receipts/manifests. The public source documents' Git blob hashes also match.
 The consumer backend hash differs from this machine's qualified binary; this
@@ -930,7 +973,7 @@ scorecard weight, full H5MSM closure or release authority is added.
 
 ### Finite P5 provider review and client packet — 2026-11-10
 
-The [completion packet](../pre_1_0_completion_handoffs_20261110.md#finite-p5-review-matrix)
+The [completion packet](../../pre_1_0_completion_handoffs_20261110.md#finite-p5-review-matrix)
 now maps the remaining boundaries to assertion-bearing guards instead of an
 unbounded request for more client testing. Source **ee4f72796** passes **156
 provider cases**: public whole/partial/layer routes, fresh readers, original
@@ -938,10 +981,10 @@ producer versions and PDBQT parity, unit-policy preservation, selected/reordered
 axes, typed/nullable fields, unknown-evidence refusals and selective invalidation.
 Four new 0.5/0.6 topology/interaction append-refusal cases preserve byte-exact
 source files and independently readable layers. No product code or native
-binary changes from 5e7d65a66. See the [provider receipt](../../devtools/data/h5msm_p5_provider_receiving_256_20261110.json).
+binary changes from 5e7d65a66. See the [provider receipt](../../../devtools/data/h5msm_p5_provider_receiving_256_20261110.json).
 
 Three already received public-writer outputs now form a [portable synthetic
-fixture packet](../../devtools/data/h5msm_p5_review_20261110/README.md), with
+fixture packet](../../../devtools/data/h5msm_p5_review_20261110/README.md), with
 SHA-256/sizes, explicit typed snapshots and original current-producer PDBQT
 exports. These are small storage witnesses, not production force fields. The
 proposed additional client profile is limited to projected/reordered readback,
@@ -973,7 +1016,7 @@ The exact provider reference is `ee4f727960ddb7f86b2c9c8e28e7f842fbe1bdfc`,
 whose product source matches `5e7d65a665425fe6077f016dd95cbd65d424ee91`, with
 Linux ABI3 `_rust.abi3.so` SHA-256
 `4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345`.
-Use the [fixture manifest](../../devtools/data/h5msm_p5_review_20261110/manifest.json)
+Use the [fixture manifest](../../../devtools/data/h5msm_p5_review_20261110/manifest.json)
 for individual file identities. This is a source/native reference, not a
 published package coordinate. In an isolated consumer composition, record the
 actual imported source, extension path and digest before reading the fixtures.
@@ -984,7 +1027,7 @@ older provider binary. The three new checks do not repeat preparation or docking
 ### P6 wire catalog and public-route audit — 2026-11-10
 
 Inspected source `4e43a6557cf9ac70d3504cab35dd72281e911fe1` and the existing
-[format contract](../h5msm_format.md). The proposed stable root should keep
+[format contract](../../h5msm_format.md). The proposed stable root should keep
 the represented domains and their existing codecs unless an identified wire
 change needs a new layer revision. The root identifier, exact admitted layer
 revisions, current producer version and original stored evidence have separate
@@ -1100,7 +1143,7 @@ The source is isolated MolSysMT `5e7d65a6` with the consumer's previously
 qualified Linux ABI3 `5715bda2`. The native allowance is two unchanged
 connected-component calls per policy, each for one atom and zero bonds.
 All changed neighbor kernels and other native calls are blocked. The
-[provider-side receipt](../../devtools/data/docking_h5msm_p5_client_receiving_256_20261110.json)
+[provider-side receipt](../../../devtools/data/docking_h5msm_p5_client_receiving_256_20261110.json)
 authenticates both manifests and 11 selected stored records. The final
 reports retain identical caller unit settings and register named fast tracks
 during startup. The original failed admissions and reader remain in custody.
@@ -1150,7 +1193,7 @@ structures `[2, 0]`, selective edit invalidation and both unknown-report
 transport/refusal cases pass. The two-case admission overlaps these profiles.
 [DockingMT #73](https://github.com/uibcdf/dockingmt/issues/73#issuecomment-6784434374)
 
-The [provider receipt](../../devtools/data/docking_h5msm_p6_client_receiving_256_20261110.json)
+The [provider receipt](../../../devtools/data/docking_h5msm_p6_client_receiving_256_20261110.json)
 verifies both manifest digests and the compressed and decoded identities of
 thirteen selected records. The received product bytes match the `05865fbb3`
 reference. The two actual import maps identify DockingMT's local ABI3
@@ -1168,7 +1211,7 @@ at `97d49215b2ef92316052697bee12c682ea322e6a`. The runtime is
 `a6a3a309b31de2031e2517be6d913a9afd0c087b`, with MolSysMT
 `8d05bc33e75327a2c4f55a8c06ed3a132627fb5b`, PyUnitWizard 0.29.2 and
 native ABI3 `4ffb82e4`. The
-[provider receipt](../../devtools/data/molsysviewer_h5msm10_client_receiving_256_20261110.json)
+[provider receipt](../../../devtools/data/molsysviewer_h5msm10_client_receiving_256_20261110.json)
 verifies the public report and the test's declared SHA-256 and assertions.
 The raw JUnit remains in the consumer's recorded private custody.
 
@@ -1202,7 +1245,7 @@ for every modular root. The legacy handler and named 0.5 migration helpers
 retain their version-specific contracts. Legacy reading warnings recommend
 the current source-preserving conversion command.
 
-The [transition receipt](../../devtools/data/h5msm_default_10_receiving_256_20261110.json)
+The [transition receipt](../../../devtools/data/h5msm_default_10_receiving_256_20261110.json)
 records **1,277 passing cases**, including doctests, six source-schema extraction
 controls and a real Python MolSysViewer session roundtrip with mechanics and a
 named analysis. The runtime is the consumer's exact `a6a3a309` source,
@@ -1227,7 +1270,7 @@ MolSysViewer publishes its independent default-transition receiving in
 uibcdf/molsysviewer#315. The runtime base is `ed1e118212`; that commit changes
 only the session guard and developer records. MolSysMT source is
 `aee7aa65da56e896d1cb2d655bf73736f6453a43`, with the unchanged qualified native
-binary `4ffb82e4`. The [owner receipt](../../devtools/data/molsysviewer_default_h5msm_client_receiving_256_20261111.json)
+binary `4ffb82e4`. The [owner receipt](../../../devtools/data/molsysviewer_default_h5msm_client_receiving_256_20261111.json)
 records the reviewed public blobs, original command exits, identical before/after
 input manifests and 45 independently rehashed retained files. The custodian's
 separately retained 124-MB source archive is not rescanned by this review.
@@ -1262,7 +1305,7 @@ leave every original fixture/oracle hash unchanged. Whole-file migration alone
 retains the original root's migration metadata. Assignment recalculation is
 forbidden; no preparation, parameterization or docking is repeated.
 
-The [receipt](../../devtools/data/three_closeout_receiving_615_256_524_762_20261115.json)
+The [receipt](../../../devtools/data/three_closeout_receiving_615_256_524_762_20261115.json)
 retains the 12-case focused pass and overlapping 44-case storage/diagnostic
 cohort. These are new owner regressions, not independent BindingMT execution.
 A renewed scheduling/evidence request is published in BindingMT #73; it does

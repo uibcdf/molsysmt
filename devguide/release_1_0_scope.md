@@ -117,11 +117,13 @@ transport and refusal of unsupported scientific use. It does not certify
 stored assignments, expand force-field physics or stabilize the entire
 MolecularMechanics API. Explicit 0.5 remains mechanics-free; explicit 0.6 is
 experimental. The [format contract](h5msm_format.md) and
-[#256 implementation/acceptance record](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#revised-implementation-plan--2026-11-08)
+[#256 implementation/acceptance record](archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md#revised-implementation-plan--2026-11-08)
 own exact schema and limits. Independent default-specific MolSysViewer source
-receiving is accepted on 2026-11-11 under #256. Stable-format freeze and exact
-installed-pair qualification remain pending. This admission does not authorize
-a package, tag, promotion or publication.
+receiving is accepted on 2026-11-11 under #256. BindingMT's original-packet
+default-save/migration receiving and the first-stable source/wire decision are
+accepted on 2026-11-15. Exact candidate and installed-pair qualification remain
+pending under #334/#524. This admission does not authorize a package, tag,
+promotion or publication.
 
 ## Group-name scheme admission — 2026-11-04
 

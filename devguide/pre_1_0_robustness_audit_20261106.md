@@ -15,6 +15,17 @@ final installed/candidate qualification. The source/runtime corrections and
 administrative adoptions retain their own scoped receipts. The later exact
 pair and maintainer-review handoff remain pending.
 
+## Stable-format source decision received — 2026-11-15
+
+BindingMT #73's twelve original-file default operations are accepted in the
+[owner review](../devtools/data/binding_default_h5msm_acceptance_256_20261115.json).
+#256's first-stable 1.0 source/wire decision is complete in the
+[format contract](h5msm_format.md#first-stable-schema-decision--2026-11-15).
+The original weighted score remains 80.2381%; final candidate/platform/installed
+gates stay open. Incoming #768 owns the next bounded latest-policy/resource-
+guidance adoption; #524 then retains actual compatible host/artifact closure.
+Historical work-package snapshots below keep their original states and scopes.
+
 ## Pre-1.0 polishing queue — 2026-11-11
 
 **Owner:** uibcdf/molsysmt#334. **Role:** supplemental operational queue under
@@ -62,7 +73,7 @@ the release requirements.
 | P2 — persistence/integration and source receiving, #334 / #256 / #709–#713 / #717 / #720 / #722 | Complete `6acad4f35` remains **33,850 passes, 16 skips, zero failures/errors**. Later iterator diagnostic/inventory and flag repairs have focused receiving: 166, then 377, then 526 overlapping cases pass. The native binary remains unchanged. | Preserve exact scopes and original failures. Later executable changes remain in the deliberate complete-source/nightly backlog; latest main is not fully qualified. #713 causality, hosted/platform/installed and exact-candidate gates stay separate. |
 | P3 — semantic documentation and discoverability, #727 / #378 | The final 340-case receiving passes. All 86 reviewed adapter articles deliver 1,673 intended references to 1,528 verified source files; explicit guards cover all 95 form notebooks. Twenty-three selected pages build without warnings, preserving executable payloads and metadata. | #727 and related adapter repairs #742–#744 are publicly closed. Preserve their guards and evidence. Broader discoverability and final complete-site qualification remain separate; [receipt](../devtools/data/remaining_form_reference_receiving_727_20261113.json). |
 | P4 — incoming and remaining issues/PRs, owning issue / #334 | Complete intake has 663 issues, 94 open and no open PRs. #723 and #727/#742/#743/#744 are independently closed; board and queues agree. The five new memory-task units and their observed process identities are retired. | Continue #256 stable-format/default-client receiving and bounded #615/#713 conclusions, then the exact final pair. Preserve the scope cutoff and existing publication pause. [Memory closeout](../devtools/data/prolonged_memory_closeout_723_20261113.json). |
-| P5 — client and final-candidate boundaries, #256 / #250 / #254 / #524 / #615 / #334 | Independent default-specific MolSysViewer source receiving is [reviewed and accepted](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-default-specific-molsysviewer-receiving--2026-11-11): 18 session cases and 151 boundary cases on the declared source. The final pair is not frozen; #615's original uncertainty and installed-package evidence remain open. | Complete the stable-format decision and final pair agreement. Keep the published dependency floor, installed matrix and publication decisions distinct from local polish and headless source receiving. |
+| P5 — client and final-candidate boundaries, #256 / #250 / #254 / #524 / #615 / #334 | Independent default-specific MolSysViewer source receiving is [reviewed and accepted](archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-default-specific-molsysviewer-receiving--2026-11-11): 18 session cases and 151 boundary cases on the declared source. The final pair is not frozen; #615's original uncertainty and installed-package evidence remain open. | Complete the stable-format decision and final pair agreement. Keep the published dependency floor, installed matrix and publication decisions distinct from local polish and headless source receiving. |
 
 ### File-review correctness intake — 2026-11-12
 
@@ -913,7 +924,7 @@ system variants retain complete mechanical reports through fresh readers with
 another unit policy and no preparation engines/Ackredit. Numeric arrays are
 HDF5 datasets; UTF-8 labels use bounded fixed-width transfers. Source producer
 metadata and original historical maps remain stored evidence, without rebinding.
-The [owning plan](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#p1-catalog-mechanics-layer-schema-1-draft)
+The [owning plan](archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md#p1-catalog-mechanics-layer-schema-1-draft)
 records exact types/units, absent/empty semantics, malformed-data refusals and
 original prototype failures. Clean `5c38a1022` now passes **1,178 affected cases
 without omissions** (67 new codec guards) and **14/14 fast gates**. The
@@ -942,7 +953,7 @@ calendar restriction recorded in the checkpoint review below. The accepted
 target is **H5MSM 1.0 alongside MolSysMT 1.0**, after schema qualification;
 0.6 may be a development stage. Subsequent format versions evolve independently,
 with incompatible changes requiring a new format major. The
-[bounded plan](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#revised-implementation-plan--2026-11-08)
+[bounded plan](archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md#revised-implementation-plan--2026-11-08)
 defines P0–P6, model requests versus completed assignments, typed units/tables,
 original reports, atom/state binding, partial-domain refusals, public operations,
 fresh-reader/client gates and the default-writer/freeze decision.

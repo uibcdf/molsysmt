@@ -31,6 +31,7 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
+| Receive incoming #768's current governance target | MolSysSuite now requests policy-v1.6.0 and the current common resource guidance under central #201/#197. The owning [#768](https://github.com/uibcdf/molsysmt/issues/768) is open; preserve #764's valid historical v1.5.12 acceptance. Review immutable callers, synchronized guide and workload/protection/cleanup disposition through the official route. No hosted matrix, environment mutation or publication is commissioned. |
 | Preserve MolSysViewer's current-source client receiving | Its published profile `897` reports 55 selected cases passing on exact owner `96988b6ea`, reused native `4ffb82e4` and its recorded client/support-source composition. The [bounded review](../devtools/data/viewer_current_source_client_review_256_524_20261115.json) verifies eleven public Git blobs, the actual five guard modules/helpers and source identities; private raw execution records are not replayed. Session persistence, maps, coverage, edit invalidation, append and independent geometric projection remain exercised source contracts. This does not close #256/BindingMT #73, #524, #615 or final installed acceptance. |
 | Preserve #759–#761 peptide and documentation receiving | The [peptide report](archive/resolved_bugs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md) retains explicit caps and measured initial torsions without new builder APIs. The final selected cohort passes 23 cases without skips; the full seven-cell lesson executes under ordinary and explicit pm/fs/degrees policies. Strict Sphinx renders 1,401 HTML files without warnings, and the local browser receives the 109-atom saved model. The [receipt](../devtools/data/peptide_course_receiving_759_761_20261115.json) also retains the supported structure-generator namespace and 713 corrected author links. No production/native/dependency change or #615/final-pair disposition follows. |
 | Preserve #758's actual complete geometry lesson | The [resolved report](archive/resolved_bugs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md) uses an unchanged, documented local 2BEG snapshot, one selected structure and explicit KLVFF placement/populations. Thirty-one selected cases pass, including ten new independent unit/coordinate/membership/plot controls. A real kernel executes five code cells and retains one figure; strict Sphinx renders 1,400 pages without warnings. The article, figure and both exact downloads are received in the [receipt](../devtools/data/alzheimer_geometry_receiving_758_20261114.json). Original alias failures and initial authored path/element/group-axis errors remain separate. No runtime/native/dependency or binding-affinity claim follows. |
@@ -45,7 +46,7 @@ promotions and publication remain paused pending the agreed resumption.**
 | Preserve #734's bounded contacts/SASA owner disposition | The [owner contract](native_interface_contacts_sasa_contract.md) and 104-case receiving offer existing public operations for the first Cartesian bundled-element-vdW profile. No concrete new operation gap is established. BindingMT #112 and TopoMT #197 retain application decisions and actual client acceptance; MolSysSuite #195 remains the coordination owner. This finite review adds no release prerequisite. |
 | Preserve the complete documentation source build | Clean 8f04a1a88 compiles all 1,034 admitted documents, including 499 stored notebooks, into 1,400 HTML files with zero warnings. All 101 actual-reference guards pass on that new site, covering every form notebook and adjacent lifecycle pages. Source/HTML hashes remain unchanged. [Receipt](../devtools/data/complete_documentation_source_receiving_334_20261113.json). No notebook execution, full-site browser review, deployment or final-candidate acceptance is claimed. |
 | Preserve completed #745 reader receiving | Source f9a44bf34 rejects malformed integral headers and checks numbered counts before enumeration. Valid encodings, unit policies and selected-layer limits survive. All 1,566 affected persistence cases/doctests, four strict HTML articles, fifteen local fast gates, indexes and Ruff pass. [Receipt](../devtools/data/h5msm_integer_metadata_receiving_745_20261113.json). This adds no schema or publication claim. |
-| Complete #256's stable-format decision | Development writers default to 1.0. Twelve new owner regressions on the three unchanged original 0.6 files pass through omitted-version native saves and whole-file migration under two unit policies. The [receipt](../devtools/data/three_closeout_receiving_615_256_524_762_20261115.json) preserves original data/producers and hashes. MolSysViewer receiving remains accepted in scope. BindingMT #73 has a renewed scheduling/evidence request; its independent default/migration response, format decision and exact installed acceptance remain pending. |
+| Preserve completed #256 source/wire decision and client receiving | BindingMT 2b761a84 completes all twelve prescribed original-file default-write/migration operations under ordinary and pm/fs policies. The [owner acceptance](../devtools/data/binding_default_h5msm_acceptance_256_20261115.json) verifies 92 archived members, all roots/maps/snapshots and 1,324 compared dataset instances. The [first-stable schema decision](h5msm_format.md#first-stable-schema-decision--2026-11-15) is complete; earlier P5/P6 and MolSysViewer scopes remain intact. Final source/native/platform/installed qualification and publication remain under #334/#524. |
 | Preserve #615's accepted technical host-profile resolution | The maintainer authorizes closure after controlled 919/923 and normal 928 receiving. The development notebook environment requires ipykernel >=7.4.0, with public installation guidance and a semantic floor/core-optionality guard. The [archived record](archive/resolved_bugs/intermittent_jupyter_initial_canvas_timeout.md#accepted-technical-resolution--2026-11-15) preserves the original unknown exact cause and failed attempts. Final exact-pair startup, installed/platform qualification and shared-prefix adoption remain separate. |
 | Preserve #713's accepted closure and diagnostics | The maintainer explicitly accepts closure after the current audit. The diagnostic gap is corrected/tested, and all three actual import orders pass in the contextual full run (4.417–4.463 seconds). The [archived disposition](archive/resolved_bugs/fresh_import_order_timeout_lacks_pre_deadline_child_diagnostics.md#accepted-closure--2026-11-13) preserves the unknown historical cause, original failures and unchanged stage/stack/deadline guards. #747/#748 and mandatory qualification remain separate. |
 | Preserve #746's finite owner offer, #750 correction and bounded client receiving | The [membership contract](native_binding_site_membership_contract.md) and owner regressions retain their source scope. BindingMT `7b11bab5` reports 18 membership and 18 selection-bounds cases passing on the actual `27ba3d4c8` source with its existing native `2dbcf13d`, plus 500 software controls per normal/pm-fs policy. Immutable published records and both guard blobs are inspected in the [client review](../devtools/data/binding_membership_client_review_746_20261114.json); private raw receipts are not received here. This receives finite exercised facts, not the actual pending `resolve_region`/C1 operation, the complete native ABI or #256's separate original-file migration/default profile. |
@@ -100,11 +101,38 @@ remain unreceived; rendering and installed/candidate gates remain separate.
 
 MolSysViewer has been asked to confirm the consumption agreement or concrete
 remaining incompatibilities before final producer selection, preserving its
-current owner-authorized UI work. BindingMT #73 still ends with the prior
-request; the maintainer is given the exact twelve-combination storage-only
-message to coordinate it. No paused consumer execution is restarted. Continue
-that finite return, stable-format decision and #524 artifact preparation; do
-not add optional features or duplicate a broad campaign while waiting.
+current owner-authorized UI work. BindingMT has now returned the exact twelve-
+combination storage-only receiving. The owner accepts that return and completes
+#256's stable source/wire decision below. Continue #524's actual compatible host
+and final-pair identity preparation; do not repeat the accepted profile, add
+optional features or duplicate a broad campaign while waiting.
+
+## H5MSM source/schema closeout and BindingMT acceptance — 2026-11-15
+
+The last prescribed #256 client return is received from BindingMT #73,
+immutable `2b761a84d698c1bbe44adb947c8919f08c8d1c78`. Its twelve operations
+cover three unchanged original files, two unit policies and both public
+omitted-version routes. The [owner review](../devtools/data/binding_default_h5msm_acceptance_256_20261115.json)
+authenticates the report, both manifests and every compressed/decoded byte of
+92 archived members. Independent h5py inspection confirms actual 1.0 roots,
+complete original migration metadata, all original input hashes, typed snapshots
+and unchanged layer data, including 1,324 compared dataset instances. No
+MolSysMT calculation or client worker is replayed by this owner review.
+
+Client provider `6deb0200c` differs from requested `08442cb14` and reviewed
+`4b0b1f8a1` only in the two unrelated mmCIF readers. Its old mapped `2dbcf13d`
+native remains a bounded storage-only composition: the actual selected worker
+blocks public native calls after import. This does not qualify that binary's
+build identity, every API or the final pair.
+
+The [format contract](h5msm_format.md#first-stable-schema-decision--2026-11-15)
+now records the accepted first-stable root/layer scope, legacy policy, units,
+presence and associations. #256's source/design work is complete and archived;
+scientific/API Experimental classifications remain separate. #524/#334 retain
+actual host/artifact identities and all mandatory exact-candidate qualification.
+No candidate construction, hosted run or publication is resumed. The original
+score remains **80.2381%**: this required operational closeout adds no new
+weighted leaf or repair bonus.
 
 ## Original milestone accounting reconciled — 2026-11-15
 
@@ -127,16 +155,14 @@ The remaining 19.7619 points concern actual installed defaults (3.3333),
 #250/#254 final acceptance (1.4286) and the exact-candidate/qualification/
 publication stage (15). This is milestone accounting, not remaining engineering
 time or a claim that only documentation review is left. H5MSM #256's required
-client/format agreement remains an operational prerequisite even though its
-implemented source work already has bounded credit elsewhere.
+client/format agreement is now concluded in the acceptance above; its implemented
+source work already had bounded credit elsewhere.
 
 ## Next external exits and retained scientific limit — 2026-11-15
 
-With #763/#766 delivered and #764/#765 received, the next active item is #256:
-BindingMT #73 must return its existing finite default-write/migration acceptance
-or an explicit scheduling/paused disposition. The complete thread still ends
-with our earlier request; no repeat request, execution or acceptance is inferred.
-Then resolve #524's real compatible host floors/artifacts with the final
+With #763/#766 delivered, #764/#765 received and #256's source/schema and
+finite client exit accepted, receive #768's new bounded governance target;
+the next integration item remains #524: resolve real compatible host floors/artifacts with the final
 MolSysViewer candidate. #421/#250/#254 retain final-client/pair receiving;
 #671 and #334 retain exact supported-platform/source/scientific/installed gates.
 Their required construction and hosted work remain paused.
@@ -1424,7 +1450,7 @@ Formal progress stays **76.3095%, 50/50 source graphical intents**.
 
 MolSysViewer `97d49215` reports **47 passes, zero failures or skips** on
 MolSysMT `8d05bc33e` with the reference ABI3 and PyUnitWizard 0.29.2. The
-[P6 session record](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-molsysviewer-session-acceptance--2026-11-10)
+[P6 session record](archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-molsysviewer-session-acceptance--2026-11-10)
 accepts all four requested source paths, including restored scene/analysis
 data, source maps and selective invalidation. The public test hash and
 assertions are verified. The earlier-writer fixture was generated during
@@ -1444,7 +1470,7 @@ records 860 passing cases with the verified public package, the 36-case native
 guard and both actual Jupyter workflows. Source graphical acceptance reaches
 **50/50** and the unchanged weighted plan advances from **76.2920% to 76.3095%**.
 
-DockingMT's [independent 1.0 P6 profile](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-explicit-10-p6-acceptance--2026-11-10)
+DockingMT's [independent 1.0 P6 profile](archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-explicit-10-p6-acceptance--2026-11-10)
 passes **20** cases with its exact measured local binary and bounded native
 scope. Independent MolSysViewer session receiving and the stable-format/default
 decision remain due. #615's intermittent original failure remains open.
@@ -1456,7 +1482,7 @@ passes 264 Python and preflight cases and twelve cutoff decisions in Jupyter.
 Its local branch awaits the compatible PyUnitWizard publication and installed
 receiving. [The #615 diagnostic](archive/resolved_bugs/intermittent_jupyter_initial_canvas_timeout.md#owner-kernel-and-live-session-diagnostics-received--2026-11-10)
 records the kernel and first native draw in the same attempt. The intermittent
-failure remains open. The [local H5MSM P6 reference](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#local-p6-provider-reference-ready--2026-11-10)
+failure remains open. The [local H5MSM P6 reference](archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md#local-p6-provider-reference-ready--2026-11-10)
 passes six migration cases with the exact source and native binary for the
 independent DockingMT repeat. A provider-side Viewer session check reopens
 0.5 and explicitly migrated 1.0 members under two unit policies. Independent
@@ -1469,7 +1495,7 @@ The [independent P5 receipt](../devtools/data/docking_h5msm_p5_client_receiving_
 verifies the recorded profiles and narrow one-atom topology allowance on
 provider source `5e7d65a6` and native `5715bda2`. The three P5 client controls
 are accepted for experimental 0.6. The
-[P6 handoff](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-experimental-06-p5-acceptance--2026-11-10)
+[P6 handoff](archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md#independent-experimental-06-p5-acceptance--2026-11-10)
 identifies the explicit 1.0 source, reference ABI3 and applicable repeat.
 The stable-format/default freeze and exact installed pair remain pending.
 Original progress stays **76.2920%, 49/50**.
@@ -1479,7 +1505,7 @@ Original progress stays **76.2920%, 49/50**.
 The development source implements 1.0 reads, explicit writes and modular
 migration through `convert`. Independent layers, present-empty domains,
 typed values, associations and original evidence survive full-file migration.
-The [validation record](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#explicit-10-source-route--2026-11-10)
+The [validation record](archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md#explicit-10-source-route--2026-11-10)
 retains 1,238 passing H5MSM/persistence/doctest cases and six passing migrations
 of the immutable DockingMT fixtures under both unit policies. Default writes
 remain 0.5. Client acceptance and the stable-format/default freeze are pending.
@@ -1497,10 +1523,10 @@ publication remain paused.
 
 ## DockingMT scope and two PR #706 deadline defects — 2026-11-10
 
-DockingMT #73 confirms the [three additional P5 controls](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#dockingmt-scope-accepted-for-independent-receiving--2026-11-10).
+DockingMT #73 confirms the [three additional P5 controls](archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md#dockingmt-scope-accepted-for-independent-receiving--2026-11-10).
 The exact source/native reference is recorded. The client will run the three
 controls after admitting its isolated provider composition. The
-[P6 audit](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#p6-wire-catalog-and-public-route-audit--2026-11-10)
+[P6 audit](archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md#p6-wire-catalog-and-public-route-audit--2026-11-10)
 identifies the stable-root dispatch, default, preservation and migration work.
 Nine existing H5MSM checks pass. Current 0.5/0.6 routes retain their scope.
 
@@ -2331,7 +2357,7 @@ system variants retain complete mechanical reports through fresh readers with
 another unit policy and no preparation engines/Ackredit. Numeric arrays are
 HDF5 datasets; UTF-8 labels use bounded fixed-width transfers. Source producer
 metadata and original historical maps remain stored evidence, without rebinding.
-The [owning plan](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#p1-catalog-mechanics-layer-schema-1-draft)
+The [owning plan](archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md#p1-catalog-mechanics-layer-schema-1-draft)
 records exact types/units, absent/empty semantics, malformed-data refusals and
 original prototype failures. Clean `5c38a1022` now passes **1,178 affected cases
 without omissions** (67 new codec guards) and **14/14 fast gates**. The
@@ -2360,7 +2386,7 @@ calendar restriction recorded in the checkpoint review below. The accepted
 target is **H5MSM 1.0 alongside MolSysMT 1.0**, after schema qualification;
 0.6 may be a development stage. Subsequent format versions evolve independently,
 with incompatible changes requiring a new format major. The
-[bounded plan](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#revised-implementation-plan--2026-11-08)
+[bounded plan](archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md#revised-implementation-plan--2026-11-08)
 defines P0–P6, model requests versus completed assignments, typed units/tables,
 original reports, atom/state binding, partial-domain refusals, public operations,
 fresh-reader/client gates and the default-writer/freeze decision.

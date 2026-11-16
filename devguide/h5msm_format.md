@@ -20,12 +20,47 @@ accept their explicitly implemented versions/layer schemas, not every file with
 the same major. Changing a version attribute is not a schema migration.
 
 The maintainer's accepted target on 2026-11-08 is to qualify and publish the first
-stable **H5MSM 1.0 alongside MolSysMT 1.0**. Development source supports explicit
-1.0 reading and default writing. The bounded mechanics and
-whole-format qualification work remains in
-[the #256 plan](pending_proposals/h5msm_0_6_molecular_mechanics_persistence.md#revised-implementation-plan--2026-11-08).
+stable **H5MSM 1.0 alongside MolSysMT 1.0**. The 2026-11-15 source/schema
+decision completes #256 after the bounded owner and independent consumer
+receiving. Development source supports explicit 1.0 reading and default writing;
+publication and exact-candidate qualification remain under #334/#524. See the
+[implementation and acceptance record](archive/resolved_proposals/h5msm_0_6_molecular_mechanics_persistence.md#resolution--2026-11-15).
 Format stability concerns the stored contract, not certification of every
 scientific model or completion of a requested force-field parameterization.
+
+## First-stable schema decision — 2026-11-15
+
+The wire contract selected for the first stable release is root **1.0** with
+the represented field types, units, presence distinctions and index associations
+specified here and in the linked 1.0/0.6/0.5 schema pages. Its admitted layers are:
+
+| Layer | Supported schema revisions |
+| --- | --- |
+| topology | 1–4 |
+| chemical_states | 1, 2 |
+| structures | 1 |
+| interactions collection | 1; result payloads 1 and 2, with current writers emitting 2 |
+| molecular_mechanics | 1 |
+| associations | 1 |
+
+The existing codecs are retained; this decision introduces no new encoding.
+The strict integral headers, typed metadata, independent domains and declared
+associations remain mandatory. Reads preserve unknown assignment-report content
+without claiming it can be used for projection, force-field reconstruction or
+export. Missing, unknown and known-empty data retain their distinct meanings.
+
+New ordinary public output uses 1.0. Explicit 0.5/0.6 writing, supported legacy
+reads and warnings, named migration helpers, version-preserving copies and
+extraction, and the legacy handler keep their documented contracts. No additional
+legacy deprecation is introduced by the stable-schema decision.
+
+The [BindingMT receiving review](../devtools/data/binding_default_h5msm_acceptance_256_20261115.json)
+accepts the finite omitted-version save/migration profile alongside the earlier
+P5/P6 and MolSysViewer receiving. It does not qualify arbitrary file contents,
+an old native binary generally, another platform, or the final installed pair.
+The native domain/APIs and scientific profiles retain their separately declared
+Experimental classifications. Candidate construction and publication remain
+paused; a source/schema decision is not a published release.
 
 ## Root contract
 
