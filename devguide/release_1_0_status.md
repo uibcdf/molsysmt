@@ -65,6 +65,33 @@ have source receiving, separate from human/installed/platform qualification.
 The accepted initial-canvas disposition now gives **80.2381% (approximately 80.2%)**.
 The dated percentages below remain historical, not the current score.
 
+## Finite contract offer for the final review handoff — 2026-11-15
+
+The [single closeout packet](pre_1_0_contract_closeout.md) now maps current
+H5MSM/Interactions/ChemicalStates/addon guarantees to actual existing assertions
+and exact owner returns. A complete production-tree comparison with profile
+897's provider `96988b6ea` finds only the two already corrected mmCIF reader
+files; the result/native/persistence/addon implementations are identical.
+The [receipt](../devtools/data/pre_1_0_contract_closeout_334_20261115.json)
+separates this source-continuity observation, bounded current smoke/quality
+receiving, already accepted client evidence and still pending acceptance.
+No new scientific truth, installed/platform qualification or percentage follows.
+All fifteen local fast gates, converter/index checks and repository Ruff pass
+for this documentation/contract preparation; no molecular implementation changes.
+
+The nineteen-case provider smoke passes without skips, including all twelve
+original-packet combinations. Client profile 949's 114-pass public report is
+now received by exact Git blob; its raw JUnit/input manifest and the separate
+952 load receipt are not independently received. These scopes remain separate.
+
+MolSysViewer has been asked to confirm the consumption agreement or concrete
+remaining incompatibilities before final producer selection, preserving its
+current owner-authorized UI work. BindingMT #73 still ends with the prior
+request; the maintainer is given the exact twelve-combination storage-only
+message to coordinate it. No paused consumer execution is restarted. Continue
+that finite return, stable-format decision and #524 artifact preparation; do
+not add optional features or duplicate a broad campaign while waiting.
+
 ## Original milestone accounting reconciled — 2026-11-15
 
 A review for the maintainer's status question finds a stale original scorecard:

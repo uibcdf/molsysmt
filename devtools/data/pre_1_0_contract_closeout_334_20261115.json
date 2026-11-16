@@ -1,0 +1,473 @@
+{
+  "schema": "molsysmt.pre1-contract-closeout@1",
+  "date": "2026-11-15",
+  "owner_issues": [
+    "uibcdf/molsysmt#334",
+    "uibcdf/molsysmt#256",
+    "uibcdf/molsysmt#250",
+    "uibcdf/molsysmt#254",
+    "uibcdf/molsysmt#421",
+    "uibcdf/molsysmt#524"
+  ],
+  "state": "Provider contract offer and bounded source preparation received; pending owner/candidate exits remain explicit.",
+  "source_continuity": {
+    "provider_source": "ea9d4ef16b04214886906beb722ad4d392087897",
+    "accepted_profile_provider_source": "96988b6ea42fb02a662fa3dda5eb2f7659f28c56",
+    "production_paths_compared": 3544,
+    "changed_paths": [
+      "molsysmt/form/mmcif_PdbxContainers_DataContainer/_bond_state.py",
+      "molsysmt/form/mmcif_PdbxContainers_DataContainer/to_molsysmt_MolSys.py"
+    ],
+    "unchanged_paths": 3542,
+    "no_uncommitted_production_changes": true,
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "qualifier": "Exact tracked-source comparison; no inference of installed ABI, complete runtime graph or final candidate acceptance."
+  },
+  "normative_source_sha256": {
+    "devguide/h5msm_format.md": "08d199bb8dad25b6c9c043809f4ff5e206bac738b401d507e6c8838bc1071af1",
+    "devguide/interactions_api.md": "5b572570310768cd3f7646dd9c5930fef074b5c09627cba5a2946f1681d7d54c",
+    "devguide/interactions_query_semantics.md": "925b29912c9e5c5b783dbd2abb81ca0ffa7c97fc896d6e4a7f5274ef287c281b",
+    "devguide/chemical_states_migration.md": "7684480b3aafc5a796fb12c80f05046f39c28e992a89d35cdd9c1789fb962f54",
+    "devtools/data/public_api_stability.json": "89fff9db6d568c53a2a743b9f19ebe9ad733960a05e5b955ddfeb976b101757c",
+    "devtools/data/viewer_current_source_client_review_256_524_20261115.json": "1ac379bea858bdecf50f1ee716e739cf2aed53e6bd1b805e75f38d1d4bbd2b2c"
+  },
+  "packet_guard_module_sha256": {
+    "tests/form/file_h5msm/test_original_packet_default_migration.py": "c9b20ccedd8e8ba264ca91111ebe834a308a8f55630f2ca611e2923b854de7be",
+    "tests/form/file_h5msm/test_public_h5msm_v05.py": "d206ba7c54308a2648ee09c471cefe10661c4e0a25c96668be308127dd113127",
+    "tests/form/file_h5msm/test_public_mechanics_v06.py": "bdcd2dae41c57a6ed14d51abcd6f7eea1e41cd7505285738f1fd1e90e9698396",
+    "tests/form/file_h5msm/test_public_migration_v10.py": "33d6c380d7e1481f094f3693259ed9d2df90c11d6617efd2cf66eefa6731b6af",
+    "tests/form/molsysmt_MolSys/test_chemistry_edit_interactions.py": "64558b2fc210e0ee967e0c43474892f9bcf8abb88dff2d0581087a3bf7ce8067",
+    "tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py": "7370b6b495d05ecbf2fed280079b70f256ae49154d6f4c822257e48bd3feeb04",
+    "tests/interactions/disulfides/test_get_disulfide_candidates.py": "dc737b4a51b1f6feba2a7c2468518e7e9adc4bc2d289567ffa6a5e200dd53b3d",
+    "tests/interactions/hbonds/test_buch_results.py": "ec09061927f89b7b60907ec7ede01dc281da88eac7b42999f280360783a81a8f",
+    "tests/interactions/test_execution_provenance.py": "189fead37b989eb51d116f8aa6b4ad7c36dafe30f7f362e68c1c22a071870c50",
+    "tests/interactions/test_occurrence_pages.py": "0fb1348dd3d09f5dd17a68a9adef7cb50f6e9b0ceaf0876d6c7606bf2980de80",
+    "tests/interactions/test_public_molsys_h5msm_workflow.py": "ba06c2c000107e9ad5cb9d3120af1ca08905e08b6d1131b4ebd508d3b5c10d85",
+    "tests/interactions/test_query_candidates.py": "8bcc18eafea9bfa986e5cdce1b0bd2ccf9546c0ef07c0b812d461a486ce653e3",
+    "tests/interactions/test_result.py": "2b167991cc9aaa51230c64a48f3877c001d40f27a9db8f9128e074ce542d0a4e",
+    "tests/interactions/test_scientific_attribution.py": "7ff126c334f9cd359946ffebc242bc1c3cfbff4673d25d52c800ada45f2949f5",
+    "tests/interactions/test_software_provenance.py": "5f8563926ba04f1dff9631ff8b91abe4c4e4366048337cddd955e4c24c1290eb",
+    "tests/native/test_chemical_states_owner.py": "be2a2b052794d803321c8a544f81ac52fbc0d7cbafb27a821086b26d90c69ee5",
+    "tests/native/test_molsys_chemical_state_association.py": "ef1b79cf8a15d7635a7d78aba48d73faa22bdcd88dde1becd21ea21823931d81",
+    "tests/native/test_molsys_interactions.py": "affa20bb4a93c6ac36688a0a3ac1a8f250f05258dc559b439d42cddbfeb173a6"
+  },
+  "guard_module_addressability": {
+    "count": 18,
+    "static_only": true,
+    "does_not_establish_behavior": true
+  },
+  "smoke_selection": {
+    "selectors": [
+      "tests/form/file_h5msm/test_original_packet_default_migration.py",
+      "tests/interactions/test_public_molsys_h5msm_workflow.py::test_public_queries_survive_native_attachment_and_h5msm_roundtrip",
+      "tests/interactions/test_public_molsys_h5msm_workflow.py::test_public_convert_preserves_multiple_named_analyses_and_sparse_columns",
+      "tests/native/test_molsys_interactions.py::test_copy_extract_and_remove_preserve_coverage_and_remap_indices",
+      "tests/native/test_molsys_chemical_state_association.py::test_public_get_set_and_capability_expose_resolved_structure_association",
+      "tests/interactions/test_occurrence_pages.py::test_one_row_page_does_not_materialize_selected_occurrences",
+      "tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py::test_coordinate_edit_invalidates_real_observation_and_preserves_old_view",
+      "tests/form/molsysmt_MolSys/test_chemistry_edit_interactions.py::test_neutralizing_ion_invalidates_observations_and_empty_coverage"
+    ],
+    "native_exit": 0,
+    "pytest_counts": {
+      "collected": 19,
+      "deselected": 0,
+      "errors": 0,
+      "executed": 19,
+      "failed": 0,
+      "not_executed": 0,
+      "passed": 19,
+      "reruns": 0,
+      "skipped": 0,
+      "subtests": {},
+      "warnings": 0,
+      "xfailed": 0,
+      "xpassed": 0
+    },
+    "same_invocation_junit": {
+      "passed": 19,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "official_receptor_complete": true,
+    "artifact_policy": {
+      "dropped_records": 0,
+      "max_bytes": 52428800,
+      "truncated": false
+    },
+    "integrity": {
+      "algorithm": "sha256",
+      "digest": "02c82dc0a45de33264111d1e666130f03ecc6c58fa45fbd49c7b6fc8722bba2a",
+      "records": 58
+    },
+    "purpose": "Current public omitted-version original-packet routes, named sparse persistence, maps, state resolution, bounded pages and controlled real edits. Existing assertions are reused; no new acceptance criterion or independent client execution.",
+    "original_packet_combinations": 12,
+    "other_public_cases": 7
+  },
+  "executions": [
+    {
+      "phase": "focused",
+      "source_commit": "ea9d4ef16b04214886906beb722ad4d392087897",
+      "native_exit": 0,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "--junitxml=./.pytest_cache/pre1-contract-closeout-334-20261115/focused.xml",
+        "--receptor-events=./.pytest_cache/pre1-contract-closeout-334-20261115/focused.events.jsonl",
+        "tests/form/file_h5msm/test_original_packet_default_migration.py",
+        "tests/interactions/test_public_molsys_h5msm_workflow.py::test_public_queries_survive_native_attachment_and_h5msm_roundtrip",
+        "tests/interactions/test_public_molsys_h5msm_workflow.py::test_public_convert_preserves_multiple_named_analyses_and_sparse_columns",
+        "tests/native/test_molsys_interactions.py::test_copy_extract_and_remove_preserve_coverage_and_remap_indices",
+        "tests/native/test_molsys_chemical_state_association.py::test_public_get_set_and_capability_expose_resolved_structure_association",
+        "tests/interactions/test_occurrence_pages.py::test_one_row_page_does_not_materialize_selected_occurrences",
+        "tests/form/molsysmt_MolSys/test_geometry_edit_interactions.py::test_coordinate_edit_invalidates_real_observation_and_preserves_old_view",
+        "tests/form/molsysmt_MolSys/test_chemistry_edit_interactions.py::test_neutralizing_ion_invalidates_observations_and_empty_coverage"
+      ],
+      "seconds": 18.254946628119797,
+      "checked_inputs": 3933,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 233373696,
+      "minimum_host_available_bytes": 17167769600,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "f8e8bc871e51247ca142ded90a1b4c8b31cb5c18c613829ab3ee17248d350cbf"
+    },
+    {
+      "phase": "checks",
+      "source_commit": "ea9d4ef16b04214886906beb722ad4d392087897",
+      "native_exit": 0,
+      "command": [
+        "<existing-development-environment>/bin/python",
+        "./.pytest_cache/pre1-contract-closeout-334-20261115/quality.py"
+      ],
+      "seconds": 56.28026863420382,
+      "checked_inputs": 3933,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "host_reserve_bytes": 6979321856,
+      "memory_peak_bytes": 522903552,
+      "minimum_host_available_bytes": 16741191680,
+      "maximum_memory_pressure_avg10": 0.0,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "changed_inputs": [],
+      "stop_reason": null,
+      "driver_sha256": "f8e8bc871e51247ca142ded90a1b4c8b31cb5c18c613829ab3ee17248d350cbf"
+    }
+  ],
+  "quality": {
+    "passed": true,
+    "commands": [
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "seconds": 44.90776248509064,
+        "stdout": "Release readiness \u2014 fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          3.4s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                       10.8s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    5.6s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.4s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.1s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.5s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            1.0s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   5.3s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.8s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.1s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.3s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                      13.2s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/generate_converter_arguments.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 9.48653507605195,
+        "stdout": "OK: the committed table matches the converters.\nTarget forms: 96 | keywords per target: min 6, max 23, mean 10.3\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<existing-development-environment>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.0925223920494318,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.2667550630867481,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "--extend-exclude",
+          ".aws",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.28465428575873375,
+        "stdout": "4746 files already formatted\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.030503666028380394,
+        "stdout": "",
+        "stderr": ""
+      }
+    ]
+  },
+  "public_client_949": {
+    "repository": "uibcdf/molsysviewer",
+    "public_commit": "391e004dad290f7cee426db20f9a8f7a05af96fb",
+    "public_path": "devguide/residual_four_issues_receiving_20261116.json",
+    "git_blob": "5a15bfa57841f626b36062a41fb448f8a940c5d7",
+    "sha256": "0b188bb219655f7ed2982c105a2bbc444c4530725b5dcdaa8e531e4a2aab7b62",
+    "bytes": 21712,
+    "public_blob_verified": true,
+    "received_profile": "provider-cif-763-766-949",
+    "reported_passed": 114,
+    "reported_failures": 0,
+    "reported_errors": 0,
+    "reported_skipped": 0,
+    "reported_warnings": 35,
+    "reported_native_exit": 0,
+    "reported_input_count": 9833,
+    "reported_inputs_unchanged": true,
+    "reported_native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "raw_junit_received": false,
+    "raw_source_manifest_received": false,
+    "scope": "Verified immutable public report; client-reported independent execution of provider assertions, not a local replay, new oracle, browser or installed/final-pair qualification.",
+    "952_full_load": "Reported separately via coordination; immutable public receipt still requested. No rendered/installed claim."
+  },
+  "workspace_review": {
+    "complete_registered_members": 18,
+    "official_native_exit": 1,
+    "meaning": "Attention/missing/behind states retained, not acquisition failure or license to change unrelated work.",
+    "all_unrelated_work_preserved_by_this_task": true,
+    "summaries": [
+      {
+        "repository": "uibcdf/smonitor",
+        "head": "c401281af15f",
+        "ahead": 0,
+        "behind": 3,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/argdigest",
+        "head": "7e92a06ebbfe",
+        "ahead": 0,
+        "behind": 3,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/depdigest",
+        "head": "032d345becf8",
+        "ahead": 0,
+        "behind": 3,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/pyunitwizard",
+        "head": "cc51c8e600f7",
+        "ahead": 0,
+        "behind": 1,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/molsysmt",
+        "head": "ea9d4ef16b04",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/molsysviewer",
+        "head": "391e004dad29",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 9,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/pytest-receptor",
+        "head": "f57a569f132a",
+        "ahead": 0,
+        "behind": 3,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/gh-run-receptor",
+        "head": "ecf2881ae0a3",
+        "ahead": 0,
+        "behind": 3,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/topomt",
+        "head": "c3f72a9177ab",
+        "ahead": 1,
+        "behind": 254,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/pharmacophoremt",
+        "head": "a1ea9cc4025f",
+        "ahead": 0,
+        "behind": 321,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/elastnetmt",
+        "head": "8a54148945fa",
+        "ahead": 0,
+        "behind": 14,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/bindingmt",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      },
+      {
+        "repository": "uibcdf/ackredit",
+        "head": "6421d573600a",
+        "ahead": 0,
+        "behind": 3,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/lindelint",
+        "head": "1d418e2f7a2d",
+        "ahead": 0,
+        "behind": 14,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/molsys-ai",
+        "head": "477f96defff5",
+        "ahead": 0,
+        "behind": 60,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/opencastp",
+        "head": "3a8f2508a5bf",
+        "ahead": 0,
+        "behind": 166,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/peptidemt",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      },
+      {
+        "repository": "uibcdf/allomt",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      }
+    ]
+  },
+  "owner_returns": {
+    "bindingmt_73": {
+      "state": "No reply after the existing scheduling/evidence request; maintainer pause preserved.",
+      "existing_request": "https://github.com/uibcdf/bindingmt/issues/73#issuecomment-6897975865",
+      "needed": "Existing three original files, two omitted-version routes and two unit policies, or explicit pause/scheduling/report disposition.",
+      "new_scientific_work_required": false
+    },
+    "molsysviewer": {
+      "state": "Current Experimental Interactions/ChemicalStates consumption confirmed via authorized coordination; no final source/build selected.",
+      "remaining": "Owner UI issues, exact-candidate Jupyter/MolStar and installed gates remain separate.",
+      "request": "Consume the finite packet or report concrete incompatibilities; do not rerun already accepted science just to acknowledge it."
+    },
+    "molsysmt_256": {
+      "state": "Owner default/migration source implementation received; pending independent client return and stable-format decision."
+    },
+    "524_334": {
+      "state": "Actual compatible host/artifacts, reviewed candidate metadata, exact producers and mandatory qualification remain due.",
+      "construction_hosted_publication_pause_preserved": true
+    }
+  },
+  "review_packet": "devguide/pre_1_0_contract_closeout.md",
+  "scope_limits": [
+    "No production/API/dependency/codec/native change.",
+    "No new scientific definition, force field, engine or GUI run.",
+    "No shared prefix/environment/kernel change.",
+    "No final candidate, clean installed closure, full matrix or release qualification.",
+    "No extra tests/matrices requested from clients and no paused BindingMT work restarted."
+  ],
+  "original_weighted_progress_percent": 80.23809523809524,
+  "original_weighted_progress_change": 0,
+  "retained_artifacts_sha256": {
+    ".pytest_cache/pre1-contract-closeout-334-20261115/workspace-status.json": "bc2a230490345a35acd6f79540b0615b0eab4d61b59b0d9295604eca5ebe43bc",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/source-continuity.json": "5a548ae8b7d5679115b2e473ad2374c1e0a8395916f7a17eb9bf104ed1ee3b77",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/client949-review.json": "f85d65bfaafcac5bb0ea51867a51e112eb4aa89c122b5efd89dad474d896b905",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/viewer-public-391e004d.json": "0b188bb219655f7ed2982c105a2bbc444c4530725b5dcdaa8e531e4a2aab7b62",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/packet-modules.json": "b679869d57d47f8484fa400b9237e850ba258dcd0bfcfd14b1fc4f91ce74c53f",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/quality-results.json": "ab35babbd49f473dd4a10257082a6d4116eee4be3e15d13f2c248e1ef1b25250",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/focused.events.jsonl": "c2eb022305a423a1fe52c0ade039216406da04eb303bcad07a24f8dc6f73e0a0",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/focused.xml": "409be0b7fc13950c91d3e2b207dc5421da914e43caa8c2f4bdbdda3131092cd0",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/complete-issues.json": "8071319f7a4251dacce05de747fa4c3308b5c93464575482cc4500a379a5652f",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/focused-execution.json": "d5e242fe5cb92184e4edeaf7d67c884338549eaa923edf34ebedb7782fb3b6d1",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/focused-inputs-before.json": "2cfa7179df3ac22786c2fc8dc86ccfe58e953f60ee62683dca4639a38867e05d",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/focused-inputs-after.json": "2cfa7179df3ac22786c2fc8dc86ccfe58e953f60ee62683dca4639a38867e05d",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/focused-driver.py": "f8e8bc871e51247ca142ded90a1b4c8b31cb5c18c613829ab3ee17248d350cbf",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/focused.log": "8a6e292fe3ed1cf00e78da744f6cccc45b89a4059b0516636f6854cc2432ee74",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/checks-execution.json": "1b641f0903f9d233ce99d6ee20f674bfef2fc159796f2737da3324c590493af7",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/checks-inputs-before.json": "09a01936f93109fde89f2bdcc1faedb8f56bcdd7407e899f08ca78e88f40799b",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/checks-inputs-after.json": "09a01936f93109fde89f2bdcc1faedb8f56bcdd7407e899f08ca78e88f40799b",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/checks-driver.py": "f8e8bc871e51247ca142ded90a1b4c8b31cb5c18c613829ab3ee17248d350cbf",
+    ".pytest_cache/pre1-contract-closeout-334-20261115/checks.log": "1d7049179029900de655d2fa9e94d62da1d2dae10bc1ab200eec945a0361f929"
+  }
+}

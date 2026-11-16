@@ -40,6 +40,11 @@ declared complete merely because all currently selected local tests pass.
 Record external prerequisites with owner and requested deliverable; do not
 silently treat waiting as acceptance.
 
+The [finite contract closeout packet](pre_1_0_contract_closeout.md) supplies
+the current stage-2 guarantee-to-guard mapping and exact owner returns. Its
+presence is preparation, not evidence that client or candidate acceptance has
+finished. Do not widen the work while those returns are pending.
+
 ## Admission rule that keeps the destination reachable
 
 - Continue fixing incorrect results, silent data loss, invalid units/maps,

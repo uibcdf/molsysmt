@@ -8,6 +8,16 @@ The [scorecard](../devtools/data/pre_1_0_progress_scorecard_20261107.json) owns
 original milestone accounting. The [audit](pre_1_0_robustness_audit_20261106.md)
 and [release ledger](release_1_0_status.md) retain current evidence and history.
 
+## Current finite closeout packet — 2026-11-15
+
+Use the [consolidated contract packet](pre_1_0_contract_closeout.md) for the
+current #256/#250/#254/#421/#524 owner requests and existing guard mapping.
+It preserves the earlier client prescriptions and identifies which returns
+are still required; no broader scientific campaign is requested. Source
+continuity, current bounded checks and their limitations are recorded in the
+linked receipt. Later dated increments below retain their historical scope.
+The stable-format decision, exact final pair and publication pause are unchanged.
+
 ## Current destination — 2026-11-12
 
 The maintainer now selects the [technical handoff for his documentation review](technical_handoff_for_1_0_documentation_review.md).

@@ -5,6 +5,19 @@ This operational packet belongs to `uibcdf/molsysmt#251` and
 The [Interaction Analysis API](interactions_api.md) defines the current contract;
 this page provides a reproducible review checkpoint and requested feedback.
 
+## Final 1.0 contract offer — 2026-11-15
+
+The [finite closeout packet](pre_1_0_contract_closeout.md) consolidates the
+current consumption guarantees and the exact pending owner returns under
+#250/#254/#421/#256/#524/#334. Current source `ea9d4ef16` retains identical
+Interactions/ChemicalStates/H5MSM/addon implementation bytes relative to the
+reviewed profile 897 provider, except the separately received mmCIF fix outside
+those domains. The packet maps guarantees to existing assertions and retains
+Experimental API/scientific classifications. It requests agreement or concrete
+incompatibilities before choosing final producers, not another scientific
+campaign. Earlier acceptance below remains accepted within its original scope;
+final source/artifact/pair acceptance is still due.
+
 ## Published consumer acceptance — 2026-10-07
 
 MolSysViewer has closed uibcdf/molsysviewer#114 with explicit acceptance of
