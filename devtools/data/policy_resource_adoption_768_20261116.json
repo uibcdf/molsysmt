@@ -1,0 +1,454 @@
+{
+  "schema": "molsysmt.policy-resource-adoption@1",
+  "date": "2026-11-16",
+  "owner_issue": "uibcdf/molsysmt#768",
+  "central_owners": [
+    "uibcdf/molsyssuite#201",
+    "uibcdf/molsyssuite#197"
+  ],
+  "source_basis": {
+    "head": "9154a6ba379e5e73fa52065352152f6eaa858e12",
+    "native_sha256_before": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "native_sha256_after": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "scope": "One actual policy caller and source-review/roadmap evidence only. Scientific APIs, runtime manifests, native artifacts, other SDK pins and shared prefixes unchanged."
+  },
+  "policy": {
+    "previous": "policy-v1.5.12",
+    "selected": "policy-v1.6.0",
+    "caller": ".github/workflows/molsyssuite-policy.yml",
+    "tag_object": "4d20cfc2e6d2aff783561410f23f69d660bca92e",
+    "peeled_commit": "698fbdfd4b0a53b6b7cc49815e1102cd9c117749",
+    "required_input_change": null,
+    "admission": "Already registered in the exact frozen policy; no admission_sha needed.",
+    "canonical_guide_delivery": "5019377802f85993265a6029ae9264fdb52e8ab5",
+    "canonical_guide_sha256": "02737e0099e17f94e610334f944fce595c2ab23f0c415c01418726e6d7ee3d82",
+    "live_registry_git_blob": "68c50001229862696ebb29fbb22e24c117956415",
+    "live_registry_sha256": "44a6ab5b95de86efec412a716807180ddc78a8907afeebad3135a3239bdc1837",
+    "frozen_registry_sha256": "a64d63ba92ef2e10e45102b6633ba4be0858274a9c27c46c75d0bf54e575951a",
+    "live_frozen_difference": "One additional BindingMT/TopoMT source-evidence edge on live main. Same latest-policy target, this member constraints, guide and resource rule.",
+    "synchronization": "Official registered delivery already present; read-only official synchronizer confirms the selected guide copy. No manual guide edit or waived preflight.",
+    "semantic_review": [
+      "Root/common precedence and task-relevant nested devguide/tests instruction routes remain mandatory.",
+      "TypeScript/MolSysSketcher additions have no new scientific runtime dependency or admission requirement for the registered MolSysMT Python/Rust member.",
+      "ArgDigest, DepDigest, SMonitor, PyUnitWizard, Ackredit and receptors keep their existing validated/lazy/units/attribution/reporting roles; this workflow update adopts no newer runtime versions.",
+      "Scientific and installed SDK/verification/action pins remain unchanged; no source/runtime functionality is added."
+    ]
+  },
+  "checks": {
+    "baseline-conformance": {
+      "command": [
+        "<existing-development-python>",
+        "./.pytest_cache/policy-768-20261116/workspace/molsyssuite/devtools/scripts/check_repository.py",
+        ".",
+        "--repository",
+        "uibcdf/molsysmt",
+        "--json"
+      ],
+      "native_exit": 1,
+      "seconds": 0.5200053756125271,
+      "stdout": "[\n  {\n    \"code\": \"LATEST_POLICY\",\n    \"message\": \"adopt latest published policy policy-v1.6.0; observed policy-v1.5.12\"\n  }\n]\n",
+      "stderr": ""
+    },
+    "corrected-conformance": {
+      "command": [
+        "<existing-development-python>",
+        "./.pytest_cache/policy-768-20261116/workspace/molsyssuite/devtools/scripts/check_repository.py",
+        ".",
+        "--repository",
+        "uibcdf/molsysmt",
+        "--json"
+      ],
+      "native_exit": 0,
+      "seconds": 0.5589180840179324,
+      "stdout": "[]\n",
+      "stderr": ""
+    },
+    "adoption-result": {
+      "command": [
+        "<existing-development-python>",
+        "./.pytest_cache/policy-768-20261116/workspace/molsyssuite/devtools/scripts/adoption_status.py",
+        "./.pytest_cache/policy-768-20261116/workspace",
+        "--repository",
+        "uibcdf/molsysmt",
+        "--kind",
+        "policy",
+        "--verify-published-policy",
+        "--format",
+        "json",
+        "--check",
+        "--receipt",
+        "./.pytest_cache/policy-768-20261116/adoption-receipt.json"
+      ],
+      "native_exit": 0,
+      "seconds": 1.0697120940312743,
+      "stdout": "[\n  {\n    \"kind\": \"policy\",\n    \"repository\": \"uibcdf/molsysmt\",\n    \"item\": \"policy-caller\",\n    \"state\": \"current\",\n    \"owner\": \"uibcdf/molsysmt\",\n    \"expected\": \"policy-v1.6.0\",\n    \"observed\": \"policy-v1.6.0\",\n    \"source_revision\": \"policy-v1.6.0\",\n    \"consumer_revision\": \"policy-v1.6.0\",\n    \"exception\": \"\",\n    \"next_action\": \"none\"\n  }\n]\n",
+      "stderr": ""
+    },
+    "guide-check-result": {
+      "command": [
+        "<existing-development-python>",
+        "./.pytest_cache/policy-768-20261116/workspace/molsyssuite/devtools/scripts/sync_vendored_guides.py",
+        "./.pytest_cache/policy-768-20261116/workspace",
+        "--guide",
+        "MOLSYSSUITE_GUIDE.md",
+        "--repository",
+        "uibcdf/molsysmt"
+      ],
+      "native_exit": 0,
+      "seconds": 0.16144870780408382,
+      "stdout": "1 registered guide copies are current.\n",
+      "stderr": ""
+    }
+  },
+  "families": {
+    "baseline": {
+      "native_exit": 0,
+      "seconds": 1.2094071712344885,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "memory_peak_bytes": 43237376,
+      "minimum_host_available_bytes": 19141279744,
+      "maximum_memory_pressure_avg10": 0.0,
+      "changed_inputs": [],
+      "stop_reason": null,
+      "retired": {
+        "ActiveState": "inactive",
+        "MainPID": 0,
+        "Result": "success",
+        "ExecMainStatus": 0
+      }
+    },
+    "corrected": {
+      "native_exit": 0,
+      "seconds": 2.240107135847211,
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "memory_peak_bytes": 43077632,
+      "minimum_host_available_bytes": 17241980928,
+      "maximum_memory_pressure_avg10": 0.0,
+      "changed_inputs": [],
+      "stop_reason": null,
+      "retired": {
+        "ActiveState": "inactive",
+        "MainPID": 0,
+        "Result": "success",
+        "ExecMainStatus": 0
+      }
+    }
+  },
+  "quality": {
+    "state": "passed",
+    "fast_release_gates": 15,
+    "commands": [
+      {
+        "command": [
+          "<existing-development-python>",
+          "devtools/scripts/release_gate.py"
+        ],
+        "native_exit": 0,
+        "seconds": 51.43975165206939
+      },
+      {
+        "command": [
+          "<existing-development-python>",
+          "devtools/scripts/generate_converter_arguments.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 9.887163864448667
+      },
+      {
+        "command": [
+          "<existing-development-python>",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.09208377869799733
+      },
+      {
+        "command": [
+          "ruff",
+          "check",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.4225007169879973
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "--extend-exclude",
+          ".aws",
+          "."
+        ],
+        "native_exit": 0,
+        "seconds": 0.3066140301525593
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "native_exit": 0,
+        "seconds": 0.027403684798628092
+      }
+    ],
+    "seconds": 63.280101938173175,
+    "limits": {
+      "cpu.max": "100000 100000",
+      "memory.max": "2147483648",
+      "memory.high": "1887436800",
+      "memory.swap.max": "0",
+      "pids.max": "256"
+    },
+    "memory_peak_bytes": 574222336,
+    "minimum_host_available_bytes": 18607271936,
+    "maximum_memory_pressure_avg10": 0.0,
+    "changed_inputs": [],
+    "stop_reason": null,
+    "retired": {
+      "ActiveState": "inactive",
+      "MainPID": 0,
+      "Result": "success",
+      "ExecMainStatus": 0
+    },
+    "native_thread_caps": "Final family explicitly sets OMP/OpenBLAS/MKL/BLIS/NumExpr/Rayon/OpenMM/build-worker caps to one; no compilation or solver executed.",
+    "scope": "Existing local fast gates/Ruff only. Not heavy scientific/full-source/platform/installed or hosted qualification.",
+    "final_declarative_refresh": "Receipt/roadmap-only final edits are validated again with the devguide/index/whitespace checks before commit."
+  },
+  "resource_review": {
+    "active_operator_policy": "Principal maintainer shared-host session policy; loaded and applied for this selected task. Numeric selected budgets remain task observations, not new AGENTS/site rules.",
+    "member_rule_sha256": "185ab7b08583e4342dcb8f3450e03c01e41c9f36bb93cb2040372945add23939",
+    "member_rule_git_blob": "f50db7d7cf625e89716f26a41dcc6e98b34dff41",
+    "workload_guidance_sha256": "44b50fd9d4452752e417eab14547ab1368bdcb4b3d396909c958f26a5f72b950",
+    "route": "Session-authorized direct systemd user process families. No Slurm command/allocation observed; no inference that Slurm is globally absent.",
+    "visibility": "Current RAM/pressure/swap inspected. The task process namespace exposes only limited processes, so it does not inventory all foreign host work.",
+    "input": "About 12.7 MB/714 tracked files of exact official source, current member declarations/guide and small GitHub metadata. No trajectory, browser/kernel, accelerator workload, solver or compiler.",
+    "estimate": "Existing same-host administrative fast selection measured about 384 MiB/30 s; estimate under 1 GiB and 240 s for selected checks before running. Static before/after conformance is measured separately.",
+    "selected_budget": "One owned family at a time, one CPU, two GiB maximum/1800 MiB high, zero owned swap, 256 tasks, finite wall; monitored 6.5 GiB host reserve and pressure stop.",
+    "protection": "Actual whole-family cgroup ceilings and monitoring, independently read by the launcher. Availability is not a reservation; no cooperative reservation or concurrent aggregate admission is claimed.",
+    "stop_and_cleanup": "Reduce/defer or stop only owned work on selected budget/pressure/wall conditions. Preserve outcomes and confirm MainPID zero before another family. No global recovery/foreign process/scratch operation.",
+    "larger_workloads": "Full source/scientific/browser/native-build/solver profiles require their own input/fan-out estimate and existing authorization. This administrative measurement does not qualify them.",
+    "infrastructure_boundary": "Host/scheduler/admission provisioning, enforcement and aggregate protection remain infrastructure-owned. No runtime adapter, host reconfiguration or infrastructure dependency added."
+  },
+  "workspace": {
+    "official_tool_source": "698fbdfd4b0a53b6b7cc49815e1102cd9c117749",
+    "members": 19,
+    "states": [
+      {
+        "repository": "uibcdf/smonitor",
+        "head": "c401281af15f",
+        "ahead": 0,
+        "behind": 4,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/argdigest",
+        "head": "7e92a06ebbfe",
+        "ahead": 0,
+        "behind": 4,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/depdigest",
+        "head": "032d345becf8",
+        "ahead": 0,
+        "behind": 4,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/pyunitwizard",
+        "head": "cc51c8e600f7",
+        "ahead": 0,
+        "behind": 2,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/molsysmt",
+        "head": "9154a6ba379e",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/molsysviewer",
+        "head": "f2d831037a1b",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 7,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/pytest-receptor",
+        "head": "f57a569f132a",
+        "ahead": 0,
+        "behind": 4,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/gh-run-receptor",
+        "head": "ecf2881ae0a3",
+        "ahead": 0,
+        "behind": 4,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/topomt",
+        "head": "c3f72a9177ab",
+        "ahead": 1,
+        "behind": 257,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/pharmacophoremt",
+        "head": "a1ea9cc4025f",
+        "ahead": 0,
+        "behind": 326,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/elastnetmt",
+        "head": "8a54148945fa",
+        "ahead": 0,
+        "behind": 15,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/bindingmt",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      },
+      {
+        "repository": "uibcdf/ackredit",
+        "head": "6421d573600a",
+        "ahead": 0,
+        "behind": 4,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/lindelint",
+        "head": "1d418e2f7a2d",
+        "ahead": 0,
+        "behind": 15,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/molsys-ai",
+        "head": "477f96defff5",
+        "ahead": 0,
+        "behind": 61,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/opencastp",
+        "head": "3a8f2508a5bf",
+        "ahead": 0,
+        "behind": 174,
+        "dirty_paths_count": 0,
+        "error": ""
+      },
+      {
+        "repository": "uibcdf/peptidemt",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      },
+      {
+        "repository": "uibcdf/allomt",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      },
+      {
+        "repository": "uibcdf/molsyssketcher",
+        "head": "",
+        "ahead": 0,
+        "behind": 0,
+        "dirty_paths_count": 0,
+        "error": "repository checkout is missing"
+      }
+    ],
+    "disposition": "Preserve every foreign dirty/ahead/behind/missing state and canonical MolSysSuite worktree. The source-only owned clone uses committed shared objects and does not copy or edit canonical working files."
+  },
+  "preserved_preparation_failure": {
+    "outcome": "operator_preparation_assertion_failed",
+    "assumption": "Frozen registry bytes equal live main registry bytes.",
+    "correction": "Only the unrelated new BindingMT/TopoMT edge differs. Latest target, member constraints, guide and resource rule match. Frozen and live identities remain separate; no validator restriction was changed."
+  },
+  "published_receiving": "Fresh public caller/guide hashes, remote exact-head and official adoption verification belong to the owning issue closeout. Not claimed by this local dirty-worktree receiving.",
+  "hosted": "Intentionally skipped under maintainer CI cadence; not a pass. No workflow dispatched.",
+  "remaining_gates": "Exact coordinated producer/native/scientific/full-source/docs/installed/platform/public-archive gates and construction/publication pause remain. No gate waived.",
+  "original_weighted_progress_percent": 80.23809523809524,
+  "original_weighted_progress_change": 0,
+  "archived_record": "devguide/archive/resolved_proposals/adopt_policy_v1_6_0_and_receive_resource_guidance.md",
+  "local_custody": {
+    "path": ".pytest_cache/policy-768-20261116",
+    "review_date": "2026-11-23",
+    "official_source_recoverable": true,
+    "sha256": {
+      "published-tag.json": "ced43e3c2a1855a3033d061739582ec7facc07162222bbe1ee6656976759b771",
+      "current-registry.toml": "44a6ab5b95de86efec412a716807180ddc78a8907afeebad3135a3239bdc1837",
+      "resource-policy.md": "185ab7b08583e4342dcb8f3450e03c01e41c9f36bb93cb2040372945add23939",
+      "workspace-status.json": "a6e8ce65b535924050aac31dad7ec9b439964c059bbb8757f23ffbf52a057c4e",
+      "baseline-conformance.json": "5460614b8525c3421c2e13b19fd7f6cc99366615efbf366740bc9cc38b47834d",
+      "corrected-conformance.json": "3f0b171275e0844a8e04c2c2458b5a6e4fd7d63e486590c64535a25d1a40be51",
+      "adoption-result.json": "81280d8ca7a8e3dab4ee625c37ea1222a910002318421f487ce8ab5b5a14f812",
+      "adoption-receipt.json": "8851d97f55baa6e2c8402d09c0f8de20797f989069850131d687935d12cfc880",
+      "guide-check-result.json": "4a5d91e92cf2c7d2e522e9a02763227d04ca5d313f11247d33f0b10762ba164f",
+      "preparation-assumption.json": "aa42dbdf248eb17799135dc33328679dccc294a858a559290d45cdd2fe4c0f72",
+      "baseline-execution.json": "fe9b6dbfb27981f91cd5e7de9003fd3915dd86800a2dbe8f8890fcc969e74656",
+      "corrected-execution.json": "643c44c6b5e84be3e46a5511f4e747635059d0a013d96c93f21b825216d21c20",
+      "checks-execution.json": "673f31bb7317ea767cc0f6524c8ae087c980f324781de6e9ab786a59d18d52ca",
+      "quality-results.json": "e6f58054df9c76dd72be0356b40b2903fd43881ecec1519cdd44af80129ae956",
+      "checks-inputs-before.json": "12935b62830735ffff5bb9ae70595c7f978b73805994a19da1baac3f905488f7",
+      "checks-inputs-after.json": "12935b62830735ffff5bb9ae70595c7f978b73805994a19da1baac3f905488f7",
+      "checks.log": "1d7049179029900de655d2fa9e94d62da1d2dae10bc1ab200eec945a0361f929",
+      "check_driver.py": "be580082de8fa82c664cb729e58b5c566e9b8980a5b14aeee89936d3827902e5",
+      "board-sync.log": "d1dd08f68960050d1dca31fc04111217d81e1c618b548f5aa676f2629730eb30",
+      "complete-issues.json": "2932d312bf2674fd39716e53b2079a46956220fc23613b68b18a2ee22136f2c3"
+    }
+  },
+  "board_checkpoint": {
+    "acquisition": "Owning complete paginated all-state endpoint, PRs excluded.",
+    "returned_issue_rows": 623,
+    "newest_reported_issue": 768,
+    "known_valid_current_label_drift": "Only #768 requires derived ci/docs labels and issue closure.",
+    "historical_reports_unavailable": 55,
+    "disposition": "Known #524 GET remains 404 while comments/local report survive. Acquisition is not accepted as proof that the historical reports do not exist. Preserve every report; do not claim global board agreement or absence of incoming issues beyond the observed scope.",
+    "official_sync": "Native exit zero applies derived labels; not global agreement. Current #768 ci/docs labels synchronized; unavailable historical records retained."
+  }
+}

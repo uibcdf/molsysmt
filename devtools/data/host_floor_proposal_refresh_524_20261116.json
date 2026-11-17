@@ -1,0 +1,131 @@
+{
+  "owner_issue": "uibcdf/molsysmt#524",
+  "basis": "9154a6ba379e5e73fa52065352152f6eaa858e12",
+  "scope": "Seven proposed metadata files only. Unapplied source review; not a complete candidate root, build, installed environment, frozen producer or publication authority.",
+  "floor": "molsysviewer>=1.0.0",
+  "provisional_citation_date": "2026-11-15 retained from original draft; replace only at actual authorized freeze.",
+  "original_patch_sha256": "52b5e5bb7ddc18940c00102ad17d8840a76f121e6f705b7e3e7c3b5e466a3057",
+  "original_proposal_preserved": true,
+  "refreshed_patch_sha256": "52b5e5bb7ddc18940c00102ad17d8840a76f121e6f705b7e3e7c3b5e466a3057",
+  "root_inputs_sha256": {
+    "devtools/conda-envs/development_env.yaml": "a4f563ae72fad4ca74556d5f0220cace0f56efd82aeb25243558e8ead0df6e0c",
+    "devtools/conda-envs/production_env.yaml": "38a2ea35d5b8218183095036c68496b6738d096f209382aa6ad5c5f6bc9305ca",
+    "pyproject.toml": "f5add39e5ab2c95bea1192f6a0e696eeb0dba9ebd63937de52819897126ed102",
+    "devtools/conda-build/meta.yaml": "3bef2276d9b52da867bff82be4c3026ac21de4b99c0dfe7e989bb265bccee34f",
+    "devtools/rattler-build/recipe.yaml": "45c1185a33fa966320f5b4fef4bfe4d74ac80edd0820ab1442cca59973ac99a6",
+    "CITATION.cff": "f6f4ce14721683460f5c5bdd6086a00b2c273dbccc4155ddae9c55879a1f5866",
+    "docs/_bibtex/software.bib": "b1b9d852dec6703e3a0e36288047f70e5503f06dbd62a980f227bcd105c53128"
+  },
+  "proposed_files_sha256": {
+    "devtools/conda-envs/development_env.yaml": "b92293270d4a0b5efe40ec4819cbf0a714d7dd0005a635885617bedc402d8b68",
+    "devtools/conda-envs/production_env.yaml": "c22f16276425feb0d49802f4a87dfd3e8c51947e11de508ede3e2b7f2d1acb4a",
+    "pyproject.toml": "0f57ea9b42c43d1ab11aba21313e5b7b9472f28ba24055b8167ef56ba845acd7",
+    "devtools/conda-build/meta.yaml": "02c436d8e9b8c4b97038cfff6708542a41f40cac74f444dda99f93eb5da735e8",
+    "devtools/rattler-build/recipe.yaml": "5cdf6a1b1934338fd63cfe397fa1fa95aaf4e9954236c4334ea0cf9c5756833f",
+    "CITATION.cff": "8b30d4cb70ee7313c3a4651a77bdd0561d8ac71046a01e35c2ee3aa470feaba0",
+    "docs/_bibtex/software.bib": "53b8046de35d151d04cfa880a682f64ba62f08737990b72263c31033ac3837ca"
+  },
+  "root_inputs_unchanged": true,
+  "changed_current_input_from_original_basis": [
+    "devtools/conda-envs/development_env.yaml"
+  ],
+  "preserved_new_baseline": "ipykernel>=7.4.0 and its comment in current development_env.yaml",
+  "apply_check": {
+    "command": [
+      "git",
+      "apply",
+      "--check",
+      "--whitespace=error",
+      "<owned-review>/candidate-proposal.patch"
+    ],
+    "native_exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "audit_scope": "Previous full draft audit keeps its original input. This metadata-only projection is not submitted as a whole repository to the dependency auditor. Apply the reviewed metadata to the selected producer and rerun actual complete-root dependency/citation checks at authorized freeze.",
+  "unapplied_patch": "--- a/devtools/conda-envs/development_env.yaml\n+++ b/devtools/conda-envs/development_env.yaml\n@@ -15,7 +15,7 @@\n - pyunitwizard >=0.29.2\n - pandas >=2.2.2\n - jinja2 >=3.1.2\n-- molsysviewer\n+- molsysviewer >=1.0.0\n - networkx >=3.3\n - tqdm >=4.65.0\n - matplotlib >=3.8.4\n--- a/devtools/conda-envs/production_env.yaml\n+++ b/devtools/conda-envs/production_env.yaml\n@@ -13,7 +13,7 @@\n - pyunitwizard >=0.29.2\n - pandas >=2.2.2\n - jinja2 >=3.1.2\n-- molsysviewer\n+- molsysviewer >=1.0.0\n - networkx >=3.3\n - tqdm >=4.65.0\n - matplotlib >=3.8.4\n--- a/pyproject.toml\n+++ b/pyproject.toml\n@@ -35,7 +35,7 @@\n     \"pyunitwizard>=0.29.2\",\n     \"pandas>=2.2.2\",\n     \"jinja2>=3.1.2\",\n-    \"molsysviewer\",\n+    \"molsysviewer>=1.0.0\",\n     \"networkx>=3.3\",\n     \"tqdm>=4.65.0\",\n     \"matplotlib>=3.8.4\",\n--- a/devtools/conda-build/meta.yaml\n+++ b/devtools/conda-build/meta.yaml\n@@ -34,7 +34,7 @@\n   - pyunitwizard >=0.29.2\n   - pandas >=2.2.2\n   - jinja2 >=3.1.2\n-  - molsysviewer\n+  - molsysviewer >=1.0.0\n   - networkx >=3.3\n   - tqdm >=4.65.0\n   - matplotlib >=3.8.4\n--- a/devtools/rattler-build/recipe.yaml\n+++ b/devtools/rattler-build/recipe.yaml\n@@ -38,7 +38,7 @@\n     - pyunitwizard >=0.29.2\n     - pandas >=2.2.2\n     - jinja2 >=3.1.2\n-    - molsysviewer\n+    - molsysviewer >=1.0.0\n     - networkx >=3.3\n     - tqdm >=4.65.0\n     - matplotlib >=3.8.4\n--- a/CITATION.cff\n+++ b/CITATION.cff\n@@ -13,7 +13,7 @@\n title: \"MolSysMT\"\n version: 1.0.0\n doi: 10.5281/zenodo.1298752\n-date-released: 2026-10-08\n+date-released: 2026-11-15\n url: \"https://github.com/uibcdf/molsysmt\"\n license: MIT\n abstract: >-\n--- a/docs/_bibtex/software.bib\n+++ b/docs/_bibtex/software.bib\n@@ -1,7 +1,7 @@\n @software{Prada-Gracia_MolSysMT_1_0_0_2026,\n author = {Prada-Gracia, Diego and Moreno-Vargas, Liliana M.},\n doi = {10.5281/zenodo.1298752},\n-month = oct,\n+month = nov,\n title = {{MolSysMT}},\n url = {https://github.com/uibcdf/molsysmt},\n version = {1.0.0},\n",
+  "schema": "molsysmt.host-floor-proposal-refresh@1",
+  "date": "2026-11-16",
+  "consumer_manifest": {
+    "repository": "uibcdf/molsysviewer",
+    "source": "303c9152c968a92732589d026798b6b0ae73f550",
+    "path": "pyproject.toml",
+    "git_blob": "f5b05811ad4ca3c8cf04ee59bed9843091eda932",
+    "sha256": "0389427568457cd5fd08dff3a23032e82ce103ed4ec6ee8954ead419ff949b4f",
+    "molsysmt_declared_floor": "0.23.0",
+    "git_blob_verified": true
+  },
+  "reciprocal_floor_coordination": {
+    "state": "owner agreement received; not applied or artifact-qualified",
+    "request": "Agree reciprocal final minimum before producer freeze, or explicitly justify a lower supported scope.",
+    "response": "Authorized existing MolSysViewer owner thread agrees final MolSysViewer 1.0 will declare molsysmt>=1.0.0, alongside the applicable MolSysMT molsysviewer>=1.0.0 declarations. No proposal to sustain historical 0.23 as a full 1.0 minimum without qualification.",
+    "current_manifest": "303c9152 still declares >=0.23.0; owner will update manifests/recipes/environments/guards in the dependency batch before producer freeze.",
+    "classification": "Version agreement changes no existing hard/soft classification or acquisition route.",
+    "source_pin": "The already running source pin 4b0b1f8a1 remains separate from future package version metadata.",
+    "limits": "No final producer/build/artifact selected, no matrix/rebuild/publication requested and no qualified public minimum yet.",
+    "version_coherence": "The owner records actual untagged 4b0 as 0.23.0+1020.g4b0b1f8a1. Apply final >=1.0 requirements with coherent producer metadata before freeze; retain validators and actual source/build identities. This is not acceptance of public 0.23 for current 1.0 capabilities."
+  },
+  "remaining_acceptance": [
+    "Agree exact clean producer commits and reciprocal manifests.",
+    "At authorized freeze apply reviewed metadata to complete roots and run the actual dependency/citation audits.",
+    "Qualify actual staged artifacts, minimum/newer profiles and the already mandated exact installed pair; preserve old build-0 artifacts.",
+    "Verify public availability and solver closure only after separately authorized publication."
+  ],
+  "remote_issue_state": "GET #524 still returns 404 while its comment route and valid local report remain available. Preserve uncertainty; do not remove/reclassify the issue or infer closure.",
+  "construction_hosted_publication_pause_preserved": true,
+  "original_weighted_progress_change": 0,
+  "local_custody": {
+    "path": ".pytest_cache/host-floor-524-20261116",
+    "review_date": "2026-11-23",
+    "sha256": {
+      "review.json": "95cfc61ca44562806201ef1454ccd7f7930bf3c4f403957ea2ce58e108a68396",
+      "candidate-proposal.patch": "52b5e5bb7ddc18940c00102ad17d8840a76f121e6f705b7e3e7c3b5e466a3057",
+      "viewer-pyproject-metadata.json": "fbe4a89fa16c9b65a808652a2fcecdd8e6be690110c5a2e17f2efc33adf76532",
+      "latest-source-ci-report.txt": "446db9cc8af8edfc03bd727c2b81d8c40e2e1b103b9b3695dbd200b4a4e34d9d",
+      "latest-source-ci-bundle/jobs.json": "894314ed0d2ed5fdd63c2d5a3043ccd4d71d55275172e7728a32d72d323f3aa9",
+      "latest-source-ci-bundle/config.json": "58c4554df6a9951121ede5bcb24c48d7d4972a7291c289c44bc403a4b10b33be",
+      "latest-source-ci-bundle/run.json": "153dab247d47ac2c8e6b9d31708ac255eba2c20b7a90a8acd6f32c23697368bd",
+      "latest-source-ci-bundle/workflow.json": "c27cebaf6f0a84c61cf1f516294f48e9939de63ba0cde72d2e340582ac9e20e6",
+      "latest-source-ci-bundle/checks.json": "5c088eaf8ac547d6822b470cab691bf38ab021046f2d06ef527832456dd980f3",
+      "latest-source-ci-bundle/artifacts.json": "a7816065085a205fb887c57e0dfe9857a55d0a39029388538a09662ee6319bd4",
+      "latest-source-ci-bundle/manifest.json": "e52454fb169911f6c096736aa0b66149fb84a8c212aa74ddb0a669ad83eb1cbc"
+    }
+  },
+  "latest_consumer_coordination": {
+    "run": 43823224361,
+    "reported": "Two host jobs success; Linux Python passed but browser DataCard/docs-kernel-port scopes failed and are retained. No MolSysMT scientific defect or new provider repair requested.",
+    "final_identity": "Consumer will deliver final source identity after its own remaining gates; the current correction of #400 is not accepted as a frozen candidate here."
+  },
+  "latest_consumer_source_ci": {
+    "run": 43823224361,
+    "attempt": 1,
+    "head_sha": "303c9152c968a92732589d026798b6b0ae73f550",
+    "status": "completed",
+    "conclusion": "failure",
+    "jobs": [
+      {
+        "name": "Source pair on ubuntu-latest, Python 3.14",
+        "conclusion": "failure"
+      },
+      {
+        "name": "Source pair on windows-2025, Python 3.14",
+        "conclusion": "success"
+      },
+      {
+        "name": "Source pair on macos-15, Python 3.14",
+        "conclusion": "success"
+      }
+    ],
+    "linux_python_step": {
+      "name": "Run MolSysViewer Python tests",
+      "conclusion": "success"
+    },
+    "failed_linux_steps": [
+      "Run all core browser suites against the exact source pair",
+      "Execute every documented notebook against the exact source pair"
+    ],
+    "verification": "Official complete GH Run Receptor 1.1.1 metadata capture and offline CI replay; FAIL exit 1 retained. No logs, browser/molecular replay or new dispatch.",
+    "reported_details": "Consumer names browser DataCard and docs-kernel-port scopes; no scientific MolSysMT cause is inferred from metadata alone.",
+    "final_consumer_identity": "Still unassigned; owner will deliver it after its remaining gates."
+  }
+}

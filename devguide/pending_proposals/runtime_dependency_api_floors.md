@@ -822,6 +822,38 @@ This informs the applicable final-candidate host composition, without changing
 MolSysMT's runtime floors, repeating a source matrix or crediting installed
 qualification. #615's original cause/disposition remains separate.
 
+## Current seven-surface proposal review — 2026-11-16
+
+The [bounded refresh](../../devtools/data/host_floor_proposal_refresh_524_20261116.json)
+rechecks the existing unapplied proposal against current owner `9154a6ba3`.
+Six source metadata inputs are byte-identical to the original draft basis;
+development_env.yaml has since gained the accepted ipykernel >=7.4.0 baseline.
+A new metadata-only seven-file projection retains that baseline while proposing
+molsysviewer >=1.0.0. Its current-root patch passes git apply --check without
+changing any main input. The original full draft and patch stay unchanged.
+
+This small projection is deliberately not presented to a whole-repository
+auditor as a complete source tree. The previous full-draft audit keeps its
+original input; actual complete-root dependency/citation checks remain due when
+reviewed metadata is applied to selected producers. The retained 15 November
+citation date is provisional and must be replaced at the authorized freeze.
+
+The actual MolSysViewer `303c9152` manifest is Git-blob verified and still
+declares molsysmt >=0.23.0. The owner now agrees that its final 1.0 candidate
+will declare molsysmt >=1.0.0 in the dependency batch before producer freeze,
+alongside the applicable MolSysMT molsysviewer >=1.0.0 declarations. The change
+is not yet applied or artifact-qualified; current hard/soft classifications
+and source pins remain separate. The consumer explains that the current untagged
+4b0 source identifies as 0.23.0+1020.g4b0b1f8a1; imposing a 1.0 requirement
+midway through that route would make its version/auditor composition incoherent.
+Apply the agreed floor with coherent producer metadata before freeze, preserving
+validators and actual identities. No new calculation, package build, matrix or
+publication is requested. Actual
+compatible artifacts and clean installed receiving remain the #524 exit.
+The issue GET endpoint currently returns 404 while comments and this valid
+local report remain readable; retain that remote uncertainty without inferring
+absence or closure. Public floors and candidate metadata in main stay unchanged.
+
 ## Provenance
 
 Local Linux source checkout, shared Python 3.14.7 development environment and

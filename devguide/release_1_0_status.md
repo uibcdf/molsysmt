@@ -31,7 +31,7 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
-| Receive incoming #768's current governance target | MolSysSuite now requests policy-v1.6.0 and the current common resource guidance under central #201/#197. The owning [#768](https://github.com/uibcdf/molsysmt/issues/768) is open; preserve #764's valid historical v1.5.12 acceptance. Review immutable callers, synchronized guide and workload/protection/cleanup disposition through the official route. No hosted matrix, environment mutation or publication is commissioned. |
+| Preserve #768's current governance adoption | The single actual caller now selects policy-v1.6.0; published tag, guide bytes and root/nested semantic/resource review are received. Official conformance rejects the old caller and accepts the correction, published-policy adoption reports CURRENT, and registered guide checking passes. The [owner record](archive/resolved_proposals/adopt_policy_v1_6_0_and_receive_resource_guidance.md) retains measured whole-family limits and the absence of a reservation/aggregate-protection claim. #764 remains historical; hosted qualification stays intentionally unexecuted under the maintainer's cadence. |
 | Preserve MolSysViewer's current-source client receiving | Its published profile `897` reports 55 selected cases passing on exact owner `96988b6ea`, reused native `4ffb82e4` and its recorded client/support-source composition. The [bounded review](../devtools/data/viewer_current_source_client_review_256_524_20261115.json) verifies eleven public Git blobs, the actual five guard modules/helpers and source identities; private raw execution records are not replayed. Session persistence, maps, coverage, edit invalidation, append and independent geometric projection remain exercised source contracts. This does not close #256/BindingMT #73, #524, #615 or final installed acceptance. |
 | Preserve #759–#761 peptide and documentation receiving | The [peptide report](archive/resolved_bugs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md) retains explicit caps and measured initial torsions without new builder APIs. The final selected cohort passes 23 cases without skips; the full seven-cell lesson executes under ordinary and explicit pm/fs/degrees policies. Strict Sphinx renders 1,401 HTML files without warnings, and the local browser receives the 109-atom saved model. The [receipt](../devtools/data/peptide_course_receiving_759_761_20261115.json) also retains the supported structure-generator namespace and 713 corrected author links. No production/native/dependency change or #615/final-pair disposition follows. |
 | Preserve #758's actual complete geometry lesson | The [resolved report](archive/resolved_bugs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md) uses an unchanged, documented local 2BEG snapshot, one selected structure and explicit KLVFF placement/populations. Thirty-one selected cases pass, including ten new independent unit/coordinate/membership/plot controls. A real kernel executes five code cells and retains one figure; strict Sphinx renders 1,400 pages without warnings. The article, figure and both exact downloads are received in the [receipt](../devtools/data/alzheimer_geometry_receiving_758_20261114.json). Original alias failures and initial authored path/element/group-axis errors remain separate. No runtime/native/dependency or binding-affinity claim follows. |
@@ -65,6 +65,41 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The accepted initial-canvas disposition now gives **80.2381% (approximately 80.2%)**.
 The dated percentages below remain historical, not the current score.
+
+## Current policy adoption and dependency exit reviewed — 2026-11-16
+
+#768 receives policy-v1.6.0 through the only actual caller, with no required
+admission input. The guide was already delivered by the official synchronizer
+in `501937780`; its SHA-256 matches the published canonical source. Local
+conformance changes from the expected LATEST_POLICY rejection to no findings,
+published-tag adoption reports CURRENT and the selected guide check passes.
+The [owner receipt](../devtools/data/policy_resource_adoption_768_20261116.json)
+retains the read operator/resource rule, whole-family estimate, actual cgroup
+limits, no-reservation boundary and cleanup. This changes no runtime, scientific
+definition, native binary, other SDK pin or original weighted milestone.
+
+The #524 source review remains complete for the non-host providers. The
+[seven-surface proposal refresh](../devtools/data/host_floor_proposal_refresh_524_20261116.json)
+preserves the newer ipykernel >=7.4.0 baseline and passes a read-only patch
+application check on current main. MolSysViewer agrees its final 1.0 candidate
+will declare molsysmt >=1.0.0; our applicable proposal remains molsysviewer
+>=1.0.0. Neither declaration is applied or artifact-qualified by that agreement.
+Its finite exit still needs actual compatible artifacts, consistent candidate
+metadata and clean minimum/newer installed receiving. Untagged source version
+labels remain coherent with the current source pin; the agreed floors belong
+to the coordinated producer-metadata batch before freeze. Source CI and
+thirty-cycle receiving from MolSysViewer do not select a final producer
+or authorize artifact construction. Preserve the #334/#524 pause and existing
+build-0 files until the exact pair and resumption are agreed. The live #524 issue
+endpoint currently returns 404 while comments/local records remain available;
+retain that remote-state uncertainty and the valid local report unchanged.
+
+GH Run Receptor now receives replacement **43823224361 as FAIL** at `303c9152`:
+Windows/macOS succeed; Linux's Python tests succeed and its core-browser and
+documented-notebook steps fail. This supersedes the earlier active-status
+observation without erasing it. The consumer retains DataCard/docs-kernel-port
+diagnostics and its own #400 receiving; no MolSysMT scientific cause or final
+producer is established by those metadata. No replacement run is commissioned.
 
 ## MolSysViewer thirty-cycle report and workflow correction — 2026-11-16
 
@@ -218,7 +253,7 @@ source work already had bounded credit elsewhere.
 ## Next external exits and retained scientific limit — 2026-11-15
 
 With #763/#766 delivered, #764/#765 received and #256's source/schema and
-finite client exit accepted, receive #768's new bounded governance target;
+finite client exit accepted and #768's governance target received,
 the next integration item remains #524: resolve real compatible host floors/artifacts with the final
 MolSysViewer candidate. #421/#250/#254 retain final-client/pair receiving;
 #671 and #334 retain exact supported-platform/source/scientific/installed gates.
