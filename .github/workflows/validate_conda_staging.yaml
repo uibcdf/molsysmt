@@ -143,6 +143,7 @@ jobs:
           --molsysmt-version "${{ inputs.molsysmt_version }}"
           --molsysviewer-version "${{ inputs.molsysviewer_version }}"
           ${{ inputs.package_source == 'staging' && '--require-staging-provenance' || '--require-public-provenance' }}
+          --pair-receipt installed-pair.json
 
       - name: Record the exact environment
         shell: bash -el {0}
@@ -151,7 +152,9 @@ jobs:
       - name: Retain the environment record
         uses: actions/upload-artifact@v7
         with:
-          name: conda-${{ inputs.package_source }}-${{ matrix.target.platform }}-py${{ matrix.python }}
-          path: conda-${{ matrix.target.platform }}-py${{ matrix.python }}.txt
+          name: conda-${{ inputs.package_source }}-${{ matrix.target.platform }}-py${{ matrix.python }}-attempt-${{ github.run_attempt }}
+          path: |
+            conda-${{ matrix.target.platform }}-py${{ matrix.python }}.txt
+            installed-pair.json
           if-no-files-found: error
           retention-days: 30

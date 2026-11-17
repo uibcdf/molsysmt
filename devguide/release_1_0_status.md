@@ -33,6 +33,7 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
+| Preserve the exact-file installed qualification check | [#775](archive/resolved_bugs/installed_conda_pair_does_not_bind_tested_artifact_digests.md) binds tested Conda artifacts to the verified matrix attempt and the filename/digest submitted for promotion. Forty offline cases pass. The actual exact-pair matrix and pre-tag comparison with agreed producer files remain pending. |
 | Preserve #773's potential-energy decomposition correction | The [resolution](archive/resolved_bugs/potential_energy_decomposition_drops_terms_and_ignores_live_openmm_context_state.md) records active-state queries, distinct force terms, the supported grouping contract, 60 local passes and the documentation receiving. Exact-candidate qualification remains pending. |
 | Preserve the completed B0–B5 queue and await the exact final-pair handoff | [B0–B5](technical_handoff_for_1_0_documentation_review.md#supplemental-waiting-period-work-queue--2026-11-17) has [finite receiving](../devtools/data/supplemental_pre1_work_334_20261117.json): #292/#772 resolved locally, 1,933 integration/curated cases and 42 public-floor cases without skips, eight Cookbook dispositions, 16 articles/four static views, strict 1,401-page HTML and the proposed #191/#378 scientific claim packet. #128/#214/#215 remain partial with exact boundaries; this is no promise of four closures or final-pair qualification. No optional implementation is appended merely because MolSysViewer is still working. |
 | Preserve the completed independent local queue and prepare the final-pair handoff | [I0–I5](technical_handoff_for_1_0_documentation_review.md#independent-molsysmt-work-queue--2026-11-16) now has [finite local receiving](../devtools/data/independent_native_work_334_20261116.json): 54 selected files, #769–#771 corrected/guarded, 159 offline controls, four complete notebooks, strict 1,401-page site and scoped article/browser review. This completes the local queue, not the final-pair gates or Diego's review. Preserve its actual runtime/source limits and the preparation/publication pause; no new global scorecard credit. |
@@ -94,6 +95,13 @@ The issue still showed open at review. The covering exact-source
 [Linux run 44176403184](https://github.com/uibcdf/molsysviewer/actions/runs/44176403184)
 was independently checked as in progress. Final artifacts, installed pair and
 human acceptance remain under the coordinated release gate.
+
+MolSysViewer's `eeb6808c` adds passive timing evidence for the same reviewed
+runtime. Both local diagnostics pass all eight moving captures. The passive
+run observes two native frame applications during moving-popup startup.
+The experimental omission branch never executes in the second run, so its
+elapsed time establishes no improvement from omitting a projection. The
+covering Linux run still showed the browser-core step in progress at review.
 
 ## Supplemental waiting-period queue completed — 2026-11-17
 

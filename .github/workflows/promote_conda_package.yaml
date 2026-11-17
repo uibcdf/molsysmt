@@ -109,12 +109,51 @@ jobs:
           title: 'MT ${{ inputs.version }} build ${{ inputs.build_number }} + Viewer ${{ inputs.molsysviewer_version }} build ${{ inputs.molsysviewer_build_number }} | Python 3.14 | all'
           profile: '{"platforms":["linux-64","linux-aarch64","osx-arm64","win-64"],"python_versions":["3.11","3.12","3.13","3.14"],"prepare_job":"Validate the requested package versions","required_steps":["Install the selected package pair","Validate versions, provenance, native code, BCIF, PDB text, and viewer resources","Record the exact environment","Retain the environment record"]}'
 
+      - name: Select receipts for the verified attempt
+        id: pair_attempt
+        shell: bash
+        env:
+          MATRIX_RECEIPT: ${{ steps.installed_matrix.outputs.evidence-path }}
+        run: |
+          attempt="$(jq -er '.run_attempt | select(type == "number" and . >= 1)' "$MATRIX_RECEIPT")"
+          [[ "$attempt" =~ ^[1-9][0-9]*$ ]]
+          echo "number=$attempt" >> "$GITHUB_OUTPUT"
+
+      - name: Download the installed-pair artifact receipts
+        uses: actions/download-artifact@v8
+        with:
+          github-token: ${{ github.token }}
+          run-id: ${{ inputs.pair_run_id }}
+          pattern: conda-staging-*-attempt-${{ steps.pair_attempt.outputs.number }}
+          path: ${{ runner.temp }}/installed-pair
+
+      - name: Bind promotion to the tested package digests
+        shell: bash
+        env:
+          MATRIX_RECEIPT: ${{ steps.installed_matrix.outputs.evidence-path }}
+          RELEASE_VERSION: ${{ inputs.version }}
+          TARGET: ${{ inputs.target }}
+          FILENAME: ${{ inputs.filename }}
+          BUILD_NUMBER: ${{ inputs.build_number }}
+          EXPECTED_SHA256: ${{ inputs.sha256 }}
+          VIEWER_VERSION: ${{ inputs.molsysviewer_version }}
+          VIEWER_BUILD: ${{ inputs.molsysviewer_build_number }}
+        run: |
+          verified="$(python -m devtools.scripts.verify_conda_pair_receipts \
+            --matrix "$MATRIX_RECEIPT" --directory "$RUNNER_TEMP/installed-pair" \
+            --molsysmt-version "$RELEASE_VERSION" --molsysmt-build "$BUILD_NUMBER" \
+            --viewer-version "$VIEWER_VERSION" --viewer-build "$VIEWER_BUILD" \
+            --target "$TARGET" --filename "$FILENAME" --sha256 "$EXPECTED_SHA256")"
+          printf '%s\n' "$verified" > "$RUNNER_TEMP/molsysmt-tested-conda-pair.json"
+
       - name: Retain independent installed-matrix evidence
         if: ${{ always() && steps.installed_matrix.outputs.evidence-path != '' }}
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
         with:
           name: molsysmt-installed-matrix-${{ inputs.version }}
-          path: ${{ steps.installed_matrix.outputs.evidence-path }}
+          path: |
+            ${{ steps.installed_matrix.outputs.evidence-path }}
+            ${{ runner.temp }}/molsysmt-tested-conda-pair.json
           if-no-files-found: error
           retention-days: 30
 

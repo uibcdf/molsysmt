@@ -7,6 +7,7 @@ import argparse
 import importlib
 import importlib.metadata
 import json
+import os
 import pathlib
 import re
 import sys
@@ -97,7 +98,7 @@ def _require_conda_install(
     require_abi3: bool = False,
     require_staging_provenance: bool = False,
     require_public_provenance: bool = False,
-) -> None:
+) -> dict:
     if require_staging_provenance and require_public_provenance:
         raise ValueError("A Conda install cannot require two package sources")
     distribution = importlib.metadata.distribution(distribution_name)
@@ -154,6 +155,7 @@ def _require_conda_install(
             raise RuntimeError(
                 "MolSysMT ABI3 Conda record retains an exact python_abi requirement"
             )
+    return record
 
 
 def _require_version(distribution_name: str, expected: str) -> None:
@@ -215,17 +217,17 @@ def validate(
     *,
     require_staging_provenance: bool = False,
     require_public_provenance: bool = False,
-) -> None:
+) -> dict:
     """Validate the installed package pair and its native/runtime resources."""
 
-    _require_conda_install(
+    molsysmt_record = _require_conda_install(
         "molsysmt",
         molsysmt_version,
         require_abi3=True,
         require_staging_provenance=require_staging_provenance,
         require_public_provenance=require_public_provenance,
     )
-    _require_conda_install(
+    viewer_record = _require_conda_install(
         "molsysviewer",
         molsysviewer_version,
         require_staging_provenance=require_staging_provenance,
@@ -263,6 +265,24 @@ def validate(
         if not resource.is_file():
             raise RuntimeError(f"MolSysViewer runtime resource is missing: {resource}")
 
+    return {"molsysmt": molsysmt_record, "molsysviewer": viewer_record}
+
+
+def _write_pair_receipt(path: pathlib.Path, records: dict) -> None:
+    fields = ("channel", "url", "fn", "sha256")
+    receipt = {
+        "schema": "molsysmt.installed-conda-pair@1",
+        "candidate_sha": os.environ["GITHUB_SHA"],
+        "run_id": int(os.environ["GITHUB_RUN_ID"]),
+        "run_attempt": int(os.environ["GITHUB_RUN_ATTEMPT"]),
+        "python": f"{sys.version_info.major}.{sys.version_info.minor}",
+        "packages": {
+            package: {field: record[field] for field in fields}
+            for package, record in records.items()
+        },
+    }
+    path.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+
 
 def main() -> None:
     """Parse candidate versions and validate the active Conda environment."""
@@ -273,13 +293,20 @@ def main() -> None:
     source = parser.add_mutually_exclusive_group()
     source.add_argument("--require-staging-provenance", action="store_true")
     source.add_argument("--require-public-provenance", action="store_true")
+    parser.add_argument("--pair-receipt", type=pathlib.Path)
     args = parser.parse_args()
-    validate(
+    if args.pair_receipt and not (
+        args.require_staging_provenance or args.require_public_provenance
+    ):
+        parser.error("--pair-receipt requires an exact package channel")
+    records = validate(
         args.molsysmt_version,
         args.molsysviewer_version,
         require_staging_provenance=args.require_staging_provenance,
         require_public_provenance=args.require_public_provenance,
     )
+    if args.pair_receipt:
+        _write_pair_receipt(args.pair_receipt, records)
 
 
 if __name__ == "__main__":

@@ -146,6 +146,14 @@ Do not substitute a partial or single-platform run.
   artifact. The installed version, provenance, native extension, declared py-mmcif
   runtime, offline bundled-BCIF conversion and Viewer resources must pass before the
   release artifacts are published to `main`.
+- Retain the installed package receipts for the same verified run attempt.
+  Each captures the channel, filename, URL and SHA-256 of both installed files.
+  Use the matrix receipt and `verify_conda_pair_receipts` to reconcile all
+  cells. Compare the resulting four native identities and one noarch identity
+  with the independently selected producer files before tagging. Promotion
+  independently compares its requested native filename and digest with the
+  tested identity. The [evidence contract](archive/resolved_bugs/installed_conda_pair_does_not_bind_tested_artifact_digests.md)
+  records the checks and their offline verification.
 - A corrective staging build must increment the build number instead of overwriting the
   defective coordinate. A staged release promotes those exact digest-verified bytes to
   `main`; the GitHub Release event must not rebuild or upload another file for that

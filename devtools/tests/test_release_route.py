@@ -155,16 +155,41 @@ def test_promotion_requires_exact_release_and_installed_pair_evidence():
         "Record the exact environment",
         "Retain the environment record",
     ]
-    assert steps.index(identity) < steps.index(matrix) < steps.index(promotion)
+    download = next(
+        step
+        for step in steps
+        if step.get("name") == "Download the installed-pair artifact receipts"
+    )
+    bind = next(
+        step
+        for step in steps
+        if step.get("name") == "Bind promotion to the tested package digests"
+    )
+    assert (
+        steps.index(identity)
+        < steps.index(matrix)
+        < steps.index(download)
+        < steps.index(bind)
+        < steps.index(promotion)
+    )
+    assert download["with"]["run-id"] == "${{ inputs.pair_run_id }}"
+    assert download["with"]["pattern"] == (
+        "conda-staging-*-attempt-${{ steps.pair_attempt.outputs.number }}"
+    )
+    assert bind["env"]["MATRIX_RECEIPT"] == (
+        "${{ steps.installed_matrix.outputs.evidence-path }}"
+    )
+    assert bind["env"]["EXPECTED_SHA256"] == "${{ inputs.sha256 }}"
+    assert "python -m devtools.scripts.verify_conda_pair_receipts" in bind["run"]
     evidence = next(
         step
         for step in steps
         if step.get("name") == "Retain independent installed-matrix evidence"
     )
-    assert (
-        evidence["with"]["path"]
-        == "${{ steps.installed_matrix.outputs.evidence-path }}"
-    )
+    assert evidence["with"]["path"].splitlines() == [
+        "${{ steps.installed_matrix.outputs.evidence-path }}",
+        "${{ runner.temp }}/molsysmt-tested-conda-pair.json",
+    ]
     assert evidence["with"]["if-no-files-found"] == "error"
     assert (
         promotion["uses"] == "uibcdf/action-build-and-upload-conda-packages/promote"
