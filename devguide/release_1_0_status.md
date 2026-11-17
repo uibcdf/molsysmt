@@ -11,7 +11,8 @@ The earlier complete-source run retains its original identity; the new bounded
 decomposition repair has passed local receiving. MolSysViewer's #344 correction
 passed its full local Jupyter guard and directed browser checks. The covering
 Linux source run failed when `studio-list-workflows` reached its deadline.
-The final package pair remains unselected.**
+MolSysViewer has a locally verified adjustment for that suite. The covering
+source gate and final package pair remain pending.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
 does not select today's candidate or authorize new execution.
@@ -105,9 +106,16 @@ elapsed time establishes no improvement from omitting a projection.
 
 The terminal inspection of Linux run 44176403184, attempt 1, reports failure
 in the core browser suite. `studio-list-workflows` exceeded 180,000 ms.
-Keep this result alongside the earlier local passes. The timeout establishes
-the failed step; the responsible cause and next validation are for MolSysViewer
-to determine under the existing source qualification.
+MolSysViewer reports that 4,747 Python tests, 25 notebooks and the first 11
+browser entries passed, including moving capture, lifecycle and popup startup.
+GitHub confirms successful notebook execution and the failed browser step.
+
+The team reproduced the Studio suite timeout locally with MolSysMT
+`4b0b1f8a` and pandas 2.3.3. The same suite and assertions passed in 291
+seconds with a 360-second budget. MolSysViewer
+[`6cced30f`](https://github.com/uibcdf/molsysviewer/commit/6cced30fc31c050903ff3dc789cae1a30fc5e527)
+applies that budget only to `studio-list-workflows` and adds progress markers.
+The matching hosted source gate remains due at the agreed checkpoint.
 
 ### Final-pair coordination
 
@@ -116,6 +124,8 @@ evidence identifies no Interactions or H5MSM incompatibility requiring a
 MolSysMT change. Joint qualification of MolSysMT `63c221176` is pending.
 The team accepts #775's exact-byte verification, with a common MolSysMT file
 per native platform and one MolSysViewer noarch file across the matrix.
+MolSysViewer [`2f3f7ab4`](https://github.com/uibcdf/molsysviewer/commit/2f3f7ab496d0d8c8f37c67646ecdeec882018b1e)
+verifies both package digests from each cell's receipt.
 The subsequent [#775 follow-up](archive/resolved_bugs/installed_conda_pair_does_not_bind_tested_artifact_digests.md#noarch-archive-follow-up--2026-11-17)
 covers the MolSysViewer producer's actual `.tar.bz2` suffix. The 43 offline
 cases retain exact filename, URL and digest comparison.
