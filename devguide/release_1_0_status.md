@@ -103,6 +103,23 @@ The experimental omission branch never executes in the second run, so its
 elapsed time establishes no improvement from omitting a projection. The
 covering Linux run still showed the browser-core step in progress at review.
 
+### Final-pair coordination
+
+The MolSysViewer team confirmed through the Codex handoff that its current
+evidence identifies no Interactions or H5MSM incompatibility requiring a
+MolSysMT change. Joint qualification of MolSysMT `63c221176` is pending.
+The team accepts #775's exact-byte verification, with a common MolSysMT file
+per native platform and one MolSysViewer noarch file across the matrix.
+
+Before proposing a producer SHA and noarch build, MolSysViewer will finish
+the #344 source assessment, [Mol* 5.13.1 receiving](https://github.com/uibcdf/molsysviewer/issues/372),
+the agreed Movie, addon, scale and human acceptance, and its documentation
+work. The pair still needs qualification with the agreed 1.0 dependency
+minimums. MolSysViewer `d8c10784` is the source under investigation. Its
+recipe's build 0 remains provisional. The next joint handoff is an explicit
+producer SHA and build proposal from each owner, followed by the agreed
+resumption of candidate preparation under #334.
+
 ## Supplemental waiting-period queue completed — 2026-11-17
 
 The maintainer-selected B0–B5 follow-up is **locally complete** with
