@@ -32,6 +32,7 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
+| Repair the newly reproduced potential-energy decomposition defect | [#773](pending_bugs/potential_energy_decomposition_drops_terms_and_ignores_live_openmm_context_state.md) returns incomplete or incorrect terms for supported OpenMM contexts with repeated names, live parameters or live box vectors. It mutates source force groups. Fix and qualify the affected public routes before freezing 1.0. |
 | Preserve the completed B0–B5 queue and await the exact final-pair handoff | [B0–B5](technical_handoff_for_1_0_documentation_review.md#supplemental-waiting-period-work-queue--2026-11-17) has [finite receiving](../devtools/data/supplemental_pre1_work_334_20261117.json): #292/#772 resolved locally, 1,933 integration/curated cases and 42 public-floor cases without skips, eight Cookbook dispositions, 16 articles/four static views, strict 1,401-page HTML and the proposed #191/#378 scientific claim packet. #128/#214/#215 remain partial with exact boundaries; this is no promise of four closures or final-pair qualification. No optional implementation is appended merely because MolSysViewer is still working. |
 | Preserve the completed independent local queue and prepare the final-pair handoff | [I0–I5](technical_handoff_for_1_0_documentation_review.md#independent-molsysmt-work-queue--2026-11-16) now has [finite local receiving](../devtools/data/independent_native_work_334_20261116.json): 54 selected files, #769–#771 corrected/guarded, 159 offline controls, four complete notebooks, strict 1,401-page site and scoped article/browser review. This completes the local queue, not the final-pair gates or Diego's review. Preserve its actual runtime/source limits and the preparation/publication pause; no new global scorecard credit. |
 | Preserve #768's current governance adoption | The single actual caller now selects policy-v1.6.0; published tag, guide bytes and root/nested semantic/resource review are received. Official conformance rejects the old caller and accepts the correction, published-policy adoption reports CURRENT, and registered guide checking passes. The [owner record](archive/resolved_proposals/adopt_policy_v1_6_0_and_receive_resource_guidance.md) retains measured whole-family limits and the absence of a reservation/aggregate-protection claim. #764 remains historical; hosted qualification stays intentionally unexecuted under the maintainer's cadence. |
@@ -68,6 +69,17 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The accepted initial-canvas disposition now gives **80.2381% (approximately 80.2%)**.
 The dated percentages below remain historical, not the current score.
+
+## OpenMM and OpenMMTools capability study — 2026-11-17
+
+The [completed study under #12](pending_proposals/openmm_openmmtools_capability_review_20261117.md)
+compares seven upstream Python source files at fixed revisions with the existing
+MolSysMT and suite tools. Two bounded static checks reproduce #773's incorrect
+decomposed energies and source force-group changes, and verify the explicit
+cell-basis interoperability opportunity in #774. #773 enters the correctness
+queue. #774 remains post-1.0. The earlier B0–B5 checkpoint retains its acceptance.
+MolSysViewer #344 remains under investigation, and final pair qualification
+still awaits the coordinated resumption.
 
 ## Supplemental waiting-period queue completed — 2026-11-17
 

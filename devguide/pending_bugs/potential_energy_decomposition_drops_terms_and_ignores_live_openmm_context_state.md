@@ -1,0 +1,102 @@
+---
+summary: Potential energy decomposition drops terms and ignores live OpenMM context state
+issue: uibcdf/molsysmt#773
+status: open
+opened: 2026-11-17
+closed:
+severity: high
+verification: reproduced
+area: [api]
+guard:
+normative:
+blocked_by: []
+supersedes: []
+---
+
+# Potential energy decomposition changes its input and can give incorrect terms
+
+The public OpenMM-backed `get_potential_energy(decomposition=True)` path can
+report a sum different from the energy of the same live context. It also changes
+the source System's force groups. Found during the
+[OpenMM capability study](../pending_proposals/openmm_openmmtools_capability_review_20261117.md).
+This is a correctness repair candidate before 1.0.
+
+## Reproduction
+
+Observed on MolSysMT `a57f4c51b4feafc54cad2677c862cae85c4e2534`, Python 3.14.7,
+and the development environment's installed OpenMM 8.6.1 CPU platform.
+The three independent two-particle contexts use only custom bond forces.
+No integration steps are needed. Numbers below are in kJ/mol.
+
+| Model and analytic value | Public total | Decomposed terms | Source groups before → after |
+| --- | ---: | --- | --- |
+| Two forces named `bond` with constant energies 2 and 5 | 7.0 | `bond: 5.0` | `[6, 9]` → `[0, 1]` |
+| `U=k r`, distance 0.5 nm, Context `k=9`, System default `k=2` | 4.5 | `scaled: 1.0` | `[4]` → `[0]` |
+| Periodic `U=r`, separation 2.6 nm, live cubic side 4 nm, System default side 6 nm | 1.4 | `periodic: 2.6` | `[3]` → `[0]` |
+
+The repeated-name case can be reproduced with the following command in the
+existing development composition. The two-particle model and its expected sum
+are independent of MolSysMT's decomposition.
+
+```python
+import molsysmt as msm
+import openmm as mm
+from openmm import unit
+
+system = mm.System()
+for _ in range(2):
+    system.addParticle(12)
+for constant, group in [(2, 6), (5, 9)]:
+    force = mm.CustomBondForce(str(constant))
+    force.setName("bond")
+    force.setForceGroup(group)
+    force.addBond(0, 1, [])
+    system.addForce(force)
+platform = mm.Platform.getPlatformByName("CPU")
+context = mm.Context(system, mm.VerletIntegrator(0.001), platform, {"Threads": "1"})
+context.setPositions([mm.Vec3(0, 0, 0), mm.Vec3(0.25, 0, 0)] * unit.nanometer)
+puw = msm.pyunitwizard
+print(puw.get_value(msm.molecular_mechanics.get_potential_energy(context), to_unit="kJ/mol"))
+terms = msm.molecular_mechanics.get_potential_energy(context, decomposition=True)
+print({key: puw.get_value(value, to_unit="kJ/mol") for key, value in terms.items()})
+print([force.getForceGroup() for force in context.getSystem().getForces()])
+```
+
+The successful witness used one CPU, a 1 GiB memory cap, zero own swap, a
+45-second ceiling and 107.5 MiB peak. Earlier attempts failed in the witness
+before evidence was collected: the first assumed unit conversion returned a
+NumPy scalar, and a Reference retry aborted during context construction under
+a 32-task cap. The CPU retry used one OpenMM thread and a 128-task cap.
+Those earlier attempts do not establish a separate provider defect.
+
+## Cause
+
+`molsysmt/molecular_mechanics/get_potential_energy.py` aliases the supplied
+OpenMM System, assigns group numbers directly to its forces, creates a second
+Context and sets only positions. A dictionary indexed by `force.getName()`
+overwrites earlier terms when labels repeat. The temporary Context starts from
+System defaults for the box and global parameters. Live per-force parameter
+updates also need an explicit support decision if an implementation reconstructs
+a Context. Existing native-input parity tests do not exercise these three cases.
+
+## Acceptance criteria
+
+- Keep the source System and Context intact even if evaluation raises. Check
+  groups, positions, live parameters, box and energy across repeated calls.
+- Preserve all contributions, with accurate identity and deterministic handling
+  of duplicate names. Keep the established dictionary keys for supported models
+  whose names are unique. Resolve duplicate labels without silently losing energy.
+- Verify against independently calculated values and the live Context total for
+  each admitted model. Use the live box and active parameters. If a given runtime
+  model cannot be reproduced faithfully, report that limitation before returning
+  scientific values. A clone alone does not establish live-state equivalence.
+- Review direct and reciprocal terms, the force-group count limit, engine
+  properties and custom force classes. Each unsupported case needs an explicit
+  diagnostic. Never present a partial sum as a complete decomposition.
+- Cover supplied Context and Simulation routes as well as the existing native
+  route. Preserve public units and validation, and exercise the MolSysViewer
+  addon if the returned terms or diagnostic contract changes.
+
+Prefer the existing owned mechanics adapter and its validation and diagnostic
+facilities. OpenMMTools' inspection and context-compatibility patterns inform the
+review. This issue's repair has no dependency on OpenMMTools.

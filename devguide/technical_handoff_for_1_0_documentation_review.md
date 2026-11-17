@@ -328,24 +328,15 @@ remain outstanding where applicable.
 
 ### Optional source study after the finite local work
 
-The earlier maintainer request to learn from the existing OpenMM/OpenMMTools
-clones can then supply a bounded, nonblocking post-1.0 study under #12. The
-initial source set is OpenMM's Python `app/internal/unitcell.py`, `app/element.py`,
-`app/topology.py` and `app/modeller.py`, plus OpenMMTools `forces.py`, `states.py`
-and `cache.py`. Record actual revisions and read applicable source instructions.
-
-Compare specific capabilities with existing MolSysMT tools and the suite
-ownership map. Deliver useful gaps, existing equivalents, scientific references,
-ownership, expected benefit and validation requirements. Protocols stay with
-their workflow owner; reusable chemistry, geometry, PBC and model primitives
-belong to their appropriate provider. Do not copy engine APIs into MolSysMT's
-engine-neutral public design or expose speculative placeholders.
-
-This study reads source; it starts no simulation, implementation, dependency
-installation or new mandatory qualification. Any implementation recommendation
-gets its owned follow-up and scope decision. It need not finish before selecting
-the final pair and must not delay that handoff. A later waiting interval does
-not automatically enlarge the scientific or release scope.
+The maintainer-requested OpenMM and OpenMMTools comparison is complete.
+[The study under #12](pending_proposals/openmm_openmmtools_capability_review_20261117.md)
+records exact source revisions, existing tools, owners, validation criteria and
+prioritized proposals. Its static checks distinguish a present scientific
+correctness defect in energy decomposition from an optional extension for
+periodic-cell export. [#773](pending_bugs/potential_energy_decomposition_drops_terms_and_ignores_live_openmm_context_state.md)
+enters the pre-1.0 correction queue under the ordinary correctness rule.
+[#774](pending_proposals/support_explicit_periodic_cell_basis_conversion_for_openmm_export.md)
+is post-1.0. The study itself adds no mandatory qualification or dependency.
 
 ## Admission rule that keeps the destination reachable
 
