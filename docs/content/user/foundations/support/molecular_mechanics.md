@@ -104,6 +104,12 @@ Reference implementation can be used for small numerical checks against other
 platforms, with tolerances reflecting their precision and settings. See the
 [engine's platform documentation](https://docs.openmm.org/latest/userguide/library/04_platform_specifics.html).
 
+A live OpenMM Context carries active parameters and periodic box vectors that can
+differ from the System defaults. Per-force energy queries on that Context use its
+active state and require distinct force groups. A non-bonded force can own both a
+direct and a reciprocal group. See the
+{ref}`potential energy tutorial <Tutorial_Get_potential_energy>` for details.
+
 Coordinate optimization is distinct from model preparation and dynamics.
 It requires appropriate chemistry, spatial assembly and force-field parameters.
 An independent native result must be retained for later analysis; an explicit

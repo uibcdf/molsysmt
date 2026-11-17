@@ -31,8 +31,8 @@ def get_potential_energy(
         Molecular system in any supported MolSysMT format.
     selection : str, list, tuple, or numpy.ndarray, default='all'
         Selection string or boolean/integer array specifying elements.
-    decomposition : object, default=False
-        Argument decomposition.
+    decomposition : bool, default=False
+        Return one potential-energy contribution per force.
     platform : str, default='CPU'
         Execution platform name understood by the selected engine. OpenMM
         examples include 'Reference', 'CPU', 'CUDA' and 'OpenCL'; registered
@@ -50,7 +50,10 @@ def get_potential_energy(
     Returns
     -------
     quantity or dict
-        Total potential energy in standard units (`kJ/mol`), or dictionary of decomposed energy terms if `decomposition=True`.
+        Total potential energy, or a dictionary of force labels to scalar energies.
+        Quantities follow the active PyUnitWizard energy policy. Unique force
+        names are kept. A repeated name includes its zero-based force index as
+        ``Name [force i]``. A suffix is repeated if it collides with a literal name.
 
 
     Raises
@@ -61,6 +64,22 @@ def get_potential_energy(
         If a requested platform name is unknown to the selected engine.
     LibraryNotFoundError
         If the selected execution engine is not installed.
+    NotImplementedMethodError
+        If per-force evaluation cannot isolate the forces in a supplied OpenMM
+        Context or Simulation, or needs more than 32 groups in a constructed model.
+    StructuralInconsistencyError
+        If the decomposed energies cannot reproduce the finite total.
+
+    Notes
+    -----
+    A supplied OpenMM Context or Simulation must already have separate force
+    groups, including reciprocal-space groups that belong to a different force.
+    The System's grouping must reflect the initialized Context. Set force groups
+    before constructing the Context to request individual terms. This calculation
+    reads the active positions, periodic box and parameters. It leaves the
+    caller's force grouping intact. Direct and reciprocal contributions of
+    the same force appear under one key. Models constructed for the calculation
+    can use a separate evaluation Context when their groups overlap.
 
     .. versionadded:: 1.0.0
     """
@@ -68,8 +87,6 @@ def get_potential_energy(
     from molsysmt import convert, get_form
 
     if engine == "OpenMM":
-        import openmm as mm
-
         form_in = get_form(molecular_system)
 
         if form_in == "openmm.Context":
@@ -103,31 +120,16 @@ def get_potential_energy(
             )
 
         if decomposition:
-            tmp_system = context.getSystem()
-
-            forcegroups = {}
-            for ii in range(tmp_system.getNumForces()):
-                force = tmp_system.getForce(ii)
-                force.setForceGroup(ii)
-                forcegroups[force] = ii
-
-            tmp_context = mm.Context(
-                tmp_system, mm.VerletIntegrator(0.001), context.getPlatform()
+            from molsysmt.third_party.openmm._energy_decomposition import (
+                decompose_potential_energy,
             )
-            tmp_context.setPositions(context.getState(getPositions=True).getPositions())
 
-            context_forcegroups = {}
-            for forcegroup, ii in forcegroups.items():
-                context_forcegroups[forcegroup.getName()] = tmp_context.getState(
-                    getEnergy=True, groups={ii}
-                )
-
-            output = {}
-            for forcegroup_name, tmp_context in context_forcegroups.items():
-                output[forcegroup_name] = tmp_context.getPotentialEnergy()
-
-            for energy_term, energy_value in output.items():
-                output[energy_term] = puw.standardize(energy_value)
+            source_forms = [form_in] if isinstance(form_in, str) else form_in
+            supplied = {"openmm.Context", "openmm.Simulation"}.intersection(
+                source_forms
+            )
+            energies = decompose_potential_energy(context, constructed=not supplied)
+            output = {key: puw.standardize(value) for key, value in energies.items()}
 
         else:
             state = context.getState(getEnergy=True)

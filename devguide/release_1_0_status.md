@@ -7,9 +7,10 @@ queue is complete: #292's portable attribution is received, #772's chemical
 recipes are corrected, the other three acceptance reviews retain their real
 partial boundaries, and the proposed manuscript/reader packet is recorded.
 The earlier complete-source run retains its original identity; the new bounded
-1,933-case receiving does not qualify a changed final candidate. MolSysViewer's
-latest owner report still has #344/source-recovery work pending, and no final
-package pair is fixed.**
+1,933-case receiving does not qualify a changed final candidate. #773's energy
+decomposition repair has passed local receiving. MolSysViewer's #344 correction
+passed its full local Jupyter guard and directed browser checks. Its covering
+Linux source run was in progress at review and no final package pair is fixed.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
 does not select today's candidate or authorize new execution.
@@ -32,7 +33,7 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
-| Repair the newly reproduced potential-energy decomposition defect | [#773](pending_bugs/potential_energy_decomposition_drops_terms_and_ignores_live_openmm_context_state.md) returns incomplete or incorrect terms for supported OpenMM contexts with repeated names, live parameters or live box vectors. It mutates source force groups. Fix and qualify the affected public routes before freezing 1.0. |
+| Preserve #773's potential-energy decomposition correction | The [resolution](archive/resolved_bugs/potential_energy_decomposition_drops_terms_and_ignores_live_openmm_context_state.md) records active-state queries, distinct force terms, the supported grouping contract, 60 local passes and the documentation receiving. Exact-candidate qualification remains pending. |
 | Preserve the completed B0–B5 queue and await the exact final-pair handoff | [B0–B5](technical_handoff_for_1_0_documentation_review.md#supplemental-waiting-period-work-queue--2026-11-17) has [finite receiving](../devtools/data/supplemental_pre1_work_334_20261117.json): #292/#772 resolved locally, 1,933 integration/curated cases and 42 public-floor cases without skips, eight Cookbook dispositions, 16 articles/four static views, strict 1,401-page HTML and the proposed #191/#378 scientific claim packet. #128/#214/#215 remain partial with exact boundaries; this is no promise of four closures or final-pair qualification. No optional implementation is appended merely because MolSysViewer is still working. |
 | Preserve the completed independent local queue and prepare the final-pair handoff | [I0–I5](technical_handoff_for_1_0_documentation_review.md#independent-molsysmt-work-queue--2026-11-16) now has [finite local receiving](../devtools/data/independent_native_work_334_20261116.json): 54 selected files, #769–#771 corrected/guarded, 159 offline controls, four complete notebooks, strict 1,401-page site and scoped article/browser review. This completes the local queue, not the final-pair gates or Diego's review. Preserve its actual runtime/source limits and the preparation/publication pause; no new global scorecard credit. |
 | Preserve #768's current governance adoption | The single actual caller now selects policy-v1.6.0; published tag, guide bytes and root/nested semantic/resource review are received. Official conformance rejects the old caller and accepts the correction, published-policy adoption reports CURRENT, and registered guide checking passes. The [owner record](archive/resolved_proposals/adopt_policy_v1_6_0_and_receive_resource_guidance.md) retains measured whole-family limits and the absence of a reservation/aggregate-protection claim. #764 remains historical; hosted qualification stays intentionally unexecuted under the maintainer's cadence. |
@@ -76,10 +77,23 @@ The [completed study under #12](pending_proposals/openmm_openmmtools_capability_
 compares seven upstream Python source files at fixed revisions with the existing
 MolSysMT and suite tools. Two bounded static checks reproduce #773's incorrect
 decomposed energies and source force-group changes, and verify the explicit
-cell-basis interoperability opportunity in #774. #773 enters the correctness
-queue. #774 remains post-1.0. The earlier B0–B5 checkpoint retains its acceptance.
-MolSysViewer #344 remains under investigation, and final pair qualification
-still awaits the coordinated resumption.
+cell-basis interoperability opportunity in #774. The #773 correction is now
+recorded above. #774 remains post-1.0. The earlier B0–B5 checkpoint retains its
+acceptance. Final pair qualification awaits the coordinated resumption.
+
+## MolSysViewer moving-capture receiving update — 2026-11-17
+
+The owner published MolSysViewer `d8c10784eeaf6812abf27644f6cfed80c1dfc921`
+with playback-feedback coalescing. Local run 1046 receives the native no-duplicate
+guard. Actual-Jupyter run 1047 passes the whole work-file scenario, including
+all eight moving captures and both popup saves. In the browser cohort 1048
+the lifecycle entry timed out after the other two entries passed. That lifecycle
+entry passes in isolation in 1050 under the recorded resource profile.
+These results advance [uibcdf/molsysviewer#344](https://github.com/uibcdf/molsysviewer/issues/344).
+The issue still showed open at review. The covering exact-source
+[Linux run 44176403184](https://github.com/uibcdf/molsysviewer/actions/runs/44176403184)
+was independently checked as in progress. Final artifacts, installed pair and
+human acceptance remain under the coordinated release gate.
 
 ## Supplemental waiting-period queue completed — 2026-11-17
 
@@ -119,7 +133,7 @@ another mandatory gate or change the original scorecard weights.
   through the service, not proven absent; no record is removed. Original failed
   controls, harness errors, warnings and all scope limitations remain recorded.
 
-MolSysViewer's latest **owner-reported**, not independently replayed, recovery
+The earlier **owner-reported** MolSysViewer recovery
 `44118070148` fails on `0ea58be0` with MolSysMT `4b0b1f8a`: mirror #402 passes.
 A later owner update receives the adversarial setup correction and isolates the
 apparent drawing loss to its observation harness. The real popup still exceeds

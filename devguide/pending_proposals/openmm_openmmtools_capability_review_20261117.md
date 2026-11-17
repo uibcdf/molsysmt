@@ -17,7 +17,8 @@ supersedes: []
 The requested OpenMM/OpenMMTools study is complete. Issue #12 also covers other
 libraries, so the broader inventory remains open. The main finding is a
 reproduced error in an existing MolSysMT API
-([#773](../pending_bugs/potential_energy_decomposition_drops_terms_and_ignores_live_openmm_context_state.md)).
+([#773](../archive/resolved_bugs/potential_energy_decomposition_drops_terms_and_ignores_live_openmm_context_state.md),
+corrected after the study).
 The clearest new reusable operation is an explicit periodic-cell basis conversion
 ([#774](support_explicit_periodic_cell_basis_conversion_for_openmm_export.md)).
 
@@ -60,6 +61,7 @@ original methods, adaptations and software actually executed.
 
 1. Fix and verify #773 on supported public routes before 1.0. It can silently
    return an incorrect analysis and modify a caller-owned engine system.
+   The linked resolution records the completed correction and its receiving scope.
 2. Keep #774 as an explicit targeted expansion. A small private adapter may
    suffice for one consumer. Promote a general lattice tool when its reusable
    contract and demand are clear.

@@ -1,13 +1,13 @@
 ---
 summary: Potential energy decomposition drops terms and ignores live OpenMM context state
 issue: uibcdf/molsysmt#773
-status: open
+status: resolved
 opened: 2026-11-17
-closed:
+closed: 2026-11-17
 severity: high
 verification: reproduced
 area: [api]
-guard:
+guard: tests/molecular_mechanics/get_potential_energy/test_get_potential_energy.py
 normative:
 blocked_by: []
 supersedes: []
@@ -18,8 +18,7 @@ supersedes: []
 The public OpenMM-backed `get_potential_energy(decomposition=True)` path can
 report a sum different from the energy of the same live context. It also changes
 the source System's force groups. Found during the
-[OpenMM capability study](../pending_proposals/openmm_openmmtools_capability_review_20261117.md).
-This is a correctness repair candidate before 1.0.
+[OpenMM capability study](../../pending_proposals/openmm_openmmtools_capability_review_20261117.md).
 
 ## Reproduction
 
@@ -100,3 +99,47 @@ a Context. Existing native-input parity tests do not exercise these three cases.
 Prefer the existing owned mechanics adapter and its validation and diagnostic
 facilities. OpenMMTools' inspection and context-compatibility patterns inform the
 review. This issue's repair has no dependency on OpenMMTools.
+
+## Resolution — 2026-11-17
+
+The adapter queries each force's groups directly on a supplied, initialized
+OpenMM Context, including the Context of a Simulation. This reads the current
+positions, box, global parameters and force parameters. Direct and reciprocal
+groups belonging to one force contribute to one entry. A repeated force name
+gets its zero-based force index, with further disambiguation for literal name
+collisions. Results keep dictionary order and the caller's PyUnitWizard units.
+
+Supplied models require distinct groups for distinguishable forces, with
+group assignments matching the initialized engine state. A shared group yields
+one energy for all its forces. The adapter raises an actionable diagnostic
+and the total-energy query remains available. For internally constructed
+models with overlapping groups, a separate Context on the same platform
+uses an independent System copy and the captured positions, box and global
+parameters. This path supports up to 32 forces. The original force groups
+remain intact in either route. The adapter checks that the sum of the terms
+reproduces the finite Context total. This check detects missing energy from
+stale groups in the guarded example. Users must assign groups before
+initialization for the group-to-force map to be authoritative.
+[OpenMM Context](https://docs.openmm.org/latest/api-python/generated/openmm.openmm.Context.html)
+and [NonbondedForce](https://docs.openmm.org/latest/api-python/generated/openmm.openmm.NonbondedForce.html).
+
+The first focused run has eight passes and one failure. Its overlap diagnostic
+loses the actionable detail in the default SMonitor template. Passing an
+explicit message resolves that failure. The corrected run passes nine cases.
+The expanded run passes all 60 cases, with 32 expected legacy H5MSM warnings.
+The independent oracles cover duplicate names and a literal collision, active
+global and per-bond parameters with a different live box (15.6 kJ/mol), a
+separate Ewald reciprocal group, and source integrity. The cohort includes
+native construction, the platform/model-recipe contract and the MolSysViewer
+addon's two unit profiles. The 8.2.0 upstream wrapper and group APIs were
+inspected. Runtime checks used OpenMM 8.6.1 on CPU and Python 3.14.7.
+Pytest Receptor and JUnit agree with the native exit. The expanded run used
+one CPU and a 2 GiB enforced limit, with a 410 MiB peak and zero own swap.
+
+Ruff and the public API, dependency, docstring, course and notebook schema
+checks pass. The tutorial was executed and its terms checked against the
+total in kJ/mol. The four course notebooks and Cookbook retain their
+committed code and outputs. A strict full Sphinx build produced 1,401 HTML
+files with zero warnings, and the six links to the revised tutorial resolve.
+This is bounded local source evidence. Platform, installed pair and final
+candidate qualification remain part of #334.

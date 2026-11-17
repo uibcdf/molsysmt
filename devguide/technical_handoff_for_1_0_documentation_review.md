@@ -333,10 +333,15 @@ The maintainer-requested OpenMM and OpenMMTools comparison is complete.
 records exact source revisions, existing tools, owners, validation criteria and
 prioritized proposals. Its static checks distinguish a present scientific
 correctness defect in energy decomposition from an optional extension for
-periodic-cell export. [#773](pending_bugs/potential_energy_decomposition_drops_terms_and_ignores_live_openmm_context_state.md)
-enters the pre-1.0 correction queue under the ordinary correctness rule.
+periodic-cell export. [#773](archive/resolved_bugs/potential_energy_decomposition_drops_terms_and_ignores_live_openmm_context_state.md)
+has a completed correction with 60 local cases and a strict documentation build.
 [#774](pending_proposals/support_explicit_periodic_cell_basis_conversion_for_openmm_export.md)
 is post-1.0. The study itself adds no mandatory qualification or dependency.
+
+MolSysViewer `d8c10784` has the source correction and a passing complete local
+Jupyter reproduction for [uibcdf/molsysviewer#344](https://github.com/uibcdf/molsysviewer/issues/344).
+The [release status](release_1_0_status.md#molsysviewer-moving-capture-receiving-update--2026-11-17)
+records the hosted source run's status and the exact-pair requirements.
 
 ## Admission rule that keeps the destination reachable
 

@@ -648,7 +648,7 @@ sections:
             file: docs/content/user/tools/molecular_mechanics/get_engine_forcefield.ipynb
             agents_file: docs/content/user/tools/molecular_mechanics/get_engine_forcefield.ipynb.AGENTS.md
           - name: get_potential_energy
-            description: Total/decomposed model energies with engine-owned platform names and construction-only platform selection.
+            description: Total and per-force energy with live OpenMM state, distinct force groups, and engine-owned platform selection for construction.
             file: docs/content/user/tools/molecular_mechanics/get_potential_energy.ipynb
             agents_file: docs/content/user/tools/molecular_mechanics/get_potential_energy.ipynb.AGENTS.md
           - name: get_model_recipe
