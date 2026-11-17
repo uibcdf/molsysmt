@@ -133,6 +133,10 @@ sections:
         index_file: docs/content/user/foundations/governance/index.md
         index_agents_file: docs/content/user/foundations/governance/index.AGENTS.md
         pages:
+          - name: quantities_and_units
+            file: docs/content/user/foundations/governance/quantities_and_units.md
+            agents_file: docs/content/user/foundations/governance/quantities_and_units.md.AGENTS.md
+            description: Executable physical-equivalence examples, operation-specific bare-array admission and scoped backend/unit policy with application restoration.
           - name: configuration_options
             file: docs/content/user/foundations/governance/configuration_options.md
             agents_file: docs/content/user/foundations/governance/configuration_options.md.AGENTS.md
@@ -1165,7 +1169,7 @@ sections:
       - name: copying_disk_systems
         file: docs/content/user/cookbook/copying_disk_systems.md
         agents_file: docs/content/user/cookbook/copying_disk_systems.md.AGENTS.md
-        description: Independent automatic/persistent snapshots, source-safe whole-file and coordinate-dump extraction, native edits and explicit form/lifetime limits.
+        description: Independent automatic/persistent snapshots, default H5MSM 1.0 versus byte-preserving copying, source-safe coordinate extraction, native edits and explicit form/lifetime limits.
         status: reviewed
       - name: weighting_pca
         file: docs/content/user/cookbook/weighting_pca.md
@@ -1282,7 +1286,7 @@ sections:
         description: Conversion workflows, operational verification causes, deposited CIF model-label correspondence, coordinate-free OpenMM inference, MDTraj/ParmEd geometry and cells, managed reader ownership and public capability inspection. Supported external molecular copies and selected extraction preserve their explicit graphical/precision/axis limits.
         agents_file: docs/content/user/cookbook/form_teleportation.ipynb.AGENTS.md
       - name: querying_sparse_interactions
-        description: Sparse queries, independent copies, geometry and chemical owner notification, finite torsion rejection and scoped invalidation, state inventory publication, structure replacement and H5MSM persistence with complete evidence catalog/code identity.
+        description: Sparse queries, independent copies, ChemicalStates owner notification without a Topology chemistry facade, scoped geometry invalidation, state replacement and default H5MSM 1.0 with preserved coverage and occurrence identity.
         file: docs/content/user/cookbook/querying_sparse_interactions.md
         agents_file: docs/content/user/cookbook/querying_sparse_interactions.md.AGENTS.md
       - name: preparing_aromatic_participants

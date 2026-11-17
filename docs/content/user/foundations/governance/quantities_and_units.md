@@ -26,36 +26,37 @@ While MolSysMT accepts input quantities expressed in any valid physical unit (e.
 
 ---
 
-## Universal Input Quantity Flexibility
+## Input quantities
 
-All functions and classes in MolSysMT that accept input parameters requiring physical quantities (such as lengths, temperatures, simulation times, or forces) offer total input flexibility. Users can supply inputs as:
+Quantity arguments accept the representations supported by their public
+contract and PyUnitWizard configuration: strings such as `'10 angstrom'`,
+Pint quantities, and quantities from enabled optional backends such as OpenMM,
+Astropy or unyt. An optional backend must be installed before you request it.
+The function still validates dimensions, shape and its physical domain.
 
-1. **String Representations**: E.g. `'10.0 angstroms'`, `'300 K'`, `'1.0 / picoseconds'`.
-2. **PyUnitWizard Quantity Objects**: Quantity objects from any supported ecosystem backend (**Pint**, **OpenMM**, **Astropy**, or **unyt**).
-3. **Plain NumPy Arrays**: Plain numeric arrays (interpreted automatically in canonical base units).
-
-### Code Example: Flexible Input Formats
+Do not assume a bare array has a unit. Some operations explicitly accept one
+in canonical units; others require a quantity. For example,
+{func}`molsysmt.pbc.get_box_from_lengths_and_angles` documents bare NumPy lengths
+in nm. These three representations therefore define the same orthogonal box:
 
 ```python
 import molsysmt as msm
-from openmm import unit as openmm_unit
-import pint
+import numpy as np
 
-ureg = pint.UnitRegistry()
-
-# All four calls below are 100% equivalent in MolSysMT:
-
-# 1. Supplying a string representation
-coords1 = msm.structure.get_distances(system, selection='all')
-
-# 2. Supplying a Pint quantity object
-temp_pint = 300.0 * ureg.kelvin
-
-# 3. Supplying an OpenMM quantity object
-temp_openmm = 300.0 * openmm_unit.kelvin
-
-# 4. Supplying a string in a building function
-system = msm.build.add_missing_heavy_atoms(system)
+puw = msm.pyunitwizard
+length_inputs = [
+    '[20, 30, 40] angstrom',
+    puw.quantity([2000., 3000., 4000.], 'pm', form='pint'),
+    np.array([2., 3., 4.]),  # documented nm input for this operation
+]
+boxes = [
+    msm.pbc.get_box_from_lengths_and_angles(value)
+    for value in length_inputs
+]
+for box in boxes:
+    np.testing.assert_allclose(
+        puw.get_value(box, to_unit='nm'), [np.diag([2., 3., 4.])],
+    )
 ```
 
 ---
@@ -86,20 +87,28 @@ the row-vector convention and alpha/beta/gamma ordering.
 
 ### The `puw.context()` Manager
 
-PyUnitWizard provides the **`puw.context()`** context manager, allowing users to temporarily override default quantity forms, parsers, or standard units within specific code blocks:
+PyUnitWizard's **`puw.context()`** temporarily selects an output form, parser and
+standard units, then restores the preceding application policy. Changing a form
+does not itself choose angstroms: the length standard must also be declared.
+This example requires optional OpenMM and keeps Pint as the string parser:
 
 ```python
-import pyunitwizard as puw
-import molsysmt as msm
+from openmm import unit as openmm_unit
 
-# 1. Global configuration
-puw.configure.default_form = 'pint'
-puw.configure.default_parser = 'pint'
+lengths_openmm = openmm_unit.Quantity([20., 30., 40.], openmm_unit.angstrom)
+with puw.context(
+    default_form='openmm.unit', default_parser='pint',
+    standard_units=['angstrom', 'ps', 'radians', 'elementary_charge'],
+):
+    box_openmm = msm.pbc.get_box_from_lengths_and_angles(lengths_openmm)
+    assert puw.get_form(box_openmm) == 'openmm.unit'
+    np.testing.assert_allclose(
+        puw.get_value(box_openmm, to_unit='angstrom'), [np.diag([20., 30., 40.])],
+    )
 
-# 2. Temporary contextual override using puw.context()
-# Temporarily return quantities in OpenMM form with default length in Angstroms
-with puw.context(default_form='openmm.unit', default_parser='openmm.unit'):
-    coords = msm.structure.get_coordinates(system)  # Returns OpenMM quantity object
+after_context = msm.pbc.get_box_from_lengths_and_angles('[2, 3, 4] nm')
+assert puw.get_form(after_context) == puw.get_form(boxes[0])
+assert puw.get_unit(after_context) == puw.get_unit(boxes[0])
 ```
 
 - **Fast-Track Acceleration (`puw.fast_track`)**: For high-frequency internal calculations involving canonical units (`nm`, `ps`, `e`), MolSysMT registers fast-track unit handlers in `puw.fast_track` to strip and re-wrap units without dimensional AST parsing overhead.

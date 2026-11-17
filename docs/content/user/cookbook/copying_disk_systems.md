@@ -12,13 +12,14 @@ coordinates in memory. These operations have different ownership and lifetimes.
 
 ## Copying the stored bytes
 
-This example writes bundled particle coordinates as H5MSM 0.5, then creates
+This example writes bundled particle coordinates as default H5MSM 1.0, then creates
 both automatic and persistent copies. Raw copying does not deserialize the
 molecular data. A caller-owned Python context manages the demonstration source
 and persistent destination; MolSysMT manages the separate automatic snapshot.
 
 ```python
 import filecmp
+import h5py
 import tempfile
 from pathlib import Path
 import numpy as np
@@ -29,9 +30,11 @@ puw = msm.pyunitwizard
 with tempfile.TemporaryDirectory() as directory:
     source = Path(directory) / 'source.h5msm'
     destination = Path(directory) / 'snapshot.h5msm'
-    structures = Structures(coordinates=msm.get(
-        msm.systems['particles 4']['traj_particles_4.xyznpy'], coordinates=True))
+    coordinate_file = msm.systems['particles 4']['traj_particles_4.xyznpy']
+    structures = Structures(coordinates=msm.get(coordinate_file, coordinates=True))
     msm.h5msm.write_layers(str(source), structures=structures)
+    with h5py.File(source, 'r') as stored:
+        assert stored.attrs['version'] == '1.0'
     automatic = msm.copy(source)
     snapshot = msm.copy(source, output_filename=destination)
     assert filecmp.cmp(source, automatic, shallow=False)
@@ -39,17 +42,22 @@ with tempfile.TemporaryDirectory() as directory:
 
     molsys = msm.convert(automatic, to_form='molsysmt.MolSys')
     molsys_working = msm.copy(molsys)
-    original = msm.get(molsys, selection=[0], structure_indices=[0], coordinates=True)
+    original = msm.get(
+        molsys, selection=[0], structure_indices=[0], coordinates=True)
     moved = original + puw.quantity(np.array([1., 0., 0.]), 'nm')
-    msm.set(molsys_working, selection=[0], structure_indices=[0], coordinates=moved)
+    msm.set(molsys_working, selection=[0], structure_indices=[0],
+            coordinates=moved)
     np.testing.assert_array_equal(
         puw.get_value(msm.get(molsys, selection=[0], structure_indices=[0],
-            coordinates=True), to_unit='nm'), puw.get_value(original, to_unit='nm'))
+            coordinates=True), to_unit='nm'),
+        puw.get_value(original, to_unit='nm'))
     np.testing.assert_allclose(
-        puw.get_value(msm.get(molsys_working, selection=[0], structure_indices=[0],
-            coordinates=True), to_unit='nm'), puw.get_value(moved, to_unit='nm'))
+        puw.get_value(msm.get(molsys_working, selection=[0],
+            structure_indices=[0], coordinates=True), to_unit='nm'),
+        puw.get_value(moved, to_unit='nm'))
     assert filecmp.cmp(source, snapshot, shallow=False)
-assert Path(automatic).is_file()  # session-owned, independent of the context above
+# The session-owned copy outlives the caller's context above.
+assert Path(automatic).is_file()
 ```
 
 ## Copying a coordinate file and saving a selection
@@ -148,7 +156,9 @@ The selected temporary filesystem can itself be RAM-backed; choose its location
 to suit the size of your data.
 
 A byte copy keeps the H5MSM version, compression and stored domains. It does not
-migrate legacy data; use {func}`molsysmt.h5msm.migrate_to_05` for that operation.
+migrate legacy data. Use {func}`molsysmt.basic.convert` with a distinct H5MSM
+destination for the current default schema; the explicitly versioned
+{func}`molsysmt.h5msm.migrate_to_05` helper writes 0.5.
 SDF and PDBQT copies retain their adapter-specific validation. File copying does
 not certify chemical validity, and live file handlers have separate resource
 contracts. Native conversion materializes the selected molecular data in RAM;

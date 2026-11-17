@@ -1,6 +1,8 @@
 # The Language
 
-Master MolSysMT's Selection Language to select, query, and manipulate atoms, residues, and molecular structures.
+Use MolSysMT's selection language to select and query atoms, groups and other
+molecular elements. Structure indices select coordinate observations; they are
+distinct from element IDs, which are labels.
 
 ---
 

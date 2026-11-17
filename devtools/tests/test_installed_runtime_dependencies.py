@@ -25,21 +25,40 @@ def test_installed_public_runtime_rejects_missing_or_old_mmcif(monkeypatch, vers
         installed.validate_public_runtime()
 
 
-def test_controlled_gate_rejects_transitive_conflict_above_direct_floor(monkeypatch):
-    versions = {
-        "smonitor": "0.18.0",
-        "depdigest": "0.15.1",
-        "argdigest": "0.14.0",
-        "pyunitwizard": "0.28.1",
-    }
+def test_controlled_gate_rejects_transitive_conflict_above_direct_floor(
+    tmp_path, monkeypatch, capsys
+):
+    # This scenario exercises transitive closure, not today's provider versions.
+    (tmp_path / "pyproject.toml").write_text(
+        '[project]\ndependencies = ["pyunitwizard>=1.0", "argdigest>=1.0"]\n'
+    )
+    pins = tmp_path / "controlled_sources.txt"
+    pins.write_text(
+        f"git+https://github.com/uibcdf/pyunitwizard@{'0' * 40}\n"
+        f"git+https://github.com/uibcdf/argdigest@{'1' * 40}\n"
+    )
+    monkeypatch.setattr(controlled, "ROOT", tmp_path)
+    monkeypatch.setattr(controlled, "PINS", pins)
+    versions = {"argdigest": "1.0", "pyunitwizard": "1.0"}
     monkeypatch.setattr(controlled.importlib.metadata, "version", versions.__getitem__)
     monkeypatch.setattr(
         controlled.importlib.metadata,
         "requires",
-        lambda name: ["argdigest>=0.15.0"] if name == "pyunitwizard" else [],
+        lambda name: ["argdigest>=2.0"] if name == "pyunitwizard" else [],
+    )
+    assert (
+        controlled.find_violations(
+            ["pyunitwizard>=1.0", "argdigest>=1.0"],
+            list(versions),
+            versions.__getitem__,
+        )
+        == []
     )
     assert controlled.main() == 1
-    versions["argdigest"] = "0.15.0"
+    assert capsys.readouterr().out.splitlines() == [
+        "[CONTROLLED_DEPENDENCY] pyunitwizard: installed argdigest 1.0 violates argdigest>=2.0"
+    ]
+    versions["argdigest"] = "2.0"
     assert controlled.main() == 0
 
 

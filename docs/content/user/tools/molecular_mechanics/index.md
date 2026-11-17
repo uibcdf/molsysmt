@@ -12,7 +12,7 @@ Unlike other areas of MolSysMT where native algorithms are implemented (such as 
 | [Get engine forcefield](get_engine_forcefield.ipynb) | Translating force field specifications into engine parameter definitions |
 | [Get model recipe](get_model_recipe.md) | Inspecting requested controls and compiled physical settings without an execution context |
 | [Get forces](get_forces.ipynb) | Extracting atomic force vectors and magnitudes from force fields |
-| [Get non-bonded potential energy](get_non_bonded_potential_energy.ipynb) | Calculating non-bonded interaction energies across selections or residue sets |
+| [Get non-bonded potential energy](get_non_bonded_potential_energy.ipynb) | Calculating non-bonded interaction energies across selections or group sets |
 | [Get potential energy](get_potential_energy.ipynb) | Evaluating total potential energy and force field energy components |
 | [Potential energy minimization](potential_energy_minimization.ipynb) | Relaxing molecular structures to local potential energy minima |
 

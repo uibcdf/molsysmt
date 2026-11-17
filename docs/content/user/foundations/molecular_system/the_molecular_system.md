@@ -3,7 +3,7 @@
 
 **MolSysMT** (*Molecular Systems Multi-Toolkit*) defines a **molecular system** as an abstract physical and chemical model representing a collection of atoms, groups, molecules, or macromolecular assemblies along with their structural, topological, mechanical, and chemical properties.
 
-Crucially, in MolSysMT a molecular system is **independent of its underlying data representation or file format**. A system can be represented by a PDB file on disk, a BinaryCIF file, an OpenMM `Topology` object in memory, an MDTraj `Trajectory`, a ParmEd `Structure`, or a native `molsysmt.MolSys` dictionary. While these representation forms may carry different levels of detail or subsets of attributes—for instance, an OpenMM `Topology` contains structural connectivity but no atomic coordinates, whereas an MDTraj `Trajectory` contains coordinates but may lack certain force field metadata—MolSysMT treats all of them as valid representation forms of the same molecular system we work with.
+Crucially, in MolSysMT a molecular system is **independent of its underlying data representation or file format**. A system can be represented by a PDB file on disk, a BinaryCIF file, an OpenMM `Topology` object in memory, an MDTraj `Trajectory`, a ParmEd `Structure`, a native `molsysmt.MolSys` object or a `molsysmt.MolSysDict` representation. While these forms may carry different levels of detail or subsets of attributes—for instance, an OpenMM `Topology` contains structural connectivity but no atomic coordinates, whereas an MDTraj `Trajectory` contains coordinates but may lack certain force field metadata—MolSysMT treats all of them as representations of molecular systems. A calculation still requires its documented attributes and supported route.
 
 ---
 

@@ -1,7 +1,7 @@
 # Finite contract closeout before the 1.0 documentation review
 
 **Role:** operational receiving packet under uibcdf/molsysmt#334, #256, #250,
-#254, #421 and #524. **Reviewed:** 2026-11-15.
+#254, #421 and #524. **Reviewed:** 2026-11-17.
 **State:** provider source offer; final consumer/candidate acceptance pending.
 
 This packet collects the already required decisions. It adds no detector,
@@ -87,6 +87,41 @@ do not ask BindingMT to repeat this storage profile.
 | Both release owners / #334 | After agreed resumption, qualify the exact same artifacts and sources under existing source/native/scientific/documentation and installed-pair gates, including the retained #671 lane. Then hand off the review packet. | Historical or scoped source passes do not replace final installed/platform qualification. |
 
 ## Publication order and completion boundary
+
+### Independent offline preflight — 2026-11-17
+
+The [finite local receipt](../devtools/data/independent_native_work_334_20261116.json)
+records the I0–I5 scope and current execution. The original offline preflight
+exposed two stale positive dependency fixtures under #771. Corrected controls
+now distinguish satisfied direct requirements from a transitive refusal;
+159 selected native/documentation, staging identity, runtime closure,
+dependency-audit and citation cases pass without skips. This exercises guards
+with simulated records; it does not install or qualify a candidate.
+
+The seven-surface metadata draft remains unapplied. Its existing patch digest is
+`52b5e5bb7ddc18940c00102ad17d8840a76f121e6f705b7e3e7c3b5e466a3057`.
+All seven current inputs match the reviewed basis and the read-only apply check
+passes. The reciprocal >=1.0.0 minimum agreement remains a future coordinated
+producer change. Preserve the declared ipykernel >=7.4.0 notebook-host baseline;
+do not mistake the version in an administrative/headless process for receiving
+of a selected graphical kernel. Main runtime floors and citation date are not
+changed here. Refresh the provisional date and audit the complete actual root
+only when producer preparation resumes.
+
+| Required identity or action | Owner and existing route | Present disposition |
+| --- | --- | --- |
+| Final clean MolSysMT/MolSysViewer source commits and exact build numbers | Both maintainers under #334/#524 | Target 1.0.0/1.0.0 agreed; producer SHAs, unused builds and triggerable refs still unselected. Historical files/refs are preserved. |
+| Coherent dependency/citation metadata and source pins | Both producer owners; `prepare_release.py`, complete-root dependency/citation audit | Draft only. Do not substitute a future package label for the real untagged source version. |
+| Four native ABI3 files and MolSysViewer's noarch file, channels, original URLs and SHA-256 | Existing `build_and_upload_conda_packages.yaml` and consumer producer | No new producer dispatch or artifact is authorized by this preflight. Verify original producer and artifact custody. |
+| Source/native/scientific/documentation qualification at that exact composition | Existing release gate and source/native workflows | Required final receiving, including #671's original matrix lane; earlier scoped passes retain their original identities. |
+| Sixteen installed-pair cells | `validate_conda_staging.yaml`: explicit versions/builds, `python_max=3.14`, `target=all`, staging | Pending exact artifact selection and agreed resumption. Capture actual paths, URLs and hashes outside checkouts. |
+| Independent verification of that completed installed run | `verify_installed_conda_pair.yaml`: existing `run_id`, exact `candidate_sha`, title and profile | This route inspects existing evidence; it does not execute the installed matrix. A receipt is not a new run. |
+| Current consumer capture gate and final consumer source | MolSysViewer, including reopened #344 | Its remaining work-file capture diagnosis and covering source gates are external. Do not infer a provider scientific defect or a complete pass from earlier successful capture cases. |
+
+The final stop conditions remain those of the owning release/resource rules:
+missing identities, wrong bytes/import origins, failed or incomplete gates and
+unsafe resource admission cannot become a pass. No extra matrix, new detector,
+candidate reservation or publication permission is added by this table.
 
 The already inspected manifests depend on each other: MolSysMT consumes
 MolSysViewer and MolSysViewer consumes MolSysMT. Compatible floors and actual

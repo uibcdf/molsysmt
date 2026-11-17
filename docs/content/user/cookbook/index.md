@@ -39,7 +39,7 @@ Each recipe combines multiple MolSysMT tools and demonstrates how to interface w
 | **{doc}`native_pdbqt`** | Reading prepared AutoDock data and preserving declared torsion trees. |
 | **{doc}`auditing_residue_chemistry`** | Distinguishing supported residue atom gaps from unassessed chemistry before repair. |
 | **{doc}`querying_sparse_interactions`** | Comparing synthetic interaction observations across selected structures and atom sets. |
-| **{doc}`migrating_h5msm`** | Translating a 0.4 molecular-system file into the modular H5MSM 0.5 schema. |
+| **{doc}`migrating_h5msm`** | Migrating to default H5MSM 1.0, with a separate explicit 0.5 helper. |
 | **{doc}`preparing_aromatic_participants`** | Preparing complete ring participants from declared aromatic chemistry. |
 | **{doc}`preparing_charged_participants`** | Recognizing local charged centers and selecting complete chemical participants. |
 | **{doc}`saving_ionic_interactions`** | Calculating, naming, saving, and querying an ionic-contact analysis. |

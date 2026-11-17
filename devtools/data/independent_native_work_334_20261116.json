@@ -1,0 +1,3287 @@
+{
+  "schema": 1,
+  "date": "2026-11-16",
+  "owner_issue": "uibcdf/molsysmt#334",
+  "source_basis": "a38811631595bcb3c9f6717889b99bd29d78fcdf",
+  "scope": "Finite I0-I5 independent local work; not final pair, full corpus, installed or publication qualification.",
+  "scope_frozen_before_execution": true,
+  "items": [
+    {
+      "path": "docs/content/about/installation.md",
+      "kind": "reading_route",
+      "reason": "Maintained handoff entry point; inspect scope, navigation and public promises.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "c4a7c87b578b78d1e5a370820f51fb66a90c012842844265e328b0131ea7dd5d",
+      "bytes": 939,
+      "reviewed_input_sha256": "c4a7c87b578b78d1e5a370820f51fb66a90c012842844265e328b0131ea7dd5d",
+      "received_source_sha256": "c4a7c87b578b78d1e5a370820f51fb66a90c012842844265e328b0131ea7dd5d",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/foundations/support/index.md",
+      "kind": "reading_route",
+      "reason": "Maintained handoff entry point; inspect scope, navigation and public promises.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "c4958097959c4b2d4a0e1abf18e9cf3ef8ea94bbe4cc2a552fb9997098d4532d",
+      "bytes": 1250,
+      "reviewed_input_sha256": "c4958097959c4b2d4a0e1abf18e9cf3ef8ea94bbe4cc2a552fb9997098d4532d",
+      "received_source_sha256": "c4958097959c4b2d4a0e1abf18e9cf3ef8ea94bbe4cc2a552fb9997098d4532d",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/foundations/molecular_system/index.md",
+      "kind": "reading_route",
+      "reason": "Maintained handoff entry point; inspect scope, navigation and public promises.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "4226fa320f3c98c7cf449a338acf3c5b55c2166548143467f5b24f9f453a3af6",
+      "bytes": 2547,
+      "reviewed_input_sha256": "4226fa320f3c98c7cf449a338acf3c5b55c2166548143467f5b24f9f453a3af6",
+      "received_source_sha256": "4226fa320f3c98c7cf449a338acf3c5b55c2166548143467f5b24f9f453a3af6",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/foundations/molecular_system/the_molecular_system.md",
+      "kind": "reading_route",
+      "reason": "Maintained handoff entry point; inspect scope, navigation and public promises.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "5dd976f3488974c04aa7629960e1fecceea47da1731191ff1b2fc3f9c01e1037",
+      "bytes": 11814,
+      "reviewed_input_sha256": "fa0ec8408606da430dc0a1340e44ed638949568dfc15111ad1763aaa55ac5281",
+      "received_source_sha256": "fa0ec8408606da430dc0a1340e44ed638949568dfc15111ad1763aaa55ac5281",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/index.md",
+      "kind": "reading_route",
+      "reason": "Maintained handoff entry point; inspect scope, navigation and public promises.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "6b4c08e3dade42213ecdc1d5dee800637efd738d8cc3135b209cd33120c3e8b0",
+      "bytes": 2313,
+      "reviewed_input_sha256": "2b75ec6d001443e88f647dffb1a7d63f945bfceff6867e23d18154a56f8deb6e",
+      "received_source_sha256": "2b75ec6d001443e88f647dffb1a7d63f945bfceff6867e23d18154a56f8deb6e",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/foundations/language/index.md",
+      "kind": "reading_route",
+      "reason": "Maintained handoff entry point; inspect scope, navigation and public promises.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "6e81c5bc7e275a1802a3d10d151a9771169f24761dddf52859a9493eca021c15",
+      "bytes": 242,
+      "reviewed_input_sha256": "64ace356e5bd3c63f052f1c16c3b848f80404a93f2e742c4d96ce5e1f787d6ca",
+      "received_source_sha256": "64ace356e5bd3c63f052f1c16c3b848f80404a93f2e742c4d96ce5e1f787d6ca",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/foundations/governance/quantities_and_units.md",
+      "kind": "reading_route",
+      "reason": "Maintained handoff entry point; inspect scope, navigation and public promises.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "aef9cb6f33097e7e9f6d13ec12a37336fc8115dd207a821ec795605fae758e9f",
+      "bytes": 6168,
+      "reviewed_input_sha256": "806c7ae96adf07c54df42fd27c5542f4c5902de9236190a9081329a11f2ba528",
+      "received_source_sha256": "99d0b302fce7821256b444e5b6ed378ace244192d9b16b5853d97f4fb57d58b5",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/basic/index.md",
+      "kind": "reading_route",
+      "reason": "Maintained handoff entry point; inspect scope, navigation and public promises.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "6f3967ea411660c7d8d9e15e33f179b7d4ac2d7605440b3a7d0e03b0665049ed",
+      "bytes": 3394,
+      "reviewed_input_sha256": "6f3967ea411660c7d8d9e15e33f179b7d4ac2d7605440b3a7d0e03b0665049ed",
+      "received_source_sha256": "6f3967ea411660c7d8d9e15e33f179b7d4ac2d7605440b3a7d0e03b0665049ed",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/cookbook/index.md",
+      "kind": "reading_route",
+      "reason": "Maintained handoff entry point; inspect scope, navigation and public promises.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "9cde2b671ce819e9aa455cb18b2ac8671cd3804792d2f0bea3e1e40c94586837",
+      "bytes": 7229,
+      "reviewed_input_sha256": "b67b24a76289986601ab3a41da8493babe9fb84d84c0efbaf1943ec05b6f2471",
+      "received_source_sha256": "b67b24a76289986601ab3a41da8493babe9fb84d84c0efbaf1943ec05b6f2471",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/structure/index.md",
+      "kind": "reading_route",
+      "reason": "Maintained handoff entry point; inspect scope, navigation and public promises.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "f4903849f1661d158918eee74b44ca0313741dc190b169989df374186009a71d",
+      "bytes": 4609,
+      "reviewed_input_sha256": "6d59dee82c6cd7a54c11ce0c30665ded495e8c1b79e509e0c76e65401c7d354e",
+      "received_source_sha256": "6d59dee82c6cd7a54c11ce0c30665ded495e8c1b79e509e0c76e65401c7d354e",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/pbc/index.md",
+      "kind": "reading_route",
+      "reason": "Maintained handoff entry point; inspect scope, navigation and public promises.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "6ec44a304963936f6e59b4315118328df21c1bd540d48ba15b1d85126720642c",
+      "bytes": 1848,
+      "reviewed_input_sha256": "6ec44a304963936f6e59b4315118328df21c1bd540d48ba15b1d85126720642c",
+      "received_source_sha256": "6ec44a304963936f6e59b4315118328df21c1bd540d48ba15b1d85126720642c",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/physchem/index.md",
+      "kind": "reading_route",
+      "reason": "Maintained handoff entry point; inspect scope, navigation and public promises.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "36682dd4fd451eb495a9ce42b271b5413255defa89c96205bc2921d6dac01d2b",
+      "bytes": 4677,
+      "reviewed_input_sha256": "8e2b8145b2c5a83099dcdca6a41f2c097bfc2dc031c7d43018bdbfdc07779e54",
+      "received_source_sha256": "8e2b8145b2c5a83099dcdca6a41f2c097bfc2dc031c7d43018bdbfdc07779e54",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/build/index.md",
+      "kind": "reading_route",
+      "reason": "Maintained handoff entry point; inspect scope, navigation and public promises.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "ff932e305a80f922a92938a4bd28407219d0f545e0b08bae2b315efe5292f6df",
+      "bytes": 4582,
+      "reviewed_input_sha256": "ff932e305a80f922a92938a4bd28407219d0f545e0b08bae2b315efe5292f6df",
+      "received_source_sha256": "ff932e305a80f922a92938a4bd28407219d0f545e0b08bae2b315efe5292f6df",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/molecular_mechanics/index.md",
+      "kind": "reading_route",
+      "reason": "Maintained handoff entry point; inspect scope, navigation and public promises.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "8c7127849dce9d87167e1e4ebe3333dd1c52c0b664817994de451ffa879164de",
+      "bytes": 1932,
+      "reviewed_input_sha256": "2f834062a6816c27eeb9c20547929f0be84715219b769059e5a413d737ed1448",
+      "received_source_sha256": "2f834062a6816c27eeb9c20547929f0be84715219b769059e5a413d737ed1448",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/interactions/index.md",
+      "kind": "reading_route",
+      "reason": "Maintained handoff entry point; inspect scope, navigation and public promises.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "bafa62d4bced98c291bbcc5c18c8c5fcae12aa6eb520f1ea5e4f3d268c81149c",
+      "bytes": 2625,
+      "reviewed_input_sha256": "bafa62d4bced98c291bbcc5c18c8c5fcae12aa6eb520f1ea5e4f3d268c81149c",
+      "received_source_sha256": "bafa62d4bced98c291bbcc5c18c8c5fcae12aa6eb520f1ea5e4f3d268c81149c",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/form/file/h5msm_10.md",
+      "kind": "reading_route",
+      "reason": "Maintained handoff entry point; inspect scope, navigation and public promises.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "33e7ec4c7cf19fb806d8aaef4d49725f17cb1dbfeebe6015cec5c38c8443f18b",
+      "bytes": 4075,
+      "reviewed_input_sha256": "33e7ec4c7cf19fb806d8aaef4d49725f17cb1dbfeebe6015cec5c38c8443f18b",
+      "received_source_sha256": "33e7ec4c7cf19fb806d8aaef4d49725f17cb1dbfeebe6015cec5c38c8443f18b",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/course/index.md",
+      "kind": "reading_route",
+      "reason": "Maintained handoff entry point; inspect scope, navigation and public promises.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "2152011efc62dc462b7d5c97959ced4db759ea0df67ee5fc3c5b9b1f349a318e",
+      "bytes": 2666,
+      "reviewed_input_sha256": "2152011efc62dc462b7d5c97959ced4db759ea0df67ee5fc3c5b9b1f349a318e",
+      "received_source_sha256": "2152011efc62dc462b7d5c97959ced4db759ea0df67ee5fc3c5b9b1f349a318e",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/foundations/governance/public_api_and_lifecycle.md",
+      "kind": "reading_route",
+      "reason": "Maintained handoff entry point; inspect scope, navigation and public promises.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "26390f0497bca30c4ac61c221e3ccbb29b11e2ca816c9a7a089e4b555cede143",
+      "bytes": 2599,
+      "reviewed_input_sha256": "26390f0497bca30c4ac61c221e3ccbb29b11e2ca816c9a7a089e4b555cede143",
+      "received_source_sha256": "26390f0497bca30c4ac61c221e3ccbb29b11e2ca816c9a7a089e4b555cede143",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/cookbook/copying_disk_systems.md",
+      "kind": "native_execution",
+      "reason": "Concrete #769 default/owner contradiction; execute whole existing recipe, with meaningful storage/map/invalidation checks.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "corrected under #769; whole recipe executed with ordinary and pm/fs policies",
+      "input_sha256": "20bfc81e5270cfe38e398945e0e1f52380c8208cf2bbb8eb18b9157c4597268a",
+      "bytes": 7983,
+      "reviewed_input_sha256": "f1d38f6504bc0b324c4f40dc15e7975a074edcc2a86677520e2f98d2be5535b5",
+      "received_source_sha256": "96ce631698e997ee3783c601b588713c356bdaead332285a07db794466dd0d6e",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/cookbook/querying_sparse_interactions.md",
+      "kind": "native_execution",
+      "reason": "Concrete #769 default/owner contradiction; execute whole existing recipe, with meaningful storage/map/invalidation checks.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "corrected under #769; whole recipe executed with ordinary and pm/fs policies",
+      "input_sha256": "2a847f9af6699b860764cc18f8b8b441362fd36a13bd43afa551cfd9da48c68e",
+      "bytes": 24737,
+      "reviewed_input_sha256": "4e96d026bee7e302994fb79228588c5224cc73cb9e9eae5db0d3db928ce95485",
+      "received_source_sha256": "7a9a24fd92232fedbee6aafc6d361b3605155ad580da56db3af616e966af42bc",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/cookbook/molecular_descriptors.md",
+      "kind": "optional_engine_execution",
+      "reason": "Modern descriptors: verify full-molecule context, selected source indices, physical units and provenance; no conformational/permeability claim.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "executed complete Markdown blocks under ordinary and pm/fs policies",
+      "input_sha256": "5a5fd39bf64f2ac5a755f0c64eb707e6cfae35b94ad033ce24a444a3ad19f44d",
+      "bytes": 3397,
+      "reviewed_input_sha256": "5a5fd39bf64f2ac5a755f0c64eb707e6cfae35b94ad033ce24a444a3ad19f44d",
+      "received_source_sha256": "5a5fd39bf64f2ac5a755f0c64eb707e6cfae35b94ad033ce24a444a3ad19f44d",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/cookbook/tpsa_descriptors.md",
+      "kind": "optional_engine_execution",
+      "reason": "Modern descriptors: verify full-molecule context, selected source indices, physical units and provenance; no conformational/permeability claim.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "executed complete Markdown blocks under ordinary and pm/fs policies",
+      "input_sha256": "512e4f84741d985b1547ba16553ccfe2dd85c72fc66b474741deb7c90820b213",
+      "bytes": 1468,
+      "reviewed_input_sha256": "512e4f84741d985b1547ba16553ccfe2dd85c72fc66b474741deb7c90820b213",
+      "received_source_sha256": "512e4f84741d985b1547ba16553ccfe2dd85c72fc66b474741deb7c90820b213",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md",
+      "kind": "native_contract_review",
+      "reason": "Check ownership/copy/absence/state and mechanical request limits against normative sources and earlier native-domain receiving.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "e31f6e07082c02184adbe542a86ee7b45526454db00dcb5809a5f427b0d15b57",
+      "bytes": 47006,
+      "prior_evidence": "devtools/data/native_domain_documentation_receiving_725_726_20261112.json",
+      "reviewed_input_sha256": "e31f6e07082c02184adbe542a86ee7b45526454db00dcb5809a5f427b0d15b57",
+      "received_source_sha256": "e31f6e07082c02184adbe542a86ee7b45526454db00dcb5809a5f427b0d15b57",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/classes/molsysmt_Topology.md",
+      "kind": "native_contract_review",
+      "reason": "Check ownership/copy/absence/state and mechanical request limits against normative sources and earlier native-domain receiving.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "733b0734df5bbea4eab28a40d946796e2f621940102b40048b185556a45d5a7c",
+      "bytes": 18538,
+      "prior_evidence": "devtools/data/native_domain_documentation_receiving_725_726_20261112.json",
+      "reviewed_input_sha256": "733b0734df5bbea4eab28a40d946796e2f621940102b40048b185556a45d5a7c",
+      "received_source_sha256": "733b0734df5bbea4eab28a40d946796e2f621940102b40048b185556a45d5a7c",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/classes/molsysmt_Structures.md",
+      "kind": "native_contract_review",
+      "reason": "Check ownership/copy/absence/state and mechanical request limits against normative sources and earlier native-domain receiving.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "7f4fdb2b4ff26ad4d699b3f3f165996f4e83fa5ee6f1675fa3b8d0da4b09eded",
+      "bytes": 15739,
+      "prior_evidence": "devtools/data/native_domain_documentation_receiving_725_726_20261112.json",
+      "reviewed_input_sha256": "7f4fdb2b4ff26ad4d699b3f3f165996f4e83fa5ee6f1675fa3b8d0da4b09eded",
+      "received_source_sha256": "7f4fdb2b4ff26ad4d699b3f3f165996f4e83fa5ee6f1675fa3b8d0da4b09eded",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md",
+      "kind": "native_contract_review",
+      "reason": "Check ownership/copy/absence/state and mechanical request limits against normative sources and earlier native-domain receiving.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "f5b92fac31a766a7cab5a07e26ffb4d192ec7138ff36426380aaa99113f3a8e4",
+      "bytes": 21074,
+      "prior_evidence": "devtools/data/native_domain_documentation_receiving_725_726_20261112.json",
+      "reviewed_input_sha256": "f5b92fac31a766a7cab5a07e26ffb4d192ec7138ff36426380aaa99113f3a8e4",
+      "received_source_sha256": "f5b92fac31a766a7cab5a07e26ffb4d192ec7138ff36426380aaa99113f3a8e4",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md",
+      "kind": "native_contract_review",
+      "reason": "Check ownership/copy/absence/state and mechanical request limits against normative sources and earlier native-domain receiving.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "targeted ownership/scientific/public-scope claims reviewed; corrections and known limits recorded",
+      "input_sha256": "e58670d70505977bf3c46ed9556e43102545888b4987ff06348f2edc5fb73872",
+      "bytes": 7694,
+      "prior_evidence": "devtools/data/native_domain_documentation_receiving_725_726_20261112.json",
+      "reviewed_input_sha256": "e58670d70505977bf3c46ed9556e43102545888b4987ff06348f2edc5fb73872",
+      "received_source_sha256": "e58670d70505977bf3c46ed9556e43102545888b4987ff06348f2edc5fb73872",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/molecular_mechanics/get_model_recipe.md",
+      "kind": "optional_engine_execution",
+      "reason": "Read actual effective model without Context; check units and requested/effective distinction.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "executed complete Markdown blocks under ordinary and pm/fs policies",
+      "input_sha256": "e05d28909448c9319ebf676bd5ceed072a573e3d4523a972da9784185f320142",
+      "bytes": 5458,
+      "reviewed_input_sha256": "e05d28909448c9319ebf676bd5ceed072a573e3d4523a972da9784185f320142",
+      "received_source_sha256": "e05d28909448c9319ebf676bd5ceed072a573e3d4523a972da9784185f320142",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/build/fixed_state_hydrogens.md",
+      "kind": "contextual_example_review",
+      "reason": "Explicit prepared-input fragment, not standalone executable recipe; compare fixed-state/H-placement and persistence limits with source and existing guards.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prepared-input scope checked; persistence prose corrected under #769",
+      "input_sha256": "2b937d72c626fd666a3e40bc10aa92a9ca74d18f5ce151e2faa6870edac090d7",
+      "bytes": 8087,
+      "reviewed_input_sha256": "a5c549813d5c63e75c8a878fe111b2a27463c5ed76f083a8798ba79a37e3f327",
+      "received_source_sha256": "a5c549813d5c63e75c8a878fe111b2a27463c5ed76f083a8798ba79a37e3f327",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/course/Common_Core/07_Selection_Basics.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "f11441f4e2f5237a7cf9fe19aa1a7e354f63482a344fcc21b8565125d664bfbc",
+      "bytes": 16191,
+      "code_sha256": "3367b5d044e363051bf82651e0a0b929f3f7f4db5f9fe716bc0b50abaf1cf1c8",
+      "prior_evidence": "devtools/data/documentation_examples_receiving_334_20261114.json",
+      "reviewed_input_sha256": "f11441f4e2f5237a7cf9fe19aa1a7e354f63482a344fcc21b8565125d664bfbc",
+      "reviewed_code_sha256": "3367b5d044e363051bf82651e0a0b929f3f7f4db5f9fe716bc0b50abaf1cf1c8",
+      "received_source_sha256": "f11441f4e2f5237a7cf9fe19aa1a7e354f63482a344fcc21b8565125d664bfbc",
+      "received_code_sha256": "3367b5d044e363051bf82651e0a0b929f3f7f4db5f9fe716bc0b50abaf1cf1c8",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "b521fde32f3de46ae8ce5485a476747ba8916f879f302a87240169c570f6bf2c",
+      "bytes": 26449,
+      "code_sha256": "6aeaf5685694803beca9f743196acd2414c6d3e3649ab9ba035a180ec06d4f5e",
+      "prior_evidence": "devtools/data/documentation_examples_receiving_334_20261114.json",
+      "reviewed_input_sha256": "b521fde32f3de46ae8ce5485a476747ba8916f879f302a87240169c570f6bf2c",
+      "reviewed_code_sha256": "6aeaf5685694803beca9f743196acd2414c6d3e3649ab9ba035a180ec06d4f5e",
+      "received_source_sha256": "b521fde32f3de46ae8ce5485a476747ba8916f879f302a87240169c570f6bf2c",
+      "received_code_sha256": "6aeaf5685694803beca9f743196acd2414c6d3e3649ab9ba035a180ec06d4f5e",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "f84150bc96c9553270ced0053ef17ad362ee433dbc448041db5f06e8a16fa314",
+      "bytes": 36254,
+      "code_sha256": "99eff39590e129a35ac06d5e4b3f69a97a048cd87aedb88fb71859831a746cae",
+      "prior_evidence": "devtools/data/documentation_examples_receiving_334_20261114.json",
+      "reviewed_input_sha256": "f84150bc96c9553270ced0053ef17ad362ee433dbc448041db5f06e8a16fa314",
+      "reviewed_code_sha256": "99eff39590e129a35ac06d5e4b3f69a97a048cd87aedb88fb71859831a746cae",
+      "received_source_sha256": "f84150bc96c9553270ced0053ef17ad362ee433dbc448041db5f06e8a16fa314",
+      "received_code_sha256": "99eff39590e129a35ac06d5e4b3f69a97a048cd87aedb88fb71859831a746cae",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "d321b5c57d4f61a17548ebbfa5a526f7f31b3bd6f3ee1d17a6c5d789111e0f09",
+      "bytes": 19699,
+      "code_sha256": "fa186621c2dd38711c73516dd86a322bcd86d76dabfc91c98e3453aeea44c6cc",
+      "prior_evidence": "devtools/data/documentation_examples_receiving_334_20261114.json",
+      "reviewed_input_sha256": "d321b5c57d4f61a17548ebbfa5a526f7f31b3bd6f3ee1d17a6c5d789111e0f09",
+      "reviewed_code_sha256": "fa186621c2dd38711c73516dd86a322bcd86d76dabfc91c98e3453aeea44c6cc",
+      "received_source_sha256": "d321b5c57d4f61a17548ebbfa5a526f7f31b3bd6f3ee1d17a6c5d789111e0f09",
+      "received_code_sha256": "fa186621c2dd38711c73516dd86a322bcd86d76dabfc91c98e3453aeea44c6cc",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/basic/get.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "e7f698e68c36bbd2190bf15f6c7559a7c3c501892779dc09699390b51e4b972d",
+      "bytes": 182984,
+      "code_sha256": "7c2761581612a51b3ae7ad658d3d25810ad82f4712fa1ece08315070cd3951d7",
+      "prior_evidence": "devtools/data/documentation_examples_receiving_334_20261114.json",
+      "reviewed_input_sha256": "e7f698e68c36bbd2190bf15f6c7559a7c3c501892779dc09699390b51e4b972d",
+      "reviewed_code_sha256": "7c2761581612a51b3ae7ad658d3d25810ad82f4712fa1ece08315070cd3951d7",
+      "received_source_sha256": "e7f698e68c36bbd2190bf15f6c7559a7c3c501892779dc09699390b51e4b972d",
+      "received_code_sha256": "7c2761581612a51b3ae7ad658d3d25810ad82f4712fa1ece08315070cd3951d7",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/basic/info.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "b8b3e3f53689e029345282d057e5dbe022300bcaddaddfde764839de8805ea97",
+      "bytes": 54067,
+      "code_sha256": "ab0219bd9b821efb4f144770cd60c4ed1a084513c3d7cbdc0d21339e90af7228",
+      "prior_evidence": "devtools/data/documentation_examples_receiving_334_20261114.json",
+      "reviewed_input_sha256": "b8b3e3f53689e029345282d057e5dbe022300bcaddaddfde764839de8805ea97",
+      "reviewed_code_sha256": "ab0219bd9b821efb4f144770cd60c4ed1a084513c3d7cbdc0d21339e90af7228",
+      "received_source_sha256": "b8b3e3f53689e029345282d057e5dbe022300bcaddaddfde764839de8805ea97",
+      "received_code_sha256": "ab0219bd9b821efb4f144770cd60c4ed1a084513c3d7cbdc0d21339e90af7228",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/basic/select.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "0eb29914cee182dbb8da7f8caaf88ff4b2ec1ffb884f18f8e8d31575f4c39b9e",
+      "bytes": 153847,
+      "code_sha256": "fb65c4fbfd9cfd2840c36ade43b2707b4a4694d09499003861b99c6e7cf4adda",
+      "prior_evidence": "devtools/data/documentation_examples_receiving_334_20261114.json",
+      "reviewed_input_sha256": "0eb29914cee182dbb8da7f8caaf88ff4b2ec1ffb884f18f8e8d31575f4c39b9e",
+      "reviewed_code_sha256": "fb65c4fbfd9cfd2840c36ade43b2707b4a4694d09499003861b99c6e7cf4adda",
+      "received_source_sha256": "0eb29914cee182dbb8da7f8caaf88ff4b2ec1ffb884f18f8e8d31575f4c39b9e",
+      "received_code_sha256": "fb65c4fbfd9cfd2840c36ade43b2707b4a4694d09499003861b99c6e7cf4adda",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/basic/extract.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "e2c4e4b55b93b43cf78594740ebdbd4f2bdc27b848843cfa3f2b53cd0e168b22",
+      "bytes": 22216,
+      "code_sha256": "51f46079896c804c5a7aa5052d24c7b7503a81a503a751cdc963b7be5d8b8f94",
+      "prior_evidence": "devtools/data/documentation_examples_receiving_334_20261114.json",
+      "reviewed_input_sha256": "e2c4e4b55b93b43cf78594740ebdbd4f2bdc27b848843cfa3f2b53cd0e168b22",
+      "reviewed_code_sha256": "51f46079896c804c5a7aa5052d24c7b7503a81a503a751cdc963b7be5d8b8f94",
+      "received_source_sha256": "e2c4e4b55b93b43cf78594740ebdbd4f2bdc27b848843cfa3f2b53cd0e168b22",
+      "received_code_sha256": "51f46079896c804c5a7aa5052d24c7b7503a81a503a751cdc963b7be5d8b8f94",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/chemical_states/get_bondgraph.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "2556f66215d1584affa08e7dd5df3ab0e7249a2eaf83dd5eb6c628d976cce8ae",
+      "bytes": 11008,
+      "code_sha256": "5c4bc0c7dabc5b0e2e5e20b197fc3747ab8f20c7ee942ee9eb9b3a01a68e00e3",
+      "prior_evidence": "devtools/data/documentation_examples_receiving_334_20261114.json",
+      "reviewed_input_sha256": "2556f66215d1584affa08e7dd5df3ab0e7249a2eaf83dd5eb6c628d976cce8ae",
+      "reviewed_code_sha256": "5c4bc0c7dabc5b0e2e5e20b197fc3747ab8f20c7ee942ee9eb9b3a01a68e00e3",
+      "received_source_sha256": "2556f66215d1584affa08e7dd5df3ab0e7249a2eaf83dd5eb6c628d976cce8ae",
+      "received_code_sha256": "5c4bc0c7dabc5b0e2e5e20b197fc3747ab8f20c7ee942ee9eb9b3a01a68e00e3",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/chemical_states/get_rings.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "63cdbda1b765ed349056ecc656e0e48b95cc958ac6b2aa6dad9cdeed70223715",
+      "bytes": 7880,
+      "code_sha256": "b340bb89055a4da5ad76a3aafbf6096cf9baca56fdea17142d3c4a0239f4d730",
+      "prior_evidence": "devtools/data/documentation_examples_receiving_334_20261114.json",
+      "reviewed_input_sha256": "63cdbda1b765ed349056ecc656e0e48b95cc958ac6b2aa6dad9cdeed70223715",
+      "reviewed_code_sha256": "b340bb89055a4da5ad76a3aafbf6096cf9baca56fdea17142d3c4a0239f4d730",
+      "received_source_sha256": "63cdbda1b765ed349056ecc656e0e48b95cc958ac6b2aa6dad9cdeed70223715",
+      "received_code_sha256": "b340bb89055a4da5ad76a3aafbf6096cf9baca56fdea17142d3c4a0239f4d730",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/cookbook/saving_hbond_interactions.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "5e6573483b30fa77422157c1f0e796718437bb88cbc0eca121af7d112ce252bc",
+      "bytes": 13110,
+      "code_sha256": "ed32c23fdcf32062f738cf6ec2d04ea59d71bd5a60d7159167a6c23fcd23c0d3",
+      "prior_evidence": "devtools/data/documentation_examples_receiving_334_20261114.json",
+      "reviewed_input_sha256": "5e6573483b30fa77422157c1f0e796718437bb88cbc0eca121af7d112ce252bc",
+      "reviewed_code_sha256": "ed32c23fdcf32062f738cf6ec2d04ea59d71bd5a60d7159167a6c23fcd23c0d3",
+      "received_source_sha256": "5e6573483b30fa77422157c1f0e796718437bb88cbc0eca121af7d112ce252bc",
+      "received_code_sha256": "ed32c23fdcf32062f738cf6ec2d04ea59d71bd5a60d7159167a6c23fcd23c0d3",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/structure/get_distances.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "ff3297db068023199ec2aa3b545fb7f9002f7bfc4a0d1f21a12cc464109a5568",
+      "bytes": 122918,
+      "code_sha256": "f9b4032307a4ead5ad1c74482786f7c1b74d0fddc5a98d3591189b8df0ddff2f",
+      "prior_evidence": "devtools/data/geometry_documentation_receiving_334_757_20261114.json",
+      "reviewed_input_sha256": "ff3297db068023199ec2aa3b545fb7f9002f7bfc4a0d1f21a12cc464109a5568",
+      "reviewed_code_sha256": "f9b4032307a4ead5ad1c74482786f7c1b74d0fddc5a98d3591189b8df0ddff2f",
+      "received_source_sha256": "ff3297db068023199ec2aa3b545fb7f9002f7bfc4a0d1f21a12cc464109a5568",
+      "received_code_sha256": "f9b4032307a4ead5ad1c74482786f7c1b74d0fddc5a98d3591189b8df0ddff2f",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/structure/get_vectors.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "cf931ac279157bccd524fbfb9593a16b479e29548cfaa0d7e8243cadae52a256",
+      "bytes": 74563,
+      "code_sha256": "0cbbdaa2b6fa3e0f8b21a12e349ff708fc3b6eedf3c0c2d7b957ad4c5bcaa3bc",
+      "prior_evidence": "devtools/data/geometry_documentation_receiving_334_757_20261114.json",
+      "reviewed_input_sha256": "cf931ac279157bccd524fbfb9593a16b479e29548cfaa0d7e8243cadae52a256",
+      "reviewed_code_sha256": "0cbbdaa2b6fa3e0f8b21a12e349ff708fc3b6eedf3c0c2d7b957ad4c5bcaa3bc",
+      "received_source_sha256": "cf931ac279157bccd524fbfb9593a16b479e29548cfaa0d7e8243cadae52a256",
+      "received_code_sha256": "0cbbdaa2b6fa3e0f8b21a12e349ff708fc3b6eedf3c0c2d7b957ad4c5bcaa3bc",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/structure/center.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "caf60aa79af75493e3cc4f87e1bda1b2815f8c7431083a0817f329235915fb01",
+      "bytes": 87238,
+      "code_sha256": "5e67061bf99eec9229fa71b96762898d8e95ac089439168787e8b5b43f8f0000",
+      "prior_evidence": "devtools/data/geometry_documentation_receiving_334_757_20261114.json",
+      "reviewed_input_sha256": "caf60aa79af75493e3cc4f87e1bda1b2815f8c7431083a0817f329235915fb01",
+      "reviewed_code_sha256": "5e67061bf99eec9229fa71b96762898d8e95ac089439168787e8b5b43f8f0000",
+      "received_source_sha256": "caf60aa79af75493e3cc4f87e1bda1b2815f8c7431083a0817f329235915fb01",
+      "received_code_sha256": "5e67061bf99eec9229fa71b96762898d8e95ac089439168787e8b5b43f8f0000",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/structure/get_contacts.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "d7d1086d13918ab187a51160c95c87247622457c720be9ef166edf28e671c810",
+      "bytes": 322879,
+      "code_sha256": "5c499146b34b3668e7d04376ccca82ec708570f997428d0027ef0ed374ca4e89",
+      "prior_evidence": "devtools/data/geometry_documentation_receiving_334_757_20261114.json",
+      "reviewed_input_sha256": "d7d1086d13918ab187a51160c95c87247622457c720be9ef166edf28e671c810",
+      "reviewed_code_sha256": "5c499146b34b3668e7d04376ccca82ec708570f997428d0027ef0ed374ca4e89",
+      "received_source_sha256": "d7d1086d13918ab187a51160c95c87247622457c720be9ef166edf28e671c810",
+      "received_code_sha256": "5c499146b34b3668e7d04376ccca82ec708570f997428d0027ef0ed374ca4e89",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/structure/get_neighbors.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "0c17e3278c991af1c7ccb942ae152f9117c4f7280c3e0a8c7e6d6a74ee22b3d9",
+      "bytes": 43375,
+      "code_sha256": "c7c8faf41c7f1704b623eacdbadda0af4037ffd4282b673690e82d14b34d31ad",
+      "prior_evidence": "devtools/data/geometry_documentation_receiving_334_757_20261114.json",
+      "reviewed_input_sha256": "0c17e3278c991af1c7ccb942ae152f9117c4f7280c3e0a8c7e6d6a74ee22b3d9",
+      "reviewed_code_sha256": "c7c8faf41c7f1704b623eacdbadda0af4037ffd4282b673690e82d14b34d31ad",
+      "received_source_sha256": "0c17e3278c991af1c7ccb942ae152f9117c4f7280c3e0a8c7e6d6a74ee22b3d9",
+      "received_code_sha256": "c7c8faf41c7f1704b623eacdbadda0af4037ffd4282b673690e82d14b34d31ad",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/structure/get_minimum_distances.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "b9c85826935434fb7ba41029b37085ab44dee3bb2f940503f7a8f2c6e91acde4",
+      "bytes": 115555,
+      "code_sha256": "6be66c2324f0970cc809141384071724e3e916203b68ef26b20e610468947550",
+      "prior_evidence": "devtools/data/geometry_documentation_receiving_334_757_20261114.json",
+      "reviewed_input_sha256": "b9c85826935434fb7ba41029b37085ab44dee3bb2f940503f7a8f2c6e91acde4",
+      "reviewed_code_sha256": "6be66c2324f0970cc809141384071724e3e916203b68ef26b20e610468947550",
+      "received_source_sha256": "b9c85826935434fb7ba41029b37085ab44dee3bb2f940503f7a8f2c6e91acde4",
+      "received_code_sha256": "6be66c2324f0970cc809141384071724e3e916203b68ef26b20e610468947550",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/structure/get_maximum_distances.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "a85f5f726453fef4fe420ddbeafb36e17f96c9e8828ed746c8211cf5f50eccdc",
+      "bytes": 119882,
+      "code_sha256": "6f48ca30ac50f5b80739ece14864b9492fdbc458818ce268de9f345398d120b1",
+      "prior_evidence": "devtools/data/geometry_documentation_receiving_334_757_20261114.json",
+      "reviewed_input_sha256": "a85f5f726453fef4fe420ddbeafb36e17f96c9e8828ed746c8211cf5f50eccdc",
+      "reviewed_code_sha256": "6f48ca30ac50f5b80739ece14864b9492fdbc458818ce268de9f345398d120b1",
+      "received_source_sha256": "a85f5f726453fef4fe420ddbeafb36e17f96c9e8828ed746c8211cf5f50eccdc",
+      "received_code_sha256": "6f48ca30ac50f5b80739ece14864b9492fdbc458818ce268de9f345398d120b1",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "e470c5c81dd079846807631de4e476ace240d3e5737b4882d790b08bd7e34d24",
+      "bytes": 4661,
+      "code_sha256": "3870377a9a72809d801a30e9dd1fe6df0795135b4f08146034c412842c72086f",
+      "prior_evidence": "devtools/data/geometry_documentation_receiving_334_757_20261114.json",
+      "reviewed_input_sha256": "e470c5c81dd079846807631de4e476ace240d3e5737b4882d790b08bd7e34d24",
+      "reviewed_code_sha256": "3870377a9a72809d801a30e9dd1fe6df0795135b4f08146034c412842c72086f",
+      "received_source_sha256": "e470c5c81dd079846807631de4e476ace240d3e5737b4882d790b08bd7e34d24",
+      "received_code_sha256": "3870377a9a72809d801a30e9dd1fe6df0795135b4f08146034c412842c72086f",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb",
+      "kind": "prior_executed_notebook",
+      "reason": "Already received native/chemistry/geometry example; no new campaign just for counts.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "prior bounded execution retained",
+      "input_sha256": "40b2561cce0fd01e40d1297afbd816143b9a6ca5068d96737407e37ece935e26",
+      "bytes": 7406,
+      "code_sha256": "b60551921edab6a5f60c64bf36f53e74143e5351e509ec4f5454c6b8cb8055bd",
+      "prior_evidence": "devtools/data/geometry_documentation_receiving_334_757_20261114.json",
+      "reviewed_input_sha256": "40b2561cce0fd01e40d1297afbd816143b9a6ca5068d96737407e37ece935e26",
+      "reviewed_code_sha256": "b60551921edab6a5f60c64bf36f53e74143e5351e509ec4f5454c6b8cb8055bd",
+      "received_source_sha256": "40b2561cce0fd01e40d1297afbd816143b9a6ca5068d96737407e37ece935e26",
+      "received_code_sha256": "b60551921edab6a5f60c64bf36f53e74143e5351e509ec4f5454c6b8cb8055bd",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/physchem/get_surface_area.ipynb",
+      "kind": "optional_engine_notebook",
+      "reason": "Unreceived actual notebook execution in the selected receipt set: Provisional tabulated area versus geometric SASA and unit policy.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "actual complete notebook executed without code substitutions",
+      "input_sha256": "a08eacefcd8878eb1bed261abd476207336633355944e41231e9a33ecae5fcbc",
+      "bytes": 8309,
+      "code_sha256": "ba42c0ccab8fc39c880a38860ed885320094ce14029606f48778bbb57ef30db8",
+      "reviewed_input_sha256": "56d692d6604b5bf9eba7f3db9a2cea4cfbabd87cffa5f71dc28421ca5593f18a",
+      "reviewed_code_sha256": "ba42c0ccab8fc39c880a38860ed885320094ce14029606f48778bbb57ef30db8",
+      "received_source_sha256": "56d692d6604b5bf9eba7f3db9a2cea4cfbabd87cffa5f71dc28421ca5593f18a",
+      "received_code_sha256": "ba42c0ccab8fc39c880a38860ed885320094ce14029606f48778bbb57ef30db8",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/physchem/get_tpsa.ipynb",
+      "kind": "optional_engine_notebook",
+      "reason": "Unreceived actual notebook execution in the selected receipt set: Graph descriptor with explicit area units and selected source membership.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "actual complete notebook executed without code substitutions",
+      "input_sha256": "09159830ece4bf88822c944cb9e6786beb9bcc2c25a69d84cd537bfc8e02bb0c",
+      "bytes": 18885,
+      "code_sha256": "31e1eed50f194ead41d55ff8a73769032ba4266e585f38ff00e53f84ff16c175",
+      "reviewed_input_sha256": "e8eff6254f7cddbc1f8e4735d7ac43e66a249baa2c5571533f6e549e5ab676e2",
+      "reviewed_code_sha256": "31e1eed50f194ead41d55ff8a73769032ba4266e585f38ff00e53f84ff16c175",
+      "received_source_sha256": "e8eff6254f7cddbc1f8e4735d7ac43e66a249baa2c5571533f6e549e5ab676e2",
+      "received_code_sha256": "31e1eed50f194ead41d55ff8a73769032ba4266e585f38ff00e53f84ff16c175",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/user/tools/physchem/get_lipophilicity.ipynb",
+      "kind": "optional_engine_notebook",
+      "reason": "Unreceived actual notebook execution in the selected receipt set: Dimensionless supplied-state fragment model; selected atom/group versus complete-molecule context.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "actual complete notebook executed without code substitutions",
+      "input_sha256": "9cabc94344c549b1966b0db9bb42bcd7caaf8a711a03e45b4812b032c27c2b20",
+      "bytes": 18986,
+      "code_sha256": "ce86c0717061861a1aa140032f71418b5696dd0715c941e24b1340cbae351de1",
+      "reviewed_input_sha256": "9ce4561c5504242552923fb6c4e58723ffbf2e68cd3d5f8604109f4033cba197",
+      "reviewed_code_sha256": "ce86c0717061861a1aa140032f71418b5696dd0715c941e24b1340cbae351de1",
+      "received_source_sha256": "9ce4561c5504242552923fb6c4e58723ffbf2e68cd3d5f8604109f4033cba197",
+      "received_code_sha256": "ce86c0717061861a1aa140032f71418b5696dd0715c941e24b1340cbae351de1",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+      "kind": "course_contract",
+      "reason": "Matching native-domain/persistence learning path; compare examples and explicit input prerequisites.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "04 native cells received in six native-domain controls; complete 20 executed and its chemistry-owner narrative/output corrected",
+      "input_sha256": "8b78ea5ee4a2093733c5b40e596ee16453e61526610ad3fe316446486e9fd165",
+      "bytes": 66773,
+      "code_sha256": "11361c969ccef37102a0a748cb78fc04a6a898b1e2a56933ea263e0be8730852",
+      "reviewed_input_sha256": "8b78ea5ee4a2093733c5b40e596ee16453e61526610ad3fe316446486e9fd165",
+      "reviewed_code_sha256": "11361c969ccef37102a0a748cb78fc04a6a898b1e2a56933ea263e0be8730852",
+      "received_source_sha256": "8b78ea5ee4a2093733c5b40e596ee16453e61526610ad3fe316446486e9fd165",
+      "received_code_sha256": "11361c969ccef37102a0a748cb78fc04a6a898b1e2a56933ea263e0be8730852",
+      "rendering": "received in 54-article final local inspection"
+    },
+    {
+      "path": "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb",
+      "kind": "course_contract",
+      "reason": "Matching native-domain/persistence learning path; compare examples and explicit input prerequisites.",
+      "next_action": "Retain scoped evidence; exact-final-candidate qualification and Diego content review remain separate.",
+      "state": "04 native cells received in six native-domain controls; complete 20 executed and its chemistry-owner narrative/output corrected",
+      "input_sha256": "c8ca8b7c2a16ebc6765cc696951d193d1cb5a14e2d017f241071748fecfd31bf",
+      "bytes": 64464,
+      "code_sha256": "7ae988e6829241c471332337040804371a0eef7b55f4bb05008dd832f1a51497",
+      "reviewed_input_sha256": "2cd9ee65a68d12d43e86e796507374bd07bf738e8d5acfcc0c13f64f76e4b37f",
+      "reviewed_code_sha256": "59c24b180095d9e8ff9ec714545a9e3b8da381ab399059a856ac74e81eb55ce0",
+      "received_source_sha256": "2cd9ee65a68d12d43e86e796507374bd07bf738e8d5acfcc0c13f64f76e4b37f",
+      "received_code_sha256": "59c24b180095d9e8ff9ec714545a9e3b8da381ab399059a856ac74e81eb55ce0",
+      "rendering": "received in 54-article final local inspection"
+    }
+  ],
+  "classification_notes": {
+    "native": "No live consumer canvas or new candidate required; installed supporting imports still recorded.",
+    "optional_engine": "RDKit/MDTraj/OpenMM only through existing environment and explicit declared route; missing selected engine remains unresolved.",
+    "consumer": "Live visualization belongs to MolSysViewer and its final candidate; not executed in this native cohort.",
+    "external_input": "No network molecular input acquisition; bundled inputs retained. Contextual prepared-H snippet is reviewed against existing meaningful guards, not fabricated into a new scenario."
+  },
+  "execution_reuse_review": {
+    "earliest_native_receipt_source": "baedf4c702e6b9438a63b097e1b048bf1ab3df6d",
+    "production_delta": [
+      "molsysmt/basic/select.py",
+      "molsysmt/form/mmcif_PdbxContainers_DataContainer/_bond_state.py",
+      "molsysmt/form/mmcif_PdbxContainers_DataContainer/to_molsysmt_MolSys.py"
+    ],
+    "state": "20 code fingerprints match their original actual execution receipts. Reviewed production delta: select changes only memory-error propagation, not successful query semantics; two mmCIF changes have separate scoped original-input receiving under #763/#766. No earlier result is relabeled as current-head complete qualification."
+  },
+  "blocks": {
+    "I0": "complete: 54 explicit files frozen before execution; retained prior receiving reviewed",
+    "I1": "complete: finite contract review found #769, #770 and preflight #771; existing scientific limits retained",
+    "I2": "complete: corrected examples, six modern descriptor/model runs and four complete notebooks received; no final host qualification",
+    "I3": "complete: offline identity/failure guards and read-only seven-surface metadata draft received; final identities remain external",
+    "I4": "complete: full strict 1,401-page site, strict final incremental update, 54 article/link/anchor checks, twelve figures and seven offline browser reading views received",
+    "I5": "local closeout complete: three findings resolved/guarded, issue/PR intake and external-owner boundaries reconciled; issue closure follows development-checkpoint push"
+  },
+  "findings": [
+    "uibcdf/molsysmt#769",
+    "uibcdf/molsysmt#770",
+    "uibcdf/molsysmt#771"
+  ],
+  "final_pair_operations": "Paused; no build, solver, hosted dispatch, tag, promotion or publication authorized here.",
+  "review_date": "2026-11-17",
+  "scientific_dispositions": {
+    "473": "Collantes area convention remains explicitly provisional; no original-paper certification, conformational SASA or inferred additivity.",
+    "475": "Historical ECI meaning/aggregation uncertainty remains qualified; no fabricated dimension or primary-source claim.",
+    "512": "Existing absent/stale paired course instructions remain owned post-1.0 debt; no new corpus-wide governance gate.",
+    "728": "ProtOr combined profile work remains deferred; no new radius/type implementation admitted.",
+    "769": "Course capstone uses ChemicalStates in code but retained a Topology graph-ownership description; corrected within the same retirement/default theme."
+  },
+  "source_identity_notes": {
+    "build_stamp": "Imported MolSysMT __version__ is the existing package-local generated stamp 0.23.0+393.ge1facf624.dirty. It is not an authenticated source SHA; actual root import path, Git basis and changed-input hashes are retained separately. No stamp or native bytes changed.",
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "kernel": "Native-only notebook cohort used actual ipykernel 7.3.0 in the existing shared prefix. No live canvas was run; this is not receiving of the required >=7.4.0 visualization host or final pair. The already accepted 7.4.0 initial-canvas evidence keeps its separate composition. No shared-prefix installation/restart performed."
+  },
+  "state": "Finite independent local queue completed; final pair and maintainer review pending.",
+  "executions": {
+    "baseline": {
+      "phase": "baseline",
+      "source_commit": "a38811631595bcb3c9f6717889b99bd29d78fcdf",
+      "state": "completed",
+      "native_exit": 1,
+      "seconds": 22.282471369951963,
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "-o",
+        "receptor_rerun_command=python -m pytest",
+        "--junitxml=<checkout>/.pytest_cache/independent-pre1-334-20261116/baseline.xml",
+        "--receptor-events=<checkout>/.pytest_cache/independent-pre1-334-20261116/baseline.events.jsonl",
+        "tests/documentation/test_file_extraction_guidance.py",
+        "tests/documentation/test_sparse_interaction_recipe.py",
+        "tests/documentation/test_unit_foundations_examples.py"
+      ],
+      "scope": "Finite #334 native documentation and offline preparation receiving; no final pair, installed qualification or publication.",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "checked_inputs": 3934,
+      "changed_inputs": [],
+      "memory_peak_bytes": 346079232,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17319751680,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "driver_sha256": "b1d8db9b4b143cd813e31cbabdfdd2f66b5b1183ee213effeee14815d650c441"
+    },
+    "corrected": {
+      "phase": "corrected",
+      "source_commit": "a38811631595bcb3c9f6717889b99bd29d78fcdf",
+      "state": "completed",
+      "native_exit": 0,
+      "seconds": 5.243769620079547,
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "-o",
+        "receptor_rerun_command=python -m pytest",
+        "--junitxml=<checkout>/.pytest_cache/independent-pre1-334-20261116/corrected.xml",
+        "--receptor-events=<checkout>/.pytest_cache/independent-pre1-334-20261116/corrected.events.jsonl",
+        "tests/documentation/test_file_extraction_guidance.py",
+        "tests/documentation/test_sparse_interaction_recipe.py",
+        "tests/documentation/test_unit_foundations_examples.py"
+      ],
+      "scope": "Finite #334 native documentation and offline preparation receiving; no final pair, installed qualification or publication.",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "checked_inputs": 3937,
+      "changed_inputs": [],
+      "memory_peak_bytes": 233422848,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 19206434816,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "driver_sha256": "b1d8db9b4b143cd813e31cbabdfdd2f66b5b1183ee213effeee14815d650c441"
+    },
+    "cohort": {
+      "phase": "cohort",
+      "source_commit": "a38811631595bcb3c9f6717889b99bd29d78fcdf",
+      "state": "completed",
+      "native_exit": 0,
+      "seconds": 11.459663669578731,
+      "command": [
+        "<development-prefix>/bin/python",
+        "<checkout>/.pytest_cache/independent-pre1-334-20261116/receive_remaining.py"
+      ],
+      "scope": "Finite #334 native documentation and offline preparation receiving; no final pair, installed qualification or publication.",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "checked_inputs": 5349,
+      "changed_inputs": [],
+      "memory_peak_bytes": 282173440,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 16900141056,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "driver_sha256": "31b5762e7fda8e7f47a655e1d49e644d0401213c32452ccfaa501a92b30b26d2"
+    },
+    "native-notebooks": {
+      "phase": "native-notebooks",
+      "source_commit": "a38811631595bcb3c9f6717889b99bd29d78fcdf",
+      "state": "completed",
+      "native_exit": 0,
+      "seconds": 44.02273873379454,
+      "command": [
+        "<development-prefix>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "docs/content/user/tools/physchem/get_surface_area.ipynb",
+        "docs/content/user/tools/physchem/get_tpsa.ipynb",
+        "docs/content/user/tools/physchem/get_lipophilicity.ipynb",
+        "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb"
+      ],
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4692,
+      "changed_inputs": [],
+      "memory_peak_bytes": 395399168,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17398972416,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "driver_sha256": "9411f809168955f6d73454d3590f4f40efeb13c38dc4511453fa2c0621fe913c",
+      "notebooks": [
+        {
+          "path": "docs/content/user/tools/physchem/get_surface_area.ipynb",
+          "code_cells": 5,
+          "content_unchanged": true,
+          "executed_cells": 5,
+          "error_outputs": [],
+          "sha256": "56d692d6604b5bf9eba7f3db9a2cea4cfbabd87cffa5f71dc28421ca5593f18a",
+          "run_mark": {
+            "code_sha256": "ba42c0ccab8fc39c880a38860ed885320094ce14029606f48778bbb57ef30db8",
+            "executed_at": "2026-11-17T06:06:51+00:00"
+          },
+          "log_sha256": "37490378a7c7ebc6019f66ac87ec31d6b272f81bd3e5da83c740d82247887930"
+        },
+        {
+          "path": "docs/content/user/tools/physchem/get_tpsa.ipynb",
+          "code_cells": 11,
+          "content_unchanged": true,
+          "executed_cells": 11,
+          "error_outputs": [],
+          "sha256": "e8eff6254f7cddbc1f8e4735d7ac43e66a249baa2c5571533f6e549e5ab676e2",
+          "run_mark": {
+            "code_sha256": "31e1eed50f194ead41d55ff8a73769032ba4266e585f38ff00e53f84ff16c175",
+            "executed_at": "2026-11-17T06:07:00+00:00"
+          },
+          "log_sha256": "9921abc7f7ad0ba1335be2a05db13235e52c36b0a49d146260c000961fc8bdf7"
+        },
+        {
+          "path": "docs/content/user/tools/physchem/get_lipophilicity.ipynb",
+          "code_cells": 11,
+          "content_unchanged": true,
+          "executed_cells": 11,
+          "error_outputs": [],
+          "sha256": "9ce4561c5504242552923fb6c4e58723ffbf2e68cd3d5f8604109f4033cba197",
+          "run_mark": {
+            "code_sha256": "ce86c0717061861a1aa140032f71418b5696dd0715c941e24b1340cbae351de1",
+            "executed_at": "2026-11-17T06:07:09+00:00"
+          },
+          "log_sha256": "0299b76a0a9aea691848a8362df2eaa4f9d46259451b03f52686ec9820708ae6"
+        },
+        {
+          "path": "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb",
+          "code_cells": 5,
+          "content_unchanged": true,
+          "executed_cells": 5,
+          "error_outputs": [],
+          "sha256": "3b00c008693bd45b7c9881ba524f4d6d377bd3c95f7910928d28b4f3a0875843",
+          "run_mark": {
+            "code_sha256": "7ae988e6829241c471332337040804371a0eef7b55f4bb05008dd832f1a51497",
+            "executed_at": "2026-11-17T06:07:27+00:00"
+          },
+          "log_sha256": "fa5986505e97f260bf5ab1d643ecf2dee2648aeb62da515223c3318a4fe69e08"
+        }
+      ]
+    },
+    "receiving": {
+      "phase": "receiving",
+      "source_commit": "a38811631595bcb3c9f6717889b99bd29d78fcdf",
+      "state": "completed",
+      "native_exit": 1,
+      "seconds": 10.305280270054936,
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "-o",
+        "receptor_rerun_command=python -m pytest",
+        "--junitxml=<checkout>/.pytest_cache/independent-pre1-334-20261116/receiving.xml",
+        "--receptor-events=<checkout>/.pytest_cache/independent-pre1-334-20261116/receiving.events.jsonl",
+        "tests/documentation/test_file_extraction_guidance.py",
+        "tests/documentation/test_sparse_interaction_recipe.py",
+        "tests/documentation/test_unit_foundations_examples.py",
+        "tests/documentation/test_native_domain_examples.py",
+        "devtools/tests/test_release_route.py",
+        "devtools/tests/test_validate_conda_staging.py",
+        "devtools/tests/test_installed_runtime_dependencies.py",
+        "devtools/tests/test_citation_release_tools.py"
+      ],
+      "scope": "Finite #334 native documentation and offline preparation receiving; no final pair, installed qualification or publication.",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "checked_inputs": 5363,
+      "changed_inputs": [],
+      "memory_peak_bytes": 241700864,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18285187072,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "driver_sha256": "31b5762e7fda8e7f47a655e1d49e644d0401213c32452ccfaa501a92b30b26d2"
+    },
+    "valid-baseline": {
+      "phase": "valid-baseline",
+      "source_commit": "a38811631595bcb3c9f6717889b99bd29d78fcdf",
+      "state": "completed",
+      "native_exit": 1,
+      "seconds": 3.2695329929701984,
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "-o",
+        "receptor_rerun_command=python -m pytest",
+        "--junitxml=<checkout>/.pytest_cache/independent-pre1-334-20261116/valid-baseline.xml",
+        "--receptor-events=<checkout>/.pytest_cache/independent-pre1-334-20261116/valid-baseline.events.jsonl",
+        "devtools/tests/test_validate_controlled_dependencies.py"
+      ],
+      "scope": "Finite #334 native documentation and offline preparation receiving; no final pair, installed qualification or publication.",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "checked_inputs": 5364,
+      "changed_inputs": [],
+      "memory_peak_bytes": 140320768,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 19249893376,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "driver_sha256": "31b5762e7fda8e7f47a655e1d49e644d0401213c32452ccfaa501a92b30b26d2"
+    },
+    "runtime-qualified": {
+      "phase": "runtime-qualified",
+      "source_commit": "a38811631595bcb3c9f6717889b99bd29d78fcdf",
+      "state": "completed",
+      "native_exit": 0,
+      "seconds": 22.3076898381114,
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "-o",
+        "receptor_rerun_command=python -m pytest",
+        "--junitxml=<checkout>/.pytest_cache/independent-pre1-334-20261116/runtime-qualified.xml",
+        "--receptor-events=<checkout>/.pytest_cache/independent-pre1-334-20261116/runtime-qualified.events.jsonl",
+        "tests/documentation/test_file_extraction_guidance.py",
+        "tests/documentation/test_sparse_interaction_recipe.py",
+        "tests/documentation/test_unit_foundations_examples.py",
+        "tests/documentation/test_native_domain_examples.py",
+        "devtools/tests/test_release_route.py",
+        "devtools/tests/test_validate_conda_staging.py",
+        "devtools/tests/test_installed_runtime_dependencies.py",
+        "devtools/tests/test_citation_release_tools.py",
+        "devtools/tests/test_validate_controlled_dependencies.py",
+        "devtools/tests/test_audit_dependency_contract.py"
+      ],
+      "scope": "Finite #334 native documentation and offline preparation receiving; no final pair, installed qualification or publication.",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "checked_inputs": 5364,
+      "changed_inputs": [],
+      "memory_peak_bytes": 272494592,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 19210670080,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "driver_sha256": "31b5762e7fda8e7f47a655e1d49e644d0401213c32452ccfaa501a92b30b26d2"
+    },
+    "course-corrected": {
+      "phase": "course-corrected",
+      "source_commit": "a38811631595bcb3c9f6717889b99bd29d78fcdf",
+      "state": "completed",
+      "native_exit": 0,
+      "seconds": 24.012954737059772,
+      "command": [
+        "<development-prefix>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb"
+      ],
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4692,
+      "changed_inputs": [],
+      "memory_peak_bytes": 379412480,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17001218048,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "driver_sha256": "9411f809168955f6d73454d3590f4f40efeb13c38dc4511453fa2c0621fe913c",
+      "notebooks": [
+        {
+          "path": "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb",
+          "code_cells": 5,
+          "content_unchanged": true,
+          "executed_cells": 5,
+          "error_outputs": [],
+          "sha256": "2cd9ee65a68d12d43e86e796507374bd07bf738e8d5acfcc0c13f64f76e4b37f",
+          "run_mark": {
+            "code_sha256": "59c24b180095d9e8ff9ec714545a9e3b8da381ab399059a856ac74e81eb55ce0",
+            "executed_at": "2026-11-17T06:15:40+00:00"
+          },
+          "log_sha256": "5e38b29ee0217598e1e64fe060ad13d89ecf46013ce888dad329dcf3fd551cb2"
+        }
+      ]
+    },
+    "checks": {
+      "phase": "checks",
+      "source_commit": "a38811631595bcb3c9f6717889b99bd29d78fcdf",
+      "state": "completed",
+      "native_exit": 0,
+      "seconds": 13.300007504876703,
+      "command": [
+        "<development-prefix>/bin/python",
+        "<checkout>/.pytest_cache/independent-pre1-334-20261116/quality.py"
+      ],
+      "scope": "Finite #334 native documentation and offline preparation receiving; no final pair, installed qualification or publication.",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "checked_inputs": 5367,
+      "changed_inputs": [],
+      "memory_peak_bytes": 79908864,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 19294560256,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "driver_sha256": "31b5762e7fda8e7f47a655e1d49e644d0401213c32452ccfaa501a92b30b26d2"
+    },
+    "focused": {
+      "phase": "focused",
+      "source_commit": "a38811631595bcb3c9f6717889b99bd29d78fcdf",
+      "state": "completed",
+      "native_exit": 0,
+      "seconds": 6.293027027975768,
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "-o",
+        "receptor_rerun_command=python -m pytest",
+        "--junitxml=<checkout>/.pytest_cache/independent-pre1-334-20261116/focused.xml",
+        "--receptor-events=<checkout>/.pytest_cache/independent-pre1-334-20261116/focused.events.jsonl",
+        "tests/documentation/test_file_extraction_guidance.py",
+        "tests/documentation/test_sparse_interaction_recipe.py",
+        "tests/documentation/test_unit_foundations_examples.py"
+      ],
+      "scope": "Finite #334 native documentation and offline preparation receiving; no final pair, installed qualification or publication.",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "checked_inputs": 5367,
+      "changed_inputs": [],
+      "memory_peak_bytes": 236269568,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 19111849984,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "driver_sha256": "48546776ecb0b3784efe8c99971a0648bbb24d746da7fbc124353343d066e4fd"
+    },
+    "html": {
+      "phase": "html",
+      "source_commit": "a38811631595bcb3c9f6717889b99bd29d78fcdf",
+      "state": "completed",
+      "native_exit": 0,
+      "seconds": 151.7361146779731,
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "sphinx",
+        "-W",
+        "--keep-going",
+        "-E",
+        "-a",
+        "-b",
+        "html",
+        "-q",
+        "-j",
+        "1",
+        "-d",
+        "<checkout>/.pytest_cache/independent-pre1-334-20261116/doctrees",
+        "docs",
+        "<checkout>/.pytest_cache/independent-pre1-334-20261116/html"
+      ],
+      "scope": "Finite #334 native documentation and offline preparation receiving; no final pair, installed qualification or publication.",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2831155200",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "checked_inputs": 7574,
+      "changed_inputs": [],
+      "memory_peak_bytes": 1439686656,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18686488576,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "driver_sha256": "48546776ecb0b3784efe8c99971a0648bbb24d746da7fbc124353343d066e4fd"
+    },
+    "html2": {
+      "phase": "html2",
+      "source_commit": "a38811631595bcb3c9f6717889b99bd29d78fcdf",
+      "state": "completed",
+      "native_exit": 0,
+      "seconds": 10.623051305767149,
+      "command": [
+        "<development-prefix>/bin/python",
+        "-m",
+        "sphinx",
+        "-W",
+        "--keep-going",
+        "-b",
+        "html",
+        "-q",
+        "-j",
+        "1",
+        "-d",
+        "<checkout>/.pytest_cache/independent-pre1-334-20261116/doctrees",
+        "docs",
+        "<checkout>/.pytest_cache/independent-pre1-334-20261116/html"
+      ],
+      "scope": "Finite #334 native documentation and offline preparation receiving; no final pair, installed qualification or publication.",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2831155200",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "checked_inputs": 7574,
+      "changed_inputs": [],
+      "memory_peak_bytes": 386338816,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18941251584,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "driver_sha256": "48546776ecb0b3784efe8c99971a0648bbb24d746da7fbc124353343d066e4fd"
+    },
+    "articles": {
+      "phase": "articles",
+      "source_commit": "a38811631595bcb3c9f6717889b99bd29d78fcdf",
+      "state": "completed",
+      "native_exit": 0,
+      "seconds": 20.34578133560717,
+      "command": [
+        "<development-prefix>/bin/python",
+        "<checkout>/.pytest_cache/independent-pre1-334-20261116/article_browser.py"
+      ],
+      "scope": "Finite #334 native documentation and offline preparation receiving; no final pair, installed qualification or publication.",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "checked_inputs": 5367,
+      "changed_inputs": [],
+      "memory_peak_bytes": 438472704,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18947096576,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "driver_sha256": "48546776ecb0b3784efe8c99971a0648bbb24d746da7fbc124353343d066e4fd"
+    },
+    "articles-corrected": {
+      "phase": "articles-corrected",
+      "source_commit": "a38811631595bcb3c9f6717889b99bd29d78fcdf",
+      "state": "completed",
+      "native_exit": 0,
+      "seconds": 21.30869741924107,
+      "command": [
+        "<development-prefix>/bin/python",
+        "<checkout>/.pytest_cache/independent-pre1-334-20261116/article_browser_final.py"
+      ],
+      "scope": "Finite #334 native documentation and offline preparation receiving; no final pair, installed qualification or publication.",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "checked_inputs": 5367,
+      "changed_inputs": [],
+      "memory_peak_bytes": 446586880,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18878386176,
+      "maximum_memory_pressure_avg10": 0.0,
+      "host_reserve_bytes": 6979321856,
+      "stop_reason": null,
+      "driver_sha256": "48546776ecb0b3784efe8c99971a0648bbb24d746da7fbc124353343d066e4fd"
+    },
+    "final-checks": {
+      "phase": "final-checks",
+      "source_commit": "a38811631595bcb3c9f6717889b99bd29d78fcdf",
+      "state": "completed",
+      "native_exit": 0,
+      "seconds": 5.291693016886711,
+      "scope": "Finite #334 native documentation and offline preparation receiving; no final pair, installed qualification or publication.",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "checked_inputs": 5366,
+      "changed_inputs": [],
+      "memory_peak_bytes": 82808832,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 19288936448,
+      "stop_reason": null,
+      "driver_sha256": "48546776ecb0b3784efe8c99971a0648bbb24d746da7fbc124353343d066e4fd"
+    }
+  },
+  "retained_failures": {
+    "baseline": "Seven cases: four pass; #770 original NameError and two new sparse-guard expectations incorrectly imposed sorted replacement coverage. Guard expectation corrected; no new product sorting defect claimed.",
+    "receiving": "46 cases: 45 pass; first #771 obsolete direct-provider fixture prevents intended positive transitive control.",
+    "valid-baseline": "Four cases: three pass; second #771 real-contract fixture retains obsolete PyUnitWizard 0.28.1."
+  },
+  "pytest_artifacts": {
+    "baseline": {
+      "native_exit": 1,
+      "event_stream_complete": true,
+      "receptor_final": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 7,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 7,
+          "failed": 3,
+          "not_executed": 0,
+          "passed": 4,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 15.156087084207684,
+        "exitstatus": 1,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 0
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "d57aee691447e3d090a9995b947ac03e99a26329db440241cc9555010cbd255f",
+          "records": 24
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "FAIL",
+        "root_causes": 2,
+        "run_id": "af83a3814f6a4d70897b28f6eacced16",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "junit": {
+        "tests": 7,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "corrected": {
+      "native_exit": 0,
+      "event_stream_complete": true,
+      "receptor_final": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 7,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 7,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 7,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 2.348389290738851,
+        "exitstatus": 0,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 0
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "f3abb6f7ccae1aa0d7ed5eab7637597bd3c2b71b41590a66fd1199a44d631d2d",
+          "records": 22
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "PASS",
+        "root_causes": 0,
+        "run_id": "55384bd664a345a89f2999619ab85c4a",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "junit": {
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "receiving": {
+      "native_exit": 1,
+      "event_stream_complete": true,
+      "receptor_final": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 46,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 46,
+          "failed": 1,
+          "not_executed": 0,
+          "passed": 45,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 6.905493061058223,
+        "exitstatus": 1,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 0
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "bc21d718bc02f9ebb96bb5d02fbc1e493adbe4a220158aa89fb40c562a85ba19",
+          "records": 140
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "FAIL",
+        "root_causes": 1,
+        "run_id": "92f0e99c57de416dbcd451ff585c9423",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "junit": {
+        "tests": 46,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "valid-baseline": {
+      "native_exit": 1,
+      "event_stream_complete": true,
+      "receptor_final": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 4,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 4,
+          "failed": 1,
+          "not_executed": 0,
+          "passed": 3,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 0.19319544779136777,
+        "exitstatus": 1,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 0
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "7c91eb9ab4cebf9bae1205bb2f0f2db4853752d6bcdb681468f4e9c2daf7cfb4",
+          "records": 14
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "FAIL",
+        "root_causes": 1,
+        "run_id": "2cd08310b5694a1e9963551d5237cfd4",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "junit": {
+        "tests": 4,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "runtime-qualified": {
+      "native_exit": 0,
+      "event_stream_complete": true,
+      "receptor_final": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 159,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 159,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 159,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 19.342637246940285,
+        "exitstatus": 0,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 0
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "17f7aa62e19753352d3f064ae71f9af6b5d04baed57e8fb349f12974b857c966",
+          "records": 478
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "PASS",
+        "root_causes": 0,
+        "run_id": "dbe030ad6fb54a74a34a417392e35ce8",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "junit": {
+        "tests": 159,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "focused": {
+      "native_exit": 0,
+      "event_stream_complete": true,
+      "receptor_final": {
+        "artifact_policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        },
+        "complete": true,
+        "counts": {
+          "collected": 7,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 7,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 7,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "duration": 2.9883219650946558,
+        "exitstatus": 0,
+        "extensions": {
+          "dropped": 0,
+          "incomplete": false,
+          "recorded": 0
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "digest": "21040cf43722e7a158f391f9abdb5c272c6c95838936fbf6341fdeebdd438e07",
+          "records": 22
+        },
+        "invalid_selections": [],
+        "note": "",
+        "outcome": "PASS",
+        "root_causes": 0,
+        "run_id": "b2364aa5c0c945bb8380b55836978082",
+        "schema": "pytest-receptor.events@1",
+        "stop_reason": "",
+        "type": "session_finish"
+      },
+      "junit": {
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "remaining_markdown_examples": {
+    "scope": "Actual existing Markdown examples; semantic checks are bounded engine/model and index/unit receiving, not new method certification.",
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "modules": {
+      "molsysmt": {
+        "file": "<checkout>/molsysmt/__init__.py",
+        "version": "0.23.0+393.ge1facf624.dirty",
+        "module_sha256": "dc89c5f21ab7ba4bb94b289927a19856d27cb670baf1b03d7f6fcb7fced03f90"
+      },
+      "molsysviewer": {
+        "file": "<checkout>/.pytest_cache/pre1-review-20261110/viewer-5164f13b-ready-source/molsysviewer/__init__.py",
+        "version": "0.24.0+97.gdf4bf477.dirty",
+        "module_sha256": "76c5968d9a66d9fe01a475166515f4e0f02c3784b135ec60319cb2bf83b17cd4"
+      },
+      "argdigest": {
+        "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+        "version": "0.15.0",
+        "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+      },
+      "depdigest": {
+        "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+        "version": "0.15.1",
+        "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+      },
+      "smonitor": {
+        "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+        "version": "0.21.0",
+        "module_sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+      },
+      "pyunitwizard": {
+        "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+        "version": "0.29.2",
+        "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+      },
+      "rdkit": {
+        "file": "<development-prefix>/lib/python3.14/site-packages/rdkit/__init__.py",
+        "version": "2025.9.5",
+        "module_sha256": "eca4a895c02c16eadbe7887ed1463c7ed75b86b222f0843d1c090c331e7c40a7"
+      },
+      "mdtraj": {
+        "file": "<development-prefix>/lib/python3.14/site-packages/mdtraj/__init__.py",
+        "version": "1.11.1",
+        "module_sha256": "5223f8af5a0257a8d25313683eb4b1823074feaf66753b01e9ec9e08b8a67b80"
+      },
+      "openmm": {
+        "file": "<development-prefix>/lib/python3.14/site-packages/openmm/__init__.py",
+        "version": "8.6.1",
+        "module_sha256": "c513bcdf3407fb0efdffc8f2f4e61d4de40b0a6612c3017af948e0245bf319ab"
+      },
+      "pytest_receptor": {
+        "file": "<checkout>/.pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+        "version": "1.2.1",
+        "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+      },
+      "ipykernel": {
+        "file": "<development-prefix>/lib/python3.14/site-packages/ipykernel/__init__.py",
+        "version": "7.3.0",
+        "module_sha256": "924f905a9292fd69c26ec96dd61021cf8ee6b868a3b0342a8fbe68c486e29a45"
+      }
+    },
+    "examples": [
+      {
+        "path": "docs/content/user/cookbook/molecular_descriptors.md",
+        "unit_policy": [
+          "nm",
+          "ps"
+        ],
+        "python_blocks": 2,
+        "printed_output": "",
+        "rows": [
+          {
+            "molecule_index": 1,
+            "tpsa_angstrom2": 0.0,
+            "wildman_crippen_score": 1.6866
+          },
+          {
+            "molecule_index": 0,
+            "tpsa_angstrom2": 20.230000000000004,
+            "wildman_crippen_score": -0.0014000000000000123
+          }
+        ],
+        "atom_rows": [
+          {
+            "atom_index": 2,
+            "tpsa_contribution_angstrom2": 20.230000000000004,
+            "wildman_crippen_contribution": -0.5569999999999999
+          },
+          {
+            "atom_index": 0,
+            "tpsa_contribution_angstrom2": 0.0,
+            "wildman_crippen_contribution": 0.5131
+          },
+          {
+            "atom_index": 2,
+            "tpsa_contribution_angstrom2": 20.230000000000004,
+            "wildman_crippen_contribution": -0.5569999999999999
+          }
+        ]
+      },
+      {
+        "path": "docs/content/user/cookbook/tpsa_descriptors.md",
+        "unit_policy": [
+          "nm",
+          "ps"
+        ],
+        "python_blocks": 1,
+        "printed_output": "",
+        "rows": [
+          {
+            "molecule_index": 1,
+            "tpsa_angstrom2": 9.230000000000002
+          },
+          {
+            "molecule_index": 0,
+            "tpsa_angstrom2": 20.230000000000004
+          }
+        ]
+      },
+      {
+        "path": "docs/content/user/tools/molecular_mechanics/get_model_recipe.md",
+        "unit_policy": [
+          "nm",
+          "ps"
+        ],
+        "python_blocks": 1,
+        "printed_output": "",
+        "recipe": {
+          "schema": "molsysmt.model_recipe@1",
+          "method": "parameterized_model_inspection",
+          "requested": {
+            "forcefield": {
+              "value": "AMBER14",
+              "origin": "molsysmt_default"
+            },
+            "water_model": {
+              "value": "TIP3P",
+              "origin": "molsysmt_default"
+            },
+            "implicit_solvent": {
+              "value": null,
+              "origin": "molsysmt_default"
+            },
+            "constraints": {
+              "value": "hbonds",
+              "origin": "molsysmt_default"
+            },
+            "non_bonded_method": {
+              "value": "no cutoff",
+              "origin": "molsysmt_default"
+            },
+            "switch_distance": {
+              "value": null,
+              "origin": "molsysmt_default"
+            },
+            "dispersion_correction": {
+              "value": false,
+              "origin": "molsysmt_default"
+            },
+            "ewald_error_tolerance": {
+              "value": 0.0005,
+              "origin": "molsysmt_default"
+            }
+          },
+          "consumed_controls": [
+            "forcefield",
+            "water_model",
+            "implicit_solvent",
+            "constraints",
+            "non_bonded_method",
+            "switch_distance",
+            "dispersion_correction",
+            "ewald_error_tolerance"
+          ],
+          "unsupported_controls": [
+            "cutoff_distance",
+            "flexible_constraints",
+            "rigid_water",
+            "hydrogen_mass",
+            "salt_concentration",
+            "kappa",
+            "solute_dielectric",
+            "solvent_dielectric",
+            "partial_charge",
+            "atom_ff_type"
+          ],
+          "unsupported_legacy_annotations": [
+            "MolecularMechanics.formal_charge"
+          ],
+          "effective": {
+            "n_particles": 22,
+            "n_constraints": 12,
+            "periodic": false,
+            "default_box": null,
+            "nonbonded": [
+              {
+                "method": "no_cutoff",
+                "cutoff_distance": null,
+                "switching_enabled": false,
+                "switch_distance": null,
+                "dispersion_correction": false,
+                "ewald_error_tolerance": 0.0005,
+                "reaction_field_dielectric": 78.3
+              }
+            ],
+            "provider_force_types": [
+              "HarmonicBondForce",
+              "NonbondedForce",
+              "PeriodicTorsionForce",
+              "CMMotionRemover",
+              "HarmonicAngleForce"
+            ]
+          },
+          "provenance": "constructed_from_declared_controls",
+          "source_structure_indices": "[0]",
+          "resources": [
+            "amber14-all.xml",
+            "amber14/tip3p.xml"
+          ],
+          "software": {
+            "molsysmt": "0.23.0+393.ge1facf624.dirty",
+            "openmm": "8.6.1"
+          },
+          "attribution": {
+            "schema": "molsysmt.scientific_attribution@1",
+            "target": "molsysmt.molecular_mechanics.get_model_recipe",
+            "items": [
+              {
+                "id": "software:openmm:8.6.1",
+                "type": "software",
+                "title": "OpenMM",
+                "url": "https://openmm.org",
+                "version": "8.6.1",
+                "roles": [
+                  "executed_software"
+                ]
+              }
+            ]
+          }
+        },
+        "coordinate_input": "<checkout>/molsysmt/data/h5msm/alanine_dipeptide.h5msm",
+        "n_atoms": "22"
+      },
+      {
+        "path": "docs/content/user/cookbook/molecular_descriptors.md",
+        "unit_policy": [
+          "pm",
+          "fs"
+        ],
+        "python_blocks": 2,
+        "printed_output": "",
+        "rows": [
+          {
+            "molecule_index": 1,
+            "tpsa_angstrom2": 0.0,
+            "wildman_crippen_score": 1.6866
+          },
+          {
+            "molecule_index": 0,
+            "tpsa_angstrom2": 20.229999999999997,
+            "wildman_crippen_score": -0.0014000000000000123
+          }
+        ],
+        "atom_rows": [
+          {
+            "atom_index": 2,
+            "tpsa_contribution_angstrom2": 20.229999999999997,
+            "wildman_crippen_contribution": -0.5569999999999999
+          },
+          {
+            "atom_index": 0,
+            "tpsa_contribution_angstrom2": 0.0,
+            "wildman_crippen_contribution": 0.5131
+          },
+          {
+            "atom_index": 2,
+            "tpsa_contribution_angstrom2": 20.229999999999997,
+            "wildman_crippen_contribution": -0.5569999999999999
+          }
+        ]
+      },
+      {
+        "path": "docs/content/user/cookbook/tpsa_descriptors.md",
+        "unit_policy": [
+          "pm",
+          "fs"
+        ],
+        "python_blocks": 1,
+        "printed_output": "",
+        "rows": [
+          {
+            "molecule_index": 1,
+            "tpsa_angstrom2": 9.229999999999999
+          },
+          {
+            "molecule_index": 0,
+            "tpsa_angstrom2": 20.229999999999997
+          }
+        ]
+      },
+      {
+        "path": "docs/content/user/tools/molecular_mechanics/get_model_recipe.md",
+        "unit_policy": [
+          "pm",
+          "fs"
+        ],
+        "python_blocks": 1,
+        "printed_output": "",
+        "recipe": {
+          "schema": "molsysmt.model_recipe@1",
+          "method": "parameterized_model_inspection",
+          "requested": {
+            "forcefield": {
+              "value": "AMBER14",
+              "origin": "molsysmt_default"
+            },
+            "water_model": {
+              "value": "TIP3P",
+              "origin": "molsysmt_default"
+            },
+            "implicit_solvent": {
+              "value": null,
+              "origin": "molsysmt_default"
+            },
+            "constraints": {
+              "value": "hbonds",
+              "origin": "molsysmt_default"
+            },
+            "non_bonded_method": {
+              "value": "no cutoff",
+              "origin": "molsysmt_default"
+            },
+            "switch_distance": {
+              "value": null,
+              "origin": "molsysmt_default"
+            },
+            "dispersion_correction": {
+              "value": false,
+              "origin": "molsysmt_default"
+            },
+            "ewald_error_tolerance": {
+              "value": 0.0005,
+              "origin": "molsysmt_default"
+            }
+          },
+          "consumed_controls": [
+            "forcefield",
+            "water_model",
+            "implicit_solvent",
+            "constraints",
+            "non_bonded_method",
+            "switch_distance",
+            "dispersion_correction",
+            "ewald_error_tolerance"
+          ],
+          "unsupported_controls": [
+            "cutoff_distance",
+            "flexible_constraints",
+            "rigid_water",
+            "hydrogen_mass",
+            "salt_concentration",
+            "kappa",
+            "solute_dielectric",
+            "solvent_dielectric",
+            "partial_charge",
+            "atom_ff_type"
+          ],
+          "unsupported_legacy_annotations": [
+            "MolecularMechanics.formal_charge"
+          ],
+          "effective": {
+            "n_particles": 22,
+            "n_constraints": 12,
+            "periodic": false,
+            "default_box": null,
+            "nonbonded": [
+              {
+                "method": "no_cutoff",
+                "cutoff_distance": null,
+                "switching_enabled": false,
+                "switch_distance": null,
+                "dispersion_correction": false,
+                "ewald_error_tolerance": 0.0005,
+                "reaction_field_dielectric": 78.3
+              }
+            ],
+            "provider_force_types": [
+              "HarmonicBondForce",
+              "NonbondedForce",
+              "PeriodicTorsionForce",
+              "CMMotionRemover",
+              "HarmonicAngleForce"
+            ]
+          },
+          "provenance": "constructed_from_declared_controls",
+          "source_structure_indices": "[0]",
+          "resources": [
+            "amber14-all.xml",
+            "amber14/tip3p.xml"
+          ],
+          "software": {
+            "molsysmt": "0.23.0+393.ge1facf624.dirty",
+            "openmm": "8.6.1"
+          },
+          "attribution": {
+            "schema": "molsysmt.scientific_attribution@1",
+            "target": "molsysmt.molecular_mechanics.get_model_recipe",
+            "items": [
+              {
+                "id": "software:openmm:8.6.1",
+                "type": "software",
+                "title": "OpenMM",
+                "url": "https://openmm.org",
+                "version": "8.6.1",
+                "roles": [
+                  "executed_software"
+                ]
+              }
+            ]
+          }
+        },
+        "coordinate_input": "<checkout>/molsysmt/data/h5msm/alanine_dipeptide.h5msm",
+        "n_atoms": "22"
+      }
+    ]
+  },
+  "notebook_runtime": {
+    "get_tpsa": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/docs/content/user/tools/physchem",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      },
+      "declared_application_policy": "ordinary",
+      "measured_phi_unit": null,
+      "coordinate_unit": null
+    },
+    "get_surface_area": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/docs/content/user/tools/physchem",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "openmm": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/openmm/__init__.py",
+          "version": "8.6.1"
+        },
+        "mdtraj": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/mdtraj/__init__.py",
+          "version": "1.11.1"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      },
+      "declared_application_policy": "ordinary",
+      "measured_phi_unit": null,
+      "coordinate_unit": null
+    },
+    "get_lipophilicity": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/docs/content/user/tools/physchem",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      },
+      "declared_application_policy": "ordinary",
+      "measured_phi_unit": null,
+      "coordinate_unit": null
+    },
+    "20_The_Specialized_Domains": {
+      "python": "<development-prefix>/bin/python",
+      "cwd": "<checkout>/docs/content/course/Common_Core",
+      "loaded_modules": {
+        "molsysmt": {
+          "file": "<checkout>/molsysmt/__init__.py",
+          "version": "0.23.0+393.ge1facf624.dirty"
+        },
+        "pyunitwizard": {
+          "file": "<checkout>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+          "version": "0.29.2"
+        },
+        "argdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+          "version": "0.15.0"
+        },
+        "depdigest": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+          "version": "0.15.1"
+        },
+        "smonitor": {
+          "file": "<checkout>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+          "version": "0.21.0"
+        },
+        "numpy": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/numpy/__init__.py",
+          "version": "2.4.6"
+        },
+        "openmm": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/openmm/__init__.py",
+          "version": "8.6.1"
+        },
+        "mdtraj": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/mdtraj/__init__.py",
+          "version": "1.11.1"
+        },
+        "pandas": {
+          "file": "<development-prefix>/lib/python3.14/site-packages/pandas/__init__.py",
+          "version": "2.3.3"
+        }
+      },
+      "declared_application_policy": "ordinary",
+      "measured_phi_unit": null,
+      "coordinate_unit": null
+    }
+  },
+  "metadata_preflight": {
+    "basis": "a38811631595bcb3c9f6717889b99bd29d78fcdf",
+    "scope": "Read-only I3 metadata-draft preflight; not applied, complete-candidate audit, package build or gate qualification.",
+    "original_review_sha256": "95cfc61ca44562806201ef1454ccd7f7930bf3c4f403957ea2ce58e108a68396",
+    "draft_sha256": "52b5e5bb7ddc18940c00102ad17d8840a76f121e6f705b7e3e7c3b5e466a3057",
+    "unchanged_seven_root_inputs": {
+      "devtools/conda-envs/development_env.yaml": "a4f563ae72fad4ca74556d5f0220cace0f56efd82aeb25243558e8ead0df6e0c",
+      "devtools/conda-envs/production_env.yaml": "38a2ea35d5b8218183095036c68496b6738d096f209382aa6ad5c5f6bc9305ca",
+      "pyproject.toml": "f5add39e5ab2c95bea1192f6a0e696eeb0dba9ebd63937de52819897126ed102",
+      "devtools/conda-build/meta.yaml": "3bef2276d9b52da867bff82be4c3026ac21de4b99c0dfe7e989bb265bccee34f",
+      "devtools/rattler-build/recipe.yaml": "45c1185a33fa966320f5b4fef4bfe4d74ac80edd0820ab1442cca59973ac99a6",
+      "CITATION.cff": "f6f4ce14721683460f5c5bdd6086a00b2c273dbccc4155ddae9c55879a1f5866",
+      "docs/_bibtex/software.bib": "b1b9d852dec6703e3a0e36288047f70e5503f06dbd62a980f227bcd105c53128"
+    },
+    "apply_check": {
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "main_minimum_unchanged": true,
+    "final_identities_selected": false
+  },
+  "quality_checks": [
+    {
+      "command": [
+        "ruff",
+        "check",
+        "--extend-exclude",
+        ".aws",
+        "."
+      ],
+      "native_exit": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "ruff",
+        "format",
+        "--check",
+        "--extend-exclude",
+        ".aws",
+        "."
+      ],
+      "native_exit": 0,
+      "stdout": "4749 files already formatted\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<development-prefix>/bin/python",
+        "devtools/scripts/validate_devguide.py"
+      ],
+      "native_exit": 0,
+      "stdout": "Developer-guide validation passed.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<development-prefix>/bin/python",
+        "devtools/scripts/devguide_index.py",
+        "--check"
+      ],
+      "native_exit": 0,
+      "stdout": "Every queue index is up to date.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<development-prefix>/bin/python",
+        "devtools/scripts/validate_course.py"
+      ],
+      "native_exit": 0,
+      "stdout": "Course structure valid: 156 notebooks (20 core + 4x34 paths), toctrees, manifest, and labels consistent.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<development-prefix>/bin/python",
+        "devtools/scripts/validate_notebook_schemas.py"
+      ],
+      "native_exit": 0,
+      "stdout": "Notebook schemas valid: 501 stored sources; no repairs.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<development-prefix>/bin/python",
+        "devtools/scripts/audit_dependency_contract.py"
+      ],
+      "native_exit": 0,
+      "stdout": "Dependency contract audit: PASS (public requirements and declared routes agree)\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<development-prefix>/bin/python",
+        "devtools/scripts/validate_citation.py"
+      ],
+      "native_exit": 0,
+      "stdout": "Citation metadata: PASS\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "native_exit": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "strict_site": {
+    "full_build": "html",
+    "final_incremental_update": "html2",
+    "configuration": "Actual docs/conf.py, autosummary_generate=True, no notebook execution; CLI -W --keep-going, full initial -E -a, one worker.",
+    "html_files": 1401,
+    "warnings": "Both native exits zero with warnings-as-errors; logs retain the real 0.23.0 development documentation version message.",
+    "rendering_is_not_execution": true
+  },
+  "article_receiving": {
+    "scope": "Strict stored-source site and selected local article/link/PNG/download receiving; actual example execution is separate. No hosted/canvas/final-installed qualification.",
+    "articles": [
+      {
+        "source": "docs/content/about/installation.md",
+        "source_sha256": "c4a7c87b578b78d1e5a370820f51fb66a90c012842844265e328b0131ea7dd5d",
+        "html": "content/about/installation.html",
+        "html_sha256": "ec7b170b78524cbbd09f883ea89d11b88a44f192725def0ada921f06d1c361d2",
+        "local_links_checked": 26,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/foundations/support/index.md",
+        "source_sha256": "c4958097959c4b2d4a0e1abf18e9cf3ef8ea94bbe4cc2a552fb9997098d4532d",
+        "html": "content/user/foundations/support/index.html",
+        "html_sha256": "7ea74da389b6a836d684570fc1bb167a0740582865be3528967603bed9ad5876",
+        "local_links_checked": 609,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/foundations/molecular_system/index.md",
+        "source_sha256": "4226fa320f3c98c7cf449a338acf3c5b55c2166548143467f5b24f9f453a3af6",
+        "html": "content/user/foundations/molecular_system/index.html",
+        "html_sha256": "5296f7628039d938e5b5f7aab00df8979c0a2f2758deccd5396207bb5be57c6e",
+        "local_links_checked": 609,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/foundations/molecular_system/the_molecular_system.md",
+        "source_sha256": "fa0ec8408606da430dc0a1340e44ed638949568dfc15111ad1763aaa55ac5281",
+        "html": "content/user/foundations/molecular_system/the_molecular_system.html",
+        "html_sha256": "d29304419e1047cb060bc48c2128db679fde84920585a67fa8842d49401ce51b",
+        "local_links_checked": 634,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/foundations/native_world/index.md",
+        "source_sha256": "2b75ec6d001443e88f647dffb1a7d63f945bfceff6867e23d18154a56f8deb6e",
+        "html": "content/user/foundations/native_world/index.html",
+        "html_sha256": "4a645bb69bd30200dd47c80708152cbb00929ab8325a168731005bd2512ed88a",
+        "local_links_checked": 608,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/foundations/language/index.md",
+        "source_sha256": "64ace356e5bd3c63f052f1c16c3b848f80404a93f2e742c4d96ce5e1f787d6ca",
+        "html": "content/user/foundations/language/index.html",
+        "html_sha256": "43f97757dce63badc9733e425c64af15097ae99d8ddb1492c129e88336c56fb0",
+        "local_links_checked": 602,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/foundations/governance/quantities_and_units.md",
+        "source_sha256": "99d0b302fce7821256b444e5b6ed378ace244192d9b16b5853d97f4fb57d58b5",
+        "html": "content/user/foundations/governance/quantities_and_units.html",
+        "html_sha256": "3e214563187a32abea0bbad2c041b1d5c87ba2889db52c07b0cd95ea871385b7",
+        "local_links_checked": 630,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/basic/index.md",
+        "source_sha256": "6f3967ea411660c7d8d9e15e33f179b7d4ac2d7605440b3a7d0e03b0665049ed",
+        "html": "content/user/tools/basic/index.html",
+        "html_sha256": "4ac17883ea909fc886dc17407a98b5b6e655d3acb096497abc4ae2b559fa801b",
+        "local_links_checked": 630,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/cookbook/index.md",
+        "source_sha256": "b67b24a76289986601ab3a41da8493babe9fb84d84c0efbaf1943ec05b6f2471",
+        "html": "content/user/cookbook/index.html",
+        "html_sha256": "b88b0f0ce254867c5d82daba896851b9ee6d3d0308d53397077edb820d45a527",
+        "local_links_checked": 644,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/structure/index.md",
+        "source_sha256": "6d59dee82c6cd7a54c11ce0c30665ded495e8c1b79e509e0c76e65401c7d354e",
+        "html": "content/user/tools/structure/index.html",
+        "html_sha256": "44c0e43ba5b4b4f3a68f61b90dd70ac8d20fbb1729e18c4cd89acb96328d1fca",
+        "local_links_checked": 632,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/pbc/index.md",
+        "source_sha256": "6ec44a304963936f6e59b4315118328df21c1bd540d48ba15b1d85126720642c",
+        "html": "content/user/tools/pbc/index.html",
+        "html_sha256": "40b10b7ecabcbbffc2264092b8953a2217f09e522d0fe42908c9042672d92503",
+        "local_links_checked": 614,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/physchem/index.md",
+        "source_sha256": "8e2b8145b2c5a83099dcdca6a41f2c097bfc2dc031c7d43018bdbfdc07779e54",
+        "html": "content/user/tools/physchem/index.html",
+        "html_sha256": "94319096ab5da0e8788fada7dc18f2d4fc70c9643776aecf91e926425132637f",
+        "local_links_checked": 632,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/build/index.md",
+        "source_sha256": "ff932e305a80f922a92938a4bd28407219d0f545e0b08bae2b315efe5292f6df",
+        "html": "content/user/tools/build/index.html",
+        "html_sha256": "f12742a094b62d5aeca941496fbd9a204d7a90fc3fa5e3cd7da6ab0f908d92cc",
+        "local_links_checked": 632,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/molecular_mechanics/index.md",
+        "source_sha256": "2f834062a6816c27eeb9c20547929f0be84715219b769059e5a413d737ed1448",
+        "html": "content/user/tools/molecular_mechanics/index.html",
+        "html_sha256": "52b763c1f0503f1a82cf56354e5717f1a93535e40cb2a2806f9cde4d408d94b9",
+        "local_links_checked": 608,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/interactions/index.md",
+        "source_sha256": "bafa62d4bced98c291bbcc5c18c8c5fcae12aa6eb520f1ea5e4f3d268c81149c",
+        "html": "content/user/tools/interactions/index.html",
+        "html_sha256": "76b3edcae25d8052d3c783e96bc267a7acfdd88546415bb13d02c716ec59c231",
+        "local_links_checked": 612,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/form/file/h5msm_10.md",
+        "source_sha256": "33e7ec4c7cf19fb806d8aaef4d49725f17cb1dbfeebe6015cec5c38c8443f18b",
+        "html": "content/user/tools/form/file/h5msm_10.html",
+        "html_sha256": "8add4935dbe0e59650c192862358d61d7547974b88cbeeb2e7e2d04355183c65",
+        "local_links_checked": 612,
+        "images": 2
+      },
+      {
+        "source": "docs/content/course/index.md",
+        "source_sha256": "2152011efc62dc462b7d5c97959ced4db759ea0df67ee5fc3c5b9b1f349a318e",
+        "html": "content/course/index.html",
+        "html_sha256": "5a0c386128525fce2f800563ef735117f32183553a69f81778547573acfd1991",
+        "local_links_checked": 614,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/foundations/governance/public_api_and_lifecycle.md",
+        "source_sha256": "26390f0497bca30c4ac61c221e3ccbb29b11e2ca816c9a7a089e4b555cede143",
+        "html": "content/user/foundations/governance/public_api_and_lifecycle.html",
+        "html_sha256": "20944fb6cce2801ae4ac50e5b661f2cca4d1eedeb67fdc0dedf3701a521413b9",
+        "local_links_checked": 614,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/cookbook/copying_disk_systems.md",
+        "source_sha256": "96ce631698e997ee3783c601b588713c356bdaead332285a07db794466dd0d6e",
+        "html": "content/user/cookbook/copying_disk_systems.html",
+        "html_sha256": "e7cc68eb3fd0ab0e4a76beb57ae119efa1f661722027f8eecea1e2860059e991",
+        "local_links_checked": 614,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/cookbook/querying_sparse_interactions.md",
+        "source_sha256": "7a9a24fd92232fedbee6aafc6d361b3605155ad580da56db3af616e966af42bc",
+        "html": "content/user/cookbook/querying_sparse_interactions.html",
+        "html_sha256": "0f4fd0cda50d3df80673a8d66ab41da68f945203215f5e2c590efd77849dd428",
+        "local_links_checked": 626,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/cookbook/molecular_descriptors.md",
+        "source_sha256": "5a5fd39bf64f2ac5a755f0c64eb707e6cfae35b94ad033ce24a444a3ad19f44d",
+        "html": "content/user/cookbook/molecular_descriptors.html",
+        "html_sha256": "87cac63a0801680b4b55c80305c3ea210decbfabbb9cbe5bf1ace6cc9028f73e",
+        "local_links_checked": 605,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/cookbook/tpsa_descriptors.md",
+        "source_sha256": "512e4f84741d985b1547ba16553ccfe2dd85c72fc66b474741deb7c90820b213",
+        "html": "content/user/cookbook/tpsa_descriptors.html",
+        "html_sha256": "7d3ef198dbe2e38674dc8ec7604d84d77ffd563fdeece07746c4459c0acc1817",
+        "local_links_checked": 603,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/foundations/native_world/classes/molsysmt_MolSys.md",
+        "source_sha256": "e31f6e07082c02184adbe542a86ee7b45526454db00dcb5809a5f427b0d15b57",
+        "html": "content/user/foundations/native_world/classes/molsysmt_MolSys.html",
+        "html_sha256": "030644333b1dae9353e6f40aa2720c90e4caf47946ce5498b50bfc5ebe493506",
+        "local_links_checked": 698,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/foundations/native_world/classes/molsysmt_Topology.md",
+        "source_sha256": "733b0734df5bbea4eab28a40d946796e2f621940102b40048b185556a45d5a7c",
+        "html": "content/user/foundations/native_world/classes/molsysmt_Topology.html",
+        "html_sha256": "70901cd206e493059572564da661d3470c14beed3de49682dd87c86b9243fecc",
+        "local_links_checked": 660,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/foundations/native_world/classes/molsysmt_Structures.md",
+        "source_sha256": "7f4fdb2b4ff26ad4d699b3f3f165996f4e83fa5ee6f1675fa3b8d0da4b09eded",
+        "html": "content/user/foundations/native_world/classes/molsysmt_Structures.html",
+        "html_sha256": "993c04dce41e9dc4a976bd45734d0f6958ecdfca39970d9b01b48efc4f198397",
+        "local_links_checked": 647,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/foundations/native_world/classes/molsysmt_ChemicalStates.md",
+        "source_sha256": "f5b92fac31a766a7cab5a07e26ffb4d192ec7138ff36426380aaa99113f3a8e4",
+        "html": "content/user/foundations/native_world/classes/molsysmt_ChemicalStates.html",
+        "html_sha256": "bf6263956bf4ee4cc8abbf65d11fe272eadb565cf810c14423fe2461b50b4c39",
+        "local_links_checked": 649,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.md",
+        "source_sha256": "e58670d70505977bf3c46ed9556e43102545888b4987ff06348f2edc5fb73872",
+        "html": "content/user/foundations/native_world/classes/molsysmt_MolecularMechanics.html",
+        "html_sha256": "011fa24bd0e0ed8d6061ff67e6f39376cd850adea75a38a8c4dd331ea60095ec",
+        "local_links_checked": 622,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/molecular_mechanics/get_model_recipe.md",
+        "source_sha256": "e05d28909448c9319ebf676bd5ceed072a573e3d4523a972da9784185f320142",
+        "html": "content/user/tools/molecular_mechanics/get_model_recipe.html",
+        "html_sha256": "c8df1fa8575534d5cd0c0d957696abf2d4e8ad708d65ab751998845568141f19",
+        "local_links_checked": 609,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/build/fixed_state_hydrogens.md",
+        "source_sha256": "a5c549813d5c63e75c8a878fe111b2a27463c5ed76f083a8798ba79a37e3f327",
+        "html": "content/user/tools/build/fixed_state_hydrogens.html",
+        "html_sha256": "e4fe76744edd80355dec8b37318b13f5fb89cf3581d7c05a75de43f783eb41d7",
+        "local_links_checked": 620,
+        "images": 2
+      },
+      {
+        "source": "docs/content/course/Common_Core/07_Selection_Basics.ipynb",
+        "source_sha256": "f11441f4e2f5237a7cf9fe19aa1a7e354f63482a344fcc21b8565125d664bfbc",
+        "html": "content/course/Common_Core/07_Selection_Basics.html",
+        "html_sha256": "8c493268f3c02c9edcd366f9cdc69b168d43a7c417b3b079ca83066cd60cd845",
+        "local_links_checked": 626,
+        "images": 2
+      },
+      {
+        "source": "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb",
+        "source_sha256": "b521fde32f3de46ae8ce5485a476747ba8916f879f302a87240169c570f6bf2c",
+        "html": "content/course/Common_Core/08_Extracting_Molecular_Attributes.html",
+        "html_sha256": "33f3dde7be67710079d60e141fcd1d8d2aeac5735f4653630eace36218bad39a",
+        "local_links_checked": 638,
+        "images": 2
+      },
+      {
+        "source": "docs/content/course/Common_Core/10_Modifying_Molecular_Attributes.ipynb",
+        "source_sha256": "f84150bc96c9553270ced0053ef17ad362ee433dbc448041db5f06e8a16fa314",
+        "html": "content/course/Common_Core/10_Modifying_Molecular_Attributes.html",
+        "html_sha256": "66d212892f67c227674ed96d59ade5748bdb81c02edb338283f0b1982f9fe232",
+        "local_links_checked": 642,
+        "images": 2
+      },
+      {
+        "source": "docs/content/course/Common_Core/18_Extracting_and_Removing_Elements.ipynb",
+        "source_sha256": "d321b5c57d4f61a17548ebbfa5a526f7f31b3bd6f3ee1d17a6c5d789111e0f09",
+        "html": "content/course/Common_Core/18_Extracting_and_Removing_Elements.html",
+        "html_sha256": "0ec78016341d208428653fd3c02f29fb323ef9cf6f95ef323c9c73b73347259b",
+        "local_links_checked": 635,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/basic/get.ipynb",
+        "source_sha256": "e7f698e68c36bbd2190bf15f6c7559a7c3c501892779dc09699390b51e4b972d",
+        "html": "content/user/tools/basic/get.html",
+        "html_sha256": "0dcc7f842645fac578441897c2a3259811246e75cba166b2f21837cd77cd6819",
+        "local_links_checked": 668,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/basic/info.ipynb",
+        "source_sha256": "b8b3e3f53689e029345282d057e5dbe022300bcaddaddfde764839de8805ea97",
+        "html": "content/user/tools/basic/info.html",
+        "html_sha256": "bf6a83b62f0208d9e37f91086a185c73224f1013a2a9ac5260e7f78113198b19",
+        "local_links_checked": 640,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/basic/select.ipynb",
+        "source_sha256": "0eb29914cee182dbb8da7f8caaf88ff4b2ec1ffb884f18f8e8d31575f4c39b9e",
+        "html": "content/user/tools/basic/select.html",
+        "html_sha256": "91810dfb4c28dd2bf447718b4ba2ec7278985efb847ffd9f911c8ccaff68b75a",
+        "local_links_checked": 649,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/basic/extract.ipynb",
+        "source_sha256": "e2c4e4b55b93b43cf78594740ebdbd4f2bdc27b848843cfa3f2b53cd0e168b22",
+        "html": "content/user/tools/basic/extract.html",
+        "html_sha256": "e83620305016a23c6016ce5ee21a0e79005c0a58a3d636b2e9123b0e8559e3a6",
+        "local_links_checked": 624,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/chemical_states/get_bondgraph.ipynb",
+        "source_sha256": "2556f66215d1584affa08e7dd5df3ab0e7249a2eaf83dd5eb6c628d976cce8ae",
+        "html": "content/user/tools/chemical_states/get_bondgraph.html",
+        "html_sha256": "6d89d76169c578185c07cf2c0e275d1cab6bed92a4e3d3a51644156522a8b4a1",
+        "local_links_checked": 622,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/chemical_states/get_rings.ipynb",
+        "source_sha256": "63cdbda1b765ed349056ecc656e0e48b95cc958ac6b2aa6dad9cdeed70223715",
+        "html": "content/user/tools/chemical_states/get_rings.html",
+        "html_sha256": "0e305a6e8bdd8829763bb78f7da0431eeee60e21d0f24b362d897d38bbc195a0",
+        "local_links_checked": 611,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/cookbook/saving_hbond_interactions.ipynb",
+        "source_sha256": "5e6573483b30fa77422157c1f0e796718437bb88cbc0eca121af7d112ce252bc",
+        "html": "content/user/cookbook/saving_hbond_interactions.html",
+        "html_sha256": "b673a575f9c20dacbcb5ddb6d3720ad9bb2ad35658751904d67142624915f3d1",
+        "local_links_checked": 618,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/structure/get_distances.ipynb",
+        "source_sha256": "ff3297db068023199ec2aa3b545fb7f9002f7bfc4a0d1f21a12cc464109a5568",
+        "html": "content/user/tools/structure/get_distances.html",
+        "html_sha256": "ae47ab3f596e664b054efbb69ea8778fa7f8b19ea9cf8387424f4a5c611186b0",
+        "local_links_checked": 635,
+        "images": 5
+      },
+      {
+        "source": "docs/content/user/tools/structure/get_vectors.ipynb",
+        "source_sha256": "cf931ac279157bccd524fbfb9593a16b479e29548cfaa0d7e8243cadae52a256",
+        "html": "content/user/tools/structure/get_vectors.html",
+        "html_sha256": "4697063a095764339adbd49bec0c34a96af2f6fbb9f109c7da9bd38ebed27a7d",
+        "local_links_checked": 625,
+        "images": 4
+      },
+      {
+        "source": "docs/content/user/tools/structure/center.ipynb",
+        "source_sha256": "caf60aa79af75493e3cc4f87e1bda1b2815f8c7431083a0817f329235915fb01",
+        "html": "content/user/tools/structure/center.html",
+        "html_sha256": "b7c089bb82cfd3dfe9a1d6ff2dd9085997f91874a320418f793d17c847072de0",
+        "local_links_checked": 631,
+        "images": 4
+      },
+      {
+        "source": "docs/content/user/tools/structure/get_contacts.ipynb",
+        "source_sha256": "d7d1086d13918ab187a51160c95c87247622457c720be9ef166edf28e671c810",
+        "html": "content/user/tools/structure/get_contacts.html",
+        "html_sha256": "cba76bacd664c1fc51f060668efdf5339ec98715c4ec3626747184d0af674ddc",
+        "local_links_checked": 629,
+        "images": 4
+      },
+      {
+        "source": "docs/content/user/tools/structure/get_neighbors.ipynb",
+        "source_sha256": "0c17e3278c991af1c7ccb942ae152f9117c4f7280c3e0a8c7e6d6a74ee22b3d9",
+        "html": "content/user/tools/structure/get_neighbors.html",
+        "html_sha256": "ffc2be132b39d00bbcb74a75c536b4ae4eda9dec9961b9506a000f524fd52b66",
+        "local_links_checked": 628,
+        "images": 3
+      },
+      {
+        "source": "docs/content/user/tools/structure/get_minimum_distances.ipynb",
+        "source_sha256": "b9c85826935434fb7ba41029b37085ab44dee3bb2f940503f7a8f2c6e91acde4",
+        "html": "content/user/tools/structure/get_minimum_distances.html",
+        "html_sha256": "024c7e14f3917d6fe4c244215c4e426972a0a991faf9e184e5aafc8b5e33e010",
+        "local_links_checked": 633,
+        "images": 3
+      },
+      {
+        "source": "docs/content/user/tools/structure/get_maximum_distances.ipynb",
+        "source_sha256": "a85f5f726453fef4fe420ddbeafb36e17f96c9e8828ed746c8211cf5f50eccdc",
+        "html": "content/user/tools/structure/get_maximum_distances.html",
+        "html_sha256": "c36eacf5350ea19b33b7a123e9c701dbd8020c9d40f1a5b67b01e3c889bf0fca",
+        "local_links_checked": 631,
+        "images": 3
+      },
+      {
+        "source": "docs/content/user/tools/pbc/get_lengths_and_angles_from_box.ipynb",
+        "source_sha256": "e470c5c81dd079846807631de4e476ace240d3e5737b4882d790b08bd7e34d24",
+        "html": "content/user/tools/pbc/get_lengths_and_angles_from_box.html",
+        "html_sha256": "534d480339b0901d1cebab0e3c292a506f114bd2af9d7362d98a2162ba3f0352",
+        "local_links_checked": 613,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/pbc/get_box_from_lengths_and_angles.ipynb",
+        "source_sha256": "40b2561cce0fd01e40d1297afbd816143b9a6ca5068d96737407e37ece935e26",
+        "html": "content/user/tools/pbc/get_box_from_lengths_and_angles.html",
+        "html_sha256": "fdcc7f9eb0dcdc84a17242f61d396f2e6603162327dc3aee1cb46df736536e15",
+        "local_links_checked": 616,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/physchem/get_surface_area.ipynb",
+        "source_sha256": "56d692d6604b5bf9eba7f3db9a2cea4cfbabd87cffa5f71dc28421ca5593f18a",
+        "html": "content/user/tools/physchem/get_surface_area.html",
+        "html_sha256": "16ef1c605e1fb52b628bddb3bc255c9ec6e9cda78cf2e2e7d34ed3181fa36c03",
+        "local_links_checked": 616,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/physchem/get_tpsa.ipynb",
+        "source_sha256": "e8eff6254f7cddbc1f8e4735d7ac43e66a249baa2c5571533f6e549e5ab676e2",
+        "html": "content/user/tools/physchem/get_tpsa.html",
+        "html_sha256": "3d1e06e752712c8661a2b7e52e8b05b0ca331d04bec11dba898348db33369fb5",
+        "local_links_checked": 630,
+        "images": 2
+      },
+      {
+        "source": "docs/content/user/tools/physchem/get_lipophilicity.ipynb",
+        "source_sha256": "9ce4561c5504242552923fb6c4e58723ffbf2e68cd3d5f8604109f4033cba197",
+        "html": "content/user/tools/physchem/get_lipophilicity.html",
+        "html_sha256": "b2dba3a97bb53be310b4ca3ed5e07c96555334b51cefbc31d5de8b47e9c12ea1",
+        "local_links_checked": 629,
+        "images": 2
+      },
+      {
+        "source": "docs/content/course/Common_Core/04_Native_Forms.ipynb",
+        "source_sha256": "8b78ea5ee4a2093733c5b40e596ee16453e61526610ad3fe316446486e9fd165",
+        "html": "content/course/Common_Core/04_Native_Forms.html",
+        "html_sha256": "977da7a979724e436cfde526154ba03f4acbffec36d09de060a1864f4994d17e",
+        "local_links_checked": 719,
+        "images": 2
+      },
+      {
+        "source": "docs/content/course/Common_Core/20_The_Specialized_Domains.ipynb",
+        "source_sha256": "2cd9ee65a68d12d43e86e796507374bd07bf738e8d5acfcc0c13f64f76e4b37f",
+        "html": "content/course/Common_Core/20_The_Specialized_Domains.html",
+        "html_sha256": "98f279b8dbe01e2fdf78d107a85abdcd91b05a36ee379d2c499731e568013ce7",
+        "local_links_checked": 664,
+        "images": 2
+      }
+    ],
+    "html_files": 1401,
+    "parsed_link_target_pages": 259,
+    "png_figures": {
+      "_images/8520ebf7be92bb8b4671b8fda23665cf75441efd573cd0136d91bfbd3f011499.png": {
+        "sha256": "8520ebf7be92bb8b4671b8fda23665cf75441efd573cd0136d91bfbd3f011499",
+        "size": [
+          554,
+          392
+        ]
+      },
+      "_images/f17acaac54e404971391ec6be23d442584b083930e049b9a538d1514b80ae932.png": {
+        "sha256": "f17acaac54e404971391ec6be23d442584b083930e049b9a538d1514b80ae932",
+        "size": [
+          536,
+          392
+        ]
+      },
+      "_images/98b94a910902f8abe1cd6fbf7ad25595817af950001273eb5539f211c0a5c574.png": {
+        "sha256": "98b94a910902f8abe1cd6fbf7ad25595817af950001273eb5539f211c0a5c574",
+        "size": [
+          453,
+          392
+        ]
+      },
+      "_images/2f924e0caa644ad679e190b87ce5232d400def20b4d67c726b44decc68a202f2.png": {
+        "sha256": "2f924e0caa644ad679e190b87ce5232d400def20b4d67c726b44decc68a202f2",
+        "size": [
+          584,
+          438
+        ]
+      },
+      "_images/d64198336762f1dc3e059122cd4161e373b846e483bcb818a24de4ac39f3b7ef.png": {
+        "sha256": "d64198336762f1dc3e059122cd4161e373b846e483bcb818a24de4ac39f3b7ef",
+        "size": [
+          576,
+          433
+        ]
+      },
+      "_images/a4df5bcc3f4a2686cf9a33b9a334cd343e091b80644d2441ce1fb2976c01758c.png": {
+        "sha256": "a4df5bcc3f4a2686cf9a33b9a334cd343e091b80644d2441ce1fb2976c01758c",
+        "size": [
+          536,
+          371
+        ]
+      },
+      "_images/c9bb07824e1f4cdad94a1d7db024915eefc97f7ebd1b426a901d0ca567875a06.png": {
+        "sha256": "c9bb07824e1f4cdad94a1d7db024915eefc97f7ebd1b426a901d0ca567875a06",
+        "size": [
+          536,
+          371
+        ]
+      },
+      "_images/27c8790edb4684fab829de3fd831f9666c5096fe578a3b3e65fd2eee9288b946.png": {
+        "sha256": "27c8790edb4684fab829de3fd831f9666c5096fe578a3b3e65fd2eee9288b946",
+        "size": [
+          584,
+          494
+        ]
+      },
+      "_images/f278e441a81ed562fa02abeb384e3ecee54e418d1326bb22d49c10b61e1bf765.png": {
+        "sha256": "f278e441a81ed562fa02abeb384e3ecee54e418d1326bb22d49c10b61e1bf765",
+        "size": [
+          584,
+          493
+        ]
+      },
+      "_images/02617c1b16156c52187322379d16e09d27b1631b43b0851966fee2c8c82e3c4a.png": {
+        "sha256": "02617c1b16156c52187322379d16e09d27b1631b43b0851966fee2c8c82e3c4a",
+        "size": [
+          890,
+          440
+        ]
+      },
+      "_images/935655402f1e72ccd9b276197a2cc7109826622b80679f3bf763d89924ba8d18.png": {
+        "sha256": "935655402f1e72ccd9b276197a2cc7109826622b80679f3bf763d89924ba8d18",
+        "size": [
+          890,
+          440
+        ]
+      },
+      "_images/e6a736d0b6eac43164dc0b4991b93a6097c5f4d2fa3b468f2de2e0f2b28d2c82.png": {
+        "sha256": "e6a736d0b6eac43164dc0b4991b93a6097c5f4d2fa3b468f2de2e0f2b28d2c82",
+        "size": [
+          890,
+          440
+        ]
+      }
+    },
+    "downloads": [],
+    "article_count": 54,
+    "state": "passed"
+  },
+  "browser_receiving": {
+    "scope": "Local static documentation reading only, no molecular canvas, Jupyter, installed pair or client qualification.",
+    "browser": "157.0.8103.38",
+    "pages": [
+      {
+        "name": "units-input",
+        "path": "content/user/foundations/governance/quantities_and_units.html",
+        "errors": [],
+        "localErrors": [],
+        "bounds": {
+          "x": 306,
+          "y": 209.515625,
+          "width": 690.78125,
+          "height": 661.6875
+        },
+        "screenshot": "<checkout>/.pytest_cache/independent-pre1-334-20261116/reading-final/units-input.png",
+        "title": "Quantities & Units \u2013 MolSysMT 0.23.0"
+      },
+      {
+        "name": "units-context",
+        "path": "content/user/foundations/governance/quantities_and_units.html",
+        "errors": [],
+        "localErrors": [],
+        "bounds": {
+          "x": 306,
+          "y": 246.71875,
+          "width": 690.78125,
+          "height": 585.6875
+        },
+        "screenshot": "<checkout>/.pytest_cache/independent-pre1-334-20261116/reading-final/units-context.png",
+        "title": "Quantities & Units \u2013 MolSysMT 0.23.0"
+      },
+      {
+        "name": "copy",
+        "path": "content/user/cookbook/copying_disk_systems.html",
+        "errors": [],
+        "localErrors": [],
+        "bounds": {
+          "x": 306,
+          "y": 266.515625,
+          "width": 690.78125,
+          "height": 734
+        },
+        "screenshot": "<checkout>/.pytest_cache/independent-pre1-334-20261116/reading-final/copy.png",
+        "title": "Copying a stored system \u2013 MolSysMT 0.23.0"
+      },
+      {
+        "name": "chemical-owner",
+        "path": "content/user/cookbook/querying_sparse_interactions.html",
+        "errors": [],
+        "localErrors": [],
+        "bounds": {
+          "x": 306,
+          "y": 330.921875,
+          "width": 690.78125,
+          "height": 419
+        },
+        "screenshot": "<checkout>/.pytest_cache/independent-pre1-334-20261116/reading-final/chemical-owner.png",
+        "title": "Comparing sparse interactions across structures \u2013 MolSysMT 0.23.0"
+      },
+      {
+        "name": "tpsa",
+        "path": "content/user/tools/physchem/get_tpsa.html",
+        "errors": [],
+        "localErrors": [],
+        "bounds": {
+          "x": 306,
+          "y": 901.6875,
+          "width": 690.78125,
+          "height": 49.5
+        },
+        "screenshot": "<checkout>/.pytest_cache/independent-pre1-334-20261116/reading-final/tpsa.png",
+        "title": "Get TPSA \u2013 MolSysMT 0.23.0"
+      },
+      {
+        "name": "lipophilicity",
+        "path": "content/user/tools/physchem/get_lipophilicity.html",
+        "errors": [],
+        "localErrors": [],
+        "bounds": {
+          "x": 306,
+          "y": 928.078125,
+          "width": 690.78125,
+          "height": 49.5
+        },
+        "screenshot": "<checkout>/.pytest_cache/independent-pre1-334-20261116/reading-final/lipophilicity.png",
+        "title": "Get lipophilicity \u2013 MolSysMT 0.23.0"
+      },
+      {
+        "name": "surface-area",
+        "path": "content/user/tools/physchem/get_surface_area.html",
+        "errors": [],
+        "localErrors": [],
+        "bounds": {
+          "x": 306,
+          "y": 506.25,
+          "width": 690.78125,
+          "height": 67
+        },
+        "screenshot": "<checkout>/.pytest_cache/independent-pre1-334-20261116/reading-final/surface-area.png",
+        "title": "Get surface area \u2013 MolSysMT 0.23.0"
+      }
+    ],
+    "externalBlocked": [
+      "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js",
+      "https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js",
+      "https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js",
+      "https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js",
+      "https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js",
+      "https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js",
+      "https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js",
+      "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js",
+      "https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"
+    ],
+    "passed": true
+  },
+  "visual_review": {
+    "state": "Seven initial views and final corrected input/context/copy/chemical-owner/ISA views inspected. Folded new long code lines without changing scientific semantics.",
+    "limits": "Local static reading only. Fourteen expected external RequireJS/NGLView CDN requests blocked offline; no live molecular canvas, selected 7.4 kernel, hosted, Qt, GPU or installed-pair qualification. Original warning output retained.",
+    "download_scope": "No downloadable assets offered by these 54 selected article links; no nonexistent download capability is claimed."
+  },
+  "intake": {
+    "scope": "Complete owner paginated all-state issue endpoint and separate all-page open-PR endpoint; service coverage limitation retained.",
+    "acquired_issue_identities": 626,
+    "open_issues_at_preclosure_checkpoint": 84,
+    "open_prs": 0,
+    "new_issue_numbers_since_initial": [
+      769,
+      770,
+      771
+    ],
+    "new_external_correctness_report": "None returned after the initial scope freeze; three owner-discovered findings handled.",
+    "known_valid_local_reports_unavailable": 55,
+    "unavailable_disposition": "Keep valid local history; remote absence is unavailable/unknown, not proof no such issue exists.",
+    "raw_inventory_sha256": "c104775c8b718d22131918082cfbc56a61a445a7228ae14fc73e00ca2f1cbf35",
+    "raw_pr_inventory_sha256": "1b93b338969f2df9866a148ef4c9b58a7ef819a7590120ccbd4c468a90c97f63"
+  },
+  "consumer_checkpoint": {
+    "repository": "uibcdf/molsysviewer",
+    "source_commit": "c08d4990245bb6cad81160ea742e0bb544556738",
+    "path": "devguide/live_capture_preparation_receiving_20261117.json",
+    "git_blob_sha1": "d9835a0957f4dff833c7cbb474f68d06937496ab",
+    "sha256": "129c96ceb665158f93fc8fe794cbf6f0fae250b72009c5ff15b2b17d117e66bf",
+    "bytes": 14708,
+    "scope": "Public owner report independently acquired and blob-verified; private raw logs and complete campaigns not replayed.",
+    "disposition": "Owner c08d4990 reports guarded capture corrections, 1018 complete 8/8 and separate Movie receiving. Original 1017 popup-open timeout cause remains unknown; #344 stays open. Covering Linux CI reported in progress by owner, not independently inspected here. No new MolSysMT scientific defect established. No new matrix/artifact requested; private raw campaigns not replayed."
+  },
+  "source_change_boundary": {
+    "production_molecular_addon_rust_manifest_delta": [],
+    "native_sha256": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "new_public_api": false,
+    "dependency_installation_or_floor_change": false,
+    "shared_environment_or_process_mutation": false,
+    "native_rebuild": false
+  },
+  "resources": {
+    "execution": "Sequential owned systemd process families. One CPU, 2 GiB for selected controls/examples/static browser; 3 GiB for site builds; swap disabled per cgroup; finite watchdog and 6.5 GiB host reserve.",
+    "observations_are_not_reservations": true,
+    "maximum_measured_family_bytes": 1439686656,
+    "minimum_host_available_bytes": 16900141056,
+    "resource_stops_or_oom": false,
+    "retirement": "All fifteen owned systemd families observed inactive with MainPID=0 after their native terminal results. Unrelated processes/prefixes untouched.",
+    "retirement_receipt_sha256": "c54b92c8068a05f0629f97878fb26cd764f87947c403bc7a7518058cdff1c46a"
+  },
+  "remaining_required": [
+    "MolSysViewer disposition of #344 and covering source gates, then an exact final source offer.",
+    "Coordinated compatible producer metadata, actual clean SHAs/triggerable refs and unused builds selected after agreed resumption.",
+    "Exact-source/native/scientific/documentation and sixteen-cell installed-pair qualification on the actual final artifacts.",
+    "Diego scientific/editorial documentation review and publication decision; release/public installation/Zenodo verification after authorization."
+  ],
+  "global_scorecard_change": 0,
+  "private_evidence": {
+    "root": ".pytest_cache/independent-pre1-334-20261116",
+    "state": "Original failed and passing execution records, before/after input manifests, logs, JUnit/Receptor streams, notebook runtime marks, HTML/doctrees and both screenshot sets retained locally. Public report is sanitized and does not claim private raw client evidence was replayed.",
+    "sha256": {
+      "article-receiving-final.json": "86bf5f1629313877da4a1948eb7cd75647232be48ee39393f0b2e7f4e3ac2063",
+      "article-receiving.json": "6dd97eb10dfc2f04adbb9efa5fef1294fbb285b2f85b080690bdc2005f806e9b",
+      "articles-corrected-execution.json": "114afb935453c99ec4e017dc1812fa9fa2b8c1f0368d3bfe962dd20a0ccd51a2",
+      "articles-corrected-inputs-after.json": "604f956df8b759582c490bdc68526739edc3ac5f6c61351f433deba88432af2c",
+      "articles-corrected-inputs-before.json": "604f956df8b759582c490bdc68526739edc3ac5f6c61351f433deba88432af2c",
+      "articles-execution.json": "0e3f83591bdfcbf934eb892ed93ab00787235de4575ebd0a885d2e566e035a4a",
+      "articles-inputs-after.json": "defb2a26294de6c0d762178a7b6c63823b2fa3bfde81a628e71af38315959c10",
+      "articles-inputs-before.json": "defb2a26294de6c0d762178a7b6c63823b2fa3bfde81a628e71af38315959c10",
+      "baseline-execution.json": "fb38b346af691d9fa88836892d7d22e1608b55ea42d1c616108b1b00e966509b",
+      "baseline-inputs-after.json": "5b5352341ae98dd4c23a2b493d0f90c6a0b30e2a4831cdd4065597720eabb196",
+      "baseline-inputs-before.json": "5b5352341ae98dd4c23a2b493d0f90c6a0b30e2a4831cdd4065597720eabb196",
+      "batches.json": "c9df2b4a4492588a2376b45bab55494e4970835c4518add77bfb2bfed865896e",
+      "browser-receiving.json": "7dc1bde7d295187fa3fc4b18128129f8a7242895a76543b434fa8256dc67c713",
+      "checks-execution.json": "1417cbb0a7d4b3cf288c7e1251743ee27f4f5ca535f2ed0d793ce8f76cdadd63",
+      "checks-inputs-after.json": "defb2a26294de6c0d762178a7b6c63823b2fa3bfde81a628e71af38315959c10",
+      "checks-inputs-before.json": "defb2a26294de6c0d762178a7b6c63823b2fa3bfde81a628e71af38315959c10",
+      "cohort-execution.json": "06d862f325744445bb4ea4f53aa19284c6def9fbcd8a42d60f4d8c820a1e2c2a",
+      "cohort-inputs-after.json": "46168da3c977af62dc8f6787bdce9fa581f1edec05317826685c21059d007482",
+      "cohort-inputs-before.json": "46168da3c977af62dc8f6787bdce9fa581f1edec05317826685c21059d007482",
+      "commands.json": "9c465cf58af6a6647f73629acd3ef09134a6aa2c29a5a296af77ab6169ff5061",
+      "corrected-execution.json": "28ba994e4a1e106c54050b7ecf7f980d81a551ab844627f3b2ab5659c801cd8d",
+      "corrected-inputs-after.json": "8f2cc5412df45ebf405ae5885c50709e6f7c4bd4e9d0fe96c752352ade9d1c1f",
+      "corrected-inputs-before.json": "8f2cc5412df45ebf405ae5885c50709e6f7c4bd4e9d0fe96c752352ade9d1c1f",
+      "course-corrected-execution.json": "334ec976d2c889398139a95d32f586545bc6830dcae36b41a9435c1169a6b9f9",
+      "course-corrected-inputs-after.json": "17bae039c0a273a606430c77250c4612155b57c0ab62debfd3513c88b314d0b2",
+      "course-corrected-inputs-before.json": "17bae039c0a273a606430c77250c4612155b57c0ab62debfd3513c88b314d0b2",
+      "focused-execution.json": "66760ce7a3855ae4800f88f10bca810f6abc632e365b4a6a5c6b878f6fa4a5c9",
+      "focused-inputs-after.json": "604f956df8b759582c490bdc68526739edc3ac5f6c61351f433deba88432af2c",
+      "focused-inputs-before.json": "604f956df8b759582c490bdc68526739edc3ac5f6c61351f433deba88432af2c",
+      "html-execution.json": "90565d29f6289522355fbbad0880c1ba50ce2ff04753951a8fd825aa89b4c08e",
+      "html-inputs-after.json": "1a6be13a16de071a9dbad485de81a1853ea4c819f6b46d3bab8732815bcb03d7",
+      "html-inputs-before.json": "1a6be13a16de071a9dbad485de81a1853ea4c819f6b46d3bab8732815bcb03d7",
+      "html2-execution.json": "891bdc68c130b6b300ad8156402f042ebdfd8357495fa0941d136b5798415d11",
+      "html2-inputs-after.json": "f56dae24ec421545525cc96dfbc16c4fcde92bb0bf071d68a6b9baf69480b45c",
+      "html2-inputs-before.json": "f56dae24ec421545525cc96dfbc16c4fcde92bb0bf071d68a6b9baf69480b45c",
+      "metadata-preflight.json": "aa457ae1824715b45bff16cdea62f7ab002a07725c4e7cfbf71d585872b9a0e1",
+      "native-notebooks-execution.json": "132eb36a403a8b738921fb740f3565e7a77dcfd44566f499de9e6127d95f61ad",
+      "native-notebooks-inputs-after.json": "17bae039c0a273a606430c77250c4612155b57c0ab62debfd3513c88b314d0b2",
+      "native-notebooks-inputs-before.json": "17bae039c0a273a606430c77250c4612155b57c0ab62debfd3513c88b314d0b2",
+      "pytest-artifact-receiving.json": "e4abd38d4808374d3986445f52bbad7cbc6791026c23da4b4564a094d2b513a2",
+      "quality-results.json": "a623433fc47dae409c1b9e2e809d5674d5439e01acbf04831c3dc72167d2240f",
+      "receiving-execution.json": "c57d20e68c36468b751529ca02c00f261c5116e01563b5166850b7844e275823",
+      "receiving-inputs-after.json": "1265a4ae4c98ee5238cc557231aea1d5ac267abb5ea6de7286ca0eb9c88b6716",
+      "receiving-inputs-before.json": "1265a4ae4c98ee5238cc557231aea1d5ac267abb5ea6de7286ca0eb9c88b6716",
+      "remaining-runtime.json": "64bd76bd7307715843324bc587446a09d9f8750fc200ce963faee75b72ece46d",
+      "runtime-qualified-execution.json": "e0d58a559cc7d9f9ff7fcc0c28b0119653fd6491091177c0faec0166ebe6b9a2",
+      "runtime-qualified-inputs-after.json": "eb6ae6b6df85b979470f3a1cf34f87a8debd66ac7a43ed002953025c935af627",
+      "runtime-qualified-inputs-before.json": "eb6ae6b6df85b979470f3a1cf34f87a8debd66ac7a43ed002953025c935af627",
+      "unavailable-issue-identities.json": "64def48eebdc2b996116350b73d96e988b8037659c5c3fa28ca13b76650e0d48",
+      "valid-baseline-execution.json": "eb784d3228407ca761b0a0ff1dfc0eecb030834373b8d060422d71f71bf1707a",
+      "valid-baseline-inputs-after.json": "eb816a55bf38e3cf94c734400d17d0781b30d3db5e95e860ea17d0134b5379ee",
+      "valid-baseline-inputs-before.json": "eb816a55bf38e3cf94c734400d17d0781b30d3db5e95e860ea17d0134b5379ee"
+    }
+  },
+  "final_quality_checks": [
+    {
+      "command": [
+        "ruff",
+        "check",
+        "--extend-exclude",
+        ".aws",
+        "."
+      ],
+      "native_exit": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "ruff",
+        "format",
+        "--check",
+        "--extend-exclude",
+        ".aws",
+        "."
+      ],
+      "native_exit": 0,
+      "stdout": "4749 files already formatted\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<development-prefix>/bin/python",
+        "devtools/scripts/validate_devguide.py"
+      ],
+      "native_exit": 0,
+      "stdout": "Developer-guide validation passed.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<development-prefix>/bin/python",
+        "devtools/scripts/devguide_index.py",
+        "--check"
+      ],
+      "native_exit": 0,
+      "stdout": "Every queue index is up to date.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<development-prefix>/bin/python",
+        "devtools/scripts/validate_course.py"
+      ],
+      "native_exit": 0,
+      "stdout": "Course structure valid: 156 notebooks (20 core + 4x34 paths), toctrees, manifest, and labels consistent.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<development-prefix>/bin/python",
+        "devtools/scripts/validate_notebook_schemas.py"
+      ],
+      "native_exit": 0,
+      "stdout": "Notebook schemas valid: 501 stored sources; no repairs.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<development-prefix>/bin/python",
+        "devtools/scripts/audit_dependency_contract.py"
+      ],
+      "native_exit": 0,
+      "stdout": "Dependency contract audit: PASS (public requirements and declared routes agree)\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<development-prefix>/bin/python",
+        "devtools/scripts/validate_citation.py"
+      ],
+      "native_exit": 0,
+      "stdout": "Citation metadata: PASS\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "native_exit": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

@@ -107,7 +107,7 @@ attributes. Failure leaves the source unchanged.
 
 ## Saving and retaining provenance
 
-Save `molsys_with_h` using the public H5MSM 0.5 conversion. It preserves the
+Save `molsys_with_h` using the default public H5MSM 1.0 conversion. It preserves the
 expanded chemical/coordinate domains, invalidated named analyses and historical
 preparation reports, even with `return_report=False`. Inspect independent copies
 through `molsys_with_h.chemical_states.get_preparation_history()`. Successful

@@ -31,7 +31,7 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
-| Execute the independent MolSysMT queue while the final consumer is pending | The maintainer selects [I0–I5](technical_handoff_for_1_0_documentation_review.md#independent-molsysmt-work-queue--2026-11-16): evidence/scope map, semantic reading, bounded native examples/corrections, existing qualification-route preflight, local rendered documentation and closeout. Start with I0; I3 is prepared in part, while the queue's execution is not yet completed. This uses the existing #334 scope and adds no feature or global scorecard credit. |
+| Preserve the completed independent local queue and prepare the final-pair handoff | [I0–I5](technical_handoff_for_1_0_documentation_review.md#independent-molsysmt-work-queue--2026-11-16) now has [finite local receiving](../devtools/data/independent_native_work_334_20261116.json): 54 selected files, #769–#771 corrected/guarded, 159 offline controls, four complete notebooks, strict 1,401-page site and scoped article/browser review. This completes the local queue, not the final-pair gates or Diego's review. Preserve its actual runtime/source limits and the preparation/publication pause; no new global scorecard credit. |
 | Preserve #768's current governance adoption | The single actual caller now selects policy-v1.6.0; published tag, guide bytes and root/nested semantic/resource review are received. Official conformance rejects the old caller and accepts the correction, published-policy adoption reports CURRENT, and registered guide checking passes. The [owner record](archive/resolved_proposals/adopt_policy_v1_6_0_and_receive_resource_guidance.md) retains measured whole-family limits and the absence of a reservation/aggregate-protection claim. #764 remains historical; hosted qualification stays intentionally unexecuted under the maintainer's cadence. |
 | Preserve MolSysViewer's current-source client receiving | Its published profile `897` reports 55 selected cases passing on exact owner `96988b6ea`, reused native `4ffb82e4` and its recorded client/support-source composition. The [bounded review](../devtools/data/viewer_current_source_client_review_256_524_20261115.json) verifies eleven public Git blobs, the actual five guard modules/helpers and source identities; private raw execution records are not replayed. Session persistence, maps, coverage, edit invalidation, append and independent geometric projection remain exercised source contracts. This does not close #256/BindingMT #73, #524, #615 or final installed acceptance. |
 | Preserve #759–#761 peptide and documentation receiving | The [peptide report](archive/resolved_bugs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md) retains explicit caps and measured initial torsions without new builder APIs. The final selected cohort passes 23 cases without skips; the full seven-cell lesson executes under ordinary and explicit pm/fs/degrees policies. Strict Sphinx renders 1,401 HTML files without warnings, and the local browser receives the 109-atom saved model. The [receipt](../devtools/data/peptide_course_receiving_759_761_20261115.json) also retains the supported structure-generator namespace and 713 corrected author links. No production/native/dependency change or #615/final-pair disposition follows. |
@@ -67,18 +67,78 @@ have source receiving, separate from human/installed/platform qualification.
 The accepted initial-canvas disposition now gives **80.2381% (approximately 80.2%)**.
 The dated percentages below remain historical, not the current score.
 
-## Independent local work selected — 2026-11-16
+## Independent local queue completed — 2026-11-17
 
-The maintainer requests an explicit work plan while MolSysViewer finishes its
-own gates. The [existing handoff plan](technical_handoff_for_1_0_documentation_review.md#independent-molsysmt-work-queue--2026-11-16)
-now owns a finite I0–I5 execution queue. Its first deliverable is an evidence-
-matched file/cohort map; existing HTML or execution receipts are reviewed for
-applicability before choosing repeats. Native documentation/examples and local
-qualification preparation can proceed independently of a new consumer candidate.
-Routine status receipt does not substitute for that work. The new queue is
-planned, not executed; final-pair construction, qualification and publication
-retain their existing dependencies and pause. Original milestone weights and
-the 80.2381% checkpoint are unchanged.
+The maintainer-selected [I0–I5 queue](technical_handoff_for_1_0_documentation_review.md#independent-molsysmt-work-queue--2026-11-16)
+has its [finite receiving record](../devtools/data/independent_native_work_334_20261116.json).
+The file/cohort map was frozen before execution: 54 files spanning the maintained
+reading route, native domains, relevant course units and scientific examples.
+Twenty previously executed notebooks retain their original bounded evidence;
+matching code/input and relevant implementation changes were reviewed instead
+of repeating those campaigns for another count.
+
+Three admitted findings are corrected and guarded:
+
+- [#769](archive/resolved_bugs/native_cookbook_recipes_retain_retired_chemistry_ownership_and_stale_h5msm_defau.md):
+  removed Topology chemistry ownership and stale H5MSM-default explanations in
+  recipes/course; explicit ChemicalStates notification, evaluated-empty
+  invalidation and independent old snapshots now accompany the explanation.
+- [#770](archive/resolved_bugs/unit_foundations_examples_use_undefined_systems_and_unavailable_coordinate_api.md):
+  executable quantity equivalence and scoped backend/unit policy replace an
+  undefined system and unavailable API. Bare-array admission is operation-specific.
+- [#771](archive/resolved_bugs/installed_dependency_closure_guard_simulates_a_provider_below_the_maintained_flo.md):
+  obsolete positive dependency fixtures are corrected without lowering runtime
+  floors or weakening direct/transitive refusal.
+
+The expanded offline batch passes 159 cases without skips; seven final example
+controls pass after visual code folding. Four complete notebooks execute with
+32 distinct code cells, and six Markdown descriptor/model runs pass under
+ordinary and pm/fs policies. The complete strict site renders 1,401 HTML files;
+the final affected pages also rebuild strictly. All 54 selected articles, local
+links/anchors and twelve figures pass inspection. Seven offline browser reading
+views are received, with expected external legacy CDNs blocked. This is static
+documentation, not live-canvas qualification. Original failures, including an
+incorrect initial test ordering assumption, remain recorded with their actual
+dispositions.
+
+The existing environment actually uses ipykernel 7.3.0 for this native-only
+notebook cohort; it is not the separately qualified >=7.4.0 visualization host.
+No shared-prefix upgrade or new graphical receiving is implied. Actual import
+origins, generated version stamp, source/native hashes and measured resource
+limits are retained. Peak owned-family memory is about 1.34 GiB; host available
+memory stays above the 6.5 GiB watchdog reserve, with no resource stop or OOM.
+No molecular/addon/Rust implementation, dependency floor or native binary changes.
+
+The [contract packet](pre_1_0_contract_closeout.md#independent-offline-preflight--2026-11-17)
+now names the existing execution routes and missing final identities. Its
+seven-surface metadata draft remains unapplied. The intake acquires 626 issue
+identities and zero open PRs; 55 valid historical report identities remain
+unavailable through the service and are preserved as unknown. The three new
+findings are local; no additional external correctness report enters this
+frozen cohort. Open post-1.0 work is not a reason to expand the completed queue.
+
+The local reader preview is retained at
+`.pytest_cache/independent-pre1-334-20261116/html/index.html`, with its command,
+input identities and separate execution/rendering receipts. Use the maintained
+[reading route](technical_handoff_for_1_0_documentation_review.md#review-packet-and-reader-route).
+It is a development preview, not the final published site or the declaration that
+only Diego's content review remains. Final consumer disposition, exact producer
+selection and all mandatory final-pair gates remain due; construction, hosted
+qualification and publication stay paused. The original weighted 80.2381%
+checkpoint is unchanged.
+
+### Current consumer return — 2026-11-17
+
+MolSysViewer reports source `c08d4990245bb6cad81160ea742e0bb544556738` with two
+guarded capture corrections. Its [published report](https://github.com/uibcdf/molsysviewer/blob/c08d4990245bb6cad81160ea742e0bb544556738/devguide/live_capture_preparation_receiving_20261117.json)
+is independently acquired as Git blob `d9835a0957f4dff833c7cbb474f68d06937496ab`,
+SHA-256 `129c96ceb665158f93fc8fe794cbf6f0fae250b72009c5ff15b2b17d117e66bf`.
+The owner records complete work-file 1018 receiving, all eight moving cases,
+and separate Movie passes. The original 1017 popup-open timeout at 30 seconds
+has no established cause; #344 stays open. Covering source CI is reported in
+progress by the owner, not independently inspected here. The earlier failed
+run and all narrower passes retain their identities. No new provider scientific
+defect, new matrix request, final source freeze or publication permission follows.
 
 ## MolSysViewer camera/IPC receiving and reopened capture gate — 2026-11-16
 

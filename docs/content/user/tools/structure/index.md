@@ -2,7 +2,7 @@
 
 |      |      |
 | :--- | :--- |
-| [Get pairwise RMSD](get_pairwise_rmsd.ipynb) | Comparing a bounded original-frame population with retained identities |
+| [Get pairwise RMSD](get_pairwise_rmsd.ipynb) | Comparing a bounded structure population with retained original indices |
 | [Get distance clusters](get_distance_clusters.ipynb) | Grouping physical dissimilarities with explicit linkage and cutoff |
 | [Get symmetry corrected rmsd](get_symmetry_corrected_rmsd.ipynb) | Comparing declared chemical correspondence and original Cartesian geometry |
 | [Align principal axes](align_principal_axes.ipynb) | Aligning the principal inertia or geometric axes of a molecular system over a reference coordinates axes |

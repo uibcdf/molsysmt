@@ -109,7 +109,7 @@ of plain dictionary forms retain Python's shallow semantics. See
 {ref}`Native Copying <user-foundations-resident-copying>`.
 
 Attach the complete result to a native molecular system to keep its atom and
-structure index spaces together. H5MSM 0.5 stores the named analysis alongside
+structure index spaces together. H5MSM 1.0 stores the named analysis alongside
 the structures. The same query works after loading it:
 
 ```python
@@ -193,9 +193,9 @@ reference to the source file would not be an independent candidate.
 ## Editing a structure
 
 An atom that had no previous interactions can acquire one after moving. Reset
-the evaluated status of the affected frames before a new calculation. Native
+the evaluated status of the affected structures before a new calculation. Native
 `MolSys` coordinate and box setters do this for all attached named analyses,
-even for a frame previously evaluated with no observations:
+even for a structure previously evaluated with no observations:
 
 ```python
 molsys_edited = molsys.copy(deep=False)
@@ -220,7 +220,7 @@ with TemporaryDirectory() as directory:
     ].size == 0
 ```
 
-Now simulate a recalculation of frame 1 with one synthetic hydrogen bond:
+Now simulate a recalculation of structure 1 with one synthetic hydrogen bond:
 
 ```python
 fresh_record = {**records[0], "structure_index": 1,
@@ -251,12 +251,12 @@ with TemporaryDirectory() as directory:
     ].tolist() == [2, 1, 0]
 ```
 
-`replace_structures` replaces every frame evaluated by the new result, including
-frames recalculated with zero observations. It checks axes, source maps, method,
+`replace_structures` replaces every structure evaluated by the new result, including
+structures recalculated with zero observations. It checks axes, source maps, method,
 scientific parameters, producer versions, units and atom scope. Execution mode
 and block counts may differ; `restored.execution_records` preserves the producing
-calculation for each evaluated frame, including empty ones. Recalculation must retain
-the original system axes and scope; an extracted frame has different local axes.
+calculation for each evaluated structure, including empty ones. Recalculation must retain
+the original system axes and scope; an extracted structure has different local axes.
 The unchanged observation blocks are shared. New occurrence handles belong to
 the updated version; old views remain snapshots of the earlier result.
 The recipe explicitly attaches `updated.compact()` to release references to
@@ -323,13 +323,13 @@ The synthetic records above show the container without requiring a detector.
 For a molecular system with eligible cysteine sulfur atoms, the disulfide
 candidate detector can instead return an `Interactions` result with
 `output_type="molsysmt.Interactions"`. Attach that result under a name in
-`molsys.interactions` before writing H5MSM 0.5. Its geometric S–S candidates
+`molsys.interactions` before writing H5MSM 1.0. Its geometric S–S candidates
 do not assert that a covalent bond exists in the chemical state.
 
 `msm.interactions.hbonds.get_buch_hbonds(...,
 output_type="molsysmt.Interactions")` supplies the same workflow for Buch
 hydrogen bonds, with donor, hydrogen, and acceptor roles and H-A distances in
-nm. Coverage includes evaluated frames with no bonds. A covalently attached
+nm. Coverage includes evaluated structures with no bonds. A covalently attached
 donor hydrogen remains a participant even if the atom selection named only
 its donor. The optional result supports automatic roles in one selection or
 two disjoint participant universes; it does not yet stream large trajectories.
@@ -338,7 +338,7 @@ two disjoint participant universes; it does not yet stream large trajectories.
 output_type="molsysmt.Interactions")` returns the same sparse result contract,
 with D-A distance in nm and H-D-A angle in rad. Both D-H and D-A periodic
 images use the donor as reference and reproduce the angular calculation.
-It preserves empty evaluated frames and the calculation-time software version.
+It preserves empty evaluated structures and the calculation-time software version.
 
 Use {doc}`the interaction result guide <../tools/interactions/result>` for
 role, unit, and evaluated atom-scope conventions. The example uses the default
@@ -376,8 +376,8 @@ allocation. See {ref}`MolSys copies <user-foundations-molsys-copying>` and
 Geometry edits through `msm.set(molsys, coordinates=..., structure_indices=[...])`,
 `molsys.structures.set_coordinates(...)` or their box setters automatically
 replace affected named results with snapshots
-whose edited frames are unevaluated. They remove old observations and preserve
-untouched frames and previous query views. This is conservative per-structure
+whose edited structures are unevaluated. They remove old observations and preserve
+untouched structures and previous query views. This is conservative per-structure
 invalidation, even when only one atom moved; it does not calculate new results.
 Full `coordinates`/`box` assignments on the attached domain do the same.
 For raw/private storage writes, whole-domain replacement or other unobserved
@@ -422,9 +422,10 @@ assert molsys.interactions['example'].n_interactions == 0
 assert previous_ring_view.n_interactions == 1
 ```
 
-Chemical-state setters invoked on `molsys.topology` also notify the owner, as
-do its native bond addition/removal and full `bonds` replacement. A standalone
-topology copy is detached. If your client subclasses `MolSys`, `Topology` or
+Chemical-state edits on `molsys.chemical_states` notify the owning system,
+including native bond addition/removal and full `bonds` replacement. Topology
+has no chemical setters or bond table. A standalone ChemicalStates copy is
+detached from the owner. If your client subclasses `MolSys`, `Topology` or
 `ChemicalStates`, it can inherit the native constructor and use ordinary validated
 count arguments. Copying preserves supported subclass attributes without calling
 that constructor again; the subclass still needs its own form integration if it
@@ -451,8 +452,24 @@ domain without changing the stable inventory or molecule membership:
 from molsysmt.native import MolSys
 
 molsys = MolSys(n_atoms=2)
+molsys.structures = Structures(
+    coordinates=msm.pyunitwizard.quantity(np.zeros((1, 2, 3)), 'nm')
+)
+empty_analysis = msm.Interactions.from_records(
+    [], n_atoms=2, n_structures=1, evaluated_structure_indices=[0],
+    method='synthetic_empty_example',
+)
+molsys.interactions = {'before_bond_edit': empty_analysis}
+old_coverage = molsys.interactions['before_bond_edit']
+chemical_snapshot = molsys.chemical_states.copy()
 molsys.chemical_states.add_bonds([[0, 1]])
-assert molsys.chemical_states.get_bonds()[["atom1_index", "atom2_index"]].values.tolist() == [[0, 1]]
+bonds = molsys.chemical_states.get_bonds()
+assert bonds[["atom1_index", "atom2_index"]].values.tolist() == [[0, 1]]
+after_bond_edit = molsys.interactions['before_bond_edit']
+assert after_bond_edit.evaluated_structure_indices.size == 0
+assert old_coverage.evaluated_structure_indices.tolist() == [0]
+assert chemical_snapshot.get(n_bonds=True) == 0
+assert molsys.topology.n_atoms == 2
 assert not hasattr(molsys.topology, "bonds")
 ```
 
@@ -475,7 +492,7 @@ analysis continue to use atom and structure indices. See
 MolSysViewer consumes named `Interactions` analyses through its native backend
 and `view.interactions` API; no MolSysMT addon needs to be enabled. Keep an
 analysis associated with the correct molecular system and its declared index
-maps before displaying it. For persistence, use the documented public H5MSM 0.5
+maps before displaying it. For persistence, use the documented public H5MSM 1.0
 conversion paths. MolSysViewer owns canvas rendering and saved scene/session
 state; these are separate from the scientific analysis stored by MolSysMT.
 

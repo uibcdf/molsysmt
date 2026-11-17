@@ -3,7 +3,9 @@
 
 Welcome to **The Native World**, the architectural home of MolSysMT's native object representations, containers, data dictionaries, file handlers, and storage formats. While MolSysMT seamlessly interoperates with dozens of third-party libraries and external file formats, its core engine relies on native data structures designed for high flexibility, fast querying, and lossy-free serialization.
 
-The 15 native forms in MolSysMT are organized below into three primary categories: **Classes**, **Files**, and **File Handlers**.
+The native forms are organized below into three categories: **Classes**,
+**Files**, and **File Handlers**. Each form's reference describes its supported
+attributes and conversion boundaries.
 
 Logical independence does not always require duplicating numeric bytes. An
 `Interactions` copy owns independent mutable metadata and array headers while
