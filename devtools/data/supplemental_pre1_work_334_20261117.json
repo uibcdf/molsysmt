@@ -1,0 +1,2855 @@
+{
+  "schema": "molsysmt.supplemental_pre1_receiving@1",
+  "date": "2026-11-17",
+  "owner": "uibcdf/molsysmt#334",
+  "source_base": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+  "state": "finite_local_queue_complete; final publication pair not qualified",
+  "source_identity": "Source base plus the recorded worktree/input hashes; the enclosing published commit delivers these bytes. An old editable build stamp is not the current source SHA.",
+  "scope": "Maintainer-selected B0-B5 waiting-period cohort. No candidate construction, new hosted matrix, clean installed pair, tag, promotion or publication.",
+  "blocks": {
+    "B0": {
+      "state": "complete",
+      "dispositions": {
+        "#292": "Resolved bounded portable interaction-result adoption, keeping the compatible wrapper. No broad #27 rollout or new core dependency.",
+        "#128": "Partial: resident native and bounded stored-dictionary routes received; derived/encoded/file and output-assembly follow-up not declared complete. No new benchmark campaign.",
+        "#214": "Partial: native forms/handler/presentation delivered; evolved presentation/pose mapping needs the exact BindingMT client return and wider-profile disposition. Visible older comments do not establish it; comment service coverage differs from metadata.",
+        "#215": "Partial: native supported V2000/V3000 and explicit stereo/legacy-valence work received. CID 6842999 conservative refusal/uncertainty and wider profile/client adoption remain. No declaration stripping or fallback."
+      }
+    },
+    "B1": {
+      "state": "complete",
+      "cohort": {
+        "schema": "molsysmt.bounded_documentation_cohort@1",
+        "date": "2026-11-17",
+        "owner": "uibcdf/molsysmt#334",
+        "source_base": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+        "state": "frozen before B1/B2 execution",
+        "articles": [
+          {
+            "path": "docs/content/user/cookbook/native_sdf.md",
+            "source_sha256": "4dc8c996e99c977f8b0c63a251e53274efc275eabb707066a35fb4338d116cff",
+            "code_block_sha256": [
+              "6a76b4b822a4884427d65944336017678a5feae140a38215ed402b33fd869242",
+              "fe953cb0cf41173b8b7b96037b7cfc156240e0c2d0e533f73e73855d96064ca1",
+              "57445ce5ee16ed6b1281eeb95aa431ce5c942b2e680707384af960266aef7038",
+              "7c9465206994328b0a6e4d7832bbf64f6486f4838f954a19a2ada9a7247d1366",
+              "a2b77b41fc8d4aafbf9ea46a8cd4d0329dea17b622bd4e902971fd5b733383ad",
+              "cf0879489bcc34a5d46a51b6afdfdb514b45bebec7c1bb54bf895f586b87a37b"
+            ],
+            "execution": "All six literal blocks with supported alanine stereo.sdf supplied explicitly; both nm/ps and pm/fs. Earlier native contract/stereo receipts are not literal execution of this page.",
+            "prior": "devtools/data/sdf_stereo_verification_20261023.json",
+            "final_source_sha256": "4dc8c996e99c977f8b0c63a251e53274efc275eabb707066a35fb4338d116cff"
+          },
+          {
+            "path": "docs/content/user/cookbook/native_pdbqt.md",
+            "source_sha256": "81143d9836abab1c9cf2f8468f7b9b5c0fa143b979b11811f62c7e22d39842ea",
+            "code_block_sha256": [
+              "76cb286fe2d7e29339a88bbab7b88448922d662af9d19ed4414bf266ae2ec0f6",
+              "86775f984dc0e0966b076aa8b148aca571d35da998b5ab26c86093e71e8a9824",
+              "f521af692fe59344b345052d1e44b37272d4abda9fd1f75f02a58c6413016c27"
+            ],
+            "execution": "All three literal blocks with the independent prepared LIGAND text fixture and supplied assignments/tree; nm/ps/e and pm/fs/coulomb. Contextual input, no preparation/docking claim.",
+            "prior": "devtools/data/pdbqt_presentation_20261026.json",
+            "final_source_sha256": "b977fabe4e228301000c2a19e9edc82fec7e90f110dd344c0b63dbafeaf918e9"
+          },
+          {
+            "path": "docs/content/user/cookbook/applying_chemical_templates.md",
+            "source_sha256": "8f30cd11a50b95d33da5efa953ef9e2189886eba2e0d2fabe8577db91a87d2f5",
+            "code_block_sha256": [
+              "d1f6a87c8fcf223cc907ef7cc125bd4d7ae09e39c315c36061161c0e93b6a270",
+              "0f3f0d59e3e00141fafe9013d3537cc4b14bb3374a7fb9826f214af51cce597a",
+              "18dec8a048dbee7dd156ed53f7dbb03828bc62cec11981f052c756a24152ddaa",
+              "34dfd1437dfb6bfc041d973108f362cb799bf4b6b591a483bb30c20e75065648",
+              "f8190f73ac132e26335365eaf1bbadcb4942b3000b176f94d927e0667963c326",
+              "da12ecb5f1c9b26f4251a3f867f77330928234250f7fd75945752511f0582e01",
+              "d0ea6d3db7ddcd9b072ae04a806925bfe6bd151cc0a90a2878d63b0074fa22a6",
+              "3a6b942b64fe07d011d2c4df1c791fe18062b7e8a9cdb76cfdeef7a55b77f0de",
+              "fbf1d7f620a739af181efcaf47a49ea9f27867773264d73b9a70cd1559aeedbe",
+              "8cdf3b69fc0119edeb1998289bbd1d0efd0d2dad53a667201881e520a3814f40",
+              "c023234bf9ca751cbc422079ec61b8e2e051ef8b7916efa6c46e2ff27e43be65",
+              "f0587e20e5c8c82b845ae597cc1f9615c604cde2390a7167730d5bacf68c3dd2"
+            ],
+            "execution": "Execute self-contained native reconstruction block 1. Retain existing explicit polymer-context and pinned EST reinsertion/source controls for the contextual sections; no downloads/new receptor preparation.",
+            "prior": [
+              "devtools/data/ccd_template_receiving_557_20261106.json",
+              "devtools/data/native_domain_documentation_receiving_725_726_20261112.json"
+            ],
+            "limits": "Choosing CCD reference requires declared local complex.cif/BTN.cif; PDB and prepared-interface sketches require the documented source/prepared systems and maps. Do not call the whole page self-contained.",
+            "final_source_sha256": "8f30cd11a50b95d33da5efa953ef9e2189886eba2e0d2fabe8577db91a87d2f5"
+          },
+          {
+            "path": "docs/content/user/cookbook/aligning_stored_hydrogen_policies.md",
+            "source_sha256": "2f78a1db87dd45d9a19cfa87d8710212e19acadd36bb5d79c84ddb9996046fe9",
+            "code_block_sha256": [
+              "e790253c7c06139b10b2383d58c71caeaa995f9e025bc1800758e41d5e51cbde",
+              "83c420a0ff51f1b00376a9387fe5b1584b630d64b6a3fe85d0c68f9a43ca62b0",
+              "84d1c91bc0ef7858cf78c6be9117ac98ab37980a5b37093764561f1690e010c0"
+            ],
+            "execution": "Reuse actual literal Tool/Cookbook tests and producer receiving; no changed algorithm in this queue.",
+            "prior": "devtools/data/indexed_hydrogen_policy_receiving_645_20261107.json",
+            "guard": "tests/chemical_states/test_indexed_hydrogen_policy_producers.py::test_documented_policy_examples_execute_with_the_declared_units",
+            "final_source_sha256": "2f78a1db87dd45d9a19cfa87d8710212e19acadd36bb5d79c84ddb9996046fe9"
+          },
+          {
+            "path": "docs/content/user/cookbook/delivering_coordinates.md",
+            "source_sha256": "28391c70cc889d28d3bfa2ecea8905d600d946e09dd91bb51eca3850279cb058",
+            "code_block_sha256": [
+              "fd4ee8b4c3f711c37fb21aad71c703f0d10a765ab389f40495435da912d31f00",
+              "c3776002ea912e6355ac7c8fcde2709dfb7b3d04bc916ccd585461033f58e756"
+            ],
+            "execution": "Reuse exact literal atom-level XYZ/coordinate setter recipe and normal/pm-fs source controls; unchanged recipe.",
+            "prior": "devtools/data/public_graph_xyz_receiving_648_610_20261108.json",
+            "guard": "tests/form/XYZ/test_public_coordinate_delivery.py::test_coordinate_delivery_recipe_runs_with_literal_axes_and_units",
+            "final_source_sha256": "28391c70cc889d28d3bfa2ecea8905d600d946e09dd91bb51eca3850279cb058"
+          },
+          {
+            "path": "docs/content/user/cookbook/permuting_export_order.md",
+            "source_sha256": "8742fbdd7ac43873370ce9ce52b546e9dca8c11d5931dbfbe646fb8fce80d0b8",
+            "code_block_sha256": [
+              "ca9362a5001295ca9ab871cf0a1419a1b3353ce6d43dd2ef682f71fd0dcb19a5",
+              "3355d324fcae3c29a3188ed18c2542aaf16d5cea8b2a61c71f527e1aebcdeff1"
+            ],
+            "execution": "Execute both reverse/inverse blocks, independent coordinate axes and real version headers; receive default 1.0 separately from explicit 0.5 compatibility.",
+            "prior": null,
+            "final_source_sha256": "d73316f6fcd410b50e3de7ae12a8fc2747949a1a30c5ed6fb3c80bb692f735ea"
+          },
+          {
+            "path": "docs/content/user/cookbook/comparing_sequence_source_groups.md",
+            "source_sha256": "67f6dab791d6be196d2c115f74ca8e22060021a66fb4f111f6a0b0c5a2b626b4",
+            "code_block_sha256": [
+              "fdeb6a9e3bccb6ab175617d7f6a2cbe03bc10a35347bd21c78a8bdffaf480773"
+            ],
+            "execution": "Execute native atom-free group extraction block. The page explicitly delegates complete sequence-alignment example to the linked tutorial; existing sequence/group tests remain its scope, not this five-line example.",
+            "prior": "tests/topology/get_sequence_identity/test_sequence_source_groups.py",
+            "final_source_sha256": "67f6dab791d6be196d2c115f74ca8e22060021a66fb4f111f6a0b0c5a2b626b4"
+          },
+          {
+            "path": "docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb",
+            "source_sha256": "bbe332e8ce471e7ce1c2d8b9693860dafb863f909108ef73225f354a4c23d3f1",
+            "code_block_sha256": [
+              "01ab4399f8a20391ad1a5024bd510ef78c8533eaad186c689b90a76def1f6c3e",
+              "48cf09961b5da97f0c1b6b14e152cf496be849a9e30975e377a4dcd160c07dde",
+              "728f76f68584ab453b90a5e50f2519611c80b2b6a2732adf58c748a2c3e8f3cc",
+              "397956f9e81ad0b9db8eb71026f9e6461e7585737e255961fed22f4b0a9b209e"
+            ],
+            "execution": "Execute four code cells with real root header capture; preserve string IDs, squared units and repeated/empty structures, with explicit 0.5 separate from default 1.0. Notebook execution/rendering follows corrections.",
+            "prior": null,
+            "final_source_sha256": "c18605a05728e2fc395572989613f0b9e0f9a22bfa6958e8d50999ee5af09405"
+          }
+        ],
+        "guard": "tests/documentation/test_chemical_workflow_recipes.py",
+        "scope": "Local finite B1 receiving, no final candidate or installed pair qualification."
+      },
+      "retained_source_comparison": [
+        {
+          "receipt": "devtools/data/indexed_hydrogen_policy_receiving_645_20261107.json",
+          "receipt_sha256": "954d6ad109a8b7d900af902db3e099769b281de49b652c70f49547a3a2e01af1",
+          "source_comparison": [
+            {
+              "path": "molsysmt/chemical_states/normalize_indexed_hydrogen_policy.py",
+              "prior_sha256": "918d89e2e67968c4f21192ffede84957c0fcfb71119e0662ee5a301a5b2ae88b",
+              "current_sha256": "918d89e2e67968c4f21192ffede84957c0fcfb71119e0662ee5a301a5b2ae88b"
+            },
+            {
+              "path": "molsysmt/chemical_states/_indexed_hydrogen_policy.py",
+              "prior_sha256": "a3fb5e74eae973aeb10b35b3932219d85a1187b1a3fadef22d807683b8bb796d",
+              "current_sha256": "a3fb5e74eae973aeb10b35b3932219d85a1187b1a3fadef22d807683b8bb796d"
+            },
+            {
+              "path": "molsysmt/chemical_states/__init__.py",
+              "prior_sha256": "e80f9893d292615c44cb494ae6e66e0d651082c2588a504520b97fdecb7c5032",
+              "current_sha256": "1c0a0e94ad8fccea5382f62cc2a3fcf75d9ba2acfc9385ad4b9eec27ab3b7009"
+            },
+            {
+              "path": "tests/chemical_states/test_normalize_indexed_hydrogen_policy.py",
+              "prior_sha256": "6a7d3c4611f788905bc2827bc886332ecf16455ff74eec2155e02c946e95c623",
+              "current_sha256": "6a7d3c4611f788905bc2827bc886332ecf16455ff74eec2155e02c946e95c623"
+            },
+            {
+              "path": "tests/chemical_states/test_indexed_hydrogen_policy_producers.py",
+              "prior_sha256": "f502ed3eec283addb7ce729542aa5fbd66319262da5127d126e3ba75f1174fe3",
+              "current_sha256": "f502ed3eec283addb7ce729542aa5fbd66319262da5127d126e3ba75f1174fe3"
+            }
+          ]
+        },
+        {
+          "receipt": "devtools/data/public_graph_xyz_receiving_648_610_20261108.json",
+          "receipt_sha256": "ba86d96306d52e65c657822b3ae3a573878ce29790504942b59d7adc05b6d1f5",
+          "source_comparison": [
+            {
+              "path": "README.md",
+              "prior_sha256": "fec2a5f301f1f639365cb87ac0392400b3d02f39efd26952fffe0c00eb1ef6eb",
+              "current_sha256": "050002c4b7196ed9eb02e948c1ffb52a0fa2201ba8161749191fff42718d292d"
+            },
+            {
+              "path": "devguide/forms_and_conversions.md",
+              "prior_sha256": "b9b1f7edcb5263a0f6098d95117e9fe30b677fa97be744d799f59f2aa3fd9f46",
+              "current_sha256": "df07db937d148d947c042a3e966bbc2a4f14443c27c2f6c01b5f0cc0f77862dd"
+            },
+            {
+              "path": "devguide/pending_bugs/docs/README.md",
+              "prior_sha256": "512bfe146ecd4b41313f03c68f12a076ff7f22114637c5bbc74cdaaee6492cd0",
+              "current_sha256": "5eda931a5e9460f0ed29fc2ed296d58e6b24939b8f16986cdc579834557a185a"
+            },
+            {
+              "path": "devguide/pending_proposals/docs/README.md",
+              "prior_sha256": "f16d74ef27a38015ea78cde4c360920fe57ce3a00a014440add12b5c8765fe52",
+              "current_sha256": "f16d74ef27a38015ea78cde4c360920fe57ce3a00a014440add12b5c8765fe52"
+            },
+            {
+              "path": "devguide/pending_proposals/docs/evidence_based_public_discoverability.md",
+              "prior_sha256": "bf7ad0ad033d2816d98ecc0718d97f5d456ec263d42f3980457c7579eac726f8",
+              "current_sha256": "aa60231ec0fc394dbf2f1408b338c7b84a64b4c715b734a605d1944d9a1efa5e"
+            },
+            {
+              "path": "docs/content/course/Common_Core/08_Extracting_Molecular_Attributes.ipynb",
+              "prior_sha256": "3050b6ba1f509d8a21b21e467a8ab279cf825c13fe6d0e0d92c5f2f83b91896c",
+              "current_sha256": "b521fde32f3de46ae8ce5485a476747ba8916f879f302a87240169c570f6bf2c"
+            },
+            {
+              "path": "docs/content/user/cookbook/delivering_coordinates.md",
+              "prior_sha256": "28391c70cc889d28d3bfa2ecea8905d600d946e09dd91bb51eca3850279cb058",
+              "current_sha256": "28391c70cc889d28d3bfa2ecea8905d600d946e09dd91bb51eca3850279cb058"
+            },
+            {
+              "path": "docs/content/user/cookbook/delivering_coordinates.md.AGENTS.md",
+              "prior_sha256": "232bdc22e418204bd1dad2749f77be3561805ad04816e456363628d64252dc9d",
+              "current_sha256": "232bdc22e418204bd1dad2749f77be3561805ad04816e456363628d64252dc9d"
+            },
+            {
+              "path": "docs/content/user/cookbook/index.md",
+              "prior_sha256": "66f3774381c62602d79c145b0a98fd6f341b4445d6d5cc6f6b99d16a682970b3",
+              "current_sha256": "b67b24a76289986601ab3a41da8493babe9fb84d84c0efbaf1943ec05b6f2471"
+            },
+            {
+              "path": "docs/content/user/tools/chemical_states/get_rigid_fragments.md",
+              "prior_sha256": "847d1560f572cc4a20c3288ac1ed4279834e11977ae029edc51d54f982433dee",
+              "current_sha256": "847d1560f572cc4a20c3288ac1ed4279834e11977ae029edc51d54f982433dee"
+            },
+            {
+              "path": "docs/content/user/tools/form/class/others/XYZ.ipynb",
+              "prior_sha256": "03a9a35dcede1d3f7d6fd1383f1242be978492542890099551536c159d55fbfe",
+              "current_sha256": "2cbb6224807c3ac1e4303733b3e5260f0291ccf0f9f32ecd4aa544222ecbdcc4"
+            },
+            {
+              "path": "docs/docs_manifest.yml",
+              "prior_sha256": "68b8e0e0cb3997e4bede0a2db9f190b3b6235c2f64f1de5a568446afe4541bee",
+              "current_sha256": "5e93c5b91d15c6ff0ccf156a0cc1fe3e1e3e5f81b45819217a5201e5d37ba6ca"
+            },
+            {
+              "path": "molsysmt/basic/get.py",
+              "prior_sha256": "595db989204f1bdb42006b3dbaa0dc31bd86de940e4cf9e07cf2741b446d5eea",
+              "current_sha256": "595db989204f1bdb42006b3dbaa0dc31bd86de940e4cf9e07cf2741b446d5eea"
+            },
+            {
+              "path": "tests/chemical_states/test_public_graph_tutorials.py",
+              "prior_sha256": "176e1510a6740ad1ceb43de0ea66ac960d37b81fb8744bd1a35a3eb8e717b1e4",
+              "current_sha256": "176e1510a6740ad1ceb43de0ea66ac960d37b81fb8744bd1a35a3eb8e717b1e4"
+            },
+            {
+              "path": "tests/documentation/test_readme_structure_analysis.py",
+              "prior_sha256": "94dfd29a828b02d8dfc3e2414355d66ff4f05b3aca811302c4fca808f9477364",
+              "current_sha256": "94dfd29a828b02d8dfc3e2414355d66ff4f05b3aca811302c4fca808f9477364"
+            },
+            {
+              "path": "tests/form/XYZ/test_public_coordinate_delivery.py",
+              "prior_sha256": "c687bc029f40058b6303813432b0b13d03429d8166b7f0d3588fbd644a989088",
+              "current_sha256": "c687bc029f40058b6303813432b0b13d03429d8166b7f0d3588fbd644a989088"
+            }
+          ]
+        }
+      ],
+      "amendment": "Final review adds the prepared-PDBQT default 1.0 parameter round trip, clarifies MODEL reading versus single-structure writing, and corrects stale water-bridge availability text in the four already selected course modules. Readability-only wrapping is re-executed. Original frozen cohort/failed controls remain intact."
+    },
+    "B2": {
+      "state": "complete",
+      "selection": {
+        "scope": "Smallest composed sparse chemistry/map/units/invalidation receiving; literal known-source expectations, no preparation or docking certification.",
+        "selected": [
+          "tests/basic/test_chemical_workflow_composition.py",
+          "tests/form/file_pdbqt/test_output_presentation.py::test_presentation_composes_through_hydrogen_projection_and_known_poses",
+          "tests/native/test_pdbqt_file_handler.py::test_form_structure_iterator_and_public_facade_preserve_source_axes",
+          "tests/native/test_pdbqt_file_handler.py::test_current_block_reads_no_other_records_and_no_full_trajectory",
+          "tests/physchem/test_chemical_template.py::test_h5msm_inputs_and_public_roundtrip_preserve_applied_values",
+          "tests/physchem/test_chemical_template.py::test_chemical_changes_invalidate_only_returned_copy_and_idempotence_preserves_analysis",
+          "tests/basic/test_permute_atoms.py::test_partial_domains_keep_their_absence_and_maps"
+        ],
+        "reused": [
+          "devtools/data/indexed_hydrogen_policy_receiving_645_20261107.json",
+          "devtools/data/public_graph_xyz_receiving_648_610_20261108.json"
+        ],
+        "limits": [
+          "Synthetic observations are declarations, not detector truth.",
+          "Existing operation-specific partial/empty/repeat guards apply; no new cross-assignment transaction promise."
+        ]
+      },
+      "result": "11 composed cases pass: independent isotope/charge/graph/coordinate oracles, maps, H5MSM/export, partial domains, prepared H projection/poses, block reads, explicit template boundaries, rejected unit edits and selective invalidation preserving evaluated-empty coverage."
+    },
+    "B3": {
+      "state": "complete",
+      "selection": {
+        "selected": [
+          "tests/interactions",
+          "tests/test_ackredit.py",
+          "tests/scientific_truth/curated/test_attributed_interaction_methods.py",
+          "tests/scientific_truth/curated/test_cation_pi_interactions.py",
+          "tests/scientific_truth/curated/test_halogen_bonds.py",
+          "tests/scientific_truth/curated/test_hydrophobic_interactions.py",
+          "tests/scientific_truth/curated/test_ionic_interactions.py",
+          "tests/scientific_truth/curated/test_metal_coordination.py",
+          "tests/scientific_truth/curated/test_pi_pi_interactions.py",
+          "tests/scientific_truth/curated/test_water_bridges.py",
+          "tests/documentation/test_chemical_workflow_recipes.py",
+          "tests/basic/test_chemical_workflow_composition.py",
+          "tests/documentation/test_sparse_interaction_recipe.py"
+        ],
+        "reason": "Production change affects the shared interaction attribution decorator; receive every interaction family/result route and the selected existing curated scientific controls, plus changed documentation/composed boundaries.",
+        "complete_library_campaign": "Not repeated: no scientific kernel, unit conversion, core format codec or general native-domain runtime changed. The existing full-source campaign retains its original identity; skipped commits remain pending nightly/final exact-candidate gates.",
+        "scope": "Bounded current-source integration, not a mandatory final-candidate gate waiver or installed pair qualification.",
+        "serial_attempt": {
+          "native_exit": -15,
+          "seconds": 360.6633898210712,
+          "reason": "Finite 360-second local wall ceiling; memory pressure was zero and host available minimum exceeded 15 GiB. Incomplete is not a pass.",
+          "peak_bytes": 657113088
+        },
+        "responsible_scale_up": {
+          "workers": 2,
+          "cpu_quota": 2,
+          "memory_max_bytes": 4294967296,
+          "memory_swap_max": 0,
+          "wall_seconds": 720,
+          "host_reserve_bytes": 6979321856,
+          "estimated_peak": "Below 2 GiB from measured single-worker 627 MiB plus controller/second worker; enforced 4 GiB cap, not reserved host memory."
+        }
+      },
+      "result": "1933 selected integration/curated cases pass, zero skips. Correct broad receiving does not erase the preceding finite-wall termination, replace the entire scientific registry or qualify a final candidate."
+    },
+    "B4": {
+      "state": "complete",
+      "packet": "devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md",
+      "packet_state": "Proposed author-facing claim/evidence/limit table, JCIM direction, original-note preservation, comparison and reproducibility decisions. Not an approved paper or new scientific promotion.",
+      "documentation": {
+        "scope": "Strict stored-source site and selected local article/link/PNG/download receiving; actual example execution is separate. No hosted/canvas/final-installed qualification.",
+        "articles": [
+          {
+            "source": "docs/content/user/cookbook/native_sdf.md",
+            "source_sha256": "4dc8c996e99c977f8b0c63a251e53274efc275eabb707066a35fb4338d116cff",
+            "html": "content/user/cookbook/native_sdf.html",
+            "html_sha256": "8d3ed7a48ad4110896dea0ff1f7439fa5094ad343ba6308ca0611c41ab389d10",
+            "local_links_checked": 630,
+            "images": 2
+          },
+          {
+            "source": "docs/content/user/cookbook/native_pdbqt.md",
+            "source_sha256": "b977fabe4e228301000c2a19e9edc82fec7e90f110dd344c0b63dbafeaf918e9",
+            "html": "content/user/cookbook/native_pdbqt.html",
+            "html_sha256": "9e62094ea105f510f1536e2c1041200e44791d4929fa2f94b3cd12368115d534",
+            "local_links_checked": 639,
+            "images": 2
+          },
+          {
+            "source": "docs/content/user/cookbook/applying_chemical_templates.md",
+            "source_sha256": "8f30cd11a50b95d33da5efa953ef9e2189886eba2e0d2fabe8577db91a87d2f5",
+            "html": "content/user/cookbook/applying_chemical_templates.html",
+            "html_sha256": "641bb744574039494c85a399cd099d2ec92f2f6a465afef9d30a265ddb3a26a2",
+            "local_links_checked": 650,
+            "images": 2
+          },
+          {
+            "source": "docs/content/user/cookbook/aligning_stored_hydrogen_policies.md",
+            "source_sha256": "2f78a1db87dd45d9a19cfa87d8710212e19acadd36bb5d79c84ddb9996046fe9",
+            "html": "content/user/cookbook/aligning_stored_hydrogen_policies.html",
+            "html_sha256": "5d927dc5dae0d68b22fa419a9962f089bd5dd6ed957a862977c04763811066c1",
+            "local_links_checked": 612,
+            "images": 2
+          },
+          {
+            "source": "docs/content/user/cookbook/delivering_coordinates.md",
+            "source_sha256": "28391c70cc889d28d3bfa2ecea8905d600d946e09dd91bb51eca3850279cb058",
+            "html": "content/user/cookbook/delivering_coordinates.html",
+            "html_sha256": "49cf7a970c005008940396c929b9b762597f3d429f1122cd8d48dee6e2143b61",
+            "local_links_checked": 607,
+            "images": 2
+          },
+          {
+            "source": "docs/content/user/cookbook/permuting_export_order.md",
+            "source_sha256": "d73316f6fcd410b50e3de7ae12a8fc2747949a1a30c5ed6fb3c80bb692f735ea",
+            "html": "content/user/cookbook/permuting_export_order.html",
+            "html_sha256": "17b4f06a4911d1bd31785d64ee96f752d7fa51976c640ea08317852b7e1c2a7f",
+            "local_links_checked": 611,
+            "images": 2
+          },
+          {
+            "source": "docs/content/user/cookbook/comparing_sequence_source_groups.md",
+            "source_sha256": "67f6dab791d6be196d2c115f74ca8e22060021a66fb4f111f6a0b0c5a2b626b4",
+            "html": "content/user/cookbook/comparing_sequence_source_groups.html",
+            "html_sha256": "5469f79789c611d293eceab9b885cb7f84f4b7ca86124b811388f63ce67e7c07",
+            "local_links_checked": 612,
+            "images": 2
+          },
+          {
+            "source": "docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb",
+            "source_sha256": "c18605a05728e2fc395572989613f0b9e0f9a22bfa6958e8d50999ee5af09405",
+            "html": "content/user/cookbook/editing_labels_and_structure_metadata.html",
+            "html_sha256": "6b8031582eb8510bcc5aaed924edeb7758e1b2fd95e7a6a4776351edd9f0b444",
+            "local_links_checked": 616,
+            "images": 2
+          },
+          {
+            "source": "docs/content/user/tools/interactions/result.md",
+            "source_sha256": "4ec42f79a8582d688315e9410bd3f6b44919a45a19a0e3ab50a57d4f4bebcd61",
+            "html": "content/user/tools/interactions/result.html",
+            "html_sha256": "0cc9d56bc4e162fa33e55b7688cb4de01aca94d6a846628e6a712babcbaab520",
+            "local_links_checked": 637,
+            "images": 2
+          },
+          {
+            "source": "docs/content/user/cookbook/querying_sparse_interactions.md",
+            "source_sha256": "375bf75e036e763a245b3b1f0992a3fdea13a5f393421f05ee37fac4a6151db9",
+            "html": "content/user/cookbook/querying_sparse_interactions.html",
+            "html_sha256": "466c5533016c265383c682115acf5d8e83eb3fabcc3b7c6ecdb4b1bfc6fded68",
+            "local_links_checked": 626,
+            "images": 2
+          },
+          {
+            "source": "docs/content/user/tools/interactions/get_hbonds.ipynb",
+            "source_sha256": "9915816984ac0bcb88c0c923ed65bd3ce607eced073c65ab73694818acbca814",
+            "html": "content/user/tools/interactions/get_hbonds.html",
+            "html_sha256": "ee321128ae6e6af9c5bfda84ce2a03acea2d7803b7318f3643698e7c2f8db4e6",
+            "local_links_checked": 629,
+            "images": 3
+          },
+          {
+            "source": "docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb",
+            "source_sha256": "e9a20d9fa2543cb909156861d628d1da80bbaa41bb60c25f0590002e35a33b86",
+            "html": "content/course/Path_Alzheimer/38_Advanced_HBonds.html",
+            "html_sha256": "62fe20f9e320747c5c89c0e6892f0beedae9a639998a29d5af0e36b995473a11",
+            "local_links_checked": 630,
+            "images": 2
+          },
+          {
+            "source": "docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb",
+            "source_sha256": "e1dc3b44aec968c76b0b97a8c103c266593249e55dd278c4675dc45f2348ceda",
+            "html": "content/course/Path_Antiviral/38_Advanced_HBonds.html",
+            "html_sha256": "f95d82db63067af7d649e51ca129bef17605ef645b3368f3718ba1696aff9003",
+            "local_links_checked": 622,
+            "images": 2
+          },
+          {
+            "source": "docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb",
+            "source_sha256": "7aa8fb506b079bc1508511fcef66764fcb7cf281b57c523a00234b9b27ea88a6",
+            "html": "content/course/Path_Biophysics/38_Advanced_HBonds.html",
+            "html_sha256": "52969360ef0d89d6ca79fcbdd954ac118bf47a2bbfa25b35dbc2f129d60d118d",
+            "local_links_checked": 622,
+            "images": 2
+          },
+          {
+            "source": "docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb",
+            "source_sha256": "8df662bcb46c3a9b6114606d13886daebb90fefbb6c4c83065ed569d160cc428",
+            "html": "content/course/Path_Enzyme/38_Advanced_HBonds.html",
+            "html_sha256": "9dae7fc95e4e0b88ec76f426fb96c4b88a79368fe9254c4a97d948f86a10ee59",
+            "local_links_checked": 630,
+            "images": 2
+          },
+          {
+            "source": "docs/api/hbonds/autosummary/molsysmt.interactions.hbonds.get_hbonds.rst",
+            "source_sha256": "b63ca2261c590e9fddbcc6be88c4143a1b164ecf165366cd2c31aa7f6649105c",
+            "html": "api/hbonds/autosummary/molsysmt.interactions.hbonds.get_hbonds.html",
+            "html_sha256": "16531a7aacb58afb2a8cbc0f57738ff57a8cdc0aab62379c05272eeddc3ae54c",
+            "local_links_checked": 75,
+            "images": 2
+          }
+        ],
+        "html_files": 1401,
+        "parsed_link_target_pages": 104,
+        "png_figures": {
+          "_images/27f5d27dd79872bc339989f26c8f42d0567c11a9343870030ad8c99de2323783.png": {
+            "sha256": "27f5d27dd79872bc339989f26c8f42d0567c11a9343870030ad8c99de2323783",
+            "size": [
+              789,
+              240
+            ]
+          }
+        },
+        "downloads": [],
+        "article_count": 16,
+        "state": "passed"
+      },
+      "browser": {
+        "scope": "Local static documentation reading only, no molecular canvas, Jupyter, installed pair or client qualification.",
+        "browser": "157.0.8103.38",
+        "pages": [
+          {
+            "name": "attribution",
+            "path": "content/user/tools/interactions/result.html",
+            "errors": [],
+            "localErrors": [],
+            "bounds": {
+              "x": 306,
+              "y": 478.828125,
+              "width": 690.78125,
+              "height": 121.5
+            },
+            "screenshot": "<repository>/.pytest_cache/supplemental-pre1-334-20261117/reading-final/attribution.png",
+            "title": "Querying interaction results – MolSysMT 0.23.0"
+          },
+          {
+            "name": "pdbqt-values",
+            "path": "content/user/cookbook/native_pdbqt.html",
+            "errors": [],
+            "localErrors": [],
+            "bounds": {
+              "x": 306,
+              "y": 470.15625,
+              "width": 690.78125,
+              "height": 139
+            },
+            "screenshot": "<repository>/.pytest_cache/supplemental-pre1-334-20261117/reading-final/pdbqt-values.png",
+            "title": "Reading and writing prepared PDBQT – MolSysMT 0.23.0"
+          },
+          {
+            "name": "metadata",
+            "path": "content/user/cookbook/editing_labels_and_structure_metadata.html",
+            "errors": [],
+            "localErrors": [],
+            "bounds": {
+              "x": 309,
+              "y": 279.4375,
+              "width": 686.78125,
+              "height": 522
+            },
+            "screenshot": "<repository>/.pytest_cache/supplemental-pre1-334-20261117/reading-final/metadata.png",
+            "title": "Editing labels and structure metadata – MolSysMT 0.23.0"
+          },
+          {
+            "name": "permutation",
+            "path": "content/user/cookbook/permuting_export_order.html",
+            "errors": [],
+            "localErrors": [],
+            "bounds": {
+              "x": 306,
+              "y": 400.75,
+              "width": 690.78125,
+              "height": 279
+            },
+            "screenshot": "<repository>/.pytest_cache/supplemental-pre1-334-20261117/reading-final/permutation.png",
+            "title": "Restoring atom order – MolSysMT 0.23.0"
+          }
+        ],
+        "externalBlocked": [
+          "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js",
+          "https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js",
+          "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js",
+          "https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js",
+          "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js",
+          "https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js",
+          "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js",
+          "https://cdn.jsdelivr.net/npm/nglview-js-widgets@3.1.0/dist/index.js"
+        ],
+        "passed": true
+      },
+      "notebook": "metadata-final"
+    },
+    "B5": {
+      "state": "complete for admitted local work",
+      "remaining": "MolSysViewer stabilization/final qualified source; agreed exact pair and producer metadata; mandatory scientific/source/native/installed/documentation/platform gates after resumption; maintainer editorial/scientific review. Original scorecard unchanged."
+    }
+  },
+  "runtime": {
+    "python": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:08:32) [GCC 15.3.0]",
+    "modules": {
+      "molsysmt": {
+        "file": "<repository>/molsysmt/__init__.py",
+        "version": "0.23.0+393.ge1facf624.dirty",
+        "runtime_version": "0.23.0+393.ge1facf624.dirty",
+        "module_sha256": "dc89c5f21ab7ba4bb94b289927a19856d27cb670baf1b03d7f6fcb7fced03f90"
+      },
+      "molsysviewer": {
+        "file": "<repository>/.pytest_cache/pre1-review-20261110/viewer-5164f13b-ready-source/molsysviewer/__init__.py",
+        "version": "0.24.0+97.gdf4bf477.dirty",
+        "runtime_version": "0.24.0+97.gdf4bf477.dirty",
+        "module_sha256": "76c5968d9a66d9fe01a475166515f4e0f02c3784b135ec60319cb2bf83b17cd4"
+      },
+      "ackredit": {
+        "file": "<ackredit-source>/ackredit/__init__.py",
+        "version": "0.12.2+1.g6421d57",
+        "runtime_version": "0.12.2+1.g6421d57",
+        "module_sha256": "43264d45f63ed941ac032aed67c882543a952bc6f58a3555e1a100a5d7b13533"
+      },
+      "pyunitwizard": {
+        "file": "<repository>/.pytest_cache/pre1-review-20261110/puw-0292-public-D2Ww8g/site-packages/pyunitwizard/__init__.py",
+        "version": "0.29.2",
+        "runtime_version": "0.29.2",
+        "module_sha256": "39eeae626315034598a55db948e160fbc09b0213d48d8649b07933563b86fdfc"
+      },
+      "argdigest": {
+        "file": "<repository>/.pytest_cache/pre1-90-20261111/support-overlay/argdigest/__init__.py",
+        "version": "0.15.0",
+        "runtime_version": "0.15.0",
+        "module_sha256": "64d9f5893968c71bce80599c9da0580346b728e0fad18990e58e9a69f251df2f"
+      },
+      "depdigest": {
+        "file": "<repository>/.pytest_cache/pre1-90-20261111/support-overlay/depdigest/__init__.py",
+        "version": "0.15.1",
+        "runtime_version": "0.15.1",
+        "module_sha256": "401e1f2b69d68053bdf91b524eb9d876fa2839908ca2dc5df17e77d3a389b6b1"
+      },
+      "smonitor": {
+        "file": "<repository>/.pytest_cache/pre1-90-20261111/support-overlay/smonitor/__init__.py",
+        "version": "0.21.0",
+        "runtime_version": "0.21.0",
+        "module_sha256": "f60b1c2bff72dbbb70fe403e23908e62a8297f6190e18fdcac090092b84e6800"
+      },
+      "numpy": {
+        "file": "<development-environment>/lib/python3.14/site-packages/numpy/__init__.py",
+        "version": "2.4.6",
+        "runtime_version": "2.4.6",
+        "module_sha256": "92a46f791e453926d3292af2582b89995a289475f0eaaea71a949823200b838a"
+      },
+      "pandas": {
+        "file": "<development-environment>/lib/python3.14/site-packages/pandas/__init__.py",
+        "version": "2.3.3",
+        "runtime_version": "2.3.3",
+        "module_sha256": "108be8ca3ae1a2a5c765ee6f87e8867d87c2fb5a89107e6c2d3a6acc96612b7b"
+      },
+      "rdkit": {
+        "file": "<development-environment>/lib/python3.14/site-packages/rdkit/__init__.py",
+        "version": "2025.9.5",
+        "runtime_version": "2025.09.5",
+        "module_sha256": "eca4a895c02c16eadbe7887ed1463c7ed75b86b222f0843d1c090c331e7c40a7"
+      },
+      "mdtraj": {
+        "file": "<development-environment>/lib/python3.14/site-packages/mdtraj/__init__.py",
+        "version": "1.11.1",
+        "runtime_version": "1.11.1",
+        "module_sha256": "5223f8af5a0257a8d25313683eb4b1823074feaf66753b01e9ec9e08b8a67b80"
+      },
+      "openmm": {
+        "file": "<development-environment>/lib/python3.14/site-packages/openmm/__init__.py",
+        "version": "8.6.1",
+        "runtime_version": "8.6.1",
+        "module_sha256": "c513bcdf3407fb0efdffc8f2f4e61d4de40b0a6612c3017af948e0245bf319ab"
+      },
+      "h5py": {
+        "file": "<development-environment>/lib/python3.14/site-packages/h5py/__init__.py",
+        "version": "3.16.0",
+        "runtime_version": "3.16.0",
+        "module_sha256": "21f855ed8c945f3264e1375f0146c8095b703c6334a5fdda4af908f63c175a13"
+      },
+      "scipy": {
+        "file": "<development-environment>/lib/python3.14/site-packages/scipy/__init__.py",
+        "version": "1.18.1",
+        "runtime_version": "1.18.1",
+        "module_sha256": "39ccae300a4739cc53719bd3b39ce3f8f66e736c6eb672006e338a4c5cc3dc76"
+      },
+      "ipykernel": {
+        "file": "<development-environment>/lib/python3.14/site-packages/ipykernel/__init__.py",
+        "version": "7.3.0",
+        "runtime_version": "7.3.0",
+        "module_sha256": "924f905a9292fd69c26ec96dd61021cf8ee6b868a3b0342a8fbe68c486e29a45"
+      },
+      "pytest_receptor": {
+        "file": "<repository>/.pytest_cache/stabilization-551/tooling/published/pytest_receptor/__init__.py",
+        "version": "1.2.1",
+        "runtime_version": "1.2.1",
+        "module_sha256": "e470b0c9942b9fb52555b86e69a0ff5c5db91b7787bc226e10272fbaed189e6b"
+      }
+    },
+    "scope": "Existing development composition for bounded source receiving; not a clean installed client, minimum-version matrix or final release pair.",
+    "ackredit_source": {
+      "commit": "6421d573600a1bb7f9a4a3be18481f27e460a957",
+      "status": ""
+    },
+    "one_analysis_metadata_bytes": {
+      "legacy_wrapper_compact_utf8": 1346,
+      "portable_compact_utf8": 2962,
+      "complete_wrapper_compact_utf8": 4320,
+      "scope": "One six-atom/three-structure analysis; compact UTF-8 JSON bytes only, not Python RAM, HDF5 compressed size, speed or general scale."
+    },
+    "floor_original_source_files_verified": 62
+  },
+  "public_floor": {
+    "url": "https://conda.anaconda.org/uibcdf/noarch/ackredit-0.9.0-py_0.tar.bz2",
+    "file": ".pytest_cache/supplemental-pre1-334-20261117/ackredit-0.9.0-py_0.tar.bz2",
+    "sha256": "37661090f6ad19a74b8155d8a4d4b4a068c9099f4ceba0743b3abfe887e97fe1",
+    "bytes": 68585,
+    "purpose": "Exact published portable-reader floor; extract into owned cache, no installation or candidate qualification."
+  },
+  "public_floor_runtime": {
+    "ackredit_version": "0.9.0",
+    "origin": "<repository>/.pytest_cache/supplemental-pre1-334-20261117/public-ackredit-090/site-packages/ackredit/__init__.py",
+    "sha256": "2711da63aa665a6dea461802676dd9e6100e9ca09123f5679b8adc8f018e0f42"
+  },
+  "runs": {
+    "facts": {
+      "phase": "facts",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.14 1.68 1.72 2/2834 3034638",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=0.00 total=26553569032\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": "?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "<repository>/.pytest_cache/supplemental-pre1-334-20261117/probe.py"
+      ],
+      "checked_inputs": 5386,
+      "seconds": 3.3091487758792937,
+      "ending_status": "?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 113618944,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 19612254208,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "597d088d5f436ba8c579b2d149edadcceae3c3e38f5bc4fc70e9b6589c787608",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/facts-execution.json",
+          "sha256": "ac4fd982fba9ae5a9c1ab7084489fdcb94afcc39c7c207ab70440e8d3f25f15f",
+          "bytes": 1631
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/facts.log",
+          "sha256": "bd2567e8fee53a56a81aca603e1ca9c6be460b760f6dc2d870452f02f3884123",
+          "bytes": 1996
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/facts-inputs-before.json",
+          "sha256": "f101366059fc92e3c4e3d66e718d922ed2b24d1e0bf959383e78023d4daec9fe",
+          "bytes": 776682
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/facts-inputs-after.json",
+          "sha256": "f101366059fc92e3c4e3d66e718d922ed2b24d1e0bf959383e78023d4daec9fe",
+          "bytes": 776682
+        },
+        "driver.py": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/facts-driver.py",
+          "sha256": "597d088d5f436ba8c579b2d149edadcceae3c3e38f5bc4fc70e9b6589c787608",
+          "bytes": 7395
+        }
+      }
+    },
+    "baseline": {
+      "phase": "baseline",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "14.16 6.84 3.67 18/2969 3035564",
+        "cpu_pressure": "some avg10=58.32 avg60=48.24 avg300=20.93 total=26633449760\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": "?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "-o",
+        "receptor_rerun_command=python -m pytest",
+        "--junitxml=<repository>/.pytest_cache/supplemental-pre1-334-20261117/baseline.xml",
+        "--receptor-events=<repository>/.pytest_cache/supplemental-pre1-334-20261117/baseline.events.jsonl",
+        "tests/interactions/test_portable_attribution.py"
+      ],
+      "checked_inputs": 5386,
+      "seconds": 14.337176627013832,
+      "ending_status": "?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 205217792,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 16868667392,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "597d088d5f436ba8c579b2d149edadcceae3c3e38f5bc4fc70e9b6589c787608",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/baseline-execution.json",
+          "sha256": "8b624203c86c9140ae3b3f42994bfc4b3d670e86ef51597cc5f54a894d084097",
+          "bytes": 1949
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/baseline.log",
+          "sha256": "a35fe3a00afdeb33ec85c2d08a080d22e402d783db0aa1416b15ceda3b3d2dc7",
+          "bytes": 1283
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/baseline-inputs-before.json",
+          "sha256": "f101366059fc92e3c4e3d66e718d922ed2b24d1e0bf959383e78023d4daec9fe",
+          "bytes": 776682
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/baseline-inputs-after.json",
+          "sha256": "f101366059fc92e3c4e3d66e718d922ed2b24d1e0bf959383e78023d4daec9fe",
+          "bytes": 776682
+        },
+        "driver.py": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/baseline-driver.py",
+          "sha256": "597d088d5f436ba8c579b2d149edadcceae3c3e38f5bc4fc70e9b6589c787608",
+          "bytes": 7395
+        }
+      },
+      "receptor": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/baseline.events.jsonl",
+          "sha256": "5162ee8fffe9580ce958d50136a6bbd5ee466cbf07f955091b98c1d9040a10ee",
+          "bytes": 17236
+        },
+        "complete": true,
+        "integrity_valid": true,
+        "issue": "",
+        "counts": {
+          "collected": 5,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 5,
+          "failed": 5,
+          "not_executed": 0,
+          "passed": 0,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "native_pytest_exit": 1,
+        "policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        }
+      },
+      "junit": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/baseline.xml",
+          "sha256": "eba4f50d7174a0d352f62b99a9c1477884e0da06b8c58789e629522e6fb58c19",
+          "bytes": 7182
+        },
+        "cases": 5,
+        "failures": 5,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "corrected": {
+      "phase": "corrected",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "15.02 8.69 4.56 11/2994 3035909",
+        "cpu_pressure": "some avg10=57.26 avg60=50.60 avg300=27.66 total=26671542286\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "-o",
+        "receptor_rerun_command=python -m pytest",
+        "--junitxml=<repository>/.pytest_cache/supplemental-pre1-334-20261117/corrected.xml",
+        "--receptor-events=<repository>/.pytest_cache/supplemental-pre1-334-20261117/corrected.events.jsonl",
+        "tests/interactions/test_portable_attribution.py",
+        "tests/interactions/test_scientific_attribution.py",
+        "tests/test_ackredit.py"
+      ],
+      "checked_inputs": 5386,
+      "seconds": 18.33036023704335,
+      "ending_status": " M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 463147008,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 16370372608,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "597d088d5f436ba8c579b2d149edadcceae3c3e38f5bc4fc70e9b6589c787608",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/corrected-execution.json",
+          "sha256": "76d8cb802b51d2d47c4cccdc5fa13ecf24ce564e3d996c4831d3e8513454f4e0",
+          "bytes": 2232
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/corrected.log",
+          "sha256": "4e319d70d1949686ecd4b4526210225576cbe98e2dbf9a53f8b606b408fc6fc5",
+          "bytes": 34
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/corrected-inputs-before.json",
+          "sha256": "e42240f8708877d1c95dd0ef9a3a3a658ffd6ae1672dfdb07b69e0ceb9201fb1",
+          "bytes": 776682
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/corrected-inputs-after.json",
+          "sha256": "e42240f8708877d1c95dd0ef9a3a3a658ffd6ae1672dfdb07b69e0ceb9201fb1",
+          "bytes": 776682
+        },
+        "driver.py": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/corrected-driver.py",
+          "sha256": "597d088d5f436ba8c579b2d149edadcceae3c3e38f5bc4fc70e9b6589c787608",
+          "bytes": 7395
+        }
+      },
+      "receptor": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/corrected.events.jsonl",
+          "sha256": "a34e08304748924228f372931ee4b540de79c91073ff61c2152252173ba7549e",
+          "bytes": 57108
+        },
+        "complete": true,
+        "integrity_valid": true,
+        "issue": "",
+        "counts": {
+          "collected": 33,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 33,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 33,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 0,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "native_pytest_exit": 0,
+        "policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        }
+      },
+      "junit": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/corrected.xml",
+          "sha256": "3361161908fed1c1685240c2916c096b04d0b440392029955741984e68b2bec5",
+          "bytes": 5621
+        },
+        "cases": 33,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "runtime-qualified": {
+      "phase": "runtime-qualified",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "2.93 5.40 4.14 2/2915 3037124",
+        "cpu_pressure": "some avg10=0.00 avg60=1.49 avg300=13.91 total=26679210357\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/interactions_api.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "<repository>/.pytest_cache/supplemental-pre1-334-20261117/floor_receiving.py"
+      ],
+      "checked_inputs": 5395,
+      "seconds": 1.2901398800313473,
+      "ending_status": " M devguide/interactions_api.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 29597696,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 19092738048,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "597d088d5f436ba8c579b2d149edadcceae3c3e38f5bc4fc70e9b6589c787608",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/runtime-qualified-execution.json",
+          "sha256": "4909fefd27c081f68cbc471a9af1b22dfbd310ac1ba9fe8d2573fd17829accf9",
+          "bytes": 2951
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/runtime-qualified.log",
+          "sha256": "83c6e89d9e063605be55ff1be1721e87bad6bcb1dc3cec5d536f991b3a8a8c85",
+          "bytes": 460
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/runtime-qualified-inputs-before.json",
+          "sha256": "1624ae8a0efc51bd401ef6b55e81b8e4b58095b1c06c6c4f09d24aa4427b8d19",
+          "bytes": 777790
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/runtime-qualified-inputs-after.json",
+          "sha256": "1624ae8a0efc51bd401ef6b55e81b8e4b58095b1c06c6c4f09d24aa4427b8d19",
+          "bytes": 777790
+        },
+        "driver.py": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/runtime-qualified-driver.py",
+          "sha256": "597d088d5f436ba8c579b2d149edadcceae3c3e38f5bc4fc70e9b6589c787608",
+          "bytes": 7395
+        }
+      }
+    },
+    "runtime-corrected": {
+      "phase": "runtime-corrected",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "3.87 5.15 4.11 3/2966 3037555",
+        "cpu_pressure": "some avg10=0.00 avg60=0.64 avg300=11.64 total=26679359465\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/interactions_api.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "<repository>/.pytest_cache/supplemental-pre1-334-20261117/floor_receiving.py"
+      ],
+      "checked_inputs": 5395,
+      "seconds": 17.326257202774286,
+      "ending_status": " M devguide/interactions_api.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 452558848,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18620502016,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "597d088d5f436ba8c579b2d149edadcceae3c3e38f5bc4fc70e9b6589c787608",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/runtime-corrected-execution.json",
+          "sha256": "552e56b4057d96fe50d78b2698f9b9b98775fbd8727ae618eb7aecc3c135b2ef",
+          "bytes": 2952
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/runtime-corrected.log",
+          "sha256": "a35116e5890a1b374d40d0dfa60c77c00ad6c9b3d3c057f960497426acb57d3c",
+          "bytes": 197
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/runtime-corrected-inputs-before.json",
+          "sha256": "1624ae8a0efc51bd401ef6b55e81b8e4b58095b1c06c6c4f09d24aa4427b8d19",
+          "bytes": 777790
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/runtime-corrected-inputs-after.json",
+          "sha256": "1624ae8a0efc51bd401ef6b55e81b8e4b58095b1c06c6c4f09d24aa4427b8d19",
+          "bytes": 777790
+        },
+        "driver.py": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/runtime-corrected-driver.py",
+          "sha256": "597d088d5f436ba8c579b2d149edadcceae3c3e38f5bc4fc70e9b6589c787608",
+          "bytes": 7395
+        }
+      },
+      "receptor": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/floor.events.jsonl",
+          "sha256": "af2622420eedb16458b3b41781f883a0e000c89cf6d7e9662e4841d81c01effe",
+          "bytes": 58308
+        },
+        "complete": true,
+        "integrity_valid": true,
+        "issue": "",
+        "counts": {
+          "collected": 34,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 34,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 34,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 1,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "native_pytest_exit": 0,
+        "policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        }
+      },
+      "junit": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/floor.xml",
+          "sha256": "f7a36f5670598f1811c3b1ec4e8c1b0993ea4e6d0f6ee6793a70318019260412",
+          "bytes": 5782
+        },
+        "cases": 34,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "articles": {
+      "phase": "articles",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "1.33 2.57 3.27 2/2839 3039705",
+        "cpu_pressure": "some avg10=0.00 avg60=0.12 avg300=3.24 total=26680646950\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/interactions_api.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "-o",
+        "receptor_rerun_command=python -m pytest",
+        "--junitxml=<repository>/.pytest_cache/supplemental-pre1-334-20261117/articles.xml",
+        "--receptor-events=<repository>/.pytest_cache/supplemental-pre1-334-20261117/articles.events.jsonl",
+        "tests/documentation/test_chemical_workflow_recipes.py"
+      ],
+      "checked_inputs": 5400,
+      "seconds": 17.351353222038597,
+      "ending_status": " M devguide/interactions_api.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 411365376,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 18447908864,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "597d088d5f436ba8c579b2d149edadcceae3c3e38f5bc4fc70e9b6589c787608",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/articles-execution.json",
+          "sha256": "80531492d809c7215ecf07d0fd11e9e4cc3576aa296296da8cde04d9a665adad",
+          "bytes": 3876
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/articles.log",
+          "sha256": "8c54758a2f4388c4329debbea69b97e98d3bd7577d567692d50c7356fdd3800a",
+          "bytes": 1355
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/articles-inputs-before.json",
+          "sha256": "d4e64bcae47fa5bda6349a00784806a1b64f9643f2b72f61f756f793face752f",
+          "bytes": 778439
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/articles-inputs-after.json",
+          "sha256": "d4e64bcae47fa5bda6349a00784806a1b64f9643f2b72f61f756f793face752f",
+          "bytes": 778439
+        },
+        "driver.py": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/articles-driver.py",
+          "sha256": "597d088d5f436ba8c579b2d149edadcceae3c3e38f5bc4fc70e9b6589c787608",
+          "bytes": 7395
+        }
+      },
+      "receptor": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/articles.events.jsonl",
+          "sha256": "09cfe17d00f98600374f945d5fcb2e447028f95432f25e9ebc493bb37635d4ed",
+          "bytes": 16462
+        },
+        "complete": true,
+        "integrity_valid": true,
+        "issue": "",
+        "counts": {
+          "collected": 8,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 8,
+          "failed": 2,
+          "not_executed": 0,
+          "passed": 6,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 1,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "native_pytest_exit": 1,
+        "policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        }
+      },
+      "junit": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/articles.xml",
+          "sha256": "9b857de8f6607cbdd1ef3b5d6172c0cd1836907ab322ad49dfe4e8ea6021dd02",
+          "bytes": 3934
+        },
+        "cases": 8,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "articles-corrected": {
+      "phase": "articles-corrected",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "8.18 4.92 4.02 17/2994 3041337",
+        "cpu_pressure": "some avg10=46.66 avg60=34.64 avg300=14.34 total=26725536257\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/interactions_api.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "-o",
+        "receptor_rerun_command=python -m pytest",
+        "--junitxml=<repository>/.pytest_cache/supplemental-pre1-334-20261117/articles-corrected.xml",
+        "--receptor-events=<repository>/.pytest_cache/supplemental-pre1-334-20261117/articles-corrected.events.jsonl",
+        "tests/documentation/test_chemical_workflow_recipes.py"
+      ],
+      "checked_inputs": 5403,
+      "seconds": 9.365247555077076,
+      "ending_status": " M devguide/interactions_api.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 270188544,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17518592000,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "597d088d5f436ba8c579b2d149edadcceae3c3e38f5bc4fc70e9b6589c787608",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/articles-corrected-execution.json",
+          "sha256": "b1467f17f17c8ae29b1004d288281c953e27100ee98ee2158f8cd133e50fb201",
+          "bytes": 4373
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/articles-corrected.log",
+          "sha256": "672f52789c4caa60cc18d88c148bc3b3d99c120fa871baddf787b8094ba12584",
+          "bytes": 276
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/articles-corrected-inputs-before.json",
+          "sha256": "3fa615df93a19977dfcaad2f3122bcb3a09d42c7fd093fd671d910501b228d1d",
+          "bytes": 778872
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/articles-corrected-inputs-after.json",
+          "sha256": "3fa615df93a19977dfcaad2f3122bcb3a09d42c7fd093fd671d910501b228d1d",
+          "bytes": 778872
+        },
+        "driver.py": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/articles-corrected-driver.py",
+          "sha256": "597d088d5f436ba8c579b2d149edadcceae3c3e38f5bc4fc70e9b6589c787608",
+          "bytes": 7395
+        }
+      },
+      "receptor": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/articles-corrected.events.jsonl",
+          "sha256": "7b3db23238a178fffe5a91fa8f2f0b64171964b261247dcdc3824a1757d61f83",
+          "bytes": 12416
+        },
+        "complete": true,
+        "integrity_valid": true,
+        "issue": "",
+        "counts": {
+          "collected": 8,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 8,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 8,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 1,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "native_pytest_exit": 0,
+        "policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        }
+      },
+      "junit": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/articles-corrected.xml",
+          "sha256": "94512a9fbca0449bbe5e4e61d6236803bddcc2d6a795213996daec596855d06d",
+          "bytes": 1591
+        },
+        "cases": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "focused": {
+      "phase": "focused",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "12.99 8.50 5.55 14/2978 3043005",
+        "cpu_pressure": "some avg10=56.32 avg60=49.94 avg300=29.04 total=26804162466\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/interactions_api.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "-o",
+        "receptor_rerun_command=python -m pytest",
+        "--junitxml=<repository>/.pytest_cache/supplemental-pre1-334-20261117/focused.xml",
+        "--receptor-events=<repository>/.pytest_cache/supplemental-pre1-334-20261117/focused.events.jsonl",
+        "tests/basic/test_chemical_workflow_composition.py",
+        "tests/form/file_pdbqt/test_output_presentation.py::test_presentation_composes_through_hydrogen_projection_and_known_poses",
+        "tests/native/test_pdbqt_file_handler.py::test_form_structure_iterator_and_public_facade_preserve_source_axes",
+        "tests/native/test_pdbqt_file_handler.py::test_current_block_reads_no_other_records_and_no_full_trajectory",
+        "tests/physchem/test_chemical_template.py::test_h5msm_inputs_and_public_roundtrip_preserve_applied_values",
+        "tests/physchem/test_chemical_template.py::test_chemical_changes_invalidate_only_returned_copy_and_idempotence_preserves_analysis",
+        "tests/basic/test_permute_atoms.py::test_partial_domains_keep_their_absence_and_maps"
+      ],
+      "checked_inputs": 5404,
+      "seconds": 8.354613760020584,
+      "ending_status": " M devguide/interactions_api.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 224604160,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 16224366592,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "597d088d5f436ba8c579b2d149edadcceae3c3e38f5bc4fc70e9b6589c787608",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/focused-execution.json",
+          "sha256": "ab55f68c7e6c784d7a0a13c8c2a645b1626782f3fd15b7dedaef97e1dfb67b2b",
+          "bytes": 5142
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/focused.log",
+          "sha256": "cc2063c5755ef700eb04b3b49f67038c226ac2efd3d2f7e12d60a70c4bfbd54a",
+          "bytes": 483
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/focused-inputs-before.json",
+          "sha256": "fa7f877948c3a8e79badd19ec3440b5d1e4dbbd014d2723c25dcb5ce70621ae7",
+          "bytes": 778993
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/focused-inputs-after.json",
+          "sha256": "fa7f877948c3a8e79badd19ec3440b5d1e4dbbd014d2723c25dcb5ce70621ae7",
+          "bytes": 778993
+        },
+        "driver.py": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/focused-driver.py",
+          "sha256": "597d088d5f436ba8c579b2d149edadcceae3c3e38f5bc4fc70e9b6589c787608",
+          "bytes": 7395
+        }
+      },
+      "receptor": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/focused.events.jsonl",
+          "sha256": "a3eda22aad6169c51d6ce77210ee2697c88196456bc1da547270a963f76121e1",
+          "bytes": 20271
+        },
+        "complete": true,
+        "integrity_valid": true,
+        "issue": "",
+        "counts": {
+          "collected": 11,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 11,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 11,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 4,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "native_pytest_exit": 0,
+        "policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        }
+      },
+      "junit": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/focused.xml",
+          "sha256": "60a5d8db1d1c03fcbd72c70bdec04428d7099f11e126bd1d5321069456a3d74a",
+          "bytes": 1971
+        },
+        "cases": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "cohort": {
+      "phase": "cohort",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": -15,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "3.58 6.67 5.19 1/2814 3044595",
+        "cpu_pressure": "some avg10=0.01 avg60=12.31 avg300=22.58 total=26811531292\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/interactions_api.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n0",
+        "-o",
+        "receptor_rerun_command=python -m pytest",
+        "--junitxml=<repository>/.pytest_cache/supplemental-pre1-334-20261117/cohort.xml",
+        "--receptor-events=<repository>/.pytest_cache/supplemental-pre1-334-20261117/cohort.events.jsonl",
+        "tests/interactions",
+        "tests/test_ackredit.py",
+        "tests/scientific_truth/curated/test_attributed_interaction_methods.py",
+        "tests/scientific_truth/curated/test_cation_pi_interactions.py",
+        "tests/scientific_truth/curated/test_halogen_bonds.py",
+        "tests/scientific_truth/curated/test_hydrophobic_interactions.py",
+        "tests/scientific_truth/curated/test_ionic_interactions.py",
+        "tests/scientific_truth/curated/test_metal_coordination.py",
+        "tests/scientific_truth/curated/test_pi_pi_interactions.py",
+        "tests/scientific_truth/curated/test_water_bridges.py",
+        "tests/documentation/test_chemical_workflow_recipes.py",
+        "tests/basic/test_chemical_workflow_composition.py",
+        "tests/documentation/test_sparse_interaction_recipe.py"
+      ],
+      "checked_inputs": 5404,
+      "seconds": 360.6633898210712,
+      "ending_status": " M devguide/interactions_api.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 657113088,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 16203161600,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": "Host reserve/pressure or finite wall ceiling reached",
+      "driver_sha256": "597d088d5f436ba8c579b2d149edadcceae3c3e38f5bc4fc70e9b6589c787608",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/cohort-execution.json",
+          "sha256": "765ceba4cdad6339503af6f15c8750b9ba9fe1107fd5495fe7c1ddd124b2950e",
+          "bytes": 5201
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/cohort.log",
+          "sha256": "77ce89754924cf81892781d5b885b0669e07a50e2f9a0750394164a5e8650fdc",
+          "bytes": 114
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/cohort-inputs-before.json",
+          "sha256": "fa7f877948c3a8e79badd19ec3440b5d1e4dbbd014d2723c25dcb5ce70621ae7",
+          "bytes": 778993
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/cohort-inputs-after.json",
+          "sha256": "fa7f877948c3a8e79badd19ec3440b5d1e4dbbd014d2723c25dcb5ce70621ae7",
+          "bytes": 778993
+        },
+        "driver.py": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/cohort-driver.py",
+          "sha256": "597d088d5f436ba8c579b2d149edadcceae3c3e38f5bc4fc70e9b6589c787608",
+          "bytes": 7395
+        }
+      },
+      "receptor": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/cohort.events.jsonl",
+          "sha256": "f1310a468b297d27cb616c55d78a95b3234a647424cbbed782ee3fee0fbed2db",
+          "bytes": 2002339
+        },
+        "complete": false,
+        "integrity_valid": null,
+        "issue": "missing session_finish"
+      }
+    },
+    "metadata-notebook": {
+      "phase": "metadata-notebook",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "state": "completed",
+      "command": [
+        "<development-environment>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [
+        "docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb"
+      ],
+      "python": "<development-environment>/bin/python",
+      "load": "10.37 9.56 6.91 7/2952 3046835",
+      "cpu_pressure": "some avg10=34.03 avg60=26.87 avg300=29.16 total=26937708196\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4692,
+      "seconds": 9.005304120015353,
+      "notebooks": [
+        {
+          "path": "docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb",
+          "code_cells": 4,
+          "content_unchanged": true,
+          "executed_cells": 4,
+          "error_outputs": [],
+          "sha256": "a3aa4617d6d4d9f56dfffea08371f950170b149d3e717b11b9fe1f005817f172",
+          "run_mark": {
+            "code_sha256": "cd54a167c4831415fcdac8a2b4e758a1a9694ba9fb3ed07c1a5c0e4bb50eb488",
+            "executed_at": "2026-11-17T18:46:10+00:00"
+          },
+          "log_sha256": "65801cf15f18f1e42f1b436855d77ef29d5f44501fcd34f9e305c0fee6e18e61"
+        }
+      ],
+      "changed_inputs": [],
+      "memory_peak_bytes": 327712768,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17920073728,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "13d4c507d7b76f5582620480874856b0e119097b2edad380c4dcb4a17f38e1a5",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/metadata-notebook-execution.json",
+          "sha256": "8746b5ec242709d37db1fbee8b023675e1724f86d2933c7f3fde29a606b7cf56",
+          "bytes": 2052
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/metadata-notebook.log",
+          "sha256": "8086a4a81bfab3a446a3db83afb1e6e8fcb9c5ed44177f463c4b459eb6a6b00a",
+          "bytes": 179
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/metadata-notebook-inputs-before.json",
+          "sha256": "cc5015ec0454350e8e7fdafdf35130f6df0d0cb008ac9bba27a8ddb8ed7e2b90",
+          "bytes": 802231
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/metadata-notebook-inputs-after.json",
+          "sha256": "cc5015ec0454350e8e7fdafdf35130f6df0d0cb008ac9bba27a8ddb8ed7e2b90",
+          "bytes": 802231
+        }
+      }
+    },
+    "expanded": {
+      "phase": "expanded",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "11.14 9.93 7.25 19/2950 3047024",
+        "cpu_pressure": "some avg10=51.14 avg60=41.37 avg300=33.15 total=26974441332\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/interactions_api.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "200000 100000",
+        "memory.max": "4294967296",
+        "memory.high": "3670016000",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "-m",
+        "pytest",
+        "--receptor=llm",
+        "-n2",
+        "-o",
+        "receptor_rerun_command=python -m pytest",
+        "--junitxml=<repository>/.pytest_cache/supplemental-pre1-334-20261117/expanded.xml",
+        "--receptor-events=<repository>/.pytest_cache/supplemental-pre1-334-20261117/expanded.events.jsonl",
+        "tests/interactions",
+        "tests/test_ackredit.py",
+        "tests/scientific_truth/curated/test_attributed_interaction_methods.py",
+        "tests/scientific_truth/curated/test_cation_pi_interactions.py",
+        "tests/scientific_truth/curated/test_halogen_bonds.py",
+        "tests/scientific_truth/curated/test_hydrophobic_interactions.py",
+        "tests/scientific_truth/curated/test_ionic_interactions.py",
+        "tests/scientific_truth/curated/test_metal_coordination.py",
+        "tests/scientific_truth/curated/test_pi_pi_interactions.py",
+        "tests/scientific_truth/curated/test_water_bridges.py",
+        "tests/documentation/test_chemical_workflow_recipes.py",
+        "tests/basic/test_chemical_workflow_composition.py",
+        "tests/documentation/test_sparse_interaction_recipe.py"
+      ],
+      "checked_inputs": 5406,
+      "seconds": 252.417668545153,
+      "ending_status": " M devguide/interactions_api.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 1030848512,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 15559335936,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d9d21ff16228ff3d4692ca4e13de775f665ae0b665b2569145a4f5af56f129a8",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/expanded-execution.json",
+          "sha256": "a797ecda6a3d01527e72e21010b2d7fc3643ee8d878f3c41fb78fcdef20ea1d4",
+          "bytes": 5542
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/expanded.log",
+          "sha256": "19320ca23e6c713ecfada96e3294e2c49ca561e158c18684e3effaf3a11cf683",
+          "bytes": 1072
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/expanded-inputs-before.json",
+          "sha256": "a4bf7b7a39b4cedf2649171646e9cadf9a40782f67e805056b4b7d55fcecaa6d",
+          "bytes": 779319
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/expanded-inputs-after.json",
+          "sha256": "a4bf7b7a39b4cedf2649171646e9cadf9a40782f67e805056b4b7d55fcecaa6d",
+          "bytes": 779319
+        },
+        "driver.py": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/expanded-driver.py",
+          "sha256": "d9d21ff16228ff3d4692ca4e13de775f665ae0b665b2569145a4f5af56f129a8",
+          "bytes": 7482
+        }
+      },
+      "receptor": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/expanded.events.jsonl",
+          "sha256": "22fd7afe0ca4ffee48b7e9eeaa1d9b50ca9ab5e87ae5ac1f23929ff4654ba925",
+          "bytes": 2519627
+        },
+        "complete": true,
+        "integrity_valid": true,
+        "issue": "",
+        "counts": {
+          "collected": 1933,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 1933,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 1933,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 26,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "native_pytest_exit": 0,
+        "policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        }
+      },
+      "junit": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/expanded.xml",
+          "sha256": "de44c4897919e99c658159b8de64731852e156c2ef9ed5f0f53fa5ef835d0cd5",
+          "bytes": 341327
+        },
+        "cases": 1933,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "checks": {
+      "phase": "checks",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "2.52 7.50 7.50 3/2991 3048482",
+        "cpu_pressure": "some avg10=12.09 avg60=5.14 avg300=19.21 total=27050775815\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/interactions_api.md\n M devguide/pending_bugs/docs/README.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "<repository>/.pytest_cache/supplemental-pre1-334-20261117/quality.py"
+      ],
+      "checked_inputs": 5409,
+      "seconds": 47.34978342661634,
+      "ending_status": " M devguide/interactions_api.md\n M devguide/pending_bugs/docs/README.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 407580672,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17589612544,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d9d21ff16228ff3d4692ca4e13de775f665ae0b665b2569145a4f5af56f129a8",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/checks-execution.json",
+          "sha256": "d0e54a554d2c11b36823e99979d4ec262d18b1af96d9490c5600d8c7b667bca8",
+          "bytes": 4809
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/checks.log",
+          "sha256": "a6a5464303c9fb0114593db1b94960872ba751a0a77eb54ef4e5dd56d2b20d8d",
+          "bytes": 3816
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/checks-inputs-before.json",
+          "sha256": "cf5f94454475217da8c721703e7e1dd1510da9c66edc37c9e2373b5c196d9c17",
+          "bytes": 779666
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/checks-inputs-after.json",
+          "sha256": "cf5f94454475217da8c721703e7e1dd1510da9c66edc37c9e2373b5c196d9c17",
+          "bytes": 779666
+        },
+        "driver.py": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/checks-driver.py",
+          "sha256": "d9d21ff16228ff3d4692ca4e13de775f665ae0b665b2569145a4f5af56f129a8",
+          "bytes": 7482
+        }
+      }
+    },
+    "html": {
+      "phase": "html",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "6.17 7.93 7.69 1/2802 3048884",
+        "cpu_pressure": "some avg10=0.62 avg60=12.42 avg300=19.47 total=27071378133\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/interactions_api.md\n M devguide/pending_bugs/docs/README.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2726297600",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "-m",
+        "sphinx",
+        "-W",
+        "--keep-going",
+        "-E",
+        "-a",
+        "-b",
+        "html",
+        "-q",
+        "-j",
+        "1",
+        "-d",
+        "<repository>/.pytest_cache/supplemental-pre1-334-20261117/doctrees",
+        "docs",
+        "<repository>/.pytest_cache/supplemental-pre1-334-20261117/html"
+      ],
+      "checked_inputs": 7624,
+      "seconds": 169.8356424239464,
+      "ending_status": " M devguide/interactions_api.md\n M devguide/pending_bugs/docs/README.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 1734422528,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 16778014720,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d9d21ff16228ff3d4692ca4e13de775f665ae0b665b2569145a4f5af56f129a8",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/html-execution.json",
+          "sha256": "93e884860d469bac63d2dbf9591ffd73ba82e670d0b7076c2ed81a278fc2b6e3",
+          "bytes": 5044
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/html.log",
+          "sha256": "382f82536b1648d7d2520d3a06b0ab3e720a4d958f7a2bbe24e74fa0f0f39b2f",
+          "bytes": 31
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/html-inputs-before.json",
+          "sha256": "31b2cef109d94af3b61e99426954974afcee9e74f71830504ba5131aa1d5b93d",
+          "bytes": 1079374
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/html-inputs-after.json",
+          "sha256": "31b2cef109d94af3b61e99426954974afcee9e74f71830504ba5131aa1d5b93d",
+          "bytes": 1079374
+        },
+        "driver.py": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/html-driver.py",
+          "sha256": "d9d21ff16228ff3d4692ca4e13de775f665ae0b665b2569145a4f5af56f129a8",
+          "bytes": 7482
+        }
+      }
+    },
+    "corrected2": {
+      "phase": "corrected2",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "3.67 7.75 7.78 3/2781 3050787",
+        "cpu_pressure": "some avg10=0.01 avg60=12.29 avg300=24.94 total=27207628083\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/interactions_api.md\n M devguide/pending_bugs/docs/README.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/native_pdbqt.md\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "<repository>/.pytest_cache/supplemental-pre1-334-20261117/receive_final.py"
+      ],
+      "checked_inputs": 5410,
+      "seconds": 11.310513963922858,
+      "ending_status": " M devguide/interactions_api.md\n M devguide/pending_bugs/docs/README.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/native_pdbqt.md\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 460808192,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 19252056064,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d9d21ff16228ff3d4692ca4e13de775f665ae0b665b2569145a4f5af56f129a8",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/corrected2-execution.json",
+          "sha256": "73cb74bd59d6c4b820be68b466bdce81653f05eefa409df455140c5ae6abcb9d",
+          "bytes": 4914
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/corrected2.log",
+          "sha256": "caa9adac9aa424a71965681a8ccbbec7a663c8080931de95527267c5df4031c9",
+          "bytes": 624
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/corrected2-inputs-before.json",
+          "sha256": "4b16b82739277adf7efa99c89be17aa27c684ceefd37ded5c15c9181b61bba8c",
+          "bytes": 779780
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/corrected2-inputs-after.json",
+          "sha256": "4b16b82739277adf7efa99c89be17aa27c684ceefd37ded5c15c9181b61bba8c",
+          "bytes": 779780
+        },
+        "driver.py": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/corrected2-driver.py",
+          "sha256": "d9d21ff16228ff3d4692ca4e13de775f665ae0b665b2569145a4f5af56f129a8",
+          "bytes": 7482
+        }
+      },
+      "receptor": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/corrected2.events.jsonl",
+          "sha256": "a8952d90205e730cc8c6d8b4d44921f31ebb947f4f9911972c74c106dcc92610",
+          "bytes": 12404
+        },
+        "complete": true,
+        "integrity_valid": true,
+        "issue": "",
+        "counts": {
+          "collected": 8,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 8,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 8,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 1,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "native_pytest_exit": 0,
+        "policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        }
+      },
+      "junit": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/corrected2.xml",
+          "sha256": "9dfd8ff9ad8f7e02a8814f8564d199999cf5856815ec545db8daa9c5931eece3",
+          "bytes": 1591
+        },
+        "cases": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "html2": {
+      "phase": "html2",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "6.27 7.40 7.64 10/2982 3051230",
+        "cpu_pressure": "some avg10=38.51 avg60=15.50 avg300=22.35 total=27216435486\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/interactions_api.md\n M devguide/pending_bugs/docs/README.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/native_pdbqt.md\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2726297600",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "-m",
+        "sphinx",
+        "-W",
+        "--keep-going",
+        "-b",
+        "html",
+        "-q",
+        "-j",
+        "1",
+        "-d",
+        "<repository>/.pytest_cache/supplemental-pre1-334-20261117/doctrees",
+        "docs",
+        "<repository>/.pytest_cache/supplemental-pre1-334-20261117/html"
+      ],
+      "checked_inputs": 7624,
+      "seconds": 13.908818565309048,
+      "ending_status": " M devguide/interactions_api.md\n M devguide/pending_bugs/docs/README.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/native_pdbqt.md\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 401477632,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 17732173824,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d9d21ff16228ff3d4692ca4e13de775f665ae0b665b2569145a4f5af56f129a8",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/html2-execution.json",
+          "sha256": "37eff4a1a61966a9dba0b9fd8a75b764ed74424b80fc4765410c3749f3df6f8a",
+          "bytes": 5121
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/html2.log",
+          "sha256": "382f82536b1648d7d2520d3a06b0ab3e720a4d958f7a2bbe24e74fa0f0f39b2f",
+          "bytes": 31
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/html2-inputs-before.json",
+          "sha256": "49f13e1d85f0ac130ac02afe107d4ebbd3922182737a3eaba8610b10a19014d6",
+          "bytes": 1079374
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/html2-inputs-after.json",
+          "sha256": "49f13e1d85f0ac130ac02afe107d4ebbd3922182737a3eaba8610b10a19014d6",
+          "bytes": 1079374
+        },
+        "driver.py": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/html2-driver.py",
+          "sha256": "d9d21ff16228ff3d4692ca4e13de775f665ae0b665b2569145a4f5af56f129a8",
+          "bytes": 7482
+        }
+      }
+    },
+    "runtime-integrated": {
+      "phase": "runtime-integrated",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "7.04 7.96 7.86 2/2808 3051590",
+        "cpu_pressure": "some avg10=5.76 avg60=31.79 avg300=29.35 total=27276365059\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/interactions_api.md\n M devguide/pending_bugs/docs/README.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/native_pdbqt.md\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "<repository>/.pytest_cache/supplemental-pre1-334-20261117/floor_final.py"
+      ],
+      "checked_inputs": 5410,
+      "seconds": 18.313189742155373,
+      "ending_status": " M devguide/interactions_api.md\n M devguide/pending_bugs/docs/README.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/native_pdbqt.md\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 453275648,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 19191169024,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d9d21ff16228ff3d4692ca4e13de775f665ae0b665b2569145a4f5af56f129a8",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/runtime-integrated-execution.json",
+          "sha256": "0c812a32dfad59d3d0afdb152d6fadb331e020c6435e252a885d6bd6bd92c4c1",
+          "bytes": 4920
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/runtime-integrated.log",
+          "sha256": "c10cac5437581eb1fd521f58aadd2a5b1d8090070cabedd9985635ce1aa4920f",
+          "bytes": 403
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/runtime-integrated-inputs-before.json",
+          "sha256": "ac7f8c0bd7c5ac808b9ed6da3ac0c45d527edd034d513e747787d5ac306fb1b0",
+          "bytes": 779780
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/runtime-integrated-inputs-after.json",
+          "sha256": "ac7f8c0bd7c5ac808b9ed6da3ac0c45d527edd034d513e747787d5ac306fb1b0",
+          "bytes": 779780
+        },
+        "driver.py": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/runtime-integrated-driver.py",
+          "sha256": "d9d21ff16228ff3d4692ca4e13de775f665ae0b665b2569145a4f5af56f129a8",
+          "bytes": 7482
+        }
+      },
+      "receptor": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/floor-final.events.jsonl",
+          "sha256": "ec05e9187fab28fb52e3406303382c7b127e86a573f78085311493e0baa33566",
+          "bytes": 69531
+        },
+        "complete": true,
+        "integrity_valid": true,
+        "issue": "",
+        "counts": {
+          "collected": 42,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 42,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 42,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 2,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "native_pytest_exit": 0,
+        "policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        }
+      },
+      "junit": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/floor-final.xml",
+          "sha256": "bd7f59fcde7a05c033194f829ce1d299e05178ea0036838dc3aaaa9d3f9800ec",
+          "bytes": 7132
+        },
+        "cases": 42,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "receiving": {
+      "phase": "receiving",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": 1,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "2.10 6.05 7.19 3/2796 3051807",
+        "cpu_pressure": "some avg10=0.00 avg60=7.11 avg300=21.55 total=27276495225\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/interactions_api.md\n M devguide/pending_bugs/docs/README.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/native_pdbqt.md\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "<repository>/.pytest_cache/supplemental-pre1-334-20261117/article_browser.py"
+      ],
+      "checked_inputs": 5410,
+      "seconds": 4.278717746026814,
+      "ending_status": " M devguide/interactions_api.md\n M devguide/pending_bugs/docs/README.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/native_pdbqt.md\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 52076544,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 19540516864,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d9d21ff16228ff3d4692ca4e13de775f665ae0b665b2569145a4f5af56f129a8",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/receiving-execution.json",
+          "sha256": "93bfaac177a1b537ff1dd3d2bda6e9a843d66b5f28719028b3c7b38915e8216e",
+          "bytes": 4912
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/receiving.log",
+          "sha256": "bb6e9558ee9219cd5ac01c36b436dac275dd3a0bd59b077161a00bb4a1ad320e",
+          "bytes": 1183
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/receiving-inputs-before.json",
+          "sha256": "ac7f8c0bd7c5ac808b9ed6da3ac0c45d527edd034d513e747787d5ac306fb1b0",
+          "bytes": 779780
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/receiving-inputs-after.json",
+          "sha256": "ac7f8c0bd7c5ac808b9ed6da3ac0c45d527edd034d513e747787d5ac306fb1b0",
+          "bytes": 779780
+        },
+        "driver.py": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/receiving-driver.py",
+          "sha256": "d9d21ff16228ff3d4692ca4e13de775f665ae0b665b2569145a4f5af56f129a8",
+          "bytes": 7482
+        }
+      }
+    },
+    "article-reading-corrected": {
+      "phase": "article-reading-corrected",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.71 3.96 6.24 1/2816 3052172",
+        "cpu_pressure": "some avg10=0.00 avg60=0.69 avg300=13.32 total=27276681630\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/interactions_api.md\n M devguide/pending_bugs/docs/README.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/native_pdbqt.md\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "<repository>/.pytest_cache/supplemental-pre1-334-20261117/article_browser_corrected.py"
+      ],
+      "checked_inputs": 5410,
+      "seconds": 12.31188229797408,
+      "ending_status": " M devguide/interactions_api.md\n M devguide/pending_bugs/docs/README.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/native_pdbqt.md\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 404189184,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 19173089280,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "cf858a0028574ead3a456520bee60d5fa6ef67a68f54dd00e7d44b5dc3d3638d",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/article-reading-corrected-execution.json",
+          "sha256": "e93bd0385c2fefcff8583b79cc6c3231bc232994827e7d9193b0bb3ace9b9044",
+          "bytes": 4939
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/article-reading-corrected.log",
+          "sha256": "a4022a45cd11fe0d277f03b3b05f7795efd48e02f9b3590a0d9ad25d5f64fa70",
+          "bytes": 120
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/article-reading-corrected-inputs-before.json",
+          "sha256": "ac7f8c0bd7c5ac808b9ed6da3ac0c45d527edd034d513e747787d5ac306fb1b0",
+          "bytes": 779780
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/article-reading-corrected-inputs-after.json",
+          "sha256": "ac7f8c0bd7c5ac808b9ed6da3ac0c45d527edd034d513e747787d5ac306fb1b0",
+          "bytes": 779780
+        },
+        "driver.py": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/article-reading-corrected-driver.py",
+          "sha256": "cf858a0028574ead3a456520bee60d5fa6ef67a68f54dd00e7d44b5dc3d3638d",
+          "bytes": 7510
+        }
+      }
+    },
+    "metadata-final": {
+      "phase": "metadata-final",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "scope": "Executed documentation examples only; not installed, final-candidate, visual or scientific qualification.",
+      "state": "completed",
+      "command": [
+        "<development-environment>/bin/python",
+        "docs/execute_notebooks.py",
+        "-q",
+        "-n",
+        "1",
+        "--force",
+        "docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb"
+      ],
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "paths": [
+        "docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb"
+      ],
+      "python": "<development-environment>/bin/python",
+      "load": "2.38 3.68 5.84 1/2814 3052956",
+      "cpu_pressure": "some avg10=0.37 avg60=6.19 avg300=11.25 total=27287111726\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "input_count": 4692,
+      "seconds": 8.00438871840015,
+      "notebooks": [
+        {
+          "path": "docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb",
+          "code_cells": 4,
+          "content_unchanged": true,
+          "executed_cells": 4,
+          "error_outputs": [],
+          "sha256": "c18605a05728e2fc395572989613f0b9e0f9a22bfa6958e8d50999ee5af09405",
+          "run_mark": {
+            "code_sha256": "59f9cb4a6b807a05ec23fb3bfb7e8670f14818513aa13eda113233fb8e63d46a",
+            "executed_at": "2026-11-17T19:13:53+00:00"
+          },
+          "log_sha256": "49d512dea562456ac051d3f293a5235744e18749542f5edb4449d118e7ad02b8"
+        }
+      ],
+      "changed_inputs": [],
+      "memory_peak_bytes": 317853696,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 19382493184,
+      "maximum_memory_pressure_avg10": 0.0,
+      "stop_reason": null,
+      "driver_sha256": "13d4c507d7b76f5582620480874856b0e119097b2edad380c4dcb4a17f38e1a5",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/metadata-final-execution.json",
+          "sha256": "9e15f20f4e26ddaff0b8fa3ff00e1f381dece4f67c7ca5b315bc3eb335301df4",
+          "bytes": 2045
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/metadata-final.log",
+          "sha256": "4795a3e0f469cfc4bcc79947d41439609bd1e8dd6b9d7a8f989cc872a22e24b6",
+          "bytes": 179
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/metadata-final-inputs-before.json",
+          "sha256": "cc5015ec0454350e8e7fdafdf35130f6df0d0cb008ac9bba27a8ddb8ed7e2b90",
+          "bytes": 802231
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/metadata-final-inputs-after.json",
+          "sha256": "cc5015ec0454350e8e7fdafdf35130f6df0d0cb008ac9bba27a8ddb8ed7e2b90",
+          "bytes": 802231
+        }
+      }
+    },
+    "html-final": {
+      "phase": "html-final",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "3.89 4.27 5.82 1/2820 3053476",
+        "cpu_pressure": "some avg10=0.00 avg60=1.00 avg300=7.57 total=27287671604\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/interactions_api.md\n M devguide/pending_bugs/docs/README.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/native_pdbqt.md\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "3221225472",
+        "memory.high": "2726297600",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "<repository>/.pytest_cache/supplemental-pre1-334-20261117/final_docs.py"
+      ],
+      "checked_inputs": 7624,
+      "seconds": 43.675675180740654,
+      "ending_status": " M devguide/interactions_api.md\n M devguide/pending_bugs/docs/README.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/native_pdbqt.md\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/pending_bugs/docs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/pending_proposals/portable_ackredit_attribution_adoption.md\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 522305536,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 19323629568,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "d93579e1e8481ae81ec6b82c00689c5544010b4484006e5ec796cc35ff4a5774",
+      "raw_artifacts": {
+        "execution.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/html-final-execution.json",
+          "sha256": "e7f24a07c78965a9d13abb9c0acd203608b7afbb945062d01de273e288941c71",
+          "bytes": 4909
+        },
+        "log": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/html-final.log",
+          "sha256": "37bec71835c06968e413b501b8436cebefc3888132601663b4b349bf23eec5b3",
+          "bytes": 427
+        },
+        "inputs-before.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/html-final-inputs-before.json",
+          "sha256": "618c8793bb282a6a7c207de41006b855d9aeba4ac1732b5d195bebed2a690eb5",
+          "bytes": 1079374
+        },
+        "inputs-after.json": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/html-final-inputs-after.json",
+          "sha256": "618c8793bb282a6a7c207de41006b855d9aeba4ac1732b5d195bebed2a690eb5",
+          "bytes": 1079374
+        },
+        "driver.py": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/html-final-driver.py",
+          "sha256": "d93579e1e8481ae81ec6b82c00689c5544010b4484006e5ec796cc35ff4a5774",
+          "bytes": 7562
+        }
+      },
+      "receptor": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/docs-final.events.jsonl",
+          "sha256": "1584517d992c2b8052ac0ec6662e833ced576eadf2a2675abbc7c9e0e30719d2",
+          "bytes": 12403
+        },
+        "complete": true,
+        "integrity_valid": true,
+        "issue": "",
+        "counts": {
+          "collected": 8,
+          "deselected": 0,
+          "errors": 0,
+          "executed": 8,
+          "failed": 0,
+          "not_executed": 0,
+          "passed": 8,
+          "reruns": 0,
+          "skipped": 0,
+          "subtests": {},
+          "warnings": 1,
+          "xfailed": 0,
+          "xpassed": 0
+        },
+        "native_pytest_exit": 0,
+        "policy": {
+          "dropped_records": 0,
+          "max_bytes": 52428800,
+          "truncated": false
+        }
+      },
+      "junit": {
+        "artifact": {
+          "file": ".pytest_cache/supplemental-pre1-334-20261117/docs-final.xml",
+          "sha256": "aa697809a7384e12337a74d717644ebdaba167d782fcd3cfc525c0c74f688890",
+          "bytes": 1591
+        },
+        "cases": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    }
+  },
+  "quality": [
+    {
+      "command": [
+        "ruff",
+        "check",
+        "--extend-exclude",
+        ".aws",
+        "."
+      ],
+      "native_exit": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "ruff",
+        "format",
+        "--check",
+        "--extend-exclude",
+        ".aws",
+        "."
+      ],
+      "native_exit": 0,
+      "stdout": "4752 files already formatted\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<development-environment>/bin/python",
+        "devtools/scripts/release_gate.py"
+      ],
+      "native_exit": 0,
+      "stdout": "Release readiness — fast gates\n=======================================================================\n  [PASS] Public API stability registry                          0.1s  API stability registry valid: 313 symbols classified.\n  [PASS] Public function support tiers                          4.2s  Function-tier classification valid: every public function ha\n  [PASS] Form adapter delivery contracts                        9.6s  ============================================================\n  [PASS] Tier 1 conversion fidelity (accepted-debt baseline)    6.2s  forms_without_identity_edges: ['cupy_ndarray', 'openff.Topol\n  [PASS] Scientific evidence registry structure                 0.2s  Scientific evidence registry structure valid (tests not exec\n  [PASS] Dependency contract and source routes                  0.8s  Dependency contract audit: PASS (public requirements and dec\n  [PASS] No top-level soft-dependency imports                   2.5s  [PASS] No top-level imports of soft dependencies found.\n  [PASS] Developer-guide integrity                              1.8s  Developer-guide validation passed.\n  [PASS] Four Paths course structure                            2.4s  Course structure valid: 156 notebooks (20 core + 4x34 paths)\n  [PASS] Stored notebook schemas (no repairs)                   7.7s  Notebook schemas valid: 501 stored sources; no repairs.\n  [PASS] Demo assets / H5MSM fixtures                           0.3s  Validated 17 H5MSM 0.4 demos and one 0.3 fixture\n  [PASS] Resource manifests                                     0.1s  OK: resources/tutorials.yml\n  [PASS] Citation and Zenodo metadata                           0.2s  Citation metadata: PASS\n  [PASS] Rust kernel hot paths (no libm rounding calls)         0.8s  Rust hot-path lint: 20 files clean.\n  [PASS] Public-API smoke                                       2.7s  public-API smoke OK\n=======================================================================\nFast gates: 15/15 passed.\nHeavy gates still required before tagging: zero-skip execution of every registered scientific evidence node, a green ci-full.yaml run (ubuntu+macos-arm64 x {3.11,3.12,3.13,3.14}) against the exact Viewer SHA, and the 16-cell installed Conda pair. See devguide/release_gate.md.\n\nRELEASE GATE (fast portion): PASS. Proceed to the ci-full matrix.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<development-environment>/bin/python",
+        "devtools/scripts/devguide_index.py",
+        "--check"
+      ],
+      "native_exit": 0,
+      "stdout": "Every queue index is up to date.\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<development-environment>/bin/python",
+        "devtools/scripts/validate_docstrings.py"
+      ],
+      "native_exit": 0,
+      "stdout": "Running MolSysMT docstring fidelity and minimum-content validation...\nPASSED: All 254 public functions have structurally consistent NumPy docstrings, exact default fidelity, and no known vacuous stable-API content!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<development-environment>/bin/python",
+        "<repository>/.pytest_cache/supplemental-pre1-334-20261117/receive_docstring.py"
+      ],
+      "native_exit": 0,
+      "stdout": "{\"module\": \"molsysmt.interactions.hbonds.get_hbonds\", \"attempted\": 7, \"failed\": 0}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "native_exit": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "source_sha256": {
+    "molsysmt/_private/interaction_attribution.py": "0268dd986f5dabfcc89c4f0eed91a7b837cd51ffb69b1ac11c72fb76a196e709",
+    "molsysmt/_private/scientific_attribution.py": "76dc2c3f724b162835a3563d91ee38da89596370fdaddac8518fd9aef3e65086",
+    "molsysmt/interactions/hbonds/get_hbonds.py": "253ed003ae75e573b40dc1bbe94b4a15110c7a367c7b3491ca5471470b64e2ad",
+    "molsysmt/_ackredit.py": "55190f7bc6e04c09b7d4c441b8c5446e23e3a3e1d1991b2530dcad0703026faf",
+    "molsysmt/_depdigest.py": "ebb84c0cb948b5e2ab96c3b301547013e8c034fb9ace2c7bf89bb01c29467a6f",
+    "tests/interactions/test_portable_attribution.py": "db21aab4fc07bed22586022f59b950d64a09bd575b86dd227f604ce89f8f03bd",
+    "tests/interactions/test_scientific_attribution.py": "7ff126c334f9cd359946ffebc242bc1c3cfbff4673d25d52c800ada45f2949f5",
+    "tests/test_ackredit.py": "a64806d5ad5e3164eb75bde21cf682e6bb75b0b76bef3e1bdff961d574e10d9d",
+    "tests/documentation/test_chemical_workflow_recipes.py": "9f552040a839fea6ae3eb2f8db59e2b0de4b5826bbe862ad16aa9ea81f4103d4",
+    "tests/basic/test_chemical_workflow_composition.py": "35f1dd70a6fff8714b81a689147246a4b12b9cb922b4caef5bad652fc4faf8f1",
+    "molsysmt/_rust.abi3.so": "4ffb82e4250a1862fff17dbe7725fb8f0770d613ffef2648370389a66983d345",
+    "docs/content/user/cookbook/native_sdf.md": "4dc8c996e99c977f8b0c63a251e53274efc275eabb707066a35fb4338d116cff",
+    "docs/content/user/cookbook/native_pdbqt.md": "b977fabe4e228301000c2a19e9edc82fec7e90f110dd344c0b63dbafeaf918e9",
+    "docs/content/user/cookbook/applying_chemical_templates.md": "8f30cd11a50b95d33da5efa953ef9e2189886eba2e0d2fabe8577db91a87d2f5",
+    "docs/content/user/cookbook/aligning_stored_hydrogen_policies.md": "2f78a1db87dd45d9a19cfa87d8710212e19acadd36bb5d79c84ddb9996046fe9",
+    "docs/content/user/cookbook/delivering_coordinates.md": "28391c70cc889d28d3bfa2ecea8905d600d946e09dd91bb51eca3850279cb058",
+    "docs/content/user/cookbook/permuting_export_order.md": "d73316f6fcd410b50e3de7ae12a8fc2747949a1a30c5ed6fb3c80bb692f735ea",
+    "docs/content/user/cookbook/comparing_sequence_source_groups.md": "67f6dab791d6be196d2c115f74ca8e22060021a66fb4f111f6a0b0c5a2b626b4",
+    "docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb": "c18605a05728e2fc395572989613f0b9e0f9a22bfa6958e8d50999ee5af09405",
+    "docs/content/user/tools/interactions/result.md": "4ec42f79a8582d688315e9410bd3f6b44919a45a19a0e3ab50a57d4f4bebcd61",
+    "docs/content/user/cookbook/querying_sparse_interactions.md": "375bf75e036e763a245b3b1f0992a3fdea13a5f393421f05ee37fac4a6151db9",
+    "docs/content/user/tools/interactions/get_hbonds.ipynb": "9915816984ac0bcb88c0c923ed65bd3ce607eced073c65ab73694818acbca814",
+    "docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb": "e9a20d9fa2543cb909156861d628d1da80bbaa41bb60c25f0590002e35a33b86",
+    "docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb": "e1dc3b44aec968c76b0b97a8c103c266593249e55dd278c4675dc45f2348ceda",
+    "docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb": "7aa8fb506b079bc1508511fcef66764fcb7cf281b57c523a00234b9b27ea88a6",
+    "docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb": "8df662bcb46c3a9b6114606d13886daebb90fefbb6c4c83065ed569d160cc428",
+    "docs/api/hbonds/autosummary/molsysmt.interactions.hbonds.get_hbonds.rst": "b63ca2261c590e9fddbcc6be88c4143a1b164ecf165366cd2c31aa7f6649105c"
+  },
+  "intake": {
+    "total_returned_issue_identities": 627,
+    "open_before_closures": 82,
+    "open_prs": 0,
+    "new_since_plan": [
+      {
+        "number": 772,
+        "title": "Chemical-workflow recipes misidentify default H5MSM writes as 0.5",
+        "state": "OPEN",
+        "labels": [
+          {
+            "name": "documentation"
+          },
+          {
+            "name": "docs"
+          }
+        ]
+      }
+    ],
+    "unavailable_valid_local_issue_identities": [
+      112,
+      211,
+      212,
+      244,
+      273,
+      275,
+      286,
+      348,
+      349,
+      351,
+      352,
+      353,
+      357,
+      366,
+      367,
+      369,
+      371,
+      375,
+      376,
+      381,
+      382,
+      383,
+      384,
+      385,
+      386,
+      390,
+      436,
+      447,
+      513,
+      523,
+      524,
+      531,
+      541,
+      544,
+      555,
+      556,
+      557,
+      558,
+      563,
+      599,
+      601,
+      604,
+      610,
+      642,
+      644,
+      645,
+      646,
+      654,
+      659,
+      675,
+      677,
+      739,
+      746,
+      756,
+      763
+    ],
+    "unavailable_is_unknown_not_absent": true,
+    "comment_count_discrepancy": "Native paginated REST and connector return 5/2/2 comments for #292/#214/#215 while service issue metadata reports 13/13/9. Do not infer that other acceptance never existed."
+  },
+  "consumer_owner_report": {
+    "owner": "MolSysViewer",
+    "independently_verified_here": false,
+    "source": "0ea58be0089397cd2a023a8574d0d2fc7cea41e7",
+    "run": "https://github.com/uibcdf/molsysviewer/actions/runs/44118070148",
+    "result": "Owner reports failed source recovery: mirror #402 passes, moving-capture adversarial precondition and later native-drawing comparison still investigated under #344; no new demonstrated MolSysMT scientific defect, rebuild or matrix request.",
+    "subsequent_owner_update": {
+      "independently_replayed": false,
+      "result": "Adversarial setup correction received; apparent drawing loss isolated to the consumer observation harness. Actual popup >30 seconds still reproduces under #344. Coalescing 23 repeated trajectory receipts passes 495 JS/type/build controls; browser receiving is unqualified after two swap-pressure stops. No MolSysMT science defect, matrix, artifact or publication request.",
+      "local_response": "No material MolSysMT execution remains active; finish only light repository/issue closeout. No borrowed consumer result or final-pair qualification."
+    }
+  },
+  "failed_attempts": {
+    "baseline": "Five genuine missing portable-field failures, retained.",
+    "articles": "Two actual format-claim/compatibility failures and six passes, retained.",
+    "runtime-qualified": "Local nested launcher SyntaxError before tests, not a provider failure. Original log retained; corrected floor receiving is separate.",
+    "cohort": "SIGTERM at the planned 360-second wall ceiling, not a passing pytest session. Host reserve/pressure remained safe. Complete two-worker successor is separately recorded.",
+    "receiving": "Artifact-inspection harness joined syntax-highlight tokens with spaces, hiding the dot in Attribution.from_dict. The actual rendered symbol exists; corrected inspection preserves syntax rather than weakening the predicate.",
+    "intake_summary": "Complete acquisition succeeded; its first display postprocessor duplicated the number keyword and failed. Cached pages were re-read without repeating acquisition."
+  },
+  "warnings": "All native warnings retained. Expanded: 17 deliberately tiny-budget MemoryPressureWarning controls, 6 legacy-0.4 warnings and 3 structural attribute-drop warnings; no physical host-pressure event. Focused composition additionally records two pandas object-fill FutureWarnings under #524. Public-floor launcher records assertion-rewrite warning; final recipe records its explicit terminal attribute-drop warning.",
+  "resource_summary": {
+    "max_own_memory_bytes": 1734422528,
+    "minimum_observed_host_available_bytes": 15559335936,
+    "host_reserve_bytes": 6979321856,
+    "maximum_workers": 2,
+    "maximum_cpu_quota": 2,
+    "maximum_memory_cap_bytes": 4294967296,
+    "own_swap_max_bytes": 0,
+    "scope": "Measured bounds apply to these owned families; host memory was not reserved. No unrelated process or shared prefix was modified."
+  },
+  "limits": [
+    "Counts overlap and are not additive.",
+    "Native binary unchanged; no new build or installed composition is certified.",
+    "Actual metadata notebook uses the existing kernel for native-only code; MolSysViewer graphical host/installed acceptance is separate.",
+    "Strict stored-source HTML and offline static reading do not qualify a molecular canvas, all external resources, visible-human review or the final pair.",
+    "Ackredit remains optional. Current-source and extracted-public-floor evidence is not an installed-client or all-Python qualification.",
+    "Original global score/weights, paused publication and mandatory exact-candidate gates remain unchanged.",
+    "Optional OpenMM/OpenMMTools future-tool study is outside completion of this finite technical cohort."
+  ],
+  "final_quality": {
+    "execution": {
+      "phase": "final-checks",
+      "source_commit": "c9b9b2055d5ebfbc43336e56bc2575384bbf67b7",
+      "state": "completed",
+      "native_exit": 0,
+      "host_reserve_bytes": 6979321856,
+      "scope": "Finite #334 B0-B5 supplemental source receiving; no candidate build, hosted, installed-pair or publication qualification.",
+      "host_cpu_at_admission": {
+        "load": "0.60 1.69 3.99 1/2794 3054726",
+        "cpu_pressure": "some avg10=0.00 avg60=0.00 avg300=1.77 total=27289464045\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0\n",
+        "online_cpus": 20
+      },
+      "starting_status": " M devguide/interactions_api.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M devguide/technical_handoff_for_1_0_documentation_review.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/native_pdbqt.md\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/archive/resolved_bugs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/archive/resolved_proposals/portable_ackredit_attribution_adoption.md\n?? devtools/data/supplemental_pre1_work_334_20261117.json\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "limits": {
+        "cpu.max": "100000 100000",
+        "memory.max": "2147483648",
+        "memory.high": "1887436800",
+        "memory.swap.max": "0",
+        "pids.max": "256"
+      },
+      "command": [
+        "<development-environment>/bin/python",
+        "<repository>/.pytest_cache/supplemental-pre1-334-20261117/quality_final.py"
+      ],
+      "checked_inputs": 5411,
+      "seconds": 11.313412696123123,
+      "ending_status": " M devguide/interactions_api.md\n M devguide/pending_proposals/README.md\n M devguide/pending_proposals/add_pdbqt_file_and_string_forms_with_molsys_conversion.md\n M devguide/pending_proposals/add_sdf_file_form_with_molsys_conversion.md\n M devguide/pending_proposals/docs/evidence_based_public_discoverability.md\n M devguide/pending_proposals/native_query_shortcuts.md\n M devguide/pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md\n M devguide/pending_proposals/pilot_ackredit_in_interaction_calculations.md\n M devguide/pending_proposals/runtime_dependency_api_floors.md\n M devguide/release_1_0_status.md\n M devguide/technical_handoff_for_1_0_documentation_review.md\n M docs/content/course/Path_Alzheimer/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Antiviral/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Biophysics/38_Advanced_HBonds.ipynb\n M docs/content/course/Path_Enzyme/38_Advanced_HBonds.ipynb\n M docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb\n M docs/content/user/cookbook/native_pdbqt.md\n M docs/content/user/cookbook/permuting_export_order.md\n M docs/content/user/cookbook/querying_sparse_interactions.md\n M docs/content/user/tools/interactions/result.md\n M docs/docs_manifest.yml\n M molsysmt/_private/interaction_attribution.py\n M molsysmt/_private/scientific_attribution.py\n M molsysmt/interactions/hbonds/get_hbonds.py\n?? devguide/archive/resolved_bugs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md\n?? devguide/archive/resolved_proposals/portable_ackredit_attribution_adoption.md\n?? devtools/data/supplemental_pre1_work_334_20261117.json\n?? tests/basic/test_chemical_workflow_composition.py\n?? tests/documentation/test_chemical_workflow_recipes.py\n?? tests/interactions/test_portable_attribution.py\n",
+      "changed_inputs": [],
+      "memory_peak_bytes": 92024832,
+      "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+      "minimum_host_available_bytes": 19826569216,
+      "maximum_memory_pressure_avg10": 0.0,
+      "pressure_transitions": [],
+      "stop_reason": null,
+      "driver_sha256": "13c97b758e3fe9991cbcba49c4b3f4663424bee145581a738094851c4184b0e3"
+    },
+    "commands": [
+      {
+        "command": [
+          "ruff",
+          "check",
+          "--extend-exclude",
+          ".aws",
+          "."
+        ],
+        "native_exit": 0,
+        "stdout": "All checks passed!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "ruff",
+          "format",
+          "--check",
+          "--extend-exclude",
+          ".aws",
+          "."
+        ],
+        "native_exit": 0,
+        "stdout": "4752 files already formatted\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/validate_devguide.py"
+        ],
+        "native_exit": 0,
+        "stdout": "Developer-guide validation passed.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/devguide_index.py",
+          "--check"
+        ],
+        "native_exit": 0,
+        "stdout": "Every queue index is up to date.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/validate_course.py"
+        ],
+        "native_exit": 0,
+        "stdout": "Course structure valid: 156 notebooks (20 core + 4x34 paths), toctrees, manifest, and labels consistent.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "<development-environment>/bin/python",
+          "devtools/scripts/validate_notebook_schemas.py"
+        ],
+        "native_exit": 0,
+        "stdout": "Notebook schemas valid: 501 stored sources; no repairs.\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "native_exit": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    ],
+    "postscript_scope": "This evidence-only postscript is added after the checked runtime/doc/guard bytes. It changes no scientific or documentation source and supplies no final-candidate claim."
+  },
+  "evidence_validation": {
+    "native_exit": 0,
+    "log_sha256": "dbec80af9602122b136cc03dc678aebc1d2a5e00700d375d2d5e775ed4f00361",
+    "same_run_junit_and_official_receptor_integrity_checked": true
+  }
+}

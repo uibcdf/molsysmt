@@ -200,7 +200,9 @@ The maintainer requests another useful work plan while MolSysViewer completes
 its own stabilization. I0–I5 is completed with its original finite scope and
 [receiving](../devtools/data/independent_native_work_334_20261116.json).
 This is a separately requested follow-up, not a reopening of that result.
-The live ledger owns execution status; all blocks below are initially planned.
+The live ledger owns execution status. The table records the selected plan;
+its completed local receiving is in the [supplemental record](../devtools/data/supplemental_pre1_work_334_20261117.json)
+and the dated live-ledger closeout. Final-pair qualification remains separate.
 
 Prioritize closing already implemented commitments and receiving supported
 chemical-input workflows. No new detector, format, native-domain redesign or

@@ -17,9 +17,8 @@ supersedes: []
 **Reported:** Original issue #128; expanded by the maintainer on 2026-10-21
 to native forms used by TopoMT, DockingMT, PharmacophoreMT and ElastNetMT.
 **Status:** Resident native query phase contract-tested and comparatively measured.
-Bounded stored-atom dictionary reads are implemented; qualification and
-comparative measurements are in progress below. Broader representation/file
-follow-up remains pending.
+Bounded stored-atom dictionary reads are implemented and comparatively measured.
+Broader derived/encoded/file representation follow-up remains pending.
 
 ## What
 
@@ -488,3 +487,14 @@ That expectation predates this proposal's native partial-domain summaries.
 known atom count and explicitly absent hierarchy/structure counts, with topology
 remaining absent. No runtime query behavior is changed by that alignment, and no
 extra scientific information is inferred from chemical states alone.
+
+## Supplemental acceptance review — 2026-11-17
+
+B0 retains #128 as **partial**. Resident native access and the bounded stored-atom
+dictionary route have the explicit guards and dated measurements above. The
+visible issue/comment review adds no consumer acceptance of derived dictionary
+reconstruction, encoded/file workloads or subsequent output-assembly improvement.
+Those remain the separately admitted follow-up; no new benchmark or optimization
+is selected by #334's waiting-period cohort. Current native partial summaries and
+the prohibition on a Topology chemical facade remain authoritative in
+[native queries](../native_queries.md).

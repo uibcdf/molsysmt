@@ -2,13 +2,14 @@
 
 ## Resume from here
 
-**Reviewed 2026-11-15 against complete local source checkpoint `27ba3d4c8`
-and the subsequent scoped corrections. Documentation receiving through
-#759–#761 and #615 retains its own source/kernel/site boundaries. Published
-`b8c798474` now repairs #763/#766's mmCIF identity and declared-link defects;
-#764/#765 receive the current policy and notebook-host contract. The earlier
-complete-source run retains its original identity and is not qualification of
-these later changes. Exact-new-head and final-package-pair gates remain due.**
+**Reviewed 2026-11-17. The separately requested B0–B5 local waiting-period
+queue is complete: #292's portable attribution is received, #772's chemical
+recipes are corrected, the other three acceptance reviews retain their real
+partial boundaries, and the proposed manuscript/reader packet is recorded.
+The earlier complete-source run retains its original identity; the new bounded
+1,933-case receiving does not qualify a changed final candidate. MolSysViewer's
+latest owner report still has #344/source-recovery work pending, and no final
+package pair is fixed.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
 does not select today's candidate or authorize new execution.
@@ -31,7 +32,7 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
-| Plan the supplemental waiting-period queue requested on 2026-11-17 | [B0–B5](technical_handoff_for_1_0_documentation_review.md#supplemental-waiting-period-work-queue--2026-11-17) reviews delivered issue acceptance (#292 first), an eight-article chemical-input/preparation cohort, actual cross-domain gaps, justified local integration and the scientific reader/manuscript packet. Planned only; no new implementation, receiving or scorecard credit. Optional OpenMM/OpenMMTools source study is nonblocking post-1.0 planning. |
+| Preserve the completed B0–B5 queue and await the exact final-pair handoff | [B0–B5](technical_handoff_for_1_0_documentation_review.md#supplemental-waiting-period-work-queue--2026-11-17) has [finite receiving](../devtools/data/supplemental_pre1_work_334_20261117.json): #292/#772 resolved locally, 1,933 integration/curated cases and 42 public-floor cases without skips, eight Cookbook dispositions, 16 articles/four static views, strict 1,401-page HTML and the proposed #191/#378 scientific claim packet. #128/#214/#215 remain partial with exact boundaries; this is no promise of four closures or final-pair qualification. No optional implementation is appended merely because MolSysViewer is still working. |
 | Preserve the completed independent local queue and prepare the final-pair handoff | [I0–I5](technical_handoff_for_1_0_documentation_review.md#independent-molsysmt-work-queue--2026-11-16) now has [finite local receiving](../devtools/data/independent_native_work_334_20261116.json): 54 selected files, #769–#771 corrected/guarded, 159 offline controls, four complete notebooks, strict 1,401-page site and scoped article/browser review. This completes the local queue, not the final-pair gates or Diego's review. Preserve its actual runtime/source limits and the preparation/publication pause; no new global scorecard credit. |
 | Preserve #768's current governance adoption | The single actual caller now selects policy-v1.6.0; published tag, guide bytes and root/nested semantic/resource review are received. Official conformance rejects the old caller and accepts the correction, published-policy adoption reports CURRENT, and registered guide checking passes. The [owner record](archive/resolved_proposals/adopt_policy_v1_6_0_and_receive_resource_guidance.md) retains measured whole-family limits and the absence of a reservation/aggregate-protection claim. #764 remains historical; hosted qualification stays intentionally unexecuted under the maintainer's cadence. |
 | Preserve MolSysViewer's current-source client receiving | Its published profile `897` reports 55 selected cases passing on exact owner `96988b6ea`, reused native `4ffb82e4` and its recorded client/support-source composition. The [bounded review](../devtools/data/viewer_current_source_client_review_256_524_20261115.json) verifies eleven public Git blobs, the actual five guard modules/helpers and source identities; private raw execution records are not replayed. Session persistence, maps, coverage, edit invalidation, append and independent geometric projection remain exercised source contracts. This does not close #256/BindingMT #73, #524, #615 or final installed acceptance. |
@@ -68,12 +69,72 @@ have source receiving, separate from human/installed/platform qualification.
 The accepted initial-canvas disposition now gives **80.2381% (approximately 80.2%)**.
 The dated percentages below remain historical, not the current score.
 
+## Supplemental waiting-period queue completed — 2026-11-17
+
+The maintainer-selected B0–B5 follow-up is **locally complete** with
+[its bounded receiving record](../devtools/data/supplemental_pre1_work_334_20261117.json).
+It is separate from the already completed I0–I5 cohort and does not create
+another mandatory gate or change the original scorecard weights.
+
+- **B0:** [#292](archive/resolved_proposals/portable_ackredit_attribution_adoption.md)
+  keeps the compatible interaction wrapper and adds a public-reader-compatible
+  original-result bibliography. Ackredit stays optional/lazy, provenance survives
+  absence/failure, and original versions/roles persist without reader credit.
+  Actual enclosing capture is separate. #27's broader rollout remains partial.
+  #128's broader representation work, #214's exact evolved client return and
+  #215's wider profile/stereo uncertainties remain explicitly partial.
+- **B1/B2:** eight candidate articles have actual receiving or scoped retained
+  evidence. [#772](archive/resolved_bugs/chemical_workflow_recipes_misidentify_default_h5msm_writes_as_0_5.md)
+  distinguishes default 1.0 from explicit 0.5 and demonstrates prepared parameter
+  transport without completing PDBQT chemistry. Independent SDF graph/isotope,
+  units, axes, projection/pose, template and invalidation controls pass; selected
+  edits retain evaluated-empty coverage elsewhere and preserve sources/files.
+- **B3:** 1,933 selected interaction/curated/composition cases pass without skips.
+  The exact public Ackredit 0.9.0 follow-up passes 42 cases without skips; counts
+  overlap. The first broad pass stopped at its finite wall ceiling and remains
+  incomplete. Measured scaling uses two workers/two CPUs with a 4 GiB enforced
+  cap; actual peak is about 983 MiB. No full-source/nightly or final gate is waived.
+- **B4:** [#191's proposed packet](pending_proposals/paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md#proposed-manuscript-inputs--2026-11-17)
+  records JCIM direction, scoped claims/evidence/limits, comparisons to investigate,
+  reproducible examples and original argument notes. It leaves final claims and
+  manuscript writing with the authors; #378's wider acceptance remains partial.
+  All 15 cheap offline gates, Ruff and seven public doctest examples pass.
+  The four-cell metadata notebook executes, strict complete/incremental HTML
+  passes, and sixteen built articles plus four offline static views are received.
+- **B5:** complete paginated acquisition returns 627 issue identities, 82 open
+  before the two selected closures and no open PRs. #772 is the only new identity
+  since selection. The same 55 valid historical identities remain unavailable
+  through the service, not proven absent; no record is removed. Original failed
+  controls, harness errors, warnings and all scope limitations remain recorded.
+
+MolSysViewer's latest **owner-reported**, not independently replayed, recovery
+`44118070148` fails on `0ea58be0` with MolSysMT `4b0b1f8a`: mirror #402 passes.
+A later owner update receives the adversarial setup correction and isolates the
+apparent drawing loss to its observation harness. The real popup still exceeds
+30 seconds under #344. Proposed coalescing of 23 repeated trajectory receipts
+passes 495 JavaScript/type/build controls, but its browser regression remains
+unreceived after two swap-pressure stops. No new demonstrated MolSysMT scientific
+defect, rebuild request or qualified final candidate follows. Preserve the failed
+run and these bounded owner reports; do not present an unexecuted browser check
+as passing.
+
+Next, receive MolSysViewer's qualified final source and resume the agreed exact
+pair/producer/artifact and mandatory qualification route. Then Diego's remaining
+scientific/editorial documentation review can become the final human step.
+That destination is **not yet achieved**. Candidate construction, hosted
+qualification, tags, promotions and publication remain paused. Optional
+OpenMM/OpenMMTools source study stays separate and nonblocking.
+
 ## Supplemental waiting-period queue selected — 2026-11-17
+
+**Historical selection; superseded by the completed disposition above.**
 
 After receiving the completed I0–I5 work, the maintainer requests another plan
 while MolSysViewer finishes stabilization. The [B0–B5 work order](technical_handoff_for_1_0_documentation_review.md#supplemental-waiting-period-work-queue--2026-11-17)
 is a separately selected bounded follow-up, not a reopening of I0–I5 or a new
-release gate. Its execution has not started. The initial action is #292's
+release gate. B0 is in progress: five new portable-attribution guards reproduce
+the missing result projection; its additive correction passes 34 cases against
+the exact public Ackredit 0.9.0 payload, without skips. The initial action is #292's
 portable-attribution acceptance review: Ackredit #22/#75 and MolSysSuite #68 are
 remotely confirmed closed, while the historical pilot report under #27 still
 lists those obligations as pending. #292 needs its own adoption/compatibility

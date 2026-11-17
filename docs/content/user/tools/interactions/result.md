@@ -593,7 +593,7 @@ its recorded criterion is `hydrogen_acceptor_distance`, without a guessed paper.
 The existing Luzard–Chandler entry point records the established
 `luzar_chandler` criterion and its paper while retaining its public spelling.
 
-The complete typed dictionary, standalone file and H5MSM 0.5 preserve these
+The complete typed dictionary, standalone file and supported H5MSM writers preserve these
 records, including the bibliography and producer versions recorded at calculation
 time. Query views expose `.parameters`; their occurrence-only `to_dict()` does
 not carry the complete analysis parameters. Loading, querying and remapping do
@@ -622,9 +622,29 @@ with ackredit.session("interaction-workflow"):
 
 Here `molecular_system` must supply the detector's required chemistry and
 coordinates; this sketch does not assign chemistry or download a system.
-Bibliography is stored once per analysis, never once per observation. Portable
-workflow capture and contextual report roles are being coordinated with
-[Ackredit #75](https://github.com/uibcdf/ackredit/issues/75).
+Bibliography is stored once per analysis, never once per observation.
+
+You can also render the bibliography of an already calculated or loaded analysis
+with Ackredit >=0.9.0:
+
+```python
+# Uses the detector-produced analysis above, or one loaded from H5MSM.
+saved = ackredit.Attribution.from_dict(
+    analysis.parameters["attribution"]["portable"]
+)
+print(saved.report(format="bibtex"))
+```
+
+The existing `schema`, `target` and `items` fields remain available. The new
+`portable` field uses the public `ackredit.attribution@1` schema, retaining original
+references, roles and software/method context. Its scope is `result_bibliography`:
+it describes this result and does not invent a complete child-call trace. To
+record the actual enclosing workflow, use application-owned `ackredit.capture`
+or `ackredit.get_attribution()`. Rendering saved attribution does not credit a
+new calculation, import its scientific producer or replace its original versions.
+Older analyses may lack `portable`; do not manufacture unknown provenance for them.
+The projection is produced even without Ackredit. Provider compatibility has
+bounded source receiving; it is separate from installed release qualification.
 
 (user-tools-interactions-association)=
 ## Associating an analysis

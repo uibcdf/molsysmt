@@ -1,8 +1,8 @@
 """Attach result-level bibliography and mirror successful use to Ackredit.
 
-This bounded host adapter uses only Ackredit's public API. Portable contextual
-capture is requested in uibcdf/ackredit#75; the host declarations here remain
-scientific method metadata even after that provider capability arrives.
+The compatible host wrapper includes a portable result-bibliography projection
+readable through Ackredit's public API. It does not reconstruct the application's
+observed workflow; the optional provider owns that separate capture.
 """
 
 from copy import deepcopy
@@ -10,6 +10,7 @@ from functools import wraps
 from inspect import signature
 
 from molsysmt._private.interaction_methods import resolve_method
+from molsysmt._private.scientific_attribution import result_attribution
 from molsysmt._private.scientific_citations import ARTICLES, SOFTWARE
 
 
@@ -148,12 +149,17 @@ def attributed(family, fixed_method=None):
                     profile=definition["profile"],
                     method_definition=definition["definition"],
                 )
-                parameters["attribution"] = dict(
-                    schema="molsysmt.scientific_attribution@1",
-                    target=target,
-                    items=items,
+                context = dict(
+                    attribution_scope="result_bibliography",
+                    software=deepcopy(software),
+                    method=definition["method"],
+                    profile=definition["profile"],
+                    method_definition=definition["definition"],
                 )
-                _ackredit.credit(provider, items, target)
+                parameters["attribution"] = result_attribution(items, target, context)
+                _ackredit.credit(
+                    provider, items, target, contextual=True, context=context
+                )
                 return result
 
         return wrapped

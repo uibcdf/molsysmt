@@ -134,31 +134,28 @@ forcing Ackredit into MolSysMT's supported environments.
 - Importing MolSysMT does not import Ackredit.
 - Provider feedback and suite guidance are linked to real pilot evidence.
 
-## Dependencies and risks
+## Provider delivery and bounded adoption update — 2026-11-17
 
-Portable contextual capture and host-guide improvements are requested in
-uibcdf/ackredit#75. This host adapter does not access the provider's private
-registry or implement a competing bibliography renderer. The capture adapter
-will use a provider contract when available; scientific declarations remain
-owned by MolSysMT. Provider distribution is tracked by uibcdf/ackredit#22.
+The dependency statements from the initial pilot are superseded by delivered
+provider work: uibcdf/ackredit#22/#75 and uibcdf/molsyssuite#68 are closed.
+The synchronized guide now requires lazy optional-client boundaries and documents
+public portable attribution from Ackredit >=0.9.0; it no longer recommends the
+initial eager-import pattern for this client. The guide is synchronized through
+its suite owner, not edited in MolSysMT.
 
-Shared adoption guidance is proposed in uibcdf/molsyssuite#68. The current canonical
-Ackredit guide recommends eager registration/imports and an import-time optional
-shim. MolSysMT's existing lazy soft-dependency rule takes precedence here:
-declarations remain offline constants, while provider registration is deferred
-until a completed calculation. This difference is explicitly part of the guide
-revision request rather than an independent component edit to the synchronized
-guide. There is no public installation extra while distribution and supported
-Python floors remain unresolved; this is an editable-source pilot, not a claim
-that an unpublished package can be installed from the normal channel.
+Local portable adoption is received separately under uibcdf/molsysmt#292 in
+[its owning record](../archive/resolved_proposals/portable_ackredit_attribution_adoption.md). It keeps the
+legacy host wrapper and adds a public-reader-compatible result-bibliography
+projection, without reconstructing an observed application call trace.
+Original initial-pilot measurements above retain their dated input, version,
+scope and payload size; they do not measure the new projection's overhead.
+No public installation extra, core dependency or changed Python range is added.
+Source-level receiving is separate from installed release qualification.
 
 ## Remaining work
 
-- Ackredit: agree portable capture/export/import, contextual report roles and the
-  canonical lazy-client guide (uibcdf/ackredit#75); publish supported distribution
-  and compatibility (uibcdf/ackredit#22).
-- MolSysSuite: review and synchronize the accepted adoption rules
-  (uibcdf/molsyssuite#68).
 - MolSysMT: extend verified runtime attribution to other meaningful tools in
   future phases of uibcdf/molsysmt#27. This pilot does not expose a whole-library
   citation facade or silently instrument converters and format backends.
+- Optional automatic observation and broader provider features are independent
+  proposals; portable adoption does not enable hooks, enrichment or journals.

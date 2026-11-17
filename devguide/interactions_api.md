@@ -96,6 +96,19 @@ offline; missing original attribution is left unknown rather than invented.
 This metadata is constructed once per analysis, independently of workflow-session
 deduplication, and survives views, typed conversion and H5MSM persistence.
 
+The compatible host wrapper additionally provides `attribution["portable"]`, an
+`ackredit.attribution@1` projection of this result's bibliography. Its `items`
+retain original records; `uses` carry the same roles and original software,
+method/profile and version context credited to the actual optional provider.
+`context.attribution_scope="result_bibliography"` identifies this bounded scope.
+The single producer node has no invented child calls. An application that needs
+the observed enclosing workflow uses Ackredit's separate `capture` or
+`get_attribution` API; the result projection is not a reconstruction of that trace.
+Construction needs no provider. The real public `Attribution.from_dict` reader
+can render the saved projection without importing MolSysMT or scientific engines.
+Portable readers require Ackredit >=0.9.0; a source receiving run is not an
+installed-client or cross-Python release qualification.
+
 Ackredit is loaded lazily and remains optional. Import hooks, reminders, journals
 and network enrichment are not enabled by MolSysMT. Missing Ackredit preserves
 the result bibliography; a broken optional provider emits `MSM-WARN-ATTR-001`
@@ -106,10 +119,12 @@ a fallback log with code `MSM-WARN-ATTR-001`, caller, operation and provider/dia
 errors. The science body and unrelated scientific warnings remain outside this
 handler. Guards are `tests/test_ackredit.py` and the real-provider recognition
 cases in `tests/physchem/test_get_cip_stereochemistry.py`. Reading, querying or remapping a
-saved analysis does not credit a new calculation. Portable provider capture and
-suite adoption remain tracked by `uibcdf/ackredit#75` and
-`uibcdf/molsyssuite#68`; this is not whole-library instrumentation. The guard is
-`tests/interactions/test_scientific_attribution.py`.
+saved analysis does not credit a new calculation. Provider delivery and the
+suite client policy are accepted under `uibcdf/ackredit#75` and
+`uibcdf/molsyssuite#68`; local portable adoption is received under #292.
+This is not whole-library instrumentation. The guards are
+`tests/interactions/test_scientific_attribution.py` and
+`tests/interactions/test_portable_attribution.py`.
 
 ## Hydrogen bonds
 

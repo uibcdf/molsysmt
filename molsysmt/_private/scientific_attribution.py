@@ -3,6 +3,51 @@
 from copy import deepcopy
 
 
+def result_attribution(items, target, context):
+    """Project a result bibliography, without inventing an observed call trace.
+
+    Keep the host wrapper compatible and encode the optional provider's public
+    portable schema directly. No provider import or session state is needed;
+    loading this metadata therefore cannot credit a new scientific operation.
+    """
+    portable_items = []
+    uses = []
+    for item in items:
+        portable_items.append(
+            deepcopy({key: value for key, value in item.items() if key != "roles"})
+        )
+        uses.append(
+            dict(
+                item_id=item["id"],
+                used_by=target,
+                roles=deepcopy(item.get("roles", [])),
+                context={
+                    "relationship": deepcopy(item.get("roles", [])),
+                    "version": item.get("version"),
+                    **deepcopy(context),
+                },
+            )
+        )
+    return dict(
+        schema="molsysmt.scientific_attribution@1",
+        target=target,
+        items=deepcopy(items),
+        portable=dict(
+            schema="ackredit.attribution@1",
+            name=target,
+            context=deepcopy(context),
+            items=portable_items,
+            uses=uses,
+            usage_tree={
+                target: {
+                    "items": sorted(item["id"] for item in items),
+                    "children": [],
+                }
+            },
+        ),
+    )
+
+
 def attach_reconstruction_attribution(report, caller):
     """Credit the quaternion fit only when a reconstruction actually used it."""
     from molsysmt import _ackredit

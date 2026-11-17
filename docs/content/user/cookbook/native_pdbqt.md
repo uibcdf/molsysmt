@@ -211,7 +211,8 @@ with a warning. No typing or charge calculation runs during merging. Scalar
 mechanics settings come from the first input. Original named assignment reports
 are invalidated with a warning when combining inputs or selecting atoms; their
 source graphs are not a joint calculation. Inspect the combined parameters
-before writing PDBQT. H5MSM 0.5 still does not persist these mechanics columns.
+before writing PDBQT. The H5MSM 1.0 default can retain supported mechanics columns
+and reports; explicit 0.5 cannot.
 
 {func}`molsysmt.basic.add` with `keep_ids=True` also preserves explicit native
 chain IDs and names. Duplicate chain IDs remain valid labels for distinct chain
@@ -246,18 +247,34 @@ orders, general mechanics settings, structures beyond one structure, or named
 interactions. Inspect {func}`molsysmt.basic.get_conversion_report` or use
 `return_report=True`. `strict=True` rejects known losses; authorization to
 omit a tree does not disable strict mode. Reports are conservative and do not
-claim exhaustive auditing of native PDBQT output. H5MSM 0.5 does not persist
-MolecularMechanics. Its public MolSys writer rejects a system with nonempty
-mechanics before creating a file, including one containing PDBQT labels or
-partial charges. Preserve supplied parameter data separately; this route does
-not silently omit them or promise a later PDBQT reconstruction.
+claim exhaustive auditing of native PDBQT output. Explicit
+`format_version='0.5'` does not persist MolecularMechanics: that writer rejects
+a system with nonempty mechanics before creating a file, including one containing
+PDBQT labels or partial charges. It does not silently omit them.
 
 File/string identity bridges preserve the original payload, including remarks,
 trees, line endings and atom order. Rigid subsets are supported through native
 projection. Tree subsets require explicit remapping through the native writer;
-the adapter rejects implicit tree projection. Flexible-receptor BEGIN_RES,
-MODEL ensembles, alternate locations, insertion codes, macrocycle glue types,
-hydrated-ligand pseudoatoms and custom labels remain unsupported.
+the adapter rejects implicit tree projection. Homogeneous MODEL ensembles can
+be read as documented above; native writing still selects exactly one structure.
+Flexible-receptor BEGIN_RES, alternate locations, insertion codes, macrocycle
+glue types, hydrated-ligand pseudoatoms and custom labels remain unsupported.
+
+## Saving prepared values
+
+The default H5MSM 1.0 writer preserves supported stored parameter columns and
+assignment reports. This transports the supplied values; it does not make the
+partial graph complete or certify an unknown assignment. Keep the typed torsion
+tree and original PDBQT separately: MolSys has no general torsion-tree domain.
+
+```python
+msm.h5msm.write(molsys, 'prepared_values.h5msm')
+stored = msm.h5msm.read('prepared_values.h5msm')
+stored_types = msm.get(stored, element='atom', atom_ff_type=True)
+stored_charges = msm.get(stored, element='atom', partial_charge=True)
+assert list(stored_types) == list(labels)
+assert list(stored_charges) == list(charges)
+```
 
 ## Format references
 

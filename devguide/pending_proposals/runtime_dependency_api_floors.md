@@ -860,3 +860,15 @@ Local Linux source checkout, shared Python 3.14.7 development environment and
 read-only reuse of an existing Python 3.11 environment for isolated provider
 probes. Wheels and scratch outputs remain under `.pytest_cache/stabilization-524`.
 No environment is created, installed over or downgraded; no package is published.
+
+### Supplemental warning observation — 2026-11-17
+
+#334 B2's existing explicit-template/serialization controls retain two pandas
+`FutureWarning` events from `form/_h5msm_chemical_states.py::_dataset_values`,
+where filling an object-typed column precedes explicit numeric conversion.
+The eleven selected composition cases pass, including their chemistry, maps,
+units and source-ownership assertions. This is a recorded provider-compatibility
+follow-up under #524, not a demonstrated wrong stored value or a new release
+blocker. Any future correction should preserve nullable masks and explicit
+storage dtypes, and receive both the maintained floor and newer pandas route.
+No warning is suppressed or reclassified as proof of wider compatibility here.

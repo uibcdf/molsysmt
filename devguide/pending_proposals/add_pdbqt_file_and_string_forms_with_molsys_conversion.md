@@ -459,3 +459,18 @@ this is not a warning-free full documentation qualification.
 Machine-readable commands, environment, source hashes, default-byte parity and
 limits: [PDBQT presentation receipt](../../devtools/data/pdbqt_presentation_20261026.json).
 No full-suite, installed-consumer or release-matrix pass is implied.
+
+## Supplemental acceptance review — 2026-11-17
+
+B0 retains #214 as **partial**, with the delivered native forms, bounded iterator
+and output-presentation contract unchanged. The acquired native REST comments
+return the older DockingMT source-mapping and fixed-column requests, not a
+receiving report for the 2026-10-26 presentation options. Service metadata reports
+more comments than either returned acquisition; absence of additional acceptance
+is therefore **unestablished**, rather than evidence of a refusal. The precise
+missing owner return is BindingMT's (formerly DockingMT) confirmation that it can
+consume output-only serial/name/group/chain presentation, final-byte export maps
+and known-source pose restoration without rebinding native chemistry. The
+existing five pinned Vina format guards remain provider evidence, not that client
+return. Wider profile acceptance remains as scoped above; flexible receptors
+remain under #225. No new dialect, docking run or installed pair is selected.

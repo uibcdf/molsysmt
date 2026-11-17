@@ -302,6 +302,12 @@ needs its own commit/change record. See
 
 Detector-produced analyses also retain a compact bibliography in
 `analysis.parameters["attribution"]`.
+Its `"portable"` field can be read by `ackredit.Attribution.from_dict` with
+Ackredit >=0.9.0 to render the original result bibliography. The projection
+preserves roles and producer context; it does not reconstruct a complete
+workflow trace. Workflow capture is a separate application-owned operation.
+Older analyses may lack that field. These synthetic records do not acquire
+detector references merely by being queried or saved.
 
 Method-reference metadata belongs to the result, including nested fields. Editing
 it cannot rewrite the shared method declaration or another analysis. The detached

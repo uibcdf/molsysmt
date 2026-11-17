@@ -401,3 +401,17 @@ protects conservative refusal. #215 remains partial; this report does not expand
 the accepted SDF dialect, claim universal stereo perception or qualify a new
 installed package. The acquisition/import/provider observations are recorded in
 [the current-source receipt](../../devtools/data/sdf_cid6842999_review_20261026.json).
+
+## Supplemental acceptance review — 2026-11-17
+
+B0 retains #215 as **partial**. The original 1IEP valence and versionless 1S63
+limitations in the visible older consumer comment were addressed by the dated
+legacy/valence and stereo-writer receipts above; they must not be reported as
+current native rejections. Supported V2000/V3000 and explicit optional stereo
+remain bounded experimental profiles. Broader source-dialect/stereo coverage and
+receiving of the evolved profile remain outside completed acceptance. In
+particular CID 6842999 retains its original uninterpreted-parity refusal and
+uncertainty; B0 neither removes the declaration nor invents a supported fallback.
+The native REST returns two comments while service metadata reports nine, so
+this review does not prove that no other consumer return exists. No extra parser
+profile or biological preparation claim is admitted by the waiting-period review.

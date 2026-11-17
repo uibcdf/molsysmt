@@ -149,6 +149,11 @@ def get_hbonds(
     Optional Ackredit tracking contributes to the current application session.
     Reference implementations are distinguished from executed software;
     loading a stored analysis does not credit a new calculation.
+    The compatible attribution wrapper includes a portable result-bibliography
+    projection at parameters['attribution']['portable'], readable with Ackredit
+    >=0.9.0. Original records, roles and producer context are retained without
+    requiring the provider. This projection is separate from an application's
+    observed workflow capture.
 
     This reproduces supported reference cores, not whole package workflows:
     no occupancy aggregation, residue/solvent/sidechain pruning, water bridges,

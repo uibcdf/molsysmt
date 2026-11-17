@@ -47,10 +47,16 @@ with TemporaryDirectory() as directory:
     msm.convert(molsys_restored, to_form=path)
     loaded = msm.convert(path, to_form='molsysmt.MolSys')
     assert loaded.topology.atoms.atom_id.tolist() == molsys.topology.atoms.atom_id.tolist()
+    legacy_path = Path(directory) / 'restored_05.h5msm'
+    msm.convert(molsys_restored, to_form=legacy_path, format_version='0.5')
+    legacy = msm.convert(legacy_path, to_form='molsysmt.MolSys')
+    assert legacy.topology.atoms.atom_id.tolist() == molsys.topology.atoms.atom_id.tolist()
 ```
 
-H5MSM 0.5 retains supported structural, topological, chemical and named interaction
-domains. It does not persist experimental MolecularMechanics. The returned map
+The first write uses the public H5MSM 1.0 default. The second explicitly requests
+0.5 compatibility, retaining supported structural, topological, chemical and
+named interaction domains. Version 0.5 does not persist experimental
+MolecularMechanics; this example has no mechanical parameters. The returned map
 is a sidecar, not a new molecular-file domain. Reordering a complete result
 requires resident output memory even though coordinates are read in blocks.
 Unsupported native extensions fail before publication of an output.

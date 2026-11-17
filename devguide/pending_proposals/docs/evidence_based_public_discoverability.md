@@ -313,3 +313,15 @@ The intended-link defect is ready for its documented #727 closeout. Continue
 #723's comparable memory work and bounded #615/#713 conclusions, then the
 #256 stable-format and #250/#254/#524 final-pair contracts. Optional improvements
 remain deferred under the technical-handoff scope cutoff.
+
+## Manuscript/reader evidence packet — 2026-11-17
+
+#334 B4 consolidates the proposed contribution, scoped API/validation claims,
+comparisons to investigate, reusable examples and reproducibility inputs in
+[#191's owning packet](../paper_main_tex_is_an_unfilled_template_and_the_manuscript_argument_is_unrecorded.md#proposed-manuscript-inputs--2026-11-17).
+It records the maintainer's JCIM Application Note direction and preserves the
+original argument notes. The scientific registry retains its own partial/gap
+labels; the packet does not promote experimental methods or establish comparative
+superiority, search ranking, external adoption or independent reader acceptance.
+Those wider #378 obligations stay partial, with manuscript completion outside
+the software release gate.
