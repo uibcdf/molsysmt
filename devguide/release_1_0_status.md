@@ -9,8 +9,9 @@ partial boundaries, and the proposed manuscript/reader packet is recorded.
 The earlier complete-source run retains its original identity; the new bounded
 1,933-case receiving does not qualify a changed final candidate. #773's energy
 decomposition repair has passed local receiving. MolSysViewer's #344 correction
-passed its full local Jupyter guard and directed browser checks. Its covering
-Linux source run was in progress at review and no final package pair is fixed.**
+passed its full local Jupyter guard and directed browser checks. The covering
+Linux source run failed when `studio-list-workflows` reached its deadline.
+The final package pair remains unselected.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
 does not select today's candidate or authorize new execution.
@@ -100,8 +101,13 @@ MolSysViewer's `eeb6808c` adds passive timing evidence for the same reviewed
 runtime. Both local diagnostics pass all eight moving captures. The passive
 run observes two native frame applications during moving-popup startup.
 The experimental omission branch never executes in the second run, so its
-elapsed time establishes no improvement from omitting a projection. The
-covering Linux run still showed the browser-core step in progress at review.
+elapsed time establishes no improvement from omitting a projection.
+
+The terminal inspection of Linux run 44176403184, attempt 1, reports failure
+in the core browser suite. `studio-list-workflows` exceeded 180,000 ms.
+Keep this result alongside the earlier local passes. The timeout establishes
+the failed step; the responsible cause and next validation are for MolSysViewer
+to determine under the existing source qualification.
 
 ### Final-pair coordination
 
@@ -112,10 +118,19 @@ The team accepts #775's exact-byte verification, with a common MolSysMT file
 per native platform and one MolSysViewer noarch file across the matrix.
 The subsequent [#775 follow-up](archive/resolved_bugs/installed_conda_pair_does_not_bind_tested_artifact_digests.md#noarch-archive-follow-up--2026-11-17)
 covers the MolSysViewer producer's actual `.tar.bz2` suffix. The 43 offline
-cases retain exact filename, URL and digest comparison. MolSysViewer reports
-239 first-pass source cases on `63c221176`, including session writes using
-H5MSM 1.0 by default. Its stable input manifest and final joint receiving
-remain pending.
+cases retain exact filename, URL and digest comparison.
+
+MolSysViewer returned local run `1054` with stable inputs. Its composition
+uses MolSysViewer `eeb6808c` plus its release-evidence changes, an isolated
+MolSysMT `63c221176` export, the reused Rust binary `4ffb82e4`, Python 3.14.7
+and pandas 2.3.3. The team reports 239 scientific consumer cases and 87
+release-gate cases passing, with zero failures, errors or skips. These cases
+include session writes using H5MSM 1.0 by default, Interactions, attachment and
+remapping, and box assignment. The consumer retains its original JUnit and
+input manifest. MolSysMT independently checked that the runtime packages,
+Rust sources, build metadata and toolchain inputs match between `63c221176`
+and `7eb24c4ff`. This receives the bounded source profile. Final qualification
+still requires the agreed producer commits and actual installed artifacts.
 
 Before proposing a producer SHA and noarch build, MolSysViewer will finish
 the #344 source assessment, [Mol* 5.13.1 receiving](https://github.com/uibcdf/molsysviewer/issues/372),
