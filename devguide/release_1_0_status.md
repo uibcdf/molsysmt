@@ -110,6 +110,12 @@ evidence identifies no Interactions or H5MSM incompatibility requiring a
 MolSysMT change. Joint qualification of MolSysMT `63c221176` is pending.
 The team accepts #775's exact-byte verification, with a common MolSysMT file
 per native platform and one MolSysViewer noarch file across the matrix.
+The subsequent [#775 follow-up](archive/resolved_bugs/installed_conda_pair_does_not_bind_tested_artifact_digests.md#noarch-archive-follow-up--2026-11-17)
+covers the MolSysViewer producer's actual `.tar.bz2` suffix. The 43 offline
+cases retain exact filename, URL and digest comparison. MolSysViewer reports
+239 first-pass source cases on `63c221176`, including session writes using
+H5MSM 1.0 by default. Its stable input manifest and final joint receiving
+remain pending.
 
 Before proposing a producer SHA and noarch build, MolSysViewer will finish
 the #344 source assessment, [Mol* 5.13.1 receiving](https://github.com/uibcdf/molsysviewer/issues/372),

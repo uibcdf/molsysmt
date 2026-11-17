@@ -34,8 +34,9 @@ def _record(subdir, filename, digest):
 
 
 @pytest.fixture
-def installed_pair(tmp_path):
+def installed_pair(tmp_path, request):
     root = tmp_path / "installed-pair"
+    viewer_suffix = getattr(request, "param", "tar.bz2")
     matrix = dict(
         schema="molsyssuite.installed-matrix@1",
         state="verified",
@@ -65,7 +66,7 @@ def installed_pair(tmp_path):
                     str(index) * 64,
                 ),
                 "molsysviewer": _record(
-                    "noarch", "molsysviewer-1.0.0-py_2.conda", "f" * 64
+                    "noarch", f"molsysviewer-1.0.0-py_2.{viewer_suffix}", "f" * 64
                 ),
             },
         }
@@ -79,6 +80,7 @@ def installed_pair(tmp_path):
     return matrix, root
 
 
+@pytest.mark.parametrize("installed_pair", ["tar.bz2", "conda"], indirect=True)
 def test_complete_matrix_qualifies_only_its_tested_digests(installed_pair):
     files = pair.verify_installations(*installed_pair, **_SPECS)
     assert set(files["molsysmt"]) == set(_PLATFORMS)
@@ -121,6 +123,25 @@ def test_same_version_and_filename_with_different_digest_fails(installed_pair, p
     data["packages"][package]["sha256"] = "e" * 64
     path.write_text(json.dumps(data), encoding="utf-8")
     with pytest.raises(ValueError, match="artifact identity differs"):
+        pair.verify_installations(matrix, root, **_SPECS)
+
+
+@pytest.mark.parametrize(
+    ("suffix", "message"),
+    [
+        ("conda", "Installed MolSysViewer artifact identity differs"),
+        ("zip", "Unexpected molsysviewer staging artifact"),
+    ],
+)
+def test_viewer_archive_format_is_part_of_its_identity(installed_pair, suffix, message):
+    matrix, root = installed_pair
+    path = root / "conda-staging-linux-64-py3.14-attempt-2" / "installed-pair.json"
+    data = json.loads(path.read_text(encoding="utf-8"))
+    data["packages"]["molsysviewer"] = _record(
+        "noarch", f"molsysviewer-1.0.0-py_2.{suffix}", "f" * 64
+    )
+    path.write_text(json.dumps(data), encoding="utf-8")
+    with pytest.raises(ValueError, match=message):
         pair.verify_installations(matrix, root, **_SPECS)
 
 
@@ -194,12 +215,9 @@ def test_actual_promotion_gate_checks_the_requested_digest(installed_pair, match
     receipt = directory.parent / "molsysmt-tested-conda-pair.json"
     if matching:
         assert result.returncode == 0, result.stderr
-        assert (
-            json.loads(receipt.read_text(encoding="utf-8"))["molsysmt"]["linux-64"][
-                "sha256"
-            ]
-            == "0" * 64
-        )
+        files = json.loads(receipt.read_text(encoding="utf-8"))
+        assert files["molsysmt"]["linux-64"]["sha256"] == "0" * 64
+        assert files["molsysviewer"]["fn"] == "molsysviewer-1.0.0-py_2.tar.bz2"
     else:
         assert result.returncode == 1, result.stderr
         assert "filename and digest were not tested" in result.stderr

@@ -42,9 +42,7 @@ def verify_installations(
         )
 
     molsysmt_pattern = rf"molsysmt-{re.escape(molsysmt_version)}-pyabi3h[0-9a-f]+_{molsysmt_build}\.conda"
-    viewer_pattern = (
-        rf"molsysviewer-{re.escape(viewer_version)}-py_{viewer_build}\.conda"
-    )
+    viewer_pattern = rf"molsysviewer-{re.escape(viewer_version)}-py_{viewer_build}\.(?:conda|tar\.bz2)"
     molsysmt_files = {}
     viewer = None
     for path, (platform, python) in sorted(cells.items()):

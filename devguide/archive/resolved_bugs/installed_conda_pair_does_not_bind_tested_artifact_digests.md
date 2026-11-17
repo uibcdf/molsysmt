@@ -63,3 +63,20 @@ All 15 fast release checks, Ruff and the developer-guide indexes also pass.
 This is offline verification of the gate. The exact hosted sixteen-cell run,
 its retained artifacts and the download/promotion receiving remain subject
 to #334 and the existing coordinated release pause.
+
+## Noarch archive follow-up — 2026-11-17
+
+MolSysViewer reproduced a false refusal in `63c221176`. Its noarch producer
+uses `--package-format tar.bz2`, while the verifier initially accepted only
+`.conda` for MolSysViewer. The same sixteen-cell control passed for
+`.conda` and failed for `.tar.bz2`. [MolSysViewer producer workflow](https://github.com/uibcdf/molsysviewer/blob/eeb6808c59afbd1deb3d70dc105e06e79a3f2aa3/.github/workflows/build_and_upload_conda_packages.yaml#L173).
+
+The verifier now accepts the two exact Conda archive suffixes for the
+MolSysViewer filename. Staging URL, channel, noarch subdirectory, version,
+build and SHA-256 still contribute to validation. All cells must agree on
+the exact filename, URL and digest. Mixed formats with the same digest and
+unknown suffixes are rejected. MolSysMT's native artifact requires `.conda`.
+
+All 43 offline cases pass, including execution of the promotion shell step
+with a `.tar.bz2` MolSysViewer receipt. Pytest Receptor and JUnit agree with
+the native exit. The exact installed release remains pending.
