@@ -30,7 +30,7 @@ operations; routine source correction and bounded local checks can continue.
 | Stage | Required work | Exit evidence and owner |
 | --- | --- | --- |
 | 1. Finish technical correction and documentation preparation | Finish admitted correctness/data-integrity repairs and misleading documentation, including #727's intended references. Reconcile docstrings, User Guide, Cookbook and course with actual contracts, units, domain ownership and scientific limits. Review relevant new issues and PRs at phase checkpoints. | Focused regressions, relevant executable examples and actual rendered-article/link receiving; strict full documentation build; no unresolved blocker in the promised stable scope. #334 / #727 and the existing polishing queue own evidence. |
-| 2. Conclude the remaining investigations and contract decisions | Preserve #723's completed bounded memory campaign and #713's accepted closure, including their original limits and failures. Preserve #615's accepted corrected-kernel disposition and original-cause uncertainty, together with #763/#766's reader correction and #764/#765's governance/notebook receiving. Finish #256's stable H5MSM decision and #250/#254/#524 compatibility, profile and dependency agreements. | Linked owner conclusions, supported limitations and required maintainer/client acceptance. A deferral or uncertainty is not a passing result; outstanding blocking scope must be resolved or explicitly accepted through its applicable policy. |
+| 2. Conclude the remaining investigations and contract decisions | Preserve the completed #723/#713/#615 investigations, #763/#766 reader corrections, #256 source/wire decision and #764/#765/#768 governance/notebook receiving. Retain their original limits and failures. Conclude #250/#254/#524 final compatibility, profile and artifact acceptance. | Linked owner conclusions, supported limitations and required maintainer/client acceptance. A deferral or uncertainty is not a passing result; outstanding blocking scope must be resolved or explicitly accepted through its applicable policy. |
 | 3. Freeze and qualify the exact coordinated pair | Agree producer commits, unused builds, immutable filenames, channels and SHA-256 values with MolSysViewer. After the agreed resumption, run all mandatory exact-source/native/scientific/documentation and installed-pair gates. Qualify supported dependency bounds and retain the declared experimental-platform limits. | The complete evidence set required by release_gate.md: scientific certificate without skipped registered nodes, eight-cell full-source matrix, applicable native artifacts and sixteen-cell installed Conda pair. Source-only or earlier package results cannot substitute. |
 | 4. Deliver the review packet | Present the qualified reference, reproducible documentation site, reader route, remaining documented experimental limits, evidence links and explicit deferred-work list. | Diego receives documentation to review with no separate unresolved engineering or client-acceptance task required to establish readiness. The live ledger explicitly records the handoff decision and qualified identities. |
 
@@ -51,6 +51,145 @@ The [finite contract closeout packet](pre_1_0_contract_closeout.md) supplies
 the current stage-2 guarantee-to-guard mapping and exact owner returns. Its
 presence is preparation, not evidence that client or candidate acceptance has
 finished. Do not widen the work while those returns are pending.
+
+## Independent MolSysMT work queue — 2026-11-16
+
+**Owner:** uibcdf/molsysmt#334. **Planning basis:** `3b006f627`.
+The maintainer requests productive local work while MolSysViewer completes its
+own gates. The following queue executes stages 1, 2 and preparation for stage 4;
+it does not depend on receiving a new consumer candidate. Stage 3 keeps its
+existing dependencies and execution/publication pause.
+
+This is a finite queue for already admitted documentation, correctness and
+qualification preparation. It adds no release gate, scientific feature or
+requirement to execute the entire historical notebook corpus. The live ledger
+owns progress; this section owns the work order and exit criteria. Initial
+states below describe planning, not completed execution or new scorecard credit.
+
+| Block | Work and concrete deliverable | Exit evidence | Initial state |
+| --- | --- | --- | --- |
+| I0 — evidence and scope map | Inventory the existing review route below and corresponding course modules. Match relevant pages/examples to the actual source, code/input fingerprints and prior execution/rendering receipts. Freeze the local file/cohort list and identify native-only, consumer-dependent, optional-engine and external-input cases. | Every selected item has a reason, applicable evidence or unresolved gap, owning boundary and next action. Source rendering, actual execution and scientific validation remain separate. | Planned; prior receipts available. |
+| I1 — technical and scientific reading | Review the frozen native documentation cohort against implemented contracts and scientific evidence. Produce a finite discrepancy list, with owning issues for actionable defects and explicit dispositions for existing limitations. | Names, signatures, defaults, axes, units, ownership, physical interpretation, method/attribution and public stability claims agree across the affected docstring, User Guide, Cookbook and course material. | Planned. |
+| I2 — executable native examples and corrections | Run the examples whose admitted gap needs execution, in bounded batches using existing tooling/environment. Correct reproducible documentation or source defects through their proper reusable owners; update affected outputs and meaningful guards. | Actual command/exit, source/runtime/input identity, units, outputs and warnings are retained. Independent checks protect the intended numerical/mapping behavior. Every required selected case has valid receiving; a missing dependency or failed run remains unresolved. | Planned after I0; overlaps I1. |
+| I3 — qualification-route preflight | Review existing build/staging/installed/citation inputs and offline guards. Keep the seven-surface dependency draft current, preserve the corrected kernel baseline and specify every final identity still needed from its owner. | Input-validation/identity/failure controls are exercised where needed. The final execution packet names real tools, required arguments, artifact custody and stop conditions. Missing final identities are explicit; no producer/build is invented or reserved. | Prepared in part: reciprocal minimum agreement and unapplied draft exist. |
+| I4 — local documentation receiving and reader packet | After admitted local corrections, build the documentation strictly and inspect the affected articles, figures, links and downloadable examples. Consolidate the existing reading route, scientific limits and deferred-work list. | Reproducible local site and scoped content/link receiving tied to actual sources, with executable-example evidence distinct from stored rendering. The final-candidate rebuild remains due. | Planned after the correction batches. |
+| I5 — local closeout and final-pair handoff | Reconcile the selected findings and issue/PR intake, update the existing contract packet and ledger, and return an explicit local-complete/external-pending disposition. | Locally admitted work has a verified conclusion; required unresolved cases and external owners remain visible. Exact final-pair qualification and Diego's content review are not marked complete. | Planned; intake also runs at block boundaries. |
+
+### I0: select work from evidence, not from test counts
+
+Start with the maintained reading route and these existing receipts:
+
+- [Essential native/chemical/storage examples](../devtools/data/documentation_examples_receiving_334_20261114.json).
+- [Geometry examples and actual figures](../devtools/data/geometry_documentation_receiving_334_757_20261114.json).
+- [Peptide course execution](../devtools/data/peptide_course_receiving_759_761_20261115.json).
+- [Form-reference coverage](../devtools/data/remaining_form_reference_receiving_727_20261113.json).
+- [Complete stored-source documentation rendering](../devtools/data/complete_documentation_source_receiving_334_20261113.json).
+
+A matching notebook filename, stored output or code hash alone does not prove
+that its example passes with the present runtime. Review relevant library,
+native, dependency and input changes before reusing earlier evidence. Conversely,
+do not repeat a received campaign simply to obtain another passing count.
+Record why a repeat is necessary or why its earlier bounded evidence applies.
+
+Freeze the first cohort before execution. Review in this order:
+
+1. Native model, get/info, selection, copy/extraction and declared axes.
+2. ChemicalStates, named Interactions and H5MSM presence/maps/provenance/edit
+   invalidation, including independent or partial systems.
+3. Geometry/PBC/physchem and preparation/mechanics examples within their
+   declared scientific and optional-engine limits.
+
+This is a risk-based order, not a fixed number of examples standing in for
+coverage. Corresponding course examples enter when they teach the same changed
+or insufficiently received contract. Consumer-dependent examples keep their
+own owner and future receiving; they do not delay unrelated native work.
+Use metadata and per-file processing rather than loading all notebook outputs
+or molecular inputs at once. A compact worklist using existing receipts is
+sufficient; I0 does not commission a new audit framework or orchestrator.
+
+### I1/I2: review and execution boundaries
+
+Check scientific meaning as well as whether code runs: tabulated descriptors
+versus geometric observables, aggregation, dimensions, precision versus output
+dtype, periodic image conventions and applicable method definitions. Keep the
+authoritative API-stability and scientific-evidence registries as their owners.
+References and Ackredit statements must distinguish executed software, faithful
+method reproduction and inspiration. Existing qualified uncertainty, including
+the Collantes primary-source questions, is not silently promoted to validation.
+
+Use the current development environment or an already received support
+composition, recording actual import origins. A native-only example needs no
+new MolSysViewer candidate or live canvas; this does not imply the absence of
+installed support dependencies. Inspect input sizes and optional/network calls
+before running. Prefer the original bundled/offline input where its scenario
+already permits it; do not silently substitute another scientific problem.
+
+Exercise the relevant non-default unit policy where it protects the actual
+contract, retaining physical equivalence and correct index maps. Do not double
+every execution mechanically. Preserve notebook scientific content, native
+file inputs and expected failures; do not erase outputs or weaken an assertion
+to manufacture a pass. A necessary software fix uses existing modular owners,
+ArgDigest, DepDigest, SMonitor, PyUnitWizard and optional Ackredit at their real
+boundaries. Public changes retain the full documentation lifecycle.
+
+Record actionable defects in their owning issue before sustained correction.
+Routine prose fixes need proportionate checks; reproducible numerical/data-loss
+or supported-workflow defects need meaningful regression protection. New
+algorithms, detectors, convenience APIs, #512 content-contract expansion and
+#728 implementation remain deferred under the existing scope cutoff.
+
+### I3: prepare existing routes without constructing a candidate
+
+Inspect the existing producer and validators, including
+[the Conda workflow](../.github/workflows/build_and_upload_conda_packages.yaml),
+[installed-pair workflow](../.github/workflows/verify_installed_conda_pair.yaml),
+[release-route guards](../devtools/tests/test_release_route.py),
+[staging guards](../devtools/tests/test_validate_conda_staging.py),
+[installed-runtime guards](../devtools/tests/test_installed_runtime_dependencies.py)
+and [citation tools](../devtools/tests/test_citation_release_tools.py).
+Run relevant existing offline controls when the review identifies an unreceived
+or changed boundary; this is not a request to repeat every passing test.
+
+The packet must distinguish exact producer SHAs, package versions/builds,
+platform/interpreter scope, immutable files/hashes/channels, actual import
+origins and receiving artifacts. Agreement on reciprocal >=1.0 floors is not
+an applied or qualified public minimum. Keep the untagged source pin and its
+real version label coherent until producer metadata is selected before freeze.
+
+Existing staging build-only behavior and later installed qualification are
+different phases. Preserve old artifacts and every failure; do not dispatch a
+producer, solver, hosted matrix, promotion, tag or release from this preflight.
+The existing pause and exact-candidate gate continue to own those operations.
+
+### Execution, intake and stop rule
+
+Apply the loaded operator policy and the accepted common resource rule to
+each material run. Estimate whole-family RAM, CPU/native threads, scratch and
+duration from its real inputs and existing measurements. Start with a small
+bounded example when demand is unknown; choose further concurrency from measured
+demand and current conditions. Use existing execution/monitoring tools, preserve
+the host reserve and unrelated work, and confirm owned retirement. Available
+capacity is not reservation or aggregate protection. Use Pytest Receptor for
+pytest and GH Run Receptor where CI evidence inspection is needed.
+
+At block boundaries, acquire the applicable issue/PR scope through complete
+owner pagination and review correctness/data-integrity reports first. Known
+unavailable identities remain unknown, with local records preserved. Do not
+claim an empty backlog from a partial response. Routine consumer status messages
+are consolidated at these checkpoints; a concrete new provider defect can
+reprioritize this queue, while receipt-only updates do not replace its execution.
+
+Finish this queue when the frozen locally admitted cohort, required corrections,
+preflight and local reader packet have evidenced conclusions. Any mandatory
+unexecuted item stays unresolved with its owner; classifying or deferring it is
+not a pass. New concrete correctness findings use the existing admission rule.
+Once the local cohort is complete, return its conclusion rather than enlarging
+it merely because the consumer is still working.
+
+Completion prepares the final handoff but does not establish it. MolSysViewer
+must still return its final qualified source; exact pair construction and all
+required source/native/scientific/documentation/installed gates follow the
+agreed resumption. The original global scorecard and its weights are unchanged.
 
 ## Admission rule that keeps the destination reachable
 

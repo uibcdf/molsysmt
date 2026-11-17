@@ -31,6 +31,7 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
+| Execute the independent MolSysMT queue while the final consumer is pending | The maintainer selects [I0–I5](technical_handoff_for_1_0_documentation_review.md#independent-molsysmt-work-queue--2026-11-16): evidence/scope map, semantic reading, bounded native examples/corrections, existing qualification-route preflight, local rendered documentation and closeout. Start with I0; I3 is prepared in part, while the queue's execution is not yet completed. This uses the existing #334 scope and adds no feature or global scorecard credit. |
 | Preserve #768's current governance adoption | The single actual caller now selects policy-v1.6.0; published tag, guide bytes and root/nested semantic/resource review are received. Official conformance rejects the old caller and accepts the correction, published-policy adoption reports CURRENT, and registered guide checking passes. The [owner record](archive/resolved_proposals/adopt_policy_v1_6_0_and_receive_resource_guidance.md) retains measured whole-family limits and the absence of a reservation/aggregate-protection claim. #764 remains historical; hosted qualification stays intentionally unexecuted under the maintainer's cadence. |
 | Preserve MolSysViewer's current-source client receiving | Its published profile `897` reports 55 selected cases passing on exact owner `96988b6ea`, reused native `4ffb82e4` and its recorded client/support-source composition. The [bounded review](../devtools/data/viewer_current_source_client_review_256_524_20261115.json) verifies eleven public Git blobs, the actual five guard modules/helpers and source identities; private raw execution records are not replayed. Session persistence, maps, coverage, edit invalidation, append and independent geometric projection remain exercised source contracts. This does not close #256/BindingMT #73, #524, #615 or final installed acceptance. |
 | Preserve #759–#761 peptide and documentation receiving | The [peptide report](archive/resolved_bugs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md) retains explicit caps and measured initial torsions without new builder APIs. The final selected cohort passes 23 cases without skips; the full seven-cell lesson executes under ordinary and explicit pm/fs/degrees policies. Strict Sphinx renders 1,401 HTML files without warnings, and the local browser receives the 109-atom saved model. The [receipt](../devtools/data/peptide_course_receiving_759_761_20261115.json) also retains the supported structure-generator namespace and 713 corrected author links. No production/native/dependency change or #615/final-pair disposition follows. |
@@ -65,6 +66,19 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The accepted initial-canvas disposition now gives **80.2381% (approximately 80.2%)**.
 The dated percentages below remain historical, not the current score.
+
+## Independent local work selected — 2026-11-16
+
+The maintainer requests an explicit work plan while MolSysViewer finishes its
+own gates. The [existing handoff plan](technical_handoff_for_1_0_documentation_review.md#independent-molsysmt-work-queue--2026-11-16)
+now owns a finite I0–I5 execution queue. Its first deliverable is an evidence-
+matched file/cohort map; existing HTML or execution receipts are reviewed for
+applicability before choosing repeats. Native documentation/examples and local
+qualification preparation can proceed independently of a new consumer candidate.
+Routine status receipt does not substitute for that work. The new queue is
+planned, not executed; final-pair construction, qualification and publication
+retain their existing dependencies and pause. Original milestone weights and
+the 80.2381% checkpoint are unchanged.
 
 ## MolSysViewer camera/IPC receiving and reopened capture gate — 2026-11-16
 
