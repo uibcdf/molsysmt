@@ -50,7 +50,9 @@ This does not complete stage 2 or lift the stage-3 execution/publication pause.
 The [finite contract closeout packet](pre_1_0_contract_closeout.md) supplies
 the current stage-2 guarantee-to-guard mapping and exact owner returns. Its
 presence is preparation, not evidence that client or candidate acceptance has
-finished. Do not widen the work while those returns are pending.
+finished. Keep those requested contract profiles bounded while returns are
+pending. Further maintainer-directed local stabilization follows the explicit
+supplemental queue below, without expanding the final-pair contract.
 
 ## Independent MolSysMT work queue — 2026-11-16
 
@@ -190,6 +192,158 @@ Completion prepares the final handoff but does not establish it. MolSysViewer
 must still return its final qualified source; exact pair construction and all
 required source/native/scientific/documentation/installed gates follow the
 agreed resumption. The original global scorecard and its weights are unchanged.
+
+## Supplemental waiting-period work queue — 2026-11-17
+
+**Owner:** uibcdf/molsysmt#334. **Planning basis:** `169b7858a`.
+The maintainer requests another useful work plan while MolSysViewer completes
+its own stabilization. I0–I5 is completed with its original finite scope and
+[receiving](../devtools/data/independent_native_work_334_20261116.json).
+This is a separately requested follow-up, not a reopening of that result.
+The live ledger owns execution status; all blocks below are initially planned.
+
+Prioritize closing already implemented commitments and receiving supported
+chemical-input workflows. No new detector, format, native-domain redesign or
+general optimization is selected. The existing scope cutoff and pause on
+candidate construction, hosted qualification, tags, promotions and publication
+remain in force. This queue adds no mandatory release gate or scorecard weight.
+
+| Order | Work and deliverable | Exit condition |
+| --- | --- | --- |
+| B0 — reconcile delivered commitments | Review #292 first, then #128, #214 and #215 against their original acceptance, current implementation, meaningful guards and actual provider/client returns. Produce one bounded disposition per issue: ready to close, remaining admitted local work, external acceptance, or separately owned future extension. | Close only satisfied acceptance. Retain unsatisfied mandatory criteria and the exact missing owner return. Do not reduce an issue's scope merely to close it, reinterpret a published provider as local runtime adoption, or call an unsupported scientific case a proven bug. |
+| B1 — receive the next chemical-workflow cohort | Match the eight candidate articles below to prior execution, actual inputs and relevant changes. Freeze the executable cases before running; receive only demonstrated gaps or affected evidence. Review scientific explanations and linked Toolbox/course sections for those same contracts. | Every candidate has applicable receiving or a precise unresolved gap. Self-contained code runs as written; contextual snippets have explicit preparation/input prerequisites. Rendering and a reference to a filename do not establish execution. |
+| B2 — protect cross-domain boundary cases | Exercise the smallest necessary composed workflows across import, explicit preparation, coordinate assignment, permutation/extraction and H5MSM/export. Add corrections and independent guards for reproducible admitted defects. Reuse owning tools and applicable support libraries. | Values, units, declared chemistry, source maps, presence, provenance, interaction coverage and source ownership agree with the existing contracts. Failed atomic operations preserve their promised state/files. Required failing or unavailable cases remain unresolved. |
+| B3 — receive changed-source integration when justified | After corrections, select regression breadth from the affected delivery routes and scientific evidence. Use an existing bounded local complete-source route only if new production changes, unresolved integration risk or accumulated skipped-commit recovery warrants it. | Native exits, actual support/native/source identities, warnings, skips and resource outcomes are retained. A broader campaign is either received or has an explicit reason not to repeat it; an unexecuted mandatory gate never becomes a pass. This remains source-only, separate from final coordinated qualification. |
+| B4 — prepare the scientific claims and reader packet | Consolidate the existing evidence for the manuscript/supporting documentation under #191/#378: contribution, implemented scope, meaningful validation, limitations, original references, attribution and reproducible examples. Inspect and strictly rebuild documentation affected by B0–B2. | A compact claim-to-evidence table distinguishes implemented, contract-tested, parity-tested, scientifically validated and benchmarked facts. The maintainer receives proposed manuscript inputs without invented novelty, adoption, universal performance or experimental-profile stability. Writing/accepting the manuscript is not a software release gate. |
+| B5 — close the finite follow-up | Reconcile findings, issue/PR intake and the live ledger; preserve the completed work and exact remaining external/final-pair tasks. Deliver a local-complete or explicitly incomplete conclusion. | Every admitted local item has an evidenced disposition. No unresolved engineering task is relabelled as Diego's documentation review. Finish the cohort instead of appending work solely because MolSysViewer is still busy. |
+
+### B0: initial acceptance questions
+
+- **#292, portable Ackredit adoption:** Ackredit #22/#75 and MolSysSuite #68
+  are remotely confirmed closed, whereas the historical pilot report owned by
+  **#27** still lists their delivery/guidance as outstanding. #292 separately
+  requests adoption of the portable provider payload or a documented compatible
+  wrapper; triage it with its own required owning record. The canonical client
+  guide now describes published portable attribution. Review actual adoption
+  before deciding closure: lazy optional loading, unchanged scientific results
+  when tracking is absent/fails, original producer versions, nested/reused
+  references, detached readers and H5MSM/typed-payload preservation. Preserve
+  existing result/persistence compatibility; review any proposed public schema
+  change before implementation. Refresh stale statements and verify any consumed
+  public minimum. #27's broader library rollout remains separate; no whole-library
+  instrumentation or required Ackredit dependency is selected.
+- **#128, native queries:** resident access and bounded dictionary reads already
+  have tests and measurements. Identify the remaining derived/encoded/file
+  workload obligations without claiming the entire broad proposal complete or
+  commissioning another optimization/benchmark campaign automatically.
+- **#214, PDBQT:** distinguish the delivered file/string/handler/presentation
+  contract from the outstanding review of its newer options by the receiving
+  client. Prior H5MSM or older PDBQT returns are not that acceptance. Identify
+  an exact missing return if one remains; new flexible-receptor dialects stay
+  with their separate proposal.
+- **#215, SDF:** distinguish implemented V2000/V3000 scope, original-file and
+  stereo-writer receiving from broader unsupported declarations. Preserve the
+  recorded CID 6842999 conservative refusal and its uncertainty; do not erase
+  a stereo declaration or label its nitrogen intrinsically achiral to make a
+  case pass. A wider profile is not automatically pre-1.0 work.
+
+These are review candidates, not four promised closures. Any proposed change to
+previously required acceptance needs its existing owner/maintainer decision.
+External publication and source inspection do not certify an installed client.
+
+### B1/B2: candidate articles and composed checks
+
+The candidate set is deliberately outside the completed 54-file I0–I5 cohort:
+
+1. `docs/content/user/cookbook/native_sdf.md`.
+2. `docs/content/user/cookbook/native_pdbqt.md`.
+3. `docs/content/user/cookbook/applying_chemical_templates.md`.
+4. `docs/content/user/cookbook/aligning_stored_hydrogen_policies.md`.
+5. `docs/content/user/cookbook/delivering_coordinates.md`.
+6. `docs/content/user/cookbook/permuting_export_order.md`.
+7. `docs/content/user/cookbook/comparing_sequence_source_groups.md`.
+8. `docs/content/user/cookbook/editing_labels_and_structure_metadata.ipynb`.
+
+Several have earlier receipts; this list is not evidence that they are broken
+or unexecuted. Inspect each receipt's actual scope, code/input fingerprints and
+relevant library changes before repeating it. Retain applicable evidence. Do not
+add replacement pages simply to reach an execution count. Linked examples enter
+only to cover an identified gap in the same accepted contract.
+
+Select small existing committed/bundled witnesses for the composed boundaries:
+
+- **SDF/native/storage:** declared graph, orders, stereo/isotope/H assignments
+  and coordinates through supported import, explicit atom reordering, H5MSM and
+  supported export. Check independent expected values and maps; a generated-file
+  round trip alone is not an independent chemistry oracle.
+- **Prepared PDBQT/poses:** explicit coordinate correspondence, nonconsecutive
+  structures, preserved charges/types/tree, representational loss and source
+  bytes. A PDBQT partial graph never becomes complete chemistry merely because
+  a file is readable. Use block reads for the bounded iterator case.
+- **Explicit preparation:** template correspondence, stored H policy and public
+  coordinate assignment preserve their declared source/output axes and pose.
+  Differentiate historical reports from current indices; check controlled edit
+  invalidation, including evaluated-empty coverage, only where the owner promises
+  it. No protonation search, energy refinement or new preparation protocol.
+- **Invalid/empty/partial requests:** test operation-specific support or rejection
+  for unavailable domains, unknown assignments, empty selections, repeated indices,
+  invalid mappings, incompatible units and unsupported declarations. Query repetition
+  rules do not establish extraction/permutation rules. Do not require a transaction
+  across several attribute assignments when the API documents separate publications.
+
+Use nondefault units where they protect a real boundary: angstrom input, pm/fs
+presentation and the schema's explicit canonical storage/export units are useful
+witnesses. Do not duplicate every case mechanically. Keep optional engines and
+their original methods explicit, and retain real provider failures separately
+from absence. Never silently substitute a simpler molecule, omit an original
+declaration or weaken a numerical/mapping assertion.
+
+### B3/B4: execution and evidence limits
+
+Reuse the existing local runners, original scientific registry and public
+conversion-execution inventory under #181; do not build a new orchestrator or
+claim every conversion edge is now received. ArgDigest, DepDigest, SMonitor,
+PyUnitWizard and optional Ackredit apply at their real boundaries. Public
+corrections retain their docstring/User Guide/Cookbook/course lifecycle.
+
+Load the operator/shared-resource policy before each material run. Start from
+the measured small-case family profile and scale only with actual demand and
+safe current admission; CPU count and available RAM are not reservations. Reuse
+the owned watchdog/limits, preserve the host reserve, and record retirement.
+No new environment or shared-prefix installation is selected. A missing selected
+dependency does not justify a silent fallback or successful skip disposition.
+Keep local and hosted qualification, scientific execution and stored rendering
+separate; use the existing receptors where applicable.
+
+The B4 table should cover native ownership, declared-loss interoperability,
+sparse interactions/coverage, versioned H5MSM, geometry/units and supported
+preparation/model boundaries. Reuse original benchmark evidence with its exact
+workload/runtime, rather than promising new timings or best-in-class performance.
+The authors' selected JCIM Application Note direction is manuscript context,
+not an assertion that the old LaTeX template or the journal's current submission
+requirements have been qualified. Author decisions and final artifact identities
+remain outstanding where applicable.
+
+### Optional source study after the finite local work
+
+The earlier maintainer request to learn from the existing OpenMM/OpenMMTools
+clones can then supply a bounded, nonblocking post-1.0 study under #12. The
+initial source set is OpenMM's Python `app/internal/unitcell.py`, `app/element.py`,
+`app/topology.py` and `app/modeller.py`, plus OpenMMTools `forces.py`, `states.py`
+and `cache.py`. Record actual revisions and read applicable source instructions.
+
+Compare specific capabilities with existing MolSysMT tools and the suite
+ownership map. Deliver useful gaps, existing equivalents, scientific references,
+ownership, expected benefit and validation requirements. Protocols stay with
+their workflow owner; reusable chemistry, geometry, PBC and model primitives
+belong to their appropriate provider. Do not copy engine APIs into MolSysMT's
+engine-neutral public design or expose speculative placeholders.
+
+This study reads source; it starts no simulation, implementation, dependency
+installation or new mandatory qualification. Any implementation recommendation
+gets its owned follow-up and scope decision. It need not finish before selecting
+the final pair and must not delay that handoff. A later waiting interval does
+not automatically enlarge the scientific or release scope.
 
 ## Admission rule that keeps the destination reachable
 

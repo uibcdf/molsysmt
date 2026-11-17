@@ -31,6 +31,7 @@ promotions and publication remain paused pending the agreed resumption.**
 
 | Next work | Current evidence and remaining boundary |
 | --- | --- |
+| Plan the supplemental waiting-period queue requested on 2026-11-17 | [B0–B5](technical_handoff_for_1_0_documentation_review.md#supplemental-waiting-period-work-queue--2026-11-17) reviews delivered issue acceptance (#292 first), an eight-article chemical-input/preparation cohort, actual cross-domain gaps, justified local integration and the scientific reader/manuscript packet. Planned only; no new implementation, receiving or scorecard credit. Optional OpenMM/OpenMMTools source study is nonblocking post-1.0 planning. |
 | Preserve the completed independent local queue and prepare the final-pair handoff | [I0–I5](technical_handoff_for_1_0_documentation_review.md#independent-molsysmt-work-queue--2026-11-16) now has [finite local receiving](../devtools/data/independent_native_work_334_20261116.json): 54 selected files, #769–#771 corrected/guarded, 159 offline controls, four complete notebooks, strict 1,401-page site and scoped article/browser review. This completes the local queue, not the final-pair gates or Diego's review. Preserve its actual runtime/source limits and the preparation/publication pause; no new global scorecard credit. |
 | Preserve #768's current governance adoption | The single actual caller now selects policy-v1.6.0; published tag, guide bytes and root/nested semantic/resource review are received. Official conformance rejects the old caller and accepts the correction, published-policy adoption reports CURRENT, and registered guide checking passes. The [owner record](archive/resolved_proposals/adopt_policy_v1_6_0_and_receive_resource_guidance.md) retains measured whole-family limits and the absence of a reservation/aggregate-protection claim. #764 remains historical; hosted qualification stays intentionally unexecuted under the maintainer's cadence. |
 | Preserve MolSysViewer's current-source client receiving | Its published profile `897` reports 55 selected cases passing on exact owner `96988b6ea`, reused native `4ffb82e4` and its recorded client/support-source composition. The [bounded review](../devtools/data/viewer_current_source_client_review_256_524_20261115.json) verifies eleven public Git blobs, the actual five guard modules/helpers and source identities; private raw execution records are not replayed. Session persistence, maps, coverage, edit invalidation, append and independent geometric projection remain exercised source contracts. This does not close #256/BindingMT #73, #524, #615 or final installed acceptance. |
@@ -66,6 +67,37 @@ keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
 The accepted initial-canvas disposition now gives **80.2381% (approximately 80.2%)**.
 The dated percentages below remain historical, not the current score.
+
+## Supplemental waiting-period queue selected — 2026-11-17
+
+After receiving the completed I0–I5 work, the maintainer requests another plan
+while MolSysViewer finishes stabilization. The [B0–B5 work order](technical_handoff_for_1_0_documentation_review.md#supplemental-waiting-period-work-queue--2026-11-17)
+is a separately selected bounded follow-up, not a reopening of I0–I5 or a new
+release gate. Its execution has not started. The initial action is #292's
+portable-attribution acceptance review: Ackredit #22/#75 and MolSysSuite #68 are
+remotely confirmed closed, while the historical pilot report under #27 still
+lists those obligations as pending. #292 needs its own adoption/compatibility
+disposition; #27's wider library rollout remains separate. Provider delivery
+alone does not establish local runtime/guide adoption.
+
+Then reconcile #128/#214/#215 acceptance without promising four closures or
+reducing unsatisfied requirements. Match the eight specified Cookbook candidates
+to earlier actual receiving before choosing new runs; several already have
+bounded evidence. Select only meaningful input/preparation/map/persistence gaps
+and correctness repairs. Preserve the established SDF unsupported-stereo and
+PDBQT partial-chemistry boundaries. A conditional local integration checkpoint
+follows actual changes/risk, with no automatic repeat of a complete campaign.
+
+The scientific claim-to-evidence packet supports #191/#378 and the eventual
+maintainer review; it does not impose manuscript completion as a software gate.
+The previously requested OpenMM/OpenMMTools study remains source-only,
+nonblocking post-1.0 planning after the finite technical work. Do not let it
+delay an available final-pair handoff.
+
+The renewed complete owner inventory returns 626 issue identities, 81 open
+issues and zero open PRs. The known service coverage limitation for historical
+identities remains unknown; no valid local report is removed. Scope, original
+milestone weights and the construction/hosted/publication pause are unchanged.
 
 ## Independent local queue completed — 2026-11-17
 
