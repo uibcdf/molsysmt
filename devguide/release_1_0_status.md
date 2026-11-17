@@ -66,6 +66,34 @@ have source receiving, separate from human/installed/platform qualification.
 The accepted initial-canvas disposition now gives **80.2381% (approximately 80.2%)**.
 The dated percentages below remain historical, not the current score.
 
+## MolSysViewer camera/IPC receiving and reopened capture gate — 2026-11-16
+
+Consumer checkpoint `4f2d8fa2e1479cbdf1003b3cca7c04b1db0a0dc5` reports
+#400, #394 and #401 resolved in source: the camera relay excludes only local
+radiusMax from identity, preserving complete snapshots; real keyboard focus
+is received; all 25 original notebooks pass with scoped Linux Jupyter IPC.
+The [immutable report](https://github.com/uibcdf/molsysviewer/blob/4f2d8fa2e1479cbdf1003b3cca7c04b1db0a0dc5/devguide/camera_peer_and_ipc_receiving_20261117.json)
+is authenticated as Git blob `5f2e0aa8a33d6503a409abde16fffe144b9362ea`.
+Its local scope remains MolSysMT `4b0b1f8a` / native `4ffb82e4`, isolated
+ipykernel 7.4.0 and explicit Node 22.23.4; private execution records are not
+replayed by MolSysMT. Existing source CI 43823224361 remains failed.
+
+The current full work-file guard **1004 fails its eighth moving capture**,
+a Studio session saved from the canvas popup; Movie passes separately.
+The report records a correct native snapshot sent at 9.907 seconds and a
+Python timeout/cancel verdict about 47 ms later, at the unchanged ten-second
+deadline. Queue/draw/transport attribution remains under investigation in
+[MolSysViewer #344](https://github.com/uibcdf/molsysviewer/issues/344), now
+reopened. These timings do not establish a new MolSysMT scientific defect or
+recurrence of the earlier primary-presentation race. Earlier complete profiles
+retain their exact-input scopes; seven current passes are not a complete guard.
+
+Wait for that consumer boundary and its applicable covering source receiving
+before final producer selection. Reciprocal >=1.0 minimums remain agreed but
+unapplied/unqualified. No provider repair, duplicate campaign, dispatch, artifact,
+tag or publication is commissioned. The current source/installed-pair gates
+remain distinct from the original milestone accounting.
+
 ## Current policy adoption and dependency exit reviewed — 2026-11-16
 
 #768 receives policy-v1.6.0 through the only actual caller, with no required
