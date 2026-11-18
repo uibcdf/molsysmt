@@ -2,7 +2,7 @@
 
 ## Resume from here
 
-**Reviewed 2026-11-17. The separately requested B0–B5 local waiting-period
+**Reviewed 2026-11-18. The separately requested B0–B5 local waiting-period
 queue is complete: #292's portable attribution is received, #772's chemical
 recipes are corrected, the other three acceptance reviews retain their real
 partial boundaries, and the proposed manuscript/reader packet is recorded.
@@ -10,10 +10,9 @@ The earlier complete-source run retains its original identity; the new bounded
 1,933-case receiving does not qualify a changed final candidate. #773's energy
 decomposition repair has passed local receiving. MolSysViewer's #344 correction
 passed its full local Jupyter guard and directed browser checks. The latest
-authorized Linux source run passed 61 of 63 browser suites, including the
-corrected atlas, then reached the `movie-composition` suite limit. The
-revised composition guard passes locally. The covering source gate and
-final package pair remain pending.**
+authorized Linux source run passed 38 of 63 browser suites, then reached the
+aggregate `interactions-calculation` limit. All 17 variants pass the revised
+local guard. The covering source gate and final package pair remain pending.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
 does not select today's candidate or authorize new execution.
@@ -141,6 +140,19 @@ adds phase markers and a 300-second composition budget while retaining
 15 seconds per capture. The isolated guard passes in 155 seconds at 8 CPU
 and 4 GiB. Complete hosted core receiving remains pending at the agreed
 checkpoint.
+
+On 2026-11-18, [Linux run 44244621198](https://github.com/uibcdf/molsysviewer/actions/runs/44244621198)
+uses MolSysViewer `ac51d77b`, MolSysMT `4b0b1f8a` and pandas 3.1.0.
+The owner verifies 4,756 Python passes, 42 skips, all 25 notebooks and 38 of
+63 browser suites. Independent terminal inspection confirms failure at the
+180-second total limit for `interactions-calculation`. The limit stops the
+preparation of the last variant after 16 passes. Both Movie entries are
+unreached. The earlier hosted run passes all 17 variants. MolSysViewer
+[4dc8cac5](https://github.com/uibcdf/molsysviewer/commit/4dc8cac51f9fe9b1cabfe3fe99457a98bde9640c)
+sets an aggregate limit of 240 seconds with unchanged per-operation deadlines
+and assertions. Its isolated run receives all 17 variants in 174 seconds.
+The consumer identifies no MolSysMT action for this result. Complete hosted
+receiving and the coordinated installed pair remain pending.
 
 ### Final-pair coordination
 
