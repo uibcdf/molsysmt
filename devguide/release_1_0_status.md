@@ -10,9 +10,10 @@ The earlier complete-source run retains its original identity; the new bounded
 1,933-case receiving does not qualify a changed final candidate. #773's energy
 decomposition repair has passed local receiving. MolSysViewer's #344 correction
 passed its full local Jupyter guard and directed browser checks. The latest
-authorized Linux source run passed Studio and 32 other browser suites, then
-failed at `font-atlas-uploads`. The test correction passes locally. The
-covering source gate and final package pair remain pending.**
+authorized Linux source run passed 61 of 63 browser suites, including the
+corrected atlas, then reached the `movie-composition` suite limit. The
+revised composition guard passes locally. The covering source gate and
+final package pair remain pending.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
 does not select today's candidate or authorize new execution.
@@ -126,8 +127,20 @@ before measuring yields zero observed uploads. MolSysViewer
 [`6c82a672`](https://github.com/uibcdf/molsysviewer/commit/6c82a672bb8b49f69a11f9cec898e24e03772b43)
 updates the test's draw waits, with the full targeted suite and ten inventory
 controls passing locally. The failed official run remains the evidence for
-its exact source. A complete hosted run on the corrected source is pending
-at the next agreed checkpoint.
+its exact source.
+
+The subsequent [Linux run 44233166206](https://github.com/uibcdf/molsysviewer/actions/runs/44233166206)
+uses MolSysViewer `6c82a672`, MolSysMT `4b0b1f8a` and pandas 3.1.0.
+The owner verifies 4,756 Python passes, 42 skips, all 25 notebooks and 61 of
+63 browser suites. These include the corrected atlas with zero uploads and
+all 17 interaction calculation cases. Independent terminal inspection confirms
+that entry 62, `movie-composition`, exceeded its 180-second aggregate limit.
+`movie-story` remained unreached. MolSysViewer
+[ac51d77b](https://github.com/uibcdf/molsysviewer/commit/ac51d77b69f4e38f25c9d50559acd92ec805ad1b)
+adds phase markers and a 300-second composition budget while retaining
+15 seconds per capture. The isolated guard passes in 155 seconds at 8 CPU
+and 4 GiB. Complete hosted core receiving remains pending at the agreed
+checkpoint.
 
 ### Final-pair coordination
 
