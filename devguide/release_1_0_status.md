@@ -10,9 +10,10 @@ The earlier complete-source run retains its original identity; the new bounded
 1,933-case receiving does not qualify a changed final candidate. #773's energy
 decomposition repair has passed local receiving. MolSysViewer's #344 correction
 passed its full local Jupyter guard and directed browser checks. The latest
-authorized Linux source run passed 38 of 63 browser suites, then reached the
-aggregate `interactions-calculation` limit. All 17 variants pass the revised
-local guard. The covering source gate and final package pair remain pending.**
+authorized Linux source run passed 54 of 63 browser suites, including all
+17 interaction calculation cases, then failed the `movie-playback`
+observation. All three selected Movie suites pass together locally with the
+revised guard. The covering source gate and final package pair remain pending.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
 does not select today's candidate or authorize new execution.
@@ -153,6 +154,20 @@ sets an aggregate limit of 240 seconds with unchanged per-operation deadlines
 and assertions. Its isolated run receives all 17 variants in 174 seconds.
 The consumer identifies no MolSysMT action for this result. Complete hosted
 receiving and the coordinated installed pair remain pending.
+
+The later [Linux run 44334625017](https://github.com/uibcdf/molsysviewer/actions/runs/44334625017)
+uses MolSysViewer `4dc8cac5`, MolSysMT `4b0b1f8a` and pandas 3.1.0.
+The owner verifies 4,756 Python passes, 42 skips, all 25 notebooks, all 17
+interaction calculation cases and 54 of 63 browser suites. Independent
+inspection confirms terminal failure in entry 55, `movie-playback`.
+The timer observer records one position. A separate local draw observer
+records the initial, interpolated and final camera positions, with the
+interpolated draw arriving after the timer's sampling window.
+MolSysViewer [b6182584](https://github.com/uibcdf/molsysviewer/commit/b6182584ce0208cd52eb33e45309fdbc6d2061b5)
+observes completed draws through playback completion. Its negative control
+still rejects a jump to the final camera. Local run `1082` passes playback,
+composition and the molecular Movie story in one Chromium invocation.
+Complete hosted receiving remains due at the agreed checkpoint.
 
 ### Final-pair coordination
 
