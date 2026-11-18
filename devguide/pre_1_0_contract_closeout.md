@@ -134,3 +134,55 @@ New candidate construction, hosted qualification, tags, promotions and
 publication remain paused. The packet selects no producer or build. The target
 is unchanged: a technically qualified pair for which only Diego's substantive
 documentation review remains. No percentage is added for this preparation.
+
+### Candidate-input proposal — 2026-11-18
+
+The first complete Linux result in the current MolSysViewer series is
+[44370662706](https://github.com/uibcdf/molsysviewer/actions/runs/44370662706).
+It passes at MolSysViewer `95d87988ec9be281139b7d5f1936af77eefe6ddd` and
+MolSysMT `4b0b1f8a` with pandas 3.1.0. Separate local receiving passes 326
+cases with MolSysViewer `95d87988` and the scientific inputs of MolSysMT
+`7eb24c4f`. The latter is the proposed MolSysMT basis
+`7eb24c4ff403911939f96899dd6fee76ff4c8ef5`. Through `d54b2d5de`, the later
+MolSysMT commits change only the internal release-status ledger. The MolSysViewer
+coordination record is `2d4bd3ac`. Both local and hosted results preserve
+their original producer and input identities.
+
+The read-only Anaconda check returns four MolSysMT 1.0.0 build-0 files, one
+per native subdir, all in staging. The MolSysViewer 1.0.0 release endpoint
+returns HTTP 404, consistent with its owner's inventory. Propose MolSysMT
+build 1 and MolSysViewer noarch build 0. Recheck both inventories before
+agreeing those coordinates. Each existing artifact keeps its original hash.
+[MolSysMT registry inventory](https://api.anaconda.org/release/uibcdf/molsysmt/1.0.0).
+
+1. Review the unpublished metadata drafts and prepare clean producer commits
+   and named refs when authorized. Use reciprocal floors `>=1.0.0` and the
+   existing citation preparation. The seven MolSysMT draft input hashes and
+   read-only apply check remain valid. Agree with MolSysViewer on how the
+   exact CI workspaces derive and verify version 1.0.0 before publication.
+   The current untagged MolSysMT checkout derives a 0.23.0 development
+   version. Both staging producers already have a local, disposable version
+   context. Source and wheel checkouts need coherent version evidence for
+   the final minimum and runtime-closure checks.
+2. Qualify MolSysMT on the final commits. The existing gate requires the 15
+   fast checks, the registered scientific certificate, the eight Linux
+   and macOS arm64 source cells for Python 3.11–3.14, supported ABI3 wheel
+   checks and strict documentation build. The platform and MolSysViewer
+   receiving requirements retain their own scopes. Reuse the exact
+   counterpart SHA and verify runtime imports and dependency closure.
+3. Stage the four MolSysMT ABI3 files first using its bootstrap route, then
+   stage and test the one MolSysViewer noarch file against staged MolSysMT.
+   Preserve both producer identities, five filenames, URLs and SHA-256
+   values. Run one 16-cell installed staging matrix with the exact pair.
+   Both owners verify the per-attempt receipts and reconcile them with
+   the five selected files under #775.
+4. Deliver the documentation-review packet after the exact required evidence
+   and owner acceptance. When publication is separately authorized, promote
+   the tested files in one coordinated availability window. Verify both
+   public indices and installed closure in the existing sixteen-cell public
+   profile before announcing the install command. The synthetic solver
+   evidence supports this order.
+
+This proposal was sent to the MolSysViewer owner for confirmation. Candidate
+freeze, builds, new hosted runs and publication retain their separate
+authorization under #334.

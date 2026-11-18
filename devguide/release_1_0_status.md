@@ -10,10 +10,10 @@ The earlier complete-source run retains its original identity; the new bounded
 1,933-case receiving does not qualify a changed final candidate. #773's energy
 decomposition repair has passed local receiving. MolSysViewer's #344 correction
 passed its full local Jupyter guard and directed browser checks. The latest
-authorized Linux source run passed 54 of 63 browser suites, including all
-17 interaction calculation cases, then failed the `movie-playback`
-observation. All three selected Movie suites pass together locally with the
-revised guard. The covering source gate and final package pair remain pending.**
+authorized Linux source run passes 63 of 63 browser suites and all 25
+notebooks on MolSysViewer `95d87988` and MolSysMT `4b0b1f8a`. The owners can
+now coordinate candidate inputs. Exact final producer and installed-package
+qualification remain pending.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
 does not select today's candidate or authorize new execution.
@@ -171,6 +171,18 @@ Complete hosted receiving remains due at the agreed checkpoint.
 
 ### Final-pair coordination
 
+MolSysViewer's [Linux run 44370662706](https://github.com/uibcdf/molsysviewer/actions/runs/44370662706)
+is terminal and successful. Its owner records 4,756 Python passes with 42
+skips, all 63 browser suites and 25 notebooks on MolSysViewer `95d87988`,
+MolSysMT `4b0b1f8a` and pandas 3.1.0. Its separate local run `1100` passes
+326 scoped cases using the scientific input files of MolSysMT `7eb24c4f`.
+The owner records both scopes and separate inputs in MolSysViewer
+[2d4bd3ac](https://github.com/uibcdf/molsysviewer/commit/2d4bd3ac85d9f6b0bca184c48a1f13187e9f9a6e).
+MolSysMT proposes `7eb24c4f` as its reviewed source basis. The
+[candidate-input proposal](pre_1_0_contract_closeout.md#candidate-input-proposal--2026-11-18)
+records the provisional build numbers, exact-source and installed gates,
+and the remaining decisions before resuming.
+
 The MolSysViewer team confirmed through the Codex handoff that its current
 evidence identifies no Interactions or H5MSM incompatibility requiring a
 MolSysMT change. Joint qualification of MolSysMT `63c221176` is pending.
@@ -194,14 +206,10 @@ Rust sources, build metadata and toolchain inputs match between `63c221176`
 and `7eb24c4ff`. This receives the bounded source profile. Final qualification
 still requires the agreed producer commits and actual installed artifacts.
 
-Before proposing a producer SHA and noarch build, MolSysViewer will finish
-the #344 source assessment, [Mol* 5.13.1 receiving](https://github.com/uibcdf/molsysviewer/issues/372),
-the agreed Movie, addon, scale and human acceptance, and its documentation
-work. The pair still needs qualification with the agreed 1.0 dependency
-minimums. MolSysViewer `d8c10784` is the source under investigation. Its
-recipe's build 0 remains provisional. The next joint handoff is an explicit
-producer SHA and build proposal from each owner, followed by the agreed
-resumption of candidate preparation under #334.
+The agreed Movie, addon, scale and human acceptance and the documentation
+review retain their existing owners under #334 and MolSysViewer #315/#372.
+Both owners still need to agree the exact producer commits, refs, build
+numbers and candidate version context before asking to resume preparation.
 
 ## Supplemental waiting-period queue completed — 2026-11-17
 
