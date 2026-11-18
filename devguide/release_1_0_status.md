@@ -9,10 +9,10 @@ partial boundaries, and the proposed manuscript/reader packet is recorded.
 The earlier complete-source run retains its original identity; the new bounded
 1,933-case receiving does not qualify a changed final candidate. #773's energy
 decomposition repair has passed local receiving. MolSysViewer's #344 correction
-passed its full local Jupyter guard and directed browser checks. The covering
-Linux source run failed when `studio-list-workflows` reached its deadline.
-MolSysViewer has a locally verified adjustment for that suite. The covering
-source gate and final package pair remain pending.**
+passed its full local Jupyter guard and directed browser checks. The latest
+authorized Linux source run passed Studio and 32 other browser suites, then
+failed at `font-atlas-uploads`. The test correction passes locally. The
+covering source gate and final package pair remain pending.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
 does not select today's candidate or authorize new execution.
@@ -115,7 +115,19 @@ The team reproduced the Studio suite timeout locally with MolSysMT
 seconds with a 360-second budget. MolSysViewer
 [`6cced30f`](https://github.com/uibcdf/molsysviewer/commit/6cced30fc31c050903ff3dc789cae1a30fc5e527)
 applies that budget only to `studio-list-workflows` and adds progress markers.
-The matching hosted source gate remains due at the agreed checkpoint.
+
+The next authorized [Linux run 44196971862](https://github.com/uibcdf/molsysviewer/actions/runs/44196971862)
+uses MolSysViewer `43c1c3de`, MolSysMT `4b0b1f8a` and pandas 3.1.0.
+MolSysViewer reports 4,756 Python tests, 25 notebooks and 33 browser suites
+passing, including Studio. Independent terminal inspection confirms failure
+at entry 34, `font-atlas-uploads`. Native controls show three GPU uploads
+from warm-up arriving during measurement. Waiting for each warm-up draw
+before measuring yields zero observed uploads. MolSysViewer
+[`6c82a672`](https://github.com/uibcdf/molsysviewer/commit/6c82a672bb8b49f69a11f9cec898e24e03772b43)
+updates the test's draw waits, with the full targeted suite and ten inventory
+controls passing locally. The failed official run remains the evidence for
+its exact source. A complete hosted run on the corrected source is pending
+at the next agreed checkpoint.
 
 ### Final-pair coordination
 
