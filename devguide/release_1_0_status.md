@@ -11,9 +11,10 @@ The earlier complete-source run retains its original identity; the new bounded
 decomposition repair has passed local receiving. MolSysViewer's #344 correction
 passed its full local Jupyter guard and directed browser checks. The latest
 authorized Linux source run passes 63 of 63 browser suites and all 25
-notebooks on MolSysViewer `95d87988` and MolSysMT `4b0b1f8a`. The owners can
-now coordinate candidate inputs. Exact final producer and installed-package
-qualification remain pending.**
+notebooks on MolSysViewer `95d87988` and MolSysMT `4b0b1f8a`. Both owners
+agree the reviewed bases and provisional builds. Candidate preparation
+awaits authorization. Exact producer and installed-package qualification
+remain pending.**
 This is the current work order under #334. Dated entries below retain their
 original scope; the [historical resume route](#historical-resume-route--2026-10-10)
 does not select today's candidate or authorize new execution.
@@ -178,10 +179,10 @@ MolSysMT `4b0b1f8a` and pandas 3.1.0. Its separate local run `1100` passes
 326 scoped cases using the scientific input files of MolSysMT `7eb24c4f`.
 The owner records both scopes and separate inputs in MolSysViewer
 [2d4bd3ac](https://github.com/uibcdf/molsysviewer/commit/2d4bd3ac85d9f6b0bca184c48a1f13187e9f9a6e).
-MolSysMT proposes `7eb24c4f` as its reviewed source basis. The
+Both owners agree `7eb24c4f` as the reviewed MolSysMT basis. The
 [candidate-input proposal](pre_1_0_contract_closeout.md#candidate-input-proposal--2026-11-18)
-records the provisional build numbers, exact-source and installed gates,
-and the remaining decisions before resuming.
+records the agreed tentative coordinates, proposed refs, exact-source and
+installed gates, and the remaining decisions before resuming.
 
 The MolSysViewer team confirmed through the Codex handoff that its current
 evidence identifies no Interactions or H5MSM incompatibility requiring a
@@ -208,8 +209,9 @@ still requires the agreed producer commits and actual installed artifacts.
 
 The agreed Movie, addon, scale and human acceptance and the documentation
 review retain their existing owners under #334 and MolSysViewer #315/#372.
-Both owners still need to agree the exact producer commits, refs, build
-numbers and candidate version context before asking to resume preparation.
+The next decision is authorization to prepare the paired metadata, check
+the version context and select the exact producer commits. Construction
+and qualification retain their existing separate gates.
 
 ## Supplemental waiting-period queue completed — 2026-11-17
 

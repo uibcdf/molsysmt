@@ -183,6 +183,25 @@ agreeing those coordinates. Each existing artifact keeps its original hash.
    profile before announcing the install command. The synthetic solver
    evidence supports this order.
 
-This proposal was sent to the MolSysViewer owner for confirmation. Candidate
-freeze, builds, new hosted runs and publication retain their separate
-authorization under #334.
+#### MolSysViewer confirmation
+
+MolSysViewer accepts both source bases and independently rechecked the
+registry. Both owners agree on provisional coordinates for 1.0.0. MolSysMT
+is ABI3 build 1 with proposed ref `candidate/1.0.0-build1`. MolSysViewer is
+noarch build 0 with proposed ref `candidate/1.0.0-build0`. Recheck availability
+when preparing the candidates. The refs are proposed names for the final
+clean producer SHAs.
+
+MolSysViewer's exact source-pair workflow already supports
+`source_receiving=false`, `platform=all`, `molsysmt_version=1.0.0`,
+`viewer_version=1.0.0` and an explicit `molsysmt_sha`. It verifies both
+checked-out SHAs, uses runner-local version tags, installs the sources,
+runs `pip check` and removes the temporary tags it created. The owners will
+verify both installed distribution versions and tag-to-source binding.
+MolSysMT must receive the equivalent version context in its own exact
+source and controlled wheel paths. The staged receipts must identify
+MolSysMT build 1, since its earlier build 0 has the same release version.
+
+The next decision is authorization to prepare the coordinated metadata and
+candidate version context. Candidate freeze, builds, new hosted runs and
+publication retain their separate authorization under #334.
