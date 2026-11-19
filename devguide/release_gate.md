@@ -4,10 +4,10 @@ The single normative checklist for tagging a MolSysMT release (in particular 1.0
 It consolidates what was previously scattered across workflow comments and the 1.0
 audit. Closes audit risk **R2** in
 `archive/release_1_0/release_1_0_independent_gate_audit.md` and supports blocker **B1**.
-The current pre-release work order is maintained in
-[`release_1_0_execution_plan.md`](pending_proposals/release_1_0_execution_plan.md).
-Current completion, active stage, and evidence are recorded in
-[`release_1_0_status.md`](release_1_0_status.md).
+The current checkpoint records the next decision, completion and evidence.
+The execution plan retains the ordering and decisions behind the gates.
+[Resume from here](release_1_0_status.md#resume-from-here) and
+[1.0 execution plan](pending_proposals/release_1_0_execution_plan.md).
 The accepted [scope freeze](release_1_0_scope.md) defines what needs qualification;
 it does not waive any gate below or itself authorize publication.
 

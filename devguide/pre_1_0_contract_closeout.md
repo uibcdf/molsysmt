@@ -1,19 +1,19 @@
 # Finite contract closeout before the 1.0 documentation review
 
 **Role:** operational receiving packet under uibcdf/molsysmt#334, #256, #250,
-#254, #421 and #524. **Reviewed:** 2026-11-17.
-**State:** provider source offer; final consumer/candidate acceptance pending.
+#254, #421 and #524. **Reviewed:** 2026-11-18.
+**State:** reviewed source bases and provisional builds agreed. Producer
+preparation and exact-candidate acceptance remain pending.
 
-This packet collects the already required decisions. It adds no detector,
-format revision, client workflow, performance promise or release gate.
-[The handoff plan](technical_handoff_for_1_0_documentation_review.md) owns the
-destination; [the live ledger](release_1_0_status.md) owns progress. Normative
-API and schema documents linked below own behavior. This checklist does not
-replace their rules or promote Experimental APIs to Stable.
+This packet records client returns, candidate inputs and the publication
+sequence. The handoff plan defines the destination and the execution ledger
+records progress. Normative API and schema documents define behavior and
+stability. [Technical handoff plan](technical_handoff_for_1_0_documentation_review.md)
+and [current checkpoint](release_1_0_status.md#resume-from-here).
 
 ## Source continuity and evidence
 
-The reviewed provider reference is `ea9d4ef16`. Relative to
+The earlier reviewed provider reference is `ea9d4ef16`. Relative to
 `96988b6ea42fb02a662fa3dda5eb2f7659f28c56`, received by MolSysViewer profile
 897, the only production-source changes are the two mmCIF reader files in
 `b8c798474`. Interactions, ChemicalStates, H5MSM and the bound addon retain
@@ -81,8 +81,8 @@ do not ask BindingMT to repeat this storage profile.
 | Owner / issue | Return required | Work not being requested |
 | --- | --- | --- |
 | BindingMT #73 / MolSysMT #256 | Received and accepted: immutable 2b761a84, twelve default operations, original data/maps/provenance and hashes. Preserve earlier P5/P6 acceptance and the bounded old-native decision. | No repeat receiving, preparation, minimization, docking, C1/resolve_region, new model, package or new matrix. |
-| MolSysViewer / #250, #254, #421 | Confirm these current consumption semantics or name the concrete remaining incompatibility; retain Experimental scientific/API scope. Identify remaining work before selecting the final host source. Existing source evidence need not be rerun just to acknowledge the contract. | No new detector, lazy-file API, broad matrix, candidate build or promotion. Current owner-authorized UI diagnosis remains separate. |
-| Both maintainers / #524, #334 | Agree exact clean producer commits, versions, unused builds, artifact coordinates and applicable runtime composition. Review the already prepared compatible minimum-host metadata before freezing. | A future version label is not an already qualified/public compatible package; no floor changes or release authorization by this packet. |
+| MolSysViewer / #250, #254, #421 | The owner reports the agreed source bases and bounded receiving. Return final acceptance against the exact candidate or identify a concrete incompatibility. Retain Experimental scientific and API scope. [Final-pair evidence](release_1_0_status.md#final-pair-coordination). | No new detector, lazy-file API, broad matrix, candidate build or promotion. Current owner-authorized UI diagnosis remains separate. |
+| Both maintainers / #524, #334 | The reviewed bases, reciprocal floors and provisional builds are agreed. After preparation authorization, review metadata and return the exact clean producer commits and named refs. [Agreed inputs](#molsysviewer-confirmation). | Public compatibility and artifact identities require the later executed gates. |
 | MolSysMT / #256 | Completed: client return reviewed, no exercised-scope discrepancy found, first-stable 1.0 source/wire contract recorded with admitted schema revisions and explicit limits. | No publication, general scientific/ABI certification or final installed-pair acceptance. |
 | Both release owners / #334 | After agreed resumption, qualify the exact same artifacts and sources under existing source/native/scientific/documentation and installed-pair gates, including the retained #671 lane. Then hand off the review packet. | Historical or scoped source passes do not replace final installed/platform qualification. |
 
@@ -110,13 +110,13 @@ only when producer preparation resumes.
 
 | Required identity or action | Owner and existing route | Present disposition |
 | --- | --- | --- |
-| Final clean MolSysMT/MolSysViewer source commits and exact build numbers | Both maintainers under #334/#524 | Target 1.0.0/1.0.0 agreed; producer SHAs, unused builds and triggerable refs still unselected. Historical files/refs are preserved. |
+| Final clean MolSysMT/MolSysViewer source commits and exact build numbers | Both maintainers under #334/#524 | Provisional builds and proposed refs are recorded below. Preparation authorization and exact producer SHAs remain pending. [Agreed inputs](#molsysviewer-confirmation). |
 | Coherent dependency/citation metadata and source pins | Both producer owners; `prepare_release.py`, complete-root dependency/citation audit | Draft only. Do not substitute a future package label for the real untagged source version. |
 | Four native ABI3 files and MolSysViewer's noarch file, channels, original URLs and SHA-256 | Existing `build_and_upload_conda_packages.yaml` and consumer producer | No new producer dispatch or artifact is authorized by this preflight. Verify original producer and artifact custody. |
 | Source/native/scientific/documentation qualification at that exact composition | Existing release gate and source/native workflows | Required final receiving, including #671's original matrix lane; earlier scoped passes retain their original identities. |
 | Sixteen installed-pair cells | `validate_conda_staging.yaml`: explicit versions/builds, `python_max=3.14`, `target=all`, staging | Pending exact artifact selection and agreed resumption. Each cell retains its installed filenames, URLs and SHA-256 values with the source, run, attempt and Python. |
 | Independent verification of that completed installed run | `verify_installed_conda_pair.yaml` for run/source/attempt and exact jobs. `python -m devtools.scripts.verify_conda_pair_receipts` reconciles that receipt with the matching per-cell artifacts. | Use the complete package identity report to check the four independently agreed native files and the one noarch file before tagging. The promotion route checks the selected native digest again. [#775](archive/resolved_bugs/installed_conda_pair_does_not_bind_tested_artifact_digests.md) retains the local regression evidence. |
-| Current consumer capture gate and final consumer source | MolSysViewer, including #344 | `d8c10784` passes the complete local Jupyter scenario and the directed browser profile reported in the [execution ledger](release_1_0_status.md#molsysviewer-moving-capture-receiving-update--2026-11-17). Final covering evidence and source selection belong to the consumer owner. |
+| Consumer source readiness and final candidate evidence | MolSysViewer, including #315/#372 | The agreed code basis has complete Linux source receiving. MolSysViewer owns final acceptance on the coordinated producer commits. [Final-pair evidence](release_1_0_status.md#final-pair-coordination). |
 
 The final stop conditions remain those of the owning release/resource rules:
 missing identities, wrong bytes/import origins, failed or incomplete gates and
@@ -130,10 +130,10 @@ candidate artifacts before release authorization; verify public solver closure
 after authorized promotion when both required counterparts exist. Do not demand
 that an unbuilt future pair already be public before testing that pair.
 
-New candidate construction, hosted qualification, tags, promotions and
-publication remain paused. The packet selects no producer or build. The target
-is unchanged: a technically qualified pair for which only Diego's substantive
-documentation review remains. No percentage is added for this preparation.
+Candidate preparation is the next maintainer decision. Construction, hosted
+qualification, tagging, promotion and publication retain their separate
+approvals. The destination is a technically qualified pair ready for Diego's
+substantive documentation review. [Current checkpoint](release_1_0_status.md#resume-from-here).
 
 ### Candidate-input proposal — 2026-11-18
 
@@ -185,22 +185,30 @@ agreeing those coordinates. Each existing artifact keeps its original hash.
 
 #### MolSysViewer confirmation
 
-MolSysViewer accepts both source bases and independently rechecked the
-registry. Both owners agree on provisional coordinates for 1.0.0. MolSysMT
-is ABI3 build 1 with proposed ref `candidate/1.0.0-build1`. MolSysViewer is
-noarch build 0 with proposed ref `candidate/1.0.0-build0`. Recheck availability
-when preparing the candidates. The refs are proposed names for the final
-clean producer SHAs.
+Both owners agree these provisional coordinates for 1.0.0 and will recheck
+their availability during candidate preparation. The proposed refs will
+point to the final clean producer SHAs.
+
+| Package | Reviewed source SHA | Provisional build | Proposed dispatch ref |
+| --- | --- | --- | --- |
+| MolSysMT 1.0.0 | `7eb24c4ff403911939f96899dd6fee76ff4c8ef5` | ABI3 build 1 | `candidate/1.0.0-build1` |
+| MolSysViewer 1.0.0 | `95d87988ec9be281139b7d5f1936af77eefe6ddd` | noarch build 0 | `candidate/1.0.0-build0` |
+
+MolSysViewer recorded the same agreement in public commit [6c88309c](https://github.com/uibcdf/molsysviewer/commit/6c88309c6ae6017edd6e0f982ffe64f0d16ac4ce).
+Its change since the receiving record `2d4bd3ac` is confined to the
+developer guide.
 
 MolSysViewer's exact source-pair workflow already supports
 `source_receiving=false`, `platform=all`, `molsysmt_version=1.0.0`,
 `viewer_version=1.0.0` and an explicit `molsysmt_sha`. It verifies both
 checked-out SHAs, uses runner-local version tags, installs the sources,
-runs `pip check` and removes the temporary tags it created. The owners will
-verify both installed distribution versions and tag-to-source binding.
-MolSysMT must receive the equivalent version context in its own exact
-source and controlled wheel paths. The staged receipts must identify
-MolSysMT build 1, since its earlier build 0 has the same release version.
+runs `pip check` and removes the temporary tags it created. During authorized
+preparation, MolSysViewer generates the bundled runtime with
+`RELEASE_VERSION=1.0.0 npm run build:runtime` and verifies its embedded
+version. The owners will verify both installed distribution versions and
+tag-to-source binding. MolSysMT still needs equivalent version evidence
+in its exact-source and controlled-wheel paths. The staged receipts must
+identify MolSysMT build 1 because its earlier build 0 has the same version.
 
 The next decision is authorization to prepare the coordinated metadata and
 candidate version context. Candidate freeze, builds, new hosted runs and

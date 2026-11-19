@@ -2,47 +2,57 @@
 
 ## Resume from here
 
-**Reviewed 2026-11-18. The separately requested B0–B5 local waiting-period
-queue is complete: #292's portable attribution is received, #772's chemical
-recipes are corrected, the other three acceptance reviews retain their real
-partial boundaries, and the proposed manuscript/reader packet is recorded.
-The earlier complete-source run retains its original identity; the new bounded
-1,933-case receiving does not qualify a changed final candidate. #773's energy
-decomposition repair has passed local receiving. MolSysViewer's #344 correction
-passed its full local Jupyter guard and directed browser checks. The latest
-authorized Linux source run passes 63 of 63 browser suites and all 25
-notebooks on MolSysViewer `95d87988` and MolSysMT `4b0b1f8a`. Both owners
-agree the reviewed bases and provisional builds. Candidate preparation
-awaits authorization. Exact producer and installed-package qualification
-remain pending.**
-This is the current work order under #334. Dated entries below retain their
-original scope; the [historical resume route](#historical-resume-route--2026-10-10)
-does not select today's candidate or authorize new execution.
+**Checkpoint reviewed 2026-11-18. Candidate preparation awaits Diego's
+authorization.** Both owners agree to use the reviewed MolSysMT and
+MolSysViewer bases for the 1.0.0 pair, with provisional builds 1 and 0,
+respectively. The final producer SHAs, dispatch refs, filenames and SHA-256
+values remain pending. [Agreed candidate inputs](pre_1_0_contract_closeout.md#molsysviewer-confirmation)
+and [release issue #334](https://github.com/uibcdf/molsysmt/issues/334).
 
-**Current destination, agreed 2026-11-12:** complete the
-[technical handoff for Diego's documentation review](technical_handoff_for_1_0_documentation_review.md).
-It is not yet achieved. Finish admitted corrections, documented investigative
-conclusions, stable-format/client agreements and exact-pair qualification
-before declaring that only his review remains. New optional improvements are
-post-1.0 by default under the revised scope; #728 implementation is not a
-prerequisite. The plan does not lift the execution/publication pause below.
+The completed Linux run on MolSysViewer `95d87988` and MolSysMT `4b0b1f8a`
+passes all 63 browser suites and all 25 notebooks. The separate 326-case local
+result covers the scientific inputs of the proposed MolSysMT basis
+`7eb24c4f`. Both results retain their own source identities and scope.
+[Final-pair evidence](#final-pair-coordination).
 
-The agreed release pair is **MolSysMT 1.0.0 / MolSysViewer 1.0.0**. No
-replacement producer commits, builds, filenames or hashes are frozen. Preserve
-the existing staged 1.0.0 build-0 files and earlier public-pair evidence;
-neither qualifies a changed candidate. On 2026-11-11 the maintainer chooses to
-wait for the final pair, deferring an intermediate MolSysMT 0.24.0 /
-MolSysViewer 0.25.0 milestone. **New candidate construction, hosted qualification, tags,
-promotions and publication remain paused pending the agreed resumption.**
-
-| Next work | Current evidence and remaining boundary |
+| Step | Owner and required handoff |
 | --- | --- |
-| Preserve the exact-file installed qualification check | [#775](archive/resolved_bugs/installed_conda_pair_does_not_bind_tested_artifact_digests.md) binds tested Conda artifacts to the verified matrix attempt and the filename/digest submitted for promotion. Forty offline cases pass. The actual exact-pair matrix and pre-tag comparison with agreed producer files remain pending. |
+| Prepare the producer commits | After Diego authorizes preparation, both owners apply the reciprocal `>=1.0.0` floors, review citation and runtime version metadata, and validate the version context of their CI paths. Return the clean producer SHAs for review with the two proposed refs and rechecked builds. [Candidate preparation](pre_1_0_contract_closeout.md#candidate-input-proposal--2026-11-18). |
+| Freeze and qualify the pair | After agreement on the producer identities and authorization to execute, the owners run their exact-source, native, scientific and documentation gates. Stage MolSysMT first and MolSysViewer second, then verify the five archive SHA-256 values against one 16-cell staging run. Preserve the earlier build-0 files and their original evidence. [Exact-commit gates](release_gate.md). |
+| Deliver the documentation review | Both owners return the qualified identities, required client acceptance and reproducible documentation for Diego's review. The publication decision follows his review and the final exact-candidate checks. [Handoff acceptance checklist](technical_handoff_for_1_0_documentation_review.md#handoff-acceptance-checklist). |
+
+Treat the current preparation, execution and publication permissions as
+separate decisions under #334. On resumption, compare the current checkout
+and any candidate refs with the recorded SHAs, then check for a newer
+maintainer decision in #334 and a corresponding consumer return in
+[MolSysViewer #315](https://github.com/uibcdf/molsysviewer/issues/315).
+Use the [frozen scope](release_1_0_scope.md) for issue admission and the dated
+sections below for earlier evidence.
+
+### Issue intake
+
+The 18 November board check finds zero open pull requests. MolSysMT #776
+records an OpenCASTp report on conversion latency in bond-table normalization.
+It remains in the performance queue under the existing 1.0 scope. Revisit
+its release priority if a supported workflow defect is demonstrated or the
+maintainer admits the optimization. [MolSysMT #776](https://github.com/uibcdf/molsysmt/issues/776).
+
+The full read-only queue sync reports 55 recorded issue identities unavailable
+in the current GitHub inventory, including #524. Keep their local records.
+Use the [dependency-floor report](pending_proposals/runtime_dependency_api_floors.md)
+for the #524 evidence and [#334](https://github.com/uibcdf/molsysmt/issues/334)
+for the active release decision.
+
+### Evidence carried forward
+
+| Work reviewed | Evidence and scope |
+| --- | --- |
+| Exact-file installed qualification check | Forty-three offline cases exercise the binding of tested Conda artifacts to the verified matrix attempt and to the filename and digest submitted for promotion. These cover the MolSysViewer `.tar.bz2` file. Pre-tag comparison of the exact files remains pending. [#775](archive/resolved_bugs/installed_conda_pair_does_not_bind_tested_artifact_digests.md#noarch-archive-follow-up--2026-11-17). |
 | Preserve #773's potential-energy decomposition correction | The [resolution](archive/resolved_bugs/potential_energy_decomposition_drops_terms_and_ignores_live_openmm_context_state.md) records active-state queries, distinct force terms, the supported grouping contract, 60 local passes and the documentation receiving. Exact-candidate qualification remains pending. |
-| Preserve the completed B0–B5 queue and await the exact final-pair handoff | [B0–B5](technical_handoff_for_1_0_documentation_review.md#supplemental-waiting-period-work-queue--2026-11-17) has [finite receiving](../devtools/data/supplemental_pre1_work_334_20261117.json): #292/#772 resolved locally, 1,933 integration/curated cases and 42 public-floor cases without skips, eight Cookbook dispositions, 16 articles/four static views, strict 1,401-page HTML and the proposed #191/#378 scientific claim packet. #128/#214/#215 remain partial with exact boundaries; this is no promise of four closures or final-pair qualification. No optional implementation is appended merely because MolSysViewer is still working. |
-| Preserve the completed independent local queue and prepare the final-pair handoff | [I0–I5](technical_handoff_for_1_0_documentation_review.md#independent-molsysmt-work-queue--2026-11-16) now has [finite local receiving](../devtools/data/independent_native_work_334_20261116.json): 54 selected files, #769–#771 corrected/guarded, 159 offline controls, four complete notebooks, strict 1,401-page site and scoped article/browser review. This completes the local queue, not the final-pair gates or Diego's review. Preserve its actual runtime/source limits and the preparation/publication pause; no new global scorecard credit. |
+| B0–B5 waiting-period work | #292 and #772 resolved, 1,933 integration and curated cases and 42 public-floor cases passed, eight Cookbook dispositions, 16 articles and four static views reviewed, 1,401 pages built strictly, and the proposed #191/#378 claim packet prepared. #128, #214 and #215 retain partial acceptance. [B0–B5 disposition](#supplemental-waiting-period-queue-completed--2026-11-17) and [validation receipt](../devtools/data/supplemental_pre1_work_334_20261117.json). |
+| I0–I5 independent local work | 54 selected files reviewed, #769–#771 corrected and guarded, 159 offline controls passed, four notebooks executed, and 1,401 pages built strictly with scoped article and browser review. [I0–I5 disposition](#independent-local-queue-completed--2026-11-17) and [validation receipt](../devtools/data/independent_native_work_334_20261116.json). |
 | Preserve #768's current governance adoption | The single actual caller now selects policy-v1.6.0; published tag, guide bytes and root/nested semantic/resource review are received. Official conformance rejects the old caller and accepts the correction, published-policy adoption reports CURRENT, and registered guide checking passes. The [owner record](archive/resolved_proposals/adopt_policy_v1_6_0_and_receive_resource_guidance.md) retains measured whole-family limits and the absence of a reservation/aggregate-protection claim. #764 remains historical; hosted qualification stays intentionally unexecuted under the maintainer's cadence. |
-| Preserve MolSysViewer's current-source client receiving | Its published profile `897` reports 55 selected cases passing on exact owner `96988b6ea`, reused native `4ffb82e4` and its recorded client/support-source composition. The [bounded review](../devtools/data/viewer_current_source_client_review_256_524_20261115.json) verifies eleven public Git blobs, the actual five guard modules/helpers and source identities; private raw execution records are not replayed. Session persistence, maps, coverage, edit invalidation, append and independent geometric projection remain exercised source contracts. This does not close #256/BindingMT #73, #524, #615 or final installed acceptance. |
+| MolSysViewer client receiving on 2026-11-15 | Profile `897` reports 55 passes on MolSysMT `96988b6ea` with native digest `4ffb82e4`. The source scope includes sessions, maps, coverage, edit invalidation, append and independent geometric projection. The review verifies eleven public Git blobs, five guard modules and helpers, and the source identities in the owner report. [Bounded review](../devtools/data/viewer_current_source_client_review_256_524_20261115.json). |
 | Preserve #759–#761 peptide and documentation receiving | The [peptide report](archive/resolved_bugs/alzheimer_peptide_synthesis_module_uses_unsupported_capping_and_conformation_key.md) retains explicit caps and measured initial torsions without new builder APIs. The final selected cohort passes 23 cases without skips; the full seven-cell lesson executes under ordinary and explicit pm/fs/degrees policies. Strict Sphinx renders 1,401 HTML files without warnings, and the local browser receives the 109-atom saved model. The [receipt](../devtools/data/peptide_course_receiving_759_761_20261115.json) also retains the supported structure-generator namespace and 713 corrected author links. No production/native/dependency change or #615/final-pair disposition follows. |
 | Preserve #758's actual complete geometry lesson | The [resolved report](archive/resolved_bugs/alzheimer_geometry_module_uses_unavailable_aliases_and_unsupported_center_argume.md) uses an unchanged, documented local 2BEG snapshot, one selected structure and explicit KLVFF placement/populations. Thirty-one selected cases pass, including ten new independent unit/coordinate/membership/plot controls. A real kernel executes five code cells and retains one figure; strict Sphinx renders 1,400 pages without warnings. The article, figure and both exact downloads are received in the [receipt](../devtools/data/alzheimer_geometry_receiving_758_20261114.json). Original alias failures and initial authored path/element/group-axis errors remain separate. No runtime/native/dependency or binding-affinity claim follows. |
 | Preserve #757 and the executed geometry examples | Nine tool notebooks execute 81 distinct code cells and retain twelve actual figures. Local reduction positions are explicitly mapped to source atom/group indices; chosen groups are no longer assumed to be peptide termini. Twenty-one selected cases pass, including ten numerical cases over nm/ps and pm/fs, seven figure controls and four existing course/pose cases. Strict Sphinx renders 1,400 pages without warnings; all nine articles and twelve identical PNG payloads are received. The [receipt](../devtools/data/geometry_documentation_receiving_334_757_20261114.json) retains five original wrong-index failures, seven operator-Agg figure failures, the pre-kernel receipt-name collision and intentionally interrupted first build. Molecular runtime/native/dependency bytes are unchanged. |
@@ -63,8 +73,7 @@ promotions and publication remain paused pending the agreed resumption.**
 | Receive #671 at the agreed matrix checkpoint | The original macOS/Python 3.12 Conda download failed before science or pytest. Its required provisioning/scientific/full-suite receiving belongs to the already mandated eight-cell corrected-source matrix; no extra matrix, local molecular repair or passing disposition is supplied by the Linux source checkpoint. |
 | Keep the new #749 investigation deferred | PharmacophoreMT explicitly requests a future Pandas alternatives/complements study, not replacement or a current defect claim. Preserve that request and its workload/compatibility criteria for post-1.0; it does not block current molecular-contract delivery or add a release prerequisite. |
 | Preserve #250/#254 source agreement and experimental boundaries | MolSysViewer accepts the exercised sparse/native contracts. Detector profiles, inspection pages and Qt retain their experimental limits. Final-candidate agreement is still due. |
-| Agree the exact clean pair and #524 artifact closure | Complete registries and the original public 0.24.0 build-1 host archive are independently inspected. A seven-surface unapplied 1.0 candidate/minimum-host metadata proposal passes static dependency/citation checks. Main floors remain unchanged: real compatible candidate artifacts, minimum/newer installed closure and exact producer agreement are still required. Existing staging qualification precedes authorization; public solver verification follows counterpart availability. No new matrix or build is started. |
-| Qualify and make the publication decision | Run the mandatory exact-source, native, scientific, documentation and sixteen-cell installed gates at the agreed checkpoint. Preserve failed attempts and inspect terminal results. Publication and archival require final authorization after qualification. |
+| Host floor and artifact closure under #524 | The registries and the original public 0.24.0 build-1 host archive were inspected. The unapplied seven-file draft passes the read-only applicability and prior static metadata reviews. Acceptance still requires compatible candidate artifacts and minimum/newer installed closure. [Draft receipt](../devtools/data/host_floor_proposal_refresh_524_20261116.json) and [local report](pending_proposals/runtime_dependency_api_floors.md). |
 
 The [completion packet](pre_1_0_completion_handoffs_20261110.md) owns detailed
 client requests; the [release gate](release_gate.md) owns required checks.
@@ -73,8 +82,8 @@ public statements and navigation, without certifying new science or artifacts.
 The [original scorecard](../devtools/data/pre_1_0_progress_scorecard_20261107.json)
 keeps unchanged weights and outstanding acceptance; fifty graphical intents
 have source receiving, separate from human/installed/platform qualification.
-The accepted initial-canvas disposition now gives **80.2381% (approximately 80.2%)**.
-The dated percentages below remain historical, not the current score.
+The last accepted assessment of that scorecard is **80.2381%** (about 80.2%).
+Use the exact gate outcomes and owner decisions above to resume the release work.
 
 ## OpenMM and OpenMMTools capability study — 2026-11-17
 
